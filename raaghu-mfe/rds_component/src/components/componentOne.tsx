@@ -11,3 +11,5 @@ const ComponentOne = () => {
 };
 
 export default ComponentOne;
+
+// first component
