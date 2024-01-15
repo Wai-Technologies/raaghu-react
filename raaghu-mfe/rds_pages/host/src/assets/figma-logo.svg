@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="100" viewBox="0 0 120 100">
+  <g id="Figma" transform="translate(-748 -1493)">
+    <rect id="Rectangle_153325" data-name="Rectangle 153325" width="120" height="100" transform="translate(748 1493)" fill="#fff" opacity="0"/>
+    <rect id="Rectangle_153311" data-name="Rectangle 153311" width="100" height="100" rx="16" transform="translate(758 1493)" fill="#eef2f8"/>
+    <g id="figma-1-logo-svgrepo-com" transform="translate(783 1506.75)">
+      <path id="path0_fill" d="M12.622,224.4a12.421,12.421,0,0,0,12.622-12.2V200H12.622a12.208,12.208,0,1,0,0,24.4Z" transform="translate(0 -151.902)" fill="#0acf83"/>
+      <path id="path1_fill" d="M0,112.2A12.421,12.421,0,0,1,12.622,100H25.243v24.4H12.622A12.421,12.421,0,0,1,0,112.2Z" transform="translate(0 -75.951)" fill="#a259ff"/>
+      <path id="path1_fill_1_" d="M0,12.2A12.421,12.421,0,0,1,12.622,0H25.243V24.4H12.622A12.421,12.421,0,0,1,0,12.2Z" fill="#f24e1e"/>
+      <path id="path2_fill" d="M100,0h12.622a12.421,12.421,0,0,1,12.621,12.2,12.421,12.421,0,0,1-12.621,12.2H100Z" transform="translate(-75.243)" fill="#ff7262"/>
+      <path id="path3_fill" d="M125.243,112.2A12.629,12.629,0,1,1,112.622,100,12.421,12.421,0,0,1,125.243,112.2Z" transform="translate(-75.243 -75.951)" fill="#1abcfe"/>
+    </g>
+  </g>
+</svg>

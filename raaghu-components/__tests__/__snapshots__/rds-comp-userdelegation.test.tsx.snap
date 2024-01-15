@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RdsUserDelegations should render the component with the correct props 1`] = `
+<RdsUserDelegations
+  onSubmit={[MockFunction]}
+  selectuser={
+    [
+      {
+        "id": 1,
+        "name": "John Doe",
+      },
+      {
+        "id": 2,
+        "name": "Jane Doe",
+      },
+    ]
+  }
+/>
+`;

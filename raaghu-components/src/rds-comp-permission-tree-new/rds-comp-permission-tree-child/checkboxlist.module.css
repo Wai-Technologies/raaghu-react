@@ -1,0 +1,9 @@
+  ul.list {
+    list-style-type: none;
+  }
+
+  ul.list li {
+    padding: 3px;
+    color: #444;
+    font-size: 12px;
+  }

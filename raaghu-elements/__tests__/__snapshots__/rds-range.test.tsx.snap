@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RdsRange renders the component 1`] = `
+<div
+  class="position-relative py-5"
+>
+  <div
+    class="slider-track"
+  >
+    <span
+      class="sliderTooltipRange"
+      id="range1"
+      style="top: -55px; padding: 5px 10px;"
+    >
+      0
+    </span>
+  </div>
+  <input
+    class="slider_0 "
+    max="100"
+    min="0"
+    type="range"
+    value="0"
+  />
+  <div
+    class="showvalue mt-4"
+  >
+    <span>
+      0
+    </span>
+     
+    <span>
+      100
+    </span>
+  </div>
+</div>
+`;

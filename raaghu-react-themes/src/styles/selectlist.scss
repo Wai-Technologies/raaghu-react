@@ -1,0 +1,102 @@
+.select-container {
+    display: inline-block;
+    position: relative;
+    background-color: $body-bg;
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-base;
+}
+
+.selected-text {
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+}
+
+.selected-text svg {
+    stroke: $gray-600 !important;
+}
+
+.select-container {
+    .select-placeholder {
+        line-height: 1.8;
+        font-size: smaller;
+        background-color: transparent !important;
+        opacity: 1;
+        color: $gray-600;
+    }
+    .disabled {
+        background-color: var(--bs-secondary-bg) !important;
+        opacity: 1;
+        cursor: no-drop;
+    }
+}
+
+ul.select-options {
+    margin: 0;
+    padding: 0;
+    // text-align: center;
+    border-radius: 5px;
+}
+
+.select-options {
+    position: absolute;
+    margin-top: 5px;
+    width: 100%;
+    border: 1px solid #e4e4e4;
+}
+
+li.select-option {
+    list-style-type: none;
+    padding: 6px 20px;
+    // border-bottom: 1px solid #e4e4e4;
+    cursor: pointer;
+    z-index: inherit;
+}
+
+li.select-option:last-child {
+    border-bottom: none;
+}
+
+li.select-option:hover {
+    background-color: #d9d9d9;
+}
+
+.show-dropdown-options {
+    min-height: 50px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.hide-dropdown-options {
+    min-height: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+// react select list css start
+
+.css-tj5bde-Svg{
+    fill: currentColor !important;
+}
+
+.css-1xc3v61-indicatorContainer, .css-15lsz6c-indicatorContainer {
+    padding: 6px 12px !important;
+}
+
+.css-13cymwt-control{
+    cursor: pointer !important;
+}
+
+.css-13cymwt-control, .css-t3ipsp-control{
+    min-height: auto !important;
+    font-size: 12px;
+}
+
+.css-t3ipsp-control{
+    box-shadow: none !important;
+  }
+#react-select-3-listbox{
+    font-size: 12px;
+}
+.css-1u9des2-indicatorSeparator{
+    background-color: transparent !important;
+}

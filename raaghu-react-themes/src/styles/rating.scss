@@ -1,0 +1,26 @@
+.rating-star-span-custom-class{
+    position: relative;
+    top: -0.15em;
+}
+:root {
+    --star-color: #E6E7EB;
+    --star-background: #fc0;
+  }
+.Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    
+    display: inline-block;
+    font-size: var(--size);
+    font-family: Times; // make sure ★ appears correctly
+    line-height: 1;
+    
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  
+  // Just to make a preview more beautifull
+  

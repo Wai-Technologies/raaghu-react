@@ -1,0 +1,118 @@
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+}
+
+.small-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 19px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+}
+
+.small-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+.toggle-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e0e0e0;
+  // -webkit-transition: .4s;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+.toggle-small-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e0e0e0;
+  // -webkit-transition: .4s;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+.toggle-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 31px;
+  width: 31px;
+  left: 5px;
+  bottom: 4px;
+  background-color: white;
+  // -webkit-transition: .4s;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-small-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 25px;
+  left: 1px;
+  bottom: 0.9px;
+  background-color: white;
+  // -webkit-transition: .4s;
+  transition: 0.3s;
+  border-radius: 50%;
+  margin-left: 3px;
+}
+
+.toggle-switch input:checked + .toggle-switch-slider {
+  background-color: #e0e0e0;
+
+}
+
+.small-toggle-switch input:checked + .toggle-small-switch-slider {
+  background-color: #e0e0e0;
+  font-size :small
+}
+.small-toggle-switch input + .toggle-small-switch-slider {
+  font-size :small
+}
+
+.toggle-switch input:focus + .toggle-switch-slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.small-toggle-switch input:focus + .toggle-small-switch-slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.toggle-switch input:checked + .toggle-switch-slider:before {
+  -webkit-transform: translateX(38px);
+  -ms-transform: translateX(38px);
+  transform: translateX(38px);
+}
+
+.small-toggle-switch input:checked + .toggle-small-switch-slider:before {
+  -webkit-transform: translateX(32px);
+  -ms-transform: translateX(32px);
+  transform: translateX(32px);
+  left: -9.5px
+}
+
+
+
+
+

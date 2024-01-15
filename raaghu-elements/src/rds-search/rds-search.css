@@ -1,0 +1,14 @@
+.input-group-sm svg {
+    height: 12px;
+    width: 12px;
+}
+
+.input-group-md svg {
+    height: 16px;
+    width: 16px;
+}
+
+.input-group-lg svg {
+    height: 22px;
+    width: 22px;
+}

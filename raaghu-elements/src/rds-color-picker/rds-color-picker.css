@@ -1,0 +1,13 @@
+/* .form-control-color {
+    padding: 0rem !important;
+}
+.form-control  {
+    border: 1px solid #fff !important;
+  
+} */
+.colorPick {
+    border: 1px solid #fff !important;
+    padding: 0rem !important;
+    width: 30px !important;
+    height: 30px !important;
+}

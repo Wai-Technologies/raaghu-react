@@ -1,0 +1,9 @@
+.lcon-list-row .col-8 {
+    width: 12.5%;
+}
+
+@media (max-width: 768px) {
+    .lcon-list-row .col-8 {
+        width: 25%;
+    }
+}

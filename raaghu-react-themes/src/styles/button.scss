@@ -1,0 +1,93 @@
+// /*button custom properties*/
+.btn {
+  text-transform: uppercase;
+  min-width: 5.25rem;
+}
+
+.btn-icon {
+  min-width: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-circle {
+  border-radius: 50%;
+}
+
+.btn {
+  &:active {
+    box-shadow: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner .btn-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.spinner svg {
+  visibility: hidden;
+  opacity: 0;
+}
+.btn-sm, .btn-group-sm>.btn {
+  height: 1.774rem;
+  line-height: initial;
+  position: relative;
+}
+
+.btn-sm svg {
+  width: 10px !important;
+  height: 10px !important;
+  stroke-width: 2.5;
+}
+
+.btn-outline-primary.btn-sm svg{
+  stroke-width: 1;
+  width: 12px !important;
+  height: 12px !important;
+} 
+
+.btn-md svg {
+  width: 12px !important;
+  height: 12px !important;
+  stroke-width: 2.5;
+}
+
+.btn-lg svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke-width: 2.5;
+}
+
+.spinner::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
+  display: inline-grid;
+}
+.btn-group {
+  > .btn {
+    color: $gray-900;
+  }
+}

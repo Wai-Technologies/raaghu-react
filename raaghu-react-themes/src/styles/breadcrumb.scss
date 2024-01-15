@@ -1,0 +1,26 @@
+/*breadcrumb custom properties*/
+.withDivider {
+  .breadcrumb-item {
+    font-weight: $font-weight-bold;
+
+    // The separator between breadcrumbs (by default, a forward-slash: "/")
+    .breadcrumb-item {
+      padding-left: $breadcrumb-item-padding-x;
+      padding-right: $breadcrumb-item-padding-y;
+      $breadcrumb-divider: quote(">");
+
+      &::before {
+        --bs-breadcrumb-divider: ">" !important;
+        content: var(--bs-breadcrumb-divider, ">");
+      }
+    }
+
+    &.active {
+      font-weight: $font-weight-normal;
+    }
+  }
+}
+
+/*breadcrumb custom properties*/
+
+$breadcrumb-divider: quote(">");

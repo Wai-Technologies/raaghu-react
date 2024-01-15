@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RdsBreadcrumb renders correctly with default props 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb m-0"
+    >
+      <li
+        class="breadcrumb-item  active "
+        id="breaditem1"
+      >
+        <a
+          aria-disabled="true"
+          class="text-decoration-none"
+        >
+          Home
+        </a>
+      </li>
+      <li
+        class="breadcrumb-items   "
+        id="breadcrumbItem+2"
+      >
+        <span>
+          <span
+            class="cursor-pointer undefined"
+            role="img"
+          >
+            <svg
+              id="a"
+              style="height: 8px; width: 14px; fill: none; stroke: currentColor;"
+              viewBox="0 0 12 21"
+            >
+              <path
+                class="icon"
+                d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+              />
+            </svg>
+          </span>
+        </span>
+        <a
+          aria-disabled="true"
+        >
+          Page 1
+        </a>
+      </li>
+      <li
+        class="breadcrumb-items   text-primary"
+        id="breadcrumbItem+3"
+      >
+        <span>
+          <span
+            class="cursor-pointer undefined"
+            role="img"
+          >
+            <svg
+              id="a"
+              style="height: 8px; width: 14px; fill: none; stroke: currentColor;"
+              viewBox="0 0 12 21"
+            >
+              <path
+                class="icon"
+                d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+              />
+            </svg>
+          </span>
+        </span>
+        <a
+          aria-disabled="true"
+        >
+          Page 2
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;

@@ -1,0 +1,48 @@
+/* .addressContainer {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #c7c7c7;
+  opacity: 1;
+  padding: 34px 62px;
+  width: 330px;
+}
+
+.addressHeading {
+  text-align: left;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  font-family: Poppins;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  word-break: break-all;
+
+}
+
+.addressLine {
+  text-align: left;
+  font: normal normal medium 18px/30px Poppins;
+  letter-spacing: 0px;
+  color: #626262;
+  opacity: 1;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+.addressWithIconContainer{
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #c7c7c7;
+    opacity: 1;
+    padding: 34px 46px;
+    width: 330px;
+}
+
+.addressLineContainer{
+    margin-left: 28px;
+}
+
+.addressWithIconContainer .addressLineContainer {
+  margin-top: 4px;
+} */

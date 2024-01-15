@@ -1,0 +1,245 @@
+// /*card custom properties*/
+.card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    min-height: 4.125rem;
+    border-bottom: 0px;
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem;
+      margin-left: 0;
+    }
+
+    .card-toolbar {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem;
+      margin-left: 0;
+    }
+  }
+
+  .card-footer {
+    padding: 1rem 1rem;
+    border-top: 0px solid;
+  }
+}
+
+.footer-buttons {
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  padding: 2.5%;
+  z-index: 0;
+}
+
+.gutter-b {
+  margin-bottom: 16px;
+}
+
+.banner-image {
+  position: absolute;
+  background-image: url("https://picsum.photos/seed/picsum/1200/600");
+  height: 8rem;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.rounded-avatar-left .body-border {
+  box-shadow: 0px 4px 40px #0000000a;
+  border-radius: 0px 0px 4px 4px;
+  padding-left: 35px;
+  padding-right: 35px;
+  border-bottom: 0px solid #70707059;
+  border-left: 0px solid #70707059;
+  border-right: 0px solid #70707059;
+  border-top: 0px;
+  margin-top: -45px;
+  padding-top: 60px;
+}
+
+.rounded-avatar-left .card-title {
+  padding-bottom: 10px !important;
+}
+
+// avatar badge card variation center css
+.rounded-avatar-center .body-border {
+  box-shadow: 0px 4px 40px #0000000a;
+  border-radius: 0px 0px 4px 4px;
+  padding-left: 35px;
+  padding-right: 35px;
+  border-bottom: 0px solid #70707059;
+  border-left: 0px solid #70707059;
+  border-right: 0px solid #70707059;
+  border-top: 0px;
+  margin-top: -45px;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.rounded-avatar-center .custom-title {
+  padding-bottom: 10px !important;
+  text-align: center !important;
+}
+
+.rounded-avatar-center .profile-image {
+  margin-left: 105px;
+}
+
+// after binding css
+.img-avatar {
+  border-radius: 50vh;
+  width: 180px;
+  z-index: 9;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 37%;
+  margin-top: -130px;
+  border: 3px solid #fff;
+}
+
+.img-responsive {
+  width: -webkit-fill-available;
+}
+
+.img-avatar-left {
+  border-radius: 50vh;
+  width: 180px;
+  z-index: 9;
+  display: block;
+  margin-left: 20px;
+  margin-right: auto;
+  width: 37%;
+  margin-top: -60px;
+  border: 3px solid #fff;
+}
+
+// media queries
+// ipad pro view
+@media (min-width: 768px) and (max-width: 1024px) {
+  .rounded-avatar-left .card {
+    width: 100% !important;
+  }
+
+  .rounded-avatar-center .card {
+    width: 100% !important;
+  }
+
+  .rounded-avatar-basic .card {
+    width: 100% !important;
+  }
+  .rounded-avatar-center .profile-image {
+    margin-left: 215px;
+    position: relative;
+    top: -60px;
+  }
+}
+
+// ipad pro view css
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .rounded-avatar-center .profile-image {
+    margin-left: 95px;
+    position: relative;
+    top: -10px;
+  }
+}
+
+// ipad and mobile
+@media (max-width: 768px) {
+  .rounded-avatar-left .card {
+    width: 100% !important;
+  }
+
+  .rounded-avatar-center .card {
+    width: 100% !important;
+  }
+
+  .rounded-avatar-basic .card {
+    width: 100% !important;
+  }
+}
+
+// /*card css */
+
+.card.card-stretch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch !important;
+  -ms-flex-align: stretch !important;
+  align-items: stretch !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card.card-stretch.gutter-b {
+  height: calc(100% - 15px);
+}
+
+.card.card-stretch.card-stretch-half {
+  height: 50%;
+}
+
+.card.card-stretch.card-stretch-half.gutter-b {
+  height: calc(50% - 25px);
+}
+
+.card.card-stretch.card-stretch-third {
+  height: 33.33%;
+}
+
+.card.card-stretch.card-stretch-third.gutter-b {
+  height: calc(33.33% - 25px);
+}
+
+.card.card-stretch.card-stretch-fourth {
+  height: 25%;
+}
+
+.card.card-stretch.card-stretch-fourth.gutter-b {
+  height: calc(25% - 25px);
+}
+
+//subscription-page
+.subscription-border-Standard {
+  border: 1px solid #005fa4;
+  border-radius: 4px;
+}
+
+.subscription-border-Premium {
+  border: 1px solid #660064;
+  border-radius: 4px;
+}
+
+.subscription-border-Basic {
+  border: 1px solid #00a443;
+  border-radius: 4px;
+}
+
+.subscription-border-Professional {
+  border: 1px solid #f76161;
+  border-radius: 4px;
+}
+
+.subscription-border-orange {
+  border: 1px solid #f58220;
+  border-radius: 4px;
+}
+
+.subscription-border-black {
+  border: 1px solid black;
+  border-radius: 4px;
+}

@@ -1,0 +1,83 @@
+// /*------- Main accordian custom properties-------------*/
+.accordion-header {
+  border-radius: $accordion-border-radius;
+}
+
+.accordion-item {
+  margin-bottom: $accordio-margin;
+
+
+  &:first-of-type {
+    @include border-top-radius($accordion-border-radius);
+
+    .accordion-button {
+      border-bottom-right-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+  }
+  // Only set a border-radius on the last item if the accordion is collapsed
+  &:last-of-type {
+    @include border-bottom-radius($accordion-border-radius);
+
+    .accordion-button {
+      &.collapsed {
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.accordion-button {
+  width: calc(100% - 2.875rem);
+  height: 2.8125rem;
+
+  &:not(.collapsed) {
+    box-shadow: none;
+
+    &::after {
+      background-position: 0.813rem 1rem;
+      background-image: escape-svg($accordion-button-icon);
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::after {
+    position: absolute;
+    right: -2.875rem;
+    background-position: 0.938rem 1.25rem;
+    background-image: escape-svg($accordion-button-icon);
+    background-size: calc($accordion-icon-width - 1.7375rem);
+    border-bottom-right-radius: $accordion-border-radius;
+    border-top-right-radius: $accordion-border-radius;
+  }
+}
+
+.accordion-item {
+  &:last-of-type {
+    .accordion-collapse {
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.outline {
+  $accordion-button-blueicon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M19413.9-9696l7 7 7-7' transform='translate%28-19412.486 9697.414%29' fill='none' stroke='%23fff' stroke-linecap='round' stroke-width='2'/%3e%3c/svg%3e") !default;
+  $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M19413.9-9696l7 7 7-7' transform='translate(-19412.486 9697.414)' fill='none' stroke='#6a8ce4' stroke-linecap='round' stroke-width='2'/ ></svg>") !default;
+
+  .accordion-button {
+    &:not(.collapsed) {
+      &::after {
+        background-image: escape-svg($accordion-button-blueicon);
+      }
+    }
+
+    &::after {
+      background-image: escape-svg($accordion-button-blueicon);
+    }
+  }
+}

@@ -1,0 +1,38 @@
+// /*------- alert custom properties-------------*/
+.alert {
+  width: calc(100% - 2rem);
+  font-size: $font-size-sm;
+
+}
+.invalid-popup {
+  height: 36px;
+  margin-top: 0.5rem;
+}
+
+.alert-sm {
+  padding:0.25rem 0.5rem;
+}
+
+.alert-md {
+  padding: 0.75rem 0.375rem;
+} 
+
+.alert-lg {
+  padding: 0.5rem 1rem;
+}
+
+.alert-dismissible {
+  padding-right: 1rem;
+}
+
+.alert-dismissible .btn-close{
+  position: relative;
+  right: 0;
+  z-index: 2;
+  padding: 0rem;
+}
+
+.z-index{
+  z-index: 1;
+}
+

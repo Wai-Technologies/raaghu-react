@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="SaaS" transform="translate(1168 -4062)">
+    <g id="Saas-2" data-name="Saas" transform="translate(-1136.444 4044.556)">
+      <rect id="Rectangle_148776" data-name="Rectangle 148776" width="48" height="48" rx="2" transform="translate(-30.556 18.444)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <g id="Saas-3" data-name="Saas" transform="translate(-25.756 25.645)">
+        <path id="Path_171576" data-name="Path 171576" d="M13.468,13.735s2.125,3.651,8.9,1.594,8.085-6.179,6.625-9.377C26.338.144.75,5.73.75,17.647c0,3.818,7.061,7.97,9.314,9.511s1.433,7.435-2.606,9.527-7.466-2.178-3.1-5.544" transform="translate(-0.75 -3.64)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_171577" data-name="Path 171577" d="M21.664,27.372a3.775,3.775,0,0,0,3.3-5.489c-1.618-2.916-3.072-7.414-1.872-10.37,0,0-6.564,16.462-7.548,16.255s-1.133-4.694-.588-8.294l.2-.708c.761-2.88-1.822-6.823-5.28-2.4s-2,11.174-.31,11.4" transform="translate(6.083 0.855)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_171578" data-name="Path 171578" d="M17.185,25.488c.888.888,5.2-1.411,3.12-4.128s-4.08-7.79-2.986-10.32" transform="translate(17.535 2.172)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

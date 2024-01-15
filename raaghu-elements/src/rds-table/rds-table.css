@@ -1,0 +1,18 @@
+tr.normal-rows:hover {
+  background-color: #ebf0ff !important;
+}
+td {
+  padding-left: 16px !important;
+}
+.parentDiv {
+  overflow-y: scroll;
+}
+.tableFixed {
+  position: relative;
+  top: 0px;
+  margin-top: 0px;
+}
+.headFixed {
+  position: sticky;
+  top: 0px;
+}

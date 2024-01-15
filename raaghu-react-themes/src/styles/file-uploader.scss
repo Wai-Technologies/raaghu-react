@@ -1,0 +1,107 @@
+// /* file uploader custom properties*/
+
+.files {
+  height: 5rem;
+  border: $filesuploader-border-width dashed;
+  border-radius: $filesuploader-border-radius;
+
+  :focus {
+    border: 3px solid;
+  }
+
+  :after {
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 70px;
+    right: 0;
+    height: 70px;
+    content: "";
+    background-image: url("https://image.flaticon.com/icons/svg/130/130993.svg");
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .file-input {
+    top: 10px;
+    position: absolute;
+  }
+
+  span.spn-svg {
+    right: 30px;
+    top: 29px;
+  }
+
+  .alert-col {
+    background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
+  }
+}
+
+.error-msg {
+  top: 4rem;
+}
+
+.alert-un {
+  border: 1px solid;
+}
+
+.list-style li {
+  list-style: none;
+}
+
+.small {
+  font-size: 0.875rem;
+  padding: 0;
+}
+
+.medium {
+  font-size: 1rem;
+  padding: 0px;
+}
+
+.large {
+  font-size: 1.25rem;
+  padding: 0;
+}
+
+rds-file-uploader .alert {
+  z-index: 0;
+  margin-bottom: 0;
+}
+
+.showError{
+  color:$danger;
+}
+.multiUploader{
+  border: 2px dashed ;
+  padding: 10px 0px;
+}
+.fileName{
+  border-radius: 4px;
+}
+.iconbox {
+  cursor: pointer;
+}
+
+
+// basic fileuploder
+
+.chosenFileSpan{
+  display: flex;
+  width: 100%;
+  border-radius:  0px 4px 4px 0px;
+}
+
+.custom-file-button {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  width: 105px;
+  cursor: pointer;
+  border-radius:  4px 0px 0px 4px;
+  font-size: 12px;
+  line-height: 21px;
+}

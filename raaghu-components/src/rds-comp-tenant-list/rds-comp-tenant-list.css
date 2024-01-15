@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+
+    table th:first-child,
+    table tbody td:first-child {
+        font-weight: 600;
+    }
+}
+
+.table>tbody {
+    vertical-align: middle !important;
+}

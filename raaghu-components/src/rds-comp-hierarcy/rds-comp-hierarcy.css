@@ -1,0 +1,75 @@
+.vertical-dotted-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 17px;
+  width: 3px;
+  height: 100%;
+  border-right: 1px dotted grey;
+  z-index: 0;
+}
+
+.horizontal-dotted-line {
+  height: 4px;
+  width: 12px;
+  border-bottom: 1px dotted grey;
+  position: relative;
+  right: 12px;
+  top: 4px;
+  z-index: -1;
+}
+
+.node-dote-icon_with_horizontal_line {
+  position: relative;
+  left: 2px;
+  top: -6px;
+}
+
+.node-dote-icon {
+  position: relative;
+  left: 3px;
+  top: -10px;
+}
+
+.node-dot {
+  margin-top: px;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  margin-right: 7px;
+  margin-left: -5px;
+  z-index: 1;
+}
+
+.bi.bi-plus-circle-fill {
+  right: 6px;
+  cursor: pointer;
+}
+
+.node-label {
+  font-size: 0.9rem;
+}
+
+
+.nest-icon {
+  animation: fadeInAnimation ease 0.3s
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.center {
+  width: 150px;
+  margin: 40px auto;
+}
+
+.submenuMargin {
+  margin-left: 20px;
+}

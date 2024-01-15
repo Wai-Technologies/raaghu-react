@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RdsBankCardDetail renders correctly 1`] = `
+<div>
+  <div
+    class="m-1 p-1 "
+  >
+    <div>
+      <div
+        class=" mb-4"
+      >
+        <div
+          class="border__gray p-4"
+        >
+          <div
+            class=" "
+          >
+            <div
+              class="d-flex justify-content-between"
+            >
+              <div
+                class="d-flex  align-items-center"
+              >
+                <span
+                  class="cursor-pointer undefined"
+                  role="img"
+                />
+                <div
+                  class="ms-3  "
+                >
+                  <div
+                    class="ms-3 d-flex fs-6"
+                  >
+                    <span>
+                      Test Card 1
+                    </span>
+                    <span
+                      class="ms-1 me-1 "
+                    >
+                      Ending with
+                    </span>
+                    <span>
+                      1234
+                    </span>
+                  </div>
+                  <div
+                    class=" ms-3 fs-7"
+                  >
+                    <span
+                      class="text-muted fs-7"
+                    >
+                       
+                      Expiry 
+                      12/23
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="form-check"
+              >
+                <input
+                  class="form-check-input"
+                  id="flexRadioD"
+                  name="flexRadioDefault"
+                  type="radio"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-2  ms-5"
+          >
+            <a
+              class="ms-3 text-primary text-decoration-none "
+            >
+              Set as default
+            </a>
+            <a
+              class="text-primary ms-2 text-decoration-none "
+              style="text-decoration: auto;"
+            >
+              Edit
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class=" mb-4"
+      >
+        <div
+          class="border__gray p-4"
+        >
+          <div
+            class=" "
+          >
+            <div
+              class="d-flex justify-content-between"
+            >
+              <div
+                class="d-flex  align-items-center"
+              >
+                <span
+                  class="cursor-pointer undefined"
+                  role="img"
+                />
+                <div
+                  class="ms-3  "
+                >
+                  <div
+                    class="ms-3 d-flex fs-6"
+                  >
+                    <span>
+                      Test Card 2
+                    </span>
+                    <span
+                      class="ms-1 me-1 "
+                    >
+                      Ending with
+                    </span>
+                    <span>
+                      5678
+                    </span>
+                  </div>
+                  <div
+                    class=" ms-3 fs-7"
+                  >
+                    <span
+                      class="text-muted fs-7"
+                    >
+                       
+                      Expiry 
+                      09/24
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="form-check"
+              >
+                <input
+                  class="form-check-input"
+                  id="flexRadioD"
+                  name="flexRadioDefault"
+                  type="radio"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-2  ms-5"
+          >
+            <a
+              class="ms-3 text-primary text-decoration-none "
+            >
+              Set as default
+            </a>
+            <a
+              class="text-primary ms-2 text-decoration-none "
+              style="text-decoration: auto;"
+            >
+              Edit
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

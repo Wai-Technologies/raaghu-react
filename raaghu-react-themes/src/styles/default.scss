@@ -1,0 +1,264 @@
+$theme: "default" !default;
+
+$primary: #7e2eef;
+$secondary: #c7c7c7;
+$success: #30CC4D;
+$info: #3ef1e8;
+$warning: #EFAD07;
+$danger: #E30707;
+$dark: #363636;
+$light: #f8f9fa;
+$body-bg: white;
+$body-bg-dark: #232933;
+$black: #000 !default;
+$white: #fff !default;
+$light-gray: #CED4DA !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #adb5bd !default;
+$gray-500: #6874a1 !default;
+$gray-600: #6C757D !default;
+$gray-650: #A8A8A8 !default;
+$gray-700: #495057 !default;
+$gray-750: #BEBEBE !default;
+$gray-800: #343a40 !default;
+$gray-900: #34384f !default;
+
+// home landing page colors
+
+$bg-blue: #080E1F !default;
+$text-blue-50: #CCE1EC !default;
+
+// /*Variables*/ /*Success - Green*/
+$success-0: #deffe4;
+$success-100: #befeca;
+$success-200: #9efcb0;
+$success-300: #61f780;
+$success-400: #2eef59;
+$success-500: #07e33f;
+$success-600: #00d33e;
+$success-700: #00a443;
+$success-800: #00863f;
+$success-900: #006636;
+// /*Danger - Red*/
+$danger-0: #ffdede;
+$danger-100: #febebe;
+$danger-200: #fc9e9e;
+$danger-300: #f76161;
+$danger-400: #ef2e2e;
+$danger-500: #e30707;
+$danger-600: #d30000;
+$danger-700: #a40000;
+$danger-800: #860000;
+$danger-900: #660000;
+// /*Warning - Yellow*/
+$warning-0: #ffd97a;
+$warning-100: #fed265;
+$warning-200: #fccb50;
+$warning-300: #efad07;
+$warning-400: #e3a300;
+$warning-500: #d39800;
+$warning-600: #bf8900;
+$warning-700: #a47600;
+$warning-800: #866000;
+$warning-900: #664900;
+// /*Action - Blue*/
+$action-0: #def5ff;
+$action-100: #bee9fe;
+$action-200: #9edefc;
+$action-300: #61c6f7;
+$action-400: #2eaeef;
+$action-500: #0796e3;
+$action-600: #0085d3;
+$action-700: #005fa4;
+$action-800: #004986;
+$action-900: #003566;
+$blue-100: #444e73;
+// /*Primary - Purple*/
+$primary-0: #ecdeff;
+$primary-100: #d8befe;
+$primary-150: #bf97f7;
+$primary-170: #DBC9FF;
+$primary-200: #c59efc;
+$primary-300: #a061f7;
+$primary-400: #7e2eef;
+$primary-450: #3D2E5C;
+$primary-500: #6307e3;
+$primary-600: #5800d3;
+$primary-700: #4400a4;
+$primary-800: #380086;
+$primary-900: #2b0066;
+// /*Secondary - Pink*/
+$secondary-0: #ff7afd;
+$secondary-100: #fe65fb;
+$secondary-200: #fc50f9;
+$secondary-300: #f728f3;
+$secondary-400: #ef07eb;
+$secondary-500: #e300e0;
+$secondary-600: #d300d0;
+$secondary-700: #bf00bb;
+$secondary-800: #860084;
+$secondary-900: #660064;
+// /*Light Background*/
+$light-0: #ffffff;
+$light-100: #fafbfe;
+$light-150: #F5F5FA;
+$light-200: #f5f7fe;
+$light-250: #F9F7FC;
+$light-300: #eaeefc;
+$light-400: #e0e5f8;
+$light-500: #d6dcf3;
+$light-600: #ccd3ec;
+$light-700: #c2c8e3;
+$light-800: #b7bcd8;
+$light-850: #F4F5F8;
+$light-900: #acb1cc;
+$light-950: #666666;
+// /*Dark Background*/
+$dark-0: #3c3e47;
+$dark-100: #32343b;
+$dark-150: #2D253D;
+$dark-200: #292b30;
+$dark-300: #222327;
+$dark-400: #1c1d20;
+$dark-500: #18191b;
+$dark-600: #161618;
+$dark-650: #16181F;
+$dark-700: #151516;
+$dark-750: #797A7A;
+$dark-800: #151515;
+$dark-900: #141414;
+$dark-950: #3D344F;
+$default-100: #f58220;
+
+// /*Chart color variables*/
+:root {
+  --dark-150: #2D253D;
+  --chart-bool-color1: #e30707;
+  --chart-bool-color2: #ebeefb;
+  --chart-bubble-color1: #fa896b;
+  --chart-bubble-color2: #78f7b8;
+  --chart-area-color1: #fa896b;
+  --chart-area-color2: #78f7b8;
+  --chart-doughnut-color1: #0085d3;
+  --chart-doughnut-color2: #bf00bb;
+  --chart-doughnut-color3: #7e2eef;
+  --chart-doughnut-text-color: rgba(0, 0, 0, 100%);
+  --chart-bar-horizontal-color1: #fa896b;
+  --chart-bar-horizontal-color2: #78f7b8;
+  --chart-bar-horizontal-color: rgba(7, 150, 227, 5);
+  --chart-bar-horizontal-border-color: rgba(214, 66, 8);
+  --chart-line-color1: rgba(25, 70, 186, 0);
+  --chart-line-color2: rgba(48, 22, 194, 0);
+  --chart-line-color3: rgba(17, 80, 239, 0);
+  --chartColor7: #ebeefb;
+  --chartColor2: #bf00bb;
+  --chartColor3: #7e2eef;
+  --chartColor4: #0085d3;
+  --chartColor5: #5151d3;
+  --chartColor6: #edb371;
+  --chartColor1: #01ae9d;
+  --chartColor8: #f58220;
+  --chartColor9: #ea2745;
+  --chartColor10: #00ffe6;
+  --chartgradient1: rgba(63, 28, 255, 100%);
+  --chartgradient2: #863bff94;
+  --chartgradient3: rgba(56, 25, 226, 89%);
+  --chartgradient4: rgba(48, 22, 194, 76%);
+  --chartgradient5: rgba(25, 70, 186, 36%);
+  --chartgradient6: rgba(25, 70, 186, 26%);
+  --chartgradient7: rgba(25, 70, 186, 22%);
+  --chartgradient8: rgba(25, 70, 186, 16%);
+  --chartgradient9: rgba(25, 70, 186, 8%);
+  --chartgradient10: rgba(25, 70, 186, 1%);
+
+}
+
+$portalGradient1: #AC31E1;
+$portalGradient2: #F336A9;
+$portalGradient3: #FEA234;
+$portalGradient4: #F9C533;
+$portalGradient5: #DFFC54;
+$portalGradient6: #22FBC4;
+
+
+//$input-select-bg: $dark-200 !default;
+$form-select-bg: $dark-200 !default;
+$form-select-border-color: $dark-100 !default;
+$card-darkborder-color: $gray-800 !default;
+//$offcanvas-border-color: $dark-400 !default;
+
+// $offcanvas-bottom-border-color: $dark-100 !default;
+// $nav-tabs-bottom-border-color: $dark-100 !default;
+
+$modal-bg-color: $dark-200 !default;
+
+html[theme="dark"] {
+  --chart-doughnut-text-color: #fff;
+  $input-bg: $dark-200 !default;
+  $input-bg-border: $dark-100 !default;
+
+  $dropdown-color: $white;
+  $input-group-addon-bg: $input-bg;
+
+  .form-control,
+  .form-control:focus {
+    background-color: $input-bg;
+    border: 1px solid $input-bg-border;
+    color: $white;
+  }
+
+  .dropdown-menu {
+    --bs-dropdown-color: $dropdown-color;
+  }
+
+  .input-group-text {
+    background-color: $input-group-addon-bg;
+    border-color: $input-bg-border;
+  }
+}
+
+// @import "../../../raaghu-react-themes/public/fonts/Poppins-Regular.ttf";
+@import "./custom.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./responsive.scss";
+@import "./accordion.scss";
+@import "./alert.scss";
+@import "./avatar.scss";
+@import "./badge.scss";
+@import "./breadcrumb.scss";
+@import "./button.scss";
+@import "./card.scss";
+@import "./carousel.scss";
+@import "./checkbox.scss";
+@import "./counter.scss";
+@import "./dropdown.scss";
+@import "./file-uploader.scss";
+@import "./input.scss";
+@import "./list-group.scss";
+@import "./nav-tab.scss";
+@import "./offcanvas.scss";
+@import "./pagination.scss";
+@import "./radio-button.scss";
+@import "./scrollspy.scss";
+@import "./selectlist.scss";
+@import "./search-input.scss";
+@import "./side-nav.scss";
+@import "./table.scss";
+@import "./tags.scss";
+@import "./textarea.scss";
+@import "./colorvariables.scss";
+@import "./toast.scss";
+@import "./cookieconsent.scss";
+@import "./calender.scss";
+@import "./quillEditor.scss";
+@import "./toggle.scss";
+@import "./color-switcher.scss";
+@import "./datePicker.scss";
+@import "./doublerange.scss";
+@import "./range.scss";
+@import "./rating.scss";
+@import "./stepper.scss";
+@import "./chats.scss";
+@import "./landingpage.scss";

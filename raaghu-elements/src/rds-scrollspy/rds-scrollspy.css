@@ -1,0 +1,45 @@
+.navButton {
+  background: #4ea1ff 0% 0% no-repeat padding-box !important;
+  border-radius: 4px !important;
+  opacity: 1 !important;
+  min-width: 116px !important;
+  height: 32px !important;
+  text-align: center !important;
+  font: normal normal 300 14px/21px Poppins !important;
+  letter-spacing: 0px !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 33px;
+  margin-bottom: 30px;
+}
+
+.scrossSpyItem {
+  background: #f4f7f9 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 20px 30px 10px 30px;
+  margin-bottom: 60px;
+  min-height: 270px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.contentHeader {
+  text-align: left;
+  font: normal normal 600 14px/21px Poppins;
+  letter-spacing: 0px;
+  color: #323b47;
+  opacity: 1;
+  margin-bottom: 16px;
+}
+
+.contentParagraph {
+  text-align: left;
+  font: normal normal 300 14px/21px Poppins;
+  letter-spacing: 0px;
+  color: #323b47;
+  opacity: 1;
+}

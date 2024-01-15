@@ -1,0 +1,60 @@
+// /*tabs custom properties*/
+.rds-tab-2.nav-tabs {
+  .nav-link.active {
+    border-bottom: 2px solid;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    min-height: 2.8rem;
+  }
+}
+
+.nav-tabs {
+  .nav-link {
+    min-width: 108px;
+    text-align: center;
+    border: 0;
+    position:relative;
+  }
+
+  .nav-link.active {
+    border: 2px solid #f2f2f2;
+    border-top: 1px solid;
+  }
+}
+
+.nav-pills {
+  .nav-link.active {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}
+
+.nav-tabs .nav-link i {
+  margin-right: 0.3125rem;
+}
+
+.nav-tabs.vertical-tab {
+  border-bottom: 0px;
+
+  .nav-item {
+    padding-left: 0px;
+    margin-bottom: 0.5rem;
+
+    .nav-link {
+      border: 0px;
+      text-align: left;
+      padding-left: 16px;
+      font-weight: $font-weight-bold;
+
+      i {
+        margin-left: -24px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.nav-tabs .nav-item {
+  outline: none;
+}

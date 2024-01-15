@@ -1,0 +1,156 @@
+<html>
+
+<head>
+	<title>Home</title>
+	<base href="/">
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport"
+		content="viewport-fit=cover, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<style>
+		.d-flex {
+			display: flex !important;
+		}
+
+		.box {
+			display: block !important;
+			width: 874px;
+			height: 354px;
+			margin-right: 10px;
+			border-radius: 6px;
+			margin-bottom: 10px
+		}
+
+		.box2 {
+			display: block !important;
+			width: 400px;
+			height: 172px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			border-radius: 6px
+		}
+
+		.box3 {
+			display: block !important;
+			width: 400px;
+			height: 172px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			border-radius: 6px;
+		}
+
+		.box4 {
+			display: block !important;
+			width: 400px;
+			height: 354px;
+			margin-right: 10px;
+			border-radius: 6px;
+			margin-bottom: 10px
+		}
+
+		.box5 {
+			display: block !important;
+			width: 400px;
+			height: 218px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			border-radius: 6px
+		}
+
+		.box6 {
+			display: block !important;
+			width: 400px;
+			height: 400px;
+			margin-right: 10px;
+			border-radius: 6px
+		}
+
+		.box7 {
+			display: block !important;
+			width: 874px;
+			height: 400px;
+			margin-right: 10px;
+			border-radius: 6px;
+			margin-bottom: 10px;
+		}
+
+		.shine {
+			background: #f6f7f8;
+			background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+			background-repeat: no-repeat;
+			background-size: 800px 100%;
+			display: inline-block;
+			position: relative;
+			-webkit-animation-duration: 1s;
+			-webkit-animation-fill-mode: forwards;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-name: placeholderShimmer;
+			-webkit-animation-timing-function: linear;
+		}
+
+		@-webkit-keyframes placeholderShimmer {
+			0% {
+				background-position: -468px 0;
+			}
+
+			100% {
+				background-position: 468px 0;
+			}
+		}
+
+		.spacing {
+			margin-left: 300px;
+			margin-top: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="root"></div>
+	<div class id="impersonation">
+		<div class="spacing">
+			<div class="d-flex">
+				<div class="box shine"></div>
+				<div>
+					<div class="box2 shine"></div>
+					<div class="box3 shine"></div>
+				</div>
+				<div class="box4 shine"></div>
+
+			</div>
+			<div class="d-flex">
+				<div>
+					<div class="box5 shine"></div>
+					<div class="box2 shine"></div>
+				</div>
+				<div class="box6 shine"></div>
+				<div class="box7 shine"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+	<script>
+		let isImpersonation = localStorage.getItem("isImpersonation") || "false";
+		// let isShimmer = sessionStoarge.getItem("isShimmer" || "false");
+		let userName = localStorage.getItem("userName") || "";
+		if (isImpersonation == "true") {
+			document.getElementById("impersonation").style.display = 'block';
+			// document.getElementById("userName").innerHTML = 'Successfully Log in with ' + userName;
+		}
+		else {
+			document.getElementById("impersonation").style.display = 'none';
+		}
+	</script>
+</body>
+
+</html>

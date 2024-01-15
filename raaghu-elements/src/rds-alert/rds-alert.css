@@ -1,0 +1,30 @@
+.fullWidth {
+    width: 100%;
+}
+
+.alert-sm {
+  padding:0.25rem 0.5rem;
+}
+
+.alert-md {
+  padding:0.375rem 0.75rem;
+} 
+
+.alert-lg {
+  padding: 0.5rem 1rem;
+}
+
+.alert-dismissible {
+    padding-right: 1rem;
+}
+
+.alert-dismissible .btn-close{
+    position: relative;
+    right: 0;
+    z-index: 2;
+    padding: 0rem;
+}
+
+.z-index{
+  z-index: 1;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="49.998" viewBox="0 0 50 49.998">
+  <g id="CMS_Kit" data-name="CMS Kit" transform="translate(3603 -4044.002)">
+    <g id="CMS" transform="translate(-3602.375 4044.627)">
+      <path id="Path_172575" data-name="Path 172575" d="M4.738.375H44.012c2.41,0,4.363,1.654,4.363,3.691V44.681c0,2.04-1.954,3.691-4.363,3.691H4.738c-2.41,0-4.363-1.654-4.363-3.691V4.066C.375,2.029,2.329.375,4.738.375Z" transform="translate(0 0)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Line_88937" data-name="Line 88937" x2="21.816" transform="translate(13.467 9.605)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_172576" data-name="Path 172576" d="M11.818,10.15a7.238,7.238,0,0,0-6.434.038,6.566,6.566,0,0,0-3.293,4.558,6.368,6.368,0,0,0,1.073,4.481c1.678,2.268,5.093,3.132,8.426,1.992" transform="translate(2.323 12.629)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_172577" data-name="Path 172577" d="M8.111,21.881,9.7,9.512l4.865,10.934L19.348,9.37l1.666,12.511" transform="translate(10.83 12.593)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_172578" data-name="Path 172578" d="M22.131,10.328c-1.781-1.135-4.044-1.27-5.376-.281a3.223,3.223,0,0,0-1.094,2.4c.065,1.421,1.577,2.815,3.77,3.017a3.462,3.462,0,0,1,2.892,2.71,3.259,3.259,0,0,1-2.429,3.538,7.493,7.493,0,0,1-4.656-.883" transform="translate(20.808 12.612)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
