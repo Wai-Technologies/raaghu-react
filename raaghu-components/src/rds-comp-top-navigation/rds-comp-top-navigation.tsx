@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsButton, RdsBadge, RdsToggle } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-import {
-    authCodeService, hybridCodeService, implicitTokenService
-} from "../../../raaghu-react-core/src/index";
+// import {
+//     authCodeService, hybridCodeService, implicitTokenService
+// } from "../../../raaghu-react-core/src/index";
 import RdsCompDeveloperMode from "../rds-comp-developer-mode";
-import { getConfig, setConfig } from '../../../raaghu-mfe/rds_pages/host/config';
+// import { getConfig, setConfig } from '../../../raaghu-mfe/rds_pages/host/config';
 
 export interface RdsCompTopNavigationProps {
     ProfileReplaceIconPath?: string
@@ -278,60 +278,60 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
     function loginHandler() {
         if (localStorage.getItem("REACT_APP_GRANT_TYPE") === "authorization_code") {
-            authCodeService(
-                "code", // response_Type
-                localStorage.getItem("REACT_APP_CLIENT_ID") || "", // client_Id
-                localStorage.getItem("REACT_APP_URL") || "", // redirect_Url
-                localStorage.getItem("REACT_APP_SCOPE") || "", // scope
-                `${location.pathname}` // returnUrl
-            )
-                .then((res: any) => {
-                    console.log("This is res", res)
-                    if (res.status === 200) {
-                        localStorage.setItem("accessToken", "");
-                        window.location.href = res.url;
-                    } else {
-                        // Handle specific errors
-                        if (res.data && res.data.error_description === "The specified 'code_verifier' is invalid.") {
-                            // Handle 'code_verifier' error here
-                            console.log("Invalid code verifier:", res.data.error_description);
-                        } else {
-                            // Handle other errors here
-                            console.log("Login Error:", res.data.error_description);
-                        }
-                    }
-                })
-                .catch((error: any) => {
-                    console.log("Login Error:", error);
-                });
+            // authCodeService(
+            //     "code", // response_Type
+            //     localStorage.getItem("REACT_APP_CLIENT_ID") || "", // client_Id
+            //     localStorage.getItem("REACT_APP_URL") || "", // redirect_Url
+            //     localStorage.getItem("REACT_APP_SCOPE") || "", // scope
+            //     `${location.pathname}` // returnUrl
+            // )
+            //     .then((res: any) => {
+            //         console.log("This is res", res)
+            //         if (res.status === 200) {
+            //             localStorage.setItem("accessToken", "");
+            //             window.location.href = res.url;
+            //         } else {
+            //             // Handle specific errors
+            //             if (res.data && res.data.error_description === "The specified 'code_verifier' is invalid.") {
+            //                 // Handle 'code_verifier' error here
+            //                 console.log("Invalid code verifier:", res.data.error_description);
+            //             } else {
+            //                 // Handle other errors here
+            //                 console.log("Login Error:", res.data.error_description);
+            //             }
+            //         }
+            //     })
+            //     .catch((error: any) => {
+            //         console.log("Login Error:", error);
+            //     });
         }
         else if (localStorage.getItem("REACT_APP_GRANT_TYPE") == "implicit") {
-            implicitTokenService("token",                               // response_Type
-                localStorage.getItem("REACT_APP_CLIENT_ID") || "",    // client_Id
-                localStorage.getItem("REACT_APP_URL") || "",             // redirect_Url
-                localStorage.getItem("REACT_APP_SCOPE") || "",
-                "/").then((res: any) => {
-                    if (res.status === 200) {
-                        localStorage.setItem("accessToken", "")
-                        window.location.href = res.url;
-                    }
-                }).catch((error: any) => {
-                    console.log(error)
-                })
+            // implicitTokenService("token",                               // response_Type
+            //     localStorage.getItem("REACT_APP_CLIENT_ID") || "",    // client_Id
+            //     localStorage.getItem("REACT_APP_URL") || "",             // redirect_Url
+            //     localStorage.getItem("REACT_APP_SCOPE") || "",
+            //     "/").then((res: any) => {
+            //         if (res.status === 200) {
+            //             localStorage.setItem("accessToken", "")
+            //             window.location.href = res.url;
+            //         }
+            //     }).catch((error: any) => {
+            //         console.log(error)
+            //     })
 
         } else if (localStorage.getItem("REACT_APP_GRANT_TYPE") == "hybrid") {
 
-            hybridCodeService("code id_token token",                 // response_Type
-                localStorage.getItem("REACT_APP_CLIENT_ID") || "",    // client_Id
-                localStorage.getItem("REACT_APP_URL") || "",         // redirect_Url
-                localStorage.getItem("REACT_APP_SCOPE") || "").then((res: any) => {
-                    if (res.status === 200) {
-                        localStorage.setItem("accessToken", "")
-                        window.location.href = res.url;
-                    }
-                }).catch((error: any) => {
-                    console.log(error)
-                })
+            // hybridCodeService("code id_token token",                 // response_Type
+            //     localStorage.getItem("REACT_APP_CLIENT_ID") || "",    // client_Id
+            //     localStorage.getItem("REACT_APP_URL") || "",         // redirect_Url
+            //     localStorage.getItem("REACT_APP_SCOPE") || "").then((res: any) => {
+            //         if (res.status === 200) {
+            //             localStorage.setItem("accessToken", "")
+            //             window.location.href = res.url;
+            //         }
+            //     }).catch((error: any) => {
+            //         console.log(error)
+            //     })
         }
     }
 
@@ -352,15 +352,15 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
     // Update the configuration  
     const handleDeveloperData = (modeData: any) => {
-        setConfig({
-            REACT_APP_URL: modeData?.apiUrl,
-            REACT_APP_API_URL: modeData?.appUrl,
-            REACT_APP_CLIENT_ID: modeData?.clientId,
-            NODE_ENV: modeData.env,
-            REACT_APP_GRANT_TYPE: modeData?.grantType,
-            REACT_APP_REPLACE_URL: modeData?.replaceUrl,
-            REACT_APP_SCOPE: modeData?.scope,
-        });
+        // setConfig({
+        //     REACT_APP_URL: modeData?.apiUrl,
+        //     REACT_APP_API_URL: modeData?.appUrl,
+        //     REACT_APP_CLIENT_ID: modeData?.clientId,
+        //     NODE_ENV: modeData.env,
+        //     REACT_APP_GRANT_TYPE: modeData?.grantType,
+        //     REACT_APP_REPLACE_URL: modeData?.replaceUrl,
+        //     REACT_APP_SCOPE: modeData?.scope,
+        // });
 
     }
 
