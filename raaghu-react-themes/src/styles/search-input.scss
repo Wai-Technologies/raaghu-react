@@ -1,0 +1,48 @@
+// /*input search properrties*/
+.form-group.has-search {
+  position: relative;
+
+  .form-control {
+    padding-left: 0.75rem;
+    padding-right: 40px;
+    box-shadow: none;
+
+    :focus {
+      color: #212529;
+      outline: 0;
+      box-shadow: none;
+    }
+  }
+
+  .form-select-multiple{
+    background-image: none;
+  }
+
+  .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 24px;
+    height: 24px;
+    line-height: inherit;
+    text-align: center;
+    pointer-events: none;
+    right: 6px;
+    top: calc(100% - 26px);
+  }
+}
+
+.input-group-sm svg {
+  height: 12px;
+  width: 12px;
+}
+
+.input-group-md svg {
+  height: 16px;
+  width: 16px;
+}
+
+.input-group-lg svg {
+  height: 22px;
+  width: 22px;
+}

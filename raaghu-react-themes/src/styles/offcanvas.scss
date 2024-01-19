@@ -1,0 +1,38 @@
+.offcanvas-start {
+  border-right: none;
+}
+
+.offcanvas-end {
+  border-left: none;
+}
+
+.offcanvas-top {
+  border-bottom: none;
+}
+
+.offcanvas-bottom {
+  border-top: none;
+}
+
+.offcanvas-header {
+  border-bottom: $offcanvas-border-width solid;
+}
+.offcanvas-close {
+  position: absolute;
+  right: 10px;
+  top: 17px;
+  z-index: 1;
+}
+.offcanvas-body {
+  flex-grow: unset;
+  height: 100vh;
+  padding-bottom: 60px;
+}
+
+#RoleOffcanvas .offcanvas-body {
+  height: calc(100vh - 150px);
+}
+
+.close svg {
+  stroke-width: 2.4;
+}

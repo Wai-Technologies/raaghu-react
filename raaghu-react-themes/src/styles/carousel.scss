@@ -1,0 +1,27 @@
+// /*carousal custom properties*/
+.carousel-indicators [data-bs-target] {
+    border-radius: 50%;
+    height:30px;
+  .active {
+    border: 2px solid;
+  }
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  border-radius: 50%;
+  background-size: 75% 75% !important;
+  width: 3.125rem;
+  height: 3.125rem;
+}
+.carousel-indicators [data-bs-target] {
+  width: 30px;
+  height: 30px;
+  border: 0px;
+  border-radius: 4px;
+
+}
+
+.carousel-indicators .active {
+  border: 0px;
+}

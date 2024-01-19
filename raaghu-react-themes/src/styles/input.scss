@@ -1,0 +1,67 @@
+.form-control {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-control{
+  font-weight: $font-weight-normal;
+}
+
+input{
+  font-weight: $font-weight-normal;
+}
+
+input::-webkit-input-placeholder {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+}
+
+.form-select {
+  font-size: $font-size-sm;
+}
+
+.form-control-feedback {
+  min-height: 13px;
+  text-align: end;
+  font-size: $font-size-sm;
+}
+
+.form-control {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-select {
+  font-size: $font-size-sm;
+}
+
+.form-control-feedback {
+  min-height: 13px;
+  text-align: end;
+  font-size: $font-size-sm;
+}
+
+.password-toggle {
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  cursor: pointer !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.input-group > .form-control:focus {
+  z-index: 0;
+}
+
+/*.form-control-sm {
+  padding: 0.35rem 0.5rem !important;
+}*/

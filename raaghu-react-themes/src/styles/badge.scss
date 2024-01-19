@@ -1,0 +1,72 @@
+// /*------- badge custom properties-------------*/
+
+.badge {
+  padding: $badge-padding-y $badge-padding-x;
+  @include font-size($badge-font-size);
+  font-weight: $font-weight-normal;
+}
+
+.btn {
+  .badge {
+    top: -7px;   
+    left: 3px;
+  }
+}
+
+.notification-li .badge {
+  top: 0px !important;
+  left: 25px !important;
+}
+
+.btn-rounded {
+  border-radius: 50%;
+  padding: 5px 10px 8px;
+}
+
+// html {
+//   .badge {
+//     .xlg {
+//       font-size: 1.35rem;
+//     }
+
+//     .lg {
+//       font-size: 16px;
+//     }
+
+//     .mid {
+//       font-size: 14px;
+//     }
+
+//     .small {
+//       font-size: 12px;
+//     }
+
+//     .smaller {
+//       font-size: 10px;
+//     }
+
+//     .smallest {
+//       font-size: 8px;
+//     }
+//   }
+// }
+
+.medium {
+
+  font-size: 1.05rem !important;
+}
+
+.small {
+
+  font-size: 0.85rem !important;
+}
+
+.smaller {
+
+  font-size: 0.65rem !important;
+}
+
+.smallest {
+
+  font-size: 0.60rem !important;
+}

@@ -1,0 +1,64 @@
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import RdsCompEditionList from "./rds-comp-edition-list";
+
+export default {
+    title: "Components/Edition List",
+    component: RdsCompEditionList,
+
+} as ComponentMeta<typeof RdsCompEditionList>;
+
+
+const Template: ComponentStory<typeof RdsCompEditionList> = (args) => (
+    <RdsCompEditionList {...args} />
+
+);
+
+export const EditionList = Template.bind({});
+
+EditionList.args = {
+    tableHeaders: [
+        { displayName: "Edition Name", key: "editionName", datatype: "text", sortable: true },
+        { displayName: "Price ($)", key: "price", datatype: "number", sortable: true },
+        { displayName: "Trial Period(Day(s))", key: "trialPeriod", datatype: "number" },
+        { displayName: "Expiring Edition", key: "expiringEdition", datatype: "text" }
+    ],
+    tableData: [
+        { id: 1, editionName: "Standard" },
+        { id: 2, editionName: "apple", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 3, editionName: "tesla", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 4, editionName: "google", price: 1200, trialPeriod: 2 },
+        { id: 5, editionName: "Standard" },
+        { id: 6, editionName: "amazon", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 7, editionName: "bing", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 8, editionName: "stack", price: 1200, trialPeriod: 2 },
+        { id: 9, editionName: "slack" },
+        { id: 10, editionName: "disc", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 11, editionName: "HD", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 12, editionName: "dell", price: 1200, trialPeriod: 2 },
+        { id: 13, editionName: "logi" },
+        { id: 14, editionName: "mcdonald", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 15, editionName: "perl", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 16, editionName: "proton", price: 1200, trialPeriod: 2 },
+        { id: 17, editionName: "express" },
+        { id: 18, editionName: "nord", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 19, editionName: "mern", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 20, editionName: "ruby", price: 1200, trialPeriod: 2 },
+        { id: 21, editionName: "rails" },
+        { id: 22, editionName: "asus", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 23, editionName: "code", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 24, editionName: "nick", price: 1200, trialPeriod: 2 },
+        { id: 25, editionName: "plex" },
+        { id: 26, editionName: "senti", price: 2000, trialPeriod: 10, expiringEdition: "Standard" },
+        { id: 27, editionName: "prick", price: 20, trialPeriod: 3, expiringEdition: "Standard" },
+        { id: 28, editionName: "solar", price: 1200, trialPeriod: 2 },
+    ],
+    actions: [
+        { id: "delete", displayName: "Delete" },
+        { id: "edit", displayName: "Edit" }
+    ],
+    pagination: true,
+    recordsPerPage: 5,
+    recordsPerPageSelectListOption: true
+};
+

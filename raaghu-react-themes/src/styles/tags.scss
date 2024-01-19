@@ -1,0 +1,63 @@
+// /* tags css new variations */
+
+.square-tags {
+  border-radius: 0.25rem;
+}
+.rounded-tags {
+  border-radius: 20px;
+}
+.tags {
+  font-size: small;
+  padding: 1px 8px 4px 8px;
+  position: relative;
+}
+
+.tags-body {
+  padding-right: 20px;
+}
+
+.tags rds-icon {
+  position: absolute;
+  right: 8px;
+}
+.tags rds-icon svg {
+  width: 8px;
+  height: auto;
+}
+
+// Scroll Type
+.rds-tags {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 5px;
+}
+.scroll-type {
+  width: 100%;
+  max-height: 36.5px;
+  overflow-y: scroll;
+}
+
+// colors
+
+.tag-primary {
+  background-color: #e5d5fc;
+  border-color: #d8c0fa;
+  color: #6525bf;
+}
+.tag-success {
+  background-color: #d5fcde;
+  border-color: #c0facd;
+  color: #25bf47;
+}
+
+.tag-info {
+  background-color: #d8fcfa;
+  border-color: #c5fbf8;
+  color: #32c1ba;
+}
+.tag-danger {
+  background-color: #fcd5d5;
+  border-color: #fac0c0;
+  color: #bf2525;
+}

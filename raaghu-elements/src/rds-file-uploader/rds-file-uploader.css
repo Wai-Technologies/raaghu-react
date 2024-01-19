@@ -1,0 +1,134 @@
+.input {
+  margin: none !important;
+  cursor: pointer !important;
+}
+
+.mulinput {
+  opacity: 0 !important;
+  height: 64px;
+
+  /* position: absolute; */
+}
+
+.inputbox {
+  position: absolute;
+  top: 2px px;
+  /* padding-left: 0px !important;
+  padding-right: 0px !important; */
+}
+
+.display {
+  display: none !important;
+}
+
+/* .form-select-lg {
+  padding: 6px 12px !important;
+  border-radius: 0.5rem;
+} */
+
+.format {
+  font-size: small;
+}
+
+.labelbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.files {
+  height: 5rem;
+  border: 1px dashed;
+  border-radius: 0.25rem;
+}
+
+.box {
+  display: flex;
+}
+.upload {
+  margin-right: 1rem;
+}
+
+.fullbox {
+  border: 1px dashed;
+  border-radius: 4px;
+  height: 64px;
+  margin: 0px !important;
+  background-color: #F3EBFE;
+  margin-bottom: 20px !important;
+}
+
+.namebox {
+  border: 1px solid rgb(220, 234, 90);
+  border-radius: 4px;
+  height: 44px;
+  align-items: center;
+  display: flex;
+  background-color: #ebf0ff;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.filename {
+  margin-left: 5px;
+}
+.fileicon {
+  margin-left: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.size {
+  font-size: 11px !important;
+}
+
+.iconbox {
+  display: flex;
+  cursor: pointer;
+  /* margin-right: 12px; */
+}
+.cross {
+  width: 26px;
+  height: 26px;
+}
+
+.leftinnerbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.disleftinnerbox {
+  display: flex;
+  justify-content: center;
+}
+
+.disname {
+  display: none;
+}
+
+.rightbox {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: stretch; */
+  justify-content: center;
+  color: #7E2EEF;
+}
+.lefttext {
+  padding-left: 12px;
+}
+
+/* .disbox {
+  padding-top: 14px !important;
+} */
+
+.closeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}

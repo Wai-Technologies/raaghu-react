@@ -1,0 +1,111 @@
+// /*dropdown-list custom properties*/
+.dropdown-item {
+  cursor: pointer;
+}
+.dropdown-menu {
+  padding: 0 0;
+}
+.multi-level-drop >.dropdown-menu{
+  --bs-dropdown-link-hover-bg: white;
+}
+.multi-level-drop >.dropdown-menu > .active{
+  background-color:#E9ECEF;
+   --bs-dropdown-link-hover-bg: #E9ECEF;
+}
+.dropdown {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+
+  .dropdownlist-input {
+    display: none;
+    cursor: pointer;
+  }
+
+  .dropdownlist-input + .dropdown-menu {
+    display: none;
+  }
+
+  .dropdownlist-input:checked + .dropdown-menu {
+    display: block;
+  }
+}
+
+.dropdown .btn {
+  text-align: left;
+  border-color: transparent !important;
+}
+#action-dropdown .rounded-pill {
+  text-align: center;
+  color: gray;
+  border: 1px solid;
+}
+
+.form-select[size]:not([size="1"]) {
+  padding-right: 1.25rem;
+  background-position: right 0.15rem center;
+}
+
+.dropdown ul {
+  width: 100%;
+}
+.multi-dropp{
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin-left: 144px;
+}
+.Charts{
+  margin-top: 29px;
+}
+.Components{
+  margin-top: 54px
+}
+#chartDrop{
+  max-height: 280px;
+  overflow-y: auto;
+}
+.multi-drop{
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin-left: 144px;
+}
+.submenu-li:hover{
+  background-color: #E9ECEF;
+}
+.selected-border{
+width: 20px;
+border-radius: 20px;
+height: 20px;
+}
+//for action modal of data table
+.left-dataTable{
+  position: absolute !important;
+  left:-60px!important;
+ top:30px!important;
+}
+.right-dataTable{
+  position: absolute!important;
+  right: -60px !important;
+  top:30px!important;
+}
+
+// .dropdown-menu.show {
+//   display: block;
+//   transform: translate3d(-60px, -4px, 0px);
+// }
+
+button#dropdownMenuButton {
+  width: 30px!important;
+  padding: 6px 0px;
+}
+.dw-placeholder{
+   color: #cccccc;
+}

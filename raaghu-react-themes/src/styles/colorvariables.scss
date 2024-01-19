@@ -1,0 +1,40 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+.theme-dark {
+  background-color: $black;
+  color: $white;
+  @import "./colorvariables-dark.scss";
+}
+
+.theme-light {
+  @import "./colorvariables-light.scss";
+}
+
+html[theme="light"] {
+  --chart-bool-icon-color: black;
+  --bs-body-color: black;
+
+  :root {
+    --bs-border-color: #ced4da;
+  }
+
+  @import "./colorvariables-light.scss";
+}
+
+html[theme="dark"] {
+  --bs-navbar-toggler-border-color: white;
+  --bs-border-color: #343a40;
+  --chart-bool-icon-color: white;
+  --bs-body-color: #dee2e6;
+  --bs-secondary-color: #6c757d;
+  @import "./colorvariables-dark.scss";
+}
+
+html[theme="semidark"] {
+  --chart-bool-icon-color: black;
+  --bs-body-color: black;
+  @import "./colorvariables-semidark.scss";
+}

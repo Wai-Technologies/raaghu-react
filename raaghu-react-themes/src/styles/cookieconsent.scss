@@ -1,0 +1,25 @@
+@import "cookieconsent/build/cookieconsent.min.css";
+
+.cc-allow {
+    background-color: $primary !important;
+    color: $white !important;
+    text-decoration: none;
+}
+
+.cc-deny {
+    background-color: transparent !important;
+    border: 1px solid $primary !important;
+    text-decoration: none;
+}
+// .cc-window.cc-floating {
+//     max-width: 100%;
+// }
+@media (max-width: 767px) {
+    .cc-window.cc-banner {
+        width: 100%;
+    }
+    .cc-window.cc-floating {
+        width: 100%;
+        max-width: 100%;
+    }
+}

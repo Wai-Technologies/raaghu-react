@@ -1,0 +1,16 @@
+.progressBar{
+    height: 5px;
+    width: 100%;
+    background-color: #626262;
+    position: relative;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: -5px;
+  }

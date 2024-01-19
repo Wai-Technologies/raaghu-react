@@ -1,0 +1,13 @@
+.closed{
+    display: none !important;
+}
+.showed{
+    display: block !important;
+    box-shadow: none !important ;
+    border-radius: 4px !important ;
+}
+.toastbody{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+}

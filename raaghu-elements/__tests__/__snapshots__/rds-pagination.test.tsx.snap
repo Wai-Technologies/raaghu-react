@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RdsPagination renders correctly with default props 1`] = `
+<div
+  data-testid="page-link"
+>
+  <nav
+    aria-label="Page navigation example"
+  >
+    <ul
+      class="pagination align-items-center mb-0 pagination-sm pagination justify-content-start"
+    >
+      <li
+        class="page-item cursor-pointer disabled d-none"
+      >
+        <a
+          class="page-link b d-flex border-0"
+        >
+          <span
+            class="ms-1 pagination-prev"
+          >
+            Prev
+          </span>
+        </a>
+      </li>
+      <li
+        class="page-item m-1 cursor-pointer  "
+      >
+        <a
+          class="page-link b d-flex border-0"
+        >
+          <span
+            class="pagination-next me-1"
+          >
+            Next
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;

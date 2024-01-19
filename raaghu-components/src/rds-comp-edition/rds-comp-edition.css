@@ -1,0 +1,8 @@
+.RdsCompEdition__description-list-inside-card ul li::before {
+  content: "\2022";
+  color: #249CF7;
+  font-weight: 1000;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}

@@ -1,0 +1,2708 @@
+@use "sass:math";
+//background-color: white;
+$theme-colors: ( "primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark ) !default;
+$min-contrast-ratio: 4.5 !default;
+$input-focus-border-color: tint-color($primary, 50%) !default;
+$body-bg: white;
+$input-bg: $body-bg !default;
+
+$border-color: $gray-100;
+$toast-btn-close-color: $gray-100 !default;
+$btn-close-width: 1em !default;
+$btn-close-color: $gray-100 !default;
+$btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
+
+// /*accordion color variables*/
+$accordion-bg: $primary;
+$accordion-button-bg: $light;
+
+// /*badge mixins color variables*/
+$badge-bg-scale: -80%;
+$badge-border-scale: -70%;
+$badge-color-scale: -80%;
+
+// /*counter mixins color variables*/
+$counter-bg-scale: -80%;
+$counter-border-scale: -70%;
+$counter-color-scale: -80%;
+
+// /*alert mixins color variables*/
+$alert-color-scale: 40% !default;
+$alert-bg-scale: -80% !default;
+$alert-border-scale: -70% !default;
+
+// /*icon mixins color variable*/
+$icon-color-scale: 40% !default;
+
+// /*tag mixins color variables*/
+
+$tag-bg-scale: -80% !default;
+$tag-border-scale: -70% !default;
+$tag-color-scale: -80% !default;
+
+// /*avatar mixins color variables*/
+$avatar-bg-scale: -0%;
+$avatar-border-scale: -70%;
+$avatar-color-scale: -100%;
+
+// /*Breadcrumb color variables*/
+$breadcrumb-active-color: $gray-500;
+$breadcrumb-divider-color: $primary;
+
+$border-color: $gray-300 !default;
+
+// /*carousal color variables*/
+$carousel-caption-color: $light !default;
+
+// /*table color variables*/
+$table-border-color: $gray-200;
+$table-bg-scale: 80% !default;
+$table-header-bg: $primary !default;
+$table-header-color: $dark-500 !default;
+
+// /*tabs color variables*/
+$nav-tabs-border-color: $primary !default;
+$link-color: $black !default;
+$nav-link-color: $link-color !default;
+$nav-tabs-link-active-color: $primary !default;
+$nav-pills-link-active-color: $white !default;
+$nav-tabs-thick-border-color: $primary !default;
+
+// /*list-group variables*/
+$list-group-active-color: $primary;
+
+// /*tree variable*/
+$verticle-border-color: $secondary;
+$horizontal-border-color: $secondary;
+$check-verticle-border-color: $primary;
+$check-horizontal-border-color: $primary;
+
+// /*Tenant Variables*/
+$edition-background-color: $gray-800 !default;
+$standard-background-color: $primary !default;
+$professional-background-color: $warning !default;
+$premium-background-color: $danger !default;
+$basic-background-color: $success !default;
+$status-background-color: $gray-200 !default;
+$status-active-background-color: $gray-100 !default;
+
+// /*Member-activity Variables*/
+$high-rate-color: $success;
+$mid-rate-color: $danger;
+$low-rate-color: $warning;
+
+// /*Pagination Variables*/
+$pagination-border-color: $gray-500;
+$pagination-item-color: $gray-600;
+$pagination-item-bg: $light;
+$pagination-item-bg-hover: $gray-300;
+$pagination-item-last-bg: $white;
+$page-link-color: $gray-800;
+$pagination-bg-color: $white;
+$page-link-bg-hover: $gray-800;
+$pagination-bg-hover-color: $gray-100;
+$pagination-bg-active-color: $gray-200;
+$page-link-active-color: $light-gray;
+$pagination-item-bg-active: $gray-800;
+
+// /*dropdown Variales */
+$dropdown-border-bottom: $gray-400 !default;
+$dropdown-bg-color: $gray-100 !default;
+$dropdown-border-bottom-hover: $gray-100;
+$dropdown-border-color: #e9ecf7 !default;
+
+// /*file uploader color variables*/
+$file-color: $primary;
+$file-background-color: $gray-100;
+$file-border-color: $primary;
+
+// /*Search color variables*/
+$search-background-color: $gray-200;
+$search-color: $dark;
+$search-border-color: $primary;
+$search-control-feedback-color: $gray-500;
+
+// /*carousel variables */
+//$carousel-color: $body-bg-dark;
+// $nav-tabs-thick-border-color: $primary !default;
+// /*top nav bar variables*/
+$nav-background-color: $white !default;
+
+// /*input search properrties*/
+$form-group-bg-color: $gray-200 !default;
+$form-group-color: $dark !default;
+$form-bg-focus: $light !default;
+$form-border: $primary !default;
+$form-feedback-color: $gray-200 !default;
+
+// /*sidebar color styles*/
+$nav-ul-bg-color: $light;
+$nav-li-border: $white;
+$nav-a-color: $gray-400;
+$nav-a-color-hover: $dark-900;
+$nav-active-color: $primary;
+$sidbar-border-right-color: $gray-200;
+
+// /*edition Variables*/
+$edition-background-color: $gray-800 !default;
+$standard-background-color: $primary !default;
+$professional-background-color: $warning !default;
+$premium-background-color: $danger !default;
+$basic-background-color: $success !default;
+$status-background-color: $gray-200 !default;
+$status-active-background-color: $gray-100 !default;
+
+// /*Member-activity Variables*/
+$high-rate-color: $success !default;
+$mid-rate-color: $danger !default;
+$low-rate-color: $warning !default;
+// /*toast*/
+$toast-text-color: $black;
+// /*tree checkbox lines*/
+$check-verticle-border-color: $primary !default;
+$check-horizotal-border-color: $primary !default;
+$horizontal-border-color: $gray-100 !default;
+$verticle-border-color: $gray-100 !default;
+// /*modal*/
+$delete-modal-text: $black;
+// /* offcanvas-header */
+// $offcanvas-border-color: red !default;
+$modal-bg-color: $body-bg !default;
+
+$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+
+$btn-hover-bg-shade-amount: 15% !default;
+$btn-hover-bg-tint-amount: 15% !default;
+$btn-hover-border-shade-amount: 20% !default;
+$btn-hover-border-tint-amount: 10% !default;
+$btn-active-bg-shade-amount: 20% !default;
+$btn-active-bg-tint-amount: 20% !default;
+$btn-active-border-shade-amount: 25% !default;
+$btn-active-border-tint-amount: 10% !default;
+
+$enable-caret: true !default;
+// scss-docs-end btn-variables
+//subscription-card
+$subcription-bg-blue: #005fa4;
+$subcription-bg-purple: #660064;
+$subcription-bg-orangered: #f76161;
+$subcription-bg-orange: #f58220;
+$subcription-bg-green: #00a443;
+$body-wrapper-bg: $dark-900;
+
+$body-wrapper-bg: #f5f5fa;
+$table-hover-bg: #f5f5fa;
+$topnav-link-color: $gray-800;
+$card-bg-color: #fff;
+//--bs-body-color: black;
+$datepicker-bg: $white !default;
+$datepicker-head: $white !default;
+$notification-header-bg: $light-700 !default;
+$notification-sub-text: $gray-400 !default;
+$input-group-addon-bg: $input-bg;
+
+$form-select-bg1: $input-bg !default;
+
+$form-select-border-color1: $gray-400 !default;
+$shimmerbg: $light-700 !default;
+
+$offcanvas-title-color: $gray-900 !default;
+$offcanvas-bottom-border-color: $gray-300 !default;
+$nav-tabs-bottom-border-color: $gray-300 !default;
+
+$file-uploder-multiple-bg: $input-bg !default;
+
+$toast-color-scale: 40% !default;
+$toast-bg-scale: -80% !default;
+$toast-border-scale: -70% !default;
+
+//datatable-first-child-bgcolor
+$datatable-bgColor: $white !default;
+
+// card title{
+
+$card-title-color: $gray-900 !default;
+$placeholder-color: #bebebe;
+
+$offcanvas-bottom-border-color: $border-color !default;
+
+$bg-connect: $white;
+
+// .lf-player-container {
+//     filter: grayscale(1);
+// }
+
+#aside .lf-player-container {
+    filter: brightness(0) invert(1);
+}
+
+.lf-player-container:hover {
+    filter: none;
+}
+
+.bg-connect {
+    background-color: $bg-connect;
+}
+
+.login-border-bottom {
+    border-bottom: 1px solid $gray-300;
+}
+
+.close {
+    stroke: $secondary;
+
+    svg {
+        stroke: $secondary !important;
+    }
+}
+
+.card-title {
+    color: $gray-900;
+}
+
+.ngx-shimmer {
+    background-color: $light-600;
+    background-image: linear-gradient(to right, $light-800 0, $primary 20%, $light-800 40%, $light-800 100%);
+    opacity: 0.1;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+    #sortTable thead th:first-child,
+    #sortTable tbody td:first-child {
+        background-color: $datatable-bgColor;
+    }
+
+    #sortTable thead tr:hover th:first-child,
+    #sortTable tbody tr:hover td:first-child {
+        background-color: $table-hover-bg;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #sortTable thead th:first-child,
+    #sortTable tbody td:first-child {
+        background-color: $datatable-bgColor;
+    }
+
+    #sortTable thead tr:hover th:first-child,
+    #sortTable tbody tr:hover td:first-child {
+        background-color: $table-hover-bg;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    #sortTable thead th:first-child,
+    #sortTable tbody td:first-child {
+        position: sticky;
+        left: -1px;
+        background: $datatable-bgColor;
+        z-index: 0;
+        max-width: 190px;
+    }
+
+    #sortTable thead tr:hover th:first-child,
+    #sortTable tbody tr:hover td:first-child {
+        background-color: $table-hover-bg;
+    }
+}
+
+.file-uploader-multi {
+    background-color: $file-uploder-multiple-bg;
+}
+
+.navbar {
+    background-color: white;
+}
+
+.bs-datepicker-head {
+    background-color: $datepicker-head;
+}
+
+.dropdown-divider {
+    margin: 0rem 0;
+    border-bottom: 1px solid $gray-200;
+}
+
+.date-picker .date-picker-c {
+    border: 1px solid $gray-200;
+}
+
+.dropdown-item.active {
+    background-color: tint-color($primary, 90%);
+    color: $primary;
+
+    span.hr-line {
+        color: $primary;
+        background-color: $primary;
+    }
+}
+
+.bs-datepicker button:active,
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*="select-"]:after,
+.bs-datepicker-body table td[class*="select-"] span:after,
+.bs-datepicker-body table td.active-week span:hover {
+    background-color: $primary;
+    color: $white;
+}
+
+.bs-datepicker-body table td.week span {
+    color: $gray-300;
+}
+
+.bs-datepicker-body {
+    .days.weeks {
+        span.in-range:not(.select-start):before {
+            background: tint-color($primary, 50%);
+        }
+    }
+
+    table {
+        th {
+            color: #999999;
+        }
+
+        td {
+            color: #212529;
+
+            .is-highlighted:not(.disabled):not(.selected) span,
+            span.is-highlighted:not(.disabled):not(.selected) {
+                background-color: #5c82e3;
+                color: #fff;
+            }
+
+            .custom-today-class {
+                background-color: $primary;
+                // color: #fff;
+            }
+        }
+    }
+
+    .months span.selected {
+        background-color: #ed585f;
+        color: #fff;
+    }
+
+    .years span.selected {
+        background-color: #ed585f;
+        color: #fff;
+    }
+}
+
+.form-select[size]:not([size="1"]) {
+    padding-right: 1.8rem;
+    background-position: right 0.15rem center;
+}
+
+.dropdownarrow.form-select[size]:not([size="1"])::before {
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.profileMenu {
+    background-color: $light;
+}
+
+.login {
+    color: $gray-900;
+}
+
+.rds-scrollable-wrapper {
+    background-color: $body-wrapper-bg;
+}
+
+svg {
+    fill: none;
+    stroke: $gray-800;
+}
+
+button#dropdownMenuButton svg {
+    color: $gray-600;
+}
+
+button#dropdownMenuButton:hover {
+    background: $light-300;
+}
+
+button#dropdownMenuButton:focus {
+    background: $light-300;
+}
+
+#sidebar {
+    border-right-color: $gray-100;
+
+    ul {
+        a.active {
+            i {
+                color: $primary;
+            }
+        }
+    }
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: $light-150;
+    --bs-table-bg-state: var(--bs-gray-100);
+}
+
+.form-group.has-search {
+    .form-control {
+        background-color: $gray-200;
+
+        :focus {
+            background-color: $light;
+            border-color: $primary;
+        }
+    }
+}
+
+// .aside {
+//   background-color: $body-wrapper-bg;
+//   border-right-color: $sidbar-border-right-color;
+// }
+
+.navbar {
+    .nav-link {
+        color: $topnav-link-color;
+    }
+}
+
+.navbar .lf-player-container{
+    filter: grayscale(1);
+}
+
+.navbar .lf-player-container:hover {
+    filter: none;
+}
+
+.node-items .node_dot {
+    background-color: $secondary;
+}
+
+.node-items:hover .node_dot {
+    background-color: $primary;
+    z-index: 9;
+}
+
+.node_dot {
+    background-color: $primary;
+}
+
+.FileNode-items .node_dot {
+    background-color: tint-color($secondary, 50%);
+}
+
+.FileNode-items:hover .node_dot {
+    background-color: $primary;
+}
+
+.FileNode_dot {
+    background-color: $secondary;
+}
+
+.FileNode-items:hover .FileNode_dot {
+    background-color: $primary;
+}
+
+// #sidebar {
+//   background-color: $body-wrapper-bg;
+// }
+
+.upload-icon {
+    background-color: $white;
+}
+
+.btn-close {
+    background: transparent escape-svg($btn-close-bg) center / $btn-close-width auto no-repeat; // include transparent for button elements
+}
+
+.wrapper {
+    background-color: $body-wrapper-bg;
+}
+
+.accordion-header {
+    background: $accordion-bg;
+    border-color: $primary;
+}
+
+.outline {
+    .accordion-button {
+        border-right-color: $primary;
+    }
+
+    .accordion-header {
+        background: $primary;
+        //border-color:$primary;
+    }
+}
+
+// /*avatar color variables*/
+@mixin avatar-variant($background, $border, $color) {
+    @include gradient-bg($background);
+    border-color: $border;
+}
+
+@each $state, $value in $theme-colors {
+    $avatar-background: shift-color($value, $avatar-bg-scale);
+    $avatar-border: shift-color($value, $avatar-border-scale);
+    $avatar-color: shift-color($value, $avatar-color-scale);
+
+    @if (contrast-ratio($avatar-background, $avatar-color) < $min-contrast-ratio) {
+        $avatar-color: mix($value, color-contrast($avatar-background), math.abs($avatar-color-scale));
+    }
+
+    .avatar-#{$state} {
+        @include avatar-variant($avatar-background, $avatar-border, $avatar-color);
+    }
+}
+
+// /*modal*/
+.text-color {
+    color: $delete-modal-text;
+}
+
+// /*badge color variables*/
+.badge {
+    padding: $badge-padding-y $badge-padding-x;
+    @include font-size($badge-font-size);
+}
+
+@mixin badge-variant($background, $border, $color) {
+    @include gradient-bg($background);
+    border-color: $border;
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $badge-background: shift-color($value, $badge-bg-scale);
+    $badge-border: shift-color($value, $badge-border-scale);
+    $badge-color: shift-color($value, $badge-color-scale);
+
+    @if (contrast-ratio($badge-background, $badge-color) < $min-contrast-ratio) {
+        $badge-color: mix($value, color-contrast($badge-background), math.abs($badge-color-scale));
+    }
+
+    .badge-#{$state} {
+        @include badge-variant($badge-background, $badge-border, $badge-color);
+    }
+}
+
+// /*counter color variables*/
+
+@mixin counter-variant($background, $border, $color) {
+    @include gradient-bg($background);
+    border-color: $border;
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $counter-background: shift-color($value, $counter-bg-scale);
+    $counter-border: shift-color($value, $counter-border-scale);
+    $counter-color: shift-color($value, $counter-color-scale);
+
+    @if (contrast-ratio($counter-background, $counter-color) < $min-contrast-ratio) {
+        $counter-color: mix($value, color-contrast($counter-background), math.abs($counter-color-scale));
+    }
+
+    .counter-#{$state} {
+        @include badge-variant($counter-background, $counter-border, $counter-color);
+    }
+}
+
+// /*breadcrumb color variables*/
+.withDivider {
+    .breadcrumb-item {
+        &::before {
+            color: $breadcrumb-divider-color;
+        }
+
+        &.active {
+            color: $breadcrumb-active-color;
+        }
+    }
+}
+
+.breadcrumb-item {
+    + .breadcrumb-item {
+        &::before {
+            color: $breadcrumb-divider-color;
+        }
+    }
+}
+
+// /*table color variables*/
+.table-hover {
+    > tbody > tr > td {
+        color: $gray-500;
+    }
+}
+
+
+.table {
+    border-color: $table-border-color;
+
+    tbody {
+        tr {
+            td {
+                color: $gray-600;
+                font-size: $font-size-base;
+            }
+
+            td:first-child {
+                color: $gray-900;
+            }
+        }
+    }
+
+    > thead {
+        background-color: $table-header-bg;
+
+        tr {
+            th {
+                color: $gray-900;
+                font-weight: 500;
+                padding: 1rem 0.5rem;
+            }
+        }
+    }
+}
+
+.table-bordered {
+    thead {
+        tr {
+            border-width: 0 0 $border-width 0;
+        }
+    }
+}
+
+.table-bordered {
+    > :not(caption) > * {
+        border-width: $table-border-width 0;
+        // stylelint-disable-next-line selector-max-universal
+        > * {
+            border-width: 0 0;
+        }
+    }
+}
+
+// /*edition color variables*/
+.edition-grid {
+    .edition {
+        background: $edition-background-color;
+
+        &.Standard {
+            background-color: $standard-background-color;
+        }
+
+        &.Professional {
+            background-color: $professional-background-color;
+        }
+
+        &.Premium {
+            background-color: $premium-background-color;
+        }
+
+        &.Basic {
+            background-color: $basic-background-color;
+        }
+    }
+}
+
+.status {
+    background-color: $status-background-color;
+
+    &.Active {
+        background-color: $status-active-background-color;
+    }
+}
+
+// /*Member-activity*/
+.HighRate {
+    color: $high-rate-color;
+}
+
+.MidRate {
+    color: $mid-rate-color;
+}
+
+.LowRate {
+    color: $low-rate-color;
+}
+
+// /* Pagination Styles */
+.pagination.rounded {
+    .page-link {
+        color: $page-link-color;
+        background-color: $pagination-bg-color;
+
+        &:hover {
+            color: $page-link-bg-hover;
+            background-color: $pagination-bg-hover-color;
+        }
+    }
+
+    .active .page-link {
+        color: $gray-900;
+        background-color: $page-link-active-color;
+    }
+}
+
+.pagination {
+    .page-item {
+        border-color: $white;
+        // &:nth-child(-n + 2) .page-link {
+        //   background: $pagination-item-bg;
+        //   color: $pagination-item-color;
+        // }
+        // &:nth-last-child(-n + 2) .page-link {
+        //   background:  $pagination-bg-color;
+        //   color: $pagination-item-color;
+        // }
+        &:nth-child(-n + 1) .page-link {
+            border-color: $white;
+        }
+    }
+
+    .page-link {
+        color: $pagination-item-color;
+        background-color: $pagination-bg-color;
+        // border: 1px solid $pagination-bg-color;
+
+        &:hover {
+            color: $pagination-item-color;
+            background-color: $pagination-bg-hover-color;
+        }
+    }
+
+    .active .page-link {
+        color: $white;
+        background-color: $primary;
+    }
+}
+
+// /*Dropdown*/
+
+.dropdown-item {
+    border-bottom-color: $dropdown-border-bottom;
+
+    &:hover {
+        // background-color: $dropdown-bg-color;
+        border-bottom-color: $dropdown-border-bottom-hover;
+    }
+
+    &:active {
+        background-color: var(--bs-dropdown-link-hover-bg);
+        color: var(--bs-dropdown-link-hover-color);
+    }
+}
+
+// /* list-group color variables*/
+.list-group-item {
+    &.active {
+        color: $list-group-active-color;
+
+        :hover {
+            color: $list-group-active-color;
+        }
+    }
+}
+
+// /*toast*/
+.toast-text {
+    color: $toast-text-color;
+}
+
+// .toast-close{
+//   color:$toast-btn-close-color;
+// }
+
+a {
+    text-decoration: none;
+    color: $gray-800;
+}
+
+.routerLinkActive-name {
+    text-decoration: none;
+    color: $primary;
+}
+
+// /*Tabs color variables*/
+.nav-tabs {
+    .nav-link:hover {
+        //border-bottom: 3px solid #c0c0ff;
+    }
+
+    .nav-link:after {
+        content: "";
+        display: block;
+        margin: auto;
+        height: 3px;
+        width: 0px;
+        background: transparent;
+        position: relative;
+        bottom: -0.65rem;
+        left: 0px;
+        transition: width 0.5s ease, border-color 0.5s ease;
+    }
+
+    .nav-link:hover:after {
+        width: 100%;
+        border-bottom: 3px solid #c0c0ff;
+    }
+
+    .nav-link {
+        color: $nav-link-color;
+
+        a:hover {
+            background: $light-150;
+        }
+    }
+
+    .nav-link .active {
+        border-top-color: $nav-tabs-border-color;
+        color: $nav-tabs-link-active-color;
+    }
+
+    .rds-tab-2 .nav-tabs {
+        .nav-link .active {
+            border-top: transparent;
+            border: transparent;
+            border-bottom-color: $nav-tabs-border-color;
+            color: $nav-tabs-link-active-color;
+        }
+    }
+}
+
+.nav-tabs a.nav-link:hover {
+    background-color: $light-150;
+}
+
+.nav-tabs a.nav-link:focus {
+    background-color: $light-150;
+    // border-bottom: 3px solid $primary-150 !important;
+}
+
+.nav-link:hover {
+    background-color: $light-150;
+    // border-bottom: 3px solid $primary-150 !important;
+}
+
+.nav-link.active:hover {
+    background-color: $primary;
+}
+
+.nav-link:focus {
+    background-color: $light-150;
+    // border-bottom: 3px solid $primary-150 !important;
+}
+
+.nav-tabs a.nav-link:focus {
+    background-color: $light-150;
+    // border-bottom: 3px solid $primary-150 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: $light-150 !important;
+}
+
+.nav.nav-pill {
+    .nav-link.active {
+        border-top: $nav-tabs-border-color;
+    }
+}
+
+.nav-tabs.nav-pills {
+    .nav-link.active {
+        color: $white;
+        border-bottom-color: $nav-tabs-border-color;
+    }
+}
+
+.nav-tabs {
+    border-bottom-color: $nav-tabs-bottom-border-color;
+
+    .nav-link {
+        color: $gray-700;
+    }
+
+    .nav-link.active {
+        color: $link-color;
+    }
+}
+
+.nav-tabs.vertical-tab {
+    .nav-item {
+        .nav-link {
+            svg {
+                width: 22px;
+                height: 22px;
+                fill: none;
+                stroke: $gray-700;
+
+                polyline.icon {
+                    stroke: $gray-700;
+                }
+
+                polygon.icon {
+                    stroke: $gray-700;
+                }
+
+                ellipse.icon {
+                    stroke: $gray-700;
+                }
+
+                path.icon {
+                    stroke: $gray-700;
+                }
+
+                line.icon {
+                    stroke: $gray-700;
+                }
+
+                rect.icon {
+                    stroke: $gray-700;
+                }
+
+                circle.icon {
+                    stroke: $gray-700;
+                }
+            }
+        }
+
+        .nav-link.active {
+            svg {
+                width: 22px;
+                height: 22px;
+                fill: none;
+                stroke: $primary;
+
+                polyline.icon {
+                    stroke: $primary;
+                }
+
+                polygon.icon {
+                    stroke: $primary;
+                }
+
+                ellipse.icon {
+                    stroke: $primary;
+                }
+
+                path.icon {
+                    stroke: $primary;
+                }
+
+                line.icon {
+                    stroke: $primary;
+                }
+
+                rect.icon {
+                    stroke: $primary;
+                }
+
+                circle.icon {
+                    stroke: $primary;
+                }
+            }
+        }
+    }
+}
+
+// /* File style */
+.files {
+    color: $file-color;
+    background: $file-background-color;
+    border-color: $file-border-color;
+
+    :hover {
+        background: $gray-200;
+    }
+
+    :focus {
+        border-color: $gray-200;
+        background-color: $gray-200;
+    }
+
+    .alert-col {
+        background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
+    }
+
+    .file-close svg {
+        color: $gray-500;
+    }
+}
+
+.error-msg {
+    color: $danger;
+}
+
+.alert-un {
+    background-color: $gray-100;
+    border-color: $gray-500;
+}
+
+// /*card color styles*/
+
+.card {
+    background-color: $card-bg-color;
+    border-color: $card-border-color;
+    // .card-header {
+    //   background-color: transparent;
+    // }
+}
+
+.bg-gradient-primary {
+    background: transparent linear-gradient(90deg, #56b2aa 0%, #0285c9 100%) 0% 0% no-repeat padding-box;
+}
+
+// /*top nav bar variables*/
+#sidebar {
+    ul {
+        //background: $nav-ul-bg-color;
+
+        li {
+            border-top-color: $nav-li-border;
+
+            :last-child {
+                border-bottom-color: $nav-li-border;
+            }
+
+            a {
+                color: $nav-a-color;
+                border-left-color: transparent;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $light-200;
+                    transform: scale(0.8);
+
+                    polyline.icon {
+                        stroke: $light-200;
+                    }
+
+                    polygon.icon {
+                        stroke: $light-200;
+                    }
+
+                    ellipse.icon {
+                        stroke: $light-200;
+                    }
+
+                    path.icon {
+                        stroke: $light-200;
+                    }
+
+                    line.icon {
+                        stroke: $light-200;
+                    }
+
+                    rect.icon {
+                        stroke: $light-200;
+                    }
+
+                    circle.icon {
+                        stroke: $light-200;
+                    }
+
+                    ellipse.icon {
+                        stroke: $light-200;
+                    }
+                }
+            }
+
+            a.active {
+                .lf-player-container {
+                    filter: unset;
+                }
+
+                color: $nav-active-color;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $primary;
+
+                    polyline.icon {
+                        stroke: $primary;
+                    }
+
+                    polygon.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+
+                    path.icon {
+                        stroke: $primary;
+                    }
+
+                    line.icon {
+                        stroke: $primary;
+                    }
+
+                    rect.icon {
+                        stroke: $primary;
+                    }
+
+                    circle.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+                }
+            }
+
+            a:hover {
+                color: $nav-active-color;
+                // transition: all 0.3s linear;
+                // transform: scale(1.5);
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $primary;
+                    transition: all 0.6s linear;
+                    transform: scale(0.9);
+
+                    polyline.icon {
+                        stroke: $primary;
+                    }
+
+                    polygon.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+
+                    path.icon {
+                        stroke: $primary;
+                    }
+
+                    line.icon {
+                        stroke: $primary;
+                    }
+
+                    rect.icon {
+                        stroke: $primary;
+                    }
+
+                    circle.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+                }
+            }
+        }
+
+        a:hover {
+            .lf-player-container {
+                filter: unset;
+            }
+        }
+
+        li:hover {
+            background: $dark-150;
+        }
+
+        li.active {
+            ul {
+                li {
+                    a {
+                        color: #e6e6e6;
+                        border-left-color: transparent;
+                    }
+                }
+
+                ul {
+                    li {
+                        a {
+                            color: $gray-400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.aside {
+    background-color: $dark-400;
+    border-right-color: $sidbar-border-right-color;
+}
+
+#sidebar {
+    background-color: $dark-400;
+    border-right-color: $sidbar-border-right-color;
+}
+
+// /*carousel style*/
+
+.carousel-indicators {
+    [data-bs-target] {
+        background-color: #232933;
+    }
+
+    .active {
+        border-color: #232933;
+    }
+}
+
+// /*input search properrties*/
+
+$form-group-bg-color: $gray-200;
+$form-group-color: $dark;
+$form-bg-focus: $light;
+$form-border: $primary;
+$form-feedback-color: $gray-700;
+// /*search Style */
+
+.form-group.has-search {
+    .form-control {
+        background-color: $input-bg;
+
+        :focus {
+            color: $form-group-color;
+            background-color: $form-bg-focus;
+            border-color: $form-border;
+        }
+    }
+
+    .form-control-feedback {
+        color: $form-feedback-color;
+    }
+}
+
+// /*datatable color variables */
+@mixin table-variant($state, $background, $border, $color) {
+    color: shade-color($color, 20%);
+    @include gradient-bg($background);
+    border-color: $border;
+
+    .table-#{$state} {
+        $table-header-bg: mix($color, $background);
+    }
+}
+
+.table {
+    // > :not(caption) > * > * {
+    //   background-color: inherit;
+    // }
+
+    > thead {
+        background-color: var(--bs-table-bg);
+    }
+
+    > tbody {
+        background-color: $white;
+    }
+}
+
+.HighRate {
+    color: $high-rate-color;
+}
+
+.MidRate {
+    color: $mid-rate-color;
+}
+
+.LowRate {
+    color: $low-rate-color;
+}
+
+.footer-buttons {
+    background-color: $white;
+}
+
+.dottedstyle {
+    .vertical-dotted-line {
+        border-right-color: $verticle-border-color;
+    }
+
+    .horizontal-dotted-line {
+        border-bottom-color: $horizontal-border-color;
+    }
+}
+
+.checkstyle {
+    .vertical-dotted-line {
+        border-right: $check-verticle-border-color;
+    }
+
+    .horizontal-dotted-line {
+        border-right: $check-horizotal-border-color;
+    }
+}
+
+// /*tags color variables*/
+@mixin tag-variant($background, $border, $color) {
+    border-color: $border;
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $tag-background: shift-color($value, $tag-bg-scale);
+    $tag-border: shift-color($value, $tag-border-scale);
+    $tag-color: shift-color($value, $tag-color-scale);
+
+    @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
+        $tag-color: mix($value, color-contrast($tag-background), math.abs($tag-color-scale));
+    }
+
+    .tag-#{$state} {
+        @include tag-variant($tag-background, $tag-border, $tag-color);
+    }
+}
+
+// /*buttons variabes*/
+.form-control {
+    &:focus {
+        border-color: $input-focus-border-color;
+    }
+}
+
+.form-select {
+    &:focus {
+        border-color: $input-focus-border-color;
+    }
+}
+
+.btn-outline-danger:hover {
+    color: $white;
+}
+
+.member-count {
+    color: $gray-600;
+}
+
+.offcanvas-header {
+    border-bottom-color: $offcanvas-bottom-border-color;
+}
+
+.offcanvas-title {
+    color: $offcanvas-title-color;
+}
+
+//subscription-page
+.subcription-bg-blue {
+    background-color: $subcription-bg-blue;
+}
+
+.subcription-bg-purple {
+    background-color: $subcription-bg-purple;
+}
+
+.subcription-bg-green {
+    background-color: $subcription-bg-green;
+}
+
+.subcription-bg-orangered {
+    background-color: $subcription-bg-orangered;
+}
+
+.subcription-bg-orange {
+    background-color: $subcription-bg-orange;
+}
+
+@mixin button-variant( $background, $border, $color: color-contrast($background), $hover-background: if( $color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount) ), $hover-border: if( $color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount) ), $hover-color: color-contrast($hover-background), $active-background: if( $color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount) ), $active-border: if( $color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount) ), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background) ) {
+}
+
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $color;
+
+            polygon.icon {
+                stroke: $color;
+            }
+
+            polyline.icon {
+                stroke: $color;
+            }
+
+            ellipse.icon {
+                stroke: $color;
+            }
+
+            path.icon {
+                stroke: $color;
+            }
+
+            line.icon {
+                stroke: $color;
+            }
+
+            rect.icon {
+                stroke: $color;
+            }
+
+            circle.icon {
+                stroke: $color;
+            }
+        }
+    }
+}
+
+@mixin button-outline-variant( $color, $color-hover: color-contrast($color), $active-background: $color, $active-border: $color, $active-color: color-contrast($active-background) ) {
+    /*  background-color: $white;
+  color: $primary;*/
+}
+
+@each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $color;
+
+            polygon.icon {
+                stroke: $color;
+            }
+
+            polyline.icon {
+                stroke: $color;
+            }
+
+            ellipse.icon {
+                stroke: $color;
+            }
+
+            path.icon {
+                stroke: $color;
+            }
+
+            line.icon {
+                stroke: $color;
+            }
+
+            rect.icon {
+                stroke: $color;
+            }
+
+            circle.icon {
+                stroke: $color;
+            }
+        }
+    }
+}
+
+@mixin toast-variant($background, $border, $color) {
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $toast-background: shift-color($value, $toast-bg-scale);
+    $toast-border: shift-color($value, $toast-border-scale);
+    $toast-color: shift-color($value, $toast-color-scale);
+
+    @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
+        $toast-color: mix($value, color-contrast($toast-background), math.abs($toast-color-scale));
+    }
+
+    @each $color, $value in $theme-colors {
+        .toast-#{$color} {
+            svg {
+                width: 22px;
+                height: 22px;
+                fill: none;
+                stroke: $toast-color;
+
+                polyline.icon {
+                    stroke: $toast-color;
+                }
+
+                polygon.icon {
+                    stroke: $toast-color;
+                }
+
+                ellipse.icon {
+                    stroke: $toast-color;
+                }
+
+                path.icon {
+                    stroke: $toast-color;
+                }
+
+                line.icon {
+                    stroke: $toast-color;
+                }
+
+                rect.icon {
+                    stroke: $toast-color;
+                }
+
+                circle.icon {
+                    stroke: $toast-color;
+                }
+            }
+        }
+    }
+}
+
+@mixin alert-variant($background, $border, $color) {
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $alert-background: shift-color($value, $alert-bg-scale);
+    $alert-border: shift-color($value, $alert-border-scale);
+    $alert-color: shift-color($value, $alert-color-scale);
+
+    @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
+        $alert-color: mix($value, color-contrast($alert-background), math.abs($alert-color-scale));
+    }
+
+    .alert {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $alert-color;
+
+            polyline.icon {
+                stroke: $alert-color;
+            }
+
+            polygon.icon {
+                stroke: $alert-color;
+            }
+
+            ellipse.icon {
+                stroke: $alert-color;
+            }
+
+            path.icon {
+                stroke: $alert-color;
+            }
+
+            line.icon {
+                stroke: $alert-color;
+            }
+
+            rect.icon {
+                stroke: $alert-color;
+            }
+
+            circle.icon {
+                stroke: $alert-color;
+            }
+        }
+    }
+}
+
+.bs-datepicker {
+    background: $white;
+}
+
+.tab-content.profileMenuContent {
+    background-color: $white;
+}
+
+.theme-green .bs-datepicker-body table td span.selected {
+    background-color: $primary;
+}
+
+html #sidebar ul li a.active small {
+    color: #212529;
+}
+
+.theam-cards .selected {
+    background: #dde4f7;
+}
+
+.rds-fileuploader label.file-upload > div {
+    color: #9bacbc;
+}
+
+.rds-fileuploader label.file-upload:active,
+.rds-fileuploader label.file-upload:hover {
+    background: #d7dfe8;
+}
+
+.rds-fileuploader label.file-upload {
+    border-color: #9bacbc;
+    background: #eaeff5;
+    color: #3d4d60;
+}
+
+.bd-links .child::after {
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e ");
+    //content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='$current' stroke='none' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+@mixin icon-variant($color) {
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $icon-color: shift-color($value, $icon-color-scale);
+
+    .icon {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-color;
+
+            polyline.icon {
+                stroke: $icon-color;
+            }
+
+            polygon.icon {
+                stroke: $icon-color;
+            }
+
+            ellipse.icon {
+                stroke: $icon-color;
+            }
+
+            path.icon {
+                stroke: $icon-color;
+            }
+
+            line.icon {
+                stroke: $icon-color;
+            }
+
+            rect.icon {
+                stroke: $icon-color;
+            }
+
+            circle.icon {
+                stroke: $icon-color;
+            }
+        }
+    }
+}
+
+.card-header {
+    background-color: transparent;
+}
+
+.card-footer {
+    background-color: $white;
+    border-top-color: $gray-300;
+}
+
+.notification {
+    .card-header {
+        background-color: $notification-header-bg;
+    }
+
+    .card-body {
+        .notification-border-bottom {
+            border-bottom: 1px solid $notification-header-bg;
+        }
+
+        .notification-sub-text {
+            color: $notification-sub-text;
+        }
+    }
+}
+
+.action-buttons {
+    background-color: $white;
+}
+
+.form-select {
+    background-color: $form-select-bg1;
+    border-color: $form-select-border-color1;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/*#sidebar.toggle-sidebar-menu {
+    ul {
+        li {
+            border-top-color: $nav-li-border;
+
+            :last-child {
+                border-bottom-color: $nav-li-border;
+            }
+
+            a {
+                color: $nav-a-color;
+                border-left-color: transparent;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $gray-700;
+
+                    polyline.icon {
+                        stroke: $gray-700;
+                    }
+
+                    polygon.icon {
+                        stroke: $gray-700;
+                    }
+
+                    ellipse.icon {
+                        stroke: $gray-700;
+                    }
+
+                    path.icon {
+                        stroke: $gray-700;
+                    }
+
+                    line.icon {
+                        stroke: $gray-700;
+                    }
+
+                    rect.icon {
+                        stroke: $gray-700;
+                    }
+
+                    circle.icon {
+                        stroke: $gray-700;
+                    }
+
+                    ellipse.icon {
+                        stroke: $gray-700;
+                    }
+                }
+            }
+
+            a.active {
+                color: $nav-active-color;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $primary;
+
+                    polyline.icon {
+                        stroke: $primary;
+                    }
+
+                    polygon.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+
+                    path.icon {
+                        stroke: $primary;
+                    }
+
+                    line.icon {
+                        stroke: $primary;
+                    }
+
+                    rect.icon {
+                        stroke: $primary;
+                    }
+
+                    circle.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+                }
+            }
+
+            a:hover {
+                color: $nav-active-color;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: none;
+                    stroke: $primary;
+
+                    polyline.icon {
+                        stroke: $primary;
+                    }
+
+                    polygon.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+
+                    path.icon {
+                        stroke: $primary;
+                    }
+
+                    line.icon {
+                        stroke: $primary;
+                    }
+
+                    rect.icon {
+                        stroke: $primary;
+                    }
+
+                    circle.icon {
+                        stroke: $primary;
+                    }
+
+                    ellipse.icon {
+                        stroke: $primary;
+                    }
+                }
+            }
+        }
+
+        li.active {
+            ul {
+                li {
+                    a {
+                        color: #e6e6e6;
+                        border-left-color: transparent;
+                    }
+                }
+
+                ul {
+                    li {
+                        a {
+                            color: $gray-400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}*/
+
+
+#sidebar {
+    background-color: $dark-400;
+    border-right-color: $sidbar-border-right-color;
+}
+
+// /*carousel style*/
+
+.carousel-indicators {
+    [data-bs-target] {
+        background-color: #232933;
+    }
+
+    .active {
+        border-color: #232933;
+    }
+}
+
+// /*input search properrties*/
+
+$form-group-bg-color: $gray-200;
+$form-group-color: $dark;
+$form-bg-focus: $light;
+$form-border: $primary;
+$form-feedback-color: $gray-700;
+// /*search Style */
+
+.form-group.has-search {
+    .form-control {
+        background-color: $input-bg;
+
+        :focus {
+            color: $form-group-color;
+            background-color: $form-bg-focus;
+            border-color: $form-border;
+        }
+    }
+
+    .form-control-feedback {
+        color: $form-feedback-color;
+    }
+}
+
+// /*datatable color variables */
+@mixin table-variant($state, $background, $border, $color) {
+    color: shade-color($color, 20%);
+    @include gradient-bg($background);
+    border-color: $border;
+
+    .table-#{$state} {
+        $table-header-bg: mix($color, $background);
+    }
+}
+
+.table {
+    > :not(caption) > * > * {
+        background-color: inherit;
+    }
+
+    > thead {
+        background-color: var(--bs-table-bg);
+    }
+
+    > tbody {
+        background-color: $white;
+    }
+}
+
+.table-border > :not(caption) > * > * {
+    border-width: 0 1px;
+    border-bottom-width: 1px;
+}
+
+.HighRate {
+    color: $high-rate-color;
+}
+
+.MidRate {
+    color: $mid-rate-color;
+}
+
+.LowRate {
+    color: $low-rate-color;
+}
+
+.footer-buttons {
+    background-color: $white;
+}
+
+.dottedstyle {
+    .vertical-dotted-line {
+        border-right-color: $verticle-border-color;
+    }
+
+    .horizontal-dotted-line {
+        border-bottom-color: $horizontal-border-color;
+    }
+}
+
+.checkstyle {
+    .vertical-dotted-line {
+        border-right: $check-verticle-border-color;
+    }
+
+    .horizontal-dotted-line {
+        border-right: $check-horizotal-border-color;
+    }
+}
+
+// /*tags color variables*/
+@mixin tag-variant($background, $border, $color) {
+    border-color: $border;
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $tag-background: shift-color($value, $tag-bg-scale);
+    $tag-border: shift-color($value, $tag-border-scale);
+    $tag-color: shift-color($value, $tag-color-scale);
+
+    @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
+        $tag-color: mix($value, color-contrast($tag-background), math.abs($tag-color-scale));
+    }
+
+    .tag-#{$state} {
+        @include tag-variant($tag-background, $tag-border, $tag-color);
+    }
+}
+
+// /*buttons variabes*/
+
+.btn-danger {
+    color: $white;
+}
+
+.form-control {
+    &:focus {
+        border-color: $input-focus-border-color;
+    }
+}
+
+.form-select {
+    &:focus {
+        border-color: $input-focus-border-color;
+    }
+}
+
+.text-muted {
+    color: $gray-500 !important;
+}
+
+.offcanvas-header {
+    border-bottom-color: $offcanvas-bottom-border-color;
+}
+
+//subscription-page
+.subcription-bg-blue {
+    background-color: $subcription-bg-blue;
+}
+
+.subcription-bg-purple {
+    background-color: $subcription-bg-purple;
+}
+
+.subcription-bg-green {
+    background-color: $subcription-bg-green;
+}
+
+.subcription-bg-orangered {
+    background-color: $subcription-bg-orangered;
+}
+
+.subcription-bg-orange {
+    background-color: $subcription-bg-orange;
+}
+
+.bs-datepicker {
+    background: $white;
+}
+
+.react-datepicker__header {
+    background-color: transparent;
+}
+
+.react-datepicker {
+    background-color: $datepicker-bg;
+}
+
+.react-datepicker__day:hover {
+    background-color: $primary;
+}
+
+.react-datepicker__current-month {
+    color: $black;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+    color: $black;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--selected:hover {
+    background-color: $primary;
+    color: $white;
+}
+
+.react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range ) {
+    background-color: $primary;
+}
+
+.tab-content.profileMenuContent {
+    background-color: $white;
+}
+
+.theme-green .bs-datepicker-body table td span.selected {
+    background-color: $primary;
+}
+
+html #sidebar ul li a.active small {
+    color: #212529;
+}
+
+.theam-cards .selected {
+    background: #dde4f7;
+}
+
+.rds-fileuploader label.file-upload > div {
+    color: #9bacbc;
+}
+
+.rds-fileuploader label.file-upload:active,
+.rds-fileuploader label.file-upload:hover {
+    background: #d7dfe8;
+}
+
+.rds-fileuploader label.file-upload {
+    border-color: #9bacbc;
+    background: #eaeff5;
+    color: #3d4d60;
+}
+
+.bd-links .child::after {
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='grey' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e ");
+}
+
+@mixin icon-variant($color) {
+    color: $color;
+}
+
+@each $state, $value in $theme-colors {
+    $icon-color: shift-color($value, $icon-color-scale);
+
+    .icon {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-color;
+
+            polyline.icon {
+                stroke: $icon-color;
+            }
+
+            polygon.icon {
+                stroke: $icon-color;
+            }
+
+            ellipse.icon {
+                stroke: $icon-color;
+            }
+
+            path.icon {
+                stroke: $icon-color;
+            }
+
+            line.icon {
+                stroke: $icon-color;
+            }
+
+            rect.icon {
+                stroke: $icon-color;
+            }
+
+            circle.icon {
+                stroke: $icon-color;
+            }
+        }
+    }
+}
+
+.card-header {
+    background-color: transparent;
+}
+
+.card-footer {
+    background-color: $white;
+    border-top-color: $gray-300;
+}
+
+.notification {
+    .card-header {
+        background-color: $notification-header-bg;
+    }
+
+    .card-body {
+        .notification-border-bottom {
+            border-bottom: 1px solid $notification-header-bg;
+        }
+
+        .notification-sub-text {
+            color: $notification-sub-text;
+        }
+    }
+}
+
+.action-buttons {
+    background-color: $white;
+}
+
+.form-select {
+    background-color: $form-select-bg1;
+    border-color: $form-select-border-color1;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/*#sidebar.toggle-sidebar-menu {
+    ul {
+        ul.dropdown-menu {
+            // border: 1px solid $gray-300;
+
+            li {
+                a.dropdown-item:hover {
+                    background-color: transparent;
+                }
+
+                a.dropdown-item.active {
+                    background-color: transparent;
+                }
+
+                ul {
+                    li {
+                        a.dropdown-item:hover {
+                            background-color: transparent;
+                        }
+
+                        a.dropdown-item.active {
+                            background-color: transparent;
+                        }
+                    }
+                }
+            }
+
+            ul {
+                li {
+                    a.dropdown-item:hover {
+                        background-color: transparent;
+                    }
+
+                    a.dropdown-item.active {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}*/
+
+.bg-icon {
+    background-color: $white;
+    cursor: pointer;
+    transition: background-color 2s ease-out 10ms;
+}
+
+.bg-icon:hover {
+    background-color: $gray-400;
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $primary;
+
+        polyline.icon {
+            stroke: $primary;
+        }
+
+        polygon.icon {
+            stroke: $primary;
+        }
+
+        ellipse.icon {
+            stroke: $primary;
+        }
+
+        path.icon {
+            stroke: $primary;
+        }
+
+        line.icon {
+            stroke: $primary;
+        }
+
+        rect.icon {
+            stroke: $primary;
+        }
+
+        circle.icon {
+            stroke: $primary;
+        }
+    }
+}
+
+.table-hover > tbody > tr:hover > * {
+    transition: background-color 2s ease-out 10ms;
+    background-color: $light-150;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.breadcrumb-item,
+.breadcrumb-items {
+    color: $gray-600;
+}
+
+.breadcrumb-item a,
+.breadcrumb-items a {
+    color: $gray-600;
+}
+
+.breadcrumb .text-primary a:last-child {
+    color: $primary;
+}
+
+.breadcrumb-item.active {
+    color: $primary;
+}
+
+.scrolltotop {
+    background-color: $white;
+}
+
+.datepicker__input {
+    width: fit-content !important;
+    background-color: white;
+    border: 2px solid lightgrey;
+}
+
+.icon-box {
+    background-color: $card-bg-color;
+    border-color: $card-border-color;
+}
+
+.iconcopy {
+    background-color: $card-bg-color;
+    border-color: $card-border-color;
+}
+
+.sidenav-footer {
+    background-color: $primary;
+}
+
+.sidenav-footer svg {
+    color: $white;
+}
+
+.card-toolbar {
+    svg:hover {
+        fill: none;
+        stroke: $primary;
+
+        polyline.icon {
+            stroke: $primary;
+        }
+
+        polygon.icon {
+            stroke: $primary;
+        }
+
+        ellipse.icon {
+            stroke: $primary;
+        }
+
+        path.icon {
+            stroke: $primary;
+        }
+
+        line.icon {
+            stroke: $primary;
+        }
+
+        rect.icon {
+            stroke: $primary;
+        }
+
+        circle.icon {
+            stroke: $primary;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .sidenav-footer {
+        background-color: transparent;
+    }
+
+    .right-side-menu {
+        background-color: $light;
+    }
+}
+
+.dropdown-toggle::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+    border: 0px;
+    width: 11px;
+    height: 11px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.form-select {
+    .placeholder {
+        color: $gray-400;
+    }
+}
+
+input::placeholder {
+    color: $placeholder-color;
+}
+
+.profile-offcanvas {
+    p {
+        color: $gray-600;
+        font-size: 0.765625rem;
+    }
+
+    ul {
+        li:hover {
+            background-color: $light-150;
+        }
+    }
+}
+
+.btn-group .btn-outline-primary:hover svg {
+    color: $light-0 !important;
+}
+
+.multiUploader {
+    background-color: $light-250;
+}
+
+.fileName {
+    background-color: $light-850;
+}
+
+// react select list new element css
+.css-t3ipsp-control {
+    border-color: $primary-150 !important;
+}
+
+.css-t3ipsp-control:hover {
+    border-color: $primary-150 !important;
+}
+
+.css-t3ipsp-control:focus {
+    border-color: $primary-150 !important;
+}
+
+.css-13cymwt-control,
+.css-t3ipsp-control,
+.css-t3ipsp-control:focus {
+    border-color: $gray-300;
+}
+
+.css-1xc3v61-indicatorContainer:hover {
+    color: #cccccc !important;
+}
+
+.css-1xc3v61-indicatorContainer svg {
+    stroke: #cccccc;
+    color: #cccccc;
+    fill: #cccccc;
+}
+
+#react-select-3-listbox {
+    background-color: $body-bg;
+    color: $black;
+}
+
+#react-select-3-listbox li:hover {
+    background-color: $light-150 !important;
+}
+
+// basic file uploder
+
+.chosenFileSpan {
+    background-color: $white;
+    color: $gray-600;
+    border: 1px solid $gray-300;
+}
+
+.custom-file-button {
+    background-color: $gray-200;
+    color: $gray-900;
+    border: 1px solid $gray-300;
+}
+
+// quill editor css
+
+.quill .ql-toolbar {
+    background-color: $gray-200;
+}
+
+.single_action_icon svg:hover {
+    color: $gray-600;
+}
+
+.single_action_icon span {
+    padding: 7px 7px;
+}
+
+.single_action_icon span:hover {
+    background: $light-300;
+    padding: 7px 7px;
+    border-radius: 4px;
+}
+
+.horizontal {
+    border-bottom-color: $secondary;
+}
+
+.horizontalPermi {
+    border-bottom-color: $secondary;
+}
+
+.NodeHorizontal {
+    border-bottom-color: $secondary;
+}
+
+.vertical,
+.verticalNode {
+    border-right-color: $secondary;
+}
+
+.verticall {
+    border-right-color: $secondary;
+}
+
+.verticalPermi {
+    border-right-color: $secondary;
+}
+
+hr {
+    color: $gray-300;
+    opacity: 1;
+}
+
+.text-muted-300 {
+    color: $gray-600;
+}
+
+.vertical-dotted-line-select-all {
+    border-color: $secondary;
+}
+
+.lf-player-container {
+    filter: grayscale($gray-300);
+}
+
+.bg-login {
+    background-color: $white;
+}
+
+.modal-content {
+    background-color: $white;
+    color: $gray-900;
+}
+
+.vertical-dotted-line-select-all {
+    border-right-color: $gray-300;
+}
+
+.border-end-custom {
+    border-right: 2px solid #dee2e6;
+    min-height: 16px;
+}
+
+.border-start-custom {
+    border-left: 2px solid #dee2e6;
+    min-height: 16px;
+}
+
+.lottie-filter-0 .lf-player-container {
+    filter: grayscale(0);
+}
+// /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.customWidthClass li:hover {
+    background-color: $light-150;
+}
+
+.customWidthClass li {
+    color: $gray-900;
+}
+
+.custom-navigation .customWidthForBtn {
+    border-color: $primary-400 !important;
+}
+
+.customWidthClass {
+    border-color: $primary-400 !important;
+}
+
+/* Target the dropdown menu */
+.rds-select__menu,
+.css-1nmdiq5-menu {
+    /* Your custom styles for the dropdown menu */
+    background-color: $body-bg;
+    /* Add more styles as needed */
+    /* Target individual menu items */
+    div {
+        background-color: $body-bg;
+        border-radius: 4px;
+
+        div {
+            /* Your custom styles for menu items */
+
+            background-color: $body-bg;
+            color: var(--bs-dropdown-link-hover-color);
+            /* Add more styles as needed */
+            /* Hover state styles */
+            &:hover {
+                background-color: $light-150; /* Example background color on hover */
+                color: var(--bs-dropdown-link-hover-color); /* Example text color on hover */
+                cursor: pointer; /* Change cursor on hover */
+                /* Add more hover state styles as needed */
+            }
+        }
+    }
+}
+
+.profile-tabs:hover {
+    .lf-player-container {
+        filter: grayscale(1);
+    }
+}
+
+.profile-tabs:hover {
+    .lf-player-container {
+        filter: none;
+    }
+}
+
+.raaghu-select__indicator .raaghu-not-select__indicator svg {
+    stroke: $gray-800;
+    fill: $gray-800;
+    color: $gray-800;
+    opacity: 0.5;
+}
+
+.raaghu-select__control--is-focused .raaghu-select__dropdown-indicator .raaghu-not-select__control--is-focused .raaghu-not-select__dropdown-indicator svg {
+    stroke: $gray-800;
+    color: $gray-800;
+    fill: $gray-800;
+    opacity: 0.5;
+}
+
+.lf-player-container {
+    svg {
+        stroke: none;
+    }
+}
+.raaghu-select__single-value, .raaghu-not-select__single-value, .raaghu-not-select__placeholder {
+    color: $gray-750;
+}
+.raaghu-select__placeholder{
+    color:$black;
+}
+.node-label {
+    background-color: $body-bg;
+}
+@media (max-width: 767px) {
+    .node-label {
+        background-color: transparent;
+    }
+    .list-style {
+        li {
+            .leftSpace {
+                li {
+                    .main-list {
+                        background-color: $body-bg;
+                    }
+
+                    .leftSpace {
+                        .main-list {
+                            background-color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

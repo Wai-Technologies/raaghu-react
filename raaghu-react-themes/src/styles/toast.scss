@@ -1,0 +1,9 @@
+.toast-container {
+    width: fit-content;
+    max-width: fit-content;
+    pointer-events: none;
+    display: contents;
+}
+rds-toasts {
+    position: relative;
+}

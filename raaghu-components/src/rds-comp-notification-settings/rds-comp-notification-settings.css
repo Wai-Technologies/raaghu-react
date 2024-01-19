@@ -1,0 +1,17 @@
+.switch {
+  align-items: center;
+  display: inline-flex;
+}
+
+.buttongrp {
+  display: inline-flex;
+  margin-top: 350px;
+}
+
+.buttonname {
+  height: 28px !important;
+  width: 84px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

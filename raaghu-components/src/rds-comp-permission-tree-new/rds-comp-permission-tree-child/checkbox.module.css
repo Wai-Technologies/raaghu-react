@@ -1,0 +1,31 @@
+.checkbox {
+  $color: #7e2eef;
+  $size: 1.25em;
+  $fontSize: 14px;
+  width: $size;
+  height: $size;
+  display: inline-block;
+  align-items: center;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: $fontSize;
+  position: relative;
+  border: 1px solid grey;
+  border-radius: 0.25em;
+  line-height: $fontSize;
+  margin-right: 5px;
+
+  &::after {
+    content: "✓";
+  }
+}
+
+&.isIndeterminate {
+  background-color: $color;
+
+  &::after {
+    content: "-";
+  }
+}
+}

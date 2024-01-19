@@ -1,0 +1,8 @@
+.item___title__checkbox__group {
+  font: var(--unnamed-font-style-normal) normal medium
+    var(--unnamed-font-size-16) / var(--unnamed-line-spacing-25)
+    var(--unnamed-font-family-poppins);
+  color: var(--unnamed-color-323232);
+  margin: 38px 0px 7px -25px;
+  font-weight: bold;
+}

@@ -1,0 +1,13 @@
+/* $primary: #7e2eef;
+$secondary: #2b0066;
+$success: #2eef59;
+$info: #3ef1e8;
+$warning: #e3a300;
+$danger: #ef2e2e;
+$dark: #363636;
+$light: #f8f9fa;
+$review: #e3a300;
+$body-bg: white;
+
+@import "../../node_modules/bootstrap/scss/bootstrap.css";
+*/
