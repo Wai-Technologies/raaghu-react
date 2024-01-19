@@ -45,7 +45,7 @@ jobs:
           npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
-          cp raaghu-mfe/web.config storybook-static
+          cp web.config storybook-static
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
