@@ -1,18 +1,15 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - storybookreact
+name: Build and deploy Storybook Application
 
 on:
-  push:
-    branches:
-      - development-abp
   workflow_dispatch:
 
 jobs:
   build:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: windows-latest
+    # if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -27,27 +24,28 @@ jobs:
       #   run: |
       #     npm install
       
-      - name: npm install raaghu-elements
-        working-directory: raaghu-elements
-        run: |
-          npm install
+      #- name: npm install raaghu-elements
+      #  working-directory: raaghu-elements
+      #  run: |
+      #    npm install
           
-      - name: npm install at raaghu-components
-        working-directory: raaghu-components
-        run: |
-          npm install
+      #- name: npm install at raaghu-components
+      #  working-directory: raaghu-components
+      #  run: |
+      #    npm install
       
-      - name: npm install mfe 
-        working-directory: raaghu-mfe
-        run: |
-          npm i --legacy-peer-deps
+      #- name: npm install mfe 
+      #  working-directory: raaghu-mfe
+      #  run: |
+      #    npm i --legacy-peer-deps
 
-      - name: build storybook
+      - name: install and build storybook
         run: |
-          npm install --force
+          npm run install-all
           npm run build-storybook
-          mkdir storybook-static/assets
-          cp .storybook/assets/* storybook-static/assets
+          # mkdir storybook-static/assets
+          # cp .storybook/assets/* storybook-static/assets
+          cp raaghu-mfe/web.config storybook-static
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
