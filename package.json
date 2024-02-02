@@ -94,22 +94,8 @@
     "install-all": "node utils/install-all.js",
     "start": "node utils/start-scripts.js",
     "build": "cd raaghu-mfe && npm run build",
-    "create:core": "node utils/create.js core",
     "create:element": "node utils/create.js e",
-    "create:component": "node utils/create.js c",
-    "create:module": "node utils/create.js m",
-    "create:page": "node utils/create.js p",
-    "create:proxy": "node utils/generateProxy.js proxy",
-    "create:slice": "node utils/generateSlice.js ",
-    "create:micro": "node utils/microServiceCodeGen.js proxy",
-    "create:icons": "node raaghu-elements/src/assets/convert.mjs",
-    "create:crudpage": "node utils/GenerateCrudPage.js",
-    "create:simplecrud": "node utils/autoSimplePage.js",
-    "create:oneManycrud": "node utils/autoOneMany.js",
-    "create:manyManycrud": "node utils/autoManyMany.js",
-    "create:hybridManycrud": "node utils/autoHybrid.js",
-    "create:CrudPage": "node utils/raaghuCrudPageGenerator.js",
-    "create:modular": "node utils/createmodularservice.js",
-    "create:microservice": "node utils/createMicroServicesProxy.js proxy"
+    "create:component": "node utils/create.js c"
   }
 }
+
