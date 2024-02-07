@@ -5,7 +5,7 @@ interface RdsCompAppShellProps {}
 
 const RdsCompAppShell: FC<RdsCompAppShellProps> = () => (
  <RdsCompAppShellWrapper>
-    RdsCompAppShell Component
+    RdsCompAppShell Component sdcasc s
  </RdsCompAppShellWrapper>
 );
 

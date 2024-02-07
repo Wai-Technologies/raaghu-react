@@ -6,6 +6,7 @@ module.exports = {
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
     // "../raaghu-mfe/rds_pages/**/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/src/rds-comp-icon-list/rds-comp-icon-list.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
