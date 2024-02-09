@@ -1,0 +1,34 @@
+.RdsReviewCategory label{
+    font-size: 18px;
+}
+
+.RdsReviewCategory__review-type-1 .avatar{
+    margin-bottom: 20px;
+}
+.RdsReviewCategory__review-type-1 .item-name{
+    margin-bottom: 12px;
+}
+.RdsReviewCategory__review-type-1 .item-name p{
+    margin: 0;
+    padding: 0;
+}
+.RdsReviewCategory__review-type-1 .rating{
+    margin-bottom: 44px;
+}
+
+.RdsReviewCategory__review-type-2 .item-name{
+    margin-bottom: 12px;
+}
+.RdsReviewCategory__review-type-2 .item-name p{
+    margin: 0;
+    padding: 0;
+}
+.RdsReviewCategory__review-type-2 .description{
+    font-style: italic;
+    line-height: 24px;
+}
+
+.RdsReviewCategory__review-type-1 .avatar img,
+.RdsReviewCategory__review-type-2 .avatar img{
+    border-radius: 50%;
+}

@@ -1,0 +1,40 @@
+/* .dropdown-menu {
+  position: fixed !important;
+  left: 20px !important;
+}
+.list{
+    list-style :disc ;
+    
+}
+
+#sidebar>ul {
+    height: calc(100vh - 188px)!important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+#sidebars>ul>li .collapse li{
+    list-style: none;
+    margin-left: 37px;
+}
+
+.sideNav .child{
+    transition: transform .35s ease;
+    transform-origin: 0.5em 50%;
+    transform: rotate(-90deg);
+} */
+
+#sidebar {
+    background-color: #fff !important;
+}
+
+.show_one {
+    display: block;
+    transition: all 0.5s;
+}
+
+.show_two {
+    display: block;
+    transition: all 0.5s;
+}
