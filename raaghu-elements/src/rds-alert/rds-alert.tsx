@@ -1,11 +1,11 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { colors, size } from "../../libs/types";
-import RdsIcon from "../rds-icon";
+// import { colors, size } from "../../libs/types";
+// import RdsIcon from "../rds-icon";
 import "./rds-alert.css";
 export interface RdsAlertProps {
     dismisable?: boolean;
     alertmessage: string;
-    colorVariant: colors;
+    colorVariant: string;
     delay?: number;
     icon?: string;
     iconFill?: boolean;
@@ -16,7 +16,7 @@ export interface RdsAlertProps {
     onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
     reset?: boolean;
     sticky?: boolean;
-    size?: size;
+    size?: string;
 }
 
 const RdsAlert = (props: RdsAlertProps) => {
@@ -61,7 +61,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         <Fragment>
             <div className={"alert alert-" + (props.colorVariant) +" d-flex justify-content-between align-items-center z-0 " + classes() +  ` ${delayClass}`} role="alert">
                 <span className="wordbreak d-flex align-items-center">
-                    {props.hasOwnProperty("icon") && (
+                    {/* {props.hasOwnProperty("icon") && (
                         <RdsIcon
                             name={props.icon || " "}
                             fill={props.iconFill}
@@ -71,7 +71,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                             colorVariant={props.colorVariant}
                             classes="me-2"
                         />
-                    )}
+                    )} */}
                     {props.alertmessage}
                 </span>
                 {props.dismisable === true && (

@@ -1,94 +1,81 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import RdsButton from "./rds-button";
+import type { Meta, StoryObj } from '@storybook/react';
+import RdsButton from './rds-button';
 
-export default {
+const meta: Meta = { 
     title: "Elements/Button",
     component: RdsButton,
-    argTypes: {
-        colorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
-        size: {
-            options: ["small", "medium", "large"],
-            control: { type: "select" },
-        },
-        tooltipPlacement: {
-            options: ["top", "bottom", "right", "left"],
-            control: { type: "radio" },
-            if: { arg: 'tooltip' }
-        },
+    parameters: {
+        layout: "centered",
     },
-} as ComponentMeta<typeof RdsButton>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsButton>;
 
-const Template: ComponentStory<typeof RdsButton> = (args) => (
-    <RdsButton {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsButton>;
 
-export const Default = Template.bind({});
-Default.args = {
-    colorVariant: "primary",
-    label: "BUTTON",
-    block: false,
-    size: "medium",
-    showLoadingSpinner:true,
-};
+export const Default: Story = {
+    args: {
+        colorVariant: "primary",
+        label: "BUTTON",
+        block: false,
+        size: "medium",
+        showLoadingSpinner: true,
+    }
+} satisfies Story;
 
-export const Disable = Template.bind({});
-Disable.args = {
-    colorVariant: "primary",
-    label: "Disable",
-    isDisabled: true,
-    block: false,
-    size: "medium",
-};
+export const Disable: Story = {
+    args: {
+        colorVariant: "primary",
+        label: "Disable",
+        isDisabled: true,
+        block: false,
+        size: "medium",
+    }
+} satisfies Story;
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-    icon: "plus",
-    colorVariant: "primary",
-    size: "medium",
-    isFabIcon:true
-};
+export const WithIcon: Story = {
+    args: {
+        icon: "plus",
+        colorVariant: "primary",
+        size: "medium",
+        isFabIcon: true,
+    }
+} satisfies Story;
 
-export const Outline = Template.bind({});
-Outline.args = {
-    isOutline: true,
-    colorVariant: "primary",
-    label: "BUTTON",
-    block: false,
-    size: "medium",
-};
+export const Outline: Story = {
+    args: {
+        isOutline: true,
+        colorVariant: "primary",
+        label: "BUTTON",
+        block: false,
+        size: "medium",
+    }
+} satisfies Story;
 
-export const Tooltip = Template.bind({});
-Tooltip.args = {
-    colorVariant: "primary",
-    icon:"plus",
-    block: false,
-    size: "medium",
-    databstoggle : "tooltip",
-    tooltip:true,
-    tooltipPlacement: "right",
-    tooltipTitle: "This is tooltip",
-};
+export const Tooltip: Story = {
+    args: {
+        colorVariant: "primary",
+        icon: "plus",
+        block: false,
+        size: "medium",
+        databstoggle: "tooltip",
+        tooltip: true,
+        tooltipPlacement: "right",
+        tooltipTitle: "This is tooltip",
+    }
+} satisfies Story;
+
+export const TextWithIcon: Story = {
+    args: {
+        icon: "plus",
+        colorVariant: "primary",
+        label: "Button",
+        block: false,
+        size: "medium",
+        showLoadingSpinner: true,
+    }
+} satisfies Story;
 
 
-export const TextWithIcon = Template.bind({});
-TextWithIcon.args = {
-    icon: "plus",
-    colorVariant: "primary",
-    label: "Button",
-    block: false,
-    size: "medium",
-    showLoadingSpinner:true
-};

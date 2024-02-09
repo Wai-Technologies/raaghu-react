@@ -1,32 +1,30 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Tooltip from "./rds-tooltip";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Tooltip",
+const meta: Meta = {
+    title: 'Elements/Tooltip',
     component: Tooltip,
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
     argTypes: {
         place: {
             options: ["top", "bottom", "right", "left"],
             control: { type: "radio" },
         },
     },
-} as ComponentMeta<typeof Tooltip>;
+} satisfies Meta<typeof Tooltip>;
 
-const Template: ComponentStory<typeof Tooltip> = (args) => (
-    <Tooltip {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof Tooltip>;
 
-export const tooltip = Template.bind({});
-tooltip.decorators = [
-    (Story) => (
-        <div className="align-items-center d-flex justify-content-center vh-100">
-            <Story />
-        </div>
-    ),
-],
-tooltip.args = {
+export const tooltip: Story = {
+    args: {
         text: "This is tooltip",
         place: "right",
         children: <button className="btn btn-primary" >Button</button>
-    };
+    }
+} satisfies Story;
+

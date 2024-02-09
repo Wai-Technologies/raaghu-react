@@ -1,5 +1,0 @@
-/* Adjust the width and height of the legend markers */
-.chartjs-render-monitor .custom-legend-point {
-    width: 20px; /* Set your desired width */
-    height: 20px; /* Set your desired height */
-}
