@@ -1,0 +1,13 @@
+.RdsInputGroup__form input {
+    flex: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.RdsInputGroup__form button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.fs-small-size{
+    font-size: 14px;
+}
