@@ -20,11 +20,37 @@ export const parameters = {
       { name: "dark", class: "theme-dark", color: "#333333" },
     ],
   },
-
+  globalTypes: {
+    locale: {
+      name: 'Language',
+      description: 'Internationalization locale',
+      toolbar: {
+        icon: 'globe',
+        items: [
+          { value: 'en', title: 'English' },
+          { value: 'hi', title: 'Hindi' },
+          { value: 'ar', title: 'عربي' },
+        ],
+      },
+      showName: true,
+    },
+    shell: {
+      name: 'Shell',
+      description: 'Shell to be used for layouts',
+      toolbar: {
+        icon: 'sidebar',
+        items: [
+          { value: 'shell1', title: 'Shell1' },
+          { value: 'shell2', title: 'Shell2' },
+          { value: 'shell3', title: 'Shell3' },
+        ],
+      },
+      showName: true,
+    },
+  },
 };
 
 const withI18next = (Story, context) => {
-
   const { locale } = context.globals;
 
   useEffect(() => {
@@ -40,24 +66,7 @@ const withI18next = (Story, context) => {
   );
 };
 
-
 export const decorators = [withI18next];
-
-export const globalTypes = {
-  locale: {
-    name: 'Language',
-    description: 'Internationalization locale',
-    toolbar: {
-      icon: 'globe',
-      items: [
-        { value: 'en', title: 'English' },
-        { value: 'hi', title: 'Hindi' },
-        { value: 'ar', title: 'عربي' },
-      ],
-    },
-    showName: true,
-  },
-};
 
 i18n.on('languageChanged', (locale) => {
   const direction = i18n.dir(locale);
