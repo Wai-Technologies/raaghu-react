@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import "./rds-button.css";
 import { RdsButtonProps } from "./rds-button.types";
-// import Tooltip from "../rds-tooltip/rds-tooltip";
-// import RdsIcon from "../rds-icon";
+import Tooltip from "../rds-tooltip/rds-tooltip";
+import RdsIcon from "../rds-icon";
 
 const RdsButton = (props: RdsButtonProps) => {
 
@@ -78,7 +78,7 @@ const RdsButton = (props: RdsButtonProps) => {
     }
 
     return (<Fragment>
-        {/* {props.tooltip ? (
+         {props.tooltip ? (
             < Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
                 <button className={`btn ` + `${props.isOutline ? 'btn-outline-' + props.colorVariant : 'btn-' + props.colorVariant}` + classesButton() + spinner}
                     disabled={props.isDisabled}
@@ -107,7 +107,7 @@ const RdsButton = (props: RdsButtonProps) => {
                     {<>{props.children}</>}
                 </button>
             </Tooltip>
-        ) : */}
+        ) : 
          <button className={`btn ` + `${props.isOutline ? 'btn-outline-' + props.colorVariant : 'btn-' + props.colorVariant}` + classesButton() + spinner}
             disabled={props.isDisabled}
             type={btnType}
@@ -132,7 +132,7 @@ const RdsButton = (props: RdsButtonProps) => {
                 <span>{props.label}</span>
             )}
         </button>
-        {/* } */}
+         } 
 
     </Fragment>
     );
