@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/App Detail',
     component: RdsAppDetail,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

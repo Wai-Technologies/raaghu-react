@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/BubbleChart',
     component: RdsBubbleChart,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

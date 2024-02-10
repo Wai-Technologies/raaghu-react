@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Fab Menu',
     component: RdsFabMenu,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

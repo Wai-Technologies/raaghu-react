@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Size',
     component: Todos,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

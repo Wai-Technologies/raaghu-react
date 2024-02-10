@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Text Area',
     component: RdsTextArea,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

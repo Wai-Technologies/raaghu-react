@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/Scatter Chart',
     component: RdsScatterChart,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

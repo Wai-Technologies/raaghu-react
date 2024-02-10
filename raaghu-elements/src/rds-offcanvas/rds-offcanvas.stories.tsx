@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Offcanvas',
     component: RdsOffcanvas,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

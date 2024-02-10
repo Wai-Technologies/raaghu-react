@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/Product Image',
     component: RdsProductImage,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

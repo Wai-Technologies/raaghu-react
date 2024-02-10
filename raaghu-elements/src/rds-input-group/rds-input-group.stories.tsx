@@ -9,7 +9,7 @@ const meta: Meta = {
     title: 'Elements/Input Group',
     component: RdsInputGroup,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

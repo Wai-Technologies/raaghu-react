@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Icon',
     component: RdsIcon,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

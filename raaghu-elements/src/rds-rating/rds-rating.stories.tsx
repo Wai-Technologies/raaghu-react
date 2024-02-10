@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Rating',
     component: RdsRating,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

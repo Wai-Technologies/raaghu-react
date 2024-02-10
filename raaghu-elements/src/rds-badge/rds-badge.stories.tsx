@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/Badge',
     component: RdsBadge,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

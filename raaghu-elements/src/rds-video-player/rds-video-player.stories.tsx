@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Video Player',
     component: RdsVideoPlayer,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

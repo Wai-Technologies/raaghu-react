@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Popular-Page',
     component: RdsPopularPage,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

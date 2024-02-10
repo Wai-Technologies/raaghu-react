@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Search',
     component: RdsSearch,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

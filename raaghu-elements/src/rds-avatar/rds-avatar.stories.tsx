@@ -17,7 +17,7 @@ const meta: Meta = {
     title: 'Elements/Avatar',
     component: RdsAvatar,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Stepper',
     component: RdsStepper,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

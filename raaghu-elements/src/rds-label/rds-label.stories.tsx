@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/Label',
     component: RdsLabel,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

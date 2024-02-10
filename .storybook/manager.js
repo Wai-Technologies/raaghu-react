@@ -1,7 +1,8 @@
 import { addons } from "@storybook/addons";
+import { raaghuTheme } from "./raaghuTheme";
 
 addons.setConfig({
-  theme: raaghuThemes,
+  theme: raaghuTheme,
   toolbar: {
     "storybook/background": { hidden: true },
   },

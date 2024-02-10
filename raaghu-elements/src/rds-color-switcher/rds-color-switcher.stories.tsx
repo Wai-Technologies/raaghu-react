@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Alert',
     component: RdsColorSwitcher,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

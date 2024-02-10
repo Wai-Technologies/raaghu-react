@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Spinner',
     component: RdsSpinner,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Bank Card Detail',
     component: RdsBankCardDetail,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

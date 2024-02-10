@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Range',
     component: RdsRange,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Tag',
     component: RdsTag,
     parameters: { 
-        layout: 'centered',
+        layout: '',
     },
     tags:['autodocs'],
     argTypes: {

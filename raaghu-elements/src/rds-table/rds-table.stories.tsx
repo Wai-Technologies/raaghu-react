@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Table',
     component: RdsTable,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

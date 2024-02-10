@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Toast',
     component: RdsToast,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

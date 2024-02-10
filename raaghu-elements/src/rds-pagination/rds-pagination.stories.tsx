@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Pagination',
     component: RdsPagination,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

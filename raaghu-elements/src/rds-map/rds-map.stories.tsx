@@ -7,7 +7,7 @@ const meta: Meta = {
   title: 'Map/Map',
   component: RdsMap,
   parameters: {
-    layout: 'centered',
+    layout: '',
   },
   tags: ['autodocs'],
   argTypes: {

@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/Input',
     component: RdsInput,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

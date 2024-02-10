@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Checkbox"',
     component: RdsCheckbox,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {

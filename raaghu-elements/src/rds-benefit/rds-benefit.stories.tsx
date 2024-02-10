@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Benefit',
     component: RdsBenefit,
     parameters: {
-        layout: 'centered',
+        layout: '',
     },
     tags: ['autodocs'],
     argTypes: {
