@@ -1,0 +1,30 @@
+libs
+src
+generate-react-cli.json
+jest.config.js 
+rollup.config.js
+tsconfig.json
+
+
+
+
+# ## the src folder
+# src
+# .babelrc
+# rollup.config.js
+# ## node modules folder
+# node_modules
+# ## git repository related files
+# .git
+# .gitignore
+# CVS
+# .svn
+# .hg
+# .lock-wscript
+# .wafpickle-N
+# .DS_Store
+# npm-debug.log
+# .npmrc
+# #others
+# config.gypi
+# package-lock.json
