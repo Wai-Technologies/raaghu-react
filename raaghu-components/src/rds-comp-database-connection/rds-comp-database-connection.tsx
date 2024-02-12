@@ -6,9 +6,6 @@ import {
    RdsRadioButton,
    RdsTextArea
 } from "../rds-elements";
-import { useTranslation } from "react-i18next";
-
-
 interface RdsCompDatabaseConnectionProps {
    connectionStrings: any;
    reset?: boolean;
@@ -16,7 +13,6 @@ interface RdsCompDatabaseConnectionProps {
    isModuleSpecificDb: any;
 }
 const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
-   const { t } = useTranslation();
    const [connectionStrings, setConnectionStrings] = useState<any>(props.connectionStrings);
    const [inputReset, setInputReset] = useState(false);
    const [radioItemList, setRadioItemList] = useState<any>([]);
@@ -28,13 +24,13 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
 
          radioItems = [{
             id: 1,
-            label: t("Shared Database"),
+            label: "Shared Database",
             checked: true,
             name: "radio_button",
          },
          {
             id: 2,
-            label: t("Separated Database"),
+            label: "Separated Database",
             checked: false,
             name: "radio_button",
          },
@@ -44,13 +40,13 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
          radioItems = [
             {
                id: 1,
-               label: t("Shared Database"),
+               label: "Shared Database",
                checked: false,
                name: "radio_button",
             },
             {
                id: 2,
-               label: t("Separated Database"),
+               label: "Separated Database",
                checked: true,
                name: "radio_button",
             },
@@ -75,16 +71,16 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
    }
    const checkboxHandler = (event: any) => {
       setCheck(event.target.checked);
-  };
+   };
 
    const emitSaveData = (event: any) => {
       event.preventDefault();
       const selectedRadio = radioItemList.find((item: { checked: any; }) => item.checked);
       let payload = { ...connectionStrings };
-      if (selectedRadio?.label === t("Shared Database")) {
-         payload = { ...payload, sharedDatabase: true};
-      } else if (selectedRadio?.label === t("Separated Database")) {
-         payload = { ...payload, specificDatabase: true};
+      if (selectedRadio?.label === "Shared Database") {
+         payload = { ...payload, sharedDatabase: true };
+      } else if (selectedRadio?.label === "Separated Database") {
+         payload = { ...payload, specificDatabase: true };
       }
 
       props.onSaveHandler && props.onSaveHandler(payload);
@@ -97,7 +93,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                <div className="row mb-3">
                   <div className="col-md-8">
                      <RdsLabel
-                        label={t("Saas.ConnectionStrings") || ""}
+                        label="ConnectionStrings"
                         required={true}
                      />
                      <div className="form-group mt-2">
@@ -116,8 +112,8 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                         <div className="col-md-12 mb-3">
                            <div className="form-group">
                               <RdsTextArea
-                                 label={t("Database URL") || ""}
-                                 placeholder={t("Enter URL") || ""}
+                                 label="Database URL"
+                                 placeholder="Enter URL"
                                  onChange={(e: any) => setConnectionStrings({ ...connectionStrings, default: e.target.value })}
                                  rows={2}
                                  value={connectionStrings?.default}
@@ -129,10 +125,10 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                      <div className="row">
                         <div className="col-md-12 mb-3">
                            <RdsCheckbox
-                            label={t("Use Module Specific Database Connection String") || ""}
-                            checked={isModuleSpecificDb}
-                            onChange={checkboxHandler}
-                           ></RdsCheckbox>                      
+                              label="Use Module Specific Database Connection String"
+                              checked={isModuleSpecificDb}
+                              onChange={checkboxHandler}
+                           ></RdsCheckbox>
                         </div>
                      </div>
                   </>
@@ -143,14 +139,14 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                      class="me-2"
                      tooltipTitle={""}
                      type={"button"}
-                     label={t("AbpUi.Cancel") || ""}
+                     label="Cancel"
                      colorVariant="outline-primary"
                      size="small"
                      databsdismiss="offcanvas"
                   ></RdsButton>
                   <RdsButton
                      class="me-2"
-                     label={t("AbpUi.Save") || ""}
+                     label="Save"
                      size="small"
                      colorVariant="primary"
                      tooltipTitle={""}
