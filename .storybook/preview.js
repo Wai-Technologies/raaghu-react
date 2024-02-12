@@ -4,6 +4,7 @@ import './preview-theme.css';
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import React, { Suspense, useEffect } from "react";
+import * as stories from "../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell.stories";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -40,9 +41,13 @@ export const parameters = {
       toolbar: {
         icon: 'sidebar',
         items: [
-          { value: 'shell1', title: 'Shell1' },
-          { value: 'shell2', title: 'Shell2' },
-          { value: 'shell3', title: 'Shell3' },
+          { value: 'reset', title: 'Reset Shell' }, 
+          ...Object.keys(stories)
+            .filter(story => !['default', '__namedExportsOrder', 'exports'].includes(story))
+            .map(story => ({
+              value: story.toLowerCase(),
+              title: story,
+            }))
         ],
       },
       showName: true,

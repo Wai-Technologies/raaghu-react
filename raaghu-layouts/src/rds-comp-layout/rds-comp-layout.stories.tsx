@@ -86,12 +86,12 @@ Layout4.args = {
   children: (
     <>
       <RdsCompLayoutItem title={""}>
-        <div className="grid-container-5">
+        <div className="grid-col-container-2-1-1">
           <div className="content-with-small-height"></div>
           <div className="content-with-small-height"></div>
           <div className="content-with-small-height"></div>
         </div>
-        <div className="grid-container-6">
+        <div className="grid-col-container-1-1-2">
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
@@ -145,7 +145,7 @@ Layout6.args = {
         <div className="grid-container-1">
           <div className="col-md-12 content-with-medium-height"></div>
         </div>
-        <div className="grid-container-6">
+        <div className="grid-col-container-1-1-2">
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
@@ -201,7 +201,7 @@ Layout7.args = {
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
         </div>
-        <div className="grid-container-5">
+        <div className="grid-col-container-2-1-1">
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
@@ -226,7 +226,7 @@ Layout8.args = {
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
         </div>
-        <div className="grid-container-7">
+        <div className="grid-col-container-1-2">
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
         </div>
@@ -271,7 +271,7 @@ Layout10.args = {
   children: (
     <>
       <RdsCompLayoutItem title={""}>
-        <div className="grid-container-5">
+        <div className="grid-col-container-2-1-1">
           <div className="content-with-medium-height"></div>
           <div>
             <div className="grid-container-1">
@@ -283,10 +283,147 @@ Layout10.args = {
           </div>
           <div className="content-with-medium-height"></div>
         </div>
-        <div className="grid-container-6">
+        <div className="grid-col-container-1-1-2">
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
           <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+
+export const Layout11 = Template.bind({});
+Layout11.args = {
+  displayType: "layout11",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+        <div className="grid-col-container-1-1-2">
+          <div>
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+          </div>
+          <div>
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+          </div>
+          <div className="content-with-medium-height"></div>
+          </div>
+          <div className="grid-container-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+export const Layout12 = Template.bind({});
+Layout12.args = {
+  displayType: "layout12",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+      <div className="grid-col-container-1-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-container-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+export const Layout13 = Template.bind({});
+Layout13.args = {
+  displayType: "layout13",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+        <div className="grid-container-1">
+          <div className="content-with-small-height"></div>
+        </div>
+        <div className="grid-container-1">
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-2-1">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+
+export const Layout14 = Template.bind({});
+Layout14.args = {
+  displayType: "layout14",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+      <div className="grid-container-6">
+          <div className="content-with-small-height"></div>
+          <div className="content-with-small-height"></div>
+          <div className="content-with-small-height"></div>
+          <div className="content-with-small-height"></div>
+          <div className="content-with-small-height"></div>
+          <div className="content-with-small-height"></div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-full-height"></div>
+          <div>
+            <div className="grid-container-1">
+              <div className="content-with-medium-height"></div>
+              <div className="content-with-medium-height"></div>
+            </div>
+          </div>
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>          
+        </div>
+        <div className="grid-col-container-1-2">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>          
         </div>
       </RdsCompLayoutItem>
     </>
