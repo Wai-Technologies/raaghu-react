@@ -1,0 +1,7 @@
+.RdsCompFeatureManagement {}
+
+@media screen and (max-width: 767px) {
+   .position-sm-relative {
+      position: relative !important;
+   }
+}
