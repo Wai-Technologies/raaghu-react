@@ -14,7 +14,7 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
     "storybook-addon-themes",
-    "@storybook/addon-toolbars"
+    //"@storybook/addon-toolbars"
   ],
   framework: "@storybook/react",
   core: {

@@ -10,7 +10,7 @@ export default {
       displayType: {
         control: {
           type: 'select',
-          options: ['shell1', 'shell2']
+          options: ['Default','shell1', 'shell2', 'shell3']
         },
         defaultValue: 'shell1'
       }
@@ -34,6 +34,26 @@ Default.args = {
         </div>
         <div className="row">
           <div className="col-md-2 left vh-100"></div>
+        </div>
+      </RdsCompAppShellItem>
+    </>
+  ),
+};
+
+export const Shell1 = Template.bind({});
+Shell1.args = {
+  displayType: "Shell1",
+  children: (
+    <>
+      <RdsCompAppShellItem title={""}>
+        <div className="row">
+          <div className="col-md-12 shell-header">
+            <h1></h1>
+          </div>
+        </div>
+        <div className="row justify-content-between">
+          <div className="col-md-2 left vh-100"></div>
+          <div className="col-md-1 right vh-100"></div>
         </div>
       </RdsCompAppShellItem>
     </>
