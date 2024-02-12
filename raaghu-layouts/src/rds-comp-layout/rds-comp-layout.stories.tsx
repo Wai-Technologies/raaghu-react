@@ -217,7 +217,78 @@ Layout8.args = {
   //withShell: true,
   children: (
     <>
-      <RdsCompLayoutItem title={""}>layout8</RdsCompLayoutItem>
+      <RdsCompLayoutItem title={""}>
+        <div className="grid-container-1">
+          <div className="col-md-12 content-with-small-height"></div>
+        </div>
+        <div className="grid-container-3">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-container-7">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-container-3">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+export const Layout9 = Template.bind({});
+Layout9.args = {
+  displayType: "layout9",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+        <div className="grid-container-1">
+          <div className="col-md-12 content-with-full-height">
+            <div className="grid-container-2">
+              <div className="content-with-medium-height"></div>
+              <div className="content-with-medium-height"></div>
+            </div>
+            <div className="grid-container-2">
+              <div className="content-with-medium-height"></div>
+              <div className="content-with-medium-height"></div>
+            </div>
+          </div>
+        </div>
+      </RdsCompLayoutItem>
+    </>
+  ),
+};
+
+export const Layout10 = Template.bind({});
+Layout10.args = {
+  displayType: "layout10",
+  //withShell: true,
+  children: (
+    <>
+      <RdsCompLayoutItem title={""}>
+        <div className="grid-container-5">
+          <div className="content-with-medium-height"></div>
+          <div>
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+            <div className="grid-container-1">
+              <div className="content-with-small-height"></div>
+            </div>  
+          </div>
+          <div className="content-with-medium-height"></div>
+        </div>
+        <div className="grid-container-6">
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+          <div className="content-with-medium-height"></div>
+        </div>
+      </RdsCompLayoutItem>
     </>
   ),
 };
