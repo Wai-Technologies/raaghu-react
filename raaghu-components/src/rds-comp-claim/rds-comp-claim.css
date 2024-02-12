@@ -1,0 +1,20 @@
+.checkboxli {
+  display: flex;
+}
+
+.accbodycheck {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.buttonname {
+  height: 28px !important;
+  width: 84px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttongrp {
+  display: flex;
+}

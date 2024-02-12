@@ -1,0 +1,1 @@
+export { default } from "./rds-comp-contact-information";
