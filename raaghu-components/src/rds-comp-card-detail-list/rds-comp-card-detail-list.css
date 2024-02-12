@@ -1,0 +1,9 @@
+.border__color {
+    border: 2px solid #7E2EEF !important;
+    border-radius: 4px !important;
+}
+
+.border__gray {
+    border: 1px solid #DEE2E6;
+    border-radius: 4px !important;
+}
