@@ -20,7 +20,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
     }, [props.reset]);
 
     const isEmailValid = (email: any) => {
-        if (!fieldScopeData.name || fieldScopeData.name.length === 0) {
+        if (!fieldScopeData?.name || fieldScopeData?.name.length === 0) {
             return false;
         }
         return true;
@@ -56,7 +56,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                                 placeholder="Enter Name"
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "name")}
-                                value={fieldScopeData.name}
+                                value={fieldScopeData?.name}
                                 name={"email"}
                                 dataTestId="name"
                             ></RdsInput>
@@ -72,7 +72,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                                 onChange={(e) => inputHandlerChange(e, "displayName")}
                                 required={false}
                                 name={"Displayname"}
-                                value={fieldScopeData.displayName}
+                                value={fieldScopeData?.displayName}
                                 dataTestId="display-name"
                             ></RdsInput>
 
@@ -90,7 +90,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             onChange={(e) => inputHandlerChange(e, "description")}
                             required={false}
                             name={"Description"}
-                            value={fieldScopeData.description}
+                            value={fieldScopeData?.description}
                             dataTestId="desc"
                         ></RdsInput>
                     </div>
@@ -100,7 +100,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             placeholder="Resources"
                             onChange={(e) => inputHandlerChange(e, "resources")}
                             rows={3}
-                            value={fieldScopeData.resources}
+                            value={fieldScopeData?.resources}
                             dataTestId="resources"
                         />
                     </div>

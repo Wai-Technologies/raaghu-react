@@ -1,7 +1,6 @@
 import React from "react";
 import RdsCompApiScopeResource from "../rds-comp-api-scope-resource";
 import { RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompClientResourceProp {
     resources: any[];
@@ -9,7 +8,6 @@ export interface RdsCompClientResourceProp {
 }
 
 const RdsCompClientResource = (props: RdsCompClientResourceProp) => {
-    const { t } = useTranslation();
 
     return (
         <div>
@@ -18,7 +16,7 @@ const RdsCompClientResource = (props: RdsCompClientResourceProp) => {
                 <div className="row mt-5 mb-3">
                     <div className="col-2">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -28,7 +26,7 @@ const RdsCompClientResource = (props: RdsCompClientResourceProp) => {
                     </div>
                     <div className="col-2">
                         <RdsButton
-                            label={t("Save") || ""}
+                            label="Save"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}

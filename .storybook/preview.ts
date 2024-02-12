@@ -13,7 +13,7 @@ const preview: Preview = {
       },
     },
     docs: {
-      theme: themes.dark,
+      theme: themes.light,
     },
     themes: {
       default: "light",

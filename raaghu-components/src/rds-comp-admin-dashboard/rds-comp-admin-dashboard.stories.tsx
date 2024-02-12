@@ -5,7 +5,7 @@ import RdsCompAdminDashboard from './rds-comp-admin-dashboard';
 
 
 const meta: Meta = { 
-    title: "Components/AdminDashboard",
+    title: "Components/Admin Dashboard",
     component: RdsCompAdminDashboard,
     parameters: {
         layout: "",

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { RdsButton, RdsInput, RdsLabel } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompContactInfoProps {
     onContinue?: (
@@ -67,7 +66,6 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
         props.onContinue != undefined && props.onContinue(event, user);
         setUser({ ...user, email: "", contact: "", checked: false });
     };
-    const { t } = useTranslation();
     return (
         <>
             <div>
@@ -125,7 +123,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                         </label>
                     </div>
                     <RdsButton
-                        label={t("Continue") || ""}
+                        label="Continue"
                         colorVariant="primary"
                         isDisabled={!isFormValid}
                         block={true}

@@ -2,11 +2,11 @@ import React from "react";
 import { RdsAppDetail } from "../rds-elements";
 
 export interface RdsCompAppDetailProps {
-    appDetailList: any[];
+    appDetailList: any;
 }
 
 const RdsCompAppDetail = (props: RdsCompAppDetailProps) => {
-    
+
     return (
         <>
             <div>
