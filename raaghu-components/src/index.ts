@@ -1,5 +1,7 @@
+import { defaults } from 'jest-config';
 export { default as RdsCompAdminDashboard } from "./rds-comp-admin-dashboard";
 export { default as RdsCompAddressInput } from "./rds-comp-address-input";
+export { default as RdsCompApplyForPosition } from "./rds-comp-apply-for-position";
 // export { default as RdsCompForgotPassword } from "./rds-comp-forgot-password";
 // export { default as RdsCompLogin } from "./rds-comp-login";
 // export { default as RdsCompOrganizationTree } from "./rds-comp-organization-tree";
@@ -33,7 +35,7 @@ export { default as RdsCompAlertPopup } from "./rds-comp-alert-popup";
 // export { default as RdsCompEdition } from "./rds-comp-edition";
 // export { default as RdsCompFeatures } from "./rds-comp-new-features";
 // export { default as RdsCompNewClaimType } from "./rds-comp-new-claim-type";
-// export { default as RdsCompApplicationBasic } from "./rds-comp-application-basic";
+export { default as RdsCompApplicationBasic } from "./rds-comp-application-basic";
 export { default as RdsCompApiScopeBasicResource } from "./rds-comp-api-scope-basic-resource";
 // export { default as RdsCompScopeBasicResource } from "./rds-comp-scope-basic-resource";
 // export { default as RdsCompSecurityLogs } from "./rds-comp-security-logs";
@@ -77,7 +79,7 @@ export { default as RdsCompApiResourceBasic } from "./rds-comp-api-resource-basi
 // export { default as RdsCompBlogPostNew } from "./rds-comp-blog-post-new";
 // export { default as RdsCompChangeUserPassword } from "./rds-comp-change-user-password";
 // export { default as RdsCompCharts } from "./rds-comp-charts";
-// export { default as RdsCompApplicationWorkflows } from "./rds-comp-application-workflows";
+export { default as RdsCompApplicationWorkflows } from "./rds-comp-application-workflows";
 // export { default as RdsCompApplicationScopes } from "./rds-comp-application-scopes";
 // export { default as RdsCompRegister } from "./rds-comp-register";
 // export { default as RdsCompCodeMirror } from "./rds-comp-code-mirror";

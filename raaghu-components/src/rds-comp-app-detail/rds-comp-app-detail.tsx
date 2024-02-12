@@ -2,14 +2,15 @@ import React from "react";
 import { RdsAppDetail } from "../rds-elements";
 
 export interface RdsCompAppDetailProps {
-    appDetailList: any;
+    appDetailList: any[];
 }
 
 const RdsCompAppDetail = (props: RdsCompAppDetailProps) => {
+    
     return (
         <>
             <div>
-                {props.appDetailList.map((item: any, index: number) => (
+                {props.appDetailList?.map((item: any, index: number) => (
                     <div className="m-2 " key={index}>
                         <RdsAppDetail appDetailsItem={item} />
                     </div>
