@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import {
     RdsProgressBar,
     RdsWidget,
@@ -17,7 +16,6 @@ export interface RdsCompAdminDashboardProps {
     user: string,
 }
 const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
-    const { t } = useTranslation();
     const [headerTitle, setHeaderTitle] = useState('Daily Summary');
     const [isDayChart, setDayChart] = useState(true);
     const [isWeeklyChart, setWeeklyChart] = useState(false);
@@ -29,20 +27,20 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
     const buttonGroupList = [{
         id: 'radio1',
-        label: t("Day") || "",
+        label: "Day",
         name: 'btnradio',
         checked: isDayChart,
 
     },
     {
         id: 'radio2',
-        label: t("Week") || "",
+        label: "Week",
         name: 'btnradio',
         checked: isWeeklyChart,
     },
     {
         id: 'radio3',
-        label: t("Month") || "",
+        label: "Month",
         name: 'btnradio',
         checked: isMonthlyChart
     }
@@ -99,7 +97,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
             <div className="row">
                 <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
                     <RdsWidget
-                        headerTitle={t(headerTitle)}
+                        headerTitle={headerTitle}
                         isRefreshRequired={false}
                         isButtonGroupRequired={true}
                         buttonGroupList={buttonGroupList}
@@ -1265,7 +1263,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         <div className={`innerCard ${isInnerClass}`}>
                             <div className="frontSide">
                                 <RdsWidget
-                                    headerTitle={t("Sales")}
+                                    headerTitle="Sales"
                                     isRefreshRequired={true}
                                     border={false}
                                     isIcon={false}
@@ -1286,7 +1284,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                             </div>
                             <div className="backSide">
                                 <RdsWidget
-                                    headerTitle={t("Revenue")}
+                                    headerTitle="Revenue"
                                     isRefreshRequired={true}
                                     isIcon={false}
                                     isButton={true}
@@ -1313,7 +1311,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                 <div className="col-xl-3 col-lg-6 col-md-12">
 
                     <RdsWidget
-                        headerTitle={t("Profit Share")}
+                        headerTitle="Profit Share"
                         isRefreshRequired={true}
                         iconName="refresh"
                         iconTooltipLabel="Refresh"
@@ -1440,7 +1438,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         <div className="col-md-6">
                             <div>
                                 <RdsWidget
-                                    headerTitle={t("Call Overview")}
+                                    headerTitle="Call Overview"
                                     isRefreshRequired={false}
 
                                     height="auto"
@@ -1454,7 +1452,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                     height={100}
                                                     width={100}
                                                     labels={[
-                                                        t("Total Calls Connected"),
+                                                        "Total Calls Connected",
                                                         "Total Clients Called",
                                                     ]}
                                                     options={{
@@ -1522,7 +1520,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <div className="ms-2">
                                                 <h3 className="custom-title">80%</h3>
                                                 <p className="custom-desc mb-0">
-                                                    {t("Total Calls Connected")}
+                                                    Total Calls Connected
                                                 </p>
                                             </div>
                                         </div>
@@ -1602,7 +1600,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <div className="ms-2">
                                                 <h3 className="custom-title">20%</h3>
                                                 <p className="custom-desc mb-0">
-                                                    {t("Total Clients Called")}
+                                                    Total Clients Called
                                                 </p>
                                             </div>
                                         </div>
@@ -1611,7 +1609,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                             </div>
                             <div>
                                 <RdsWidget
-                                    headerTitle={t("Maximum Profit")}
+                                    headerTitle="Maximum Profit"
                                     isRefreshRequired={false}
 
                                     height="auto"
@@ -1972,7 +1970,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
                         <div className="col-md-6">
                             <RdsWidget
-                                headerTitle={t("Daily Sales Growth")}
+                                headerTitle="Daily Sales Growth"
                                 isRefreshRequired={true}
 
                             >
@@ -2210,7 +2208,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                 </div>
                 <div className="col-md-12 col-lg-6">
                     <RdsWidget
-                        headerTitle={t("Member Activity")}
+                        headerTitle="Member Activity"
                         isRefreshRequired={true}  >
                         <div className="table-responsive">
                             <RdsTable
@@ -2218,22 +2216,22 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
                                 headerDatas={[
                                     {
-                                        displayName: t("Members"),
+                                        displayName: "Members",
                                         key: "member",
                                         dataType: "html",
                                     },
-                                    { displayName: t("Cases"), key: "cases", dataType: "html" },
+                                    { displayName: "Cases", key: "cases", dataType: "html" },
                                     {
-                                        displayName: t("Active"),
+                                        displayName: "Active",
                                         key: "active",
                                         dataType: "html",
                                     },
                                     {
-                                        displayName: t("Closed"),
+                                        displayName: "Closed",
                                         key: "closed",
                                         dataType: "html",
                                     },
-                                    { displayName: t("Rate"), key: "rate", dataType: "html" },
+                                    { displayName: "Rate", key: "rate", dataType: "html" },
                                 ]}
                                 tableDatas={[
                                     {
@@ -2495,7 +2493,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
             <div className="row">
                 <div className="col-md-12">
                     <RdsWidget
-                        headerTitle={t("To do List")}
+                        headerTitle="To do List"
                         isRefreshRequired={true}
                     >
                         <div>
@@ -2503,14 +2501,14 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
                                 headerDatas={[
                                     {
-                                        displayName: t("Project"),
+                                        displayName: "Project",
                                         key: "project",
                                         dataType: "html",
                                     },
-                                    { displayName: t("Issue"), key: "issue", dataType: "html" },
+                                    { displayName: "Issue", key: "issue", dataType: "html" },
 
                                     {
-                                        displayName: t("Progress"),
+                                        displayName: "Progress",
                                         key: "progress",
                                         dataType: "html",
                                     },

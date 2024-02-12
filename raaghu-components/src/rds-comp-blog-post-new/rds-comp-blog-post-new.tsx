@@ -36,7 +36,6 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
         setInputReset(props.reset);
     }, [props.reset]);
 
-    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -63,18 +62,18 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 multiple={false}
                                 size="mid"
                                 limit={0}
-                                label={t("CmsKit.CoverImage") || ""}
+                                label="Cover Image"
                             />
                         </div>
                         <div className="form-group mb-3">
                             <div className="mb-2">
                                 <RdsLabel
-                                    label={t("CmsKit.BlogId") || ""}
+                                    label="Blog Id"
                                 />
                             </div>
 
                             <RdsDropdownList
-                                placeholder={t("Select List") || ""}
+                                placeholder="Select List"
                                 multiSelect={false}
                                 borderDropdown={true}
                                 listItems={blogList || []}
@@ -89,11 +88,11 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 size="medium"
                                 required={true}
                                 isDisabled={false}
-                                label={t("CmsKit.Title") || ""}
+                                label="Title"
                                 readonly={false}
                                 value={postData?.title}
                                 name="title"
-                                placeholder={t("Enter Title") || ""}
+                                placeholder="Enter Title"
                                 onChange={(e: any) => handlerblogDataChange(e.target.value, "title")}
                                 dataTestId='title'
                                 reset={inputReset}
@@ -103,10 +102,10 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             <RdsInput
                                 inputType="text"
                                 required={true}
-                                label={t("CmsKit.Slug") || ""}
+                                label="Slug"
                                 name="slug"
                                 value={postData?.slug}
-                                placeholder={t("Enter Slug") || ""}
+                                placeholder="Enter Slug"
                                 dataTestId='slug'
                                 onChange={(e: any) => handlerblogDataChange(e.target.value, "slug")}
                                 reset={inputReset}
@@ -116,7 +115,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             <RdsInput
                                 inputType="text"
                                 required={true}
-                                label={t("Concurrency Stamp") || ""}
+                                label="Concurrency Stamp"
                                 name="concurrentMode"
                                 value={postData?.concurrencyStamp}
                                 placeholder=""
@@ -127,8 +126,8 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                         </div>}
                         <div className="form-group mb-3">
                             <RdsTextArea
-                                label={t("CmsKit.ShortDescription") || ""}
-                                placeholder={t("Enter Description") || ""}
+                                label="Short Description"
+                                placeholder="Enter Description"
                                 onChange={(e: any) => handlerblogDataChange(e.target.value, "shortDescription")}
                                 value={postData?.description}
                                 rows={3}
@@ -142,8 +141,8 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             <RdsInput
                                 inputType="text"
                                 required={true}
-                                label={t("CmsKit.Tags") || ""}
-                                placeholder={t("Enter Tag") || ""}
+                                label="Tags"
+                                placeholder="Enter Tag"
                                 dataTestId='tag'
                                 reset={inputReset}
                             ></RdsInput>
@@ -156,7 +155,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("AbpUi.Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -164,7 +163,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                         <RdsButton
                             class="me-2"
                             type="submit"
-                            label={t("CmsKit.SaveAsDraft") || ""}
+                            label="Save As Draft"
                             size="small"
                             isOutline={true}
                             colorVariant="primary"
@@ -178,7 +177,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("CmsKit.Publish") || ""}
+                            label="Publish"
                             type="submit"
                             isOutline={false}
                             colorVariant="primary"
@@ -195,14 +194,14 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("AbpUi.Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("AbpUi.Save") || ""}
+                            label="Save"
                             type="submit"
                             isOutline={false}
                             colorVariant="primary"

@@ -54,7 +54,6 @@ export interface RdsCompDatatableProps {
   totalRecords?: any;
 }
 const RdsCompDatatable = (props: RdsCompDatatableProps) => {
-  const { t } = useTranslation();
   const [data, setData] = useState(props.tableData);
   const [totalRecords, setTotalRecords] = useState<any>(props.totalRecords);
   const [array, setArray] = useState<boolean[]>([]);
@@ -270,7 +269,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
 
   const actionPosition =
     Object.prototype.hasOwnProperty.call(props, "actionPosition") &&
-    props.actionPosition === "right"
+      props.actionPosition === "right"
       ? true
       : false;
 
@@ -321,635 +320,611 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         </div>
       ) : (
         <>
-        <div className={props.actionPosition == "left"? "table-responsive": "table-responsive-none"}>
-          <div className="table-responsive table-responsive-sm">          
-            <table
-              className={`table table-hover table-bordered     ${Classes} `}
-              id="sortTable"
-            >
-              <thead className="text-nowrap">
-                <tr className="align-middle ">
-                  {actionPosition != true &&
-                    props.tableHeaders &&
-                    props.tableHeaders?.length > 0 &&
-                    props.actions &&
-                    props.actions?.length > 0 && (
-                      <th className="text-center fw-medium">
-                        {t("AbpUi.Actions")}
+          <div className={props.actionPosition == "left" ? "table-responsive" : "table-responsive-none"}>
+            <div className="table-responsive table-responsive-sm">
+              <table
+                className={`table table-hover table-bordered     ${Classes} `}
+                id="sortTable"
+              >
+                <thead className="text-nowrap">
+                  <tr className="align-middle ">
+                    {actionPosition != true &&
+                      props.tableHeaders &&
+                      props.tableHeaders?.length > 0 &&
+                      props.actions &&
+                      props.actions?.length > 0 && (
+                        <th className="text-center fw-medium">
+                          Actions
+                        </th>
+                      )}
+                    {props.isSwap && <th></th>}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          name="allSelect"
+                          checked={
+                            data.filter((user) => user?.selected == true)
+                              ?.length == data?.length
+                          }
+                          onChange={handleChange}
+                        />
                       </th>
                     )}
-                  {props.isSwap && <th></th>}
-                  {props.enablecheckboxselection && (
-                    <th scope="col">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        name="allSelect"
-                        checked={
-                          data.filter((user) => user?.selected == true)
-                            ?.length == data?.length
-                        }
-                        onChange={handleChange}
-                      />
-                    </th>
-                  )}
-                  {props?.tableHeaders?.map((tableHeader, index) => (
-                    <th scope="col" key={"tableHeader-" + index}>
-                      <div
-                        className={`align-items-center d-flex ${
-                          tableHeader.datatype === "iconAvatarTitle"
+                    {props?.tableHeaders?.map((tableHeader, index) => (
+                      <th scope="col" key={"tableHeader-" + index}>
+                        <div
+                          className={`align-items-center d-flex ${tableHeader.datatype === "iconAvatarTitle"
                             ? "justify-content-center"
                             : ""
-                        }`}
-                      >
-                        <span className="fw-medium">
-                          {tableHeader.displayName}
-                        </span>
-                        <div className="header-options mobile-header-option cursor-pointer ps-1">
-                          {tableHeader.sortable && (
-                            <span
-                              className="px-2 d-flex"
-                              onClick={(e) =>
-                                onSortClickHandler(e, tableHeader.key)
-                              }
-                            >
-                              <span>
-                                <RdsIcon
-                                  name="sort"
-                                  height="12px"
-                                  width="auto"
-                                  stroke={true}
-                                />
+                            }`}
+                        >
+                          <span className="fw-medium">
+                            {tableHeader.displayName}
+                          </span>
+                          <div className="header-options mobile-header-option cursor-pointer ps-1">
+                            {tableHeader.sortable && (
+                              <span
+                                className="px-2 d-flex"
+                                onClick={(e) =>
+                                  onSortClickHandler(e, tableHeader.key)
+                                }
+                              >
+                                <span>
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                  />
+                                </span>
                               </span>
-                            </span>
-                          )}
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </th>
-                  ))}
-                  {actionPosition &&
-                    props.tableHeaders &&
-                    props.tableHeaders?.length > 0 &&
-                    props.actions &&
-                    props.actions?.length > 0 && (
-                      <th className="text-center fw-medium">
-                        {t("AbpUi.Actions")}
                       </th>
-                    )}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(data) &&
-                  data?.map((tableDataRow, index) => {
-                    const totalActions =
-                      tableDataRow?.rowActions &&
-                      props?.actions &&
-                      tableDataRow?.rowActionsAdd
-                        ? [
+                    ))}
+                    {actionPosition &&
+                      props.tableHeaders &&
+                      props.tableHeaders?.length > 0 &&
+                      props.actions &&
+                      props.actions?.length > 0 && (
+                        <th className="text-center fw-medium">
+                          Actions
+                        </th>
+                      )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.isArray(data) &&
+                    data?.map((tableDataRow, index) => {
+                      const totalActions =
+                        tableDataRow?.rowActions &&
+                          props?.actions &&
+                          tableDataRow?.rowActionsAdd
+                          ? [
                             ...props.actions,
                             tableDataRow?.rowActions,
                             tableDataRow?.rowActionsAdd,
                           ]
-                        : tableDataRow?.rowActions && props?.actions
-                        ? [...props.actions, tableDataRow?.rowActions]
-                        : tableDataRow?.rowActionsAdd && props?.actions
-                        ? [...props.actions, tableDataRow?.rowActionsAdd]
-                        : props.actions;
+                          : tableDataRow?.rowActions && props?.actions
+                            ? [...props.actions, tableDataRow?.rowActions]
+                            : tableDataRow?.rowActionsAdd && props?.actions
+                              ? [...props.actions, tableDataRow?.rowActionsAdd]
+                              : props.actions;
 
-                    return (
-                      (props.pagination
-                        ? typeof rowStatus.endingRow != "undefined" &&
+                      return (
+                        (props.pagination
+                          ? typeof rowStatus.endingRow != "undefined" &&
                           index >= rowStatus.startingRow &&
                           index < rowStatus.endingRow
-                        : true) && (
-                        <tr
-                          onDragStart={(e) => handleDragStart(e, index)}
-                          onDragOver={(e) => e.preventDefault()}
-                          onDragEnter={(e) => handleDragEnter(e, index)}
-                          draggable
-                          key={"tableRow-" + index}
-                        >
-                          {actionPosition != true &&
-                            totalActions &&
-                            totalActions?.length > 1 && (
-                              <td className="align-middle text-center">
-                                {!tableDataRow.isEndUserEditing ? (
-                                  <>
-                                    <div className="btn-group dropstart">
-                                      <button
-                                        className="btn btn-sm btn-icon border-0 three-dot-btn"
-                                        type="button"
-                                        aria-expanded="false"
-                                        data-bs-toggle="dropdown"
-                                        data-bs-auto-close="true"
-                                        data-bs-boundary="clippingParents"
-                                        id="dropdownMenuButton"
-                                        data-testid="action-btn"
+                          : true) && (
+                          <tr
+                            onDragStart={(e) => handleDragStart(e, index)}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDragEnter={(e) => handleDragEnter(e, index)}
+                            draggable
+                            key={"tableRow-" + index}
+                          >
+                            {actionPosition != true &&
+                              totalActions &&
+                              totalActions?.length > 1 && (
+                                <td className="align-middle text-center">
+                                  {!tableDataRow.isEndUserEditing ? (
+                                    <>
+                                      <div className="btn-group dropstart">
+                                        <button
+                                          className="btn btn-sm btn-icon border-0 three-dot-btn"
+                                          type="button"
+                                          aria-expanded="false"
+                                          data-bs-toggle="dropdown"
+                                          data-bs-auto-close="true"
+                                          data-bs-boundary="clippingParents"
+                                          id="dropdownMenuButton"
+                                          data-testid="action-btn"
+                                        >
+                                          <RdsIcon
+                                            name={"three_dots"}
+                                            height="14px"
+                                            width="14px"
+                                            stroke={true}
+                                            fill={true}
+                                            tooltip={true}
+                                            tooltipTitle="More Actions"
+                                            tooltipPlacement="top"
+                                          />
+                                        </button>
+                                        {
+                                          <ul
+                                            aria-labelledby="dropdownMenuButton"
+                                            className="dropdown-menu"
+                                          >
+                                            {totalActions?.map(
+                                              (action, actionIndex) => (
+                                                <li
+                                                  key={
+                                                    "action-" +
+                                                    actionIndex +
+                                                    "-inside-tableRow" +
+                                                    index
+                                                  }
+                                                >
+                                                  {action.modalId && (
+                                                    <a
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target={`#${action?.modalId}`}
+                                                      aria-controls={
+                                                        action?.modalId
+                                                      }
+                                                      onClick={(e) => {
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        );
+                                                      }}
+                                                      className="dropdown-item"
+                                                    >
+                                                      (action.displayName)
+                                                    </a>
+                                                  )}
+                                                  {action.offId && (
+                                                    <>
+                                                      <a
+                                                        data-bs-toggle="offcanvas"
+                                                        data-bs-target={`#${action?.offId}`}
+                                                        aria-controls={
+                                                          action?.offId
+                                                        }
+                                                        onClick={(e) => {
+                                                          actionOnClickHandler(
+                                                            e,
+                                                            tableDataRow,
+                                                            tableDataRow.id,
+                                                            action
+                                                          );
+                                                        }}
+                                                        className="dropdown-item"
+                                                      >
+                                                        {action.displayName}
+                                                      </a>
+                                                    </>
+                                                  )}
+                                                  {action.offId == undefined &&
+                                                    action.modalId ==
+                                                    undefined && (
+                                                      <>
+                                                        <a
+                                                          onClick={(e) => {
+                                                            actionOnClickHandler(
+                                                              e,
+                                                              tableDataRow,
+                                                              tableDataRow.id,
+                                                              action
+                                                            );
+                                                          }}
+                                                          className="dropdown-item"
+                                                        >
+                                                          {" "}
+                                                          {action.displayName}
+                                                        </a>
+                                                      </>
+                                                    )}
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
+                                        }
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <div className="d-flex justify-content-center align-items-center w-60px">
+                                      <RdsButton
+                                        class="action"
+                                        colorVariant="primary"
+                                        size="medium"
+                                        tooltipTitle={""}
+                                        type={"button"}
+                                        onClick={(e) => {
+                                          onEditCheck(
+                                            e,
+                                            tableDataRow,
+                                            tableDataRow.id
+                                          );
+                                        }}
                                       >
                                         <RdsIcon
-                                          name={"three_dots"}
+                                          name={"check"}
+                                          height="14px"
+                                          width="14px"
+                                          stroke={true}
+                                          fill={false}
+                                        />
+                                      </RdsButton>
+                                      <RdsButton
+                                        class="ms-2 text-white"
+                                        colorVariant="danger"
+                                        tooltipPlacement="top"
+                                        size="medium"
+                                        tooltipTitle={""}
+                                        type={"button"}
+                                        onClick={(e) => {
+                                          onEditClose(
+                                            e,
+                                            tableDataRow,
+                                            tableDataRow.id
+                                          );
+                                        }}
+                                      >
+                                        <RdsIcon
+                                          name={"close"}
                                           height="14px"
                                           width="14px"
                                           stroke={true}
                                           fill={true}
-                                          tooltip={true}
-                                          tooltipTitle={t("More Actions") || ""}
-                                          tooltipPlacement="top"
                                         />
-                                      </button>
-                                      {
-                                        <ul
-                                          aria-labelledby="dropdownMenuButton"
-                                          className="dropdown-menu"
-                                        >
-                                          {totalActions?.map(
-                                            (action, actionIndex) => (
-                                              <li
-                                                key={
-                                                  "action-" +
-                                                  actionIndex +
-                                                  "-inside-tableRow" +
-                                                  index
-                                                }
-                                              >
-                                                {action.modalId && (
-                                                  <a
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target={`#${action?.modalId}`}
-                                                    aria-controls={
-                                                      action?.modalId
-                                                    }
-                                                    onClick={(e) => {
-                                                      actionOnClickHandler(
-                                                        e,
-                                                        tableDataRow,
-                                                        tableDataRow.id,
-                                                        action
-                                                      );
-                                                    }}
-                                                    className="dropdown-item"
-                                                  >
-                                                    {t(action.displayName)}
-                                                  </a>
-                                                )}
-                                                {action.offId && (
-                                                  <>
-                                                    <a
-                                                      data-bs-toggle="offcanvas"
-                                                      data-bs-target={`#${action?.offId}`}
-                                                      aria-controls={
-                                                        action?.offId
-                                                      }
-                                                      onClick={(e) => {
-                                                        actionOnClickHandler(
-                                                          e,
-                                                          tableDataRow,
-                                                          tableDataRow.id,
-                                                          action
-                                                        );
-                                                      }}
-                                                      className="dropdown-item"
-                                                    >
-                                                      {t(action.displayName)}
-                                                    </a>
-                                                  </>
-                                                )}
-                                                {action.offId == undefined &&
-                                                  action.modalId ==
-                                                    undefined && (
-                                                    <>
-                                                      <a
-                                                        onClick={(e) => {
-                                                          actionOnClickHandler(
-                                                            e,
-                                                            tableDataRow,
-                                                            tableDataRow.id,
-                                                            action
-                                                          );
-                                                        }}
-                                                        className="dropdown-item"
-                                                      >
-                                                        {" "}
-                                                        {t(action.displayName)}
-                                                      </a>
-                                                    </>
-                                                  )}
-                                              </li>
-                                            )
-                                          )}
-                                        </ul>
-                                      }
+                                      </RdsButton>
                                     </div>
-                                  </>
-                                ) : (
-                                  <div className="d-flex justify-content-center align-items-center w-60px">
-                                    <RdsButton
-                                      class="action"
-                                      colorVariant="primary"
-                                      size="medium"
-                                      tooltipTitle={""}
-                                      type={"button"}
-                                      onClick={(e) => {
-                                        onEditCheck(
-                                          e,
-                                          tableDataRow,
-                                          tableDataRow.id
-                                        );
-                                      }}
-                                    >
-                                      <RdsIcon
-                                        name={"check"}
-                                        height="14px"
-                                        width="14px"
-                                        stroke={true}
-                                        fill={false}
-                                      />
-                                    </RdsButton>
-                                    <RdsButton
-                                      class="ms-2 text-white"
-                                      colorVariant="danger"
-                                      tooltipPlacement="top"
-                                      size="medium"
-                                      tooltipTitle={""}
-                                      type={"button"}
-                                      onClick={(e) => {
-                                        onEditClose(
-                                          e,
-                                          tableDataRow,
-                                          tableDataRow.id
-                                        );
-                                      }}
-                                    >
-                                      <RdsIcon
-                                        name={"close"}
-                                        height="14px"
-                                        width="14px"
-                                        stroke={true}
-                                        fill={true}
-                                      />
-                                    </RdsButton>
+                                  )}
+                                </td>
+                              )}
+                            {actionPosition != true &&
+                              totalActions &&
+                              totalActions?.length == 1 && (
+                                <td className="px-2 align-middle">
+                                  <div className="d-grid  justify-content-center">
+                                    {totalActions?.map((action, actionIndex) => (
+                                      <>
+                                        <RdsIcon
+                                          key={
+                                            "action-" +
+                                            actionIndex +
+                                            "-inside-tableRow" +
+                                            index
+                                          }
+                                          name={action.icon || action.id}
+                                          height="18px"
+                                          width="18px"
+                                          stroke={true}
+                                          fill={false}
+                                          tooltip={true}
+                                          tooltipTitle={action.displayName}
+                                          tooltipPlacement={"top"}
+                                          databstoggle={
+                                            action.offId
+                                              ? "offcanvas"
+                                              : action.modalId
+                                                ? "modal"
+                                                : ""
+                                          }
+                                          databstarget={
+                                            action.offId
+                                              ? `#${action?.offId}`
+                                              : action.modalId
+                                                ? `#${action?.modalId}`
+                                                : ""
+                                          }
+                                          ariacontrols={action?.offId}
+                                          onClick={(e) => {
+                                            actionOnClickHandler(
+                                              e,
+                                              tableDataRow,
+                                              tableDataRow.id,
+                                              action
+                                            );
+                                          }}
+                                        />
+                                      </>
+                                    ))}
                                   </div>
-                                )}
-                              </td>
+                                </td>
+                              )}
+                            {props.isSwap && (
+                              <th>
+                                <RdsIcon
+                                  name="six_dots_vertical"
+                                  height="14px"
+                                  width="14px"
+                                  stroke={false}
+                                  fill={true}
+                                />
+                              </th>
                             )}
-                          {actionPosition != true &&
-                            totalActions &&
-                            totalActions?.length == 1 && (
-                              <td className="px-2 align-middle">
-                                <div className="d-grid  justify-content-center">
-                                  {totalActions?.map((action, actionIndex) => (
-                                    <>
-                                      <RdsIcon
-                                        key={
-                                          "action-" +
-                                          actionIndex +
-                                          "-inside-tableRow" +
-                                          index
-                                        }
-                                        name={action.icon || action.id}
-                                        height="18px"
-                                        width="18px"
-                                        stroke={true}
-                                        fill={false}
-                                        tooltip={true}
-                                        tooltipTitle={action.displayName}
-                                        tooltipPlacement={"top"}
-                                        databstoggle={
-                                          action.offId
-                                            ? "offcanvas"
-                                            : action.modalId
-                                            ? "modal"
-                                            : ""
-                                        }
-                                        databstarget={
-                                          action.offId
-                                            ? `#${action?.offId}`
-                                            : action.modalId
-                                            ? `#${action?.modalId}`
-                                            : ""
-                                        }
-                                        ariacontrols={action?.offId}
-                                        onClick={(e) => {
-                                          actionOnClickHandler(
-                                            e,
-                                            tableDataRow,
-                                            tableDataRow.id,
-                                            action
-                                          );
-                                        }}
-                                      />
-                                    </>
-                                  ))}
-                                </div>
-                              </td>
+                            {props.enablecheckboxselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="checkbox"
+                                  name={tableDataRow?.id}
+                                  onChange={handleChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
                             )}
-                          {props.isSwap && (
-                            <th>
-                              <RdsIcon
-                                name="six_dots_vertical"
-                                height="14px"
-                                width="14px"
-                                stroke={false}
-                                fill={true}
-                              />
-                            </th>
-                          )}
-                          {props.enablecheckboxselection && (
-                            <th scope="row" className="align-middle">
-                              <input
-                                type="checkbox"
-                                name={tableDataRow?.id}
-                                onChange={handleChange}
-                                checked={tableDataRow?.selected}
-                                className="form-check-input"
-                                id="rowcheck{user.id}"
-                              />
-                            </th>
-                          )}
-                          {props.tableHeaders?.map(
-                            (tableHeader, tableHeaderIndex) => (
-                              <td
-                                key={
-                                  "column-" +
-                                  tableHeaderIndex +
-                                  "-inside-tableRow" +
-                                  index
-                                }
-                                className={`px-2 align-middle text-nowrap ${
-                                  tableHeader.isBold === true
+                            {props.tableHeaders?.map(
+                              (tableHeader, tableHeaderIndex) => (
+                                <td
+                                  key={
+                                    "column-" +
+                                    tableHeaderIndex +
+                                    "-inside-tableRow" +
+                                    index
+                                  }
+                                  className={`px-2 align-middle text-nowrap ${tableHeader.isBold === true
                                     ? `fw-${tableHeader.fontWeight}`
                                     : ""
-                                }`}
-                              >
-                                {!tableDataRow.isEndUserEditing ? (
-                                  <div>
-                                    {tableHeader.datatype === "text" && (
-                                      <>
-                                        {tableHeader.key.includes("time") ||
-                                        tableHeader.key.includes("Time") ? (
-                                          <>
-                                            {`${(
-                                              "0" +
-                                              new Date(
+                                    }`}
+                                >
+                                  {!tableDataRow.isEndUserEditing ? (
+                                    <div>
+                                      {tableHeader.datatype === "text" && (
+                                        <>
+                                          {tableHeader.key.includes("time") ||
+                                            tableHeader.key.includes("Time") ? (
+                                            <>
+                                              {`${(
+                                                "0" +
+                                                new Date(
+                                                  tableDataRow[tableHeader.key]
+                                                ).getDate()
+                                              ).slice(-2)}/${(
+                                                "0" +
+                                                (new Date(
+                                                  tableDataRow[tableHeader.key]
+                                                ).getMonth() +
+                                                  1)
+                                              ).slice(-2)}/${new Date(
                                                 tableDataRow[tableHeader.key]
-                                              ).getDate()
-                                            ).slice(-2)}/${(
-                                              "0" +
-                                              (new Date(
-                                                tableDataRow[tableHeader.key]
-                                              ).getMonth() +
-                                                1)
-                                            ).slice(-2)}/${new Date(
-                                              tableDataRow[tableHeader.key]
-                                            ).getFullYear()}, ${(
-                                              "0" +
-                                              new Date(
-                                                tableDataRow[tableHeader.key]
-                                              ).getHours()
-                                            ).slice(-2)}:${(
-                                              "0" +
-                                              new Date(
-                                                tableDataRow[tableHeader.key]
-                                              ).getMinutes()
-                                            ).slice(-2)} ${
-                                              new Date(
+                                              ).getFullYear()}, ${(
+                                                "0" +
+                                                new Date(
+                                                  tableDataRow[tableHeader.key]
+                                                ).getHours()
+                                              ).slice(-2)}:${(
+                                                "0" +
+                                                new Date(
+                                                  tableDataRow[tableHeader.key]
+                                                ).getMinutes()
+                                              ).slice(-2)} ${new Date(
                                                 tableDataRow[tableHeader.key]
                                               ).getHours() >= 12
                                                 ? "PM"
                                                 : "AM"
-                                            }`}
-                                          </>
-                                        ) : (
-                                          <>{tableDataRow[tableHeader.key]}</>
-                                        )}
-                                      </>
-                                    )}
-
-                                    {tableHeader.datatype === "date" && (
-                                      <>
-                                        <span className="d-flex text-truncate">
-                                          {new Intl.DateTimeFormat("en-US", {
-                                            year: "numeric",
-                                            month: "2-digit",
-                                            day: "2-digit",
-                                            hour: "2-digit",
-                                            minute: "2-digit",
-                                            hour12: true,
-                                          }).format(
-                                            new Date(
-                                              tableDataRow[tableHeader.key]
-                                            )
+                                                }`}
+                                            </>
+                                          ) : (
+                                            <>{tableDataRow[tableHeader.key]}</>
                                           )}
-                                        </span>
-                                      </>
-                                    )}
-                                    {tableHeader.datatype === "number" &&
-                                      tableDataRow[tableHeader.key]}
-                                    {tableHeader.datatype === "badge" && (
-                                      <RdsBadge
-                                        colorVariant={
-                                          tableDataRow[tableHeader.key]
-                                            .badgeColorVariant
-                                            ? tableDataRow[tableHeader.key]
-                                                .badgeColorVariant
-                                            : "success"
-                                        }
-                                        label={
-                                          tableDataRow[tableHeader.key].content
-                                            ? tableDataRow[tableHeader.key]
-                                                .content
-                                            : tableDataRow[tableHeader.key]
-                                        }
-                                      />
-                                    )}
-                                    {tableHeader.datatype ===
-                                      "avatarTitleInfo" && (
-                                      <div className="avatarTitleInfo">
-                                        <RdsAvatar
-                                          withProfilePic={true}
-                                          profilePic={
-                                            tableDataRow[tableHeader.key].avatar
-                                          }
-                                          firstName={
-                                            tableDataRow[tableHeader.key].title
+                                        </>
+                                      )}
+
+                                      {tableHeader.datatype === "date" && (
+                                        <>
+                                          <span className="d-flex text-truncate">
+                                            {new Intl.DateTimeFormat("en-US", {
+                                              year: "numeric",
+                                              month: "2-digit",
+                                              day: "2-digit",
+                                              hour: "2-digit",
+                                              minute: "2-digit",
+                                              hour12: true,
+                                            }).format(
+                                              new Date(
+                                                tableDataRow[tableHeader.key]
+                                              )
+                                            )}
+                                          </span>
+                                        </>
+                                      )}
+                                      {tableHeader.datatype === "number" &&
+                                        tableDataRow[tableHeader.key]}
+                                      {tableHeader.datatype === "badge" && (
+                                        <RdsBadge
+                                          colorVariant={
+                                            tableDataRow[tableHeader.key]
+                                              .badgeColorVariant
                                               ? tableDataRow[tableHeader.key]
-                                                  .title
+                                                .badgeColorVariant
+                                              : "success"
+                                          }
+                                          label={
+                                            tableDataRow[tableHeader.key].content
+                                              ? tableDataRow[tableHeader.key]
+                                                .content
                                               : tableDataRow[tableHeader.key]
                                           }
-                                          role={
-                                            tableDataRow[tableHeader.key].info
-                                          }
                                         />
-                                      </div>
-                                    )}
-                                    {tableHeader.datatype ===
-                                      "iconAvatarTitle" && (
-                                      <div className="d-flex justify-content-evenly align-items-center">
-                                        <div className="col-1">
-                                          <RdsIcon
-                                            name={
-                                              tableDataRow[tableHeader.key]
-                                                .iconName
-                                            }
-                                            fill={
-                                              tableDataRow[tableHeader.key]
-                                                .iconFill
-                                            }
-                                            stroke={
-                                              tableDataRow[tableHeader.key]
-                                                .iconStroke
-                                            }
-                                            colorVariant={
-                                              tableDataRow[tableHeader.key]
-                                                .iconColor
-                                            }
-                                            width={
-                                              tableDataRow[tableHeader.key]
-                                                .iconWidth
-                                            }
-                                            height={
-                                              tableDataRow[tableHeader.key]
-                                                .iconHeight
-                                            }
-                                            strokeWidth={
-                                              tableDataRow[tableHeader.key]
-                                                .iconStrokeWidth
-                                            }
-                                          />
-                                        </div>
-                                        {tableDataRow[tableHeader.key]
-                                          .withavatar && (
-                                          <div>
-                                            <div className="col-5">
-                                              <RdsAvatar
-                                                withProfilePic={true}
-                                                profilePic={
+                                      )}
+                                      {tableHeader.datatype ===
+                                        "avatarTitleInfo" && (
+                                          <div className="avatarTitleInfo">
+                                            <RdsAvatar
+                                              withProfilePic={true}
+                                              profilePic={
+                                                tableDataRow[tableHeader.key].avatar
+                                              }
+                                              firstName={
+                                                tableDataRow[tableHeader.key].title
+                                                  ? tableDataRow[tableHeader.key]
+                                                    .title
+                                                  : tableDataRow[tableHeader.key]
+                                              }
+                                              role={
+                                                tableDataRow[tableHeader.key].info
+                                              }
+                                            />
+                                          </div>
+                                        )}
+                                      {tableHeader.datatype ===
+                                        "iconAvatarTitle" && (
+                                          <div className="d-flex justify-content-evenly align-items-center">
+                                            <div className="col-1">
+                                              <RdsIcon
+                                                name={
                                                   tableDataRow[tableHeader.key]
-                                                    ?.avatar
+                                                    .iconName
+                                                }
+                                                fill={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconFill
+                                                }
+                                                stroke={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconStroke
+                                                }
+                                                colorVariant={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconColor
+                                                }
+                                                width={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconWidth
+                                                }
+                                                height={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconHeight
+                                                }
+                                                strokeWidth={
+                                                  tableDataRow[tableHeader.key]
+                                                    .iconStrokeWidth
                                                 }
                                               />
                                             </div>
-                                            <div className="col-6">
-                                              <label>
-                                                {
-                                                  tableDataRow[tableHeader.key]
-                                                    .title
-                                                }{" "}
-                                              </label>
-                                            </div>
+                                            {tableDataRow[tableHeader.key]
+                                              .withavatar && (
+                                                <div>
+                                                  <div className="col-5">
+                                                    <RdsAvatar
+                                                      withProfilePic={true}
+                                                      profilePic={
+                                                        tableDataRow[tableHeader.key]
+                                                          ?.avatar
+                                                      }
+                                                    />
+                                                  </div>
+                                                  <div className="col-6">
+                                                    <label>
+                                                      {
+                                                        tableDataRow[tableHeader.key]
+                                                          .title
+                                                      }{" "}
+                                                    </label>
+                                                  </div>
+                                                </div>
+                                              )}
                                           </div>
                                         )}
-                                      </div>
-                                    )}
-                                    {tableHeader.datatype === "children" && (
-                                      <div className="d-xxl-flex d-xl-flex d-block">
-                                        {" "}
-                                        {tableDataRow[tableHeader.key]}
-                                      </div>
-                                    )}
-                                    {tableHeader.datatype === "tooltip" &&
-                                      tableDataRow[tableHeader.key] !==
-                                        null && (
-                                        <RdsTooltip
-                                          text={tableDataRow[tableHeader.key]}
-                                          place="bottom"
-                                        >
-                                          <span className="d-inline-block">
-                                            {tableDataRow[tableHeader.key].substring(0,tableHeader.dataLength) + "..."}
-                                          </span>
-                                        </RdsTooltip>
+                                      {tableHeader.datatype === "children" && (
+                                        <div className="d-xxl-flex d-xl-flex d-block">
+                                          {" "}
+                                          {tableDataRow[tableHeader.key]}
+                                        </div>
                                       )}
+                                      {tableHeader.datatype === "tooltip" &&
+                                        tableDataRow[tableHeader.key] !==
+                                        null && (
+                                          <RdsTooltip
+                                            text={tableDataRow[tableHeader.key]}
+                                            place="bottom"
+                                          >
+                                            <span className="d-inline-block">
+                                              {tableDataRow[tableHeader.key].substring(0, tableHeader.dataLength) + "..."}
+                                            </span>
+                                          </RdsTooltip>
+                                        )}
 
-                                    {/* add more types here if reequired */}
-                                  </div>
-                                ) : (
-                                  <RdsInput
-                                    inputType={tableHeader.datatype}
-                                    value={tableDataRow[tableHeader.key]}
-                                    onChange={(e) => {
-                                      onInputChangeHandler(
-                                        e,
-                                        tableDataRow,
-                                        tableHeader,
-                                        tableHeader.key,
-                                        tableDataRow.id
-                                      );
-                                    }}
-                                  />
-                                )}
-                              </td>
-                            )
-                          )}
-                          {actionPosition &&
-                            totalActions &&
-                            totalActions?.length > 1 && (
-                              <td className="align-middle text-center">
-                                {!tableDataRow?.isEndUserEditing ? (
-                                  <>
-                                    <div className="btn-group dropstart">
-                                      <button
-                                        className="btn btn-sm btn-icon border-0 three-dot-btn"
-                                        type="button"
-                                        aria-expanded="false"
-                                        //onClick={() => openCloseDropDown(index)}
-                                        data-bs-toggle="dropdown"
-                                        data-bs-auto-close="true"
-                                        id="dropdownMenuButton"
-                                        data-testid="action-btn"
-                                      >
-                                        <RdsIcon
-                                          name={"three_dots"}
-                                          height="14px"
-                                          width="14px"
-                                          stroke={false}
-                                          fill={true}
-                                          tooltip={true}
-                                          tooltipTitle={t("More Actions") || ""}
-                                          tooltipPlacement="top"
-                                        />
-                                      </button>
-                                      {
-                                        <ul
-                                          aria-labelledby="dropdownMenuButton"
-                                          className="dropdown-menu"
+                                      {/* add more types here if reequired */}
+                                    </div>
+                                  ) : (
+                                    <RdsInput
+                                      inputType={tableHeader.datatype}
+                                      value={tableDataRow[tableHeader.key]}
+                                      onChange={(e) => {
+                                        onInputChangeHandler(
+                                          e,
+                                          tableDataRow,
+                                          tableHeader,
+                                          tableHeader.key,
+                                          tableDataRow.id
+                                        );
+                                      }}
+                                    />
+                                  )}
+                                </td>
+                              )
+                            )}
+                            {actionPosition &&
+                              totalActions &&
+                              totalActions?.length > 1 && (
+                                <td className="align-middle text-center">
+                                  {!tableDataRow?.isEndUserEditing ? (
+                                    <>
+                                      <div className="btn-group dropstart">
+                                        <button
+                                          className="btn btn-sm btn-icon border-0 three-dot-btn"
+                                          type="button"
+                                          aria-expanded="false"
+                                          //onClick={() => openCloseDropDown(index)}
+                                          data-bs-toggle="dropdown"
+                                          data-bs-auto-close="true"
+                                          id="dropdownMenuButton"
+                                          data-testid="action-btn"
                                         >
-                                          {totalActions?.map(
-                                            (action, actionIndex) => (
-                                              <li
-                                                key={
-                                                  "action-" +
-                                                  actionIndex +
-                                                  "-inside-tableRow" +
-                                                  index
-                                                }
-                                              >
-                                                {action.modalId && (
-                                                  <a
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target={`#${action?.modalId}`}
-                                                    aria-controls={
-                                                      action?.modalId
-                                                    }
-                                                    onClick={(e) => {
-                                                      actionOnClickHandler(
-                                                        e,
-                                                        tableDataRow,
-                                                        tableDataRow.id,
-                                                        action
-                                                      );
-                                                    }}
-                                                    className="dropdown-item"
-                                                  >
-                                                    {t(action.displayName)}
-                                                  </a>
-                                                )}
-                                                {action.offId && (
-                                                  <>
+                                          <RdsIcon
+                                            name={"three_dots"}
+                                            height="14px"
+                                            width="14px"
+                                            stroke={false}
+                                            fill={true}
+                                            tooltip={true}
+                                            tooltipTitle="More Actions"
+                                            tooltipPlacement="top"
+                                          />
+                                        </button>
+                                        {
+                                          <ul
+                                            aria-labelledby="dropdownMenuButton"
+                                            className="dropdown-menu"
+                                          >
+                                            {totalActions?.map(
+                                              (action, actionIndex) => (
+                                                <li
+                                                  key={
+                                                    "action-" +
+                                                    actionIndex +
+                                                    "-inside-tableRow" +
+                                                    index
+                                                  }
+                                                >
+                                                  {action.modalId && (
                                                     <a
-                                                      data-bs-toggle="offcanvas"
-                                                      data-bs-target={`#${action?.offId}`}
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target={`#${action?.modalId}`}
                                                       aria-controls={
-                                                        action?.offId
+                                                        action?.modalId
                                                       }
                                                       onClick={(e) => {
                                                         actionOnClickHandler(
@@ -961,15 +936,17 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                                       }}
                                                       className="dropdown-item"
                                                     >
-                                                      {t(action.displayName)}
+                                                      {(action.displayName)}
                                                     </a>
-                                                  </>
-                                                )}
-                                                {action.offId == undefined &&
-                                                  action.modalId ==
-                                                    undefined && (
+                                                  )}
+                                                  {action.offId && (
                                                     <>
                                                       <a
+                                                        data-bs-toggle="offcanvas"
+                                                        data-bs-target={`#${action?.offId}`}
+                                                        aria-controls={
+                                                          action?.offId
+                                                        }
                                                         onClick={(e) => {
                                                           actionOnClickHandler(
                                                             e,
@@ -980,127 +957,146 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                                         }}
                                                         className="dropdown-item"
                                                       >
-                                                        {" "}
-                                                        {t(action.displayName)}
+                                                        {(action.displayName)}
                                                       </a>
                                                     </>
                                                   )}
-                                              </li>
-                                            )
-                                          )}
-                                        </ul>
-                                      }
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="d-flex justify-content-center align-items-center w-60px">
-                                    <RdsButton
-                                      class="action"
-                                      colorVariant="primary"
-                                      size="medium"
-                                      tooltipTitle={""}
-                                      type={"button"}
-                                      onClick={(e) => {
-                                        onEditCheck(
-                                          e,
-                                          tableDataRow,
-                                          tableDataRow.id
-                                        );
-                                      }}
-                                    >
-                                      <RdsIcon
-                                        name={"check"}
-                                        height="14px"
-                                        width="14px"
-                                        stroke={true}
-                                        fill={false}
-                                      />
-                                    </RdsButton>
-                                    <RdsButton
-                                      class="ms-2 text-white"
-                                      colorVariant="danger"
-                                      tooltipPlacement="top"
-                                      size="medium"
-                                      tooltipTitle={""}
-                                      type={"button"}
-                                      onClick={(e) => {
-                                        onEditClose(
-                                          e,
-                                          tableDataRow,
-                                          tableDataRow.id
-                                        );
-                                      }}
-                                    >
-                                      <RdsIcon
-                                        name={"close"}
-                                        height="14px"
-                                        width="14px"
-                                        stroke={true}
-                                        fill={true}
-                                      />
-                                    </RdsButton>
-                                  </div>
-                                )}
-                              </td>
-                            )}
-                          {actionPosition &&
-                            totalActions &&
-                            totalActions?.length == 1 && (
-                              <td className="px-2 align-middle">
-                                <div className="d-grid justify-content-center">
-                                  {totalActions?.map((action, actionIndex) => (
-                                    <>
-                                      <RdsIcon
-                                        key={
-                                          "action-" +
-                                          actionIndex +
-                                          "-inside-tableRow" +
-                                          index
+                                                  {action.offId == undefined &&
+                                                    action.modalId ==
+                                                    undefined && (
+                                                      <>
+                                                        <a
+                                                          onClick={(e) => {
+                                                            actionOnClickHandler(
+                                                              e,
+                                                              tableDataRow,
+                                                              tableDataRow.id,
+                                                              action
+                                                            );
+                                                          }}
+                                                          className="dropdown-item"
+                                                        >
+                                                          {" "}
+                                                          {(action.displayName)}
+                                                        </a>
+                                                      </>
+                                                    )}
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
                                         }
-                                        name={action.icon || action.id}
-                                        height="16px"
-                                        width="16px"
-                                        stroke={true}
-                                        fill={false}
-                                        tooltip={true}
-                                        tooltipTitle={action.displayName}
-                                        tooltipPlacement={"top"}
-                                        databstoggle={
-                                          action.offId
-                                            ? "offcanvas"
-                                            : action.modalId
-                                            ? "modal"
-                                            : ""
-                                        }
-                                        databstarget={
-                                          action.offId
-                                            ? `#${action?.offId}`
-                                            : action.modalId
-                                            ? `#${action?.modalId}`
-                                            : ""
-                                        }
-                                        ariacontrols={action?.offId}
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <div className="d-flex justify-content-center align-items-center w-60px">
+                                      <RdsButton
+                                        class="action"
+                                        colorVariant="primary"
+                                        size="medium"
+                                        tooltipTitle={""}
+                                        type={"button"}
                                         onClick={(e) => {
-                                          actionOnClickHandler(
+                                          onEditCheck(
                                             e,
                                             tableDataRow,
-                                            tableDataRow.id,
-                                            action
+                                            tableDataRow.id
                                           );
                                         }}
-                                      />
-                                    </>
-                                  ))}
-                                </div>
-                              </td>
-                            )}
-                        </tr>
-                      )
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
+                                      >
+                                        <RdsIcon
+                                          name={"check"}
+                                          height="14px"
+                                          width="14px"
+                                          stroke={true}
+                                          fill={false}
+                                        />
+                                      </RdsButton>
+                                      <RdsButton
+                                        class="ms-2 text-white"
+                                        colorVariant="danger"
+                                        tooltipPlacement="top"
+                                        size="medium"
+                                        tooltipTitle={""}
+                                        type={"button"}
+                                        onClick={(e) => {
+                                          onEditClose(
+                                            e,
+                                            tableDataRow,
+                                            tableDataRow.id
+                                          );
+                                        }}
+                                      >
+                                        <RdsIcon
+                                          name={"close"}
+                                          height="14px"
+                                          width="14px"
+                                          stroke={true}
+                                          fill={true}
+                                        />
+                                      </RdsButton>
+                                    </div>
+                                  )}
+                                </td>
+                              )}
+                            {actionPosition &&
+                              totalActions &&
+                              totalActions?.length == 1 && (
+                                <td className="px-2 align-middle">
+                                  <div className="d-grid justify-content-center">
+                                    {totalActions?.map((action, actionIndex) => (
+                                      <>
+                                        <RdsIcon
+                                          key={
+                                            "action-" +
+                                            actionIndex +
+                                            "-inside-tableRow" +
+                                            index
+                                          }
+                                          name={action.icon || action.id}
+                                          height="16px"
+                                          width="16px"
+                                          stroke={true}
+                                          fill={false}
+                                          tooltip={true}
+                                          tooltipTitle={action.displayName}
+                                          tooltipPlacement={"top"}
+                                          databstoggle={
+                                            action.offId
+                                              ? "offcanvas"
+                                              : action.modalId
+                                                ? "modal"
+                                                : ""
+                                          }
+                                          databstarget={
+                                            action.offId
+                                              ? `#${action?.offId}`
+                                              : action.modalId
+                                                ? `#${action?.modalId}`
+                                                : ""
+                                          }
+                                          ariacontrols={action?.offId}
+                                          onClick={(e) => {
+                                            actionOnClickHandler(
+                                              e,
+                                              tableDataRow,
+                                              tableDataRow.id,
+                                              action
+                                            );
+                                          }}
+                                        />
+                                      </>
+                                    ))}
+                                  </div>
+                                </td>
+                              )}
+                          </tr>
+                        )
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
           </div>
           {props.pagination && totalRecords > 10 && (
             <div className=" d-flex justify-content-end pt-3">
