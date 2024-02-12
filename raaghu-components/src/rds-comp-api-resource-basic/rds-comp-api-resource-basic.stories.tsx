@@ -30,7 +30,7 @@ import RdsCompApiResourceBasic from "./rds-comp-api-resource-basic";
 
 
 const meta: Meta = {
-    title: "Component/Api Resource Basic",
+    title: "Components/Api Resource Basic",
     component: RdsCompApiResourceBasic,
     parameters: {
         layout: "",

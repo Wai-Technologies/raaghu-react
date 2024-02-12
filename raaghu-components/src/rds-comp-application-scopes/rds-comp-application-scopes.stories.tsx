@@ -24,7 +24,7 @@ import RdsCompApplicationScopes from './rds-comp-application-scopes';
 
 
 const meta: Meta = { 
-    title: "Component/Application Scopes",
+    title: "Components/Application Scopes",
     component: RdsCompApplicationScopes,
     parameters: {
         layout: "",

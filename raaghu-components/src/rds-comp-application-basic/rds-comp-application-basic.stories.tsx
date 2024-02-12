@@ -3,7 +3,7 @@ import RdsCompApplicationBasic from './rds-comp-application-basic';
 
 
 const meta: Meta = { 
-    title: "Component/Application Basic",
+    title: "Components/Application Basic",
     component: RdsCompApplicationBasic,
     parameters: {
         layout: "",

@@ -192,7 +192,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompApiScopeResource from "./rds-comp-api-scope-resource";
 
 const meta: Meta = { 
-    title: "Component/Api Scope Resource",
+    title: "Components/Api Scope Resource",
     component: RdsCompApiScopeResource,
     parameters: {
         layout: "",

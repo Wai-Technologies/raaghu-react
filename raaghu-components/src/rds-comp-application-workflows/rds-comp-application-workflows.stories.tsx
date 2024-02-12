@@ -3,7 +3,7 @@ import RdsCompApplicationWorkflows from './rds-comp-application-workflows';
 
 
 const meta: Meta = { 
-    title: "Component/Application Work flows",
+    title: "Components/Application Work flows",
     component: RdsCompApplicationWorkflows,
     parameters: {
         layout: "",

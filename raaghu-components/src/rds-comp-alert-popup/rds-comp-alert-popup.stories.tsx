@@ -38,7 +38,7 @@ import RdsCompAlertPopup from "./rds-comp-alert-popup";
 
 
 const meta: Meta = {
-    title: "Component/Alert Popup",
+    title: "Components/Alert Popup",
     component: RdsCompAlertPopup,
     parameters: {
         layout: "",

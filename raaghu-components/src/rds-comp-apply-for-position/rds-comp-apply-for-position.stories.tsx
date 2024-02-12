@@ -3,7 +3,7 @@ import RdsCompApplyForPosition from "./rds-comp-apply-for-position";
 
 
 const meta: Meta = { 
-    title: "Component/Apply For Position",
+    title: "Components/Apply For Position",
     component: RdsCompApplyForPosition,
     parameters: {
         layout: "",

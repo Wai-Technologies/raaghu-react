@@ -3,7 +3,7 @@ import RdsCompAccount from './rds-comp-account';
 
 
 const meta: Meta = { 
-    title: "Component/Account",
+    title: "Components/Account",
     component: RdsCompAccount,
     parameters: {
         layout: "",
