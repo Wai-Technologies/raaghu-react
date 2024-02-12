@@ -1,0 +1,14 @@
+.countdown-col {
+    background-image: url('https://cdn.pixabay.com/photo/2012/10/10/11/18/weightless-60632_960_720.jpg');
+    background-size: cover;
+}
+
+.go-back-home {
+    color: #336CFF;
+    text-decoration: none;
+}
+
+.mt-mb-custom {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}

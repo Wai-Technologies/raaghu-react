@@ -1,0 +1,90 @@
+.expandstyle {
+  margin-left: -5px;
+}
+
+.vertical-dotted-line-select-all {
+  position: absolute;
+  bottom: 0;
+  top: 1.25rem;
+  width: 0.5625rem;
+  height: 100%;
+  border-right: 1px dashed #adb5bd;
+}
+
+/* tree element */
+.dottedstyle {
+  .vertical-dotted-line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 2rem;
+    width: 0.5625rem;
+    height: 100%;
+    border-right: 1px dashed #adb5bd;
+  }
+
+  .horizontal-dotted-line {
+    height: 0.375rem;
+    width: 1rem;
+    border-bottom: 1px dashed #adb5bd;
+    position: relative;
+    right: 1rem;
+  }
+
+  .checkboxClass {
+    padding-top: 1.8rem;
+  }
+
+  .node {
+    margin-top: 0.625rem;
+  }
+
+  .node-dot {
+    border-radius: 50%;
+    height: 0.4374rem;
+    width: 0.375rem;
+    margin-right: 0.9375rem;
+  }
+}
+
+.checkedstyle {
+  .vertical-dotted-line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 2rem;
+    width: 0.5625rem;
+    height: 100%;
+    border-right: 1px dashed #adb5bd;
+  }
+
+  .horizontal-dotted-line {
+    height: 0.375rem;
+    width: 1rem;
+    border-bottom: 1px dashed #adb5bd;
+    position: relative;
+    right: 1rem;
+  }
+
+  .node {
+    margin-top: 0.625rem;
+  }
+
+  .node-dot {
+    border-radius: 50%;
+    height: 0.4374rem;
+    width: 0.375rem;
+    margin-right: 0.9375rem;
+  }
+
+}
+
+.checkedstyle.flush-border {
+  .vertical-dotted-line {
+    border-right: 0;
+  }
+
+  .horizontal-dotted-line {
+    border-bottom: 0;
+  }
+}

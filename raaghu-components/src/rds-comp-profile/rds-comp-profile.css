@@ -1,0 +1,37 @@
+.parent-div-class {
+  background-color: #F5F5FC;
+  width: 100%;
+  height: 100%;
+}
+
+.profil_image_Class {
+  border-radius: 50%;
+}
+
+.activeBackgraound {
+  background-color: white;
+}
+
+.close_btn_class,
+.navtab-class {
+  cursor: pointer;
+}
+
+.pencilIconClass {
+  padding: 2px 5px 5px 8px !important;
+  position: absolute;
+  top: 89px;
+  right: 2px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  align-items: center;
+  height: 33px;
+  width: 33px;
+  display: flex;
+}
+
+.username_p {
+  margin-bottom: 4px;
+  font: normal normal medium 18px/27px Poppins;
+}
