@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Dropdown',
     component: RdsDropdown,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

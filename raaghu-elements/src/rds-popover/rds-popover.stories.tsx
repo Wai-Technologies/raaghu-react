@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Popover',
     component: RdsPopover,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/Polar Area Chart',
     component: RdsPolarAreaChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

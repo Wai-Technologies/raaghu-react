@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Navbar',
     component: RdsNavbar,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

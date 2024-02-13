@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/Button Group',
     component: RdsButtonGroup,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Breadcrumb',
     component: RdsBreadcrumb,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

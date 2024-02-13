@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Charts/Pie Chart',
     component: RdsPieChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

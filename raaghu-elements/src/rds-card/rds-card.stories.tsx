@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Card',
     component: RdsCard,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

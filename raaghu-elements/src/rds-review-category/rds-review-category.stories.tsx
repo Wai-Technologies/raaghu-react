@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Review Category',
     component: RdsReviewCategory,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

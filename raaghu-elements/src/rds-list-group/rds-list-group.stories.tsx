@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/List Group',
     component: RdsListGroup,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

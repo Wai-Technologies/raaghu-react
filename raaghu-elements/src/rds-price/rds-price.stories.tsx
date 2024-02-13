@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Price',
     component: RdsPrice,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

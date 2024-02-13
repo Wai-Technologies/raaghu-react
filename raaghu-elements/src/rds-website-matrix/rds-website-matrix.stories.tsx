@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Website Matrix',
     component: RdsWebsiteMatrix,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

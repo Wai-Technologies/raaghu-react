@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Counter',
     component: RdsCounter,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

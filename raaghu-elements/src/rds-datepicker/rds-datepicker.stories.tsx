@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Datepicker',
     component: RdsDatepicker,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

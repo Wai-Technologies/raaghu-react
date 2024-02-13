@@ -16,7 +16,7 @@ const meta: Meta = {
     title: 'Elements/BigNumber',
     component: RdsBigNumber,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

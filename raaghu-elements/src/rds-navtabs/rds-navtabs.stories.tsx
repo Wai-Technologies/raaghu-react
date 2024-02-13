@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Navtabs',
     component: RdsNavtabs,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

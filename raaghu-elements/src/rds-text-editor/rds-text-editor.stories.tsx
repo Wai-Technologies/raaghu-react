@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Text Editor',
     component: RdsTextEditor,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

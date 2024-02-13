@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Charts/Area Chart',
     component: RdsAreaChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

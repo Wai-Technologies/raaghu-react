@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Carousel',
     component: RdsCarousel,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

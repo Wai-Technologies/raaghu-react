@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Charts/Doughnut Chart',
     component: RdsDoughnutChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Charts/Radar Chart',
     component: RdsRadarChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

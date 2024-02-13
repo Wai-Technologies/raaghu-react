@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Modal',
     component: RdsModal,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

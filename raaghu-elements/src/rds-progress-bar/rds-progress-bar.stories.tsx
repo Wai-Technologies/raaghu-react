@@ -8,7 +8,7 @@ const meta: Meta = {
     title: 'Elements/ProgressBar',
     component: RdsProgressBar,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -1,10 +1,20 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAccount from './rds-comp-account';
+
 
 
 const meta: Meta = { 
     title: "Components/Account",
     component: RdsCompAccount,
+    decorators: [
+        (Story) => (
+          <div style={{ margin: '3em' }}>
+            {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+            <Story />
+          </div>
+        ),
+      ],
     parameters: {
         layout: "",
     },

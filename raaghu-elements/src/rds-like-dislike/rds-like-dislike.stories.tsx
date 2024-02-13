@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Like-Dislike',
     component: RdsLikeDislike,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

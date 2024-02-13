@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/Boolean Chart',
     component: RdsBooleanChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

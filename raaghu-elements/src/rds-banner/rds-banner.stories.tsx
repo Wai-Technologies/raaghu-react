@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Banner',
     component: RdsBanner,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

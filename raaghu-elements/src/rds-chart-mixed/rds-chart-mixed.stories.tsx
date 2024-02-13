@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/Mixed Chart',
     component: RdsMixedChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

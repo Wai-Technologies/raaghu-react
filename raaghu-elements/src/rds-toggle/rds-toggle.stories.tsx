@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Toggle',
     component: RdsToggle,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

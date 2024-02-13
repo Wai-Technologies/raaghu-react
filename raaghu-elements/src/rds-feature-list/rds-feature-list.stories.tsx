@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Feature List',
     component: RdsFeatureList,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -10,8 +10,8 @@ const meta: Meta = {
     title: 'Elements/Accordion',
     component: RdsAccordion,
     parameters: { 
-        layout: '',
-        disableZoom : true
+        layout: 'padded',
+        disableZoom : false
     },
     tags:['autodocs'],
     argTypes: {},

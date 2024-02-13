@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/ColorPicker',
     component: RdsColorPicker,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

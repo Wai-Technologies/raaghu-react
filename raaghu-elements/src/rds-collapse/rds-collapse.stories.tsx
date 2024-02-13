@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Collapse',
     component: RdsCollapse,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Feed',
     component: RdsFeed,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Charts/Bar Chart',
     component: RdsBarChart,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

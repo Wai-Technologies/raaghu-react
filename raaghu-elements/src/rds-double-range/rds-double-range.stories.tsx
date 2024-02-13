@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/DoubleRange',
     component: RdsDoubleRange,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

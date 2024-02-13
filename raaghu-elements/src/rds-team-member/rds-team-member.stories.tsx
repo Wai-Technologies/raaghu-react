@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Alert',
     component: RdsTeamMember,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -7,7 +7,7 @@ const meta: Meta = {
     title: 'Elements/Scrollspy',
     component: RdsScrollspy,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

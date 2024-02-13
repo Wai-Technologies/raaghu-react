@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/File Uploader',
     component: RdsFileUploader,
     parameters: {
-        layout: '',
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
