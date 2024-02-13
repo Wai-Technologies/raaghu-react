@@ -92,7 +92,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                 <div className="d-flex align-items-center mb-1">
                     <div className="col-8 col-md-8 mb-3 offset-2">
                         <h2 className="mb-0">
-                            AbpUi.Register
+                            Ui.Register
                         </h2>
                     </div>
                     <div className="col-2 col-md-2 mb-3">
@@ -121,7 +121,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             ></RdsLabel>:
                         </span>&nbsp;<span className="fw-semibold">
                             <RdsLabel
-                                label={`$"AbpUiMultiTenancy.NotSelected` + props.getvalidTenantName}
+                                label={`$"UiMultiTenancy.NotSelected` + props.getvalidTenantName}
                             ></RdsLabel></span>
                         ( <span>
                             <RdsModal
@@ -132,7 +132,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 scrollable={false}
                                 verticallyCentered={false}
                                 modalbutton={<a className="link-primary"> "Change</a>}
-                                modalTitle="AbpUiMultiTenancy.SwitchTenant"
+                                modalTitle="UiMultiTenancy.SwitchTenant"
                                 saveChangesName={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                     }`}
                                 cancelButtonName="CANCEL"
@@ -190,7 +190,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-group text-start">
                             <RdsInput
-                                placeholder="AbpAccount.DisplayName:Email"
+                                placeholder="Account.DisplayName:Email"
                                 inputType="email"
                                 onChange={emailhandleChange}
                                 value={emailAddress}
@@ -202,7 +202,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                placeholder="AbpAccount.DisplayName:Password"
+                                placeholder="Account.DisplayName:Password"
                                 inputType="password"
                                 onChange={passwordhandleChange}
                                 name={"password"}
@@ -229,7 +229,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         </div>
                         <div className="mt-3">
                             <RdsButton
-                                label="AbpUi.Register"
+                                label="Ui.Register"
                                 colorVariant="primary"
                                 showLoadingSpinner={true}
                                 isDisabled={!isFormValid}
@@ -247,7 +247,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 href="javascript:void(0)"
                                 onClick={() => loginHandler(isLoginClicked)}
                                 data-testid="login"
-                            >"AbpUi.Login
+                            >"Ui.Login
                             </a></span></p>
                         </div>
                         <div className="mt-5 justify-content-center">

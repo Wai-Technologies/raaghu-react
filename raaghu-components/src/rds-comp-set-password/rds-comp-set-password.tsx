@@ -16,7 +16,6 @@ interface RdsCompSetPasswordProps {
 }
 
 const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
-  const { t } = useTranslation();
   const [inputReset, setInputReset] = useState(false);
   const [password, setPassword] = useState("");
 
@@ -49,8 +48,8 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
                 <RdsInput
                   reset={inputReset}
                   required={true}
-                  label={t("Saas.Password") || ""}
-                  placeholder={t("Enter Password") || ""}
+                  label="Saas.Password"
+                  placeholder="Enter Password"
                   inputType="password"
                   name="adminPassword"
                   id="adminPassword"
@@ -67,14 +66,14 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
               class="me-2"
               tooltipTitle={""}
               type={"button"}
-              label={t("AbpUi.Cancel") || ""}
+              label="Cancel"
               colorVariant="outline-primary"
               size="small"
               databsdismiss="offcanvas"
             ></RdsButton>
             <RdsButton
               class="me-2"
-              label={t("AbpUi.Save") || ""}
+              label="Save"
               size="small"
               isDisabled={!isFormValid}
               colorVariant="primary"

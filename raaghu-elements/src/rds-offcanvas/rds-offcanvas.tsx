@@ -84,7 +84,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
                             databsdismiss="offcanvas"
                             onClick={props.onClose}
                             tooltip={true}
-                            tooltipTitle={t("AbpUi.Close") || ""}
+                            tooltipTitle="Close"
                             tooltipPlacement="left" aria-label="Close"
                         />
                         {/* <RdsButton
@@ -94,7 +94,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
                             type={"button"}
                             onClick={props.onClose}
                             tooltip={true}
-                            tooltipTitle={t("AbpUi.Close") || ""}
+                            tooltipTitle={t("Close") || ""}
                             tooltipPlacement="left" aria-label="Close"
                         >
 

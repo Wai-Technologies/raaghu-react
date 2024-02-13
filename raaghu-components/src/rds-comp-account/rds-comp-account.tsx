@@ -153,7 +153,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     </div>
                         <div className="col-xxl-3 col-xl-3 col-lg-6 col-12 mb-3">
                             <RdsSelectList
-                                id="AbpIdentity.Fea"
+                                id="Fea"
                                 label="Two Factor"
                                 placeholder="Select Option"
                                 selectItems={twoFactList}
@@ -225,7 +225,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
 
                                     <RdsSelectList
-                                        id="AbpIdentity.dis"
+                                        id="dis"
                                         label="Version"
                                         placeholder="Select Version"
                                         selectItems={versionList}

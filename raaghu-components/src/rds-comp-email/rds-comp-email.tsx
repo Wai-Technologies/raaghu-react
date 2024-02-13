@@ -75,7 +75,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     fontWeight={"normal"}
                     value={formData?.smtpPassword}
                     name="displayName"
-                    label={"AbpEmailing.DisplayName:Abp.Mailing.Smtp.Password"}
+                    label="Password"
                     required={false}
                     placeholder={"Enter Password"}
                     inputType="password"
@@ -268,7 +268,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 </form>
                                 <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
                                     <RdsButton
-                                        label="AbpUi.Cancel"
+                                        label=".Cancel"
                                         databsdismiss="offcanvas"
                                         type={"button"}
                                         size="small"
@@ -277,7 +277,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         class="me-2"
                                     ></RdsButton>
                                     <RdsButton
-                                        label="AbpUi.Save"
+                                        label=".Save"
                                         type={"button"}
                                         size="small"
                                         showLoadingSpinner={true}

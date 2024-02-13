@@ -40,8 +40,8 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
       recordsPerPage={props.recordsPerPage}
       onActionSelection={props.onActionSelection!}
       recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
-      noDataheaderTitle={t("No Records Available") || ""}
-      noDataTitle={t("Click on the button to add") || ""}
+      noDataheaderTitle="No Records Available"
+      noDataTitle="Click on the button to add"
 
     ></RdsCompDatatable>
   );

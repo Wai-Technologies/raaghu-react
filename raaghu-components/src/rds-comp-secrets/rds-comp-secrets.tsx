@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompSecretsProps { }
 
 const RdsCompSecrets = (props: RdsCompSecretsProps) => {
-    const { t } = useTranslation();
+
 
     return (
         <>
@@ -68,7 +68,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             tooltipPlacement="top"
                             tooltipTitle="Add Data"
                             colorVariant="primary"
-                            label={t("Add") || ""}
+                            label="Add"
                             type="button"
                             dataTestId="add"
                         ></RdsButton>
@@ -84,7 +84,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 tooltipPlacement="top"
                                 tooltipTitle="Cancel"
                                 colorVariant="primary"
-                                label={t("Cancel") || ""}
+                                label="Cancel"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                                 dataTestId="cancel"
@@ -98,7 +98,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 tooltipPlacement="top"
                                 tooltipTitle="Create Data"
                                 colorVariant="primary"
-                                label={t("Create") || ""}
+                                label="Create"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                                 dataTestId="create"

@@ -21,7 +21,6 @@ export interface rdsCompTenantInformationProps {
     isModuleSpecificDb?: boolean;
 }
 const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
-    const { t } = useTranslation();
     const [editionList, setEditionList] = useState<any>([]);
     const [tenantInformationData, setTenantInformationData] = useState<any>(props.tenantInfoData);
     const [inputReset, setInputReset] = useState(false);
@@ -42,13 +41,13 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
 
             radioItems = [{
                 id: 1,
-                label: t("Shared Database"),
+                label: "Shared Database",
                 checked: true,
                 name: "radio_button",
             },
             {
                 id: 2,
-                label: t("Separated Database"),
+                label: "Separated Database",
                 checked: false,
                 name: "radio_button",
             },
@@ -58,13 +57,13 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
             radioItems = [
                 {
                     id: 1,
-                    label: t("Shared Database"),
+                    label: "Shared Database",
                     checked: false,
                     name: "radio_button",
                 },
                 {
                     id: 2,
-                    label: t("Separated Database"),
+                    label: "Separated Database",
                     checked: true,
                     name: "radio_button",
                 },
@@ -167,9 +166,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     reset={inputReset}
                                     inputType="text"
                                     required={true}
-                                    label={t("Saas.Name") || ""}
+                                    label="Name"
                                     value={tenantInformationData?.name}
-                                    placeholder={t("Enter Tenant Name") || ""}
+                                    placeholder="Enter Tenant Name"
                                     onChange={(e) => {
                                         handleDataChanges(e.target.value, "name");
                                     }}
@@ -180,8 +179,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                             <div className="mb-3">
                                 <RdsSelectList
                                     id={"saasEditionlist"}
-                                    label={t("Saas.Edition") || ""}
-                                    placeholder={t("Select Edition") || ""}
+                                    label="Edition"
+                                    placeholder="Select Edition"
                                     selectItems={editionList}
                                     isSearchable={true}
                                     required={false}
@@ -193,7 +192,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                     </div>
                     {!props.isEdit && (<>
                         <div className="my-2">
-                            <label className="fw-bold" htmlFor="Admin details">{t("Admin Details")}</label>
+                            <label className="fw-bold" htmlFor="Admin details">Admin Details</label>
                         </div>
 
                         <div className="row">
@@ -203,8 +202,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         reset={inputReset}
                                         required={true}
                                         inputType="email"
-                                        label={t("Admin Email") || ""}
-                                        placeholder={t("Enter Email") || ""}
+                                        label="Admin Email"
+                                        placeholder="Enter Email"
                                         name="email"
                                         value={tenantInformationData?.adminEmailAddress}
                                         id="email"
@@ -212,7 +211,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                             handleDataChanges(e.target.value, "adminEmailAddress");
                                         }}
                                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                                        validationMsg={t("AbpValidation.ThisFieldIsNotAValidEmailAddress.") || ''}
+                                        validationMsg="This Field Is Not A Valid EmailAddress."
                                     ></RdsInput>
                                 </div>
                             </div>
@@ -221,8 +220,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     <RdsInput
                                         reset={inputReset}
                                         required={true}
-                                        label={t("Saas.Password") || ""}
-                                        placeholder={t("Enter Password") || ""}
+                                        label="Password"
+                                        placeholder="Enter Password"
                                         inputType="password"
                                         name="adminPassword"
                                         id="adminPassword"
@@ -238,7 +237,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                         <div className="row mb-3">
                             <div className="col-md-8">
                                 <RdsLabel
-                                    label={t("Saas.ConnectionStrings") || ""}
+                                    label="ConnectionStrings"
                                     required={true}
                                 />
                                 <div className="form-group mt-2">
@@ -257,8 +256,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     <div className="col-md-12 mb-3">
                                         <div className="form-group">
                                             <RdsTextArea
-                                                label={t("Database URL") || ""}
-                                                placeholder={t("Enter URL") || ""}
+                                                label="Database URL"
+                                                placeholder="Enter URL"
                                                 onChange={(e: any) => {
                                                     handleDatabaseURL(e.target.value);
                                                 }}
@@ -272,7 +271,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 <div className="row">
                                     <div className="col-md-12 mb-3">
                                         <RdsCheckbox
-                                            label={t("Use Module Specific Database Connection String") || ""}
+                                            label="Use Module Specific Database Connection String"
                                             checked={tenantInformationData?.isModuleSpecificDb}
                                             onChange={(e) => {
                                                 handleDataChanges(e.target.checked, "isModuleSpecificDb");
@@ -287,10 +286,10 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                             <div className="form-group text-capitalize mb-3">
                                 <RdsSelectList
                                     id={"saasActivelist"}
-                                    label={t("Saas.ActivationState") || ""}
-                                    placeholder={t("Select Activation State") || ""}
+                                    label="ActivationState"
+                                    placeholder="Select Activation State"
                                     selectItems={activationStateList}
-                                    selectedValue={tenantInformationData?.activationState?.toString() || ""}
+                                    selectedValue={tenantInformationData?.activationState?.toString()}
                                     onChange={(item: any) => handleDataChanges(parseInt(item.value), "activationState")}
                                     required={true}
                                 ></RdsSelectList>
@@ -302,14 +301,14 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("AbpUi.Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("AbpUi.Save") || ""}
+                            label="Save"
                             size="small"
                             isDisabled={!isFormValid}
                             colorVariant="primary"

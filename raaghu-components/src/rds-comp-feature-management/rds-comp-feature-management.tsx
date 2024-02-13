@@ -287,7 +287,7 @@ const RdsCompFeatureManagement = (props: RdsCompFeatureManagementProps) => {
         <div className="row mt-5">
           <div className="footer-buttons pb-3 bg-transparent d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3">
             <RdsButton
-              label={("AbpUi.Save") || ""}
+              label="Save"
               type="submit"
               size="small"
               class="ms-2"

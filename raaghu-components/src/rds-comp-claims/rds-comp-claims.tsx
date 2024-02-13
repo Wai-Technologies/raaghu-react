@@ -72,7 +72,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 <div className="row">
                     <div className="col-md-5 mb-3">
                         <RdsSelectList
-                            id="abp.claim"
+                            id="claim"
                             label="Claim Types"
                             placeholder="Select Claim Type"
                             selectItems={allClaimsArray}

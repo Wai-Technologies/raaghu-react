@@ -1,10 +1,10 @@
 import React from "react";
 import { RdsInput, RdsLabel, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
+
 export interface RdsCompUserClaimsProps { }
 
 const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
-    const { t } = useTranslation();
+
     return (
         <>
             <div className="tab-content">
@@ -39,7 +39,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
 
                 <RdsButton
                     type="button"
-                    label={t("Cancel") || ""}
+                    label="Cancel"
                     isOutline={true}
                     colorVariant="primary"
                     class="me-2 ms-4"
@@ -48,7 +48,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                 ></RdsButton>
                 <RdsButton
                     type="button"
-                    label={t("Next") || ""}
+                    label="Next"
                     colorVariant="primary"
                     class="save-btn"
                     size="small"

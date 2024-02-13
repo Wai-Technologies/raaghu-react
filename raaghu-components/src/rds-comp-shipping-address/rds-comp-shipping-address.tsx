@@ -8,7 +8,6 @@ export interface RdsCompShippingAddressProps {
 }
 
 const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
-    const { t } = useTranslation();
     return (
         <>
             <div>
@@ -193,7 +192,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     <div className="col-md-6 sm-p-0">
                         <RdsButton
                             type="button"
-                            label={t("Back") || ""}
+                            label="Back"
                             block={true}
                             isOutline={true}
                             colorVariant="primary"
@@ -203,7 +202,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     <div className="col-md-6 sm-p-0">
                         <RdsButton
                             type="button"
-                            label={t("Save") || ""}
+                            label="Save"
                             block={true}
                             isOutline={false}
                             colorVariant="primary"

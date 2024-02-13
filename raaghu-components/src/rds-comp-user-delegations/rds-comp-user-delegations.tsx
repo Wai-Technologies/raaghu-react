@@ -37,7 +37,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                     iconStroke={true}
                     iconWidth="12px"
                     colorVariant="primary"
-                    label={t("Delegate New User") || ""}
+                    label="Delegate New User"
                     size="small"
                     iconColorVariant="light"
                     onClick={onClickHandler}
@@ -78,7 +78,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 type="button"
                                 isOutline={true}
                                 colorVariant="primary"
-                                label={t("Cancel") || ""}
+                                label="Cancel"
                                 size="small"
                                 onClick={onClickHandler}
                             ></RdsButton>
@@ -88,7 +88,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 type="submit"
                                 isOutline={false}
                                 colorVariant="primary"
-                                label={t("Save") || ""}
+                                label="Save"
                                 size="small"
                                 onClick={() => props.onSubmit(userData)}
                             ></RdsButton>

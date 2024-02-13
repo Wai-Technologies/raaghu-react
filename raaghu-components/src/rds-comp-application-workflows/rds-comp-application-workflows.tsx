@@ -37,7 +37,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
                     <RdsSelectList
-                        id="abp.typ"
+                        id="typ"
                         required={true}
                         label="Type"
                         placeholder="Select Consent Type"
@@ -184,7 +184,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                 <div className="mb-3">
                     <RdsSelectList
                         classes="mb-3"
-                        id="Abp.Cons"
+                        id="Cons"
                         label="Consent Type"
                         selectItems={props.consentType}
                         selectedValue={basicApplicationData?.consentType}

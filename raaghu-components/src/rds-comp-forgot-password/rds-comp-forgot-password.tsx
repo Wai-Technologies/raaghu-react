@@ -114,7 +114,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         <div>
                                             Remember Password?
                                             {/* <a href={"/"} className="link-primary text-decoration-none px-1">
-                                                {t("AbpUi.Login")||""}
+                                            Login
                                                 </a> */}
                                             <a
                                                 className="link-primary text-decoration-none ps-2"

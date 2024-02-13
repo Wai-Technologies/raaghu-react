@@ -6,7 +6,7 @@ import {
 } from "../rds-elements";
 
 import "./rds-comp-theme-new.css";
-import { useTranslation } from "react-i18next";
+
 
 export interface RdsCompThemeNewProps {
     StyleList: { option: any, value: any }[];
@@ -16,7 +16,7 @@ export interface RdsCompThemeNewProps {
 }
 
 const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
-    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
         styleList: "",
         webList: "",
@@ -104,7 +104,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                 <div className="footer-buttons pb-3 justify-content-end d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row bottom-0 pt-0" >
                     <RdsButton
                         class="me-2"
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         type="button"
                         isOutline={true}
                         colorVariant="primary"
@@ -113,7 +113,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                     ></RdsButton>
                     <RdsButton
                         class="me-2"
-                        label={t("Save") || ""}
+                        label="Save"
                         type="submit"
                         isOutline={false}
                         colorVariant="primary"

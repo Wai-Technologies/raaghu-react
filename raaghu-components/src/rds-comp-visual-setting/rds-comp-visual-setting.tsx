@@ -49,7 +49,7 @@ const reducer = (state: any, action: any) => {
 
 const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
     const [vsItem, dispatch] = useReducer(reducer, props.visualsettingsItem);
-    const { t } = useTranslation();
+
     const [activeTheme, setActiveTheme] = useState("default");
     const [activeTab, setActiveTab] = useState(
         props.navtabItems.filter((tabs) => tabs.themeId == activeTheme)[0]
@@ -190,7 +190,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
                                         <div className="form-group mb-3 mt-3">
                                             <RdsButton
-                                                label={t("Save as system default") || ""}
+                                                label="Save as system default"
                                                 colorVariant="primary"
                                                 block={false}
                                                 size="small"
@@ -309,7 +309,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                 </select>
                                                 <div className="form-group mb-3 mt-3">
                                                     <RdsButton
-                                                        label={t("Save as system default") || ""}
+                                                        label="Save as system default"
                                                         colorVariant="primary"
                                                         block={false}
                                                         size="small"
@@ -341,7 +341,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                         />
                                         <div className="form-group mb-3 mt-3">
                                             <RdsButton
-                                                label={t("Save as system default") || ""}
+                                                label="Save as system default"
                                                 colorVariant="primary"
                                                 block={false}
                                                 size="small"
@@ -415,7 +415,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     </div>
                                                     <div className="form-group mb-3 mt-3">
                                                         <RdsButton
-                                                            label={t("Save as system default") || ""}
+                                                            label="Save as system default"
                                                             colorVariant="primary"
                                                             block={false}
                                                             size="small"

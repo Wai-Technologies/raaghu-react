@@ -191,4 +191,6 @@
 } */
 
 /* elements in storybook */
-
+.sb-show-main{
+    padding: 5px !important;
+}

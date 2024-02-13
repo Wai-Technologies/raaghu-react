@@ -11,14 +11,14 @@ const RdsCompProfilePicture = (props: any) => {
     {
       checked: true,
       id: 0,
-      label: "AbpAccount.UseDefault",
+      label: "Account.UseDefault",
       name: "radio_button",
       type: 0,
     },
     {
       checked: false,
       id: 1,
-      label: "AbpAccount.DisplayName:UseGravatar",
+      label: "Account.DisplayName:UseGravatar",
       name: "radio_button",
       type: 1,
     },
@@ -182,7 +182,7 @@ const RdsCompProfilePicture = (props: any) => {
                 multiple={false}
                 placeholder=""
                 size={""}
-                label={"AbpAccount.SelectNewImage"}
+                label={"Account.SelectNewImage"}
                 limit={1024}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
@@ -197,7 +197,7 @@ const RdsCompProfilePicture = (props: any) => {
       <div className="row">
         <div className="mt-3 footer-buttons px-0 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row d-flex gap-2 bg-transparent">
           <RdsButton
-            label={"AbpAccount.SaveChanges"}
+            label={"Account.SaveChanges"}
             colorVariant="primary"
             isDisabled={isExceed}
             block={false}

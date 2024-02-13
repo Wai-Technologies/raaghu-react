@@ -124,7 +124,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsTextArea
-                        label="AbpIdentity.Description"
+                        label="Identity.Description"
                         placeholder="Enter Description"
                         onChange={onDescChangeHAndler}
                         value={data?.description}

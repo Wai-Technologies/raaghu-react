@@ -295,7 +295,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 tooltipTitle={""}
                 type="submit"
                 onClick={handleSubmit}
-                dataTestId="AbpUi.Login"
+                dataTestId="Login"
               />
             </form>
             <div className="mt-4">

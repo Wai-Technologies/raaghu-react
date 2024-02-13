@@ -7,7 +7,7 @@ interface RdsCompUserRolesProps {
 }
 
 const RdsCompUserRoles = (props: RdsCompUserRolesProps) => {
-    const { t } = useTranslation();
+  
     const [roleData, setRoleData] = useState<any>(props.usersRole);
     function isRoleChecked(index: number, value: boolean) {
         const updatedRoleData = [...roleData];
@@ -23,7 +23,7 @@ const RdsCompUserRoles = (props: RdsCompUserRolesProps) => {
                         <div className="pt-3">
                             <RdsCheckbox
                                 key={e.name}
-                                label={t(e.name) || ""}
+                                label={(e.name)}
                                 onChange={(event) => {
                                     isRoleChecked(index, event.target.checked);
                                 }}
