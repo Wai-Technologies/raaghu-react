@@ -10,7 +10,6 @@ import {
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import "./rds-comp-edition.css";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -21,11 +20,10 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
 
     const [activeNavTabId, setActiveNavTabId] = useState("0");
     const [showTenantSettings, setShowTenantSettings] = useState(false);
-    const { t } = useTranslation();
 
     const navtabsItems = [
-        { label: t("Basics"), tablink: "#nav-home", id: 0 },
-        { label: t("Features"), tablink: "#nav-profile", id: 1 },
+        { label: "Basics", tablink: "#nav-home", id: 0 },
+        { label: "Features", tablink: "#nav-profile", id: 1 },
     ];
 
     return (
@@ -74,7 +72,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                         <div className="d-flex gap-2">
                             <RdsOffcanvas
                                 offcanvaswidth={650}
-                                canvasTitle={t("Update Edition")}
+                                canvasTitle={"Update Edition"}
                                 onclick={offCanvasHandler}
                                 placement="end"
                                 offcanvasbutton={<div>
@@ -109,7 +107,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                     <RdsInput
                                                         required={true}
                                                         inputType="text"
-                                                        label={t("Edition Name") || ""}
+                                                        label={"Edition Name"}
                                                         placeholder="Edition Name"
                                                         name="editionName"
                                                         id="editionName"
@@ -134,14 +132,14 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                 class="me-2"
                                                 tooltipTitle={""}
                                                 type={"button"}
-                                                label={t("Cancel") || ""}
+                                                label={"Cancel"}
                                                 colorVariant="outline-primary"
                                                 size="small"
                                                 databsdismiss="offcanvas"
                                             ></RdsButton>
                                             <RdsButton
                                                 class="me-2"
-                                                label={t("Next") || ""}
+                                                label={"Next"}
                                                 size="small"
                                                 colorVariant="primary"
                                                 tooltipTitle={""}

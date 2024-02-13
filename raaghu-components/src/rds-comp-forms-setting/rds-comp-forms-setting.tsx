@@ -8,7 +8,7 @@ export interface RdsCompFormsSettingProps {
 }
 
 const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
-  const { t } = useTranslation();
+
   const [formsSetting, setFormsSetting] = useState(props.formsSettingData);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row">
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Is accepting responses") || ""}
+                label="Is accepting responses"
                 onChange={(e) => {
                   setResponses(e.target.checked);
                 }}
@@ -59,7 +59,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Is collecting email") || ""}
+                label="Is collecting email"
                 onChange={(e) => {
                   setEmail(e.target.checked);
                 }}
@@ -69,7 +69,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Is a quiz") || ""}
+                label="Is a quiz"
                 onChange={(e) => {
                   setQuiz(e.target.checked);
                 }}
@@ -81,7 +81,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row">
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Requires login") || ""}
+                label="Requires login"
                 onChange={(e) => {
                   setLogin(e.target.checked);
                 }}
@@ -91,7 +91,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Has limit one response per user") || ""}
+                label="Has limit one response per user"
                 onChange={(e) => {
                   setHasLimit(e.target.checked);
                 }}
@@ -104,7 +104,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row ">
             <div className="mb-3">
               <RdsCheckbox
-                label={t("Can edit after submit") || ""}
+                label="Can edit after submit"
                 onChange={(e) => {
                   setEdit(e.target.checked);
                 }}

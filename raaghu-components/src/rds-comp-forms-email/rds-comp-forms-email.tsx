@@ -8,7 +8,7 @@ export interface RdsCompFormsEmailProps {
 }
 
 const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
-    const { t } = useTranslation();
+  
     const [emailData, setEmailData] = useState<any>(props.formsEmailData);
     function setTo(value: any) {
         setEmailData({ ...emailData, to: value });
@@ -34,15 +34,15 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
     return (
         <>
             <div className="ps-2 mt-3">
-                <RdsInput required={true} inputType="email" placeholder="Enter email" label={t("Forms.To") || ""} value={emailData?.to} onChange={(e) => setTo(e.target.value)} dataTestId="email"></RdsInput>
-                <RdsInput label={t("Forms.Subject") || ""} placeholder="Enter Subject" value={emailData?.subject} onChange={(e) => setSubject(e.target.value)} dataTestId="subject"></RdsInput>
+                <RdsInput required={true} inputType="email" placeholder="Enter email" label="To" value={emailData?.to} onChange={(e) => setTo(e.target.value)} dataTestId="email"></RdsInput>
+                <RdsInput label="Subject" placeholder="Enter Subject" value={emailData?.subject} onChange={(e) => setSubject(e.target.value)} dataTestId="subject"></RdsInput>
                 <div className="pt-3 mb-3">
-                    <RdsLabel>{t("Forms.Body") || ""}</RdsLabel>
+                    <RdsLabel>Body</RdsLabel>
                     <RdsTextEditor value={emailData?.body} onChange={(e) => setBody(e)} placeholder={""} ></RdsTextEditor >
                 </div>
                 <div className="gap-2 justify-content-end d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
                     <RdsButton
-                        label={t("AbpUi.Cancel") || ""}
+                        label="Cancel"
                         type="button"
                         colorVariant="primary"
                         size="small"
@@ -50,7 +50,7 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
                         isOutline={true}
                     ></RdsButton>
                     <RdsButton
-                        label={t("Forms.Send") || ""}
+                        label="Send"
                         type="button"
                         size="small"
                         class="ms-2"

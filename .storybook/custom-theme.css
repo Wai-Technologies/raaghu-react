@@ -1,6 +1,6 @@
 #storybook-explorer-menu .sidebar-item[data-selected="true"] {
-    background: #7e2eef14 !important;
-    color: #ac31e1;
+    /* background: #7e2eef14 !important;
+    color: #ac31e1; */
 }
 
 /*#storybook-explorer-menu .sidebar-item[aria-expanded="true"]::after{
@@ -41,15 +41,15 @@
     padding-left: 0px !important;
 }
 
-.os-viewport .tabbutton.tabbutton-active {
+/* .os-viewport .tabbutton.tabbutton-active {
     color: #ac31e1;
     border-bottom-color: #ac31e1;
     text-transform: uppercase !important;
-}
+} */
 
-.sto-1tzk3u .css-e39o1a {
+/* .sto-1tzk3u .css-e39o1a {
     background-color: #7e2eef14 !important;
-}
+} */
 
 .sto-1tzk3u {
     border-top: 0px !important;
@@ -65,19 +65,19 @@
     margin-right: -0px !important;
 }
 
-.sidebar-container {
+/* .sidebar-container {
     background-color: #7e2eef08 !important;
-}
+} */
 
 .sidebar-container .sto-79elbk .sidebar-item {
     padding-left: 30sspx !important;
 }
 
-[data-ref-id="storybook_internal"][data-item-id="elements"]:not([data-selected="true"])[data-nodetype="component"],
+/* [data-ref-id="storybook_internal"][data-item-id="elements"]:not([data-selected="true"])[data-nodetype="component"],
 [data-ref-id="storybook_internal"][data-item-id="elements"]:not([data-selected="true"])[data-nodetype="group"] {
     background-color: transparent !important;
-}
-
+} */
+/* 
 .sto-1l4k3yz:hover,
 .sto-1l4k3yz:focus-visible {
     background: #ac31e11c !important;
@@ -123,9 +123,9 @@
 .sto-1amsdi0 button.sto-1l38861 {
     background: #ac31e11c !important;
     color: #ac31e1 !important;
-}
+} */
 
-.sto-7c8r7d:focus,
+/* .sto-7c8r7d:focus,
 .sto-7c8r7d:active {
     border-color: #ac31e1 !important;
 }
@@ -151,12 +151,12 @@
 .sto-8skhtv:hover,
 .sto-8skhtv:focus {
     background: #ac31e11c !important;
-}
+} */
 
-.sto-10ro1m,
+/* .sto-10ro1m,
 .sto-5grmpm {
     background: #f5effe !important;
-}
+} */
 
 .sb-show-main.sb-main-centered #root {
     width: 100% !important;
@@ -171,24 +171,24 @@
     height: 4px;
 }
 
-.sb-show-main ::-webkit-scrollbar-track {
+/* .sb-show-main ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 2px grey;
     border-radius: 15px;
     background-color: transparent;
-}
+} */
 
-.sb-show-main ::-webkit-scrollbar-thumb {
+/* .sb-show-main ::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 2px;
-}
+} */
 
-.sb-show-main ::-webkit-scrollbar-thumb:hover {
+/* .sb-show-main ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(45deg, #500dd1, #0796e3);
-}
+} */
 
-.sto-ehhmfl {
+/* .sto-ehhmfl {
     background: #f5effe !important;
-}
+} */
 
 /* elements in storybook */
 

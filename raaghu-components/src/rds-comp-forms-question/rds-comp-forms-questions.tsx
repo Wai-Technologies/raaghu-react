@@ -18,7 +18,7 @@ export interface RdsCompFormsQuestionProps {
 }
 
 const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
-  const { t } = useTranslation();
+ 
   const [questions, setQuestions] = useState<any>(props.formQuestionsData);
   const questionsTypeList = [
     { option: "Short answer", value: 1 },
@@ -182,7 +182,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               <div className="row align-items-center justify-content-between">
                 <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-12 mb-3">
                   <h5 className="fw-medium">
-                    {t("Question") || ""} {i + 1}
+                    {("Question") || ""} {i + 1}
                   </h5>
                 </span>
                 {element.lastModificationTime ? (
@@ -234,8 +234,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               <div className="row">
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
                   <RdsInput
-                    label={t("Title") || ""}
-                    placeholder={t("Title") || ""}
+                    label="Title"
+                    placeholder="Title"
                     inputType="text"
                     onChange={(e: any) => setTitle(i, e.target.value)}
                     value={element.title}
@@ -245,8 +245,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 </div>
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
                   <RdsTextArea
-                    label={t("Description") || ""}
-                    placeholder={t("Enter description") || ""}
+                    label="Description"
+                    placeholder="Enter description"
                     onChange={(e) => setDescription(i, e.target.value)}
                     value={element.description}
                     rows={1}
@@ -258,8 +258,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mb-3 mt-2 pe-0">
                   <RdsSelectList
                     id="questy"
-                    label={t("Type") || ""}
-                    placeholder={t("Type") || ""}
+                    label="Type"
+                    placeholder="Type"
                     selectItems={questionsTypeList}
                     selectedValue={element.questionType}
                     onChange={(item: any) => setSelectedOption(i, item.value)}
@@ -394,7 +394,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
           <RdsButton
             type={"button"}
             size="small"
-            label={t("New Questions") || ""}
+            label="New Questions"
             icon="plus"
             iconColorVariant="light"
             iconFill={false}

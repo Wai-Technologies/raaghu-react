@@ -10,7 +10,7 @@ export interface RdsCompFileUploaderProps {
 }
 
 const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
-    const { t } = useTranslation();
+
     function folder(data: any) {
         props.preFileInfo(data);
     }
@@ -28,7 +28,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
             </div>
             <div className="d-flex gap-2 pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons">
                 <RdsButton
-                    label={t("Cancel") || ""}
+                    label="Cancel"
                     databsdismiss="offcanvas"
                     type={"button"}
                     size="small"
@@ -37,7 +37,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     class="me-2"
                 ></RdsButton>
                 <RdsButton
-                    label={t("Finish") || ""}
+                    label="Finish"
                     type={"button"}
                     size="small"
                     databsdismiss="offcanvas"

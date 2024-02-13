@@ -12,7 +12,7 @@ export interface RdsForgotPasswordProps {
 }
 
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
-    const { t } = useTranslation();
+  
     const [error1, setError1] = useState("");
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
@@ -55,7 +55,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                         <div className="d-flex align-items-center mb-1">
                             <div className="col-8 col-md-8 mb-3 offset-2">
                                 <h2 className="mb-0">
-                                    {t("AbpAccount.ForgotPassword") || ""}
+                                    ForgotPassword
                                 </h2>
                             </div>
                             <div className="col-2 col-md-2 mb-3">
@@ -75,7 +75,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                     onClick={props.onClickHandler} />
                             </div>
                         </div>
-                        <div className="fs-6"><RdsLabel label={t("A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try.") || ""} size="13px"></RdsLabel></div>
+                        <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
                             <form onSubmit={onSubmit}>
@@ -86,7 +86,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         inputType="email"
                                         isDisabled={false}
                                         readonly={false}
-                                        placeholder={t("AbpAccount.DisplayName:Email") || ""}
+                                        placeholder="Email"
                                         value={email}
                                         onChange={(e: any) => setEmail(e.target.value)}
                                         required={false}
@@ -98,7 +98,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                 <div className="mb-2">
                                     <RdsButton
                                         class="d-grid mb-3"
-                                        label={t("Submit") || ""}
+                                        label="Submit"
                                         block
                                         size="medium"
                                         colorVariant="primary"
@@ -112,7 +112,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                 <div className="row d-flex justify-content-between mt-4">
                                     <div className="col-md-12">
                                         <div>
-                                            {t("Remember Password?") || ""}
+                                            Remember Password?
                                             {/* <a href={"/"} className="link-primary text-decoration-none px-1">
                                                 {t("AbpUi.Login")||""}
                                                 </a> */}
@@ -121,7 +121,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                                 href="javascript:void(0)"
                                                 onClick={() => loginHandler(isLoginClicked)}
                                                 data-testid="login"
-                                            >{t("AbpUi.Login")}
+                                            >Login
                                             </a>
                                         </div>
                                     </div>
@@ -137,20 +137,20 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                             className="mt-4 mb-4 w-25"
                             alt="img"
                         />
-                        <h3 className="pb-3"> {t("Email has been sent!") || ""}</h3>
+                        <h3 className="pb-3">Email has been sent!</h3>
                         <div>
-                            {t("Please check your inbox and click in the received link to reset a password") || ""}
+                            Please check your inbox and click in the received link to reset a password
                         </div>
                         <br />
                         <div>
-                            {t("Didn't receive the link") || ""} ?
+                            {"Didn't receive the link" || ""} ?
                             <a
                                 className="link-primary text-decoration-none px-1"
                                 href="javascript:void(0)"
                                 onClick={resendHandler}
                                 data-testid="resend-link"
                             >
-                                {t("Resend") || ""}
+                                {"Resend"}
                             </a>
 
                         </div>

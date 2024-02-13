@@ -29,7 +29,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
   const forms = props.formsData;
   const responseCount = props.response?.totalCount || 0;
   const totalCount = forms?.getResponses?.items?.length || 0;
-  const { t } = useTranslation();
+
   // const totalCount = forms.getResponses?.items?.length;
   const array1 = forms?.getResponses?.items[count - 1]?.answers || [];
   const array2 = forms?.formQuestionEdit;
@@ -295,7 +295,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
       )}
       {responseCount == 0 && (
         <h4 className="mt-7 text-center opacity-25">
-          {t("There is no response yet") || ""}
+          There is no response yet
         </h4>
       )}
     </>

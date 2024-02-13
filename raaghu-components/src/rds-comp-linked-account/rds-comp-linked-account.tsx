@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 export interface RdsLinkedAccountProps { }
 
 const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
-    const { t } = useTranslation();
+  
     const [userData, setUserData] = useState({
         tenancyName: "",
         userName: "",
@@ -37,7 +37,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                 type="button"
                                 icon="plus"
                                 colorVariant="primary"
-                                label={t("Link New Account") || ""}
+                                label="Link New Account"
                                 iconFill={false}
                                 iconStroke={true}
                                 iconHeight="12px"
@@ -95,7 +95,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         type="button"
                                         isOutline={true}
                                         colorVariant="primary"
-                                        label={t("Cancel") || ""}
+                                        label="Cancel"
                                         size="small"
                                         onClick={onClickHandler}
                                         dataTestId="cancel"
@@ -106,7 +106,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         type="submit"
                                         isOutline={false}
                                         colorVariant="primary"
-                                        label={t("Save") || ""}
+                                        label="Save"
                                         size="small"
                                         dataTestId="submit"
                                     ></RdsButton>

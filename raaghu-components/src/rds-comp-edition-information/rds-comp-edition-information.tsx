@@ -14,7 +14,6 @@ export interface RdsCompEditionInformationProps {
     editionInfo: (next: boolean) => void;
 }
 const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
-    const { t } = useTranslation();
     const [values, setValues] = useState({
         editionName: "",
         annualPrice: "",
@@ -82,7 +81,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                     <div className="row">
                         <div className="col-md-6 my-3">
                             <RdsInput
-                                label={t("Edition Name") || ""}
+                                label={"Edition Name"}
                                 required={true}
                                 placeholder="Edition Name"
                                 inputType="text"
@@ -147,7 +146,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("Cancel") || ""}
+                            label={"Cancel"}
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -155,7 +154,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("Next") || ""}
+                            label={"Next"}
                             size="small"
                             colorVariant="primary"
                             tooltipTitle={""}

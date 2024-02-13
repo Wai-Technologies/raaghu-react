@@ -10,7 +10,6 @@ export interface RdsCompIdentityClientBasicProps {
 
 const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
 
-    const { t } = useTranslation();
     const [clientData, setClientData] = useState<any>(props.clientData);
 
 
@@ -127,7 +126,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                         class="me-2"
                         tooltipTitle={""}
                         type={"button"}
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         colorVariant="outline-primary"
                         size="small"
                         databsdismiss="offcanvas"
@@ -135,7 +134,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     ></RdsButton>
                     <RdsButton
                         class="me-2"
-                        label={t("Save") || ""}
+                        label="Save"
                         size="small"
                         colorVariant="primary"
                         tooltipTitle={""}

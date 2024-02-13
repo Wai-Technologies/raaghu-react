@@ -8,7 +8,6 @@ export interface RdsCompEmailSettingsProps {
 
 const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
-    const { t } = useTranslation();
 
     return (
         <>
@@ -67,7 +66,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         <RdsButton
                             type="button"
                             colorVariant="primary"
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             isOutline={true}
                             size="small"
                             dataTestId="cancel"
@@ -77,7 +76,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         <RdsButton
                             type="submit"
                             colorVariant="primary"
-                            label={t("Save") || ""}
+                            label="Save"
                             size="small"
                             dataTestId="submit"
                         ></RdsButton>

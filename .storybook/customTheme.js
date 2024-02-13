@@ -9,28 +9,28 @@ export default create({
 	brandTitle: "Raaghu",
 	brandUrl: "https://raaghu.io",
 	brandImage: logoUrl,
-	colorPrimary: '#3A10E5',
+	// colorPrimary: '#3A10E5',
 	//colorSecondary: '#585C6D',
 
 	// UI
-	appBg: '#ffffff',
-	appContentBg: '#ffffff',
-	appBorderColor: '#585C6D',
-	appBorderRadius: 4,
+	// appBg: '#ffffff',
+	// appContentBg: '#ffffff',
+	// appBorderColor: '#585C6D',
+	// appBorderRadius: 4,
 
 	// Text colors
-	textColor: '#10162F',
-	textInverseColor: '#ffffff',
+	// textColor: '#10162F',
+	// textInverseColor: '#ffffff',
 
 	// Toolbar default and active colors
-	barTextColor: '#9E9E9E',
+	// barTextColor: '#9E9E9E',
 	//barSelectedTextColor:'#AC31E1',
-	barBg: '#ffffff',
+	// barBg: '#ffffff',
 
 	// Form colors
-	inputBg: '#ffffff',
-	inputBorder: '#CED4DA',
-	inputTextColor: '#10162F',
-	inputBorderRadius: 4,
+	// inputBg: '#ffffff',
+	// inputBorder: '#CED4DA',
+	// inputTextColor: '#10162F',
+	// inputBorderRadius: 4,
 
 });
