@@ -9,7 +9,6 @@ export interface RdsCompApplicationBasicProps {
 }
 
 const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
-    const { t } = useTranslation();
     const [inputReset, setInputReset] = useState(props.reset)
     const [basicApplicationData, setBasicApplicationData] = useState<any>(props.basicData);
 
@@ -35,8 +34,8 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
                                 <RdsInput
                                     reset={inputReset}
-                                    label={t("AbpOpenIddict.ClientId") || ""}
-                                    placeholder={t("Enter Client Id") || ""}
+                                    label="Client Id"
+                                    placeholder="Enter Client Id"
                                     inputType="text"
                                     onChange={(e: any) => handlerInputChange(e.target.value, "clientId")}
                                     value={basicApplicationData?.clientId}
@@ -47,8 +46,8 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                                 <RdsInput
                                     reset={inputReset}
                                     required={true}
-                                    label={t("AbpOpenIddict.DisplayName") || ""}
-                                    placeholder={t("Enter Display Name") || ""}
+                                    label="Display Name"
+                                    placeholder="Enter Display Name"
                                     inputType="text"
                                     onChange={e => handlerInputChange(e.target.value, "displayName")}
                                     value={basicApplicationData?.displayName}
@@ -59,11 +58,11 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3">
                                 <RdsInput
                                     reset={inputReset}
-                                    label={t("AbpOpenIddict.ClientUri") || ""}
-                                    placeholder={t("Enter Client Uri") || ""}
+                                    label="Client Uri"
+                                    placeholder="Enter Client Uri"
                                     inputType="url"
                                     validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                                    validationMsg={t("AbpValidation.ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl") || ''}
+                                    validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
                                     onChange={e => handlerInputChange(e.target.value, "clientUri")}
                                     value={basicApplicationData?.clientUri}
                                     required={false}
@@ -72,11 +71,11 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3">
                                 <RdsInput
                                     reset={inputReset}
-                                    label={t("AbpOpenIddict.LogoUri") || ""}
-                                    placeholder={t("Enter Logo Uri") || ""}
+                                    label="Logo Uri"
+                                    placeholder="Enter Logo Uri"
                                     inputType="url"
                                     validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                                    validationMsg={t("AbpValidation.ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl") || ''}
+                                    validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
                                     onChange={e => handlerInputChange(e.target.value, "logoUri")}
                                     value={basicApplicationData?.logoUri}
                                     required={false}

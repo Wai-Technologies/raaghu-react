@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { RdsDropdownList, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompDynamicEntityPropertyProp {
     entityNames: any[];
@@ -17,7 +16,6 @@ export interface RdsCompDynamicEntityPropertyProp {
 const RdsCompDynamicEntityProperty = (
     props: RdsCompDynamicEntityPropertyProp
 ) => {
-    const { t } = useTranslation();
     const [entityProps, setEntityProps] = useState({
         entity: props.initialSelectedItems?.entity || "",
         parameter: props.initialSelectedItems?.parameter || [],
@@ -74,7 +72,7 @@ const RdsCompDynamicEntityProperty = (
                     </div>
                     <div className="footer-buttons pb-3 d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -86,7 +84,7 @@ const RdsCompDynamicEntityProperty = (
                             ariacontrols={props.offcanvasId}
                         />
                         <RdsButton
-                            label={t("Save") || ""}
+                            label="Save"
                             colorVariant="primary"
                             isDisabled={!isFormValid}
                             block={true}

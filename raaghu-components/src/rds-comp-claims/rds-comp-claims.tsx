@@ -6,7 +6,6 @@ import {
     RdsSelectList,
 } from "../rds-elements";
 import "./rds-comp-claims.css";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompClaimsProps {
     allClaimsArray?: any[];
@@ -24,7 +23,6 @@ export interface SelectedItem {
 }
 
 const RdsCompClaims = (props: RdsCompClaimsProps) => {
-    const { t } = useTranslation();
     const [allClaimsArray, setAllClaimsArray] = useState<any>(props.allClaimsArray);
     const [selectedData, setSelectedData] = useState<any>({
         id: 0,
@@ -36,7 +34,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
     });
     const { tableHeaders = [] } = props;
     const [tableData, setTableData] = useState<any>(props.claimsTable);
-    const actions = [{ id: "delete", displayName: t("AbpUi.Delete") }];
+    const actions = [{ id: "delete", displayName: "Delete" }];
     const [uniqueIdCounter, setUniqueIdCounter] = useState(0)
     const handleAddItem = () => {
         const savedClaims = props.claimsTable;
@@ -75,8 +73,8 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                     <div className="col-md-5 mb-3">
                         <RdsSelectList
                             id="abp.claim"
-                            label={t("AbpIdentity.ClaimTypes") || ""}
-                            placeholder={t("Select Claim Type") || ""}
+                            label="Claim Types"
+                            placeholder="Select Claim Type"
                             selectItems={allClaimsArray}
                             selectedValue={selectedData.claimType}
                             onChange={(item: any) => {
@@ -89,8 +87,8 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                     <div className="col-md-5">
                         <RdsInput
                             required={true}
-                            label={t("AbpIdentity.ClaimValue") || ""}
-                            placeholder={t("Enter Value") || ""}
+                            label="Claim Value"
+                            placeholder="Enter Value"
                             name="value"
                             value={selectedData.claimValue}
                             onChange={(event) =>
@@ -107,7 +105,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
 
                         <RdsButton
                             type={"button"}
-                            label={t("") || ""}
+                            label=""
                             icon="plus"
                             iconHeight="15px"
                             onClick={handleAddItem}

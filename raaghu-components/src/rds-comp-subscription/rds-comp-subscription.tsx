@@ -21,7 +21,6 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
         props.onSubscription != undefined && props.onSubscription(event, item);
 
     };
-    const { t } = useTranslation();
     return (
         <>
             <div className="d-flex justify-content-center text-center  my-4">
@@ -86,7 +85,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                     </div>
                                     <RdsButton
                                         type={"button"}
-                                        label={t("Upgrade") || ""}
+                                        label="Upgrade"
                                         isOutline={true}
                                         colorVariant="primary"
                                         class="me-2 ms-4 mt-4 upGrade__btn"

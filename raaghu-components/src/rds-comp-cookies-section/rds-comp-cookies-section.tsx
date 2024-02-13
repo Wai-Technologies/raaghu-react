@@ -1,14 +1,13 @@
 import React from "react";
 import { RdsButton } from "../rds-elements";
 import "./rds-comp-cookies-section.css";
-import { useTranslation } from "react-i18next";
 export interface RdsCompCookiesSectionProps {
     showDeclineButton?: boolean;
 }
 const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
     const alertMessage =
         "This website uses cookies to ensure you get the best experience on our website.";
-    const { t } = useTranslation();
+
     return (
         <div>
             <div className="shadow position-relative alert cookies">
@@ -56,7 +55,7 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                             {!props.showDeclineButton && (
                                 <div className="mt-3">
                                     <RdsButton
-                                        label={t("Accept") || ""}
+                                        label="Accept"
                                         type="button"
                                         colorVariant="primary"
                                         dataTestId="accept"
@@ -70,7 +69,7 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                             <div className="mx-2 my-2">
                                 <div className="mt-3 w-50">
                                     <RdsButton
-                                        label={t("Accept") || ""}
+                                        label="Accept"
                                         type="button"
                                         block={true}
                                         colorVariant="primary"
@@ -83,7 +82,7 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                                         tooltipTitle={""}
                                         type={"button"}
                                         block={true}
-                                        label={t("Decline") || ""}
+                                        label="Decline"
                                         colorVariant="outline-primary"
                                         size="small"
                                         databsdismiss="offcanvas"

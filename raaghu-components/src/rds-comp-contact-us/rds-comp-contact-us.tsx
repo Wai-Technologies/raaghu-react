@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { RdsButton, RdsInput, RdsTextArea } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompContactUsProps {
 
@@ -68,7 +67,6 @@ const RdsCompContactUs = (props: RdsCompContactUsProps) => {
         setFullname("");
         setMessage(" ");
     };
-    const { t } = useTranslation();
     return (
         <>
             <div >
@@ -114,7 +112,7 @@ const RdsCompContactUs = (props: RdsCompContactUsProps) => {
                     </div>
 
                     <RdsButton
-                        label={t("Send Message") || ""}
+                        label="Send Message"
                         colorVariant='primary'
                         isDisabled={!isFormValid}
                         block={true}

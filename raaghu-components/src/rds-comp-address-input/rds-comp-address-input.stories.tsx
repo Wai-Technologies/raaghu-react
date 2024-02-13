@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAddressInput from './rds-comp-address-input';
 
 const meta: Meta = { 
-    title: "Components/AddressInput",
+    title: "Components/Address Input",
     component: RdsCompAddressInput,
     parameters: {
         layout: "",

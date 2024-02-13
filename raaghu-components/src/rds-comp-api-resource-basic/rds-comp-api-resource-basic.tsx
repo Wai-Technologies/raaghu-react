@@ -12,7 +12,6 @@ export interface RdsCompApiResourceBasicProps {
 }
 
 const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
-    const { t } = useTranslation();
     const [email, setEmail] = useState(props.email);
     const [message, setMessage] = useState(props.message);
     const [fullname, setFullname] = useState(props.fullname);
@@ -134,7 +133,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -142,7 +141,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("Save") || ""}
+                            label="Save"
                             size="small"
                             colorVariant="primary"
                             tooltipTitle={""}

@@ -11,7 +11,6 @@ interface RdsCompApplicationWorkflowsProps {
 }
 
 const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) => {
-    const { t } = useTranslation();
     const [basicApplicationData, setBasicApplicationData] = useState<any>(props.basicData);
     const [inputReset, setInputReset] = useState(props.reset)
     useEffect(() => {
@@ -40,8 +39,8 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsSelectList
                         id="abp.typ"
                         required={true}
-                        label={t("AbpOpenIddict.Type") || ""}
-                        placeholder={t("Select Consent Type") || ""}
+                        label="Type"
+                        placeholder="Select Consent Type"
                         selectItems={props.typeList}
                         selectedValue={basicApplicationData?.type}
                         onChange={(item: any) => handleDataChanges(item.value, "type")}
@@ -52,8 +51,8 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
 
                         <RdsInput
                             reset={inputReset}
-                            label={t("AbpOpenIddict.ClientSecret") || ""}
-                            placeholder={t("Enter Client Secrete") || ""}
+                            label="Client Secret"
+                            placeholder="Enter Client Secrete"
                             inputType="text"
                             onChange={(e) => handleDataChanges(e.target.value, "clientSecret")}
                             value={basicApplicationData?.clientSecret}
@@ -66,7 +65,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowAuthorizationCodeFlow") || ""}
+                            label="Allow Authorization Code Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowAuthorizationCodeFlow"); }}
                             checked={basicApplicationData?.allowAuthorizationCodeFlow}
                             dataTestId="authorization-flow"
@@ -75,7 +74,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowImplicitFlow") || ""}
+                            label="Allow Implicit Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowImplicitFlow"); }}
                             dataTestId="implicit-flow"
                             checked={basicApplicationData?.allowImplicitFlow}
@@ -84,7 +83,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowHybridFlow") || ""}
+                            label="Allow Hybrid Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowHybridFlow"); }}
                             dataTestId="hybrid-flow"
                             checked={basicApplicationData?.allowHybridFlow}
@@ -94,7 +93,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowPasswordFlow") || ""}
+                            label="Allow Password Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowPasswordFlow"); }}
                             checked={basicApplicationData?.allowPasswordFlow}
                             dataTestId="password-flow"
@@ -103,7 +102,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowRefreshTokenFlow") || ""}
+                            label="Allow Refresh Token Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowRefreshTokenFlow"); }}
                             checked={basicApplicationData?.allowRefreshTokenFlow}
                             isDisabled={isAllowRefreshTokenFlowDisabled}
@@ -113,7 +112,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowClientCredentialsFlow") || ""}
+                            label="Allow Client Credentials Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowClientCredentialsFlow"); }}
                             checked={basicApplicationData?.allowClientCredentialsFlow}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -123,7 +122,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label={t("AbpOpenIddict.AllowDeviceEndpoint") || ""}
+                            label="Allow Device End point"
                             onChange={e => { handleDataChanges(e.target.checked, "allowDeviceEndpoint"); }}
                             checked={basicApplicationData?.allowDeviceEndpoint}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -139,7 +138,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsTextArea
                         reset={inputReset}
                         isMultiUrl={true}
-                        label={t("AbpOpenIddict.RedirectUris") || ""}
+                        label="Redirect Uris"
                         placeholder="Enter Redirect Uris"
                         onChange={(e: any) => handleTextAreaChange(e.target.value, "redirectUris")}
                         value={basicApplicationData?.redirectUris !== null ? basicApplicationData?.redirectUris.join("\n") : basicApplicationData?.redirectUris}
@@ -148,13 +147,13 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isDisabled={!isDivVisible}
                         required={false}
                         validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                        validationMsg={t("AbpValidation.ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl") || ''}
+                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
                     />
                 </div>
                 <div className="mb-3">
                     <RdsCheckbox
-                        label={t("AbpOpenIddict.AllowLogoutEndpoint") || ""}
+                        label="Allow Logout End point"
                         onChange={e => { handleDataChanges(e.target.checked, "allowLogoutEndpoint"); }}
                         checked={basicApplicationData?.allowLogoutEndpoint}
                         dataTestId="logout-endpoint"
@@ -167,7 +166,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsTextArea
                         reset={inputReset}
                         isMultiUrl={true}
-                        label={t("AbpOpenIddict.PostLogoutRedirectUris") || ""}
+                        label="Post Logout Redirect Uris"
                         placeholder="Enter Post Logout Redirect Uris"
                         onChange={e => handleTextAreaChange(e.target.value, "postLogoutRedirectUris")}
                         value={basicApplicationData?.postLogoutRedirectUris !== null ? basicApplicationData?.postLogoutRedirectUris.join("\n") : basicApplicationData?.postLogoutRedirectUris}
@@ -176,7 +175,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isDisabled={!basicApplicationData?.allowLogoutEndpoint}
                         required={false}
                         validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                        validationMsg={t("AbpValidation.ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl") || ''}
+                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
                     />
                     {/* </>)
@@ -186,7 +185,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsSelectList
                         classes="mb-3"
                         id="Abp.Cons"
-                        label={t("AbpOpenIddict.ConsentType") || ""}
+                        label="Consent Type"
                         selectItems={props.consentType}
                         selectedValue={basicApplicationData?.consentType}
                         onChange={(item: any) => { handleDataChanges(item.value, "consentType"); }}
@@ -198,7 +197,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
             {basicApplicationData?.id && (
                 <div className="row py-2">
                     <RdsCheckbox
-                        label={t("Enabled") || ""}
+                        label="Enabled"
                         checked={basicApplicationData?.enabled}
                         dataTestId="enabled"
                     ></RdsCheckbox>
