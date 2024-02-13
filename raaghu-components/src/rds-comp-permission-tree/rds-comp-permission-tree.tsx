@@ -303,7 +303,7 @@ const RdsCompPermissionTree = (props: RdsCompPermissionTreeProps) => {
                 <div className="position-relative">
                     <div className="vertical-dotted-line-select-all"></div>
                     <RdsCheckbox
-                        label={"Select All"}
+                        label="Select All"
                         checked={selectAll}
                         onChange={(e) => selectAllFn(e.target.checked)}
                         state={selectAllInter ? "Indeterminate" : "Checkbox"}

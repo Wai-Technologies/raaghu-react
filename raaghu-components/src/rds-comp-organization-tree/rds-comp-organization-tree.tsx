@@ -5,7 +5,6 @@ import {
     RdsButtonGroup,
 } from "../rds-elements";
 import "./rds-comp-organization-tree.css";
-import { useTranslation } from "react-i18next";
 export interface RdsCompOrganizationTreeProps {
     counter?: number;
     nodeColor: any[];
@@ -24,7 +23,6 @@ export interface RdsCompOrganizationTreeProps {
 }
 
 const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
-    const { t } = useTranslation();
     const handlerExtraBackdrop = () => {
         const allBackdrops = document.querySelectorAll(".offcanvas-backdrop, .modal-backdrop");
         if (allBackdrops.length > 1) {
@@ -56,7 +54,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 databstoggle: 'offcanvas',
                 ariacontrols: `a${props.offId}`,
                 databstarget: `#a${props.offId}`,
-                label: t(''),
+                label: '',
                 name: 'btnradio',
                 checked: true,
                 icon: "plus",
@@ -71,7 +69,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 ariacontrols: `b${props.offId}`,
                 databstarget: `#b${props.offId}`,
                 id: 'edit',
-                label: t(''),
+                label: '',
                 name: 'btnradio',
                 checked: false,
                 icon: "pencil",
@@ -84,7 +82,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 ariacontrols: '#deleteTreeNode',
                 databstarget: '#deleteTreeNode',
                 id: "delete",
-                label: t(''),
+                label: '',
                 name: 'btnradio',
                 checked: false,
                 icon: "delete",
@@ -99,7 +97,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 databstoggle: 'offcanvas',
                 ariacontrols: `a${props.offId}`,
                 databstarget: `#a${props.offId}`,
-                label: t('New'),
+                label: 'New',
                 name: 'btnradio',
                 checked: true,
             },
@@ -108,7 +106,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 ariacontrols: `b${props.offId}`,
                 databstarget: `#b${props.offId}`,
                 id: 'edit',
-                label: t('Edit'),
+                label: 'Edit',
                 name: 'btnradio',
                 checked: false,
             },
@@ -117,7 +115,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                 ariacontrols: '#deleteTreeNode',
                 databstarget: '#deleteTreeNode',
                 id: "delete",
-                label: t('Delete'),
+                label: 'Delete',
                 name: 'btnradio',
                 checked: false,
             }

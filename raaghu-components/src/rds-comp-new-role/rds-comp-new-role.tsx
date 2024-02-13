@@ -1,13 +1,11 @@
 import React from "react";
 import { RdsLabel, RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
-
 export interface RdsCompNewRoleProps {
     roleData: any;
 }
 
 const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
-    const { t } = useTranslation();
+
     return (
         <>
             <div>
@@ -57,7 +55,7 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                 tooltipPlacement="top"
                                 tooltipTitle="Cancel"
                                 colorVariant="primary"
-                                label={t("Cancel") || ""}
+                                label="Cancel"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                             ></RdsButton>
@@ -70,7 +68,7 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                 tooltipPlacement="top"
                                 tooltipTitle="Save Data"
                                 colorVariant="primary"
-                                label={t("Save") || ""}
+                                label="Save"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                             ></RdsButton>

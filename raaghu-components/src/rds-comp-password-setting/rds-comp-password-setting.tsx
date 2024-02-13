@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompPasswordSettingProps { }
 
@@ -77,7 +76,6 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
         setNewPass(" ");
         setCurNewPass("");
     };
-    const { t } = useTranslation();
     return (
         <>
             <div>
@@ -136,7 +134,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     <div className="row fixed-bottom m-3">
                         <div className="col-2">
                             <RdsButton
-                                label={t("Cancel") || ""}
+                                label="Cancel"
                                 colorVariant="primary"
                                 block={true}
                                 tooltipTitle={""}
@@ -147,7 +145,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                         </div>
                         <div className="col-2">
                             <RdsButton
-                                label={t("Save") || ""}
+                                label="Save"
                                 colorVariant="primary"
                                 isDisabled={!isFormValid}
                                 block={true}

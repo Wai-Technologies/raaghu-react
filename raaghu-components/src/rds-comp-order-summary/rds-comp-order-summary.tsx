@@ -1,13 +1,11 @@
 import React from "react";
 import { RdsButton, RdsLabel } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompOrderSummaryProps {
     isCheckout: boolean;
 }
 
 const RdsCompOrderSummary = (props: RdsCompOrderSummaryProps) => {
-    const { t } = useTranslation();
     return (
         <>
             <div className="row">
@@ -55,7 +53,7 @@ const RdsCompOrderSummary = (props: RdsCompOrderSummaryProps) => {
                 <div>
                     <RdsButton
                         type={"submit"}
-                        label={t("Checkout") || ""}
+                        label="Checkout"
                         size="small"
                         block={true}
                         colorVariant="primary"

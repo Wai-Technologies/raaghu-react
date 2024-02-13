@@ -18,7 +18,6 @@ export interface MenuPage {
     value: number;
 }
 const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
-    const { t } = useTranslation();
 
     const [data, setData] = useState(props.menusData);
     const [inputReset, setInputReset] = useState(props.reset);
@@ -53,9 +52,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
             <div className="row">
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("URL") || ""}
+                        label="URL"
                         value={data?.url}
-                        placeholder={t("Enter Url") || ""}
+                        placeholder="Enter Url"
                         name="url"
                         onChange={(e) => handlerChangeInput(e, "url")}
                         dataTestId="url"
@@ -64,8 +63,8 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 <div className="col-md-12 mb-3">
                     <RdsSelectList
                         id="selpa"
-                        label={t("Page") || ""}
-                        placeholder={"Select Page"}
+                        label="Page"
+                        placeholder="Select Page"
                         selectItems={menuPageList}
                         isSearchable={true}
                         selectedValue={menuPageList?.find((pagesName) => pagesName.value === data?.pageId)?.value}
@@ -75,9 +74,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 <div className="col-md-12"><hr /></div>
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("Display Name") || ""}
+                        label="Display Name"
                         value={data?.displayName}
-                        placeholder={t("Enter Display Name") || ""}
+                        placeholder={("Enter Display Name") || ""}
                         name="displayName"
                         required={true}
                         onChange={(e) => handlerChangeInput(e, "displayName")}
@@ -87,7 +86,7 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsCheckbox
-                        label={t("Active") || ""}
+                        label="Active"
                         onChange={(e) => {
                             handlerChangeActive(e.target.checked);
                         }}
@@ -97,9 +96,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("Icon") || ""}
+                        label="Icon"
                         value={data?.icon}
-                        placeholder={t("Enter Icon") || ""}
+                        placeholder={("Enter Icon") || ""}
                         name="icon"
                         onChange={(e) => handlerChangeInput(e, "icon")}
                         dataTestId="enter-icon"
@@ -107,9 +106,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("Target") || ""}
+                        label="Target"
                         value={data?.target}
-                        placeholder={t("Enter Target") || ""}
+                        placeholder="Enter Target"
                         name="target"
                         onChange={(e) => handlerChangeInput(e, "target")}
                         dataTestId="target"
@@ -117,9 +116,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("Element ID") || ""}
+                        label="Element ID"
                         value={data?.elementId}
-                        placeholder={t("Enter Element ID") || ""}
+                        placeholder="Enter Element ID"
                         name="elementId"
                         onChange={(e) => handlerChangeInput(e, "elementId")}
                         dataTestId="enter-id"
@@ -127,9 +126,9 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsInput
-                        label={t("Css Class") || ""}
+                        label="Css Class"
                         value={data?.cssClass}
-                        placeholder={t("Enter Css Class") || ""}
+                        placeholder="Enter Css Class"
                         name="cssClass"
                         onChange={(e) => handlerChangeInput(e, "cssClass")}
                         dataTestId="enter-css-class"
@@ -138,7 +137,7 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
 
                 <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                     <RdsButton
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         databsdismiss="offcanvas"
                         type={"button"}
                         size="small"
@@ -149,7 +148,7 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                         onClick={(e) => props?.onCancel && props?.onCancel(e)}
                     ></RdsButton>
                     <RdsButton
-                        label={t("Save") || ""}
+                        label="Save"
                         type={"button"}
                         size="small"
                         databsdismiss="offcanvas"

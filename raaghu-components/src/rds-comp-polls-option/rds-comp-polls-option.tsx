@@ -27,15 +27,15 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
 
     const tableHeaders = [
         {
-            displayName: t("CmsKit.Text"),
+            displayName:"Text",
             key: "text",
             datatype: "text",
             sortable: true,
         },
     ];
     const actions = [
-        { id: "editPolls", displayName: t("AbpUi.Edit") },
-        { id: "deletePolls", displayName: t("AbpUi.Delete") },
+        { id: "editPolls", displayName: "Edit" },
+        { id: "deletePolls", displayName: "Delete" },
     ];
     const [areWeEditing, setAreWeEditing] = useState(false);
     const [dataId, setDataId] = useState("");
@@ -129,8 +129,8 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
                 <div className="align-items-end row mt-3">
                     <div className="col-md-11 mb-3">
                         <RdsInput
-                            label={t("CmsKit.Options") || ""}
-                            placeholder={t("Enter Option") || ""}
+                            label="Options"
+                            placeholder="Enter Option"
                             inputType="text"
                             onChange={(e: any) => {
                                 optionChange(e.target.value);

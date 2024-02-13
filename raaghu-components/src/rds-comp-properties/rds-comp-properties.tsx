@@ -20,7 +20,7 @@ export interface RdsCompPropertiesProp {
 }
 
 const RdsCompProperties = (props: RdsCompPropertiesProp) => {
-    const { t } = useTranslation();
+
     const [key, setKey] = useState("");
     const [value, setValue] = useState("");
 
@@ -91,7 +91,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                     </div>
                     <div className="col-2 mb-3 align-self-end">
                         <RdsButton
-                            label={t("Add") || ""}
+                            label="Add"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -103,7 +103,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                 <div className="row mt-5 mb-3">
                     <div className="col-2">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -114,7 +114,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                     </div>
                     <div className="col-2">
                         <RdsButton
-                            label={t("Save") || ""}
+                            label="Save"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}

@@ -29,7 +29,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
     const [page, setpage] = useState(false);
 
     useEffect(() => {
-        if (props.tableData.length === 0) {
+        if (props.tableData?.length === 0) {
             setpage(true);
         } else {
             setpage(false);
@@ -37,7 +37,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
     }, [Tdata]);
 
     const DatePicker = (start: any, end?: any) => {
-        const tempData = props.tableData.filter((data: any) => {
+        const tempData = props.tableData?.filter((data: any) => {
             if (data.time > start.toISOString() && data.time < end!.toISOString()) {
                 return data;
             }
@@ -49,7 +49,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
         if (event.target.value === "All") {
             setTdata(props.tableData);
         } else {
-            const tempData = props.tableData.filter((data: any) => {
+            const tempData = props.tableData?.filter((data: any) => {
                 if (data.result === event.target.value) {
                     return data;
                 }
@@ -66,8 +66,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
-                        onDatePicker={DatePicker}
-                    ></RdsDatePicker>
+                        onDatePicker={DatePicker} isDropdownOpen={false}></RdsDatePicker>
                 </div>
 
                 <div className="Select">
@@ -78,7 +77,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                             onClick={selecthandler}
                             className="form-select form-select-md"
                         >
-                            {props.selectvalue.map((x, i) => (
+                            {props.selectvalue?.map((x, i) => (
                                 <option key={x.displayText}>{x.value}</option>
                             ))}
                         </select>

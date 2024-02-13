@@ -3,7 +3,7 @@ import { RdsButton, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 export interface RdsCompMySettingsProps { }
 const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
-    const { t } = useTranslation();
+
     const [curPass, setCurPass] = useState("");
     const [newPass, setNewPass] = useState("");
     const [curNewPass, setCurNewPass] = useState("");
@@ -195,7 +195,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                 <div className="row">
                     <div className="col-2">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -205,7 +205,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                     </div>
                     <div className="col-2">
                         <RdsButton
-                            label={t("Save") || ""}
+                            label="Save"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}

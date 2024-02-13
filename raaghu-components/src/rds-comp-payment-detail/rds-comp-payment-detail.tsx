@@ -1,7 +1,6 @@
 import React from "react";
 import { RdsRadioButton, RdsInput, RdsButton, RdsSpinner } from "../rds-elements";
 import "./rds-comp-payment-detail.css";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompPaymentDetailProps {
     cvc?: number,
@@ -14,7 +13,6 @@ export interface RdsCompPaymentDetailProps {
     onBack?: (Event: React.MouseEvent<HTMLButtonElement>) => void
 }
 const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
-    const { t } = useTranslation();
     return (
         <>
 
@@ -53,7 +51,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
                 <div className="my-4 pt-4 row">
                     <div className="col-6">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}
@@ -74,9 +72,9 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
                             type="submit"
                         /> :
                             <RdsButton
-                                label={t("Confirm") || ""}
+                                label="Confirm"
                                 colorVariant="primary"
-                                isDisabled={true}
+                                isDisabled={false}
                                 block={true}
                                 tooltipTitle={""}
                                 type="submit"

@@ -14,7 +14,7 @@ export interface RdsCompPollsQuestion {
 }
 
 function RdsCompPollsQuestion(props: any) {
-    const { t } = useTranslation();
+
     const [QuestionData, setQuestionData] = useState(props.questionData);
     const [inputReset, setInputReset] = useState(props.reset)
 
@@ -58,8 +58,8 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12">
                         <RdsInput
                             required={true}
-                            label={t("CmsKit.Question") || ""}
-                            placeholder={t("Enter Question") || ""}
+                            label="Question"
+                            placeholder="Enter Question"
                             inputType="text"
                             value={QuestionData?.question}
                             onChange={(e: any) => {
@@ -72,8 +72,8 @@ function RdsCompPollsQuestion(props: any) {
 
                     <div className="col-md-6">
                         <RdsInput
-                            label={t("Code") || ""}
-                            placeholder={t("Enter Code") || ""}
+                            label="Code"
+                            placeholder="Enter Code"
                             inputType="text"
                             required={true}
                             value={QuestionData?.code}
@@ -86,8 +86,8 @@ function RdsCompPollsQuestion(props: any) {
                     </div>
                     <div className="col-md-6 mb-3">
                         <RdsInput
-                            label={t("CmsKit.Name") || ""}
-                            placeholder={t("Enter Name") || ""}
+                            label="Name"
+                            placeholder="Enter Name"
                             inputType="text"
                             required={false}
                             value={QuestionData?.name}
@@ -102,7 +102,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6 mb-3">
                         <RdsSelectList
                             id="cmwi"
-                            label={t("CmsKit.Widget") || ""}
+                            label="Widget"
                             selectItems={props.widgetList}
                             onChange={(item: any) =>
                                 handlerChangeValues("widget", item.value)
@@ -113,7 +113,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
-                            DatePickerLabel={t("CmsKit.StartDate") || ""}
+                            DatePickerLabel="StartDate"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -121,7 +121,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handleEndDate}
-                            DatePickerLabel={t("CmsKit.EndDate") || ""}
+                            DatePickerLabel="EndDate"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -129,7 +129,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handleResultDatepickerData}
-                            DatePickerLabel={t("CmsKit.ResultShowingEndDate") || ""}
+                            DatePickerLabel="ResultShowingEndDate"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -140,7 +140,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label={t("CmsKit.ShowHoursLeft") || ""}
+                            label="ShowHoursLeft"
                             checked={QuestionData?.showHoursLeft}
                             onChange={(e: any) => {
                                 handlerChangeValues("showHoursLeft", e.target.value);
@@ -151,7 +151,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label={t("CmsKit.AllowMultipleVote") || ""}
+                            label=".AllowMultipleVote"
                             checked={QuestionData?.allowMultipleVote}
                             onChange={(e: any) => {
                                 handlerChangeValues("allowMultipleVote", e.target.value);
@@ -163,7 +163,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label={t("CmsKit.ShowVoteCount") || ""}
+                            label=".ShowVoteCount"
                             checked={QuestionData?.showVoteCount}
                             onChange={(e: any) => {
                                 handlerChangeValues("showVoteCount", e.target.value);
@@ -174,7 +174,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label={t("CmsKit.ShowResultWithoutGivingVote") || ""}
+                            label="ShowResultWithoutGivingVote"
                             checked={QuestionData?.showResultWithoutGivingVote}
                             onChange={(e: any) => {
                                 handlerChangeValues("showResultWithoutGivingVote", e.target.value);

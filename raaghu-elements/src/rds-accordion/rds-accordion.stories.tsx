@@ -3,6 +3,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsAccordion from './rds-accordion';
 import RdsAccordionItem from "./rds-accordion-item";
+import { Disabled } from '../rds-text-area/rds-text-area.stories';
 
 
 const meta: Meta = {
@@ -10,6 +11,7 @@ const meta: Meta = {
     component: RdsAccordion,
     parameters: { 
         layout: '',
+        disableZoom : true
     },
     tags:['autodocs'],
     argTypes: {},

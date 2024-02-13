@@ -11,14 +11,13 @@ export interface RdsCompMenuDirectoryProps {
 }
 
 const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
-    const { t } = useTranslation();
 
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
     const buttonGroupList = [{
         id: 'plus',
         databstoggle: 'offcanvas',
         databstarget: `#a${props.offId}`,
-        label: t(''),
+        label: (''),
         name: 'btnradio',
         checked: true,
         icon: "plus",
@@ -32,7 +31,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
         databstoggle: 'offcanvas',
         databstarget: `#b${props.offId}`,
         id: 'edit',
-        label: t(''),
+        label: (''),
         name: 'btnradio',
         checked: false,
         icon: "pencil",
@@ -44,7 +43,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
         databstoggle: 'modal',
         databstarget: "#deleteMenu",
         id: 'delete',
-        label: t(''),
+        label: (''),
         name: 'btnradio',
         checked: false,
         icon: "delete",

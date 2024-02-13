@@ -24,7 +24,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
     useEffect(() => {
         setInputReset(props.reset);
     }, [props.reset]);
-    const { t } = useTranslation();
+   
     useEffect(() => {
         setData(props.claimsData);
     }, [props.claimsData]);
@@ -74,9 +74,9 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
             <div className="row">
                 <div className="col-md-12">
                     <RdsInput
-                        label={t("AbpIdentity.Name") || ""}
+                        label="Name"
                         value={data?.name}
-                        placeholder={t("Enter Name") || ""}
+                        placeholder="Enter Name"
                         required={true}
                         name="name"
                         onChange={onNameChangeHandler}
@@ -87,9 +87,9 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                 <div className="col-md-6">
                     {" "}
                     <RdsInput
-                        label={t("AbpIdentity.Regex") || ""}
+                        label="Regex"
                         value={data?.regex}
-                        placeholder={t("Enter Regex") || ""}
+                        placeholder="Enter Regex"
                         name="regex"
                         required={true}
                         onChange={onRegexChangeHandler}
@@ -100,8 +100,8 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                 <div className="col-md-6 mb-md-0 mb-3">
                     <RdsSelectList
                         id="idenval"
-                        label={t("AbpIdentity.ValueType") || ""}
-                        placeholder={t("Select Value Type") || ""}
+                        label="ValueType"
+                        placeholder="Select Value Type"
                         selectItems={props.valueType}
                         selectedValue={
                             (props.valueType)?.find((item: any) => item.value === data?.valueType)?.value
@@ -112,9 +112,9 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                 </div>
                 <div className="col-md-12">
                     <RdsInput
-                        label={t("AbpIdentity.RegexDescription") || ""}
+                        label="RegexDescription"
                         value={data?.regexDescription}
-                        placeholder={t("Enter Regex Description") || ""}
+                        placeholder="Enter Regex Description"
                         name="regexDesc"
                         required={true}
                         onChange={onRegexDescChangeHandler}
@@ -124,8 +124,8 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                 </div>
                 <div className="col-md-12 mb-3">
                     <RdsTextArea
-                        label={t("AbpIdentity.Description") || ""}
-                        placeholder={t("Enter Description") || ""}
+                        label="AbpIdentity.Description"
+                        placeholder="Enter Description"
                         onChange={onDescChangeHAndler}
                         value={data?.description}
                         rows={3}
@@ -136,7 +136,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
 
                 <div className="col-md-12">
                     <RdsCheckbox
-                        label={t("AbpIdentity.Required") || ""}
+                        label="Required"
                         onChange={e => { setDevice(e.target.checked); }}
                         checked={data?.required}
                         dataTestId="required"
@@ -145,7 +145,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
 
                 <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                     <RdsButton
-                        label={t("AbpUi.Cancel") || ""}
+                        label="Cancel"
                         databsdismiss="offcanvas"
                         type={"button"}
                         size="small"
@@ -156,7 +156,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                         onClick={props.onCancel}
                     ></RdsButton>
                     <RdsButton
-                        label={t("AbpUi.Save") || ""}
+                        label="Save"
                         type={"button"}
                         size="small"
                         databsdismiss="offcanvas"
