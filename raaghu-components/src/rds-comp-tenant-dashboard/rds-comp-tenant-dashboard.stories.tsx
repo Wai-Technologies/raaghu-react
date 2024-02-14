@@ -1,25 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompTenantDashboard from "./rds-comp-tenant-dashboard";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
-  title: "Components/Tenant Dashboard",
-  component: RdsCompTenantDashboard,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-} as ComponentMeta<typeof RdsCompTenantDashboard>;
 
-const Template: ComponentStory<typeof RdsCompTenantDashboard> = () => (
-  <RdsCompTenantDashboard />
-);
+const meta: Meta = { 
+    title: "Components/Tenant Dashboard",
+    component: RdsCompTenantDashboard,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompTenantDashboard>;
 
-export const TenantDashboard = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof RdsCompTenantDashboard>;
 
-TenantDashboard.args = {};
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
+
+
+
+

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import RdsIcon from "../rds-icon/rds-icon";
-import useOutsideClick from "../rds-outside-click";
 import { useTranslation } from "react-i18next";
+import useOutsideClick from "../rds-outside-click";
 
 export interface RdsSideNavProps {
     sideNavItems: any;

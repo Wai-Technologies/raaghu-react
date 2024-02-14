@@ -11,7 +11,7 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
         key: "",
         PropValue: "",
     });
-    const { t } = useTranslation();
+
     function handleSubmit(event: any) {
         event.preventDefault();
     }
@@ -111,7 +111,7 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
                     </div>
                     <div className="col-md-2 align-items-end d-flex ">
                         <RdsButton
-                            label={t("Add") || ""}
+                            label="Add"
                             colorVariant="primary"
                             block={true}
                             onClick={handleAddItem}
@@ -123,7 +123,7 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
                 </div>
                 <div className=" mt-5 pb-3 footer-buttons d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
                     <RdsButton
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         colorVariant="primary"
                         block={true}
                         tooltipTitle={""}
@@ -132,7 +132,7 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
                         dataTestId="cancel"
                     />
                     <RdsButton
-                        label={t("Save") || ""}
+                        label="Save"
                         colorVariant="primary"
                         block={true}
                         tooltipTitle={""}

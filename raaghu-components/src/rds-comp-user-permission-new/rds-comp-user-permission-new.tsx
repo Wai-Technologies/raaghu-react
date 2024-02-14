@@ -25,14 +25,14 @@ export interface RdsCompUserPermissionProps {
 }
 
 const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
-  const { t } = useTranslation();
+
   return (
     <div>
       <div className="d-flex justify-content-end mb-3">
         <RdsButton
           type={"button"}
           colorVariant="primary"
-          label={t("New User") || ""}
+          label="New User"
           icon="plus"
           iconHeight="15px"
           iconFill={false}

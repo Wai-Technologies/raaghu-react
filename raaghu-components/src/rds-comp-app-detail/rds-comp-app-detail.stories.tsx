@@ -1,65 +1,64 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { RdsAppDetail } from "../rds-elements";
 
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import RdsCompAppDetail from "./rds-comp-app-detail";
+const meta: Meta = { 
+    title: "Components/App Detail",
+    component: RdsAppDetail,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsAppDetail>;
 
-export default {
-    title: "Components/App Detail ",
-    component: RdsCompAppDetail,
+export default meta;
+type Story = StoryObj<typeof RdsAppDetail>;
 
-} as ComponentMeta<typeof RdsCompAppDetail>;
-
-
-const Template: ComponentStory<typeof RdsCompAppDetail> = (args) => (
-    <RdsCompAppDetail {...args} />
-);
-
-
-export const AppDetail = Template.bind({});
-
-AppDetail.args = {
-    appDetailList: [
-        {
-            "id": 1,
-            "iconHeight": "30px",
-            "iconWidth": "30px",
-            "iconFill": false,
-            "iconColor": "dark",
-            "iconStroke": true,
-            "title": "Zapier",
-            "subtitle": "Build custom automation and intefrations with app",
-            "icon": "zapier",
-            "route": "/home",
-            "selected": true
-        },
-        {
-            "id": 2,
-            "iconHeight": "30px",
-            "iconWidth": "30px",
-            "iconFill": false,
-            "iconColor": "dark",
-            "iconStroke": true,
-            "title": "Zapier",
-            "subtitle": "Build custom automation and intefrations with app",
-            "icon": "zapier",
-            "route": "/home",
-            "selected": true
-        },
-        {
-            "id": 3,
-            "iconHeight": "30px",
-            "iconWidth": "30px",
-            "iconFill": false,
-            "iconColor": "dark",
-            "iconStroke": true,
-            "title": "Zapier",
-            "subtitle": "Build custom automation and intefrations with app",
-            "icon": "zapier",
-            "route": "/home",
-            "selected": true
-        },
-
-    ]
-
-};
-
+export const Default: Story = {
+    args: {
+        // appDetailList: [
+        //     {
+        //         id: 1,
+        //         iconHeight: "30px",
+        //         iconWidth: "30px",
+        //         iconFill: false,
+        //         iconColor: "dark",
+        //         iconStroke: true,
+        //         title: "Zapier",
+        //         subtitle: "Build custom automation and intefrations with app",
+        //         icon: "zapier",
+        //         route: "/home",
+        //         selected: true
+        //     },
+        //     {
+        //         "id": 2,
+        //         "iconHeight": "30px",
+        //         "iconWidth": "30px",
+        //         "iconFill": false,
+        //         "iconColor": "dark",
+        //         "iconStroke": true,
+        //         "title": "Zapier",
+        //         "subtitle": "Build custom automation and intefrations with app",
+        //         "icon": "zapier",
+        //         "route": "/home",
+        //         "selected": true
+        //     },
+        //     {
+        //         "id": 3,
+        //         "iconHeight": "30px",
+        //         "iconWidth": "30px",
+        //         "iconFill": false,
+        //         "iconColor": "dark",
+        //         "iconStroke": true,
+        //         "title": "Zapier",
+        //         "subtitle": "Build custom automation and intefrations with app",
+        //         "icon": "zapier",
+        //         "route": "/home",
+        //         "selected": true
+        //     },
+    
+        // ]
+        
+    }
+} satisfies Story;

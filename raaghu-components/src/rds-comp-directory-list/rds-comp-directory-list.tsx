@@ -117,7 +117,7 @@ export const RdsCompDirectoryList = (props: RdsCompDirectoryListProps) => {
     };
 
     const renderDirectoryItems = (items: DirectoryItem[]) => {
-        return items.map(renderDirectoryItem);
+        return items?.map(renderDirectoryItem);
     };
 
     return <ul className="pt-1 cursor-pointer file-folder ps-4 ms-3 pb-3">{renderDirectoryItems(props.items)}</ul>;

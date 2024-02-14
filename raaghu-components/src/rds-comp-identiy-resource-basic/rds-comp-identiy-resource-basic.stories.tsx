@@ -1,21 +1,23 @@
-/* eslint-disable */
-
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompIdentiyResourceBasic from "./rds-comp-identiy-resource-basic";
 
-export default {
+
+const meta: Meta = { 
   title: "Components/Scope",
-  component: RdsCompIdentiyResourceBasic,
-};
+    component: RdsCompIdentiyResourceBasic,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompIdentiyResourceBasic>;
 
+export default meta;
+type Story = StoryObj<typeof RdsCompIdentiyResourceBasic>;
 
-const Template: ComponentStory<typeof RdsCompIdentiyResourceBasic> = (args) => (
-  <RdsCompIdentiyResourceBasic {...args} />
-);
-
-export const IdentiyResourceBasic = Template.bind({});
-
-IdentiyResourceBasic.story = {
-  name: 'default',
-};
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;

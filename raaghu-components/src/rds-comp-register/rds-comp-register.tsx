@@ -6,7 +6,6 @@ import {
     RdsCheckbox, RdsIcon,
     RdsModal, RdsDropdownList
 } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompRegisterProps {
     error?: any;
@@ -27,7 +26,7 @@ export interface RdsCompRegisterProps {
 
 const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
-    const { t } = useTranslation();
+
 
     const [emailAddress, setEmail] = useState(props.emailAddress);
     const [password, setPassword] = useState(props.password);
@@ -93,7 +92,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                 <div className="d-flex align-items-center mb-1">
                     <div className="col-8 col-md-8 mb-3 offset-2">
                         <h2 className="mb-0">
-                            {t("AbpUi.Register")}
+                            Ui.Register
                         </h2>
                     </div>
                     <div className="col-2 col-md-2 mb-3">
@@ -118,11 +117,11 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <small className="pb-3 d-flex justify-content-center">
                         <span className="d-flex">
                             <RdsLabel
-                                label={`${t("Saas.Tenants") || ""}${props.getvalidTenantName || ""}`}
+                                label={`${"Saas.Tenants"} ${props.getvalidTenantName || ""}`}
                             ></RdsLabel>:
                         </span>&nbsp;<span className="fw-semibold">
                             <RdsLabel
-                                label={`${t("AbpUiMultiTenancy.NotSelected")}` + props.getvalidTenantName}
+                                label={`$"UiMultiTenancy.NotSelected` + props.getvalidTenantName}
                             ></RdsLabel></span>
                         ( <span>
                             <RdsModal
@@ -132,15 +131,15 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 showModalHeader={true}
                                 scrollable={false}
                                 verticallyCentered={false}
-                                modalbutton={<a className="link-primary"> {t("Change")}</a>}
-                                modalTitle={t("AbpUiMultiTenancy.SwitchTenant") || ""}
-                                saveChangesName={`${checked ? t("SWITCH TO THE TENANT") : t("SWITCH TO THE HOST")
+                                modalbutton={<a className="link-primary"> "Change</a>}
+                                modalTitle="UiMultiTenancy.SwitchTenant"
+                                saveChangesName={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                     }`}
                                 cancelButtonName="CANCEL"
                             >
                                 <div className="text-start  mb-4 border-bottom">
                                     <div className="form-check form-switch text-start ps-2 mb-4">
-                                        <RdsCheckbox label={`${checked ? t("SWITCH TO THE TENANT") : t("SWITCH TO THE HOST")
+                                        <RdsCheckbox label={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                             }`}
                                             checked={checked} isSwitch={checked}
                                             onChange={() => setChecked(!checked)}
@@ -148,8 +147,8 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                         ></RdsCheckbox>
                                     </div>
                                     <RdsInput
-                                        label={t("Already Have An Account") || ""}
-                                        placeholder={t("Already Have An Account") || ""}
+                                        label="Already Have An Account"
+                                        placeholder="Already Have An Account"
                                         inputType="email/text"
                                         onChange={TenancyNameChange}
                                         value={currentTenant}
@@ -164,7 +163,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                         class="me-2"
                                         tooltipTitle={""}
                                         type={"button"}
-                                        label={t("Cancel") || ""}
+                                        label="Cancel"
                                         colorVariant="outline-primary"
                                         size="small"
                                         databsdismiss="modal"
@@ -172,7 +171,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                     ></RdsButton>
                                     <RdsButton
                                         class="me-2"
-                                        label={checked ? t("SWITCH TO THE TENANT") || "" : t("SWITCH TO THE HOST") || ""}
+                                        label={checked ? "SWITCH TO THE TENANT" || "" : "SWITCH TO THE HOST"}
                                         size="small"
                                         isDisabled={false}
                                         colorVariant="primary"
@@ -191,7 +190,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-group text-start">
                             <RdsInput
-                                placeholder={t("AbpAccount.DisplayName:Email") || ""}
+                                placeholder="Account.DisplayName:Email"
                                 inputType="email"
                                 onChange={emailhandleChange}
                                 value={emailAddress}
@@ -203,7 +202,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                placeholder={t("AbpAccount.DisplayName:Password") || ""}
+                                placeholder="Account.DisplayName:Password"
                                 inputType="password"
                                 onChange={passwordhandleChange}
                                 name={"password"}
@@ -217,12 +216,12 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 <div className="form-group mb-3 pb-2 remember-me d-flex">
                                     <RdsCheckbox
                                         id="remembercheckid"
-                                        label={t("I Accept") || ""}
+                                        label="I Accept"
                                         checked
                                         dataTestId="remember-me"
                                     ></RdsCheckbox>
                                     <RdsLabel
-                                        label={t("Terms Of Service") || ""}>
+                                        label="Terms Of Service">
                                     </RdsLabel>
                                 </div>
                             </div>
@@ -230,7 +229,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         </div>
                         <div className="mt-3">
                             <RdsButton
-                                label={t("AbpUi.Register") || ""}
+                                label="Ui.Register"
                                 colorVariant="primary"
                                 showLoadingSpinner={true}
                                 isDisabled={!isFormValid}
@@ -243,12 +242,12 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             />
                         </div>
                         <div className="mt-4">
-                            <p> {t("Dont have an Account") || ""}<span className="ps-2"><a
+                            <p> "Dont have an Account"<span className="ps-2"><a
                                 className="link-primary text-decoration-none"
                                 href="javascript:void(0)"
                                 onClick={() => loginHandler(isLoginClicked)}
                                 data-testid="login"
-                            >{t("AbpUi.Login")}
+                            >"Ui.Login
                             </a></span></p>
                         </div>
                         <div className="mt-5 justify-content-center">

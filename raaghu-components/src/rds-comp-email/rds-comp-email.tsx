@@ -12,7 +12,6 @@ export interface RdsCompEmailProps {
 const RdsCompEmail = (props: RdsCompEmailProps) => {
     const [formData, setFormData] = useState(props.emailSettings);
     const [sendTestEmailData, setSendTestEmailData] = useState(props.sendTestEmailData);
-    const { t } = useTranslation();
 
     useEffect(() => {
         setFormData(props.emailSettings);
@@ -49,9 +48,9 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                         fontWeight={"normal"}
                         value={formData?.smtpDomain}
                         name="displayName"
-                        label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.Domain") || ""}
+                        label="Domain"
                         required={false}
-                        placeholder={t("Enter Domain") || ""}
+                        placeholder={"Enter Domain"}
                         customClasses="form-control"
                         onChange={(e: any) => handleChangeform(e.target.value, "smtpDomain")}
                         dataTestId="domain"
@@ -63,9 +62,9 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     fontWeight={"normal"}
                     value={formData?.smtpUserName}
                     name="displayName"
-                    label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.UserName") || ""}
+                    label={"UserName"}
                     required={false}
-                    placeholder={t("Enter User Name") || ""}
+                    placeholder="Enter User Name"
                     customClasses="form-control"
                     onChange={(e: any) => handleChangeform(e.target.value, "smtpUserName")}
                     dataTestId="user-name"
@@ -76,9 +75,9 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     fontWeight={"normal"}
                     value={formData?.smtpPassword}
                     name="displayName"
-                    label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.Password") || ""}
+                    label="Password"
                     required={false}
-                    placeholder={t("Enter Password") || ""}
+                    placeholder={"Enter Password"}
                     inputType="password"
                     customClasses="form-control"
                     onChange={(e: any) => handleChangeform(e.target.value, "smtpPassword")}
@@ -103,8 +102,8 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                     value={formData?.defaultFromDisplayName}
                                     name="displayName"
                                     required={true}
-                                    label={t("AbpSettingManagement.DefaultFromDisplayName") || ""}
-                                    placeholder={t("Display Name") || ""}
+                                    label="DefaultbFrom DisplayName"
+                                    placeholder="Display Name"
                                     customClasses="form-control"
                                     onChange={(e: any) => handleChangeform(e.target.value, "defaultFromAddress")}
                                     dataTestId="sender-display-name"
@@ -115,10 +114,10 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <RdsInput
                                 fontWeight={"normal"}
-                                placeholder={t("Email Address") || ""}
+                                placeholder="Email Address"
                                 customClasses="form-control"
                                 inputType="text"
-                                label={t("AbpSettingManagement.DefaultFromAddress") || ""}
+                                label="DefaultFromAddress"
                                 name="email"
                                 required={true}
                                 value={formData?.defaultFromAddress}
@@ -136,7 +135,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                     fontWeight={"normal"}
                                     value={formData?.smtpHost}
                                     name="smtpHost"
-                                    label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.Host") || ""}
+                                    label="Host"
                                     placeholder="127.0.0.1"
                                     required={false}
                                     customClasses="form-control"
@@ -151,7 +150,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 value={formData?.smtpPort}
                                 name="smtpPort"
                                 placeholder="25"
-                                label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.Port") || ""}
+                                label="Port"
                                 required={false}
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "smtpPort")}
@@ -161,14 +160,14 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     </div>
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                            <RdsCheckbox label={t("AbpEmailing.DisplayName:Abp.Mailing.Smtp.EnableSsl") || ""} onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
+                            <RdsCheckbox label="EnableSsl" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpSettingManagement.SmtpUseDefaultCredentials") || ""}
+                                label="SmtpUseDefaultCredentials"
                                 onChange={(e: any) => { handleChangeform(e.target.checked, "smtpUseDefaultCredentials"); }}
                                 checked={formData?.smtpUseDefaultCredentials}
                                 dataTestId="use-default-credential"
@@ -181,7 +180,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
             <div className="bg-transparent d-flex footer-buttons gap-3 mb-2 mb-md-2 pb-4 pb-md-4">
                 <div>
                     <RdsButton
-                        label={t("AbpUi.Save") || ""}
+                        label="Save"
                         type="submit"
                         colorVariant="primary"
                         size="small"
@@ -191,7 +190,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                 </div>
                 <div>
                     <RdsOffcanvas
-                        canvasTitle={t("AbpSettingManagement.SendTestEmail")}
+                        canvasTitle="SendTestEmail"
                         placement="end"
                         offcanvasbutton={
                             <RdsButton
@@ -200,7 +199,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 block={false}
                                 showLoadingSpinner={false}
                                 colorVariant="primary"
-                                label={t("AbpSettingManagement.SendTestEmail") || ""}
+                                label="SendTestEmail"
                             />
                         }
                         backDrop={true}
@@ -257,8 +256,8 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                     <div className="row pt-2">
                                         <div className="col-12">
                                             <RdsTextArea
-                                                label={t("CmsKit.ShortDescription") || ""}
-                                                placeholder={t("Enter Description") || ""}
+                                                label="CmsKit.ShortDescription"
+                                                placeholder="Enter Description"
                                                 value={sendTestEmailData?.body}
                                                 rows={3}
                                                 dataTestId='email-body'
@@ -269,7 +268,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 </form>
                                 <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
                                     <RdsButton
-                                        label={t("AbpUi.Cancel") || ""}
+                                        label=".Cancel"
                                         databsdismiss="offcanvas"
                                         type={"button"}
                                         size="small"
@@ -278,7 +277,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         class="me-2"
                                     ></RdsButton>
                                     <RdsButton
-                                        label={t("AbpUi.Save") || ""}
+                                        label=".Save"
                                         type={"button"}
                                         size="small"
                                         showLoadingSpinner={true}

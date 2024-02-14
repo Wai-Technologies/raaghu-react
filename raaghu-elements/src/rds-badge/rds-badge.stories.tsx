@@ -1,12 +1,16 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsBadge from "./rds-badge";
 import RdsIcon from "../rds-icon/rds-icon";
 import RdsButton from "../rds-button/rds-button";
+import { Meta, StoryObj, } from "@storybook/react";
 
-export default {
-    title: "Elements/Badge",
+const meta: Meta = {
+    title: 'Elements/Badge',
     component: RdsBadge,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         size: {
             options: ["small", "smaller", "smallest", "medium"],
@@ -30,57 +34,42 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsBadge>;
+} satisfies Meta<typeof RdsBadge>;
 
-const Template: ComponentStory<typeof RdsBadge> = (args) => (
-    <RdsBadge {...args} />
-);
-
-export const TextBadge = Template.bind({});
-TextBadge.args = {
-    size: "medium",
-    label: "Badge",
-    colorVariant: "danger",
-    badgeType: "rectangle",
-};
+export default meta;
+type Story = StoryObj<typeof RdsBadge>;
 
 
-// const Button: ComponentStory<typeof RdsBadge> = (args) => (
-//     <>
-//         <RdsButton type="button" colorVariant="primary" label="Button">
-//             <RdsBadge {...args} class="position-absolute top-0 start-100 translate-middle"></RdsBadge>
-//         </RdsButton>
-//     </>
-// );
+export const TextBadge: Story = {
+    args: {
+        size: "small",
+        label: "Badge",
+        colorVariant: "primary",
+        badgeType: "rectangle",
+    }
+} satisfies Story;
 
-// export const button = Button.bind({});
-// button.args = {
-//     size: "medium",
-//     label: "9",
-//     colorVariant: "danger",
-//     badgeType: "rectangle",
-// };
-
-const Positioned: ComponentStory<typeof RdsBadge> = (args) => (
-    <><RdsButton
+const Positioned: Story = {
+    decorators: [(args) => <><RdsButton
         type="button"
         colorVariant="primary"
         size="small"
-        label="Button" /><span className="position-absolute translate-middle"><RdsBadge {...args}></RdsBadge></span></>
-    
-);
+        label="Button" /><span className="position-absolute translate-middle"><RdsBadge label={""} {...args}></RdsBadge></span></>],
+}
 
-export const WithLabel = Positioned.bind({});
-WithLabel.args = {
-    size: "smaller",
-    label: "99",
-    colorVariant: "danger",
-    badgeType: "rectangle",
-    positioned: true,
-};
 
-const PositionedIcon: ComponentStory<typeof RdsBadge> = (args) => (
-    <span   className='position-relative'>
+export const WithLabel: Story = {
+    ...Positioned.args,
+    args: {
+        size: "smaller",
+        label: "99",
+        colorVariant: "danger",
+        badgeType: "rectangle",
+    }
+} satisfies Story;
+
+const PositionedIcon: Story = {
+    decorators: [(args) => <span className='position-relative'>
         <RdsIcon
             name='notification'
             width="20px"
@@ -88,15 +77,18 @@ const PositionedIcon: ComponentStory<typeof RdsBadge> = (args) => (
             fill={false}
             stroke={true}
         />
-        <RdsBadge {...args}></RdsBadge>
-    </span>
-);
+        <RdsBadge label={""} {...args}></RdsBadge>
+    </span>],
+}
 
-export const WithIcon = PositionedIcon.bind({});
-WithIcon.args = {
-    size: "smallest",
-    label: "9",
-    colorVariant: "danger",
-    badgeType: "rectangle",
-    positioned: true,
-};
+
+export const WithIcon: Story = {
+    ...PositionedIcon.args,
+    args: {
+        size: "smallest",
+        label: "9",
+        colorVariant: "danger",
+        badgeType: "rectangle",
+        positioned: true,
+    }
+} satisfies Story;

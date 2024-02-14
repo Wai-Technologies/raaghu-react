@@ -23,11 +23,9 @@ export interface RdsCompNewLanguageProps {
 
 const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
 
-    const { t } = useTranslation();
-
     const [isEnabled, setCheck] = useState(props.isEnabled);
-    const [cultureName, setCultureName] = useState(t("Select Culture Name"));
-    const [cultureUIName, setCultureUIName] = useState(t("Select UI Culture Name"));
+    const [cultureName, setCultureName] = useState(("Select Culture Name"));
+    const [cultureUIName, setCultureUIName] = useState(("Select UI Culture Name"));
     const [displayName, setDisplayName] = useState(props.displayName || "");
     const [formValid, setFormValid] = useState(true);
     const [inputReset, setInputReset] = useState(props.reset);
@@ -46,8 +44,8 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
             }
         } else {
             if (
-                cultureName !== t("Select Culture Name") &&
-                cultureUIName !== t("Select UI Culture Name") &&
+                cultureName !== ("Select Culture Name") &&
+                cultureUIName !== ("Select UI Culture Name") &&
                 displayName &&
                 displayName.trim() !== ""
             ) {
@@ -72,8 +70,8 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
             flagIcon: flagIcon
         });
         setCheck(false);
-        setCultureName(t("Select Culture Name"));
-        setCultureUIName(t("Select UI Culture Name"));
+        setCultureName("Select Culture Name");
+        setCultureUIName("Select UI Culture Name");
         setDisplayName(" ");
         setFlagIcon("af");
     };
@@ -109,7 +107,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langC"
-                                    label={t("LanguageManagement.CultureName") || ""}
+                                    label="CultureName"
                                     selectItems={props.cultureList}
                                     selectedValue={cultureName}
                                     onChange={(item: any) => onChangeSelectList("cultureName", item.value)}
@@ -124,7 +122,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langU"
-                                    label={t("LanguageManagement.UiCultureName") || ""}
+                                    label="UiCultureName"
                                     selectItems={props.cultureList}
                                     selectedValue={cultureUIName}
                                     onChange={(item: any) => onChangeSelectList("cultureUIName", item.value)}
@@ -138,15 +136,15 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                         <div className="form-group">
                             <RdsInput
                                 size="medium"
-                                label={t("LanguageManagement.DisplayName") || ""}
-                                placeholder={t("Enter Display Name") || ""}
+                                label="DisplayName"
+                                placeholder="Enter Display Name"
                                 value={displayName}
                                 onChange={inputChangeHandler}
                                 required={true}
                             ></RdsInput>
                         </div>
                         <RdsCheckbox
-                            label={t("Is Enabled") || ""}
+                            label={("Is Enabled") || ""}
                             checked={isEnabled}
                             onChange={checkboxHandler}
                         ></RdsCheckbox>
@@ -156,7 +154,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langF"
-                                    label={t("LanguageManagement.FlagIcon") || ""}
+                                    label="FlagIcon"
                                     selectItems={props.flagIconList}
                                     onChange={(item: any) => onChangeSelectList("flagIcon", item.value)}
                                     selectedValue={flagIcon}
@@ -169,7 +167,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
 
             <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                 <RdsButton
-                    label={t("AbpUi.Cancel") || ""}
+                    label="Cancel"
                     type="button"
                     colorVariant="primary"
                     size="small"
@@ -177,7 +175,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                     isOutline={true}
                 ></RdsButton>
                 <RdsButton
-                    label={t("AbpUi.Save") || ""}
+                    label="Save"
                     type="button"
                     size="small"
                     isDisabled={formValid}

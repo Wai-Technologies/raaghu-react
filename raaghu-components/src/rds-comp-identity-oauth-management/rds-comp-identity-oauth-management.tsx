@@ -9,7 +9,6 @@ export interface RdsCompIdentityOauthManagementProps {
 }
 const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementProps) => {
     const [oauth, setOauth] = useState(props.oauthData);
-    const { t } = useTranslation();
 
     useEffect(() => {
         setOauth(props.oauthData);
@@ -26,12 +25,12 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
         <div className="pt-3">
             <form onSubmit={handleSubmit}>
                 <div className="mb-3 fw-medium">
-                    <RdsLabel label={t("AbpIdentity.OAuthLoginSettings") || ""}></RdsLabel>
+                    <RdsLabel label="OAuthLoginSettings"></RdsLabel>
                 </div>
 
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        label={t("AbpIdentity.DisplayName:Abp.Identity.EnableOAuthLogin") || ""}
+                        label="EnableOAuthLogin"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableOAuthLogin"); }}
                         checked={oauth?.enableOAuthLogin}
                         dataTestId="use-default-credential"
@@ -44,8 +43,8 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                                 value={oauth?.clientId}
                                 name="clientId"
                                 required={true}
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.ClientId") || ""}
-                                placeholder={t("") || ""}
+                                label="ClientId"
+                                placeholder=""
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "clientId")}
                                 dataTestId="client-id"
@@ -54,10 +53,10 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
                         <RdsInput
-                            placeholder={t("389") || ""}
+                            placeholder="389"
                             customClasses="form-control"
                             inputType="text"
-                            label={t("AbpIdentity.DisplayName:Abp.Identity.ClientSecret") || ""}
+                            label="ClientSecret"
                             name="clientSecret"
                             value={oauth?.clientSecret}
                             onChange={(e: any) => handleChangeform(e.target.value, "clientSecret")}
@@ -72,8 +71,8 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                                 value={oauth?.authority}
                                 name="authority"
                                 required={true}
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Authority") || ""}
-                                placeholder={t("Enter Base Domain Component") || ""}
+                                label="Authority"
+                                placeholder="Enter Base Domain Component"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "authority")}
                                 dataTestId="base-domain"
@@ -82,10 +81,10 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
                         <RdsInput
-                            placeholder={t("AbpIdentity.DisplayName:Abp.Identity.Scope") || ""}
+                            placeholder="Scope"
                             customClasses="form-control"
                             inputType="text"
-                            label={t("Enter Scope") || ""}
+                            label="Enter Scope"
                             name="scope"
                             value={oauth?.scope}
                             onChange={(e: any) => handleChangeform(e.target.value, "scope")}
@@ -97,7 +96,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                 <div className="row">
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label={t("AbpIdentity.DisplayName:Abp.Identity.RequireHttpsMetadata") || ""}
+                            label="RequireHttpsMetadata"
                             checked={oauth?.requireHttpsMetadata}
                             onChange={(e: any) => handleChangeform(e.target.checked, "requireHttpsMetadata")}
                             dataTestId="requireHttpsMetadata"
@@ -105,7 +104,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label={t("AbpIdentity.DisplayName:Abp.Identity.ValidateEndpoints") || ""}
+                            label="ValidateEndpoints"
                             checked={oauth?.validateEndpoints}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateEndpoints")}
                             dataTestId="validateEndpoints"
@@ -113,7 +112,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label={t("AbpIdentity.DisplayName:Abp.Identity.ValidateIssuerName") || ""}
+                            label="ValidateIssuerName"
                             checked={oauth?.validateIssuerName}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateIssuerName")}
                             dataTestId="validateIssuerName"
@@ -122,7 +121,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                 </div>
                 <div className="mt-xxl-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 pb-4 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
                     <RdsButton
-                        label={t("AbpUi.Save") || ""}
+                        label="Save"
                         type="submit"
                         colorVariant="primary"
                         size="small"

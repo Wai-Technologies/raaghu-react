@@ -1,34 +1,34 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompSyntaxHighlighter from "./rds-comp-syntax-highlighter";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
-  title: "Components/Syntax-Highlighter",
-  component: RdsCompSyntaxHighlighter,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-} as ComponentMeta<typeof RdsCompSyntaxHighlighter>;
 
-const Template: ComponentStory<typeof RdsCompSyntaxHighlighter> = (args) => (
-  <RdsCompSyntaxHighlighter {...args} />
-);
+const meta: Meta = { 
+    title: "Components/Syntax Highlighter",
+    component: RdsCompSyntaxHighlighter,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompSyntaxHighlighter>;
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof RdsCompSyntaxHighlighter>;
 
-Default.args = {
-  disabled: false,
-  maxLength: 550,
-  minLength: 500,
-  name: "Editior",
-  placeholder: "Type here",
-  padding: 15,
-  required: true,
-  tabSize: 15
-};
+export const Default: Story = {
+    args: {
+      disabled: false,
+        maxLength: 550,
+        minLength: 500,
+        name: "Editior",
+        placeholder: "Type here",
+        padding: 15,
+        required: true,
+        tabSize: 15
+    }
+} satisfies Story;
+
+
+
+

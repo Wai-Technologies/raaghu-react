@@ -1,7 +1,8 @@
 import React from "react";
 import RdsIcon from "../rds-icon/rds-icon";
-import RdsLikeDislike from "../rds-like-dislike/rds-like-dislike";
-import RdsRating from "../rds-rating/rds-rating";
+import RdsLikeDislike from "../rds-like-dislike";
+import RdsRating from "../rds-rating";
+
 
 export interface Item {
    id: React.Key | null | undefined;

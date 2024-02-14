@@ -9,7 +9,7 @@ export interface RdsCompApplicationScopesProps {
 const RdsCompApplicationScopes = (props: RdsCompApplicationScopesProps) => {
     const [scopeList, setScopeList] = useState(props.scopesList);
     const handlerChange = (event: any) => {
-        const tempScopes = scopeList.map((curr: any) => {
+        const tempScopes = scopeList?.map((curr: any) => {
             if (curr.id === event.target.id) {
                 return { ...curr, checked: event.target.checked };
             }

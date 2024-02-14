@@ -1,36 +1,45 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsPrice from "./rds-price";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Price",
+const meta: Meta = {
+    title: 'Elements/Price',
     component: RdsPrice,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsPrice>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsPrice>;
 
-const Template: ComponentStory<typeof RdsPrice> = (args) => (
-    <RdsPrice {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsPrice>;
 
-export const Default = Template.bind({});
-Default.args = {
-    mrp: 100,
-    currentPrice: 90,
-    withDiscount:true
-};
 
-export const Price_on_Right = Template.bind({});
-Price_on_Right.args = {
-    mrp: 100,
-    currentPrice: 90,
-    type: "priceOnRight",
-    withDiscount:true
-};
+export const Default: Story = {
+    args: {
+        mrp: 100,
+        currentPrice: 90,
+        withDiscount: true
+    }
+} satisfies Story;
 
-export const Without_Discount = Template.bind({});
-Without_Discount.args = {
-    mrp: 100,
-    currentPrice: 90,
-};
+
+export const Price_on_Right: Story = {
+    args: {
+        mrp: 100,
+        currentPrice: 90,
+        type: "priceOnRight",
+        withDiscount: true
+    }
+} satisfies Story;
+
+
+export const Without_Discount: Story = {
+    args: {
+        mrp: 100,
+        currentPrice: 90,
+    }
+} satisfies Story;
+

@@ -1,29 +1,33 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsTeamMember from "./rds-team-member";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Team Member",
+const meta: Meta = {
+    title: 'Elements/Alert',
     component: RdsTeamMember,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsTeamMember>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsTeamMember>;
 
-const Template: ComponentStory<typeof RdsTeamMember> = (args) => (
-    <RdsTeamMember {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsTeamMember>;
 
-export const TeamMember = Template.bind({});
-TeamMember.args = {
-    teamItem :[
-        {
-            title: "Tina",
-            subTitle: "Web Developer",
-            imgLink:"https://t4.ftcdn.net/jpg/04/10/43/77/240_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg",
-            twitterIcon: "star",
-            linkdineIcon: "star",
-            description: "Lorem ipsum dolor sit amet conr adipiscing elit"
-        } 
-    ]
-};
+export const TeamMember: Story = {
+    args: {
+        teamItem: [
+            {
+                title: "Tina",
+                subTitle: "Web Developer",
+                imgLink: "https://t4.ftcdn.net/jpg/04/10/43/77/240_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg",
+                twitterIcon: "star",
+                linkdineIcon: "star",
+                description: "Lorem ipsum dolor sit amet conr adipiscing elit"
+            }
+        ]
+    }
+} satisfies Story;
+

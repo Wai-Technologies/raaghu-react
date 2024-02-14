@@ -1,29 +1,34 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsCollapse from "./rds-collapse";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Collapse",
+const meta: Meta = {
+    title: 'Elements/Collapse',
     component: RdsCollapse,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsCollapse>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCollapse>;
 
-const Template: ComponentStory<typeof RdsCollapse> = (args) => (
-    <RdsCollapse {...args} />
-);
 
-export const Collapse = Template.bind({});
-Collapse.args = {
-    buttonList:
-  [
-      {
-          "colorVariant": "primary",
-          "label": "Toggle Element",
-          "id": "collapseExample"
-      }
-  ],
-};
+export default meta;
+type Story = StoryObj<typeof RdsCollapse>;
+
+
+export const Collapse: Story = {
+    args: {
+        buttonList: [
+            {
+                "colorVariant": "primary",
+                "label": "Toggle Element",
+                "id": "collapseExample"
+            }
+        ],
+    }
+} satisfies Story;
+
 
 

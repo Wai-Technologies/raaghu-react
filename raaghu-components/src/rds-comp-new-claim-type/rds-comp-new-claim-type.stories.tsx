@@ -1,55 +1,46 @@
-
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompNewClaimType from "./rds-comp-new-claim-type";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+const meta: Meta = { 
     title: "Components/New Claim Type",
     component: RdsCompNewClaimType,
-    decorators: [
-        (StoryComponent) => (
-            <I18nextProvider i18n={i18n}>
-                <StoryComponent />
-            </I18nextProvider>
-        ),
-    ],
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompNewClaimType>;
 
-} as ComponentMeta<typeof RdsCompNewClaimType>;
+export default meta;
+type Story = StoryObj<typeof RdsCompNewClaimType>;
 
-
-const Template: ComponentStory<typeof RdsCompNewClaimType> = (args) => (
-    <RdsCompNewClaimType {...args} />
-);
-
-export const NewClaimType = Template.bind({});
-
-NewClaimType.args = {
-    name: "",
-    regex: "",
-    value: "",
-    regexDesc: "",
-    desc: "",
-    onSubmit: { undefined },
-    valueType: [
-        {
-            option: "One",
-            value: "one"
-        },
-        {
-            option: "two",
-            value: "two"
-        },
-        {
-            option: "three",
-            value: "three"
-        },
-        {
-            option: "four",
-            value: "four"
-        }
-
-    ]
-};
-
+export const Default: Story = {
+    args: {
+        name: "",
+        regex: "",
+        value: "",
+        regexDesc: "",
+        desc: "",
+        onSubmit: { undefined },
+        valueType: [
+            {
+                option: "One",
+                value: "one"
+            },
+            {
+                option: "two",
+                value: "two"
+            },
+            {
+                option: "three",
+                value: "three"
+            },
+            {
+                option: "four",
+                value: "four"
+            }
+    
+        ]
+    }
+} satisfies Story;

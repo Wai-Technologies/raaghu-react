@@ -1,31 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompNotificationSettings from "./rds-comp-notification-settings";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+
+const meta: Meta = { 
   title: "Components/Notification Setting",
-  component: RdsCompNotificationSettings,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-  argTypes: {
-    onCancel: { action: "Cancelled" },
-    onSave: { action: "Saved" },
-  },
-} as ComponentMeta<typeof RdsCompNotificationSettings>;
+    component: RdsCompNotificationSettings,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompNotificationSettings>;
 
-const Template: ComponentStory<typeof RdsCompNotificationSettings> = (args) => (
-  <RdsCompNotificationSettings {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompNotificationSettings>;
 
-export const NotificationSettings = Template.bind({});
+export const Default: Story = {
+    args: {
+      default: [{ enabled: false, NewUser: false, NewTenant: false }],
+    }
+} satisfies Story;
 
-NotificationSettings.args = {
-  default: [{ enabled: false, NewUser: false, NewTenant: false }],
-};
+
+
+

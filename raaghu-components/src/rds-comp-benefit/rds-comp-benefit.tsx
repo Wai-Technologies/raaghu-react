@@ -14,7 +14,7 @@ const RdsCompBenefit = (props: RdsCompBenefitProps) => {
     return (
         <>
             <div className="row">
-                {props.itemList.map((items: any, index: number) => (
+                {props.itemList?.map((items: any, index: number) => (
                     <div className={`${Colmun}`} key={index} data-testId="rds-benefit">
                         <RdsBenefit displayType={props.displayType} item={items} />
                     </div>

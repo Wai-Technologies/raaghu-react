@@ -77,7 +77,7 @@ const reducer = (state: any, action: any) => {
                     return t;
                 });
 
-                const selected = tempChi.filter(
+                const selected = tempChi?.filter(
                     (child: any) => child.selected == true
                 ).length;
 
@@ -97,7 +97,7 @@ const reducer = (state: any, action: any) => {
             });
 
         case "statechange":
-            return state.map((parent: any) => {
+            return state?.map((parent: any) => {
                 if (parent.id === action.P_id) {
                     return { ...parent, select: !parent.select };
                 } else {
@@ -115,9 +115,9 @@ const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
     const [check, setcheck] = useState(false);
 
     useEffect(() => {
-        const selected = Res.filter((Parent: any) => Parent.selected == true).length;
+        const selected = Res?.filter((Parent: any) => Parent.selected == true).length;
 
-        if (selected === Res.length) {
+        if (selected === Res?.length) {
             setcheck(true);
         } else {
             setcheck(false);
@@ -151,7 +151,7 @@ const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
             ></input>{" "}
             <label className="form-check-label ms-2" htmlFor="select-all">Select all</label>
             <div className="col-md-12 mt-3">
-                {Res.map((resource: any, i: number) => {
+                {Res?.map((resource: any, i: number) => {
                     return (<>
                         {props.role == "basic" && <div className="mb-3" >
                             <label htmlFor={`parent-${i}`}>{resource.displayName}</label>

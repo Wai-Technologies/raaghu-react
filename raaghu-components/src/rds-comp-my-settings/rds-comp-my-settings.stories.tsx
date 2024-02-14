@@ -1,26 +1,26 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompMySettings from "./rds-comp-my-settings";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+const meta: Meta = {
   title: "Components/My Settings",
   component: RdsCompMySettings,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-} as ComponentMeta<typeof RdsCompMySettings>;
+  parameters: {
+    layout: "",
+  },
+  tags: ['autodocs'],
+  argTypes: {
+  },
+} satisfies Meta<typeof RdsCompMySettings>;
 
-const Template: ComponentStory<typeof RdsCompMySettings> = (args) => (
-  <RdsCompMySettings {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompMySettings>;
 
-export const MySettings = Template.bind({});
+export const Default: Story = {
+  args: {
 
-MySettings.args = {
-};
+  }
+} satisfies Story;
+
+
+
+

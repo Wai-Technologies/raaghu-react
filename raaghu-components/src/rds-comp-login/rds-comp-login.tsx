@@ -39,7 +39,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
   const [isRegisterClicked, setIsRegisterClicked] = useState(false);
   const [rememberMe, setrememberMe] = useState(false);
-  const { t } = useTranslation();
+ 
   const [checked, setChecked] = useState(false);
   const [currentTenant, setCurrentTenant] = useState(
     checked ? props.currentTenant : "Not Selected"
@@ -124,7 +124,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
         <div className="text-center">
           <div className="d-flex align-items-center mb-1">
             <div className="col-8 col-md-8 mb-3 offset-2">
-              <h2 className="mb-0">{t("AbpUi.Login")}</h2>
+              <h2 className="mb-0">Login</h2>
             </div>
             <div className="col-2 col-md-2 mb-3">
               <RdsDropdownList
@@ -149,14 +149,14 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             <small className="d-flex justify-content-center">
               <span className="d-flex">
                 {" "}
-                <RdsLabel label={`${t("Current Tenant")}`}></RdsLabel>:
+                <RdsLabel label={`${"Current Tenant"}`}></RdsLabel>:
               </span>
               &nbsp;
               <span className="fw-semibold">
                 {" "}
                 <RdsLabel
                   label={
-                    `${t(props.getvalidTenantName)}`
+                    `${props.getvalidTenantName}`
                   }
                 ></RdsLabel>
               </span>
@@ -169,13 +169,13 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                   showModalHeader={true}
                   scrollable={false}
                   verticallyCentered={false}
-                  modalbutton={<a className="link-primary">{t("Change")}</a>}
-                  modalTitle={`${t("AbpUiMultiTenancy.SwitchTenant")}`}
+                  modalbutton={<a className="link-primary">Change</a>}
+                  modalTitle={`${"SwitchTenant"}`}
                   cancelButtonName="CANCEL"
                 >
                   <div className="text-start  mb-4 ">
                     <RdsInput
-                      label={t("AbpUiMultiTenancy.Name") || ""}
+                      label="Name"
                       placeholder=""
                       inputType="email/text"
                       onChange={TenancyNameChange}
@@ -197,7 +197,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                       class="me-2"
                       tooltipTitle={""}
                       type={"button"}
-                      label={t("AbpUi.Cancel") || ""}
+                      label="Cancel"
                       colorVariant="outline-primary"
                       size="small"
                       databsdismiss="modal"
@@ -205,7 +205,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     ></RdsButton>
                     <RdsButton
                       class="me-2"
-                      label={t("AbpUi.Save") || ""}
+                      label="Save"
                       size="small"
                       isDisabled={false}
                       colorVariant="primary"
@@ -229,7 +229,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 <div>
                   <RdsAlert
                     dismisable={true}
-                    alertmessage={t(Alert?.message)}
+                    alertmessage={Alert?.message}
                     colorVariant={Alert?.color}
                     size="small"
                     onDismiss={props.onDismissAlert}
@@ -241,7 +241,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             <form onSubmit={handleSubmit} className="">
               <div className="form-group text-start">
                 <RdsInput
-                  placeholder={t("Enter Email/Username") || ""}
+                  placeholder="Enter Email/Username"
                   inputType="email/text"
                   onChange={emailhandleChange}
                   value={email}
@@ -255,7 +255,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 <RdsInput
                   customClasses="pe-5"
                   required={false}
-                  placeholder={t("Enter Password") || ""}
+                  placeholder="Enter Password"
                   inputType="password"
                   onChange={passwordhandleChange}
                   name={"password"}
@@ -269,7 +269,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                   <div className="form-group mb-4 pb-2 remember-me">
                     <RdsCheckbox
                       id="remembercheckid"
-                      label={`${t("AbpAccount.RememberMe")}`}
+                      label={`${"Remember Me"}`}
                       checked={rememberMe}
                       onChange={onCheckedHandler}
                       dataTestId="remember-me"
@@ -282,12 +282,12 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     href="javascript:void(0)"
                     onClick={forgotPasswordHandler}
                   >
-                    {`${t("AbpAccount.ForgotPassword")}`}
+                    {`${"Forgot Password"}`}
                   </a>
                 </div>
               </div>
               <RdsButton
-                label={`${t("AbpUi.Login")}`}
+                label={`${"Login"}`}
                 colorVariant="primary"
                 showLoadingSpinner={true}
                 isDisabled={!isFormValid}
@@ -295,19 +295,19 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 tooltipTitle={""}
                 type="submit"
                 onClick={handleSubmit}
-                dataTestId="AbpUi.Login"
+                dataTestId="Login"
               />
             </form>
             <div className="mt-4">
               <div>
-                {t("Dont have an Account")}{" "}
+                Dont have an Account
                 <span>
                   <a
                     className="link-primary text-decoration-none"
                     href="javascript:void(0)"
                     onClick={registerHandler}
                   >
-                    {t("AbpUi.Register")}
+                   Register
                   </a>
                 </span>
               </div>

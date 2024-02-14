@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsStat from "./rds-stat";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Stat",
+const meta: Meta = {
+    title: 'Elements/Stat',
     component: RdsStat,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -24,40 +28,47 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsStat>;
+} satisfies Meta<typeof RdsStat>;
 
-const Template: ComponentStory<typeof RdsStat> = (args) => (
-    <RdsStat {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsStat>;
 
-export const Default = Template.bind({});
-Default.args = {
-    displayType: "basic",
-    colorVariant: "primary",
-    items: [
-        {
-            title: "SAM SMITH",
-            value: "2370",
-            icon: "star",
-            iconHeight: "80px",
-            iconWidth: "80px",
-            iconFill: true,
-        },
-    ],
-};
 
-export const Advanced = Template.bind({});
-Advanced.args = {
-    displayType: "advanced",
-    colorVariant: "primary",
-    items: [
-        {
-            title: "SAM SMITH",
-            value: "2370",
-            icon: "star",
-            iconHeight: "80px",
-            iconWidth: "80px",
-            iconFill: true,
-        },
-    ],
-};
+
+export const Default: Story = {
+    args: {
+        displayType: "basic",
+        colorVariant: "primary",
+        items: [
+            {
+                title: "SAM SMITH",
+                value: "2370",
+                icon: "star",
+                iconHeight: "80px",
+                iconWidth: "80px",
+                iconFill: true,
+            },
+        ],
+    }
+} satisfies Story;
+
+
+
+export const Advanced: Story = {
+    args: {
+        displayType: "advanced",
+        colorVariant: "primary",
+        items: [
+            {
+                title: "SAM SMITH",
+                value: "2370",
+                icon: "star",
+                iconHeight: "80px",
+                iconWidth: "80px",
+                iconFill: true,
+            },
+        ],
+    }
+} satisfies Story;
+
+

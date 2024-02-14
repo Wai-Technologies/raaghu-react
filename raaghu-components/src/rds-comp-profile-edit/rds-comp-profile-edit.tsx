@@ -8,7 +8,6 @@ export interface RdsCompProfileEditProps {
 }
 
 const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
-    const { t } = useTranslation();
     const [enteredName, setEnteredName] = useState("");
     const [isNameTouched, setIsNameTouched] = useState(false);
     const isNameEmpty = enteredName.trim() === "";
@@ -146,7 +145,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                     <div className="mt-3 d-flex">
                         <RdsButton
                             class="me-2"
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             type="button"
                             isOutline={true}
                             colorVariant="primary"
@@ -155,7 +154,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("Save") || ""}
+                            label="Save"
                             type="submit"
                             isOutline={false}
                             colorVariant="primary"

@@ -1,6 +1,6 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
 import { useTranslation } from "react-i18next";
+import RdsCompDatatable from "../rds-comp-data-table";
 
 interface RdsCompBlogPostProps {
   tableHeaders: {
@@ -28,14 +28,13 @@ interface RdsCompBlogPostProps {
   recordsPerPage?: number;
 }
 const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
-  const { t } = useTranslation();
   return (
     <RdsCompDatatable
       actionPosition="right"
       tableHeaders={props.tableHeaders}
       actions={props.actions}
-      noDataheaderTitle={t("No Records Available") || ""}
-      noDataTitle={t("Click on the button to add") || ""}
+      noDataheaderTitle="No Records Available"
+      noDataTitle="Click on the button to add"
       illustration={true}
       tableData={props.tableData!}
       pagination={props.pagination!}

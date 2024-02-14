@@ -1,22 +1,26 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsToggle from "./rds-toggle";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Toggle",
+const meta: Meta = {
+    title: 'Elements/Toggle',
     component: RdsToggle,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsToggle>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsToggle>;
 
-const Template: ComponentStory<typeof RdsToggle> = (args) => (
-    <RdsToggle {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsToggle>;
 
-export const Toggle = Template.bind({});
-Toggle.args = {
-    iconOnUncheck: "sun",
-    iconOnCheck: "moon",
-    small:false
-};
+export const Toggle: Story = {
+    args: {
+        iconOnUncheck: "sun",
+        iconOnCheck: "moon",
+        small: false
+    }
+} satisfies Story;
+

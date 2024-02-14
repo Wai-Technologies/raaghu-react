@@ -1,35 +1,29 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAlertPopup from "./rds-comp-alert-popup";
 
-export default {
-    title: "Components/AlertPopup",
+
+const meta: Meta = {
+    title: "Components/Alert Popup",
     component: RdsCompAlertPopup,
-} as ComponentMeta<typeof RdsCompAlertPopup>;
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompAlertPopup>;
 
-const Template: ComponentStory<typeof RdsCompAlertPopup> = (args) => (
-    <>
-        {/* // Button trigger modal  */}
-        <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#alert_popup"
-        >
-            Alert popup
-        </button>
-        <RdsCompAlertPopup {...args} />
-    </>
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompAlertPopup>;
 
-export const AlertPopup = Template.bind({});
-
-AlertPopup.args = {
-    alertID: "alert_popup",
-    iconUrl: "delete",
-    colorVariant: "danger",
-    alertConfirmation: "Are you sure to Delete",
-    messageAlert: "This record will be deleted permanently",
-    cancelButtonLabel: "Cancel",
-    deleteButtonLabel: "Delete",
-};
+export const Default: Story = {
+    args: {
+        alertID: "alert_popup",
+        iconUrl: "delete",
+        colorVariant: "danger",
+        alertConfirmation: "Are you sure to Delete",
+        messageAlert: "This record will be deleted permanently",
+        cancelButtonLabel: "Cancel",
+        deleteButtonLabel: "Delete",
+    }
+} satisfies Story;

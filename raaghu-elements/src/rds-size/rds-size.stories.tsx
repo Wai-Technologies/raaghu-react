@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Todos from "./rds-size";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Size",
+const meta: Meta = {
+    title: 'Elements/Size',
     component: Todos,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -24,35 +28,38 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof Todos>;
+} satisfies Meta<typeof Todos>;
 
-const Template: ComponentStory<typeof Todos> = (args) => (
-    <Todos {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof Todos>;
 
-export const Default = Template.bind({});
-Default.args = {
-    sizeType: "withoutDescription",
-    sizeData: [
-        { value: "XXS",inStock:false},
-        { value: "XS", inStock:true},
-        { value: "S", inStock:true},
-        { value: "M", inStock:true},
-        { value: "L", inStock:true},
-        { value: "XL",inStock:true},
-        { value: "XXL",inStock:true},
-   
-    ],
 
-};
+export const Default: Story = {
+    args: {
+        sizeType: "withoutDescription",
+        sizeData: [
+            { value: "XXS", inStock: false },
+            { value: "XS", inStock: true },
+            { value: "S", inStock: true },
+            { value: "M", inStock: true },
+            { value: "L", inStock: true },
+            { value: "XL", inStock: true },
+            { value: "XXL", inStock: true },
 
-export const WithDescription = Template.bind({});
-WithDescription.args = {
-    sizeType: "withDescription",
+        ],
 
-    sizeDataWithDescription: [
-        { value: "13", description: "impoity input " },
-        { value: "15", description: "impoity input and ngonint"},
-        { value: "14", description: " with the passanger"},
-    ],
-};
+    },
+} satisfies Story;
+
+export const WithDescription: Story = {
+    args: {
+        sizeType: "withDescription",
+        sizeDataWithDescription: [
+            { value: "13", description: "impoity input " },
+            { value: "15", description: "impoity input and ngonint" },
+            { value: "14", description: " with the passanger" },
+        ],
+    },
+} satisfies Story;
+
+

@@ -1,9 +1,9 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsBigNumber from "./rds-big-number";
 import RdsLineChart from "../rds-chart-line";
 import RdsIcon from "../rds-icon";
 import RdsBarChart from "../rds-chart-bar";
+import { Meta, StoryObj } from "@storybook/react";
 
 const textAlignArgTypes = {
     textAlign: {
@@ -12,9 +12,13 @@ const textAlignArgTypes = {
     },
 };
 
-export default {
-    title: "Elements/BigNumber",
+const meta: Meta = {
+    title: 'Elements/BigNumber',
     component: RdsBigNumber,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         subTitleColorVariant: {
             options: [
@@ -43,180 +47,190 @@ export default {
             ],
             control: { type: "select" },
         },
-    },
-    argsTypes: {
         chartHeight: {
             control: { type: "number" },
-          },
-          chartWidth: {
+        },
+        chartWidth: {
             control: { type: "number" },
-          },
+        },
+    },
+} satisfies Meta<typeof RdsBigNumber>;
+
+export default meta;
+type Story = StoryObj<typeof RdsBigNumber>;
+
+
+export const Default: Story = {
+    args: {
+        bigNumber: "$13,20,21",
+        bigNumberColor: "dark",
+        textAlign: "text-start",
     }
-} as ComponentMeta<typeof RdsBigNumber>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsBigNumber> = (args) => (
-    <RdsBigNumber {...args}>{args.children}</RdsBigNumber>
-);
-
-export const Default = Template.bind({});
-Default.args = {
-    bigNumber: "$13,20,21",
-    bigNumberColor:"dark",
-    textAlign: "text-start",
-};
 Default.argTypes = textAlignArgTypes;
 
-export const standard = Template.bind({});
-standard.args = {
-    subTitleColorVariant: "primary",
-    subTitle: "Visitors",
-    bigNumber: "2,236",
-    children: <></>
-};
-
-export const delta = Template.bind({});
-delta.args = {
-    subTitleColorVariant: "primary",
-    subTitle: "Visitors",
-    bigNumber: "2,236",
-    children: (
-        <>
-            <RdsIcon
-                name="triangle_up"
-                fill={true}
-                stroke={true}
-                width="15px"
-                height="15px"
-                colorVariant="primary"
-            />
-
-            <label className="ps-2 text-primary fs-5">75%</label>
-        </>
-    ),
-};
+export const standard: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        children: <></>
+    }
+} satisfies Story;
 
 
-export const histogram = Template.bind({});
-histogram.args = {
-    subTitleColorVariant: "primary",
-    subTitle: "Average Numbers Of Visitors",
-    bigNumber: "2,236",
-    chartHeight:50,
-    chartWidth:50,
-    children: (
-        <RdsBarChart
-            id="histogram"
-             dataSets={[
-                {
-                    label: "Sales Growth",
-                    data: [15, 67, 34, 78, 45, 87, 76, 32, 50, 14, 35, 22],
-                    backgroundColor: "rgba(54, 162, 235, 1)",
-                    borderColor: "rgba(54, 162, 245, 1)",
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    barThickness: 4,
-                    borderSkipped: false,
-                },
-            ]}
-            labels={["10k", "20k", "25k", "30k", "40k", "50k", "60k"]}
-            options={{
-                indexAxis: "x",
-                elements: {
-                    bar: {
-                        borderWidth: 0,
-                        width: 1,
+export const delta: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        children: (
+            <>
+                <RdsIcon
+                    name="triangle_up"
+                    fill={true}
+                    stroke={true}
+                    width="15px"
+                    height="15px"
+                    colorVariant="primary"
+                />
+
+                <label className="ps-2 text-primary fs-5">75%</label>
+            </>
+        ),
+    }
+} satisfies Story;
+
+
+
+export const histogram: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Average Numbers Of Visitors",
+        bigNumber: "2,236",
+        chartHeight: 50,
+        chartWidth: 50,
+        children: (
+            <RdsBarChart
+                id="histogram"
+                dataSets={[
+                    {
+                        label: "Sales Growth",
+                        data: [15, 67, 34, 78, 45, 87, 76, 32, 50, 14, 35, 22],
+                        backgroundColor: "rgba(54, 162, 235, 1)",
+                        borderColor: "rgba(54, 162, 245, 1)",
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        barThickness: 4,
+                        borderSkipped: false,
                     },
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
+                ]}
+                labels={["10k", "20k", "25k", "30k", "40k", "50k", "60k"]}
+                options={{
+                    indexAxis: "x",
+                    elements: {
+                        bar: {
+                            borderWidth: 0,
+                            width: 1,
+                        },
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                        },
+                    },
+                    scales: {
+                        y: {
+                            display: false,
+                        },
+                        x: {
+                            display: false,
+                        },
+                    },
+                }}
+            />
+        ),
+    }
+} satisfies Story;
+
+
+export const sparkLine: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        chartHeight: 50,
+        chartWidth: 50,
+        children: (
+            <RdsLineChart
+                id="linechart"
+                labels={["Jan", "Feb", "Mar", "Apr"]}
+                options={{
+                    radius: 0,
+                    pointStyle: "circle",
+                    responsive: true,
+                    borderWidth: 1,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: false,
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: { enabled: false },
+                    },
+                    scales: {
+                        y: {
+                            display: false,
+                        },
+                        x: {
+                            display: false,
+                        },
                     },
                     tooltip: {
-                        enabled: false, // <-- this option disables tooltips
-                    },
-                },
-                scales: {
-                    y: {
                         display: false,
+                        usePointStyle: true,
                     },
-                    x: {
-                        display: false,
+                }}
+                dataSets={[
+                    {
+                        label: "",
+                        data: [0, 3, -3, 3],
+                        borderColor: "#4DCFFF",
+                        fill: false,
+                        pointRadius: 2,
+                        cubicInterpolationMode: "monotone",
+                        tension: 0.4,
                     },
-                },
-            }}
-                  />
-    ),
-};
+                ]}
+            />
+        ),
+    }
+} satisfies Story;
 
-export const sparkLine = Template.bind({});
-sparkLine.args = {
-    subTitleColorVariant: "primary",
-    subTitle: "Visitors",
-    bigNumber: "2,236",
-    chartHeight:50,
-    chartWidth:50,
-    children: (
-        <RdsLineChart
-            id="linechart"
-            labels={["Jan", "Feb", "Mar", "Apr"]}
-            options={{
-                radius: 0,
-                pointStyle: "circle",
-                responsive: true,
-                borderWidth: 1,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: false,
-                    },
-                    legend: {
-                        display: false,
-                    },
-                    tooltip: { enabled: false },
-                },
-                scales: {
-                    y: {
-                        display: false,
-                    },
-                    x: {
-                        display: false,
-                    },
-                },
-                tooltip: {
-                    display: false,
-                    usePointStyle: true,
-                },
-            }}
-            dataSets={[
-                {
-                    label: "",
-                    data: [0, 3, -3, 3],
-                    borderColor: "#4DCFFF",
-                    fill: false,
-                    pointRadius: 2,
-                    cubicInterpolationMode: "monotone",
-                    tension: 0.4,
-                },
-            ]}
-        />
-    ),
-};
 
-export const icon = Template.bind({});
-icon.args = {
-    subTitleColorVariant: "primary",
-    subTitle: "Visitors",
-    bigNumber: "2,236",
-    children: (
-        <RdsIcon
-            name="users"
-            fill={false}
-            stroke={true}
-            width="50px"
-            height="50px"
-            colorVariant="primary"
-        />
-    ),
-};
+export const icon: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        children: (
+            <RdsIcon
+                name="users"
+                fill={false}
+                stroke={true}
+                width="50px"
+                height="50px"
+                colorVariant="primary"
+            />
+        ),
+    }
+} satisfies Story;
+

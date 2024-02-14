@@ -1,96 +1,104 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsWebsiteMatrix from "./rds-website-matrix";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Website Matrix",
+const meta: Meta = {
+    title: 'Elements/Website Matrix',
     component: RdsWebsiteMatrix,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"],
             control: { type: "select" }
-        }},
-} as ComponentMeta<typeof RdsWebsiteMatrix>;
-
-const Template: ComponentStory<typeof RdsWebsiteMatrix> = (args) => (
-    <RdsWebsiteMatrix {...args}/>
-);
-
-export const Default = Template.bind({});
-Default.args = {
-    item :{
-        "title": "510+",
-        "link": "Learn more",
-        "subtitle": "Clients Worked with"
+        }
     },
-    displayType:"default", 
-    colorVariant: "primary",
-};
+} satisfies Meta<typeof RdsWebsiteMatrix>;
+
+export default meta;
+type Story = StoryObj<typeof RdsWebsiteMatrix>;
 
 
-export const withTopBorder = Template.bind({});
-withTopBorder.args = {
-    colorVariant: "primary", 
-    displayType: "withTopBorder",
-    item: {
-        title: "510+",
-        link: "Learn more",
-        subtitle: "Clients Worked with"
-
+export const Default: Story = {
+    args: {
+        item: {
+            "title": "510+",
+            "link": "Learn more",
+            "subtitle": "Clients Worked with"
+        },
+        displayType: "default",
+        colorVariant: "primary",
     }
-};
+} satisfies Story;
 
-export const leftAligned = Template.bind({});
-leftAligned.args = {
-    colorVariant: "primary", 
-    displayType: "leftAligned",
-    item: {
-        title: "510+",
-        link: "Learn more",
-        subtitle: "Clients Worked with",
-        icon: "edit",
-        iconHeight: "20px",
-        iconWidth: "20px"
+export const withTopBorder: Story = {
+    args: {
+        item: {
+            "title": "510+",
+            "link": "Learn more",
+            "subtitle": "Clients Worked with"
+        },
+        displayType: "withTopBorder",
+        colorVariant: "primary",
     }
-};
-export const withLeftAlignedIcon = Template.bind({});
+} satisfies Story;
 
-withLeftAlignedIcon.args = {
-    colorVariant: "primary", 
-    displayType: "withLeftAlignedIcon",
-    item: {
-        title: "510+",
-        link: "Learn more",
-        subtitle: "Clients Worked with",
-        icon: "edit",
-        iconHeight: "20px",
-        iconWidth: "20px",
-
+export const leftAligned: Story = {
+    args: {
+        item: {
+            "title": "510+",
+            "link": "Learn more",
+            "subtitle": "Clients Worked with"
+        },
+        displayType: "leftAligned",
+        colorVariant: "primary",
     }
-};
-export const withCenterAlignedIcon = Template.bind({});
-withCenterAlignedIcon.args = {
-    colorVariant: "primary", 
-    displayType: "withCenterAlignedIcon",
-    item: {
-        title: "510+",
-        icon: "edit",
-        iconHeight: "20px",
-        iconWidth: "20px",
-        link: "Learn more",
-        subtitle: "Clients Worked with"
+} satisfies Story;
+
+export const withLeftAlignedIcon: Story = {
+    args: {
+        item: {
+            title: "510+",
+            link: "Learn more",
+            subtitle: "Clients Worked with",
+            icon: "edit",
+            iconHeight: "20px",
+            iconWidth: "20px",
+
+        },
+        displayType: "withLeftAlignedIcon",
+        colorVariant: "primary",
+    }
+} satisfies Story;
+
+export const withCenterAlignedIcon: Story = {
+    args: {
+        item: {
+            title: "510+",
+            link: "Learn more",
+            subtitle: "Clients Worked with",
+            icon: "edit",
+            iconHeight: "20px",
+            iconWidth: "20px",
+        },
+        displayType: "withCenterAlignedIcon",
+        colorVariant: "primary",
+    }
+} satisfies Story;
+
+export const centerAligned: Story = {
+    args: {
+        item: {
+            title: "510+",
+            link: "Learn more",
+            subtitle: "Clients Worked with",
+            description: "We have successfully onboard more than 510 clients as of now. Amazing work experience with them"
+        },
+        displayType: "centerAligned",
+        colorVariant: "primary",
+    }
+} satisfies Story;
 
 
-    }
-};
-export const centerAligned = Template.bind({});
-centerAligned.args = {
-    colorVariant: "primary", 
-    displayType: "centerAligned",
-    item: {
-        title: "510+",
-        link: "Learn more",
-        subtitle: "Clients Worked with",
-        description: "We have successfully onboard more than 510 clients as of now. Amazing work experience with them"
-    }
-};

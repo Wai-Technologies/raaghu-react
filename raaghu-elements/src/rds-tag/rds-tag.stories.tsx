@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsTag from "./rds-tag";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Tag",
+const meta: Meta = {
+    title: 'Elements/Tag',
     component: RdsTag,
+    parameters: { 
+        layout: 'padded',
+    },
+    tags:['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -27,20 +31,20 @@ export default {
             options:["basic" , "tagWithScroll"],
             control: { type: "select" },
         },
-    }
-} as ComponentMeta<typeof RdsTag>;
+    },
+} satisfies Meta<typeof RdsTag>;
 
-const Template: ComponentStory<typeof RdsTag> = (args) => (
-    <RdsTag {...args}/>
-);
+export default meta;
+type Story = StoryObj<typeof RdsTag>;
 
-export const Tag = Template.bind({});
-Tag.args = {
-    tagType: "square" ,
-    role: "basic",
-    colorVariant:"primary",
-    fillClose:false,
-    tagArray:[ "primary",
+
+export const Tag :Story={
+    args:{
+        tagType:"square" ,
+        role:"basic",
+        colorVariant:"primary",
+        fillClose:false,
+        tagArray:[ "primary",
         "secondary",
         "success",
         "info",
@@ -48,7 +52,9 @@ Tag.args = {
         "danger",
         "dark",
         "light",]
-};
+    }
+} satisfies Story;
+
 
 // export const Advanced = Template.bind({});
 // Advanced.args = {

@@ -1,28 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompFormsQuestions from './rds-comp-forms-questions';
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
-  title: "Components/Forms Question",
-  component: RdsCompFormsQuestions,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
 
-} as ComponentMeta<typeof RdsCompFormsQuestions>;
+const meta: Meta = { 
+    title: "Components/Forms Questions",
+    component: RdsCompFormsQuestions,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompFormsQuestions>;
 
-const Template: ComponentStory<typeof RdsCompFormsQuestions> = (args) => (
-  <RdsCompFormsQuestions {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompFormsQuestions>;
 
-export const Default = Template.bind({});
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
-Default.args = {
 
-};
+
+

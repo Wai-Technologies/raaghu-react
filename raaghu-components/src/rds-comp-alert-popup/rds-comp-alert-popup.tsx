@@ -1,6 +1,5 @@
 import React from "react";
 import { RdsModal, RdsIcon, RdsButton, RdsLabel } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 export interface RdsCompAlertPopupProps {
     alertID: any;
     iconUrl?: string;
@@ -16,14 +15,13 @@ export interface RdsCompAlertPopupProps {
     onCancel?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
-    const { t } = useTranslation();
     const iconUrl = props.iconUrl || "delete";
     const colorVariant = props.colorVariant || "danger";
-    const alertConfirmation = props.alertConfirmation || t("AbpUi.AreYouSure") || "";
+    const alertConfirmation = props.alertConfirmation || "Are You Sure";
     const messageAlert =
-        props.messageAlert || t("This record will be deleted permanently") || "";
-    const CancelButtonLabel = props.cancelButtonLabel || t("AbpUi.Cancel") || "";
-    const DeleteButtonLabel = props.deleteButtonLabel || t("AbpUi.Delete") || "";
+        props.messageAlert || "This record will be deleted permanently";
+    const CancelButtonLabel = props.cancelButtonLabel || "Cancel";
+    const DeleteButtonLabel = props.deleteButtonLabel || "Delete";
     return (
         <div>
             <RdsModal

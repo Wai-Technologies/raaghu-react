@@ -14,7 +14,7 @@ export interface RdsCompWebhookSubscriptionProps {
 
 const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
     let nextId = 0;
-    const { t } = useTranslation();
+
     const [webhookheaderfile, setWebhookheaderfile] = useState<any>([]);
     const [user, setUser] = useState({
         endpoint: "",
@@ -214,7 +214,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         </div>
                         <div className="col-2 mb-3">
                             <RdsButton
-                                label={t("Add") || ""}
+                                label="Add"
                                 onClick={additionalHeaderHandleSubmit}
                                 colorVariant="primary"
                                 isDisabled={!isHeaderFormValid}
@@ -252,7 +252,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     <div className="row m-3 mt-5">
                         <div className="col-2">
                             <RdsButton
-                                label={t("Cancel") || ""}
+                                label="Cancel"
                                 colorVariant="primary"
                                 block={true}
                                 tooltipTitle={""}
@@ -264,7 +264,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         </div>
                         <div className="col-2">
                             <RdsButton
-                                label={t("Save") || ""}
+                                label="Save"
                                 colorVariant="primary"
                                 isDisabled={!isFormValid}
                                 block={true}

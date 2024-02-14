@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 interface RdsCompNewPageProps {
     title?: string;
@@ -15,7 +14,6 @@ interface RdsCompNewPageProps {
 }
 
 const RdsCompNewPage = (props: RdsCompNewPageProps) => {
-    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("content");
     const [inputReset, setInputReset] = useState(props.reset)
 
@@ -63,8 +61,8 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                         inputType="text"
                         required={true}
                         reset={inputReset}
-                        label={t("CmsKit.Title") || ""}
-                        placeholder={t("Enter Title") || ""}
+                        label="Title"
+                        placeholder="Enter Title"
                         value={data?.title}
                         onChange={onTextChangeHandler}
                         dataTestId='title'
@@ -77,8 +75,8 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                         inputType="text"
                         required={true}
                         reset={inputReset}
-                        label={t("CmsKit.Slug") || ""}
-                        placeholder={t("Enter Slug") || ""}
+                        label="Slug"
+                        placeholder="Enter Slug"
                         value={data?.slug}
                         onChange={onSlugChangeHandler}
                         dataTestId='slug'
@@ -92,17 +90,17 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                 fill={false}
                 navtabsItems={[
                     {
-                        label: t("Content"),
+                        label:"Content",
                         tablink: "#nav-Operation",
                         id: "content",
                     },
                     {
-                        label: t("Script"),
+                        label:"Script",
                         tablink: "#nav-Change",
                         id: "script",
                     },
                     {
-                        label: t("Style"),
+                        label:"Style",
                         tablink: "#nav-Claims",
                         id: "style",
                     },
@@ -116,8 +114,8 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                     <div className="mb-3">
 
                         <RdsTextArea
-                            label={t("Script Description") || ""}
-                            placeholder={t("Enter Description") || ""}
+                            label="Script Description"
+                            placeholder="Enter Description"
                             readonly={false}
                             rows={3}
                             value={data?.script}
@@ -128,7 +126,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                 {activeTab == "style" && (
                     <div className="mb-3">
                         <RdsTextArea
-                            label={t("Style Description") || ""}
+                            label="Style Description"
                             placeholder=""
                             readonly={false}
                             rows={3}
@@ -143,7 +141,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
 
             <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                 <RdsButton
-                    label={t("AbpUi.Cancel") || ""}
+                    label="Cancel"
                     databsdismiss="offcanvas"
                     type={"button"}
                     size="small"
@@ -154,7 +152,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                     onClick={(e) => props?.onCancel && props?.onCancel(e)}
                 ></RdsButton>
                 <RdsButton
-                    label={t("AbpUi.Save") || ""}
+                    label="Save"
                     type={"button"}
                     size="small"
                     databsdismiss="offcanvas"

@@ -10,7 +10,6 @@ interface RdsCompUrlForwardingsProps {
 }
 
 function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
-    const { t } = useTranslation();
 
     const [inputReset, setInputReset] = useState(props.reset)
 
@@ -41,8 +40,8 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label={t("CmsKit.Source") || ""}
-                        placeholder={t("Enter Source") || ""}
+                        label="Source"
+                        placeholder="Enter Source"
                         required={true}
                         value={formData.source}
                         onChange={(e: any) => { handleSource(e.target.value); }}
@@ -50,21 +49,21 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         isDisabled={props.isEdit || false}
                         reset={inputReset}
                     ></RdsInput>
-                    <small className="text-muted-300 ms-2" >{t("CmsKit.UrlForwarding:EnsureTheUrlIsStartingWithSlash") || ""}</small>
+                    <small className="text-muted-300 ms-2" >Ensure The Url Is Starting With Slash</small>
                 </div>
 
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label={t("CmsKit.Target") || ""}
-                        placeholder={t("Enter Target") || ""}
+                        label="Target"
+                        placeholder="Enter Target"
                         required={true}
                         onChange={(e: any) => { handleTarget(e.target.value); }}
                         value={formData.target}
                         dataTestId="target"
                         reset={inputReset}
                     ></RdsInput>
-                    <small className="text-muted-300 ms-2" >{t("CmsKit.UrlForwarding:EnsureTheUrlIsStartingWithSlashIfSameDomain") || ""}</small>
+                    <small className="text-muted-300 ms-2" >Ensure The Url Is Starting With Slash If Same Domain</small>
                 </div>	</div>
 
         </>

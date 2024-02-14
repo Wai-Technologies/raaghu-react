@@ -10,7 +10,6 @@ export interface RdsCompIdentityClientBasicProps {
 
 const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
 
-    const { t } = useTranslation();
     const [clientData, setClientData] = useState<any>(props.clientData);
 
 
@@ -21,7 +20,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.id}
+                                value={clientData?.id}
                                 placeholder="Enter ID"
                                 inputType="text"
                                 label="Client ID"
@@ -34,7 +33,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.name}
+                                value={clientData?.name}
                                 placeholder="Enter Client Name"
                                 inputType="text"
                                 label="Client Name"
@@ -52,7 +51,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                             label='Description'
                             placeholder='Enter Description'
                             rows={4}
-                            value={clientData.Description}
+                            value={clientData?.Description}
                             dataTestId='description'
                         />
                     </div>
@@ -61,7 +60,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.url}
+                                value={clientData?.url}
                                 placeholder="Enter URL"
                                 inputType="text"
                                 label="Client URL"
@@ -74,7 +73,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.name}
+                                value={clientData?.name}
                                 placeholder="Enter URL"
                                 inputType="text"
                                 label="Logo URL"
@@ -90,7 +89,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.url}
+                                value={clientData?.url}
                                 placeholder="Enter URL"
                                 inputType="text"
                                 label="CallBack URL"
@@ -103,7 +102,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     <div className="col-lg-6 col-md-6">
                         <div>
                             <RdsInput
-                                value={clientData.name}
+                                value={clientData?.name}
                                 placeholder="Enter URL"
                                 inputType="text"
                                 label="Logout URL"
@@ -127,7 +126,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                         class="me-2"
                         tooltipTitle={""}
                         type={"button"}
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         colorVariant="outline-primary"
                         size="small"
                         databsdismiss="offcanvas"
@@ -135,7 +134,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     ></RdsButton>
                     <RdsButton
                         class="me-2"
-                        label={t("Save") || ""}
+                        label="Save"
                         size="small"
                         colorVariant="primary"
                         tooltipTitle={""}

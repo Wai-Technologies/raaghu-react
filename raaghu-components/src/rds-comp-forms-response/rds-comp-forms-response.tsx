@@ -29,13 +29,13 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
   const forms = props.formsData;
   const responseCount = props.response?.totalCount || 0;
   const totalCount = forms?.getResponses?.items?.length || 0;
-  const { t } = useTranslation();
+
   // const totalCount = forms.getResponses?.items?.length;
-  const array1 = forms.getResponses?.items[count - 1]?.answers || [];
-  const array2 = forms.formQuestionEdit;
+  const array1 = forms?.getResponses?.items[count - 1]?.answers || [];
+  const array2 = forms?.formQuestionEdit;
 
   const array2Map = new Map<string, any>();
-  array2.forEach((item: any) => {
+  array2?.forEach((item: any) => {
     array2Map.set(item.id, item);
   });
 
@@ -82,8 +82,8 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
   }, []);
 
   useEffect(() => {
-    if (forms.formQuestionEdit) {
-      setFormPreview(forms.formQuestionEdit);
+    if (forms?.formQuestionEdit) {
+      setFormPreview(forms?.formQuestionEdit);
     }
   }, []);
   useEffect(() => {
@@ -288,14 +288,14 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
           <RdsCompAlertPopup
             alertID={"targetId0"}
             onSuccess={() => {
-              props.onDeleteHandler(forms.getResponses?.items[count - 1]?.id);
+              props.onDeleteHandler(forms?.getResponses?.items[count - 1]?.id);
             }}
           ></RdsCompAlertPopup>
         </>
       )}
       {responseCount == 0 && (
         <h4 className="mt-7 text-center opacity-25">
-          {t("There is no response yet") || ""}
+          There is no response yet
         </h4>
       )}
     </>

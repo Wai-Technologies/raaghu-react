@@ -6,26 +6,26 @@ interface RdsCompProfilePictureProps { }
 
 
 const RdsCompProfilePicture = (props: any) => {
-  const { t } = useTranslation();
+
   const profileList = [
     {
       checked: true,
       id: 0,
-      label: t("AbpAccount.UseDefault" || ''),
+      label: "Account.UseDefault",
       name: "radio_button",
       type: 0,
     },
     {
       checked: false,
       id: 1,
-      label: t("AbpAccount.DisplayName:UseGravatar" || ''),
+      label: "Account.DisplayName:UseGravatar",
       name: "radio_button",
       type: 1,
     },
     {
       checked: false,
       id: 2,
-      label: t("FileManagement.UploadFiles" || ''),
+      label: "FileManagement.UploadFiles",
       name: "radio_button",
       type: 2,
     },
@@ -127,7 +127,7 @@ const RdsCompProfilePicture = (props: any) => {
       });
       props.postProfilePic(file, 1); // pass the file to the function
       setShow(false);
-    } else if (event.target.value == t("FileManagement.UploadFiles" || '')) {
+    } else if (event.target.value == "FileManagement.UploadFiles" || '') {
       setIsExceed(true)
       // alert(2);
       setavatarType(2);
@@ -139,7 +139,7 @@ const RdsCompProfilePicture = (props: any) => {
 
   const validation = [
     {
-      hint: t("File size should not be greater than 1 MB."),
+      hint: "File size should not be greater than 1 MB.",
       isError: false,
     },
   ];
@@ -153,7 +153,7 @@ const RdsCompProfilePicture = (props: any) => {
         <div className="mb-3 d-xxl-block d-xl-block d-lg-block d-md-block d-flex justify-content-center mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-4">
           <img
             src={avatarImg}
-            alt={t("profilePic") || ''}
+            alt={"profilePic"}
             width="120px"
             height="120px"
             className="profil_image_Class rounded-circle"
@@ -182,13 +182,13 @@ const RdsCompProfilePicture = (props: any) => {
                 multiple={false}
                 placeholder=""
                 size={""}
-                label={t("AbpAccount.SelectNewImage") || ''}
+                label={"Account.SelectNewImage"}
                 limit={1024}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
               />
-              <div className="fs-6 mt-2 label-gray">{t("File size should not be greater than 1 MB.") || ''}</div>
-              <small className="mt-1 label-gray">{`${t("File type should be .jpg, .jpeg, and .png.")}`}
+              <div className="fs-6 mt-2 label-gray">{"File size should not be greater than 1 MB."}</div>
+              <small className="mt-1 label-gray">{`${"File type should be .jpg, .jpeg, and .png."}`}
               </small>
             </div>
           </>
@@ -197,7 +197,7 @@ const RdsCompProfilePicture = (props: any) => {
       <div className="row">
         <div className="mt-3 footer-buttons px-0 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row d-flex gap-2 bg-transparent">
           <RdsButton
-            label={t("AbpAccount.SaveChanges") || ''}
+            label={"Account.SaveChanges"}
             colorVariant="primary"
             isDisabled={isExceed}
             block={false}

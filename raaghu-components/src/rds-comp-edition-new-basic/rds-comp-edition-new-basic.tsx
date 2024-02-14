@@ -9,7 +9,6 @@ export interface RdsCompEditionNewBasicProps {
 
 const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
 
-    const { t } = useTranslation();
     return (
         <>
             <form >
@@ -17,7 +16,7 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                     <div className="col-md-6 mb-3">
                         <div className="form-group">
                             <RdsInput
-                                label={t("Edition Name") || ""}
+                                label={"Edition Name"}
                                 required={true}
                                 placeholder="Edition Name"
                                 inputType="text"

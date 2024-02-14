@@ -1,40 +1,43 @@
 import React from "react";
-import { ComponentMeta, ComponentStory, Story } from "@storybook/react";
 import RdsDatepicker, { RdsDatepickerProps } from "./rds-datepicker";
+import { Meta, StoryObj } from "@storybook/react";
 
 
-export default {
-    /* 👇 The title prop is optional.
-    * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-    * to learn how to generate automatic titles
-    */
-    title: "Elements/Datepicker",
+const meta: Meta = {
+    title: 'Elements/Datepicker',
     component: RdsDatepicker,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         type: {
             options: ["default", "advanced", "withTime"],
             control: { type: "radio" },
         },
+    },
+} satisfies Meta<typeof RdsDatepicker>;
+
+export default meta;
+type Story = StoryObj<typeof RdsDatepicker>;
+
+export const Default: Story = {
+    args: {
+        DatePickerLabel: "Select Date",
+        type: "default"
     }
-} as ComponentMeta<typeof RdsDatepicker>;
+} satisfies Story;
 
-//👇 We create a “template” of how args map to rendering
-const Template: ComponentStory<typeof RdsDatepicker> = (args) => <RdsDatepicker {...args} />;
+export const Advanced: Story = {
+    args: {
+        DatePickerLabel: "Select Date",
+        type: "advanced"
+    }
+} satisfies Story;
 
-//👇 Each story then reuses that template
-export const Default = Template.bind({});
-Default.args = {
-    DatePickerLabel: "Select Date",
-    type: "default"
-};
-export const Advanced = Template.bind({});
-Advanced.args = {
-    DatePickerLabel: "Select Date",
-    type: "advanced"
-};
-
-export const WithTime = Template.bind({});
-WithTime.args = {
-  DatePickerLabel: "Select Date",
-  type: "withTime",
-};
+export const WithTime: Story = {
+    args: {
+        DatePickerLabel: "Select Date",
+        type: "withTime"
+    }
+} satisfies Story;

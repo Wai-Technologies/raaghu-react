@@ -9,7 +9,6 @@ export interface RdsCompApiScopeBasicResourceProps {
 }
 
 const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) => {
-    const { t } = useTranslation();
     const [fieldScopeData, setFieldScopeData] = useState(props.scopeData);
     const [inputReset, setInputReset] = useState(props.reset)
     useEffect(() => {
@@ -21,7 +20,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
     }, [props.reset]);
 
     const isEmailValid = (email: any) => {
-        if (!fieldScopeData.name || fieldScopeData.name.length === 0) {
+        if (!fieldScopeData?.name || fieldScopeData?.name.length === 0) {
             return false;
         }
         return true;
@@ -30,7 +29,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
         setFieldScopeData({ ...fieldScopeData, [key]: event.target.value });
     };
 
-    const isFormValid = isEmailValid(fieldScopeData.email);
+    const isFormValid = isEmailValid(fieldScopeData?.email);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -53,11 +52,11 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             <RdsInput
                                 reset={inputReset}
                                 required={true}
-                                label={t("AbpOpenIddict.Name") || ""}
-                                placeholder={t("Enter Name") || ""}
+                                label="Name"
+                                placeholder="Enter Name"
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "name")}
-                                value={fieldScopeData.name}
+                                value={fieldScopeData?.name}
                                 name={"email"}
                                 dataTestId="name"
                             ></RdsInput>
@@ -67,13 +66,13 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                         <div className="col-md-6 ">
                             <RdsInput
                                 reset={inputReset}
-                                label={t("AbpOpenIddict.DisplayName") || ""}
-                                placeholder={t("Enter Display Name") || ""}
+                                label="Display Name"
+                                placeholder="Enter Display Name"
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "displayName")}
                                 required={false}
                                 name={"Displayname"}
-                                value={fieldScopeData.displayName}
+                                value={fieldScopeData?.displayName}
                                 dataTestId="display-name"
                             ></RdsInput>
 
@@ -85,23 +84,23 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
 
                         <RdsInput
                             reset={inputReset}
-                            label={t("AbpOpenIddict.Description") || ""}
-                            placeholder={t("AbpOpenIddict.Description") || ""}
+                            label="Description"
+                            placeholder="Description"
                             inputType='text'
                             onChange={(e) => inputHandlerChange(e, "description")}
                             required={false}
                             name={"Description"}
-                            value={fieldScopeData.description}
+                            value={fieldScopeData?.description}
                             dataTestId="desc"
                         ></RdsInput>
                     </div>
                     <div className=" mb-4">
                         <RdsTextArea
-                            label={t("AbpOpenIddict.Resources") || ""}
-                            placeholder={t("AbpOpenIddict.Resources") || ""}
+                            label="Resources"
+                            placeholder="Resources"
                             onChange={(e) => inputHandlerChange(e, "resources")}
                             rows={3}
-                            value={fieldScopeData.resources}
+                            value={fieldScopeData?.resources}
                             dataTestId="resources"
                         />
                     </div>
@@ -114,7 +113,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("AbpUi.Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -122,7 +121,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("AbpUi.Save") || ""}
+                            label="Save"
                             size="small"
                             colorVariant="primary"
                             tooltipTitle={""}

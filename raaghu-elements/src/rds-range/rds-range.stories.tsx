@@ -1,10 +1,15 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsRange from "./rds-range";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Range",
+
+const meta: Meta = {
+    title: 'Elements/Range',
     component: RdsRange,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -19,36 +24,44 @@ export default {
             ],
             control: { type: "select" },
         },
+    },
+} satisfies Meta<typeof RdsRange>;
+
+export default meta;
+type Story = StoryObj<typeof RdsRange>;
+
+
+export const Default: Story = {
+    args: {
+        max: 200,
+        min: 10,
+        colorVariant: "danger",
+        rangeType: "default"
     }
-} as ComponentMeta<typeof RdsRange>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsRange> = (args) => (
-    <RdsRange {...args} />
-);
 
-export const Default = Template.bind({});
-Default.args = {
-    max:200,
-    min:10,
-    colorVariant: "danger",
-    rangeType :"default"
-};
 
-export const RangeType_1= Template.bind({});
-RangeType_1.args = {
-    max:200,
-    min:10,
-    colorVariant: "danger",
-    rangeType :"type1",
-};
 
-export const RangeType_2= Template.bind({});
-RangeType_2.args = {
-    max:200,
-    min:10,
-    colorVariant: "danger",
-    rangeType :"type2",
-};
+export const RangeType_1: Story = {
+    args: {
+        max: 200,
+        min: 10,
+        colorVariant: "danger",
+        rangeType: "type1"
+    }
+} satisfies Story;
+
+
+export const RangeType_2: Story = {
+    args: {
+        max: 200,
+        min: 10,
+        colorVariant: "danger",
+        rangeType: "type2"
+    }
+} satisfies Story;
+
 
 
 

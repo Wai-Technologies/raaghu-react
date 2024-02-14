@@ -7,7 +7,7 @@ export interface RdsCompIntegrationProps {
 }
 
 const RdsCompIntegration = (props: RdsCompIntegrationProps) => {
-    const { t } = useTranslation();
+
     return (
         <>
             <div>
@@ -22,7 +22,7 @@ const RdsCompIntegration = (props: RdsCompIntegrationProps) => {
                 <div className="m-3 d-flex justify-content-end">
                     <div className="col-2 me-3">
                         <RdsButton
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="primary"
                             block={true}
                             tooltipTitle={""}

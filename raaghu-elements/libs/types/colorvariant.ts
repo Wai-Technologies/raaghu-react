@@ -1,4 +1,4 @@
-export type colors =
+export type colors = 
   | "primary"
   | "secondary"
   | "success"

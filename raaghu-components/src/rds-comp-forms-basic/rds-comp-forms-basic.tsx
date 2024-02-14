@@ -11,7 +11,6 @@ export interface RdsCompFormsBasicProps {
 }
 
 const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
-    const { t } = useTranslation();
 
     const [inputReset, setInputReset] = useState(props.reset)
 
@@ -43,8 +42,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                         <div className="row">
                             <div className="col-12">
                                 <RdsInput
-                                    label={t("Forms.Title") || ""}
-                                    placeholder={t("Enter title") || ""}
+                                    label="Title"
+                                    placeholder="Enter title"
                                     inputType="text"
                                     onChange={(e: any) => setTitle(e.target.value)}
                                     value={basicFormData.title || ""}
@@ -58,8 +57,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                         <div className="row">
                             <div className="col-12">
                                 <RdsTextArea
-                                    label={t("Forms.Description") || ""}
-                                    placeholder={t("Enter description") || ""}
+                                    label="Description"
+                                    placeholder="Enter description"
                                     onChange={e => setDescription(e.target.value)}
                                     value={basicFormData.description}
                                     rows={5}
@@ -71,8 +70,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                     <div className="row">
                         <div className="col-12">
                             <RdsInput
-                                label={t("Forms.Title") || ""}
-                                placeholder={t("Enter title") || ""}
+                                label="Title"
+                                placeholder="Enter title"
                                 inputType="text"
                                 onChange={(e: any) => setTitle(e.target.value)}
                                 value={basicFormData?.title || ""}
@@ -86,8 +85,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                     </div>
                     <div className="row">
                         <RdsTextArea
-                            label={t("Forms.Description") || ""}
-                            placeholder={t("Enter description") || ""}
+                            label="Description"
+                            placeholder="Enter description"
                             onChange={e => setDescription(e.target.value)}
                             value={basicFormData?.description}
                             rows={3}

@@ -1,8 +1,8 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
-import RdsCompSubscription from "../rds-comp-subscription";
 import { RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompDatatable from "../rds-comp-data-table";
+import RdsCompSubscription from "../rds-comp-subscription";
 
 export interface RdsCompBillingProp {
     subscriptionData: any[];
@@ -13,7 +13,6 @@ export interface RdsCompBillingProp {
 }
 
 const RdsCompBilling = (props: RdsCompBillingProp) => {
-    const { t } = useTranslation();
     return (
         <>
             <div className="p-4">
@@ -29,7 +28,7 @@ const RdsCompBilling = (props: RdsCompBillingProp) => {
                         </div>
                         <div>
                             <RdsButton
-                                label={t("Download All") || ""}
+                                label="Download All"
                                 colorVariant="primary"
                                 block={false}
                                 tooltipTitle={""}

@@ -1,48 +1,54 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsPagination from "./rds-pagination";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Pagination",
+const meta: Meta = {
+    title: 'Elements/Pagination',
     component: RdsPagination,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
-        paginationType:{
-            options:[
+        paginationType: {
+            options: [
                 "default",
                 "advance"
             ],
             control: { type: "select" },
         },
-        alignmentType:{
-            options:[
+        alignmentType: {
+            options: [
                 "start",
                 "center",
                 "end"
             ],
             control: { type: "select" },
         }
+    },
+} satisfies Meta<typeof RdsPagination>;
+
+export default meta;
+type Story = StoryObj<typeof RdsPagination>;
+
+export const Default: Story = {
+    args: {
+        paginationType: "default",
+        totalRecords: 10,
+        recordsPerPage: 3,
+        size: "sm",
+        alignmentType: "start",
     }
-} as ComponentMeta<typeof RdsPagination>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsPagination> = (args) => (
-    <RdsPagination {...args}/>
-);
+export const Advanced: Story = {
+    args: {
+        paginationType: "advance",
+        totalRecords: 10,
+        recordsPerPage: 3,
+        size: "sm",
+        alignmentType: "start"
+    }
+} satisfies Story;
 
-export const Default = Template.bind({});
-Default.args = {
-    paginationType : "default",
-    totalRecords:10,
-    recordsPerPage:3,
-    size:"sm",
-    alignmentType: "start",
-  
-};
 
-export const Advanced = Template.bind({});
-Advanced.args = {
-    paginationType : "advance",
-    totalRecords:10,
-    recordsPerPage:3,
-    size:"sm",
-    alignmentType: "start"
-};

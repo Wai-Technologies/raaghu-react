@@ -1,43 +1,49 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsNavbar from "./rds-navbar";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Navbar",
+const meta: Meta = {
+    title: 'Elements/Navbar',
     component: RdsNavbar,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
+        }
+    },
+} satisfies Meta<typeof RdsNavbar>;
+
+export default meta;
+type Story = StoryObj<typeof RdsNavbar>;
+
+export const Navbar: Story = {
+    args: {
+        title: "Navbar",
+        size: "small",
+        navbarItems: [{
+            label: "Home",
+            isActive: true,
+            navclass: "",
+            href: "",
+
         },
-    },
-} as ComponentMeta<typeof RdsNavbar>;
+        {
+            label: "Features",
+            isActive: false,
+            navclass: "",
+            href: "",
+        },
+        {
+            label: "Pricing",
+            isActive: false,
+            navclass: "",
+            href: "",
+        }]
+    }
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsNavbar> = (args) => (
-    <RdsNavbar {...args} />
-);
 
-export const Navbar = Template.bind({});
-Navbar.args = {
-    title:"Navbar",
-    size:"small",
-    navbarItems: [{
-        label: "Home",
-        isActive: true,
-        navclass: "",
-        href: "",
-        
-    },
-    {
-        label: "Features",
-        isActive: false,
-        navclass: "",
-        href: "",
-    },
-    {
-        label: "Pricing",
-        isActive: false,
-        navclass: "",
-        href: "",
-    }]
-};

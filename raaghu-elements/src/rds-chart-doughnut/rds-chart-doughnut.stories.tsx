@@ -1,161 +1,168 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsDoughnutChart from "./rds-chart-doughnut";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Charts/Doughnut Chart",
+const meta: Meta = {
+    title: 'Charts/Doughnut Chart',
     component: RdsDoughnutChart,
-} as ComponentMeta<typeof RdsDoughnutChart>;
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsDoughnutChart>;
 
-const Template: ComponentStory<typeof RdsDoughnutChart> = (args) =>
-    <RdsDoughnutChart {...args} />
- ;
+export default meta;
+type Story = StoryObj<typeof RdsDoughnutChart>;
 
-export const DoughnutChart = Template.bind({});
-DoughnutChart.args = {
-    height:400,
-    id:"myChart" ,
-    width:400,
-    labels:["Red", "Orange", "Yellow", "Green", "Blue"],
-    options: {
-        maintainAspectRatio: false,
-        type: "doughnut",
+export const DoughnutChart: Story = {
+    args: {
+        height: 400,
+        id: "myChart",
+        width: 400,
+        labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
-            responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: "top",
-                },
-                title: {
-                    display: true,
-                    text: "Chart.js Doughnut Chart"
-                },
-                subTitle:{
-                    fontColor: "#fff",
+            type: "doughnut",
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "top",
+                    },
+                    title: {
+                        display: true,
+                        text: "Chart.js Doughnut Chart"
+                    },
+                    subTitle: {
+                        fontColor: "#fff",
+                    }
                 }
             }
         },
-    },
-    dataSets:[
-        {
-            label: "Dataset 1",
-            data: [20, 10, 30, 40],
-            backgroundColor: [
-                "#ff6384",
-                "#ff9f40",
-                "#ffcd56",
-                "#4bc0c0"
-            ],
-            borderColor: [
-                "#fff",
-            ],
-        }
-    ],
- 
-    titleText: "35 k",
-    subTitleText:"deioj",
+        dataSets: [
+            {
+                label: "Dataset 1",
+                data: [20, 10, 30, 40],
+                backgroundColor: [
+                    "#ff6384",
+                    "#ff9f40",
+                    "#ffcd56",
+                    "#4bc0c0"
+                ],
+                borderColor: [
+                    "#fff",
+                ],
+            }
+        ],
+
+        titleText: "35 k",
+        subTitleText: "deioj",
+    }
+} satisfies Story;
+
+export const advanced: Story = {
+    args: {
+        id: "doughnutchart",
+
+        height: 200,
+        width: 120,
+        labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
+        options: {
+            animationEnabled: true,
+            title: {
+                fontColor: "#fff",
+            },
+            cutoutPercentage: 80,
+            legend: {
+                display: false,
+            },
+            responsive: true,
+
+            subtitles: {
+                fontColor: "#fff",
+                verticalAlign: "center",
+            },
+            maintainAspectRatio: false,
+            plugins: {
+                series: {
+                    label: {
+                        position: "inside",
+                        text: "total",
+                        display: false,
+                        font: {
+                            size: 12,
+                            weight: "regular",
+                        },
+                    },
+                },
+                doughnutlabel: {
+                    labels: [
+                        {
+                            text: "550",
+                            font: {
+                                size: 8,
+                                weight: "bold",
+                            },
+                        },
+                        {
+                            text: "total",
+                        },
+                    ],
+                }, title: {
+                    text: 'title sample',
+                    font: {
+                        size: 12,
+
+                    }
+                },
+                legend: {
+                    display: true,
+                    align: "middle",
+                    position: "top",
+                    labels: {
+                        boxWidth: 15,
+                        padding: 15,
+                    },
+                },
+                tooltip: { enabled: false },
+            },
+            scales: {},
+        },
+        dataSets: [
+            {
+
+                label: "Total Sales",
+                data: [85, 0, 0, 15],
+                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                weight: 0.2,
+                borderRadius: 20,
+                borderColor: ["transparent"]
+            },
+            {
+                weight: 0.2
+            },
+            {
+                label: "Revenue",
+                data: [0, 75, 0, 25],
+                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                weight: 0.2,
+                borderRadius: 20,
+                borderColor: ["transparent"]
+            },
+            {
+                weight: 0.2
+            },
+            {
+                label: "Expenses",
+                data: [0, 0, 55, 45],
+                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                weight: 0.2,
+                borderRadius: 20,
+                borderColor: ["transparent"]
+            },
+        ]
+    }
 };
-
-export const advanced = Template.bind({});
-advanced.args = {
-    id : "doughnutchart",
-
-                                    height:200, 
-                                    width:120,
-                                    labels:['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
-                                    options:{
-                                        animationEnabled: true,
-                                        title: {
-                                            fontColor: "#fff",
-                                        },
-                                        cutoutPercentage: 80,
-                                        legend: {
-                                            display: false,
-                                        },
-                                        responsive: true,
-
-                                        subtitles: {
-                                            fontColor: "#fff",
-                                            verticalAlign: "center",
-                                        },
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            series: {
-                                                label: {
-                                                    position: "inside",
-                                                    text: "total",
-                                                    display: false,
-                                                    font: {
-                                                        size: 12,
-                                                        weight: "regular",
-                                                    },
-                                                },
-                                            },
-                                            doughnutlabel: {
-                                                labels: [
-                                                    {
-                                                        text: "550",
-                                                        font: {
-                                                            size: 8,
-                                                            weight: "bold",
-                                                        },
-                                                    },
-                                                    {
-                                                        text: "total",
-                                                    },
-                                                ],
-                                            }, title: {
-                                                text: 'title sample',
-                                                font: {
-                                                    size: 12,
-
-                                                }
-                                            },
-                                            legend: {
-                                                display: true,
-                                                align: "middle",
-                                                position: "top",
-                                                labels: {
-                                                    boxWidth: 15,
-                                                    padding: 15,
-                                                },
-                                            },
-                                            tooltip: { enabled: false },
-                                        },
-                                        scales: {},
-                                    },
-                                    dataSets:[
-                                        {
-                                            
-                                            label: "Total Sales",
-                                            data: [85, 0, 0, 15],
-                                            backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                                            weight: 0.2,
-                                            borderRadius:20,
-                                            borderColor: ["transparent"]
-                                        },
-                                        { 
-                                            weight: 0.2
-                                          },
-                                        {
-                                            label: "Revenue",
-                                            data: [0, 75, 0, 25],
-                                            backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                                            weight: 0.2,
-                                            borderRadius:20,
-                                            borderColor: ["transparent"]
-                                        },
-                                        { 
-                                            weight: 0.2
-                                          },
-                                        {
-                                            label: "Expenses",
-                                            data: [0, 0, 55, 45],
-                                            backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                                            weight: 0.2,
-                                            borderRadius:20,
-                                            borderColor: ["transparent"]
-                                        },
-                                    ]
-}

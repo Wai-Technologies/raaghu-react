@@ -1,10 +1,16 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsLabel from "./rds-label";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Label",
+
+
+const meta: Meta = {
+    title: 'Elements/Label',
     component: RdsLabel,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         fontWeight: {
             options: [
@@ -21,16 +27,17 @@ export default {
             control: { type: "select" },
         }
     },
-} as ComponentMeta<typeof RdsLabel>;
+} satisfies Meta<typeof RdsLabel>;
 
-const Template: ComponentStory<typeof RdsLabel> = (args) => (
-    <RdsLabel {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsLabel>;
 
-export const Label = Template.bind({});
-Label.args = {
-    label: "Label",
-    fontWeight: "bold",
-    italic: false,
-    required: false
-};
+export const Label: Story = {
+    args: {
+        label: "Label",
+        fontWeight: "bold",
+        italic: false,
+        required: false
+    }
+} satisfies Story;
+

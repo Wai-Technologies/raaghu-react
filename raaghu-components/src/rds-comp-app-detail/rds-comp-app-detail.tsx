@@ -6,10 +6,11 @@ export interface RdsCompAppDetailProps {
 }
 
 const RdsCompAppDetail = (props: RdsCompAppDetailProps) => {
+
     return (
         <>
             <div>
-                {props.appDetailList.map((item: any, index: number) => (
+                {props.appDetailList?.map((item: any, index: number) => (
                     <div className="m-2 " key={index}>
                         <RdsAppDetail appDetailsItem={item} />
                     </div>

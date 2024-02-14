@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsCounter from "./rds-counter";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Counter",
+const meta: Meta = {
+    title: 'Elements/Counter',
     component: RdsCounter,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -23,23 +27,24 @@ export default {
             options: ["top", "bottom", "left", "right"],
             control: { type: "radio" },
         },
-    // counterValue: {
-    //     control:{type: "number"}
-    // }
+        // counterValue: {
+        //     control:{type: "number"}
+        // }
+
     },
-} as ComponentMeta<typeof RdsCounter>;
+} satisfies Meta<typeof RdsCounter>;
 
-const Template: ComponentStory<typeof RdsCounter> = (args) => (
-    <RdsCounter {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCounter>;
 
-export const Counter = Template.bind({});
-Counter.args = {
-    counterValue: 0,
-    min: 0,
-    max: 50,
-    width: 110,
-    colorVariant: "primary",
-    position: "top",
-    label: "Counter",
-};
+export const Counter: Story = {
+    args: {
+        counterValue: 0,
+        min: 0,
+        max: 50,
+        width: 110,
+        colorVariant: "primary",
+        position: "top",
+        label: "Counter",
+    }
+} satisfies Story;

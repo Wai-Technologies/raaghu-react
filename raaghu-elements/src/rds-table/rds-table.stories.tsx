@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsTable from "./rds-table";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Table",
+const meta: Meta = {
+    title: 'Elements/Table',
     component: RdsTable,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -35,76 +39,69 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsTable>;
+} satisfies Meta<typeof RdsTable>;
 
-const Template: ComponentStory<typeof RdsTable> = (args) => (
-    <RdsTable {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsTable>;
 
-export const Table = Template.bind({});
-Table.args = {
-    id: "1",
-    striped: false,
-    bordered: false,
-    tableHeightForScroll: "",
-    colorVariant: "none",
-    backgroundColor: "white",
-    headerTextColor: "black",
-    headerDatas: [
-        { displayName: "Name", dataType: "text", key: "name" },
-        { displayName: "Icon", dataType: "icon", key: "icon" },
-        { displayName: "Price", dataType: "price", key: "price" },
-        { displayName: "Text Number", dataType: "textNumber", key: "textNumber" },
-    ],
-    tableDatas: [
-        {
-            id: 1,
-            name: "Standard",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-        {
-            id: 2,
-            name: "Premium",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-        {
-            id: 3,
-            name: "Ultimate",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-        {
-            id: 4,
-            name: "Standard",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-        {
-            id: 5,
-            name: "Premium",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-        {
-            id: 6,
-            name: "Ultimate",
-            icon: "home",
-            price: "$20",
-            textNumber: "22aa",
-        },
-    ],
-};
-
-// {
-//   name: "home",
-//   colorVariant: "primary",
-//   fill: "true",
-//   stroke: "false",
-// },
+export const Table: Story = {
+    args: {
+        id: "1",
+        striped: false,
+        bordered: false,
+        tableHeightForScroll: "",
+        colorVariant: "none",
+        backgroundColor: "white",
+        headerTextColor: "black",
+        headerDatas: [
+            { displayName: "Name", dataType: "text", key: "name" },
+            { displayName: "Icon", dataType: "icon", key: "icon" },
+            { displayName: "Price", dataType: "price", key: "price" },
+            { displayName: "Text Number", dataType: "textNumber", key: "textNumber" },
+        ],
+        tableDatas: [
+            {
+                id: 1,
+                name: "Standard",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+            {
+                id: 2,
+                name: "Premium",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+            {
+                id: 3,
+                name: "Ultimate",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+            {
+                id: 4,
+                name: "Standard",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+            {
+                id: 5,
+                name: "Premium",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+            {
+                id: 6,
+                name: "Ultimate",
+                icon: "home",
+                price: "$20",
+                textNumber: "22aa",
+            },
+        ],
+    }
+} satisfies Story;

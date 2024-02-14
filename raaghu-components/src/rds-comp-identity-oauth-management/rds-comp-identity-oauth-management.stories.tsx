@@ -1,30 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompIdentityOauthManagement from './rds-comp-identity-oauth-management';
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
+
+
+const meta: Meta = { 
+    title: "Components/Identity Oauth Management",
+    component: RdsCompIdentityOauthManagement,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompIdentityOauthManagement>;
+
+export default meta;
+type Story = StoryObj<typeof RdsCompIdentityOauthManagement>;
+
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
 
 
-export default {
-  title: "Components/Identity Oauth Management",
-  component: RdsCompIdentityOauthManagement,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
 
-} as ComponentMeta<typeof RdsCompIdentityOauthManagement>;
-
-const Template: ComponentStory<typeof RdsCompIdentityOauthManagement> = (args) => (
-  <RdsCompIdentityOauthManagement {...args} />
-);
-
-export const Default = Template.bind({});
-
-Default.args = {
-
-};

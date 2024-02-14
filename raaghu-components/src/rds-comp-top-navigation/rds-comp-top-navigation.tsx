@@ -79,25 +79,25 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
     const navtabItems = [
         {
-            label: t("AbpAccount.MyAccount"),
+            label: "Account.MyAccount",
             icon: "manage_authority",
-            subText: t("Manage authority accounts"),
+            subText: "Manage authority accounts",
             id: "nav-MyAccount",
             navigateTo: "/my-account",
             iconPath: "./assets/lottie-files/outlined/dual-color/myaccount.json"
         },
         {
-            label: t("AbpAccount.MySecurityLogs"),
+            label: "Account.MySecurityLogs",
             icon: "login_attempts",
-            subText: t("See recent login attempts"),
+            subText: "See recent login attempts",
             id: "nav-SecuityLogs",
             navigateTo: "/security-Logs",
             iconPath: "./assets/lottie-files/outlined/dual-color/ProtectedAccount.json"
         },
         {
-            label: t("AbpGdpr.PersonalData"),
+            label: "Gdpr.PersonalData",
             icon: "my_settings",
-            subText: t("Change your account settings"),
+            subText: "Change your account settings",
             id: "nav-PersonalData",
             navigateTo: "/personal-data",
             iconPath: "./assets/lottie-files/outlined/dual-color/personal-data.json",
@@ -375,14 +375,14 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                             </div>
                             <div>
                                 <RdsButton
-                                    label={`${t("AbpUi.Login")}`}
+                                    label={`${t("Ui.Login")}`}
                                     colorVariant="primary"
                                     showLoadingSpinner={true}
                                     block={false}
                                     tooltipTitle={""}
                                     type="submit"
                                     onClick={loginHandler}
-                                    dataTestId="AbpUi.Login"
+                                    dataTestId="Ui.Login"
                                 />
                             </div>
                         </div>
@@ -466,7 +466,7 @@ onsubmenu={handlerSubMenuselect}
                                                     <RdsCompDeveloperMode onModeDataSubmit={handleDeveloperData} applicationUrl={undefined}></RdsCompDeveloperMode>
                                                     <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
                                                         <RdsButton
-                                                            label={t("AbpUi.Cancel") || ""}
+                                                            label="Cancel"
                                                             databsdismiss="offcanvas"
                                                             type={"button"}
                                                             size="small"
@@ -475,7 +475,7 @@ onsubmenu={handlerSubMenuselect}
                                                             class="me-2"
                                                         ></RdsButton>
                                                         <RdsButton
-                                                            label={t("AbpUi.Save") || ""}
+                                                            label="Save"
                                                             type={"button"}
                                                             size="small"
                                                             showLoadingSpinner={true}

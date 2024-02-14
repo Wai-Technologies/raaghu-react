@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta, StoryObj, Meta } from "@storybook/react";
 import RdsSpinner from "./rds-spinner";
 
-export default {
-    title: "Elements/Spinner",
+const meta: Meta = {
+    title: 'Elements/Spinner',
     component: RdsSpinner,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -19,17 +23,19 @@ export default {
             ],
             control: { type: "select" },
         },
+    },
+} satisfies Meta<typeof RdsSpinner>;
+
+export default meta;
+type Story = StoryObj<typeof RdsSpinner>;
+
+
+
+export const Spinner: Story = {
+    args: {
+        colorVariant: "primary",
+        spinnerType: false
     }
-} as ComponentMeta<typeof RdsSpinner>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsSpinner> = (args) => (
-    <RdsSpinner {...args}/>
-);
-
-export const Spinner = Template.bind({});
-Spinner.parameters = { controls: { include: ['spinnerType','size', 'colorVariant'] } };
-Spinner.args = {
-    colorVariant:"primary",
-    spinnerType:false
-};
 

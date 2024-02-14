@@ -1,18 +1,27 @@
-/* eslint-disable */
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompPropertiesNew from './rds-comp-properties-new';
 
-export default {
-  title: "Components/PropertiesNew",
-};
 
-const Template: ComponentStory<typeof RdsCompPropertiesNew> = (args) => (
-  <RdsCompPropertiesNew {...args} />
-);
+const meta: Meta = { 
+    title: "Components/Properties New",
+    component: RdsCompPropertiesNew,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompPropertiesNew>;
+
+export default meta;
+type Story = StoryObj<typeof RdsCompPropertiesNew>;
+
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
 
-export const PropertiesNew = () => <RdsCompPropertiesNew />;
 
-PropertiesNew.story = {
-  name: 'default',
-};
+

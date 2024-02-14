@@ -4,7 +4,6 @@ import {
     RdsButton,
     RdsCheckbox,
 } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompScopeBasicResourceProps {
     apiScopeData?: any;
@@ -22,7 +21,6 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
         showInDiscoveryDocument: false,
     });
 
-    const { t } = useTranslation();
 
     useEffect(() => {
         if (props.apiScopeData) {
@@ -137,7 +135,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -145,7 +143,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("Save") || ""}
+                            label="Save"
                             size="small"
                             type="button"
                             colorVariant="primary"

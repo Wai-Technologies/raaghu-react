@@ -10,7 +10,7 @@ export interface RdsCompUserBasicsProps {
 }
 
 const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
-    const { t } = useTranslation();
+   
 
     const [inputReset, setInputReset] = useState(props.reset)
 
@@ -81,9 +81,9 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="col-lg-6 col-md-6">
                         <RdsInput
                             value={userData?.name}
-                            placeholder={t("Enter Name") || ""}
+                            placeholder="Enter Name"
                             inputType="text"
-                            label={t("AbpIdentity.Name") || ""}
+                            label="Name"
                             name="name"
                             required={true}
                             onChange={(e) => { setName(e); }}
@@ -93,9 +93,9 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="col-lg-6 col-md-6">
                         <RdsInput
                             value={userData?.surname}
-                            placeholder={t("Enter Surname") || ""}
+                            placeholder="Enter Surname"
                             inputType="text"
-                            label={t("AbpIdentity.Surname") || ""}
+                            label="Surname"
                             name="surName"
                             required={true}
                             onChange={(e) => { setSurname(e); }}
@@ -109,9 +109,9 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         <div className="">
                             <RdsInput
                                 value={userData?.email}
-                                placeholder={t("Enter Email") || ""}
+                                placeholder="Enter Email"
                                 inputType="email"
-                                label={t("AbpIdentity.EmailAddress") || ""}
+                                label="EmailAddress"
                                 name="email"
                                 required={true}
                                 onChange={(e) => { setEmail(e); }}
@@ -124,8 +124,8 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                             <RdsInput
                                 value={userData?.password}
                                 inputType="password"
-                                label={t("AbpIdentity.Password") || ""}
-                                placeholder={t("Enter Password") || ""}
+                                label="Password"
+                                placeholder="Enter Password"
                                 name="password"
                                 required={true}
                                 onChange={(e) => { setPassword(e); }}
@@ -140,9 +140,9 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         <div>
                             <RdsInput
                                 value={userData?.userName}
-                                placeholder={t("Enter Username") || ""}
+                                placeholder="Enter Username"
                                 inputType="text"
-                                label={t("User Name") || ""}
+                                label="User Name"
                                 name="userName"
                                 required={true}
                                 onChange={(e) => { setUserName(e); }}
@@ -154,9 +154,9 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         <div>
                             <RdsInput
                                 value={userData?.phoneNumber}
-                                placeholder={t("Enter Phone") || ""}
+                                placeholder="Enter Phone"
                                 inputType="text"
-                                label={t("AbpIdentity.PhoneNumber") || ""}
+                                label="PhoneNumber"
                                 name="phone"
                                 required={true}
                                 onChange={(e) => { setPhoneNumber(e); }}
@@ -170,7 +170,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="mb-2 ">
                         <RdsCheckbox
                             id="0"
-                            label={t("AbpIdentity.TwoFactorAuthentication") || ""}
+                            label="Two Factor Authentication"
                             checked={userData?.twoFactorEnabled}
                             onChange={e => { handletwoFactorEnable(e); }}
                         ></RdsCheckbox>
@@ -180,7 +180,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="mb-2 ">
                         <RdsCheckbox
                             id="0"
-                            label={t("Active") || ""}
+                            label="Active"
                             checked={userData?.isActive}
                             onChange={e => { handleIsActive(e); }}
                         ></RdsCheckbox>
@@ -190,7 +190,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="mb-2">
                         <RdsCheckbox
                             id="1"
-                            label={t("AbpIdentity.DisplayName:ShouldChangePasswordOnNextLogin") || ""}
+                            label="Should Change Password On Next Login"
                             checked={userData?.shouldChangePasswordOnNextLogin}
                             onChange={e => { handleShouldChangePasswordOnNextlogin(e); }}>
                         </RdsCheckbox>
@@ -200,7 +200,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="mb-2">
                         <RdsCheckbox
                             id="0"
-                            label={t("Account Lockout") || ""}
+                            label="Account Lockout"
                             checked={userData?.lockoutEnabled}
                             onChange={e => { handleLockoutEnabled(e); }}
                         ></RdsCheckbox>

@@ -9,7 +9,7 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
     return (
         <>
             <div className=" border p-3">
-                {props.downloadTable.map((item: any, inidex: number) => (
+                {props.downloadTable?.map((item: any, inidex: number) => (
                     <div className="d-flex justify-content-between  p-3" role="listitem">
                         <div className="d-flex justify-content-between">
                             <span className="align-self-center ms-2 me-3">

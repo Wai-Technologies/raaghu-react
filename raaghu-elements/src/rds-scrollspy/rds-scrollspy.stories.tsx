@@ -1,19 +1,25 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsScrollspy from "./rds-scrollspy";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Scrollspy",
+
+const meta: Meta = {
+    title: 'Elements/Scrollspy',
     component: RdsScrollspy,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
-    
+    },
+} satisfies Meta<typeof RdsScrollspy>;
+
+export default meta;
+type Story = StoryObj<typeof RdsScrollspy>;
+
+export const Default: Story = {
+    args: {
     }
-} as ComponentMeta<typeof RdsScrollspy>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsScrollspy> = (args) => (
-    <RdsScrollspy {...args}/>
-);
 
-export const Scrollspy = Template.bind({});
-Scrollspy.args = {
-};

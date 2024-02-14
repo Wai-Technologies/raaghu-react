@@ -10,7 +10,7 @@ export interface RdsCompProductListProps {
     type?: string;
 }
 const RdsCompProductList = (props: RdsCompProductListProps) => {
-    const { t } = useTranslation();
+
     const [isLoadMoreClicked, setisLoadMoreClicked] = useState(false);
     const loadMoreHandler = () => {
         setisLoadMoreClicked(true);
@@ -74,7 +74,7 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
                             <RdsButton
                                 colorVariant="primary"
                                 type="button"
-                                label={t("Load More") || ""}
+                                label="Load More"
                                 block={false}
                                 onClick={loadMoreHandler}
                             ></RdsButton>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { RdsButton } from "../rds-elements";
 import "./rds-comp-claim.css";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompClaimProps {
     resources: any[];
@@ -102,7 +101,6 @@ const reducer = (state: any, action: any) => {
 };
 
 const RdsCompClaim = (props: RdsCompClaimProps) => {
-    const { t } = useTranslation();
     const [Res, dispatch] = useReducer(reducer, props.resources);
     const [check, setcheck] = useState(false);
 
@@ -198,14 +196,14 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                         class="me-2"
                         tooltipTitle={""}
                         type={"button"}
-                        label={t("Cancel") || ""}
+                        label="Cancel"
                         colorVariant="outline-primary"
                         size="small"
                         databsdismiss="offcanvas"
                     ></RdsButton>
                     <RdsButton
                         class="me-2"
-                        label={t("Save") || ""}
+                        label="Save"
                         size="small"
                         colorVariant="primary"
                         tooltipTitle={""}

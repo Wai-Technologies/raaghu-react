@@ -1,33 +1,31 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompTenantSettings from "./rds-comp-tenant-settings";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+
+const meta: Meta = {
   title: "Components/Tenant Settings",
   component: RdsCompTenantSettings,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
+  parameters: {
+    layout: "",
+  },
+  tags: ['autodocs'],
+  argTypes: {
+  },
+} satisfies Meta<typeof RdsCompTenantSettings>;
 
-} as ComponentMeta<typeof RdsCompTenantSettings>;
+export default meta;
+type Story = StoryObj<typeof RdsCompTenantSettings>;
+
+export const Default: Story = {
+  args: {
+    tenantSettingInfo: {},
+    isTenantInfoValid: false,
+    showEditData: true
+  }
+} satisfies Story;
 
 
-const Template: ComponentStory<typeof RdsCompTenantSettings> = (args) =>
-  <RdsCompTenantSettings {...args} />;
 
 
-export const TenantSettings = Template.bind({});
 
-TenantSettings.args = {
-  tenantSettingInfo: {},
-  isTenantInfoValid: false,
-  showEditData: true
-
-};
 

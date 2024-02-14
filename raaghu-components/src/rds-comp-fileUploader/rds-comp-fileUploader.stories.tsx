@@ -1,17 +1,27 @@
-import React from 'react';
-import { ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompFileUploader from './rds-comp-fileUploader';
 
-export default {
+
+const meta: Meta = {
   title: "Components/File Uploader",
-};
+  component: RdsCompFileUploader,
+  parameters: {
+    layout: "",
+  },
+  tags: ['autodocs'],
+  argTypes: {
+  },
+} satisfies Meta<typeof RdsCompFileUploader>;
 
-const Template: ComponentStory<typeof RdsCompFileUploader> = (args) => (
-  <RdsCompFileUploader {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompFileUploader>;
 
-export const FileUploader = () => <RdsCompFileUploader onClick={undefined} />;
+export const Default: Story = {
+  args: {
 
-FileUploader.story = {
-  name: 'default',
-};
+  }
+} satisfies Story;
+
+
+
+

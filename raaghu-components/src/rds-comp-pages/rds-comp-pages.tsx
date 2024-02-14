@@ -1,6 +1,5 @@
 import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompPagesProps {
     tableHeaders: {
@@ -25,7 +24,6 @@ export interface RdsCompPagesProps {
 }
 
 const RdsCompPages = (props: RdsCompPagesProps) => {
-    const { t } = useTranslation();
     return (
         <RdsCompDatatable
             actionPosition="right"

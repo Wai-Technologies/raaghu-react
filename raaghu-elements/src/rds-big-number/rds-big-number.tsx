@@ -1,8 +1,9 @@
 import React, { Fragment, ReactNode } from "react";
 import RdsIcon from "../rds-icon";
-import RdsBarChart from "../rds-chart-bar";
 import "./rds-big-number.css";
+import RdsBarChart from "../rds-chart-bar";
 import RdsLineChart from "../rds-chart-line";
+
 
 export interface RdsBigNumberProps {
   colorVariant?: string;

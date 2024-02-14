@@ -1,21 +1,29 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsColorPicker from "./rds-color-picker";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/ColorPicker",
+const meta: Meta = {
+    title: 'Elements/ColorPicker',
     component: RdsColorPicker,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsColorPicker>;
 
-} as ComponentMeta<typeof RdsColorPicker>;
+export default meta;
+type Story = StoryObj<typeof RdsColorPicker>;
 
-const Template: ComponentStory<typeof RdsColorPicker> = (args) => (
-    <RdsColorPicker {...args} />
-);
-                                                                                                                                                                                              
-export const ColorPicker = Template.bind({});
-ColorPicker.args = {
-    value:"#e1e1e1",
-    isDisabled:false,
-    label: "Color-Picker" 
-};
+
+export const ColorPicker: Story = {
+    args: {
+        value: "#e1e1e1",
+        isDisabled: false,
+        label: "Color-Picker"
+    }
+} satisfies Story;
+
 

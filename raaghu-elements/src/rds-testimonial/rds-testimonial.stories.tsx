@@ -1,62 +1,73 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsTestimonial from "./rds-testimonial";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Testimonial",
+
+const meta: Meta = {
+    title: 'Elements/Testimonial',
     component: RdsTestimonial,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsTestimonial>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsTestimonial>;
 
-const Template: ComponentStory<typeof RdsTestimonial> = (args) => (
-    <RdsTestimonial {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsTestimonial>;
 
-export const Testimonial = Template.bind({});
-Testimonial.args = {
-    testimonialItems: [
-        { img:"https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-            title:"SAM SMITH",
-            subtitle: "PRODUCT MANAGER", 
-            description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat", 
-            icon: "quote_right",
-            iconHeight:"18px",
-            iconWidth:"18px",
-            iconFill:true,
-            iconStroke:true},
-    
-        { img:"https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-            title:"King John",
-            subtitle: "PRODUCT MANAGER", 
-            description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat", 
-            icon: "quote_right",
-            iconHeight:"18px",
-            iconWidth:"18px",
-            iconFill:true,
-            iconStroke:true,
-        },
 
-        { img:"https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-            title:"King John",
-            subtitle: "PRODUCT MANAGER", 
-            description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat", 
-            icon: "quote_right",
-            iconHeight:"18px",
-            iconWidth:"18px",
-            iconFill:true,
-            iconStroke:true,
-        },
-        { img:"https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-            title:"King John",
-            subtitle: "PRODUCT MANAGER", 
-            description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat", 
-            icon: "quote_right",
-            iconHeight:"18px",
-            iconWidth:"18px",
-            iconFill:true,
-            iconStroke:true,
-        },
-    ] 
-};
+export const Testimonial: Story = {
+    args: {
+        testimonialItems: [
+            {
+                img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                title: "SAM SMITH",
+                subtitle: "PRODUCT MANAGER",
+                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                icon: "quote_right",
+                iconHeight: "18px",
+                iconWidth: "18px",
+                iconFill: true,
+                iconStroke: true
+            },
+
+            {
+                img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                title: "King John",
+                subtitle: "PRODUCT MANAGER",
+                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                icon: "quote_right",
+                iconHeight: "18px",
+                iconWidth: "18px",
+                iconFill: true,
+                iconStroke: true,
+            },
+
+            {
+                img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                title: "King John",
+                subtitle: "PRODUCT MANAGER",
+                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                icon: "quote_right",
+                iconHeight: "18px",
+                iconWidth: "18px",
+                iconFill: true,
+                iconStroke: true,
+            },
+            {
+                img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                title: "King John",
+                subtitle: "PRODUCT MANAGER",
+                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                icon: "quote_right",
+                iconHeight: "18px",
+                iconWidth: "18px",
+                iconFill: true,
+                iconStroke: true,
+            },
+        ]
+    }
+} satisfies Story;
+

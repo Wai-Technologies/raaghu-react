@@ -1,18 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompSecrets from "./rds-comp-secrets";
 
-export default {
+
+const meta: Meta = { 
     title: "Components/Secrets",
     component: RdsCompSecrets,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompSecrets>;
 
-} as ComponentMeta<typeof RdsCompSecrets>;
+export default meta;
+type Story = StoryObj<typeof RdsCompSecrets>;
 
-const Template: ComponentStory<typeof RdsCompSecrets> = (args) =>
-    <RdsCompSecrets {...args} />;
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
-export const Secrets = Template.bind({});
 
-Secrets.args = {
 
-};
+

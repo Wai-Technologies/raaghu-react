@@ -78,7 +78,8 @@
     "styled-components": "^6.1.1",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "vite": "^5.1.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.4",
@@ -86,6 +87,7 @@
     "canvas": "^2.11.2",
     "codemirror": "^5.65.13",
     "i18next": "^23.7.6",
+    "million": "^3.0.3",
     "prismjs": "^1.29.0",
     "react-codemirror2": "^7.3.0",
     "react-router-dom": "^6.20.0",

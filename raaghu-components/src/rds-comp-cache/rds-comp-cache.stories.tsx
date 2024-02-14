@@ -1,61 +1,61 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompCache from "./rds-comp-cache";
 
-export default {
+
+const meta: Meta = { 
     title: "Components/Cache",
     component: RdsCompCache,
-    argTypes: {
-        alignment: {
-            options: ["start", "end"],
-            control: { type: "select" },
-        },
-
-        onclick: { action: "deleted" },
+    parameters: {
+        layout: "",
     },
-} as ComponentMeta<typeof RdsCompCache>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompCache>;
 
-const Template: ComponentStory<typeof RdsCompCache> = (args) => (
-    <RdsCompCache {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompCache>;
 
-export const Cache = Template.bind({});
+export const Default: Story = {
+    args: {
+        cachedata: [
+                    { name: "UserSettingsCache", id: 1 },
+                    { name: "ZeroRolePermissions", id: 2 },
+                    { name: "ZeroTenantCache", id: 3 },
+                    { name: "ZeroEditionFeatures", id: 4 },
+                    { name: "TenantSettingsCache", id: 5 },
+                    { name: "token_validity_key", id: 6 },
+                    { name: "ZeroMultiTenantLocalizationDictionaryCache", id: 7 },
+                    { name: "AspNet.Identity.SecurityStamp", id: 8 },
+                    { name: "TempFileCacheName", id: 9 },
+                    { name: "ApplicationSettingsCache", id: 10 },
+                    { name: "ZeroUserPermissions", id: 11 },
+                    { name: "ZeroLanguages", id: 12 },
+                ],
+    }
+} satisfies Story;
 
-Cache.args = {
-    cachedata: [
-        { name: "AbpUserSettingsCache", id: 1 },
-        { name: "AbpZeroRolePermissions", id: 2 },
-        { name: "AbpZeroTenantCache", id: 3 },
-        { name: "AbpZeroEditionFeatures", id: 4 },
-        { name: "AbpTenantSettingsCache", id: 5 },
-        { name: "token_validity_key", id: 6 },
-        { name: "AbpZeroMultiTenantLocalizationDictionaryCache", id: 7 },
-        { name: "AspNet.Identity.SecurityStamp", id: 8 },
-        { name: "TempFileCacheName", id: 9 },
-        { name: "AbpApplicationSettingsCache", id: 10 },
-        { name: "AbpZeroUserPermissions", id: 11 },
-        { name: "AbpZeroLanguages", id: 12 },
-    ],
-};
+export const pagination: Story = {
+    args: {
+        cachedata: [
+                    { name: "UserSettingsCache", id: 1 },
+                    { name: "ZeroRolePermissions", id: 2 },
+                    { name: "ZeroTenantCache", id: 3 },
+                    { name: "ZeroEditionFeatures", id: 4 },
+                    { name: "TenantSettingsCache", id: 5 },
+                    { name: "token_validity_key", id: 6 },
+                    { name: "ZeroMultiTenantLocalizationDictionaryCache", id: 7 },
+                    { name: "AspNet.Identity.SecurityStamp", id: 8 },
+                    { name: "TempFileCacheName", id: 9 },
+                    { name: "ApplicationSettingsCache", id: 10 },
+                    { name: "ZeroUserPermissions", id: 11 },
+                    { name: "ZeroLanguages", id: 12 },
+                ],
+        recordsperpage: 5,
+        pagination: true,
+        alignment: "end",
+    }
+} satisfies Story;
 
-export const pagination = Template.bind({});
 
-pagination.args = {
-    cachedata: [
-        { name: "AbpUserSettingsCache", id: 1 },
-        { name: "AbpZeroRolePermissions", id: 2 },
-        { name: "AbpZeroTenantCache", id: 3 },
-        { name: "AbpZeroEditionFeatures", id: 4 },
-        { name: "AbpTenantSettingsCache", id: 5 },
-        { name: "token_validity_key", id: 6 },
-        { name: "AbpZeroMultiTenantLocalizationDictionaryCache", id: 7 },
-        { name: "AspNet.Identity.SecurityStamp", id: 8 },
-        { name: "TempFileCacheName", id: 9 },
-        { name: "AbpApplicationSettingsCache", id: 10 },
-        { name: "AbpZeroUserPermissions", id: 11 },
-        { name: "AbpZeroLanguages", id: 12 },
-    ],
-    recordsperpage: 5,
-    pagination: true,
-    alignment: "end",
-};
+

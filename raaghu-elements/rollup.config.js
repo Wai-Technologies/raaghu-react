@@ -5,6 +5,7 @@ import dts from "rollup-plugin-dts";
 import babel from "rollup-plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import { terser } from "rollup-plugin-terser";
+import million from "million/compiler";
 
 // NEW
 import postcss from "rollup-plugin-postcss";
@@ -28,6 +29,12 @@ export default [
             },
         ],
         plugins: [
+            million.rollup({
+                auto: {
+                  threshold: 0.05,
+                  skip: ["useBadHook", /badVariable/g],
+                },
+              }),
             babel({
                 exclude: ["node_modules/**"],
                 presets: ["@babel/preset-typescript"],

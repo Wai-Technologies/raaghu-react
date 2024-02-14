@@ -1,19 +1,24 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsTextEditor from "./rds-text-editor";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Text Editor",
+const meta: Meta = {
+    title: 'Elements/Text Editor',
     component: RdsTextEditor,
-} as ComponentMeta<typeof RdsTextEditor>;
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsTextEditor>;
 
-const Template: ComponentStory<typeof RdsTextEditor> = (args) => (
-    <RdsTextEditor {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsTextEditor>;
 
-export const TextEditor = Template.bind({});
-
-TextEditor.args = {
-    id:"",
-    value:"<p>Hello!</p>",
-};
+export const TextEditor: Story = {
+    args: {
+        id: "",
+        value: "<p>Hello!</p>"
+    }
+} satisfies Story;

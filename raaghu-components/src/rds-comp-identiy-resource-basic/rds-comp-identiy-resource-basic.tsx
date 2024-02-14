@@ -5,7 +5,7 @@ import React, { useState } from "react";
 export interface RdsCompIdentiyResourceBasicProps { }
 
 const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) => {
-    const { t } = useTranslation();
+
     const [identityBasicData, setidentityBasicData] = useState({
         name: "",
         displayName: "",
@@ -139,7 +139,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={t("Cancel") || ""}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -147,7 +147,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={t("Save") || ""}
+                            label="Save"
                             size="small"
                             colorVariant="primary"
                             tooltipTitle={""}

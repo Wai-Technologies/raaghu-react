@@ -1,14 +1,18 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react";
 import RdsInputGroup from "./rds-input-group";
-import {input_size} from "../../libs/types/size";
+import { input_size } from "../../libs/types/size";
 import { button_colors } from "../../libs/types/colorvariant";
 
-export default {
-    title: "Elements/Input Group",
+
+const meta: Meta = {
+    title: 'Elements/Input Group',
     component: RdsInputGroup,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
-        
         colorVariant: {
             options: button_colors,
             control: { type: "select" },
@@ -22,20 +26,23 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsInputGroup>;
+} satisfies Meta<typeof RdsInputGroup>;
 
-const Template: ComponentStory<typeof RdsInputGroup> = (args) => (
-    <RdsInputGroup {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsInputGroup>;
 
-export const InputGroup = Template.bind({});
-InputGroup.args = {
-    buttonLabel: "BUTTON",
-    colorVariant: "primary",
-    placeholder: "Placeholder text",
-    size: "medium",
-    outline: true,
-    inputGroupLabel: "Field Label",
-    labelPosition:"top",
-    icon : ""
-};
+
+
+export const InputGroup: Story = {
+    args: {
+        buttonLabel: "BUTTON",
+        colorVariant: "primary",
+        placeholder: "Placeholder text",
+        size: "medium",
+        outline: true,
+        inputGroupLabel: "Field Label",
+        labelPosition: "top",
+        icon: ""
+    }
+} satisfies Story;
+

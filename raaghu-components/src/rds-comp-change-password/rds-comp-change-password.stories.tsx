@@ -1,29 +1,28 @@
-/* eslint-disable */
-import React from 'react';
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompChangePassword from './rds-comp-change-password';
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
-
-export default {
-  title: "Components/Change Password",
-  component: RdsCompChangePassword,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-} as ComponentMeta<typeof RdsCompChangePassword>;
 
 
-const Template: ComponentStory<typeof RdsCompChangePassword> = (args) => (
-  <RdsCompChangePassword {...args} />
-);
+const meta: Meta = { 
+    title: "Components/Change Password",
+    component: RdsCompChangePassword,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompChangePassword>;
 
-export const ChangePassword = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof RdsCompChangePassword>;
 
-ChangePassword.args = {
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
-};
+
+
+

@@ -1,21 +1,28 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsVideoPlayer from "./rds-video-player";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Video Player",
+const meta: Meta = {
+    title: 'Elements/Video Player',
     component: RdsVideoPlayer,
-} as ComponentMeta<typeof RdsVideoPlayer>;
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsVideoPlayer>;
 
-const Template: ComponentStory<typeof RdsVideoPlayer> = (args) => (
-    <RdsVideoPlayer {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsVideoPlayer>;
 
-export const VideoPlayer = Template.bind({});
-VideoPlayer.args = {
-    width: "480px",
-    height: "240px",
-    autoplay: false,
-    muted: false,
-    videoLink: "https://youtu.be/7sDY4m8KNLc",
-};
+
+export const VideoPlayer: Story = {
+    args: {
+        width: "480px",
+        height: "240px",
+        autoplay: false,
+        muted: false,
+        videoLink: "https://youtu.be/7sDY4m8KNLc",
+    }
+} satisfies Story;

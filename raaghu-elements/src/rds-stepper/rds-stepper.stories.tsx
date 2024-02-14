@@ -1,29 +1,37 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsStepper from "./rds-stepper";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Stepper",
+const meta: Meta = {
+    title: 'Elements/Stepper',
     component: RdsStepper,
-    argTypes: {
-    
+    parameters: {
+        layout: 'padded',
     },
-} as ComponentMeta<typeof RdsStepper>;
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsStepper>;
 
-const Template: ComponentStory<typeof RdsStepper> = (args) => (
-    <RdsStepper {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsStepper>;
 
-export const Simple = Template.bind({});
-Simple.decorators= [
-    (Story) => (
-        <div style={{ padding:"5% 5%" ,
-        }}>
-            <Story/>
-        </div>
-    ),
-],
-Simple.args = {
-    stepperType: "simple",
-};
+
+export const Simple: Story = {
+    args: {
+        stepperType: "simple",
+    }
+} satisfies Story;
+
+// Simple.decorators= [
+//     (Story) => (
+//         <div style={{ padding:"5% 5%" ,
+//         }}>
+//             <Story/>
+//         </div>
+//     ),
+// ],
+// Simple.args = {
+//     stepperType: "simple",
+// };
 

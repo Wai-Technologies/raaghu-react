@@ -1,34 +1,41 @@
 import React from "react";
-import { ComponentMeta, ComponentStory} from "@storybook/react";
 import RdsBankCardDetail from "./rds-bank-card-detail";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Bank Card Detail",
+const meta: Meta = {
+    title: 'Elements/Bank Card Detail',
     component: RdsBankCardDetail,
-} as ComponentMeta<typeof RdsBankCardDetail>;
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsBankCardDetail>;
 
-const Template: ComponentStory<typeof RdsBankCardDetail> = (args) => <RdsBankCardDetail {...args} />;
+export default meta;
+type Story = StoryObj<typeof RdsBankCardDetail>;
+
+export const BankCardDetail: Story = {
+    args: {
+        isSelectable: true,
+        isEditable: true,
+        cardDatas: [
+            {
+                iconHeight: "30px",
+                iconWidth: "30px",
+                icon: "editions",
+                iconFill: false,
+                iconstroke: true,
+                iconColorVarient: "dark",
+                cardID: "1011",
+                cardName: "MasterCard",
+                cardExpiry: "11/2027",
+                cardNumber: 3596,
+                isDefault: false,
+            },
+        ],
+    }
+} satisfies Story;
 
 
-export const BankCardDetail = Template.bind({});
-BankCardDetail.args = {
-    isSelectable: true,
-    isEditable:true,
-    cardDatas: [
-        {  
-            iconHeight: "30px",
-            iconWidth: "30px",
-            icon: "editions",
-            iconFill: false,
-            iconstroke: true,
-            iconColorVarient: "dark",
-            cardID: "1011",
-            cardName: "MasterCard",
-            cardExpiry: "11/2027",
-            cardNumber: 3596,
-            isDefault: false, 
-        },
-    ],
-   
-    
-};

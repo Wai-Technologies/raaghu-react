@@ -25,7 +25,7 @@ export interface RdsCompFileManagementTreeProps {
 
 export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps) => {
     const firstLevelDirectoryIds = props.items.map((item) => item.id);
-    const { t } = useTranslation();
+    const {  } = useTranslation();
     const handlerExtraBackdrop = () => {
         const allBackdrops = document.querySelectorAll(".offcanvas-backdrop, .modal-backdrop");
         if (allBackdrops.length > 1) {
@@ -72,7 +72,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             databstoggle: 'offcanvas',
             ariacontrols: `a${props.offId}`,
             databstarget: `#a${props.offId}`,
-            label: t(''),
+            label: (''),
             name: 'btnradio',
             checked: true,
             icon: "plus",
@@ -87,7 +87,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             ariacontrols: `b${props.offId}`,
             databstarget: `#b${props.offId}`,
             id: 'radio2',
-            label: t(''),
+            label: (''),
             name: 'btnradio',
             checked: false,
             icon: "pencil",
@@ -100,7 +100,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             ariacontrols: `#c${props.offId}`,
             databstarget: `#c${props.offId}`,
             id: 'radio3',
-            label: t(''),
+            label: (''),
             name: 'btnradio',
             checked: false,
             icon: "move",
@@ -113,7 +113,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             ariacontrols: '#deleteTreeNode',
             databstarget: '#deleteTreeNode',
             id: 'radio4',
-            label: t(''),
+            label: (''),
             name: 'btnradio',
             checked: false,
             icon: "delete",

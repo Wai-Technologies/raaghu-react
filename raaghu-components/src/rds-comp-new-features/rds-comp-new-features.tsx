@@ -15,7 +15,7 @@ export interface RdsCompFeatureProps {
 }
 
 const RdsCompFeatures = (props: RdsCompFeatureProps) => {
-  const { t } = useTranslation();
+
   const [navtabsItems, setNavtabsItems] = useState<any[]>([]);
   const [navtabs, setNavtabs] = useState<any[]>([]);
   const [activeNavTabId, setActiveNavTabId] = useState("0");
@@ -29,7 +29,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
       const navtabsData = props.featuresData.map((feature, index) => {
         return {
           id: index.toString(),
-          label: t(feature.displayName),
+          label: (feature.displayName),
           tablink: "#" + feature.name,
           name: feature.name,
           features:
@@ -172,7 +172,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                           <div className="form-group mb-2">
                             <RdsSelectList
                               id="feaDis"
-                              label={t(feature.displayName) || ""}
+                              label={(feature.displayName) || ""}
                               selectItems={feature.valueType?.itemSource?.items?.map(
                                 (x: any) => ({ ...x, option: x.value })
                               )}
@@ -183,14 +183,14 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                             ></RdsSelectList>
                             <small className="text-secondary-50">
                               {" "}
-                              {t(feature.description) || ""}
+                              {(feature.description) || ""}
                             </small>
                           </div>
                         ) : feature.valueType.validator.name === "NUMERIC" ? (
                           <div className="form-group mb-2">
                             <RdsInput
                               inputType={"number"}
-                              label={t(feature.displayName) || ""}
+                              label={(feature.displayName) || ""}
                               dataTestId={feature.name}
                               name={feature.name}
                               value={feature.value}
@@ -200,13 +200,13 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                             ></RdsInput>
                             <small className="text-secondary-50">
                               {" "}
-                              {t(feature.description) || ""}
+                              {(feature.description) || ""}
                             </small>
                           </div>
                         ) : feature.valueType.validator.name === "BOOLEAN" ? (
                           <div className="form-group mb-2">
                             <RdsCheckbox
-                              label={t(feature.displayName) || ""}
+                              label={(feature.displayName) || ""}
                               checked={feature.value === true}
                               name={feature.name}
                               dataTestId={feature.name}
@@ -216,14 +216,14 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                             ></RdsCheckbox>
                             <small className="text-secondary-50">
                               {" "}
-                              {t(feature.description) || ""}
+                              {(feature.description) || ""}
                             </small>
                           </div>
                         ) : feature.valueType.validator.name === "STRING" ? (
                           <div className="form-group mb-2">
                             <RdsInput
                               inputType={"number"}
-                              label={t(feature.displayName) || ""}
+                              label={(feature.displayName) || ""}
                               dataTestId={feature.name}
                               name={feature.name}
                               value={feature.value}
@@ -233,7 +233,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                             ></RdsInput>
                             <small className="text-secondary-50">
                               {" "}
-                              {t(feature.description) || ""}
+                              {(feature.description) || ""}
                             </small>
                           </div>
                         ) : null}

@@ -1,24 +1,29 @@
-/* eslint-disable */
-import React from 'react';
-import { I18nextProvider } from 'react-i18next';
+// /* eslint-disable */
+// import React from 'react';
+// import { I18nextProvider } from 'react-i18next';
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompSetPassword from './rds-comp-set-password';
-import i18n from '../../../.storybook/i18n';
-import { ComponentMeta } from "@storybook/react";
 
-export default {
-  title: "Components/Set Password",
-  component: RdsCompSetPassword,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-} as ComponentMeta<typeof RdsCompSetPassword>;
+const meta: Meta = { 
+    title: "Components/Set Password",
+    component: RdsCompSetPassword,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompSetPassword>;
 
-export const Default = () => <RdsCompSetPassword />;
+export default meta;
+type Story = StoryObj<typeof RdsCompSetPassword>;
 
-Default.story = {
-  name: 'default',
-};
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
+
+
+
+

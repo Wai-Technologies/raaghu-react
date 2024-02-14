@@ -1,32 +1,27 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompOrderDetails from "./rds-comp-order-details";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+
+const meta: Meta = { 
   title: "Components/Order Details",
-  component: RdsCompOrderDetails,
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
+    component: RdsCompOrderDetails,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompOrderDetails>;
 
-} as ComponentMeta<typeof RdsCompOrderDetails>;
+export default meta;
+type Story = StoryObj<typeof RdsCompOrderDetails>;
 
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsCompOrderDetails> = (args) => (
-  <RdsCompOrderDetails {...args} />
-);
-
-
-export const OrderDetails = Template.bind({});
-
-OrderDetails.args = {
-};
 
 
 

@@ -1,35 +1,41 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsSearch from "./rds-search";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Search",
+const meta: Meta = {
+    title: 'Elements/Search',
     component: RdsSearch,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
         },
-        iconPosition:{
+        iconPosition: {
             options: ["left", "right"],
             control: { type: "select" },
         },
-        labelPosition:{
-            options:["top","bottom","left","right"],
-            control:{type:"select"}
+        labelPosition: {
+            options: ["top", "bottom", "left", "right"],
+            control: { type: "select" }
         }
     },
-} as ComponentMeta<typeof RdsSearch>;
+} satisfies Meta<typeof RdsSearch>;
 
-const Template: ComponentStory<typeof RdsSearch> = (args) => (
-    <RdsSearch {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsSearch>;
 
-export const Search = Template.bind({});
-Search.args = {
-    label:'Search',
-    labelPosition:'top',
-    placeholder: "Search",
-    size: "small",
-    iconPosition:"left",
-};
+export const Search: Story = {
+    args: {
+        label: 'Search',
+        labelPosition: 'top',
+        placeholder: "Search",
+        size: "small",
+        iconPosition: "left",
+    }
+} satisfies Story;
+
+

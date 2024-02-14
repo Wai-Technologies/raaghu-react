@@ -1,33 +1,24 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompUserPermission from "./rds-comp-user-permission";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
 
-export default {
+
+const meta: Meta = { 
     title: "Components/User Permission",
     component: RdsCompUserPermission,
-    decorators: [
-        (StoryComponent) => (
-            <I18nextProvider i18n={i18n}>
-                <StoryComponent />
-            </I18nextProvider>
-        ),
-    ],
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompUserPermission>;
 
-} as ComponentMeta<typeof RdsCompUserPermission>;
+export default meta;
+type Story = StoryObj<typeof RdsCompUserPermission>;
 
-
-const Template: ComponentStory<typeof RdsCompUserPermission> = (args) => (
-    <RdsCompUserPermission {...args} />
-);
-
-
-export const UserPermission = Template.bind({});
-
-UserPermission.args = {
-
-    tableHeaders: [
+export const Default: Story = {
+    args: {
+            tableHeaders: [
         { displayName: "Name", key: "name", datatype: "avatarTitleInfo", sortable: true, },
         { displayName: "User ID", key: "userid", datatype: "text", sortable: true, },
         { displayName: "Roles", key: "roles", datatype: "text", sortable: true, },
@@ -52,4 +43,9 @@ UserPermission.args = {
 
     ],
     enablecheckboxselection: false
-};
+    }
+} satisfies Story;
+
+
+
+

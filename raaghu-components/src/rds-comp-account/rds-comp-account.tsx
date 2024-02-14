@@ -34,21 +34,19 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
         props.accountCaptchaSettings
     );
 
-    const { t } = useTranslation();
-
     const navtabsItems = [
-        { label: t("AbpAccount.AccountSettingsGeneral"), id: "0" },
-        { label: t("AbpAccount.AccountSettingsTwoFactor"), id: "1" },
-        { label: t("AbpAccount.Captcha"), id: "2" },
+        { label: "Account Settings General", id: "0" },
+        { label: "Account Settings Two Factor", id: "1" },
+        { label: "Captcha", id: "2" },
     ];
     const versionList = [
         { option: "2", value: 2 },
         { option: "3", value: 3 },
     ];
     const twoFactList = [
-        { option: t("AbpIdentity.Feature:TwoFactor.Optional"), value: 0 },
-        { option: t("AbpIdentity.Feature:TwoFactor.Disabled"), value: 1 },
-        { option: t("AbpIdentity.Feature:TwoFactor.Forced"), value: 2 },
+        { option: "Optional", value: 0 },
+        { option: "Disabled", value: 1 },
+        { option: "Forced", value: 2 },
     ];
 
     const handlerSubmit = (event: any) => {
@@ -107,12 +105,12 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                 <div className="col-xxl-9 col-xl-9 col-lg-9 col-12 pb-0 ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-0">
                     {activeNavTabId === "0" && (<>
                         <div className="fw-medium mb-3">
-                            <RdsLabel label={t("General Settings") || ""} size="14px"></RdsLabel>
+                            <RdsLabel label="General Settings" size="14px"></RdsLabel>
                         </div>
                         <div className="row">
                             <div className="col-md-12 mb-3">
                                 <RdsCheckbox
-                                    label={t("AbpAccount.DisplayName:IsSelfRegistrationEnabled") || ""}
+                                    label="Is Self Registration Enabled"
                                     onChange={(e: any) => {
                                         handlerChangeGeneral(e.target.checked, "isSelfRegistrationEnabled");
                                     }}
@@ -124,7 +122,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                         <div className="row">
                             <div className="col-md-12 mb-3">
                                 <RdsCheckbox
-                                    label={t("Authentication With a Local Account") || ""}
+                                    label="Authentication With a Local Account"
                                     onChange={(e) => {
                                         handlerChangeGeneral(e.target.checked, "enableLocalLogin");
                                     }}
@@ -151,13 +149,13 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     </>)
                     }
                     {activeNavTabId === "1" && (<>     <div className="fw-medium mb-3">
-                        <RdsLabel label={t("AbpAccount.TwoFactorAuthentication") || ""} size="14px"></RdsLabel>
+                        <RdsLabel label="Two Factor Authentication" size="14px"></RdsLabel>
                     </div>
                         <div className="col-xxl-3 col-xl-3 col-lg-6 col-12 mb-3">
                             <RdsSelectList
-                                id="AbpIdentity.Fea"
-                                label={t("AbpIdentity.Feature:TwoFactor") || ""}
-                                placeholder={t("Select Option") || ""}
+                                id="Fea"
+                                label="Two Factor"
+                                placeholder="Select Option"
                                 selectItems={twoFactList}
                                 selectedValue={twoFactorData?.twoFactorBehaviour}
                                 onChange={(item: any) => {
@@ -169,7 +167,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                         <div className="row">
                             <div className="col-md-12 mb-3">
                                 <RdsCheckbox
-                                    label={t("AbpAccount.RememberBrowser") || ""}
+                                    label="Remember Browser"
                                     checked={twoFactorData?.isRememberBrowserEnabled}
                                     onChange={(e) => {
                                         handlerChangeTwoFact(e.target.checked, "isRememberBrowserEnabled");
@@ -181,12 +179,12 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     {activeNavTabId === "2" && (<>
                         <div className="">
                             <div className="fw-medium mb-3">
-                                <RdsLabel label={t("AbpAccount.Captcha") || ""} size="14px"></RdsLabel>
+                                <RdsLabel label="Captcha" size="14px"></RdsLabel>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-3">
                                     <RdsCheckbox
-                                        label={t("Use Security Image Questions(Captcha) On Login") || ""}
+                                        label="Use Security Image Questions(Captcha) On Login"
                                         checked={accountCaptchData?.useCaptchaOnLogin}
                                         onChange={(e) => {
                                             handlerChangeCaptcha(e.target.checked, "useCaptchaOnLogin");
@@ -198,7 +196,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             <div className="row">
                                 <div className="col-md-12 mb-3">
                                     <RdsCheckbox
-                                        label={t("Use Security Image Questions(Captcha) On Registration") || ""}
+                                        label="Use Security Image Questions(Captcha) On Registration"
                                         checked={accountCaptchData?.useCaptchaOnRegistration}
                                         onChange={(e) => {
                                             handlerChangeCaptcha(e.target.checked, "useCaptchaOnRegistration");
@@ -213,8 +211,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                         <RdsInput
                                             size="medium"
                                             inputType="text"
-                                            label={t("AbpAccount.DisplayName:VerifyBaseUrl") || ""}
-                                            placeholder={t("Enter URL") || ""}
+                                            label="Verify BaseUrl"
+                                            placeholder="Enter URL"
                                             customClasses="form-control"
                                             value={accountCaptchData?.verifyBaseUrl}
                                             onChange={(e) => {
@@ -227,9 +225,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
 
                                     <RdsSelectList
-                                        id="AbpIdentity.dis"
-                                        label={t("AbpAccount.DisplayName:Version") || ""}
-                                        placeholder={t("Select Version") || ""}
+                                        id="dis"
+                                        label="Version"
+                                        placeholder="Select Version"
                                         selectItems={versionList}
                                         selectedValue={accountCaptchData?.version}
                                         onChange={(item: any) => {
@@ -245,8 +243,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                         <RdsInput
                                             name="sitekey"
                                             labelPosition="top"
-                                            label={t("AbpAccount.DisplayName:SiteKey") || ""}
-                                            placeholder={t("Enter URL") || ""}
+                                            label="Site Key"
+                                            placeholder="Enter URL"
                                             customClasses="form-control"
                                             value={accountCaptchData?.siteKey}
                                             onChange={(e) => {
@@ -260,8 +258,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                     <RdsInput
                                         name="siteSecret"
                                         labelPosition="top"
-                                        label={t("AbpAccount.DisplayName:SiteSecret") || ""}
-                                        placeholder={t("Enter Secret") || ""}
+                                        label="Site Secret"
+                                        placeholder="Enter Secret"
                                         customClasses="form-control"
                                         value={accountCaptchData?.siteSecret}
                                         onChange={(e) => handlerChangeCaptcha(e.target.value, "siteSecret")}
@@ -275,8 +273,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                         <RdsInput
                                             name="score"
                                             size="medium"
-                                            label={t("AbpAccount.DisplayName:Score") || ""}
-                                            placeholder={t("Enter Score") || ""}
+                                            label="Score"
+                                            placeholder="Enter Score"
                                             customClasses="form-control"
                                             value={accountCaptchData?.score}
                                             onChange={(e) => {
@@ -294,7 +292,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
             </div >
             <div className="mt-xxl-4 pb-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
                 <RdsButton
-                    label={t("AbpUi.Save") || ""}
+                    label="Save"
                     type="submit"
                     colorVariant="primary"
                     size="small"

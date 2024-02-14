@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsBenefit from "./rds-benefit";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Benefit",
+const meta: Meta = {
+    title: 'Elements/Benefit',
     component: RdsBenefit,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         displayType: {
             options: [
@@ -17,104 +21,113 @@ export default {
             ],
             control: { type: "select" },
         },
+    },
+} satisfies Meta<typeof RdsBenefit>;
+
+export default meta;
+type Story = StoryObj<typeof RdsBenefit>;
+
+export const Default: Story = {
+    args: {
+        displayType: "default",
+        item: {
+            "id": 1,
+            "icon": "currency_dollar_circle",
+            "iconHeight": "35px",
+            "iconWidth": "35px",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "dark",
+            "title": "International delivery",
+            "description": "Get your order in 2 days"
+        }
     }
-  
-} as ComponentMeta<typeof RdsBenefit>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsBenefit>=(args:any) =><RdsBenefit {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
-    displayType: "default",
-    item:{
-        "id": 1,
-        "icon": "currency_dollar_circle",
-        "iconHeight": "35px",
-        "iconWidth": "35px",
-        "iconFill": false,
-        "iconstroke": true,
-        "iconColorVarient":"dark",
-        "title": "International delivery",
-        "description": "Get your order in 2 days"
+
+export const LeftAligned : Story = {
+    args: {
+        displayType: "Left Aligned",
+        item: {
+            "id": 3,
+            "imgSrc": "https://cdn4.vectorstock.com/i/1000x1000/45/38/gear-icon-line-symbol-vector-21084538.jpg",
+            "imgHeight": "40px",
+            "imgWidth": "40px",
+            "title": "Free delivery all year long",
+            "description": "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
+        }
     }
-};
+} satisfies Story;
 
-export const LeftAligned = Template.bind({});
-LeftAligned.args = {
-    displayType: "Left Aligned",
-    item:
-  {
-      id: 3,
-      imgSrc:"https://cdn4.vectorstock.com/i/1000x1000/45/38/gear-icon-line-symbol-vector-21084538.jpg",
-      imgHeight: "40px",
-      imgWidth: "40px",
-      title: "Free delivery all year long",
-      description: "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
-  },
-};
 
-export const CenterAligned = Template.bind({});
-CenterAligned.args = {
-    displayType: "Center Aligned",
-    item:
-  {
-      id: 6,
-      iconHeight: "40px",
-      iconWidth: "40px",
-      icon: "truck",
-      iconFill: false,
-      iconstroke: true,
-      iconColorVarient:"dark",
-      title: "Free shipping",
-      description: "Free delivery is our main part of company we just price it into the products. Someone's paying for it, and it's not us."
-  }
-};
+export const CenterAligned : Story = {
+    args: {
+        displayType: "Center Aligned",
+        item: {
+            "id": 6,
+            "iconHeight": "40px",
+            "iconWidth": "40px",
+            "icon": "truck",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "dark",
+            "title": "Free shipping",
+            "description": "Free delivery is our main part of company we just price it into the products. Someone's paying for it, and it's not us."
+        }
+    }
+} satisfies Story;
 
-export const WithLabel = Template.bind({});
-WithLabel.args = {
-    displayType: "With Label",
-    item:
-  {
-      id: 7,
-      status: "Active",
-      colorVarient:"success",
-      imgSrc:"https://cdn4.vectorstock.com/i/1000x1000/45/38/gear-icon-line-symbol-vector-21084538.jpg",
-      imgHeight: "40px",
-      imgWidth: "40px",
-      title: "Free delivery all year long",
-      description: "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
-  }
-};
 
-export const WithoutLabel = Template.bind({});
-WithoutLabel.args = {
-    displayType: "Without Label",
-    item:
-  {
-      id: 7,
-      iconHeight: "40px",
-      iconWidth: "40px",
-      icon: "truck",
-      iconFill: false,
-      iconstroke: true,
-      iconColorVarient:"dark",
-      title: "Free shipping world wide",
-      description: "Free delivery is our main part of company"
-  }
-};
+export const WithLabel : Story = {
+    args: {
+        displayType: "With Label",
+        item: {
+            "id": 7,
+            "status": "Active",
+            "colorVarient": "success",
+            "imgSrc": "https://cdn4.vectorstock.com/i/1000x1000/45/38/gear-icon-line-symbol-vector-21084538.jpg",
+            "imgHeight": "40px",
+            "imgWidth": "40px",
+            "title": "Free delivery all year long",
+            "description": "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
+        }
+    }
+} satisfies Story;
 
-export const HeadingWithIcon = Template.bind({});
-HeadingWithIcon.args = {
-    displayType: "Heading With Icon",
-    item:
-  {
-      iconHeight: "40px",
-      iconWidth: "40px",
-      icon: "truck",
-      iconFill: false,
-      iconstroke: true,
-      iconColorVarient:"dark",
-      title: "Free delivery all year long",
-  }
-};
+
+export const WithoutLabel : Story = {
+    args: {
+        displayType: "Without Label",
+        item: {
+            "id": 7,
+            "iconHeight": "40px",
+            "iconWidth": "40px",
+            "icon": "truck",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "dark",
+            "title": "Free shipping world wide",
+            "description": "Free delivery is our main part of company"
+        }
+    }
+} satisfies Story;
+
+
+export const HeadingWithIcon : Story = {
+    args: {
+        displayType: "Heading With Icon",
+        item:
+        {
+            iconHeight: "40px",
+            iconWidth: "40px",
+            icon: "truck",
+            iconFill: false,
+            iconstroke: true,
+            iconColorVarient: "dark",
+            title: "Free delivery all year long",
+        }
+    }
+} satisfies Story;
+
 

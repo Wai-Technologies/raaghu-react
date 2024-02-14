@@ -71,8 +71,8 @@ export { default as RdsTextEditor } from "./rds-text-editor";
 export { default as RdsFileUploader } from "./rds-file-uploader";
 export { default as RdsToggle } from "./rds-toggle";
 export { default as RdsVideoPlayer } from "./rds-video-player";
-export { default as RdsAnimation } from "./rds-animation";
-//Charts
+// export { default as RdsAnimation } from "./rds-animation";
+// //Charts
 export { default as RdsAreaChart } from "./rds-chart-area";
 export { default as RdsLineChart } from "./rds-chart-line";
 export { default as RdsPieChart } from "./rds-chart-Pie";
@@ -87,5 +87,5 @@ export { default as RdsStackedChart } from "./rds-chart-stacked";
 export { default as RdsBubbleChart } from "./rds-chart-bubble";
 export { default as RdsFeed } from "./rds-feed";
 export { default as RdsCardDetail } from "./rds-card-detail";
-//Map
+// //Map
 export { default as RdsMap } from "./rds-map";

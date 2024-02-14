@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsFileUploader from "./rds-file-uploader";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/File Uploader",
+const meta: Meta = {
+    title: 'Elements/File Uploader',
     component: RdsFileUploader,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         size: {
             options: ["small", "large"],
@@ -27,27 +31,28 @@ export default {
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsFileUploader>;
+} satisfies Meta<typeof RdsFileUploader>;
 
-const Template: ComponentStory<typeof RdsFileUploader> = (args) => (
-    <RdsFileUploader {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsFileUploader>;
 
-export const Default = Template.bind({});
+export const Default: Story = {
+    args: {
+        size: "large",
+        multiple: false,
+        extensions: "",
+        colorVariant: "dark",
+    }
+} satisfies Story;
 
-Default.args = {
-    size: "large",
-    multiple: false,
-    extensions: "",
-    colorVariant: "dark",
-};
+export const Multiple: Story = {
+    args: {
+        colorVariant: "primary",
+        placeholder: "for E.g. ",
+        multiple: true,
+        extensions: "",
+        limit: 5,
+    }
+} satisfies Story;
 
-export const Multiple = Template.bind({});
 
-Multiple.args = {
-    colorVariant: "primary",
-    placeholder: "for E.g. ",
-    multiple: true,
-    extensions: "",
-    limit: 5,
-};

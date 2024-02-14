@@ -1,18 +1,27 @@
-import React from "react";
-import { ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompInvoice from './rds-comp-invoice';
 
-export default {
-  title: "Components/Invoice",
-  component: RdsCompInvoice,
-};
 
-const Template: ComponentStory<typeof RdsCompInvoice> = (args) => (
-  <RdsCompInvoice {...args} />
-);
+const meta: Meta = { 
+    title: "Components/Invoice",
+    component: RdsCompInvoice,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompInvoice>;
 
-export const Invoice = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof RdsCompInvoice>;
 
-Invoice.story = {
-  name: 'default',
-};
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;
+
+
+
+

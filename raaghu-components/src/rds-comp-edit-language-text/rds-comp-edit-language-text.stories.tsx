@@ -1,16 +1,23 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompEditLanguageText from "./rds-comp-edit-language-text";
 
-export default {
+
+const meta: Meta = { 
     title: "Components/Edit Language Text",
     component: RdsCompEditLanguageText,
-} as ComponentMeta<typeof RdsCompEditLanguageText>;
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompEditLanguageText>;
 
-const Template: ComponentStory<typeof RdsCompEditLanguageText> = (args) => (
-    <RdsCompEditLanguageText {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompEditLanguageText>;
 
-export const EditLanguageText = Template.bind({});
-
-EditLanguageText.args = {};
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;

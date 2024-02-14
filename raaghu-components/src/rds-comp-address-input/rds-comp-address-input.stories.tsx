@@ -1,30 +1,22 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import RdsCompAddressInput from "./rds-comp-address-input";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../../../.storybook/i18n";
+import type { Meta, StoryObj } from '@storybook/react';
+import RdsCompAddressInput from './rds-comp-address-input';
 
-export default {
+const meta: Meta = { 
     title: "Components/Address Input",
     component: RdsCompAddressInput,
-    decorators: [
-        (StoryComponent) => (
-          <I18nextProvider i18n={i18n}>
-            <StoryComponent />
-          </I18nextProvider>
-        ),
-      ],
-} as ComponentMeta<typeof RdsCompAddressInput>;
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompAddressInput>;
 
+export default meta;
+type Story = StoryObj<typeof RdsCompAddressInput>;
 
-const Template: ComponentStory<typeof RdsCompAddressInput> = (args) => (
-    <RdsCompAddressInput {...args} />
-);
-
-
-export const AddressInput = Template.bind({});
-
-AddressInput.args ={
-
-};
-
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;

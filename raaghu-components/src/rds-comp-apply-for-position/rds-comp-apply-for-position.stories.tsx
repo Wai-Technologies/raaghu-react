@@ -1,23 +1,23 @@
-
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompApplyForPosition from "./rds-comp-apply-for-position";
 
-export default {
+
+const meta: Meta = { 
     title: "Components/Apply For Position",
     component: RdsCompApplyForPosition,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompApplyForPosition>;
 
-} as ComponentMeta<typeof RdsCompApplyForPosition>;
+export default meta;
+type Story = StoryObj<typeof RdsCompApplyForPosition>;
 
-
-const Template: ComponentStory<typeof RdsCompApplyForPosition> = (args) => (
-    <RdsCompApplyForPosition {...args} />
-);
-
-
-export const ApplyForPosition = Template.bind({});
-
-ApplyForPosition.args = {
-
-};
-
+export const Default: Story = {
+    args: {
+        
+    }
+} satisfies Story;

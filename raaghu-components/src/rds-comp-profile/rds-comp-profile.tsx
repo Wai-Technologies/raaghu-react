@@ -26,7 +26,6 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
     const tenantName = localStorage.getItem("name");
     const [hoveredItem, setHoveredItem] = useState("");
     // const navigate = useNavigate();
-    const { t } = useTranslation();
     const [profilePic, setprofilePic] = useState("./assets/profile-picture-circle.svg");
     useEffect(() => {
         if (props.profilePic) {
@@ -103,7 +102,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                 <div className="position-relative px-2 px-md-3 border-end text-center cursor-pointer d-flex justify-content-center pb-2">
                     <RdsButton
                         icon="left"
-                        label={t("AbpAccount.BackToImpersonator") || ""}
+                        label="BackToImpersonator"
                         isOutline={true}
                         colorVariant="primary"
                         block={false}
@@ -167,7 +166,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
 
             <div className="pb-4 footer-buttons d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-center">
                 <RdsButton
-                    label={t("AbpUi.Logout") || ""}
+                    label="Logout"
                     colorVariant="primary"
                     block={false}
                     tooltipTitle={""}

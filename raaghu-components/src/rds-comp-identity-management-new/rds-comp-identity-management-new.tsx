@@ -16,7 +16,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
     const [signSettings, setSignSettings] = useState(props.signSettings);
 
     const [userSettings, setUserSettings] = useState(props.userSettings);
-    const { t } = useTranslation();
+
 
     useEffect(() => {
         setLockoutSettings(props.lockoutSettings);
@@ -47,7 +47,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                 <form onSubmit={handleSubmit}>
                     {/* Password Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label={t("AbpIdentity.PasswordSettings") || ""}></RdsLabel>
+                        <RdsLabel label="Password Settings"></RdsLabel>
                     </div>
                     <div className="row">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -56,17 +56,17 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     size="medium"
                                     inputType="text"
                                     isDisabled={false}
-                                    label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequiredLength") || ""}
+                                    label="Required Length"
                                     fontWeight={"normal"}
                                     readonly={false}
-                                    placeholder={t("Enter Length") || ""}
+                                    placeholder="Enter Length"
                                     value={passwordSettings?.requiredLength}
                                     onChange={(e: any) => {
                                         handlePasswordChange(e.target.value, "requiredLength");
                                     }}
                                     dataTestId="required-length"
                                 ></RdsInput>
-                                <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequiredLength" || "")}</small>
+                                <small className="text-secondary-50">Required Length</small>
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 ">
@@ -76,74 +76,74 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     inputType="text"
                                     isDisabled={false}
                                     readonly={false}
-                                    label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequiredUniqueChars") || ""}
+                                    label="Required Unique Chars"
                                     fontWeight={"normal"}
-                                    placeholder={t("Enter Number") || ""}
+                                    placeholder="Enter Number"
                                     value={passwordSettings?.requiredUniqueChars}
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "requiredUniqueChars")}
                                     dataTestId="required-special-char"
                                 ></RdsInput>
-                                <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequiredUniqueChars" || "")}</small>
+                                <small className="text-secondary-50">Required Unique Chars</small>
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequireNonAlphanumeric") || ""}
+                                label="Require NonAlphanumeric"
                                 checked={passwordSettings?.requireNonAlphanumeric}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireNonAlphanumeric")}
                                 dataTestId="required-non-alpha-num-char"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequireNonAlphanumeric" || "")}</small>
+                            <small className="text-secondary-50">Require NonAlphanumeric</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequireUppercase") || ""}
+                                label="Require Uppercase"
                                 checked={passwordSettings?.requireUppercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireUppercase")}
                                 dataTestId="required-upper-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequireUppercase" || "")}</small>
+                            <small className="text-secondary-50">RequireUppercase</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequireLowercase") || ""}
+                                label="Require Lowercase"
                                 checked={passwordSettings?.requireLowercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireLowercase")}
                                 dataTestId="required-lower-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequireLowercase" || "")}</small>
+                            <small className="text-secondary-50">Require Lowercase</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Password.RequireDigit") || ""}
+                                label="Require Digit"
                                 checked={passwordSettings?.requireDigit}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireDigit")}
                                 dataTestId="required-numbers"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.RequireDigit" || "")}</small>
+                            <small className="text-secondary-50">Require Digit</small>
                         </div>
                     </div>
                     {/*Password renewing settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label={t("AbpIdentity.PasswordRenewingSettings") || ""}></RdsLabel>
+                        <RdsLabel label="Password Renewing Settings"></RdsLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Password.ForceUsersToPeriodicallyChangePassword") || ""}
+                                label="Force Users To Periodically Change Password"
                                 checked={passwordSettings?.forceUsersToPeriodicallyChangePassword}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "forceUsersToPeriodicallyChangePassword")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.ForceUsersToPeriodicallyChangePassword" || "")}</small>
+                            <small className="text-secondary-50">Force Users To Periodically ChangePassword</small>
                         </div>
                     </div>
                     <div className="row mb-3">
@@ -153,33 +153,33 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     size="medium"
                                     inputType="text"
                                     isDisabled={false}
-                                    label={t("AbpIdentity.DisplayName:Abp.Identity.Password.PasswordChangePeriodDays") || ""}
+                                    label="Password Change PeriodDays"
                                     fontWeight={"normal"}
                                     readonly={false}
-                                    placeholder={t("Enter Length") || ""}
+                                    placeholder="Enter Length"
                                     value={passwordSettings?.passwordChangePeriodDays}
                                     onChange={(e: any) => {
                                         handlePasswordChange(e.target.value, "passwordChangePeriodDays");
                                     }}
                                     dataTestId="password-change-period-days"
                                 ></RdsInput>
-                                <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Password.PasswordChangePeriodDays" || "")}</small>
+                                <small className="text-secondary-50">PasswordChangePeriodDays</small>
                             </div>
                         </div>
                     </div>
                     {/* Lockout Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label={t("AbpIdentity.LockoutSettings") || ""}></RdsLabel>
+                        <RdsLabel label="LockoutSettings"></RdsLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.Lockout.AllowedForNewUsers") || ""}
+                                label="AllowedForNewUsers"
                                 checked={lockoutSettings?.allowedForNewUsers}
                                 onChange={(e: any) => handleLockoutChange(e.target.checked, "allowedForNewUsers")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Lockout.AllowedForNewUsers" || "")}</small>
+                            <small className="text-secondary-50">Allowed For New Users</small>
                         </div>
                     </div>
                     <div className="row">
@@ -191,13 +191,13 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     inputType="number"
                                     isDisabled={false}
                                     readonly={false}
-                                    label={t("AbpIdentity.DisplayName:Abp.Identity.Lockout.LockoutDuration") || ""}
-                                    placeholder={t("Enter Length") || ""}
+                                    label="LockoutDuration"
+                                    placeholder="Enter Length"
                                     value={lockoutSettings?.lockoutDuration}
                                     onChange={(e: any) => handleLockoutChange(e.target.value, "lockoutDuration")}
                                     dataTestId="lockout-duration"
                                 ></RdsInput>
-                                <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Lockout.AllowedForNewUsers" || "")}</small>
+                                <small className="text-secondary-50">Allowed For New Users</small>
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -207,79 +207,79 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     size="medium"
                                     inputType="text"
                                     isDisabled={false}
-                                    label={t("AbpIdentity.DisplayName:Abp.Identity.Lockout.MaxFailedAccessAttempts") || ""}
+                                    label="Max Failed Access Attempts"
                                     readonly={false}
-                                    placeholder={t("Enter Name") || ""}
+                                    placeholder="Enter Name"
                                     value={lockoutSettings?.maxFailedAccessAttempts}
                                     onChange={(e: any) => handleLockoutChange(e.target.value, "maxFailedAccessAttempts")}
                                     dataTestId="max-failed-attempts"
                                 ></RdsInput>
-                                <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.Lockout.MaxFailedAccessAttempts" || "")}</small>
+                                <small className="text-secondary-50">Max Failed Access Attempts</small>
                             </div>
                         </div>
                     </div>
 
                     {/* Signin Settings */}
                     <div className=" mb-3 fw-medium">
-                        <RdsLabel label={t("AbpIdentity.SignInSettings") || ""}></RdsLabel>
+                        <RdsLabel label="SignInSettings"></RdsLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.SignIn.RequireConfirmedEmail") || ""}
+                                label="RequireConfirmedEmail"
                                 checked={signSettings?.requireConfirmedEmail}
                                 onChange={(e: any) => handleSignChange(e.target.checked, "requireConfirmedEmail")}
                                 dataTestId="required-confirmed-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.SignIn.RequireConfirmedEmail" || "")}</small>
+                            <small className="text-secondary-50">RequireConfirmedEmail</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.SignIn.EnablePhoneNumberConfirmation") || ""}
+                                label="Enable Phone Number Confirmation"
                                 checked={signSettings?.enablePhoneNumberConfirmation}
                                 onChange={(e: any) => handleSignChange(e.target.checked, "enablePhoneNumberConfirmation")}
                                 dataTestId="allow-user-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.SignIn.EnablePhoneNumberConfirmation" || "")}</small>
+                            <small className="text-secondary-50">EnablePhoneNumberConfirmation</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.SignIn.RequireConfirmedPhoneNumber") || ""}
+                                label="RequireConfirmedPhoneNumber"
                                 checked={signSettings?.requireConfirmedPhoneNumber}
                                 onChange={(e: any) => handleSignChange(e.target.checked, "requireConfirmedPhoneNumber")}
                                 dataTestId="required-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.SignIn.RequireConfirmedPhoneNumber" || "")}</small>
+                            <small className="text-secondary-50">RequireConfirmedPhoneNumber</small>
                         </div>
                     </div>
                     {/* User Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label={t("AbpIdentity.UserSettings") || ""}></RdsLabel>
+                        <RdsLabel label="UserSettings"></RdsLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.User.IsEmailUpdateEnabled") || ""}
+                                label="IsEmailUpdateEnabled"
                                 checked={userSettings?.isEmailUpdateEnabled}
                                 onChange={(e: any) => handleUserChange(e.target.checked, "isEmailUpdateEnabled")}
                                 dataTestId="allow-user-change-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.User.IsEmailUpdateEnabled" || "")}</small>
+                            <small className="text-secondary-50">IsEmailUpdateEnabled</small>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label={t("AbpIdentity.DisplayName:Abp.Identity.User.IsUserNameUpdateEnabled") || ""}
+                                label="IsUser Name Update Enabled"
                                 checked={userSettings?.isUserNameUpdateEnabled}
                                 onChange={(e: any) => handleUserChange(e.target.checked, "isUserNameUpdateEnabled")}
                                 dataTestId="allow-user-change-username"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">{t("AbpIdentity.Description:Abp.Identity.SignIn.EnablePhoneNumberConfirmation" || "")}</small>
+                            <small className="text-secondary-50">Enable Phone Number Confirmation</small>
                         </div>
                     </div>
                 </form>
@@ -287,7 +287,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
 
             <div className="mt-xxl-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 pb-4 fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
                 <RdsButton
-                    label={t("AbpUi.Save") || ""}
+                    label="Save"
                     type="submit"
                     colorVariant="primary"
                     size="small"

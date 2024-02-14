@@ -1,48 +1,54 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsCheckboxGroup from "./rds-checkbox-group";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Checkbox Group",
+
+const meta: Meta = {
+    title: 'Elements/Checkbox Group',
     component: RdsCheckboxGroup,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         state: {
             options: ["Checkbox", "Indeterminate", "ErrorCheckbox"],
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsCheckboxGroup>;
+} satisfies Meta<typeof RdsCheckboxGroup>;
 
-const Template: ComponentStory<typeof RdsCheckboxGroup> = (args) => (
-    <RdsCheckboxGroup {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCheckboxGroup>;
 
-export const CheckboxGroup = Template.bind({}); 
-CheckboxGroup.args = {
-    state: "Checkbox",
-    isSwitch: false,
-    isInline: false,
-    label: "Checkbox Group",
-  
-    itemList: [
-        {
-            id: 1,
-            label: "Child Checkbox 1",
-            checked: false,
-            disabled: false,
-        },
-        {
-            id: 2,
-            label: "Child Checkbox 2",
-            checked: false,
-            disabled: false,
-        },
-        {
-            id: 3,
-            label: "Child Checkbox 3",
-            checked: false,
-            disabled: false,
-        },
-    ],
-    errorMessage: "Error Message",
-};
+
+export const CheckboxGroup: Story = {
+    args: {
+        state: "Checkbox",
+        isSwitch: false,
+        isInline: false,
+        label: "Checkbox Group",
+
+        itemList: [
+            {
+                id: 1,
+                label: "Child Checkbox 1",
+                checked: false,
+                disabled: false,
+            },
+            {
+                id: 2,
+                label: "Child Checkbox 2",
+                checked: false,
+                disabled: false,
+            },
+            {
+                id: 3,
+                label: "Child Checkbox 3",
+                checked: false,
+                disabled: false,
+            },
+        ],
+        errorMessage: "Error Message",
+    }
+}

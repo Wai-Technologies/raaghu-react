@@ -1,32 +1,44 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsPopover from "./rds-popover";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Popover",
+const meta: Meta = {
+    title: 'Elements/Popover',
     component: RdsPopover,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         popoverPosition: {
             options: ["top", "bottom", "right", "left"],
             control: { type: "select" },
         },
     },
-} as ComponentMeta<typeof RdsPopover>;
+} satisfies Meta<typeof RdsPopover>;
 
-const Template: ComponentStory<typeof RdsPopover> = (args) => (
-    <RdsPopover {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsPopover>;
 
-export const Popover = Template.bind({});
-Popover.decorators= [
-    (Story) => (
-        <div style={{ padding:"200px 300px" ,
-        }}>
-            <Story/>
-        </div>
-    ),
-],
-Popover.args = {
-    popoverPosition:"top",
-    children:<p>Popover</p>,
-};
+export const Popover: Story = {
+    args: {
+        popoverPosition: "top",
+        children: <p>Popover</p>,
+    }
+} satisfies Story;
+
+
+// export const Popover = Template.bind({});
+// Popover.decorators = [
+//     (Story) => (
+//         <div style={{
+//             padding: "200px 300px",
+//         }}>
+//             <Story />
+//         </div>
+//     ),
+// ],
+//     Popover.args = {
+//         popoverPosition: "top",
+//         children: <p>Popover</p>,
+//     };

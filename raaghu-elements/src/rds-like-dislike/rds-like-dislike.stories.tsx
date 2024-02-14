@@ -1,11 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsLikeDislike from "./rds-like-dislike";
+import { Meta, StoryObj } from "@storybook/react";
 
-
-export default {
-    title: "Elements/Like-Dislike",
+const meta: Meta = {
+    title: 'Elements/Like-Dislike',
     component: RdsLikeDislike,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -20,15 +23,17 @@ export default {
             ],
             control: { type: "select" },
         },
+    },
+} satisfies Meta<typeof RdsLikeDislike>;
+
+export default meta;
+type Story = StoryObj<typeof RdsLikeDislike>;
+
+
+export const LikeDislike: Story = {
+    args: {
+        like: 0,
+        dislike: 0,
     }
-} as ComponentMeta<typeof RdsLikeDislike>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsLikeDislike> = (args) => (
-    <RdsLikeDislike {...args} />
-);
-
-export const LikeDislike = Template.bind({});
-LikeDislike.args = {
-    like: 0,
-    dislike: 0,
-};

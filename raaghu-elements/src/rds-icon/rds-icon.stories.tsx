@@ -1,10 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsIcon from "./rds-icon";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Icon",
+const meta: Meta = {
+    title: 'Elements/Icon',
     component: RdsIcon,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
@@ -14,33 +18,32 @@ export default {
             options: ["top", "bottom", "right", "left"],
             control: { type: "radio" },
         },
+
+    },
+} satisfies Meta<typeof RdsIcon>;
+
+export default meta;
+type Story = StoryObj<typeof RdsIcon>;
+
+export const Icon: Story = {
+    args: {
+        name: "users",
+        width: "20px",
+        height: "20px",
+        fill: false,
+        stroke: true,
+        colorVariant: "primary",
+        isAnimate: true,
     }
-} as ComponentMeta<typeof RdsIcon>;
+} satisfies Story;
 
-const Template: ComponentStory<typeof RdsIcon> = (args) => (
-    <RdsIcon {...args} />
-);
-
-export const Icon= Template.bind({});
-Icon.args = {
-    name: "users",
-    width: "20px",
-    height: "20px",
-    fill: false,
-    stroke: true,
-    colorVariant: "primary",
-    isAnimate: true,
-};
-
-export const Tooltip = Template.bind({});
-Tooltip.args = {
-    colorVariant: "primary",
-    icon: "plus",
-    block: false,
-    size: "medium",
-    databstoggle: "tooltip",
-    tooltip: true,
-    tooltipPlacement: "right",
-    tooltipTitle: "This is tooltip",
-    lottie: false
-};
+export const Tooltip: Story = {
+    args: {
+        colorVariant: "primary",
+        name: "plus",
+        databstoggle: "tooltip",
+        tooltip: true,
+        tooltipPlacement: "right",
+        tooltipTitle: "This is tooltip",
+    }
+} satisfies Story;

@@ -1,32 +1,38 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsCheckbox from "./rds-checkbox";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Checkbox",
+const meta: Meta = {
+    title: 'Elements/Checkbox"',
     component: RdsCheckbox,
-    argTypes:{
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
         state: {
-            options:["Checkbox" ,"Indeterminate" , "ErrorCheckbox"],
+            options: ["Checkbox", "Indeterminate", "ErrorCheckbox"],
             control: { type: "select" },
         }
-    }
-} as ComponentMeta<typeof RdsCheckbox>;
+    },
+} satisfies Meta<typeof RdsCheckbox>;
 
-const Template: ComponentStory<typeof RdsCheckbox> = (args) => (
-    <RdsCheckbox {...args} />
-);
-                                                                                                                                                                                              
-export const checkbox = Template.bind({});
-checkbox.args = {
-    state: "Checkbox",
-    label: "default checkbox",
-    checked:false,
-    isDisabled:false,
-    isSwitch:false,
-    withlabel:true,
-    id: "id1",
-    //errorMessage:"error Message",
-    isInputGroup: false
-};
+export default meta;
+type Story = StoryObj<typeof RdsCheckbox>;
+
+
+export const checkbox :Story={
+    args:{
+        state:"Checkbox",
+        label:"default checkbox",
+        checked:false,
+        isDisabled:false,
+        isSwitch:false,
+        withlabel:true,
+        id:"id1",
+        //errorMessage:"error Message",
+        isInputGroup:false
+    }
+} satisfies Story;
+
 

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 export interface RdsChangePasswordProps {
     changePasswordData?: any;
     PasswordDataSubmit?: any;
 }
 
 const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
-    const { t } = useTranslation();
     const [changePassword, setChangePassword] = useState(props.changePasswordData);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -107,7 +105,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
             </div>
             <div className="d-flex justify-content-center mt-5">
                 <RdsButton
-                    label={t("Save") || ""}
+                    label="Save"
                     colorVariant='primary'
                     block={false}
                     type="submit"

@@ -1,26 +1,33 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompEdition from "./rds-comp-edition";
-export default {
 
+
+const meta: Meta = {
     title: "Components/Edition",
     component: RdsCompEdition,
-} as ComponentMeta<typeof RdsCompEdition>;
-const Template: ComponentStory<typeof RdsCompEdition> = (args) => (
-    <RdsCompEdition {...args} />
-);
-export const Edition = Template.bind({});
-Edition.args = {
-    EditionItems: {
-        EditionName: "Corporate",
-        EditionTitle: "Strong Application for large team",
-        Price: "45",
-        Plan: "Per month",
+    parameters: {
+        layout: "",
     },
-    features: [
-        "Maximum User Count",
-        "Test Check feature",
-        "Test check feature count 2",
-    ],
-};
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompEdition>;
 
+export default meta;
+type Story = StoryObj<typeof RdsCompEdition>;
+
+export const Default: Story = {
+    args: {
+        EditionItems: {
+            EditionName: "Corporate",
+            EditionTitle: "Strong Application for large team",
+            Price: "45",
+            Plan: "Per month",
+        },
+        features: [
+            "Maximum User Count",
+            "Test Check feature",
+            "Test check feature count 2",
+        ],
+    }
+} satisfies Story;

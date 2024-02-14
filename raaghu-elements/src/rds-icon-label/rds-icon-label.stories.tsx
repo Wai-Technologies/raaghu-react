@@ -1,54 +1,54 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsIconLabel from "./rds-icon-label";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-  title: "Elements/Icon Label",
+const meta: Meta = {
+  title: 'Elements/Icon Label',
   component: RdsIconLabel,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
   argTypes: {
     colorVariant: {
-        options: [
-            "primary",
-            "secondary",
-            "success",
-            "info",
-            "warning",
-            "danger",
-            "dark",
-            "light",
-        ],
-        control: { type: "select" },
+      options: [
+        "primary",
+        "secondary",
+        "success",
+        "info",
+        "warning",
+        "danger",
+        "dark",
+        "light",
+      ],
+      control: { type: "select" },
     },
     size: {
-        options: ['small', 'medium', 'large'],
-        control: { type: 'radio' }
-      },
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' }
+    },
   },
-} as ComponentMeta<typeof RdsIconLabel>;
+} satisfies Meta<typeof RdsIconLabel>;
 
-const Template: ComponentStory<typeof RdsIconLabel> = (args) => (
-  <RdsIconLabel {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsIconLabel>;
 
-export const Default = Template.bind({});
-Default.args = {
-  label: "User Name",
-  icon: "users",
-  size: "medium",
-  colorVariant:"primary",
-};
+export const Default: Story = {
+  args: {
+    label: "User Name",
+    icon: "users",
+    size: "medium",
+    colorVariant: "primary",
+  }
+} satisfies Story;
 
-export const WithPosition = Template.bind({});
-WithPosition.args = {
-label: "User Name",
-  icon: "users",
-  size: "medium",
-  iconposition: "left",
-  colorVariant:"primary",
-};
-WithPosition.argTypes = {
-  iconposition: {
-    options: ["left", "right"],
-    control: { type: "radio" },
-  },
-};
+export const WithPosition: Story = {
+  args: {
+    label: "User Name",
+    icon: "users",
+    size: "medium",
+    iconposition: "left",
+    colorVariant: "primary",
+  }
+} satisfies Story;
+

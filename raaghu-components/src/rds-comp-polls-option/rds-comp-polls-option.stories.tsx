@@ -1,28 +1,28 @@
 
-/* eslint-disable */
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompPollsOption from './rds-comp-polls-option';
-import { ComponentStory } from '@storybook/react';
-import { I18nextProvider } from 'react-i18next';
-import i18n from '../../../.storybook/i18n';
 
-export default {
+
+const meta: Meta = { 
   title: "Components/Polls-Option",
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-};
+    component: RdsCompPollsOption,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompPollsOption>;
 
-const Template: ComponentStory<typeof RdsCompPollsOption> = (args) => (
-  <RdsCompPollsOption {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompPollsOption>;
 
-export const PollsOption = () => <RdsCompPollsOption />;
+export const Default: Story = {
+    args: {
+  
+    }
+} satisfies Story;
 
-PollsOption.story = {
-  name: 'default',
-};
+
+
+

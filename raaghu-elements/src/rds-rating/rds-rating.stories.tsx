@@ -1,21 +1,28 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RdsRating from "./rds-rating";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
-    title: "Elements/Rating",
+const meta: Meta = {
+    title: 'Elements/Rating',
     component: RdsRating,
-} as ComponentMeta<typeof RdsRating>;
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsRating>;
 
-const Template: ComponentStory<typeof RdsRating> = (args) => (
-    <RdsRating />
-);
+export default meta;
+type Story = StoryObj<typeof RdsRating>;
 
-export const Rating = Template.bind({});
-Rating.args = {
-    rating: 2,
-    colorVariant: "warning",
-    reviewPosition: "right",
-    noOfReviews: 123,
-    seeAllOption: false
-};
+export const Rating: Story = {
+    args: {
+        rating: 2,
+        colorVariant: "warning",
+        reviewPosition: "right",
+        noOfReviews: 123,
+        seeAllOption: false
+    }
+} satisfies Story;
+

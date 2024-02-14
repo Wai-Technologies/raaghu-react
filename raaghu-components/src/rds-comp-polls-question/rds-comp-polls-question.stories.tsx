@@ -1,30 +1,24 @@
-/* eslint-disable */
-import React from 'react';
-import { ComponentStory } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompPollsQuestion from './rds-comp-polls-question';
-import { I18nextProvider } from 'react-i18next';
-import i18n from '../../../.storybook/i18n';
 
-export default {
-  title: "components/Polls-Question",
-  decorators: [
-    (StoryComponent) => (
-      <I18nextProvider i18n={i18n}>
-        <StoryComponent />
-      </I18nextProvider>
-    ),
-  ],
-};
 
-const Template: ComponentStory<typeof RdsCompPollsQuestion> = (args) => (
-  <RdsCompPollsQuestion {...args} />
-);
+const meta: Meta = { 
+    title: "components/Polls-Question",
+    component: RdsCompPollsQuestion,
+    parameters: {
+        layout: "",
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    },
+} satisfies Meta<typeof RdsCompPollsQuestion>;
 
-export const PollsQuestion = () => <RdsCompPollsQuestion />;
+export default meta;
+type Story = StoryObj<typeof RdsCompPollsQuestion>;
 
-PollsQuestion.story = {
-  name: 'default',
-
+export const Default: Story = {
+    args: {
+      name: 'default', 
   widgetList: [
     {
       option: "One"
@@ -40,4 +34,9 @@ PollsQuestion.story = {
     }
 
   ]
-};
+    }
+} satisfies Story;
+
+
+
+
