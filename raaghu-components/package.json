@@ -87,6 +87,7 @@
     "canvas": "^2.11.2",
     "codemirror": "^5.65.13",
     "i18next": "^23.7.6",
+    "million": "^3.0.3",
     "prismjs": "^1.29.0",
     "react-codemirror2": "^7.3.0",
     "react-router-dom": "^6.20.0",
