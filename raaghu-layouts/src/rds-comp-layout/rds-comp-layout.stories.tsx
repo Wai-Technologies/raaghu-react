@@ -2,17 +2,24 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
 import RdsCompLayout from "./rds-comp-layout";
 import RdsCompLayoutItem from "./rds-comp-layout-item";
+import * as stories from "../rds-comp-app-shell/rds-comp-app-shell.stories"; 
 
 export default {
   title: "Layouts",
   component: RdsCompLayout,
   argTypes: {
-    displayType: {
+    // displayType: {
+    //   control: {
+    //     type: "select",
+    //     options: ["layout1", "layout2", "layout3", "layout4", "layout5", "layout6", "layout7", "layout8"],
+    //   },
+    //   defaultValue: "layout1",
+    // },
+    shell: {
       control: {
         type: "select",
-        options: ["layout1","layout2","layout3","layout4","layout5","layout6","layout7","layout8"],
+        options: Object.keys(stories).filter(story => !['default', '__namedExportsOrder', 'exports'].includes(story)).map(story => story.toLowerCase()),
       },
-      defaultValue: "layout1",
     },
   },
 } as ComponentMeta<typeof RdsCompLayout>;
@@ -24,7 +31,6 @@ const Template: ComponentStory<typeof RdsCompLayout> = (args) => (
 export const Layout1 = Template.bind({});
 Layout1.args = {
   displayType: "layout1",
-  //withShell: true,
   children: (
     <>
       <RdsCompLayoutItem title={""}>
