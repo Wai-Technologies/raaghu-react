@@ -24,6 +24,12 @@ export default [
             },
         ],
         plugins: [
+            million.rollup({
+                auto: {
+                  threshold: 0.05,
+                  skip: ["useBadHook", /badVariable/g],
+                },
+              }),
             resolve({ preferBuiltins: true, mainFields: ["browser"] }),
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json", sourceMap: false }),
