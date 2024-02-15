@@ -6,12 +6,16 @@ const config: StorybookConfig = {
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../raaghu-elements/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
+    "@storybook/preset-scss",
+    "storybook-addon-themes",
+    //"@storybook/addon-toolbars"
   ],
   framework: {
     name: "@storybook/react-vite",
