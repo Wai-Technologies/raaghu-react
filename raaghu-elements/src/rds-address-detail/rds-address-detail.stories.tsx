@@ -3,7 +3,7 @@ import RdsAddressDetail, { RdsAddressDetailProps } from "./rds-address-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-  title: 'Elements/Alert',
+  title: 'Elements/Address Detail',
   component: RdsAddressDetail,
   parameters: {
     layout: 'padded',

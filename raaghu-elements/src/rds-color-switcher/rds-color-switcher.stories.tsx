@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta, Meta, StoryObj } from "@storybook/react"
 import RdsColorSwitcher from "./rds-color-switcher";
 
 const meta: Meta = {
-    title: 'Elements/Alert',
+    title: 'Elements/Color Switcher',
     component: RdsColorSwitcher,
     parameters: {
         layout: 'padded',

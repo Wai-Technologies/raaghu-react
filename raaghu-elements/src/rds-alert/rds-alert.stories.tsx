@@ -9,7 +9,16 @@ const meta: Meta<typeof RdsAlert> = {
     component: RdsAlert,
     argTypes: {
         colorVariant: {
-            options: "alert_colors",
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
             control: { type: "select" },
         },
         position: {

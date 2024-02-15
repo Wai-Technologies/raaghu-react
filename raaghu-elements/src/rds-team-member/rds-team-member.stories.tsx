@@ -3,7 +3,7 @@ import RdsTeamMember from "./rds-team-member";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Alert',
+    title: 'Elements/Team Member',
     component: RdsTeamMember,
     parameters: {
         layout: 'padded',
