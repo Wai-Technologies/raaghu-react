@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/DirectoryList",
     component: RdsCompDirectoryList,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

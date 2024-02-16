@@ -33,7 +33,7 @@ const meta: Meta = {
     title: "Components/Api Resource Basic",
     component: RdsCompApiResourceBasic,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

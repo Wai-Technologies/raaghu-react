@@ -33,7 +33,7 @@ const meta: Meta = {
     title: "Components/Database Connection",
     component: RdsCompDatabaseConnection,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

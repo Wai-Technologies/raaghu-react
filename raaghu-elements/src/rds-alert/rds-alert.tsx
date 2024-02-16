@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect } from "react";
 // import { colors, size } from "../../libs/types";
-// import RdsIcon from "../rds-icon";
+import RdsIcon from "../rds-icon";
 import "./rds-alert.css";
 export interface RdsAlertProps {
     dismisable?: boolean;
@@ -61,7 +61,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         <Fragment>
             <div className={"alert alert-" + (props.colorVariant) +" d-flex justify-content-between align-items-center z-0 " + classes() +  ` ${delayClass}`} role="alert">
                 <span className="wordbreak d-flex align-items-center">
-                    {/* {props.hasOwnProperty("icon") && (
+                    {props.hasOwnProperty("icon") && (
                         <RdsIcon
                             name={props.icon || " "}
                             fill={props.iconFill}
@@ -71,7 +71,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                             colorVariant={props.colorVariant}
                             classes="me-2"
                         />
-                    )} */}
+                    )}
                     {props.alertmessage}
                 </span>
                 {props.dismisable === true && (

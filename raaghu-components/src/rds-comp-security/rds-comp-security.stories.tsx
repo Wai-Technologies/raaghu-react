@@ -7,7 +7,7 @@ const meta: Meta = {
     title: "Components/Security",
     component: RdsCompSecurity,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

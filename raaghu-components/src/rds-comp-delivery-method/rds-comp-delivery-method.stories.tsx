@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Delivery Method",
     component: RdsCompDeliveryMethod,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -5,7 +5,7 @@ const meta: Meta = {
     title: "Components/Login",
     component: RdsCompLogin,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

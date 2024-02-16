@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/New Language",
   component: RdsCompNewLanguage,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

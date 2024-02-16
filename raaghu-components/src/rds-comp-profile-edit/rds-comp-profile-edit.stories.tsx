@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Profile Edit",
     component: RdsCompProfileEdit,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

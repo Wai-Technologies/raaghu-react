@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Apply For Position",
     component: RdsCompApplyForPosition,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

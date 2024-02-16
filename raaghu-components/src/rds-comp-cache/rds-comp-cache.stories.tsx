@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Cache",
     component: RdsCompCache,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

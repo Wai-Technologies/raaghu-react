@@ -9,7 +9,7 @@ const meta: Meta = {
   title: "Components/Personal Info",
   component: RdsCompPersonalInfo,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Top Navigation",
     component: RdsCompTopNavigation,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

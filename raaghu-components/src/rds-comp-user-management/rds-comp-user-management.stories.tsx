@@ -72,7 +72,7 @@ const meta: Meta = {
     title: "Components/User Management",
     component: RdsCompUserManagement,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

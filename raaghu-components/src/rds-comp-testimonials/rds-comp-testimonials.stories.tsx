@@ -7,7 +7,7 @@ const meta: Meta = {
     title: "Components/Testimonials",
     component: RdsCompTestimonials,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -44,7 +44,7 @@ const meta: Meta = {
     title: "Components/DownloadCollation",
     component: RdsCompDownloadCollation,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

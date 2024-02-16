@@ -5,7 +5,7 @@ const meta: Meta = {
     title: "Components/Login Attempts",
     component: RdsCompLoginAttempts,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

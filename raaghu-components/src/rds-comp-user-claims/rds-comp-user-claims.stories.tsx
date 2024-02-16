@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/User Claim",
     component: RdsCompUserClaim,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

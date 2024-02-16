@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Typeahead",
     component: RdsCompTypeahead,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

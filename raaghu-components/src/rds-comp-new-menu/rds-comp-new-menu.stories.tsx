@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/ New Menu",
     component: RdsCompNewMenu,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

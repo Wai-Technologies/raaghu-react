@@ -89,7 +89,7 @@ const meta: Meta = {
     title: "Components/Billing",
     component: RdsCompBilling,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

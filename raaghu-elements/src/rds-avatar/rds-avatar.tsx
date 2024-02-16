@@ -147,7 +147,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                         <div className={`flex-grow-0 gap-2 ${Aligned}`}>
                             <img src={withPP} className={`avatar-sm ` + classes()} alt="profile" />
                             <span className={"avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" + profileName()}>
-                                <div className="text-center">
+                                <div>
                                     <span>{titleFirstName}{titleLastName}</span>
                                     <p className="mb-0 text-muted">
                                         {titleRole}

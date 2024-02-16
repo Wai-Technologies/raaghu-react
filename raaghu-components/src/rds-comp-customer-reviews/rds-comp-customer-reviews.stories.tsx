@@ -30,7 +30,7 @@ const meta: Meta = {
     title: "Components/Customer Reviews",
     component: RdsCompCustomerReviews,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

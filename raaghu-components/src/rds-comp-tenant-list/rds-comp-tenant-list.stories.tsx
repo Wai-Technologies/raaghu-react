@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Tenant List",
     component: RdsCompEditionList,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

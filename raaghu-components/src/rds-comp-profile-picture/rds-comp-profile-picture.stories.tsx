@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Profile Picture",
     component: RdsCompProfilePicture,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

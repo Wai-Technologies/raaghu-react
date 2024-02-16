@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Styles from node_modules
 export default create({
 	base: "light",
 	brandTitle: "Raaghu",
-	brandUrl: "https://raaghu.io",
+	brandUrl: "https://react.raaghu.io",
 	brandImage: logoUrl,
 	// colorPrimary: '#3A10E5',
 	//colorSecondary: '#585C6D',

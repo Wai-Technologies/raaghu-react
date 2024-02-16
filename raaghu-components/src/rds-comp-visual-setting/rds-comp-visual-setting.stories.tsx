@@ -5,7 +5,7 @@ const meta: Meta = {
     title: "Components/Visual Setting",
     component: RdsCompVisualSetting,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

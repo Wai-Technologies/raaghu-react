@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Syntax Highlighter",
     component: RdsCompSyntaxHighlighter,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

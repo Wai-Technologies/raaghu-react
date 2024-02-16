@@ -67,7 +67,7 @@ const meta: Meta = {
     title: "Components/Detail List",
     component: RdsCompCardDetailList,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

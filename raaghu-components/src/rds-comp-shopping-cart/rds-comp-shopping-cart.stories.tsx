@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/Shopping Cart",
   component: RdsCompShoppingCart,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

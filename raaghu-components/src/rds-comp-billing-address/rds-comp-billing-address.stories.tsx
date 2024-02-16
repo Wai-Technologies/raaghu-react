@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Billing Address",
     component: RdsCompBillingAddress,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

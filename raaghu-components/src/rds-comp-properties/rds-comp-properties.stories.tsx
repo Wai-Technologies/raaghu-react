@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Properties",
     component: RdsCompProperties,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
