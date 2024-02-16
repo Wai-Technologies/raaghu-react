@@ -33,7 +33,7 @@ const meta: Meta = {
   title: "Components/Linked Account",
     component: RdsLinkedAccount,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

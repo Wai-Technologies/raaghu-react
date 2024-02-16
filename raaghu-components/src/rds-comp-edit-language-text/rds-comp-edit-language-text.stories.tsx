@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Edit Language Text",
     component: RdsCompEditLanguageText,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

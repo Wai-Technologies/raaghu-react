@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/File Management Tree",
     component: RdsCompFileManagementTree,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

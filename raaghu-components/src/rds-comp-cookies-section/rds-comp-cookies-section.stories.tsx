@@ -26,7 +26,7 @@ const meta: Meta = {
     title: "Components/Cookies Section",
     component: RdsCompCookiesSection,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

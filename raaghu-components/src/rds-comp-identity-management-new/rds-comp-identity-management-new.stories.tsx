@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/Identity Management",
     component: RdsCompIdentityManagement,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

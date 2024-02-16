@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Webhook Subscription",
     component: RdsCompWebhookSubscription,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

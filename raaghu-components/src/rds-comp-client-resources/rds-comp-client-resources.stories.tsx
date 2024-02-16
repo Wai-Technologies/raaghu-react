@@ -198,7 +198,7 @@ const meta: Meta = {
     title: "Components/Client Resource",
     component: RdsCompClientResource,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

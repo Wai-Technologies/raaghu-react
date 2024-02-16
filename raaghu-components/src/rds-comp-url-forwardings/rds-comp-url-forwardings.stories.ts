@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Url Forwardings",
     component: RdsCompUrlForwardings,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

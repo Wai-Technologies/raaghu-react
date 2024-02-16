@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Secrets",
     component: RdsCompSecrets,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

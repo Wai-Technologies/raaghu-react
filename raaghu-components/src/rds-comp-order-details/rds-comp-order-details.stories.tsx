@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/Order Details",
     component: RdsCompOrderDetails,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

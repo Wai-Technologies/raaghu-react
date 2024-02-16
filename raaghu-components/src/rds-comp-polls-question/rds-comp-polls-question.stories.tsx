@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "components/Polls-Question",
     component: RdsCompPollsQuestion,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

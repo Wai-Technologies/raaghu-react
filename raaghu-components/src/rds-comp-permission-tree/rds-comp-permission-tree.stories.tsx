@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Permission Tree",
     component: RdsCompPermissionTree,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

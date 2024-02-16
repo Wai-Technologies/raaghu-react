@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Invoice",
     component: RdsCompInvoice,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

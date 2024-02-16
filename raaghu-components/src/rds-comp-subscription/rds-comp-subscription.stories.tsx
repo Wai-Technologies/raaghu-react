@@ -76,7 +76,7 @@ const meta: Meta = {
     title: "Components/Subscription",
     component: RdsCompSubscription,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -7,7 +7,7 @@ const meta: Meta = {
   title: "Components/Order Summary",
   component: RdsCompOrderSummary,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

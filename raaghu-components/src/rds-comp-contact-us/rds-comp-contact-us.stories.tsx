@@ -33,7 +33,7 @@ const meta: Meta = {
     title: "Components/Contact Us",
     component: RdsCompContactUs,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -63,7 +63,7 @@ const meta: Meta = {
     title: "Components/File Mover",
     component: RdsCompFileMover,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

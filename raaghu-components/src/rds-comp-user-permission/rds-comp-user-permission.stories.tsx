@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/User Permission",
     component: RdsCompUserPermission,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

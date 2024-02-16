@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/User Delegations",
     component: RdsUserDelegations,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

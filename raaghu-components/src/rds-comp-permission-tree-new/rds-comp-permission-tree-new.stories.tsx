@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Permission Tree New",
     component: TreeNode,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

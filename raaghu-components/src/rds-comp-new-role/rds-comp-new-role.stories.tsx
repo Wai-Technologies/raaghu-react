@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/New Role",
     component: RdsCompNewRole,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

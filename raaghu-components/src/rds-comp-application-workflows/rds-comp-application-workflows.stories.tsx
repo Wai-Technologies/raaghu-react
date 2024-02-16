@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Application Work flows",
     component: RdsCompApplicationWorkflows,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

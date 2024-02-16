@@ -46,7 +46,7 @@ const meta: Meta = {
     title: "Components/Calendar",
     component: RdsCompCalendar,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

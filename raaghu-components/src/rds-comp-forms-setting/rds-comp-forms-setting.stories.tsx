@@ -7,7 +7,7 @@ const meta: Meta = {
     title: "Components/Forms Settings",
     component: RdsCompFormsSettings,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

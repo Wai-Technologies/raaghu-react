@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Alert Popup",
     component: RdsCompAlertPopup,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

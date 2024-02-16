@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Teams",
     component: RdsCompTeams,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

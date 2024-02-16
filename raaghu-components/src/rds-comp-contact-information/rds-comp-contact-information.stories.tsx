@@ -27,7 +27,7 @@ const meta: Meta = {
     title: "Components/Contact Information",
     component: RdsCompContactInformation,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -78,7 +78,7 @@ const meta: Meta = {
     title: "Components/Claims",
     component: RdsCompClaims,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

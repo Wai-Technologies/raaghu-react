@@ -27,7 +27,7 @@ const meta: Meta = {
     title: "Components/Application Scopes",
     component: RdsCompApplicationScopes,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

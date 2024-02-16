@@ -7,7 +7,7 @@ const meta: Meta = {
     title: "Components/Side Navigation",
     component: RdsCompSideNavigation,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

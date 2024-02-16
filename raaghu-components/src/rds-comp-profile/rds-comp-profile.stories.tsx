@@ -56,7 +56,7 @@ const meta: Meta = {
     title: "Components/Profile",
     component: RdsCompProfile,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

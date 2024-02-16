@@ -7,7 +7,7 @@ const meta: Meta = {
   title: "Components/Developer Mode",
     component: RdsCompDeveloperMode,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

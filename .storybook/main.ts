@@ -28,6 +28,7 @@ const config: StorybookConfig = {
     {
       from : "./assets", to : "/assets"
     }
-  ]
+  ],
+  logLevel: 'debug',
 };
 export default config;

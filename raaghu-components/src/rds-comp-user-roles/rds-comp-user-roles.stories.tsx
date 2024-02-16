@@ -10,7 +10,7 @@ const meta: Meta = {
   title: "Components/User Roles",
     component: RdsCompUserRoles,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

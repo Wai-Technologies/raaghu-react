@@ -8,7 +8,7 @@ const meta: Meta = {
     title: "Components/Admin Dashboard",
     component: RdsCompAdminDashboard,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
