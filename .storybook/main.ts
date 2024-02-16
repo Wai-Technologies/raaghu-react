@@ -3,7 +3,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
   stories: [
     "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    // "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../raaghu-elements/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
@@ -27,6 +27,9 @@ const config: StorybookConfig = {
   staticDirs: [
     {
       from : "./assets", to : "/assets"
+    },
+    {
+      from: "./public", to: "/"
     }
   ],
   logLevel: 'debug',

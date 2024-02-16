@@ -6,7 +6,7 @@ import * as stories from "../rds-comp-app-shell/rds-comp-app-shell.stories";
 
 
 const meta: Meta = {
-    title: 'Layouts',
+    title: 'Layouts/Layouts',
     component: RdsCompLayout,
     parameters: { 
         layout: 'padded',

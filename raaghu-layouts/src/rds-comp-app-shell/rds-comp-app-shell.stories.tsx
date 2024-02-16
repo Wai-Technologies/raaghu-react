@@ -5,7 +5,7 @@ import RdsCompAppShellItem from "./rds-comp-app-shell-item";
 
 
 const meta: Meta = {
-    title: 'Application Shells',
+    title: 'Application Shell/Application Shells',
     component: RdsCompAppShell,
     parameters: { 
         layout: 'padded',
