@@ -195,7 +195,7 @@ const meta: Meta = {
     title: "Components/Api Scope Resource",
     component: RdsCompApiScopeResource,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

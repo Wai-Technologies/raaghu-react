@@ -6,7 +6,7 @@ const meta: Meta = {
   title: "Components/Notification Setting",
     component: RdsCompNotificationSettings,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

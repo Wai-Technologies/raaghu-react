@@ -7,7 +7,7 @@ const meta: Meta = {
     title: "Components/ Dynamic Entity Properties",
     component: RdsCompDynamicEntityProperty,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

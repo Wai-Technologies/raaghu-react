@@ -5,7 +5,7 @@ const meta: Meta = {
     title: "Components/Address Input",
     component: RdsCompAddressInput,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

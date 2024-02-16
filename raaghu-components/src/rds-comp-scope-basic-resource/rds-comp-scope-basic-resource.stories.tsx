@@ -57,7 +57,7 @@ const meta: Meta = {
     title: "Components/Scope Basic Resource",
     component: RdsCompScopeBasicResource,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

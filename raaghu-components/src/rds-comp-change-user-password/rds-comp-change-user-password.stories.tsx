@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Change User Password",
     component: RdsCompChangeUserPassword,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

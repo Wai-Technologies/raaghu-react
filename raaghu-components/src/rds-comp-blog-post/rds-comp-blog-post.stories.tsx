@@ -94,7 +94,7 @@ const meta: Meta = {
   title: "Components/Blog Post",
   component: RdsCompBlogPost,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

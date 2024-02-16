@@ -7,7 +7,7 @@ const meta: Meta = {
   title: "Components/Page Not Found",
   component: RdsCompPageNotFound,
   parameters: {
-    layout: "",
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {

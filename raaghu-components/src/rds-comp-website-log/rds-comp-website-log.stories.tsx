@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Website Log",
     component: RdsCompWebsiteLog,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

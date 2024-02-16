@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Identity Client Basic",
     component: RdsCompIdentityClientBasic,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

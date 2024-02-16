@@ -5,7 +5,7 @@ const meta: Meta = {
     title: "Components/New Claim Type",
     component: RdsCompNewClaimType,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

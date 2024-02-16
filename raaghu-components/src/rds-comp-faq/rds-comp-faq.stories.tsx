@@ -73,7 +73,7 @@ const meta: Meta = {
     title: "Components/Faq",
     component: RdsCompFaq,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

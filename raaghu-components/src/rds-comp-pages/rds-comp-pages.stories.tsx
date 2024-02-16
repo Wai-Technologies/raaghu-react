@@ -86,7 +86,7 @@ const meta: Meta = {
   title: "components/Pages",
     component: RdsCompDatatable,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

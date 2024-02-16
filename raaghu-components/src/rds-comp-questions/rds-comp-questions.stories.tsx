@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Questions",
     component: RdsCompQuestions,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

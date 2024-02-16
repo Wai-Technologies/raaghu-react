@@ -33,7 +33,10 @@
 #components.sidebar-item,
 #icons.sidebar-item,
 #pages.sidebar-item,
-#map.sidebar-item {
+#map.sidebar-item,
+#application-shell.sidebar-item,
+#layouts.sidebar-item
+{
     font-weight: 600;
 }
 
@@ -193,4 +196,10 @@
 /* elements in storybook */
 .sb-show-main{
     padding: 5px !important;
+}
+.css-1rb1jn6{
+    width: 120px !important;
+}
+.css-194spiq {
+   padding: 15px !important;
 }

@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Organization Tree",
     component: RdsComporganizationTree,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

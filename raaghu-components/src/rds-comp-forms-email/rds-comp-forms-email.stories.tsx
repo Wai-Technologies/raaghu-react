@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Forms Email",
     component: RdsCompFormsEmail,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

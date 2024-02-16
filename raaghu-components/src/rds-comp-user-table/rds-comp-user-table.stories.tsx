@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/User Table",
     component: RdsCompUserTable,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

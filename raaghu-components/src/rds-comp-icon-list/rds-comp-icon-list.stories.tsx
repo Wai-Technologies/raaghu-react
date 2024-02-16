@@ -6,7 +6,7 @@ const meta: Meta = {
     title: "Components/Icon List",
     component: RdsCompIconList,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

@@ -8,7 +8,7 @@ const meta: Meta = {
     title: "Components/Integration",
     component: RdsCompIntegration,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {

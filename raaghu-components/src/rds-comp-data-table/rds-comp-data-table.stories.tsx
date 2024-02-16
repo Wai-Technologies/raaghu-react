@@ -232,7 +232,7 @@ const meta: Meta = {
     title: "Components/Datatable",
     component: RdsCompDatatable,
     parameters: {
-        layout: "",
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
