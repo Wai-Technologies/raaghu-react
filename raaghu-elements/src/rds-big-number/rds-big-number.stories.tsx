@@ -20,6 +20,19 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
         bigNumberColor: {
             options: [
                 "primary",
@@ -33,7 +46,13 @@ const meta: Meta = {
                 "white"
             ],
             control: { type: "select" },
-        }
+        },
+        chartHeight: {
+            control: { type: "number" },
+        },
+        chartWidth: {
+            control: { type: "number" },
+        },
     },
 } satisfies Meta<typeof RdsBigNumber>;
 
@@ -57,21 +76,6 @@ export const standard: Story = {
         subTitle: "Visitors",
         bigNumber: "2,236",
         children: <></>
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
     }
 } satisfies Story;
 
@@ -95,21 +99,6 @@ export const delta: Story = {
                 <label className="ps-2 text-primary fs-5">75%</label>
             </>
         ),
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
     }
 } satisfies Story;
 
@@ -167,21 +156,6 @@ export const histogram: Story = {
                 }}
             />
         ),
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
     }
 } satisfies Story;
 
@@ -238,21 +212,6 @@ export const sparkLine: Story = {
                 ]}
             />
         ),
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
     }
 } satisfies Story;
 
@@ -272,21 +231,6 @@ export const icon: Story = {
                 colorVariant="primary"
             />
         ),
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
     }
 } satisfies Story;
 
