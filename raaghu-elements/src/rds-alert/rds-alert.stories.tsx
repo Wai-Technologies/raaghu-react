@@ -4,7 +4,7 @@ import RdsAlert from "./rds-alert";
 import type { Meta, StoryObj } from '@storybook/react';
 
 
-const meta: Meta<typeof RdsAlert> = {
+const meta = {
     title: "Elements/Alert",
     component: RdsAlert,
     argTypes: {
@@ -40,10 +40,10 @@ const meta: Meta<typeof RdsAlert> = {
 
     },
     tags: ['autodocs'],
-};
+} satisfies Meta<typeof RdsAlert>;
 
 export default meta;
-type Story = StoryObj<typeof RdsAlert>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
