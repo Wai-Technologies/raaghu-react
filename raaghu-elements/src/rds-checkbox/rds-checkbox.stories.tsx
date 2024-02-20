@@ -3,7 +3,7 @@ import RdsCheckbox from "./rds-checkbox";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Checkbox"',
+    title: 'Elements/Checkbox',
     component: RdsCheckbox,
     parameters: {
         layout: 'padded',
