@@ -1,12 +1,12 @@
 import React from "react";
 import RdsAlert from "./rds-alert";
-// import { alert_colors } from "../../libs/types";
 import type { Meta, StoryObj } from '@storybook/react';
 
 
-const meta: Meta<typeof RdsAlert> = {
-    title: "Elements/Alert",
+const meta: Meta = {
+    title: 'Elements/Alert',
     component: RdsAlert,
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -39,7 +39,7 @@ const meta: Meta<typeof RdsAlert> = {
         }
 
     },
-    tags: ['autodocs'],
+  
 } satisfies Meta<typeof RdsAlert>;
 
 export default meta;
