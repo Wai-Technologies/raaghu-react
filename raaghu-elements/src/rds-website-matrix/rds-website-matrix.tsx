@@ -56,7 +56,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
             {/* Left Aligned */}
             {displaytype == "leftAligned" && (
                 <div>
-                    <button type="button" className={"btn btnStyle " + `${btnColor}`}>
+                    <button type="button" className={"btn btn-icon rounded-circle " + `${btnColor}`}>
                         <RdsIcon
                             name={props.item.icon}
                             height={props.item.iconHeight}
@@ -167,7 +167,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                     <div className="text-center">
                         <button
                             type="button"
-                            className={"btn btnStyle d-inline-block " + `${btnColor}`}
+                            className={"btn btn-icon rounded-circle d-inline-block " + `${btnColor}`}
                         >
                             <RdsIcon
                                 name={props.item.icon}
@@ -211,7 +211,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                         <div className="mt-2">
                             <button
                                 type="button"
-                                className={"btn btnStyle d-inline-block " + `${btnColor}`}
+                                className={"btn btn-icon rounded-circle d-inline-block " + `${btnColor}`}
                             >
                                 <RdsIcon
                                     name={props.item.icon}
