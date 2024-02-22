@@ -6,19 +6,14 @@ const meta: Meta = {
     title: 'Elements/Icon',
     component: RdsIcon,
     parameters: {
-        layout: 'padded',
+        layout: 'centered',
     },
     tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
             control: { type: "select" },
-        },
-        tooltipPlacement: {
-            options: ["top", "bottom", "right", "left"],
-            control: { type: "radio" },
-        },
-
+        }
     },
 } satisfies Meta<typeof RdsIcon>;
 
@@ -41,9 +36,17 @@ export const Tooltip: Story = {
     args: {
         colorVariant: "primary",
         name: "plus",
+        width: "20px",
+        height: "20px",
         databstoggle: "tooltip",
         tooltip: true,
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
-    }
+    },
+    argTypes: {
+        tooltipPlacement: {
+            options: ["top", "bottom", "right", "left"],
+            control: { type: "radio" },
+        },
+    },
 } satisfies Story;

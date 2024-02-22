@@ -18,8 +18,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const iconUrl = props.iconUrl || "delete";
     const colorVariant = props.colorVariant || "danger";
     const alertConfirmation = props.alertConfirmation || "Are You Sure";
-    const messageAlert =
-        props.messageAlert || "This record will be deleted permanently";
+    const messageAlert = props.messageAlert || "This record will be deleted permanently";
     const CancelButtonLabel = props.cancelButtonLabel || "Cancel";
     const DeleteButtonLabel = props.deleteButtonLabel || "Delete";
     return (
