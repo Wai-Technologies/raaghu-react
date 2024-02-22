@@ -38,7 +38,7 @@ export const withTopBorder: Story = {
         item: {
             "title": "510+",
             "link": "Learn more",
-            "subtitle": "Clients Worked with"
+            "subtitle": "Clients Worked with",
         },
         displayType: "withTopBorder",
         colorVariant: "primary",
@@ -50,7 +50,10 @@ export const leftAligned: Story = {
         item: {
             "title": "510+",
             "link": "Learn more",
-            "subtitle": "Clients Worked with"
+            "subtitle": "Clients Worked with",
+            icon: "edit",
+            iconHeight: "20px",
+            iconWidth: "20px",
         },
         displayType: "leftAligned",
         colorVariant: "primary",

@@ -126,8 +126,8 @@ export const VerticalBarChart: Story = {
     }
 } satisfies Story;
 
-export const StackedBarChart :Story={
-    args:{
+export const StackedBarChart: Story = {
+    args: {
         id: 1,
         height: 300,
         width: 300,
@@ -173,8 +173,71 @@ export const StackedBarChart :Story={
 } satisfies Story;
 
 
-export const BarChartWithBorderRadius:Story={
-    args:{
+export const PerformanceStackedBarChart: Story = {
+    args: {
+        id: 1,
+        height: 300,
+        width: 300,
+        dataSets: [
+            {
+                label: "Productive",
+                data: [20, 30, 10, 15, 98, 45, 15, 20, 0, 20, 50, 98, 85, 35],
+                backgroundColor: "rgba(111, 206, 250, 1)",
+                // borderColor: "rgba(75, 192, 192, 1)"
+            },
+            {
+                label: "Unproductive",
+                data: [15, 47, 34, 78, 45, 17, 46, 15, 0, 34, 38, 45, 57, 26],
+                backgroundColor: "rgba(243, 123, 135, 1)",
+            },
+            {
+                label: "Neutral",
+                data: [31, 52, 43, 91, 14, 23, 36, 31, 0, 43, 21, 74, 23, 46],
+                backgroundColor: "rgba(228, 228, 228, 1)",
+            }
+        ],
+        labels: ["9 AM",
+            "10 AM",
+            "11 AM",
+            "12 PM",
+            "1 PM",
+            "2 PM",
+            "3 PM",
+            "4 PM",
+            "5 PM",
+            "6 PM",
+            "7 PM",
+            "8 PM",
+            "9 PM"],
+
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Performance Stacked Bar Chart"
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true,
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        stepSize: 25
+                    }
+                }
+            }
+        }
+    }
+} satisfies Story;
+
+export const BarChartWithBorderRadius: Story = {
+    args: {
         id: 1,
         height: 300,
         width: 300,
