@@ -122,10 +122,10 @@ const RdsButton = (props: RdsButtonProps) => {
             onClick={buttonClick}>
             {props.icon && (
                 <span className={iconClasses()}>
-                    {/* <RdsIcon
+                    <RdsIcon
                         name={props.icon}
                         fill={props.iconFill}
-                        stroke={props.iconStroke} /> */}
+                        stroke={props.iconStroke} />
                 </span>
             )}
             {props.label && (

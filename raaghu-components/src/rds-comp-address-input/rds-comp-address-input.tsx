@@ -113,7 +113,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                         </label>
 
                         <select
-                            className="form-select"
+                            className="form-select p-2"
                             name="state"
                             onChange={(e) => handlestate(e)}
                             data-testid="state"
@@ -134,7 +134,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                         <label htmlFor="state" className="form-label">
 							City
                         </label>
-                        <select className="form-select" name="city" data-testid="city">
+                        <select className="form-select p-2" name="city" data-testid="city">
                             <option value="">--Select City--</option>
                             {city.map((gcity: any, index) => (
                                 <option key={index} value={gcity.city_id}>

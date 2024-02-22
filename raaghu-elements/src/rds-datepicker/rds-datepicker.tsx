@@ -25,7 +25,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const onRangeChange = (dates: [any, any]) => {
-        props.customDate(dates);
+        if (props.customDate && typeof props.customDate === 'function') {
+            props.customDate(dates);
+        }
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);

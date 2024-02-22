@@ -49,6 +49,15 @@ export const WithPosition: Story = {
     size: "medium",
     iconposition: "left",
     colorVariant: "primary",
-  }
+  },
+  argTypes: {
+    iconposition: {
+        options: [
+            "left",
+            "right"
+        ],
+        control: { type: "select" },
+    },
+}
 } satisfies Story;
 

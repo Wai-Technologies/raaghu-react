@@ -5,10 +5,31 @@ const meta: Meta = {
     title: "Elements/Button",
     component: RdsButton,
     parameters: {
-        layout: "centered",
+        layout: "padded",
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
+            control: { type: "select" },
+        },
+        size: {
+            options: [
+                "small",
+                "medium",
+                "large"
+            ],
+            control: { type: "select" },
+        }
     },
 } satisfies Meta<typeof RdsButton>;
 
@@ -64,6 +85,17 @@ export const Tooltip: Story = {
         tooltip: true,
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
+    },
+     argTypes: {
+        tooltipPlacement: {
+            options: [
+                "right",
+                "left",
+                "top",
+                "bottom",
+            ],
+            control: { type: "radio" },
+        },
     }
 } satisfies Story;
 

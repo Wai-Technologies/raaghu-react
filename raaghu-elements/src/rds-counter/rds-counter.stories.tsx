@@ -27,10 +27,6 @@ const meta: Meta = {
             options: ["top", "bottom", "left", "right"],
             control: { type: "radio" },
         },
-        // counterValue: {
-        //     control:{type: "number"}
-        // }
-
     },
 } satisfies Meta<typeof RdsCounter>;
 
@@ -39,7 +35,7 @@ type Story = StoryObj<typeof RdsCounter>;
 
 export const Counter: Story = {
     args: {
-        counterValue: 0,
+        // counterValue: 0,
         min: 0,
         max: 50,
         width: 110,
