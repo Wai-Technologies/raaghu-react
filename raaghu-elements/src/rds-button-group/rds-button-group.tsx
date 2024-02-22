@@ -67,7 +67,8 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
             )}
 
             {props.role == "button" && (
-               <div  className={`${
+               <div  
+               className={`${
                         props.vertical == true ? "btn-group-vertical" : "btn-group"
                     } ${size}`}
                     role="group"
@@ -75,7 +76,7 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
                     
                 >
                     {props.buttonGroupItems.map((buttonGroupItem, idx) => (
-                        <button type="button" className={outlineColorVariant + buttonGroupItem.icon ? ' btn-icon '+ outlineColorVariant:''} 
+                        <button type="button" className={outlineColorVariant + buttonGroupItem.icon && buttonGroupItem.label === "" || null ? ' btn-icon '+ outlineColorVariant: outlineColorVariant} 
                          onClick={(e)=>{props.onButtonClick && props.onButtonClick(e, buttonGroupItem.id ) }}
                          key={buttonGroupItem.id}  id={buttonGroupItem.id}
                         data-bs-dismiss={buttonGroupItem.databsdismiss} 

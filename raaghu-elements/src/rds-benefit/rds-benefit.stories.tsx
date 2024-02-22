@@ -10,17 +10,6 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        displayType: {
-            options: [
-                "default",
-                "Heading With Icon",
-                "Left Aligned",
-                "With Label",
-                "Without Label",
-                "Center Aligned"
-            ],
-            control: { type: "select" },
-        },
     },
 } satisfies Meta<typeof RdsBenefit>;
 

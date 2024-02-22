@@ -1,6 +1,5 @@
 import React from "react";
 import RdsButtonGroup from "./rds-button-group";
-import { button_colors } from "../../libs/types/colorvariant";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -12,7 +11,27 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: { control: 'color' },
+        colorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+        size: {
+            options: [
+                "small",
+                "medium",
+                "large"
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsButtonGroup>;
 
