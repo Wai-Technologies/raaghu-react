@@ -14,9 +14,16 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
-    "storybook-addon-themes",
     //"@storybook/addon-toolbars"
+    "storybook-addon-themes",
+    "@storybook/addon-mdx-gfm"
   ],
+  core: {
+    builder: '@storybook/builder-vite', // 👈 The builder enabled here.
+  },
+  typescript: {
+    reactDocgen: 'react-docgen', // 👈 react-docgen configured here.
+  },
   framework: {
     name: "@storybook/react-vite",
     options: {},

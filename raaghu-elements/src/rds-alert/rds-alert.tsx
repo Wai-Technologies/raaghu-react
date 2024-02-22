@@ -58,7 +58,6 @@ const RdsAlert = (props: RdsAlertProps) => {
         return defaultClass;
     }
     return (
-        <Fragment>
             <div className={"alert alert-" + (props.colorVariant) +" d-flex justify-content-between align-items-center z-0 " + classes() +  ` ${delayClass}`} role="alert">
                 <span className="wordbreak d-flex align-items-center">
                     {props.hasOwnProperty("icon") && (
@@ -84,7 +83,6 @@ const RdsAlert = (props: RdsAlertProps) => {
                     ></button>
                 )}
             </div>
-        </Fragment>
     );
 };
 

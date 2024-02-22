@@ -13,7 +13,8 @@ export default {
             ],
             control: { type: "select" },
         }
-    }
+    },
+    tags: ['autodocs'],
 } as ComponentMeta<typeof RdsRadioButton>;
 
 const Template: ComponentStory<typeof RdsRadioButton> = (args) => (

@@ -1,12 +1,12 @@
 import React from "react";
 import RdsAlert from "./rds-alert";
-// import { alert_colors } from "../../libs/types";
 import type { Meta, StoryObj } from '@storybook/react';
 
 
-const meta: Meta<typeof RdsAlert> = {
-    title: "Elements/Alert",
+const meta: Meta = {
+    title: 'Elements/Alert',
     component: RdsAlert,
+    tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: [
@@ -39,8 +39,8 @@ const meta: Meta<typeof RdsAlert> = {
         }
 
     },
-    tags: ['autodocs'],
-};
+  
+} satisfies Meta<typeof RdsAlert>;
 
 export default meta;
 type Story = StoryObj<typeof RdsAlert>;
@@ -54,7 +54,7 @@ export const Default: Story = {
         sticky: false,
         position: "top",
     }
-};
+} satisfies Story;
 
 
 
@@ -72,7 +72,7 @@ export const With_icon: Story = {
         sticky: false,
         position: "top",
     }
-};
+} satisfies Story;
 
 
 export const With_close_button: Story = {
@@ -89,7 +89,7 @@ export const With_close_button: Story = {
         iconHeight: "20px",
         iconWidth: "20px",
     }
-};
+} satisfies Story;
 
 export const With_Delay_Alert: Story = {
     args: {
@@ -106,5 +106,5 @@ export const With_Delay_Alert: Story = {
         iconHeight: "20px",
         iconWidth: "20px",
     }
-};
+} satisfies Story;
 
