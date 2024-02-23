@@ -41,9 +41,9 @@ export const Default: Story = {
         size: "large",
         multiple: false,
         extensions: "",
-        colorVariant: "dark",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['size', 'multiple', 'extensions'] } };
 
 export const Multiple: Story = {
     args: {
@@ -52,7 +52,9 @@ export const Multiple: Story = {
         multiple: true,
         extensions: "",
         limit: 5,
+        size: "large",
     }
 } satisfies Story;
+Multiple.parameters = { controls: { include: ['placeholder', 'colorVariant', 'multiple', 'extensions', 'limit', 'size'] } };
 
 

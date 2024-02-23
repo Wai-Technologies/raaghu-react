@@ -131,8 +131,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
             >
                 <div className="row mt-5 ">
                     <div className="col-lg-6  mb-4 col-md-12">
-                        <RdsLabel label="Email ID" fontWeight="600" />
                         <RdsInput
+                            label="Email ID"
                             placeholder="name@domain.com"
                             inputType="email"
                             onChange={emailhandleChange}
@@ -145,8 +145,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                     </div>
 
                     <div className="col-lg-6  mb-4 col-md-12">
-                        <RdsLabel label="Full Name" fontWeight="600" />
                         <RdsInput
+                            label="Full Name"
                             placeholder="Full Name"
                             inputType="text"
                             onChange={fullNamehandleChange}
@@ -162,8 +162,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                 </div>
                 <div className="row ">
                     <div className="col-md-6  mb-4 col-sm-12">
-                        <RdsLabel label="Contact Number" fontWeight="600" />
                         <RdsInput
+                            label="Contact Number"
                             placeholder="+91 9087654321"
                             inputType="text"
                             onChange={contactNumberhandleChange}
@@ -178,8 +178,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                     </div>
 
                     <div className="col-md-6 mb-4 col-sm-12">
-                        <RdsLabel label="Applying For Position:" fontWeight="600" />
                         <RdsInput
+                            label="Applying For Position:"
                             placeholder="Position Name"
                             inputType="text"
                             onChange={positionhandleChange}
@@ -196,8 +196,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                 <div className="row">
                     <div className="col-md-6 col-sm-12">
                         <div className="mb-2">
-                            <RdsLabel label="When Can You Start?" fontWeight="600" />
                             <RdsInput
+                                label="When Can You Start?"
                                 placeholder="Notice Period"
                                 inputType="text"
                                 onChange={periodhandleChange}
@@ -227,8 +227,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                     </div>
 
                     <div className="col-md-6  col-sm-12">
-                        <RdsLabel label="Cover Letter" fontWeight="600" />
-                        <RdsTextArea placeholder="Cover Letter.." rows={6} dataTestId="cover-letter" />
+                        <RdsTextArea label="Cover Letter" placeholder="Cover Letter.." rows={6} dataTestId="cover-letter" />
                     </div>
                 </div>
 

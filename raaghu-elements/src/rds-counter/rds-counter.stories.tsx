@@ -44,3 +44,4 @@ export const Counter: Story = {
         label: "Counter",
     }
 } satisfies Story;
+Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };

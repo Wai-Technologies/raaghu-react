@@ -8,7 +8,7 @@ export interface RdsLabelProps {
     multiline?: boolean;
     size?: string;
     class?: string;
-    italic?: string;
+    italic?: boolean;
     fontWeight?: fontWeight;
     required?: boolean;
     id?: any

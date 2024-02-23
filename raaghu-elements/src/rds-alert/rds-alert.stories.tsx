@@ -55,8 +55,7 @@ export const Default: Story = {
         position: "top",
     }
 };
-
-
+Default.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'sticky', 'position'] } };
 
 export const With_icon: Story = {
     args: {
@@ -73,7 +72,7 @@ export const With_icon: Story = {
         position: "top",
     }
 };
-
+With_icon.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
 
 export const With_close_button: Story = {
     args: {
@@ -90,6 +89,7 @@ export const With_close_button: Story = {
         iconWidth: "20px",
     }
 };
+With_close_button.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
 
 export const With_Delay_Alert: Story = {
     args: {
@@ -107,4 +107,5 @@ export const With_Delay_Alert: Story = {
         iconWidth: "20px",
     }
 };
+With_Delay_Alert.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position', 'delay'] } };
 

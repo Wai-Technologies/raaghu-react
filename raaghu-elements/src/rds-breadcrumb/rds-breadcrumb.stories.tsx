@@ -62,4 +62,5 @@ export const breadcrumb: Story = {
         ],
     }
 } satisfies Story;
+breadcrumb.parameters = { controls: { include: ['breadItems'] } };
 

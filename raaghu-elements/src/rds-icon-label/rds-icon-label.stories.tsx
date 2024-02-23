@@ -41,6 +41,7 @@ export const Default: Story = {
     colorVariant: "primary",
   }
 } satisfies Story;
+Default.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size'] } };
 
 export const WithPosition: Story = {
   args: {
@@ -56,8 +57,9 @@ export const WithPosition: Story = {
             "left",
             "right"
         ],
-        control: { type: "select" },
+        control: { type: "radio" },
     },
 }
 } satisfies Story;
+WithPosition.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size', 'iconposition'] } };
 

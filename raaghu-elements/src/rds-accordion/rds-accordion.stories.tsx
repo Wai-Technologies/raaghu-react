@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsAccordion>;
 
-export const With_close_button: Story = {
+export const Default: Story = {
     args: {
             accordionType: "Default",
             accordionId: "1",
@@ -40,6 +40,7 @@ export const With_close_button: Story = {
             ),
         }
 } satisfies Story;
+Default.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const flush: Story = {
     args: {
@@ -62,6 +63,7 @@ export const flush: Story = {
             }
         
 } satisfies Story;
+flush.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const AlwaysOpen: Story = {
     args: {
@@ -83,6 +85,7 @@ export const AlwaysOpen: Story = {
     ),
             }
 } satisfies Story;
+AlwaysOpen.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const StackOpen: Story = {
     args: {
@@ -104,3 +107,4 @@ export const StackOpen: Story = {
         ),
     }
 } satisfies Story;
+StackOpen.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };

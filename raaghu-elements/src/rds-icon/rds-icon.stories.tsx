@@ -31,6 +31,7 @@ export const Icon: Story = {
         isAnimate: true,
     }
 } satisfies Story;
+Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isAnimate'] } };
 
 export const Tooltip: Story = {
     args: {
@@ -50,3 +51,4 @@ export const Tooltip: Story = {
         },
     },
 } satisfies Story;
+Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle', 'colorVariant'] } };

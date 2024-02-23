@@ -48,6 +48,7 @@ export const Default: Story = {
         textAlign: "text-start",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
 
 Default.argTypes = textAlignArgTypes;
 
@@ -56,6 +57,7 @@ export const standard: Story = {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
         bigNumber: "2,236",
+        bigNumberColor: "dark",
         children: <></>
     },
     argTypes: {
@@ -74,13 +76,14 @@ export const standard: Story = {
         },
     }
 } satisfies Story;
-
+standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
 
 export const delta: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
         bigNumber: "2,236",
+        bigNumberColor: "dark",
         children: (
             <>
                 <RdsIcon
@@ -91,7 +94,6 @@ export const delta: Story = {
                     height="15px"
                     colorVariant="primary"
                 />
-
                 <label className="ps-2 text-primary fs-5">75%</label>
             </>
         ),
@@ -112,14 +114,14 @@ export const delta: Story = {
         },
     }
 } satisfies Story;
-
-
+delta.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
 
 export const histogram: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Average Numbers Of Visitors",
         bigNumber: "2,236",
+        bigNumberColor: "dark",
         chartHeight: 50,
         chartWidth: 50,
         children: (
@@ -184,13 +186,14 @@ export const histogram: Story = {
         },
     }
 } satisfies Story;
-
+histogram.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
 export const sparkLine: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
         bigNumber: "2,236",
+        bigNumberColor: "dark",
         chartHeight: 50,
         chartWidth: 50,
         children: (
@@ -255,13 +258,14 @@ export const sparkLine: Story = {
         },
     }
 } satisfies Story;
-
+sparkLine.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
 export const icon: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
         bigNumber: "2,236",
+        bigNumberColor: "dark",
         children: (
             <RdsIcon
                 name="users"
@@ -289,4 +293,6 @@ export const icon: Story = {
         },
     }
 } satisfies Story;
+icon.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
 

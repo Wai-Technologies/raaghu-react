@@ -45,6 +45,7 @@ export const Default: Story = {
         showLoadingSpinner: true,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner'] } };
 
 export const Disable: Story = {
     args: {
@@ -55,6 +56,7 @@ export const Disable: Story = {
         size: "medium",
     }
 } satisfies Story;
+Disable.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'isDisabled'] } };
 
 export const WithIcon: Story = {
     args: {
@@ -64,6 +66,7 @@ export const WithIcon: Story = {
         isFabIcon: true,
     }
 } satisfies Story;
+WithIcon.parameters = { controls: { include: ['colorVariant', 'icon', 'size', 'isFabIcon'] } };
 
 export const Outline: Story = {
     args: {
@@ -74,6 +77,7 @@ export const Outline: Story = {
         size: "medium",
     }
 } satisfies Story;
+Outline.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'isOutline'] } };
 
 export const Tooltip: Story = {
     args: {
@@ -98,6 +102,7 @@ export const Tooltip: Story = {
         },
     }
 } satisfies Story;
+Tooltip.parameters = { controls: { include: ['colorVariant', 'icon', 'block', 'size', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle'] } };
 
 export const TextWithIcon: Story = {
     args: {
@@ -109,5 +114,6 @@ export const TextWithIcon: Story = {
         showLoadingSpinner: true,
     }
 } satisfies Story;
+TextWithIcon.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner', 'icon'] } };
 
 

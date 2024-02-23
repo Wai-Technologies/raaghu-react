@@ -40,4 +40,5 @@ export const Label: Story = {
         required: false
     }
 } satisfies Story;
+Label.parameters = { controls: { include: ['label', 'fontWeight', 'italic', 'required'] } };
 
