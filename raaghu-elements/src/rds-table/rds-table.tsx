@@ -28,7 +28,7 @@ const RdsTable = (props: RdsTableProps) => {
                     props.tableHeightForScroll ? "tableFixed" : ""
                 }   tableFixed table-${props.colorVariant} ${
                     props.striped ? "table-striped" : ""
-                } ${props.bordered ? "table-bordered" : ""}`}
+                } ${props.bordered ? "table-bordered" : "table-borderless"}`}
                 width={props.width}
             >
                 <thead
@@ -40,7 +40,7 @@ const RdsTable = (props: RdsTableProps) => {
                             <th
                                 key={headerData.key}
                                 scope="col"
-                                className={"pl-4"}
+                                className={"pl-4" + " " + "text-" + props.headerTextColor}
                             >
                                 {headerData.displayName}
                             </th>
