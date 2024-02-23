@@ -12,19 +12,22 @@ export interface RdsToggleProps {
 const RdsToggle = (props: RdsToggleProps) => {
     const [checked, setChecked] = useState(props.checked);
 
-    useEffect(() => {
+    // useEffect(() => {
     
-        setChecked(props.checked);
-    }, [props.checked]);
+    //     setChecked(props.checked);
+    // }, [props.checked]);
     const onChangeHandler = () => {
     
         setChecked((prev) => !prev);
     };
 
+    const toggleClass = props.small ? "small-toggle-switch pt-1" : "toggle-switch pt-1";
+    const sliderClass = props.small ? "toggle-small-switch-slider" : "toggle-switch-slider";
+
     return (
         <>
             <label
-                className={`${props.small ? "small-toggle-switch pt-1" : "toggle-switch pt-1"} switch btn-color-mode-switch border-0`}
+                className={`${toggleClass} switch btn-color-mode-switch border-0`}
             >
                 <input
                     type="checkbox"
@@ -35,15 +38,15 @@ const RdsToggle = (props: RdsToggleProps) => {
                 />
                 <span
                     id="toggleId"
-                    className={`  ${props.small ? "toggle-small-switch-slider" : "toggle-switch-slider"
-                    } d-flex align-items-center justify-content-around btn-color-mode-switch-inner border-0`}
+                    className={`${sliderClass} d-flex align-items-center justify-content-around btn-color-mode-switch-inner border-0`}
                 >
-                    <div className="position-relative z-3">
-                        <RdsLabel label={props.iconOnUncheck}></RdsLabel>
-                    </div>
-                    <div className="position-relative z-3">
-                        <RdsLabel label={props.iconOnCheck}></RdsLabel>
-                    </div>
+                    <span className="position-relative z-3">
+                        <span>{props.iconOnUncheck}</span>
+                    </span>
+                    <span className="position-relative z-3">
+                        {/* <RdsLabel label={props.iconOnCheck}></RdsLabel> */}
+                        <span>{props.iconOnCheck}</span>
+                    </span>
                 </span>
             </label>
         </>

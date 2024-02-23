@@ -36,7 +36,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-// Default.parameters = { controls: { include: ['label', 'placeholder', 'isRequired', 'labelPosition'] } };
+Default.parameters = { controls: { include: ['label', 'placeholder', 'isRequired', 'labelPosition'] } };
 
 export const Disabled: Story = {
     args: {
