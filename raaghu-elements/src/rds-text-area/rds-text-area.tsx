@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./rds-text-area.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
-import { useTranslation } from "react-i18next";
 
 export interface RdsTextAreaProps {
   rows?: number;
@@ -13,7 +12,6 @@ export interface RdsTextAreaProps {
   isDisabled?: boolean;
   isRequired?: boolean;
   id?: string;
-  required?: boolean;
   dataTestId?: string;
   isFloatingInputLabel?: boolean;
   tooltip?: boolean;
@@ -30,7 +28,6 @@ export interface RdsTextAreaProps {
 }
 
 const RdsTextArea = (props: RdsTextAreaProps) => {
-  const { t } = useTranslation();
   const [hasError, setHasError] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -76,14 +73,14 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           <div className="align-items-center col-md-12 d-flex justify-content-center">
             <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
               <div>
-                {labelPosition === "top" && (
+                {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
                     className={` form-label ${
                       props.isDisabled ? " opacity-50 " : ""
                     } `}
                   >
                     {props.label}
-                    {props.required && (
+                    {props.isRequired && (
                       <span className="text-danger fs-6"> *</span>
                     )}
                   </label>
@@ -98,11 +95,11 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                     onClick={props.onClick}
                     onKeyDown={props.onKeyDown}
                     id={props.id}
-                    required={props.required}
+                    required={props.isRequired}
                     value={props.value}
                     onChange={handlerChange}
                   ></textarea>
-                  {props.isFloatingInputLabel && props.label && (
+                  {props.isFloatingInputLabel === true && props.label && (
                     <>
                       {props.label && (
                         <label
@@ -115,7 +112,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                         </label>
                       )}
 
-                      {props.required && (
+                      {props.isRequired && (
                         <span className="text-danger ms-1">*</span>
                       )}
                     </>
@@ -124,7 +121,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                 {labelPosition === "bottom" && (
                   <label className="form-label mt-1">
                     {props.label}
-                    {props.required && (
+                    {props.isRequired && (
                       <span className="text-danger fs-6"> *</span>
                     )}
                   </label>
@@ -135,14 +132,14 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
         </div>
       ) : (
         <div>
-          {labelPosition === "top" && (
+          {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
               className={` form-label ${
                 props.isDisabled ? " opacity-50 " : ""
               } `}
             >
               {props.label}
-              {props.required && <span className="text-danger fs-6"> *</span>}
+              {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
           <div className={getClassNames()}>
@@ -155,7 +152,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               onClick={props.onClick}
               onKeyDown={props.onKeyDown}
               id={props.id}
-              required={props.required}
+              required={props.isRequired}
               value={props.value}
               onChange={handlerChange}
             ></textarea>
@@ -172,23 +169,23 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                   </label>
                 )}
 
-                {props.required && <span className="text-danger ms-1">*</span>}
+                {props.isRequired && <span className="text-danger ms-1">*</span>}
               </>
             )}
           </div>
           {labelPosition === "bottom" && (
             <label className="form-label mt-1">
               {props.label}
-              {props.required && <span className="text-danger fs-6"> *</span>}
+              {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
         </div>
       )}
-      {props.required && (
+      {props.isRequired && (
         <div className="form-control-feedback">
-          {props.required && props.value == "" && hasError && isTouch && (
+          {props.isRequired && props.value == "" && hasError && isTouch && (
             <span className="text-danger">
-              {props.label} {t("is required") || ""}{" "}
+              {props.label} {("is required") || ""}
             </span>
           )}
         </div>
