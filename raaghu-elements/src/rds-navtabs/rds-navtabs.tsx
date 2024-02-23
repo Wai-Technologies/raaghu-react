@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import "./rds-navtabs.css";
-
 import RdsIcon from "../rds-icon";
 
 export interface RdsNavtabsProps {
@@ -79,7 +78,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
                             onClick={() => setActiveNavTabId(navtabsItem.id)}
                         >
                             {navtabsItem.icon && (
-                                <span className="pe-3">
+                                <span>
                                     <RdsIcon
                                         name={navtabsItem.icon}
                                         height="20px"
@@ -88,7 +87,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
                                     />
                                 </span>
                             )}
-                            <div className="fw-medium px-3">{navtabsItem.label}</div>
+                            <span className="fw-medium px-2">{navtabsItem.label}</span>
                         </a>
                     </li>
                 ))}
