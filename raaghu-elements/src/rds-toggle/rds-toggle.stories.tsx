@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsToggle>;
 
-export const Toggle: Story = {
+export const Default: Story = {
     args: {
         iconOnUncheck: "sun",
         iconOnCheck: "moon",

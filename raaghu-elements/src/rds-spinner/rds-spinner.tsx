@@ -10,16 +10,13 @@ export interface RdsSpinnerProps {
 }
 const RdsSpinner = (props: RdsSpinnerProps) => {
 
-    const classes = () => {
-        const border = `${props.spinnerType ? 'spinner-grow ' + 'text-' + props.colorVariant : 'spinner-border ' + 'text-' + props.colorVariant} `;
-        return border;
-
-    }
+    const spinnerClass = props.spinnerType === 'grow' ? 'spinner-grow' : 'spinner-border';
+    const colorClass = props.colorVariant ? `text-${props.colorVariant}` : '';
+    const sizeClass = props.size ? `${spinnerClass}-${props.size}` : '';
+    const { width = '', height = '' } = props;
+    const classes = `${spinnerClass} ${colorClass} ${sizeClass}`.trim();
     return (
-        <Fragment>
-            <div className={classes()}>
-            </div>
-        </Fragment>
+            <div className={classes} style={{ width,height }} />
     );
 };
 export default RdsSpinner;
