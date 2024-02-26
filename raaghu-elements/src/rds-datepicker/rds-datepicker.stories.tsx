@@ -27,6 +27,7 @@ export const Default: Story = {
         type: "default"
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['DatePickerLabel', 'type'] } };
 
 export const Advanced: Story = {
     args: {
@@ -34,6 +35,7 @@ export const Advanced: Story = {
         type: "advanced"
     }
 } satisfies Story;
+Advanced.parameters = { controls: { include: ['DatePickerLabel', 'type'] } };
 
 export const WithTime: Story = {
     args: {
@@ -41,3 +43,4 @@ export const WithTime: Story = {
         type: "withTime"
     }
 } satisfies Story;
+WithTime.parameters = { controls: { include: ['DatePickerLabel', 'type'] } };

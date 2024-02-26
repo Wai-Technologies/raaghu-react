@@ -25,7 +25,7 @@ export const Illustration: Story = {
         iconHeight: '250px',
         iconWidth: '250px',
         iconPath: "/assets/lottie-files/outlined/dual-color/illustration-light.json",
-        isContinueAnimate: true
     }
 } satisfies Story;
+Illustration.parameters = { controls: { include: ['label', 'subLabel', 'iconHeight', 'iconWidth', 'iconPath'] } };
 

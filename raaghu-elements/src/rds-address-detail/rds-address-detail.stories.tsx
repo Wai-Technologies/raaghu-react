@@ -29,3 +29,4 @@ export const AddressDetail: Story = {
     cardborder: true
   }
 } satisfies Story;
+AddressDetail.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };

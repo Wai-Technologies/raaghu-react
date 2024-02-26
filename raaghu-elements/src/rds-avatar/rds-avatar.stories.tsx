@@ -37,6 +37,7 @@ export const Default: Story = {
         size: "medium",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['size'] } };
 
 
 export const withInitials: Story = {
@@ -47,6 +48,7 @@ export const withInitials: Story = {
         size: "medium",
     }
 } satisfies Story;
+withInitials.parameters = { controls: { include: ['size', 'firstName', 'lastName'] } };
 
 
 withInitials.argTypes = colorVariantArgTypes;
@@ -62,6 +64,7 @@ export const withLabel: Story = {
         role: "Developer",
     }
 } satisfies Story;
+withLabel.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'isTitle', 'titleAlign', 'role'] } };
 
 
 withLabel.argTypes = colorVariantArgTypes;
@@ -80,6 +83,7 @@ export const withProfile: Story = {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
+withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'withProfilePic', 'titleAlign', 'role', 'profilePic'] } };
 
 
 withProfile.argTypes = textAlignArgTypes;

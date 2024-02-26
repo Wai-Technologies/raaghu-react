@@ -3,8 +3,8 @@ import RdsAlert from "./rds-alert";
 import type { Meta, StoryObj } from '@storybook/react';
 
 
-const meta: Meta = {
-    title: 'Elements/Alert',
+const meta: Meta<typeof RdsAlert> = {
+    title: "Elements/Alert",
     component: RdsAlert,
     tags: ['autodocs'],
     argTypes: {
@@ -39,8 +39,8 @@ const meta: Meta = {
         }
 
     },
-  
-} satisfies Meta<typeof RdsAlert>;
+    
+};
 
 export default meta;
 type Story = StoryObj<typeof RdsAlert>;
@@ -54,9 +54,8 @@ export const Default: Story = {
         sticky: false,
         position: "top",
     }
-} satisfies Story;
-
-
+};
+Default.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'sticky', 'position'] } };
 
 export const With_icon: Story = {
     args: {
@@ -72,8 +71,8 @@ export const With_icon: Story = {
         sticky: false,
         position: "top",
     }
-} satisfies Story;
-
+};
+With_icon.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
 
 export const With_close_button: Story = {
     args: {
@@ -89,7 +88,8 @@ export const With_close_button: Story = {
         iconHeight: "20px",
         iconWidth: "20px",
     }
-} satisfies Story;
+};
+With_close_button.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
 
 export const With_Delay_Alert: Story = {
     args: {
@@ -106,5 +106,6 @@ export const With_Delay_Alert: Story = {
         iconHeight: "20px",
         iconWidth: "20px",
     }
-} satisfies Story;
+};
+With_Delay_Alert.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position', 'delay'] } };
 
