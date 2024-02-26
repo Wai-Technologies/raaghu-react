@@ -47,6 +47,11 @@ type Story = StoryObj<typeof RdsCompBlogPostNew>;
 
 export const Default: Story = {
     args: {
-        
+        blogList: [
+            { option: "Blog1" , value: "blog1", label: "Blog1"},
+            { option: "Blog2" , value: "blog2", label: "Blog2"},
+            { option: "Blog3" , value: "blog3", label: "Blog3"},
+        ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: [] } };

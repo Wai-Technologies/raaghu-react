@@ -29,6 +29,7 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['navtabsItems'] } }; 
 
 
 export const Pills: Story = {
@@ -44,6 +45,7 @@ export const Pills: Story = {
         justified: false
     }
 } satisfies Story;
+Pills.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 export const Tabs: Story = {
     args: {
@@ -58,7 +60,7 @@ export const Tabs: Story = {
         justified: false
     }
 } satisfies Story;
-
+Tabs.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 export const Vertical: Story = {
     args: {
@@ -73,7 +75,7 @@ export const Vertical: Story = {
         justified: false
     }
 } satisfies Story;
-
+Vertical.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 export const Fill: Story = {
     args: {
@@ -88,7 +90,7 @@ export const Fill: Story = {
         justified: false
     }
 } satisfies Story;
-
+Fill.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 export const Justified: Story = {
     args: {
@@ -103,22 +105,22 @@ export const Justified: Story = {
         justified: true
     }
 } satisfies Story;
-
+Justified.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 export const WithIcon: Story = {
     args: {
         navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active", icon: "administration"},
+            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home",  icon: "home" },
+            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about", icon: "profile_picture" },
+            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled", icon: "eye_slash" },
         ],
         type: "default",
         fill: false,
         justified: false
     }
 } satisfies Story;
-
+WithIcon.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } }; 
 
 
 

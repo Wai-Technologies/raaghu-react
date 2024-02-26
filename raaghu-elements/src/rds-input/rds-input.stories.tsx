@@ -1,7 +1,5 @@
 import React from "react";
 import RdsInput from "./rds-input";
-import { input_size, colors} from "../../libs/types";
-import { tooltip_position } from "../../libs/types/placement";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -13,7 +11,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         size: {
-            options: input_size,
+            options: ["small", "medium", "large"],
             control: { type: "select" },
         },
         inputType: {
@@ -25,7 +23,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         tooltipPlacement: {
-            options: tooltip_position,
+            options: ["top", "bottom", "right", "left"],
             control: { type: "radio" },
         },
     },
@@ -47,6 +45,7 @@ export const Default: Story = {
         showIcon: true,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
 
 export const Tooltip: Story = {
     args: {
@@ -60,8 +59,10 @@ export const Tooltip: Story = {
         required: true,
         tooltipPlacement: "top",
         tooltipTitle: "This is tooltip",
+        showIcon: true,
     }
 } satisfies Story;
+Tooltip.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'tooltipPlacement', 'tooltipTitle', 'showIcon'] } };
 
 export const Disabled: Story = {
     args: {
@@ -74,8 +75,10 @@ export const Disabled: Story = {
         value: "",
         required: true,
         isDisabled: true,
+        showIcon: true,
     }
 } satisfies Story;
+Disabled.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon'] } };
 
 export const Readonly: Story = {
     args: {
@@ -88,6 +91,8 @@ export const Readonly: Story = {
         value: "",
         required: true,
         readonly: true,
+        showIcon: true,
     }
 } satisfies Story;
+Readonly.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon'] } };
 

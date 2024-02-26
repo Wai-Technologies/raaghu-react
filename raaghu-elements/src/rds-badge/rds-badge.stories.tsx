@@ -39,6 +39,34 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBadge>;
 
+const Positioned = (args) => (
+  <>
+    <RdsButton
+      type="button"
+      colorVariant="primary"
+      size="small"
+      label="Button"
+    />
+    <span className="position-absolute translate-middle">
+      <RdsBadge label={""} {...args}></RdsBadge>
+    </span>
+  </>
+);
+  
+  const PositionedIcon = (args) => (
+    <>
+      <span className="position-relative">
+        <RdsIcon
+          name="notification"
+          width="20px"
+          height="20px"
+          fill={false}
+          stroke={true}
+        />
+        <RdsBadge label={""} {...args}></RdsBadge>
+      </span>
+    </>
+  );
 
 export const TextBadge: Story = {
     args: {
@@ -48,47 +76,29 @@ export const TextBadge: Story = {
         badgeType: "rectangle",
     }
 } satisfies Story;
-
-const Positioned: Story = {
-    decorators: [(args) => <><RdsButton
-        type="button"
-        colorVariant="primary"
-        size="small"
-        label="Button" /><span className="position-absolute translate-middle"><RdsBadge label={""} {...args}></RdsBadge></span></>],
-}
-
+TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType'] } }; 
 
 export const WithLabel: Story = {
-    ...Positioned.args,
     args: {
         size: "smaller",
         label: "99",
         colorVariant: "danger",
         badgeType: "rectangle",
-    }
+        positioned: true,
+    },
+    render: Positioned
 } satisfies Story;
-
-const PositionedIcon: Story = {
-    decorators: [(args) => <span className='position-relative'>
-        <RdsIcon
-            name='notification'
-            width="20px"
-            height="20px"
-            fill={false}
-            stroke={true}
-        />
-        <RdsBadge label={""} {...args}></RdsBadge>
-    </span>],
-}
-
+WithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } }; 
 
 export const WithIcon: Story = {
-    ...PositionedIcon.args,
     args: {
         size: "smallest",
         label: "9",
         colorVariant: "danger",
         badgeType: "rectangle",
         positioned: true,
-    }
+    },
+    render: PositionedIcon
 } satisfies Story;
+WithIcon.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } }; 
+

@@ -10,7 +10,7 @@ export interface RdsInputProps {
     size?: "small" | "large" | "medium" | string;
     isDisabled?: boolean;
     readonly?: boolean;
-    value?: string | "" ;
+    value?: string;
     inputType?: string;
     validatonPattern?: RegExp;
     validationMsg?: string;
@@ -19,7 +19,7 @@ export interface RdsInputProps {
     tooltipPlacement?: placements;
     tooltipTitle?: string;
     name?: string;
-    label?: string | "";
+    label?: string;
     id?: string;
     required?: boolean;
     dataTestId?: string;
