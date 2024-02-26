@@ -54,8 +54,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
             <div className="row align-items-center">
                 <div className="col-md-12">
                     <form className='mb-0'>
-                        <div className="from-group">
-
+                        <div className="from-group mb-3">
                             <RdsFileUploader
                                 colorVariant="dark"
                                 extensions=""
@@ -66,11 +65,9 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                             />
                         </div>
                         <div className="form-group mb-3">
-                            <div className="mb-2">
                                 <RdsLabel
                                     label="Blog Id"
                                 />
-                            </div>
 
                             <RdsDropdownList
                                 placeholder="Select List"

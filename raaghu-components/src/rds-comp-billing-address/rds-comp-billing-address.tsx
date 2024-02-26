@@ -254,16 +254,14 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                             )}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <div className="label mb-2">
-                                Country <span className="text-danger">*</span>
-                            </div>
                             <RdsSelectList
                                 id="seleCou"
-                                label="Select Country"
+                                label="Country"
                                 placeholder="Select Country"
                                 selectItems={props.countryList}
                                 dataTestId="select-country"
                                 onChange={(item: any) => { setCountry(item.value); }}
+                                required
                             />
                             {countryErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -274,16 +272,14 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                     </div>
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <div className="label mb-2">
-                                State/Province <span className="text-danger">*</span>
-                            </div>
                             <RdsSelectList
                                 id="seleSta"
-                                label="Select State/Province"
+                                label="State/Province"
                                 placeholder="Select State/Province"
                                 selectItems={props.IndianStateList}
                                 dataTestId="select-state"
                                 onChange={(item: any) => { setState(item.value); }}
+                                required
                             />
                             {stateProvinceErrorMessage != "" && (
                                 <div className="form-control-feedback">
