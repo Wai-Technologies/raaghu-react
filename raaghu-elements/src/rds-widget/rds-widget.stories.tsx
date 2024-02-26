@@ -46,6 +46,8 @@ export const Default: Story = {
     }
 } satisfies Story;
 
+Default.parameters = { controls: { include: ['colorVariant', 'headerTitle','isRefreshRequired','iconName','iconTooltipLabel','iconTooltipPosition','border' ] } };
+
 
 export const WidgetWithLineChart: Story = {
     args: {
@@ -224,8 +226,7 @@ export const WidgetWithLineChart: Story = {
     }
 } satisfies Story;
 
-
-
+WidgetWithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle','isRefreshRequired','iconName','iconTooltipLabel','iconTooltipPosition','children' ] } };
 
 export const WidgetWithDoughnutChart: Story = {
     args: {
@@ -306,7 +307,10 @@ export const WidgetWithDoughnutChart: Story = {
 
         ),
     }
-}
+} satisfies Story;
+
+WidgetWithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle','isRefreshRequired','iconName','iconTooltipLabel','iconTooltipPosition','children' ] } };
+
 
 export const WidgetWithBarChart: Story = {
     args: {
@@ -502,3 +506,5 @@ export const WidgetWithBarChart: Story = {
         ),
     }
 } satisfies Story;
+
+WidgetWithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle','isRefreshRequired','iconName','iconTooltipLabel','iconTooltipPosition','children','subTitle','iconFill','iconHeight','iconWidth','bigNumber','icon' ] } };
