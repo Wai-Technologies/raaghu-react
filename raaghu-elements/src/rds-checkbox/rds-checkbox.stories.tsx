@@ -34,5 +34,6 @@ export const checkbox :Story={
         isInputGroup:false
     }
 } satisfies Story;
+checkbox.parameters = { controls: { include: ['state', 'label', 'checked', 'isDisabled', 'isSwitch', 'withlabel', 'id', 'isInputGroup'] } };
 
 

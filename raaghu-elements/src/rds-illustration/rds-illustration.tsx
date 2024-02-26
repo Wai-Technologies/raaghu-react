@@ -19,15 +19,12 @@ const RdsIllustration = (props: RdsIllustrationProps) => {
             <div className="align-items-center d-flex justify-content-center vh-75">
                 <div className="text-center lottie-border-0 lottie-filter-0" data-testid="icon" >
                     <RdsIcon
-                        //name="file_plus"
                         width={props.iconWidth}
                         height={props.iconHeight}
                         fill={false}
                         stroke={true}
-                        // colorVariant="light"
-                        //classes="opacity-25"
                         type="lottie"
-                       // isAnimate = {false}
+                        isHovered={true}
                         iconPath={props.iconPath}
                         isContinueAnimate={props.isContinueAnimate}
                     ></RdsIcon>

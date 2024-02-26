@@ -70,7 +70,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'icon', 'isPlaceholder', 'isIconPlaceholder', 'listItems', 'reset'] } };
 
 export const WithMultiSelect: Story = {
     args: {
@@ -125,11 +125,10 @@ export const WithMultiSelect: Story = {
         ],
     },
 }
-
+WithMultiSelect.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'isIconPlaceholder', 'listItems', 'reset'] } };
 
 export const WithIcons: Story = {
     args: {
-
         borderDropdown: true,
         listItems: [
             {
@@ -188,3 +187,5 @@ export const WithIcons: Story = {
         // iconStroke:true,
     }
 }
+WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'listItems'] } };
+
