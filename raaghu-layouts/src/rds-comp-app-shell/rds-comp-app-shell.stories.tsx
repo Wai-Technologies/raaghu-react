@@ -25,8 +25,7 @@ export const Default: Story = {
     children: (
       <>
         <RdsCompAppShellItem title={""}>
-          <div className="row">
-            <div >
+          <div className="row">            
             <RdsCompTopNavigation
                 brandName="Raaghu"
                 languageItems={[
@@ -116,114 +115,118 @@ export const Default: Story = {
                 } } onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
                   throw new Error("Function not implemented.");
                 } }/>
-            </div>
           </div>
           <div className="row">
-            <div>
-              <BrowserRouter>
-                <RdsCompSideNavigation
-                  sideNavItems={[
-                    {
-                      icon: "home",
-                      key: "0",
-                      label: "Dashboard",
-                      path: "/dashboard",
-                    },
-                    {
-                      icon: "demo_ui",
-                      key: "1",
-                      label: "UI Components",
-                      path: "/demo-ui",
-                    },
-                    {
-                      icon: "icons",
-                      key: "2",
-                      label: "Icons",
-                      path: "/icons",
-                    },
-                    {
-                      children: [
-                        {
-                          icon: "tenant",
-                          key: "3-0",
-                          label: "Tenants",
-                          path: "/tenant",
-                        },
-                        {
-                          icon: "editions",
-                          key: "3-1",
-                          label: "Editions",
-                          path: "/edition",
-                        },
-                        {
-                          children: [
-                            {
-                              icon: "organization",
-                              key: "3-2-0",
-                              label: "Organization Units",
-                              path: "/organization-unit",
-                            },
-                            {
-                              icon: "roles",
-                              key: "3-2-1",
-                              label: "Roles",
-                              path: "/role",
-                            },
-                            {
-                              icon: "users",
-                              key: "3-2-2",
-                              label: "Users",
-                              path: "/user",
-                            },
-                            {
-                              icon: "languages",
-                              key: "3-2-3",
-                              label: "Language",
-                              path: "/language",
-                            },
-                            {
-                              icon: "audit_logs",
-                              key: "3-2-4",
-                              label: "Audit Logs",
-                              path: "/audit-logs",
-                            },
-                            {
-                              icon: "webhook_subscription",
-                              key: "3-2-5",
-                              label: "Webhook Subscriptions",
-                              path: "/webhook-subscription",
-                            },
-                            {
-                              icon: "maintenance",
-                              key: "3-2-6",
-                              label: "Maintenance",
-                              path: "/maintainance",
-                            },
-                            {
-                              icon: "visual_settings",
-                              key: "3-2-7",
-                              label: "Visual Settings",
-                              path: "/visual-setting",
-                            },
-                            {
-                              icon: "setting",
-                              key: "3-2-8",
-                              label: "Settings",
-                              path: "/settings",
-                            },
-                          ],
-                          icon: "administration",
-                          key: "3-2",
-                          label: "Administration",
-                        },
-                      ],
-                      icon: "pages",
-                      key: "3",
-                      label: "Pages",
-                    },
-                  ]}
-                />
-              </BrowserRouter>
+            <div className="d-flex">
+              <div>
+                <BrowserRouter>
+                  <RdsCompSideNavigation
+                    sideNavItems={[
+                      {
+                        icon: "home",
+                        key: "0",
+                        label: "Dashboard",
+                        path: "/dashboard",
+                      },
+                      {
+                        icon: "demo_ui",
+                        key: "1",
+                        label: "UI Components",
+                        path: "/demo-ui",
+                      },
+                      {
+                        icon: "icons",
+                        key: "2",
+                        label: "Icons",
+                        path: "/icons",
+                      },
+                      {
+                        children: [
+                          {
+                            icon: "tenant",
+                            key: "3-0",
+                            label: "Tenants",
+                            path: "/tenant",
+                          },
+                          {
+                            icon: "editions",
+                            key: "3-1",
+                            label: "Editions",
+                            path: "/edition",
+                          },
+                          {
+                            children: [
+                              {
+                                icon: "organization",
+                                key: "3-2-0",
+                                label: "Organization Units",
+                                path: "/organization-unit",
+                              },
+                              {
+                                icon: "roles",
+                                key: "3-2-1",
+                                label: "Roles",
+                                path: "/role",
+                              },
+                              {
+                                icon: "users",
+                                key: "3-2-2",
+                                label: "Users",
+                                path: "/user",
+                              },
+                              {
+                                icon: "languages",
+                                key: "3-2-3",
+                                label: "Language",
+                                path: "/language",
+                              },
+                              {
+                                icon: "audit_logs",
+                                key: "3-2-4",
+                                label: "Audit Logs",
+                                path: "/audit-logs",
+                              },
+                              {
+                                icon: "webhook_subscription",
+                                key: "3-2-5",
+                                label: "Webhook Subscriptions",
+                                path: "/webhook-subscription",
+                              },
+                              {
+                                icon: "maintenance",
+                                key: "3-2-6",
+                                label: "Maintenance",
+                                path: "/maintainance",
+                              },
+                              {
+                                icon: "visual_settings",
+                                key: "3-2-7",
+                                label: "Visual Settings",
+                                path: "/visual-setting",
+                              },
+                              {
+                                icon: "setting",
+                                key: "3-2-8",
+                                label: "Settings",
+                                path: "/settings",
+                              },
+                            ],
+                            icon: "administration",
+                            key: "3-2",
+                            label: "Administration",
+                          },
+                        ],
+                        icon: "pages",
+                        key: "3",
+                        label: "Pages",
+                      },
+                    ]}
+                  />
+                </BrowserRouter>
+              </div>
+              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 m-3">
+                <h2>Add Layout Here</h2>
+              </div>
             </div>
           </div>
         </RdsCompAppShellItem>
@@ -231,24 +234,3 @@ export const Default: Story = {
     ),
   },
 } satisfies Story;
-
-// export const Shell1: Story = {
-//   args: {
-//     displayType: "Default",
-//     children: (
-//       <>
-//         <RdsCompAppShellItem title={""}>
-//           <div className="row">
-//             <div className="col-md-12 shell-header">
-//               <h1></h1>
-//             </div>
-//           </div>
-//           <div className="row justify-content-between">
-//             <div className="col-md-2 left vh-100"></div>
-//             <div className="col-md-1 right vh-100"></div>
-//           </div>
-//         </RdsCompAppShellItem>
-//       </>
-//     ),
-//   },
-// } satisfies Story;

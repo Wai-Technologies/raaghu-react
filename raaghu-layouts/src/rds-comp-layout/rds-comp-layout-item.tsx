@@ -10,7 +10,6 @@ const RdsCompLayoutItem = (props: RdsCompLayoutItemProps) => {
   return (
     <>
       <div className="layout-item">
-        <h2 className="layout-item-header">{props.title}</h2>
         <div className="layout-item-content">{props.children}</div>
       </div>
     </>

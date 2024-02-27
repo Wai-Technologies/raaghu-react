@@ -8,7 +8,7 @@ export interface RdsCompLayoutProps {
 
 const RdsCompLayout = (props: RdsCompLayoutProps) => {
     return (
-     <div className='layout1'>
+     <div className='layout1 p-3'>
              {/* <div className='row'>
                <div className='col-md-12 shell-header'>
                  <h1></h1>
@@ -17,7 +17,7 @@ const RdsCompLayout = (props: RdsCompLayoutProps) => {
              <div className='row'>
                <div className='col-md-2 left vh-100'></div>
                <div className='col-md-10'> */}
-                 <div className="container">
+                 <div>
                    <div className="row">
                 {props.children}
                 </div>

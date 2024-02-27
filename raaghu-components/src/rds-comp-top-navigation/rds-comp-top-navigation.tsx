@@ -242,10 +242,21 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="d-flex align-items-center mx-4 ms-2 mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+        <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
           <div>
             {breacrumItem?.length == 0 && (
-              <div className="text-bold text-primary">{navtitle}</div>
+              <>
+                <div>
+                  <img
+                    className="cursor-pointer pe-4"
+                    width={140}
+                    height={40}
+                    src="assets/raaghu-logo.svg"
+                    alt="raaghu-logo"
+                  ></img>
+                  <span className="text-bold text-primary border-start-custom ps-4">{navtitle}</span>
+                </div>
+              </>
             )}
             {breacrumItem?.length > 0 && (
               <div className="mob-description ">
@@ -291,7 +302,9 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
               <span className="cursor-pointer" onClick={props.chatsHandler}>
                 <RdsIcon
-                  iconPath={"./assets/lottie-files/outlined/dual-color/chatting.json"}
+                  iconPath={
+                    "./assets/lottie-files/outlined/dual-color/chatting.json"
+                  }
                   tooltip={true}
                   tooltipTitle={"Chat"}
                   tooltipPlacement="bottom"
