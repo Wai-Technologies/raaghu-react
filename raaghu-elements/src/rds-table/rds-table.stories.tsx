@@ -38,6 +38,20 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+        headerTextColor: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "info",
+                "warning",
+                "danger",
+                "dark",
+                "light",
+                "none",
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsTable>;
 
@@ -48,11 +62,11 @@ export const Table: Story = {
     args: {
         id: "1",
         striped: false,
-        bordered: false,
+        bordered: true,
         tableHeightForScroll: "",
-        colorVariant: "none",
+        colorVariant: "",
         backgroundColor: "white",
-        headerTextColor: "black",
+        headerTextColor: "primary",
         headerDatas: [
             { displayName: "Name", dataType: "text", key: "name" },
             { displayName: "Icon", dataType: "icon", key: "icon" },
@@ -105,3 +119,6 @@ export const Table: Story = {
         ],
     }
 } satisfies Story;
+
+
+Table.parameters = { controls: { include: ['id', 'striped','bordered','tableHeightForScroll','backgroundColor','headerTextColor','headerDatas','tableDatas','colorVariant' ] } };

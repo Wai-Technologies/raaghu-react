@@ -55,6 +55,8 @@ export const Tag :Story={
     }
 } satisfies Story;
 
+Tag.parameters = { controls: { include: ['role', 'colorVariant','fillClose'] } };
+
 
 // export const Advanced = Template.bind({});
 // Advanced.args = {
