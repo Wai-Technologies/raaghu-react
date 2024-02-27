@@ -1,6 +1,8 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompSideNavigation from "./rds-comp-side-navigation";
+import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
 
 
 const meta: Meta = { 
@@ -17,8 +19,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSideNavigation>;
 
-export const Default: Story = {
-    args: {
+export const Default: Story = (args) => (
+    <BrowserRouter>
+        <RdsCompSideNavigation {...args} />
+    </BrowserRouter>
+);
+
+Default.args = {
         sideNavItems: [
             {
                 key: "0",
@@ -119,8 +126,9 @@ export const Default: Story = {
                 ],
             },
         ]
-    }
-} satisfies Story;
+};
+Default.parameters = { controls: { include: ['sideNavItems'] } };
+
 
 
 

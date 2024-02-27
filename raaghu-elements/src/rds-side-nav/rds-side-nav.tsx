@@ -255,7 +255,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 id="sidebar" ref={ref}
                 onMouseEnter={() => setIsShown(true)}
                 onMouseLeave={() => setIsShown(false)}
-                className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4
+                className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow
                ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}>
                 <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0">
                     {
