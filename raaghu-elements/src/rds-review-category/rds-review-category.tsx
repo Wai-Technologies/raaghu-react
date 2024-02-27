@@ -52,8 +52,6 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             <div className="mb-3">
                                 <RdsRating
                                     rating={props.item.rating}
-                                    colorVariant="review"
-                                    reviewPosition="right"
                                 />
                             </div>
                         </div>}
@@ -92,7 +90,6 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 <RdsRating
                                     rating={props.item.rating}
                                     colorVariant="warning"
-                                    reviewPosition="none"
                                 />
                             </div>}
                             {props.item.likes && props.item.dislikes && <div className="mt-3">
@@ -138,7 +135,6 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     <RdsRating
                                         rating={props.item.rating}
                                         colorVariant="warning"
-                                        reviewPosition="none"
                                     />
                                 </div>}
                             </div>
