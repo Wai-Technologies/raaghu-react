@@ -41,12 +41,13 @@ export const Default: Story = {
         colorVariant: "primary",
         items: [
             {
-                title: "SAM SMITH",
+                title: "Downloads",
                 value: "2370",
-                icon: "star",
+                icon: "cloud_download",
                 iconHeight: "80px",
                 iconWidth: "80px",
-                iconFill: true,
+                iconFill: false,
+                iconStroke: true
             },
         ],
     }
@@ -60,12 +61,8 @@ export const Advanced: Story = {
         colorVariant: "primary",
         items: [
             {
-                title: "SAM SMITH",
-                value: "2370",
-                icon: "star",
-                iconHeight: "80px",
-                iconWidth: "80px",
-                iconFill: true,
+                title: "Downloads",
+                value: "2370"
             },
         ],
     }
