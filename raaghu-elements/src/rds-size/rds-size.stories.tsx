@@ -10,19 +10,19 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
+        // colorVariant: {
+        //     options: [
+        //         "primary",
+        //         "secondary",
+        //         "success",
+        //         "info",
+        //         "warning",
+        //         "danger",
+        //         "dark",
+        //         "light",
+        //     ],
+        //     control: { type: "select" },
+        // },
         sizeType: {
             options: ["withoutDescription", "withDescription"],
             control: { type: "select" },
