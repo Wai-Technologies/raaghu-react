@@ -23,15 +23,3 @@ export const Simple: Story = {
     }
 } satisfies Story;
 
-// Simple.decorators= [
-//     (Story) => (
-//         <div style={{ padding:"5% 5%" ,
-//         }}>
-//             <Story/>
-//         </div>
-//     ),
-// ],
-// Simple.args = {
-//     stepperType: "simple",
-// };
-
