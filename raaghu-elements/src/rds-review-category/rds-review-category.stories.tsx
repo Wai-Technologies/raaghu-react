@@ -37,7 +37,7 @@ export const Default: Story = {
 
 
 
-export const Type_1: Story = {
+export const left_aligned: Story = {
     args: {
         display_type: "ReviewType_1",
         item: {
@@ -54,7 +54,7 @@ export const Type_1: Story = {
     }
 } satisfies Story;
 
-export const Type_2: Story = {
+export const center_aligned: Story = {
     args: {
         display_type: "ReviewType_2",
         item: {

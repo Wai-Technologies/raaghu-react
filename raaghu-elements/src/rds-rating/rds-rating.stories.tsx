@@ -18,11 +18,13 @@ type Story = StoryObj<typeof RdsRating>;
 
 export const Rating: Story = {
     args: {
-        rating: 2,
-        colorVariant: "warning",
-        reviewPosition: "right",
+        rating: 3,
+        colorVariant: "primary",
         noOfReviews: 123,
-        seeAllOption: false
+        size: "small",
+        seeAllOption: true,
+        onSeeAll: () => console.log("See all clicked"),
+        dataTestId: "rating-test"
     }
 } satisfies Story;
 

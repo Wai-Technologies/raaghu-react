@@ -31,6 +31,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   }, [props.selectedValue]);
     useEffect(() => {
+      debugger
         if (props.selectItems) {
             const tempOptions = props.selectItems.map((item) => ({
                 value: item.value,
@@ -50,6 +51,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
     }
     
   const handleSelectChange = (items: any) => {
+    debugger
     if (!props.isMultiple) {
       props.onChange(items);
       setselectedValue(items.value);
@@ -58,11 +60,13 @@ const RdsSelectList = (props: RdsSelectProps) => {
         return { option: item.label, value: item.value };
       });
       props.onChange(multiSelectValue);
+      setselectedValue(items);
     }
   };
-  const selectedItem = options.find(
-    (item: any) => item.value === selectedValue
-  );
+const selectedItem = props.isMultiple
+  ? options.filter((item: any) => selectedValue?.includes(item.value))
+  : options.find((item: any) => item.value === selectedValue);
+
   const placeholder =
     props.selectedValue !== undefined && props.selectedValue !== null
       ? selectedItem?.label
