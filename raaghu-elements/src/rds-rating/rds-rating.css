@@ -2,13 +2,25 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 .on {
-    color: #ffdf2b;
-    border: #ffdf2b;
+    color: #E3A300;
+    border: #E3A300;
 }
 .off {
     color: #c9c9c9;
-    border-color: #ffdf2b;
+    border-color: #E3A300;
 }
+
+.on svg .star {
+    fill: #E3A300;
+    stroke: #E3A300;
+    stroke-width: 1;
+  }
+
+  .hover svg .star {
+    fill: #E3A300;
+    stroke: #E3A300;
+    stroke-width: 1;
+  }

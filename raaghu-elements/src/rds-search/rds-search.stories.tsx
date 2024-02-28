@@ -21,7 +21,10 @@ const meta: Meta = {
         labelPosition: {
             options: ["top", "bottom", "left", "right"],
             control: { type: "select" }
-        }
+        },
+        onChange: { action: 'onChange' },
+        onKeyPress: { action: 'onKeyPress' },
+        onKeyUp: { action: 'onKeyUp' },
     },
 } satisfies Meta<typeof RdsSearch>;
 

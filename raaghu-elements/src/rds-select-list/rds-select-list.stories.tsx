@@ -7,13 +7,7 @@ const meta: Meta = {
     title: "Elements/SelectList",
     component: RdsSelectList,
     argTypes: {
-        // size: {
-        //     options: ["lg",
-        //         "md",
-        //         "sm"
-        //     ],
-        //     control: { type: "select" },
-        // },
+
     },
     parameters: {
         layout: 'padded',
@@ -48,9 +42,45 @@ export const Default: Story = {
                 option:"four",
                 value:"four"
             }
+
     
         ],
         isDisabled:false,
         selectedValue:"",
+        required : false,
+        isSearchable : true,
     }
 }
+
+export const Multiple: Story = {
+    args : {
+        id:"story",
+        label:"Open select list",
+        isMultiple:true,
+        placeholder:"Select option",
+        selectItems:[
+            {
+                option:"One",
+                value:"one"
+            },
+            {
+                option:"two",
+                value:"two"
+            },
+            {
+                option:"three",
+                value:"three"
+            },
+            {
+                option:"four",
+                value:"four"
+            }
+
+    
+        ],
+        isDisabled:false,
+        selectedValue:"",
+        required : false,
+        isSearchable : true,
+    }
+ }
