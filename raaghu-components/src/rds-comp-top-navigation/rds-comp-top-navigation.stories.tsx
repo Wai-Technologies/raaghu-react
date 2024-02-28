@@ -21,7 +21,9 @@ export const Default: Story = {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
+        brandLogo: "assets/raaghu-logo.svg",
         profileTitle: "Host Admin",
+        profileEmail: "admin@raaghu.com",
         profileName: "Keanu Foster",
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         notifications: [
@@ -64,8 +66,7 @@ export const Default: Story = {
                 userNotificationId: 3,
                 selected: false,
             },
-        ],
-    
+        ],    
         languageItems: [
             {
                 label: "EN(US)",
@@ -107,3 +108,5 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
+
+Default.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems'] } };

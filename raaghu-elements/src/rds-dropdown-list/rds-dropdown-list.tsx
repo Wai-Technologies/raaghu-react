@@ -4,8 +4,6 @@ import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
-import { Dropdown } from "bootstrap";
-import RdsAnimation from "../rds-animation";
 export interface RdsDropdownListProps {
   id?: string;
   reset?: boolean;
@@ -56,14 +54,14 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     props.showIcon || props.showIcon == undefined ? true : false
   );
   const [checkedCategoryList, setCheckedCategoryList] = useState<any>([]);
-  const [expand, setExpend] = useState(false); 
+  const [expand, setExpend] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
   // to fetch the index of the selected language
   const [toggle, setToggle] = useState("show");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const block = props.block== false ? props.block : true;
   //  If language not found then we are updating index to 0
-    const [hoveredItem, setHoveredItem] = useState(""); 
+  const [hoveredItem, setHoveredItem] = useState("");
   const clickedOnDropDown = () => {
     setExpend(!expand);
     const dropdownMenu = document.getElementById(
@@ -157,28 +155,27 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     const obj = hoverState;
     obj[val] = isHover;
     setHoverState((hoverState: any) => ({ ...obj }));
-    };
+  };
 
+  // Function to handle mouse enter on an li item
+  const handleMouseEnter = (languageval: string) => {
+    setHoveredItem(languageval);
+  };
 
-    // Function to handle mouse enter on an li item
-    const handleMouseEnter = (languageval: string) => {
-        setHoveredItem(languageval);
-    };
+  // Function to handle mouse leave on an li item
+  const handleMouseLeave = () => {
+    setHoveredItem("");
+  };
+  const [isHovered, setIsHovered] = useState(false);
 
-    // Function to handle mouse leave on an li item
-    const handleMouseLeave = () => {
-        setHoveredItem("");
-    };
-    const [isHovered, setIsHovered] = useState(false);
+  const handleMouseEntericon = () => {
+    setIsHovered(true);
+  };
 
-    const handleMouseEntericon = () => {
-        setIsHovered(true);
-    };
-
-    const handleMouseLeaveicon = () => {
-        setIsHovered(false);
-    };
-    const fieldSize = props.size == undefined ? "form-control-sm" : props.size;
+  const handleMouseLeaveicon = () => {
+    setIsHovered(false);
+  };
+  const fieldSize = props.size == undefined ? "form-control-sm" : props.size;
   const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
   useEffect(() => {
     setIsTouch(false);
@@ -198,7 +195,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   return (
     <>
-      <div className={`dropdown ${block ? "w-100":""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100" : ""}`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span
@@ -218,31 +215,37 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 {isTouch !== true &&
                   props.placeholder &&
                   props.multiSelect !== true && (
-                                  <div className="d-flex align-items-baseline m-auto">
+                    <div className="d-flex align-items-baseline m-auto">
                       {props.isIconPlaceholder == true &&
                         props.isPlaceholder == false && (
                           <span>
-                                              {props.iconPath ? (
-                                                  <div onMouseEnter={handleMouseEntericon}
-                                                      onMouseLeave={handleMouseLeaveicon}>
-                              <RdsIcon
-                                iconPath={props.iconPath}
-                                fill={false}
-                                stroke={true}
-                                width={
-                                  props.labelIconWidth
-                                    ? props.labelIconWidth
-                                    : ""
-                                }
-                                height={
-                                  props.labelIconHeight
-                                    ? props.labelIconHeight
-                                    : ""
-                                }
-                                                      classes="me-2"
-                                                          type="lottie" hovered={hoveredItem === props.listItems[selectedOption].label}
-                                // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
-                                                      ></RdsIcon>
+                            {props.iconPath ? (
+                              <div
+                                onMouseEnter={handleMouseEntericon}
+                                onMouseLeave={handleMouseLeaveicon}
+                              >
+                                <RdsIcon
+                                  iconPath={props.iconPath}
+                                  fill={false}
+                                  stroke={true}
+                                  width={
+                                    props.labelIconWidth
+                                      ? props.labelIconWidth
+                                      : ""
+                                  }
+                                  height={
+                                    props.labelIconHeight
+                                      ? props.labelIconHeight
+                                      : ""
+                                  }
+                                  classes="me-2"
+                                  type="lottie"
+                                  hovered={
+                                    hoveredItem ===
+                                    props.listItems[selectedOption].label
+                                  }
+                                  // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
+                                ></RdsIcon>
                               </div>
                             ) : (
                               <RdsIcon
@@ -288,34 +291,38 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                           props.listItems[selectedOption]?.iconPath) &&
                           props.showIcon && (
                             <span>
-                                                  {props.listItems[selectedOption]?.iconPath ? (
-                                                      <div onMouseEnter={handleMouseEntericon}
-                                                          onMouseLeave={handleMouseLeaveicon}>
-                                <RdsIcon
-                                  iconPath={
-                                    props.listItems[selectedOption]?.iconPath
-                                  }
-                                  width={
-                                    props.listItems[selectedOption]?.iconWidth
-                                      ? props.listItems[selectedOption]
-                                          ?.iconWidth
-                                      : ""
-                                  }
-                                  height={
-                                    props.listItems[selectedOption]?.iconHeight
-                                      ? props.listItems[selectedOption]
-                                          ?.iconHeight
-                                      : ""
-                                  }
-                                  fill={false}
-                                                          stroke={true}
-                                                          isHovered={
-                                                              hoverState[
-                                                              props.listItems[selectedOption].label
-                                                              ]
-                                                          }
-                                  type="lottie"
-                                ></RdsIcon></div>
+                              {props.listItems[selectedOption]?.iconPath ? (
+                                <div
+                                  onMouseEnter={handleMouseEntericon}
+                                  onMouseLeave={handleMouseLeaveicon}
+                                >
+                                  <RdsIcon
+                                    iconPath={
+                                      props.listItems[selectedOption]?.iconPath
+                                    }
+                                    width={
+                                      props.listItems[selectedOption]?.iconWidth
+                                        ? props.listItems[selectedOption]
+                                            ?.iconWidth
+                                        : ""
+                                    }
+                                    height={
+                                      props.listItems[selectedOption]
+                                        ?.iconHeight
+                                        ? props.listItems[selectedOption]
+                                            ?.iconHeight
+                                        : ""
+                                    }
+                                    fill={false}
+                                    stroke={true}
+                                    isHovered={
+                                      hoverState[
+                                        props.listItems[selectedOption].label
+                                      ]
+                                    }
+                                    type="lottie"
+                                  ></RdsIcon>
+                                </div>
                               ) : (
                                 <RdsIcon
                                   name={props.listItems[selectedOption].icon}
@@ -427,8 +434,11 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                   : ""
                               }
                               classes="me-2"
-                                                      type="lottie"
-                                                       isHovered={hoveredItem === props.listItems[selectedOption].label}
+                              type="lottie"
+                              isHovered={
+                                hoveredItem ===
+                                props.listItems[selectedOption].label
+                              }
                               // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                             ></RdsIcon>
                           ) : (
@@ -470,33 +480,38 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 props.multiSelect !== true &&
                 props.listItems.length !== 0 && (
                   <>
-                                      <div className="d-flex align-items-baseline">
+                    <div className="d-flex align-items-baseline">
                       {(props.listItems[selectedOption]?.icon ||
                         props.listItems[selectedOption]?.iconPath) &&
                         props.showIcon && (
                           <span>
-                                                  {props.listItems[selectedOption]?.iconPath ? (
-                                <span>
-                              <RdsIcon
-                                iconPath={
-                                  props.listItems[selectedOption]?.iconPath
-                                }
-                                width={
-                                  props.listItems[selectedOption]?.iconWidth
-                                    ? props.listItems[selectedOption]?.iconWidth
-                                    : ""
-                                }
-                                height={
-                                  props.listItems[selectedOption]?.iconHeight
-                                    ? props.listItems[selectedOption]
-                                        ?.iconHeight
-                                    : ""
-                                }
-                                fill={false}
-                                stroke={true}
-                                isHovered={hoveredItem === props.listItems[selectedOption].label}
-                                type="lottie"
-                                                          ></RdsIcon></span>
+                            {props.listItems[selectedOption]?.iconPath ? (
+                              <span>
+                                <RdsIcon
+                                  iconPath={
+                                    props.listItems[selectedOption]?.iconPath
+                                  }
+                                  width={
+                                    props.listItems[selectedOption]?.iconWidth
+                                      ? props.listItems[selectedOption]
+                                          ?.iconWidth
+                                      : ""
+                                  }
+                                  height={
+                                    props.listItems[selectedOption]?.iconHeight
+                                      ? props.listItems[selectedOption]
+                                          ?.iconHeight
+                                      : ""
+                                  }
+                                  fill={false}
+                                  stroke={true}
+                                  isHovered={
+                                    hoveredItem ===
+                                    props.listItems[selectedOption].label
+                                  }
+                                  type="lottie"
+                                ></RdsIcon>
+                              </span>
                             ) : (
                               <RdsIcon
                                 name={props.listItems[selectedOption].icon}
@@ -508,17 +523,16 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                             )}
                           </span>
                         )}
-                      {!props.isIconPlaceholder && (props.isCode === true ? (
-                            <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
-                              {props.listItems[
-                                selectedOption
-                              ].val.toUpperCase()}
-                            </span>
-                          ) : (
-                            <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
-                              {props.listItems[selectedOption].label}
-                            </span>
-                          ))}
+                      {!props.isIconPlaceholder &&
+                        (props.isCode === true ? (
+                          <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                            {props.listItems[selectedOption].val.toUpperCase()}
+                          </span>
+                        ) : (
+                          <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                            {props.listItems[selectedOption].label}
+                          </span>
+                        ))}
                     </div>
                   </>
                 )}
@@ -581,8 +595,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.listItems?.map((language: any, i: any) => (
             <li
               key={i}
-                  onMouseEnter={() => handleMouseEnter(language.val)}
-                  onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => handleMouseEnter(language.val)}
+              onMouseLeave={handleMouseLeave}
               onClick={(event) => {
                 handlerLIstItem(event, i, language.val);
               }}
@@ -644,8 +658,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         width={language.iconWidth ? language.iconWidth : "30px"}
                         fill={false}
                         stroke={true}
-                                      
-                                      isHovered={hoveredItem === language.val}
+                        isHovered={hoveredItem === language.val}
                         type="lottie"
                       ></RdsIcon>
                     </div>
