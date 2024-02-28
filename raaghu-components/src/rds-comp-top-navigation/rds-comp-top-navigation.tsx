@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
-import {
-  RdsIcon,
-  RdsOffcanvas,
-  RdsBreadcrumb,
-  RdsDropdownList
-} from "../rds-elements";
+import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
@@ -25,6 +19,7 @@ export interface RdsCompTopNavigationProps {
   componentsList: any[];
   navbarTitle?: string;
   brandName?: string;
+  brandLogo?: string;
   profileTitle?: any;
   profileName?: string;
   profileEmail?: string;
@@ -58,25 +53,11 @@ export interface RdsCompTopNavigationProps {
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const { t } = useTranslation();
   const [logoImage, setLogoImage] = useState(props.logo);
+  const [brandLogo, setBrandLogo] = useState(props.brandLogo);
   const [breacrumItem, setBreadCrumItem] = useState(props.breacrumItem);
-  const [path, setPath] = useState({
-    elem: "/elements",
-    compo: "/components",
-    chart: "/charts",
-    icon: "",
-  });
-
-  const labelObj: any = {};
-  const [hoverState, setHoverState] = useState(labelObj);
   const [navtitle, setNavtitle] = useState(props.navbarTitle);
   const [resetDrop, setResetDrop] = useState(false);
-
   const currentPath = window.location.pathname;
-
-  useEffect(() => {
-    setHoverState(labelObj);
-  }, []);
-
   const navtabItems = [
     {
       label: "My Account",
@@ -119,7 +100,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
   useEffect(() => {
     setLogoImage(props.logo);
-  }, [props.logo]);
+    setBrandLogo(props.brandLogo);
+  }, [props.logo, props.brandLogo]);
 
   //side effect for breadcrum
   useEffect(() => {
@@ -152,18 +134,6 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     }
   }, [props.breacrumItem, props.navbarTitle]);
 
-  const [expanded, setExpanded] = useState(true);
-  //side effect for the path
-  useEffect(() => {
-    if (navtitle == "Component") {
-    }
-    if (navtitle == "Element") {
-    }
-    if (navtitle == "Chart") {
-    }
-    if (navtitle == "Icon") {
-    }
-  }, [path]);
 
   const themeItems = [
     {
@@ -251,7 +221,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                     className="cursor-pointer pe-4"
                     width={140}
                     height={40}
-                    src="assets/raaghu-logo.svg"
+                    src={brandLogo}
                     alt="raaghu-logo"
                   ></img>
                   <span className="text-bold text-primary border-start-custom ps-4">{navtitle}</span>
@@ -267,7 +237,6 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             )}
           </div>
         </div>
-
         <div
           className={
             "d-flex align-items-center justify-content-between right-side-menu"

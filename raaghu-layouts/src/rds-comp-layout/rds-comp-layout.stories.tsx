@@ -6,21 +6,13 @@ import * as stories from "../rds-comp-app-shell/rds-comp-app-shell.stories";
 
 
 const meta: Meta = {
-    title: 'Layouts/Layouts',
+    title: 'Layouts',
     component: RdsCompLayout,
     parameters: { 
         layout: 'padded',
         disableZoom : false
     },
     tags:['autodocs'],
-    argTypes: {
-      // shell: {
-      //   control: {
-      //     type: "select",
-      //     options: Object.keys(stories).filter(story => !['default', '__namedExportsOrder', 'exports'].includes(story)).map(story => story.toLowerCase()),
-      //   },
-      // },
-    },
     
 } satisfies Meta<typeof RdsCompLayout>;
 

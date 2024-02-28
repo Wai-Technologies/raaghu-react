@@ -7,7 +7,7 @@ import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 
 const meta: Meta = {
-  title: "Application Shell/Application Shells",
+  title: "Application Shells",
   component: RdsCompAppShell,
   parameters: {
     layout: "padded",
@@ -25,96 +25,97 @@ export const Default: Story = {
     children: (
       <>
         <RdsCompAppShellItem title={""}>
-          <div className="row">            
+          <div className="row">
             <RdsCompTopNavigation
-                brandName="Raaghu"
-                languageItems={[
-                  {
-                    icon: 'us',
-                    iconHeight: '20px',
-                    iconWidth: '20px',
-                    label: 'EN(US)',
-                    val: 'en'
-                  },
-                  {
-                    icon: 'in',
-                    iconHeight: '20px',
-                    iconWidth: '20px',
-                    label: 'English(IND)',
-                    val: 'en'
-                  },
-                  {
-                    icon: 'us',
-                    iconHeight: '20px',
-                    iconWidth: '20px',
-                    label: 'French',
-                    val: 'fr'
-                  }
-                ]}
-                logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
-                navbarSubTitle="Statistics and reports"
-                navbarTitle="Dashboard"
-                notifications={[
-                  {
-                    selected: false,
-                    state: 1,
-                    status: 'success',
-                    time: 'a month ago',
-                    title: 'Tenant added',
-                    urlTitle: 'hello',
-                    userNotificationId: 0
-                  },
-                  {
-                    selected: false,
-                    state: 1,
-                    status: 'error',
-                    time: 'a month ago',
-                    title: 'Tenant deleted',
-                    urlTitle: 'hello',
-                    userNotificationId: 1
-                  },
-                  {
-                    selected: false,
-                    state: 1,
-                    status: 'warn',
-                    time: 'a month ago',
-                    title: 'Tenant added  warn',
-                    urlTitle: 'hello',
-                    userNotificationId: 2
-                  },
-                  {
-                    selected: false,
-                    state: 1,
-                    status: 'info',
-                    time: 'a month ago',
-                    title: 'Tenant deleted info',
-                    urlTitle: 'hello',
-                    userNotificationId: 3
-                  }
-                ]}
-                profileName="Keanu Foster"
-                profileTitle="Host Admin"
-                profileEmail= "admin@raaghu.com"
-                themeItems={[
-                  {
-                    icon: 'sun',
-                    iconHeight: '20px',
-                    iconWidth: '20px',
-                    label: 'Light',
-                    val: 'light'
-                  },
-                  {
-                    icon: 'moon',
-                    iconHeight: '20px',
-                    iconWidth: '20px',
-                    label: 'Dark',
-                    val: 'dark'
-                  }
-                ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
-                  throw new Error("Function not implemented.");
-                } } onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
-                  throw new Error("Function not implemented.");
-                } }/>
+              brandLogo="assets/raaghu-logo.svg"
+              brandName="Raaghu"
+              languageItems={[
+                {
+                  icon: "us",
+                  iconHeight: "20px",
+                  iconWidth: "20px",
+                  label: "EN(US)",
+                  val: "en",
+                },
+                {
+                  icon: "in",
+                  iconHeight: "20px",
+                  iconWidth: "20px",
+                  label: "English(IND)",
+                  val: "en",
+                },
+                {
+                  icon: "us",
+                  iconHeight: "20px",
+                  iconWidth: "20px",
+                  label: "French",
+                  val: "fr",
+                },
+              ]}
+              logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+              navbarSubTitle="Statistics and reports"
+              navbarTitle="Dashboard"
+              notifications={[
+                {
+                  selected: false,
+                  state: 1,
+                  status: "success",
+                  time: "a month ago",
+                  title: "Tenant added",
+                  urlTitle: "hello",
+                  userNotificationId: 0,
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: "error",
+                  time: "a month ago",
+                  title: "Tenant deleted",
+                  urlTitle: "hello",
+                  userNotificationId: 1,
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: "warn",
+                  time: "a month ago",
+                  title: "Tenant added  warn",
+                  urlTitle: "hello",
+                  userNotificationId: 2,
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: "info",
+                  time: "a month ago",
+                  title: "Tenant deleted info",
+                  urlTitle: "hello",
+                  userNotificationId: 3,
+                },
+              ]}
+              profileEmail="admin@raaghu.com"
+              profileName="Keanu Foster"
+              profileTitle="Host Admin"
+              themeItems={[
+                {
+                  icon: "sun",
+                  iconHeight: "20px",
+                  iconWidth: "20px",
+                  label: "Light",
+                  val: "light",
+                },
+                {
+                  icon: "moon",
+                  iconHeight: "20px",
+                  iconWidth: "20px",
+                  label: "Dark",
+                  val: "dark",
+                },
+              ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
+                throw new Error("Function not implemented.");
+              } } onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
+                throw new Error("Function not implemented.");
+              } }            />
           </div>
           <div className="row">
             <div className="d-flex">
