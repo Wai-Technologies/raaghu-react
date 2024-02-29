@@ -42,5 +42,5 @@ export const Banner: Story = {
         iconFill: false
     }
 } satisfies Story;
-
+Banner.parameters = { controls: { include: ['textAlign', 'bannerText', 'sticky', 'position', 'colorVariant', 'icon', 'iconHeight', 'iconWidth', 'iconStroke', 'iconFill'] } };
 

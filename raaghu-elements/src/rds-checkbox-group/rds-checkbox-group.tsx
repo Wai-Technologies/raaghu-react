@@ -44,10 +44,12 @@ const RdsCheckboxGroup = (props: RdsCheckboxGroupProps) => {
                                     type="checkbox"
                                     className={
                                         props.state == "Indeterminate"
-                                            ? "form-check-intermediate form-check-input "
-                                            : props.state == "ErrorCheckbox"
-                                                ? " form-check-input form-check-checkbox-input-error"
-                                                : "form-check-input"
+                                        ? "form-check-input form-check-input-intermediate"
+                                        : props.state == "ErrorCheckbox"
+                                            ? " form-check-input form-check-input-error"
+                                            : "form-check-input"
+
+                                               
                                     }
                                     name={item.name}
                                     value={item.label}

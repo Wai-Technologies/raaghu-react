@@ -61,7 +61,7 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                                         </div>
 
                                         <div className="form-check">
-                                            {props.isSelectable == true && activeButton == index ? 
+                                            {props.isSelectable == true ? 
                                                 (<input
                                                     className="form-check-input"
                                                     type="radio"
