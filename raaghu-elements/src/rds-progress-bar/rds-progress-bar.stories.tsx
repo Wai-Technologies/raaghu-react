@@ -25,44 +25,44 @@ type Story = StoryObj<typeof RdsProgressBar>;
 
 
 
-export const Default :Story={
-    args:{
-        role:"single",
-        colorVariant:"primary",
-        striped:true,
-        progressWidth:40,
-        animation:false,
-        height:15,
-        displayLevel:true,
-        displayPercentage:true
+export const Default: Story = {
+    args: {
+        role: "single",
+        colorVariant: "primary",
+        striped: true,
+        progressWidth: 40,
+        animation: false,
+        height: 15,
+        displayLevel: true,
+        displayPercentage: true
     }
 } satisfies Story;
 
 
 
-export const MultiProgressBar :Story={
-    args:{
-        role:"multiple",
-        height:15,
-        width:"inherit",
-        progressValues:[
+export const MultiProgressBar: Story = {
+    args: {
+        role: "multiple",
+        height: 15,
+        width: "inherit",
+        progressValues: [
             {
-                progressWidth:50,
-                colorVariant:"success",
-                stripe:true,
-                animation:true
+                progressWidth: 50,
+                colorVariant: "success",
+                stripe: true,
+                animation: true
             },
             {
-                progressWidth:20,
-                colorVariant:"danger",
-                stripe:true,
-                animation:true
+                progressWidth: 20,
+                colorVariant: "danger",
+                stripe: true,
+                animation: true
             },
             {
-                progressWidth:30,
-                colorVariant:"info",
-                stripe:true,
-                animation:true
+                progressWidth: 30,
+                colorVariant: "info",
+                stripe: true,
+                animation: true
             },
         ],
     }

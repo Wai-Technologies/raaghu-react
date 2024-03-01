@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBankCardDetail from "./rds-bank-card-detail";
 import { Meta, StoryObj } from "@storybook/react";
 

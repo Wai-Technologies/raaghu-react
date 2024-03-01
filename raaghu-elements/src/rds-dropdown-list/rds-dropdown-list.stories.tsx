@@ -182,9 +182,6 @@ export const WithIcons: Story = {
             },
         ],
         placeholder: "Filter",
-        // icon: "us",
-        // iconFill:false, 
-        // iconStroke:true,
     }
 }
 WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'listItems'] } };

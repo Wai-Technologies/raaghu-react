@@ -1,4 +1,3 @@
-import React from "react";
 import RdsRadarChart from "./rds-chart-radar";
 import { Meta, StoryObj } from "@storybook/react";
 

@@ -6,7 +6,7 @@ export interface RdsSpinnerProps {
     width?: string;
     borderWidth?: string,
     height?: string,
-    size?:string;
+    size?: string;
 }
 const RdsSpinner = (props: RdsSpinnerProps) => {
 
@@ -16,7 +16,7 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
     const { width = '', height = '' } = props;
     const classes = `${spinnerClass} ${colorClass} ${sizeClass}`.trim();
     return (
-            <div className={classes} style={{ width,height }} />
+        <div className={classes} style={{ width, height }} />
     );
 };
 export default RdsSpinner;

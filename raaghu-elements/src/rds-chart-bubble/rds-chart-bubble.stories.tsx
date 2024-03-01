@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBubbleChart from "./rds-chart-bubble";
 import "./rds-chart-bubble.css";
 import { Meta, StoryObj } from "@storybook/react";

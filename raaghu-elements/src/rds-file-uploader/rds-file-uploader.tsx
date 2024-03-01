@@ -45,7 +45,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         setFileArray(tempFA);
         props.onDeleteFile && props.onDeleteFile(id)
     };
-    
+
     const onchangehandler = (event: any) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {

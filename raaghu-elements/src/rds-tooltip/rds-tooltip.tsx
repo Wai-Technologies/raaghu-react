@@ -18,7 +18,7 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, ref) => {
     const options = {
       title: props.text,
       placement: props.place,
-      trigger: props.trigger || "hover", 
+      trigger: props.trigger || "hover",
     };
 
     const t = new BsTooltip(childRef.current, options);

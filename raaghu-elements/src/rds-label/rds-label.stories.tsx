@@ -1,4 +1,3 @@
-import React from "react";
 import RdsLabel from "./rds-label";
 import { Meta, StoryObj } from "@storybook/react";
 

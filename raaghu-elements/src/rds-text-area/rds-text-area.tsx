@@ -75,9 +75,8 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               <div>
                 {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
-                    className={` form-label ${
-                      props.isDisabled ? " opacity-50 " : ""
-                    } `}
+                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                      } `}
                   >
                     {props.label}
                     {props.isRequired && (
@@ -104,9 +103,8 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                       {props.label && (
                         <label
                           htmlFor={props.id}
-                          className={` form-label ${
-                            props.isDisabled ? " opacity-50 " : ""
-                          } `}
+                          className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                            } `}
                         >
                           {props.label}
                         </label>
@@ -134,9 +132,8 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
         <div>
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
-              className={` form-label ${
-                props.isDisabled ? " opacity-50 " : ""
-              } `}
+              className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                } `}
             >
               {props.label}
               {props.isRequired && <span className="text-danger fs-6"> *</span>}
@@ -161,9 +158,8 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                 {props.label && (
                   <label
                     htmlFor={props.id}
-                    className={` form-label ${
-                      props.isDisabled ? " opacity-50 " : ""
-                    } `}
+                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                      } `}
                   >
                     {props.label}
                   </label>

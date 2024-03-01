@@ -4,7 +4,7 @@ import RdsLabel from "../rds-label";
 import "./rds-team-member.css";
 
 export interface RdsTeamMemberProps {
-	teamItem: any[];
+    teamItem: any[];
 }
 
 const RdsTeamMember = (props: RdsTeamMemberProps) => {

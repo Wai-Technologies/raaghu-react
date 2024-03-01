@@ -2,10 +2,10 @@ import React, { Fragment, useState } from "react";
 import RdsIcon from "../rds-icon";
 
 export interface RdsCardDetailProps {
-   cardDatas: any;
-   IsSelectionRequired?: boolean;
-   IsEditAndDefaultFunctionalityRequired?: boolean;
-   // onClick:(event:React.MouseEvent<HTMLButtonElement>)=>void;
+    cardDatas: any;
+    IsSelectionRequired?: boolean;
+    IsEditAndDefaultFunctionalityRequired?: boolean;
+    // onClick:(event:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
 const RdsCardDetail = (props: RdsCardDetailProps) => {
@@ -29,7 +29,7 @@ const RdsCardDetail = (props: RdsCardDetailProps) => {
                         <div className=" mb-4">
                             <div
                                 className={`${activeButton === index ? "border p-4" : "border__gray p-4"
-                                }`}
+                                    }`}
 
                             >
                                 <div className=" ">
@@ -53,7 +53,7 @@ const RdsCardDetail = (props: RdsCardDetailProps) => {
                                                 <div className=" ms-3 fs-7">
                                                     <span className="text-muted fs-7">
                                                         {" "}
-                                          Expiry {data.cardExpiry}
+                                                        Expiry {data.cardExpiry}
                                                     </span>
                                                 </div>
                                             </div>
@@ -87,23 +87,23 @@ const RdsCardDetail = (props: RdsCardDetailProps) => {
                                             className="ms-3 text-primary text-decoration-none "
                                             onClick={setDefaultHandler}
                                         >
-                                 Set as default
+                                            Set as default
                                         </a>
                                         ) : (<a
                                             className=" ms-3 text-muted  me-1 text-decoration-none"
                                             onClick={setDefaultHandler}
                                         >
-                                 Default
+                                            Default
                                         </a>)) : (<a
                                             className="ms-3 text-primary text-decoration-none "
                                         >
-                                 Set as default
+                                            Set as default
                                         </a>)}
                                         <a
                                             className="text-primary ms-2 text-decoration-none "
                                             style={{ textDecoration: "auto" }}
                                         >
-                                 Edit
+                                            Edit
                                         </a>
                                     </div>
                                 )}

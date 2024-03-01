@@ -1,4 +1,3 @@
-import React from "react";
 import RdsPieChart from "./rds-chart-pie";
 import { Meta, StoryObj } from "@storybook/react";
 

@@ -6,11 +6,11 @@ export interface RdsCompAppShellProps {
 }
 
 const RdsCompAppShell = (props: RdsCompAppShellProps) => {
-    return (
-      <div className="shell1">
-        {props.children}
-      </div>
-    );
-   };
- 
- export default RdsCompAppShell;
+  return (
+    <div className="shell1">
+      {props.children}
+    </div>
+  );
+};
+
+export default RdsCompAppShell;

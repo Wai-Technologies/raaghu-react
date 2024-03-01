@@ -3,13 +3,13 @@ import Chart from "chart.js/auto";
 import "./rds-chart-bubble.css";
 
 export interface RdsBubbleChartProps {
-  id: string;
-  labels: any[];
-  options: any;
-  dataSets: any[];
-  chartdata?: any[];
-  chartWidth?: number;
-  chartStyle?: string;
+    id: string;
+    labels: any[];
+    options: any;
+    dataSets: any[];
+    chartdata?: any[];
+    chartWidth?: number;
+    chartStyle?: string;
 }
 
 const RdsBubbleChart = (props: RdsBubbleChartProps) => {

@@ -1,4 +1,3 @@
-import React from "react";
 import RdsStepper from "./rds-stepper";
 import { Meta, StoryObj } from "@storybook/react";
 

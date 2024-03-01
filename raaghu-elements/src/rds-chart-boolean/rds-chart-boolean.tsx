@@ -4,14 +4,14 @@ import { Buffer } from "buffer";
 import { ChartIcons } from "./chart-icons";
 
 export interface RdsBooleanChartProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
-  width?: number;
-  chartStyle?: string;
-  id: string;
-  height?: number;
-  centerIconName?: string;
+    labels: any[];
+    options: any;
+    dataSets: any[];
+    width?: number;
+    chartStyle?: string;
+    id: string;
+    height?: number;
+    centerIconName?: string;
 }
 
 const RdsBooleanChart = (props: RdsBooleanChartProps) => {

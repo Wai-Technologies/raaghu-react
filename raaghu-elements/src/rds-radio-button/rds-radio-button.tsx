@@ -38,8 +38,8 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
     } `;
   const state = props.state || "radio"; //form-check-input-error
   const radioButtonClass = props.displayType === "Horizontal" ? "d-flex" : "";
-  const handlerRadioChange =(e:any) =>{
-    props.onChange&&props.onChange(e);
+  const handlerRadioChange = (e: any) => {
+    props.onChange && props.onChange(e);
   }
   return (
     <>

@@ -23,19 +23,19 @@ export interface RdsBigNumberProps {
   chartWidth?: number;
   textAlign?: string;
   backgroundColor?: string;
-  isIconSubTitle?:boolean;
+  isIconSubTitle?: boolean;
 }
 
 const RdsBigNumber = (props: RdsBigNumberProps) => {
   const tAlign = props.textAlign;
   const Align = `${props.hasOwnProperty("textAlign") ? tAlign : "text-start"}`;
   const alignclasses = `${Align === "text-start"
-      ? " text-start "
-      : Align === "text-center"
-        ? " text-center "
-        : Align === "text-end"
-          ? " text-end "
-          : ""
+    ? " text-start "
+    : Align === "text-center"
+      ? " text-center "
+      : Align === "text-end"
+        ? " text-end "
+        : ""
     }`;
 
   const borderColor = " border-" + props.subTitleColorVariant;

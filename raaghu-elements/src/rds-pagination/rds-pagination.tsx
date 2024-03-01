@@ -182,10 +182,9 @@ const RdsPagination = (props: RdsPaginationProps) => {
                     key={number}
                     className={
                       "cursor-pointer " +
-                      `${
-                        number === currentPage
-                          ? "page-item m-1 default-li active"
-                          : "page-item m-1 default-li "
+                      `${number === currentPage
+                        ? "page-item m-1 default-li active"
+                        : "page-item m-1 default-li "
                       }`
                     }
                   >
@@ -262,11 +261,10 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 {previous.map((number) => (
                   <li
                     key={number}
-                    className={`${
-                      number === currentPage
+                    className={`${number === currentPage
                         ? "page-item m-1 default-li active"
                         : "page-item m-1 default-li "
-                    }`}
+                      }`}
                   >
                     <a
                       onClick={() => onPage(number)}
@@ -279,11 +277,10 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 {displayedPages.map((number: any) => (
                   <li
                     key={number}
-                    className={`${
-                      number === currentPage
+                    className={`${number === currentPage
                         ? "page-item m-1 default-li active"
                         : "page-item m-1 default-li "
-                    }`}
+                      }`}
                   >
                     <a
                       onClick={() => onPage(number)}
@@ -297,17 +294,15 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 {continued.map((number) => (
                   <li
                     key={number}
-                    className={`${
-                      number === currentPage
+                    className={`${number === currentPage
                         ? "page-item m-1 default-li active"
                         : "page-item m-1 default-li "
-                    }`}
+                      }`}
                   >
                     <a
                       onClick={() => onPage(number)}
-                      className={`${
-                        number === int ? "page-link roundeds" : ""
-                      }`}
+                      className={`${number === int ? "page-link roundeds" : ""
+                        }`}
                     >
                       {number}
                     </a>
@@ -360,16 +355,14 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   </div>
                 </button>
                 <ul
-                  className={`dropdown-menu customWidthClass ${
-                    isDropdownOpen ? " show" : ""
-                  }`}
+                  className={`dropdown-menu customWidthClass ${isDropdownOpen ? " show" : ""
+                    }`}
                 >
                   {values.map((value) => (
                     <li
                       key={value}
-                      className={`pagination-item ${
-                        selectedRecordsPerPage === value ? "active" : ""
-                      }`}
+                      className={`pagination-item ${selectedRecordsPerPage === value ? "active" : ""
+                        }`}
                       onClick={() => handleItemsPerPageChange(value)}
                     >
                       {value}

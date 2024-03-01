@@ -43,63 +43,62 @@
   left: -25%;
 }
 
-
 .popoverCardTop::after {
-    display: block;
-    content: "";
-    position: absolute;
-    border: 1px solid #b1b1b1;
-    border-top: 0;
-    border-left: 0;
-    width: 10px;
-    height: 10px;
-    left: 50%;
-    bottom: -5px;
-    transform: rotate(45deg);
-    background: white;
-  }
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-top: 0;
+  border-left: 0;
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  bottom: -5px;
+  transform: rotate(45deg);
+  background: white;
+}
 
-  .popoverCardRight::after{
-    display: block;
-    content: "";
-    position: absolute;
-    border: 1px solid #b1b1b1;
-    border-right: 0;
-    border-top: 0;
-    width: 10px;
-    height: 10px;
-    left: -3%;
-    bottom: 45%;
-    transform: rotate(45deg);
-    background: white;
-  }
+.popoverCardRight::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-right: 0;
+  border-top: 0;
+  width: 10px;
+  height: 10px;
+  left: -3%;
+  bottom: 45%;
+  transform: rotate(45deg);
+  background: white;
+}
 
-  .popoverCardLeft::after{
-    display: block;
-    content: "";
-    position: absolute;
-    border: 1px solid #b1b1b1;
-    border-bottom: 0;
-    border-left: 0;
-    width: 10px;
-    height: 10px;
-    left: 98%;
-    bottom: 44%;
-    transform: rotate(45deg);
-    background: white;
-  }
+.popoverCardLeft::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-bottom: 0;
+  border-left: 0;
+  width: 10px;
+  height: 10px;
+  left: 98%;
+  bottom: 44%;
+  transform: rotate(45deg);
+  background: white;
+}
 
-  .popoverCardBottom::after {
-    display: block;
-    content: "";
-    position: absolute;
-    border: 1px solid #b1b1b1;
-    border-bottom: 0;
-    border-right: 0;
-    width: 10px;
-    height: 10px;
-    left: 44%;
-    bottom: 114px;
-    transform: rotate(45deg);
-    background: white;
-  }
+.popoverCardBottom::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-bottom: 0;
+  border-right: 0;
+  width: 10px;
+  height: 10px;
+  left: 44%;
+  bottom: 114px;
+  transform: rotate(45deg);
+  background: white;
+}
