@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryObj, Meta } from "@storybook/react";
 import RdsSpinner from "./rds-spinner";
 
@@ -32,13 +31,13 @@ const meta: Meta = {
         },
         width: {
             control: { type: 'text' },
-          },
-          height: {
+        },
+        height: {
             control: { type: 'text' },
-          },
-          size: {
+        },
+        size: {
             control: { type: 'text' },
-          },
+        },
     },
 } satisfies Meta<typeof RdsSpinner>;
 

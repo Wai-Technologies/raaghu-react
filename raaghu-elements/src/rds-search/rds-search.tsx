@@ -10,12 +10,12 @@ export interface RdsSearchProps {
     value?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyPress?: (event: React.KeyboardEvent) => void;
-    onKeyUp?:any
+    onKeyUp?: any
     onSearchClick?: () => void;
     dataTestId?: string;
     label?: string;
     labelPosition?: placements;
-    id?:string;
+    id?: string;
 }
 
 const RdsSearch = (props: RdsSearchProps) => {
@@ -44,43 +44,43 @@ const RdsSearch = (props: RdsSearchProps) => {
         if (props.labelPosition === 'right') {
             labelPositionClass = ' d-flex align-items-center gap-2 flex-row-reverse';
         }
-        if(props.size==='small'){
+        if (props.size === 'small') {
             labelPositionClass = labelPositionClass + ' form-control-sm px-0 py-0';
         }
-        if(props.size==='large'){
+        if (props.size === 'large') {
             labelPositionClass = labelPositionClass + ' form-control-lg';
         }
         return labelPositionClass;
     }
 
     return (
-        <div className={`form-label `+labelClass()} >{props.label}
+        <div className={`form-label ` + labelClass()} >{props.label}
             {/* <div className={labelClass()}> */}
-                {/* <label>{props.label}</label> */}
-                <div className={`input-group border rounded ` + classes()}>
-                    {props.iconPosition === 'left' && (
-                        <span className="input-group-text border-0">
-                            <RdsIcon name="search" fill={false} stroke={true} ></RdsIcon>
-                        </span>)}
-                    <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === 'left' ? ' border-end-0' : ' border-start-0')} type="search"
-                        defaultValue={props.value}
-                        placeholder={props.placeholder}
-                        id={props.id}
-                        aria-label={'aria-label-'+props.label}
-                        aria-describedby={'aria-describedby'+props.label}
-                        onChange={props.onChange}
-                        onKeyDown={props.onKeyPress}
-                        onKeyUp ={props.onKeyUp}
-                        data-testid={props.dataTestId}/>
-                    {props.iconPosition === 'right' && (
-                        <span className="input-group-text border-0">
-                            <RdsIcon 
-                            name="search" 
-                            fill={false} 
-                            stroke={true} 
-                            ></RdsIcon>
-                        </span>)}
-                </div>
+            {/* <label>{props.label}</label> */}
+            <div className={`input-group border rounded ` + classes()}>
+                {props.iconPosition === 'left' && (
+                    <span className="input-group-text border-0">
+                        <RdsIcon name="search" fill={false} stroke={true} ></RdsIcon>
+                    </span>)}
+                <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === 'left' ? ' border-end-0' : ' border-start-0')} type="search"
+                    defaultValue={props.value}
+                    placeholder={props.placeholder}
+                    id={props.id}
+                    aria-label={'aria-label-' + props.label}
+                    aria-describedby={'aria-describedby' + props.label}
+                    onChange={props.onChange}
+                    onKeyDown={props.onKeyPress}
+                    onKeyUp={props.onKeyUp}
+                    data-testid={props.dataTestId} />
+                {props.iconPosition === 'right' && (
+                    <span className="input-group-text border-0">
+                        <RdsIcon
+                            name="search"
+                            fill={false}
+                            stroke={true}
+                        ></RdsIcon>
+                    </span>)}
+            </div>
             {/* </div> */}
         </div>
     );
