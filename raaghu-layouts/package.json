@@ -1,6 +1,5 @@
 {
   "name": "@raaghu/react-layouts",
-  "version": "0.3.0",
   "description": "Collection of @raaghu/react-layouts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
