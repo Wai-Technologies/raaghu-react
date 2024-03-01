@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckbox>;
 
 
-export const checkbox :Story={
+export const checkBox :Story={
     args:{
         state:"Checkbox",
         label:"default checkbox",
@@ -34,6 +34,7 @@ export const checkbox :Story={
         isInputGroup:false
     }
 } satisfies Story;
-checkbox.parameters = { controls: { include: ['state', 'label', 'checked', 'isDisabled', 'isSwitch', 'withlabel', 'id', 'isInputGroup'] } };
+
+checkBox.parameters = { controls: { include: ['state', 'label', 'checked', 'isDisabled', 'isSwitch', 'withlabel', 'id', 'isInputGroup'] } };
 
 
