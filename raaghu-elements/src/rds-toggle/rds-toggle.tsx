@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import RdsLabel from "../rds-label/rds-label";
 
 export interface RdsToggleProps {
-  onClick?: React.MouseEventHandler<HTMLInputElement>;
-  iconOnUncheck: string;
-  iconOnCheck: string;
-  small?: boolean;
-  checked: boolean;
+    onClick?: React.MouseEventHandler<HTMLInputElement>;
+    iconOnUncheck: string;
+    iconOnCheck: string;
+    small?: boolean;
+    checked: boolean;
 }
 
 const RdsToggle = (props: RdsToggleProps) => {
     const [checked, setChecked] = useState(props.checked);
 
     // useEffect(() => {
-    
+
     //     setChecked(props.checked);
     // }, [props.checked]);
     const onChangeHandler = () => {
-    
+
         setChecked((prev) => !prev);
     };
 

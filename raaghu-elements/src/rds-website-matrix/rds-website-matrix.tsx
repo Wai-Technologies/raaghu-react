@@ -1,16 +1,16 @@
-import React  from "react";
+import React from "react";
 import "./rds-website-matrix.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import { colors } from "../../libs/types";
 
 export interface RdsWebsiteMatrixProps {
-  colorVariant?: colors;
-  item: any;
-  onClickLink?: (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    clicked: boolean
-  ) => void;
-  displayType?: string;
+    colorVariant?: colors;
+    item: any;
+    onClickLink?: (
+        event: React.MouseEvent<HTMLAnchorElement>,
+        clicked: boolean
+    ) => void;
+    displayType?: string;
 }
 
 const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
@@ -131,7 +131,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                     <div
                         className={
                             "d-flex border-top border-3 justify-content-between align-items-center pt-2 " +
-              `${borderColor}`
+                            `${borderColor}`
                         }
                     >
                         <div>
