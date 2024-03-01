@@ -3,17 +3,17 @@ import "./rds-table.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsTableProps {
-  headerDatas: any[];
-  tableDatas: any[];
-  colorVariant?: string;
-  id?: string;
-  striped?: boolean;
-  bordered?: boolean;
-  iconColorVariant?: string;
-  width?: number;
-  backgroundColor?: string;
-  headerTextColor?: string;
-  tableHeightForScroll?: string;
+    headerDatas: any[];
+    tableDatas: any[];
+    colorVariant?: string;
+    id?: string;
+    striped?: boolean;
+    bordered?: boolean;
+    iconColorVariant?: string;
+    width?: number;
+    backgroundColor?: string;
+    headerTextColor?: string;
+    tableHeightForScroll?: string;
 }
 
 const RdsTable = (props: RdsTableProps) => {
@@ -24,16 +24,14 @@ const RdsTable = (props: RdsTableProps) => {
             style={{ height: `${props.tableHeightForScroll}` }}
         >
             <table
-                className={`table table-hover mt-0 ${
-                    props.tableHeightForScroll ? "tableFixed" : ""
-                }   tableFixed table-${props.colorVariant} ${
-                    props.striped ? "table-striped" : ""
-                } ${props.bordered ? "table-bordered" : "table-borderless"}`}
+                className={`table table-hover mt-0 ${props.tableHeightForScroll ? "tableFixed" : ""
+                    }   tableFixed table-${props.colorVariant} ${props.striped ? "table-striped" : ""
+                    } ${props.bordered ? "table-bordered" : "table-borderless"}`}
                 width={props.width}
             >
                 <thead
                     className={`${props.tableHeightForScroll ? "headFixed" : ""}`}
-          
+
                 >
                     <tr>
                         {props.headerDatas.map((headerData) => (
@@ -53,25 +51,21 @@ const RdsTable = (props: RdsTableProps) => {
                             {props.headerDatas.map((headerData) => (
                                 <td
                                     key={`${tableData.id}${headerData.key}`}
-                                    width={`${
-                                        headerData.dataType == "text"
+                                    width={`${headerData.dataType == "text"
                                             ? "40%"
                                             : headerData.dataType == "icon"
                                                 ? "20%"
                                                 : headerData.dataType == "textNumber"
                                                     ? "20%"
                                                     : ""
-                                    }`}
-                                    className={`${
-                                        headerData.dataType == "icon" ? "" : "align-middle"
-                                    }`}
+                                        }`}
+                                    className={`${headerData.dataType == "icon" ? "" : "align-middle"
+                                        }`}
                                     style={{
-                                        borderLeft: `${
-                                            headerData.dataType == "icon" ? "solid 1px #E2E2E3" : ""
-                                        }`,
-                                        padding: `${
-                                            headerData.dataType == "icon" ? "0.625rem 0.5rem" : ""
-                                        }`,
+                                        borderLeft: `${headerData.dataType == "icon" ? "solid 1px #E2E2E3" : ""
+                                            }`,
+                                        padding: `${headerData.dataType == "icon" ? "0.625rem 0.5rem" : ""
+                                            }`,
                                     }}
                                 >
                                     {headerData.dataType == "icon" && (

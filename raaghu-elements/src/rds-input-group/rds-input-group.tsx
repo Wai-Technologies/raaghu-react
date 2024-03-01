@@ -5,34 +5,34 @@ import { colors } from "../../libs/types";
 import "./rds-input-group.css";
 
 export interface RdsInputGroupProps {
-  buttonLabel?: string;
-  colorVariant: colors;
-  placeholder?: string;
-  size?: "small" | "medium" | "large";
-  inputGroupLabel?: string;
-  labelPosition? : string;
-  outline?: boolean;
-  icon?: string;
-  value?: string
-  iconColorVariant?: string
-  iconHeight?: string
-  iconWidth?: string
-  iconFill?: boolean
-  iconStroke?: boolean
-  inputValue(arg: string): any;
+    buttonLabel?: string;
+    colorVariant: colors;
+    placeholder?: string;
+    size?: "small" | "medium" | "large";
+    inputGroupLabel?: string;
+    labelPosition?: string;
+    outline?: boolean;
+    icon?: string;
+    value?: string
+    iconColorVariant?: string
+    iconHeight?: string
+    iconWidth?: string
+    iconFill?: boolean
+    iconStroke?: boolean
+    inputValue(arg: string): any;
 }
 
 const RdsInputGroup = (props: RdsInputGroupProps) => {
     const [value, setValue] = useState("");
     const inputGroupDivClasses =
-    "d-flex align-items-end input-group input-group-" +
-    (props.size === "small" ? "sm" : props.size === "large" ? "lg" : "md");
+        "d-flex align-items-end input-group input-group-" +
+        (props.size === "small" ? "sm" : props.size === "large" ? "lg" : "md");
     const inputGroupLabelClasses =
-    props.size === "small"
-        ? "fs-small-size"
-        : props.size === "large"
-            ? "fs-5"
-            : "mb-2";
+        props.size === "small"
+            ? "fs-small-size"
+            : props.size === "large"
+                ? "fs-5"
+                : "mb-2";
 
     const buttonClickHandler = (e: any) => {
         e.preventDefault();
@@ -57,7 +57,7 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                 className="RdsInputGroup__form"
                 onSubmit={buttonClickHandler}
             >
-                {props.inputGroupLabel && props.labelPosition =="top"  && (
+                {props.inputGroupLabel && props.labelPosition == "top" && (
                     <label className={inputGroupLabelClasses}>
                         {" "}
                         {props.inputGroupLabel}{" "}
@@ -91,7 +91,7 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
 
                     ></RdsButton>
                 </div>
-                {props.inputGroupLabel && props.labelPosition =="bottom"  && (
+                {props.inputGroupLabel && props.labelPosition == "bottom" && (
                     <label className={inputGroupLabelClasses}>
                         {" "}
                         {props.inputGroupLabel}{" "}

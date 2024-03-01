@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import "./rds-accordion.css";
 export interface RdsAccordionProps {
   accordionType: string;

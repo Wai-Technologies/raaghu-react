@@ -1,4 +1,3 @@
-import React from "react";
 import RdsMixedChart from "./rds-chart-mixed";
 import "./rds-chart-mixed.css";
 import { Meta, StoryObj } from "@storybook/react";

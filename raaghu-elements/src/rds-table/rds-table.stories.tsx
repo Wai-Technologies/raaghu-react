@@ -121,4 +121,4 @@ export const Table: Story = {
 } satisfies Story;
 
 
-Table.parameters = { controls: { include: ['id', 'striped','bordered','tableHeightForScroll','backgroundColor','headerTextColor','headerDatas','tableDatas','colorVariant' ] } };
+Table.parameters = { controls: { include: ['id', 'striped', 'bordered', 'tableHeightForScroll', 'backgroundColor', 'headerTextColor', 'headerDatas', 'tableDatas', 'colorVariant'] } };

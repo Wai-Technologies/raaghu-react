@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBankCardDetail from "./rds-bank-card-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -37,5 +36,5 @@ export const BankCardDetail: Story = {
         ],
     }
 } satisfies Story;
-
+BankCardDetail.parameters = { controls: { include: ['isSelectable', 'isEditable', 'cardDatas'] } };
 

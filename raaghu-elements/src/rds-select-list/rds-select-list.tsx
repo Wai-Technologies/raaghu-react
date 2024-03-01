@@ -30,26 +30,26 @@ const RdsSelectList = (props: RdsSelectProps) => {
     setselectedValue(props.selectedValue);
 
   }, [props.selectedValue]);
-    useEffect(() => {
-      debugger
-        if (props.selectItems) {
-            const tempOptions = props.selectItems.map((item) => ({
-                value: item.value,
-                label: item.option,
-                className: "rds-select-list-items",
-            }));
-            // Check if tempOptions is different from the current options
-            if (!areArraysEqual(tempOptions, options)) {
-                setOptions(tempOptions);
-            }
-        }
-    }, [props.selectItems, options]);
-    
-    // Function to compare arrays
-    function areArraysEqual(arr1: { value: any; label: any; className: string; }[], arr2: { value: any; label: any; className: string; }[]) {
-        return JSON.stringify(arr1) === JSON.stringify(arr2);
+  useEffect(() => {
+    debugger
+    if (props.selectItems) {
+      const tempOptions = props.selectItems.map((item) => ({
+        value: item.value,
+        label: item.option,
+        className: "rds-select-list-items",
+      }));
+      // Check if tempOptions is different from the current options
+      if (!areArraysEqual(tempOptions, options)) {
+        setOptions(tempOptions);
+      }
     }
-    
+  }, [props.selectItems, options]);
+
+  // Function to compare arrays
+  function areArraysEqual(arr1: { value: any; label: any; className: string; }[], arr2: { value: any; label: any; className: string; }[]) {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  }
+
   const handleSelectChange = (items: any) => {
     debugger
     if (!props.isMultiple) {
@@ -63,9 +63,9 @@ const RdsSelectList = (props: RdsSelectProps) => {
       setselectedValue(items);
     }
   };
-const selectedItem = props.isMultiple
-  ? options.filter((item: any) => selectedValue?.includes(item.value))
-  : options.find((item: any) => item.value === selectedValue);
+  const selectedItem = props.isMultiple
+    ? options.filter((item: any) => selectedValue?.includes(item.value))
+    : options.find((item: any) => item.value === selectedValue);
 
   const placeholder =
     props.selectedValue !== undefined && props.selectedValue !== null

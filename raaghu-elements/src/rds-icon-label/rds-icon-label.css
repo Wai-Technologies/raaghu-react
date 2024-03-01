@@ -1,6 +1,6 @@
 .labelClass {
   text-align: left;
-/* font: normal normal medium 14px/1px Poppins; */
+  /* font: normal normal medium 14px/1px Poppins; */
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
@@ -13,15 +13,15 @@
   margin-left: 8px;
 }
 
-.form-select-sm > svg{
+.form-select-sm > svg {
   height: 15px !important;
   width: 15px !important;
 }
-.form-select-md > svg{
+.form-select-md > svg {
   height: 20px !important;
   width: 20px !important;
 }
-.form-select-lg > svg{
+.form-select-lg > svg {
   height: 25px !important;
   width: 25px !important;
 }

@@ -27,11 +27,11 @@ const RdsStepper = (props: RdsStepperProps) => {
 
     const formLength = formTitles.length;
     const dotPosition = `${100 / formLength}`;
-    const progressIndex = `${(100 / formLength) * (page-1)}%`;
+    const progressIndex = `${(100 / formLength) * (page - 1)}%`;
 
     return (
         <>
-            {props.stepperType =="simple" && (
+            {props.stepperType == "simple" && (
                 <>
                     <div className="progressBar">
                         <div className="h-100"
@@ -45,7 +45,7 @@ const RdsStepper = (props: RdsStepperProps) => {
                                 {idx < arr.length - 1 ? (
                                     <span
                                         className="dot"
-                                        style={{ left: `${parseFloat(dotPosition) * (idx +1)}%` }}
+                                        style={{ left: `${parseFloat(dotPosition) * (idx + 1)}%` }}
                                     ></span>
                                 ) : (
                                     ""
@@ -55,11 +55,11 @@ const RdsStepper = (props: RdsStepperProps) => {
                     </div>
 
                     <div className="d-flex mt-2">
-                        {formTitles.map((FormItem)=>(
+                        {formTitles.map((FormItem) => (
                             <>
-                                <div style={{width: `${dotPosition}%`}} className="ps-3">
-                                    <div style={{fontSize:"20px", color:"#336cff"}}>{FormItem.stepName}</div>
-                                    <div style={{fontSize:"20px"}}>{FormItem.stepabname}</div>
+                                <div style={{ width: `${dotPosition}%` }} className="ps-3">
+                                    <div style={{ fontSize: "20px", color: "#336cff" }}>{FormItem.stepName}</div>
+                                    <div style={{ fontSize: "20px" }}>{FormItem.stepabname}</div>
                                 </div>
                             </>
                         ))}
@@ -73,14 +73,14 @@ const RdsStepper = (props: RdsStepperProps) => {
                     className="btn btn-primary btn-sm me-2"
                     onClick={decreasePageCountHandler}
                 >
-          Prev
+                    Prev
                 </button>
                 <button
-                    disabled={page === formTitles.length+1}
+                    disabled={page === formTitles.length + 1}
                     className="btn btn-primary btn-sm"
                     onClick={increasePageCountHandler}
                 >
-          Next
+                    Next
                 </button>
             </div>
         </>

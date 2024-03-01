@@ -1,4 +1,3 @@
-import React from "react";
 import RdsDoubleRange from "./rds-double-range";
 import { Meta, StoryObj } from "@storybook/react";
 

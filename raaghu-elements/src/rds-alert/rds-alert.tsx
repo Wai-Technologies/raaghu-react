@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import { colors, size } from "../../libs/types";
 import RdsIcon from "../rds-icon";
 import "./rds-alert.css";

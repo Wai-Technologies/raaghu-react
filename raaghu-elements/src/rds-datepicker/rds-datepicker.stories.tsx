@@ -1,4 +1,3 @@
-import React from "react";
 import RdsDatepicker, { RdsDatepickerProps } from "./rds-datepicker";
 import { Meta, StoryObj } from "@storybook/react";
 

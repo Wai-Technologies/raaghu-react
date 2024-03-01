@@ -1,16 +1,16 @@
 import React, { ReactNode } from "react";
 
 export interface RdsDropdownProps {
-  colorVariant: string;
-  size: string;
-  darkDropdown: boolean;
-  label: string;
-  direction: string;
-  role?: string;
-  listItems: any[];
-  split: boolean;
-  id: string;
-  button?: ReactNode;
+    colorVariant: string;
+    size: string;
+    darkDropdown: boolean;
+    label: string;
+    direction: string;
+    role?: string;
+    listItems: any[];
+    split: boolean;
+    id: string;
+    button?: ReactNode;
 }
 
 const RdsDropdown = (props: RdsDropdownProps) => {
@@ -22,7 +22,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
     }
 
     let dropdowndirection: "dropup" | "dropend" | "dropstart" | undefined =
-    undefined;
+        undefined;
     if (props.direction == "Drop-Up") {
         dropdowndirection = "dropup";
     } else if (props.direction == "Drop-Right") {
@@ -49,9 +49,8 @@ const RdsDropdown = (props: RdsDropdownProps) => {
                 {!props.button ? (
                     <>
                         <button
-                            className={`btn btn-${props.colorVariant} ${
-                                props.split ? "dropdown-toggle-split" : ""
-                            } dropdown-toggle ${size}`}
+                            className={`btn btn-${props.colorVariant} ${props.split ? "dropdown-toggle-split" : ""
+                                } dropdown-toggle ${size}`}
                             type="button"
                             data-bs-toggle="dropdown"
                             id={`dropdownMenuButton23${props.id}`}
@@ -77,9 +76,8 @@ const RdsDropdown = (props: RdsDropdownProps) => {
                 )}
 
                 <ul
-                    className={`dropdown-menu w-auto ${
-                        props.darkDropdown ? "dropdown-menu-dark" : ""
-                    }`}
+                    className={`dropdown-menu w-auto ${props.darkDropdown ? "dropdown-menu-dark" : ""
+                        }`}
                     aria-labelledby={`dropdownMenuButton23${props.id}`}
                 >
                     {props.listItems.map((listItem) => (

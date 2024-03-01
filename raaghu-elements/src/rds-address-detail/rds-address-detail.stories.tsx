@@ -1,5 +1,5 @@
 import React from "react";
-import RdsAddressDetail, { RdsAddressDetailProps } from "./rds-address-detail";
+import RdsAddressDetail from "./rds-address-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {

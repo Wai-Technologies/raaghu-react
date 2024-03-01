@@ -1,4 +1,3 @@
-import React from "react";
 import RdsDoughnutChart from "./rds-chart-doughnut";
 import { Meta, StoryObj } from "@storybook/react";
 

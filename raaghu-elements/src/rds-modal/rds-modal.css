@@ -1,59 +1,59 @@
-.modal-backdrop{
-    opacity:0.15 !important
+.modal-backdrop {
+  opacity: 0.15 !important;
 }
 .fade-scale {
-    transform: scale(0);
-    opacity: 0;
-    -webkit-transition: all 0.25s linear;
-    -o-transition: all 0.25s linear;
-    transition: all 0.25s linear;
-  }
-  .fade-scale.show {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .fade-scale .modal-dialog {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) !important;
-  }
-  
-  .fade-rotate {
-    transform: rotate(180deg);
-    opacity: 0;
-    -webkit-transition: all 0.25s linear;
-    -o-transition: all 0.25s linear;
-    transition: all 0.25s linear;
-  }
-  .fade-rotate.show {
-    opacity: 1;
-    transform: rotate(0deg);
-  }
-  .fade-rotate .modal-dialog {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) !important;
-  }
-  
-  .fade-flip {
-    transform: rotateX(-90deg);
-    opacity: 0;
-    -webkit-transition: all 0.25s linear;
-    -o-transition: all 0.25s linear;
-    transition: all 0.25s linear;
-  }
-  .fade-flip.show {
-    opacity: 1;
-    transform: rotateX(0deg);
-  }
-  .fade-flip .modal-dialog {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) !important;
-  }
+  transform: scale(0);
+  opacity: 0;
+  -webkit-transition: all 0.25s linear;
+  -o-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+.fade-scale.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.fade-scale .modal-dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) !important;
+}
+
+.fade-rotate {
+  transform: rotate(180deg);
+  opacity: 0;
+  -webkit-transition: all 0.25s linear;
+  -o-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+.fade-rotate.show {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.fade-rotate .modal-dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) !important;
+}
+
+.fade-flip {
+  transform: rotateX(-90deg);
+  opacity: 0;
+  -webkit-transition: all 0.25s linear;
+  -o-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+.fade-flip.show {
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+.fade-flip .modal-dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) !important;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCheckboxGroup from "./rds-checkbox-group";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -28,7 +27,6 @@ export const CheckboxGroup: Story = {
         isSwitch: false,
         isInline: false,
         label: "Checkbox Group",
-
         itemList: [
             {
                 id: 1,
@@ -52,3 +50,4 @@ export const CheckboxGroup: Story = {
         errorMessage: "Error Message",
     }
 }
+CheckboxGroup.parameters = { controls: { include: ['state', 'label', 'isInline', 'isDisabled', 'isSwitch', 'itemList', 'errorMessage'] } };

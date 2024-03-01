@@ -3,10 +3,10 @@ import RdsIcon from "../rds-icon";
 import "./rds-bank-card-detail.css";
 
 export interface RdsBankCardDetailProps {
-  cardDatas: any;
-  isSelectable?: boolean;
-  isEditable?: boolean;
-  // onClick:(event:React.MouseEvent<HTMLButtonElement>)=>void;
+    cardDatas: any;
+    isSelectable?: boolean;
+    isEditable?: boolean;
+    // onClick:(event:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
 const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
@@ -18,9 +18,9 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
     };
     const setDefaultHandler = () => {
         setClicked(!clicked);
-    //  onClick()
+        //  onClick()
     };
-  
+
 
     return (
         <Fragment>
@@ -29,10 +29,9 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                     <div key={index} onClick={() => clickHandler(index)}>
                         <div className=" mb-4">
                             <div
-                                className={`${
-                                    activeButton === index ? "border__color p-4" : "border__gray p-4"
-                                }`}
-            
+                                className={`${activeButton === index ? "border__color p-4" : "border__gray p-4"
+                                    }`}
+
                             >
                                 <div className=" ">
                                     <div className="d-flex justify-content-between">
@@ -54,28 +53,28 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                                                 <div className=" ms-3 fs-7">
                                                     <span className="text-muted fs-7">
                                                         {" "}
-                            Expiry {data.cardExpiry}
+                                                        Expiry {data.cardExpiry}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="form-check">
-                                            {props.isSelectable == true && activeButton == index ? 
+                                            {props.isSelectable == true ?
                                                 (<input
                                                     className="form-check-input"
                                                     type="radio"
                                                     name="flexRadioDefault"
                                                     id="flexRadioD"
                                                     checked
-                                                />) : 
+                                                />) :
                                                 (
                                                     <input
                                                         className="form-check-input"
                                                         type="radio"
                                                         name="flexRadioDefault"
                                                         id="flexRadioD"
-                          
+
                                                     />
                                                 )}
                                         </div>
@@ -84,28 +83,28 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
 
                                 {props.isEditable == true && (
                                     <div className="mt-2  ms-5">
-                                        {activeButton== index ? (clicked == false?(<a
+                                        {activeButton == index ? (clicked == false ? (<a
                                             className="ms-3 text-primary text-decoration-none "
                                             onClick={setDefaultHandler}
                                         >
-                        Set as default
+                                            Set as default
                                         </a>
-                                        ):(<a
+                                        ) : (<a
                                             className=" ms-3 text-muted  me-1 text-decoration-none"
                                             onClick={setDefaultHandler}
                                         >
-                      Default
-                                        </a>)):(<a
+                                            Default
+                                        </a>)) : (<a
                                             className="ms-3 text-primary text-decoration-none "
                                         >
-                        Set as default
+                                            Set as default
                                         </a>)}
-                    
+
                                         <a
                                             className="text-primary ms-2 text-decoration-none "
                                             style={{ textDecoration: "auto" }}
                                         >
-                      Edit
+                                            Edit
                                         </a>
                                     </div>
                                 )}

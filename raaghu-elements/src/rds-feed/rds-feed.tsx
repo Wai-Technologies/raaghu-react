@@ -5,26 +5,26 @@ import RdsRating from "../rds-rating";
 
 
 export interface Item {
-   id: React.Key | null | undefined;
-   profilePic: string | undefined;
-   date: string | undefined;
-   withNoOfReviews: boolean;
-   noOfReview: undefined;
-   name: string;
-   username?: string;
-   feedIcon?: string;
-   imageUrl?: string;
-   description: string;
-   reviews?: string;
-   reviewTitle?: string;
-   reviewSubTitle?: string;
-   rating?: 0 | 1 | 2 | 3 | 4 | 5;
-   fill?: boolean;
-   stroke?: boolean
+    id: React.Key | null | undefined;
+    profilePic: string | undefined;
+    date: string | undefined;
+    withNoOfReviews: boolean;
+    noOfReview: undefined;
+    name: string;
+    username?: string;
+    feedIcon?: string;
+    imageUrl?: string;
+    description: string;
+    reviews?: string;
+    reviewTitle?: string;
+    reviewSubTitle?: string;
+    rating?: 0 | 1 | 2 | 3 | 4 | 5;
+    fill?: boolean;
+    stroke?: boolean
 
 }
 export interface RdsFeedProps {
-   itemList: Item[];
+    itemList: Item[];
 
 }
 

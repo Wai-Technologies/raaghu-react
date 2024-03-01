@@ -1,4 +1,3 @@
-import React from "react";
 import RdsAreaChart from "./rds-chart-area";
 import { ScriptableContext } from "chart.js";
 import { Meta, StoryObj } from "@storybook/react";

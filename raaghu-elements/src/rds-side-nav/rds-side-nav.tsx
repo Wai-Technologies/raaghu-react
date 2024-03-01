@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import RdsIcon from "../rds-icon/rds-icon";
-import { useTranslation } from "react-i18next";
 import useOutsideClick from "../rds-outside-click";
 
 export interface RdsSideNavProps {
@@ -13,7 +12,6 @@ export interface RdsSideNavProps {
 
 const RdsSideNav = (props: RdsSideNavProps) => {
 
-    const { t } = useTranslation();
     const [collapse, setcollapse] = useState(true);
     const [isMenuHover, setMenuHover] = useState(true);
     const [isMenuClick, setMenuClick] = useState(false);
@@ -25,7 +23,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [isOnNavigate, setOnNavigate] = useState(false);
     const mainMenu = props.sideNavItems;
     const labelObj: any = {};
-    const [hoveredItem, setHoveredItem] = useState(""); 
+    const [hoveredItem, setHoveredItem] = useState("");
 
 
 
@@ -66,7 +64,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     };
 
     const useLocationChange = (action: any) => {
-        const location = useLocation();
         React.useEffect(() => {
             action(location);
         }, [location, mainMenu]);
@@ -176,30 +173,48 @@ const RdsSideNav = (props: RdsSideNavProps) => {
         setHoveredItem("");
     };
 
+    function handleLinkClick(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string): void {
+        event.preventDefault();
+        console.log("path", path)
+        window.history.pushState(null, '', path);
+
+    }
+
     const displayMenu = (items: any, parent: any, level: number) => {
 
         return (
             items.map((item: any) => (
                 <>
-                    <li onMouseEnter={() => handleMouseEnter(item.key)}
-                        onMouseLeave={handleMouseLeave} className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0" value={item.key + "_" + parent} onClick={() => onMenuClick(item, parent, level, !item.children)}>
-                        <Link to={item.path} className={"align-items-center d-inline-flex text-decoration-none cursor-pointer"
-                            + (collapse ? level == 1 ? " ps-3 pe-2 " : "pe-2 " : " ps-3 pe-1 ")
-                            + (item.children ? "child " : "")
-                            + (level == 2 ? " ps-4 ms-xxl-2 ms-xl-2 ms-lg-2 ms-md-2 sidebar-childmenu " : (level == 3 ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-5 ms-xxl-3 ms-xl-3 ms-lg-3 ms-md-3 sidebar-childmenu " : ""))
-                            // + ((level == 2 && !collapse) ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-1 " : ((level == 3 && !collapse) ? " ps-xxl-5 ps-xl-5 ps-lg-5 ps-md-5 ps-1 " : ""))
-                            // + ((level == 2 && collapse) ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 " : ((level == 3 && collapse) ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 " : ""))
-                            + ((item.key == menuKey || item.key == menuParentKey || item.key == menuNodeKey) && isOnNavigate ? "active " : "")
-                            + ((parent == menuKey)
-                                ? "d-block "
-                                : ((level != 1 && parent != menuParentKey)
-                                    ? "d-none " : ""))
-                        } aria-expanded={((item.key == menuKey || item.key == menuParentKey) ? "true" : "false")}>
+                    <li
+                        onMouseEnter={() => handleMouseEnter(item.key)}
+
+                        onMouseLeave={handleMouseLeave}
+
+                        className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0" value={item.key + "_" + parent}
+                        onClick={() => onMenuClick(item, parent, level, !item.children)}
+                    >
+                        <a
+                            href={item.path}
+                            onClick={(e) => handleLinkClick(e, item.path)}
+                            className={"align-items-center d-inline-flex text-decoration-none cursor-pointer"
+                                + (collapse ? level == 1 ? " ps-3 pe-2 " : "pe-2 " : " ps-3 pe-1 ")
+                                + (item.children ? "child " : "")
+                                + (level == 2 ? " ps-4 ms-xxl-2 ms-xl-2 ms-lg-2 ms-md-2 sidebar-childmenu " : (level == 3 ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-5 ms-xxl-3 ms-xl-3 ms-lg-3 ms-md-3 sidebar-childmenu " : ""))
+                                + ((level == 2 && !collapse) ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-1 " : ((level == 3 && !collapse) ? " ps-xxl-5 ps-xl-5 ps-lg-5 ps-md-5 ps-1 " : ""))
+                                + ((level == 2 && collapse) ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 " : ((level == 3 && collapse) ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 " : ""))
+                                + ((item.key == menuKey || item.key == menuParentKey || item.key == menuNodeKey) && isOnNavigate ? "active " : "")
+                                + ((parent == menuKey)
+                                    ? "d-block "
+                                    : ((level != 1 && parent != menuParentKey)
+                                        ? "d-none " : ""))
+                            } aria-expanded={((item.key == menuKey || item.key == menuParentKey) ? "true" : "false")
+                            }
+                        >
                             <span>
                                 {item.iconPath ?
                                     <RdsIcon
                                         iconPath={item.iconPath}
-                                        
+
                                         fill={false}
                                         stroke={true}
                                         height="24px"
@@ -227,8 +242,8 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                     ></RdsIcon>
                                 }
                             </span>
-                            <span style={{ lineHeight: 'initial' }} className={collapse ? 'menuLabels' : ''}>{t(item.label)}</span>
-                        </Link>
+                            <span style={{ lineHeight: 'initial' }} className={collapse ? 'menuLabels' : ''}>{(item.label)}</span>
+                        </a>
                     </li>
                     {
                         item.children && <ul className={((collapse)

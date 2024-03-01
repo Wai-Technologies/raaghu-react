@@ -78,7 +78,7 @@ const RdsButton = (props: RdsButtonProps) => {
     }
 
     return (<Fragment>
-         {props.tooltip ? (
+        {props.tooltip ? (
             < Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
                 <button className={`btn ` + `${props.isOutline ? 'btn-outline-' + props.colorVariant : 'btn-' + props.colorVariant}` + classesButton() + spinner}
                     disabled={props.isDisabled}
@@ -107,32 +107,32 @@ const RdsButton = (props: RdsButtonProps) => {
                     {<>{props.children}</>}
                 </button>
             </Tooltip>
-        ) : 
-         <button className={`btn ` + `${props.isOutline ? 'btn-outline-' + props.colorVariant : 'btn-' + props.colorVariant}` + classesButton() + spinner}
-            disabled={props.isDisabled}
-            type={btnType}
-            form={props.formName}
-            key={turnSpinnerOff}
-            data-bs-dismiss={props.databsdismiss}
-            data-bs-target={props.databstarget}
-            data-bs-toggle={props.databstoggle}
-            aria-controls={props.ariacontrols}
-            id={props.id}
-            data-testid={props.dataTestId}
-            onClick={buttonClick}>
-            {props.icon && (
-                <span className={iconClasses()}>
-                    <RdsIcon
-                        name={props.icon}
-                        fill={props.iconFill}
-                        stroke={props.iconStroke} />
-                </span>
-            )}
-            {props.label && (
-                <span>{props.label}</span>
-            )}
-        </button>
-         } 
+        ) :
+            <button className={`btn ` + `${props.isOutline ? 'btn-outline-' + props.colorVariant : 'btn-' + props.colorVariant}` + classesButton() + spinner}
+                disabled={props.isDisabled}
+                type={btnType}
+                form={props.formName}
+                key={turnSpinnerOff}
+                data-bs-dismiss={props.databsdismiss}
+                data-bs-target={props.databstarget}
+                data-bs-toggle={props.databstoggle}
+                aria-controls={props.ariacontrols}
+                id={props.id}
+                data-testid={props.dataTestId}
+                onClick={buttonClick}>
+                {props.icon && (
+                    <span className={iconClasses()}>
+                        <RdsIcon
+                            name={props.icon}
+                            fill={props.iconFill}
+                            stroke={props.iconStroke} />
+                    </span>
+                )}
+                {props.label && (
+                    <span>{props.label}</span>
+                )}
+            </button>
+        }
 
     </Fragment>
     );

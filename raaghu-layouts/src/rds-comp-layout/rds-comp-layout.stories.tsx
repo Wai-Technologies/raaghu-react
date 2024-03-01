@@ -2,27 +2,25 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompLayout from "./rds-comp-layout";
 import RdsCompLayoutItem from "./rds-comp-layout-item";
-import * as stories from "../rds-comp-app-shell/rds-comp-app-shell.stories"; 
-
 
 const meta: Meta = {
-    title: 'Layouts',
-    component: RdsCompLayout,
-    parameters: { 
-        layout: 'padded',
-        disableZoom : false
-    },
-    tags:['autodocs'],
-    
+  title: 'Layouts',
+  component: RdsCompLayout,
+  parameters: {
+    layout: 'padded',
+    disableZoom: false
+  },
+  tags: ['autodocs'],
+
 } satisfies Meta<typeof RdsCompLayout>;
 
 export default meta;
 type Story = StoryObj<typeof RdsCompLayout>;
 
 
-export const Layout1: Story = {
+export const Basic: Story = {
   args: {
-    displayType: "Layout1",
+    displayType: "Basic",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -35,9 +33,9 @@ export const Layout1: Story = {
   },
 } satisfies Story;
 
-export const Layout2: Story = {
+export const Gridify: Story = {
   args: {
-    displayType: "Layout2",
+    displayType: "Gridify",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -55,9 +53,9 @@ export const Layout2: Story = {
   },
 } satisfies Story;
 
-export const Layout3: Story = {
+export const Spotlight: Story = {
   args: {
-    displayType: "Layout3",
+    displayType: "Spotlight",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -78,9 +76,9 @@ export const Layout3: Story = {
   },
 } satisfies Story;
 
-export const Layout4: Story = {
+export const Matrix: Story = {
   args: {
-    displayType: "Layout4",
+    displayType: "Matrix",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -103,9 +101,9 @@ export const Layout4: Story = {
   },
 } satisfies Story;
 
-export const Layout5: Story = {
+export const Splitz: Story = {
   args: {
-    displayType: "Layout5",
+    displayType: "Splitz",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -119,9 +117,9 @@ export const Layout5: Story = {
   },
 } satisfies Story;
 
-export const Layout6: Story = {
+export const Snapshots: Story = {
   args: {
-    displayType: "Layout6",
+    displayType: "Snapshots",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -168,9 +166,9 @@ export const Layout6: Story = {
   },
 } satisfies Story;
 
-export const Layout7: Story = {
+export const Sections: Story = {
   args: {
-    displayType: "Layout7",
+    displayType: "Sections",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -210,9 +208,9 @@ export const Layout7: Story = {
   },
 } satisfies Story;
 
-export const Layout8: Story = {
+export const Boxify: Story = {
   args: {
-    displayType: "layout8",
+    displayType: "Boxify",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -239,9 +237,9 @@ export const Layout8: Story = {
   },
 } satisfies Story;
 
-export const Layout9: Story = {
+export const Stacks: Story = {
   args: {
-    displayType: "layout9",
+    displayType: "Stacks",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -264,9 +262,9 @@ export const Layout9: Story = {
 } satisfies Story;
 
 
-export const Layout10: Story = {
+export const Nexus: Story = {
   args: {
-    displayType: "layout10",
+    displayType: "Nexus",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -275,10 +273,10 @@ export const Layout10: Story = {
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div className="content-with-medium-height"></div>
           </div>
@@ -293,9 +291,9 @@ export const Layout10: Story = {
   },
 } satisfies Story;
 
-export const Layout11: Story = {
+export const Mosaic: Story = {
   args: {
-    displayType: "layout11",
+    displayType: "Mosaic",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -303,18 +301,18 @@ export const Layout11: Story = {
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div className="content-with-medium-height"></div>
           </div>
@@ -336,9 +334,9 @@ export const Layout11: Story = {
   },
 } satisfies Story;
 
-export const Layout12: Story = {
+export const Collage: Story = {
   args: {
-    displayType: "layout12",
+    displayType: "Collage",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -365,9 +363,9 @@ export const Layout12: Story = {
   },
 } satisfies Story;
 
-export const Layout13: Story = {
+export const Pinboard: Story = {
   args: {
-    displayType: "layout13",
+    displayType: "Pinboard",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -391,9 +389,9 @@ export const Layout13: Story = {
   },
 } satisfies Story;
 
-export const Layout14: Story = {
+export const Cardify: Story = {
   args: {
-    displayType: "layout14",
+    displayType: "Cardify",
     children: (
       <>
         <RdsCompLayoutItem title={""}>
@@ -416,11 +414,11 @@ export const Layout14: Story = {
           </div>
           <div className="grid-col-container-1-2">
             <div className="content-with-medium-height"></div>
-            <div className="content-with-medium-height"></div>          
+            <div className="content-with-medium-height"></div>
           </div>
           <div className="grid-col-container-1-2">
             <div className="content-with-medium-height"></div>
-            <div className="content-with-medium-height"></div>          
+            <div className="content-with-medium-height"></div>
           </div>
         </RdsCompLayoutItem>
       </>

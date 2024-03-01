@@ -1,4 +1,3 @@
-import React from "react";
 import RdsButtonGroup from "./rds-button-group";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -67,6 +66,7 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 
 
 export const CheckboxButtonGroup: Story = {
@@ -97,7 +97,7 @@ export const CheckboxButtonGroup: Story = {
         ]
     }
 } satisfies Story;
-
+CheckboxButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
 export const IconButtonGroup: Story = {
     args: {
@@ -138,6 +138,7 @@ export const IconButtonGroup: Story = {
         ]
     }
 } satisfies Story;
+IconButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
 export const RadioButtonGroup: Story = {
     args: {
@@ -169,6 +170,7 @@ export const RadioButtonGroup: Story = {
         ]
     }
 } satisfies Story;
+RadioButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
 
 
@@ -198,4 +200,5 @@ export const Vertical: Story = {
         ]
     }
 } satisfies Story;
+Vertical.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 

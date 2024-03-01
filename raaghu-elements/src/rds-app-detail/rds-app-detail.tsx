@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import RdsIcon from "../rds-icon";
 import "./rds-app-detail.css";
-// import RdsCheckbox from "../rds-checkbox/rds-checkbox";
 
 export interface RdsAppDetailProps {
 	appDetailsItem: any;
