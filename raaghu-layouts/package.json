@@ -1,7 +1,7 @@
 {
-  "name": "raaghu-react-components",
+  "name": "@raaghu/react-layouts",
   "version": "0.3.0",
-  "description": "Collection of raaghu-components",
+  "description": "Collection of @raaghu/react-layouts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -29,10 +29,9 @@
   "keywords": [
     "raaghu",
     "components",
-    "webcomponents",
-    "ABP Commercial"
+    "webcomponents"
   ],
-  "author": "WAI Technologies Pvt. Ltd. <contactus@waiin.com>",
+  "author": "WAi Technologies <support@waiin.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.5",
