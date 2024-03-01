@@ -1,12 +1,15 @@
 name: NPM Publish Storybook
 on:
   workflow_dispatch:
-permissions: read
-
+permissions: 
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10 
+    environment:
+      name: "Production"
+    
     steps:
       - uses: actions/checkout@v4
 
