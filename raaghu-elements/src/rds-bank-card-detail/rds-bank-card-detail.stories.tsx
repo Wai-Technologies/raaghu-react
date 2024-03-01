@@ -37,5 +37,5 @@ export const BankCardDetail: Story = {
         ],
     }
 } satisfies Story;
-
+BankCardDetail.parameters = { controls: { include: ['isSelectable', 'isEditable', 'cardDatas'] } };
 
