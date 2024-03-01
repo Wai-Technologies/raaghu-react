@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCollapse from "./rds-collapse";
 import { Meta, StoryObj } from "@storybook/react";
 

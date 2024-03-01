@@ -2,48 +2,48 @@ import React, { useState, Fragment, useEffect } from "react";
 import "./rds-color-picker.css";
 
 export interface RdsColorPickerProps {
-  value: string;
-  isDisabled?: boolean;
-  label: string;
+    value: string;
+    isDisabled?: boolean;
+    label: string;
 }
 
 const RdsColorPicker = (props: RdsColorPickerProps) => {
-    const Value = props.value  ;
+    const Value = props.value;
 
     let [Color, setColor] = useState(Value);
- 
+
     useEffect(() => {
         setColor(Value);
     }, [Value]);
     const HandlerChangecolor = (e: any) => {
         const { value } = e.target;
         console.log(value);
-        return(
-            setColor(Color =value));
+        return (
+            setColor(Color = value));
     };
-  
+
     const stri = Color;
-    const isValidHexaCode=()=> {
+    const isValidHexaCode = () => {
         if (stri[0] != "#")
             return false;
 
-        if (!(stri.length ==4 || stri.length==7))
+        if (!(stri.length == 4 || stri.length == 7))
             return false;
 
         for (let i = 1; i < stri.length; i++)
             if (!((stri[i].charCodeAt(0) <= "0".charCodeAt(0) && stri[i].charCodeAt(0) <= 9)
-          || (stri[i].charCodeAt(0) >= "a".charCodeAt(0) && stri[i].charCodeAt(0) <= "f".charCodeAt(0))
-          || (stri[i].charCodeAt(0) >= "A".charCodeAt(0) || stri[i].charCodeAt(0) <= "F".charCodeAt(0))))
+                || (stri[i].charCodeAt(0) >= "a".charCodeAt(0) && stri[i].charCodeAt(0) <= "f".charCodeAt(0))
+                || (stri[i].charCodeAt(0) >= "A".charCodeAt(0) || stri[i].charCodeAt(0) <= "F".charCodeAt(0))))
                 return false;
 
         return true;
     };
     // Driver Code
-    if (isValidHexaCode() === true ) {
-        Color=stri;
+    if (isValidHexaCode() === true) {
+        Color = stri;
     }
     else {
-        Color="#000000";
+        Color = "#000000";
     }
 
     return (
@@ -51,9 +51,9 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
             <div className="m-2 ">
                 <div>
 
-                    <label>{props.label}</label> 
+                    <label>{props.label}</label>
                 </div>
-      
+
                 <div className=" border p-2 mt-3 col-3 d-flex" >
                     <span className="me-3">
                         <input
@@ -68,7 +68,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                         />
                     </span>
                     <span>{Color}</span>
-    
+
                 </div>
             </div>
         </Fragment>

@@ -1,5 +1,4 @@
-import React from "react";
-import { ComponentStory, ComponentMeta, Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import RdsColorSwitcher from "./rds-color-switcher";
 
 const meta: Meta = {

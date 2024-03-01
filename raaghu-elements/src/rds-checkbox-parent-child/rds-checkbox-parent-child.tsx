@@ -112,8 +112,8 @@ const RdsCheckboxParentChild = (props: RdsCheckboxParentChildProps) => {
                                             <input
                                                 type="checkbox"
                                                 className={`${parents?.isIntermediate
-                                                        ? "form-check-input-intermediate"
-                                                        : "form-check-input"
+                                                    ? "form-check-input-intermediate"
+                                                    : "form-check-input"
                                                     }`}
                                                 name={parents?.label}
                                                 data-testid={parents.label}

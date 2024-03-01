@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./rds-color-switcher.css";
 
 export interface RdsColorSwitcherProps {
-  header?: string;
-  itemList: {id:number, color: string}[];
-  defaultValue?: number;
-  displayType?: "rounded" | "square";
-  selectedColor? :(event:React.MouseEvent<HTMLDivElement> , selected_Color:any) =>void;
+    header?: string;
+    itemList: { id: number, color: string }[];
+    defaultValue?: number;
+    displayType?: "rounded" | "square";
+    selectedColor?: (event: React.MouseEvent<HTMLDivElement>, selected_Color: any) => void;
 }
 
 const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
@@ -15,9 +15,9 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
     const displaytype = props.hasOwnProperty("displayType")
         ? props.displayType
         : "rounded";
-    const selectColor = (e:any, item: any) => {
+    const selectColor = (e: any, item: any) => {
         setValue(item.id);
-        selectColor (e, item.value);
+        selectColor(e, item.value);
     };
     return (
         <>
@@ -29,12 +29,11 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
                             {props.itemList.map((item: any, index: any) => (
                                 <div
                                     key={index}
-                                    className={`${
-                                        value === item.id ? "selected-border" : "default-border"
-                                    }`}
+                                    className={`${value === item.id ? "selected-border" : "default-border"
+                                        }`}
                                     id={item.color}
                                     style={{ backgroundColor: item.color }}
-                                    onClick={(e) => selectColor(e,item)}
+                                    onClick={(e) => selectColor(e, item)}
                                     data-testid={value === item.id ? "selected-color" : undefined}
                                 ></div>
                             ))}
@@ -48,11 +47,10 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
                             {props.itemList.map((item: any, index: any) => (
                                 <div
                                     key={index}
-                                    className={`${
-                                        value === item.id
+                                    className={`${value === item.id
                                             ? "selected-border-square"
                                             : "default-border-square"
-                                    }`}
+                                        }`}
                                     id={item.color}
                                     style={{ backgroundColor: item.color }}
                                     onClick={(e) => selectColor(e, item)}
