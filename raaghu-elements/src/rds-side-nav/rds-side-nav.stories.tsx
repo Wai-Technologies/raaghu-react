@@ -17,7 +17,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSideNav>;
 
-export const SideNavigation: Story = (args) => (
+export const SideNavigation: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
