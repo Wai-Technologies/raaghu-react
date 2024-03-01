@@ -1,4 +1,3 @@
-import React from "react";
 import RdsInput from "./rds-input";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -42,7 +41,6 @@ export const Default: Story = {
         id: "",
         value: "",
         required: true,
-        showIcon: true,
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
@@ -75,7 +73,6 @@ export const Disabled: Story = {
         value: "",
         required: true,
         isDisabled: true,
-        showIcon: true,
     }
 } satisfies Story;
 Disabled.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon'] } };
@@ -91,8 +88,37 @@ export const Readonly: Story = {
         value: "",
         required: true,
         readonly: true,
-        showIcon: true,
     }
 } satisfies Story;
 Readonly.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon'] } };
 
+export const Email: Story = {
+    args: {
+        size: "medium",
+        inputType: "email",
+        placeholder: "Add Email",
+        label: "Email",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: true,
+    }
+} satisfies Story;
+Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required',] } };
+
+export const Password: Story = {
+    args: {
+        size: "medium",
+        inputType: "password",
+        placeholder: "Add Password",
+        label: "Password",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: true,
+        showIcon: true,
+    }
+} satisfies Story;
+Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required','showIcon'] } };
