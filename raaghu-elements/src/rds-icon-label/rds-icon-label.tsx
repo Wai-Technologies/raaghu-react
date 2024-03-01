@@ -44,7 +44,7 @@ const RdsIconLabel = (props: RdsIconLabelProps) => {
                     stroke={true}
                     colorVariant={props.colorVariant}
                 />
-                <RdsLabel label={props.label} size={classes()} class={"align-items-center " + classes()}/>
+                <RdsLabel label={props.label} size={classes()} class={"align-items-center " + classes()} />
             </div>
         </>
     );

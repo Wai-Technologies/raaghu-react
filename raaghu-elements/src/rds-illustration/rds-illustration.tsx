@@ -9,7 +9,7 @@ export interface RdsIllustrationProps {
     colorVariant?: colors;
     iconHeight?: string;
     iconWidth?: string;
-    iconPath?:string;
+    iconPath?: string;
     isContinueAnimate?: boolean;
 }
 

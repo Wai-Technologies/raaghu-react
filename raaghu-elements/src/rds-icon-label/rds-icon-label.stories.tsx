@@ -53,13 +53,13 @@ export const WithPosition: Story = {
   },
   argTypes: {
     iconposition: {
-        options: [
-            "left",
-            "right"
-        ],
-        control: { type: "radio" },
+      options: [
+        "left",
+        "right"
+      ],
+      control: { type: "radio" },
     },
-}
+  }
 } satisfies Story;
 WithPosition.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size', 'iconposition'] } };
 

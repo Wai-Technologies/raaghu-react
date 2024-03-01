@@ -2,14 +2,14 @@ import React from "react";
 import "./rds-product-image.css";
 
 export interface RdsProductImageProps {
-  displayType:
+    displayType:
     | string
     | "basic"
     | "product-overview1"
     | "product-overview2"
     | "product-overview3";
-  images: string[];
-  itemList: string[];
+    images: string[];
+    itemList: string[];
 }
 
 const RdsProductImage = (props: RdsProductImageProps) => {
@@ -20,7 +20,7 @@ const RdsProductImage = (props: RdsProductImageProps) => {
             {props.displayType === "basic" && (
                 <div>
                     {props.images.map((image) => (
-                        <img src={image} className="w-100" alt={image}/>
+                        <img src={image} className="w-100" alt={image} />
                     ))}
                 </div>
             )}
@@ -75,7 +75,7 @@ const RdsProductImage = (props: RdsProductImageProps) => {
                     </div>
                     <div className="row mt-4">
                         <div className="col align-items-center justify-content-center">
-                            <img src={props.itemList[1]} className="w-100" alt={props.itemList[1]}/>
+                            <img src={props.itemList[1]} className="w-100" alt={props.itemList[1]} />
                         </div>
                         <div className="col align-items-center justify-content-center">
                             <img src={props.itemList[2]} className="w-100" alt={props.itemList[2]} />
@@ -91,21 +91,21 @@ const RdsProductImage = (props: RdsProductImageProps) => {
                     <div className="container-fluid w-100" />
                     <div className="row">
                         <div className="col-md-12">
-                            <img src={props.itemList[0]} className="w-100" alt={props.itemList[0]}/>
+                            <img src={props.itemList[0]} className="w-100" alt={props.itemList[0]} />
                         </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col d-flex align-items-center justify-content-center">
-                            <img src={props.itemList[1]} className="w-100"alt={props.itemList[1]} />
+                            <img src={props.itemList[1]} className="w-100" alt={props.itemList[1]} />
                         </div>
                         <div className="col d-flex align-items-center justify-content-center">
-                            <img src={props.itemList[2]} className="w-100"  alt={props.itemList[2]}/>
+                            <img src={props.itemList[2]} className="w-100" alt={props.itemList[2]} />
                         </div>
                         <div className="col d-flex align-items-center justify-content-center">
-                            <img src={props.itemList[3]} className="w-100" alt={props.itemList[3]}/>
+                            <img src={props.itemList[3]} className="w-100" alt={props.itemList[3]} />
                         </div>
                         <div className="col d-flex align-items-center justify-content-center">
-                            <img src={props.itemList[4]} className="w-100" alt={props.itemList[4]}/>
+                            <img src={props.itemList[4]} className="w-100" alt={props.itemList[4]} />
                         </div>
                     </div>
                 </div>

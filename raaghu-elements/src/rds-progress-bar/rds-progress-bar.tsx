@@ -2,16 +2,16 @@ import React from "react";
 import "./rds-progress-bar.css";
 
 export interface RdsProgressBarProps {
-  colorVariant: string;
-  striped?: boolean ;
-  progressWidth: number;
-  animation?: boolean;
-  height?: number;
-  progressValues?: any[];
-  role: string;
-  displayLevel?: boolean;
-  displayPercentage?: boolean;
-  width?: string;
+    colorVariant: string;
+    striped?: boolean;
+    progressWidth: number;
+    animation?: boolean;
+    height?: number;
+    progressValues?: any[];
+    role: string;
+    displayLevel?: boolean;
+    displayPercentage?: boolean;
+    width?: string;
 }
 
 const RdsProgressBar = (props: RdsProgressBarProps) => {
@@ -24,8 +24,8 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                         style={{ height: `${props.height + 'px'}`, maxWidth: `${props.width + 'px'}` }}
                     >
                         <div
-                            className={`progress-bar ${ props.striped ? "progress-bar progress-bar-striped" : "progress-bar"}   
-                            ${ props.animation ? "progress-bar-striped progress-bar-animated" : "progress-bar"}
+                            className={`progress-bar ${props.striped ? "progress-bar progress-bar-striped" : "progress-bar"}   
+                            ${props.animation ? "progress-bar-striped progress-bar-animated" : "progress-bar"}
                             bg-${props.colorVariant}
                             `}
                             role="progressbar"
@@ -49,13 +49,13 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
             {props.role == "multiple" && (
                 <>
                     <div className="progress"
-                    style={{ height: `${props.height + 'px'}`, maxWidth: `${props.width + 'px'}` }}
+                        style={{ height: `${props.height + 'px'}`, maxWidth: `${props.width + 'px'}` }}
                     >
                         {props.progressValues && props.progressValues?.map((progressValue) => (
                             <div
-                                className={`progress-bar bg-${progressValue.colorVariant}` + 
-                                (progressValue.stripe ? " progress-bar progress-bar-striped" : "") + 
-                                (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "") }
+                                className={`progress-bar bg-${progressValue.colorVariant}` +
+                                    (progressValue.stripe ? " progress-bar progress-bar-striped" : "") +
+                                    (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "")}
                                 role="progressbar"
                                 style={{ width: `${progressValue.progressWidth}%` }}
                                 aria-valuenow={progressValue.progressWidth}

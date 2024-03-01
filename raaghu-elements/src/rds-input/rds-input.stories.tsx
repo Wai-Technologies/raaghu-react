@@ -121,4 +121,4 @@ export const Password: Story = {
         showIcon: true,
     }
 } satisfies Story;
-Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required','showIcon'] } };
+Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
