@@ -2,18 +2,16 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompLayout from "./rds-comp-layout";
 import RdsCompLayoutItem from "./rds-comp-layout-item";
-import * as stories from "../rds-comp-app-shell/rds-comp-app-shell.stories"; 
-
 
 const meta: Meta = {
-    title: 'Layouts',
-    component: RdsCompLayout,
-    parameters: { 
-        layout: 'padded',
-        disableZoom : false
-    },
-    tags:['autodocs'],
-    
+  title: 'Layouts',
+  component: RdsCompLayout,
+  parameters: {
+    layout: 'padded',
+    disableZoom: false
+  },
+  tags: ['autodocs'],
+
 } satisfies Meta<typeof RdsCompLayout>;
 
 export default meta;
@@ -275,10 +273,10 @@ export const Nexus: Story = {
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div className="content-with-medium-height"></div>
           </div>
@@ -303,18 +301,18 @@ export const Mosaic: Story = {
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
               <div className="grid-container-1">
                 <div className="content-with-small-height"></div>
-              </div>  
+              </div>
             </div>
             <div className="content-with-medium-height"></div>
           </div>
@@ -416,11 +414,11 @@ export const Cardify: Story = {
           </div>
           <div className="grid-col-container-1-2">
             <div className="content-with-medium-height"></div>
-            <div className="content-with-medium-height"></div>          
+            <div className="content-with-medium-height"></div>
           </div>
           <div className="grid-col-container-1-2">
             <div className="content-with-medium-height"></div>
-            <div className="content-with-medium-height"></div>          
+            <div className="content-with-medium-height"></div>
           </div>
         </RdsCompLayoutItem>
       </>

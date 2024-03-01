@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
 export interface RdsDoughnutprops {
-  labels: any[];
-  options: any;
-  dataSets: any[];
-  id: string;
-  height?: number;
-  width?: number;
-  titleText?: string;
-  subTitleText?: string;
+    labels: any[];
+    options: any;
+    dataSets: any[];
+    id: string;
+    height?: number;
+    width?: number;
+    titleText?: string;
+    subTitleText?: string;
 }
 
 const RdsDoughnutChart = (props: RdsDoughnutprops) => {

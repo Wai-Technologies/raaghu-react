@@ -16,8 +16,8 @@ const RdsCheckboxGroup = (props: RdsCheckboxGroupProps) => {
     const Switch1 = `${props.isSwitch === true ? " mb-3 form-switch " : " mb-3 form-check "
         } `;
     const Inline1 = `${props.isInline === true && props.isSwitch == false
-            ? " form-check-inline"
-            : ""
+        ? " form-check-inline"
+        : ""
         } `;
     const state = props.state || "Checkbox";
 

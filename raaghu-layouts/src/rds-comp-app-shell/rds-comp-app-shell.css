@@ -1,27 +1,27 @@
 .row .header-div {
-    background-color: #b7d0d8;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    width: 100%;
-    font-size: 30px;
-    font-family: ui-sans-serif;
-    text-align: center;
+  background-color: #b7d0d8;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  width: 100%;
+  font-size: 30px;
+  font-family: ui-sans-serif;
+  text-align: center;
 }
 
 .row .left {
-    /* background-color: #bcc1da; */
-    overflow-y: auto;
-    text-align: center;
-    font-size: 30px;
-    /* font-family: ui-sans-serif; */
+  /* background-color: #bcc1da; */
+  overflow-y: auto;
+  text-align: center;
+  font-size: 30px;
+  /* font-family: ui-sans-serif; */
 }
 
 .shell-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px;
-    background-color: #b7d0d8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  background-color: #b7d0d8;
 }

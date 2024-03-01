@@ -1,5 +1,4 @@
-import React from "react";
-import { ComponentStory, ComponentMeta, StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react";
 import RdsBarChart from "./rds-chart-bar";
 import "./rds-chart-bar.css";
 

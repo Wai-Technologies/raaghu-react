@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBooleanChart from "./rds-chart-boolean";
 import "./rds-chart-boolean.css";
 import { Meta, StoryObj } from "@storybook/react";

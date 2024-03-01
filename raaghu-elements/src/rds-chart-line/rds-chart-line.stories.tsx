@@ -1,4 +1,3 @@
-import React from "react";
 import RdsLineChart from "./rds-chart-line";
 import * as Chart from "chart.js";
 import { Meta, StoryObj } from "@storybook/react";
