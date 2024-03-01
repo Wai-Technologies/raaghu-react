@@ -24,7 +24,6 @@
 
   "homepage": "https://react.raaghu.io",
   "license": "MIT",
-  "private": false,
 
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
