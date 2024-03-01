@@ -19,9 +19,9 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-export const Default: Story = {
+export const Classic: Story = {
   args: {
-    displayType: "Default",
+    displayType: "Classic",
     children: (
       <>
         <RdsCompAppShellItem title={""}>
