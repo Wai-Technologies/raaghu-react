@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompAppShell from "./rds-comp-app-shell";
 import RdsCompAppShellItem from "./rds-comp-app-shell-item";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 
@@ -113,9 +113,9 @@ export const Default: Story = {
                 },
               ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
                 throw new Error("Function not implemented.");
-              } } onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
+              }} onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
                 throw new Error("Function not implemented.");
-              } }            />
+              }} />
           </div>
           <div className="row">
             <div className="d-flex">
