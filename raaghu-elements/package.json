@@ -1,7 +1,6 @@
 {
-  "name": "raaghu-react-elements",
-  "version": "1.0.1",
-  "description": "Collection of raaghu-elements",
+  "name": "@raaghu/react-elements",
+  "description": "Collection of @raaghu/react-elements",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -24,10 +23,9 @@
   "keywords": [
     "raaghu",
     "elements",
-    "webcomponents",
-    "ABP Commercial"
+    "webcomponents"
   ],
-  "author": "WAI Technologies Pvt. Ltd. <contactus@waiin.com>",
+  "author": "WAi Technologies <support@waiin.com>",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
