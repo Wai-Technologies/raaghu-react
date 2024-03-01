@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCounter from "./rds-counter";
 import { Meta, StoryObj } from "@storybook/react";
 

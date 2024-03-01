@@ -1,4 +1,3 @@
-import React from "react";
 import RdsFileUploader from "./rds-file-uploader";
 import { Meta, StoryObj } from "@storybook/react";
 

@@ -27,7 +27,7 @@ export interface RdsDropdownListProps {
   databstarget?: string;
   databstoggle?: string;
   ariacontrols?: string;
-  size?:string;
+  size?: string;
   listItems: {
     label: string;
     val: string;
@@ -59,7 +59,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   // to fetch the index of the selected language
   const [toggle, setToggle] = useState("show");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const block = props.block== false ? props.block : true;
+  const block = props.block == false ? props.block : true;
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
   const clickedOnDropDown = () => {
@@ -244,7 +244,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                     hoveredItem ===
                                     props.listItems[selectedOption].label
                                   }
-                                  // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
+                                // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                                 ></RdsIcon>
                               </div>
                             ) : (
@@ -252,9 +252,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                 name={props.labelIcon}
                                 height={props.labelIconHeight}
                                 width={props.labelIconWidth}
-                                // fill={props.iconFill}
-                                // stroke={props.iconStroke}
-                                // classes="pe-1"
+                              // fill={props.iconFill}
+                              // stroke={props.iconStroke}
+                              // classes="pe-1"
                               />
                             )}
                           </span>
@@ -303,21 +303,21 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                     width={
                                       props.listItems[selectedOption]?.iconWidth
                                         ? props.listItems[selectedOption]
-                                            ?.iconWidth
+                                          ?.iconWidth
                                         : ""
                                     }
                                     height={
                                       props.listItems[selectedOption]
                                         ?.iconHeight
                                         ? props.listItems[selectedOption]
-                                            ?.iconHeight
+                                          ?.iconHeight
                                         : ""
                                     }
                                     fill={false}
                                     stroke={true}
                                     isHovered={
                                       hoverState[
-                                        props.listItems[selectedOption].label
+                                      props.listItems[selectedOption].label
                                       ]
                                     }
                                     type="lottie"
@@ -439,16 +439,16 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                 hoveredItem ===
                                 props.listItems[selectedOption].label
                               }
-                              // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
+                            // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                             ></RdsIcon>
                           ) : (
                             <RdsIcon
                               name={props.labelIcon}
                               height={props.labelIconHeight}
                               width={props.labelIconWidth}
-                              // fill={props.iconFill}
-                              // stroke={props.iconStroke}
-                              // classes="pe-1"
+                            // fill={props.iconFill}
+                            // stroke={props.iconStroke}
+                            // classes="pe-1"
                             />
                           )}
                         </span>
@@ -494,13 +494,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                                   width={
                                     props.listItems[selectedOption]?.iconWidth
                                       ? props.listItems[selectedOption]
-                                          ?.iconWidth
+                                        ?.iconWidth
                                       : ""
                                   }
                                   height={
                                     props.listItems[selectedOption]?.iconHeight
                                       ? props.listItems[selectedOption]
-                                          ?.iconHeight
+                                        ?.iconHeight
                                       : ""
                                   }
                                   fill={false}
@@ -616,10 +616,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         ).length == 1
                       }
                       onChange={(e) =>
-                        `${
-                          e.target.checked !== true
-                            ? uncheckHandler(e, language)
-                            : checkHandler(e, language)
+                        `${e.target.checked !== true
+                          ? uncheckHandler(e, language)
+                          : checkHandler(e, language)
                         }`
                       }
                       value=""
@@ -630,9 +629,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 {language.icon && showIcon && (
                   <>
                     <div
-                      className={`${
-                        language.icon == "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
-                      }`}
+                      className={`${language.icon == "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
+                        }`}
                     >
                       <RdsIcon
                         name={language.icon}

@@ -4,11 +4,11 @@ import RdsBage from "../rds-badge";
 import "./rds-list-group.css";
 
 export interface RdsListGroupProps {
-	labelPosition?: string;
-	label?: string;
-	listItem: any[];
-	listGroupWithMultiSelect?: boolean;
-	withBadge?: boolean;
+    labelPosition?: string;
+    label?: string;
+    listItem: any[];
+    listGroupWithMultiSelect?: boolean;
+    withBadge?: boolean;
 }
 
 const RdsListGroup = (props: RdsListGroupProps) => {
@@ -23,7 +23,7 @@ const RdsListGroup = (props: RdsListGroupProps) => {
                         <>
                             <li
                                 className={`list-group-item form-check ${listItems.disabled ? "disabled" : ""
-                                }  d-flex justify-content-between align-items-center mb-0`}
+                                    }  d-flex justify-content-between align-items-center mb-0`}
                             >
                                 {listItems.label}
                                 {props.withBadge && (
@@ -40,7 +40,7 @@ const RdsListGroup = (props: RdsListGroupProps) => {
                         <>
                             <li
                                 className={`list-group-item form-check ${listItems.disabled ? "disabled" : ""
-                                }   justify-content-between align-items-center mb-0`}
+                                    }   justify-content-between align-items-center mb-0`}
                             >
                                 <input
                                     className="form-check-input ms-1 me-2 mb-0"

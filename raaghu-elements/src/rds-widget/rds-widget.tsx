@@ -39,7 +39,7 @@ export interface RdsWidgetProps {
   iconHeaderColor?: any;
   onIconClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   iconTooltipLabel?: any;
-  iconTooltipPosition?:any;
+  iconTooltipPosition?: any;
 }
 
 const RdsWidget = (props: RdsWidgetProps) => {
@@ -132,7 +132,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                     fill={true}
                     stroke={false} />
                 </span>
-                              <span className={'fs-6 fw-medium text-' + props.iconColor}>{props.iconLabel}</span>
+                <span className={'fs-6 fw-medium text-' + props.iconColor}>{props.iconLabel}</span>
               </div>
             )}
           </div>
@@ -153,7 +153,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                     colorVariant={props.iconColor}
                     fill={true}
                     stroke={false} />
-                                  <span className={'fs-6 fw-medium text-' + props.iconColor}>{props.iconLabel}</span>
+                  <span className={'fs-6 fw-medium text-' + props.iconColor}>{props.iconLabel}</span>
                 </div>
               </div>
             )}

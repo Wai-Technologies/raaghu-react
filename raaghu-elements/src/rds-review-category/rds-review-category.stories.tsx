@@ -1,4 +1,3 @@
-import React from "react";
 import RdsReviewCategory from "./rds-review-category";
 import { Meta, StoryObj } from "@storybook/react";
 

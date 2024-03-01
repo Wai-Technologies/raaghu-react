@@ -5,17 +5,17 @@ import RdsAvatar from "../rds-avatar";
 import "./rds-card.css";
 
 export interface RdsCardProps {
-	buttonLabel?: string;
-	colorVariant?: colors;
-	cardTitle?: string;
-	cardText?: string;
-	showFooter?: boolean;
-	isImage?: boolean;
-	imageUrl?: string;
-	avatarUrl?: string;
-	centerAlign?: boolean;
-	isAvatar?: boolean;
-	borderColor?: colors;
+    buttonLabel?: string;
+    colorVariant?: colors;
+    cardTitle?: string;
+    cardText?: string;
+    showFooter?: boolean;
+    isImage?: boolean;
+    imageUrl?: string;
+    avatarUrl?: string;
+    centerAlign?: boolean;
+    isAvatar?: boolean;
+    borderColor?: colors;
 }
 
 const RdsCard = (props: RdsCardProps) => {
@@ -89,7 +89,7 @@ const RdsCard = (props: RdsCardProps) => {
                     </div>
                 ) : (
                     <>
-                        <div className={`${isCenter === true ? "":"card-header pt-3"}`}>
+                        <div className={`${isCenter === true ? "" : "card-header pt-3"}`}>
                             <h5>{props.cardTitle}</h5>
                         </div>
 

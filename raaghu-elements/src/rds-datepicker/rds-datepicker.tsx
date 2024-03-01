@@ -9,7 +9,7 @@ export interface RdsDatepickerProps {
     selectedDate?: any
     dateForEdit?: any
     DatePickerLabel?: string;
-    onDatePicker?:any;
+    onDatePicker?: any;
     type?: "default" | "advanced" | "withTime";
     customDate?: any;
     isDropdownOpen: boolean;
@@ -161,7 +161,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 ></RdsIcon>
                             </span>
                         </div> */}
-                        
+
                         <DatePicker
                             selected={startDate}
                             onChange={handlerDateChange}
@@ -173,7 +173,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 name="calendar"
                                 width="20px"
                                 height="20px"
-                                
+
                                 stroke={true}
                             ></RdsIcon>
                         </span>
@@ -266,7 +266,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         <label className="form-label">{props.DatePickerLabel}</label>
                     )}
                     <div className="input-group input-group-datePicker mb-3">
-                    <DatePicker
+                        <DatePicker
                             selected={startDate}
                             onChange={handlerDateTimeChange}
                             className="form-control rounded-bottom-0 rounded-end-0"
@@ -280,7 +280,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 name="calendar"
                                 width="20px"
                                 height="20px"
-                                
+
                                 stroke={true}
                             ></RdsIcon>
                         </span>

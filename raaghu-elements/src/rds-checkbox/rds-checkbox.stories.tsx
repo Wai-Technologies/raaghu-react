@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCheckbox from "./rds-checkbox";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -21,19 +20,20 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckbox>;
 
 
-export const checkbox :Story={
-    args:{
-        state:"Checkbox",
-        label:"default checkbox",
-        checked:false,
-        isDisabled:false,
-        isSwitch:false,
-        withlabel:true,
-        id:"id1",
+export const checkBox: Story = {
+    args: {
+        state: "Checkbox",
+        label: "default checkbox",
+        checked: false,
+        isDisabled: false,
+        isSwitch: false,
+        withlabel: true,
+        id: "id1",
         //errorMessage:"error Message",
-        isInputGroup:false
+        isInputGroup: false
     }
 } satisfies Story;
-checkbox.parameters = { controls: { include: ['state', 'label', 'checked', 'isDisabled', 'isSwitch', 'withlabel', 'id', 'isInputGroup'] } };
+
+checkBox.parameters = { controls: { include: ['state', 'label', 'checked', 'isDisabled', 'isSwitch', 'withlabel', 'id', 'isInputGroup'] } };
 
 

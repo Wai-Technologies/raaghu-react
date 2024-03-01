@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBreadcrumb from "./rds-breadcrumb";
 import { Meta, StoryObj } from "@storybook/react";
 

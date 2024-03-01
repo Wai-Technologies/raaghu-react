@@ -5,19 +5,19 @@ import RdsLikeDislike from "../rds-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-review-category.css";
 export interface Item {
-	name: string;
-	date?: Date;
-	imageUrl?: string;
-	rating?: 0 | 1 | 2 | 3 | 4 | 5;
-	reviewTitle?: string;
-	reviewSubTitle?: string;
-	description?: string;
-	likes?: number;
-	dislikes?: number;
+    name: string;
+    date?: Date;
+    imageUrl?: string;
+    rating?: 0 | 1 | 2 | 3 | 4 | 5;
+    reviewTitle?: string;
+    reviewSubTitle?: string;
+    description?: string;
+    likes?: number;
+    dislikes?: number;
 }
 export interface RdsReviewCategoryProps {
-	display_type: string;
-	item: Item;
+    display_type: string;
+    item: Item;
 }
 
 const RdsReviewCategory = (props: RdsReviewCategoryProps) => {

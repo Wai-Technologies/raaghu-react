@@ -1,15 +1,15 @@
-.RdsFeatureList__Heading{
-    font-weight: 500;
-    margin-bottom: 24px;
-    font-size: 18px;
+.RdsFeatureList__Heading {
+  font-weight: 500;
+  margin-bottom: 24px;
+  font-size: 18px;
 }
 
-.RdsFeatureList__Ul{
-    all: unset;
-    list-style-type: none;
-    font-size: 16px;
-    color: #6F6F6F;
+.RdsFeatureList__Ul {
+  all: unset;
+  list-style-type: none;
+  font-size: 16px;
+  color: #6f6f6f;
 }
-.RdsFeatureList__Ul .bullet{
-    margin-right: 8px;
+.RdsFeatureList__Ul .bullet {
+  margin-right: 8px;
 }

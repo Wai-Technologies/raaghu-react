@@ -3,12 +3,12 @@ import RdsIcon from "../rds-icon";
 import "./rds-tag.css";
 
 export interface RdsTagProps {
-  tagType: "square" | "round";
-  tagArray?: any[];
-  inputText?: string;
-  fillClose?: boolean;
-  role: "basic" | "tagWithScroll";
-  colorVariant:
+    tagType: "square" | "round";
+    tagArray?: any[];
+    inputText?: string;
+    fillClose?: boolean;
+    role: "basic" | "tagWithScroll";
+    colorVariant:
     | "primary"
     | "secondary"
     | "danger"
@@ -86,8 +86,8 @@ const RdsTag = (props: RdsTagProps) => {
                                                             onClick={() => deleteTag(i)}
                                                             //className={tagtextcolor} 
                                                             className={`cursorpointer ${tagtextcolor} `}
-                               
-                             
+
+
                                                         >
                                                             <RdsIcon
                                                                 name="cancel"

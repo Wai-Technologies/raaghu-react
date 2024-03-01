@@ -18,9 +18,10 @@ type Story = StoryObj<typeof RdsToggle>;
 
 export const Default: Story = {
     args: {
-        iconOnUncheck: "sun",
-        iconOnCheck: "moon",
+        iconOnUncheck: "",
+        iconOnCheck: "",
         small: false
     }
 } satisfies Story;
 
+Default.parameters = { controls: { include: [] } };

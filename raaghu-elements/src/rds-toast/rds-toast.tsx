@@ -4,19 +4,19 @@ import "./rds-toast.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsToastProps {
-  colorVariant?: colors;
-  withIcon?: boolean;
-  headerTitle?: string;
-  message: string;
-  delay?: number;
-  autohide?: boolean;
-  borderColor?: string;
-  showHeader?: boolean;
-  iconName?: string;
-  iconColorvariant?: string;
-  iconHeight?: string;
-  iconWidth?: string;
-  iconFill?: boolean;
+    colorVariant?: colors;
+    withIcon?: boolean;
+    headerTitle?: string;
+    message: string;
+    delay?: number;
+    autohide?: boolean;
+    borderColor?: string;
+    showHeader?: boolean;
+    iconName?: string;
+    iconColorvariant?: string;
+    iconHeight?: string;
+    iconWidth?: string;
+    iconFill?: boolean;
 }
 const RdsToast = (props: RdsToastProps) => {
     const borderColor = "border border-" + props.borderColor || " ";

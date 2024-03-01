@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCheckboxGroup from "./rds-checkbox-group";
 import { Meta, StoryObj } from "@storybook/react";
 

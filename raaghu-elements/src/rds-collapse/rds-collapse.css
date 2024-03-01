@@ -1,16 +1,3 @@
-/* $transition-collapse: "height .35s ease";
-.collapse {
-    &:not(.show) {
-      display: none;
-    }
-  }
-
-  .collapsing {
-    height: 0;
-    overflow: hidden;
-    @include transition($transition-collapse);
-  } */
-
 .collapseContent {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #d0d7dd;

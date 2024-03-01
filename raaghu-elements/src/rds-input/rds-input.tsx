@@ -36,7 +36,7 @@ export interface RdsInputProps {
     maxLength?: any;
     minValue?: any;
     maxValue?: any;
-    showIcon?:boolean;
+    showIcon?: boolean;
 }
 
 const RdsInput = (props: RdsInputProps) => {
@@ -65,34 +65,34 @@ const RdsInput = (props: RdsInputProps) => {
         if (props.validatonPattern !== undefined && e.target.value) {
             const urlPattern = props.validatonPattern;
             setIsValid(urlPattern.test(inputValue));
-        }else{
+        } else {
             setIsValid(true);
         }
         const valueLength = (e.target.value).length
         const value = (e.target.value)
-if(e.target.value){
-    if (valueLength < props.minLength) {
-        setErrorRegardingLengthOrValue(`This field must be a string or array type with a minimum length of ${props.minLength}.`)
-    } else {
-        if (valueLength > props.maxLength) {
-            setErrorRegardingLengthOrValue(`This field must be a string or array type with a maximum length of ${props.maxLength}.`)
+        if (e.target.value) {
+            if (valueLength < props.minLength) {
+                setErrorRegardingLengthOrValue(`This field must be a string or array type with a minimum length of ${props.minLength}.`)
+            } else {
+                if (valueLength > props.maxLength) {
+                    setErrorRegardingLengthOrValue(`This field must be a string or array type with a maximum length of ${props.maxLength}.`)
+                } else {
+                    setErrorRegardingLengthOrValue("")
+                }
+            }
+            if (value < props.minValue) {
+                setErrorRegardingLengthOrValue(`Value should be greater than ${props.minValue}`)
+            } else {
+                if (value > props.maxValue) {
+                    setErrorRegardingLengthOrValue(`Value cannot be more than ${props.maxValue}`)
+                } else {
+                    setErrorRegardingLengthOrValue("")
+                }
+            }
         } else {
             setErrorRegardingLengthOrValue("")
         }
-    }
-    if (value < props.minValue) {
-        setErrorRegardingLengthOrValue(`Value should be greater than ${props.minValue}`)
-    } else {
-        if (value > props.maxValue) {
-            setErrorRegardingLengthOrValue(`Value cannot be more than ${props.maxValue}`)
-        } else {
-            setErrorRegardingLengthOrValue("")
-        }
-    }
-}else{
-    setErrorRegardingLengthOrValue("")
-}
-        
+
         setValue(e.target.value);
 
     };
@@ -223,7 +223,7 @@ if(e.target.value){
                                     )}
                                 </>
                             )}
-                            {props.inputType === "password" &&  props.showIcon == true &&(
+                            {props.inputType === "password" && props.showIcon == true && (
                                 <RdsIcon
                                     name={showPassword ? "eye" : "eye_slash"}
                                     classes="password-toggle"

@@ -6,11 +6,11 @@ import RdsButton from "../rds-button";
 import "./rds-notification.css";
 
 export interface RdsNotificationProps {
-  colorVariant?: colors;
-  notifications: any[];
-  footerText: string;
-  onSetAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notification: any) => void;
-  onMarkAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notifications: any) => void;
+    colorVariant?: colors;
+    notifications: any[];
+    footerText: string;
+    onSetAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notification: any) => void;
+    onMarkAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notifications: any) => void;
 }
 
 const RdsNotification = (props: RdsNotificationProps) => {
@@ -147,7 +147,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                                     <div
                                         className={
                                             "fs-6 " +
-                      `${notification.userNotificationId == id ? textColor : ""}`
+                                            `${notification.userNotificationId == id ? textColor : ""}`
                                         }
                                     >
                                         {notification.title}{" "}

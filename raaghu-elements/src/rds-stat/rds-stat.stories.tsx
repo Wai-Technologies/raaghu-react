@@ -1,4 +1,3 @@
-import React from "react";
 import RdsStat from "./rds-stat";
 import { Meta, StoryObj } from "@storybook/react";
 
