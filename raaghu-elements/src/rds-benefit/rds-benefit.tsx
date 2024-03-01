@@ -2,37 +2,35 @@ import React from "react";
 import RdsIcon from "../rds-icon";
 
 export interface RdsBenefitProps {
- item:any,
- displayType:string,
+    item: any,
+    displayType: string,
 }
 
-const RdsBenefit =(props:RdsBenefitProps) =>{
-    const bg ="bg-" + props.item.colorVarient||"primary" ;
+const RdsBenefit = (props: RdsBenefitProps) => {
+    const bg = "bg-" + props.item.colorVarient || "primary";
 
-    return(
+    return (
         <>
-        
-            {/* Default  */} 
-            {props.displayType=="default"&& <div className="pt-1 mb-4">
+            {/* Default  */}
+            {props.displayType == "default" && <div className="pt-1 mb-4">
                 <div className="border p-4 text-center bg-light rounded" data-testid="defaultAligned">
                     <div>
-                        <RdsIcon name ={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
+                        <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                     </div>
                     <div className="mt-2 bold">
                         <label htmlFor=" "> {props.item.title}</label>
                     </div>
                     <div className="mt-1 text-muted">
                         <label htmlFor=" "> {props.item.description}</label>
-         
+
                     </div>
                 </div>
             </div>}
-
             {/* Left Aligned */}
-            {props.displayType=="Left Aligned"&&  <div className="pt-1 " >
-                <div  className="border p-4 text-left bg-light rounded" data-testid="leftAligned">
+            {props.displayType == "Left Aligned" && <div className="pt-1 " >
+                <div className="border p-4 text-left bg-light rounded" data-testid="leftAligned">
                     <div>
-                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth}/>
+                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth} />
                     </div>
                     <div className="mt-3 bold">
                         <label htmlFor=" "> {props.item.title}</label>
@@ -42,37 +40,36 @@ const RdsBenefit =(props:RdsBenefitProps) =>{
                     </div>
                 </div>
             </div>}
-
             {/* Center Aligned  */}
-            {props.displayType =="Center Aligned"  && 
-      <div className="pt-1" >
-          <div className="border p-4 text-center bg-light rounded" data-testid="centerAligned">
-              <div>
-                  <span className="rounded-circle p-2 bg-secondary bg-opacity-10 d-inline-block">
-                      <RdsIcon name ={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
-                  </span> 
-              </div>
-              <div className="mt-3 bold">
-                  <label htmlFor=" "> {props.item.title}</label>
-              </div>
-              <div className="mt-2 px-5">
-                  <label htmlFor=" "> {props.item.description}</label>
-              </div>
-          </div>
-      </div>}
+            {props.displayType == "Center Aligned" &&
+                <div className="pt-1" >
+                    <div className="border p-4 text-center bg-light rounded" data-testid="centerAligned">
+                        <div>
+                            <span className="rounded-circle p-2 bg-secondary bg-opacity-10 d-inline-block">
+                                <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
+                            </span>
+                        </div>
+                        <div className="mt-3 bold">
+                            <label htmlFor=" "> {props.item.title}</label>
+                        </div>
+                        <div className="mt-2 px-5">
+                            <label htmlFor=" "> {props.item.description}</label>
+                        </div>
+                    </div>
+                </div>}
 
             {/* With Label  */}
-            {props.displayType =="With Label" &&  <div className="pt-1" >
+            {props.displayType == "With Label" && <div className="pt-1" >
                 <div className="d-flex">
                     <div className="d-flex align-items-center">
-                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth}/>
-         
+                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth} />
+
                     </div>
                     <div className="ms-3 mt-3  ">
-          
+
                         <div className=" bold " >
                             <label htmlFor=" "> {props.item.title}</label>
-                            <span className={"ms-1 badge " +`${bg}`} >{props.item.status} </span> 
+                            <span className={"ms-1 badge " + `${bg}`} >{props.item.status} </span>
                         </div>
                         <div className="pe-5">
                             <label htmlFor=" "> {props.item.description}</label>
@@ -82,12 +79,12 @@ const RdsBenefit =(props:RdsBenefitProps) =>{
             </div>}
 
             {/* Without Label */}
-            { props.displayType =="Without Label" && <div className="pt-1" 
+            {props.displayType == "Without Label" && <div className="pt-1"
             >
                 <div className="d-flex">
                     <div className="d-flex align-items-center">
                         <span className="rounded-circle p-2 bg-secondary bg-opacity-10">
-                            <RdsIcon name ={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
+                            <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                         </span>
                     </div>
                     <div className="ms-3 ">
@@ -102,20 +99,20 @@ const RdsBenefit =(props:RdsBenefitProps) =>{
             </div>}
 
             {/* Heading With Icon  */}
-            {props.displayType =="Heading With Icon" && <div className="pt-1">
+            {props.displayType == "Heading With Icon" && <div className="pt-1">
                 <div className="d-flex align-items-center">
                     <div className="d-flex align-items-center">
                         <span className="rounded-circle p-2 bg-secondary bg-opacity-10">
-                            <RdsIcon name ={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
-                        </span> 
+                            <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
+                        </span>
                     </div>
                     <div className="ms-3 bold">
                         <div>
-                            <label htmlFor=" "> {props.item.title}</label> 
+                            <label htmlFor=" "> {props.item.title}</label>
                         </div>
                     </div>
                 </div>
-            </div> }
+            </div>}
         </>
     );
 };

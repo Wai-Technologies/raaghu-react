@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./rds-breadcrumb.css";
 import RdsIcon from "../rds-icon";
-import { useTranslation } from "react-i18next";
+
 export interface breadcrumbprop {
     breadItems: any[];
 }
 
 const RdsBreadcrumb = (props: breadcrumbprop) => {
-    const {t} = useTranslation()
+
     const [data, setdata] = useState(props.breadItems);
     const length = data.length;
 
@@ -64,7 +64,7 @@ const RdsBreadcrumb = (props: breadcrumbprop) => {
                                     }}
                                     aria-disabled="true"
                                 >
-                                    {t(breadItem.label)}
+                                    {(breadItem.label)}
                                 </a>
                             </li>
                         ) : (
@@ -103,7 +103,7 @@ const RdsBreadcrumb = (props: breadcrumbprop) => {
                                     }}
                                     aria-disabled="true"
                                 >
-                                    {t(breadItem.label)}
+                                    {(breadItem.label)}
                                 </a>
                             </li>
                         );

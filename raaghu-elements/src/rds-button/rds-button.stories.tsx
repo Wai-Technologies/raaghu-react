@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsButton from './rds-button';
 
-const meta: Meta = { 
+const meta: Meta = {
     title: "Elements/Button",
     component: RdsButton,
     parameters: {
@@ -90,7 +90,7 @@ export const Tooltip: Story = {
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
     },
-     argTypes: {
+    argTypes: {
         tooltipPlacement: {
             options: [
                 "right",

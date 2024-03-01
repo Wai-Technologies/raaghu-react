@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCheckboxParentChild from "./rds-checkbox-parent-child";
 import { Meta, StoryObj } from "@storybook/react";
 

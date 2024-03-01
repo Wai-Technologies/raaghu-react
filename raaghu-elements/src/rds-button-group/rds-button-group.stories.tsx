@@ -1,4 +1,3 @@
-import React from "react";
 import RdsButtonGroup from "./rds-button-group";
 import { Meta, StoryObj } from "@storybook/react";
 

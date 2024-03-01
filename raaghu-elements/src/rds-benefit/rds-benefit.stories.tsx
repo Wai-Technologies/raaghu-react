@@ -1,4 +1,3 @@
-import React from "react";
 import RdsBenefit from "./rds-benefit";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -35,7 +34,7 @@ export const Default: Story = {
 
 
 
-export const LeftAligned : Story = {
+export const LeftAligned: Story = {
     args: {
         displayType: "Left Aligned",
         item: {
@@ -50,7 +49,7 @@ export const LeftAligned : Story = {
 } satisfies Story;
 
 
-export const CenterAligned : Story = {
+export const CenterAligned: Story = {
     args: {
         displayType: "Center Aligned",
         item: {
@@ -68,7 +67,7 @@ export const CenterAligned : Story = {
 } satisfies Story;
 
 
-export const WithLabel : Story = {
+export const WithLabel: Story = {
     args: {
         displayType: "With Label",
         item: {
@@ -85,7 +84,7 @@ export const WithLabel : Story = {
 } satisfies Story;
 
 
-export const WithoutLabel : Story = {
+export const WithoutLabel: Story = {
     args: {
         displayType: "Without Label",
         item: {
@@ -103,18 +102,18 @@ export const WithoutLabel : Story = {
 } satisfies Story;
 
 
-export const HeadingWithIcon : Story = {
+export const HeadingWithIcon: Story = {
     args: {
         displayType: "Heading With Icon",
         item:
         {
-            iconHeight: "40px",
-            iconWidth: "40px",
-            icon: "truck",
-            iconFill: false,
-            iconstroke: true,
-            iconColorVarient: "dark",
-            title: "Free delivery all year long",
+            "iconHeight": "40px",
+            "iconWidth": "40px",
+            "icon": "truck",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "dark",
+            "title": "Free delivery all year long",
         }
     }
 } satisfies Story;
