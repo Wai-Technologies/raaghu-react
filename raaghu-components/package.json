@@ -1,6 +1,6 @@
 {
-  "name": "@raaghu/react-components",
-  "description": "Collection of @raaghu/react-components",
+  "name": "@waiin/raaghu-react-components",
+  "description": "Collection of @waiin/raaghu-react-components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",

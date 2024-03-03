@@ -1,6 +1,6 @@
 {
-  "name": "@raaghu/react-layouts",
-  "description": "Collection of @raaghu/react-layouts",
+  "name": "@waiin/raaghu-react-layouts",
+  "description": "Collection of @waiin/raaghu-react-layouts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
