@@ -25,6 +25,8 @@
   "homepage": "https://react.raaghu.io",
   "license": "MIT",
 
+  "main": ".storybook/main.ts",
+
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react": "^18.2.41",
