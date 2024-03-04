@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
-import '../raaghu-react-themes/src/styles/default_storybook.scss';
+import '../raaghu-react-themes/src/styles/default.scss';
 import { themes } from '@storybook/theming';
 
 

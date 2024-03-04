@@ -96,3 +96,4 @@ export { default as RdsCompSetPassword } from "./rds-comp-set-password";
 export { default as RdsCompTestimonials } from "./rds-comp-testimonials";
 export { default as RdsCompDeveloperMode } from "./rds-comp-developer-mode";
 export { default as RdsCompProfile }   from "./rds-comp-profile";
+export { default as RdsCompAppDetail } from "./rds-comp-app-detail";
