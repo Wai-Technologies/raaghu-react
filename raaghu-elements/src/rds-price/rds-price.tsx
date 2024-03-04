@@ -17,8 +17,8 @@ const RdsPrice = (props: RdsPriceProps) => {
         <>
 
             {(props.type != "priceOnRight") && <div data-testId="price-on-left">
-                <span className="fw-bold fs-4">{props.currentPrice}</span>
-                <span className="text-muted m-2 text-decoration-line-through fs-5">{props.mrp}</span>
+                <span className="fw-bold fs-4">${props.currentPrice}</span>
+                <span className="text-muted m-2 text-decoration-line-through fs-5">${props.mrp}</span>
                 {props.withDiscount && <span className="fs-6 text-primary" >{discountInPrecent}% off</span>}
                 <span className="px-2"><RdsIcon name="question" width="16px" height="1em" stroke /></span>
             </div >}
@@ -26,8 +26,8 @@ const RdsPrice = (props: RdsPriceProps) => {
             {(props.type === "priceOnRight") && <div data-testId="price-on-right">
                 <span className="px-2"><RdsIcon name="question" width="16px" height="1em" stroke /></span>
                 {props.withDiscount && <span className="fs-6 text-primary" >{discountInPrecent}% off</span>}
-                <span className="text-muted m-2 text-decoration-line-through fs-5">{props.mrp}</span>
-                <span className="fw-bold fs-4">{props.currentPrice}</span>
+                <span className="text-muted m-2 text-decoration-line-through fs-5">${props.mrp}</span>
+                <span className="fw-bold fs-4">${props.currentPrice}</span>
             </div >}
 
 

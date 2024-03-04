@@ -24,7 +24,6 @@ type Story = StoryObj<typeof RdsRadioButton>;
 export const Default: Story = {
     args: {
         displayType: "Default",
-        label: "Radio Button",
         itemList: [
             {
                 id: 1,
@@ -47,12 +46,11 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['displayType', 'itemList'] } };
 
 export const Horizontal: Story = {
     args: {
         displayType: "Horizontal",
-        label: "Radio Button",
         itemList: [
             {
                 id: 1,
@@ -75,34 +73,7 @@ export const Horizontal: Story = {
         ]
     }
 } satisfies Story;
-// export const ErrorMessage = Template.bind({});
-// ErrorMessage.args = {
-//     state:"errorRadio",
-//     errorMessage:"Error message" ,
-//     displayType: "Default",
-//     label:"Radio Button" ,
-//     itemList : [
-//         {
-//             id: 1,
-//             label: "Radio Button 1",
-//             checked: false,
-//             name:"radio_button",
-//         },
-//         {
-//             id: 2,
-//             label: "Radio Button 2",
-//             checked: false,
-//             name:"radio_button",
-//         },
-//         {
-//             id: 3,
-//             label: "Radio Button 3",
-//             checked: true,
-//             name:"radio_button",
-//         },
-//     ]
-// };
-
+Horizontal.parameters = { controls: { include: ['displayType', 'itemList'] } };
 
 
 
