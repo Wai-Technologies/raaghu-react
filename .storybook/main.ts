@@ -25,7 +25,9 @@ const config: StorybookConfig = {
   },
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {
+      legacyRootApi: true,
+    },
   },
   docs: {
     autodocs: "tag",
