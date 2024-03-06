@@ -40,5 +40,6 @@ export const Search: Story = {
         iconPosition: "left",
     }
 } satisfies Story;
+Search.parameters = { controls: { include: ['label', 'labelPosition', 'placeholder', 'size', 'iconPosition'] } };
 
 
