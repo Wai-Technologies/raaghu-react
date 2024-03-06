@@ -11,11 +11,11 @@
 }
 
 .row .left {
-    background-color: #bcc1da;
+    /* background-color: #bcc1da; */
     overflow-y: auto;
     text-align: center;
     font-size: 30px;
-    font-family: ui-sans-serif;
+    /* font-family: ui-sans-serif; */
 }
 
 .shell-header {

@@ -4,8 +4,6 @@ import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
-import { Dropdown } from "bootstrap";
-import RdsAnimation from "../rds-animation";
 export interface RdsDropdownListProps {
   id?: string;
   reset?: boolean;

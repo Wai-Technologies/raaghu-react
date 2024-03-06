@@ -1,6 +1,5 @@
 import React from "react";
 import { RdsSideNav } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 export interface RdsCompSideNavigationProps {
   sideNavItems: any[];
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
