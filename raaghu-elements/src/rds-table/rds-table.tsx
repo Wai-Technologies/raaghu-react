@@ -11,7 +11,6 @@ export interface RdsTableProps {
     bordered?: boolean;
     iconColorVariant?: string;
     width?: number;
-    backgroundColor?: string;
     headerTextColor?: string;
     tableHeightForScroll?: string;
 }
@@ -75,7 +74,7 @@ const RdsTable = (props: RdsTableProps) => {
                                             width="15px"
                                             fill={true}
                                             stroke={false}
-                                            colorVariant={tableData.iconColorVariant}
+                                            colorVariant={props.iconColorVariant}
                                         ></RdsIcon>
                                     )}
                                     {headerData.dataType != "icon" && tableData[headerData.key]}
