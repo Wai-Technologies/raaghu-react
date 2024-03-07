@@ -24,6 +24,8 @@ type Story = StoryObj<typeof RdsFeatureList>;
 export const Default: Story = {
     args: {
         heading: "Features",
+        fontStyle: "normal",
+        colorVariant: "primary",
         itemList: [
             "Only the best materials",
             "Ethically and locally made",
@@ -32,15 +34,17 @@ export const Default: Story = {
             "Stainless strap loops",
             "Double stitched construction",
             "Water-resistant"
-        ]
+        ],        
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList'] } };
 
 export const With_multiple_column: Story = {
     args: {
         colorVariant: "primary",
         heading: "Features",
         fontStyle: "italic",
+        columns: 2,
         itemList: [
             "Only the best materials",
             "Ethically and locally made",
@@ -49,8 +53,8 @@ export const With_multiple_column: Story = {
             "Stainless strap loops",
             "Double stitched construction",
             "Water-resistant"
-        ],
-        columns: 2
+        ]       
     }
 } satisfies Story;
+With_multiple_column.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList','columns'] } };
 
