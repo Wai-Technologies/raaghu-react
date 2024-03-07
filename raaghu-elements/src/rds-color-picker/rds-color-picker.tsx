@@ -53,8 +53,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
 
                     <label>{props.label}</label>
                 </div>
-
-                <div className=" border p-2 mt-3 col-3 d-flex" >
+      
+                <div className=" align-items-center border col-3 d-flex mt-1 p-2" >
                     <span className="me-3">
                         <input
                             type="color"

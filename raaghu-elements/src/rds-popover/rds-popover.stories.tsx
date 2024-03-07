@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Elements/Popover',
     component: RdsPopover,
     parameters: {
-        layout: 'padded',
+        layout: 'centered',
     },
     tags: ['autodocs'],
     argTypes: {
@@ -26,19 +26,4 @@ export const Popover: Story = {
         children: <p>Popover</p>,
     }
 } satisfies Story;
-
-
-// export const Popover = Template.bind({});
-// Popover.decorators = [
-//     (Story) => (
-//         <div style={{
-//             padding: "200px 300px",
-//         }}>
-//             <Story />
-//         </div>
-//     ),
-// ],
-//     Popover.args = {
-//         popoverPosition: "top",
-//         children: <p>Popover</p>,
-//     };
+Popover.parameters = { controls: { include: ['popoverPosition', 'children'] } };

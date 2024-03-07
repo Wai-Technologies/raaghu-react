@@ -9,10 +9,6 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: {
-            options: ["primary", "secondary", "success", "info", "warning", "danger", "dark", "light",],
-            control: { type: "select" },
-        },
         doubleRangeType: {
             options: ["default", "type_1", "type_2"],
             control: { type: "select" },
@@ -23,8 +19,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDoubleRange>;
 
-
-
 export const DoubleRange: Story = {
     args: {
         max: 100,
@@ -32,4 +26,6 @@ export const DoubleRange: Story = {
         doubleRangeType: "default"
     }
 } satisfies Story;
+DoubleRange.parameters = { controls: { include: ['max', 'min', 'doubleRangeType'] } };
+
 

@@ -27,11 +27,10 @@ export const Icon: Story = {
         height: "20px",
         fill: false,
         stroke: true,
-        colorVariant: "primary",
-        isAnimate: true,
+        colorVariant: "primary"
     }
 } satisfies Story;
-Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isAnimate'] } };
+Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant'] } };
 
 export const Tooltip: Story = {
     args: {

@@ -47,5 +47,6 @@ export const PopularPage: Story = {
         ]
     }
 } satisfies Story;
+PopularPage.parameters = { controls: { include: ['itemList'] } };
 
 

@@ -7,7 +7,7 @@ export interface RdsOffcanvasProps {
     backDrop: "static" | true | false;
     scrolling: boolean;
     preventEscapeKey?: boolean;
-    offId: any;
+    offId: string;
     canvasTitle: string;
     offcanvaswidth?: number;
     onShow?: React.EventHandler<HTMLAllCollection | any>;
