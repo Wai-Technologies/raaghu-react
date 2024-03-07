@@ -9,7 +9,7 @@ export interface RdsProgressBarProps {
     height?: number;
     progressValues?: any[];
     role: string;
-    displayLevel?: boolean;
+    displayLabel?: boolean;
     displayPercentage?: boolean;
     width?: string;
 }
@@ -37,7 +37,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                             {props.displayPercentage && <>{props.progressWidth}%</>}
                         </div>
                     </div>
-                    {props.displayLevel && (
+                    {props.displayLabel && (
                         <div className="d-flex justify-content-between">
                             <div data-testid="level-indicator-min">0</div>
                             <div data-testid="level-indicator-max">100</div>

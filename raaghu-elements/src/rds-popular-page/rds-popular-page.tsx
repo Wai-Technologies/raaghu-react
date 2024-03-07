@@ -15,14 +15,16 @@ const RdsPopularPage = (props: RdsPopularPageProps) => {
                     {props.itemList.map((item: any, index: any) => (
                         <div className="border-bottom d-flex align-items-center py-2 gap-2" data-testId="container-div">
                             <div className="p-3">
+                                <div className="bg-opacity-25 bg-primary border p-2 rounded-3 text-primary-emphasis">
                                 <RdsIcon
                                     name={item.icon}
-                                    height="23px"
-                                    width="23px"
+                                    height="18px"
+                                    width="18px"
                                     fill={false}
                                     stroke={true}
-                                    colorVariant="dark"
+                                    colorVariant="primary"
                                 />
+                                </div>
                             </div>
                             <div className="w-100">
                                 <div className="fw-bold">{item.title}</div>

@@ -33,18 +33,16 @@ export const Default: Story = {
         progressWidth: 40,
         animation: false,
         height: 15,
-        displayLevel: true,
+        displayLabel: true,
         displayPercentage: true
     }
 } satisfies Story;
-
-
+Default.parameters = { controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'animation', 'height', 'displayLabel', 'displayPercentage'] } };
 
 export const MultiProgressBar: Story = {
     args: {
         role: "multiple",
         height: 15,
-        width: "inherit",
         progressValues: [
             {
                 progressWidth: 50,
@@ -67,4 +65,5 @@ export const MultiProgressBar: Story = {
         ],
     }
 } satisfies Story;
+MultiProgressBar.parameters = { controls: { include: ['role', 'height', 'progressValues'] } };
 
