@@ -9,7 +9,7 @@ export interface Item {
     profilePic: string | undefined;
     date: string | undefined;
     withNoOfReviews: boolean;
-    noOfReview: undefined;
+    noOfReview?: number;
     name: string;
     username?: string;
     feedIcon?: string;
@@ -34,18 +34,17 @@ const RdsFeed = (props: RdsFeedProps) => {
             {
                 props.itemList.map((item: Item) => (
 
-                    <div className="border py-3">
+                    <div className="border p-3">
                         <div className="d-flex">
                             <div>
                                 <RdsIcon
                                     name={item.feedIcon}
                                     width="50px"
                                     height="50px"
-                                    strokeWidth="5px"
-                                    fill={true}
+                                    fill={false}
                                 ></RdsIcon>
                             </div>
-                            <div className="ps-3 flex-grow-1">
+                            <div className="flex-grow-1">
                                 <div className="pb-1 d-flex">
                                     <span
                                         className="text-left fw-bold">
@@ -55,6 +54,10 @@ const RdsFeed = (props: RdsFeedProps) => {
                                         className=" ms-3">
                                         {item.username}
                                     </span>
+                                    <span
+                                        className=" ms-3">
+                                        {item.date}
+                                    </span>
                                 </div>
                                 <div className="pb-1 d-flex">
 
@@ -63,14 +66,14 @@ const RdsFeed = (props: RdsFeedProps) => {
                             </div>
                         </div>
                         <div>
-                            <div className="h-25 ms-3">
+                            <div className="h-25">
                                 <label className="text-muted fst-italic " >
                                     {item.description}
                                 </label>
                             </div>
-                            <div className="ms-3 d-flex">
+                            <div className="d-flex">
                                 <div>
-                                    <RdsLikeDislike like={0} dislike={0} ></RdsLikeDislike>
+                                    <RdsLikeDislike like={0} dislike={0}  ></RdsLikeDislike>
                                 </div>
 
                             </div>
