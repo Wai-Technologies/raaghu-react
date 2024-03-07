@@ -28,6 +28,10 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+        iconTooltipPosition: {
+            options: ["top", "bottom", "left", "right"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsWidget>;
 
@@ -36,7 +40,7 @@ type Story = StoryObj<typeof RdsWidget>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "light",
+        colorVariant: "gradient-primary",
         headerTitle: "Widget",
         isRefreshRequired: true,
         iconName: "refresh",
@@ -45,9 +49,7 @@ export const Default: Story = {
         border: true,
     }
 } satisfies Story;
-
 Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
-
 
 export const WidgetWithLineChart: Story = {
     args: {
@@ -225,7 +227,6 @@ export const WidgetWithLineChart: Story = {
         ),
     }
 } satisfies Story;
-
 WidgetWithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
 
 export const WidgetWithDoughnutChart: Story = {
@@ -308,20 +309,11 @@ export const WidgetWithDoughnutChart: Story = {
         ),
     }
 } satisfies Story;
-
 WidgetWithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
-
 
 export const WidgetWithBarChart: Story = {
     args: {
         colorVariant: "white",
-        iconFill: true,
-        iconStroke: true,
-        iconHeight: "15px",
-        iconWidth: "15px",
-        bigNumber: "$13,20,21",
-        subTitle: "+$1,203",
-        icon: "triangle_up",
         headerTitle: "Daily Sales Growth",
         isRefreshRequired: true,
         iconName: "refresh",
@@ -506,5 +498,4 @@ export const WidgetWithBarChart: Story = {
         ),
     }
 } satisfies Story;
-
-WidgetWithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children', 'subTitle', 'iconFill', 'iconHeight', 'iconWidth', 'bigNumber', 'icon'] } };
+WidgetWithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };

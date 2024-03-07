@@ -32,6 +32,7 @@ export const Default: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const withTopBorder: Story = {
     args: {
@@ -44,6 +45,7 @@ export const withTopBorder: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+withTopBorder.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const leftAligned: Story = {
     args: {
@@ -59,6 +61,7 @@ export const leftAligned: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+leftAligned.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const withLeftAlignedIcon: Story = {
     args: {
@@ -75,6 +78,7 @@ export const withLeftAlignedIcon: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+withLeftAlignedIcon.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const withCenterAlignedIcon: Story = {
     args: {
@@ -90,6 +94,7 @@ export const withCenterAlignedIcon: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+withCenterAlignedIcon.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const centerAligned: Story = {
     args: {
@@ -103,5 +108,6 @@ export const centerAligned: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
+centerAligned.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 

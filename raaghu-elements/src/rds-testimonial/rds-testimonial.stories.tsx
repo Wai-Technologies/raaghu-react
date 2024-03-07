@@ -70,4 +70,5 @@ export const Testimonial: Story = {
         ]
     }
 } satisfies Story;
+Testimonial.parameters = { controls: { include: ['testimonialItems'] } };
 

@@ -32,8 +32,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsStat>;
 
-
-
 export const Default: Story = {
     args: {
         displayType: "basic",
@@ -51,8 +49,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-
-
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'items'] } };
 
 export const Advanced: Story = {
     args: {
@@ -66,5 +63,4 @@ export const Advanced: Story = {
         ],
     }
 } satisfies Story;
-
-
+Advanced.parameters = { controls: { include: ['displayType', 'colorVariant', 'items'] } };
