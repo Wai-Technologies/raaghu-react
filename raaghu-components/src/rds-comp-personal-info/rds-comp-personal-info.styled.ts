@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const RdsCompPersonalInfoWrapper = styled.div`
-`;
+// export const RdsCompPersonalInfoWrapper = styled.div`
+// `;

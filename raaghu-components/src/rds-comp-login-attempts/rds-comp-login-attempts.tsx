@@ -98,8 +98,8 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                 <div className="table">
                     <RdsCompDatatable
                         actionPosition="right"
-                        tableHeaders={props.tableHeaders}
-                        tableData={Tdata}
+                        tableHeaders={props.tableHeaders || []} // Add default value for tableHeaders prop
+                        tableData={Tdata || []} // Add default value for Tdata prop
                         pagination={false}
                         onActionSelection={props.onActionSelection}
                         actions={[]}

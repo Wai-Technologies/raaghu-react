@@ -145,7 +145,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         rows={3}
                         dataTestId="redirect-uri"
                         isDisabled={!isDivVisible}
-                        required={false}
+                        isRequired={false}
                         validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
                         validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
@@ -173,7 +173,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         rows={3}
                         dataTestId="logout-redirect-uri"
                         isDisabled={!basicApplicationData?.allowLogoutEndpoint}
-                        required={false}
+                        isRequired={false}
                         validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
                         validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
