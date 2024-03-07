@@ -17,7 +17,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     <div>
                         <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                     </div>
-                    <div className="mt-2 bold">
+                    <div className="mt-2 fw-bold">
                         <label htmlFor=" "> {props.item.title}</label>
                     </div>
                     <div className="mt-1 text-muted">
@@ -32,7 +32,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     <div>
                         <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth} />
                     </div>
-                    <div className="mt-3 bold">
+                    <div className="mt-3 fw-bold">
                         <label htmlFor=" "> {props.item.title}</label>
                     </div>
                     <div className="mt-2">
@@ -49,7 +49,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                                 <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                             </span>
                         </div>
-                        <div className="mt-3 bold">
+                        <div className="mt-3 fw-bold">
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>
                         <div className="mt-2 px-5">
@@ -67,7 +67,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     </div>
                     <div className="ms-3 mt-3  ">
 
-                        <div className=" bold " >
+                        <div className=" fw-bold " >
                             <label htmlFor=" "> {props.item.title}</label>
                             <span className={"ms-1 badge " + `${bg}`} >{props.item.status} </span>
                         </div>
@@ -88,7 +88,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                         </span>
                     </div>
                     <div className="ms-3 ">
-                        <div className=" bold" >
+                        <div className=" fw-bold" >
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>
                         <div className="pe-5">
@@ -106,7 +106,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                             <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                         </span>
                     </div>
-                    <div className="ms-3 bold">
+                    <div className="ms-3 fw-bold">
                         <div>
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>

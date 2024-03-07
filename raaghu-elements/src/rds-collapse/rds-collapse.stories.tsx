@@ -28,6 +28,7 @@ export const Collapse: Story = {
         ],
     }
 } satisfies Story;
+Collapse.parameters = { controls: { include: ['buttonList'] } };
 
 
 

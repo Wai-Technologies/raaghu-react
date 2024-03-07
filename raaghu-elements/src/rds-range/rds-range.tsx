@@ -1,12 +1,9 @@
 import React, { Fragment, useState } from "react";
 import "./rds-range.css";
-import { colors } from "../../libs/types";
-
 export interface RdsRangeProps {
     max: number;
     min: number;
     step?: number;
-    colorVariant?: colors;
     rangeType: string;
 }
 

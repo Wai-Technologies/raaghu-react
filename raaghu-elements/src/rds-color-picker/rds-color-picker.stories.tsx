@@ -23,5 +23,6 @@ export const ColorPicker: Story = {
         label: "Color-Picker"
     }
 } satisfies Story;
+ColorPicker.parameters = { controls: { include: ['value', 'label', 'isDisabled'] } };
 
 
