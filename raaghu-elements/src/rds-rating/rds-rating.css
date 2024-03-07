@@ -2,7 +2,7 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 .on {
   color: #e3a300;

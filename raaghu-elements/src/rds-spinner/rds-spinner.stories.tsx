@@ -34,10 +34,7 @@ const meta: Meta = {
         },
         height: {
             control: { type: 'text' },
-        },
-        size: {
-            control: { type: 'text' },
-        },
+        }
     },
 } satisfies Meta<typeof RdsSpinner>;
 
@@ -46,10 +43,10 @@ type Story = StoryObj<typeof RdsSpinner>;
 
 export const Border: Story = {
     args: {
-        spinnerType: 'spinner-grow',
+        spinnerType: 'grow',
         colorVariant: 'primary',
         width: '50px',
         height: '50px',
-        size: 'sm',
     },
 } satisfies Story;
+Border.parameters = { controls: { include: ['spinnerType', 'colorVariant', 'width', 'height'] } };

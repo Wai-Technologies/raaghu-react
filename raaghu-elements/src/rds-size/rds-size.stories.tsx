@@ -10,19 +10,6 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        // colorVariant: {
-        //     options: [
-        //         "primary",
-        //         "secondary",
-        //         "success",
-        //         "info",
-        //         "warning",
-        //         "danger",
-        //         "dark",
-        //         "light",
-        //     ],
-        //     control: { type: "select" },
-        // },
         sizeType: {
             options: ["withoutDescription", "withDescription"],
             control: { type: "select" },
@@ -50,6 +37,7 @@ export const Default: Story = {
 
     },
 } satisfies Story;
+Default.parameters = { controls: { include: ['sizeType', 'sizeData'] } };
 
 export const WithDescription: Story = {
     args: {
@@ -61,5 +49,6 @@ export const WithDescription: Story = {
         ],
     },
 } satisfies Story;
+WithDescription.parameters = { controls: { include: ['sizeType', 'sizeDataWithDescription'] } };
 
 

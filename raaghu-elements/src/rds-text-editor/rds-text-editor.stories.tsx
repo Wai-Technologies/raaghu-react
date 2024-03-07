@@ -22,3 +22,4 @@ export const TextEditor: Story = {
         value: "<p>Hello!</p>"
     }
 } satisfies Story;
+TextEditor.parameters = { controls: { include: ['id', 'value'] } };
