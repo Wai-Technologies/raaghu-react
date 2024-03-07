@@ -41,6 +41,7 @@ export const Default: Story = {
         id: "",
         value: "",
         required: true,
+        showIcon: true,
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
@@ -73,6 +74,7 @@ export const Disabled: Story = {
         value: "",
         required: true,
         isDisabled: true,
+        showIcon: true,
     }
 } satisfies Story;
 Disabled.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon'] } };
@@ -88,6 +90,7 @@ export const Readonly: Story = {
         value: "",
         required: true,
         readonly: true,
+        showIcon: true,
     }
 } satisfies Story;
 Readonly.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon'] } };
@@ -103,6 +106,7 @@ export const Email: Story = {
         value: "",
         required: true,
         readonly: true,
+        showIcon: true,
     }
 } satisfies Story;
 Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required',] } };

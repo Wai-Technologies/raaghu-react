@@ -15,10 +15,10 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsStepper>;
 
-
 export const Simple: Story = {
     args: {
         stepperType: "simple",
     }
 } satisfies Story;
+Simple.parameters = { controls: { include: ['stepperType'] } };
 

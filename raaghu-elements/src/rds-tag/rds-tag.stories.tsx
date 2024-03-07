@@ -1,4 +1,3 @@
-import React from "react";
 import RdsTag from "./rds-tag";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -55,23 +54,4 @@ export const Tag :Story={
     }
 } satisfies Story;
 
-Tag.parameters = { controls: { include: ['role', 'colorVariant','fillClose'] } };
-
-
-// export const Advanced = Template.bind({});
-// Advanced.args = {
-  
-//     displayType:"advanced",
-//     colorVariant: "primary",
-//     items: [
-//         {
-//           "title": "SAM SMITH",
-//           "value": "2370",
-//           "icon": "star",
-//           "iconHeight": "80px",
-//           "iconWidth": "80px",
-//           "iconFill": true,
-          
-//         },
-//       ]
-// };
+Tag.parameters = { controls: { include: ["tagType","role","colorVariant","fillClose","tagArray"] } };

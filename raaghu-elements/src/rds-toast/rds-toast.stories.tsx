@@ -37,6 +37,19 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+        iconColorvariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "info",
+                "warning",
+                "danger",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsToast>;
 
@@ -55,10 +68,11 @@ export const Default: Story = {
         iconColorvariant: "primary",
         iconHeight: "18px",
         iconWidth: "18px",
-        iconFill: false
+        iconFill: false,
+        borderColor: "primary"
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['headerTitle', 'message', 'colorVariant', 'showHeader', 'withIcon', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill', 'borderColor'] } };
 
 export const toastWithAutohide: Story = {
     args: {
@@ -76,6 +90,7 @@ export const toastWithAutohide: Story = {
         iconFill: false
     }
 } satisfies Story;
+toastWithAutohide.parameters = { controls: { include: ['headerTitle', 'message', 'delay', 'autohide', 'withIcon', 'showHeader', 'iconName', 'colorVariant', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
 
 export const toastWithoutHeader: Story = {
     args: {
@@ -93,4 +108,5 @@ export const toastWithoutHeader: Story = {
         iconFill: false
     }
 } satisfies Story;
+toastWithoutHeader.parameters = { controls: { include: ['headerTitle', 'autohide', 'withIcon', 'delay', 'showHeader', 'message', 'colorVariant', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
 
