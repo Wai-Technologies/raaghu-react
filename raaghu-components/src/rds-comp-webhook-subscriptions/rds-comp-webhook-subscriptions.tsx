@@ -175,7 +175,6 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         <RdsTextArea
                             label="Webhook Event"
                             placeholder="carolyn Carpenter"
-                            required={true}
                             onChange={eventhandleChange}
                             rows={4}
                             value={user.event}

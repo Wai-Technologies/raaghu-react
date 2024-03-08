@@ -130,7 +130,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                         value={data?.description}
                         rows={3}
                         dataTestId="description"
-                        required={true}
+                    
                     />
                 </div>
 

@@ -6,7 +6,6 @@
 .accordion-item {
   margin-bottom: $accordio-margin;
 
-
   &:first-of-type {
     @include border-top-radius($accordion-border-radius);
 

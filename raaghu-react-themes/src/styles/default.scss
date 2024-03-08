@@ -12,7 +12,7 @@ $body-bg: white;
 $body-bg-dark: #232933;
 $black: #000 !default;
 $white: #fff !default;
-$light-gray: #CED4DA !default;
+$light-gray:#CED4DA !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -24,12 +24,6 @@ $gray-700: #495057 !default;
 $gray-750: #BEBEBE !default;
 $gray-800: #343a40 !default;
 $gray-900: #34384f !default;
-
-// home landing page colors
-
-$bg-blue: #080E1F !default;
-$text-blue-50: #CCE1EC !default;
-
 // /*Variables*/ /*Success - Green*/
 $success-0: #deffe4;
 $success-100: #befeca;
@@ -78,12 +72,12 @@ $blue-100: #444e73;
 // /*Primary - Purple*/
 $primary-0: #ecdeff;
 $primary-100: #d8befe;
-$primary-150: #bf97f7;
+$primary-150:#bf97f7;
 $primary-170: #DBC9FF;
 $primary-200: #c59efc;
 $primary-300: #a061f7;
 $primary-400: #7e2eef;
-$primary-450: #3D2E5C;
+$primary-450:#3D2E5C;
 $primary-500: #6307e3;
 $primary-600: #5800d3;
 $primary-700: #4400a4;
@@ -105,7 +99,7 @@ $light-0: #ffffff;
 $light-100: #fafbfe;
 $light-150: #F5F5FA;
 $light-200: #f5f7fe;
-$light-250: #F9F7FC;
+$light-250:#F9F7FC;
 $light-300: #eaeefc;
 $light-400: #e0e5f8;
 $light-500: #d6dcf3;
@@ -124,7 +118,7 @@ $dark-300: #222327;
 $dark-400: #1c1d20;
 $dark-500: #18191b;
 $dark-600: #161618;
-$dark-650: #16181F;
+$dark-650:#16181F;
 $dark-700: #151516;
 $dark-750: #797A7A;
 $dark-800: #151515;
@@ -219,9 +213,8 @@ html[theme="dark"] {
   }
 }
 
-// @import "../../../raaghu-react-themes/public/fonts/Poppins-Regular.ttf";
 @import "./custom.scss";
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./responsive.scss";
 @import "./accordion.scss";
 @import "./alert.scss";
