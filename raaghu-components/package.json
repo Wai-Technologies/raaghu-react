@@ -1,5 +1,5 @@
 {
-  "name": "@waiin/raaghu-react-components",
+  "name": "@waiin/raaghu-react-elements",
   "description": "Collection of @waiin/raaghu-react-components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -12,13 +12,12 @@
     "coverage": "jest --coverage --watchAll --testTimeout=30000 --collectCoverageFrom='src/**/*.{ts,tsx}' --collectCoverageFrom='!src/**/*.{stories,test,spec}.{ts,tsx}' --collectCoverageFrom='!src/*/index.ts'"
   },
   "publishConfig": {
-    "@alok-nakhate:registry": "https://npm.pkg.github.com",
-    "tag": "latest"
+    "access": "public"
   },
-  "homepage": "https://github.com/Wai-Technologies/raaghu-react#readme",
+  "homepage": "https://react.raaghu.io",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wai-Technologies/raaghu-react.git",
+    "url": "https://github.com/Wai-Technologies/raaghu-react",
     "directory": "packages/raaghu-components"
   },
   "bugs": {
@@ -26,11 +25,15 @@
     "email": "contact@raaghu.io"
   },
   "keywords": [
-    "raaghu",
-    "components",
-    "webcomponents"
+    "utility",
+    "common",
+    "tasks"
   ],
-  "author": "WAi Technologies <support@waiin.com>",
+  "author": {
+    "name": "WAi Technologies",
+    "email": "support@waiin.com",
+    "url": "https://waiin.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.5",
@@ -95,5 +98,17 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

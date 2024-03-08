@@ -32,4 +32,7 @@ export default defineConfig({
   emptyOutDir : true,
   },
   plugins: [react(), dts()],
+  optimizeDeps: {
+    include: ['charts'] // Add the dependencies you want to include for optimization
+  }
 })
