@@ -1,5 +1,6 @@
 {
-  "name": "@waiin/raaghu-react",
+  "name": "raaghu-react-themes",
+  "version": "7.0.21",
   "description": "Themes provides utility functions that are commonly used across Raaghu projects",
   "author": "WAI Technologies Pvt. Ltd. <contactus@waiin.com>",
   "license": "MIT",
@@ -28,9 +29,10 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "build": "rollup -c",
-    "test": "jest",
-    "coverage": "jest --coverage --watchAll --collectCoverageFrom='!src/**/*.{stories,test,spec}.{ts,tsx}'  --collectCoverageFrom='!src/*/index.ts' --collectCoverageFrom='!dist/cjs/__tests__/**.test{*}.d.ts' --collectCoverageFrom='!dist/esm/__tests__/**.test{*}.d.ts'"
+    "start": "react-scripts start",
+    "build": "react-scripts build && node-sass src/styles/default.scss build/styles/default.css",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

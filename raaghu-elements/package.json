@@ -1,5 +1,5 @@
 {
-  "name": "@waiin/raaghu-react",
+  "name": "@waiin/raaghu-react-elements",
   "description": "Collection of @waiin/raaghu-react-elements",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

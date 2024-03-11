@@ -6,7 +6,6 @@ rollup.config.js
 tsconfig.json
 
 !dist/
-raaghu-react-themes
 
 # ## the src folder
 # src

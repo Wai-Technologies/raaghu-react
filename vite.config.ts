@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import  dts from 'vite-plugin-dts'
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
 
@@ -24,7 +25,7 @@ export default defineConfig({
       // for externalized deps
       globals: {
         react: 'React',
-        'react-dom': 'ReactDOM'
+        'react-dom': 'ReactDOM',
       }
     }
   },
@@ -35,4 +36,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ['charts'] // Add the dependencies you want to include for optimization
   }
+
 })
