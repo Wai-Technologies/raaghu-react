@@ -13,7 +13,7 @@ const meta: Meta = {
         paginationType: {
             options: [
                 "default",
-                "advance"
+                "advanced"
             ],
             control: { type: "select" },
         },
@@ -24,7 +24,11 @@ const meta: Meta = {
                 "end"
             ],
             control: { type: "select" },
-        }
+        },
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "radio" },
+        },
     },
 } satisfies Meta<typeof RdsPagination>;
 
@@ -36,19 +40,20 @@ export const Default: Story = {
         paginationType: "default",
         totalRecords: 10,
         recordsPerPage: 3,
-        size: "sm",
+        size: "small",
         alignmentType: "start",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
 
 export const Advanced: Story = {
     args: {
-        paginationType: "advance",
+        paginationType: "advanced",
         totalRecords: 10,
         recordsPerPage: 3,
-        size: "sm",
+        size: "small",
         alignmentType: "start"
     }
 } satisfies Story;
-
+Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
 

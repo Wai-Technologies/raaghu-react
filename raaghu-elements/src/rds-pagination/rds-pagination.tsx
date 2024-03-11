@@ -106,7 +106,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
       props.onPageChange(currentPage, recordsPerPage);
   }, [currentPage, recordsPerPage]);
 
-  const size = " pagination-" + `${props.size || "sm"}`;
+  const size = ' pagination-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
   const align =
     " pagination justify-content-" + `${props.alignmentType || "start"}`;
 
@@ -224,10 +224,10 @@ const RdsPagination = (props: RdsPaginationProps) => {
               </ul>
             </nav>
           )}
-          {paginType == "advance" && (
+          {paginType == "advanced" && (
             <nav
               aria-label="page navigation"
-              className="d-flex align-items-baseline"
+              className={"d-flex align-items-baseline" + `${align}`}
             >
               <ul
                 className={
