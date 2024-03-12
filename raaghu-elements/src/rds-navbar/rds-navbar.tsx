@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./rds-navbar.css";
 
 export interface RdsNavbarProps {
@@ -8,34 +8,35 @@ export interface RdsNavbarProps {
 }
 
 const RdsNavbar = (props: RdsNavbarProps) => {
+    const [isCollapsed, setIsCollapsed] = useState(true);
+    const toggleCollapse = () => {
+        setIsCollapsed(!isCollapsed);
+    };
+
     return (
         <>
-            <nav className={`navbar navbar-expand-lg navbar-light bg-light ${props.size == "small" ? "py-0" : props.size == "large" ? "py-3" : ""}`} >
-                <div className="container-fluid">
+            <nav className="navbar navbar-expand-lg navbar-light" >
+                <div className={`container-fluid  bg-light ${props.size === "small" ? "py-1" : props.size === "large" ? "py-3" : "py-2"}`} >
                     <a className="navbar-brand" href="#">
                         {props.title}
                     </a>
                     <button
                         className="navbar-toggler"
                         type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
+                        onClick={toggleCollapse}
+                        aria-expanded={!isCollapsed}
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className={`collapse navbar-collapse ${isCollapsed ? '' : 'show'}`} id="navbarSupportedContent">
                         <ul className="navbar-nav flex-row flex-wrap ms-md-auto">
-                            {props.navbarItems.map((navbarItem) => (
-                                <li className={`nav-item ${props.size == "small" ? "small" : props.size == "large" ? "large" : ""}`}>
+                            {props.navbarItems.map((navbarItem, index) => (
+                                <li key={index} className={`nav-item ${props.size === "small" ? "small" : props.size === "large" ? "large" : ""}`}>
                                     <a className={`nav-link ${navbarItem.navclass}`} aria-current="page" href={navbarItem.href}>
                                         {navbarItem.label}
                                     </a>
                                 </li>
                             ))}
-
                         </ul>
                     </div>
                 </div>
@@ -43,6 +44,5 @@ const RdsNavbar = (props: RdsNavbarProps) => {
         </>
     );
 };
-
 
 export default RdsNavbar;

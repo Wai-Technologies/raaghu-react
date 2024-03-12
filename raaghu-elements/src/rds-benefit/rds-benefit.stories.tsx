@@ -25,14 +25,13 @@ export const Default: Story = {
             "iconWidth": "35px",
             "iconFill": false,
             "iconstroke": true,
-            "iconColorVarient": "dark",
+            "iconColorVarient": "primary",
             "title": "International delivery",
             "description": "Get your order in 2 days"
         }
     }
 } satisfies Story;
-
-
+Default.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const LeftAligned: Story = {
     args: {
@@ -47,7 +46,7 @@ export const LeftAligned: Story = {
         }
     }
 } satisfies Story;
-
+LeftAligned.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const CenterAligned: Story = {
     args: {
@@ -59,13 +58,13 @@ export const CenterAligned: Story = {
             "icon": "truck",
             "iconFill": false,
             "iconstroke": true,
-            "iconColorVarient": "dark",
+            "iconColorVarient": "primary",
             "title": "Free shipping",
             "description": "Free delivery is our main part of company we just price it into the products. Someone's paying for it, and it's not us."
         }
     }
 } satisfies Story;
-
+CenterAligned.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const WithLabel: Story = {
     args: {
@@ -82,7 +81,7 @@ export const WithLabel: Story = {
         }
     }
 } satisfies Story;
-
+WithLabel.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const WithoutLabel: Story = {
     args: {
@@ -94,12 +93,13 @@ export const WithoutLabel: Story = {
             "icon": "truck",
             "iconFill": false,
             "iconstroke": true,
-            "iconColorVarient": "dark",
+            "iconColorVarient": "primary",
             "title": "Free shipping world wide",
             "description": "Free delivery is our main part of company"
         }
     }
 } satisfies Story;
+WithoutLabel.parameters = { controls: { include: ['displayType', 'item'] } };
 
 
 export const HeadingWithIcon: Story = {
@@ -112,10 +112,11 @@ export const HeadingWithIcon: Story = {
             "icon": "truck",
             "iconFill": false,
             "iconstroke": true,
-            "iconColorVarient": "dark",
+            "iconColorVarient": "primary",
             "title": "Free delivery all year long",
         }
     }
 } satisfies Story;
+HeadingWithIcon.parameters = { controls: { include: ['displayType', 'item'] } };
 
 

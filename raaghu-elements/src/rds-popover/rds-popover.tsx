@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import "./rds-popover.css";
+import RdsButton from "../rds-button";
 export interface RdsPopoverProps {
     children: ReactNode;
     popoverPosition: string;
@@ -20,13 +21,14 @@ const RdsPopover = (props: RdsPopoverProps) => {
         <>
 
             <div data-testid="popover-card" className="popoverContainer">
-                <button
+                <RdsButton
                     type="button"
-                    className="btn btn-outline-primary btn-sm buttonClass"
+                    colorVariant="primary"
+                    isOutline={true}
+                    size="small"
+                    label="Popover"
                     onClick={toggleDisplay}
-                >
-                    Popover
-                </button>
+                />
                 <div
                     className={`popoverCard ${props.popoverPosition == "top"
                         ? "popoverTop popoverCardTop"

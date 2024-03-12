@@ -24,7 +24,7 @@ export const Default: Story = {
         withDiscount: true
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['mrp', 'currentPrice', 'withDiscount'] } };
 
 export const Price_on_Right: Story = {
     args: {
@@ -34,7 +34,7 @@ export const Price_on_Right: Story = {
         withDiscount: true
     }
 } satisfies Story;
-
+Price_on_Right.parameters = { controls: { include: ['mrp', 'currentPrice', 'type', 'withDiscount'] } };
 
 export const Without_Discount: Story = {
     args: {
@@ -42,4 +42,5 @@ export const Without_Discount: Story = {
         currentPrice: 90,
     }
 } satisfies Story;
+Without_Discount.parameters = { controls: { include: ['mrp', 'currentPrice'] } };
 

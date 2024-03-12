@@ -35,7 +35,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsModal>;
 
-const Template = (args) => (
+const Template = (args:any) => (
   <RdsModal {...args}>
     <p>
       This is some placeholder content to show the scrolling behavior for
@@ -47,7 +47,7 @@ const Template = (args) => (
   </RdsModal>
 );
 
-const scrollableTemplate = (args) => (
+const scrollableTemplate = (args:any) => (
   <>
     <RdsModal {...args}>
       <div>
@@ -166,7 +166,6 @@ export const ScrollableContentModal: Story = {
     modalAnimation: "modal-fade",
     showModalFooter: true,
     showModalHeader: true,
-    verticallyCentered: true,
     modalTitle: "Title",
     saveChangesName: "Save Changes",
     cancelButtonName: "Close",
@@ -176,7 +175,7 @@ export const ScrollableContentModal: Story = {
   },
   render: scrollableTemplate
 } satisfies Story;
-ScrollableContentModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+ScrollableContentModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 
 export const VerticallyCentered: Story = {
@@ -186,7 +185,6 @@ export const VerticallyCentered: Story = {
     showModalFooter: true,
     showModalHeader: true,
     verticallyCentered: true,
-    scrollable: false,
     modalTitle: "Title",
     saveChangesName: "Save Changes",
     cancelButtonName: "Close",
@@ -197,6 +195,6 @@ export const VerticallyCentered: Story = {
   },
   render: Template
 } satisfies Story;
-VerticallyCentered.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+VerticallyCentered.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 

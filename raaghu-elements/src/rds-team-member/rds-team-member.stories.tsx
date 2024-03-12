@@ -30,4 +30,4 @@ export const TeamMember: Story = {
         ]
     }
 } satisfies Story;
-
+TeamMember.parameters = { controls: { include: ['teamItem'] } };
