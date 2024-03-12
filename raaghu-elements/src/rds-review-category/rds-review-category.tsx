@@ -52,6 +52,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             <div className="mb-3">
                                 <RdsRating
                                     rating={props.item.rating}
+                                    size="small"
                                 />
                             </div>
                         </div>}
@@ -79,7 +80,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     profilePic={props.item.imageUrl}
                                 />
                             </div>
-                            <div className="item-name">
+                            <div>
                                 <RdsLabel
                                     label={props.item.name}
                                     multiline={false}
@@ -90,6 +91,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 <RdsRating
                                     rating={props.item.rating}
                                     colorVariant="warning"
+                                    size="small"
                                 />
                             </div>}
                             {props.item.likes && props.item.dislikes && <div className="mt-3">
@@ -123,8 +125,8 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     profilePic={props.item.imageUrl}
                                 />
                             </div>
-                            <div className="mx-3">
-                                <div className="item-name">
+                            <div>
+                                <div>
                                     <RdsLabel
                                         label={props.item.name}
                                         multiline={false}
@@ -135,6 +137,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     <RdsRating
                                         rating={props.item.rating}
                                         colorVariant="warning"
+                                        size="small"
                                     />
                                 </div>}
                             </div>

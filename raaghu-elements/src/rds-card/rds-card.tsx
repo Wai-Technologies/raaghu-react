@@ -69,7 +69,7 @@ const RdsCard = (props: RdsCardProps) => {
                         <>
                             {props.isAvatar === true && (
                                 <div>
-                                    <div className="">
+                                    <div className="avatar-pic position-relative mb-3">
                                         <RdsAvatar
                                             withProfilePic={true}
                                             roundedAvatar={true}

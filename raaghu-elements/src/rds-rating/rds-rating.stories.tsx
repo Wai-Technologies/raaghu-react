@@ -10,6 +10,23 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "info",
+                "warning",
+                "danger",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "select" },
+          },
     },
 } satisfies Meta<typeof RdsRating>;
 
@@ -27,4 +44,5 @@ export const Rating: Story = {
         dataTestId: "rating-test"
     }
 } satisfies Story;
+Rating.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
 
