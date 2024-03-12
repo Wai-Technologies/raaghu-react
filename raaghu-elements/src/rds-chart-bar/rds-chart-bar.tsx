@@ -43,7 +43,7 @@ const RdsBarChart = (props: RdsBarChartProps) => {
                 barCanvas.destroy();
             };
         }
-    }, []);
+    }, [props.height, props.width]);
 
     return (
         <div>
