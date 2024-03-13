@@ -3,7 +3,11 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import peerDepsExternal from "rollup-plugin-peer-deps-external"
+import dts from "rollup-plugin-dts";
+import babel from "rollup-plugin-babel";
+import external from "rollup-plugin-peer-deps-external";
+import million from "million/compiler";
 
 const packageJson = require("./package.json");
 
@@ -30,6 +34,10 @@ export default [
                   skip: ["useBadHook", /badVariable/g],
                 },
               }),
+              babel({
+                exclude: ["node_modules/**"],
+                presets: ["@babel/preset-typescript"],
+            }),
             resolve({ preferBuiltins: true, mainFields: ["browser"] }),
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json", sourceMap: false }),
@@ -37,9 +45,17 @@ export default [
                 plugins: [],
                 minimize: true
             }),
-            peerDepsExternal(),
+            external(),
             terser()
 
         ]
-    }
+    },
+    {
+        input: "dist/esm/src/index.d.ts",
+        output: [{ file: "dist/types/index.d.ts", format: "esm" }],
+        plugins: [dts()],
+
+        // NEW
+        external: [/\.css$/, /\.scss$/],
+    },
 ];
