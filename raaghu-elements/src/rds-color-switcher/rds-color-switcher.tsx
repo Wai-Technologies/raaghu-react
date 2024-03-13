@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./rds-color-switcher.css";
+import { use } from "i18next";
 
 export interface RdsColorSwitcherProps {
     header?: string;
@@ -19,6 +20,11 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
         setValue(item.id);
         selectColor(e, item.value);
     };
+
+    useEffect(() => {
+        setValue(defaultV);
+    }, [props.defaultValue]);
+    
     return (
         <>
             <div>

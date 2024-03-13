@@ -10,6 +10,19 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "info",
+                "warning",
+                "danger",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
@@ -33,4 +46,4 @@ export const FabMenu: Story = {
         ]
     }
 } satisfies Story;
-
+FabMenu.parameters = { controls: { include: ['colorVariant', 'listItems'] } };

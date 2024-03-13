@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./rds-rating.css";
+import RdsIcon from "../rds-icon";
 
 export interface RdsRatingProps {
   rating?: number,
   colorVariant?: "primary" | "success" | "danger" | "warning" | "light" | "info" | "secondary" | "dark"
   noOfReviews?: number
-  size?: any
+  size?: string;
   seeAllOption?: boolean
   onSeeAll?: () => void
   dataTestId?: string
@@ -14,32 +15,36 @@ export interface RdsRatingProps {
 const RdsRating = (props: RdsRatingProps) => {
 
   const [rating, setRating] = useState(props.rating || 0);
-  const [hover, setHover] = useState(0);
   const totalStars = 5;
+  useEffect(() => {
+    setRating(props.rating || 0);
+  }, [props.rating]);
 
   const handleRating = (rate: number) => {
     setRating(rate);
   };
 
+  const sizeClass = `${props.size === 'small' ? ' fs-5' : props.size === 'large' ? ' fs-3' : ' fs-4'}`;
+
   return (
-    <div className="starrating">
+    <div className={`starrating align-items-center d-flex gap-2 ${sizeClass}`}>
       <span className="me-2">{rating}</span>
       {[...Array(totalStars)].map((_, i) => (
-        <button
-          type="button"
+        <RdsIcon
           key={i}
-          className={`${i < rating ? "on" : "off"} ${i <= hover ? "on" : ""} ${props.colorVariant}`}
+          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          fill={true}
+          stroke={false}
+          name="star"
+          colorVariant="review"
+          classes={`${i < rating ? `on text-${props.colorVariant}` : "off"}`}
           onClick={() => handleRating(i + 1)}
-        >
-          <svg id="a" viewBox="0 0 21 21" fill="currentColor" height="25px" width="25px" >
-            <path className="icon star" d="M4.081,19.633c-.097,.592,.45,1.055,.932,.791l5.487-3.008,5.486,3.008c.482,.264,1.03-.199,.932-.789l-1.037-6.306,4.402-4.474c.412-.419,.2-1.184-.352-1.267l-6.122-.928L11.079,.891c-.152-.341-.534-.487-.854-.325-.134,.068-.241,.182-.305,.325l-2.73,5.77-6.122,.928c-.551,.083-.765,.848-.354,1.267l4.404,4.474-1.037,6.306v-.003Z" />
-          </svg>
-        </button>
+        />
       ))}
-      <span> See all 123 review </span>
+      <span> See all {props.noOfReviews} review </span>
     </div>
   );
 };
-
 
 export default RdsRating;

@@ -8,7 +8,6 @@ import "./rds-notification.css";
 export interface RdsNotificationProps {
     colorVariant?: colors;
     notifications: any[];
-    footerText: string;
     onSetAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notification: any) => void;
     onMarkAsRead?: (Event: React.MouseEventHandler<HTMLButtonElement>, notifications: any) => void;
 }
@@ -93,19 +92,25 @@ const RdsNotification = (props: RdsNotificationProps) => {
     return (
         <Fragment>
             <div className="card ">
-                <div className="card-header p-3 text-start headerStyle ">
+                <div className={"card-header p-3 text-start headerStyle " + `${bgColor}`}>
                     <div className="head ps-2 position-relative">
                         <span>
                             <RdsIcon
                                 name="notification"
                                 fill={false}
                                 stroke={true}
-                                colorVariant="primary"
+                                colorVariant={bgColor.includes('bg-dark') || bgColor.includes('bg-primary') || bgColor.includes('bg-danger') ? 'light' : 'dark'}
                                 width="30px"
                                 height="30px"
                             />
                         </span>
-                        <span className="ms-2 me-3"> Notification</span>
+                        <span className={`ms-2 me-3 ${
+                            bgColor.includes('bg-dark') ? 'text-light' : 
+                            bgColor.includes('bg-primary') ? 'text-light' :
+                            bgColor.includes('bg-danger') ? 'text-light' :
+                            'text-dark'
+                        }`}> Notification</span>
+
                         {props.notifications?.length >= 1 && (
                             <RdsBadge
                                 label={`${props.notifications?.length}  New`}
@@ -118,7 +123,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                             name="gear"
                             fill={false}
                             stroke={true}
-                            colorVariant="dark"
+                            colorVariant={bgColor.includes('bg-dark') || bgColor.includes('bg-primary') || bgColor.includes('bg-danger') ? 'light' : 'dark'}
                             width="20px"
                             height="20px"
                         />{" "}

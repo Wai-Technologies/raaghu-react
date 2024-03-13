@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsLabel from "../rds-label/rds-label";
+import RdsIcon from "../rds-icon";
 
 export interface RdsToggleProps {
     onClick?: React.MouseEventHandler<HTMLInputElement>;
@@ -40,12 +40,27 @@ const RdsToggle = (props: RdsToggleProps) => {
                     id="toggleId"
                     className={`${sliderClass} d-flex align-items-center justify-content-around btn-color-mode-switch-inner border-0`}
                 >
-                    <span className="position-relative z-3">
-                        <span>{props.iconOnUncheck}</span>
+                    <span className="position-relative z-3 toggle-dark">
+                       <span className="control-prev-icon">
+                        <RdsIcon
+                            name={props.iconOnUncheck}
+                            width="20px"
+                            height="20px"
+                            fill={false}
+                            stroke={true}
+                        />
+                        </span>
                     </span>
                     <span className="position-relative z-3">
-                        {/* <RdsLabel label={props.iconOnCheck}></RdsLabel> */}
-                        <span>{props.iconOnCheck}</span>
+                        <span className="control-next-icon">
+                        <RdsIcon
+                            name={props.iconOnCheck}
+                            width="20px"
+                            height="20px"
+                            fill={false}
+                            stroke={true}
+                        />
+                        </span>
                     </span>
                 </span>
             </label>

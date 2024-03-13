@@ -70,7 +70,7 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                                                 />) :
                                                 (
                                                     <input
-                                                        className="form-check-input"
+                                                        className="form-check-input d-none"
                                                         type="radio"
                                                         name="flexRadioDefault"
                                                         id="flexRadioD"

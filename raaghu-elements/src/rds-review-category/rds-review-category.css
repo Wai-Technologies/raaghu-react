@@ -3,7 +3,7 @@
 }
 
 .RdsReviewCategory__review-type-1 .avatar {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .RdsReviewCategory__review-type-1 .item-name {
     margin-bottom: 12px;
@@ -13,7 +13,7 @@
     padding: 0;
 }
 .RdsReviewCategory__review-type-1 .rating {
-    margin-bottom: 44px;
+    margin-bottom: 0px;
 }
 
 .RdsReviewCategory__review-type-2 .item-name {

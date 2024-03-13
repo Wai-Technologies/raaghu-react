@@ -103,7 +103,7 @@ const RdsCheckboxParentChild = (props: RdsCheckboxParentChildProps) => {
         <>
             <div className="container p-0 m-0">
                 <form className="form  p-0 m-0 w-100">
-                    <ul className=" p-0 m-0">
+                    <ul className=" p-0 m-0 list-unstyled">
                         {users.map((parents: any, index: number) => {
                             return (
                                 <li className="line1 mb-3 p-0 m-0" key={index}>
@@ -112,7 +112,7 @@ const RdsCheckboxParentChild = (props: RdsCheckboxParentChildProps) => {
                                             <input
                                                 type="checkbox"
                                                 className={`${parents?.isIntermediate
-                                                    ? "form-check-input-intermediate"
+                                                    ? "form-check-input"
                                                     : "form-check-input"
                                                     }`}
                                                 name={parents?.label}
@@ -124,7 +124,7 @@ const RdsCheckboxParentChild = (props: RdsCheckboxParentChildProps) => {
                                             {parents?.label}
                                         </label>
                                     </div>
-                                    <ul>
+                                    <ul className="list-unstyled ms-4">
                                         {parents.childList.map((child: any, idx: any) => {
                                             return (
                                                 <li className="line1 my-3" key={idx}>
