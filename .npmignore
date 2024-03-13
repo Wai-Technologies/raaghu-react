@@ -6,6 +6,7 @@ rollup.config.js
 tsconfig.json
 
 !dist/
+/static
 
 # ## the src folder
 # src
