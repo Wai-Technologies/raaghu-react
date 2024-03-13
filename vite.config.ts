@@ -35,6 +35,10 @@ export default defineConfig({
   plugins: [react(), dts()],
   optimizeDeps: {
     include: [''] // Add the dependencies you want to include for optimization
+  },
+  resolve: {
+    // Ensure Vite resolves these file extensions
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   }
 
 })

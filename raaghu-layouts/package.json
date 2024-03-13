@@ -25,9 +25,19 @@
     "email": "contact@raaghu.io"
   },
   "keywords": [
+    "react",
+    "vite",
+    "millionjs",
+    "raaghu", 
+    "rds-generator", 
+    "@waiin/raaghu-react", 
+    "raaghu-elements-themes", 
+    "raaghu-components-themes", 
+    "raaghu-layout-themes",
+    "raaghu-appshell-themes",
+    "wai-technologies",
     "utility",
-    "common",
-    "tasks"
+    "common"
   ],
   "author": {
     "name": "WAi Technologies",
