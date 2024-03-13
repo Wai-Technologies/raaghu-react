@@ -27,8 +27,7 @@ type Story = StoryObj<typeof RdsNotification>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
-        footerText: "2 days ago",
+        colorVariant: "light",
         notifications: [
             {
                 status: "success", title: "Tenant added",
@@ -70,5 +69,6 @@ export const Default: Story = {
         ]
     }
 }
+Default.parameters = { controls: { include: ['colorVariant', 'notifications'] } };
 
 
