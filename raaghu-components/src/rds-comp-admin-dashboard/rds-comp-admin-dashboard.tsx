@@ -2542,7 +2542,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                 <div className="mb-2">
                                                     <RdsProgressBar
                                                         width={"245px"}
-                                                        displayLevel={false}
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
@@ -2580,7 +2579,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <>
                                                 <div className="mb-2">
                                                     <RdsProgressBar
-                                                        displayLevel={false}
                                                         displayPercentage={false}
                                                         colorVariant={"danger"}
                                                         progressWidth={20}
@@ -2621,7 +2619,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <>
                                                 <div className="mb-2">
                                                     <RdsProgressBar
-                                                        displayLevel={false}
                                                         displayPercentage={false}
                                                         colorVariant={"success"}
                                                         progressWidth={80}
@@ -2657,7 +2654,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <>
                                                 <div className="mb-2">
                                                     <RdsProgressBar
-                                                        displayLevel={false}
                                                         displayPercentage={false}
                                                         colorVariant={"warning"}
                                                         progressWidth={80}
@@ -2695,7 +2691,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                             <>
                                                 <div className="mb-2">
                                                     <RdsProgressBar
-                                                        displayLevel={false}
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}

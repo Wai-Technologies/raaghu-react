@@ -36,7 +36,7 @@ const RdsCompClientResource = (props: RdsCompClientResourceProp) => {
                 </div>
             </>
                 :
-                <RdsCompApiScopeResource role="advanced" resources={props.resources} />}
+                <RdsCompApiScopeResource  resources={props.resources} role={"basic"} />}
         </div>
 
     );

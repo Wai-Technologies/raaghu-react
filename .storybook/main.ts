@@ -16,8 +16,6 @@ const config: StorybookConfig = {
     "@storybook/preset-scss",
     //"@storybook/addon-toolbars"
     "storybook-addon-themes",
-    "@storybook/addon-mdx-gfm",
-    "storybook-addon-react-router-v6"
   ],
   core: {
     builder: '@storybook/builder-vite', // 👈 The builder enabled here.
@@ -27,7 +25,9 @@ const config: StorybookConfig = {
   },
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {
+      legacyRootApi: true,
+    },
   },
   docs: {
     autodocs: "tag",

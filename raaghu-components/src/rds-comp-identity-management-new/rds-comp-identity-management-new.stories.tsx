@@ -18,19 +18,19 @@ type Story = StoryObj<typeof RdsCompIdentityManagement>;
 
 export const Default: Story = {
     args: {
-      identityData: {
-        requiredLength: "",
-        defaultAddress: "",
-        nonAlpha: false,
-        uppercaserequired: false,
-        numbers: false,
-        lowercaserequired: false,
-        lockoutDuration: "",
-        MaxAttmpts: "",
-        uppercase: false,
-        lowercase: false,
-        newusers: ""
-    }
+    //   identityData: {
+    //     requiredLength: "",
+    //     defaultAddress: "",
+    //     nonAlpha: false,
+    //     uppercaserequired: false,
+    //     numbers: false,
+    //     lowercaserequired: false,
+    //     lockoutDuration: "",
+    //     MaxAttmpts: "",
+    //     uppercase: false,
+    //     lowercase: false,
+    //     newusers: ""
+    // }
   }
 } satisfies Story;
 

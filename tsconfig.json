@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
     "module": "esnext",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "dist", // Change the declaration directory to 'dist'
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "resolveJsonModule": true,
+    "typeRoots": ["./dist/index.d.ts", "node_modules/@types"]
   },
   "exclude": [
-    "./dist/**/*",
     "./node_modules/**/*",
     "src/**/*.test.tsx"
   ]
