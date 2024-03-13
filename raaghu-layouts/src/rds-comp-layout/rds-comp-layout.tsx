@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import "./rds-comp-layout.css";
-import RdsCompLayoutItem from "./rds-comp-layout-item";
+
 export interface RdsCompLayoutProps {
   displayType?: string;
   children?: ReactNode;

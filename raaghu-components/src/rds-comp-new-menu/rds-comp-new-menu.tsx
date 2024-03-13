@@ -67,8 +67,8 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                         placeholder="Select Page"
                         selectItems={menuPageList}
                         isSearchable={true}
-                        selectedValue={menuPageList?.find((pagesName) => pagesName.value === data?.pageId)?.value}
                         onChange={(item: any) => handlePageId(item.value)}
+                        selectedValue={data?.pageId}
                     ></RdsSelectList>
                 </div>
                 <div className="col-md-12"><hr /></div>

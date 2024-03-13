@@ -79,7 +79,6 @@ export { default as RdsCompPages } from "./rds-comp-pages";
 export { default as RdsCompNewPage } from "./rds-comp-newPage";
 export { default as RdsCompBlogPostNew } from "./rds-comp-blog-post-new";
 export { default as RdsCompChangeUserPassword } from "./rds-comp-change-user-password";
-export { default as RdsCompCharts } from "./rds-comp-charts";
 export { default as RdsCompApplicationWorkflows } from "./rds-comp-application-workflows";
 export { default as RdsCompApplicationScopes } from "./rds-comp-application-scopes";
 export { default as RdsCompRegister } from "./rds-comp-register";
