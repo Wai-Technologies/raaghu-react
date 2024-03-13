@@ -1,6 +1,6 @@
 import React from "react";
 import Checkbox from "./Checkbox";
-import { CheckboxState } from "../rds-comp-permission-tree";
+// import { CheckboxState } from "../rds-comp-permission-tree";
 import styles from "./checkboxlist.module.css";
 
 export type Item = {
@@ -14,7 +14,7 @@ type CheckboxListProps = {
     idsToRender?: number[];
     indentLevel?: number;
     onClick?: (id: number) => void;
-    getStateForId: (id: number) => CheckboxState;
+    getStateForId: (id: number) => any;
 };
 
 const CheckboxList: React.FC<CheckboxListProps> = ({
@@ -54,11 +54,11 @@ const CheckboxList: React.FC<CheckboxListProps> = ({
                     return (
                         <React.Fragment key={item.id}>
                             <li className="mb-3">
-                                <Checkbox
+                                {/* <Checkbox
                                     onClick={() => onClick(item.id)}
                                     isChecked={checkboxState === CheckboxState.CHECKED}
                                     isIndeterminate={checkboxState === CheckboxState.INDETERMINATE}
-                                />
+                                /> */}
                                 <span className="node-label text-nowrap cursor-pointer ms-2">
                                     {item.name}
                                 </span>

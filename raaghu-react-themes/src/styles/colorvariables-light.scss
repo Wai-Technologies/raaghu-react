@@ -1,9 +1,8 @@
-@use "sass:math";
 //background-color: white;
 $theme-colors: ( "primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark ) !default;
 $min-contrast-ratio: 4.5 !default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
-$body-bg: #ffffff;
+$body-bg: white;
 $input-bg: $body-bg !default;
 
 $border-color: $gray-100;
@@ -478,7 +477,6 @@ button#dropdownMenuButton:focus {
 
 .node-items:hover .node_dot {
     background-color: $primary;
-    z-index: 9;
 }
 
 .node_dot {
@@ -545,7 +543,7 @@ button#dropdownMenuButton:focus {
     $avatar-color: shift-color($value, $avatar-color-scale);
 
     @if (contrast-ratio($avatar-background, $avatar-color) < $min-contrast-ratio) {
-        $avatar-color: mix($value, color-contrast($avatar-background), math.abs($avatar-color-scale));
+        $avatar-color: mix($value, color-contrast($avatar-background), abs($avatar-color-scale));
     }
 
     .avatar-#{$state} {
@@ -576,7 +574,7 @@ button#dropdownMenuButton:focus {
     $badge-color: shift-color($value, $badge-color-scale);
 
     @if (contrast-ratio($badge-background, $badge-color) < $min-contrast-ratio) {
-        $badge-color: mix($value, color-contrast($badge-background), math.abs($badge-color-scale));
+        $badge-color: mix($value, color-contrast($badge-background), abs($badge-color-scale));
     }
 
     .badge-#{$state} {
@@ -598,7 +596,7 @@ button#dropdownMenuButton:focus {
     $counter-color: shift-color($value, $counter-color-scale);
 
     @if (contrast-ratio($counter-background, $counter-color) < $min-contrast-ratio) {
-        $counter-color: mix($value, color-contrast($counter-background), math.abs($counter-color-scale));
+        $counter-color: mix($value, color-contrast($counter-background), abs($counter-color-scale));
     }
 
     .counter-#{$state} {
@@ -1246,11 +1244,18 @@ a {
 .carousel-indicators {
     [data-bs-target] {
         background-color: #232933;
+        height: 5px;
     }
 
     .active {
         border-color: #232933;
+        height: 5px;
     }
+}
+
+.carousel-dark .carousel-control-prev-icon,
+.carousel-dark .carousel-control-next-icon {
+        filter: invert(1) grayscale(100);
 }
 
 // /*input search properrties*/
@@ -1351,7 +1356,7 @@ $form-feedback-color: $gray-700;
     $tag-color: shift-color($value, $tag-color-scale);
 
     @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
-        $tag-color: mix($value, color-contrast($tag-background), math.abs($tag-color-scale));
+        $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
     }
 
     .tag-#{$state} {
@@ -1509,7 +1514,7 @@ $form-feedback-color: $gray-700;
     $toast-color: shift-color($value, $toast-color-scale);
 
     @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
-        $toast-color: mix($value, color-contrast($toast-background), math.abs($toast-color-scale));
+        $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
     }
 
     @each $color, $value in $theme-colors {
@@ -1562,7 +1567,7 @@ $form-feedback-color: $gray-700;
     $alert-color: shift-color($value, $alert-color-scale);
 
     @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
-        $alert-color: mix($value, color-contrast($alert-background), math.abs($alert-color-scale));
+        $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
     }
 
     .alert {
@@ -2009,7 +2014,7 @@ $form-feedback-color: $gray-700;
     $tag-color: shift-color($value, $tag-color-scale);
 
     @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
-        $tag-color: mix($value, color-contrast($tag-background), math.abs($tag-color-scale));
+        $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
     }
 
     .tag-#{$state} {
@@ -2209,8 +2214,8 @@ html #sidebar ul li a.active small {
 }
 
 .form-select {
-    background-color: $body-bg;
-    border-color: $gray-300;
+    background-color: $form-select-bg1;
+    border-color: $form-select-border-color1;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
 
@@ -2468,12 +2473,6 @@ input::placeholder {
     color: #cccccc !important;
 }
 
-.css-1xc3v61-indicatorContainer svg {
-    stroke: #cccccc;
-    color: #cccccc;
-    fill: #cccccc;
-}
-
 #react-select-3-listbox {
     background-color: $body-bg;
     color: $black;
@@ -2645,52 +2644,23 @@ hr {
         filter: none;
     }
 }
-.raaghu-select__indicator .raaghu-not-select__indicator svg {
+.raaghu-select__indicator svg {
     stroke: $gray-800;
     fill: $gray-800;
     color: $gray-800;
     opacity: 0.5;
 }
-.raaghu-select__control--is-focused .raaghu-select__dropdown-indicator .raaghu-not-select__control--is-focused .raaghu-not-select__dropdown-indicator svg {
+.raaghu-select__control--is-focused .raaghu-select__dropdown-indicator svg {
     stroke: $gray-800;
     color: $gray-800;
     fill: $gray-800;
     opacity:0.5;
 }
-
 .lf-player-container {
     svg {
         stroke: none;
     }
 }
-.raaghu-select__single-value, .raaghu-not-select__single-value, .raaghu-not-select__placeholder  {
-    color: $gray-750;
+.raaghu-select__single-value, .raaghu-select__placeholder {
+    color: var(--bs-body-color);
 }
- .raaghu-select__placeholder  {
-    color:$black ;
-}
-.node-label {
-    background-color: $body-bg;
-}
-@media (max-width: 767px) {
-    .node-label {
-        background-color: transparent;
-    }
-    .list-style {
-        li {
-            .leftSpace {
-                li {
-                    .main-list {
-                        background-color: $body-bg;
-                    }
-
-                    .leftSpace {
-                        .main-list {
-                            background-color: transparent;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    }

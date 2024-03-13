@@ -65,7 +65,6 @@ export const Table: Story = {
         bordered: true,
         tableHeightForScroll: "",
         colorVariant: "",
-        backgroundColor: "white",
         headerTextColor: "primary",
         headerDatas: [
             { displayName: "Name", dataType: "text", key: "name" },
@@ -117,8 +116,9 @@ export const Table: Story = {
                 textNumber: "22aa",
             },
         ],
+        iconColorVariant: "primary",
     }
 } satisfies Story;
 
 
-Table.parameters = { controls: { include: ['id', 'striped', 'bordered', 'tableHeightForScroll', 'backgroundColor', 'headerTextColor', 'headerDatas', 'tableDatas', 'colorVariant'] } };
+Table.parameters = { controls: { include: ['id', 'striped', 'bordered', 'tableHeightForScroll', 'colorVariant', 'headerTextColor', 'headerDatas', 'tableDatas', 'iconColorVariant', ] } };

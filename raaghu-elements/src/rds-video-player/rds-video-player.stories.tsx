@@ -26,3 +26,4 @@ export const VideoPlayer: Story = {
         videoLink: "https://youtu.be/7sDY4m8KNLc",
     }
 } satisfies Story;
+VideoPlayer.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };

@@ -121,16 +121,16 @@ export const Default: Story = {
                 sortable: true,
             }
         ],
-        tableData: [
-            { id: 1, claimType: "Standard", claimValue: 60 },
-            { id: 2, claimType: "Basic", claimValue: 120 },
-            { id: 3, claimType: "Premium", claimValue: 250 },
-            { id: 4, claimType: "Standard", claimValue: 60 },
-            { id: 5, claimType: "Basic", claimValue: 100 },
-        ],
+        // tableData: [
+        //     { id: 1, claimType: "Standard", claimValue: 60 },
+        //     { id: 2, claimType: "Basic", claimValue: 120 },
+        //     { id: 3, claimType: "Premium", claimValue: 250 },
+        //     { id: 4, claimType: "Standard", claimValue: 60 },
+        //     { id: 5, claimType: "Basic", claimValue: 100 },
+        // ],
         actions: [
             { id: "delete", displayName: "Delete" },
         ],
-        pagination: false,
+        // pagination: false,
     }
 } satisfies Story;

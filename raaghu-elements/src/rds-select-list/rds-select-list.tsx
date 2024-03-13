@@ -9,7 +9,7 @@ export interface RdsSelectProps {
     option: any;
     value: any;
   }[];
-  selectedValue?: any;
+  selectedValue?: string;
   id: string;
   required?: boolean;
   classes?: string;

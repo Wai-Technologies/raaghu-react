@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompFeatureManagement>;
 
 export const Default: Story = {
   args: {
-    label: "default",
+    // label: "default",
     featureManagementData: {
       id: 0,
       name: "Identity",

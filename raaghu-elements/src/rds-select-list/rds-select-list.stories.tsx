@@ -49,8 +49,10 @@ export const Default: Story = {
         selectedValue: "",
         required: false,
         isSearchable: true,
+        isBold: false
     }
 }
+Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'onChange'] } };
 
 export const Multiple: Story = {
     args: {
@@ -79,8 +81,9 @@ export const Multiple: Story = {
 
         ],
         isDisabled: false,
-        selectedValue: "",
         required: false,
         isSearchable: true,
+        isBold: false
     }
 }
+Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'onChange'] } };

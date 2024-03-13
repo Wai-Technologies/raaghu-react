@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const RdsCompRegisterWrapper = styled.div`
-`;
+// export const RdsCompRegisterWrapper = styled.div`
+// `;

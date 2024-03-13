@@ -56,6 +56,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['labelPosition', 'label', 'listItem'] } };
 
 export const ListGroupWithMultiSelect: Story = {
     args: {
@@ -93,6 +94,7 @@ export const ListGroupWithMultiSelect: Story = {
         ],
     }
 } satisfies Story;
+ListGroupWithMultiSelect.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'listItem'] } };
 
 export const ListGroupWithBadge: Story = {
     args: {
@@ -130,6 +132,7 @@ export const ListGroupWithBadge: Story = {
         ],
     }
 } satisfies Story;
+ListGroupWithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'withBadge', 'listItem'] } };
 
 export const MultiSelectListGroupWithBadge: Story = {
     args: {
@@ -168,3 +171,4 @@ export const MultiSelectListGroupWithBadge: Story = {
         ],
     }
 } satisfies Story;
+MultiSelectListGroupWithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'withBadge', 'listItem'] } };

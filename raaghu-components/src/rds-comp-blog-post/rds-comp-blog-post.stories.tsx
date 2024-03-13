@@ -106,8 +106,6 @@ type Story = StoryObj<typeof RdsCompBlogPost>;
 
 export const Default: Story = {
   args: {
-    enablecheckboxselection: false,
-    actionPosition: "right",
     tableHeaders: [
       {
         displayName: "Details",
@@ -124,7 +122,8 @@ export const Default: Story = {
         dataLength: 30,
         required: true,
         sortable: true,
-      }, {
+      },
+      {
         displayName: "Title",
         key: "title",
         datatype: "text",
@@ -132,28 +131,8 @@ export const Default: Story = {
         required: true,
         sortable: true,
       },
-      {
-        displayName: "Slug",
-        key: "slug",
-        datatype: "number",
-        dataLength: 5,
-        required: true,
-      },
-      {
-        displayName: "Creation TIme",
-        key: "CreationTime",
-        datatype: "text",
-        dataLength: 5,
-        required: true,
-      },
-      {
-        displayName: "Status",
-        key: "status",
-        datatype: "text",
-        dataLength: 5,
-        required: true
-      }
     ],
+    // ...
     tableData: [
       { id: 1, details: "Standard", blog: "Standard", title: "Name", slug: 5, CreationTime: "03/11/2023, 00:00 AM", status: "publish" },
       { id: 2, details: "Basic", blog: "Basic", title: "Text", slug: 10, CreationTime: "03/11/2023, 00:00 AM", status: "publish" },
@@ -168,8 +147,5 @@ export const Default: Story = {
     ],
     pagination: true,
     recordsPerPage: 5,
-    recordsPerPageSelectListOption: true,
-
-
   }
 } satisfies Story;

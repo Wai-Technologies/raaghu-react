@@ -38,7 +38,7 @@ export interface RdsWidgetProps {
   iconName?: string;
   iconHeaderColor?: any;
   onIconClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-  iconTooltipLabel?: any;
+  iconTooltipLabel?: string;
   iconTooltipPosition?: any;
 }
 
@@ -103,8 +103,8 @@ const RdsWidget = (props: RdsWidgetProps) => {
                   stroke={true}
                   tooltip={true}
                   colorVariant={props.iconHeaderColor}
-                  tooltipTitle={props.iconTooltipLabel || ''}
-                  tooltipPlacement={props.iconTooltipPosition || ''}
+                  tooltipTitle={props.iconTooltipLabel}
+                  tooltipPlacement={props.iconTooltipPosition}
                   onClick={props.onIconClick}></RdsIcon>
               </span>
 

@@ -5,7 +5,6 @@ export interface RdsDoubleRangeProps {
     min: number;
     max: number;
     doubleRangeType: "default" | "type_1" | "type_2";
-    colorVariant?: string;
 }
 
 

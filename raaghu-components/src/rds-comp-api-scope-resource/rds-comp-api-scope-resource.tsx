@@ -3,7 +3,7 @@ import "./rds-comp-api-scope-resource.css";
 
 export interface RdsCompApiScopeResourceProps {
     resources: any[];
-    role: "basic" | "advanced"
+    role: "basic" ;
 }
 
 const reducer = (state: any, action: any) => {

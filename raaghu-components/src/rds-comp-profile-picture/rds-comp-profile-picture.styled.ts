@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const RdsCompProfilePictureWrapper = styled.div`
-`;
+// export const RdsCompProfilePictureWrapper = styled.div`
+// `;

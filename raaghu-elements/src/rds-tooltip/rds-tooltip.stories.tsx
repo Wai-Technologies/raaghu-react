@@ -27,4 +27,5 @@ export const tooltip: Story = {
         children: <button className="btn btn-primary" >Button</button>
     }
 } satisfies Story;
+tooltip.parameters = { controls: { include: ['text', 'place', 'children'] } };
 

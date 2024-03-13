@@ -22,36 +22,31 @@ type Story = StoryObj<typeof RdsProductImage>;
 
 export const Default: Story = {
     args: {
-        displayType: "basic",
-        itemList: [
-            "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png"
-        ],
+        displayType: "default",
         images: [
-            "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png",
-            "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png",
             "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
         ]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ["displayType", "images"] } };
 
-export const Product_overview1: Story = {
+export const Column_Layout: Story = {
     args: {
-        displayType: "product-overview1",
+        displayType: "column-layout",
         itemList: [
             "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png",
-            "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png",
+            "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60&h=360",
+            "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60&h=360",
             "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
         ]
     }
 } satisfies Story;
-Product_overview1.parameters = { controls: { include: ["display_type", "itemList"] } };
+Column_Layout.parameters = { controls: { include: ["displayType", "itemList"] } };
 
 
-export const Product_overview2: Story = {
+export const Enlarge_View: Story = {
     args: {
-        displayType: "product-overview2",
+        displayType: "enlarge-view",
         itemList: [
             "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
             "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
@@ -59,21 +54,11 @@ export const Product_overview2: Story = {
         ]
     }
 } satisfies Story;
+Enlarge_View.parameters = { controls: { include: ["displayType", "itemList"] } };
 
-
-Product_overview2.parameters = { controls: { include: ["display_type", "itemList"] } };
-Product_overview2.args = {
-    displayType: "product-overview2",
-    itemList: [
-        "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
-        "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
-        "https://cdn.shopify.com/s/files/1/0752/6435/products/2_1418d8b1-f625-4531-b858-bf6e2ba4b2f3_1_160x.jpg?v=1639994439"
-    ]
-};
-
-export const Product_overview3: Story = {
+export const Image_Gallary: Story = {
     args: {
-        displayType: "product-overview3",
+        displayType: "image-gallary",
         itemList: [
             "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
             "https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_765x.jpg?v=1639994439",
@@ -83,4 +68,5 @@ export const Product_overview3: Story = {
         ]
     }
 } satisfies Story;
+Image_Gallary.parameters = { controls: { include: ["displayType", "itemList"] } };
 

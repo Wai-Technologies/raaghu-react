@@ -28,5 +28,6 @@ export const ColorSwitcher: Story = {
         ]
     }
 } satisfies Story;
+ColorSwitcher.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
 
 

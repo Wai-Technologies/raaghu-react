@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const RdsCompNewPageWrapper = styled.div`
-`;
+// export const RdsCompNewPageWrapper = styled.div`
+// `;

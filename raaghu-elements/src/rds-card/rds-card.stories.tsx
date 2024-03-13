@@ -54,6 +54,7 @@ export const Default: Story = {
         showFooter: true,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter'] } };
 
 export const CardWithImage: Story = {
     args: {
@@ -65,8 +66,10 @@ export const CardWithImage: Story = {
         showFooter: true,
         isImage: true,
         imageUrl: "https://picsum.photos/seed/picsum/1200/600",
+        borderColor: "",
     }
 } satisfies Story;
+CardWithImage.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'borderColor'] } };
 
 export const Avatar: Story = {
     args: {
@@ -81,8 +84,10 @@ export const Avatar: Story = {
         avatarUrl: "https://placekitten.com/300/300",
         isAvatar: true,
         centerAlign: false,
+        borderColor: "",
     }
 } satisfies Story;
+Avatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'avatarUrl', 'isAvatar', 'centerAlign', 'borderColor'] } };
 
 export const WithCenteredAvatar: Story = {
     args: {
@@ -97,6 +102,8 @@ export const WithCenteredAvatar: Story = {
         avatarUrl: "https://placekitten.com/300/300",
         isAvatar: true,
         centerAlign: true,
+        borderColor: "",
     }
 } satisfies Story;
+WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'avatarUrl', 'isAvatar', 'centerAlign', 'borderColor'] } };
 
