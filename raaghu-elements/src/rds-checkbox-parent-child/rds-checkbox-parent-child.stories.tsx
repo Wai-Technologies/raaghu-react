@@ -82,5 +82,6 @@ export const CheckboxParent: Story = {
             },
         ],
     }
-}
+} satisfies Story;
+CheckboxParent.parameters = { controls : { include: ['userData'] } };
 

@@ -25,27 +25,19 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                     data-bs-ride="carousel"
                 >
                     {props.Indicators === true && (
-                        <div className="carousel-indicators">
-                            <button
-                                type="button"
-                                data-bs-target="#carouselExampleCaptions"
-                                data-bs-slide-to="0"
-                                className="active"
-                                aria-current="true"
-                                aria-label="Slide 1"
-                            ></button>
-                            <button
-                                type="button"
-                                data-bs-target="#carouselExampleCaptions"
-                                data-bs-slide-to="1"
-                                aria-label="Slide 2"
-                            ></button>
-                            <button
-                                type="button"
-                                data-bs-target="#carouselExampleCaptions"
-                                data-bs-slide-to="2"
-                                aria-label="Slide 3"
-                            ></button>
+                        <div className="carousel-indicators px-5">
+                            {props.carouselItems.map((carouselItem) => (
+                                <button
+                                    key={carouselItem.id}
+                                    tabIndex={0}
+                                    type="button"
+                                    data-bs-target="#carouselExampleCaptions"
+                                    data-bs-slide-to={carouselItem.id - 1}
+                                    className={carouselItem.id == 1 ? "active" : ""}
+                                    aria-current={carouselItem.id == 1 ? true : false}
+                                    aria-label="Slide"
+                                ></button>
+                            ))}
                         </div>
                     )}
                     <div className="carousel-inner">
@@ -98,12 +90,12 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 <div
                     id="carouselExampleCaptions"
                     className={
-                        Fade === true ? "carousel slide carousel-fade" : "carousel slide "
+                        Fade === true ? "carousel slide carousel-fade carousel-dark " : "carousel slide carousel-dark "
                     }
                     data-bs-ride="slide"
                 >
                     {props.Indicators === true && (
-                        <div className="carousel-indicators">
+                        <div className="carousel-indicators px-5">
                             {props.carouselItems.map((carouselItem) => (
                                 <button
                                     key={carouselItem.id}

@@ -1246,11 +1246,18 @@ a {
 .carousel-indicators {
     [data-bs-target] {
         background-color: #232933;
+        height: 5px;
     }
 
     .active {
         border-color: #232933;
+        height: 5px;
     }
+}
+
+.carousel-dark .carousel-control-prev-icon,
+.carousel-dark .carousel-control-next-icon {
+        filter: invert(1) grayscale(100);
 }
 
 // /*input search properrties*/

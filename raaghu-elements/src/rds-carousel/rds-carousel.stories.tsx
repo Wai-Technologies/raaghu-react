@@ -28,6 +28,7 @@ export const Default: Story = {
         Indicators: true,
         crossFade: true,
         controls: true,
+        role: "basic",
         carouselItems: [
             {
                 id: 1,
@@ -46,7 +47,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Advanced: Story = {
     args: {
@@ -72,4 +73,5 @@ export const Advanced: Story = {
         ],
     }
 } satisfies Story;
+Advanced.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
