@@ -190,7 +190,7 @@ This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE
 
 ## <a name='contributers'></a> WAi Technologies Contributors ✨
 
-Thanks goes to these wonderful people and Wai technology.
+Thanks goes to these wonderful people and WAi technologies.
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -215,7 +215,13 @@ Thanks goes to these wonderful people and Wai technology.
         <img src="https://avatars.githubusercontent.com/u/40684426?v=4" width="100" title="Kirti Kulkarni"/>
         <br />
       </a>
-    </td>  
+    </td>
+    <td>
+      <a href="https://github.com/kaushikgokhale">
+        <img src="https://avatars.githubusercontent.com/u/101329794?s=400&u=78582c9dc52f7f002cc24841acc7ec7fdeead52d&v=4" width="100" title="Kaushik Gokhale"/>
+        <br />
+      </a>
+    </td>
     <td>
       <a href="https://github.com/alok-nakhate">
         <img src="https://avatars.githubusercontent.com/u/99717383?s=100v=4" width="100" title="Alok Nakhate"/>
@@ -425,7 +431,7 @@ Thanks goes to these wonderful people and Wai technology.
         <img src="https://avatars.githubusercontent.com/u/99784764?v=4" width="100" title="prasad deshmukh"/>
         <br />
       </a>
-    </td>                                                                                                                                 <td>
+    </td>                                                                                               <td>
       <a href="https://github.com/raghavnaphade">
         <img src="https://avatars.githubusercontent.com/u/84921664?v=4" width="100" title="raghav naphade"/>
         <br />
