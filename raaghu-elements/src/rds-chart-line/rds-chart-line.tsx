@@ -34,7 +34,7 @@ const RdsLineChart = (props: Rdslineprops) => {
                 lineCanvas.destroy();
             };
         }
-    }, []);
+    }, [props.height, props.width]);
 
     return (
         <div>

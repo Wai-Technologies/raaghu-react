@@ -13,15 +13,6 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
     const [like, setLike] = useState(props.like);
     const [dislike, setDislike] = useState(props.dislike);
 
-    const likeHandler = () => {
-        setLike(like + 1);
-        console.log(setLike);
-    };
-    const dislikeHandler = () => {
-        setDislike(dislike + 1);
-        console.log(setDislike);
-    };
-
     if (props.onClick != undefined)
         useEffect(() => {
             props.onClick != undefined && props.onClick(like, dislike);
@@ -29,19 +20,28 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
 
     const bg = "bg-" + (props.colorVariant || "dark");
 
+    useEffect(() => {
+        setLike(props.like);
+        setDislike(props.dislike);
+      }, [props.like, props.dislike]);
+
+      const handleLikeDislike = (like: number, dislike: number) => {
+        setLike(like);
+        setDislike(dislike);
+      };
+
     return (
         <Fragment>
             <div className="d-flex justify-content-start">
                 <div>
                     <RdsIcon
                         name="like"
-                        // class="likebtn"
-                        fill={true}
-                        stroke={false}
+                        fill={false}
+                        stroke={true}
                         height="24px"
                         width="24px"
                         colorVariant={props.colorVariant}
-                        onClick={likeHandler}
+                        onClick={() => handleLikeDislike(like + 1, dislike)}
                     ></RdsIcon>
                     <span className="ms-2">
                         <label className="me-2">{like}</label>
@@ -51,13 +51,12 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
                 <div className="mx-3">
                     <RdsIcon
                         name="dislike"
-                        //class="dislikebtn"
-                        fill={true}
-                        stroke={false}
+                        fill={false}
+                        stroke={true}
                         height="24px"
                         width="24px"
                         colorVariant={props.colorVariant}
-                        onClick={dislikeHandler}
+                        onClick={() => handleLikeDislike(like, dislike + 1)}
                     ></RdsIcon>
                     <span className="ms-2">
                         <label>{dislike}</label>
