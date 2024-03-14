@@ -4,7 +4,7 @@
 <!-- Custom style -->
 
 <p align="center">
-  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-illustration.png" alt="logo" width="600"/>
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png" alt="logo" width="600"/>
 </p>
   
 <h1 style="border-bottom:0;">Contents</h1>
