@@ -36,6 +36,8 @@ Default.args = {
     colorVariant: "danger",
     alertConfirmation: "Are you sure to Delete",
     messageAlert: "This record will be deleted permanently",
-    cancelButtonLabel: "Cancel",
-    deleteButtonLabel: "Delete",
+    cancelBtnLabel: "Cancel",
+    deleteBtnLabel: "Delete",
 };
+
+Default.parameters = { controls: { include: ['alertID', 'iconUrl', 'colorVariant','alertConfirmation','messageAlert','cancelButtonLabel','deleteButtonLabel'] } };
