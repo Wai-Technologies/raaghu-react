@@ -12,6 +12,12 @@
     </picture>
   </a>
 <p>
+
+<script>
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.getElementById('bannerImage').src = 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png';
+    }
+</script>
   
 <h3 align="center" style="border-bottom:0;">
     <a href="https://raaghu.io" target="blank">Get Started</a>
