@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "@waiin/raaghu-react is an open-source React based micro front-end design system from Raaghu Design System. @waiin/raaghu-react employs Vite, Millions, Bootstrap and Storybook features to develop highly customizable UI components and built-in pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
@@ -27,7 +27,7 @@
     "url": "https://waiin.com"
   },
   "homepage": "https://react.raaghu.io",
-  "license": "MIT",
+  "license": "Apache License 2.0",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -49,7 +49,7 @@
     "@types/react": "^18.2.41",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^4.2.1",
-    "@waiin/raaghu-react-themes": "^1.0.2",
+    "@waiin/raaghu-react-themes": "^1.0.3",
     "axios": "^1.6.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.4.0",
@@ -85,7 +85,6 @@
     "rollup-plugin-typescript-paths": "^1.5.0",
     "sass": "^1.69.5",
     "slick-carousel": "^1.8.1",
-    "storybook-addon-react-router-v6": "^2.0.10",
     "storybook-addon-themes": "^6.1.0",
     "validator": "^13.11.0",
     "xlsx": "^0.18.5"
