@@ -13,38 +13,6 @@
   </a>
 <p>
   
-<h3 align="center" style="border-bottom:0;">
-    <a href="https://raaghu.io" target="blank">Get Started</a>
-    ·
-    <a href="https://raaghu.io" target="blank">Tutorials </a>
-    ·
-    <a href="https://raaghu.io" target="blank">View Demo</a>
-    ·
-    <a href="https://github.com/Wai-Technologies/raaghu/issues/new">Report Bug</a>
-    ·
-    <a href="https://github.com/Wai-Technologies/raaghu/issues/new">Request Feature</a>
-</h3>
-
-<p align="center">
-    <a href="https://github.com/Wai-Technologies/raaghu/blob/main/LICENSE" target="blank">
-    <img alt="GitHub licence" src="https://img.shields.io/github/license/Wai-Technologies/raaghu?color=orange"/>
-    </a>
-    <a href="https://github.com/Wai-Technologies/raaghu/stargazers" target="blank">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/Wai-Technologies/raaghu?color=orange&style=plastic"/>
-    </a>
-    <a href="https://github.com/Wai-Technologies/raaghu/issues" target="blank">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/Wai-Technologies/raaghu?color=orange"/>
-    </a>
-    <a href="https://github.com/Wai-Technologies/raaghu/pulls">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Wai-Technologies/raaghu?color=orange"/>
-    </a>
-</p>
-
-<p align="center">
-    <a href="https://npmjs.org/rds-elements"><img src="https://img.shields.io/npm/v/rds-elements/latest.svg" alt="npm latest version" /></a>
-    <a href="https://npmjs.org/rds-elements"><img src="https://img.shields.io/npm/v/rds-elements/next.svg" alt="npm next version" /></a>
-</p>
-</br>
 <h1 style="border-bottom:0;">Contents</h1>
 
 - [What is raaghu](#raahghu-intro)
@@ -190,7 +158,7 @@ This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE
 
 ## <a name='contributers'></a> WAi Technologies Contributors ✨
 
-Thanks goes to these wonderful people and WAi technologies.
+Thanks goes to these wonderful people and WAi Technologies.
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
