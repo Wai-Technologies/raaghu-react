@@ -85,7 +85,6 @@
     "rollup-plugin-typescript-paths": "^1.5.0",
     "sass": "^1.69.5",
     "slick-carousel": "^1.8.1",
-    "storybook-addon-react-router-v6": "^2.0.10",
     "storybook-addon-themes": "^6.1.0",
     "validator": "^13.11.0",
     "xlsx": "^0.18.5"
