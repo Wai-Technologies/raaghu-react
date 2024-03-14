@@ -6,18 +6,12 @@
 <p align="center">
   <a href="https://raaghu.io" target="_blank">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png">
+      <!-- <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png"> -->
+      <!-- <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png"> -->
       <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png">
     </picture>
   </a>
 <p>
-
-<script>
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.getElementById('bannerImage').src = 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png';
-    }
-</script>
   
 <h3 align="center" style="border-bottom:0;">
     <a href="https://raaghu.io" target="blank">Get Started</a>
