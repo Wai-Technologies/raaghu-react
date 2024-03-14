@@ -69,9 +69,9 @@
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./static/Features-new-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="./static/Features-new-light.png">
-    <img  alt="Features" src="./static/Features-new-light.png" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png" width="1000"/>
   </picture>
 </p>
 
@@ -80,7 +80,7 @@
 </br></br></br>
 
 <p align="center">
-  <img src="./static/raaghu-illustration.png" alt="logo" width="600"/>
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-illustration.png" alt="logo" width="600"/>
 </p>
 <br/>
 <br/>
@@ -111,9 +111,9 @@ A collection of open-source statrter templates, Free templates that are perfect 
 </br>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./static/templates-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="./static/templates-light.png">
-    <img src="./static/templates-light.png" alt="logo" width="1200"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png" alt="logo" width="1200"/>
   </picture> 
 </p>
  
@@ -128,46 +128,46 @@ Built on a robust tech stack and platform
   <tr>  
   <td>
     <a href="https://reactjs.org/">
-        <img src="./static/react.svg" width="80" title="React"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
     </td>
        <td>
         <a href="https://getbootstrap.com/">
-        <img src="./static/bootstrap.png" width="80" title="Bootstrap"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/bootstrap.png" width="80" title="Bootstrap"/>
     </td>
      </td>
        <td>
         <a href="https://www.typescriptlang.org/">
-        <img src="./static/logo_typescript.png" width="70" title="typescript"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/logo_typescript.png" width="70" title="typescript"/>
     </td>
     <td>
         <a href="https://storybook.js.org/">
-        <img src="./static/storybook.png" width="80" title="Storybook"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook.png" width="80" title="Storybook"/>
     </td>
       <td>
         <a href="https://www.gatsbyjs.com/">
-        <img src="./static/gatsby.png" width="80" title="Gatsby"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/gatsby.png" width="80" title="Gatsby"/>
     </td>
   </tr>  
   <tr>
   <td>
         <a href="https://www.aspnetzero.com/">
-        <img src="./static/aspnetzero.png" width="80" title="AspnetZero"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/aspnetzero.png" width="80" title="AspnetZero"/>
     </td>
         <td>
         <a href="https://abp.io/">
-        <img src="./static/abpio.png" width="80" title="abpio"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/abpio.png" width="80" title="abpio"/>
     </td>
      <td>
          <a href="https://www.adobe.com/in/products/xd.html?promoid=3NQZBBTZ&mv=other">
-         <img src="./static/xd.png" width="80" title="Adobe XD"/>
+         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/xd.png" width="80" title="Adobe XD"/>
     </td>
      <td>
          <a href="https://www.figma.com/">
-         <img src="./static/figma.png" width="80" title="Figma"/>
+         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma.png" width="80" title="Figma"/>
     </td>
      <td>
         <a href="https://visualstudio.microsoft.com/">
-        <img src="./static/visual-studio.png" width="80" title="Visual Studio"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/visual-studio.png" width="80" title="Visual Studio"/>
     </td>
   </tr>
 </table> 
