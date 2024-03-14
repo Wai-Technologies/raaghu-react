@@ -15,10 +15,10 @@
   
 <h1 style="border-bottom:0;">Contents</h1>
 
-- [What is raaghu](#raaghu-intro)
-- [Why raaghu?](#why)
-- [How raaghu works?](#how)
-- [Getting started with raaghu](#started)
+- [What is Raaghu?](#raaghu-intro)
+- [Why Raaghu?](#why)
+- [How Raaghu works?](#how)
+- [Getting Started with Raaghu](#started)
 - [Startup Templates](#templates)
 - [Build with](#build_with)
 - [License](#license)
@@ -27,13 +27,13 @@
 
 </br></br>
 
-## <a name='raaghu-intro'></a> What is raaghu
+## <a name='raaghu-intro'></a> What is Raaghu?
 
 <p>
-<b>raaghu</b> is an open source React based front-end design system leveraging micro front end capabilities that helps in building efficient, reliable and scalable front-end applications . Raaghu is built on top of raaghu elements as well as front end toolkit like <b>Bootstrap</b>, <b>storybook</b> offering highly customizable UI components and built in pages.
+<b>Raaghu</b> is an open source React based front-end design system leveraging micro front end capabilities that helps in building efficient, reliable and scalable front-end applications . Raaghu is built on top of raaghu elements as well as front end toolkit like <b>Bootstrap</b>, <b>storybook</b> offering highly customizable UI components and built in pages.
 </p>
 
-## <a name='why'></a> Why raaghu?
+## <a name='why'></a> Why Raaghu?
 
 <p>
   <picture>
@@ -43,7 +43,7 @@
   </picture>
 </p>
 
-## <a name='how'></a> How raaghu works?
+## <a name='how'></a> How Raaghu works?
 
 </br></br></br>
 
@@ -59,7 +59,7 @@ These components come together to create the same wireframe design and form a pa
 
 </p>
 
-## <a name='started'></a> Getting started with raaghu
+## <a name='started'></a> Getting Started with Raaghu
 
 - [Setup raaghu](https://raaghu.io): For development
 - [Development Support](https://raaghu.io): Create a common Library, Component, Screen / MFE etc
