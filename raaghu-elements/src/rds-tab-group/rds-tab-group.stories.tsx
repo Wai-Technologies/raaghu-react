@@ -4,6 +4,7 @@ import RdsTabGroup from "./rds-tab-group";
 const meta: Meta = {
     title: "Elements/Tab Group",
     component: RdsTabGroup,
+    tags: ['autodocs'],
     argTypes: {
     }
 } satisfies Meta<typeof RdsTabGroup>;

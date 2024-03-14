@@ -4,6 +4,7 @@ import RdsWidgetPortal from "./rds-widget-portal";
 const meta: Meta = {
     title: "Elements/Widget Portal",
     component: RdsWidgetPortal,
+    tags: ['autodocs'],
     argTypes: {
     }
 } satisfies Meta<typeof RdsWidgetPortal>;

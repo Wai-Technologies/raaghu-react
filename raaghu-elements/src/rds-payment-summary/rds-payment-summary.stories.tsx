@@ -5,6 +5,7 @@ import RdsPaymentSummary from "./rds-payment-summary";
 const meta: Meta = {
     title: "Elements/Payment Summary",
     component: RdsPaymentSummary,
+    tags: ['autodocs'],
     argTypes: {
     }
 } satisfies Meta<typeof RdsPaymentSummary>;
