@@ -24,7 +24,6 @@ describe("RdsNotification", () => {
                 time: "2022-01-02T00:00:00.000Z",
             },
         ],
-        footerText: "Footer text",
     };
 
     it("renders the component with notifications", () => {
@@ -56,7 +55,6 @@ describe("RdsNotification", () => {
             <RdsNotification
                 colorVariant="success"
                 notifications={notifications}
-                footerText="Footer text"
             />
         );
         expect(getByText("Notification")).toBeInTheDocument();
@@ -71,7 +69,6 @@ describe("RdsNotification", () => {
             <RdsNotification
                 colorVariant="success"
                 notifications={notifications}
-                footerText="Footer text"
                 onSetAsRead={onSetAsRead}
             />
         );
