@@ -4,13 +4,14 @@
 <!-- Custom style -->
 
 <p align="center">
-  <a href="https://raaghu.io" target="_blank">
-    <!-- <picture> -->
+  <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png">
+  <!-- <a href="https://raaghu.io" target="_blank">
+     <picture> -->
       <!-- <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png"> -->
       <!-- <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png"> -->
-      <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png">
+      <!-- <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png"> -->
     <!-- </picture> -->
-  </a>
+  </a> -->
 <p>
   
 <h1 style="border-bottom:0;">Contents</h1>
