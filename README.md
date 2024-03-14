@@ -118,12 +118,12 @@ Built on a robust tech stack and platform
   </tr>  
   <tr>
   <td>
-        <a href="https://www.aspnetzero.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/aspnetzero.png" width="80" title="AspnetZero"/>
+        <a href="https://vitejs.dev/">
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/vite.png" width="80" title="AspnetZero"/>
     </td>
         <td>
-        <a href="https://abp.io/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/abpio.png" width="80" title="abpio"/>
+        <a href="https://million.dev/">
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/millionjs.svg" width="80" title="abpio"/>
     </td>
      <td>
          <a href="https://www.adobe.com/in/products/xd.html?promoid=3NQZBBTZ&mv=other">
