@@ -15,7 +15,7 @@
   
 <h1 style="border-bottom:0;">Contents</h1>
 
-- [What is raaghu](#raahghu-intro)
+- [What is raaghu](#raaghu-intro)
 - [Why raaghu?](#why)
 - [How raaghu works?](#how)
 - [Getting started with raaghu](#started)
@@ -27,7 +27,7 @@
 
 </br></br>
 
-## <a name='raahghu-intro'></a> What is raaghu
+## <a name='raaghu-intro'></a> What is raaghu
 
 <p>
 <b>raaghu</b> is an open source React based front-end design system leveraging micro front end capabilities that helps in building efficient, reliable and scalable front-end applications . Raaghu is built on top of raaghu elements as well as front end toolkit like <b>Bootstrap</b>, <b>storybook</b> offering highly customizable UI components and built in pages.
