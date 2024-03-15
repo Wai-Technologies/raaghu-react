@@ -105,12 +105,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     </div>
                     <div>
                         <form>
-                            <label htmlFor="file1" className={`align-items-center d-flex`}>
-                                <span className={`custom-file-button p-1 border-end-0`}> Choose File</span>
+                            <label htmlFor="file1" className={`align-items-center d-flex ${size}`}>
+                                <span className={`custom-file-button p-0 border-end-0 form-control align-items-center ${size}`}> Choose File</span>
                                 <span className={` chosenFileSpan p-1 ps-3`}>{selectedFileName} </span>
                                 <input data-testid="rds-file-uploader-input"
                                     className={` col-md-12 input mulinput d-none  text-${props.colorVariant
-                                        }  ${size} `}
+                                        } `}
                                     type="file"
                                     name="file1"
                                     id="file1"

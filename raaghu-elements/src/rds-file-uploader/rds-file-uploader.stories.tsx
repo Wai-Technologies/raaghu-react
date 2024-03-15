@@ -51,9 +51,8 @@ export const Multiple: Story = {
         multiple: true,
         extensions: "",
         limit: 5,
-        size: "large",
     }
 } satisfies Story;
-Multiple.parameters = { controls: { include: ['placeholder', 'colorVariant', 'multiple', 'extensions', 'limit', 'size'] } };
+Multiple.parameters = { controls: { include: ['placeholder', 'colorVariant', 'multiple', 'extensions', 'limit'] } };
 
 
