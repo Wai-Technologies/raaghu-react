@@ -3,7 +3,6 @@ import "./rds-file-uploader.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import { useTranslation } from "react-i18next";
 export interface RdsFileUploaderProps {
-    placeholder?: string;
     size: string;
     colorVariant?: string;
     multiple?: boolean;
@@ -47,50 +46,65 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     };
 
     const onchangehandler = (event: any) => {
-        const selectedFile = event.target.files?.[0];
-        if (selectedFile) {
-            setSelectedFileName(selectedFile.name);
-        }
-        const fileSize = event.target.files[0].size / 1024; //now size in kb
-
-        if (fileSize > props?.limit) {
-            const tempValid = validation?.map((ele: any, index: number) => {
-                if (index == 0) {
-                    return { ...ele, isError: true };
-                } else {
-                    return ele;
-                }
-            });
-            setValidation(tempValid);
-            setIsExceed(true);
-        } else {
-            const tempValid = validation?.map((ele: any, index: number) => {
-                if (index == 0) {
-                    return { ...ele, isError: false };
-                } else {
-                    return ele;
-                }
-            });
-            setValidation(tempValid);
-            setIsExceed(false);
-        }
-        setFileSize([...FileSize, event.target.files[0].size]);
         const files = event.target.files;
-
-        setfileName([...fileName, event.target.files[0].name]);
-        const reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = (event) => {
-            setFileArray([...FileArray, event.target?.result]);
-        };
+    
+        // Clear previous file arrays
+        setFileArray([]);
+        setfileName([]);
+        setFileSize([]);
+    
+        // Process each file
+        for (let i = 0; i < files.length; i++) {
+            const selectedFile = files[i];
+    
+            // Update file name display
+            setSelectedFileName(selectedFile.name);
+    
+            const fileSize = selectedFile.size / 1024; //now size in kb
+    
+            if (fileSize > props?.limit) {
+                const tempValid = validation?.map((ele: any, index: number) => {
+                    if (index === 0) {
+                        return { ...ele, isError: true };
+                    } else {
+                        return ele;
+                    }
+                });
+                setValidation(tempValid);
+                setIsExceed(true);
+            } else {
+                const tempValid = validation?.map((ele: any, index: number) => {
+                    if (index === 0) {
+                        return { ...ele, isError: false };
+                    } else {
+                        return ele;
+                    }
+                });
+                setValidation(tempValid);
+                setIsExceed(false);
+            }
+    
+            // Update file arrays
+            setFileSize((prevSize: any) => [...prevSize, selectedFile.size]);
+            setfileName((prevNames: any) => [...prevNames, selectedFile.name]);
+    
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onload = (event) => {
+                setFileArray((prevArray: any) => [...prevArray, event.target?.result]);
+            };
+        }
+    
         props.getFileUploaderInfo && props.getFileUploaderInfo({
             files: event.target.files,
         });
+    
+        // Clear input value if multiple
         if (props.multiple) {
             event.target.value = null;
         }
     };
-
+    
     useEffect(() => {
         props.onFileArray != undefined && props.onFileArray(FileArray);
     }, [FileArray]);
@@ -139,7 +153,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 <div>
                     {/* Multiple file uploader */}
                     <div className="d-flex justify-content-end">
-                        <span>Maximum 5MB</span>
+                        <span>Maximum {props.limit}MB</span>
                     </div>
                     <label htmlFor="file" className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"}`}>
                         <div className="col-md-10 col-lg-10 col-10">

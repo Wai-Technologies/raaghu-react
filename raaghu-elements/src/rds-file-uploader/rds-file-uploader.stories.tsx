@@ -47,12 +47,11 @@ Default.parameters = { controls: { include: ['size', 'multiple', 'extensions'] }
 export const Multiple: Story = {
     args: {
         colorVariant: "primary",
-        placeholder: "for E.g. ",
         multiple: true,
-        extensions: "",
+        extensions: "png, jpg, doc, ,pdf, ppt",
         limit: 5,
     }
 } satisfies Story;
-Multiple.parameters = { controls: { include: ['placeholder', 'colorVariant', 'multiple', 'extensions', 'limit'] } };
+Multiple.parameters = { controls: { include: ['colorVariant', 'multiple', 'extensions', 'limit'] } };
 
 
