@@ -1,11 +1,10 @@
 import { Tooltip as BsTooltip } from "bootstrap";
 import React, { useEffect, useRef, forwardRef, ReactNode } from "react";
-import { placements } from "../../libs/types";
 
 interface TooltipProps {
   children: ReactNode;
   text?: string;
-  place?: placements;
+  place?: "auto" | "top" | "bottom" | "right" | "left";
   trigger?: "hover" | "click" | "focus" | "manual";
 }
 
@@ -13,11 +12,11 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, ref) => {
   const childRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (!childRef.current) return;
+    if (!childRef.current || !props.text) return;
 
     const options = {
       title: props.text,
-      placement: props.place,
+      placement: props.place || "auto", // Providing a default value
       trigger: props.trigger || "hover",
     };
 
@@ -26,7 +25,7 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, ref) => {
     return () => {
       t.dispose();
     };
-  }, [props.text, props.place]);
+  }, [props.text, props.place, props.trigger]);
 
   return React.cloneElement(props.children as React.ReactElement, {
     ref: (element: HTMLElement) => {

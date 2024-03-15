@@ -227,7 +227,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                     </div>
 
                     <div className="col-md-6  col-sm-12">
-                        <RdsTextArea label="Cover Letter" placeholder="Cover Letter.." rows={6} dataTestId="cover-letter" />
+                        <RdsTextArea label="Cover Letter" placeholder="Cover Letter.." rows={8} dataTestId="cover-letter" />
                     </div>
                 </div>
 
