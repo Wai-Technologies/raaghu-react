@@ -141,7 +141,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         label="Redirect Uris"
                         placeholder="Enter Redirect Uris"
                         onChange={(e: any) => handleTextAreaChange(e.target.value, "redirectUris")}
-                        value={basicApplicationData?.redirectUris !== null ? basicApplicationData?.redirectUris.join("\n") : basicApplicationData?.redirectUris}
+                        value={basicApplicationData?.redirectUris !== null ? basicApplicationData?.redirectUris : basicApplicationData?.redirectUris}
                         rows={3}
                         dataTestId="redirect-uri"
                         isDisabled={!isDivVisible}
@@ -169,7 +169,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         label="Post Logout Redirect Uris"
                         placeholder="Enter Post Logout Redirect Uris"
                         onChange={e => handleTextAreaChange(e.target.value, "postLogoutRedirectUris")}
-                        value={basicApplicationData?.postLogoutRedirectUris !== null ? basicApplicationData?.postLogoutRedirectUris.join("\n") : basicApplicationData?.postLogoutRedirectUris}
+                        value={basicApplicationData?.postLogoutRedirectUris !== null ? basicApplicationData?.postLogoutRedirectUris : basicApplicationData?.postLogoutRedirectUris}
                         rows={3}
                         dataTestId="logout-redirect-uri"
                         isDisabled={!basicApplicationData?.allowLogoutEndpoint}
