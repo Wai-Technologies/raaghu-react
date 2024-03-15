@@ -20,9 +20,7 @@ export const Default: Story = {
     args: {
         placeholder: "Filter",
         borderDropdown: true,
-        icon: "plus",
         isPlaceholder: true,
-        isIconPlaceholder: true,
         listItems: [
             {
                 label: "EN(US)",
@@ -70,7 +68,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'icon', 'isPlaceholder', 'isIconPlaceholder', 'listItems', 'reset'] } };
+Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems', 'reset'] } };
 
 export const WithMultiSelect: Story = {
     args: {
@@ -78,7 +76,6 @@ export const WithMultiSelect: Story = {
         placeholder: "Filter",
         multiSelect: true,
         borderDropdown: true,
-        isIconPlaceholder: true,
         listItems: [
             {
                 label: "EN(US)",
@@ -125,11 +122,15 @@ export const WithMultiSelect: Story = {
         ],
     },
 }
-WithMultiSelect.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'isIconPlaceholder', 'listItems', 'reset'] } };
+WithMultiSelect.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'listItems', 'reset'] } };
 
 export const WithIcons: Story = {
     args: {
         borderDropdown: true,
+        isPlaceholder: true,
+        isIconPlaceholder: true,
+        placeholder: "Filter",
+        icon: "plus",
         listItems: [
             {
                 label: "EN(US)",
@@ -180,9 +181,8 @@ export const WithIcons: Story = {
                 iconWidth: "20px",
                 iconHeight: "20px",
             },
-        ],
-        placeholder: "Filter",
+        ],        
     }
 }
-WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'listItems'] } };
+WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'isIconPlaceholder', 'icon', 'listItems'] } };
 

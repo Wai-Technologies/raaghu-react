@@ -105,21 +105,40 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   // using handlerLIstItem to change the language
 
   const handlerLIstItem = (
-    event: React.MouseEvent<HTMLLIElement>,
-    index: number,
-    val: string
-  ) => {
-    setExpend(!expand);
+  event: React.MouseEvent<HTMLLIElement>,
+  index: number,
+  val: string
+) => {
+  setIsTouch(true);
+  if (props.multiSelect) {
+    // If it's a multiselect dropdown, handle checkbox selection
+    const isChecked = checkedCategoryList.some(
+      (item: any) => item.label === props.listItems[index].label
+    );
+
+    if (isChecked) {
+      // If item is already selected, uncheck it
+      const newCheckedCategoryList = checkedCategoryList.filter(
+        (item: any) => item.label !== props.listItems[index].label
+      );
+      setCheckedCategoryList(newCheckedCategoryList);
+    } else {
+      // If item is not selected, check it
+      setCheckedCategoryList([
+        ...checkedCategoryList,
+        { label: props.listItems[index].label }
+      ]);
+    }
+  } else {
+    // If it's a single select dropdown, just update the selected option
     setSelectedOption(index);
-    setIsTouch(true);
     if (props.onClick) {
       props.onClick(event, val);
     }
-    const dropdownMenu = document.getElementById(props.id as string);
-    dropdownMenu?.classList.remove("show");
-    dropdownMenu?.classList.add("hide");
-    setToggle("show");
-  };
+  }
+  // Toggle the dropdown state
+  setExpend(!expand);
+};
   const IconWidth = props.listItems[selectedOption]?.iconWidth || "16px";
   const IconHeight = props.listItems[selectedOption]?.iconHeight || "12px";
 
@@ -456,7 +475,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
                     {props.icon &&
                       props.isPlaceholder &&
-                      props.isIconPlaceholder == false && (
+                      props.isIconPlaceholder == true && (
                         <span>
                           <RdsIcon
                             name={props.icon}
