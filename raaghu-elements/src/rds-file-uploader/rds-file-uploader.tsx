@@ -7,6 +7,7 @@ export interface RdsFileUploaderProps {
   colorVariant?: string;
   multiple?: boolean;
   extensions: string;
+  placeholder?: string;
   limit: number;
   label: string;
   onFileArray?: (files: any[]) => void;
