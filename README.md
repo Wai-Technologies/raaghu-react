@@ -121,11 +121,11 @@ Built on a robust tech stack and platform
   <tr>
   <td>
         <a href="https://vitejs.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/vite.png" width="80" title="AspnetZero"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/vite.png" width="80" title="Vite"/>
     </td>
         <td>
         <a href="https://million.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/millionjs.svg" width="80" title="abpio"/>
+        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/millionjs.svg" width="80" title="Million"/>
     </td>
      <td>
          <a href="https://www.adobe.com/in/products/xd.html?promoid=3NQZBBTZ&mv=other">
