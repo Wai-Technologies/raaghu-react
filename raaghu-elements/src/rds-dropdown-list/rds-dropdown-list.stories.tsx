@@ -128,9 +128,7 @@ export const WithIcons: Story = {
     args: {
         borderDropdown: true,
         isPlaceholder: true,
-        isIconPlaceholder: true,
         placeholder: "Filter",
-        icon: "plus",
         listItems: [
             {
                 label: "EN(US)",
@@ -184,5 +182,5 @@ export const WithIcons: Story = {
         ],        
     }
 }
-WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'isIconPlaceholder', 'icon', 'listItems'] } };
+WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems'] } };
 
