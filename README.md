@@ -3,7 +3,7 @@
 
 <!-- Custom style -->
 
-<div align="center">
+<p align="center">
   <a href="https://raaghu.io" target="_blank">
     <p>
       <picture>
@@ -13,7 +13,7 @@
       </picture>
     </p>
   </a>
-</div>
+</p>
   
 <h1 style="border-bottom:0;">Contents</h1>
 
