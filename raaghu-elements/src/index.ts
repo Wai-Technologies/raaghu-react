@@ -71,6 +71,10 @@ export { default as RdsTextEditor } from "./rds-text-editor";
 export { default as RdsFileUploader } from "./rds-file-uploader";
 export { default as RdsToggle } from "./rds-toggle";
 export { default as RdsVideoPlayer } from "./rds-video-player";
+export { default as RdsPaymentSummary } from "./rds-payment-summary";
+export { default as RdsPlandiscount } from "./rds-plan-discount";
+export { default as RdsWidgetPortal } from "./rds-widget-portal";
+export { default as RdsTabGroup } from "./rds-tab-group";
 // export { default as RdsAnimation } from "./rds-animation";
 // //Charts
 export { default as RdsAreaChart } from "./rds-chart-area";
