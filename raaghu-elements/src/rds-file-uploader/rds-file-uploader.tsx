@@ -155,10 +155,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   onChange={onchangehandler}
                 />
               </label>
-            </form>
-            {validation &&
+              {validation &&
               validation.map((val: any, index: number) => (
-                <div key={index} className="mt-2">
+                <div key={index} className="ps-3">
                   <small
                     className={`${
                       val.isError ? "showError" : "noError d-none"
@@ -168,6 +167,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   </small>
                 </div>
               ))}
+            </form>
+            
           </div>
         </div>
       ) : (
@@ -249,7 +250,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           ))}
           {validation &&
             validation.map((val: any, index: number) => (
-              <div key={index} className="mt-2">
+              <div key={index} className="ps-3">
                 <small
                   className={`${val.isError ? "showError" : "noError d-none"}`}
                 >
