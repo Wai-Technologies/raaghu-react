@@ -61,31 +61,41 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     setFileSize([]);
     setIsExceed(false);
     setValidation(
-      validation?.map((ele: any, index: number) => ({
-        ...ele,
-        isError: false,
-      }))
+        validation?.map((ele: any, index: number) => ({
+            ...ele,
+            isError: false,
+        }))
     );
 
     // Process each file
     for (let i = 0; i < files.length; i++) {
-      const selectedFile = files[i];
+        const selectedFile = files[i];
+        const allowedExtensions = props.extensions.split(", ");
+        const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+            setValidation((prevValidation: any) => [
+                ...prevValidation,
+                { isError: true, hint: `File with extension '${fileExtension}' is not allowed` },
+            ]);
+            continue;
+        }
 
-      // Update file name display
-      setSelectedFileName(selectedFile.name);
+        // Continue processing the file if extension is allowed
+        // Update file name display
+        setSelectedFileName(selectedFile.name);
 
-      const fileSizeInMB = selectedFile.size / (1024 * 1024); // Convert size to MB
-      if (fileSizeInMB > props?.limit) {
-        // If file size exceeds limit, set error state and display error message
-        setIsExceed(true);
-        setValidation(
-          validation?.map((ele: any, index: number) => ({
-            ...ele,
-            isError: index === 0, // Set first element's error state to true
-          }))
-        );
-      } else {
-        // If file size is within limit, update file arrays
+        const fileSizeInMB = selectedFile.size / (1024 * 1024); // Convert size to MB
+        if (fileSizeInMB > props?.limit) {
+            // If file size exceeds limit, set error state and display error message
+            setIsExceed(true);
+            setValidation((prevValidation: any) => [
+                ...prevValidation,
+                { isError: true, hint: "File size exceeds the limit" },
+            ]);
+            continue;
+        }
+
+        // If file size is within limit and extension is allowed, update file arrays
         setFileSize((prevSize: any) => [...prevSize, selectedFile.size]);
         setfileName((prevNames: any) => [...prevNames, selectedFile.name]);
 
@@ -93,25 +103,21 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onload = (event) => {
-          setFileArray((prevArray: any) => [
-            ...prevArray,
-            event.target?.result,
-          ]);
+            setFileArray((prevArray: any) => [...prevArray, event.target?.result]);
         };
-      }
     }
 
     // Callback function to pass file info to parent component
     props.getFileUploaderInfo &&
-      props.getFileUploaderInfo({
-        files: event.target.files,
-      });
+        props.getFileUploaderInfo({
+            files: event.target.files,
+        });
 
     // Clear input value if multiple
     if (props.multiple) {
-      event.target.value = null;
+        event.target.value = null;
     }
-  };
+};
 
   useEffect(() => {
     props.onFileArray != undefined && props.onFileArray(FileArray);

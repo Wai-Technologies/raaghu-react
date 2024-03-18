@@ -40,8 +40,7 @@ export const Default: Story = {
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         validation: [
-            { isError: false, hint: "File size exceeds the limit" },
-            // Add more error messages as needed
+            { isError: false, hint: "File size exceeds the limit" }
         ],
     }
 } satisfies Story;
@@ -55,8 +54,7 @@ export const Multiple: Story = {
         limit: 5,
         size: "large",
         validation: [
-            { isError: false, hint: "File size exceeds the limit" },
-            // Add more error messages as needed
+            { isError: false, hint: "File size exceeds the limit" }
         ],
     }
 } satisfies Story;
