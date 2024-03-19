@@ -103,7 +103,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                     {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
                 </div>
             </div>
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex mt-5">
                 <RdsButton
                     label="Save"
                     colorVariant='primary'
