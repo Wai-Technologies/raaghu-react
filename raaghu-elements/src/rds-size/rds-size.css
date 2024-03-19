@@ -22,7 +22,7 @@
 }
 
 .size-small {
-    font: normal normal 600 18px/48px Poppins;
+    font: normal normal 600 18px/48px;
     letter-spacing: 0px;
     color: #000000;
 }
@@ -32,7 +32,7 @@
     color: #747474;
 }
 .description {
-    font: normal normal normal 18px/35px Poppins;
+    font: normal normal normal 18px/35px;
     letter-spacing: 0px;
     color: #6f6f6f;
 }

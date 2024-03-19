@@ -24,8 +24,8 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                         <div className="my-2 mx-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width={95.669}
-                                height={95.669}
+                                width={200}
+                                height={200}
                                 viewBox="0 0 95.669 95.669"
                                 {...props}
                             >

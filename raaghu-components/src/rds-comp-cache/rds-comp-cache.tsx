@@ -84,14 +84,13 @@ const RdsCompCache = (props: RdsCacheProps) => {
                             </div>
                         ))}
                     </div>
-
                     <RdsPagination
-                        totalRecords={cache.length}
-                        recordsPerPage={props.recordsperpage}
-                        paginationType="advance"
                         alignmentType={props.alignment}
-                        onPageChange={pagination}
-                    ></RdsPagination>
+                        paginationType="default"
+                        recordsPerPage={props.recordsperpage}
+                        size="small"
+                        totalRecords={cache.length}
+                    />
                 </div>
             ) : (
                 <div>

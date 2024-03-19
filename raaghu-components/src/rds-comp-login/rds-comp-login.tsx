@@ -152,7 +152,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 <RdsLabel label={`${"Current Tenant"}`}></RdsLabel>:
               </span>
               &nbsp;
-              <span className="fw-semibold">
+              <span className="fw-semibold pe-1">
                 {" "}
                 <RdsLabel
                   label={
@@ -300,8 +300,8 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             </form>
             <div className="mt-4">
               <div>
-                Dont have an Account
-                <span>
+                Don't have an Account
+                <span className="ps-1">
                   <a
                     className="link-primary text-decoration-none"
                     href="javascript:void(0)"
