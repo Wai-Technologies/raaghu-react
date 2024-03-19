@@ -334,19 +334,6 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 </span>
                 <span className="w-20px h-20px border p-2 mx-3 rounded-2">
                   <RdsIcon
-                    name="twitter_default"
-                    height="20px"
-                    width="20px"
-                    colorVariant="light"
-                    fill={false}
-                    stroke={true}
-                    tooltip={true}
-                    tooltipTitle={"Connect with Twitter"}
-                    tooltipPlacement="bottom"
-                  ></RdsIcon>
-                </span>
-                <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                  <RdsIcon
                     name="microsoft"
                     height="20px"
                     width="20px"
