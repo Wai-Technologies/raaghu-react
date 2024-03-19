@@ -1,31 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 
-export interface RdsCompBackgroundImageProps {
-    imageUrl: string,
-    imageHeight?: string,
-    title: string,
-    btnLabel: string,
-    subtitle: string,
-    backgroundRepeat: string,
-    backgroundSize: string,
+interface RdsCompBackgroundImageProps {
+    imageUrl: string;
+    imageHeight?: string;
+    title: string;
+    btnLabel: string;
+    subtitle: string;
+    backgroundRepeat: string;
+    backgroundSize: string;
 }
 
-const RdsCompBackgroundImage = (props: RdsCompBackgroundImageProps) => {
-    const getImageUrl = () => {
+const RdsCompBackgroundImage: React.FC<RdsCompBackgroundImageProps> = (props) => {
+    const [showImage, setShowImage] = useState<boolean>(false);
+
+    const getImageUrl = (): string => {
         if (props.imageUrl) {
-            return "url(" + props.imageUrl + ")";
+            return `url(${props.imageUrl})`;
         }
         return "";
     };
 
-    const ImgHeight = props.imageHeight || "690px";
+    const ImgHeight: string = props.imageHeight || "690px";
 
+    const toggleImage = (): void => {
+        setShowImage((prevShowImage) => !prevShowImage);
+    };
 
     return (
         <>
             <div
                 role="img"
-                className="w-100 d-flex justify-content-center align-items-center text-white bg-img"
+                className={`w-100 d-flex justify-content-center align-items-center text-white bg-img ${showImage ? 'show-image' : 'hide-image'}`}
                 style={{ backgroundImage: getImageUrl(), height: ImgHeight, backgroundSize: props.backgroundSize, backgroundRepeat: props.backgroundRepeat }}
             >
                 <div className="text-center w-50 sm-w-100 px-2">
@@ -35,7 +40,7 @@ const RdsCompBackgroundImage = (props: RdsCompBackgroundImageProps) => {
                     {props.subtitle && <label className="fs-5 sm-fs"> {props.subtitle}</label>}
 
                     {props.btnLabel && <div className="mt-4" >
-                        <button className="btn btn-primary ">{props.btnLabel} </button>
+                        <button className="btn btn-primary" onClick={toggleImage}>{showImage ? 'Hide Image' : props.btnLabel}</button>
                     </div>}
                 </div>
             </div>
