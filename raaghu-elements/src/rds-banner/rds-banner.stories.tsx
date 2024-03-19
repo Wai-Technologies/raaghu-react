@@ -12,7 +12,8 @@ const meta: Meta = {
     argTypes: {
         position: {
             options: ["top", "bottom"],
-            control: { type: "radio" }
+            control: { type: "radio" },
+            if: { arg: "sticky" }
         },
         colorVariant: {
             options: ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"],
