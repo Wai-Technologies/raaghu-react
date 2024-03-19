@@ -25,8 +25,6 @@ const meta: Meta = {
                 "dark",
                 "white",
             ],
-
-            extensions: {},
             control: { type: "select" },
         },
     },
@@ -39,21 +37,27 @@ export const Default: Story = {
     args: {
         size: "large",
         multiple: false,
-        extensions: "",
+        extensions: "png, jpg, doc, pdf, ppt",
+        limit: 5,
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'multiple', 'extensions'] } };
+Default.parameters = { controls: { include: ['size', 'multiple', 'extensions', 'limit'] } };
 
 export const Multiple: Story = {
     args: {
         colorVariant: "primary",
-        placeholder: "for E.g. ",
         multiple: true,
-        extensions: "",
+        extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         size: "large",
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
     }
 } satisfies Story;
-Multiple.parameters = { controls: { include: ['placeholder', 'colorVariant', 'multiple', 'extensions', 'limit', 'size'] } };
+Multiple.parameters = { controls: { include: ['colorVariant', 'multiple', 'extensions', 'limit', 'size'] } };
 
 

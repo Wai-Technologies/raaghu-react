@@ -165,7 +165,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
 
                                     <div className="accbodycheck mt-3 row">
                                         {resource.children.map((check: any, idd: number) => (
-                                            <div key={idd} className="col-md-4">
+                                            <div key={idd} className="col-md-4 pb-2">
                                                 <input
                                                     id={`${i}${idd}`}
                                                     className="form-check-input"
