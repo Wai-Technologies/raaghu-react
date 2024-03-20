@@ -59,7 +59,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 colorVariant="dark"
                                 extensions=""
                                 multiple={false}
-                                size="mid"
+                                size="small"
                                 limit={0}
                                 label="Cover Image"
                             />

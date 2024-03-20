@@ -199,7 +199,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 block={false}
                                 showLoadingSpinner={false}
                                 colorVariant="primary"
-                                label="SendTestEmail"
+                                label="Send Test Email"
                             />
                         }
                         backDrop={true}
@@ -268,7 +268,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 </form>
                                 <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
                                     <RdsButton
-                                        label=".Cancel"
+                                        label="Cancel"
                                         databsdismiss="offcanvas"
                                         type={"button"}
                                         size="small"
@@ -277,7 +277,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         class="me-2"
                                     ></RdsButton>
                                     <RdsButton
-                                        label=".Save"
+                                        label="Save"
                                         type={"button"}
                                         size="small"
                                         showLoadingSpinner={true}

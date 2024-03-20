@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompBlogPost from "./rds-comp-blog-post";
 
 const meta: Meta = {
-  title: "Components/Blog Post",
+  title: "Components/Blog List",
   component: RdsCompBlogPost,
   parameters: {
     layout: 'padded',

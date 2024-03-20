@@ -24,12 +24,12 @@ const RdsCompEditLanguageText = (props: RdsCompEditLanguageTextProps) => {
                         dataTestId="target-language"
                     ></RdsTextArea>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-2">
                         <RdsButton
                             label={t("Cancel") || ""}
                             colorVariant="primary"
-                            block={true}
+                            block={false}
                             tooltipTitle={""}
                             type="submit"
                             isOutline={true}
@@ -40,13 +40,36 @@ const RdsCompEditLanguageText = (props: RdsCompEditLanguageTextProps) => {
                         <RdsButton
                             label={t("Save") || ""}
                             colorVariant="primary"
-                            block={true}
+                            block={false}
                             tooltipTitle={""}
                             type="submit"
                             dataTestId="save"
                         />
                     </div>
-                </div>
+                </div> */}
+              <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                        <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
+                        <RdsButton
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            isDisabled={false}
+                            dataTestId="save"
+                        ></RdsButton>
+                    </div>
             </form>
         </div>
     );

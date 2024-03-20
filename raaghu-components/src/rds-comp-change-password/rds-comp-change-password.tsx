@@ -64,7 +64,7 @@ const RdsCompChangePassword = (props: any) => {
                     ></RdsInput>
                 </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
                         size="medium"
@@ -80,7 +80,7 @@ const RdsCompChangePassword = (props: any) => {
                         showIcon={true}
                     ></RdsInput>
                 </div>
-            </div>
+            </div> */}
             <div className="row">
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
@@ -97,19 +97,29 @@ const RdsCompChangePassword = (props: any) => {
                     ></RdsInput>
                 </div>
             </div>
-            <div className="row">
-                <div className="mt-3 footer-buttons px-0 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row d-flex bg-transparent">
-                    <RdsButton
-                        label="Save"
-                        colorVariant='primary'
-                        block={false}
-                        type="submit"
-                        size="small"
-                        onClick={() => { props.handlePasswordDataSubmit(formData); }}
-                        dataTestId='save'
-                    />
-                </div>
-            </div>
+            <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                        <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
+                        <RdsButton
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            // colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            isDisabled={false}
+                            dataTestId="save"
+                        ></RdsButton>
+                    </div>
         </form>
 
     );
