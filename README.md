@@ -8,8 +8,8 @@
     <p>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png?raw=true">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?height=auto">
-        <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?height=auto"/>
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=true">
+        <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues"/>
       </picture>
     </p>
   </a>
