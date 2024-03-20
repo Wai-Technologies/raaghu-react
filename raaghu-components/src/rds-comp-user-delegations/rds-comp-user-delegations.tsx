@@ -48,6 +48,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                     <div>
                         <div className="mb-2">
                             <div>
+                            {props.selectuser && (
                                 <select
                                     onClick={selecthandler}
                                     defaultValue={"DEFAULT"}
@@ -60,6 +61,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                         <option key={x.id}>{x.name}</option>
                                     ))}
                                 </select>
+                            )}
                             </div>
                         </div>
                         <div>

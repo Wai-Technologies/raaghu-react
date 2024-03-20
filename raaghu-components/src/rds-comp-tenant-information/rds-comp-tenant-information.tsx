@@ -159,6 +159,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
         <div>
             <div className="tab-content">
                 <form>
+                <div className="custom-content-scroll">
                     <div className="row flex-lg-row flex-md-row">
                         <div className="col-md-6">
                             <div className="form-group">
@@ -286,7 +287,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                             <div className="form-group text-capitalize mb-3">
                                 <RdsSelectList
                                     id={"saasActivelist"}
-                                    label="ActivationState"
+                                    label="Activation State"
                                     placeholder="Select Activation State"
                                     selectItems={activationStateList}
                                     selectedValue={tenantInformationData?.activationState?.toString()}
@@ -296,8 +297,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
-                        <RdsButton
+                    </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                       <RdsButton
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}

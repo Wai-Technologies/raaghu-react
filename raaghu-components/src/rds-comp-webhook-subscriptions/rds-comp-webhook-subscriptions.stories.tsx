@@ -20,4 +20,4 @@ export const Default: Story = {
     args: {
         
     }
-} satisfies Story;
+} satisfies Story;Default.parameters = { controls: { include: [] } };
