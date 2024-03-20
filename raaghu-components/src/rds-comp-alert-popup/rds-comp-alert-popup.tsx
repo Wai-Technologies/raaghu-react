@@ -6,8 +6,8 @@ export interface RdsCompAlertPopupProps {
     colorVariant?: string;
     alertConfirmation?: string;
     messageAlert?: string;
-    cancelButtonLabel?: string;
-    deleteButtonLabel?: string;
+    cancelBtnLabel?: string;
+    deleteBtnLabel?: string;
     cancelButtonColor?: string;
     deleteButtonColor?: string;
 
@@ -19,8 +19,8 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const colorVariant = props.colorVariant || "danger";
     const alertConfirmation = props.alertConfirmation || "Are You Sure";
     const messageAlert = props.messageAlert || "This record will be deleted permanently";
-    const CancelButtonLabel = props.cancelButtonLabel || "Cancel";
-    const DeleteButtonLabel = props.deleteButtonLabel || "Delete";
+    const CancelButtonLabel = props.cancelBtnLabel || "Cancel";
+    const DeleteButtonLabel = props.deleteBtnLabel || "Delete";
     return (
         <div>
             <RdsModal

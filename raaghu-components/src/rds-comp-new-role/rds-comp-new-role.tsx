@@ -10,14 +10,15 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
         <>
             <div>
                 <form>
+                <div className="custom-content-scroll">
                     <div className="row">
                         <div className="col-md-12 ">
                             <div className="form-group mb-3">
                                 <RdsLabel
                                     size="14px"
                                     label={props.roleData.displayName}
-                                    class="form-label ms-1"
-                                    children={<span className="text-danger"></span>}
+                                    class="form-label"
+                                    required={true}
                                 ></RdsLabel>
                                 <RdsInput
                                     size="small"
@@ -25,7 +26,6 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                     isDisabled={false}
                                     readonly={false}
                                     placeholder={props.roleData.displayName}
-                                    required={true}
                                 ></RdsInput>
                             </div>
                         </div>
@@ -44,37 +44,26 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                             </div>
                         </div>
                     </div>
-                </form>
-                <div className="footer fixed-bottom ms-3 mb-3">
-                    <div className="d-flex">
-                        <div className="m-2">
-                            <RdsButton
+                </div>
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                           <RdsButton
                                 size="small"
                                 isOutline={true}
-                                tooltip={true}
-                                tooltipPlacement="top"
-                                tooltipTitle="Cancel"
                                 colorVariant="primary"
                                 label="Cancel"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                             ></RdsButton>
-                        </div>
-                        <div className="m-2">
-                            <RdsButton
+                           <RdsButton
                                 size="small"
                                 isOutline={false}
-                                tooltip={true}
-                                tooltipPlacement="top"
-                                tooltipTitle="Save Data"
                                 colorVariant="primary"
                                 label="Save"
                                 data-bs-dismiss="offcanvas"
                                 type="button"
-                            ></RdsButton>
-                        </div>
-                    </div>
+                            ></RdsButton>                        
                 </div>
+                </form>                
             </div>
         </>
     );

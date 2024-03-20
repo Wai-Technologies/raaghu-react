@@ -13,27 +13,29 @@ const RdsCompClientResource = (props: RdsCompClientResourceProp) => {
         <div>
             {props.role == "basic" ? <>
                 <RdsCompApiScopeResource role="basic" resources={props.resources} />
-                <div className="row mt-5 mb-3">
-                    <div className="col-2">
+                <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                         <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
                             label="Cancel"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                            isOutline={true}
-                        />
-                    </div>
-                    <div className="col-2">
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
                         <RdsButton
+                            class="me-2"
                             label="Save"
+                            size="small"
                             colorVariant="primary"
-                            block={true}
                             tooltipTitle={""}
-                            type="submit"
-                        />
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            isDisabled={false}
+                            dataTestId="save"
+                        ></RdsButton>
                     </div>
-                </div>
             </>
                 :
                 <RdsCompApiScopeResource  resources={props.resources} role={"basic"} />}

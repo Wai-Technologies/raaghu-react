@@ -30,7 +30,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
             {props.displayType == "Left Aligned" && <div className="pt-1 " >
                 <div className="border p-4 text-left bg-light rounded" data-testid="leftAligned">
                     <div>
-                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth} />
+                    <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                     </div>
                     <div className="mt-3 fw-bold">
                         <label htmlFor=" "> {props.item.title}</label>
@@ -62,7 +62,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
             {props.displayType == "With Label" && <div className="pt-1" >
                 <div className="d-flex">
                     <div className="d-flex align-items-center">
-                        <img src={props.item.imgSrc} alt="" height={props.item.imgHeight} width={props.item.imgWidth} />
+                    <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
 
                     </div>
                     <div className="ms-3 mt-3  ">

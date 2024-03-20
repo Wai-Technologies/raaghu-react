@@ -1,6 +1,5 @@
 import React from "react";
 import { RdsInput, RdsSelectList } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompEditionNewBasicProps {
     planList: any[];
@@ -27,9 +26,6 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                     </div>
                     <div className="col-md-6 mb-3">
                         <div className="form-group">
-                            <label htmlFor="Plan" className="mb-2">
-                                Plan <span className="text-danger">*</span>
-                            </label>
                             <RdsSelectList
                                 id="planLis"
                                 label={props.planListLabel}
@@ -37,14 +33,8 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                                 isMultiple={false}
                                 selectItems={props.planList}
                                 dataTestId="plan-list"
+                                required={true}
                             />
-                            {/* <rds-select-list
-                    [isRequired]=true  ngDefaultControl
-                    name="edition" [itemList]="PlanList" required [placeholder]="'Select Plan'"
-                    [(ngModel)]="editionData.editionPlan" #editionPlan="ngModel">
-               
-
-                </rds-select-list> */}
                         </div>
                     </div>
                 </div>

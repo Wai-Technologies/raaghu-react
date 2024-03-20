@@ -33,7 +33,7 @@ const RdsCompDeliveryMethod = (props: RdsCompDeliveryMethodProps) => {
                                         {" "}
                                         <input
                                             type="checkbox"
-                                            className="checkbox-round"
+                                            className={`checkbox-round ${activeButton === index ? 'active' : ''}`}
                                             defaultChecked={true}
                                         />
                                     </div>

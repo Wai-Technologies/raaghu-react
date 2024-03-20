@@ -27,8 +27,8 @@ export const Classic: Story = {
         <RdsCompAppShellItem title={""}>
           <div className="row">
             <RdsCompTopNavigation
-              brandLogo="assets/raaghu-logo.svg"
-              brandName="Raaghu"
+              brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              brandName="Raaghu Design System"
               languageItems={[
                 {
                   icon: "us",

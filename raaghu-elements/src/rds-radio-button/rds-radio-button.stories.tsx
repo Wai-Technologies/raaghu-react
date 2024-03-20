@@ -28,13 +28,13 @@ export const Default: Story = {
             {
                 id: 1,
                 label: "Radio Button 1",
-                checked: false,
+                checked: true,
                 name: "radio_button",
             },
             {
                 id: 2,
                 label: "Radio Button 2",
-                checked: false,
+                checked: true,
                 name: "radio_button",
             },
             {
@@ -55,13 +55,13 @@ export const Horizontal: Story = {
             {
                 id: 1,
                 label: "Radio Button 1",
-                checked: false,
+                checked: true,
                 name: "radio_button",
             },
             {
                 id: 2,
                 label: "Radio Button 2",
-                checked: false,
+                checked: true,
                 name: "radio_button",
             },
             {

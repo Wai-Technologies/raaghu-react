@@ -38,9 +38,12 @@ export const LeftAligned: Story = {
         displayType: "Left Aligned",
         item: {
             "id": 3,
-            "imgSrc": "https://cdn4.vectorstock.com/i/1000x1000/45/38/gear-icon-line-symbol-vector-21084538.jpg",
-            "imgHeight": "40px",
-            "imgWidth": "40px",
+            "icon": "currency_dollar_circle",
+            "iconHeight": "35px",
+            "iconWidth": "35px",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "primary",
             "title": "Free delivery all year long",
             "description": "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
         }

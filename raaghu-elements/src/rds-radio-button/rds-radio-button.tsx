@@ -22,6 +22,7 @@ export interface RdsRadioButtonProps {
 const RdsRadioButton = (props: RdsRadioButtonProps) => {
   const { t } = useTranslation();
   const [list, setlist] = useState(props.itemList);
+ 
   let InputGroup = props.isInputGroup || false;
   let Switch = props.switch || false;
   let Inline = props.inline || false;

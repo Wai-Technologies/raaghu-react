@@ -9,7 +9,7 @@ const meta: Meta = {
     component: RdsCompAccount,
     decorators: [
         (Story) => (
-          <div style={{ margin: '3em' }}>
+          <div>
             {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
             <Story />
           </div>
