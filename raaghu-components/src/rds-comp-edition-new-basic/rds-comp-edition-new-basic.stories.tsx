@@ -18,7 +18,8 @@ type Story = StoryObj<typeof RdsCompEditionNewBasic>;
 
 export const Default: Story = {
     args: {
-        planList: [
+        planListLabel : "Plan",
+        planList: [    
             {
                 "isFree": true,
                 "value": "standard",
