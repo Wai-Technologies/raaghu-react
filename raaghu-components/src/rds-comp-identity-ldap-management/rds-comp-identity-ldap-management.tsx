@@ -26,13 +26,13 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
     return (
         <div className="pt-3">
             <form onSubmit={handleSubmit}>
+              <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
-                    <RdsLabel label="LdapLoginSettings"></RdsLabel>
+                    <RdsLabel label="Ldap Login Settings"></RdsLabel>
                 </div>
-
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        label="EnableLdapLogin"
+                        label="Enable Ldap Login"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableLdapLogin"); }}
                         checked={ldap?.enableLdapLogin}
                         dataTestId="use-default-credential"
@@ -44,13 +44,12 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             <RdsInput
                                 value={ldap?.ldapServerHost}
                                 name="serverHost"
-                                label="ServerHost"
+                                label="Server Host"
                                 placeholder="Enter Server Host"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapServerHost")}
                                 dataTestId="server-host"
                             ></RdsInput>
-
                         </div>
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
@@ -58,7 +57,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             placeholder="389"
                             customClasses="form-control"
                             inputType="text"
-                            label="ServerPort"
+                            label="Server Port"
                             name="ldapServerPort"
                             value={ldap?.ldapServerPort}
                             onChange={(e: any) => handleChangeform(e.target.value, "ldapServerPort")}
@@ -74,7 +73,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             <RdsInput
                                 value={ldap?.ldapBaseDc}
                                 name="ldapBaseDc"
-                                label="BaseDc"
+                                label="Base Dc"
                                 placeholder="Enter Base Domain Component"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapBaseDc")}
@@ -103,7 +102,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             <RdsInput
                                 value={ldap?.ldapUserName}
                                 name="ldapUserName"
-                                label="UserName"
+                                label="User Name"
                                 placeholder="Enter Username"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapUserName")}
@@ -127,7 +126,8 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     </div>
                     <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
                 </div>
-                <div className="mt-xxl-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 pb-4 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
+              </div>
+              <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
                         type="submit"

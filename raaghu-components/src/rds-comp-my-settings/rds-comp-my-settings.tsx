@@ -103,6 +103,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <div className="custom-content-scroll">
                 <div className="mb-3">
                     <RdsInput
                         label="Profile Name"
@@ -191,27 +192,24 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                     ></RdsInput>
                     {error3 && <span className="text-danger">{error3}</span>}
                 </div>
-
-                <div className="row">
-                    <div className="col-2">
-                        <RdsButton
-                            label="Cancel"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="button"
-                            isOutline={true}
-                        />
-                    </div>
-                    <div className="col-2">
-                        <RdsButton
-                            label="Save"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                        />
-                    </div>
+                </div>
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <RdsButton
+                                size="small"
+                                isOutline={true}
+                                colorVariant="primary"
+                                label="Cancel"
+                                data-bs-dismiss="offcanvas"
+                                type="button"
+                            ></RdsButton>
+                             <RdsButton
+                                size="small"
+                                isOutline={false}
+                                colorVariant="primary"
+                                label="Save"
+                                data-bs-dismiss="offcanvas"
+                                type="button"
+                            ></RdsButton>
                 </div>
             </form>
         </div>
