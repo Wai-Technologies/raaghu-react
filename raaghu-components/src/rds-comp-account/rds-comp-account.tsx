@@ -7,7 +7,6 @@ import {
     RdsSelectList,
     RdsNavtabs
 } from "../../../raaghu-elements/src";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompAccountProps {
     accountGeneralSettings: any;
@@ -131,21 +130,6 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 ></RdsCheckbox>
                             </div>
                         </div>
-                        {/* <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <RdsCheckbox
-                                    label={t("Enable Developer Mode") || ""}
-                                    onChange={(e) => {
-                                        props.onShowDeveloperMode(e.target.checked, "developerMode");
-                                        // Include any additional logic here if needed
-                                    }}
-                                    checked={developerModeData?.developerMode}
-                                    dataTestId="developer-mode"
-                                // ...
-                                />
-                            </div>
-                        </div> */}
-
                     </>)
                     }
                     {activeNavTabId === "1" && (<>     <div className="fw-medium mb-3">

@@ -18,17 +18,16 @@ type Story = StoryObj<typeof RdsCompFeatureManagement>;
 
 export const Default: Story = {
   args: {
-    // label: "default",
     featureManagementData: {
-      id: 0,
-      name: "Identity",
-      displayName: "Identity",
+      id: 1,
+      name: "AnotherIdentity",
+      displayName: "Another Identity",
       features: [
-        { id: 0, name: "Identity.TwoFactor", displayName: "Two factor behaviour", value: "Optional" },
-        { id: 1, name: "Identity.TwoFactor", displayName: "Two factor behaviour", value: "Optional" },
-        { id: 2, name: "Identity.MaxUserCount", displayName: "Maximum user count", value: "0" },
-        { id: 3, name: "Account.EnableLdapLogin", displayName: "LDAP Login", value: "true" },
-        { id: 4, name: "Identity.EnableOAuthLogin", displayName: "OAuth Login", value: "true" }
+        { id: 0, name: "AnotherFeature", displayName: "Another feature", value: "Mandatory" },
+        { id: 1, name: "AnotherFeature2", displayName: "Another feature 2", value: "Optional"},
+        { id: 2, name: "AnotherFeature3", displayName: "Another feature 3", value: "Mandatory"},
+        { id: 3, name: "AnotherFeature4", displayName: "Another feature 4", value: "Optional"},
+        { id: 4, name: "AnotherFeature5", displayName: "Another feature 5", value: "Mandatory"}
       ]
     }
   }

@@ -19,5 +19,5 @@ type Story = StoryObj<typeof RdsCompChangeUserPassword>;
 export const Default: Story = {
     args: {
         
-    }
+    },
 } satisfies Story;
