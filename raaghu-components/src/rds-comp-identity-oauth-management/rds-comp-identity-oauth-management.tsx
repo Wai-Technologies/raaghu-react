@@ -25,12 +25,12 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
         <div className="pt-3">
             <form onSubmit={handleSubmit}>
                 <div className="mb-3 fw-medium">
-                    <RdsLabel label="OAuthLoginSettings"></RdsLabel>
+                    <RdsLabel label="OAuth Login Settings"></RdsLabel>
                 </div>
 
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        label="EnableOAuthLogin"
+                        label="Enable OAuth Login"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableOAuthLogin"); }}
                         checked={oauth?.enableOAuthLogin}
                         dataTestId="use-default-credential"
@@ -96,7 +96,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                 <div className="row">
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label="RequireHttpsMetadata"
+                            label="Require Https Metadata"
                             checked={oauth?.requireHttpsMetadata}
                             onChange={(e: any) => handleChangeform(e.target.checked, "requireHttpsMetadata")}
                             dataTestId="requireHttpsMetadata"
@@ -104,7 +104,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label="ValidateEndpoints"
+                            label="Validate End points"
                             checked={oauth?.validateEndpoints}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateEndpoints")}
                             dataTestId="validateEndpoints"
@@ -112,7 +112,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            label="ValidateIssuerName"
+                            label="Validate Issuer Name"
                             checked={oauth?.validateIssuerName}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateIssuerName")}
                             dataTestId="validateIssuerName"
