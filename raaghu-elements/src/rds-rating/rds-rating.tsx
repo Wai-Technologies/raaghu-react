@@ -28,7 +28,7 @@ const RdsRating = (props: RdsRatingProps) => {
 
   return (
     <div className={`starrating align-items-center d-flex gap-2 ${sizeClass}`}>
-      <span className="me-2">{rating}</span>
+      <span className="fs-5 me-2 mt-2">{rating}</span>
       {[...Array(totalStars)].map((_, i) => (
         <RdsIcon
           key={i}
@@ -42,7 +42,7 @@ const RdsRating = (props: RdsRatingProps) => {
           onClick={() => handleRating(i + 1)}
         />
       ))}
-      <span> See all {props.noOfReviews} review </span>
+      <span className="fs-6 mt-1"> See all {props.noOfReviews} review </span>
     </div>
   );
 };

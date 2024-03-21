@@ -125,6 +125,8 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                     <div className="col-6 mt-1 mb-3">
                         <label className="mb-2">Input Type</label>
                         <RdsDropdownList
+                            borderDropdown={true}
+                            isPlaceholder
                             placeholder="Input Type"
                             multiSelect={false}
                             reset={isReset}
