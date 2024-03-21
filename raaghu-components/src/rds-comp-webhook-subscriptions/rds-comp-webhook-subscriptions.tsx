@@ -156,6 +156,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
         <>
             <div>
                 <form onSubmit={handleSubmit}>
+                <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
                             label="Webhook Endpoint"
@@ -228,10 +229,12 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     {webhookheaderfile.length == 0 && (
                         <div>
                             <RdsIllustration
-                                label="Currently you do not have webhook header"
-                                subLabel="Click on the button above to add"
-                                colorVariant="light"
-                            />{" "}
+                                iconHeight="250px"
+                                iconPath="/assets/lottie-files/outlined/dual-color/illustration-light.json"
+                                iconWidth="250px"
+                                label="Currently you don't have any data"
+                                subLabel="Click on the button above to add data"
+                            />
                         </div>
                     )}
 
@@ -248,32 +251,27 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             recordsPerPageSelectListOption={true}
                         ></RdsCompDatatable>
                     )}
-                    <div className="row m-3 mt-5">
-                        <div className="col-2">
+                </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                             <RdsButton
                                 label="Cancel"
                                 colorVariant="primary"
-                                block={true}
                                 tooltipTitle={""}
                                 type="button"
                                 size="small"
                                 isOutline={true}
                                 dataTestId="cancel"
-                            />
-                        </div>
-                        <div className="col-2">
+                            />                        
                             <RdsButton
                                 label="Save"
                                 colorVariant="primary"
                                 isDisabled={!isFormValid}
-                                block={true}
                                 tooltipTitle={""}
                                 type="submit"
                                 size="small"
                                 dataTestId="save"
                             />
                         </div>
-                    </div>
                 </form>
             </div>
         </>
