@@ -429,7 +429,7 @@ p.cursor-pointer label {
 .btn-group>.btn:not(:last-child):not(.dropdown-toggle),
 .btn-group>.btn.dropdown-toggle-split:first-child,
 .btn-group>.btn-group:not(:last-child)>.btn {
-  border-right: 0;
+  border-right: 1;
 }
 
 .file-folder svg {

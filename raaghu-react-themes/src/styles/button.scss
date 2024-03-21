@@ -58,6 +58,18 @@
   height: 12px !important;
 } 
 
+// .btn-outline-light {
+//   background-color: #ffffff;
+//     border: 1px solid #b3b2b2;
+//     color: #a3a6aa;
+// }
+
+// .btn-outline-light:hover{
+//   color: #000;
+//   background-color: #f8f9fa;
+//   border-color: #b3b2b2;
+// }
+
 .btn-md svg {
   width: 12px !important;
   height: 12px !important;
@@ -86,8 +98,8 @@
   animation: spinner 0.8s linear infinite;
   display: inline-grid;
 }
-.btn-group {
-  > .btn {
-    color: $gray-900;
-  }
-}
+// .btn-group {
+//   > .btn {
+//     color: $gray-900;
+//   }
+// }
