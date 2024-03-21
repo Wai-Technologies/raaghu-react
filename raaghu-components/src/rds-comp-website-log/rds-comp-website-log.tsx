@@ -4,7 +4,7 @@ import { RdsBadge, RdsPagination } from "../rds-elements";
 export interface RdsCompWebsiteLogProps {
     websiteLogData: any[];
     pagination: boolean;
-    alignmentType: any;
+    alignmentType: string;
     totalRecords: number;
     recordsPerPage: number;
 }
@@ -55,7 +55,7 @@ const RdsCompWebsiteLog = (props: RdsCompWebsiteLogProps) => {
                                 </div>
                             )
                     )}
-                    <div className="pt-3 d-flex justify-content-end">
+                    <div className="pt-3">
                         {props.pagination && (
                             <div className="RdsCompDataTable__RdsPagination">
                                 <RdsPagination
@@ -64,7 +64,8 @@ const RdsCompWebsiteLog = (props: RdsCompWebsiteLogProps) => {
                                         props.recordsPerPage ? props.recordsPerPage : 5
                                     }
                                     onPageChange={onPageChangeHandler}
-                                    paginationType="advance"
+                                    paginationType="advanced"
+                                    alignmentType={props.alignmentType}
                                 ></RdsPagination>
                             </div>
                         )}
