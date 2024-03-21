@@ -141,12 +141,12 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 
                         <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
                     </div>}
-                    <div className="my-4 d-flex">
+                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
-                            label={"Cancel"}
+                            label="Cancel"
                             colorVariant="outline-primary"
                             size="small"
                             databsdismiss="offcanvas"
@@ -154,12 +154,14 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                         ></RdsButton>
                         <RdsButton
                             class="me-2"
-                            label={"Next"}
+                            label="Save"
                             size="small"
                             colorVariant="primary"
                             tooltipTitle={""}
                             type={"submit"}
-                            dataTestId="next"
+                            databsdismiss="offcanvas"
+                            isDisabled={false}
+                            dataTestId="save"
                         ></RdsButton>
                     </div>
                 </form>

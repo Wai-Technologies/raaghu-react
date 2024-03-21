@@ -219,8 +219,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div>
                   <img
                     className="cursor-pointer pe-4"
-                    width={140}
-                    height={40}
+                    width={160}
                     src={brandLogo}
                     alt="raaghu-logo"
                   ></img>

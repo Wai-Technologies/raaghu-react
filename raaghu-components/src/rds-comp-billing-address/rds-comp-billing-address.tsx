@@ -308,31 +308,28 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                             )}
                         </div>
                     </div>
-                    <div className="pt-4 row">
-                        <div className="col-md-6 mb-3">
-                            <RdsButton
-                                block={true}
-                                size="medium"
-                                isOutline={true}
-                                colorVariant="primary"
-                                label={t("Back") || ""}
-                                tooltipTitle={""}
-                                type={"button"}
-                                onClick={onbackHandler}
-                                dataTestId="back"
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <RdsButton
-                                block={true}
-                                size="medium"
-                                colorVariant="primary"
-                                label={t("Continue") || ""}
-                                tooltipTitle={""}
-                                type={"submit"}
-                                dataTestId="continue"
-                            />
-                        </div>
+                            <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                        <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
+                        <RdsButton
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            isDisabled={false}
+                            dataTestId="save"
+                        ></RdsButton>
                     </div>
                 </form>
             </div>

@@ -471,6 +471,21 @@ html[theme="semidark"] {
   width: 94%;
 }
 
+.sb-story {
+  .custom-content-scroll{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    margin-bottom: 3.2rem;
+  }
+}
+
+#storybook-root .custom-content-scroll{
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 3.4rem;
+}
+
 .i {
   cursor: pointer;
 }

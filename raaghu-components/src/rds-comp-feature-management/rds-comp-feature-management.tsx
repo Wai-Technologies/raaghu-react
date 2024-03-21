@@ -33,20 +33,22 @@ const RdsCompFeatureManagement = (props: RdsCompFeatureManagementProps) => {
     };
   });
 
-  const twoFactorItems = featureManagementData[0].features[0].valueType.itemSource.items?.map((item: any) => {
+  const twoFactorItems = featureManagementData?.[0]?.features?.[0]?.valueType?.itemSource?.items?.map((item : any) => {
     return { option: item.value, value: item.value };
-  });
+});
 
-  const handlerSubmit = (e: any) => {
-    e.preventDefault();
-    const tempdata: any[] = [];
-    props.featureManagementData?.payload.forEach((element: any, index: number) => {
+const handlerSubmit = (e: any) => {
+  e.preventDefault();
+  const tempdata: any[] = [];
+  if (props.featureManagementData && props.featureManagementData.payload) {
+    props.featureManagementData.payload.forEach((element: any, index: number) => {
       if (element.value != payloads[index].value && element.name == payloads[index].name) {
         tempdata.push(payloads[index]);
       }
     });
-    props.onSubmit && props.onSubmit(payloads)
   }
+  props.onSubmit && props.onSubmit(payloads)
+}
 
   const handlerChanges = (value: any, name: string) => {
     const tempdata = payloads.map((curElem: any, index: any) => {
@@ -76,7 +78,7 @@ const RdsCompFeatureManagement = (props: RdsCompFeatureManagementProps) => {
           </div>
 
           <div className="col-xxl-9 col-xl-7 col-lg-7 col-12 pb-4 ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-0">
-            {activeNavTabId === "0" && featureManagementData[0].displayName === "IdentityGroup" && (
+            {activeNavTabId === "0" && featureManagementData && featureManagementData.length > 0 && featureManagementData[0]?.displayName === "IdentityGroup" && (
               <>
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                   <RdsSelectList
