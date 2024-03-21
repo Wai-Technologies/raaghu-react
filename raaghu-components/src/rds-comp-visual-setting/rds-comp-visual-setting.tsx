@@ -105,10 +105,16 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                             {props.themeItem.map((theme) => (
                                 <div className="col-md-4 mb-4" key={theme.themeId}>
                                     <div
-                                        className={`d-inline-block p-3 pb-0 ${activeTheme == theme.themeId
-                                            ? "themeActivate"
-                                            : "themeInactivate"
-                                            }`}
+                                        // className={`d-inline-block p-3 pb-0 ${activeTheme == theme.themeId
+                                        //     ? "themeActivate"
+                                        //     : "themeInactivate"
+                                        //     }`}
+
+                                        className={`d-inline-block p-3 pb-0 ${
+                                            activeTheme == theme.themeId
+                                              ? "themeActivate" + (theme.themeId === 'dark' ? ' themeDark' : theme.themeId === 'semidark' ? ' themesemidark' : '')
+                                              : "themeInactivate"
+                                          }`}
                                     >
                                         <div
                                             className="p-0 cursorpointer"
@@ -219,11 +225,12 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     onChange={onSelectListValue}
                                                     name="asideSkin"
                                                 >
-                                                    <option value="DEFAULT" disabled hidden>
+                                                    <option value="DEFAULT" selected disabled hidden></option>
+                                                    <option value="DEFAULT" selected disabled hidden>
                                                         {
                                                             vsItem.filter(
                                                                 (item: any) => item.themeId == activeTheme
-                                                            )[0]?.menu?.asideSkin
+                                                            )[0]?.menu?.asideSkin 
                                                         }
                                                     </option>
                                                     {props.listskin.map((skin: any) => (
@@ -373,6 +380,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                                 onChange={onSelectListValue}
                                                                 name="headerSkin"
                                                             >
+                                            
                                                                 <option value="DEFAULT" disabled hidden>
                                                                     {
                                                                         vsItem.filter(

@@ -94,7 +94,7 @@ export const Default: Story = {
                     hoverableAside: false,
                     position: "tab",
                     searchActive: false,
-                    submenuToggle: null,
+                    submenuToggle: false,
                 },
                 subheader: {
                     containerStyle: "subheader py-2 py-lg-4  subheader-transparent",
@@ -103,7 +103,7 @@ export const Default: Story = {
                     subheaderStyle: null,
                     titleStlye: "text-dark font-weight-bold my-2 mr-5",
                 },
-                themeId: "accessible",
+                themeId: "semidark",
             },
         ],
         navtabItems: [
@@ -131,6 +131,7 @@ export const Default: Story = {
 
                 ],
             },
+            
             {
                 themeId: "dark",
                 navtabs: [
@@ -144,7 +145,7 @@ export const Default: Story = {
                 ],
             },
             {
-                themeId: "accessible",
+                themeId: "semidark",
                 navtabs: [
                     {
                         label: "Header Bar",
@@ -159,6 +160,7 @@ export const Default: Story = {
         listskin: [
             { value: "dark", displayText: "Dark" },
             { value: "light", displayText: "Light" },
+            { value: "semidark", displayText: "Semidark" },
         ],
         listSubmenu: [
             { value: "false", displayText: "Accordian" },
@@ -177,8 +179,8 @@ export const Default: Story = {
             },
             {
                 imgsrc: "https://anzstageui.raaghu.io/assets/accessibleTheme.png",
-                theme: "Accessible",
-                themeId: "accessible",
+                theme: "Semidark",
+                themeId: "semidark",
             },
         ],
     }
