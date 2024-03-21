@@ -12,7 +12,7 @@ export interface RdsForgotPasswordProps {
 }
 
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
-  
+
     const [error1, setError1] = useState("");
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
@@ -55,7 +55,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                         <div className="d-flex align-items-center mb-1">
                             <div className="col-8 col-md-8 mb-3 offset-2">
                                 <h2 className="mb-0">
-                                    ForgotPassword
+                                    Forgot Password
                                 </h2>
                             </div>
                             <div className="col-2 col-md-2 mb-3">
@@ -63,17 +63,20 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                     labelIcon={currentLanguageIcon}
                                     labelIconWidth='18px'
                                     labelIconHeight='18px'
-                                    placeholder={props.languageLabel}
+                                    borderDropdown={false}
+                                    isPlaceholder
+                                    listItems={props.languageData}
+                                    placeholder="Select Language"
                                     icon="en"
+                                    id={"langDrop"}
                                     block={false}
                                     iconFill={false}
                                     iconStroke={false}
-                                    isPlaceholder={true}
-                                    id={"langDrop"}
                                     showIcon={false}
-                                    listItems={props.languageData}
-                                    onClick={props.onClickHandler} />
+
+                                />
                             </div>
+
                         </div>
                         <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
