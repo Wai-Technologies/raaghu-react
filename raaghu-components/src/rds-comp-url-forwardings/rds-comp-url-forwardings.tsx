@@ -10,33 +10,27 @@ interface RdsCompUrlForwardingsProps {
 }
 
 function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
-
-    const [inputReset, setInputReset] = useState(props.reset)
-
-    useEffect(() => {
-        setInputReset(props.reset)
-    }, [props.reset])
-
-
-    const [formData, setFormData] = useState(props.urlForwardingData);
+    const [formData, setFormData] = useState(props.urlForwardingData || { source: '', target: '' });
 
     useEffect(() => {
-
-        setFormData(props.urlForwardingData);
+        setFormData(props.urlForwardingData || { source: '', target: '' });
     }, [props.urlForwardingData]);
 
     function handleSource(data: any) {
-        setFormData((prev: any) => ({ ...prev, source: data }));
-        props.emitUrlForwardingData({ ...formData, source: data });
+        const updatedFormData = { ...formData, source: data };
+        setFormData(updatedFormData);
+        props.emitUrlForwardingData(updatedFormData);
     }
+
     function handleTarget(data: any) {
-        setFormData((prev: any) => ({ ...prev, target: data }));
-        props.emitUrlForwardingData({ ...formData, target: data });
+        const updatedFormData = { ...formData, target: data };
+        setFormData(updatedFormData);
+        props.emitUrlForwardingData(updatedFormData);
     }
+
     return (
         <>
             <div className="tab-content">
-
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
@@ -47,9 +41,9 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         onChange={(e: any) => { handleSource(e.target.value); }}
                         dataTestId="source"
                         isDisabled={props.isEdit || false}
-                        reset={inputReset}
+                        reset={props.reset}
                     ></RdsInput>
-                    <small className="text-muted-300 ms-2" >Ensure The Url Is Starting With Slash</small>
+                    <small className="text-muted-300 ms-2" >Ensure that source URL starts with a forward slash ("/")</small>
                 </div>
 
                 <div className="form-group mb-3">
@@ -61,11 +55,11 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         onChange={(e: any) => { handleTarget(e.target.value); }}
                         value={formData.target}
                         dataTestId="target"
-                        reset={inputReset}
+                        reset={props.reset}
                     ></RdsInput>
-                    <small className="text-muted-300 ms-2" >Ensure The Url Is Starting With Slash If Same Domain</small>
-                </div>	</div>
-
+                    <small className="text-muted-300 ms-2" >URL must start with a forward slash ("/") if targeting same domain</small>
+                </div>
+            </div>
         </>
     );
 }

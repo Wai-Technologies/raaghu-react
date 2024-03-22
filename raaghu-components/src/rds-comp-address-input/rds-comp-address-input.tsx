@@ -52,9 +52,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
 
     return (
         <div className="mfe-outline p-3">
-            <div >
-               </div>
-
             <form className="needs-validation" >
                 <div className="row g-3">
                     <div className="col-md-6">

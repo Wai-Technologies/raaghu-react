@@ -29,7 +29,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
         <> <div>
             <div className="tab-content pt-3">
                 <form>
-                    <div className="">
+                    <div className="custom-content-scroll">
                         <div className="row">
                             <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
                                 <RdsInput
@@ -82,9 +82,8 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                                 ></RdsInput>
                             </div>
                         </div>
-
                     </div>
-                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
