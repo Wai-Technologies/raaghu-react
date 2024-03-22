@@ -76,72 +76,74 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     ];
     return (
         <>
-            <div className="py-4">
+            <div className="py-2">
                 <form onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="col-md-6 my-3">
-                            <RdsInput
-                                label={"Edition Name"}
-                                required={true}
-                                placeholder="Edition Name"
-                                inputType="text"
-                                onChange={valuesHandler}
-                                onBlur={inputTouchedHandler}
-                                name={"editionName"}
-                                dataTestId="edition-name"
-                            ></RdsInput>
-                            <div className="form-control-feedback">{inputTouchedAndEmpty.editionName && <span className="error-msg-color">{errorMessages.editionName}</span>}</div>
+                    <div className="custom-content-scroll">
+                        <div className="row">
+                            <div className="col-md-6 my-1">
+                                <RdsInput
+                                    label={"Edition Name"}
+                                    required={true}
+                                    placeholder="Edition Name"
+                                    inputType="text"
+                                    onChange={valuesHandler}
+                                    onBlur={inputTouchedHandler}
+                                    name={"editionName"}
+                                    dataTestId="edition-name"
+                                ></RdsInput>
+                                <div className="form-control-feedback">{inputTouchedAndEmpty.editionName && <span className="error-msg-color">{errorMessages.editionName}</span>}</div>
+                            </div>
+                            <div className="col-md-6 my-1">
+                                <RdsInput
+                                    label="Annual Price"
+                                    required={true}
+                                    placeholder="Annual Price"
+                                    inputType="number"
+                                    onChange={valuesHandler}
+                                    onBlur={inputTouchedHandler}
+                                    name={"annualPrice"}
+                                    dataTestId="annual-price"
+                                ></RdsInput>
+                                <div className="form-control-feedback">{inputTouchedAndEmpty.annualPrice && <span className="error-msg-color">{errorMessages.annualPrice}</span>}</div>
+                            </div>
                         </div>
-                        <div className="col-md-6 my-3">
-                            <RdsInput
-                                label="Annual Price"
-                                required={true}
-                                placeholder="Annual Price"
-                                inputType="number"
-                                onChange={valuesHandler}
-                                onBlur={inputTouchedHandler}
-                                name={"annualPrice"}
-                                dataTestId="annual-price"
-                            ></RdsInput>
-                            <div className="form-control-feedback">{inputTouchedAndEmpty.annualPrice && <span className="error-msg-color">{errorMessages.annualPrice}</span>}</div>
+                        <div className="row">
+                            <div className="col-md-6 px-3 my-1 ">
+                                <RdsCounter
+                                    counterValue={0}
+                                    label="Trial Period"
+                                    min={0}
+                                    max={50}
+                                    width={125}
+                                    colorVariant="primary"
+                                />
+                            </div>
+                            <div className=" col-md-6 px-3 my-1">
+                                <RdsCounter
+                                    counterValue={0}
+                                    label="Expiry Notification Interval"
+                                    min={0}
+                                    max={50}
+                                    width={125}
+                                    colorVariant="primary"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6 px-2 my-3 ">
-                            <RdsCounter
-                                counterValue={0}
-                                label="Trial Period"
-                                min={0}
-                                max={50}
-                                width={125}
-                                colorVariant="primary"
-                            />
-                        </div>
-                        <div className=" col-md-6 px-2 my-3">
-                            <RdsCounter
-                                counterValue={0}
-                                label="Expiry Notification Interval"
-                                min={0}
-                                max={50}
-                                width={125}
-                                colorVariant="primary"
-                            />
-                        </div>
-                    </div>
+                        
+                        {props.radioItems.map((ritem: any, index: any) => (
+                            <div className="my-3" key={index}>
+                                <label>{ritem.label}</label>
+                                <form>
+                                    <RdsRadioButton displayType="Horizontal" itemList={ritem.itemList} inline={ritem.inline} id={ritem.id} />
+                                </form>
+                            </div>
+                        ))}
+                        {showEditionDropdown && <div className="w-50">
 
-                    {props.radioItems.map((ritem: any, index: any) => (
-                        <div className="my-3" key={index}>
-                            <label>{ritem.label}</label>
-                            <form>
-                                <RdsRadioButton displayType="Horizontal" itemList={ritem.itemList} inline={ritem.inline} id={ritem.id} />
-                            </form>
-                        </div>
-                    ))}
-                    {showEditionDropdown && <div className="w-50">
-
-                        <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
-                    </div>}
-                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                            <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
+                        </div>}
+                    </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}

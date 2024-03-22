@@ -266,7 +266,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         </div>
                                     </div>
                                 </form>
-                                <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
+                                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                     <RdsButton
                                         label="Cancel"
                                         databsdismiss="offcanvas"
