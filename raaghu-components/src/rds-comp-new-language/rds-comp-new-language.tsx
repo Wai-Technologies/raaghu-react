@@ -107,7 +107,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langC"
-                                    label="CultureName"
+                                    label="Culture Name"
                                     selectItems={props.cultureList}
                                     selectedValue={cultureName}
                                     onChange={(item: any) => onChangeSelectList("cultureName", item.value)}
@@ -122,7 +122,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langU"
-                                    label="UiCultureName"
+                                    label="Ui Culture Name"
                                     selectItems={props.cultureList}
                                     selectedValue={cultureUIName}
                                     onChange={(item: any) => onChangeSelectList("cultureUIName", item.value)}
@@ -136,7 +136,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                         <div className="form-group">
                             <RdsInput
                                 size="medium"
-                                label="DisplayName"
+                                label="Display Name"
                                 placeholder="Enter Display Name"
                                 value={displayName}
                                 onChange={inputChangeHandler}
@@ -154,7 +154,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsSelectList
                                     id="langF"
-                                    label="FlagIcon"
+                                    label="Flag Icon"
                                     selectItems={props.flagIconList}
                                     onChange={(item: any) => onChangeSelectList("flagIcon", item.value)}
                                     selectedValue={flagIcon}
