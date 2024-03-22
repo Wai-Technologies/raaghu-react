@@ -89,11 +89,10 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                 </div>
                            
                             </div>
-                            <div
-                               className="mt-3 d-flex pb-3 m-5 footer-buttons flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2"
-                            >
-                                <div>
-                                    <RdsButton  style="align-right: 10px;"
+                            </div>
+                            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                                
+                                    <RdsButton 
                                         type="button" 
                                         isOutline={true}
                                         colorVariant="primary"
@@ -102,8 +101,8 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         onClick={onClickHandler}
                                         dataTestId="cancel"
                                     ></RdsButton>
-                                </div>
-                                <div>
+                                
+            
                                     <RdsButton
                                         type="submit"
                                         isOutline={false}
@@ -112,9 +111,8 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="small"
                                         dataTestId="submit"
                                     ></RdsButton>
-                                </div>
                             </div>
-                            </div>
+                            
                         </form>
                     )}
                 </div>

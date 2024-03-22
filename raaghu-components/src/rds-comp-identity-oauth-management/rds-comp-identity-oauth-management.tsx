@@ -120,7 +120,8 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         ></RdsCheckbox>
                     </div>
                 </div>
-                <div className="mt-xxl-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 pb-4 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
+                </div>
+                <div  className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
                         type="submit"
@@ -130,7 +131,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         onClick={() => { props.onOauthDataSubmit(oauth) }}
                     ></RdsButton>
                 </div>
-             </div>
+             
             </form>
         </div>
     );
