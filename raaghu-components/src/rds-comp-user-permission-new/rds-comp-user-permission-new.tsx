@@ -40,9 +40,9 @@ const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
           iconWidth="15px"
           iconColorVariant="light"
           dataTestId="new-user"
+          size="small"
         />
       </div>
-
       <RdsCompDatatable
         actionPosition="right"
         tableHeaders={props.tableHeaders}

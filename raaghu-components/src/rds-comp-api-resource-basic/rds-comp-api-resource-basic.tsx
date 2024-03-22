@@ -68,9 +68,9 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
     };
     return (
         <>
-            <div >
-
+            <div>
                 <form onSubmit={handleSubmit}>
+                  <div className="custom-content-scroll">
                     <div className="row mt-3">
                         <div className="col-6">
                             <RdsInput
@@ -100,7 +100,6 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
 
                         </div>
                     </div>
-
                     <div className=" mb-4">
                         <RdsTextArea
                             label='Description'
@@ -124,12 +123,13 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
                             dataTestId="allowed-access-token"
                         ></RdsInput>
                     </div>
-                    <div >
+                    <div>
                         {/* <label className="Text-bold" >Others</label>
             <RdsCheckboxGroup itemList={props.resourceData.checklist} /> */}
                     </div>
-                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
-                        <RdsButton
+                   </div>
+                   <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                     <RdsButton
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}

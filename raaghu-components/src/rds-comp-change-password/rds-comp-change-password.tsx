@@ -28,8 +28,8 @@ const RdsCompChangePassword = (props: any) => {
     }
 
     return (
-
         <form data-testid="password-form" onSubmit={handlePasswordDataSubmit}>
+            <div className="custom-content-scroll">
             <div className="row mt-4">
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
@@ -63,24 +63,7 @@ const RdsCompChangePassword = (props: any) => {
                         showIcon={true}
                     ></RdsInput>
                 </div>
-            </div>
-            {/* <div className="row">
-                <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
-                    <RdsInput
-                        size="medium"
-                        label="New Password"
-                        inputType="password"
-                        isDisabled={false}
-                        readonly={false}
-                        required={true}
-                        placeholder="New Password Confirm"
-                        value={formData?.newPasswordConfirm}
-                        onChange={(e: any) => setConfirmNewPassword(e.target.value)}
-                        dataTestId='confirm-password'
-                        showIcon={true}
-                    ></RdsInput>
-                </div>
-            </div> */}
+            </div>           
             <div className="row">
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
@@ -97,7 +80,8 @@ const RdsCompChangePassword = (props: any) => {
                     ></RdsInput>
                 </div>
             </div>
-            <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+            </div>
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -112,16 +96,15 @@ const RdsCompChangePassword = (props: any) => {
                             class="me-2"
                             label="Save"
                             size="small"
-                            // colorVariant="primary"
+                            colorVariant="primary"
                             tooltipTitle={""}
                             type={"submit"}
                             databsdismiss="offcanvas"
                             isDisabled={false}
                             dataTestId="save"
                         ></RdsButton>
-                    </div>
+            </div>
         </form>
-
     );
 };
 
