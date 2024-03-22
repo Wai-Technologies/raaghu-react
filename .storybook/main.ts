@@ -2,7 +2,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
   stories: [
-    "../stories/**/*.mdx",
+    // "../stories/**/*.mdx",
     // "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../raaghu-elements/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
@@ -14,8 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
-    //"@storybook/addon-toolbars"
-    "storybook-addon-themes",
+    "@storybook/addon-themes"
   ],
   core: {
     builder: '@storybook/builder-vite', // 👈 The builder enabled here.
