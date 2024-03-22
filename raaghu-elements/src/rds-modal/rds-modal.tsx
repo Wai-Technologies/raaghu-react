@@ -26,7 +26,7 @@ export interface RdsModalProps {
 const RdsModal = (props: RdsModalProps) => {
     const preventEscapeKey = `${props.hasOwnProperty("preventEscapeKey") ? props.preventEscapeKey : true
         }`;
-    const Backdrop = `${props.hasOwnProperty("modalBackdrop") ? props.modalBackdrop : true
+    const Backdrop = `${props.hasOwnProperty("modalBackdrop") ? props.modalBackdrop : false
         }`;
 
     const getModalClasses = () => {

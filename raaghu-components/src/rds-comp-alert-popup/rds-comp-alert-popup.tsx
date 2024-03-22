@@ -25,9 +25,9 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
         <div>
             <RdsModal
                 modalId={props.alertID}
-                modalBackdrop="static"
+            
                 preventEscapeKey={false}
-                modalAnimation="modal fade"
+                modalAnimation="modal-fade"
                 showModalFooter={false}
                 showModalHeader={false}
                 scrollable={false}
