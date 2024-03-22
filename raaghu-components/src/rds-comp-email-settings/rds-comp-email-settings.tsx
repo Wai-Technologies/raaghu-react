@@ -64,25 +64,22 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
                 <hr></hr>
                 <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
-                    <div className="me-3">
-                        <RdsButton
-                            type="button"
-                            colorVariant="primary"
-                            label="Cancel"
-                            isOutline={true}
-                            size="small"
-                            dataTestId="cancel"
-                        ></RdsButton>
-                    </div>
-                    <div className="me-2 mb-2">
-                        <RdsButton
-                            type="submit"
-                            colorVariant="primary"
-                            label="Save"
-                            size="small"
-                            dataTestId="submit"
-                        ></RdsButton>
-                    </div>
+
+                    <RdsButton
+                        type="button"
+                        colorVariant="primary"
+                        label="Cancel"
+                        isOutline={true}
+                        size="small"
+                        dataTestId="cancel"
+                    ></RdsButton>
+                    <RdsButton
+                        type="submit"
+                        colorVariant="primary"
+                        label="Save"
+                        size="small"
+                        dataTestId="submit"
+                    ></RdsButton>
                 </div>
             </form>
         </>
