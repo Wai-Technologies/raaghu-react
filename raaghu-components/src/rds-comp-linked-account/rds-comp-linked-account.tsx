@@ -51,6 +51,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                     </div>
                     {page && (
                         <form onSubmit={(e) => onSubmitHandler(e)}>
+                            <div className="custom-content-scroll">
                             <div className="row">
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
                                     <RdsInput
@@ -86,13 +87,14 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         showIcon= {false}
                                     ></RdsInput>
                                 </div>
+                           
                             </div>
                             <div
-                                className="d-flex bottom-0 gap-2 mb-4 position-absolute"
+                               className="mt-3 d-flex pb-3 m-5 footer-buttons flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2"
                             >
                                 <div>
-                                    <RdsButton
-                                        type="button"
+                                    <RdsButton  style="align-right: 10px;"
+                                        type="button" 
                                         isOutline={true}
                                         colorVariant="primary"
                                         label="Cancel"
@@ -111,6 +113,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         dataTestId="submit"
                                     ></RdsButton>
                                 </div>
+                            </div>
                             </div>
                         </form>
                     )}

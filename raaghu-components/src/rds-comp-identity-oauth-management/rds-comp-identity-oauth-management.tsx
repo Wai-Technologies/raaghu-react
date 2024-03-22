@@ -24,6 +24,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
     return (
         <div className="pt-3">
             <form onSubmit={handleSubmit}>
+                <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
                     <RdsLabel label="OAuthLoginSettings"></RdsLabel>
                 </div>
@@ -129,7 +130,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         onClick={() => { props.onOauthDataSubmit(oauth) }}
                     ></RdsButton>
                 </div>
-
+             </div>
             </form>
         </div>
     );

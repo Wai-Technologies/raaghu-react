@@ -15,7 +15,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
 
     return (
         <>
-            <form className="p-2 mt-2">
+            <form className="p-2 mt-1">
                 <div className="row mb-4">
                     <div className="col-lg-6 col-md-6">
                         <div>
@@ -121,7 +121,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                         dataTestId='consent'
                     ></RdsCheckbox>
                 </div>
-                <div className="mt-3 d-flex pb-3 footer-buttons flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
+                <div className="mt-3 d-flex pb-3 m-2 footer-buttons flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                     <RdsButton
                         class="me-2"
                         tooltipTitle={""}

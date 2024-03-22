@@ -16,6 +16,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
     }
     return (
         <>
+        <div className="custom-content-scroll">
             <div className="row">
                 <RdsFileUploader
                     colorVariant="primary"
@@ -49,6 +50,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     class="me-2"
                     onClick={props.onClick}
                 ></RdsButton>
+            </div>
             </div>
         </>
     );

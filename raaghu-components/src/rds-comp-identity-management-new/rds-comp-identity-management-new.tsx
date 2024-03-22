@@ -42,6 +42,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
         setUserSettings({ ...userSettings, [key]: value });
     }
     return (
+        <div className="custom-content-scroll">
         <div className="pt-3">
             <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
                 <form onSubmit={handleSubmit}>
@@ -295,6 +296,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     onClick={() => { props.onIdentitySettingsSubmit({ lockout: lockoutSettings, user: userSettings, signIn: signSettings, password: passwordSettings }); }}
                 ></RdsButton>
             </div>
+        </div>
         </div>
     );
 };
