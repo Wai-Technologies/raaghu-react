@@ -31,7 +31,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   }, [props.selectedValue]);
   useEffect(() => {
-    debugger
     if (props.selectItems) {
       const tempOptions = props.selectItems.map((item) => ({
         value: item.value,
@@ -51,7 +50,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
   }
 
   const handleSelectChange = (items: any) => {
-    debugger
     if (!props.isMultiple) {
       props.onChange(items);
       setselectedValue(items.value);

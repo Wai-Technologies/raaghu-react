@@ -51,9 +51,9 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
     };
     return (
         <>
-            <div className="row align-items-center">
-                <div className="col-md-12">
-                    <form className='mb-0'>
+            <div>
+                    <form>
+                    <div className="custom-content-scroll">
                         <div className="from-group mb-3">
                             <RdsFileUploader
                                 colorVariant="dark"
@@ -78,7 +78,6 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 onClick={(e: any, val: any) => handlerblogDataChange(val, "blogId")}
                             />
                         </div>
-
                         <div className="form-group">
                             <RdsInput
                                 inputType="text"
@@ -144,10 +143,10 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-                    </form>
-                </div>
-                <div className="footer-buttons pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-start d-flex gap-2" >
-                    {!props.isEdit ? <>
+                        </div>
+
+                        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                        {!props.isEdit ? <>
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -213,7 +212,8 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                         ></RdsButton>
                     </>}
                 </div>
-            </div>
+                    </form>
+                </div>               
 
         </>
     );

@@ -140,6 +140,7 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
             <div className="contact-information">
                 <h3 className="pb-2">Billing Address</h3>
                 <form id="billingAddressForm" onSubmit={onSubmitHandler}>
+                <div className="custom-content-scroll">
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <RdsInput
@@ -308,8 +309,9 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                             )}
                         </div>
                     </div>
-                            <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
-                        <RdsButton
+                </div>
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                       <RdsButton
                             class="me-2"
                             tooltipTitle={""}
                             type={"button"}
@@ -330,7 +332,7 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                             isDisabled={false}
                             dataTestId="save"
                         ></RdsButton>
-                    </div>
+                </div>
                 </form>
             </div>
         </>
