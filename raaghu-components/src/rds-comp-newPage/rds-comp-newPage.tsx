@@ -54,89 +54,93 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
 
 
     return (
-        <div className="row">
-            <div className="col-md-12">
-                <div className="form-group">
-                    <RdsInput
-                        inputType="text"
-                        required={true}
-                        reset={inputReset}
-                        label="Title"
-                        placeholder="Enter Title"
-                        value={data?.title}
-                        onChange={onTextChangeHandler}
-                        dataTestId='title'
-                    ></RdsInput>
-                </div>
-            </div>
-            <div className="col-md-12">
-                <div className="form-group">
-                    <RdsInput
-                        inputType="text"
-                        required={true}
-                        reset={inputReset}
-                        label="Slug"
-                        placeholder="Enter Slug"
-                        value={data?.slug}
-                        onChange={onSlugChangeHandler}
-                        dataTestId='slug'
-                    ></RdsInput>
-                </div>
-            </div>
-            <RdsNavtabs
-                type="tabs"
-                activeNavtabOrder={handleractiveNavtabOrder}
-                activeNavTabId={"content"}
-                fill={false}
-                navtabsItems={[
-                    {
-                        label:"Content",
-                        tablink: "#nav-Operation",
-                        id: "content",
-                    },
-                    {
-                        label:"Script",
-                        tablink: "#nav-Change",
-                        id: "script",
-                    },
-                    {
-                        label:"Style",
-                        tablink: "#nav-Claims",
-                        id: "style",
-                    },
-                ]}
-            />
-            <div className="mt-3 overflow-x-hidden overflow-y-scroll offcanvas-custom-scroll">
-                {activeTab == "content" && (
-                    <RdsTextEditor value={data?.content} onChange={(e) => onContentHandler(e)} placeholder={""} ></RdsTextEditor >
-                )}
-                {activeTab == "script" && (
-                    <div className="mb-3">
-
-                        <RdsTextArea
-                            label="Script Description"
-                            placeholder="Enter Description"
-                            readonly={false}
-                            rows={3}
-                            value={data?.script}
-                            onChange={onScriptDescHandler}
-                        ></RdsTextArea>
+        <>
+            <div className="custom-content-scroll">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <RdsInput
+                                inputType="text"
+                                required={true}
+                                reset={inputReset}
+                                label="Title"
+                                placeholder="Enter Title"
+                                value={data?.title}
+                                onChange={onTextChangeHandler}
+                                dataTestId='title'
+                            ></RdsInput>
+                        </div>
                     </div>
-                )}
-                {activeTab == "style" && (
-                    <div className="mb-3">
-                        <RdsTextArea
-                            label="Style Description"
-                            placeholder=""
-                            readonly={false}
-                            rows={3}
-                            value={data?.style}
-                            onChange={onStyleDescHandler}
-                        ></RdsTextArea>
-
-
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <RdsInput
+                                inputType="text"
+                                required={true}
+                                reset={inputReset}
+                                label="Slug"
+                                placeholder="Enter Slug"
+                                value={data?.slug}
+                                onChange={onSlugChangeHandler}
+                                dataTestId='slug'
+                            ></RdsInput>
+                        </div>
                     </div>
-                )}
+                    <RdsNavtabs
+                        type="tabs"
+                        activeNavtabOrder={handleractiveNavtabOrder}
+                        activeNavTabId={"content"}
+                        fill={false}
+                        navtabsItems={[
+                            {
+                                label: "Content",
+                                tablink: "#nav-Operation",
+                                id: "content",
+                            },
+                            {
+                                label: "Script",
+                                tablink: "#nav-Change",
+                                id: "script",
+                            },
+                            {
+                                label: "Style",
+                                tablink: "#nav-Claims",
+                                id: "style",
+                            },
+                        ]}
+                    />
+                    <div className="mt-3 overflow-x-hidden overflow-y-scroll offcanvas-custom-scroll">
+                        {activeTab == "content" && (
+                            <RdsTextEditor value={data?.content} onChange={(e) => onContentHandler(e)} placeholder={""} ></RdsTextEditor >
+                        )}
+                        {activeTab == "script" && (
+                            <div className="mb-3">
+
+                                <RdsTextArea
+                                    label="Script Description"
+                                    placeholder="Enter Description"
+                                    readonly={false}
+                                    rows={3}
+                                    value={data?.script}
+                                    onChange={onScriptDescHandler}
+                                ></RdsTextArea>
+                            </div>
+                        )}
+                        {activeTab == "style" && (
+                            <div className="mb-3">
+                                <RdsTextArea
+                                    label="Style Description"
+                                    placeholder=""
+                                    readonly={false}
+                                    rows={3}
+                                    value={data?.style}
+                                    onChange={onStyleDescHandler}
+                                ></RdsTextArea>
+
+
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
@@ -165,7 +169,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                     dataTestId='save'
                 ></RdsButton>
             </div>
-        </div>
+        </>
     );
 };
 
