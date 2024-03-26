@@ -3,7 +3,7 @@ import { RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 export interface RdsCompReviewsProps {
     itemList: Item[];
-    variantType?: "multi-column" | "with-summary-chart" | "simple-with-avatars";
+    variantType?: "with-summary-chart" | "multi-column";
 }
 const RdsCompReviews = (props: RdsCompReviewsProps) => {
     return (
@@ -16,7 +16,6 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                     </div>
                 ))
             }
-            {props.variantType === "simple-with-avatars" && <RdsCompFeeds variantType='Advanced' itemList={props.itemList} />}
         </div>
     );
 };
