@@ -54,9 +54,10 @@ export const Default: Story = {
                         "option": "UK",
                         // "isSelected": false
                     }
-                ]
+        ]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['countryList'] } };
 
 
 

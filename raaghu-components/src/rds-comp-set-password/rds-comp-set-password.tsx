@@ -40,15 +40,14 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
     <div>
       <div className="tab-content">
         <form>
-
+          <div className="custom-content-scroll">
           <div className="row mt-3">
-
             <div className="col-md-6 mb-2">
               <div className="form-group">
                 <RdsInput
                   reset={inputReset}
                   required={true}
-                  label="Saas.Password"
+                  label="Password"
                   placeholder="Enter Password"
                   inputType="password"
                   name="adminPassword"
@@ -60,8 +59,8 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
               </div>
             </div>
           </div>
-
-          <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
+          </div>
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
             <RdsButton
               class="me-2"
               tooltipTitle={""}
