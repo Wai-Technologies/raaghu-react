@@ -46,6 +46,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
         <div>
             <div className="tab-content py-4">
                 <form>
+                    <div className="custom-content-scroll">
                     {props.showEditData && (
                         <div className="row">
                             <div className="col-md-12 sm-p-0">
@@ -61,7 +62,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                         </div>
                     )}
                     {!hostDatabaseChecked && (
-                        <div className="row mb-3">
+                        <div className="row">
                             <div className="col-md-6 sm-p-0">
                                 <div className="form-group mb-3">
                                     <RdsInput
@@ -78,7 +79,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                         </div>
                     )}
                     {!isRandomPasswordChecked && (
-                        <div className="row mb-3">
+                        <div className="row">
                             <div className="col-md-6 sm-p-0">
                                 <div className="form-group mb-3">
                                     <RdsInput
@@ -180,7 +181,8 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className=" d-flex my-2">
+                    </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             tooltipTitle={""}
                             type={"button"}

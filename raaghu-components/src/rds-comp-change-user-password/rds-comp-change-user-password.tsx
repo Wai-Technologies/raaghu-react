@@ -58,7 +58,9 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
     const FormValid = isPasswordValid(changePassword?.currentPassword) && isNewPasswordValid(changePassword?.newPassword) && isConfirmedPasswordValid(changePassword?.newPasswordConfirm);
 
     return (
-        <div className="row py-4">
+        <form>
+             <div className="custom-content-scroll">
+        <div className="row">
             <div className="col-12 col-md-12">
                 <RdsInput
                     size="medium"
@@ -103,17 +105,20 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                     {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
                 </div>
             </div>
-            <div className="d-flex mt-5">
+            </div>
+            </div>
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
                     label="Save"
                     colorVariant='primary'
                     block={false}
                     type="submit"
+                    size="small"
                     onClick={() => handlePasswordDataSubmit(changePassword)}
                     isDisabled={!FormValid}
                 />
-            </div>
-        </div>
+            </div>        
+        </form>
     );
 
 };

@@ -163,7 +163,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                         onChange={curPasshandleChange}
                         value={curPass}
                         name={"curPass"}
-                        showIcon= {false}
+                        showIcon= {true}
                     ></RdsInput>
                     {error1 && <span className="text-danger">{error1}</span>}
                 </div>
@@ -176,6 +176,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                         onChange={newPasshandleChange}
                         name={"newPass"}
                         value={newPass}
+                        showIcon= {true}
                     ></RdsInput>
                     {error2 && <span className="text-danger">{error2}</span>}
                 </div>
@@ -188,7 +189,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
                         onChange={curNewPasshandleChange}
                         name={"curNewPass"}
                         value={curNewPass}
-                        showIcon= {false}
+                        showIcon= {true}
                     ></RdsInput>
                     {error3 && <span className="text-danger">{error3}</span>}
                 </div>
