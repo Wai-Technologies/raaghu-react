@@ -342,21 +342,25 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                         dataTestId="staticIcons" isDisabled ></RdsCheckbox>
                   </div>
                </div>
-               <div className="mt-xxl-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 pb-4 fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
-                  <div className="me-3">
-                     <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a>
+               <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
 
-                  </div>
-                  <div className="me-2 mb-2">
-                     <RdsButton
-                        type="submit"
-                        colorVariant="primary"
-                        label="Apply"
-                        size="small"
-                        dataTestId="submit"
-                        onClick={() => { props.onModeDataSubmit(modeData); }}
-                     ></RdsButton>
-                  </div>
+                  {/* <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a> */}
+                  <RdsButton
+                     type="button"
+                     label="RESTORE TO DEFAULT"
+                     colorVariant="outline-primary"
+                     size="small"
+                     databsdismiss="offcanvas"
+                     onClick={resetToDefault}
+                  ></RdsButton>
+                  <RdsButton
+                     type="submit"
+                     colorVariant="primary"
+                     label="Apply"
+                     size="small"
+                     dataTestId="submit"
+                     onClick={() => { props.onModeDataSubmit(modeData); }}
+                  ></RdsButton>
                </div>
             </form>
          </div>
