@@ -80,83 +80,81 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
         <>
             <div>
                 <form onSubmit={handleSubmit}>
-                    <div className="fw-normal mt-1 mb-3">
-                        <RdsInput
-                            label="Current password"
-                            required={true}
-                            placeholder="Current password"
-                            inputType="password"
-                            onChange={curPasshandleChange}
-                            value={curPass}
-                            name={"curPass"}
-			                dataTestId="current-password"
-                            showIcon= {true}
-                        ></RdsInput>
-                        {error1 && <span className="text-danger">{error1}</span>}
-                    </div>
-                    <div className=" fw-normal mb-3">
-                        <RdsInput
-                            label="New password"
-                            required={true}
-                            placeholder="New password"
-                            inputType="password"
-                            onChange={newPasshandleChange}
-                            name={"newPass"}
-                            value={newPass}
-                            showIcon= {true}
-			                dataTestId="new-password"
-                        ></RdsInput>
-                        {error2 && <span className="text-danger">{error2}</span>}
-                    </div>
-                    <div className=" fw-normal mb-3">
-                        <RdsInput
-                            label="Confirm new password"
-                            required={true}
-                            placeholder="Confirm new password"
-                            inputType="password"
-                            onChange={curNewPasshandleChange}
-                            name={"curNewPass"}
-                            value={curNewPass}
-                            showIcon= {true}
-			                dataTestId="confirm-password"
-                        ></RdsInput>
-                        {error3 && <span className="text-danger">{error3}</span>}
-                    </div>
-
-                    <div>
-                        <h5 className="fw-bolder">Where you are logged in</h5>
-                        <p className="fw-normal">
-                            We wll alert you via olivia@rdssysteminc.com if there is any
-                            unusual activity on your account.
-                        </p>
-                    </div>
-
-                    <div className="row fixed-bottom m-3">
-                        <div className="col-2">
-                            <RdsButton
-                                label="Cancel"
-                                colorVariant="primary"
-                                block={true}
-                                tooltipTitle={""}
-                                type="button"
-                                isOutline={true}
-                                dataTestId="cancel"
-                            />
+                    <div className="custom-content-scroll">
+                        <div className="fw-normal mt-1 mb-3">
+                            <RdsInput
+                                label="Current password"
+                                required={true}
+                                placeholder="Current password"
+                                inputType="password"
+                                onChange={curPasshandleChange}
+                                value={curPass}
+                                name={"curPass"}
+                                dataTestId="current-password"
+                                showIcon={true}
+                            ></RdsInput>
+                            {error1 && <span className="text-danger">{error1}</span>}
                         </div>
-                        <div className="col-2">
-                            <RdsButton
-                                label="Save"
-                                colorVariant="primary"
-                                isDisabled={!isFormValid}
-                                block={true}
-                                tooltipTitle={""}
-                                type="submit"
-                                dataTestId="save"
-                            />
+                        <div className=" fw-normal mb-3">
+                            <RdsInput
+                                label="New password"
+                                required={true}
+                                placeholder="New password"
+                                inputType="password"
+                                onChange={newPasshandleChange}
+                                name={"newPass"}
+                                value={newPass}
+                                showIcon={true}
+                                dataTestId="new-password"
+                            ></RdsInput>
+                            {error2 && <span className="text-danger">{error2}</span>}
+                        </div>
+                        <div className=" fw-normal mb-3">
+                            <RdsInput
+                                label="Confirm new password"
+                                required={true}
+                                placeholder="Confirm new password"
+                                inputType="password"
+                                onChange={curNewPasshandleChange}
+                                name={"curNewPass"}
+                                value={curNewPass}
+                                showIcon={true}
+                                dataTestId="confirm-password"
+                            ></RdsInput>
+                            {error3 && <span className="text-danger">{error3}</span>}
+                        </div>
+
+                        <div>
+                            <h5 className="fw-bolder">Where you are logged in</h5>
+                            <p className="fw-normal">
+                                We wll alert you via olivia@rdssysteminc.com if there is any
+                                unusual activity on your account.
+                            </p>
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                        <RdsButton
+                            label="Cancel"
+                            colorVariant="primary"
+                            block={true}
+                            tooltipTitle={""}
+                            type="button"
+                            isOutline={true}
+                            dataTestId="cancel"
+                        />
+                        <RdsButton
+                            label="Save"
+                            colorVariant="primary"
+                            isDisabled={!isFormValid}
+                            block={true}
+                            tooltipTitle={""}
+                            type="submit"
+                            dataTestId="save"
+                        />
+                    </div>
+                </form >
+            </div >
         </>
     );
 };
