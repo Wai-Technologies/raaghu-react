@@ -62,6 +62,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['variantType', 'itemList'] } };
 
 export const MultiColumn: Story = {
     args: {
@@ -110,3 +111,4 @@ export const MultiColumn: Story = {
         ]
     }
 } satisfies Story;
+MultiColumn.parameters = { controls: { include: ['variantType', 'itemList'] } };

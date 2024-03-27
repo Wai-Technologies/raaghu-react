@@ -90,53 +90,54 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
       <div>
          <div className="tab-content">
             <form >
-               <div className="row mb-3">
-                  <div className="col-md-8">
-                     <RdsLabel
-                        label="ConnectionStrings"
-                        required={true}
-                     />
-                     <div className="form-group mt-2">
-                        <RdsRadioButton
-                           displayType="Horizontal"
-                           label=""
-                           itemList={radioItemList}
-                           onClick={handleConnectionStrings}
-                        ></RdsRadioButton>
+               <div className="custom-content-scroll">
+                  <div className="row mb-3">
+                     <div className="col-md-8">
+                        <RdsLabel
+                           label="ConnectionStrings"
+                           required={true}
+                        />
+                        <div className="form-group mt-2">
+                           <RdsRadioButton
+                              displayType="Horizontal"
+                              label=""
+                              itemList={radioItemList}
+                              onClick={handleConnectionStrings}
+                           ></RdsRadioButton>
+                        </div>
                      </div>
                   </div>
-               </div>
-               {radioItemList.length !== 0 && radioItemList[1].checked && (
-                  <>
-                     <div className="row">
-                        <div className="col-md-12 mb-3">
-                           <div className="form-group">
-                              <RdsTextArea
-                                 label="Database URL"
-                                 placeholder="Enter URL"
-                                 onChange={(e: any) => setConnectionStrings({ ...connectionStrings, default: e.target.value })}
-                                 rows={2}
-                                 value={connectionStrings?.default}
-                                 dataTestId="data"
-                              />
+                  {radioItemList.length !== 0 && radioItemList[1].checked && (
+                     <>
+                        <div className="row">
+                           <div className="col-md-12 mb-3">
+                              <div className="form-group">
+                                 <RdsTextArea
+                                    label="Database URL"
+                                    placeholder="Enter URL"
+                                    onChange={(e: any) => setConnectionStrings({ ...connectionStrings, default: e.target.value })}
+                                    rows={2}
+                                    value={connectionStrings?.default}
+                                    dataTestId="data"
+                                 />
+                              </div>
                            </div>
                         </div>
-                     </div>
-                     <div className="row">
-                        <div className="col-md-12 mb-3">
-                           <RdsCheckbox
-                              label="Use Module Specific Database Connection String"
-                              checked={isModuleSpecificDb}
-                              onChange={checkboxHandler}
-                           ></RdsCheckbox>
+                        <div className="row">
+                           <div className="col-md-12 mb-3">
+                              <RdsCheckbox
+                                 label="Use Module Specific Database Connection String"
+                                 checked={isModuleSpecificDb}
+                                 onChange={checkboxHandler}
+                              ></RdsCheckbox>
+                           </div>
                         </div>
-                     </div>
-                  </>
-               )}
+                     </>
+                  )}
+               </div>
 
-               <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
+               <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                   <RdsButton
-                     class="me-2"
                      tooltipTitle={""}
                      type={"button"}
                      label="Cancel"
@@ -145,7 +146,6 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                      databsdismiss="offcanvas"
                   ></RdsButton>
                   <RdsButton
-                     class="me-2"
                      label="Save"
                      size="small"
                      colorVariant="primary"

@@ -15,14 +15,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 <div className="row mt-3">
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-                                label="First Name"
-                                class="form-label ms-1 inputLabel"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="First Name"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -33,14 +27,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     </div>
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-                                label="Last Name"
-                                class="form-label ms-1"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="Last Name"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -54,13 +42,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 <div className="row mt-3">
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-                                label="Company"
-                                class="form-label ms-1 inputLabel"
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="Company"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -71,15 +54,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     </div>
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-
-                                label="Phone"
-                                class="form-label ms-1"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="Phone"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -92,15 +68,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
 
                 <div className="row mt-3">
                     <div className="form-group">
-                        <RdsLabel
-                            size="14px"
-
-                            label="Address"
-                            class="form-label ms-1"
-                            children={<span className="text-danger"></span>}
-                        ></RdsLabel>
                         <RdsInput
-                            size="small"
+                            label="Address"
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
@@ -113,15 +82,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 <div className="row mt-3">
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-
-                                label="City"
-                                class="form-label ms-1 inputLabel"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="City"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -132,15 +94,9 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     </div>
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-                                label="Country"
-                                class="form-label ms-1"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsSelectList
                                 id="seleCon"
-                                label="Select Country"
+                                label="Country"
                                 selectItems={props.countryList}
                             ></RdsSelectList>
                         </div>
@@ -150,15 +106,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 <div className="row mt-3">
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-
-                                label="State/Province"
-                                class="form-label ms-1 inputLabel"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="State/Province"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -169,15 +118,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                     </div>
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
-                            <RdsLabel
-                                size="14px"
-
-                                label="Postal Code"
-                                class="form-label ms-1"
-                                children={<span className="text-danger"></span>}
-                            ></RdsLabel>
                             <RdsInput
-                                size="small"
+                                label="Postal Code"
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}

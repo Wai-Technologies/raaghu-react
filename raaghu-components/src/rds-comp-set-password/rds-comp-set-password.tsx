@@ -40,30 +40,28 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
     <div>
       <div className="tab-content">
         <form>
-
-          <div className="row mt-3">
-
-            <div className="col-md-6 mb-2">
-              <div className="form-group">
-                <RdsInput
-                  reset={inputReset}
-                  required={true}
-                  label="Saas.Password"
-                  placeholder="Enter Password"
-                  inputType="password"
-                  name="adminPassword"
-                  id="adminPassword"
-                  value={password}
-                  onChange={(e: any) => setPassword(e.target.value)}
-                  showIcon= {true}
-                ></RdsInput>
+          <div className="custom-content-scroll">
+            <div className="row mt-3">
+              <div className="col-md-6 mb-2">
+                <div className="form-group">
+                  <RdsInput
+                    reset={inputReset}
+                    required={true}
+                    label="Password"
+                    placeholder="Enter Password"
+                    inputType="password"
+                    name="adminPassword"
+                    id="adminPassword"
+                    value={password}
+                    onChange={(e: any) => setPassword(e.target.value)}
+                    showIcon={true}
+                  ></RdsInput>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
             <RdsButton
-              class="me-2"
               tooltipTitle={""}
               type={"button"}
               label="Cancel"
@@ -72,7 +70,6 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
               databsdismiss="offcanvas"
             ></RdsButton>
             <RdsButton
-              class="me-2"
               label="Save"
               size="small"
               isDisabled={!isFormValid}

@@ -151,6 +151,7 @@ const RdsCompProfilePicture = (props: any) => {
   }
   return (
     <form>
+      <div className="custom-content-scroll">
       <div className="d-md-flex d-block py-4 align-items-center">
         <div className="mb-3 d-xxl-block d-xl-block d-lg-block d-md-block d-flex justify-content-center mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-4">
           <img
@@ -193,7 +194,7 @@ const RdsCompProfilePicture = (props: any) => {
           </>
         )}
       </div>
-      <div className="row">
+      </div>
       <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
         <RdsButton
             label="Save Changes"
@@ -205,7 +206,7 @@ const RdsCompProfilePicture = (props: any) => {
             onClick={onSaveHandler}
             dataTestId="save"
           />
-        </div></div>
+        </div>
     </form>
   );
 };
