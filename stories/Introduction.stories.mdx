@@ -9,6 +9,30 @@ import Repo from "./assets/repo.svg";
 import StackAlt from "./assets/stackalt.svg";
 import image from "./assets/how.png";
 import demo from "./assets/Demo.gif";
+import bannerImage from './assets/storybook-hero-Banner.png';
+import dasboardImage from './assets/dashboard.png';
+import reactImage from './assets/react.png';
+import viteImage from './assets/vite.png';
+import typescriptImage from './assets/typescript.png';
+import bootstrapImage from './assets/bootstrap.png';
+import storybookImage from './assets/storybook.png';
+import seamlessUIImage from './assets/grid-setting-streamline-nova.png';
+import chartsLayoutImage from './assets/analytic-pie--streamline-nova.png';
+import seamlessUIHoverImage from './assets/grid-setting--streamline-nova-hover.png';
+import chartsLayoutHoverImage from './assets/analytic-pie-streamline-nova-hover.png';
+import fastGif from './assets/point-to-point.gif';
+import fastWebGif from './assets/web-dashboard.gif';
+import consistenceGif from './assets/Notes.gif';
+import scalableGif from './assets/layer-stack.gif';
+import flexibleGif from './assets/point-to-point.gif';
+import maintainableGif from './assets/Settings.gif';
+import pixelPerfectGif from './assets/web-designing.gif';
+import appShellImage from './assets/app-shell.png';
+import layoutsImage from './assets/layouts-learn-more.png';
+import componentsImage from './assets/components-learn-more.png';
+import elementsImage from './assets/elements-learn-more.png';
+import chartsImage from './assets/charts-learn-more.png';
+import mapsImage from './assets/maps-learn-more.png';
 
 <Meta title="Introduction" />
 
@@ -131,118 +155,268 @@ import demo from "./assets/Demo.gif";
       font-size: 12px;
       display: inline-block;
     }
+
+    .toolsUsedSection {
+       background-color:#EBF8FF;      
+       padding:40px 40px;
+       margin-bottom: 40px;
+       text-align: center
+   }
+   .hoverContent img:hover {
+      filter: drop-shadow(0px 8px 15px #005482);
+    }
+
+     .hoverContent img {
+        height:73px;
+        width:82px;
+    }
+
+     .seamlessUICard {    
+      display:flex;
+      background-color:#FADA9A;
+      border-radius: 10px 10px 0px 0px;
+    }
+  
+    .seamlessUIContent {
+      background-color: #FAFAFA;
+      padding: 1.5rem;
+      margin: 0;
+      border-radius: 0px 0px 10px 10px;
+    }
+
+    .chartsLayout {
+      display: flex;
+      background-color: #99D5F5;
+      border-radius: 10px 10px 0px 0px;
+    }
+
+    .learnMoreSection {
+      background-color: #F1F1F1;
+      padding: 30px 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .learnMoreSection img {
+      width: 100px; 
+      height: 100px; 
+      object-fit: cover;
+}
+
   `}
+  
 </style>
 
-### Welcome to Raaghu Design System - React
+<img className="bannerSection" src={bannerImage} alt="flow"/>
 
 <div className="containerContent">
- <p><strong>Raaghu</strong> is an open-source React based micro front-end design system. Raaghu employs Bootstrap5 and Storybook 
- features to develop highly customizable UI components and built-in pages. Raaghu provides as a online repository for the developers
- containing the elements, components, map and charts.</p>
-
-<img className="demo" src={demo} alt="flow" />
-
-Through the storybook you can visualize and navigate around the features of
-the Raaghu. Snippets for the elements allow you to test and design your UI
-faster and efficiently.
+ <p>Raaghu is an open-source React based micro front-end design system. Raaghu Design System employs <b>Vite, TypeScript, Million, Boostrap5 and Storybook</b> 
+ features to develop highly customizable UI components and build-in pages. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
 
 </div>
 
-### Why Raaghu?
-
-<div className="containerContent">
-  Raaghu Design System bridges the gaps between design and development while
-  maintaining a great degree of standardization.
-</div>
-<ul className="containerContent">
-  <li>
-    <strong>Seamless UI:</strong> Raaghu contains ready to use templates for the
-    ASP net and ABP framework. Fully customizable with the help of our Adobe XD
-    and figma design kits.
-  </li>
-  <li>
-    <strong>Charts, Layouts and Grids:</strong>:With more than 60+ react based
-    elements, components , pages and charts , Raaghu offers a wide array
-    catering to the needs for your UI components.
-  </li>
-</ul>
-
-### How Raaghu Works?
-
-<div className="containerContent">
-  Raaghu leverages micro-front-end capabilities by breaking the page design into
-  the components. Based on the wireframe and theme design, Raaghu applies the
-  same CSS to elements, components and pages available in the Raaghu.
-</div>
-<img className="how" src={image} alt="flow" />
-<div className="containerContent">
-  Thought the Ci/Cd pipelines the components are deployed to the wireframe
-  design and form a page
+<div style={{textAlign:"center"}}>
+    Through the storybook you can visualize and navigate around the features of
+    the Raaghu Design System. Snippets for the elements allow you to test and design your UI
+    faster and efficiently.
 </div>
 
-### Features
-
-<ul className="containerContent">
-  <li>
-    <strong>Fast: </strong>Achieve up to 3X acceleration with front end
-    development through modular creation and component composition.
-  </li>
-  <li>
-    <strong>Consistent : </strong>Get a unified experience via smooth
-    integration, code maintenance and consistency in UI.
-  </li>
-  <li>
-    <strong>Scalable : </strong>Provides better scalability as each codebase is
-    much simpler to build, test and maintain due to clarity of work allocation.
-  </li>
-  <li>
-    <strong>Maintainable : </strong>Replace and rewrite and update components
-    easily even when maintaining large applications. Components allow for easier
-    user testing.
-  </li>
-  <li>
-    <strong>Flexible : </strong>Components are inherently independent of the
-    tech stack allowing multiple components and features to be deployed rapidly.
-  </li>
-  <li>
-    <strong>Pixel-perfect : </strong> Designed with pixel perfect precision and
-    accessibility in mind, with multiple well designed and scalable User
-    Interfaces.
-  </li>
-</ul>
-
-### Learn more about Raaghu
-
-<div className="link-list">
-  <a
-    className="link-item"
-    href="https://react.raaghu.io/?path=/docs/elements-accordion--docs"
-    target="_parent"
-  >
-    <img src={Plugin} alt="plugin" />
-    <span>
-      <strong>Elements</strong>
-    </span>
-  </a>
-    <a
-    className="link-item"
-    href="https://react.raaghu.io/?path=/docs/charts-pie-chart--docs"
-    target="_parent"
-  >
-    <img src={colors} alt="colors" />
-    <span>
-      <strong>Charts</strong>
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://react.raaghu.io/?path=/docs/components-account--docs"
-    target="_parent"
-  >
-    <img src={StackAlt} alt="Build" />
-    <span>
-      <strong>Components</strong>
-    </span>
-  </a>
+<div className="toolsUsedSection">
+  <div>
+    Built Using
+  </div>  
+  <div style={{display: "flex", justifyContent: "space-between"}} className="hoverContent">
+    <img className="reactImage" src={reactImage} alt="flow"/>
+    <img className="viteImage" src={viteImage} alt="flow"/>
+    <img className="typescriptImage" src={typescriptImage} alt="flow"/>
+    <img className="bootstrapImage" src={bootstrapImage} alt="flow"/>
+    <img className="storybookImage" src={storybookImage} alt="flow"/>
+  </div>
 </div>
+
+<div style={{ textAlign: "center" }}>
+
+### Why Raaghu Design System?
+
+Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
+
+<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}}>
+  <div style={{border: "0"}}>
+    <div className="seamlessUICard">
+      <div>
+         <img className="seamlessUIHoverImage" src={seamlessUIHoverImage} alt="flow" style={{height: "100px"}}/>
+          <strong>Seamless UI</strong>
+      </div>     
+    </div>
+    <div className="seamlessUIContent">      
+        Raaghu contains ready to use templates for the ASP net and ABP framework. Fully customizable with the help of our Adobe XD and 
+        Figma design kits.         
+    </div>    
+  </div>
+  <div style={{border: "0"}}>
+    <div className="chartsLayout">
+      <div>
+         <img className="chartsLayoutImage" src={chartsLayoutImage} alt="flow" style={{height: "100px"}}/>
+        <strong>Charts, Layouts and Grids</strong>
+      </div>     
+    </div>
+    <div style={{backgroundColor: "#FAFAFA", padding: "1.5rem", margin: "0", borderRadius: "0px 0px 10px 10px"}}>
+     With more than 60+ react based elements, components , pages and charts , Raaghu offers a wide array catering to the needs for your UI components.
+    </div>   
+  </div>
+</div>
+
+<div style={{marginTop: "20px"}}>
+  ### How Raaghu Design System Works?
+
+  Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
+
+  <img className="dasboardImage" src={dasboardImage} alt="flow"/>
+
+
+  Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
+
+</div>
+
+</div>
+
+<div style={{textAlign:"center", marginTop: "40px", marginBottom: "40px"}}>
+  ### Features
+
+  <div style={{display: "flex", justifyContent: "space-between"}}>
+    <div>
+      <div> 
+        <img className="fastWebGif" src={fastWebGif} alt="fastGif" />
+      </div>
+      <div>
+        <strong>Fast</strong>
+      </div>
+      <div>
+        Achieve up to 3X acceleration with front end development through modular creation and component composition.
+      </div>
+    </div>
+    <div>
+      <div> 
+        <img className="consistenceGif" src={consistenceGif} alt="consistenceGif" />
+      </div>
+      <div>
+        <strong>Consistent</strong>
+      </div>
+      <div>
+       Get a consistent unified experience via smooth integration, code maintenance and consistency in user interface.
+      </div>
+    </div>
+    <div>
+     <div> 
+        <img className="scalableGif" src={scalableGif} alt="scalableGif" />
+      </div>
+      <div>
+        <strong>Scalable</strong>
+      </div>
+      <div>
+       Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation.
+      </div>
+    </div>
+  </div>
+
+   <div style={{display: "flex", justifyContent: "space-between", marginBottom: "40px"}}>
+    <div>
+      <div> 
+        <img className="maintainableGif" src={maintainableGif} alt="maintainableGif" />
+      </div>
+      <div>
+        <strong>Maintainable</strong>
+      </div>
+      <div>
+        Replace, Rewrite & update components easily even when maintaining large applications. Components allow for easier user testing.
+      </div>
+    </div>
+    <div>
+      <div> 
+        <img className="flexibleGif" src={flexibleGif} alt="flexibleGif" />
+      </div>
+      <div>
+        <strong>Flexible</strong>
+      </div>
+      <div>
+       Components are inherently independent of the tech stack allowing multiple components and features to be deployed rapidly.
+      </div>
+    </div>
+    <div>
+     <div> 
+        <img className="pixelPerfectGif" src={pixelPerfectGif} alt="pixelPerfectGif" />
+      </div>
+      <div>
+        <strong>Pixel-perfect</strong>
+      </div>
+      <div>
+       Designed with pixel perfect precision and accessibility in mind, with multiple well designed and scalable User Interfaces.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+### Learn more about Raaghu Design System
+
+<div style={{display: "flex", justifyContent: "space-between", marginTop: "40px"}}>
+  
+  <div className="learnMoreSection">
+    <div> 
+     <img className="appShellImage" src={appShellImage} alt="appShellImage" />
+    </div>
+    <div>
+     <strong>App Shell</strong>
+    </div>
+  </div>
+
+   <div className="learnMoreSection">
+    <div> 
+     <img className="layoutsImage" src={layoutsImage} alt="layoutsImage" />
+    </div>
+    <div>
+     <strong>Layouts</strong>
+    </div>
+  </div>
+
+   <div className="learnMoreSection">
+    <div> 
+     <img className="componentsImage" src={componentsImage} alt="componentsImage" />
+    </div>
+    <div>
+     <strong>Components</strong>
+    </div>
+  </div>
+
+   <div className="learnMoreSection">
+    <div> 
+     <img className="elementsImage" src={elementsImage} alt="elementsImage" />
+    </div>
+    <div>
+     <strong>Elements</strong>
+    </div>
+  </div>
+
+   <div className="learnMoreSection">
+    <div> 
+     <img className="chartsImage" src={chartsImage} alt="chartsImage" />
+    </div>
+    <div>
+     <strong>Charts</strong>
+    </div>
+  </div>
+
+   <div className="learnMoreSection">
+    <div> 
+     <img className="mapsImage" src={mapsImage} alt="mapsImage" />
+    </div>
+    <div>
+     <strong>Map</strong>
+    </div>
+  </div>
+
+</div>
+
+
+
