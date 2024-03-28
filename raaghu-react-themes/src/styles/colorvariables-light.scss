@@ -1,5 +1,13 @@
 //background-color: white;
-$theme-colors: ( "primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark ) !default;
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark ) !default;
 $min-contrast-ratio: 4.5 !default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
 $body-bg: white;
@@ -168,7 +176,10 @@ $delete-modal-text: $black;
 // $offcanvas-border-color: red !default;
 $modal-bg-color: $body-bg !default;
 
-$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$btn-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !default;
 
 $btn-hover-bg-shade-amount: 15% !default;
 $btn-hover-bg-tint-amount: 15% !default;
@@ -228,7 +239,8 @@ $offcanvas-bottom-border-color: $border-color !default;
 $bg-connect: $white;
 
 .lf-player-container {
-    filter: grayscale(1);
+    filter: grayscale(1
+    );
 }
 
 .lf-player-container:hover {
@@ -262,6 +274,7 @@ $bg-connect: $white;
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         background-color: $datatable-bgColor;
@@ -274,6 +287,7 @@ $bg-connect: $white;
 }
 
 @media screen and (max-width: 768px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         background-color: $datatable-bgColor;
@@ -286,6 +300,7 @@ $bg-connect: $white;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         position: sticky;
@@ -435,7 +450,7 @@ button#dropdownMenuButton:focus {
     }
 }
 
-.table-hover > tbody > tr:hover > * {
+.table-hover>tbody>tr:hover>* {
     background-color: $light-150;
     --bs-table-bg-state: var(--bs-gray-100);
 }
@@ -618,7 +633,7 @@ button#dropdownMenuButton:focus {
 }
 
 .breadcrumb-item {
-    + .breadcrumb-item {
+    +.breadcrumb-item {
         &::before {
             color: $breadcrumb-divider-color;
         }
@@ -627,7 +642,7 @@ button#dropdownMenuButton:focus {
 
 // /*table color variables*/
 .table-hover {
-    > tbody > tr > td {
+    >tbody>tr>td {
         color: $gray-500;
     }
 }
@@ -648,7 +663,7 @@ button#dropdownMenuButton:focus {
         }
     }
 
-    > thead {
+    >thead {
         background-color: $table-header-bg;
 
         tr {
@@ -670,10 +685,11 @@ button#dropdownMenuButton:focus {
 }
 
 .table-bordered {
-    > :not(caption) > * {
+    > :not(caption)>* {
         border-width: $table-border-width 0;
+
         // stylelint-disable-next-line selector-max-universal
-        > * {
+        >* {
             border-width: 0 0;
         }
     }
@@ -744,6 +760,7 @@ button#dropdownMenuButton:focus {
 .pagination {
     .page-item {
         border-color: $white;
+
         // &:nth-child(-n + 2) .page-link {
         //   background: $pagination-item-bg;
         //   color: $pagination-item-color;
@@ -812,7 +829,8 @@ button#dropdownMenuButton:focus {
 
 a {
     text-decoration: none;
-    color: $gray-800;
+    //commented for further use
+    // color: $gray-800;
 }
 
 .routerLinkActive-name {
@@ -895,10 +913,10 @@ a {
     // border-bottom: 3px solid $primary-150 !important;
 }
 
-.dropdown-item:hover,
-.dropdown-item:focus {
-    background-color: $light-150 !important;
-}
+// .dropdown-item:hover,
+// .dropdown-item:focus {
+//     background-color: $light-150 !important;
+// }
 
 .nav.nav-pill {
     .nav-link.active {
@@ -1255,7 +1273,7 @@ a {
 
 .carousel-dark .carousel-control-prev-icon,
 .carousel-dark .carousel-control-next-icon {
-        filter: invert(1) grayscale(100);
+    filter: invert(1) grayscale(100);
 }
 
 // /*input search properrties*/
@@ -1299,11 +1317,11 @@ $form-feedback-color: $gray-700;
     //   background-color: inherit;
     // }
 
-    > thead {
+    >thead {
         background-color: var(--bs-table-bg);
     }
 
-    > tbody {
+    >tbody {
         background-color: $white;
     }
 }
@@ -1414,8 +1432,7 @@ $form-feedback-color: $gray-700;
     background-color: $subcription-bg-orange;
 }
 
-@mixin button-variant( $background, $border, $color: color-contrast($background), $hover-background: if( $color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount) ), $hover-border: if( $color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount) ), $hover-color: color-contrast($hover-background), $active-background: if( $color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount) ), $active-border: if( $color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount) ), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background) ) {
-}
+@mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {}
 
 @each $color, $value in $theme-colors {
     .btn-#{$color} {
@@ -1458,7 +1475,7 @@ $form-feedback-color: $gray-700;
     }
 }
 
-@mixin button-outline-variant( $color, $color-hover: color-contrast($color), $active-background: $color, $active-border: $color, $active-color: color-contrast($active-background) ) {
+@mixin button-outline-variant($color, $color-hover: color-contrast($color), $active-background: $color, $active-border: $color, $active-color: color-contrast($active-background)) {
     /*  background-color: $white;
   color: $primary;*/
 }
@@ -1628,7 +1645,7 @@ html #sidebar ul li a.active small {
     background: #dde4f7;
 }
 
-.rds-fileuploader label.file-upload > div {
+.rds-fileuploader label.file-upload>div {
     color: #9bacbc;
 }
 
@@ -1948,20 +1965,20 @@ $form-feedback-color: $gray-700;
 }
 
 .table {
-    > :not(caption) > * > * {
+    > :not(caption)>*>* {
         background-color: inherit;
     }
 
-    > thead {
+    >thead {
         background-color: var(--bs-table-bg);
     }
 
-    > tbody {
+    >tbody {
         background-color: $white;
     }
 }
 
-.table-border > :not(caption) > * > * {
+.table-border> :not(caption)>*>* {
     border-width: 0 1px;
     border-bottom-width: 1px;
 }
@@ -2100,7 +2117,7 @@ $form-feedback-color: $gray-700;
     color: $white;
 }
 
-.react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range ) {
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
     background-color: $primary;
 }
 
@@ -2120,7 +2137,7 @@ html #sidebar ul li a.active small {
     background: #dde4f7;
 }
 
-.rds-fileuploader label.file-upload > div {
+.rds-fileuploader label.file-upload>div {
     color: #9bacbc;
 }
 
@@ -2306,7 +2323,7 @@ html #sidebar ul li a.active small {
     }
 }
 
-.table-hover > tbody > tr:hover > * {
+.table-hover>tbody>tr:hover>* {
     transition: background-color 2s ease-out 10ms;
     background-color: $light-150;
 }
@@ -2406,14 +2423,16 @@ html #sidebar ul li a.active small {
     }
 }
 
-.dropdown-toggle::after {
-    background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
-    border: 0px;
-    width: 11px;
-    height: 11px;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
+// commentted class for further use
+
+// .dropdown-toggle::after {
+//     background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+//     border: 0px;
+//     width: 11px;
+//     height: 11px;
+//     margin-bottom: 5px;
+//     margin-top: 5px;
+// }
 
 .form-select {
     .placeholder {
@@ -2584,6 +2603,7 @@ hr {
 .lottie-filter-0 .lf-player-container {
     filter: grayscale(0);
 }
+
 // /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #ccc;
@@ -2611,6 +2631,7 @@ hr {
 .css-1nmdiq5-menu {
     /* Your custom styles for the dropdown menu */
     background-color: $body-bg;
+
     /* Add more styles as needed */
     /* Target individual menu items */
     div {
@@ -2623,44 +2644,55 @@ hr {
 
             background-color: $body-bg;
             color: var(--bs-dropdown-link-hover-color);
+
             /* Add more styles as needed */
             /* Hover state styles */
             &:hover {
-                background-color: $light-150; /* Example background color on hover */
-                color: var(--bs-dropdown-link-hover-color); /* Example text color on hover */
-                cursor: pointer; /* Change cursor on hover */
+                background-color: $light-150;
+                /* Example background color on hover */
+                color: var(--bs-dropdown-link-hover-color);
+                /* Example text color on hover */
+                cursor: pointer;
+                /* Change cursor on hover */
                 /* Add more hover state styles as needed */
             }
         }
     }
 }
+
 .profile-tabs:hover {
     .lf-player-container {
         filter: grayscale(1);
     }
 }
+
 .profile-tabs:hover {
     .lf-player-container {
         filter: none;
     }
 }
+
 .raaghu-select__indicator svg {
     stroke: $gray-800;
     fill: $gray-800;
     color: $gray-800;
     opacity: 0.5;
 }
+
 .raaghu-select__control--is-focused .raaghu-select__dropdown-indicator svg {
     stroke: $gray-800;
     color: $gray-800;
     fill: $gray-800;
-    opacity:0.5;
+    opacity: 0.5;
 }
+
 .lf-player-container {
     svg {
         stroke: none;
     }
 }
-.raaghu-select__single-value, .raaghu-select__placeholder {
+
+.raaghu-select__single-value,
+.raaghu-select__placeholder {
     color: var(--bs-body-color);
 }
