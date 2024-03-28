@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./rds-comp-notification-settings.css";
+import { RdsButton } from "../rds-elements";
 
 export interface RdsCompNotificationSettingsProps {
     onSave?: (event: React.MouseEvent, data: any) => void;
@@ -28,7 +29,7 @@ const RdsCompNotificationSettings = (
     };
     return (
         <>
-            {" "}
+            <div className="custom-content-scroll">
             <h4>Receive Notifications</h4>
             <div className="form-switch switch mt-2 mb-4 ">
                 <input
@@ -72,26 +73,27 @@ const RdsCompNotificationSettings = (
                     On a New Tenant Registered to the Application
                 </label>
             </div>
-            <div className="buttongrp fixed-bottom m-3 position-absolute">
-                <div>
-                    <button
-                        className="btn buttonname btn-outline-primary me-3"
-                        onClick={props.onCancel}
-                        data-testid="cancel-btn"
-                    >
-                        Cancel
-                    </button>
-                </div>
-                <div>
-                    <button
-                        className="btn buttonname btn-primary"
-                        onClick={(event) => props.onSave && props.onSave(event, data)}
-                        data-testid="save-btn"
-                    >
-                        save
-                    </button>
-                </div>
             </div>
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <RdsButton
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            onClick={props.onCancel}
+                        ></RdsButton>
+                        <RdsButton
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            onClick={(event) => props.onSave && props.onSave(event, data)}
+                        ></RdsButton>
+                </div>
         </>
     );
 };
