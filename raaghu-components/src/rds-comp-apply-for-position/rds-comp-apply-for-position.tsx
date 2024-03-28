@@ -129,120 +129,118 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
         <div>
             <form onSubmit={handleSubmit}
             >
-                <div className="row mt-5 ">
-                    <div className="col-lg-6  mb-4 col-md-12">
-                        <RdsInput
-                            label="Email ID"
-                            placeholder="name@domain.com"
-                            inputType="email"
-                            onChange={emailhandleChange}
-                            value={user.email}
-                            name={"email"}
-                            required
-                            dataTestId="email"
-                        ></RdsInput>
-                        {error.email != "" && <span className="text-danger">{error.email}</span>}
-                    </div>
-
-                    <div className="col-lg-6  mb-4 col-md-12">
-                        <RdsInput
-                            label="Full Name"
-                            placeholder="Full Name"
-                            inputType="text"
-                            onChange={fullNamehandleChange}
-                            name={"fullName"}
-                            value={user.fullName}
-                            required
-                            dataTestId="full-name"
-                        ></RdsInput>
-                        {error.fullName && (
-                            <span className="text-danger">{error.fullName}</span>
-                        )}
-                    </div>
-                </div>
-                <div className="row ">
-                    <div className="col-md-6  mb-4 col-sm-12">
-                        <RdsInput
-                            label="Contact Number"
-                            placeholder="+91 9087654321"
-                            inputType="text"
-                            onChange={contactNumberhandleChange}
-                            value={user.contactNumber}
-                            name={"contactNumber"}
-                            dataTestId="contact-number"
-                            required
-                        ></RdsInput>
-                        {error.contactNumber && (
-                            <span className="text-danger">{error.contactNumber}</span>
-                        )}
-                    </div>
-
-                    <div className="col-md-6 mb-4 col-sm-12">
-                        <RdsInput
-                            label="Applying For Position:"
-                            placeholder="Position Name"
-                            inputType="text"
-                            onChange={positionhandleChange}
-                            name={"position"}
-                            value={user.position}
-                            required
-                            dataTestId="position-name"
-                        ></RdsInput>
-                        {error.position && (
-                            <span className="text-danger">{error.position}</span>
-                        )}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6 col-sm-12">
-                        <div className="mb-2">
+                <div className="custom-content-scroll">
+                    <div className="row mt-5 ">
+                        <div className="col-lg-6  mb-4 col-md-12">
                             <RdsInput
-                                label="When Can You Start?"
-                                placeholder="Notice Period"
-                                inputType="text"
-                                onChange={periodhandleChange}
-                                value={user.period}
-                                name={"period"}
+                                label="Email ID"
+                                placeholder="name@domain.com"
+                                inputType="email"
+                                onChange={emailhandleChange}
+                                value={user.email}
+                                name={"email"}
                                 required
-                                dataTestId="notice-period"
+                                dataTestId="email"
                             ></RdsInput>
-                            {error.period && (
-                                <span className="text-danger">{error.period}</span>
+                            {error.email != "" && <span className="text-danger">{error.email}</span>}
+                        </div>
+
+                        <div className="col-lg-6  mb-4 col-md-12">
+                            <RdsInput
+                                label="Full Name"
+                                placeholder="Full Name"
+                                inputType="text"
+                                onChange={fullNamehandleChange}
+                                name={"fullName"}
+                                value={user.fullName}
+                                required
+                                dataTestId="full-name"
+                            ></RdsInput>
+                            {error.fullName && (
+                                <span className="text-danger">{error.fullName}</span>
                             )}
-
                         </div>
-                        <div className='p-2'>
-
-                            <RdsFileUploader
-                                label="Upload Resume"
-                                colorVariant="primary"
-                                limit={5}
-                                extensions="(PNG, JPG, DOC, PDF, PTT)"
-                                multiple={true}
-                                size=""
-                                onFileArray={fileArrayHandler}
-                            />
-                        </div>
-
                     </div>
+                    <div className="row ">
+                        <div className="col-md-6  mb-4 col-sm-12">
+                            <RdsInput
+                                label="Contact Number"
+                                placeholder="+91 9087654321"
+                                inputType="text"
+                                onChange={contactNumberhandleChange}
+                                value={user.contactNumber}
+                                name={"contactNumber"}
+                                dataTestId="contact-number"
+                                required
+                            ></RdsInput>
+                            {error.contactNumber && (
+                                <span className="text-danger">{error.contactNumber}</span>
+                            )}
+                        </div>
 
-                    <div className="col-md-6  col-sm-12">
-                        <RdsTextArea label="Cover Letter" placeholder="Cover Letter.." rows={8} dataTestId="cover-letter" />
+                        <div className="col-md-6 mb-4 col-sm-12">
+                            <RdsInput
+                                label="Applying For Position:"
+                                placeholder="Position Name"
+                                inputType="text"
+                                onChange={positionhandleChange}
+                                name={"position"}
+                                value={user.position}
+                                required
+                                dataTestId="position-name"
+                            ></RdsInput>
+                            {error.position && (
+                                <span className="text-danger">{error.position}</span>
+                            )}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6 col-sm-12">
+                            <div className="mb-2">
+                                <RdsInput
+                                    label="When Can You Start?"
+                                    placeholder="Notice Period"
+                                    inputType="text"
+                                    onChange={periodhandleChange}
+                                    value={user.period}
+                                    name={"period"}
+                                    required
+                                    dataTestId="notice-period"
+                                ></RdsInput>
+                                {error.period && (
+                                    <span className="text-danger">{error.period}</span>
+                                )}
+
+                            </div>
+                            <div className='p-2'>
+
+                                <RdsFileUploader
+                                    label="Upload Resume"
+                                    colorVariant="primary"
+                                    limit={5}
+                                    extensions="(PNG, JPG, DOC, PDF, PTT)"
+                                    multiple={true}
+                                    size=""
+                                    onFileArray={fileArrayHandler}
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="col-md-6  col-sm-12">
+                            <RdsTextArea label="Cover Letter" placeholder="Cover Letter.." rows={8} dataTestId="cover-letter" />
+                        </div>
                     </div>
                 </div>
-
-                <div className="row">
-                    <div className="col-md-6  mt-3 col-sm-12">
-                        <RdsButton
-                            label={t("Apply Now") || ""}
-                            colorVariant="primary"
-                            isDisabled={!isFormValid}
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                            dataTestId="apply-now"
-                        />
-                    </div>
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <RdsButton
+                        label={t("Apply Now") || ""}
+                        colorVariant="primary"
+                        isDisabled={!isFormValid}
+                        block={true}
+                        type="submit"
+                        dataTestId="apply-now"
+                    />
                 </div>
             </form>
         </div>
