@@ -91,7 +91,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
         <>
             <div>
                 <div className="row ">
-                    <div className="mt-1 mb-3 col-6">
+                    <div className="col-6 mb-3">
                         <RdsInput
                             label="Property Name"
                             required={true}
@@ -107,7 +107,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                         )}
                     </div>
 
-                    <div className="mt-1 mb-3 col-6">
+                    <div className="col-6">
                         <RdsInput
                             label="Display Name"
                             required={true}
@@ -122,7 +122,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                 </div>
 
                 <div className="row">
-                    <div className="col-6 mt-1 mb-3">
+                    <div className="col-6">
                         <label className="mb-2">Input Type</label>
                         <RdsDropdownList
                             borderDropdown={true}
@@ -140,3 +140,4 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
     );
 };
 export default RdsCompInformation;
+
