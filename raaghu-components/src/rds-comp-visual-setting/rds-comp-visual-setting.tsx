@@ -210,7 +210,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                         aria-labelledby="nav-Menu"
                                     >
                                         {props.listskin && (
-                                            <div className="col-lg-4 col-md-6 mb-3 mt-1">
+                                            <div className="col-lg-4 col-md-6 mb-3">
                                                 <label className="mb-2">Skin</label>
                                                 <select
                                                     defaultValue={"DEFAULT"}
@@ -235,7 +235,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                             </div>
                                         )}
 
-                                        <div className="form-group mb-3 mt-2">
+                                        <div className="form-group mb-3">
                                             <RdsCheckbox
                                                 onChange={onCheckboxCheck}
                                                 label="Fixed Aside"
@@ -364,7 +364,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                             <div className="row">
                                                 <div className="col-md-4">
                                                     {props.listskin && (
-                                                        <div className="mb-3 mt-1">
+                                                        <div className="mb-3">
                                                             <label className="mb-2">Skin</label>
                                                             <select
                                                                 defaultValue={"DEFAULT"}
@@ -390,7 +390,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     )}
 
                                                     <div className="form-group mb-3">
-                                                        <label className="mt-4 mb-2">Desktop</label>
+                                                        <label className="mb-2">Desktop</label>
                                                         <RdsCheckbox
                                                             onChange={onCheckboxCheck}
                                                             label="Fixed Header"
@@ -401,7 +401,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                                 )[0]?.header?.desktopFixedHeader
                                                             }
                                                         />
-                                                        <label className="mt-4 mb-2">Mobile</label>
+                                                        <label className="mb-2">Mobile</label>
                                                         <RdsCheckbox
                                                             onChange={onCheckboxCheck}
                                                             label="Fixed Header"

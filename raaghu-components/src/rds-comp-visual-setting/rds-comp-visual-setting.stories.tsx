@@ -103,7 +103,7 @@ export const Default: Story = {
                     subheaderStyle: null,
                     titleStlye: "text-dark font-weight-bold my-2 mr-5",
                 },
-                themeId: "accessible",
+                themeId: "semidark",
             },
         ],
         navtabItems: [
@@ -144,7 +144,7 @@ export const Default: Story = {
                 ],
             },
             {
-                themeId: "accessible",
+                themeId: "semidark",
                 navtabs: [
                     {
                         label: "Header Bar",
@@ -166,19 +166,19 @@ export const Default: Story = {
         ],
         themeItem: [
             {
-                imgsrc: "https://anzstageui.raaghu.io/assets/LightTheme.png",
+                imgsrc: "./assets/Theme_Light.png",
                 theme: "Light",
                 themeId: "default",
             },
             {
-                imgsrc: "https://anzstageui.raaghu.io/assets/Dashboard.png",
+                imgsrc: "./assets/Theme_Dark.png",
                 theme: "Dark",
                 themeId: "dark",
             },
             {
-                imgsrc: "https://anzstageui.raaghu.io/assets/accessibleTheme.png",
-                theme: "Accessible",
-                themeId: "accessible",
+                imgsrc: "./assets/Theme_SemiDark.png",
+                theme: "Semidark",
+                themeId: "semidark",
             },
         ],
     }
