@@ -1,27 +1,5 @@
-
-// import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
-// import RdsCompContactInformation from "./rds-comp-contact-information";
-
-// export default {
-//     title: "Components/Contact Information",
-//     component: RdsCompContactInformation,
-
-// } as ComponentMeta<typeof RdsCompContactInformation>;
-
-
-// const Template: ComponentStory<typeof RdsCompContactInformation> = (args) =>
-//     <RdsCompContactInformation {...args} />;
-
-
-// export const Default = Template.bind({});
-
-// Default.args = {
-// };
-
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompContactInformation from "./rds-comp-contact-information";
-
 
 const meta: Meta = { 
     title: "Components/Contact Information",
@@ -42,3 +20,4 @@ export const Default: Story = {
         
     }
 } satisfies Story;
+Default.parameters = { controls: { include: [] } };

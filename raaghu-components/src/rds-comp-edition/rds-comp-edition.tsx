@@ -50,7 +50,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                         <div className="pt-3">
                             <div className="text-center">
                                 <h1 className="text-primary">
-                                    <sup>$</sup>
+                                    <span>$</span>
                                     <span>{props.EditionItems.Price}</span>
                                 </h1>
                                 <span className="text-muted fw-medium text-black-50">

@@ -18,24 +18,26 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
     return (
         <div className="pt-4">
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <div className="row">
-                        <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
-                            <RdsInput
-                                value={receiverEmailAddress}
-                                name="receiverEmail"
-                                required={true}
-                                label="Receiver Email Address"
-                                placeholder="info@mycompanyname.com"
-                                customClasses="form-control"
-                                onChange={(e: any) => setReceiverEmailAddress(e.target.value)}
-                                dataTestId="receiver-email"
-                                fontWeight={"normal"}
-                            ></RdsInput>
+                <div className="custom-content-scroll">
+                    <div className="form-group">
+                        <div className="row">
+                            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                                <RdsInput
+                                    value={receiverEmailAddress}
+                                    name="receiverEmail"
+                                    required={true}
+                                    label="Receiver Email Address"
+                                    placeholder="info@mycompanyname.com"
+                                    customClasses="form-control"
+                                    onChange={(e: any) => setReceiverEmailAddress(e.target.value)}
+                                    dataTestId="receiver-email"
+                                    fontWeight={"normal"}
+                                ></RdsInput>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="mt-xxl-4 pb-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
                         type="submit"

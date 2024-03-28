@@ -10,8 +10,8 @@ export interface RdsCompShippingAddressProps {
 const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
     return (
         <>
-            <div>
-                <p className="heading">Shipping Address</p>
+            <div className="custom-content-scroll">
+                <h4>Shipping Address</h4>
                 <div className="row mt-3">
                     <div className="col-md-6 sm-p-0">
                         <div className="form-group">
@@ -129,7 +129,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <div className="row mt-4">
                     <div className="col-md-6 sm-p-0">
                         <RdsButton
