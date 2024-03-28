@@ -57,8 +57,8 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
 
     return (
         <div>
-            <div className="row mb-3">
-                <div className="col-md-2">
+            <div className="row mb-3 d-flex justify-content-between">
+                <div className="col-md-4">
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
@@ -66,7 +66,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                         isDropdownOpen={false}
                     ></RdsDatePicker>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-4">
                     <div className="Select">
                         <div>Result</div>
                         <select

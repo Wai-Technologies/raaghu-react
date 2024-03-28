@@ -3,7 +3,7 @@ import RdsCompIdentiyResourceBasic from "./rds-comp-identiy-resource-basic";
 
 
 const meta: Meta = { 
-  title: "Components/Scope",
+  title: "Components/Identity Resource Basic",
     component: RdsCompIdentiyResourceBasic,
     parameters: {
         layout: 'padded',
@@ -21,3 +21,4 @@ export const Default: Story = {
         
     }
 } satisfies Story;
+Default.parameters = { controls: { include: [] } };

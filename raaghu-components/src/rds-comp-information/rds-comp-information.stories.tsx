@@ -36,11 +36,11 @@ export const Default: Story = {
             propertyName: "demo",
             displayName: "demo",
             inputValue: "demo",
-        },
-    
+        },    
         reset: false,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['inputTypeList', 'informationItemInitial', 'reset'] } };
 
 
 
