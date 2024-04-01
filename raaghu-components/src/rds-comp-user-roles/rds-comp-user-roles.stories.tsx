@@ -1,7 +1,3 @@
-/* eslint-disable */
-
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompUserRoles from "./rds-comp-user-roles";
 
@@ -22,7 +18,7 @@ type Story = StoryObj<typeof RdsCompUserRoles>;
 
 export const Default: Story = {
     args: {
-      roleData: [
+      usersRole: [
         {
           id: 1,
           name: "Child Checkbox 1",
