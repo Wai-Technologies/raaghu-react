@@ -113,7 +113,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
-                            DatePickerLabel="StartDate"
+                            DatePickerLabel="Start Date"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -121,7 +121,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handleEndDate}
-                            DatePickerLabel="EndDate"
+                            DatePickerLabel="End Date"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -129,7 +129,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-6">
                         <RdsDatePicker
                             onDatePicker={handleResultDatepickerData}
-                            DatePickerLabel="ResultShowingEndDate"
+                            DatePickerLabel="Result Showing End Date"
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -140,7 +140,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label="ShowHoursLeft"
+                            label="Show Hours Left"
                             checked={QuestionData?.showHoursLeft}
                             onChange={(e: any) => {
                                 handlerChangeValues("showHoursLeft", e.target.value);
@@ -151,7 +151,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label=".AllowMultipleVote"
+                            label="Allow Multiple Vote"
                             checked={QuestionData?.allowMultipleVote}
                             onChange={(e: any) => {
                                 handlerChangeValues("allowMultipleVote", e.target.value);
@@ -163,7 +163,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label=".ShowVoteCount"
+                            label="Show Vote Count"
                             checked={QuestionData?.showVoteCount}
                             onChange={(e: any) => {
                                 handlerChangeValues("showVoteCount", e.target.value);
@@ -174,7 +174,7 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
                             id="0"
-                            label="ShowResultWithoutGivingVote"
+                            label="Show Result Without Giving Vote"
                             checked={QuestionData?.showResultWithoutGivingVote}
                             onChange={(e: any) => {
                                 handlerChangeValues("showResultWithoutGivingVote", e.target.value);
@@ -183,26 +183,6 @@ function RdsCompPollsQuestion(props: any) {
                         ></RdsCheckbox>
                     </div>
                 </div>
-                {/* <div className="mt-3 d-flex footer-buttons">
-            <RdsButton
-              class="me-2"
-              tooltipTitle={""}
-              type={"button"}
-              label={"Cancel" || ""}
-              colorVariant="outline-primary"
-              size="small"
-              databsdismiss="offcanvas"
-            ></RdsButton>
-            <RdsButton
-              class="me-2"
-              label={"Save" || ""}
-              size="small"
-              colorVariant="primary"
-              tooltipTitle={""}
-              type={"submit"}
-              databsdismiss="offcanvas"
-            ></RdsButton>
-          </div> */}
             </div>
         </>
     );

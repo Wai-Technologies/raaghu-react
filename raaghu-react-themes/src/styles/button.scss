@@ -40,7 +40,9 @@
   visibility: hidden;
   opacity: 0;
 }
-.btn-sm, .btn-group-sm>.btn {
+
+.btn-sm,
+.btn-group-sm>.btn {
   height: 1.774rem;
   line-height: initial;
   position: relative;
@@ -52,11 +54,11 @@
   stroke-width: 2.5;
 }
 
-.btn-outline-primary.btn-sm svg{
+.btn-outline-primary.btn-sm svg {
   stroke-width: 1;
   width: 12px !important;
   height: 12px !important;
-} 
+}
 
 .btn-md svg {
   width: 12px !important;
@@ -85,9 +87,4 @@
   border-radius: 50%;
   animation: spinner 0.8s linear infinite;
   display: inline-grid;
-}
-.btn-group {
-  > .btn {
-    color: $gray-900;
-  }
 }

@@ -1,27 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompInvoice from './rds-comp-invoice';
+import RdsCompMenuDirectory from './rds-comp-menus-directories';
 
 
 const meta: Meta = { 
-    title: "Components/Invoice",
-    component: RdsCompInvoice,
+    title: "Components/Menus Directories",
+    component: RdsCompMenuDirectory,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompInvoice>;
+} satisfies Meta<typeof RdsCompMenuDirectory>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompInvoice>;
+type Story = StoryObj<typeof RdsCompMenuDirectory>;
 
 export const Default: Story = {
     args: {
         
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [] } };
 
 
 

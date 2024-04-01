@@ -35,8 +35,7 @@ export const Default: Story = {
                 value: "UserPhoneNumberIsNotConfirmed",
                 displayText: "User PhoneNumber IsNot Confirmed",
             },
-        ],
-    
+        ],    
         tableHeaders: [
             {
                 displayName: "IP Address",
@@ -62,9 +61,7 @@ export const Default: Story = {
                 sortable: true,
             },
             { displayName: "Result", key: "result", datatype: "text", sortable: true },
-        ],
-    
-    
+        ],  
         tableData: [
             {
                 id: 1,
@@ -197,3 +194,4 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };
