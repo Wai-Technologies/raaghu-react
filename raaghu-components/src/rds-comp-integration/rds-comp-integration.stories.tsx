@@ -24,7 +24,7 @@ export const Default: Story = {
             {
                 "title": "Zapier",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "zapier",
+                "icon": "zapier_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
@@ -33,50 +33,55 @@ export const Default: Story = {
                 "iconFill": false,
                 "id": 1,
                 "iconColor": "dark",
+                "routeLabel": "View integration"
             },
             {
                 "title": "Adobe XD",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "adobeXD",
+                "icon": "xd_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Figma",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "figma",
+                "icon": "figma_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Dropbox",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "dropbox",
+                "icon": "dropbox_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Jira",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "jira",
+                "icon": "jira_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Notion",
@@ -87,7 +92,8 @@ export const Default: Story = {
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": true,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "GitHub",
@@ -98,7 +104,8 @@ export const Default: Story = {
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": true,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Slack",
@@ -109,18 +116,20 @@ export const Default: Story = {
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             },
             {
                 "title": "Linear",
                 "subtitle": "Build custom automation and intefrations with app",
-                "icon": "linear",
+                "icon": "linear_colored",
                 "route": "/home",
                 "selected": true,
                 "iconHeight": "25px",
                 "iconWidth": "25px",
                 "iconStroke": false,
-                "iconFill": false
+                "iconFill": false,
+                "routeLabel": "View integration"
             }
         ]
     }
