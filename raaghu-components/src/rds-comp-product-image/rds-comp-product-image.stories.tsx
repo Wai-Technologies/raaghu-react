@@ -19,7 +19,7 @@ type Story = StoryObj<typeof RdsCompProductImage>;
 export const Default: Story = {
     args: {
       item: {
-        imgUrl: "https://www.linkpicture.com/q/product_img_with_title_1.png",
+        imgUrl: "https://www.crestedschoolwear.co.uk/wp-content/uploads/2018/07/white-tshirt.jpg",
         rating: 3,
         reviews: "See all 123 reviews",
         productTitle: "Basic Tee",
@@ -39,7 +39,3 @@ export const Default: Story = {
       },
     }
 } satisfies Story;
-
-
-
-
