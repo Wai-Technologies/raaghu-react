@@ -1,25 +1,16 @@
 import { Meta } from "@storybook/addon-docs";
 import Code from "./assets/code-brackets.svg";
 import colors from "./assets/colors.svg";
-import Comments from "./assets/comments.svg";
-import Direction from "./assets/direction.svg";
-import Flow from "./assets/flow.svg";
-import Plugin from "./assets/plugin.svg";
-import Repo from "./assets/repo.svg";
-import StackAlt from "./assets/stackalt.svg";
 import image from "./assets/how.png";
 import demo from "./assets/Demo.gif";
 import bannerImage from './assets/storybook-hero-Banner.png';
 import dasboardImage from './assets/dashboard.png';
 import reactImage from './assets/react.png';
+import tsImage from './assets/ts.png';
 import viteImage from './assets/vite.png';
 import typescriptImage from './assets/typescript.png';
 import bootstrapImage from './assets/bootstrap.png';
 import storybookImage from './assets/storybook.png';
-import seamlessUIImage from './assets/grid-setting-streamline-nova.png';
-import chartsLayoutImage from './assets/analytic-pie--streamline-nova.png';
-import seamlessUIHoverImage from './assets/grid-setting--streamline-nova-hover.png';
-import chartsLayoutHoverImage from './assets/analytic-pie-streamline-nova-hover.png';
 import fastGif from './assets/point-to-point.gif';
 import fastWebGif from './assets/web-dashboard.gif';
 import consistenceGif from './assets/Notes.gif';
@@ -33,6 +24,7 @@ import componentsImage from './assets/components-learn-more.png';
 import elementsImage from './assets/elements-learn-more.png';
 import chartsImage from './assets/charts-learn-more.png';
 import mapsImage from './assets/maps-learn-more.png';
+import expandImage from './assets/expand.png';
 
 <Meta title="Introduction" />
 
@@ -188,6 +180,7 @@ import mapsImage from './assets/maps-learn-more.png';
       display: flex;
       background-color: #99D5F5;
       border-radius: 10px 10px 0px 0px;
+      padding: 10px;
     }
 
     .learnMoreSection {
@@ -196,14 +189,48 @@ import mapsImage from './assets/maps-learn-more.png';
       border-radius: 10px;
       text-align: center;
     }
+    
+   
+    .pe-5 {
+      padding-right: 3rem !important;
+    }
+    .seamlessUICard{
+          height: 40%;
+          position: relative;
+    }
+    .c-card-title{       
+          font-size: 1.5rem;
+          font-weight: 900;
+    }
 
-    .learnMoreSection img {
-      width: 100px; 
-      height: 100px; 
-      object-fit: cover;
-}
+    .title {
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+   
+    .seamlessUIContent{
+      position:relative;
+      z-index: 1;
+    }
 
-  `}
+    .footerClass{
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(6, 160px);
+      grid-gap: 10px;
+    }
+
+    .learnMoreSection:hover{
+      background-color:#99D5F5;
+    }
+
+    .c-svg svg,
+    .c-svg path {
+      fill:#ffffff;
+      stroke:#ffffff;
+    }
+
+`}
   
 </style>
 
@@ -222,30 +249,41 @@ import mapsImage from './assets/maps-learn-more.png';
 </div>
 
 <div className="toolsUsedSection">
-  <div>
+  <div style={{fontWeight: "600"}}>
     Built Using
   </div>  
   <div style={{display: "flex", justifyContent: "space-between"}} className="hoverContent">
     <img className="reactImage" src={reactImage} alt="flow"/>
     <img className="viteImage" src={viteImage} alt="flow"/>
+    <img className="tsImage" src={tsImage} alt="flow"/>
     <img className="typescriptImage" src={typescriptImage} alt="flow"/>
     <img className="bootstrapImage" src={bootstrapImage} alt="flow"/>
     <img className="storybookImage" src={storybookImage} alt="flow"/>
   </div>
 </div>
 
-<div style={{ textAlign: "center" }}>
+<div style={{ textAlign: "center",marginTop: "60px" }} className="">
 
-### Why Raaghu Design System?
+### <div className="title"> Why Raaghu Design System?</div>
 
 Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
 
 <div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}}>
-  <div style={{border: "0"}}>
-    <div className="seamlessUICard">
-      <div>
-         <img className="seamlessUIHoverImage" src={seamlessUIHoverImage} alt="flow" style={{height: "100px"}}/>
-          <strong>Seamless UI</strong>
+  <div  style={{border: "0"}}>
+    <div className="chartsLayout">
+      <div >
+        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="70" viewBox="0 0 247 247" fill="none">
+          <g clip-path="url(#clip0_151_3736)">
+          <path d="M220.35 135.908L227.874 122.875L220.706 118.737C222.221 114.169 222.841 109.352 222.529 104.549L230.587 102.39L226.68 87.8486L218.618 90.0144C216.49 85.7062 213.552 81.8479 209.965 78.6503L214.104 71.4823L201.071 63.9578L196.933 71.1258C192.368 69.615 187.554 68.995 182.755 69.3006L180.599 61.2525L166.055 65.1496L168.211 73.1977C163.9 75.3285 160.041 78.2721 156.846 81.867L149.678 77.7285L142.154 90.7612L149.322 94.8997C147.806 99.4661 147.185 104.282 147.493 109.083L139.441 111.246L143.345 125.777L151.397 123.614C153.527 127.927 156.47 131.788 160.063 134.986L155.924 142.154L168.957 149.679L173.096 142.511C177.662 144.024 182.476 144.642 187.276 144.329L189.439 152.381L203.971 148.477L201.808 140.425C206.121 138.3 209.984 135.361 213.182 131.769L220.35 135.908ZM177.49 119.851C174.912 118.363 172.834 116.144 171.517 113.474C170.201 110.805 169.705 107.805 170.094 104.854C170.483 101.903 171.738 99.1337 173.7 96.8957C175.662 94.658 178.244 93.0525 181.119 92.2822C183.994 91.5118 187.033 91.6114 189.851 92.5679C192.67 93.5248 195.141 95.2957 196.953 97.6571C198.765 100.018 199.836 102.864 200.03 105.834C200.225 108.804 199.535 111.765 198.047 114.343C196.051 117.799 192.764 120.321 188.909 121.354C185.054 122.387 180.946 121.846 177.49 119.851Z" fill="#FAFAFA"/>
+          <path d="M137.818 203.614L165.196 156.195L117.776 128.817C117.789 126.184 117.106 123.595 115.795 121.311C114.484 119.029 112.592 117.132 110.312 115.816C108.032 114.499 105.444 113.81 102.812 113.816C100.179 113.822 97.5945 114.525 95.3208 115.853L60.9339 95.9993L80.7872 61.6125C83.395 61.6038 85.9558 60.9176 88.2186 59.6212L122.605 79.4745L130.13 66.4417L95.743 46.5885C95.7457 44.2856 95.2183 42.013 94.2016 39.9468C93.1848 37.8804 91.7061 36.0759 89.8799 34.673C88.0538 33.27 85.9292 32.3063 83.6707 31.8563C81.4122 31.4064 79.0805 31.4824 76.856 32.0785C74.6316 32.6745 72.5743 33.7745 70.8434 35.2934C69.1124 36.8123 67.7543 38.7093 66.8743 40.8373C65.9943 42.9654 65.6159 45.2675 65.7685 47.5654C65.9212 49.8631 66.6007 52.095 67.7544 54.088L20.5235 135.894C18.2207 135.892 15.9482 136.419 13.8816 137.436C11.8155 138.453 10.011 139.931 8.60804 141.757C7.20511 143.584 6.24126 145.708 5.79147 147.967C5.34131 150.225 5.41738 152.557 6.01345 154.781C6.60952 157.006 7.70955 159.063 9.22842 160.794C10.7473 162.525 12.6444 163.883 14.7724 164.763C16.9004 165.643 19.2028 166.021 21.5004 165.869C23.7984 165.716 26.0301 165.037 28.0231 163.883L109.829 211.114C109.827 213.416 110.354 215.689 111.371 217.756C112.388 219.822 113.866 221.627 115.693 223.029C117.519 224.432 119.643 225.396 121.902 225.846C124.16 226.296 126.492 226.22 128.716 225.624C130.941 225.028 132.998 223.928 134.729 222.409C136.46 220.89 137.818 218.993 138.698 216.865C139.578 214.737 139.956 212.435 139.804 210.137C139.651 207.839 138.972 205.607 137.818 203.614ZM69.9343 170.703L35.5475 150.85C35.5346 148.243 34.8489 145.683 33.5563 143.419L53.4095 109.032L87.7963 128.885C87.8048 131.493 88.4911 134.054 89.7876 136.317L69.9343 170.703ZM117.354 198.081L82.967 178.228L102.82 143.841C105.428 143.832 107.989 143.146 110.252 141.85L144.638 161.703L124.785 196.09C122.177 196.096 119.616 196.782 117.354 198.081Z" fill="#FAFAFA"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_151_3736">
+          <rect width="180.587" height="180.587" fill="white" transform="translate(90.2935) rotate(30)"/>
+          </clipPath>
+          </defs>
+        </svg>
+          <span className="c-card-title">Seamless UI</span>
       </div>     
     </div>
     <div className="seamlessUIContent">      
@@ -255,9 +293,20 @@ Raaghu Design System bridges the gaps between design and development while maint
   </div>
   <div style={{border: "0"}}>
     <div className="chartsLayout">
-      <div>
-         <img className="chartsLayoutImage" src={chartsLayoutImage} alt="flow" style={{height: "100px"}}/>
-        <strong>Charts, Layouts and Grids</strong>
+      <div >
+       <svg xmlns="http://www.w3.org/2000/svg"  width="120" height="70" viewBox="0 0 190 190" fill="none">
+          <g clip-path="url(#clip0_151_3728)">
+          <path d="M123.577 144.739C129.823 141.132 135.333 136.379 139.818 130.73L148.849 137.946C143.461 144.72 136.846 150.418 129.349 154.744L123.577 144.739ZM94.7381 152.462C101.959 152.46 109.115 151.109 115.84 148.478L120.052 159.244C111.985 162.396 103.4 164.015 94.7383 164.018L94.7381 152.462ZM65.8266 144.757C72.0976 148.338 78.9776 150.726 86.1185 151.802L84.3999 163.226C75.8281 161.941 67.5704 159.072 60.0484 154.765L65.8266 144.757ZM44.7231 123.586C48.3295 129.833 53.081 135.344 58.7288 139.832L51.5131 148.863C44.7278 143.474 39.0203 136.854 34.6902 129.349L44.7231 123.586ZM36.9672 94.7349C36.982 101.949 38.3394 109.097 40.97 115.814L30.2094 120.03C27.0538 111.97 25.4283 103.393 25.4162 94.7379L36.9672 94.7349ZM44.6771 65.8262C41.0941 72.0942 38.7062 78.9732 37.6349 86.1131L26.2026 84.3966C27.4925 75.8261 30.3634 67.5699 34.6691 60.048L44.6771 65.8262ZM65.8434 44.7199C59.5971 48.3267 54.0871 53.0793 49.6023 58.7284L40.5711 51.5127C45.9608 44.7286 52.581 39.0214 60.085 34.6899L65.8434 44.7199ZM94.7212 36.9863C87.5007 36.9877 80.344 38.3386 73.6198 40.9696L69.4069 30.204C77.4658 27.0501 86.042 25.4263 94.6961 25.4158L94.7212 36.9863ZM123.608 44.6768C117.337 41.0958 110.457 38.7071 103.316 37.6316L105.04 26.1972C113.611 27.4864 121.866 30.3591 129.386 34.6688L123.608 44.6768ZM144.736 65.8625C141.124 59.6079 136.364 54.0912 130.706 49.602L137.921 40.5708C144.707 45.9591 150.414 52.5796 154.744 60.0846L144.736 65.8625ZM152.453 94.7238C152.446 87.5023 151.093 80.3454 148.464 73.6194L159.225 69.4037C162.381 77.4632 164.006 86.0404 164.018 94.6957L152.453 94.7238ZM144.757 123.607C148.34 117.339 150.728 110.46 151.799 103.32L163.232 105.037C161.942 113.607 159.071 121.864 154.765 129.386L144.757 123.607Z" fill="#FAFAFA"/>
+          <path d="M64.693 77.3824C60.0956 85.3453 58.8498 94.8083 61.2295 103.69C63.6093 112.571 69.4197 120.143 77.3826 124.741C85.3455 129.338 94.8085 130.584 103.69 128.204C112.571 125.824 120.144 120.014 124.741 112.051C129.338 104.088 130.584 94.6253 128.204 85.7439C125.825 76.8624 120.014 69.2901 112.051 64.6928C104.088 60.0954 94.6255 58.8496 85.7441 61.2294C76.8626 63.6091 69.2903 69.4196 64.693 77.3824Z" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M112.052 64.6929L94.7174 94.7169L124.741 112.051" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_151_3728">
+        <rect width="138.675" height="138.675" fill="white" transform="translate(69.3379) rotate(30)"/>
+        </clipPath>
+        </defs>
+      </svg>
+        <span className="c-card-title">Charts, Layouts and Grids</span>
       </div>     
     </div>
     <div style={{backgroundColor: "#FAFAFA", padding: "1.5rem", margin: "0", borderRadius: "0px 0px 10px 10px"}}>
@@ -266,8 +315,9 @@ Raaghu Design System bridges the gaps between design and development while maint
   </div>
 </div>
 
-<div style={{marginTop: "20px"}}>
-  ### How Raaghu Design System Works?
+<div style={{marginTop: "60px" }}>
+
+  ### <div className="title">How Raaghu Design System Works?</div>
 
   Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
 
@@ -280,7 +330,7 @@ Raaghu Design System bridges the gaps between design and development while maint
 
 </div>
 
-<div style={{textAlign:"center", marginTop: "40px", marginBottom: "40px"}}>
+<div style={{textAlign:"center", marginTop: "60px", marginBottom: "40px"}}>
   ### Features
 
   <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -356,65 +406,69 @@ Raaghu Design System bridges the gaps between design and development while maint
   </div>
 </div>
 
+<div style={{textAlign:"center", marginTop: "60px"}}>
 
+### <div className="title"> Learn more about Raaghu Design System</div>
+</div>
 
-### Learn more about Raaghu Design System
-
-<div style={{display: "flex", justifyContent: "space-between", marginTop: "40px"}}>
+<div className="footerClass">
   
-  <div className="learnMoreSection">
+  <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/application-shells--docs">
+    <div>
+       <img className="expandImage" src={expandImage} alt="expandImage" />
+    </div>
     <div> 
      <img className="appShellImage" src={appShellImage} alt="appShellImage" />
     </div>
     <div>
      <strong>App Shell</strong>
     </div>
-  </div>
+  </a>
 
-   <div className="learnMoreSection">
+   <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/layouts--docs">
     <div> 
      <img className="layoutsImage" src={layoutsImage} alt="layoutsImage" />
     </div>
     <div>
      <strong>Layouts</strong>
     </div>
-  </div>
+  </a>
 
-   <div className="learnMoreSection">
+   <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/components-account--docs">
     <div> 
      <img className="componentsImage" src={componentsImage} alt="componentsImage" />
     </div>
     <div>
      <strong>Components</strong>
     </div>
-  </div>
+  </a>
 
-   <div className="learnMoreSection">
+   <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/elements-accordion--docs">
     <div> 
      <img className="elementsImage" src={elementsImage} alt="elementsImage" />
     </div>
     <div>
      <strong>Elements</strong>
     </div>
-  </div>
-
-   <div className="learnMoreSection">
+  </a>
+ 
+   <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/charts-pie-chart--docs">
     <div> 
      <img className="chartsImage" src={chartsImage} alt="chartsImage" />
     </div>
     <div>
      <strong>Charts</strong>
     </div>
-  </div>
+  </a>
 
-   <div className="learnMoreSection">
+   <a className="learnMoreSection" href="https://react.raaghu.io/?path=/docs/map-map--docs">
     <div> 
      <img className="mapsImage" src={mapsImage} alt="mapsImage" />
     </div>
     <div>
      <strong>Map</strong>
     </div>
-  </div>
+  </a>
 
 </div>
 
