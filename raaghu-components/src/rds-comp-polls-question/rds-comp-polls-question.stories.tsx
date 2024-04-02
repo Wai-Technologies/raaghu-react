@@ -32,10 +32,10 @@ export const Default: Story = {
     {
       option: "four"
     }
-
   ]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: [] } };
 
 
 

@@ -24,6 +24,7 @@ export const Default: Story = {
     name: 'default',
   }
 } satisfies Story;
+Default.parameters = { controls: { include: [] } };
 
 
 

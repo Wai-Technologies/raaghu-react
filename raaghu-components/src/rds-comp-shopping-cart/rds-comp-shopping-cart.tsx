@@ -1,4 +1,5 @@
 import React from "react";
+import { RdsIcon, RdsIconLabel, RdsLabel, RdsSelectList } from "../rds-elements";
 
 export interface RdsCompShoppingCartProp {
     cart: any,
@@ -7,24 +8,76 @@ export interface RdsCompShoppingCartProp {
 }
 
 const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
-    return (<>
+    return (
+      <>
         <div className="p-3">
-            <div>
-                {props.itemList.map((item: any, index: number) => (<>
-                    <div className="d-flex justify-content-between   shopping___cart" key={index} data-testid="shopping-cart-item">
-                        <div>{item.image}</div>
-                        <div> {item.description}</div>
-                        <div>{item.quantity}</div>
-                        <div>{item.price}</div>
+          <div>
+            {props.itemList.map((item: any, index: number) => (
+              <>
+                <div
+                  className="d-flex justify-content-between shopping___cart"
+                  key={index}
+                  data-testid="shopping-cart-item"
+                >
+                  <div>
+                    <img
+                      src={item.image}
+                      alt="profilePic"
+                      width="130px"
+                      height="130px"
+                      className="profil_image_Class rounded-circle"
+                      data-testid="profile-pic"
+                      style={{ height: "-webkit-fill-available" }}
+                    ></img>
+                  </div>
+                  <div>
+                    <RdsLabel fontWeight="bold" label={item.prodName}></RdsLabel>
+                    <RdsLabel
+                      fontWeight="lighter"
+                      label={item.description}
+                    ></RdsLabel>
+                    <RdsLabel
+                      fontWeight="semibold"
+                      label={item.price}
+                    ></RdsLabel>
+                    <div className="mt-4">
+                    <RdsIconLabel
+                      colorVariant="success"
+                      icon={item.highlightsIcon}
+                      label={item.highlights}
+                      size="medium"
+                      fill={false}
+                      iconposition="left"
+                    />
                     </div>
-                    <hr />
-                </>))}
-
-            </div>
-            <div>Order Summery</div>
-            <div>footer</div>
+                  </div>
+                  <div>
+                    <RdsSelectList
+                      id="story"
+                      isSearchable
+                      onChange={() => {}}
+                      placeholder="Select option"
+                      selectItems={item.quantity}
+                      selectedValue={item.quantity}
+                    />
+                  </div>
+                  <div>
+                    <RdsIcon
+                      name="cancel"
+                      height="14px"
+                      width="14px"
+                      colorVariant="dark"
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                </div>
+                <hr />
+              </>
+            ))}
+          </div>
         </div>
-
-    </>);
+      </>
+    );
 };
 export default RdsCompShoppingCart; 

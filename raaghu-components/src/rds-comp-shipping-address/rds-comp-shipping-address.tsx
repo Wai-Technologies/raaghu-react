@@ -9,151 +9,146 @@ export interface RdsCompShippingAddressProps {
 
 const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
     return (
-        <>
-            <div>
-                <p className="heading">Shipping Address</p>
-                <div className="row mt-3">
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="First Name"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="Last Name"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row mt-3">
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="Company"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="Phone"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row mt-3">
-                    <div className="form-group">
-                        <RdsInput
-                            label="Address"
-                            inputType="text"
-                            isDisabled={false}
-                            readonly={false}
-                            placeholder="Enter a value"
-                            required={true}
-                        ></RdsInput>
-                    </div>
-                </div>
-
-                <div className="row mt-3">
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="City"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsSelectList
-                                id="seleCon"
-                                label="Country"
-                                selectItems={props.countryList}
-                            ></RdsSelectList>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row mt-3">
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="State/Province"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                    <div className="col-md-6 sm-p-0">
-                        <div className="form-group">
-                            <RdsInput
-                                label="Postal Code"
-                                inputType="text"
-                                isDisabled={false}
-                                readonly={false}
-                                placeholder="Enter a value"
-                                required={true}
-                            ></RdsInput>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row mt-4">
-                    <div className="col-md-6 sm-p-0">
-                        <RdsButton
-                            type="button"
-                            label="Back"
-                            block={true}
-                            isOutline={true}
-                            colorVariant="primary"
-                            size="small"
-                        ></RdsButton>
-                    </div>
-                    <div className="col-md-6 sm-p-0">
-                        <RdsButton
-                            type="button"
-                            label="Save"
-                            block={true}
-                            isOutline={false}
-                            colorVariant="primary"
-                            size="small"
-                        ></RdsButton>
-                    </div>
-                </div>
+      <>
+      <form>
+        <div className="custom-content-scroll">
+          <h4>Shipping Address</h4>
+          <div className="row mt-3">
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="First Name"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
             </div>
-        </>
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="Last Name"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="Company"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="Phone"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="form-group">
+              <RdsInput
+                label="Address"
+                inputType="text"
+                isDisabled={false}
+                readonly={false}
+                placeholder="Enter a value"
+                required={true}
+              ></RdsInput>
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="City"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsSelectList
+                  id="seleCon"
+                  label="Country"
+                  selectItems={props.countryList}
+                ></RdsSelectList>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="State/Province"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+            <div className="col-md-6 sm-p-0">
+              <div className="form-group">
+                <RdsInput
+                  label="Postal Code"
+                  inputType="text"
+                  isDisabled={false}
+                  readonly={false}
+                  placeholder="Enter a value"
+                  required={true}
+                ></RdsInput>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          <RdsButton
+            type="button"
+            label="Back"
+            isOutline={true}
+            colorVariant="primary"
+            size="small"
+          ></RdsButton>
+          <RdsButton
+            type="button"
+            label="Save"
+            isOutline={false}
+            colorVariant="primary"
+            size="small"
+          ></RdsButton>
+        </div>
+    </form>
+      </>
     );
 };
 

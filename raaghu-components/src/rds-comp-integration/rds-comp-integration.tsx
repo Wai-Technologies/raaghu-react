@@ -32,17 +32,9 @@ const RdsCompIntegration = (props: RdsCompIntegrationProps) => {
                     </div>
                     <div className="col-2">
                         <RdsButton
-                            children={
-                                <RdsSpinner
-                                    spinnerType="border"
-                                    height="15px"
-                                    borderWidth="medium"
-                                    width="15px"
-                                    colorVariant="light"
-                                />
-                            }
+                            label="Save"
                             colorVariant="primary"
-                            isDisabled={true}
+                            isDisabled={false}
                             block={true}
                             tooltipTitle={""}
                             type="submit"

@@ -92,24 +92,8 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                 <div className="d-flex align-items-center mb-1">
                     <div className="col-8 col-md-8 mb-3 offset-2">
                         <h2 className="mb-0">
-                            Ui.Register
+                           Register
                         </h2>
-                    </div>
-                    <div className="col-2 col-md-2 mb-3">
-                        <RdsDropdownList
-                            labelIcon={currentLanguageIcon}
-                            labelIconWidth='18px'
-                            labelIconHeight='18px'
-                            placeholder={props.languageLabel}
-                            icon="en"
-                            block={false}
-                            iconFill={false}
-                            iconStroke={false}
-                            isPlaceholder={true}
-                            id={"langDrop"}
-                            showIcon={false}
-                            listItems={props.languageData}
-                            onClick={props.onClickHandler} />
                     </div>
                 </div>
 
@@ -117,11 +101,11 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <small className="pb-3 d-flex justify-content-center">
                         <span className="d-flex">
                             <RdsLabel
-                                label={`${"Saas.Tenants"} ${props.getvalidTenantName || ""}`}
+                                label={`${"Tenants"} ${props.getvalidTenantName || ""}`}
                             ></RdsLabel>:
                         </span>&nbsp;<span className="fw-semibold">
                             <RdsLabel
-                                label={`$"UiMultiTenancy.NotSelected` + props.getvalidTenantName}
+                                label={"NotSelected"}
                             ></RdsLabel></span>
                         ( <span>
                             <RdsModal
@@ -131,8 +115,8 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 showModalHeader={true}
                                 scrollable={false}
                                 verticallyCentered={false}
-                                modalbutton={<a className="link-primary"> "Change</a>}
-                                modalTitle="UiMultiTenancy.SwitchTenant"
+                                modalbutton={<a className="link-primary">Change</a>}
+                                modalTitle="Switch Tenant"
                                 saveChangesName={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                     }`}
                                 cancelButtonName="CANCEL"
@@ -190,7 +174,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-group text-start">
                             <RdsInput
-                                placeholder="Account.DisplayName:Email"
+                                placeholder="Email"
                                 inputType="email"
                                 onChange={emailhandleChange}
                                 value={emailAddress}
@@ -202,7 +186,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                placeholder="Account.DisplayName:Password"
+                                placeholder="Password"
                                 inputType="password"
                                 onChange={passwordhandleChange}
                                 name={"password"}
@@ -229,7 +213,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         </div>
                         <div className="mt-3">
                             <RdsButton
-                                label="Ui.Register"
+                                label="Register"
                                 colorVariant="primary"
                                 showLoadingSpinner={true}
                                 isDisabled={!isFormValid}
@@ -242,12 +226,12 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             />
                         </div>
                         <div className="mt-4">
-                            <p> "Dont have an Account"<span className="ps-2"><a
+                            <p>Dont have an Account<span className="ps-2"><a
                                 className="link-primary text-decoration-none"
                                 href="javascript:void(0)"
                                 onClick={() => loginHandler(isLoginClicked)}
                                 data-testid="login"
-                            >"Ui.Login
+                            >Login
                             </a></span></p>
                         </div>
                         <div className="mt-5 justify-content-center">
@@ -269,17 +253,6 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                         tooltipTitle={"Connect with Google"}
                                         tooltipPlacement="bottom"
                                     ></RdsIcon></span>
-                                <span className="w-20px h-20px border p-2 mx-3 rounded-2"><RdsIcon
-                                    name="twitter_default"
-                                    height="20px"
-                                    width="20px"
-                                    colorVariant="light"
-                                    fill={false}
-                                    stroke={true}
-                                    tooltip={true}
-                                    tooltipTitle={"Connect with Twitter"}
-                                    tooltipPlacement="bottom"
-                                ></RdsIcon></span>
                                 <span className="w-20px h-20px border p-2 mx-3 rounded-2"><RdsIcon
                                     name="microsoft"
                                     height="20px"

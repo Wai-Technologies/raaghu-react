@@ -46,7 +46,8 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
         <>
             <div>
                 <form onSubmit={resourceBasicData}>
-                    <div className="row mt-3">
+                <div className="custom-content-scroll">
+                    <div className="row">
                         <div className="col-6">
                             <RdsInput
                                 required={true}
@@ -61,8 +62,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                                 dataTestId="name"
                             ></RdsInput>
                         </div>
-
-                        <div className="col-6 ">
+                        <div className="col-6">
                             <RdsInput
                                 label="Display name"
                                 placeholder="Enter display name"
@@ -77,8 +77,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             ></RdsInput>
                         </div>
                     </div>
-
-                    <div className=" mb-4">
+                    <div className="row mb-3">
                         <RdsTextArea
                             label="Description"
                             placeholder="Description"
@@ -90,7 +89,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             dataTestId="description"
                         />
                     </div>
-                    <div className="row mt-2">
+                    <div className="row mb-3">
                         <RdsCheckbox
                             id="0"
                             label="Enabled"
@@ -101,7 +100,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             dataTestId="enabled"
                         ></RdsCheckbox>
                     </div>
-                    <div className="row mt-2">
+                    <div className="row mb-3">
                         <RdsCheckbox
                             id="0"
                             label="Required"
@@ -112,7 +111,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             dataTestId="required"
                         ></RdsCheckbox>
                     </div>
-                    <div className="row mt-2">
+                    <div className="row mb-3">
                         <RdsCheckbox
                             id="0"
                             label="Emphasize"
@@ -123,7 +122,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             dataTestId="emphasize"
                         ></RdsCheckbox>
                     </div>
-                    <div className="row mt-2">
+                    <div className="row mb-3">
                         <RdsCheckbox
                             id="0"
                             label="Show in Discovery Document"
@@ -134,7 +133,8 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             dataTestId="discovery-document"
                         ></RdsCheckbox>
                     </div>
-                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2 footer-buttons">
+                    </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}

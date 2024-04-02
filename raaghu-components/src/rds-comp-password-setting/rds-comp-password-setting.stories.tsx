@@ -25,6 +25,7 @@ export const Default: Story = {
     sizeType: "withDescription",
   }
 } satisfies Story;
+Default.parameters = { controls: { include: ['sizeDataWithDescription'] } };
 
 
 

@@ -68,28 +68,30 @@ type Story = StoryObj<typeof RdsCompProfile>;
 
 export const Default: Story = {
     args: {
-        // navtabItems: [
-        //     {
-        //         "label": "My Account",
-        //         "iconPath": "profile_picture_square",
-        //         "subText": "Manage accounts linked to your account",
-        //         "id": "nav-LinkAccount",
-        //     },
-        //     {
-        //         "label": "Security logs",
-        //         "iconPath": "setting",
-        //         "subText": "Manage authority accounts",
-        //         "id": "nav-Deligation",
-        //     },
-        //     {
-        //         "label": "Personal Data",
-        //         "iconPath": "login_attempts",
-        //         "subText": "See recent login attempts for your account",
-        //         "id": "nav-Attempts",
-        //     }
-        // ],
-        // profilePic: "https://www.freeiconspng.com/thumbs/profile-icon-png/account-profile-user-icon--icon-search-engine-10.png",
-        // userName: "User Name",
-        // userRole: " Admin",
+        navtabItems: [
+            {
+                "label": "My Account",
+                "iconPath": "profile_picture_square",
+                "subText": "Manage accounts linked to your account",
+                "id": "nav-MyAccount",
+            },
+            {
+                "label": "Security logs",
+                "iconPath": "setting",
+                "subText": "Manage authority accounts",
+                "id": "nav-SecurityLogs",
+            },
+            {
+                "label": "Personal Data",
+                "iconPath": "login_attempts",
+                "subText": "See recent login attempts for your account",
+                "id": "nav-PersonalData",
+            }
+        ],
+        profilePic: "https://abpstagereact12.raaghu.io/assets/profile-picture-circle.svg",
+        userName: "User Name",
+        userRole: " Admin",
+        showUserName: true,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['navtabItems', 'profilePic', 'userName', 'userRole'] } };

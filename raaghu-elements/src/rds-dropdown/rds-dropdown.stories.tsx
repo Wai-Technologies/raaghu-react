@@ -11,8 +11,12 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         size: {
-            options: ["small", "mid", "large"],
-            control: { type: "radio" },
+            options: [
+                "small",
+                "medium",
+                "large"
+            ],
+            control: { type: "select" },
         },
         colorVariant: {
             options: [
@@ -28,17 +32,6 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        direction: {
-            options: ["Drop-Up", "Drop-Right", "Drop-Down", "Drop-Left"],
-            control: { type: "radio" },
-        },
-        // decorators: [
-        //     (Story) => (
-        //         <div style={{ margin: "150px 0", textAlign: "center" }}>
-        //             <Story />
-        //         </div>
-        //     ),
-        // ],
     },
 } satisfies Meta<typeof RdsDropdown>;
 
@@ -55,9 +48,8 @@ export const Default: Story = {
         id: "1",
         size: "mid",
         darkDropdown: false,
+        displayType: 'dropdown',
         label: "Dropdown Button",
-        direction: "Drop-Down",
-        split: false,
         listItems: [
             {
                 label: "Export To Excel",
@@ -85,9 +77,8 @@ export const WithSplit: Story = {
         id: "3",
         size: "mid",
         darkDropdown: false,
+        displayType: 'split',
         label: "Dropdown Button",
-        direction: "Drop-Down",
-        split: true,
         listItems: [
             {
                 label: "Export To Excel",

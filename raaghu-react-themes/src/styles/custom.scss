@@ -2,7 +2,9 @@ $path: "../fonts/Poppins-Regular.ttf";
 
 @if import-exists($path) {
   $path: "../fonts/";
-} @else {
+}
+
+@else {
   $path: "../../../../raaghu-react-themes/public/fonts/";
 }
 
@@ -472,7 +474,7 @@ html[theme="semidark"] {
 }
 
 .sb-story {
-  .custom-content-scroll{
+  .custom-content-scroll {
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
@@ -480,7 +482,7 @@ html[theme="semidark"] {
   }
 }
 
-#storybook-root .custom-content-scroll{
+#storybook-root .custom-content-scroll {
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 3.4rem;
@@ -631,6 +633,8 @@ html[theme="dark"] .btn-primary svg {
 ul#languageDropdown {
   max-height: calc(100vh - 50px);
 }
+
+// commentted class for further use
 
 .dropdown-toggle::after {
   float: right;
@@ -2806,36 +2810,42 @@ figure.worldmap__figure-container {
 }
 
 .lf-player-container {
-    svg{
-        stroke:none;
-    }
-}
-.icon-width {
-   width: -webkit-fill-available
-}
-.profile-off {
-    .offcanvas_btn {
-        margin: auto;
-    }
-}
-.file-tree p, .node-label {
-    width: auto;
-    /* overflow: hidden; */
-    text-overflow: ellipsis;
-    /* white-space: nowrap; */
-    display: grid;
+  svg {
+    stroke: none;
+  }
 }
 
-.file-tree p .form-label, .NodeLabel {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.icon-width {
+  width: -webkit-fill-available
 }
+
+.profile-off {
+  .offcanvas_btn {
+    margin: auto;
+  }
+}
+
+.file-tree p,
+.node-label {
+  width: auto;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  display: grid;
+}
+
+.file-tree p .form-label,
+.NodeLabel {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .users {
-    .dropdown-menu.show {
-        margin-left: 1.1rem !important;
-    }
+  .dropdown-menu.show {
+    margin-left: 1.1rem !important;
+  }
 }
 
 .CTA {
@@ -2845,18 +2855,30 @@ figure.worldmap__figure-container {
 
 .skill-selector.active,
 .skill-selector:hover {
-    background: #D5FCDE;
+  background: #D5FCDE;
 }
 
 .skill-selector {
-    background: #FCF5FF;
+  background: #FCF5FF;
 }
 
 @media (max-width: 1024px) {
-    .table-responsive {
-        min-height: auto !important;
-    }
-    .card.card-full-stretch {
-        min-height: auto !important;
-    }
+  .table-responsive {
+    min-height: auto !important;
+  }
+
+  .card.card-full-stretch {
+    min-height: auto !important;
+  }
+}
+
+.dropdown-toggle-split {
+  min-width: auto !important;
+}
+
+.customClassUL {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(170px, 37px);
 }

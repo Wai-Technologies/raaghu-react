@@ -9,13 +9,11 @@ describe("RdsDropdown", () => {
         size: "small",
         darkDropdown: false,
         label: "Dropdown",
-        direction: "Drop-Up",
         listItems: [
             { id: "item1", label: "Item 1", path: "/item1" },
             { id: "item2", label: "Item 2", path: "/item2" },
             { id: "item3", label: "Item 3", path: "/item3" },
         ],
-        split: true,
         id: "1",
     };
 
@@ -36,17 +34,5 @@ describe("RdsDropdown", () => {
         render(<RdsDropdown {...props} />);
         const dropdownElement = screen.getByRole("feed");
         expect(dropdownElement.classList).toContain("dropup");
-    });
-
-    it("applies split to the dropdown", ()=>{
-        render(<RdsDropdown {...props} split={true}/>);
-        const dropdownElement = screen.getByTestId("splitButton");
-        expect(dropdownElement).toBeInTheDocument();
-    });
-
-    it("applies the correct dropdown size class", () => {
-        render(<RdsDropdown {...props} split={true}/>);
-        const dropdownElement = screen.getByTestId("splitButton");
-        expect(dropdownElement.classList).toContain("btn-sm");
     });
 });
