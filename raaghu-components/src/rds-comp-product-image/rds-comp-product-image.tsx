@@ -47,7 +47,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
     return (
         <div
             className={
-                "me-4 d-inline-block position-relative product-container " +
+                "d-inline-block position-relative product-container " +
                 borderedClass
             }
         >
@@ -56,7 +56,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                 alt="product-img"
                 className="product-img"
             ></img>
-            <div className={props.item.bordered ? "mx-2 mb-4" : ""}>
+            <div className={props.item.bordered ? "m-3" : ""}>
                 <div className="mt-3">
                     <RdsLabel label="Basic Tee" size="28px"></RdsLabel>
                 </div>
