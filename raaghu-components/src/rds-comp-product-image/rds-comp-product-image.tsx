@@ -58,7 +58,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
             ></img>
             <div className={props.item.bordered ? "m-3" : ""}>
                 <div className="mt-3">
-                    <RdsLabel label="Basic Tee" size="28px"></RdsLabel>
+                    <h4><RdsLabel label={props.item.productTitle} size="28px"></RdsLabel></h4>
                 </div>
                 <div className="position-absolute iconposition-heart">
                     <RdsIcon
