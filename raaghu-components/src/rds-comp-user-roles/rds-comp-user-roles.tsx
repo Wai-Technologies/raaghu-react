@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsLabel } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-export interface RdsCompUserRolesProps {
+interface RdsCompUserRolesProps {
     usersRole: any;
     changedData?: any;
 }
