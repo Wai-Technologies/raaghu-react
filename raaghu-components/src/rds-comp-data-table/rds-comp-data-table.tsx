@@ -58,6 +58,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [totalRecords, setTotalRecords] = useState<any>(props.totalRecords);
   const [array, setArray] = useState<boolean[]>([]);
   const iconForIllustration = localStorage.getItem("theme") || " light";
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activeDropdownId, setActiveDropdownId] = useState(null);
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -168,7 +170,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
           return { ...Data };
         }
       });
-      setData(tempData);
+      setData(tempData);      
     }
 
     props.onActionSelection != undefined &&
@@ -272,6 +274,11 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       props.actionPosition === "right"
       ? true
       : false;
+
+      const toggleDropdown = (id:any) => {
+        setIsDropdownOpen(id === activeDropdownId ? !isDropdownOpen : true);
+        setActiveDropdownId(id);
+      };
 
   return (
     <>
@@ -886,8 +893,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
-                                          aria-expanded="false"
-                                          //onClick={() => openCloseDropDown(index)}
+                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'true' : 'false'}
+                                          onClick={() => toggleDropdown(tableDataRow.id)}
                                           data-bs-toggle="dropdown"
                                           data-bs-auto-close="true"
                                           id="dropdownMenuButton"
@@ -907,8 +914,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         {
                                           <ul
                                             aria-labelledby="dropdownMenuButton"
-                                            className="dropdown-menu"
-                                          >
+                                            className={`dropdown-menu ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}                                          >
                                             {totalActions?.map(
                                               (action, actionIndex) => (
                                                 <li
@@ -1098,7 +1104,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
               </table>
             </div>
           </div>
-          {props.pagination && totalRecords > 10 && (
+          {props.pagination &&(
             <div className=" d-flex justify-content-end pt-3">
               <RdsPagination
                 totalRecords={
