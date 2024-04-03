@@ -93,10 +93,10 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
     return (
 
-        <div className="dark dashboard ">
+        <div className="dark dashboard bg-grey p-4">
             <div className="row">
                 <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
-                    <RdsWidget
+                <RdsWidget
                         headerTitle={headerTitle}
                         isRefreshRequired={false}
                         isButtonGroupRequired={true}
@@ -174,239 +174,28 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     },
 
                                     scales: {
-
-                                        y: {
-
-                                            axis: "y",
-
-                                            beginAtZero: true,
-
-                                            legend: {
-
-                                                labels: {
-
-                                                    maxheight: 10,
-
-                                                },
-
-                                            },
-
-                                            grid: {
-
-                                                display: true,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: true,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-                                                borderDash: [1, 1],
-
-                                                color: "#666666",
-
-                                                borderColor: "#666666",
-
-
-                                            },
-
-                                            type: "linear",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
-                                            display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#B3B3B3",
-
-                                            },
-
-                                            id: "y",
-
-                                            position: "left",
-
-                                        },
-
                                         x: {
-
-                                            axis: "x",
-
-                                            grid: {
-
-                                                display: false,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: false,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-                                                borderDash: [1, 1],
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-
-                                                color: "rgba(0,0,0,0.1)",
-
-                                                borderColor: "rgba(0,0,0,0.1)",
-
-                                            },
-
-                                            type: "category",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
                                             display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            beginAtZero: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#666",
-
-                                            },
-
-                                            id: "x",
-
-                                            position: "bottom",
-
+                                            grid: {
+                                                display: false
+                                            }
                                         },
-
+                                        y: {
+                                            grid: {
+                                                drawTicks: true,
+                                                drawBorder: true,
+                                                borderWidth: 1,
+                                                borderDash: [5, 5],
+                                                borderDashOffset: 2,
+                                                tickBorderDash: [5, 5],
+                                                color: 'rgba(218, 221, 224, 0.8)',
+                                                // color: 'rgba(255, 255, 255, 0.5)',
+                                                // lineWidth: ctx => ctx.index % 5 ? 1 : 0
+                                            },
+                                            border: {
+                                                dash: [3, 3]
+                                            },
+                                        }
                                     },
 
                                     tooltip: {
@@ -561,237 +350,28 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     },
 
                                     scales: {
-
-                                        y: {
-
-                                            axis: "y",
-
-                                            beginAtZero: true,
-
-                                            legend: {
-
-                                                labels: {
-
-                                                    maxheight: 10,
-
-                                                },
-
-                                            },
-
-                                            grid: {
-
-                                                display: true,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: true,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-                                                borderDash: [1, 1],
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-
-                                                color: "#666666",
-
-                                                borderColor: "#666666",
-
-                                            },
-
-                                            type: "linear",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
-                                            display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#666",
-
-                                            },
-
-                                            id: "y",
-
-                                            position: "left",
-
-                                        },
-
                                         x: {
-
-                                            axis: "x",
-
-                                            grid: {
-
-                                                display: false,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: true,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-                                                borderDash: [1, 1],
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-
-                                                color: "rgba(0,0,0,0.1)",
-
-                                                borderColor: "rgba(0,0,0,0.1)",
-
-                                            },
-
-                                            type: "category",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
                                             display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            beginAtZero: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#666",
-
-                                            },
-
-                                            id: "x",
-
-                                            position: "bottom",
-
+                                            grid: {
+                                                display: false
+                                            }
                                         },
-
+                                        y: {
+                                            grid: {
+                                                drawTicks: true,
+                                                drawBorder: true,
+                                                borderWidth: 1,
+                                                borderDash: [5, 5],
+                                                borderDashOffset: 2,
+                                                tickBorderDash: [5, 5],
+                                                color: 'rgba(218, 221, 224, 0.8)',
+                                                // color: 'rgba(255, 255, 255, 0.5)',
+                                                // lineWidth: ctx => ctx.index % 5 ? 1 : 0
+                                            },
+                                            border: {
+                                                dash: [3, 3]
+                                            },
+                                        }
                                     },
 
                                     tooltip: {
@@ -946,239 +526,29 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     },
 
                                     scales: {
-
-                                        y: {
-
-                                            axis: "y",
-
-                                            beginAtZero: true,
-
-                                            legend: {
-
-                                                labels: {
-
-                                                    maxheight: 10,
-
-                                                },
-
-                                            },
-
-                                            grid: {
-
-                                                display: true,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: true,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-                                                borderDash: [1, 1],
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-
-                                                color: "#666666",
-
-                                                borderColor: "#666666",
-
-                                            },
-
-                                            type: "linear",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
-                                            display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#666",
-
-                                            },
-
-                                            id: "y",
-
-                                            position: "left",
-
-                                        },
-
                                         x: {
-
-                                            axis: "x",
-
-                                            grid: {
-
-                                                display: false,
-
-                                                lineWidth: 1,
-
-                                                drawBorder: true,
-
-                                                drawOnChartArea: true,
-
-                                                drawTicks: true,
-
-                                                tickLength: 8,
-
-                                                offset: false,
-
-                                                borderDash: [],
-
-                                                borderDashOffset: 0,
-
-                                                borderWidth: 1,
-
-                                                color: "rgba(0,0,0,0.1)",
-
-                                                borderColor: "rgba(0,0,0,0.1)",
-
-                                            },
-
-                                            type: "category",
-
-                                            ticks: {
-
-                                                minRotation: 0,
-
-                                                maxRotation: 50,
-
-                                                mirror: false,
-
-                                                textStrokeWidth: 0,
-
-                                                textStrokeColor: "",
-
-                                                padding: 3,
-
-                                                display: true,
-
-                                                autoSkip: true,
-
-                                                autoSkipPadding: 3,
-
-                                                labelOffset: 0,
-
-                                                minor: {},
-
-                                                major: {},
-
-                                                align: "center",
-
-                                                crossAlign: "near",
-
-                                                showLabelBackdrop: false,
-
-                                                backdropColor: "rgba(255, 255, 255, 0.75)",
-
-                                                backdropPadding: 2,
-
-                                                color: "#666",
-
-                                            },
-
                                             display: true,
-
-                                            offset: false,
-
-                                            reverse: false,
-
-                                            beginAtZero: false,
-
-                                            bounds: "ticks",
-
-                                            grace: 0,
-
-                                            title: {
-
-                                                display: false,
-
-                                                text: "",
-
-                                                padding: {
-
-                                                    top: 4,
-
-                                                    bottom: 4,
-
-                                                },
-
-                                                color: "#666",
-
-                                            },
-
-                                            id: "x",
-
-                                            position: "bottom",
-
+                                            grid: {
+                                                display: false
+                                            }
                                         },
-
+                                        y: {
+                                            grid: {
+                                                drawTicks: true,
+                                                drawBorder: true,
+                                                borderWidth: 1,
+                                                borderDash: [5, 5],
+                                                borderDashOffset: 2,
+                                                tickBorderDash: [5, 5],
+                                                color: 'rgba(218, 221, 224, 0.8)',
+                                                // color: 'rgba(255, 255, 255, 0.5)',
+                                                // lineWidth: ctx => ctx.index % 5 ? 1 : 0
+                                            },
+                                            border: {
+                                                dash: [3, 3]
+                                            },
+                                        }
                                     },
-
                                     tooltip: {
 
                                         display: true,
@@ -1275,7 +645,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     bigNumberLabel="$632,230"
                                     iconLabel="$27,203"
                                     onIconClick={onBackSide}>
-                                    <div className="pt-3">
+                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0">
                                         <RdsMap
                                             color="purple"
                                             mapList={mapList}></RdsMap>
@@ -1296,7 +666,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     bigNumberLabel="$49,361"
                                     iconLabel="$9,543"
                                     onIconClick={onFrontSide}>
-                                    <div className="pt-3">
+                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0">
                                         <RdsMap
                                             color="#A478E6"
                                             mapList={mapList}></RdsMap>
@@ -1306,8 +676,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         </div>
                     </div>
                 </div>
-
-
                 <div className="col-xl-3 col-lg-6 col-md-12">
 
                     <RdsWidget
@@ -1428,8 +796,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                     </RdsWidget>
 
                 </div>
-
-
             </div>
 
             <div className="row">
@@ -2039,135 +1405,28 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                     text: "Daily Sales Growth",
                                                 },
                                             },
+                                            
                                             scales: {
                                                 x: {
-                                                    axis: "x",
-                                                    type: "category",
-                                                    offset: true,
                                                     grid: {
-                                                        offset: true,
-                                                        display: true,
-                                                        lineWidth: 1,
-                                                        drawBorder: true,
-                                                        drawOnChartArea: true,
                                                         drawTicks: true,
-                                                        tickLength: 8,
-                                                        borderDash: [1, 1],
-                                                        borderDashOffset: 0,
+                                                        drawBorder: true,
                                                         borderWidth: 1,
-                                                        color: "#666666",
-                                                        borderColor: "#666666",
+                                                        borderDash: [5, 5],
+                                                        borderDashOffset: 2,
+                                                        tickBorderDash: [5, 5],
+                                                        color: 'rgba(218, 221, 224, 0.8)',
                                                     },
-                                                    ticks: {
-                                                        minRotation: 0,
-                                                        maxRotation: 50,
-                                                        mirror: false,
-                                                        textStrokeWidth: 0,
-                                                        textStrokeColor: "",
-                                                        padding: 0,
-                                                        display: true,
-                                                        autoSkip: true,
-                                                        autoSkipPadding: 3,
-                                                        labelOffset: 0,
-                                                        minor: {},
-                                                        major: {},
-                                                        align: "center",
-                                                        crossAlign: "near",
-                                                        showLabelBackdrop: false,
-                                                        backdropColor: "rgba(255, 255, 255, 0.75)",
-                                                        backdropPadding: 2,
-                                                        color: "#666",
+                                                    border: {
+                                                        dash: [3, 3]
                                                     },
-                                                    display: true,
-                                                    reverse: false,
-                                                    beginAtZero: true,
-                                                    bounds: "ticks",
-                                                    grace: 0,
-                                                    title: {
-                                                        display: false,
-                                                        text: "",
-                                                        padding: {
-                                                            top: 4,
-                                                            bottom: 4,
-                                                        },
-                                                        color: "#666",
-                                                    },
-                                                    id: "x",
-                                                    position: "bottom",
                                                 },
                                                 y: {
-                                                    axis: "y",
-                                                    type: "linear",
-                                                    beginAtZero: true,
-                                                    legend: {
-
-                                                        labels: {
-
-                                                            maxheight: 10,
-
-                                                        },
-
-                                                    },
-                                                    ticks: {
-                                                        minRotation: 0,
-                                                        maxRotation: 50,
-                                                        mirror: false,
-                                                        textStrokeWidth: 0,
-                                                        textStrokeColor: "",
-                                                        padding: 0,
-                                                        display: true,
-                                                        autoSkip: true,
-                                                        autoSkipPadding: 0,
-                                                        labelOffset: 0,
-                                                        minor: {},
-                                                        major: {},
-                                                        align: "center",
-                                                        crossAlign: "near",
-                                                        showLabelBackdrop: false,
-                                                        backdropColor: "rgba(255, 255, 255, 0.75)",
-                                                        backdropPadding: 0,
-                                                        color: "#666",
-                                                        callback: function (value: any, index: number, values: any) {
-                                                            const customLabels = ["2k", "4k", "6k", "8k", "10k", "12k", "14k", "16k", "18k", "20k"];
-                                                            if (index < customLabels.length) {
-                                                                return customLabels[index];
-                                                            }
-                                                            return value; // Fallback to the original value
-                                                        },
-                                                    },
-
                                                     display: true,
-                                                    borderDash: [1, 1],
-                                                    offset: false,
-                                                    reverse: false,
-                                                    bounds: "ticks",
-                                                    grace: 0,
                                                     grid: {
-                                                        display: false,
-                                                        lineWidth: 1,
-                                                        drawBorder: true,
-                                                        drawOnChartArea: true,
-                                                        drawTicks: true,
-                                                        tickLength: 8,
-                                                        offset: false,
-
-                                                        borderDashOffset: 0,
-                                                        borderWidth: 1,
-                                                        color: "rgba(0,0,0,0.1)",
-                                                        borderColor: "#666666",
-                                                    },
-                                                    title: {
-                                                        display: false,
-                                                        text: "",
-                                                        padding: {
-                                                            top: 0,
-                                                            bottom: 0,
-                                                        },
-                                                        color: "#666",
-                                                    },
-                                                    id: "y",
-                                                    position: "left",
-                                                },
+                                                        display: false
+                                                    }
+                                                }
                                             },
                                         }}
                                         dataSets={[
