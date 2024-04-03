@@ -11,7 +11,7 @@
 
 .vertical {
   position: absolute;
-  left: -25px;
+  left: 50px;
   bottom: 0;
   top: 1.2rem;
   width: 0.1875rem;
@@ -21,7 +21,7 @@
 }
 
 .unitName {
-  margin-left: -28px;
+  margin-left: 78px;
 }
 
 .member-count {
@@ -40,7 +40,7 @@
 
 .node-icons {
   position: absolute;
-  left: -27px;
+  left: 27px;
   top: 10px;
 }
 
@@ -48,4 +48,11 @@
   list-style-position: initial !important;
   list-style-image: initial !important;
   list-style-type: none !important;
+}
+.left-content {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  height: 100vh;
+  margin-left: 10%;
 }

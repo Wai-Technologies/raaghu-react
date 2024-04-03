@@ -243,7 +243,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
 
                                         <div key={node.data.id} className="unitName">
                                             <div
-                                                className="position-relative mb-0 list-style ps-0">
+                                                className="position-relative mb-0 list-style ps-0 ml-50">
                                                 {node?.children?.map((tree: any, id: any) => (<>
 
                                                     <div key={tree.data.id}>

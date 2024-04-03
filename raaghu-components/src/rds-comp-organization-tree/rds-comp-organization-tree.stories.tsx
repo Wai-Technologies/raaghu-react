@@ -1,13 +1,21 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsComporganizationTree from "./rds-comp-organization-tree";
-
+ import React from 'react';
+// import "./rds-comp-organization-tree.css";
 const meta: Meta = {
     title: "Components/Organization Tree",
     component: RdsComporganizationTree,
     parameters: {
         layout: 'padded',
     },
+    // decorators: [
+    //     (Story) => (
+    //         <div className="left-content">
+    //             <Story />
+    //         </div>
+    //     )
+    // ],
     tags: ['autodocs'],
     argTypes: {
     },
