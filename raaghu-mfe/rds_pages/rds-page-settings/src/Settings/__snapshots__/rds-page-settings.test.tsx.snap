@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings Page Check settings page for the presence of the elements and components 1`] = `"settings"`;

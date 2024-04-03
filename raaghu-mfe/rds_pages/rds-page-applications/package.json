@@ -1,0 +1,15 @@
+{
+  "name": "applications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "npm run start",
+    "start": "webpack serve",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

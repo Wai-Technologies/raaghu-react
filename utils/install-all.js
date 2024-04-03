@@ -5,6 +5,9 @@ const elementsFolderPath = path.join(__dirname, "..", "raaghu-elements");
 const componentsFolderPath = path.join(__dirname, "..", "raaghu-components");
 const layoutsFolderPath = path.join(__dirname, "..", "raaghu-layouts");
 const themesFolderPath = path.join(__dirname, "..", "raaghu-react-themes");
+const mfeFolderPath = path.join(__dirname, "..", "raaghu-mfe");
+const coreFolderPath = path.join(__dirname, "..", "raaghu-react-core");
+
 
 console.log("\x1b[32m%s\x1b[0m", `Installing dependencies...`);
 execSync(`npm install`, {
@@ -31,4 +34,13 @@ execSync(`npm install`, {
     stdio: "inherit",
 });
 
+execSync(`npm install`, {
+    cwd: mfeFolderPath,
+    stdio: "inherit",
+});
+
+execSync(`npm install`, {
+    cwd: coreFolderPath,
+    stdio: "inherit",
+});
 console.log("\x1b[32m%s\x1b[0m", `Dependencies installed successfully!!`);

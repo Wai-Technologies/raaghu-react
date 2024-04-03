@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Page Check the user page with functions 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="container-fluid p-0 m-0"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12"
+          >
+            <div
+              class="card px-4 py-4 border-0 rounded-0 card-full-stretch users"
+            >
+              <div
+                class="row"
+              >
+                <div
+                  class="col-xxl-7 col-xl-7 col-lg-12 col-md-12 col-12"
+                >
+                  <div
+                    class="row"
+                  >
+                    <div
+                      class="col-xxl-4 col-xl-3 col-md-4 mb-md-3 mb-2"
+                    />
+                    <div
+                      class="col-xxl-4 col-xl-4 col-md-4 mb-3"
+                    />
+                    <div
+                      class="col-xxl-4 col-xl-5 col-md-4 mb-3"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-xxl-5 col-xl-5 col-lg-12 col-md-12 col-12 mb-3 pt-1"
+                >
+                  <div
+                    class="align-items-center d-block d-lg-flex d-md-flex d-xl-flex d-xxl-flex justify-content-between"
+                  >
+                    <div
+                      class="d-flex gap-3 mb-3 mb-md-0"
+                    >
+                      <a
+                        class="text-primary cursor-pointer"
+                      >
+                        Clear Filter
+                      </a>
+                    </div>
+                    <div />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="offset-md-4 col-md-4 mt-3 col-12 position-absolute position-lg-relative bottom-0 mb-3 custom-responsive-alert"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="container-fluid p-0 m-0"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12"
+        >
+          <div
+            class="card px-4 py-4 border-0 rounded-0 card-full-stretch users"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-xxl-7 col-xl-7 col-lg-12 col-md-12 col-12"
+              >
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col-xxl-4 col-xl-3 col-md-4 mb-md-3 mb-2"
+                  />
+                  <div
+                    class="col-xxl-4 col-xl-4 col-md-4 mb-3"
+                  />
+                  <div
+                    class="col-xxl-4 col-xl-5 col-md-4 mb-3"
+                  />
+                </div>
+              </div>
+              <div
+                class="col-xxl-5 col-xl-5 col-lg-12 col-md-12 col-12 mb-3 pt-1"
+              >
+                <div
+                  class="align-items-center d-block d-lg-flex d-md-flex d-xl-flex d-xxl-flex justify-content-between"
+                >
+                  <div
+                    class="d-flex gap-3 mb-3 mb-md-0"
+                  >
+                    <a
+                      class="text-primary cursor-pointer"
+                    >
+                      Clear Filter
+                    </a>
+                  </div>
+                  <div />
+                </div>
+              </div>
+            </div>
+            <div
+              class="offset-md-4 col-md-4 mt-3 col-12 position-absolute position-lg-relative bottom-0 mb-3 custom-responsive-alert"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

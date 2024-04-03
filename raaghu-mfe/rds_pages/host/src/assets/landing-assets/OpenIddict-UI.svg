@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50.739" height="50" viewBox="0 0 50.739 50">
+  <g id="OpenIddict_UI" data-name="OpenIddict UI" transform="translate(-1189.261 -2466)">
+    <g id="Group_192331" data-name="Group 192331" transform="translate(1188.9 2464)">
+      <path id="Path_188881" data-name="Path 188881" d="M3.552,19.8A21.048,21.048,0,0,0,3,24.6,21.549,21.549,0,0,0,15.371,43.955M12.954,6.6a22.891,22.891,0,0,1,22.21-1.355M46.984,19.8a21.057,21.057,0,0,1,.552,4.8A21.549,21.549,0,0,1,35.164,43.955" transform="translate(1.327 0)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <path id="Path_188882" data-name="Path 188882" d="M14.948,28.6A4.8,4.8,0,1,0,10,23.8,4.876,4.876,0,0,0,14.948,28.6Z" transform="translate(11.647 22.4)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <path id="Path_188883" data-name="Path 188883" d="M26.659,4.486H18v8.4h8.659Z" transform="translate(23.44 2.081)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <path id="Path_188884" data-name="Path 188884" d="M2.1,13.217H12.591L7.32,4.25Z" transform="translate(0 1.75)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <ellipse id="Ellipse_9314" data-name="Ellipse 9314" cx="6.185" cy="6" rx="6.185" ry="6" transform="translate(20.41 12.6)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+      <path id="Path_188885" data-name="Path 188885" d="M8.5,20V16.4A14.967,14.967,0,0,1,17.16,14a14.967,14.967,0,0,1,8.66,2.4V20" transform="translate(9.435 15.4)" fill="none" stroke="#00e5ff" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

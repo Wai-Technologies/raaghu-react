@@ -107,7 +107,7 @@
 
 #sidebar {
     height: 100%;
-    width: 62px;
+    width: 58px;
     transition: all 0.55s ease-in-out;
 
     ul {
@@ -188,8 +188,8 @@
 .sidenav-logo {
     position: absolute;
     top: 5px;
-    left: 0px;
-    height: 42px;
+    left: 2px;
+    height: 39px;
 }
 
 @media (max-width: 767px) {
@@ -227,8 +227,8 @@
         }
 
         .mbhome {
-            width: 2.3rem;
-            height: 2.3rem;
+            width: 2.0rem;
+            height: 2.0rem;
             display: flex;
             justify-content: center;
             align-items: center;

@@ -1,0 +1,19 @@
+{
+    "name": "my-account",
+    "version": "1.0.0",
+    "description": "",
+    "main": "webpack.config.js",
+    "scripts": {
+        "dev": "npm run start",
+        "start": "webpack serve",
+        "build": "webpack --mode production",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "serve": "^11.3.2"
+    }
+}

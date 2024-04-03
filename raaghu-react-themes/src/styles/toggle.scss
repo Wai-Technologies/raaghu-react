@@ -79,12 +79,12 @@
 }
 
 .toggle-switch input:checked + .toggle-switch-slider {
-  background-color: #222325;
+  background-color: #e0e0e0;
 
 }
 
 .small-toggle-switch input:checked + .toggle-small-switch-slider {
-  background-color: #222325;
+  background-color: #e0e0e0;
   font-size :small
 }
 .small-toggle-switch input + .toggle-small-switch-slider {
@@ -112,20 +112,7 @@
   left: -9.5px
 }
 
-.toggle-switch input:checked + .toggle-switch-slider{
-  .control-prev-icon{
-    svg{
-      color: #fff;
-    }
-  }
-}
 
-.theme-dark{
-  .toggle-switch-slider{
-    svg{
-      color:#000;
-    }
-  }
-}
+
 
 

@@ -1,11 +1,14 @@
 $path: "../fonts/Poppins-Regular.ttf";
 
 @if import-exists($path) {
-  $path: "../fonts/";
+
+    $path: "../../../../raaghu-react-themes/public/fonts/";
 }
 
+
+
 @else {
-  $path: "../../../../raaghu-react-themes/public/fonts/";
+    $path: "../fonts/";
 }
 
 @if $path !="" {
@@ -473,21 +476,6 @@ html[theme="semidark"] {
   width: 94%;
 }
 
-.sb-story {
-  .custom-content-scroll {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
-    margin-bottom: 3.2rem;
-  }
-}
-
-#storybook-root .custom-content-scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
-  margin-bottom: 3.4rem;
-}
-
 .i {
   cursor: pointer;
 }
@@ -632,9 +620,8 @@ html[theme="dark"] .btn-primary svg {
 
 ul#languageDropdown {
   max-height: calc(100vh - 50px);
+  margin-top: 10px;
 }
-
-// commentted class for further use
 
 .dropdown-toggle::after {
   float: right;
@@ -1101,10 +1088,10 @@ a.nav-link.breadcrumb-navlink.active {
 
 .horizontal {
   height: 0rem;
-  width: 1.75rem;
+  width: 1.6rem;
   border-bottom: 1px dashed;
   position: relative;
-  right: 30px;
+  right: 27px;
   margin: none;
   top: 4px;
   z-index: 0;
@@ -1126,7 +1113,7 @@ a.nav-link.breadcrumb-navlink.active {
   width: 1.75rem;
   border-bottom: 1px dashed;
   position: relative;
-  right: 29px;
+  right: 28px;
   margin: none;
   top: 4px;
   z-index: 0;
@@ -1134,24 +1121,35 @@ a.nav-link.breadcrumb-navlink.active {
 
 .vertical {
   position: absolute;
-  left: -27px;
+  left: 5px;
   bottom: 0;
   top: 17px;
   width: 0.1875rem;
-  height: 108%;
+  height: 100%;
   border-right: 1px dashed;
   z-index: 0;
 }
 
 .verticall {
+    position: absolute;
+    left: -27px;
+    bottom: 0;
+    top: -25px;
+    width: 0.1875rem;
+    height: 100%;
+    border-right: 1px dashed;
+    z-index: 0;
+}
+.vertical_not{
   position: absolute;
-  left: -63px;
-  bottom: 0;
-  top: -25px;
-  width: 0.1875rem;
-  height: 150%;
-  border-right: 1px dashed;
-  z-index: 0;
+    left: -27px;
+    bottom: 0;
+    top: 18px;
+    width: 0.1875rem;
+    height: calc(100% - 41px);
+    border-right: 3px solid;
+    color: white;
+    z-index: 0;
 }
 
 .verticalPermi {
@@ -1171,7 +1169,7 @@ a.nav-link.breadcrumb-navlink.active {
   /* bottom: 0px; */
   top: -25px;
   width: 0.1875rem;
-  height: 169%;
+  height: 155%;
   border-right: 1px dashed #adb5bd;
   z-index: -1;
 }
@@ -1186,9 +1184,29 @@ a.nav-link.breadcrumb-navlink.active {
   border-right: 1px dashed;
   z-index: 0;
 }
+.verticalNodefile{
+  position: absolute;
+  left: -31px;
+  bottom: 0;
+  top: -26px;
+  width: 0.1875rem;
+  height: 163%;
+  border-right: 1px dashed lightgray;
+  z-index: 0;
+}
+.verticalNodeSiblingfile{
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  top: 15px;
+  width: 0.1875rem;
+  height: 129%;
+  border-right: 1px dashed lightgray;
+  z-index: 0;
+}
 
 .unitName {
-  margin-left: -28px;
+  margin-left: 0px;
 }
 
 .member-count {
@@ -1418,8 +1436,13 @@ $size: 10;
   top: 0;
 }
 
-.table-responsive {
-  min-height: calc(100vh - 222px) !important;
+.table-responsive-none{
+  min-height: calc(100vh - 635px) !important;
+}
+
+.table-responsive-visible
+{
+  overflow-x: visible !important;
 }
 
 .card-stretch .table-responsive {
@@ -2525,8 +2548,9 @@ rds-nav-tab {
 }
 
 .node-icon1 {
-  display: none;
-  transition: all 0.55s ease-in-out;
+    display: none;
+    margin-left: 1rem;
+    transition: all 0.55s ease-in-out;
 }
 
 #sidebar.toggle-sidebar-menu ul li a span {
@@ -2808,77 +2832,64 @@ figure.worldmap__figure-container {
     right: 0;
   }
 }
+.raaghu-not-select__control--is-focused.raaghu-not-select__control--menu-is-open {
+  .raaghu-not-select__dropdown-indicator svg {
+    transition: transform 0.35s ease;
+    transform: rotate(180deg);
+    right: 0;
+  }
+}
 
 .lf-player-container {
-  svg {
-    stroke: none;
-  }
+    svg{
+        stroke:none;
+    }
 }
-
 .icon-width {
-  width: -webkit-fill-available
+   width: -webkit-fill-available
 }
-
 .profile-off {
-  .offcanvas_btn {
-    margin: auto;
-  }
+    .offcanvas_btn {
+        margin: auto;
+    }
+}
+.file-tree p, .node-label {
+    width: auto;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    display: grid;
 }
 
-.file-tree p,
-.node-label {
-  width: auto;
-  /* overflow: hidden; */
-  text-overflow: ellipsis;
-  /* white-space: nowrap; */
-  display: grid;
+.file-tree p .form-label, .NodeLabel {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
-.file-tree p .form-label,
-.NodeLabel {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .users {
-  .dropdown-menu.show {
-    margin-left: 1.1rem !important;
-  }
+    .dropdownSpacingForUser {
+        margin-left:1.1rem !important;
+    }
 }
-
-.CTA {
-  background: transparent linear-gradient(99deg, $portalGradient1 0%, $portalGradient2 48%, $portalGradient3 100%) 0% 0% no-repeat padding-box;
-  border-radius: 12px;
+.quillHeightForFormShareTab
+{
+  height: 200px !important;
 }
-
-.skill-selector.active,
-.skill-selector:hover {
-  background: #D5FCDE;
-}
-
-.skill-selector {
-  background: #FCF5FF;
-}
-
 @media (max-width: 1024px) {
-  .table-responsive {
-    min-height: auto !important;
-  }
+    .table-responsive {
+        min-height: auto !important;
+        height: calc(100vh - 379px) !important;
+    }
 
-  .card.card-full-stretch {
-    min-height: auto !important;
-  }
+    .card.card-full-stretch {
+        min-height: auto !important;
+        height: calc(100vh - 14px) !important;
+    }
 }
-
-.dropdown-toggle-split {
-  min-width: auto !important;
-}
-
-.customClassUL {
-  position: absolute;
-  inset: 0px auto auto 0px;
-  margin: 0px;
-  transform: translate(170px, 37px);
+@media (min-width: 3840px) {
+  .identityInput
+  {
+    width : 25% !important
+  }
 }

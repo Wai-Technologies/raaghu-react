@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="49.5" height="49.5" viewBox="0 0 49.5 49.5">
+  <g id="Text_Template_Management" data-name="Text Template Management" transform="translate(-1288.25 -2708.25)">
+    <g id="Group_192321" data-name="Group 192321" transform="translate(1288.5 2708.5)">
+      <path id="Path_188861" data-name="Path 188861" d="M15.022,26.217v-3.13L8.761,21,2.5,23.087v3.13" transform="translate(2.174 22.283)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188863" data-name="Path 188863" d="M15.022,13.217v-3.13L8.761,8,2.5,10.087v3.13" transform="translate(2.174 8.152)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188865" data-name="Path 188865" d="M48.5,13.5H.5V34.37h48Z" transform="translate(0 14.13)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188866" data-name="Path 188866" d="M10.5,34.37V13.5" transform="translate(10.87 14.13)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188867" data-name="Path 188867" d="M13.5,16.5H26.022" transform="translate(14.13 17.391)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188868" data-name="Path 188868" d="M13.5,18.5h8.348" transform="translate(14.13 19.565)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188869" data-name="Path 188869" d="M48.5.5H.5V21.37h48Z" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188870" data-name="Path 188870" d="M10.5,21.37V.5" transform="translate(10.87)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188871" data-name="Path 188871" d="M13.5,3.5H26.022" transform="translate(14.13 3.261)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_188872" data-name="Path 188872" d="M13.5,5.5h8.348" transform="translate(14.13 5.435)" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <g id="Ellipse_9312" data-name="Ellipse 9312" transform="translate(5.8 31.5)" fill="none" stroke="#00e5ff" stroke-width="1.5">
+        <circle cx="5" cy="5" r="5" stroke="none"/>
+        <circle cx="5" cy="5" r="4.25" fill="none"/>
+      </g>
+      <g id="Ellipse_9313" data-name="Ellipse 9313" transform="translate(5.8 4.369)" fill="none" stroke="#00e5ff" stroke-width="1.5">
+        <circle cx="5" cy="5" r="5" stroke="none"/>
+        <circle cx="5" cy="5" r="4.25" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -5,12 +5,12 @@
 .dropdown-menu {
   padding: 0 0;
 }
-.multi-level-drop >.dropdown-menu{
+.multi-level-drop > .dropdown-menu {
   --bs-dropdown-link-hover-bg: white;
 }
-.multi-level-drop >.dropdown-menu > .active{
-  background-color:#E9ECEF;
-   --bs-dropdown-link-hover-bg: #E9ECEF;
+.multi-level-drop > .dropdown-menu > .active {
+  background-color: #e9ecef;
+  --bs-dropdown-link-hover-bg: #e9ecef;
 }
 .dropdown {
   display: inline-block;
@@ -51,7 +51,7 @@
 .dropdown ul {
   width: 100%;
 }
-.multi-dropp{
+.multi-dropp {
   position: absolute;
   z-index: 1000;
   background-color: white;
@@ -59,17 +59,17 @@
   border-radius: 4px;
   margin-left: 144px;
 }
-.Charts{
+.Charts {
   margin-top: 29px;
 }
-.Components{
-  margin-top: 54px
+.Components {
+  margin-top: 54px;
 }
-#chartDrop{
+#chartDrop {
   max-height: 280px;
   overflow-y: auto;
 }
-.multi-drop{
+.multi-drop {
   position: absolute;
   z-index: 1000;
   background-color: white;
@@ -77,32 +77,41 @@
   border-radius: 4px;
   margin-left: 144px;
 }
-.submenu-li:hover{
-  background-color: #E9ECEF;
+.submenu-li:hover {
+  background-color: #e9ecef;
 }
-.selected-border{
-width: 20px;
-border-radius: 20px;
-height: 20px;
+.selected-border {
+  width: 20px;
+  border-radius: 20px;
+  height: 20px;
 }
 //for action modal of data table
-.left-dataTable{
+.left-dataTable {
   position: absolute !important;
-  left:-60px!important;
- top:30px!important;
+  left: -60px !important;
+  top: 30px !important;
 }
-.right-dataTable{
-  position: absolute!important;
+.right-dataTable {
+  position: absolute !important;
   right: -60px !important;
-  top:30px!important;
+  top: 30px !important;
 }
 
-// .dropdown-menu.show {
-//   display: block;
-//   transform: translate3d(-60px, -4px, 0px);
-// }
+.dropdown-menu-input {
+  position: absolute ;
+  inset: auto auto  -69px 0px ;
+  margin: 0px ;
+  transform: translate3d(0px, -40px, 0px);
+  border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+  list-style: none;
+  overflow: auto;
+  max-height: 28px;
+}
 
 button#dropdownMenuButton {
-  width: 30px!important;
+  width: 30px !important;
   padding: 6px 0px;
+}
+.dw-placeholder {
+  color: #cccccc;
 }

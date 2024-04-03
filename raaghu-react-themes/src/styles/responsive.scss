@@ -1,4 +1,76 @@
+.mbdropdown {
+  display: none;
+}
+
+.leftSpace {
+  margin-left: 2rem;
+}
+
 @media (max-width: 767px) {
+  .list-style {
+    li {
+      .leftSpace {
+        margin-left: 2rem;
+      }
+
+      .leftSpace {
+        li {
+          .main-list {
+
+            margin-left: 0px;
+          }
+
+          .leftSpace {
+            margin-left: 0rem;
+
+
+          }
+        }
+      }
+    }
+  }
+
+  .leftSpace {
+    margin-left: 0rem;
+  }
+
+  .node-items:hover .node-icon1 {
+    margin-top: -5px;
+    display: none;
+  }
+
+  .horizontal {
+    display: none;
+  }
+
+  .verticall {
+    display: none;
+  }
+
+  .vertical {
+    display: none;
+  }
+
+  .node_dot {
+    display: none;
+  }
+
+  .unitName {
+    margin-left: 0rem;
+  }
+
+  .unitName:first-child ul:first-child {
+    border: 1px solid gray;
+  }
+
+  .main-list {
+    margin-left: 0rem;
+  }
+
+  .mbdropdown {
+    display: block;
+  }
+
   .mobile-btn .btn-icon {
     width: 40px;
     height: 40px;
@@ -182,7 +254,7 @@
   }
 
   .children-scrollable {
-    height: 47rem !important;
+    height: 39rem !important;
   }
 
   .border-start-custom {
@@ -215,9 +287,12 @@
   #sidebar.hide {
     width: 0px;
   }
+
+  .pagination {
+    overflow-x: scroll;
+    max-width: 210px;
+  }
 }
-
-
 
 .bd-links.toggle-sidebar-menu .menuLabels {
   display: none;
@@ -233,7 +308,7 @@
   left: -1px;
   background: $white;
   z-index: 0;
-  max-width: 190px;
+  max-width: 246px;
 }
 
 #sortTable tbody .single_action_icon {
@@ -264,8 +339,6 @@
   }
 
 }
-
-
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .mobile-btn .btn-icon {
@@ -337,6 +410,10 @@
   .bg-login .dropdown ul {
     transform: translate3d(-70px, 20.5px, 0px) !important;
   }
+
+  .worldmap__figure-container svg {
+    transform: scale(1.7) !important;
+  }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
@@ -362,6 +439,29 @@
   .bg-login .dropdown ul {
     transform: translate3d(-70px, 20.5px, 0px) !important;
   }
+
+  .children-scrollable {
+    height: 73rem !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1365px) {
+  .worldmap__figure-container svg {
+    transform: scale(0.9) !important;
+    margin: 0px 0px 0px -10px !important;
+  }
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1535px) {
+  .worldmap__figure-container svg {
+    transform: scale(1) !important;
+  }
+}
+@media screen and (min-width:1535px) {
+  //4k screen css
+.children-scrollable{
+  height: 65rem !important;
+}
 }
 
 // under construction page css
@@ -525,3 +625,46 @@ form .form-group .select-options,
 .lottie-border-0 #lottie path {
   stroke: transparent;
 }
+
+@media (max-width: 1024px) {
+  .children-scrollable {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 1.4rem !important;
+    line-height: 1.4rem !important;
+  }
+
+  .mobilelanguage #languageDropdown div:first-child {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+}
+
+.raaghu-select__menu,.raaghu-not-select__menu {
+  margin-top: 0px!important;
+}
+.css-t3ipsp-control{
+  cursor: pointer !important;
+}
+input[type="search"]::-webkit-search-decoration:hover,
+input[type="search"]::-webkit-search-cancel-button:hover { 
+    cursor:pointer; 
+}
+
+.border-before-end:before{
+    border: 1px solid #dee2e6;
+    content: "";
+    height: 20px;
+    width: 1px;
+    top: 5px;
+    position: absolute;
+    right: 0;
+}
+

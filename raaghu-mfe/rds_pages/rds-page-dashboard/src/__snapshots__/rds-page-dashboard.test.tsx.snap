@@ -1,0 +1,601 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Check Admin-dashbord page fucntionality 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="dark dashboard"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+          />
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          >
+            <div
+              class="FlipCard"
+            >
+              <div
+                class="innerCard innerCardFront"
+              >
+                <div
+                  class="frontSide"
+                />
+                <div
+                  class="backSide"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-md-6"
+              >
+                <div />
+                <div />
+              </div>
+              <div
+                class="col-md-6"
+              />
+            </div>
+          </div>
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12"
+          />
+        </div>
+      </div>
+      <div
+        class="dark dashboard"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+          />
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          >
+            <div
+              class="FlipCard"
+            >
+              <div
+                class="innerCard innerCardFront"
+              >
+                <div
+                  class="frontSide"
+                />
+                <div
+                  class="backSide"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-md-6"
+              >
+                <div />
+                <div />
+              </div>
+              <div
+                class="col-md-6"
+              />
+            </div>
+          </div>
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="dark dashboard"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+        />
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        >
+          <div
+            class="FlipCard"
+          >
+            <div
+              class="innerCard innerCardFront"
+            >
+              <div
+                class="frontSide"
+              />
+              <div
+                class="backSide"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-md-6"
+            >
+              <div />
+              <div />
+            </div>
+            <div
+              class="col-md-6"
+            />
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12"
+        />
+      </div>
+    </div>
+    <div
+      class="dark dashboard"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+        />
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        >
+          <div
+            class="FlipCard"
+          >
+            <div
+              class="innerCard innerCardFront"
+            >
+              <div
+                class="frontSide"
+              />
+              <div
+                class="backSide"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-md-6"
+            >
+              <div />
+              <div />
+            </div>
+            <div
+              class="col-md-6"
+            />
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12"
+        />
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Dashboard Check Tenant-dashbord page fucntionality 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="dark dashboard"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+          />
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          >
+            <div
+              class="FlipCard"
+            >
+              <div
+                class="innerCard innerCardFront"
+              >
+                <div
+                  class="frontSide"
+                />
+                <div
+                  class="backSide"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-xl-3 col-lg-6 col-md-12"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-md-6"
+              >
+                <div />
+                <div />
+              </div>
+              <div
+                class="col-md-6"
+              />
+            </div>
+          </div>
+          <div
+            class="col-md-12 col-lg-12 col-xl-6"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12"
+          />
+        </div>
+      </div>
+      <div
+        class="dark dashboard"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-lg-6 col-md-12 d-cus-none"
+          />
+          <div
+            class="col-lg-3 col-md-12"
+          />
+          <div
+            class="col-lg-3 col-md-12"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12 col-lg-6"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-md-6"
+              >
+                <div />
+                <div />
+              </div>
+              <div
+                class="col-md-6"
+              />
+            </div>
+          </div>
+          <div
+            class="col-md-12 col-lg-6"
+          />
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-12"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="dark dashboard"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-xl-6 col-lg-12 col-md-12 d-cus-none"
+        />
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        >
+          <div
+            class="FlipCard"
+          >
+            <div
+              class="innerCard innerCardFront"
+            >
+              <div
+                class="frontSide"
+              />
+              <div
+                class="backSide"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-xl-3 col-lg-6 col-md-12"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-md-6"
+            >
+              <div />
+              <div />
+            </div>
+            <div
+              class="col-md-6"
+            />
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-lg-12 col-xl-6"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12"
+        />
+      </div>
+    </div>
+    <div
+      class="dark dashboard"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-lg-6 col-md-12 d-cus-none"
+        />
+        <div
+          class="col-lg-3 col-md-12"
+        />
+        <div
+          class="col-lg-3 col-md-12"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12 col-lg-6"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-md-6"
+            >
+              <div />
+              <div />
+            </div>
+            <div
+              class="col-md-6"
+            />
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-lg-6"
+        />
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-md-12"
+        />
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
