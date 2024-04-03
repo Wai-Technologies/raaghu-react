@@ -95,6 +95,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
   }
 
   function handleAddMorequestions() {
+    // alert("add more questions");
     const tempquestions = questions?.map((e: any) => {
       return e;
     });
@@ -179,6 +180,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
           <>
             <hr className="my-3" />
             <form className="mb-3 px-0 pt-2">
+              <div className="custom-content-scroll">
               <div className="row align-items-center justify-content-between">
                 <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-12 mb-3">
                   <h5 className="fw-medium">
@@ -387,10 +389,11 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                   </div>
                 </>
               )}
+              </div>
             </form>
           </>
         ))}
-        <div className="d-flex justify-content-start pb-5 px-0">
+        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
           <RdsButton
             type={"button"}
             size="small"
