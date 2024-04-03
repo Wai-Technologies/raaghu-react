@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  RdsButton,
   RdsCheckbox,
   RdsInput,
   RdsNavtabs,
@@ -147,7 +148,20 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
   const handleActiveNavtabVertical = (id: string) => {
     setActiveNavTabId(id);
   };
+  function handleRestoreDefault(event: React.MouseEvent<HTMLButtonElement>): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function handleCancel(event: React.MouseEvent<HTMLButtonElement>): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function handleSave(event: React.MouseEvent<HTMLButtonElement>): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
+    
     <div className="row">
       <div className="col-md-5 pe-4 border-end">
         <RdsNavtabs
@@ -243,6 +257,39 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
               )}
             </div>
           ))}
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          
+          <RdsButton
+                    label="Restore to Default"
+                    databsdismiss="offcanvas"
+                    type={"button"}
+                    size="small"
+                    isOutline={true}
+                    colorVariant="primary"
+                    dataTestId="cancel"
+                    onClick={handleRestoreDefault}
+                ></RdsButton>
+        <RdsButton
+                    label="Cancel"
+                    databsdismiss="offcanvas"
+                    type={"button"}
+                    size="small"
+                    isOutline={true}
+                    colorVariant="primary"
+                    dataTestId="cancel"
+                    onClick={handleCancel}
+                ></RdsButton>
+             
+              <RdsButton
+                label="Save"
+                type={"button"}
+                size="small"
+                databsdismiss="offcanvas"
+                colorVariant="primary"
+                onClick={handleSave}
+                dataTestId="save"
+              ></RdsButton>                  
+        </div>
       </div>
     </div>
   );
