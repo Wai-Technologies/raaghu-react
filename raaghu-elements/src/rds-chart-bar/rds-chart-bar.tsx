@@ -7,7 +7,7 @@ export interface RdsBarChartProps {
     dataSets: any[];
     width?: number;
     height?: number;
-    id: string;
+    id: any;
     // isGradient: boolean;
 }
 
