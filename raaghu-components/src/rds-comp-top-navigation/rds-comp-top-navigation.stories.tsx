@@ -22,7 +22,7 @@ export const Default: Story = {
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
-        profileTitle: "Host Admin",
+        profileTitle: "Admin",
         profileEmail: "admin@raaghu.com",
         profileName: "Keanu Foster",
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",

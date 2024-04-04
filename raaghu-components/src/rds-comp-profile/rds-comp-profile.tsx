@@ -88,7 +88,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                     ></img>
 
                     {props.showUserName ? (
-                               <p className="text-center m-0 mt-3">{userNames}</p>
+                               <p className="text-center m-0 mt-3">{props.userName}</p>
                      ) : (
                            
                              <p className="text-center m-0 mt-3">{profileName}</p>

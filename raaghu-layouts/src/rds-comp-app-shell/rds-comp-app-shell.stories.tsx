@@ -93,9 +93,10 @@ export const Classic: Story = {
                   userNotificationId: 3,
                 },
               ]}
+              profileTitle="Admin"
               profileEmail="admin@raaghu.com"
               profileName="Keanu Foster"
-              profileTitle="Host Admin"
+              
               themeItems={[
                 {
                   icon: "sun",
