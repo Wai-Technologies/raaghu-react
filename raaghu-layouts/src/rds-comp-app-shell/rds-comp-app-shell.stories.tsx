@@ -93,9 +93,9 @@ export const Classic: Story = {
                   userNotificationId: 3,
                 },
               ]}
-              profileTitle="Admin"
-              profileEmail="admin@raaghu.com"
-              profileName="Keanu Foster"
+              profileTitle="John Doe"
+              profileEmail="john.doe@raaghu.io"
+              profileName="John Doe"
               
               themeItems={[
                 {
