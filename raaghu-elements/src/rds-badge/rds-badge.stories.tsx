@@ -39,7 +39,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBadge>;
 
-const Positioned = (args) => (
+const Positioned = (args : any) => (
   <>
     <RdsButton
       type="button"
@@ -53,7 +53,7 @@ const Positioned = (args) => (
   </>
 );
 
-const PositionedIcon = (args) => (
+const PositionedIcon = (args : any) => (
   <>
     <span className="position-relative">
       <RdsIcon

@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompTenantInformation>;
 
 export const Default: Story = {
     args: {
-        editionList: [
+        editions: [
                     {
                         option: "Not assigned",
                     },

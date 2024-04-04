@@ -12,7 +12,7 @@ export interface RdsCompTopNavigationProps {
     val: string
   ) => void;
   notifications?: any[];
-  languageItems: any[];
+  languageItems?: any[];
   themeItems: any[];
   toggleItems: any[];
   elementList: any[];
