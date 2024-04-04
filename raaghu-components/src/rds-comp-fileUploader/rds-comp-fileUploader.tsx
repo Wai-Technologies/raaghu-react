@@ -2,7 +2,7 @@
 import React from "react";
 import { RdsButton, RdsFileUploader } from "../rds-elements";
 import "./rds-comp-fileUploader.css";
-import { useTranslation } from "react-i18next";
+
 export interface RdsCompFileUploaderProps {
     onClick: any
     preFileInfo?: any
@@ -16,17 +16,22 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
     }
     return (
         <>
+        <div className="custom-content-scroll">
             <div className="row">
                 <RdsFileUploader
-                    colorVariant=""
-                    extensions=""
-                    multiple={true}
-                    placeholder="" size={"large"} label={""} limit={100}
-                    getFileUploaderInfo={(data: any) => folder(data)}
-                    onDeleteFile={(id: any) => props.onDeleteFile && props.onDeleteFile(id)}
-                />
+                    colorVariant="primary"
+                    extensions="png, jpg, doc, pdf, ppt"
+                    limit={5}
+                    multiple
+                    size="large"
+                    validation={[
+                        {
+                            hint: 'File size exceeds the limit',
+                            isError: false
+                        }
+                    ]} label={""}                />
             </div>
-            <div className="d-flex gap-2 pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons">
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"
@@ -45,6 +50,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     class="me-2"
                     onClick={props.onClick}
                 ></RdsButton>
+            </div>
             </div>
         </>
     );

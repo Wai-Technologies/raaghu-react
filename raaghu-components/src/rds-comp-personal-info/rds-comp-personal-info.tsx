@@ -39,6 +39,7 @@ const RdsCompPersonalInfo = (props: any) => {
 
     return (
         <form onSubmit={handlePersonalDataSubmit}>
+            <div className="custom-content-scroll">
             <div className="row py-xxl-4 py-xl-4 py-lg-4 py-md-4 py-0">
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                     <RdsInput
@@ -111,11 +112,11 @@ const RdsCompPersonalInfo = (props: any) => {
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
                     <RdsInput
                         size="medium"
-                        label="PhoneNumber"
+                        label="Phone Number"
                         inputType="text"
                         isDisabled={false}
                         readonly={false}
-                        placeholder="PhoneNumber"
+                        placeholder="Phone Number"
                         value={formData?.phoneNumber}
                         onChange={(e: any) => setPhoneNumber(e.target.value)}
                         required={false}
@@ -123,9 +124,9 @@ const RdsCompPersonalInfo = (props: any) => {
                     ></RdsInput>
                 </div>
             </div>
-            <div className="row">
-                <div className="mt-3 footer-buttons px-0 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row d-flex bg-transparent">
-                    <RdsButton
+            </div>
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <RdsButton
                         label="Save"
                         colorVariant="primary"
                         block={false}
@@ -136,7 +137,6 @@ const RdsCompPersonalInfo = (props: any) => {
                         }}
                         dataTestId="save"
                     />
-                </div>
             </div>
         </form>
     );

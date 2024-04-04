@@ -20,27 +20,27 @@ export const Default: Story = {
     args: {
         inputTypeList: [
             {
-                label: "One",
+                label: "Input Type 1",
             },
             {
-                label: "two",
+                label: "Input Type 2",
             },
             {
-                label: "three",
+                label: "Input Type 3",
             },
             {
-                label: "four",
+                label: "Input Type 4",
             },
         ],
         informationItemInitial: {
             propertyName: "demo",
             displayName: "demo",
             inputValue: "demo",
-        },
-    
+        },    
         reset: false,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['inputTypeList', 'informationItemInitial', 'reset'] } };
 
 
 

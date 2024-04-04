@@ -2,7 +2,7 @@ import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import "./rds-comp-user-table.css";
 
-export interface RdsCompUserTableProps {
+interface RdsCompUserTableProps {
   tableHeaders: {
     displayName: string;
     key: string;

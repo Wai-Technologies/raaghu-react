@@ -116,16 +116,17 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                             rating={item.rating}
                                             colorVariant="warning"
                                             dataTestId="rating"
+                                            size="medium"
                                         ></RdsRating>
                                     </div>
                                 )}
-                                {item.reviews && (
+                                {/* {item.reviews && (
                                     <div className="d-inline-block">
                                         <a href="#" className="text-decoration-none">
                                             {item.reviews}
                                         </a>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </div>
 

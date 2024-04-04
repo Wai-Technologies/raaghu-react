@@ -48,6 +48,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                     <div>
                         <div className="mb-2">
                             <div>
+                            {props.selectuser && (
                                 <select
                                     onClick={selecthandler}
                                     defaultValue={"DEFAULT"}
@@ -60,9 +61,10 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                         <option key={x.id}>{x.name}</option>
                                     ))}
                                 </select>
+                            )}
                             </div>
                         </div>
-                        <div>
+                        <div className="custom-content-scroll">
                             <RdsDatePicker
                                 type="advanced"
                                 DatePickerLabel={"Select Date Range"}
@@ -70,11 +72,9 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 isDropdownOpen={false}
                             ></RdsDatePicker>
                         </div>
-                    </div>
-                    <div
-                        className="d-flex fixed-bottom p-3 position-absolute">
-                        <div className="me-2">
-                            <RdsButton
+                        <div
+                        className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                          <RdsButton
                                 type="button"
                                 isOutline={true}
                                 colorVariant="primary"
@@ -82,7 +82,6 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 size="small"
                                 onClick={onClickHandler}
                             ></RdsButton>
-                        </div>
                         <div>
                             <RdsButton
                                 type="submit"
@@ -94,6 +93,8 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                             ></RdsButton>
                         </div>
                     </div>
+                    </div>
+                    
                 </div>
             )}
         </>

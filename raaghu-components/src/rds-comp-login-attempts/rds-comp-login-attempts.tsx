@@ -4,7 +4,6 @@ import { RdsDatePicker, RdsIllustration } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
 
 export interface RdsCompLoginAttemptsProps {
-    Data?: any[];
     tableHeaders?: {
         displayName: string;
         key: string;
@@ -16,10 +15,8 @@ export interface RdsCompLoginAttemptsProps {
         disabled?: boolean | undefined;
         isEndUserEditing?: boolean | undefined;
     }[];
-
     tableData?: {}[];
     selectvalue?: { value: string; displayText: string }[];
-
     pagination?: boolean;
     onActionSelection(arg: any): any;
 }
@@ -58,20 +55,20 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
         }
     };
 
-    useEffect(() => { }, [Tdata]);
     return (
-        <div className="body">
-            <div className="define  ">
-                <div>
+        <div>
+            <div className="row mb-3 d-flex justify-content-between">
+                <div className="col-md-4">
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
-                        onDatePicker={DatePicker} isDropdownOpen={false}></RdsDatePicker>
+                        onDatePicker={DatePicker}
+                        isDropdownOpen={false}
+                    ></RdsDatePicker>
                 </div>
-
-                <div className="Select">
-                    <div>Result</div>
-                    <div>
+                <div className="col-md-4">
+                    <div className="Select">
+                        <div>Result</div>
                         <select
                             disabled={page}
                             onClick={selecthandler}
@@ -84,6 +81,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                     </div>
                 </div>
             </div>
+
 
             {page && (
                 <div>
@@ -98,8 +96,8 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                 <div className="table">
                     <RdsCompDatatable
                         actionPosition="right"
-                        tableHeaders={props.tableHeaders || []} // Add default value for tableHeaders prop
-                        tableData={Tdata || []} // Add default value for Tdata prop
+                        tableHeaders={props.tableHeaders || []}
+                        tableData={Tdata || []}
                         pagination={false}
                         onActionSelection={props.onActionSelection}
                         actions={[]}

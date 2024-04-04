@@ -41,65 +41,64 @@ const RdsCompDynamicEntityProperty = (
     };
 
     return (
-        <>
-            <form
-                onSubmit={submitHandler}
-            >
-                <div className="tab-content px-2 navsm-p-0">
-                    <div className="form-group mb-3">
-                        <label className="mb-2">Entity</label>
-                        <RdsDropdownList
-                            placeholder="Filter"
-                            multiSelect={false}
-                            reset={isReset}
-                            listItems={props.entityNames}
-                            onClick={onSelectEntityValue}
-                        />
-
-                        <div className="form-group mb-3">
-                            <div className="mb-2 mt-4">
-                                <label className="mb-2">Parameter</label>
-                                <RdsDropdownList
-                                    placeholder="Filter"
-
-                                    multiSelect={true}
-                                    reset={isReset}
-                                    listItems={props.parameterList}
-                                    selectedItems={onselectParameter}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="footer-buttons pb-3 d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
-                        <RdsButton
-                            label="Cancel"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="button"
-                            size="small"
-                            isOutline={true}
-                            databstoggle="offcanvas"
-                            databstarget={`#${props.offcanvasId}`}
-                            ariacontrols={props.offcanvasId}
-                        />
-                        <RdsButton
-                            label="Save"
-                            colorVariant="primary"
-                            isDisabled={!isFormValid}
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                            size="small"
-                            databstoggle="offcanvas"
-                            databstarget={`#${props.offcanvasId}`}
-                            ariacontrols={props.offcanvasId}
-                            dataTestId="save"
-                        />
-                    </div>
-                </div>
-            </form>
-        </>
+      <>
+        <form onSubmit={submitHandler}>
+          <div className="custom-content-scroll">
+            <div className="tab-content px-2 navsm-p-0">
+              <div className="form-group mb-3">
+                <label className="mb-2">Entity</label>
+                <RdsDropdownList
+                  placeholder="Filter"
+                  isPlaceholder={true}
+                  multiSelect={false}
+                  reset={isReset}
+                  listItems={props.entityNames}
+                  onClick={onSelectEntityValue}
+                  borderDropdown={true}
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label className="mb-2">Parameter</label>
+                <RdsDropdownList
+                  placeholder="Filter"
+                  borderDropdown={true}
+                  multiSelect={true}
+                  reset={isReset}
+                  listItems={props.parameterList}
+                  selectedItems={onselectParameter}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <RdsButton
+              label="Cancel"
+              colorVariant="primary"
+              block={true}
+              tooltipTitle={""}
+              type="button"
+              size="small"
+              isOutline={true}
+              databstoggle="offcanvas"
+              databstarget={`#${props.offcanvasId}`}
+              ariacontrols={props.offcanvasId}
+            />
+            <RdsButton
+              label="Save"
+              colorVariant="primary"
+              isDisabled={!isFormValid}
+              block={true}
+              tooltipTitle={""}
+              type="submit"
+              size="small"
+              databstoggle="offcanvas"
+              databstarget={`#${props.offcanvasId}`}
+              ariacontrols={props.offcanvasId}
+              dataTestId="save"
+            />
+          </div>
+        </form>
+      </>
     );
 };
 export default RdsCompDynamicEntityProperty;

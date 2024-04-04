@@ -35,7 +35,7 @@ export const LineChart: Story = {
                     pointStyle: "bottom",
                     labels: {
                         usePointStyle: true,
-                        generateLabels: function (chart) {
+                        generateLabels: function (chart : any) {
 
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                             original.forEach(label => {

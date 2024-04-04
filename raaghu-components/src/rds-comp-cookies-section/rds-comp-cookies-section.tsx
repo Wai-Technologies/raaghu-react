@@ -1,6 +1,7 @@
 import React from "react";
-import { RdsButton } from "../rds-elements";
+import { RdsButton, RdsIcon } from "../rds-elements";
 import "./rds-comp-cookies-section.css";
+import { tr } from "date-fns/locale";
 export interface RdsCompCookiesSectionProps {
     showDeclineButton?: boolean;
 }
@@ -22,7 +23,7 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                 <div className="row align-items-start p-3">
                     <div className="col-md-2 p-0">
                         <div className="my-2 mx-2">
-                            <svg
+                            {/* <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width={200}
                                 height={200}
@@ -46,7 +47,15 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
                                         transform="translate(287 -5.666)"
                                     />
                                 </g>
-                            </svg>
+                            </svg> */}
+                            <RdsIcon
+                            name="cookies"
+                            fill={false}
+                            stroke={true}
+                            height="100px"
+                            width="80px"
+                            colorVariant="primary"
+                        />
                         </div>
                     </div>
                     <div className="col-md-6 p-0 align-self-start">

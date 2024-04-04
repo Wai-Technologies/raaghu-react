@@ -3,11 +3,13 @@ import {
     RdsInput,
     RdsButton,
     RdsCheckbox,
+    RdsCheckboxGroup,
 } from "../rds-elements";
 
 export interface RdsCompScopeBasicResourceProps {
     apiScopeData?: any;
     saveApiScopeData?: any;
+    resourceData: any;
 }
 
 const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
@@ -52,6 +54,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
         <>
             <div>
                 <form>
+                    <div className="custom-content-scroll">
                     <div className="row mt-3">
                         <div className="col-6">
                             <RdsInput
@@ -67,7 +70,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 dataTestId="name"
                             ></RdsInput>
                         </div>
-                        <div className="col-6 ">
+                        <div className="col-6">
                             <RdsInput
                                 label="Description"
                                 placeholder="Enter Description"
@@ -81,56 +84,12 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 dataTestId="description"
                             ></RdsInput>
                         </div>
+                    </div>  
+                    <div className="row">                  
+                    <RdsCheckboxGroup itemList={props.resourceData.checklist} />
                     </div>
-                    <div className=" mb-4">
-                        <RdsCheckbox
-                            id="0"
-                            label="Enabled"
-                            checked={formData.enabled}
-                            onChange={(e) => {
-                                handleEnabled(e.target.checked);
-                            }}
-                            dataTestId="enabled"
-                        ></RdsCheckbox>
                     </div>
-                    <div className=" mb-4">
-                        <RdsCheckbox
-                            id="1"
-                            label="Required"
-                            checked={formData.required}
-                            onChange={(e) => {
-                                handleRequired(e.target.checked);
-                            }}
-                            dataTestId="required"
-                        ></RdsCheckbox>
-                    </div>
-                    <div className=" mb-4">
-                        <RdsCheckbox
-                            id="2"
-                            label="Emphasize"
-                            checked={formData.emphasize}
-                            onChange={(e) => {
-                                handleEmphasize(e.target.checked);
-                            }}
-                            dataTestId="emphasize"
-                        ></RdsCheckbox>
-                    </div>
-                    <div className=" mb-4">
-                        <RdsCheckbox
-                            id="0"
-                            label="Show in discovery Documents"
-                            checked={formData.showInDiscoveryDocument}
-                            onChange={(e) => {
-                                handleShowInDiscovery(e.target.checked);
-                            }}
-                            dataTestId="show-discovery-documents"
-                        ></RdsCheckbox>
-                    </div>
-                    <div>
-                        {/* <label className="Text-bold" >Others</label>
-            <RdsCheckboxGroup itemList={props.resourceData.checklist} /> */}
-                    </div>
-                    <div className="mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2 footer-buttons">
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}

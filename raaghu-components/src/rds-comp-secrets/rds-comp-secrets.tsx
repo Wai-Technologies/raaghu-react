@@ -10,11 +10,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
     return (
         <>
             <div className="secrets">
-                <div>
+                <div className="custom-content-scroll">
                     <div className="row mt-3">
                         <div className="col-md-4 mb-3 form-group">
                             <RdsInput
-                                size="small"
                                 label="Type"
                                 inputType="text"
                                 isDisabled={false}
@@ -26,7 +25,6 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         </div>
                         <div className="col-md-4 mb-3 form-group">
                             <RdsInput
-                                size="small"
                                 label="Value"
                                 inputType="text"
                                 isDisabled={false}
@@ -38,7 +36,6 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         </div>
                         <div className="col-md-4 mb-3 form-group">
                             <RdsInput
-                                size="small"
                                 label="Expiration"
                                 inputType="text"
                                 isDisabled={false}
@@ -51,7 +48,6 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                     </div>
                     <div className="mb-3 form-group">
                         <RdsInput
-                            size="small"
                             label="Description"
                             inputType="text"
                             isDisabled={false}
@@ -64,9 +60,6 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                     <div className="mt-3 mb-3">
                         <RdsButton
                             size="small"
-                            tooltip={true}
-                            tooltipPlacement="top"
-                            tooltipTitle="Add Data"
                             colorVariant="primary"
                             label="Add"
                             type="button"
@@ -74,15 +67,12 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         ></RdsButton>
                     </div>
                 </div>
-                <div className="footer fixed-bottom ms-3 mb-3">
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <div className="d-flex">
                         <div className="m-2">
                             <RdsButton
                                 size="small"
                                 isOutline={true}
-                                tooltip={true}
-                                tooltipPlacement="top"
-                                tooltipTitle="Cancel"
                                 colorVariant="primary"
                                 label="Cancel"
                                 data-bs-dismiss="offcanvas"
@@ -94,9 +84,6 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             <RdsButton
                                 size="small"
                                 isOutline={false}
-                                tooltip={true}
-                                tooltipPlacement="top"
-                                tooltipTitle="Create Data"
                                 colorVariant="primary"
                                 label="Create"
                                 data-bs-dismiss="offcanvas"

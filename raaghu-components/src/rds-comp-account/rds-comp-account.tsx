@@ -87,6 +87,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
 
     return (
         <form onSubmit={handlerSubmit}>
+          <div className="custom-content-scroll">
             <div className="row pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3 pt-0 ">
                 <div className="col-xxl-3 col-xl-3 col-lg-3 col-12 d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0 border-end pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
                     <RdsNavtabs
@@ -274,8 +275,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
 
                 </div>
             </div >
-            <div className="mt-xxl-4 pb-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
-                <RdsButton
+          </div>
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                        <RdsButton
                     label="Save"
                     type="submit"
                     colorVariant="primary"
@@ -283,7 +285,6 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     dataTestId="save"
                 ></RdsButton>
             </div>
-
         </form >
     );
 };

@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompProfileProps {
     navtabItems: any[];
     profilePic?: string;
-    userName: any;
+    userName: string;
     userEmail: any;
     userRole: string;
     onEditProfile?: (Event: React.MouseEvent<HTMLElement>) => void;
@@ -88,7 +88,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                     ></img>
 
                     {props.showUserName ? (
-                               <p className="text-center m-0 mt-3">{userNames}</p>
+                               <p className="text-center m-0 mt-3">{props.userName}</p>
                      ) : (
                            
                              <p className="text-center m-0 mt-3">{profileName}</p>
@@ -124,14 +124,13 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                                 >
                                     <span className="me-2">
                                         <RdsIcon
-                                            iconPath={item.iconPath}
-
+                                            name={item.iconPath}
                                             fill={false}
                                             stroke={true}
                                             height="30px"
                                             width="30px"
                                             classes="me-2"
-                                            type="lottie" isHovered={hoveredItem === item.id}
+                                            isHovered={hoveredItem === item.id}
                                         ></RdsIcon>
                                     </span>
                                     <div>

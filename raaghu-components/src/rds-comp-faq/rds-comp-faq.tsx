@@ -14,7 +14,7 @@ const RdsCompFaq = (props: RdsCompFaqProps) => {
                     <div className="col-md-4">
                         <div className="mt-4">
                             <h2>
-                                <RdsLabel label={props.QuestionHeading.question} multiline={true}></RdsLabel>
+                                <RdsLabel label={props.QuestionHeading.question} multiline={true} fontWeight="bold"></RdsLabel>
                             </h2>
                             <div className="text-dark mt-3">
                                 <RdsLabel label={props.QuestionHeading.description} size="14px" multiline={true}></RdsLabel>
@@ -26,9 +26,9 @@ const RdsCompFaq = (props: RdsCompFaqProps) => {
                             {props.questionList.map((questionList) => (
                                 <>
                                     <h5>
-                                        <RdsLabel label={questionList.question} multiline={true}></RdsLabel>
+                                        <RdsLabel label={questionList.question} multiline={true} fontWeight="bold"></RdsLabel>
                                     </h5>
-                                    <div className="text-muted">
+                                    <div className="text-muted mb-2">
                                         <RdsLabel label={questionList.description} size="14px" multiline={true}></RdsLabel>
                                     </div>
                                 </>

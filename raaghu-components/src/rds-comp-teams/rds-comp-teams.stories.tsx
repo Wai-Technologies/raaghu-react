@@ -55,6 +55,7 @@ export const Default: Story = {
             }
     
 } satisfies Story;
+Default.parameters = { controls: { include: ['teamItem'] } };
 
 
 

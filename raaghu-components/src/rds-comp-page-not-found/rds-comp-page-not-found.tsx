@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useContext } from 'react';
 import "./rds-comp-page-not-found.css";
 import { RdsLabel, RdsIcon } from "../rds-elements";
 import { Link } from "react-router-dom";
 
+// Import your context if you're using it
+// import { YourContext } from "path/to/context";
+
 export interface RdsCompPageNotFoundProps { }
 
 const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
+    // If you're using context, you can destructure it here
+    // const { basename } = useContext(YourContext);
+
+    // Check if context exists before destructuring its properties
+    // const basenameValue = basename ? basename : "";
+
     return (
         <>
             <div className="row">
@@ -13,7 +22,7 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
                     className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 text-center p-4 d-grid vh-100">
                     <div>
                         <img width={180}
-                            src="assets/raaghu-logo.svg"
+                            src="/raaghu-components/public/raaghu-logo.svg"
                             alt="raaghu-logo"
                         ></img>
                     </div>
@@ -28,7 +37,7 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
                             class="text-muted fw-medium mb-3" 
                         ></RdsLabel>
                         <p className="mb-0 pt-4">
-                            <Link className="go-back-home text-primary" to="/">
+                            <a className="go-back-home text-primary" href="#">
                                 <span className="me-2">Go back home</span>
                                 <RdsIcon
                                     name="right"
@@ -37,17 +46,9 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
                                     width="16px"
                                     height="16px"
                                 ></RdsIcon>
-                            </Link>
+                            </a>
                         </p>
                     </div>
-                    {/* <div
-                        className="d-flex justify-content-center text-muted pb-3">
-                        <div className="pt-1">
-                            <span className="px-3">Contact Support</span>{" "}
-                            <span className="px-3">Status</span>{" "}
-                            <span className="ps-3">Twitter</span>
-                        </div>
-                    </div> */}
                 </div>
                 <div
                     className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 countdown-col vh-100 d-xl-block d-none" style={{

@@ -89,8 +89,7 @@ type Story = StoryObj<typeof RdsCompSubscription>;
 export const Default: Story = {
     args: {
         width: "226px",
-
-            subscriptionData: [
+        subscriptionData: [
                 {
                     name: "BASIC",
                     price: "$232",
@@ -129,8 +128,8 @@ export const Default: Story = {
                         { title: "Test Check feature", isInclude: true },
                         { title: "Test check feature count 2", isInclude: true },
                     ],
-                },]
+        },]
         
     }
 } satisfies Story;
-
+Default.parameters = { controls: { include: ['width', 'subscriptionData'] } };

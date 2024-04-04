@@ -24,7 +24,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
     useEffect(() => {
         setInputReset(props.reset);
     }, [props.reset]);
-   
+
     useEffect(() => {
         setData(props.claimsData);
     }, [props.claimsData]);
@@ -70,80 +70,81 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
     };
     return (
         <>
+         <div className="custom-content-scroll">
+                <div className="row">
+                    <div className="col-md-12">
+                        <RdsInput
+                            label="Name"
+                            value={data?.name}
+                            placeholder="Enter Name"
+                            required={true}
+                            name="name"
+                            onChange={onNameChangeHandler}
+                            dataTestId="name"
+                            reset={inputReset}
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        {" "}
+                        <RdsInput
+                            label="Regex"
+                            value={data?.regex}
+                            placeholder="Enter Regex"
+                            name="regex"
+                            required={true}
+                            onChange={onRegexChangeHandler}
+                            dataTestId="regex"
+                            reset={inputReset}
+                        />
+                    </div>
+                    <div className="col-md-6 mb-md-0 mb-3">
+                        <RdsSelectList
+                            id="idenval"
+                            label="Value Type"
+                            placeholder="Select Value Type"
+                            selectItems={props.valueType}
+                            selectedValue={
+                                (props.valueType)?.find((item: any) => item.value === data?.valueType)?.value
+                            }
+                            onChange={handleSelectChange}
+                            required={true}
+                        ></RdsSelectList>
+                    </div>
+                    <div className="col-md-12">
+                        <RdsInput
+                            label="Regex Description"
+                            value={data?.regexDescription}
+                            placeholder="Enter Regex Description"
+                            name="regexDesc"
+                            required={true}
+                            onChange={onRegexDescChangeHandler}
+                            dataTestId="reges-description"
+                            reset={inputReset}
+                        />
+                    </div>
+                    <div className="col-md-12 mb-3">
+                        <RdsTextArea
+                            label="Description"
+                            placeholder="Enter Description"
+                            onChange={onDescChangeHAndler}
+                            value={data?.description}
+                            rows={3}
+                            dataTestId="description"
 
-            <div className="row">
-                <div className="col-md-12">
-                    <RdsInput
-                        label="Name"
-                        value={data?.name}
-                        placeholder="Enter Name"
-                        required={true}
-                        name="name"
-                        onChange={onNameChangeHandler}
-                        dataTestId="name"
-                        reset={inputReset}
-                    />
-                </div>
-                <div className="col-md-6">
-                    {" "}
-                    <RdsInput
-                        label="Regex"
-                        value={data?.regex}
-                        placeholder="Enter Regex"
-                        name="regex"
-                        required={true}
-                        onChange={onRegexChangeHandler}
-                        dataTestId="regex"
-                        reset={inputReset}
-                    />
-                </div>
-                <div className="col-md-6 mb-md-0 mb-3">
-                    <RdsSelectList
-                        id="idenval"
-                        label="ValueType"
-                        placeholder="Select Value Type"
-                        selectItems={props.valueType}
-                        selectedValue={
-                            (props.valueType)?.find((item: any) => item.value === data?.valueType)?.value
-                        }
-                        onChange={handleSelectChange}
-                        required={true}
-                    ></RdsSelectList>
-                </div>
-                <div className="col-md-12">
-                    <RdsInput
-                        label="RegexDescription"
-                        value={data?.regexDescription}
-                        placeholder="Enter Regex Description"
-                        name="regexDesc"
-                        required={true}
-                        onChange={onRegexDescChangeHandler}
-                        dataTestId="reges-description"
-                        reset={inputReset}
-                    />
-                </div>
-                <div className="col-md-12 mb-3">
-                    <RdsTextArea
-                        label="Identity.Description"
-                        placeholder="Enter Description"
-                        onChange={onDescChangeHAndler}
-                        value={data?.description}
-                        rows={3}
-                        dataTestId="description"
-                    
-                    />
-                </div>
+                        />
+                    </div>
 
-                <div className="col-md-12">
-                    <RdsCheckbox
-                        label="Required"
-                        onChange={e => { setDevice(e.target.checked); }}
-                        checked={data?.required}
-                        dataTestId="required"
-                    ></RdsCheckbox>
+                    <div className="col-md-12">
+                        <RdsCheckbox
+                            label="Required"
+                            onChange={e => { setDevice(e.target.checked); }}
+                            checked={data?.required}
+                            dataTestId="required"
+                        ></RdsCheckbox>
+                    </div>
                 </div>
-
-                <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
+                </div>
+                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Cancel"
                         databsdismiss="offcanvas"
@@ -151,7 +152,6 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                         size="small"
                         isOutline={true}
                         colorVariant="primary"
-                        class="me-2"
                         dataTestId="cancel"
                         onClick={props.onCancel}
                     ></RdsButton>
@@ -162,19 +162,13 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
                         databsdismiss="offcanvas"
                         isDisabled={!isFormValid}
                         colorVariant="primary"
-                        class="me-2"
                         onClick={() => {
                             props.onSubmit(data);
                         }}
                         dataTestId="save"
                     ></RdsButton>
                 </div>
-
-            </div>
-
-
-
-
+            
         </>
     );
 };

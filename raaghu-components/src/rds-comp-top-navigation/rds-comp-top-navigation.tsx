@@ -12,7 +12,7 @@ export interface RdsCompTopNavigationProps {
     val: string
   ) => void;
   notifications?: any[];
-  languageItems: any[];
+  languageItems?: any[];
   themeItems: any[];
   toggleItems: any[];
   elementList: any[];
@@ -60,12 +60,28 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const currentPath = window.location.pathname;
   const navtabItems = [
     {
+      label: "Linked Accounts",
+      icon: "manage_linked",
+      subText: "Manage linked accounts",
+      id: "nav-LinkedAccounts",
+      navigateTo: "/linked-accounts",
+      iconPath: "manage_linked",
+    },
+    {
+      label: "Authority Delegation",
+      icon: "manage_authority",
+      subText: "Manage authority delegation accounts",
+      id: "nav-AuthorityDelegation",
+      navigateTo: "/authority-delegation",
+      iconPath: "manage_authority",
+    },
+    {
       label: "My Account",
       icon: "manage_authority",
       subText: "Manage authority accounts",
       id: "nav-MyAccount",
       navigateTo: "/my-account",
-      iconPath: "./assets/lottie-files/outlined/dual-color/myaccount.json",
+      iconPath: "profile_picture_square",
     },
     {
       label: "My Security Logs",
@@ -73,8 +89,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
       subText: "See recent login attempts",
       id: "nav-SecuityLogs",
       navigateTo: "/security-Logs",
-      iconPath:
-        "./assets/lottie-files/outlined/dual-color/ProtectedAccount.json",
+      iconPath: "setting",
     },
     {
       label: "Personal Data",
@@ -82,7 +97,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
       subText: "Change your account settings",
       id: "nav-PersonalData",
       navigateTo: "/personal-data",
-      iconPath: "./assets/lottie-files/outlined/dual-color/personal-data.json",
+      iconPath: "login_attempts",
     },
   ];
 
@@ -190,7 +205,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   };
 
   return (
-    <div>
+    <div >
       <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
         <div
           onClick={handlerLogoClick}
@@ -219,7 +234,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div>
                   <img
                     className="cursor-pointer pe-4"
-                    width={160}
+                    width={140}
                     src={brandLogo}
                     alt="raaghu-logo"
                   ></img>
@@ -363,7 +378,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             <div className="d-block d-none fs-8 text-center">Profile</div>
           </div>
-          <div className="px-2 px-md-3 d-none d-lg-block">
+          <div className="px-2 px-md-3 d-none d-lg-block">  
             <RdsOffcanvas
               className="pb-0"
               placement="end"

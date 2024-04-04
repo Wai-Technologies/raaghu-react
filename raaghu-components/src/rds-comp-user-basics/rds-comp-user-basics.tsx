@@ -111,7 +111,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                 value={userData?.email}
                                 placeholder="Enter Email"
                                 inputType="email"
-                                label="EmailAddress"
+                                label="Email Address"
                                 name="email"
                                 required={true}
                                 onChange={(e) => { setEmail(e); }}
@@ -156,7 +156,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                 value={userData?.phoneNumber}
                                 placeholder="Enter Phone"
                                 inputType="text"
-                                label="PhoneNumber"
+                                label="Phone Number"
                                 name="phone"
                                 required={true}
                                 onChange={(e) => { setPhoneNumber(e); }}

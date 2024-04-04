@@ -41,4 +41,5 @@ export const Default: Story = {
         entityNames: [{ label: "ANZAngular105Demo.Authorization.Users.User" }, { label: "ANZAngular105Demo.Authorization" },]
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
 

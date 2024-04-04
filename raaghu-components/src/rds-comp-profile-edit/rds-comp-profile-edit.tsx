@@ -42,11 +42,11 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
         <div>
             <div className="tab-content py-4">
                 <form onSubmit={formSubmitHandler}>
+                    <div className="custom-content-scroll">
                     <div className="row align-items-center">
                         <div className="col-md-3 text-center cursor-pointer sm-p-0">
-                            <img src='./edit-pic.png' />
-
-                            <input type="file" accept="image/*" className="d-none" />
+                            <img src='./raaghu-components/src/rds-comp-profile-edit/edit-pic.png' />
+                             <input type="file" accept="image/*" className="d-none" />
                         </div>
                         <div className="col-md-9 sm-p-0">
                             <div className="form-group mb-3">
@@ -94,15 +94,15 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                         </div>
                     </div>
                     <div className="row mb-2">
-                        <div className="col-lg-6 col-md-6">
-                            <div className="mb-2">
+                        <div className="col-lg-6 col-md-6 ">
+                            <div className="mb-3">
                                 <RdsInput
                                     placeholder="Enter Phone Nunber"
                                     inputType="number"
                                     label="Phone Number"
                                     name="phone"
                                     id="phone"
-                                    size="small"
+                                    
                                     required={true}
                                     onBlur={() => setIsPhoneNumberTouched(true)}
                                     onChange={(e) => setEnteredPhoneNumber(e.target.value)}
@@ -128,7 +128,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     label="User Name"
                                     name="userName"
                                     id="username"
-                                    size="small"
+                                   
                                     required={true}
                                     onBlur={() => setIsUserNameTouched(true)}
                                     onChange={(e) => setEnteredUserName(e.target.value)}
@@ -142,9 +142,9 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3 d-flex">
+                    </div>
+                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
-                            class="me-2"
                             label="Cancel"
                             type="button"
                             isOutline={true}
@@ -153,7 +153,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                             dataTestId="cancel"
                         ></RdsButton>
                         <RdsButton
-                            class="me-2"
+
                             label="Save"
                             type="submit"
                             isOutline={false}

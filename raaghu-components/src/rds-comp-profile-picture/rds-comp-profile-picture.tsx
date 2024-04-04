@@ -11,21 +11,21 @@ const RdsCompProfilePicture = (props: any) => {
     {
       checked: true,
       id: 0,
-      label: "Account.UseDefault",
+      label: "Use Default",
       name: "radio_button",
       type: 0,
     },
     {
       checked: false,
       id: 1,
-      label: "Account.DisplayName:UseGravatar",
+      label: "Use Gravatar",
       name: "radio_button",
       type: 1,
     },
     {
       checked: false,
       id: 2,
-      label: "FileManagement.UploadFiles",
+      label: "Upload Files",
       name: "radio_button",
       type: 2,
     },
@@ -76,8 +76,6 @@ const RdsCompProfilePicture = (props: any) => {
     })
     if (props.ProfileType == 2 && profilelisttypes[2].checked) {
       setShow(true)
-
-
     } else {
       setShow(false)
     }
@@ -100,8 +98,9 @@ const RdsCompProfilePicture = (props: any) => {
 
     setprofilepicstypes(updatedProfilepicstypes);
 
-    if (event.target.value == "Use Default Avatar") {
+    if (event.target.value == "Use Default") {
       setIsExceed(false)
+      setShow(false);
       // alert(0);
       setAvatarImg("./assets/profile-picture-circle.svg");
       setavatarType(0);
@@ -116,7 +115,8 @@ const RdsCompProfilePicture = (props: any) => {
       setShow(false);
     } else if (event.target.value == "Use Gravatar") {
       setIsExceed(false)
-      setAvatarImg("./assets/Avatar-rds-mascot.svg");
+      setShow(false);
+      setAvatarImg("./assets/profile-picture-circle.svg");
       setavatarType(1);
 
       const imagePath = "./assets/Avatar-rds-mascot.svg";
@@ -127,12 +127,14 @@ const RdsCompProfilePicture = (props: any) => {
       });
       props.postProfilePic(file, 1); // pass the file to the function
       setShow(false);
-    } else if (event.target.value == "FileManagement.UploadFiles" || '') {
+    } else if (event.target.value == "Upload Files") {
       setIsExceed(true)
       // alert(2);
       setavatarType(2);
       setAvatarImg(props.profilePictureData ? avatarImg : imagePathradiobutton)
       setShow(true);
+    } else {
+      setShow(false)
     }
   };
 
@@ -149,6 +151,7 @@ const RdsCompProfilePicture = (props: any) => {
   }
   return (
     <form>
+      <div className="custom-content-scroll">
       <div className="d-md-flex d-block py-4 align-items-center">
         <div className="mb-3 d-xxl-block d-xl-block d-lg-block d-md-block d-flex justify-content-center mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-4">
           <img
@@ -178,35 +181,32 @@ const RdsCompProfilePicture = (props: any) => {
             <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 ">
               <RdsFileUploader
                 colorVariant="primary"
-                extensions=".jpg, .jpeg, .png"
+                extensions="jpg, jpeg, png"
                 multiple={false}
                 placeholder=""
-                size={""}
-                label={"Account.SelectNewImage"}
-                limit={1024}
+                size="small"
+                label="Select New Image"
+                limit={1}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
               />
-              <div className="fs-6 mt-2 label-gray">{"File size should not be greater than 1 MB."}</div>
-              <small className="mt-1 label-gray">{`${"File type should be .jpg, .jpeg, and .png."}`}
-              </small>
             </div>
           </>
         )}
       </div>
-      <div className="row">
-        <div className="mt-3 footer-buttons px-0 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row d-flex gap-2 bg-transparent">
-          <RdsButton
-            label={"Account.SaveChanges"}
+      </div>
+      <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+        <RdsButton
+            label="Save Changes"
             colorVariant="primary"
-            isDisabled={isExceed}
+            isDisabled={false}
             block={false}
             type="button"
             size="small"
             onClick={onSaveHandler}
             dataTestId="save"
           />
-        </div></div>
+        </div>
     </form>
   );
 };

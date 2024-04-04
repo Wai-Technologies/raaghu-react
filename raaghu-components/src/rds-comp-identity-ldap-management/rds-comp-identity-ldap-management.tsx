@@ -24,7 +24,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
     }
 
     return (
-        <div className="pt-3">
+        <div className="pt-2">
             <form onSubmit={handleSubmit}>
               <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
