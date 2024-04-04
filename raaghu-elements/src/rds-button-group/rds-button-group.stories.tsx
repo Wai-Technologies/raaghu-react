@@ -103,7 +103,7 @@ export const IconButtonGroup: Story = {
     args: {
         vertical: false,
         size: "medium",
-        colorVariant: "dark",
+        colorVariant: "primary",
         role: "button",
         isOutline: true,
         buttonGroupItems: [

@@ -86,34 +86,7 @@ export const Default: Story = {
                   "badgeColorVariant": "danger",
                   "content": "Inactive"
                 }
-              },
-              {
-                "id": 8,
-                "tenant": "Joy",
-                "edition": "Standard",
-                "status": {
-                  "badgeColorVariant": "success",
-                  "content": "Active"
-                }            
-              },
-              {
-                "id": 9,
-                "tenant": "Joy",
-                "edition": "Standard",
-                "status": {
-                  "badgeColorVariant": "success",
-                  "content": "Active"
-                }            
-              },
-              {
-                "id": 10,
-                "tenant": "Joy",
-                "edition": "Apple",
-                "status": {
-                  "badgeColorVariant": "success",
-                  "content": "Active"
-                }
-              },
+              }
               
           ],
         actions: [
