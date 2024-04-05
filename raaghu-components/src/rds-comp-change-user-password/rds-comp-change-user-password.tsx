@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
-import { set } from "date-fns";
 
 export interface RdsChangePasswordProps {
     changePasswordData?: any;
