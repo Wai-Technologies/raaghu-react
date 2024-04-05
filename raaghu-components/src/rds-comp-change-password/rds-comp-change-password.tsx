@@ -2,33 +2,31 @@ import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 
 export interface RdsCompChangePasswordProps {
-
+    onSaveHandler?: (data: any) => void;
+    changePasswordData?: any;
 }
-const RdsCompChangePassword = (props: any) => {
+  const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
     const [formData, setFormData] = useState(props.changePasswordData);
 
     useEffect(() => {
         setFormData(props.changePasswordData);
     }, [props.changePasswordData]);
 
-    const handlePasswordDataSubmit = (event: any) => {
+    const handleDataChanges = (value: any, key: string) => {
+        setFormData({ ...formData, [key]: value });
+    }
+
+    function emitSaveData(event: any) {
         event.preventDefault();
-    };
-
-    function setCurrentPassword(value: any) {
-        setFormData({ ...formData, currentPassword: value });
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setFormData({
+            currentPassword: "",
+            newPassword: "",
+            newPasswordConfirm: "",
+        });
     }
-
-    function setNewPassword(value: any) {
-        setFormData({ ...formData, newPassword: value });
-    }
-
-    function setConfirmNewPassword(value: any) {
-        setFormData({ ...formData, newPasswordConfirm: value });
-    }
-
     return (
-        <form data-testid="password-form" onSubmit={handlePasswordDataSubmit}>
+        <form data-testid="password-form">
             <div className="custom-content-scroll">
             <div className="row mt-4">
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
@@ -40,7 +38,9 @@ const RdsCompChangePassword = (props: any) => {
                         readonly={false}
                         placeholder="Current Password"
                         value={formData?.currentPassword}
-                        onChange={(e: any) => setCurrentPassword(e.target.value)}
+                        onChange={(e) => {
+                            handleDataChanges(e.target.value, "currentPassword");
+                          }}
                         required={true}
                         dataTestId='curr-password'
                         showIcon={true}
@@ -58,7 +58,9 @@ const RdsCompChangePassword = (props: any) => {
                         required={true}
                         placeholder="New Password"
                         value={formData?.newPassword}
-                        onChange={(e: any) => setNewPassword(e.target.value)}
+                        onChange={(e) => {
+                            handleDataChanges(e.target.value, "newPassword");
+                          }}
                         dataTestId='new-pass'
                         showIcon={true}
                     ></RdsInput>
@@ -75,7 +77,9 @@ const RdsCompChangePassword = (props: any) => {
                         required={true}
                         placeholder="New Password Confirm"
                         value={formData?.newPasswordConfirm}
-                        onChange={(e: any) => setConfirmNewPassword(e.target.value)}
+                        onChange={(e) => {
+                            handleDataChanges(e.target.value, "newPasswordConfirm");
+                          }}
                         dataTestId='confirm-password'
                     ></RdsInput>
                 </div>
@@ -99,6 +103,7 @@ const RdsCompChangePassword = (props: any) => {
                             colorVariant="primary"
                             tooltipTitle={""}
                             type={"submit"}
+                            onClick={(e: any) => emitSaveData(e)}
                             databsdismiss="offcanvas"
                             isDisabled={false}
                             dataTestId="save"
