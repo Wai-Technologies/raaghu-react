@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompNewPage>;
 
 export const Default: Story = {
   args: {
-    name: 'default',
+    
   }
 } satisfies Story;
 
