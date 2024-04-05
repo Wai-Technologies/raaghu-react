@@ -11,6 +11,7 @@ export interface RdsCounterProps {
     width: number;
     colorVariant?: colors;
     position?: placements;
+    onCounterChange?: (newValue: number) => void;
 }
 
 const RdsCounter = (props: RdsCounterProps) => {
