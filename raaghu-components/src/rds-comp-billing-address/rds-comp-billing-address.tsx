@@ -1,76 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsSelectList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompBillingAddressProps {
+    onSaveHandler?: (data: any) => void;
     countryList: { option: string, value: any }[];
     IndianStateList: { option: string, value: any }[];
-    BillingAddressDetails(arg: RdsCompBillingAddressDetails): any;
-}
-
-export interface RdsCompBillingAddressDetails {
-    FirstName: string;
-    LastName: string;
-    Company: string;
-    Phone: string;
-    Address: string;
-    City: string;
-    Country: string;
-    StateProvince: string;
-    PostalCode: string;
+    billingAddressDetails: any;
 }
 
 const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [company, setCompany] = useState("");
-    const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [pin, setPin] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const onbackHandler = (e: any) => {
-    };
+    const [formData, setFormData] = useState(props.billingAddressDetails);
 
-    const onSubmitHandler = (e: any) => {
-        //Preventing default on submit
-        e.preventDefault();
+useEffect(() => {
+    setFormData(props.billingAddressDetails);
+}, [props.billingAddressDetails]);
 
-        //Checking Validations before submit
-        firstNameValidation(firstName);
-        lastNameValidation(lastName);
-        phoneValidationHandler(phone);
-        addressValidation(address);
-        cityValidation(city);
-        countryValidation(country);
-        stateProvinceValidation(state);
-        postalCodeValidation(pin);
+const handleChange = (value: any, key: string) => {
+    setFormData({ ...formData, [key]: value });
+}
 
-        //Submiting values if all validated
-        if (
-            firstNameErrorMessage === "" &&
-            lastNameErrorMessage === "" &&
-            phoneErrorMessage === "" &&
-            addressErrorMessage === "" &&
-            cityErrorMessage === "" &&
-            countryErrorMessage === "" &&
-            stateProvinceErrorMessage === "" &&
-            postalCodeErrorMessage
-        ) {
-            const BillingAddressDetails: RdsCompBillingAddressDetails = {
-                FirstName: firstName,
-                LastName: lastName,
-                Company: company,
-                Phone: phone,
-                Address: address,
-                City: city,
-                Country: country,
-                StateProvince: state,
-                PostalCode: pin,
-            };
-        }
-    };
+function emitSaveData(event: any) {
+    event.preventDefault();
+    props.onSaveHandler && props.onSaveHandler(formData);
+    setFormData({
+        firstName: "",
+        lastName: "",
+        company: "",
+        phone: "",
+        address: "",
+        city: "",
+        countryList: "",
+        indianStateList: "",
+        pin: "",
+    });
+}
 
     //Regarding Validations messages
     const [firstNameErrorMessage, setFirstNameErrorMessage] =
@@ -139,7 +103,7 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
         <>
             <div className="contact-information">
                 <h3 className="pb-2">Billing Address</h3>
-                <form id="billingAddressForm" onSubmit={onSubmitHandler}>
+                <form id="billingAddressForm">
                 <div className="custom-content-scroll">
                     <div className="row">
                         <div className="col-md-6 mb-3">
@@ -149,8 +113,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 inputType="text"
                                 name="firstName"
                                 placeholder="Enter First Name"
-                                value={firstName}
-                                onChange={(e) => { setFirstName(e.target.value); }}
+                                value={formData?.firstName}
+                                onChange={(e) => { handleChange(e.target.value,"firstName"); }}
                                 required
                                 onBlur={(e) => firstNameValidation(e.target.value)}
                                 dataTestId="f-name"
@@ -171,8 +135,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 required={true}
                                 onBlur={(e) => lastNameValidation(e.target.value)}
                                 dataTestId="last-name"
-                                value={lastName}
-                                onChange={(e) => { setLastName(e.target.value); }}
+                                value={formData?.lastName}
+                                onChange={(e) => { handleChange(e.target.value,"lastName"); }}
                             />
                             {lastNameErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -190,8 +154,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 id="txtCompany"
                                 placeholder="Enter Company"
                                 dataTestId="company"
-                                value={company}
-                                onChange={(e) => { setCompany(e.target.value); }}
+                                value={formData?.company}
+                                onChange={(e) => { handleChange(e.target.value,"company"); }}
                             />
                         </div>
                         <div className="col-md-6 mb-3">
@@ -202,8 +166,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 id="txtPhone"
                                 placeholder="Enter phone"
                                 required={true}
-                                value={phone}
-                                onChange={(e) => { setPhone(e.target.value); }}
+                                value={formData?.phone}
+                                onChange={(e) => { handleChange(e.target.value,"phone"); }}
                                 onBlur={(e) => phoneValidationHandler(e.target.value)}
                                 dataTestId="phone"
                             />
@@ -224,8 +188,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 required={true}
                                 onBlur={(e) => addressValidation(e.target.value)}
                                 dataTestId="address"
-                                value={address}
-                                onChange={(e) => { setAddress(e.target.value); }}
+                                value={formData?.address}
+                                onChange={(e) => { handleChange(e.target.value,"address"); }}
                             />
                             {addressErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -245,8 +209,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 required={true}
                                 onBlur={(e) => cityValidation(e.target.value)}
                                 dataTestId="city"
-                                value={city}
-                                onChange={(e) => { setCity(e.target.value); }}
+                                value={formData?.city}
+                                onChange={(e) => { handleChange(e.target.value,"city"); }}
                             />
                             {cityErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -260,8 +224,9 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 label="Country"
                                 placeholder="Select Country"
                                 selectItems={props.countryList}
+                                selectedValue={formData?.countryList}
                                 dataTestId="select-country"
-                                onChange={(item: any) => { setCountry(item.value); }}
+                                onChange={(item: any) => { handleChange(item.value,"countryList"); }}
                                 required
                             />
                             {countryErrorMessage != "" && (
@@ -278,8 +243,9 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 label="State/Province"
                                 placeholder="Select State/Province"
                                 selectItems={props.IndianStateList}
+                                selectedValue={formData?.indianStateList}
                                 dataTestId="select-state"
-                                onChange={(item: any) => { setState(item.value); }}
+                                onChange={(item: any) => { handleChange(item.value,"indianStateList"); }}
                                 required
                             />
                             {stateProvinceErrorMessage != "" && (
@@ -299,8 +265,8 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                                 required={true}
                                 onBlur={(e) => postalCodeValidation(e.target.value)}
                                 dataTestId="postal-code"
-                                value={pin}
-                                onChange={(e) => { setPin(e.target.value); }}
+                                value={formData?.pin}
+                                onChange={(e) => { handleChange(e.target.value,"pin"); }}
                             />
                             {postalCodeErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -328,6 +294,7 @@ const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
                             colorVariant="primary"
                             tooltipTitle={""}
                             type={"submit"}
+                            onClick={(e: any) => emitSaveData(e)}
                             databsdismiss="offcanvas"
                             isDisabled={false}
                             dataTestId="save"
