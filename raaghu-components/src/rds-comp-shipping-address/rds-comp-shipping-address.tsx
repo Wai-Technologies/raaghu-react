@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./rds-comp-shipping-address.css";
-import { RdsLabel, RdsInput, RdsSelectList, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
-
+import { RdsInput, RdsSelectList, RdsButton } from "../rds-elements";
 export interface RdsCompShippingAddressProps {
     countryList: { option: any, value: any }[];
+    onSaveHandler?: (data: any) => void;
+    shippingAddressData?: any;
 }
 
 const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
-    return (
+  const [formData, setFormData] = useState(props.shippingAddressData);  
+  
+  useEffect(() => {
+    setFormData(props.shippingAddressData);
+  }, [props.shippingAddressData]);
+
+  const handleDataChanges = (value: any, key: string) => {
+    setFormData({ ...formData, [key]: value });
+  };
+
+  function emitSaveData(event: any) {
+    event.preventDefault();
+    props.onSaveHandler && props.onSaveHandler(formData);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      company: "",
+      phone: "",
+      address: "",
+      city: "",
+      country: "",
+      state: "",
+      postalCode: ""
+  });
+  }
+
+ 
+  return (
       <>
       <form>
         <div className="custom-content-scroll">
@@ -23,6 +50,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "firstName");
+                  }}
+                  value={formData?.firstName}
                 ></RdsInput>
               </div>
             </div>
@@ -35,6 +66,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "lastName");
+                  }}
+                  value={formData?.lastName}
                 ></RdsInput>
               </div>
             </div>
@@ -50,6 +85,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "company");
+                  }}
+                  value={formData?.company}
                 ></RdsInput>
               </div>
             </div>
@@ -62,6 +101,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "phone");
+                  }}
+                  value={formData?.phone}
                 ></RdsInput>
               </div>
             </div>
@@ -76,6 +119,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 readonly={false}
                 placeholder="Enter a value"
                 required={true}
+                onChange={(e) => {
+                  handleDataChanges(e.target.value, "address");
+                }}
+                value={formData?.address}
               ></RdsInput>
             </div>
           </div>
@@ -90,6 +137,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "city");
+                  }}
+                  value={formData?.city}
                 ></RdsInput>
               </div>
             </div>
@@ -99,6 +150,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   id="seleCon"
                   label="Country"
                   selectItems={props.countryList}
+                  selectedValue={formData?.country}
+                  onChange={(item: any) => {
+                    handleDataChanges(item.value, "country");
+                  }}
                 ></RdsSelectList>
               </div>
             </div>
@@ -114,6 +169,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "state");
+                  }}
+                  value={formData?.state}
                 ></RdsInput>
               </div>
             </div>
@@ -126,6 +185,10 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   readonly={false}
                   placeholder="Enter a value"
                   required={true}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.value, "postalCode");
+                  }}
+                  value={formData?.postalCode}
                 ></RdsInput>
               </div>
             </div>
@@ -145,6 +208,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             isOutline={false}
             colorVariant="primary"
             size="small"
+            onClick={(e: any) => emitSaveData(e)}
           ></RdsButton>
         </div>
     </form>
