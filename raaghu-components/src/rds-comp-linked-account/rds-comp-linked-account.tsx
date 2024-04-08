@@ -1,30 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
-export interface RdsLinkedAccountProps { }
+export interface RdsLinkedAccountProps {
+    linkedAccountData?: any;
+    onSaveHandler?: (data: any) => void;
+ }
 
 const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
   
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState(props.linkedAccountData);
+        
+    useEffect(() => {
+        setUserData(props.linkedAccountData);
+    }, [props.linkedAccountData]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setUserData({ ...userData, [key]: value });
+      };
+
+      function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(userData);
+        setUserData({
         tenancyName: "",
         userName: "",
-        password: "",
-    });
+        password: ""
+      });
+      }
+      
     const [page, setPage] = useState(false);
     const onClickHandler = () => {
         setPage((prev) => !prev);
-    };
-
-    const onSubmitHandler = (e: any) => {
-        e.preventDefault();
-        const name = e.target[0].value;
-        setUserData({
-            ...userData,
-            tenancyName: e.target[0].value,
-            userName: e.target[1].value,
-            password: e.target[2].value,
-        });
     };
 
     return (
@@ -50,7 +56,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                         )}
                     </div>
                     {page && (
-                        <form onSubmit={(e) => onSubmitHandler(e)}>
+                        <form>
                             <div className="custom-content-scroll">
                             <div className="row">
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -62,6 +68,10 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="medium"
                                         name="tenancyName"
                                         dataTestId="tenancy-name"
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "tenancyName");
+                                        }}
+                                        value={userData?.tenancyName}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -73,6 +83,10 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="medium"
                                         name="userName"
                                         dataTestId="username"
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "userName");
+                                        }}
+                                        value={userData?.userName}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -85,6 +99,10 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         name="password"
                                         dataTestId="password"
                                         showIcon= {false}
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "password");
+                                        }}
+                                        value={userData?.password}
                                     ></RdsInput>
                                 </div>
                            
@@ -110,6 +128,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         label="Save"
                                         size="small"
                                         dataTestId="submit"
+                                        onClick={(e: any) => emitSaveData(e)}
                                     ></RdsButton>
                             </div>
                             
