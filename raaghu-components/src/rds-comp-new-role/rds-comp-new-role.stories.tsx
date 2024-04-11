@@ -18,10 +18,7 @@ type Story = StoryObj<typeof RdsCompNewRole>;
 
 export const Default: Story = {
     args: {
-      roleData: {
-        "displayName": "Role Name",
-        "isDefault": false
-      }
+      
     }
 } satisfies Story;
 
