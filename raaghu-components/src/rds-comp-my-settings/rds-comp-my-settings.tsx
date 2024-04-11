@@ -72,7 +72,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
 
   return (
     <div>
-      <form onSubmit={emitSaveData}>
+      <form>
         <div className="custom-content-scroll">
           <div className="mb-3">
             <RdsInput
@@ -168,6 +168,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
             colorVariant="primary"
             label="Save"
             type="submit"
+            onClick={(e) => emitSaveData(e)}
           ></RdsButton>
         </div>
       </form>

@@ -5,17 +5,15 @@ export interface RdsCompContactInfoProps {
     onSaveHandler?: (
         contactInfomation: any
     ) => void;
+    contactInformationData?: any;
 }
 const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
-    const [user, setUser] = useState<any>({
-        email: "",
-        contact: "",
-        checked: false,
-    });
-    const [error, setError] = useState<any>({
-        email: "",
-        contact: "",
-    });
+    const [user, setUser] = useState<any>(props.contactInformationData);
+    const [error, setError] = useState<any>(props.contactInformationData);
+
+    useEffect(() => {
+        setUser(props.contactInformationData);
+    }, [props.contactInformationData]);
 
     const isEmailValid = (email: any) => {
         if (!email || email.length === 0) {
@@ -46,7 +44,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
     };
 
     const isFormValid =
-        isContactValid(user.contact) && isEmailValid(user.email) && user.checked;
+        isContactValid(user?.contact) && isEmailValid(user?.email) && user?.checked;
 
     const emitSaveData = (event: any) => {
         event.preventDefault();
@@ -67,12 +65,12 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             placeholder="Enter Email address"
                             inputType="email"
                             onChange={(e)=>handleDataChanges(e.target.value, "email")}
-                            value={user.email}
+                            value={user?.email}
                             name={"email"}
                             dataTestId="email"
                         ></RdsInput>
-                        {error.email != "" && (
-                            <span className="text-danger">{error.email}</span>
+                        {error?.email != "" && (
+                            <span className="text-danger">{error?.email}</span>
                         )}
                     </div>
 
@@ -87,11 +85,11 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             inputType="text"
                             onChange={(e)=>handleDataChanges(e.target.value, "contact")}
                             name={"fullname"}
-                            value={user.contact}
+                            value={user?.contact}
                             dataTestId="contact-number"
                         ></RdsInput>
-                        {error.contact != "" && (
-                            <span className="text-danger">{error.contact}</span>
+                        {error?.contact != "" && (
+                            <span className="text-danger">{error?.contact}</span>
                         )}
                     </div>
                     <div className="form-check mt-2 mb-4">
@@ -99,7 +97,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             className="form-check-input"
                             type="checkbox"
                             value=""
-                            checked={user.checked}
+                            checked={user?.checked}
                             id="flexCheckDefault"
                             onChange={(e) => handleDataChanges(e.target.checked, "checked")}
                             data-testid="terms-and-condition"
