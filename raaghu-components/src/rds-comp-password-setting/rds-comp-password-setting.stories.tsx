@@ -18,14 +18,8 @@ type Story = StoryObj<typeof RdsCompPasswordSetting>;
 
 export const Default: Story = {
   args: {
-    sizeDataWithDescription: [
-      { type: "Standard", days: "4-10 buisness days", cost: "$5.00" },
-      { type: "Express", days: "2-5 buisness days", cost: "$16.00" },
-      { type: "Free", days: "10-12 buisness days", cost: "$0.00" },],
-    sizeType: "withDescription",
   }
 } satisfies Story;
-Default.parameters = { controls: { include: ['sizeDataWithDescription'] } };
 
 
 
