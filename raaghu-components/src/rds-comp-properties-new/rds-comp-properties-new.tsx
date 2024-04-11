@@ -67,6 +67,8 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
             ),
         };
         setTableData((prev: any) => [...prev, newTempData]);
+        console.log(tableData);
+        setPropertyData({ key: "", PropValue: "" });
     };
     function onDelete(key: any) {
         const tempPropertyData = tableData.filter((el: any) => el.key != key);
@@ -75,15 +77,7 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <div className="mt-3">
-                    <RdsCompDatatable
-                        actionPosition="right"
-                        tableHeaders={tableHeaders}
-                        tableData={tableData}
-                        pagination={false}
-                    ></RdsCompDatatable>
-                </div>
+            <form onSubmit={handleSubmit}>                
                 <div className=" row mt-3">
                     <div className="col-md-5">
                         <RdsInput
@@ -120,6 +114,14 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
                             dataTestId="add"
                         />
                     </div>
+                </div>
+                <div className="mt-3">
+                    <RdsCompDatatable
+                        actionPosition="right"
+                        tableHeaders={tableHeaders}
+                        tableData={tableData}
+                        pagination={false}
+                    ></RdsCompDatatable>
                 </div>
                 <div className=" mt-5 pb-3 footer-buttons d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
                     <RdsButton

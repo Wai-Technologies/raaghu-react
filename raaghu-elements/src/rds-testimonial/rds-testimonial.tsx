@@ -11,7 +11,7 @@ export const RdsTestimonial = (props: RdsTestimmonialProps) => {
             <div className="d-flex sm-block row " >
                 {props.testimonialItems.map((testimonialItem) => (
                     <>
-                        <div className="mb-3 col-lg-4 col-md-4 col-sm-4">
+                        <div className="mb-3">
                             <div className="card text-center p-4 rounded-0 shadow border-0">
                                 <div className="mt-3">
                                     <RdsIcon
