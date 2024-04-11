@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsLabel } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompEmailSettingsProps {
     emailSettings: any;
+    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
+    const [formData, setFormData] = useState(props.emailSettings);
 
+    useEffect(() => {
+        setFormData(props.emailSettings);
+      }, [props.emailSettings]);
+    
+      const handleDataChanges = (value: any, key: string) => {
+        setFormData({ ...formData, [key]: value });
+      };
+    
+      function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setFormData({
+            currentEmail: "",
+            newEmail: "",
+            confirmEmail: ""
+      });
+      }
 
     return (
         <>
@@ -21,7 +39,10 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             placeholder="Email Address"
                             customClasses="form-control"
                             inputType="email"
-                            value={props.emailSettings.currentEmail}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "currentEmail");
+                            }}
+                            value={formData?.currentEmail}
                             dataTestId="current-email"
                         ></RdsInput>
                     </div>
@@ -36,7 +57,10 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             placeholder="Email Address"
                             customClasses="form-control"
                             inputType="email"
-                            value={props.emailSettings.newEmail}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "newEmail");
+                            }}
+                            value={formData?.newEmail}
                             dataTestId="new-email"
                         ></RdsInput>
                     </div>
@@ -54,7 +78,10 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             placeholder="Email Address"
                             customClasses="form-control"
                             inputType="email"
-                            value={props.emailSettings.confirmEmail}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "confirmEmail");
+                            }}
+                            value={formData?.confirmEmail}
                             dataTestId="confirm-email"
                         ></RdsInput>
                     </div>
@@ -79,6 +106,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             label="Save"
                             size="small"
                             dataTestId="submit"
+                            onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>
                     </div>
                 </div>
