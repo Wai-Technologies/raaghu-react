@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompApiResourceBasicProps {
-  dataOne: any;
+  apiResourceBasic: any;
   onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
-  const [formData, setFormData] = useState(props.dataOne);
+const [formData, setFormData] = useState(props.apiResourceBasic);
 
-  useEffect(() => {
-    setFormData(props.dataOne);
-  }, [props.dataOne]);
+useEffect(() => {
+  setFormData(props.apiResourceBasic);
+}, [props.apiResourceBasic]);
 
-  const handleDataChanges = (value: any, key: string) => {
-    setFormData({ ...formData, [key]: value });
-  };
+const handleDataChanges = (value: any, key: string) => {
+  setFormData({ ...formData, [key]: value });
+}
+ 
+function emitSaveData(event: any) {
+  event.preventDefault();
+   props.onSaveHandler && props.onSaveHandler(formData);  
+   setFormData({
+    email: "",
+    fullname: "",
+    message: "",
+    accessTokenSigningAlgorithm: "",
+   })
 
-  function emitSaveData(event: any) {
-    event.preventDefault();
-    props.onSaveHandler && props.onSaveHandler(formData);
-  }
+}
+
   return (
     <>
       <div>
@@ -112,7 +119,6 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
               type={"submit"}
               databsdismiss="offcanvas"
               onClick={(e: any) => emitSaveData(e)}
-              //   isDisabled={!isFormValid}
               dataTestId="save"
             ></RdsButton>
           </div>
