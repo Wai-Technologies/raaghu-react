@@ -1,11 +1,34 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
-export interface RdsCompSecretsProps { }
+export interface RdsCompSecretsProps { 
+    onSaveHandler?: (data: any) => void;
+    default: any;
+}
 
 const RdsCompSecrets = (props: RdsCompSecretsProps) => {
+    const [data, setdata] = useState(props.default);
 
+    useEffect(() => {
+        setdata(props.default);
+    }, [props.default]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setdata({ ...data, [key]: value });
+    }
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(data);
+        setdata({
+            type: "",
+            value: "",
+            expiration: "",
+            description: ""
+        });
+    }
 
     return (
         <>
@@ -20,6 +43,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter Type"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "type");
+                                  }}
+                                  value={data?.type}
                                 dataTestId="type"
                             ></RdsInput>
                         </div>
@@ -31,6 +58,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter Value"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "val");
+                                  }}
+                                  value={data?.val}
                                 dataTestId="value"
                             ></RdsInput>
                         </div>
@@ -42,6 +73,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter a value"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "expiration");
+                                  }}
+                                  value={data?.expiration}
                                 dataTestId="expiration"
                             ></RdsInput>
                         </div>
@@ -54,6 +89,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             readonly={false}
                             placeholder="Enter Type"
                             required={true}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "description");
+                              }}
+                              value={data?.description}
                             dataTestId="description"
                         ></RdsInput>
                     </div>
@@ -89,6 +128,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                                 dataTestId="create"
+                                onClick={(e: any) => emitSaveData(e)}
                             ></RdsButton>
                         </div>
                     </div>

@@ -1,85 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
 
-export interface RdsCompPasswordSettingProps { }
+export interface RdsCompPasswordSettingProps {
+    passwordSettingData?: any;
+    onSaveHandler?: (data: any) => void;
+ }
 
 const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
-    const [curPass, setCurPass] = useState("");
-    const [newPass, setNewPass] = useState("");
-    const [curNewPass, setCurNewPass] = useState("");
-
+    const [formData, setFormData] = useState(props.passwordSettingData);
     const [error1, setError1] = useState("");
     const [error2, setError2] = useState("");
     const [error3, setError3] = useState("");
+    
+    useEffect(() => {
+        setFormData(props.passwordSettingData);
+      }, [props.passwordSettingData]);
+   
+    const handleDataChanges = (value: any, key: string) => {
+        setFormData({ ...formData, [key]: value });
+        switch (key) {
+                case "curPass":
+                    if (!isCurPassValid(value)) {
+                        setError1("Current Password is invalid");
+                    } else {
+                        setError1("");
+                    }
+                    break;
+                case "newPass":
+                    if (!isNewPassValid(value)) {
+                        setError2("New password is invalid");
+                    } else {
+                        setError2("");
+                    }
+                    break;
+                case "curNewPass":
+                    if (!isCurNewPassValid(value)) {
+                        setError3("Password mismatch found");
+                    } else {
+                        setError3("");
+                    }
+                    break;
+                default:
+                    break;
+            }
+    };
 
     const isCurPassValid = (curPass: any) => {
-        if (!curPass || curPass.length <= 8) {
-            return false;
-        }
-        return true;
+        return curPass && curPass.length > 8;
     };
+
     const isNewPassValid = (newPass: any) => {
-        if (!newPass || newPass.length <= 8) {
-            return false;
-        }
-        return true;
+        return newPass && newPass.length > 8;
     };
+
     const isCurNewPassValid = (curNewPass: any) => {
-        if (!curNewPass || curNewPass.length <= 8) {
-            return false;
-        } else if (newPass != curNewPass) {
-            return false;
-        }
-        return true;
-    };
-
-    const curPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isCurPassValid(event.target.value)) {
-            setError1("Current Password is invalid");
-        } else {
-            setError1("");
-        }
-        setCurPass(event.target.value);
-    };
-    const newPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isNewPassValid(event.target.value)) {
-            setError2("New passowrd is invalid");
-        } else {
-            setError2("");
-        }
-        setNewPass(event.target.value);
-    };
-
-    const curNewPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (newPass != curNewPass) {
-            setError3("Password mismatch found");
-        } else {
-            setError3("");
-        }
-        setCurNewPass(event.target.value);
+        return curNewPass && curNewPass === formData.newPass && curNewPass.length > 8;
     };
 
     const isFormValid =
-        isCurNewPassValid(curNewPass) &&
-        isCurPassValid(curPass) &&
-        isNewPassValid(newPass);
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setCurPass("");
-        setNewPass(" ");
-        setCurNewPass("");
-    };
+        isCurNewPassValid(formData?.curNewPass) &&
+        isCurPassValid(formData?.curPass) &&
+        isNewPassValid(formData?.newPass);
+    
+        const emitSaveData = (event: any) => {
+            event.preventDefault();
+            props.onSaveHandler && props.onSaveHandler(formData);
+            setFormData({
+                curPass: "",
+                newPass: "",
+                curNewPass: ""
+            });
+        };
+    
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form>
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
@@ -87,8 +83,10 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             required={true}
                             placeholder="Current password"
                             inputType="password"
-                            onChange={curPasshandleChange}
-                            value={curPass}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "curPass");
+                            }}
+                            value={formData?.curPass}
                             name={"curPass"}
 			                dataTestId="current-password"
                             showIcon= {true}
@@ -101,9 +99,11 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             required={true}
                             placeholder="New password"
                             inputType="password"
-                            onChange={newPasshandleChange}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "newPass");
+                            }}
+                            value={formData?.newPass}
                             name={"newPass"}
-                            value={newPass}
                             showIcon= {true}
 			                dataTestId="new-password"
                         ></RdsInput>
@@ -115,9 +115,11 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             required={true}
                             placeholder="Confirm new password"
                             inputType="password"
-                            onChange={curNewPasshandleChange}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "curNewPass");
+                            }}
+                            value={formData?.curNewPass}
                             name={"curNewPass"}
-                            value={curNewPass}
                             showIcon= {true}
 			                dataTestId="confirm-password"
                         ></RdsInput>
@@ -147,6 +149,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                                 block={true}
                                 type="submit"
                                 dataTestId="save"
+                                onClick={(e: any) => emitSaveData(e)}
                             />
                     </div>                    
                 </form>
