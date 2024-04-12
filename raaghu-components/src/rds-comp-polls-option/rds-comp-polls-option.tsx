@@ -9,7 +9,7 @@ interface RdsCompPollsOptionProps {
 }
 
 const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
-    const [tableData, setTableData] = useState<any>(props.optionsData);
+    const [tableData, setTableData] = useState<any>([]);
     const [optionData, setoptionData] = useState<any>({
         option: "",
     });
