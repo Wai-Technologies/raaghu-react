@@ -17,12 +17,7 @@ type Story = StoryObj<typeof RdsCompNewClaimType>;
 
 export const Default: Story = {
     args: {
-        name: "",
-        regex: "",
-        value: "",
-        regexDesc: "",
-        desc: "",
-        onSubmit: { undefined },
+       
         valueType: [
             {
                 option: "One",
