@@ -18,11 +18,6 @@ type Story = StoryObj<typeof RdsCompEmailSettings>;
 
 export const Default: Story = {
     args: {
-      emailSettings: {
-        "currentEmail": "niphy.anto@waiin.com",
-        "newEmail": "abc@waiin.com",
-        "confirmEmail": "abc@waiin.com"
-      }
     }
 } satisfies Story;
 

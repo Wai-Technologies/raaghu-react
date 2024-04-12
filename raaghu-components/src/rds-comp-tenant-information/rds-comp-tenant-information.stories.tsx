@@ -21,15 +21,19 @@ export const Default: Story = {
         editions: [
                     {
                         option: "Not assigned",
+                        value:1
                     },
                     {
                         option: "Standard",
+                        value:2
                     },
                     {
                         option: "apple",
+                        value:3
                     },
                     {
                         option: "Apple1",
+                        value:4
                     },
                 ],
     }
