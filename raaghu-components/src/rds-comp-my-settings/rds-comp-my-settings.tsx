@@ -1,220 +1,179 @@
 import React, { useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-export interface RdsCompMySettingsProps { }
+
+export interface RdsCompMySettingsProps {
+  onSaveHandler?: (data: any) => void;
+  settingDetails?: any;
+}
+
 const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
+  const [formData, setFormData] = useState(props.settingDetails);
+  const [errors, setErrors] = useState({
+    ProfileName: "",
+    Email: "",
+    UserName: "",
+    curPass: "",
+    newPass: "",
+    curNewPass: "",
+  });
 
-    const [curPass, setCurPass] = useState("");
-    const [newPass, setNewPass] = useState("");
-    const [curNewPass, setCurNewPass] = useState("");
-    const [email, setEmail] = useState("");
-    const [ProfileNameErrorMessage, setProfileNameErrorMessage] =
-        useState<string>("");
-    const [UserNameErrorMessage, setUserNameErrorMessage] = useState<string>("");
-    const [EmailErrorMessage, setEmailErrorMessage] = useState<string>("");
-    const [error1, setError1] = useState("");
-    const [error2, setError2] = useState("");
-    const [error3, setError3] = useState("");
-    const emailRegex =
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const isCurPassValid = (curPass: string) => {
+    return curPass && curPass.length > 8;
+  };
 
-    const isCurPassValid = (curPass: any) => {
-        if (!curPass || curPass.length <= 8) {
-            return false;
-        }
-        return true;
-    };
-    const isNewPassValid = (newPass: any) => {
-        if (!newPass || newPass.length <= 8) {
-            return false;
-        }
-        return true;
-    };
-    const isCurNewPassValid = (curNewPass: any) => {
-        if (!curNewPass || curNewPass.length <= 8) {
-            return false;
-        } else if (newPass != curNewPass) {
-            return false;
-        }
-        return true;
-    };
-    const emailHandler = (event: any) => {
-        if (!emailRegex.test(event.target.value)) {
-            setEmailErrorMessage("Please enter a valid email address.");
-        } else {
-            setEmailErrorMessage("");
-        }
-        setEmail(event.target.value);
-    };
-    const curPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isCurPassValid(event.target.value)) {
-            setError1("Current Password is invalid");
-        } else {
-            setError1("");
-        }
-        setCurPass(event.target.value);
-    };
-    const newPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isNewPassValid(event.target.value)) {
-            setError2("New passowrd is invalid");
-        } else {
-            setError2("");
-        }
-        setNewPass(event.target.value);
-    };
+  const isNewPassValid = (newPass: string) => {
+    return newPass && newPass.length > 8;
+  };
 
-    const curNewPasshandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (newPass != curNewPass) {
-            setError3("Password mismatch found");
-        } else {
-            setError3("");
-        }
-        setCurNewPass(event.target.value);
-    };
-    const ProfileNameValidation = (ProfileName: string) => {
-        ProfileName === ""
-            ? setProfileNameErrorMessage("Profile Name is required")
-            : setProfileNameErrorMessage("");
-    };
-    const UserNameValidation = (UserName: string) => {
-        UserName === ""
-            ? setUserNameErrorMessage("User Name is required")
-            : setUserNameErrorMessage("");
-    };
-    const EmailValidation = () => {
-        if (!emailRegex.test(email)) {
-            setEmailErrorMessage("Please enter a valid email address.");
-        } else {
-            setEmailErrorMessage("");
-        }
-    };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setCurPass("");
-        setNewPass(" ");
-        setCurNewPass("");
-    };
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div className="custom-content-scroll">
-                <div className="mb-3">
-                    <RdsInput
-                        label="Profile Name"
-                        size="medium"
-                        inputType="text"
-                        name="ProfileName"
-                        placeholder="admin"
-                        required
-                        onBlur={(e) => ProfileNameValidation(e.target.value)}
-                    />
-                    {ProfileNameErrorMessage != "" && (
-                        <div className="form-control-feedback">
-                            <span className="text-danger">{ProfileNameErrorMessage}</span>
-                        </div>
-                    )}
-                </div>
+  const isCurNewPassValid = (curNewPass: string) => {
+    return curNewPass === formData.newPass;
+  };
 
-                <div className="mb-3">
-                    <RdsInput
-                        label="Email"
-                        size="medium"
-                        inputType="text"
-                        name="Email"
-                        placeholder="contact@waiin.com"
-                        required
-                        onChange={emailHandler}
-                    />
-                    {EmailErrorMessage != "" && (
-                        <div className="form-control-feedback">
-                            <span className="text-danger">{EmailErrorMessage}</span>
-                        </div>
-                    )}
-                </div>
-                <div className="mb-3">
-                    <RdsInput
-                        label="User Name"
-                        size="medium"
-                        inputType="text"
-                        name="UserName"
-                        placeholder="admin"
-                        required
-                        onBlur={(e) => UserNameValidation(e.target.value)}
-                    />
-                    {UserNameErrorMessage != "" && (
-                        <div className="form-control-feedback">
-                            <span className="text-danger">{UserNameErrorMessage}</span>
-                        </div>
-                    )}
-                </div>
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-                <div className="fw-normal mt-1 mb-3">
-                    <RdsInput
-                        label="Current password "
-                        required={true}
-                        placeholder="Current password "
-                        inputType="password"
-                        onChange={curPasshandleChange}
-                        value={curPass}
-                        name={"curPass"}
-                        showIcon= {true}
-                    ></RdsInput>
-                    {error1 && <span className="text-danger">{error1}</span>}
-                </div>
-                <div className=" fw-normal mb-3">
-                    <RdsInput
-                        label="New password"
-                        required={true}
-                        placeholder="New password"
-                        inputType="password"
-                        onChange={newPasshandleChange}
-                        name={"newPass"}
-                        value={newPass}
-                        showIcon= {true}
-                    ></RdsInput>
-                    {error2 && <span className="text-danger">{error2}</span>}
-                </div>
-                <div className=" fw-normal mb-3">
-                    <RdsInput
-                        label="Confirm new password"
-                        required={true}
-                        placeholder="Confirm new password"
-                        inputType="password"
-                        onChange={curNewPasshandleChange}
-                        name={"curNewPass"}
-                        value={curNewPass}
-                        showIcon= {true}
-                    ></RdsInput>
-                    {error3 && <span className="text-danger">{error3}</span>}
-                </div>
-                </div>
-                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
-                    <RdsButton
-                                size="small"
-                                isOutline={true}
-                                colorVariant="primary"
-                                label="Cancel"
-                                data-bs-dismiss="offcanvas"
-                                type="button"
-                            ></RdsButton>
-                             <RdsButton
-                                size="small"
-                                isOutline={false}
-                                colorVariant="primary"
-                                label="Save"
-                                data-bs-dismiss="offcanvas"
-                                type="button"
-                            ></RdsButton>
-                </div>
-            </form>
+    const handleDataChanges = (event:any, key: string) => {
+        const { value } = event.target;
+        let errorMessage = "";
+      
+        if (key === "ProfileName") {
+          errorMessage = value.trim() ? "" : "Profile Name is required";
+        } else if (key === "Email") {
+          errorMessage = emailRegex.test(value) ? "" : "Please enter a valid email address";
+        } else if (key === "UserName") {
+          errorMessage = value.trim() ? "" : "User Name is required";
+        } else if (key === "curPass") {
+          errorMessage = isCurPassValid(value) ? "" : "Current Password is invalid";
+        } else if (key === "newPass") {
+          errorMessage = isNewPassValid(value) ? "" : "New password is invalid";
+        } else if (key === "curNewPass") {
+          errorMessage = isCurNewPassValid(value) ? "" : "Password mismatch found";
+        }
+      
+        setErrors({ ...errors, [key]: errorMessage });
+        setFormData({ ...formData, [key]: value });
+      };
+      
+      
+
+  const emitSaveData = (event: any) => {
+    event.preventDefault();
+    props.onSaveHandler && props.onSaveHandler(formData);
+    setFormData({
+      ProfileName: "",
+      Email: "",
+      UserName: "",
+      curPass: "",
+      newPass: "",
+      curNewPass: "",
+    });
+  };
+
+  return (
+    <div>
+      <form>
+        <div className="custom-content-scroll">
+          <div className="mb-3">
+            <RdsInput
+              label="Profile Name"
+              size="medium"
+              inputType="text"
+              name="ProfileName"
+              placeholder="admin"
+              required
+              value={formData?.ProfileName}
+              onChange={(e) => handleDataChanges(e, "ProfileName")}
+            />
+            {errors.ProfileName && <div className="form-control-feedback"><span className="text-danger">{errors.ProfileName}</span></div>}
+          </div>
+          <div className="mb-3">
+            <RdsInput
+              label="Email"
+              size="medium"
+              inputType="text"
+              name="Email"
+              placeholder="contact@waiin.com"
+              required
+              value={formData?.Email}
+              onChange={(e) => handleDataChanges(e, "Email")}
+            />
+            {errors.Email && <div className="form-control-feedback"><span className="text-danger">{errors.Email}</span></div>}
+          </div>
+          <div className="mb-3">
+            <RdsInput
+              label="User Name"
+              size="medium"
+              inputType="text"
+              name="UserName"
+              placeholder="admin"
+              required
+              value={formData?.UserName}
+              onChange={(e) => handleDataChanges(e, "UserName")}
+            />
+            {errors.UserName && <div className="form-control-feedback"><span className="text-danger">{errors.UserName}</span></div>}
+          </div>
+          <div className="mb-3">
+            <RdsInput
+              label="Current password"
+              required
+              placeholder="Current password"
+              inputType="password"
+              onChange={(e)=>handleDataChanges(e,"curPass")}
+              name="curPass"
+              value={formData?.curPass}
+              showIcon={true}
+            />
+            {errors.curPass && <div className="form-control-feedback"><span className="text-danger">{errors.curPass}</span></div>}
+          </div>
+          <div className="mb-3">
+            <RdsInput
+              label="New password"
+              required
+              placeholder="New password"
+              inputType="password"
+              onChange={(e)=>handleDataChanges(e,"newPass")}
+              name="newPass"
+              value={formData?.newPass}
+              showIcon={true}
+            />
+            {errors.newPass && <div className="form-control-feedback"><span className="text-danger">{errors.newPass}</span></div>}
+          </div>
+          <div className="mb-3">
+            <RdsInput
+              label="Confirm new password"
+              required
+              placeholder="Confirm new password"
+              inputType="password"
+              onChange={(e)=>handleDataChanges(e,"curNewPass")}
+              name="curNewPass"
+              value={formData?.curNewPass}
+              showIcon={true}
+            />
+            {errors.curNewPass && <div className="form-control-feedback"><span className="text-danger">{errors.curNewPass}</span></div>}
+          </div>
         </div>
-    );
+        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          <RdsButton
+            size="small"
+            isOutline={true}
+            colorVariant="primary"
+            label="Cancel"
+            data-bs-dismiss="offcanvas"
+            type="button"
+          ></RdsButton>
+          <RdsButton
+            size="small"
+            isOutline={false}
+            colorVariant="primary"
+            label="Save"
+            type="submit"
+            onClick={(e) => emitSaveData(e)}
+          ></RdsButton>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default RdsCompMySettings;
