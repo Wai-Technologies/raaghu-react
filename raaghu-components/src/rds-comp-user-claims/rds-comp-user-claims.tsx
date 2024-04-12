@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsLabel, RdsButton } from "../rds-elements";
 
-export interface RdsCompUserClaimsProps { }
+export interface RdsCompUserClaimsProps { 
+    userClaimData?: any;
+    onSaveHandler?: (data: any) => void;
+}
 
 const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
+    const [formData, setFormData] = useState(props.userClaimData);
 
+    useEffect(() => {
+      setFormData(props.userClaimData);
+    }, [props.userClaimData]);
+  
+    const handleDataChanges = (value: any, key: string) => {
+      setFormData({ ...formData, [key]: value });
+    };
+  
+    function emitSaveData(event: any) {
+      event.preventDefault();
+      props.onSaveHandler && props.onSaveHandler(formData);
+      setFormData({
+        type: "",
+        value: ""
+    });
+    }
     return (
         <>
             <div className="tab-content">
@@ -19,6 +39,10 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     placeholder="Type"
                                     size="small"
                                     dataTestId="type"
+                                    onChange={(e) => {
+                                        handleDataChanges(e.target.value, "type");
+                                    }}
+                                    value={formData?.type}
                                 ></RdsInput>
                             </div>
                         </div>
@@ -30,6 +54,10 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     placeholder="Value"
                                     size="small"
                                     dataTestId="value"
+                                    onChange={(e) => {
+                                        handleDataChanges(e.target.value, "value");
+                                    }}
+                                    value={formData?.value}
                                 ></RdsInput>
                             </div>
                         </div>
@@ -51,6 +79,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                     class="save-btn"
                     size="small"
                     dataTestId="next"
+                    onClick={(e: any) => emitSaveData(e)}
                 ></RdsButton>
             </div>
                 </form>
