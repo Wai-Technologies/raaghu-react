@@ -67,7 +67,6 @@ const RdsCompPropertiesNew = (props: RdsCompPropertiesNewProps) => {
             ),
         };
         setTableData((prev: any) => [...prev, newTempData]);
-        console.log(tableData);
         setPropertyData({ key: "", PropValue: "" });
     };
     function onDelete(key: any) {
