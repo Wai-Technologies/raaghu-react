@@ -163,7 +163,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                 </div>
             </div>
 
-            <div className="pb-4 footer-buttons d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-center">
+            <div className="pb-4 footer-buttons-profile d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-center">
                 <RdsButton
                     label="Logout"
                     colorVariant="primary"
