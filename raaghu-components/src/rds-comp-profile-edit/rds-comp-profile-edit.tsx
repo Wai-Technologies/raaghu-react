@@ -9,37 +9,22 @@ export interface RdsCompProfileEditProps {
 
 const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
     const [formData, setFormData] = useState(props.profileEditData);
-    const [error, setError] = useState<any>(props.profileEditData);
     
     useEffect(() => {
       setFormData(props.profileEditData);
-     }, [props.profileEditData]);
+    }, [props.profileEditData]);
 
-    const isEmailValid = (email: any) => {
-        if (!email || email.length === 0) {
-            return false;
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-            return false;
-        }
-        return true;
-    };
-    const isContactValid = (phoneNumber: any) => {
-        if (!phoneNumber || phoneNumber.length >= 10) {
-            return false;
-        }
-        return true;
+   const handleDataChanges = (value: any, key: string) => {
+       setFormData({ ...formData, [key]: value });
     };
 
-    const handleDataChanges = (value: any, key: string) => {
-        if (key === "email" && !isEmailValid(value)) {
-            setError({ ...error, email: "Email is invalid" });
-        } else if (key === "phoneNumber" && !isContactValid(value)) {
-            setError({ ...error, phoneNumber: "Contact is invalid" });
-        } else {
-            setError({ ...error, [key]: "" });
-        }
-      setFormData({ ...formData, [key]: value });
-    };
+    const isFormValid = () => {
+        const nameValid = formData?.name?.trim().length > 0;
+        const emailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData?.email);
+        const phoneValid = /^\d{10,}$/.test(formData?.phoneNumber);
+        const userNameValid = formData?.userName?.trim().length > 0;    
+        return nameValid && emailValid && phoneValid && userNameValid;
+    };     
 
     function emitSaveData(event: any) {
       event.preventDefault();
@@ -75,6 +60,8 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                       handleDataChanges(e.target.value, "name");
                                     }}
                                     value={formData?.name}
+                                    validatonPattern={/^.{0,}$/}
+                                    validationMsg="This Field Is Required."
                                     dataTestId="name"
                                 ></RdsInput>
                                 <div className="form-control-feedback"></div>
@@ -92,11 +79,10 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     }}
                                     value={formData?.email}
                                     dataTestId="email"
+                                    validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                    validationMsg="This Field Is Not A Valid Email Address."                                    
                                 ></RdsInput>
-                                {error?.email != "" && (
-                            <span className="text-danger">{error?.email}</span>
-                        )}
-                                </div>
+                             </div>
                         </div>
                     </div>
                     <div className="row mb-2">
@@ -114,10 +100,9 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     }}
                                     value={formData?.phoneNumber}
                                     dataTestId="phone-number"
+                                    validatonPattern={/^\d{10,}$/}
+                                    validationMsg="Phone number must contain only numbers and be at least 10 digits long."
                                 ></RdsInput>
-                                {error?.phoneNumber != "" && (
-                            <span className="text-danger">{error?.phoneNumber}</span>
-                        )}
                                 </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -134,6 +119,8 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     }}
                                     value={formData?.userName}
                                     dataTestId="username"
+                                    validatonPattern={/^.{0,}$/}
+                                    validationMsg="This Field Is Required."
                                 ></RdsInput>
                                </div>
                         </div>
@@ -155,6 +142,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                             colorVariant="primary"
                             size="small"
                             dataTestId="save"
+                            isDisabled={!isFormValid()}
                             onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>
                     </div>
