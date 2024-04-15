@@ -1,47 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import React from "react";
 import "./rds-comp-profile-edit.css";
-import { useTranslation } from "react-i18next";
 export interface RdsCompProfileEditProps {
-    onForgotPassword?: (email?: string) => void;
+    profileEditData?: any;
+    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
-    const [enteredName, setEnteredName] = useState("");
-    const [isNameTouched, setIsNameTouched] = useState(false);
-    const isNameEmpty = enteredName.trim() === "";
-    const isNameEmptyAndTouched = isNameTouched && isNameEmpty;
-    const emailRegex =
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const [enteredEmail, setEnteredEmail] = useState("");
-    const [isEmailTouched, setIsEmailTouched] = useState(false);
-    const isEnteredEmailEmpty = enteredEmail.trim() === "";
-    const isEnteredEmailInvalid =
-        !emailRegex.test(enteredEmail) && !isEnteredEmailEmpty;
-    const isEnteredEmailEmptyAndTouched = isEmailTouched && isEnteredEmailEmpty;
-    const isEmailInputInvalid = isEnteredEmailInvalid && isEnteredEmailEmpty;
-    const phoneNumber = /^\d{10}$/;
-    const [enteredPhoneNumber, setEnteredPhoneNumber] = useState("");
-    const [isPhoneNumberTouched, setIsPhoneNumberTouched] = useState(false);
-    const isEnteredPhoneNumberEmpty = enteredPhoneNumber.trim() === "";
-    const isEnteredPhoneNumberInvalid =
-        !enteredPhoneNumber.match(phoneNumber) && !isEnteredPhoneNumberEmpty;
-    const isPhoneNumberEmptyAndTouched =
-        isPhoneNumberTouched && isEnteredPhoneNumberEmpty;
-    const isPhoneNumberInputInvalid =
-        isEnteredPhoneNumberInvalid && isEnteredPhoneNumberInvalid;
-    const [enteredUserName, setEnteredUserName] = useState("");
-    const [isUserNameTouched, setIsUserNameTouched] = useState(false);
-    const isUserNameEmpty = enteredUserName.trim() === "";
-    const isUserNameEmptyAndTouched = isUserNameTouched && isUserNameEmpty;
-    const formSubmitHandler: any = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const [formData, setFormData] = useState(props.profileEditData);
+    const [error, setError] = useState<any>(props.profileEditData);
+    
+    useEffect(() => {
+      setFormData(props.profileEditData);
+     }, [props.profileEditData]);
+
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        }
+        return true;
     };
+    const isContactValid = (phoneNumber: any) => {
+        if (!phoneNumber || phoneNumber.length >= 10) {
+            return false;
+        }
+        return true;
+    };
+
+    const handleDataChanges = (value: any, key: string) => {
+        if (key === "email" && !isEmailValid(value)) {
+            setError({ ...error, email: "Email is invalid" });
+        } else if (key === "phoneNumber" && !isContactValid(value)) {
+            setError({ ...error, phoneNumber: "Contact is invalid" });
+        } else {
+            setError({ ...error, [key]: "" });
+        }
+      setFormData({ ...formData, [key]: value });
+    };
+
+    function emitSaveData(event: any) {
+      event.preventDefault();
+      props.onSaveHandler && props.onSaveHandler(formData);
+      setFormData({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        userName: ""
+      });
+    }
+
     return (
         <div>
             <div className="tab-content py-4">
-                <form onSubmit={formSubmitHandler}>
+                <form>
                     <div className="custom-content-scroll">
                     <div className="row align-items-center">
                         <div className="col-md-3 text-center cursor-pointer sm-p-0">
@@ -57,15 +71,12 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     name="name"
                                     id="name"
                                     placeholder="Enter Name"
-                                    onBlur={() => setIsNameTouched(true)}
-                                    onChange={(e) => setEnteredName(e.target.value)}
+                                    onChange={(e) => {
+                                      handleDataChanges(e.target.value, "name");
+                                    }}
+                                    value={formData?.name}
                                     dataTestId="name"
                                 ></RdsInput>
-                                {isNameEmptyAndTouched && (
-                                    <span className="red-color-error">
-                                        Tenancy Name must not be empty
-                                    </span>
-                                )}
                                 <div className="form-control-feedback"></div>
                             </div>
                             <div className="form-group mb-3">
@@ -76,21 +87,16 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     placeholder="Enter Email Address"
                                     name="email"
                                     id="email"
-                                    onBlur={() => setIsEmailTouched(true)}
-                                    onChange={(e) => setEnteredEmail(e.target.value)}
+                                    onChange={(e) => {
+                                      handleDataChanges(e.target.value, "email");
+                                    }}
+                                    value={formData?.email}
                                     dataTestId="email"
                                 ></RdsInput>
-                                {isEnteredEmailEmptyAndTouched && (
-                                    <span className="red-color-error">
-                                        Email must not be empty
-                                    </span>
-                                )}
-                                {isEnteredEmailInvalid && (
-                                    <span className="red-color-error">
-                                        Entered Email is Invalid
-                                    </span>
-                                )}
-                            </div>
+                                {error?.email != "" && (
+                            <span className="text-danger">{error?.email}</span>
+                        )}
+                                </div>
                         </div>
                     </div>
                     <div className="row mb-2">
@@ -101,24 +107,18 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     inputType="number"
                                     label="Phone Number"
                                     name="phone"
-                                    id="phone"
-                                    
+                                    id="phone"                                    
                                     required={true}
-                                    onBlur={() => setIsPhoneNumberTouched(true)}
-                                    onChange={(e) => setEnteredPhoneNumber(e.target.value)}
+                                    onChange={(e) => {
+                                      handleDataChanges(e.target.value, "phoneNumber");
+                                    }}
+                                    value={formData?.phoneNumber}
                                     dataTestId="phone-number"
                                 ></RdsInput>
-                                {isPhoneNumberEmptyAndTouched && (
-                                    <span className="red-color-error">
-                                        Phone Number must not be empty
-                                    </span>
-                                )}
-                                {isEnteredPhoneNumberInvalid && (
-                                    <span className="red-color-error">
-                                        Entered Phone Number is Invalid
-                                    </span>
-                                )}
-                            </div>
+                                {error?.phoneNumber != "" && (
+                            <span className="text-danger">{error?.phoneNumber}</span>
+                        )}
+                                </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                             <div className="mb-2">
@@ -127,19 +127,15 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     inputType="text"
                                     label="User Name"
                                     name="userName"
-                                    id="username"
-                                   
+                                    id="username"                                   
                                     required={true}
-                                    onBlur={() => setIsUserNameTouched(true)}
-                                    onChange={(e) => setEnteredUserName(e.target.value)}
+                                    onChange={(e) => {
+                                      handleDataChanges(e.target.value, "userName");
+                                    }}
+                                    value={formData?.userName}
                                     dataTestId="username"
                                 ></RdsInput>
-                                {isUserNameEmptyAndTouched && (
-                                    <span className="red-color-error">
-                                        Username must not be empty
-                                    </span>
-                                )}
-                            </div>
+                               </div>
                         </div>
                     </div>
                     </div>
@@ -153,13 +149,13 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                             dataTestId="cancel"
                         ></RdsButton>
                         <RdsButton
-
                             label="Save"
                             type="submit"
                             isOutline={false}
                             colorVariant="primary"
                             size="small"
                             dataTestId="save"
+                            onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>
                     </div>
                 </form>
