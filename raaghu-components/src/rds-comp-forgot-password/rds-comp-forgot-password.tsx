@@ -7,7 +7,6 @@ export interface RdsForgotPasswordProps {
     onResend: (isForgotPasswordClicked?: boolean) => void;
     onLogin: (isLoginClicked?: boolean) => void;
     languageData: any;
-    onClickHandler?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
     languageLabel?: string;
     registerFields: any;
 }
@@ -15,7 +14,7 @@ export interface RdsForgotPasswordProps {
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
-    const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
+   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
     const [isResendClicked, setIsResendClicked] = useState(false);
    const [registerData, setRegisterData] = useState(props.registerFields );
 
