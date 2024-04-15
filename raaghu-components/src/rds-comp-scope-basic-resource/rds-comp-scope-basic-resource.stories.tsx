@@ -18,37 +18,6 @@ type Story = StoryObj<typeof RdsCompScopeBasicResource>;
 
 export const Default: Story = {
     args: {
-        resourceData: {
-            "Name": "",
-            "Displayname": "",
-            "Description": "",
-            checklist: [
-                {
-                    "id": 1,
-                    "label": "Enables",
-                    "checked": false,
-                    "disabled": false
-                },
-                {
-                    "id": 2,
-                    "label": "Required",
-                    "checked": false,
-                    "disabled": false
-                },
-                {
-                    "id": 3,
-                    "label": "Emphasize",
-                    "checked": false,
-                    "disabled": false
-                },
-                {
-                    "id": 4,
-                    "label": "Show in discovery Documents",
-                    "checked": false,
-                    "disabled": false
-                },
-            ]
-    
-        }
+       
     }
 } satisfies Story;

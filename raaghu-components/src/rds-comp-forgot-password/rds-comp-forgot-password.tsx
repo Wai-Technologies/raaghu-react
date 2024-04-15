@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsDropdownList, RdsLabel } from "../rds-elements";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -7,19 +7,17 @@ export interface RdsForgotPasswordProps {
     onResend: (isForgotPasswordClicked?: boolean) => void;
     onLogin: (isLoginClicked?: boolean) => void;
     languageData: any;
-    onClickHandler?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
     languageLabel?: string;
+    registerFields: any;
 }
 
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
-
-    const [error1, setError1] = useState("");
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
-    const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
+   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
     const [isResendClicked, setIsResendClicked] = useState(false);
+   const [registerData, setRegisterData] = useState(props.registerFields );
 
-    const [email, setEmail] = useState("");
 
     const isEmailValid = (email: any) => {
         if (!email || email.length === 0) {
@@ -33,19 +31,28 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
         setIsLoginClicked(true);
         props.onLogin(true);
     };
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        props.onForgotPassword != undefined && props.onForgotPassword(email);
-        setEmail("");
-        setShowMailSuccess(true); // Update showmailsuccess to true
+
+    useEffect(() => {
+        setRegisterData(props.registerFields);
+    } , [props.registerFields]);
+   
+    const handleDataChanges = (value: any, key: string) => {
+        setRegisterData({ ...registerData, [key]: value });
     };
 
     const resendHandler: any = (isForgotPasswordClicked: boolean) => {
         setIsResendClicked(true);
     };
     const [currentLanguageIcon, setCurrentLanguageIcon] = useState("en");
-    const [currentLanguageLabel, setCurrentLanguageLabel] = useState("English");
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onForgotPassword && props.onForgotPassword(registerData);
+        setRegisterData({
+            email: ""
+        });
+        setShowMailSuccess(true);
+    }
     return (
         <div>
             <div className="text-center">
@@ -81,7 +88,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                         <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
-                            <form onSubmit={onSubmit}>
+                            <form>
                                 <div className="form-group mb-3 text-start">
                                     <RdsInput
                                         size="medium"
@@ -89,9 +96,11 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         inputType="email"
                                         isDisabled={false}
                                         readonly={false}
-                                        placeholder="Email"
-                                        value={email}
-                                        onChange={(e: any) => setEmail(e.target.value)}
+                                        placeholder="Email"                            
+                                       onChange={(e) => {
+                                        handleDataChanges(e.target.value, "email");
+                                      }}
+                                      value={registerData?.email}
                                         required={false}
                                         dataTestId="email"
                                     ></RdsInput>
@@ -106,6 +115,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         size="medium"
                                         colorVariant="primary"
                                         tooltipTitle={""}
+                                        onClick={(e: any) => emitSaveData(e)}
                                         showLoadingSpinner={true}
                                         type={"submit"}
                                         dataTestId="submit"
@@ -122,7 +132,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                             <a
                                                 className="link-primary text-decoration-none ps-2"
                                                 href="javascript:void(0)"
-                                                onClick={() => loginHandler(isLoginClicked)}
+                                               onClick={() => loginHandler(isLoginClicked)}
                                                 data-testid="login"
                                             >Login
                                             </a>
