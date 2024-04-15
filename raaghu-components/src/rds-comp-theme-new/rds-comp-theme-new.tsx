@@ -32,6 +32,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
     return (
         <>
             <form data-testid="form" onSubmit={submitData}>
+            <div className="custom-content-scroll">
                 <div className="row mb-3 pt-4">
                     <div className="col-lg-6 col-md-6 form-group">
                         <RdsLabel
@@ -43,6 +44,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                             id="style"
                             label="Select"
                             selectItems={props.StyleList}
+                            selectedValue={formData?.styleList}
                             onChange={(item: any) => {
                                 handleSelectListChange(item.value, "StyleList");
                             }}
@@ -59,6 +61,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                             id="webL"
                             label="Select"
                             selectItems={props.WebList}
+                            selectedValue={formData?.webList}
                             onChange={(item: any) => {
                                 handleSelectListChange(item.value, "WebList");
                             }}
@@ -78,6 +81,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                             id="menuL"
                             label="Select"
                             selectItems={props.MenuList}
+                            selectedValue={formData?.menuList}
                             onChange={(item: any) => {
                                 handleSelectListChange(item.value, "MenuList");
                             }}
@@ -94,6 +98,7 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                             id="statl"
                             label="Select"
                             selectItems={props.StatusList}
+                            selectedValue={formData?.StatusList}
                             onChange={(item: any) => {
                                 handleSelectListChange(item.value, "StatusList");
                             }}
@@ -101,8 +106,9 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
                         ></RdsSelectList>
                     </div>
                 </div>
-                <div className="footer-buttons pb-3 justify-content-end d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row bottom-0 pt-0" >
-                    <RdsButton
+            </div>
+            <div className="d-flex flex-column-reverse justify-content-end flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                         <RdsButton
                         class="me-2"
                         label="Cancel"
                         type="button"

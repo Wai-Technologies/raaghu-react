@@ -11,6 +11,7 @@ export interface RdsCounterProps {
     width: number;
     colorVariant?: colors;
     position?: placements;
+    onCounterChange?: (newValue: number) => void;
 }
 
 const RdsCounter = (props: RdsCounterProps) => {
@@ -19,10 +20,19 @@ const RdsCounter = (props: RdsCounterProps) => {
     // This state hook represents counter value
     const [counterValue, setCounterValue] = useState(initialCounterValue);
     const onMinusClick = () => {
-        if (counterValue > props.min) setCounterValue((prev) => prev - 1);
+        if (counterValue > props.min) {
+            const newValue = counterValue - 1;
+            setCounterValue(newValue);
+            props.onCounterChange && props.onCounterChange(newValue);
+        }
     };
+
     const onPlusClick = () => {
-        if (counterValue < props.max) setCounterValue((prev) => prev + 1);
+        if (counterValue < props.max) {
+            const newValue = counterValue + 1;
+            setCounterValue(newValue);
+            props.onCounterChange && props.onCounterChange(newValue);
+        }
     };
 
     const classes = () => {

@@ -96,3 +96,7 @@ export { default as RdsCompTestimonials } from "./rds-comp-testimonials";
 export { default as RdsCompDeveloperMode } from "./rds-comp-developer-mode";
 export { default as RdsCompProfile }   from "./rds-comp-profile";
 export { default as RdsCompAppDetail } from "./rds-comp-app-detail";
+export { default as RdsCompTenantRegister} from "./rds-comp-tenant-register";
+export { default as RdsCompSummaryDetails } from "./rds-comp-summary-details";
+export { default as RdsCompPaymentTenure } from "./rds-comp-payment-tenure";
+export { default as RdsCompAccountExternalProvider } from "./rds-comp-account-external-provider";
