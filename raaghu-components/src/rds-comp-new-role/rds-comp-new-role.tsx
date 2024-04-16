@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsLabel, RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
+
 export interface RdsCompNewRoleProps {
     roleData: any;
+    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
+    const [roleData, setRoleData] = useState(props.roleData);
+
+    useEffect(() => {
+        setRoleData(props.roleData);
+    }, [props.roleData]);
+
+    const handleDataChange = (value: any, key: string) => {
+        setRoleData({ ...roleData, [key]: value });
+    };
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(roleData);
+        setRoleData({
+            displayName: "",
+            isDefault: false,
+        });
+    }
 
     return (
         <>
@@ -16,7 +36,7 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                 <div className="form-group mb-3">
                                     <RdsLabel
                                         size="14px"
-                                        label={props.roleData.displayName}
+                                        label="Role Name"
                                         class="form-label"
                                         required={true}
                                     ></RdsLabel>
@@ -25,7 +45,11 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                         inputType="text"
                                         isDisabled={false}
                                         readonly={false}
-                                        placeholder={props.roleData.displayName}
+                                        value={roleData?.displayName}
+                                        onChange={(e) => {
+                                            handleDataChange(e.target.value, "displayName");
+                                        }}
+                                        placeholder="Enter Role Name"
                                     ></RdsInput>
                                 </div>
                             </div>
@@ -33,7 +57,10 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                 <div className="form-group ms-1">
                                     <RdsCheckbox
                                         label="Default"
-                                        checked={props.roleData.isDefault}
+                                        checked={roleData?.isDefault}
+                                        onChange={(e) => {
+                                            handleDataChange(e.target.checked, "isDefault");
+                                        }}
                                     ></RdsCheckbox>
                                     <div className="fw-normal opacity-50">
                                         <RdsLabel
@@ -60,6 +87,7 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                             colorVariant="primary"
                             label="Save"
                             data-bs-dismiss="offcanvas"
+                            onClick={(e: any) => emitSaveData(e)}
                             type="button"
                         ></RdsButton>
                     </div>

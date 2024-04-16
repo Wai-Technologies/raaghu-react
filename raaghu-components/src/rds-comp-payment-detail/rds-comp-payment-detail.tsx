@@ -27,6 +27,12 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setFormData({
+      cardNumber: "",
+      cardHolderName: "",
+      cardExpirationDate: "",
+      cardCvc: ""
+  });
   }
 
   return (

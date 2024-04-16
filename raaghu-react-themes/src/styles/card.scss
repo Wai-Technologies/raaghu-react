@@ -30,6 +30,15 @@
 }
 
 .footer-buttons {
+  position: fixed;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  padding: 1%;
+  z-index: 0;
+}
+
+.footer-buttons-profile {
   position: absolute;
   left: 0;
   bottom: -7px;
