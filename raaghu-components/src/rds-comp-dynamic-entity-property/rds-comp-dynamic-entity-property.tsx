@@ -1,104 +1,108 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsDropdownList, RdsButton } from "../rds-elements";
 
 export interface RdsCompDynamicEntityPropertyProp {
-    entityNames: any[];
-    reset?: boolean;
-    parameterList: any[];
-    onSelectedItems(selectedItems: any): any;
-    initialSelectedItems?: {
-        entity: string,
-        parameter: any
-    }
-    offcanvasId?: string;
+  entityNames?: any;
+  reset?: boolean;
+  parameterList: any[];
+  onSelectedItems?: (selectedItems: any) => void;
+
+  offcanvasId?: string;
+  entityFields?: any;
 }
-
 const RdsCompDynamicEntityProperty = (
-    props: RdsCompDynamicEntityPropertyProp
+  props: RdsCompDynamicEntityPropertyProp
 ) => {
-    const [entityProps, setEntityProps] = useState({
-        entity: props.initialSelectedItems?.entity || "",
-        parameter: props.initialSelectedItems?.parameter || [],
+  const [entityData, setEntityData] = useState(props.entityFields);
+
+  const [isReset, setIsReset] = useState(false);
+
+  useEffect(() => {
+    setEntityData(props.entityFields);
+  }, [props.entityFields]);
+
+  const handleEntityChange = (event: any, val: string) => { 
+  
+    setEntityData({ ...entityData, val });
+  };
+
+  const  parameterChange = (event: any, val: string) => {
+    setEntityData({ ...entityData, [val]: event });
+  }
+
+  const isFormValid =
+  entityData?.entity != "" && entityData?.parameter?.length != 0;
+
+  function emitSaveData(event: any) {
+    event.preventDefault();
+    props.onSelectedItems && props.onSelectedItems(entityData);
+    setEntityData({
+      entity: "",
+      parameter: ""
     });
-    const [isReset, setIsReset] = useState(false);
-
-    const onSelectEntityValue = (e: any) => {
-        setEntityProps({ ...entityProps, entity: e.target.innerText });
-    };
-
-    const onselectParameter = (selectedItems: any) => {
-        setEntityProps({ ...entityProps, parameter: selectedItems });
-    };
-    const isFormValid =
-        entityProps.entity != "" && entityProps.parameter.length != 0;
-
-    const submitHandler = (event: any) => {
-        event.preventDefault();
-        props.onSelectedItems != undefined && props.onSelectedItems(entityProps);
-        setIsReset(!isReset);
-        setEntityProps({ entity: "", parameter: [] });
-
-    };
-
-    return (
-      <>
-        <form onSubmit={submitHandler}>
-          <div className="custom-content-scroll">
-            <div className="tab-content px-2 navsm-p-0">
-              <div className="form-group mb-3">
-                <label className="mb-2">Entity</label>
-                <RdsDropdownList
-                  placeholder="Filter"
-                  isPlaceholder={true}
-                  multiSelect={false}
-                  reset={isReset}
-                  listItems={props.entityNames}
-                  onClick={onSelectEntityValue}
-                  borderDropdown={true}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label className="mb-2">Parameter</label>
-                <RdsDropdownList
-                  placeholder="Filter"
-                  borderDropdown={true}
-                  multiSelect={true}
-                  reset={isReset}
-                  listItems={props.parameterList}
-                  selectedItems={onselectParameter}
-                />
-              </div>
+    setIsReset(!isReset);
+  }
+  return (
+    <>
+      <form>
+        <div className="custom-content-scroll">
+          <div className="tab-content px-2 navsm-p-0">
+            <div className="form-group mb-3">
+              <label className="mb-2">Entity</label>
+              <RdsDropdownList
+                placeholder="Filter"
+                isPlaceholder={true}
+                multiSelect={false}
+                reset={isReset}
+                listItems={props.entityNames}
+                onClick = {handleEntityChange}
+               selectedItems={entityData?.entityNames}
+                borderDropdown={true}
+              />
+            </div>
+            <div className="form-group mb-3">
+              <label className="mb-2">Parameter</label>
+              <RdsDropdownList
+                placeholder="Filter"
+                borderDropdown={true}
+                multiSelect={true}
+                reset={isReset}
+                listItems={props.parameterList}
+                selectedItems={(e: any) => parameterChange(e, "parameterList")}
+              />
             </div>
           </div>
-          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
-            <RdsButton
-              label="Cancel"
-              colorVariant="primary"
-              block={true}
-              tooltipTitle={""}
-              type="button"
-              size="small"
-              isOutline={true}
-              databstoggle="offcanvas"
-              databstarget={`#${props.offcanvasId}`}
-              ariacontrols={props.offcanvasId}
-            />
-            <RdsButton
-              label="Save"
-              colorVariant="primary"
-              isDisabled={!isFormValid}
-              block={true}
-              tooltipTitle={""}
-              type="submit"
-              size="small"
-              databstoggle="offcanvas"
-              databstarget={`#${props.offcanvasId}`}
-              ariacontrols={props.offcanvasId}
-              dataTestId="save"
-            />
-          </div>
-        </form>
-      </>
-    );
+        </div>
+        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          <RdsButton
+            label="Cancel"
+            colorVariant="primary"
+            block={true}
+            tooltipTitle={""}
+            type="button"
+            size="small"
+            isOutline={true}
+            databstoggle="offcanvas"
+            databstarget={`#${props.offcanvasId}`}
+            ariacontrols={props.offcanvasId}
+          />
+          <RdsButton
+            label="Save"
+            colorVariant="primary"
+            isDisabled={!isFormValid}
+            block={true}
+            tooltipTitle={""}
+            type="submit"
+            onClick={(e: any) => emitSaveData(e)}
+            size="small"
+            databstoggle="offcanvas"
+            databstarget={`#${props.offcanvasId}`}
+            ariacontrols={props.offcanvasId}
+            dataTestId="save"
+          />
+        </div>
+      </form>
+    </>
+  );
 };
 export default RdsCompDynamicEntityProperty;
