@@ -11,14 +11,21 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompApplyForPositionProps {
   applyForPositionData?: any;
   onSaveHandler?: (data: any) => void;
+  reset?: boolean;
 }
 
 const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
   const [formData, setFormData] = useState(props.applyForPositionData);
+  const [inputReset, setInputReset] = useState(false);
 
   useEffect(() => {
     setFormData(props.applyForPositionData);
   }, [props.applyForPositionData]);
+
+  useEffect(() => {
+    setInputReset(!inputReset);
+  }, [props.reset]);
+
 
   const handleDataChanges = (value: any, key: string, isFile?: boolean) => {
     if (isFile) {
@@ -32,6 +39,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setInputReset(!inputReset);
     setFormData({
       email: "",
       fullName: "",
@@ -68,6 +76,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                   handleDataChanges(e.target.value, "email");
                 }}
                 value={formData?.email}
+                reset={inputReset}
                 name={"email"}
                 required
                 dataTestId="email"
@@ -83,6 +92,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                   handleDataChanges(e.target.value, "fullName");
                 }}
                 value={formData?.fullName}
+                reset={inputReset}
                 name={"fullName"}
                 required
                 dataTestId="full-name"
@@ -99,6 +109,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                   handleDataChanges(e.target.value, "contactNumber");
                 }}
                 value={formData?.contactNumber}
+                reset={inputReset}
                 name={"contactNumber"}
                 dataTestId="contact-number"
                 required
@@ -115,6 +126,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                 }}
                 value={formData?.position}
                 name={"position"}
+                reset={inputReset}
                 required
                 dataTestId="position-name"
               ></RdsInput>
@@ -131,6 +143,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                     handleDataChanges(e.target.value, "period");
                   }}
                   value={formData?.period}
+                  reset={inputReset}
                   name={"period"}
                   required
                   dataTestId="notice-period"
