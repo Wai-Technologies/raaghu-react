@@ -56,16 +56,16 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
         if (id == 'plus') {
             props.onCreateSubMenu && props.onCreateSubMenu(item?.data)
         }
-        if (id == 'edit') {
-            props.onMenuEdit && props.onMenuEdit(item.data)
+       else if (id == 'edit') {
+            props.onMenuEdit && props.onMenuEdit(item?.data)
         }
-        if (id == 'delete') {
-            props.onDeleteMenu && props.onDeleteMenu(item.data.id)
+        else if (id == 'delete') {
+            props.onDeleteMenu && props.onDeleteMenu(item?.data?.id)
         }
     }
 
     const handleClick = (id: string) => () => {
-        if (expandedItems.includes(id)) {
+        if (expandedItems?.includes(id)) {
             setExpandedItems(expandedItems.filter((item) => item !== id));
         } else {
             setExpandedItems([...expandedItems, id]);
@@ -81,7 +81,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                         onClick={handleClick(item.data.id)}
                     >
                         <RdsIcon
-                            name={expandedItems.includes(item.data.id) ? "chevron_up" : "chevron_down"}
+                            name={expandedItems?.includes(item.data.id) ? "chevron_up" : "chevron_down"}
                             height="8px"
                             width="12px"
                             fill={false}
@@ -119,7 +119,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                     </span>
                 </span>
             </div>
-            {item.children.length > 0 && expandedItems.includes(item.data.id) && (
+            {item.children?.length > 0 && expandedItems?.includes(item.data.id) && (
                 <ul className="pl-0">
                     <RdsCompMenuDirectory
                         items={item.children}
