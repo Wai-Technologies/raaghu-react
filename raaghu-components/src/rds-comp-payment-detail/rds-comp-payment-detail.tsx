@@ -11,14 +11,20 @@ export interface RdsCompPaymentDetailProps {
   buttonSpinner?: boolean;
   paymentModeList?: any[];
   paymentDetails?: any;
+  reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
 const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
   const [formData, setFormData] = useState(props.paymentDetails);
+  const [inputReset, setInputReset] = useState(props.reset);
 
   useEffect(() => {
     setFormData(props.paymentDetails);
   }, [props.paymentDetails]);
+
+  useEffect(() => {
+    setInputReset(props.reset);
+  }, [props.reset]);
 
   const handleDataChanges = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
@@ -27,6 +33,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setInputReset(!inputReset);
     setFormData({
       cardNumber: "",
       cardHolderName: "",
@@ -48,6 +55,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div>
             <RdsInput
               label="Card Number"
+              reset={inputReset}
               required
               size="medium"
               name="cardNumber"
@@ -61,6 +69,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div>
             <RdsInput
               label="Name On Card"
+              reset={inputReset}
               required
               size="medium"
               name="name"
@@ -75,6 +84,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-9">
               <RdsInput
                 label="Expiration Date (MM/YY)"
+                reset={inputReset}
                 required
                 size="medium"
                 name="expirationDate"
@@ -88,6 +98,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-3">
               <RdsInput
                 label="CVV"
+                reset={inputReset}
                 id="txtCvc"
                 required
                 onChange={(e) => {
