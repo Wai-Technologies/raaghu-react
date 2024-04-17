@@ -3,15 +3,20 @@ import { RdsInput, RdsLabel, RdsButton } from "../rds-elements";
 
 export interface RdsCompUserClaimsProps { 
     userClaimData?: any;
+    reset?: boolean;
     onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
     const [formData, setFormData] = useState(props.userClaimData);
-
+    const [inputReset, setInputReset] = useState(false);
     useEffect(() => {
       setFormData(props.userClaimData);
     }, [props.userClaimData]);
+
+    useEffect(() => {
+      setInputReset(!inputReset);
+    }, [props.reset]);
   
     const handleDataChanges = (value: any, key: string) => {
       setFormData({ ...formData, [key]: value });
@@ -20,6 +25,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
     function emitSaveData(event: any) {
       event.preventDefault();
       props.onSaveHandler && props.onSaveHandler(formData);
+      setInputReset(!inputReset);
       setFormData({
         type: "",
         value: ""
@@ -33,8 +39,10 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group mb-3">
-                                <RdsLabel label="Type" class="mb-1" size="14px"></RdsLabel>
                                 <RdsInput
+                                    label="Type"
+                                    required={true}
+                                    reset={inputReset}
                                     inputType="text"
                                     placeholder="Type"
                                     size="small"
@@ -48,8 +56,10 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                         </div>
                         <div className="col-md-6">
                             <div className="form-group mb-3">
-                                <RdsLabel label="Value" class="mb-1" size="14px"></RdsLabel>
                                 <RdsInput
+                                    label="Value"
+                                    required={true}
+                                    reset={inputReset}
                                     inputType="text"
                                     placeholder="Value"
                                     size="small"
