@@ -14,6 +14,7 @@ export interface RdsCompInformationProps {
 const RdsCompInformation = (props: RdsCompInformationProps) => {
     const [count, setCount] = useState(0);
     const firstUpdate = useRef(true);
+    const [inputReset, setInputReset] = useState(false);
     const [user, setUser] = useState({
         propertyname: props.informationItemInitial.propertyName,
         displayname: props.informationItemInitial.displayName,
@@ -77,6 +78,9 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
             props.informationItem != undefined &&
             props.informationItem(user);
     });
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     useEffect(() => {
         if (firstUpdate.current) {
@@ -101,6 +105,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                             value={user.propertyname}
                             name={"Property Name"}
                             dataTestId="property-name"
+                            reset={inputReset}
                         ></RdsInput>
                         {error.propertyname && (
                             <span className="text-danger">{error.propertyname}</span>
@@ -117,6 +122,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                             name={"Display Name"}
                             value={user.displayname}
                             dataTestId="display-name"
+                            reset={inputReset}
                         ></RdsInput>
                     </div>
                 </div>

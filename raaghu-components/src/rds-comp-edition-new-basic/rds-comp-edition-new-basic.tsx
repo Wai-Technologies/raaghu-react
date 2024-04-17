@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsSelectList } from "../rds-elements";
 
 export interface RdsCompEditionNewBasicProps {
     planList: any[];
+    accountTwoFactorSettings: any;
     planListLabel?: string;
 }
-
 const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
+ const [twoFactorData, settwoFactorData] = useState(
+        props.accountTwoFactorSettings
+    );
 
+    const handlerChangeTwoFact = (value: any, key: string) => {
+        settwoFactorData({ ...twoFactorData, [key]: value });
+    };
+
+    useEffect(() => {
+        settwoFactorData(props.accountTwoFactorSettings);
+    }, [props.accountTwoFactorSettings]);
+    
     return (
         <>
             <form >
@@ -32,6 +43,11 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                                 isDisabled={false}
                                 isMultiple={false}
                                 selectItems={props.planList}
+                                selectedValue={twoFactorData?.planList}
+                                onChange={(item: any) => {
+                                    handlerChangeTwoFact(item.value, "planList");
+                                }}
+
                                 dataTestId="plan-list"
                                 required={true}
                             />

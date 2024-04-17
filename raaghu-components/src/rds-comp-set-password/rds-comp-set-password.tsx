@@ -43,6 +43,7 @@ useEffect(() => {
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(passwordField);
+    setInputReset(!inputReset);
     setPasswordField({
       password: ""
     });

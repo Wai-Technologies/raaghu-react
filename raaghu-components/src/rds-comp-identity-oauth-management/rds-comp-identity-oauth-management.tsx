@@ -6,24 +6,44 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompIdentityOauthManagementProps {
     oauthData: any;
     onOauthDataSubmit?: any
+    reset?: boolean;
 }
 const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementProps) => {
     const [oauth, setOauth] = useState(props.oauthData);
+    const [inputReset, setInputReset] = useState(false);
+
 
     useEffect(() => {
         setOauth(props.oauthData);
     }, [props.oauthData]);
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-    };
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
     const handleChangeform = (value: any, key: any) => {
         setOauth({ ...oauth, [key]: value });
+    }
+    
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onOauthDataSubmit && props.onOauthDataSubmit(oauth);
+        setInputReset(!inputReset);
+        setOauth({
+            enableOAuthLogin: false,
+            clientId: "",
+            clientSecret: "",
+            authority: "",
+            scope: "",
+            requireHttpsMetadata: false,
+            validateEndpoints: false,
+            validateIssuerName: false
+        });
     }
 
     return (
         <div className="pt-3">
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
                     <RdsLabel label="OAuth Login Settings"></RdsLabel>
@@ -45,10 +65,11 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                                 name="clientId"
                                 required={true}
                                 label="ClientId"
-                                placeholder=""
+                                placeholder="Enter Client Id"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "clientId")}
                                 dataTestId="client-id"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
@@ -77,6 +98,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "authority")}
                                 dataTestId="base-domain"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
@@ -128,7 +150,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
-                        onClick={() => { props.onOauthDataSubmit(oauth) }}
+                        onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
              

@@ -6,14 +6,20 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompSecretsProps { 
     onSaveHandler?: (data: any) => void;
     default: any;
+    reset?: boolean;
 }
 
 const RdsCompSecrets = (props: RdsCompSecretsProps) => {
     const [data, setdata] = useState(props.default);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setdata(props.default);
     }, [props.default]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleDataChanges = (value: any, key: string) => {
         setdata({ ...data, [key]: value });
@@ -22,6 +28,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(data);
+        setInputReset(!inputReset);
         setdata({
             type: "",
             value: "",
@@ -48,6 +55,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                   }}
                                   value={data?.type}
                                 dataTestId="type"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-md-4 mb-3 form-group">
@@ -78,6 +86,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                   }}
                                   value={data?.expiration}
                                 dataTestId="expiration"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
@@ -94,6 +103,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                               }}
                               value={data?.description}
                             dataTestId="description"
+                            reset={inputReset}
                         ></RdsInput>
                     </div>
                     <div className="mt-3 mb-3">
