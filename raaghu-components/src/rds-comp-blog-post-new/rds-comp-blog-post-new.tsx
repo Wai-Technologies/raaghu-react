@@ -9,15 +9,21 @@ export interface RdsCompBlogPostNewProps {
     isEdit: boolean;
     offId: string;
     onSaveHandler: (data: any) => void;
+    reset?: boolean;
 }
  
 const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
     const [postData, setBlogPostData] = useState(props.blogPostData);
     const [counter, setCounter] = useState(0);
+    const [inputReset, setInputReset] = useState(false);
  
     useEffect(() => {
         setBlogPostData(props.blogPostData);
     }, [props.blogPostData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
  
     const handlerBlogDataChange = (val: any, key: any, isFile?: boolean) => {
         if (isFile) {
@@ -42,6 +48,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                 file: [],
             }
             props.onSaveHandler && props.onSaveHandler(prevData);
+            setInputReset(!inputReset);
             setCounter(prevCounter => prevCounter + 1);
             return newData;
         });
@@ -102,6 +109,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 }}
                                 value={postData?.title}
                                 dataTestId='title'
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="form-group">
@@ -116,6 +124,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                     handlerBlogDataChange(e.target.value, "slug");
                                 }}
                                 value={postData?.slug}
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         {props.isEdit && <div className="form-group">
@@ -158,6 +167,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                     handlerBlogDataChange(e.target.value, "tags");
                                 }}
                                 value={postData?.tags}
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
