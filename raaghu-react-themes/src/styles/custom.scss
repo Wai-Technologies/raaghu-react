@@ -1129,7 +1129,7 @@ a.nav-link.breadcrumb-navlink.active {
   width: 1.75rem;
   border-bottom: 1px dashed;
   position: relative;
-  right: 29px;
+  right: 28px;
   margin: none;
   top: 4px;
   z-index: 0;
@@ -1187,6 +1187,26 @@ a.nav-link.breadcrumb-navlink.active {
   width: 0.1875rem;
   height: 106%;
   border-right: 1px dashed;
+  z-index: 0;
+}
+.verticalNodefile{
+  position: absolute;
+  left: -31px;
+  bottom: 0;
+  top: -26px;
+  width: 0.1875rem;
+  height: 163%;
+  border-right: 1px dashed lightgray;
+  z-index: 0;
+}
+.verticalNodeSiblingfile{
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  top: 15px;
+  width: 0.1875rem;
+  height: 129%;
+  border-right: 1px dashed lightgray;
   z-index: 0;
 }
 
