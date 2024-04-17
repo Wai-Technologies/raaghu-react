@@ -4,15 +4,21 @@ import { RdsButton, RdsInput } from "../rds-elements";
 export interface RdsLinkedAccountProps {
     linkedAccountData?: any;
     onSaveHandler?: (data: any) => void;
+    reset?: boolean;
  }
 
 const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
   
     const [userData, setUserData] = useState(props.linkedAccountData);
+    const [inputReset, setInputReset] = useState(false);
         
     useEffect(() => {
         setUserData(props.linkedAccountData);
     }, [props.linkedAccountData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleDataChanges = (value: any, key: string) => {
         setUserData({ ...userData, [key]: value });
@@ -21,6 +27,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
       function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(userData);
+        setInputReset(!inputReset);
         setUserData({
         tenancyName: "",
         userName: "",
@@ -72,6 +79,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                           handleDataChanges(e.target.value, "tenancyName");
                                         }}
                                         value={userData?.tenancyName}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -87,6 +95,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                           handleDataChanges(e.target.value, "userName");
                                         }}
                                         value={userData?.userName}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -103,6 +112,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                           handleDataChanges(e.target.value, "password");
                                         }}
                                         value={userData?.password}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                            

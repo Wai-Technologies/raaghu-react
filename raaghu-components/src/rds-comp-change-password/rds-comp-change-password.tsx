@@ -3,14 +3,20 @@ import React, { useEffect, useState } from "react";
 
 export interface RdsCompChangePasswordProps {
     onSaveHandler?: (data: any) => void;
+    reset?: boolean;
     changePasswordData?: any;
 }
   const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
     const [formData, setFormData] = useState(props.changePasswordData);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setFormData(props.changePasswordData);
     }, [props.changePasswordData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
@@ -19,6 +25,7 @@ export interface RdsCompChangePasswordProps {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
         setFormData({
             currentPassword: "",
             newPassword: "",
@@ -32,6 +39,7 @@ export interface RdsCompChangePasswordProps {
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
                         size="medium"
+                        reset={inputReset}
                         label="Current Password"
                         inputType="password"
                         isDisabled={false}
@@ -51,6 +59,7 @@ export interface RdsCompChangePasswordProps {
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
                         size="medium"
+                        reset={inputReset}
                         label="New Password"
                         inputType="password"
                         isDisabled={false}
@@ -70,6 +79,7 @@ export interface RdsCompChangePasswordProps {
                 <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
                     <RdsInput
                         size="medium"
+                        reset={inputReset}
                         label="New Password Confirm"
                         inputType="password"
                         isDisabled={false}

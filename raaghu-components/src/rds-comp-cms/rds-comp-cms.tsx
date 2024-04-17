@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
 
 export interface RdsCompCMSProps {
     receiverEmailAddress: any;
+    reset?: boolean;
     onSubmit?: any
 }
 const RdsCompCMS = (props: RdsCompCMSProps) => {
     const [receiverEmailAddress, setReceiverEmailAddress] = useState(props.receiverEmailAddress);
+    const [inputReset, setInputReset] = useState(false);
+
+    useEffect(() => {
+        setReceiverEmailAddress(props.receiverEmailAddress);
+    }, [props.receiverEmailAddress]);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
         props.onSubmit && props.onSubmit(receiverEmailAddress)
-
+        setInputReset(!inputReset);
+        setReceiverEmailAddress("");
     };
 
 
@@ -24,6 +31,7 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
                             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
                                 <RdsInput
                                     value={receiverEmailAddress}
+                                    reset={inputReset}
                                     name="receiverEmail"
                                     required={true}
                                     label="Receiver Email Address"

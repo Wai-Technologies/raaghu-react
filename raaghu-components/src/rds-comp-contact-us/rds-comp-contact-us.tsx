@@ -3,11 +3,13 @@ import { RdsButton, RdsInput, RdsTextArea } from "../rds-elements";
 
 export interface RdsCompContactUsProps {
     contactus: any;
+    reset?: boolean;
     onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompContactUs = (props: RdsCompContactUsProps) => {
     const [formData, setFormData] = useState(props.contactus);
+    const [inputReset, setInputReset] = useState(false);
     const [error1, setError1] = useState("");
     const [error2, setError2] = useState("");
     const [error3, setError3] = useState("");
@@ -38,6 +40,10 @@ const isEmailValid = (email: any) => {
         useEffect(() => {
             setFormData(props.contactus);
         }, [props.contactus]);
+
+        useEffect(() => {
+            setInputReset(!inputReset);
+        }, [props.reset]);
         
 const isFormValid = isFullnameValid(formData?.fullname) && isEmailValid(formData?.email) && isMessageValid(formData?.message);
     
@@ -73,6 +79,7 @@ const messagehandleChange = (value: any, key: string) => {
 function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setInputReset(!inputReset);
     setFormData({
         email: "",
         fullname: "",
@@ -88,6 +95,7 @@ function emitSaveData(event: any) {
                     <div className="mt-1 mb-3">
                         <RdsInput
                             label='Email ID'
+                            reset={inputReset}
                             required={true}
                             placeholder='name@gmail.com'
                             inputType='email'
@@ -102,6 +110,7 @@ function emitSaveData(event: any) {
                     <div className=" mb-3">
                         <RdsInput
                             label='Full Name'
+                            reset={inputReset}
                             required={true}
                             placeholder='Full Name'
                             inputType='text'

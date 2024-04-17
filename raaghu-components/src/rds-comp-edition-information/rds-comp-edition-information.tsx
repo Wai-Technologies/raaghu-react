@@ -12,6 +12,7 @@ export interface RdsCompEditionInformationProps {
     sizeDataWithDescription?: any[];
     onSaveHandler?: (data: any) => void;
     edition?: any;
+    reset?: boolean;
 }
 const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     const [values, setValues] = useState(props.edition);
@@ -19,11 +20,16 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     const [radioItemList, setRadioItemList] = useState<any>([]);
     const [trialPeriodCounter, setTrialPeriodCounter] = useState(0);
     const [expiryNotificationCounter, setExpiryNotificationCounter] = useState(0);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setValues(props.edition);
     }, [props.edition]);
 
+    useEffect(() => {
+        setInputReset(!inputReset);
+      }, [props.reset]);
+      
     const handleDataChanges = (event: any, key: string) => {
         if (key === 'trialPeriodCounter') {
             setTrialPeriodCounter(event);
@@ -37,6 +43,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler({ ...values, trialPeriodCounter, expiryNotificationCounter });
+        setInputReset(!inputReset);
         setValues({
             editionName: "",
             annualPrice: "",
@@ -90,6 +97,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
                                 name={"editionName"}
                                 dataTestId="edition-name"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-md-6 my-3">
@@ -102,6 +110,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
                                 name={"annualPrice"}
                                 dataTestId="annual-price"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>

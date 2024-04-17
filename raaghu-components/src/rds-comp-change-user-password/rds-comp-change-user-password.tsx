@@ -3,11 +3,13 @@ import { RdsInput, RdsButton } from "../rds-elements";
 
 export interface RdsChangePasswordProps {
     changePasswordData?: any;
+    reset?: boolean;
     onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
     const [changePassword, setChangePassword] = useState(props.changePasswordData);
+    const [inputReset, setInputReset] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const pattern = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{6,}$";
@@ -15,6 +17,10 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
     useEffect(() => {
         setChangePassword(props.changePasswordData);
     }, [props.changePasswordData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleDataChanges = (value: any, key: string) => {
         setChangePassword({ ...changePassword, [key]: value });
@@ -28,6 +34,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(changePassword);
+        setInputReset(!inputReset);
         setChangePassword({ 
             currentPassword: "", 
             newPassword: "", 
@@ -65,6 +72,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                     <div className="col-12 col-md-12">
                         <RdsInput
                             size="medium"
+                            reset={inputReset}
                             label="Current Password"
                             inputType="password"
                             isDisabled={false}
@@ -78,6 +86,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                     <div className="col-12 col-md-12">
                         <RdsInput
                             size="medium"
+                            reset={inputReset}
                             label="New Password"
                             inputType="password"
                             isDisabled={false}
@@ -94,6 +103,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                     <div className="col-12 col-md-12">
                         <RdsInput
                             size="medium"
+                            reset={inputReset}
                             label="Confirm New Password"
                             inputType="password"
                             isDisabled={false}
