@@ -3,15 +3,21 @@ import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
 
 export interface RdsCompApiResourceBasicProps {
   apiResourceBasic: any;
+  reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
 const [formData, setFormData] = useState(props.apiResourceBasic);
+const [inputReset, setInputReset] = useState(false);
 
 useEffect(() => {
   setFormData(props.apiResourceBasic);
 }, [props.apiResourceBasic]);
+
+useEffect(() => {
+  setInputReset(!inputReset);
+}, [props.reset]);
 
 const handleDataChanges = (value: any, key: string) => {
   setFormData({ ...formData, [key]: value });
@@ -20,6 +26,7 @@ const handleDataChanges = (value: any, key: string) => {
 function emitSaveData(event: any) {
   event.preventDefault();
    props.onSaveHandler && props.onSaveHandler(formData);  
+  setInputReset(!inputReset);
    setFormData({
     email: "",
     fullname: "",
@@ -38,6 +45,7 @@ function emitSaveData(event: any) {
               <div className="col-6">
                 <RdsInput
                   required={true}
+                  reset={inputReset}
                   label="Name"
                   placeholder="Enter name"
                   inputType="text"
@@ -53,6 +61,7 @@ function emitSaveData(event: any) {
               <div className="col-6 ">
                 <RdsInput
                   label="Display name"
+                  reset={inputReset}
                   placeholder="Enter display name"
                   inputType="text"
                   onChange={(e) => {
@@ -80,6 +89,7 @@ function emitSaveData(event: any) {
             <div className=" mb-4">
               <RdsInput
                 label="Allowed access token signing algorithms"
+                reset={inputReset}
                 placeholder="Enter Allowed access token signing algorithms"
                 inputType="text"
                 onChange={(e) => {

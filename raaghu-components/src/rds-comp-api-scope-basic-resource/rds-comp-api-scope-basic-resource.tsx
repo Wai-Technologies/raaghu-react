@@ -34,6 +34,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.onSuccess && props.onSuccess(fieldScopeData);
+        setInputReset(!inputReset);
         setFieldScopeData({
             id: "",
             name: "",

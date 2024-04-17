@@ -199,7 +199,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                             {node.data.displayName || node.data.name}
                                                         </div>
                                                     </div>
-                                                    <span className=" node-icon1 btn-group-size pb-0 ">
+                                                    <span className=" node-icon1 btn-group-size pb-0 spacingbetweenbtn">
                                                         <RdsButtonGroup
                                                             buttonGroupItems={buttonGroupList}
                                                             colorVariant="primary"
@@ -273,7 +273,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
 
     return (
         <>
-            <ul className="position-relative mb-0 list-style ps-0">
+            <ul className="position-relative mb-0 list-style">
                 {props.organizationTreeData?.map((tree, index) => (
                     <div key={tree.data.id}>
 

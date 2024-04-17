@@ -19,27 +19,35 @@ type Story = StoryObj<typeof RdsCompDynamicEntityProperty>;
 
 export const Default: Story = {
     args: {
-        initialSelectedItems: {
-            entity: "ANZAngular105Demo.Authorization.Users.User",
-            parameter: [{ label: "Demo 1", },
-            { label: "Demo 2", }]
-        },
+
         parameterList: [
             {
                 label: "Demo 1",
+                val : "Demo 1"
             },
             {
                 label: "Demo 2",
+                val : "Demo 2"
             },
             {
                 label: "Demo 3",
+                val : "Demo 3"
             },
             {
                 label: "Demo 4",
+                val : "Demo 4"
             }
         ],
-        entityNames: [{ label: "ANZAngular105Demo.Authorization.Users.User" }, { label: "ANZAngular105Demo.Authorization" },]
+        entityNames: [
+            { 
+                label: "User",
+                 val : "User" 
+         },
+         { 
+            label: "Authorization",
+            val : "Authorization"
+        },]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
+//Default.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
 
