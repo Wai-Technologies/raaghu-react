@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList } from '../rds-elements';
 
 interface RdsCompDeveloperModeProps {
-   applicationUrl?: any;
+   
    reset?: boolean;
    modeData?: any;
    onModeDataSubmit?: any;
@@ -14,11 +14,12 @@ interface RdsCompDeveloperModeProps {
    appUrl?: string;
    replaceUrl?: boolean;
    selectedValue?: Array<{ option: string; value: string; }>;
+   grantTypeList?:any;
 
 }
 
 const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
-   const [applicationUrl, setApplicationUrl] = useState<any>();
+   
    const [modeData, setModeData] = useState(props.modeData);
    const [inputReset, setInputReset] = useState(false);
    const [radioItemList, setRadioItemList] = useState<any>(false);
@@ -96,58 +97,41 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       {
          id: 1,
          label: "True",
-         checked: true,
+         checked: null,
          name: "radio_button",
       },
       {
          id: 2,
          label: "False",
-         checked: false,
+         checked: null,
          name: "radio_button",
       },
    ];
 
-   const grantTypeList = [
-      {
-         option: 'Authorization Code',
-         value: 'authorization-code'
-      },
-      {
-         option: 'Hybrid',
-         value: 'hybrid'
-      },
-      {
-         option: 'implicit',
-         value: 'implicit'
-      },
-      {
-         option: 'Password',
-         value: 'password'
-      }
-   ];
-
    const handleRadioClick = (event: any) => {
-      console.log("Value", event.target.id);
-
+     
       const items = {
-         id: event.target.id,
-         label: event.target.value,
-         checked: event.target.checked,
-         name: event.target.name,
+        id: Number(event.target.id),
+        label: event.target.value,
+        checked: event.target.checked,
+        name: event.target.name,
       };
-      console.log("Items:", items);
-
-      if (items.id === "2") {
-         console.log("Setting radioItemList to true");
-         setRadioItemList(radioItemList);
-         // localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com")
+    
+      const updatedReplaceItems = replaceItems.map(item =>
+        item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+      );
+    
+      if (items.id === 2) {
+       
+        setRadioItemList(updatedReplaceItems);
+        localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
       } else {
-         console.log("Setting radioItemList to false");
-         setRadioItemList(radioItemList);
+       
+        setRadioItemList(updatedReplaceItems);
       }
-   }
+    };
+
    useEffect(() => {
-      debugger
       setModeData((prevModeData: any) => ({
          ...prevModeData,
          environment: env || '',
@@ -156,16 +140,11 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          clientId: clientId || '',
          scope: scope || '',
          appUrl: appUrl || '',
-         replaceUrl: replaceUrl || true,
-         sideNav: sideNav || false,
+         replaceUrl: replaceUrl || false,
+         sideNav: sideNav || "",
       }));
    }, [props.modeData]);
-
-   const onModeDataSubmit = (event: any) => {
-      event.preventDefault();
-      props.onModeDataSubmit(modeData);
-   };
-
+     
    const onSubmitModeData = (value: string, fieldName: string) => {
       setModeData((prevModeData: any) => ({
          ...prevModeData,
@@ -174,21 +153,40 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
    };
    const resetToDefault = () => {
       setModeData({
-         environment: env || '',
-         apiUrl: apiURL || '',
-         grantType: grantType || '',
-         clientId: clientId || '',
-         scope: scope || '',
-         appUrl: appUrl || '',
-         replaceUrl: replaceUrl || true,
-         sideNav: sideNav || false,
+         environment: '',
+         apiUrl: '',
+         grantType: '',
+         clientId: '',
+         scope: '',
+         appUrl: '',
+         replaceUrl: '',
+         sideNav: '',
       });
+   };
+
+   const emitSaveData = (event: any) => {
+      event.preventDefault();
+      props.onModeDataSubmit && props.onModeDataSubmit(modeData);
+      setInputReset(!inputReset);
+      setModeData( ({
+        
+         grantType: '',
+         environment: '',
+         apiUrl: '',
+         clientId: '',
+         scope: '',
+         appUrl: '',
+         replaceItems: '',
+         replaceUrl: null,
+         sideNav: false,
+      }));
    };
 
    return (
       <>
          <div className="overflow-x-hidden overflow-y-auto">
-            <form onSubmit={onModeDataSubmit}>
+            <form>
+            <div className="custom-content-scroll">
                <div className='mb-3 fw-medium'>
                   <RdsLabel label="Configuration"></RdsLabel>
                </div>
@@ -199,6 +197,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            value={modeData?.environment}
                            name="environment"
                            label="Environment"
+                           reset={inputReset}
                            placeholder="Enter Environment"
                            customClasses="form-control"
                            onChange={(e: any) => onSubmitModeData(e.target.value, "environment")}
@@ -220,6 +219,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            label=""
                            itemList={radioItemsApp}
                            onClick={handleRadioClick}
+                           onChange={(e: any) => onSubmitModeData(e.target.value, "radioItemsApp")}
                         ></RdsRadioButton>
                      </div>
 
@@ -230,18 +230,17 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                                  <RdsInput
                                     value={modeData?.appUrl}
                                     name="app-url"
-                                    label=""
+                                    label="app"
                                     placeholder="Enter Application URL"
                                     customClasses="form-control"
-                                    onChange={(e) => onSubmitModeData(e.target.value, "appUrl")}
+                                    reset={inputReset}
+                                    onChange={(e: any) => onSubmitModeData(e.target.value, "appUrl")}
                                     dataTestId="data"
                                  />
                               </div>
                            </div>
                         )
                      }
-
-
                   </div>
                </div>
                <div className="row pb-2">
@@ -253,6 +252,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            label="Application API URL"
                            placeholder="Enter Application API URL"
                            customClasses="form-control"
+                           reset={inputReset}
                            onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
                            dataTestId="applicationUrl"
                            required
@@ -267,11 +267,11 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            id={"grantType"}
                            label="Application Grant Type"
                            placeholder="Select Application Grant Type"
-                           selectItems={grantTypeList}
-                           isSearchable={false}
+                           selectItems={props?.grantTypeList}
+                           isSearchable={true}
                            required={true}
-                           selectedValue={grantTypeList[0]?.value}
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "grantType")}
+                           selectedValue={modeData?.grantType} 
+                           onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
                         ></RdsSelectList>
                      </div>
                   </div>
@@ -283,6 +283,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            value={modeData?.clientId}
                            name="app-client"
                            label="Application Client ID"
+                           reset={inputReset}
                            placeholder="EnterApplication Client ID"
                            customClasses="form-control"
                            onChange={(e: any) => onSubmitModeData(e.target.value, "clientId")}
@@ -301,6 +302,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            label="Application Scope"
                            placeholder="Enter Application Scope"
                            customClasses="form-control"
+                           reset={inputReset}
                            onChange={(e: any) => onSubmitModeData(e.target.value, "scope")}
                            dataTestId="applicationScope"
                            required
@@ -318,6 +320,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                         <RdsRadioButton
                            displayType="Horizontal"
                            label=""
+                           onClick={handleRadioClick}
+                           onChange={(e: any) => onSubmitModeData(e.target.value, "replaceItems")}
                            itemList={replaceItems}
                         ></RdsRadioButton>
                      </div>
@@ -332,17 +336,19 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                         label="Disable Collapsible Side Menu"
                         checked={modeData?.sideNav}
                         onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
-                        dataTestId="sideMenu" isDisabled></RdsCheckbox>
+                        dataTestId="sideMenu"></RdsCheckbox>
                   </div>
                   <div className="col-md-12 mb-3">
                      <RdsCheckbox
                         label="Enable Static Icons"
                         checked={modeData?.staticIcons}
                         onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
-                        dataTestId="staticIcons" isDisabled ></RdsCheckbox>
+                        dataTestId="staticIcons"></RdsCheckbox>
                   </div>
                </div>
-               <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+               </div>
+               </form>
+               <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
 
                   {/* <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a> */}
                   <RdsButton
@@ -359,10 +365,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      label="Apply"
                      size="small"
                      dataTestId="submit"
-                     onClick={() => { props.onModeDataSubmit(modeData); }}
+                     onClick={(e: any) => emitSaveData(e)}
                   ></RdsButton>
                </div>
-            </form>
          </div>
       </>
    );
