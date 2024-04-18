@@ -46,8 +46,8 @@ export const Default: Story = {
               name: "File 2-1",
             },
             {
-              id: "2-",
-              name: "File 2-",
+              id: "2-2",
+              name: "File 2-2",
             },
           ],
         },
