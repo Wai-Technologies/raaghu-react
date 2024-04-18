@@ -8,14 +8,19 @@ import {
 export interface RdsCompScopeBasicResourceProps {
     apiScopeData?: any;
     onSaveHandler?: (data: any) => void;
+    reset?: boolean;
 }
 
 const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
     const [formData, setFormData] = useState(props.apiScopeData);
-
+    const [inputReset, setInputReset] = useState(false);
     useEffect(() => {
         setFormData(props.apiScopeData);
     }, [props.apiScopeData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const apiScopeDataChange = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
@@ -24,6 +29,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
         setFormData({
             name: "",
             description: "",
@@ -52,6 +58,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                     value={formData?.name}
                                     name="name"
                                     dataTestId="name"
+                                    reset={inputReset}
                                 ></RdsInput>
                             </div>
                             <div className="col-6">

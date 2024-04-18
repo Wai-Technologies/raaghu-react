@@ -138,6 +138,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(tenantInformationData);
+        setInputReset(!inputReset);
         setTenantInformationData({
             ...tenantInformationData,
             name: "",
@@ -261,6 +262,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                                 rows={2}
                                                 value={tenantInformationData?.connectionStrings?.default}
                                                 dataTestId="data"
+                                                reset={inputReset}
                                             />
                                         </div>
                                     </div>
