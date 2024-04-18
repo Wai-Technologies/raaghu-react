@@ -33,6 +33,7 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
         setFormData({
             valueType: null,
             name: "",

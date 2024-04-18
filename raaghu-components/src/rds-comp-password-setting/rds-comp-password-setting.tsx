@@ -3,11 +3,13 @@ import { RdsButton, RdsInput } from "../rds-elements";
 
 export interface RdsCompPasswordSettingProps {
     passwordSettingData?: any;
+    reset?: boolean;
     onSaveHandler?: (data: any) => void;
  }
 
 const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     const [formData, setFormData] = useState(props.passwordSettingData);
+    const [inputReset, setInputReset] = useState(props.reset);
     const [error1, setError1] = useState("");
     const [error2, setError2] = useState("");
     const [error3, setError3] = useState("");
@@ -15,6 +17,10 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     useEffect(() => {
         setFormData(props.passwordSettingData);
       }, [props.passwordSettingData]);
+
+    useEffect(() => {
+        setInputReset(props.reset);
+    }, [props.reset]);
    
     const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
@@ -65,6 +71,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
         const emitSaveData = (event: any) => {
             event.preventDefault();
             props.onSaveHandler && props.onSaveHandler(formData);
+            setInputReset(!inputReset);
             setFormData({
                 curPass: "",
                 newPass: "",
@@ -80,6 +87,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
                             label="Current password"
+                            reset={inputReset}
                             required={true}
                             placeholder="Current password"
                             inputType="password"
@@ -96,6 +104,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     <div className=" fw-normal mb-3">
                         <RdsInput
                             label="New password"
+                            reset={inputReset}
                             required={true}
                             placeholder="New password"
                             inputType="password"
@@ -112,6 +121,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     <div className=" fw-normal mb-3">
                         <RdsInput
                             label="Confirm new password"
+                            reset={inputReset}
                             required={true}
                             placeholder="Confirm new password"
                             inputType="password"

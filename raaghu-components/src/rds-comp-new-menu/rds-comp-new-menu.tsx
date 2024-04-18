@@ -18,7 +18,6 @@ export interface MenuPage {
     value: number;
 }
 const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
-
     const [data, setData] = useState(props.menusData);
     const [inputReset, setInputReset] = useState(props.reset);
     const [menuPageList, setMenuPageList] = useState<MenuPage[]>([]);
@@ -45,6 +44,22 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
 
     function handlePageId(value: any) {
         setData({ ...data, pageId: value, });
+    }
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSubmit && props.onSubmit(data);
+        setInputReset(!inputReset);
+        setData({
+            url: "",
+            pageId: 0,
+            displayName: "",
+            isActive: false,
+            icon: "",
+            target: "",
+            elementId: "",
+            cssClass: "",
+        });
     }
 
     return (
@@ -158,9 +173,7 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                     isDisabled={!data?.displayName}
                     colorVariant="primary"
                     class="me-2"
-                    onClick={() => {
-                        props.onSubmit(data);
-                    }}
+                    onClick={(e: any) => emitSaveData(e)}
                     dataTestId="save"
                 ></RdsButton>
             </div>

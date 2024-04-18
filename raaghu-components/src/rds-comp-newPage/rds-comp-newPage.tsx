@@ -1,57 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
 
-interface RdsCompNewPageProps {
-    title?: string;
-    slug?: string;
-    content?: string;
-    script?: string;
-    style?: string;
-    onSubmit?: any;
+export interface RdsCompNewPageProps {
     newPageData?: any;
     reset?: boolean;
-    onCancel?: any
+    onSaveHandler?: (data: any) => void;
+    onCancel?: any;
 }
 
 const RdsCompNewPage = (props: RdsCompNewPageProps) => {
     const [activeTab, setActiveTab] = useState("content");
     const [inputReset, setInputReset] = useState(props.reset)
+    const [data, setData] = useState(props.newPageData);
 
     useEffect(() => {
         setInputReset(props.reset)
     }, [props.reset])
 
-
-    const [data, setData] = useState(props.newPageData);
     useEffect(() => {
         setData(props.newPageData);
     }, [props.newPageData]);
 
-    const onTextChangeHandler = (e: any) => {
-        setData({ ...data, title: e.target.value });
+    const handleDataChanges = (value: any, key: string) => {
+        setData({ ...data, [key]: value });
     };
-
-    const onSlugChangeHandler = (e: any) => {
-        setData({ ...data, slug: e.target.value });
-    };
-
-    const onScriptDescHandler = (e: any) => {
-        setData({ ...data, script: e.target.value });
-    };
-
-    const onStyleDescHandler = (e: any) => {
-        setData({ ...data, style: e.target.value });
-    };
-
-    function onContentHandler(value: any) {
-        setData({ ...data, content: value });
-    }
-
 
     const handleractiveNavtabOrder = (id: any) => {
         setActiveTab(id);
     };
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(data);
+        setInputReset(!inputReset);
+        setData({
+            title: "",
+            slug: "",
+            content: "",
+            script: "",
+            style: ""
+        });
+        }
 
     return (
         <>
@@ -66,7 +55,9 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                                 label="Title"
                                 placeholder="Enter Title"
                                 value={data?.title}
-                                onChange={onTextChangeHandler}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "title");
+                                }}
                                 dataTestId='title'
                             ></RdsInput>
                         </div>
@@ -80,7 +71,9 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                                 label="Slug"
                                 placeholder="Enter Slug"
                                 value={data?.slug}
-                                onChange={onSlugChangeHandler}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "slug");
+                                }}
                                 dataTestId='slug'
                             ></RdsInput>
                         </div>
@@ -110,7 +103,14 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                     />
                     <div className="mt-3 overflow-x-hidden overflow-y-scroll offcanvas-custom-scroll">
                         {activeTab == "content" && (
-                            <RdsTextEditor value={data?.content} onChange={(e) => onContentHandler(e)} placeholder={""} ></RdsTextEditor >
+                            <RdsTextEditor
+                                value={data?.content}
+                                onChange={(e) => {
+                                    handleDataChanges(e, "content");
+                                  }}
+                                placeholder={""}
+                            >
+                            </RdsTextEditor >
                         )}
                         {activeTab == "script" && (
                             <div className="mb-3">
@@ -121,7 +121,9 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                                     readonly={false}
                                     rows={3}
                                     value={data?.script}
-                                    onChange={onScriptDescHandler}
+                                    onChange={(e) => {
+                                        handleDataChanges(e.target.value, "script");
+                                    }}
                                 ></RdsTextArea>
                             </div>
                         )}
@@ -133,7 +135,9 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                                     readonly={false}
                                     rows={3}
                                     value={data?.style}
-                                    onChange={onStyleDescHandler}
+                                    onChange={(e) => {
+                                        handleDataChanges(e.target.value, "style");
+                                    }}
                                 ></RdsTextArea>
 
 
@@ -163,9 +167,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                     isDisabled={!data}
                     colorVariant="primary"
                     class="me-2"
-                    onClick={() => {
-                        props.onSubmit(data);
-                    }}
+                    onClick={(e: any) => emitSaveData(e)}
                     dataTestId='save'
                 ></RdsButton>
             </div>
