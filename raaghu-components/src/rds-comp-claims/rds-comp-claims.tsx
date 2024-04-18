@@ -14,6 +14,7 @@ export interface RdsCompClaimsProps {
     getEditClaimData?: any;
     tableHeaders?: any[];
     onActionSelection?: any;
+    reset?: boolean;
     actions?: any;
 }
 
@@ -24,6 +25,7 @@ export interface SelectedItem {
 
 const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const [allClaimsArray, setAllClaimsArray] = useState<any>(props.allClaimsArray);
+    const [inputReset, setInputReset] = useState(props.reset);
     const [selectedData, setSelectedData] = useState<any>({
         id: 0,
         claimType: "",
@@ -66,6 +68,10 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
         setAllClaimsArray(props.allClaimsArray)
     })
 
+    useEffect(() => {
+        setInputReset(props.reset);
+    }, [props.reset]);
+
     return (
         <>
             <div className="form">
@@ -88,6 +94,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                         <RdsInput
                             required={true}
                             label="Claim Value"
+                            reset={inputReset}
                             placeholder="Enter Value"
                             name="value"
                             value={selectedData.claimValue}
