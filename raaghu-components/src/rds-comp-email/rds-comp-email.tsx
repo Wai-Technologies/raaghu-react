@@ -54,7 +54,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
         smtpPassword: ""
     })};
 
-    function emitSaveData1(event: any) {
+    function emitSubmitSendTestMail(event: any) {
          event.preventDefault();
          props.onTestEmailRequest && props.onTestEmailRequest(sendTestEmailData);
          setInputReset(!inputReset);
@@ -315,7 +315,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         databsdismiss="offcanvas"
                                         colorVariant="primary"
                                         class="me-2"
-                                        onClick={(e: any) => emitSaveData1(e)}
+                                        onClick={(e: any) => emitSubmitSendTestMail(e)}
                                     ></RdsButton>
                                 </div>
                             </div>
