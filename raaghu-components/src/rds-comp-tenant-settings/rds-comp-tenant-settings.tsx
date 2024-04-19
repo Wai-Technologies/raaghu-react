@@ -8,12 +8,14 @@ export interface RdsCompTenantSettingsProps {
     onCancel?: React.EventHandler<any>;
     onSaveHandler?: (data: any) => void;
     tenantSettingData?: any;
+    reset?: boolean;
 }
 
 const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
     const [formData, setFormData] = useState(props.tenantSettingData);
     const [hostDatabaseChecked, setHostDatabaseChecked] = useState(false);
     const [isRandomPasswordChecked, setIsRandomPasswordChecked] = useState(false);
+    const [inputReset, setInputReset] = useState(false);
     const [errors, setErrors] = useState({
         password: "",
         cpassword: "",       
@@ -32,6 +34,10 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
         setFormData(props.tenantSettingData);
     }, [props.tenantSettingData]);
 
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
     const handleDataChanges = (value: any, key: string) => {
 
           let errorMessage = "";
@@ -48,6 +54,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
         setFormData({
             dcstring: "",
             password: "",
@@ -101,6 +108,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                           handleDataChanges(e.target.value, "dcstring");
                                         }}
                                         value={formData?.dcstring}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                             </div>
@@ -124,6 +132,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         value={formData?.password}
                                         dataTestId="password"
                                         showIcon= {true}
+                                        reset={inputReset}
                                     ></RdsInput>
                                     {errors.password && <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
                                 </div>
@@ -145,6 +154,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         value={formData?.cpassword}
                                         dataTestId="confirm-password"
                                         showIcon= {true}
+                                        reset={inputReset}
                                     ></RdsInput>
                                     {errors.cpassword && <div className="form-control-feedback"><span className="text-danger">{errors.cpassword}</span></div>}
                                 </div>
