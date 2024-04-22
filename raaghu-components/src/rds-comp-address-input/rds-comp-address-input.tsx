@@ -3,10 +3,11 @@ import { RdsDropdownList } from "../rds-elements";
 export interface RdsCompAddressInputProps {
     adress?: any;
     address2?: any;
-    country?: any;
-    state?: any;
+    statesList?: any;
     city?: any;
     zip?: any;
+    countriesList?: any;
+    citiesList : any;
 
 }
 
@@ -97,12 +98,13 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             Country
                         </label>
                         <div className="form-group">
-                            <RdsDropdownList                                data-testid="country"
+                            <RdsDropdownList                                
+                                data-testid="country"
                                 borderDropdown={true}
                                 placeholder="Select Country"
                                 labelIconWidth="18px"
                                 labelIconHeight="25px"
-                                listItems={Array.isArray(props.country) ? props.country : []}
+                                listItems={props.countriesList}
                                 isPlaceholder={true}
                             />
                           
@@ -124,7 +126,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                                 labelIconWidth="18px"
                                 labelIconHeight="25px"
                                 isPlaceholder={true}
-                                listItems={Array.isArray(props.state) ? props.state : []}
+                                listItems={props.statesList}
                             />
                           
                         </div>
@@ -144,7 +146,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                                 labelIconWidth="18px"
                                 labelIconHeight="55px"
                                 isPlaceholder={true}
-                                listItems={Array.isArray(props.city) ? props.city : []}
+                                listItems={props.citiesList}
                             />
                         
                         </div>

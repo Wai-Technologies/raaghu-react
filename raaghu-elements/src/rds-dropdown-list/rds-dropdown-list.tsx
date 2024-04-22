@@ -294,7 +294,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         )}
 
                       {props.isPlaceholder == true && (
-                        <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap dw-placeholder">
+                        <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                           {props.placeholder}
                         </span>
                       )}
@@ -488,7 +488,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       )}
 
                     {props.isPlaceholder == true && (
-                      <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap dw-placeholder">
+                      <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                         {props.placeholder}
                       </span>
                     )}
