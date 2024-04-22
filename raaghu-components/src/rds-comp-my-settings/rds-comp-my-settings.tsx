@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompMySettingsProps {
   onSaveHandler?: (data: any) => void;
+  reset?: boolean;
   settingDetails?: any;
 }
 
 const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
   const [formData, setFormData] = useState(props.settingDetails);
+  const [inputReset, setInputReset] = useState(props.reset);
   const [errors, setErrors] = useState({
     ProfileName: "",
     Email: "",
@@ -17,6 +19,10 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
     newPass: "",
     curNewPass: "",
   });
+
+  useEffect(() => {
+    setInputReset(props.reset);
+  }, [props.reset]);
 
   const isCurPassValid = (curPass: string) => {
     return curPass && curPass.length > 8;
@@ -60,6 +66,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
   const emitSaveData = (event: any) => {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setInputReset(!inputReset);
     setFormData({
       ProfileName: "",
       Email: "",
@@ -77,6 +84,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="Profile Name"
+              reset={inputReset}
               size="medium"
               inputType="text"
               name="ProfileName"
@@ -90,6 +98,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="Email"
+              reset={inputReset}
               size="medium"
               inputType="text"
               name="Email"
@@ -103,6 +112,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="User Name"
+              reset={inputReset}
               size="medium"
               inputType="text"
               name="UserName"
@@ -116,6 +126,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="Current password"
+              reset={inputReset}
               required
               placeholder="Current password"
               inputType="password"
@@ -129,6 +140,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="New password"
+              reset={inputReset}
               required
               placeholder="New password"
               inputType="password"
@@ -142,6 +154,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
           <div className="mb-3">
             <RdsInput
               label="Confirm new password"
+              reset={inputReset}
               required
               placeholder="Confirm new password"
               inputType="password"

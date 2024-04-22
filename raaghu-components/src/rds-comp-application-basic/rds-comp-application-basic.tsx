@@ -30,6 +30,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.onSuccess && props.onSuccess(basicApplicationData);
+        setInputReset(!inputReset);
         setBasicApplicationData({
             clientId: "",
             displayName: "",

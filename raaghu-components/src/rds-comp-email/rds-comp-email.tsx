@@ -8,10 +8,12 @@ export interface RdsCompEmailProps {
     onEmailDataSubmit?: any;
     onTestEmailRequest?: any;
     sendTestEmailData: any;
+    reset?: boolean;
 }
 const RdsCompEmail = (props: RdsCompEmailProps) => {
     const [formData, setFormData] = useState(props.emailSettings);
     const [sendTestEmailData, setSendTestEmailData] = useState(props.sendTestEmailData);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setFormData(props.emailSettings);
@@ -21,13 +23,9 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
         setSendTestEmailData(props.sendTestEmailData);
     }, [props.sendTestEmailData]);
 
-    const onEmailDataSubmit = (event: any) => {
-        event.preventDefault();
-    };
-
-    const onTestEmailRequest = (event: any) => {
-        event.preventDefault();
-    }
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const onSubmitSendTestMail = (value: any, key: any) => {
         setSendTestEmailData((prevData: any) => ({
@@ -40,60 +38,88 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
         setFormData({ ...formData, [key]: value });
     }
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onEmailDataSubmit && props.onEmailDataSubmit(formData);
+        setInputReset(!inputReset);
+    setFormData({
+        defaultFromDisplayName: "",
+        defaultFromAddress: "",
+        smtpHost: "",
+        smtpPort: "",
+        smtpEnableSsl: false,
+        smtpUseDefaultCredentials: false,
+        smtpDomain: "",
+        smtpUserName: "",
+        smtpPassword: ""
+    })};
+
+    function emitSubmitSendTestMail(event: any) {
+         event.preventDefault();
+         props.onTestEmailRequest && props.onTestEmailRequest(sendTestEmailData);
+         setInputReset(!inputReset);
+    setSendTestEmailData({
+        senderEmailAddress: "",
+        targetEmailAddress: "",
+        subject: "",
+        body: ""
+    })
+      
+    }
+
     const condition = !formData?.smtpUseDefaultCredentials ? <>
-        <div className="row">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
-                <div className="form-group">
-                    <RdsInput
-                        fontWeight={"normal"}
-                        value={formData?.smtpDomain}
-                        name="displayName"
-                        label="Domain"
-                        required={false}
-                        placeholder={"Enter Domain"}
-                        customClasses="form-control"
-                        onChange={(e: any) => handleChangeform(e.target.value, "smtpDomain")}
-                        dataTestId="domain"
-                    ></RdsInput>
-                </div>
-            </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+    <div className="row">
+        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="form-group">
                 <RdsInput
                     fontWeight={"normal"}
-                    value={formData?.smtpUserName}
+                    value={formData?.smtpDomain}
                     name="displayName"
-                    label={"UserName"}
+                    label="Domain"
                     required={false}
-                    placeholder="Enter User Name"
+                    placeholder={"Enter Domain"}
                     customClasses="form-control"
-                    onChange={(e: any) => handleChangeform(e.target.value, "smtpUserName")}
-                    dataTestId="user-name"
-                ></RdsInput>
-            </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
-                <RdsInput
-                    fontWeight={"normal"}
-                    value={formData?.smtpPassword}
-                    name="displayName"
-                    label="Password"
-                    required={false}
-                    placeholder={"Enter Password"}
-                    inputType="password"
-                    customClasses="form-control"
-                    onChange={(e: any) => handleChangeform(e.target.value, "smtpPassword")}
-                    dataTestId="password"
-                    showIcon= {false}
+                    onChange={(e: any) => handleChangeform(e.target.value, "smtpDomain")}
+                    dataTestId="domain"
                 ></RdsInput>
             </div>
         </div>
+        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <RdsInput
+                fontWeight={"normal"}
+                value={formData?.smtpUserName}
+                name="displayName"
+                label={"User Name"}
+                required={false}
+                placeholder="Enter User Name"
+                customClasses="form-control"
+                onChange={(e: any) => handleChangeform(e.target.value, "smtpUserName")}
+                dataTestId="user-name"
+            ></RdsInput>
+        </div>
+        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
+            <RdsInput
+                fontWeight={"normal"}
+                value={formData?.smtpPassword}
+                name="displayName"
+                label="Password"
+                required={false}
+                placeholder={"Enter Password"}
+                inputType="password"
+                customClasses="form-control"
+                onChange={(e: any) => handleChangeform(e.target.value, "smtpPassword")}
+                dataTestId="password"
+                showIcon= {false}
+            ></RdsInput>
+        </div>
+    </div>
 
-    </> : <></>;
-
+</> : <></>;
 
     return (
         <div className="pt-3">
             <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
-                <form onSubmit={onEmailDataSubmit}>
+                <form>
                     <div className="row">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
@@ -102,11 +128,12 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                     value={formData?.defaultFromDisplayName}
                                     name="displayName"
                                     required={true}
-                                    label="DefaultbFrom DisplayName"
+                                    label="Default From Display Name"
                                     placeholder="Display Name"
                                     customClasses="form-control"
-                                    onChange={(e: any) => handleChangeform(e.target.value, "defaultFromAddress")}
+                                    onChange={(e: any) => handleChangeform(e.target.value, "defaultFromDisplayName")}
                                     dataTestId="sender-display-name"
+                                    reset={inputReset}
                                 ></RdsInput>
 
                             </div>
@@ -117,12 +144,13 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 placeholder="Email Address"
                                 customClasses="form-control"
                                 inputType="text"
-                                label="DefaultFromAddress"
+                                label="Default From Address"
                                 name="email"
                                 required={true}
                                 value={formData?.defaultFromAddress}
-                                onChange={(e: any) => handleChangeform(e.target.value, "defaultFromDisplayName")}
+                                onChange={(e: any) => handleChangeform(e.target.value, "defaultFromAddress")}
                                 dataTestId="sender-email"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
@@ -160,14 +188,14 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     </div>
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                            <RdsCheckbox label="EnableSsl" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
+                            <RdsCheckbox label="Enable Ssl" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
-                                label="SmtpUseDefaultCredentials"
+                                label="Smtp Use Default Credentials"
                                 onChange={(e: any) => { handleChangeform(e.target.checked, "smtpUseDefaultCredentials"); }}
                                 checked={formData?.smtpUseDefaultCredentials}
                                 dataTestId="use-default-credential"
@@ -185,12 +213,12 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
-                        onClick={() => { props.onEmailDataSubmit(formData); }}
+                        onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
                 <div>
                     <RdsOffcanvas
-                        canvasTitle="SendTestEmail"
+                        canvasTitle="Send Test Email"
                         placement="end"
                         offcanvasbutton={
                             <RdsButton
@@ -209,7 +237,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     >
                         <div>
                             <div className="pt-3">
-                                <form onSubmit={onTestEmailRequest}>
+                                <form>
                                     <div className="row">
                                         <div className="col-6">
                                             <RdsInput
@@ -218,6 +246,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 label="Sender email address"
                                                 labelPosition="top"
                                                 placeholder="Add Placeholder"
+                                                reset={inputReset}
                                                 required={true}
                                                 size="medium"
                                                 value={sendTestEmailData?.senderEmailAddress}
@@ -231,6 +260,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 label="Target email address"
                                                 labelPosition="top"
                                                 placeholder="Add Placeholder"
+                                                reset={inputReset}
                                                 required={true}
                                                 size="medium"
                                                 value={sendTestEmailData?.targetEmailAddress}
@@ -246,6 +276,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 label="Subject"
                                                 labelPosition="top"
                                                 placeholder="Add Placeholder"
+                                                reset={inputReset}
                                                 required={true}
                                                 size="medium"
                                                 value={sendTestEmailData?.subject}
@@ -256,7 +287,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                     <div className="row pt-2">
                                         <div className="col-12">
                                             <RdsTextArea
-                                                label="CmsKit.ShortDescription"
+                                                label="Short Description"
                                                 placeholder="Enter Description"
                                                 value={sendTestEmailData?.body}
                                                 rows={3}
@@ -264,9 +295,9 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "body")}
                                             />
                                         </div>
-                                    </div>
+                            </div>
                                 </form>
-                                <div className="d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row footer-buttons gap-2">
+                                <div className="mt-5 d-flex gap-3 ">
                                     <RdsButton
                                         label="Cancel"
                                         databsdismiss="offcanvas"
@@ -284,7 +315,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         databsdismiss="offcanvas"
                                         colorVariant="primary"
                                         class="me-2"
-                                        onClick={() => { props.onTestEmailRequest(sendTestEmailData); }}
+                                        onClick={(e: any) => emitSubmitSendTestMail(e)}
                                     ></RdsButton>
                                 </div>
                             </div>

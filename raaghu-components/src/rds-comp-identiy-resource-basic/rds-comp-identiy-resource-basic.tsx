@@ -5,14 +5,20 @@ import React, { useEffect, useState } from "react";
 export interface RdsCompIdentiyResourceBasicProps {
     identityResourceBasicData?: any;
     onSaveHandler?: (data: any) => void;
+    reset?: boolean;
 }
 
 const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) => {
     const [identityBasicData, setIdentityBasicData] = useState(props.identityResourceBasicData);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setIdentityBasicData(props.identityResourceBasicData);
     }, [props.identityResourceBasicData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleDataChange = (value: any, key: string) => {
         setIdentityBasicData({ ...identityBasicData, [key]: value });
@@ -21,6 +27,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(identityBasicData);
+        setInputReset(!inputReset);
         setIdentityBasicData({
             name: "",
             displayName: "",
@@ -49,6 +56,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                                         handleDataChange(e.target.value, "name");
                                     }}
                                     dataTestId="name"
+                                    reset={inputReset}
                                 ></RdsInput>
                             </div>
                             <div className="col-6">

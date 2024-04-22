@@ -4,16 +4,21 @@ import React, { useEffect, useState } from "react";
 
 export interface RdsCompFormsEmailProps {
     formsEmailData?: any;
+    reset?: boolean;
     onDataSendHandler?: (data: any) => void;
 }
 const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
     const [emailData, setEmailData] = useState(props.formsEmailData);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setEmailData(props.formsEmailData);
     }, [props.formsEmailData]);
-    
-    
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
     const handleDataChanges = (value: any, key: string) => {
         setEmailData((prevState: any) => ({ ...prevState, [key]: value }));
     };
@@ -30,18 +35,35 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onDataSendHandler && props.onDataSendHandler(emailData);
+        setInputReset(!inputReset);
         setEmailData({
             to: "",
             subject: "",
             body: ""
         });
     }
-    
+
     return (
         <>
             <div className="ps-2 mt-3">
-                <RdsInput required inputType="email" placeholder="Enter email" label="To" onChange={(e) => handleDataChanges(e.target.value, "to")} value={emailData?.to}  dataTestId="email"></RdsInput>
-                <RdsInput label="Subject" placeholder="Enter Subject" onChange={(e) => handleDataChanges(e.target.value, "subject")} value={emailData?.subject}  dataTestId="subject"></RdsInput>
+                <RdsInput
+                    required
+                    reset={inputReset}
+                    inputType="email"
+                    placeholder="Enter email"
+                    label="To"
+                    onChange={(e) => handleDataChanges(e.target.value, "to")}
+                    value={emailData?.to}
+                    dataTestId="email">
+                </RdsInput>
+                <RdsInput
+                    label="Subject"
+                    reset={inputReset}
+                    placeholder="Enter Subject"
+                    onChange={(e) => handleDataChanges(e.target.value, "subject")}
+                    value={emailData?.subject}
+                    dataTestId="subject">
+                </RdsInput>
                 <div className="pt-3 mb-3">
                     <RdsLabel>Body</RdsLabel>
                     <RdsTextEditor onChange={(e) => handleDataChanges(e, "body")} value={emailData?.body} ></RdsTextEditor >

@@ -194,7 +194,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const handleMouseLeaveicon = () => {
     setIsHovered(false);
   };
-  const fieldSize = props.size == undefined ? "form-control-sm" : props.size;
+  const fieldSize =  props.size === 'medium' ? 'md ' : props.size === 'large' ? 'lg':props.size;
   const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
   useEffect(() => {
     setIsTouch(false);
@@ -294,7 +294,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         )}
 
                       {props.isPlaceholder == true && (
-                        <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                        <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                           {props.placeholder}
                         </span>
                       )}
@@ -374,7 +374,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   props.multiSelect &&
                   props.placeholder && (
                     <div>
-                      <span className="ms-2 me-2 text-muted">
+                      <span className="ms-2 me-2 dw-placeholder">
                         {props.placeholder}
                       </span>
                     </div>
@@ -488,7 +488,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       )}
 
                     {props.isPlaceholder == true && (
-                      <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap dw-placeholder">
+                      <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                         {props.placeholder}
                       </span>
                     )}
@@ -561,7 +561,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 props.multiSelect &&
                 props.placeholder && (
                   <div>
-                    <span className="ms-2 me-2 text-muted">
+                    <span className="dw-placeholder">
                       {props.placeholder}
                     </span>
                   </div>

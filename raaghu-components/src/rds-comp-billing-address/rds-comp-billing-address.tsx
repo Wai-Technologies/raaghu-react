@@ -7,14 +7,20 @@ export interface RdsCompBillingAddressProps {
     countryList: { option: string, value: any }[];
     IndianStateList: { option: string, value: any }[];
     billingAddressDetails: any;
+    reset?: boolean;
 }
 
 const RdsCompBillingAddress = (props: RdsCompBillingAddressProps) => {
     const [formData, setFormData] = useState(props.billingAddressDetails);
+    const [inputReset, setInputReset] = useState(false);
 
 useEffect(() => {
     setFormData(props.billingAddressDetails);
 }, [props.billingAddressDetails]);
+
+useEffect(() => {
+    setInputReset(!inputReset);
+}, [props.reset]);
 
 const handleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
@@ -23,6 +29,7 @@ const handleChange = (value: any, key: string) => {
 function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
+    setInputReset(!inputReset);
     setFormData({
         firstName: "",
         lastName: "",
@@ -55,7 +62,7 @@ function emitSaveData(event: any) {
     //Validation functions
     const firstNameValidation = (firstName: string) => {
         firstName === ""
-            ? setFirstNameErrorMessage("First Name is required")
+         ? setFirstNameErrorMessage("First Name is required")
             : setFirstNameErrorMessage("");
     };
     const lastNameValidation = (lastName: string) => {
@@ -118,6 +125,7 @@ function emitSaveData(event: any) {
                                 required
                                 onBlur={(e) => firstNameValidation(e.target.value)}
                                 dataTestId="f-name"
+                                reset={inputReset}
                             />
                             {firstNameErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -137,6 +145,7 @@ function emitSaveData(event: any) {
                                 dataTestId="last-name"
                                 value={formData?.lastName}
                                 onChange={(e) => { handleChange(e.target.value,"lastName"); }}
+                                reset={inputReset}
                             />
                             {lastNameErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -170,6 +179,7 @@ function emitSaveData(event: any) {
                                 onChange={(e) => { handleChange(e.target.value,"phone"); }}
                                 onBlur={(e) => phoneValidationHandler(e.target.value)}
                                 dataTestId="phone"
+                                reset={inputReset}
                             />
                             {phoneErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -190,6 +200,7 @@ function emitSaveData(event: any) {
                                 dataTestId="address"
                                 value={formData?.address}
                                 onChange={(e) => { handleChange(e.target.value,"address"); }}
+                                reset={inputReset}
                             />
                             {addressErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -211,6 +222,7 @@ function emitSaveData(event: any) {
                                 dataTestId="city"
                                 value={formData?.city}
                                 onChange={(e) => { handleChange(e.target.value,"city"); }}
+                                reset={inputReset}
                             />
                             {cityErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -267,6 +279,7 @@ function emitSaveData(event: any) {
                                 dataTestId="postal-code"
                                 value={formData?.pin}
                                 onChange={(e) => { handleChange(e.target.value,"pin"); }}
+                                reset={inputReset}
                             />
                             {postalCodeErrorMessage != "" && (
                                 <div className="form-control-feedback">
