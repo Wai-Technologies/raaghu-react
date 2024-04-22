@@ -17,6 +17,23 @@ type Story = StoryObj<typeof RdsCompAddressInput>;
 
 export const Default: Story = {
     args: {
-        
+        country: [
+            {
+                label: "No Data",
+                val : "country"
+            },
+           ],
+            state: [
+                {
+                    label: "No Data",
+                    val : "state"
+                },
+                ],
+                city: [
+                    {
+                        label: "No Data",
+                        val : "city"
+                    },],
+                   
     }
 } satisfies Story;
