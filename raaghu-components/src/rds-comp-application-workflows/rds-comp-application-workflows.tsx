@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { RdsCheckbox, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-interface RdsCompApplicationWorkflowsProps {
+
+export interface RdsCompApplicationWorkflowsProps {
     basicData?: any;
     typeList: any[];
     consentType: any[];
@@ -13,21 +14,17 @@ interface RdsCompApplicationWorkflowsProps {
 const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) => {
     const [basicApplicationData, setBasicApplicationData] = useState<any>(props.basicData);
     const [inputReset, setInputReset] = useState(props.reset)
+
     useEffect(() => {
         setInputReset(props.reset)
     }, [props.reset])
+
     const checkboxes = [basicApplicationData?.allowAuthorizationCodeFlow, basicApplicationData?.allowHybridFlow, basicApplicationData?.allowPasswordFlow];
     const isAllowRefreshTokenFlowDisabled = checkboxes.length > 1 && !checkboxes.some((checkbox) => checkbox);
 
     const handleDataChanges = (value: any, key: string) => {
-
         setBasicApplicationData({ ...basicApplicationData, [key]: value });
         props.editApplicationData && props.editApplicationData({ ...basicApplicationData, [key]: value });
-    }
-    const handleTextAreaChange = (value: any, key: string) => {
-        const lines = value.split("\n");
-        setBasicApplicationData({ ...basicApplicationData, [key]: lines });
-        props.editApplicationData && props.editApplicationData({ ...basicApplicationData, [key]: lines });
     }
 
     const isDivVisible = basicApplicationData?.allowAuthorizationCodeFlow || basicApplicationData?.allowImplicitFlow || basicApplicationData?.allowHybridFlow;
@@ -140,7 +137,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isMultiUrl={true}
                         label="Redirect Uris"
                         placeholder="Enter Redirect Uris"
-                        onChange={(e: any) => handleTextAreaChange(e.target.value, "redirectUris")}
+                        onChange={(e: any) => handleDataChanges(e.target.value, "redirectUris")}
                         value={basicApplicationData?.redirectUris !== null ? basicApplicationData?.redirectUris : basicApplicationData?.redirectUris}
                         rows={3}
                         dataTestId="redirect-uri"
@@ -168,7 +165,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isMultiUrl={true}
                         label="Post Logout Redirect Uris"
                         placeholder="Enter Post Logout Redirect Uris"
-                        onChange={e => handleTextAreaChange(e.target.value, "postLogoutRedirectUris")}
+                        onChange={e => handleDataChanges(e.target.value, "postLogoutRedirectUris")}
                         value={basicApplicationData?.postLogoutRedirectUris !== null ? basicApplicationData?.postLogoutRedirectUris : basicApplicationData?.postLogoutRedirectUris}
                         rows={3}
                         dataTestId="logout-redirect-uri"
