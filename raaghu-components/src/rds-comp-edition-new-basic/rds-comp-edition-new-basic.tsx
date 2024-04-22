@@ -5,8 +5,10 @@ export interface RdsCompEditionNewBasicProps {
     planList: any[];
     accountTwoFactorSettings: any;
     planListLabel?: string;
+    reset?: boolean;
 }
 const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
+    const [inputReset, setInputReset] = useState(false);
  const [twoFactorData, settwoFactorData] = useState(
         props.accountTwoFactorSettings
     );
@@ -18,6 +20,10 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
     useEffect(() => {
         settwoFactorData(props.accountTwoFactorSettings);
     }, [props.accountTwoFactorSettings]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
     
     return (
         <>
@@ -31,6 +37,7 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                                 placeholder="Edition Name"
                                 inputType="text"
                                 name="editionName"
+                                reset={inputReset}
                                 dataTestId="edition-name"
                             ></RdsInput>
                         </div>
