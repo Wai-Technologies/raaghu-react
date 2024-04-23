@@ -374,7 +374,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   props.multiSelect &&
                   props.placeholder && (
                     <div>
-                      <span className="ms-2 me-2 dw-placeholder">
+                      <span className="me-2  dw-placeholder">
                         {props.placeholder}
                       </span>
                     </div>
@@ -548,7 +548,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                             {props.listItems[selectedOption].val.toUpperCase()}
                           </span>
                         ) : (
-                          <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                          <span className="fs-6 me-2 flex-grow-1 text-nowrap">
                             {props.listItems[selectedOption].label}
                           </span>
                         ))}
