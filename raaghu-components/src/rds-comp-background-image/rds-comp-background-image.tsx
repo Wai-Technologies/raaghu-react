@@ -11,10 +11,10 @@ interface RdsCompBackgroundImageProps {
 }
 
 const RdsCompBackgroundImage: React.FC<RdsCompBackgroundImageProps> = (props) => {
-    const [showImage, setShowImage] = useState<boolean>(false);
+    const [showImage, setShowImage] = useState<boolean>(true);
 
     const getImageUrl = (): string => {
-        if (props.imageUrl) {
+        if (props.imageUrl && showImage) {
             return `url(${props.imageUrl})`;
         }
         return "";
