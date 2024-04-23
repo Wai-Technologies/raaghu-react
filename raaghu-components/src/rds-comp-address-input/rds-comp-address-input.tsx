@@ -73,7 +73,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             type="text"
                             className="form-control"
                             id="address"
-                            placeholder="1234 Main St"
+                            placeholder="Main St"
                             required
                         />
                         <div className="invalid-feedback">
