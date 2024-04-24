@@ -141,7 +141,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           )}
           <div className={getClassNames()}>
             <textarea
-              className="form-control"
+              className="form-control mt-1"
               disabled={props.isDisabled}
               rows={props.rows}
               readOnly={props.readonly}
@@ -188,7 +188,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
       )}
 
       {props.validatonPattern !== undefined && (
-        <div className="form-control-feedback">
+        <div className="form-control-feedback mt-2">
           {props.validatonPattern !== undefined &&
             props.validationMsg !== undefined &&
             isTouch &&

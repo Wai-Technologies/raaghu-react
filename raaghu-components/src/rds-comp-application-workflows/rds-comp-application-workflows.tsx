@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsCheckbox, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
+import { RdsCheckbox, RdsDropdownList, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompApplicationWorkflowsProps {
@@ -33,15 +33,15 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
         <>
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
-                    <RdsSelectList
-                        id="typ"
-                        required={true}
-                        label="Type"
+                    <label className="mb-2">Type</label>
+                    <RdsDropdownList
+                        borderDropdown={true}
+                        isPlaceholder
                         placeholder="Select Consent Type"
-                        selectItems={props.typeList}
-                        selectedValue={basicApplicationData?.type}
-                        onChange={(item: any) => handleDataChanges(item.value, "type")}
-                    ></RdsSelectList>
+                        multiSelect={false}
+                        listItems={props.typeList || []}
+                        onClick={(item: any) => handleDataChanges(item.value, "type")}
+                    />
                 </div>
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
                     {basicApplicationData?.type == 'confidential' && (
@@ -179,16 +179,15 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         } */}
                 </div>
                 <div className="mb-3">
-                    <RdsSelectList
-                        classes="mb-3"
-                        id="Cons"
-                        label="Consent Type"
-                        selectItems={props.consentType}
-                        selectedValue={basicApplicationData?.consentType}
-                        onChange={(item: any) => { handleDataChanges(item.value, "consentType"); }}
-                        dataTestId="consent-type"
-                        isDisabled={isDivVisible}
-                    ></RdsSelectList>
+                    <label className="mb-2">Consent Type</label>
+                    <RdsDropdownList
+                        borderDropdown={true}
+                        isPlaceholder
+                        placeholder="Consent Type"
+                        multiSelect={false}
+                        listItems={props.consentType || []}
+                        onClick={(item: any) => { handleDataChanges(item.value, "consentType"); }}
+                    />
                 </div>
             </div>
             {basicApplicationData?.id && (
