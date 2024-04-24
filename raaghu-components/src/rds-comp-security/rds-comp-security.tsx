@@ -22,7 +22,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                             <RdsCheckboxGroup itemList={props.checkgroupList} />
                         </div>
                     </div>
-                    <div className="ms-3">
+                    <div className="mb-2 fw-normal mt-2">
                         <RdsCounter
                             counterValue={0}
                             label=""
@@ -55,7 +55,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                     <RdsInput
                         label=" Account Locking Duration(as seconds) "
                         inputType="number"
-                        placeholder="enter a value"
+                        placeholder="Enter a Value"
                     />
                 </div>
 

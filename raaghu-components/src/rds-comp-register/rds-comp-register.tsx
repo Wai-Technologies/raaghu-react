@@ -100,7 +100,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             ></RdsLabel>:
                         </span>&nbsp;<span className="fw-semibold">
                             <RdsLabel
-                                label={"NotSelected"}
+                                label={"Not Selected"}
                             ></RdsLabel></span>
                         ( <span>
                             <RdsModal
@@ -169,7 +169,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form>
                         <div className="form-group text-start">
                             <RdsInput
-                                placeholder="Email"
+                                placeholder="Enter Email"
                                 inputType="email"    
                                onChange={(e) => {
                                 handleDataChanges(e.target.value, "emailAddress");
@@ -182,7 +182,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                placeholder="Password"
+                                placeholder="Enter Password"
                                 inputType="password"
                                  onChange={(e) => {
                                     handleDataChanges(e.target.value, "password");
@@ -198,16 +198,13 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 <div className="form-group mb-3 pb-2 remember-me d-flex">
                                     <RdsCheckbox
                                         id="remembercheckid"
-                                        label="I Accept"
+                                        label="I Accept Terms Of Service"
                                         onChange={(e) => {
                                             handleDataChanges(e.target.checked, "Accept");
                                         }}
                                         checked={registerData?.Accept}
                                         dataTestId="remember-me"
                                     ></RdsCheckbox>
-                                    <RdsLabel
-                                        label="Terms Of Service">
-                                    </RdsLabel>
                                 </div>
                             </div>
 
@@ -270,7 +267,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     </form>
                     <div className="d-flex justify-content-center pt-2 pt-lg-3 pt-xl-3 pt-xxl-3">
                         <RdsLabel
-                            class=" p-0 m-0  singleLine   bottom-0 position-lg-relative position-absolute pt-xxl-0 pt-xl-0 pt-lg-4 pt-md-4 pt-4 mb-4"
+                            class="p-0 m-0 singleLine bottom-0 pt-xxl-0 pt-xl-0 pt-lg-4 pt-md-4 pt-4 mt-4 mb-4"
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
                         ></RdsLabel>
