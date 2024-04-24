@@ -106,7 +106,7 @@ const RdsInput = (props: RdsInputProps) => {
         size = "lg";
     }
     const inputClasses =
-        "form-control rounded form-control-" +
+        "form-control rounded mt-1 form-control-" +
         size +
         " flex-grow-1 " +
         props.customClasses;

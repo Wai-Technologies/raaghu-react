@@ -151,10 +151,11 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   const offset = `${props.xOffset || ""}  ${props.yOffset || ""}`;
   const checkHandler = (e: any, item: any) => {
+    debugger;
     let newTempData: any;
 
     newTempData = {
-      id: item.label,
+      id: item.val,
       label: item.label,
     };
 
@@ -214,7 +215,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   return (
     <>
-      <div className={`dropdown ${block ? "w-100" : ""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""}`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span
