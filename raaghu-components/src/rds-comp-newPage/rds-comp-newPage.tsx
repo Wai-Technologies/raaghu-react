@@ -147,7 +147,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                 </div>
             </div>
 
-            <div className="footer-buttons pb-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
+            <div className="footer-buttons pb-3 d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"
