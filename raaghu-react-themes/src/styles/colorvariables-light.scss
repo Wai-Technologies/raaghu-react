@@ -1342,7 +1342,7 @@ $form-feedback-color: $gray-700;
     background-color: $white;
 }
 
-.footer-buttons-profile{
+.footer-buttons-profile {
     background-color: $white;
 }
 
@@ -2450,6 +2450,15 @@ html #sidebar ul li a.active small {
 
 input::placeholder {
     color: $placeholder-color;
+}
+
+textarea::placeholder {
+    color: $placeholder-color;
+}
+
+textarea::-webkit-input-placeholder {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-lighter;
 }
 
 .profile-offcanvas {
