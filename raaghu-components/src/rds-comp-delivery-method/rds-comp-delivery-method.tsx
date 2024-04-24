@@ -7,10 +7,8 @@ export interface RdsCompDeliveryMethodProps {
 }
 
 const RdsCompDeliveryMethod = (props: RdsCompDeliveryMethodProps) => {
-    const [activeButton, setActiveButton] = useState<number>();
+    const [activeButton, setActiveButton] = useState<number | null>(null);
 
-    const onclick = (data: any, index: any) => {
-    };
     return (
         <>
             <ul className="d-flex ulStl" id="rds-delivery">
@@ -28,16 +26,15 @@ const RdsCompDeliveryMethod = (props: RdsCompDeliveryMethodProps) => {
 
                                 {/* <input type="checkbox" className="checkbox-round" defaultChecked={true} />
                 <input type="checkbox" className="checkbox-round" defaultChecked={false} /> */}
-                                {activeButton === index && (
-                                    <div className="checkbox">
-                                        {" "}
-                                        <input
-                                            type="checkbox"
-                                            className={`checkbox-round ${activeButton === index ? 'active' : ''}`}
-                                            defaultChecked={true}
-                                        />
-                                    </div>
-                                )}
+
+                                <div className="radio">
+                                    <input
+                                        type="radio"
+                                        className={`radio-round ${activeButton === index ? 'active' : ''}`}
+                                        checked={activeButton === index}
+                                        readOnly
+                                    />
+                                </div>
                             </div>
                             <div className="description">{data.days}</div>
                             <div className="type mt-2">{data.cost}</div>
