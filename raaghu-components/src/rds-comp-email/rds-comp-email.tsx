@@ -205,7 +205,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     {condition}
                 </form>
             </div>
-            <div className="bg-transparent d-flex footer-buttons gap-3 mb-2 mb-md-2 pb-4 pb-md-4">
+            <div className="bg-transparent ps-4 d-flex footer-buttons gap-3 mb-2 mb-md-2 pb-4 pb-md-4">
                 <div>
                     <RdsButton
                         label="Save"
