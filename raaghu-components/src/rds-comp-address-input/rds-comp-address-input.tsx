@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RdsDropdownList } from "../rds-elements";
+import { RdsDropdownList, RdsInput } from "../rds-elements";
 export interface RdsCompAddressInputProps {
     adress?: any;
     address2?: any;
@@ -7,8 +7,10 @@ export interface RdsCompAddressInputProps {
     city?: any;
     zip?: any;
     countriesList?: any;
-    citiesList : any;
-
+    citiesList: any;
+    AddressData?: any;
+    reset?: boolean;
+    label: React.ReactNode;
 }
 
 const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
@@ -17,7 +19,8 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
     const [st, setSt] = useState([]);
     const [stateid, setStateid] = useState("");
     const [city, setCity] = useState([]);
-  
+    const [inputReset, setInputReset] = useState(props.reset)
+    const [AddressData, setAddressData] = useState(props.AddressData);
 
     useEffect(() => {
         const getcountry = async () => {
@@ -32,7 +35,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
         const getcountryid = event.target.value;
         setCountryid(getcountryid);
     };
-
+    const handlerInputChange = (value: any, key: any) => {
+        setAddressData({ ...AddressData, [key]: value });
+    }
 
     useEffect(() => {
         const getstate = async () => {
@@ -44,11 +49,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
         };
         getstate();
     }, [countryid]);
-
-    const handlestate = (event: any) => {
-        const getstateid = event.target.value;
-        setStateid(getstateid);
-    };
 
     useEffect(() => {
         const getcity = async () => {
@@ -66,31 +66,29 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
             <form className="needs-validation" >
                 <div className="row g-3">
                     <div className="col-md-6">
-                        <label htmlFor="address" className="form-label">
-                            Address
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="address"
-                            placeholder="Main St"
-                            required
-                        />
+                        <RdsInput
+                            label="Address"
+                            reset={inputReset}
+                            placeholder="Enter Address"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "address")}
+                            value={AddressData?.address}
+                        ></RdsInput>
                         <div className="invalid-feedback">
                             Please enter your shipping address.
                         </div>
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="address2" className="form-label">
-                            Address 2 <span className="text-muted">(Optional)</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="address2"
-                            placeholder="Apartment or suite"
-                        />
+            
+                        <RdsInput
+                            label="Address 2 (Optional)"
+                            reset={inputReset}
+                            placeholder="Enter Address"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "address2")}
+                            value={AddressData?.address2}
+                        ></RdsInput>
                     </div>
 
                     <div className="col-md-6">
@@ -98,7 +96,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             Country
                         </label>
                         <div className="form-group">
-                            <RdsDropdownList                                
+                            <RdsDropdownList
                                 data-testid="country"
                                 borderDropdown={true}
                                 placeholder="Select Country"
@@ -107,7 +105,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                                 listItems={props.countriesList}
                                 isPlaceholder={true}
                             />
-                          
+
                         </div>
                         <div className="invalid-feedback">
                             Please select a valid country.
@@ -128,13 +126,13 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                                 isPlaceholder={true}
                                 listItems={props.statesList}
                             />
-                          
+
                         </div>
                         <div className="invalid-feedback">
                             Please provide a valid state.
                         </div>
                     </div>
-                      <div className="col-md-6 ">
+                    <div className="col-md-6 ">
                         <label htmlFor="state" className="form-label">
                             City
                         </label>
@@ -148,23 +146,22 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                                 isPlaceholder={true}
                                 listItems={props.citiesList}
                             />
-                        
+
                         </div>
                         <div className="invalid-feedback">
                             Please provide a valid state.
                         </div>
                     </div>
                     <div className="col-md-6">
-                        <label htmlFor="zip" className="form-label">
-                            Zip
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="zip"
-                            placeholder="123456"
-                            required
-                        />
+
+                        <RdsInput
+                            label="Zip"
+                            reset={inputReset}
+                            placeholder="Enter Zip code"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "zip")}
+                            value={AddressData?.zip}
+                        ></RdsInput>
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>
