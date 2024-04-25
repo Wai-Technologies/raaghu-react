@@ -153,7 +153,7 @@ import expandImage from './assets/expand.png';
        padding:40px 40px;
        margin-bottom: 40px;
        text-align: center;
-       border-radius: 0px 100px;
+       border-radius: 0px 60px;
    }
    
 
@@ -250,6 +250,160 @@ import expandImage from './assets/expand.png';
       width: 100px;
     }
 
+
+
+    .row {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: calc(var(--bs-gutter-y)* -1);
+      margin-right: calc(var(--bs-gutter-x)* -.5);
+      margin-left: calc(var(--bs-gutter-x)* -.5);
+    }
+    .col-12 {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    .align-items-center {
+        align-items: center !important;
+    }
+
+    .justify-content-between {
+        justify-content: space-between !important;
+    }
+    .d-flex {
+        display: flex !important;
+    }
+    
+    .tech-brands {
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      min-width: 100%;
+      max-width: fit-content;
+    }
+
+
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+    }
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+        margin: 1.5%;
+    }
+    .featureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 322px);
+        grid-gap: 16px;
+    }
+
+    .home-page .container {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        width: 100%;
+        padding-right: var(--bs-gutter-x, .75rem);
+        padding-left: var(--bs-gutter-x, .75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .cardLayout {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-direction: row;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+      .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        
+        .container {
+            max-width: 515px;
+        }
+        .cardLayout {
+          display: flex;
+          justify-content: space-between;
+          gap: 1.5rem;
+          flex-direction: column;
+        }
+        .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 240px);
+          grid-gap: 14px;
+        }
+        .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 238px);
+          grid-gap: 16px;
+        }
+    }
+    @media only screen and (max-width: 480px) {
+
+        .container {
+            max-width: 515px;
+        }
+        .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        .tech-brands img {
+            width: 2.8rem;
+        }
+        .toolsUsedSection {
+          padding: 5% 0;
+          border-radius: 4px;
+          display: flex;
+          flex-flow: column;
+      }
+      .tech-brands img {
+          object-fit: contain;
+          max-width: 100%;
+          width: 3em;
+          aspect-ratio: 1 / 1;
+          margin: 1.5%;
+      }
+      .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 169px);
+          grid-gap: 14px;
+      }
+      .cardLayout {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-direction: column;
+      }
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 164px);
+          grid-gap: 16px;
+        }
+    }
+    @media (min-width: 1199.98px) and (max-width : 1920px) { 
+      div#storybook-docs {
+          zoom: 1.2;
+      }
+    }
+     @media (min-width: 1921px) { 
+      div#storybook-docs {
+          zoom: 3;
+      }
+    }
 `}
   
 </style>
@@ -269,15 +423,19 @@ import expandImage from './assets/expand.png';
 </div>
 
 <div className="toolsUsedSection"> 
-    <h4 style={{marginBottom: "2.5rem"}}><strong>Built Using</strong></h4>
-    <div style={{display: "flex", justifyContent: "space-around"}} className="hoverContent">
-    <img className="reactImage" src={reactImage} alt="flow"/>
-    <img className="viteImage" src={viteImage} alt="flow"/>
-    <img className="tsImage" src={tsImage} alt="flow"/>
-    <img className="millionJsImage" src={millionJsImage} alt="flow"/>
-    <img className="bootstrapImage" src={bootstrapImage} alt="flow"/>
-    <img className="storybookImage" src={storybookImage} alt="flow"/>
-  </div>
+    <h3 style={{marginBottom: "1.5rem"}}><strong>Built Using</strong></h3>
+     <div class="row tech-brands">
+          <div class="col-12 col-lg-6 ">
+                <div class="align-item-center d-flex justify-content-between">
+                      <img src={reactImage} alt="React" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={viteImage} alt="Vite" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img className="tsImage" src={tsImage} alt="Typescript" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1"/>
+                      <img src={millionJsImage} alt="Millionjs" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={bootstrapImage} alt="bootstrap icon" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                </div>
+          </div>
+    </div>
+    
 </div>
 
 <div style={{ textAlign: "center"}} className="">
@@ -286,7 +444,7 @@ import expandImage from './assets/expand.png';
 
 Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
 
-<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}}>
+<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}} className="cardLayout">
   <div  style={{border: "0",}}>
     <div className="seamlessUiLayout">
       <div >
@@ -352,7 +510,7 @@ Raaghu Design System bridges the gaps between design and development while maint
 <div style={{textAlign:"center", marginTop: "60px", marginBottom: "40px"}}>
   ### Features
 
-  <div style={{display: "flex", justifyContent: "space-between"}}>
+  <div className="featureCards">
     <div>
       <div> 
         <img className="featureImage" src={fastWebGif} alt="fastGif" />
@@ -386,9 +544,6 @@ Raaghu Design System bridges the gaps between design and development while maint
        Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation.
       </div>
     </div>
-  </div>
-
-   <div style={{display: "flex", justifyContent: "space-between", marginBottom: "40px"}}>
     <div>
       <div> 
         <img className="featureImage" src={maintainableGif} alt="maintainableGif" />
@@ -423,6 +578,7 @@ Raaghu Design System bridges the gaps between design and development while maint
       </div>
     </div>
   </div>
+
 </div>
 
 <div style={{textAlign:"center", marginTop: "60px"}}>
