@@ -11,36 +11,36 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
     useEffect(() => {
         setFormData(props.emailSettings);
-      }, [props.emailSettings]);
-    
-      const handleDataChanges = (value: any, key: string) => {
+    }, [props.emailSettings]);
+
+    const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
-      };
-    
-      function emitSaveData(event: any) {
+    };
+
+    function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(formData);
         setFormData({
             currentEmail: "",
             newEmail: "",
             confirmEmail: ""
-      });
-      }
+        });
+    }
 
     return (
         <>
             <form>
-                <div className="form-group row mb-3">
-                    <div className="col-sm-3 pt-1">
+                <div className="form-group px-4 row mb-3">
+                    <div className="col-sm-3 pt-2">
                         <RdsLabel label="Current Email" class="control-label"></RdsLabel>
                     </div>
                     <div className="col-sm-9">
                         <RdsInput
-                            placeholder="Email Address"
+                            placeholder="Enter Current Email"
                             customClasses="form-control"
                             inputType="email"
                             onChange={(e) => {
-                              handleDataChanges(e.target.value, "currentEmail");
+                                handleDataChanges(e.target.value, "currentEmail");
                             }}
                             value={formData?.currentEmail}
                             dataTestId="current-email"
@@ -48,17 +48,17 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                 </div>
 
-                <div className="form-group row mb-3">
-                    <div className="col-sm-3 pt-1">
+                <div className="form-group px-4 row mb-3">
+                    <div className="col-sm-3 pt-2">
                         <RdsLabel label="New Email" class="control-label"></RdsLabel>
                     </div>
                     <div className="col-sm-9">
                         <RdsInput
-                            placeholder="Email Address"
+                            placeholder="Enter New Email"
                             customClasses="form-control"
                             inputType="email"
                             onChange={(e) => {
-                              handleDataChanges(e.target.value, "newEmail");
+                                handleDataChanges(e.target.value, "newEmail");
                             }}
                             value={formData?.newEmail}
                             dataTestId="new-email"
@@ -66,8 +66,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                 </div>
 
-                <div className="form-group row mb-5">
-                    <div className="col-sm-3 pt-1">
+                <div className="form-group px-4 row mb-5">
+                    <div className="col-sm-3 pt-2">
                         <RdsLabel
                             label="Confirm New Email"
                             class="control-label"
@@ -75,11 +75,11 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                     <div className="col-sm-9">
                         <RdsInput
-                            placeholder="Email Address"
+                            placeholder="Confirm Email"
                             customClasses="form-control"
                             inputType="email"
                             onChange={(e) => {
-                              handleDataChanges(e.target.value, "confirmEmail");
+                                handleDataChanges(e.target.value, "confirmEmail");
                             }}
                             value={formData?.confirmEmail}
                             dataTestId="confirm-email"
@@ -88,27 +88,23 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
 
                 <hr></hr>
-                <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
-                    <div className="me-3">
-                        <RdsButton
-                            type="button"
-                            colorVariant="primary"
-                            label="Cancel"
-                            isOutline={true}
-                            size="small"
-                            dataTestId="cancel"
-                        ></RdsButton>
-                    </div>
-                    <div className="me-2 mb-2">
-                        <RdsButton
-                            type="submit"
-                            colorVariant="primary"
-                            label="Save"
-                            size="small"
-                            dataTestId="submit"
-                            onClick={(e: any) => emitSaveData(e)}
-                        ></RdsButton>
-                    </div>
+                <div className="mt-3 d-flex pb-3 ps-5 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                    <RdsButton
+                        type="button"
+                        colorVariant="primary"
+                        label="Cancel"
+                        isOutline={true}
+                        size="small"
+                        dataTestId="cancel"
+                    ></RdsButton>
+                    <RdsButton
+                        type="submit"
+                        colorVariant="primary"
+                        label="Save"
+                        size="small"
+                        dataTestId="submit"
+                        onClick={(e: any) => emitSaveData(e)}
+                    ></RdsButton>
                 </div>
             </form>
         </>
