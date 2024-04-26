@@ -1,8 +1,6 @@
 {
   "name": "raaghu-react-themes",
-  "version": "7.0.21",
   "description": "Themes provides utility functions that are commonly used across Raaghu projects",
-  "author": "WAI Technologies Pvt. Ltd. <contactus@waiin.com>",
   "license": "MIT",
   "repository": "https://github.com/Wai-Technologies/raaghu-react-themes",
   "main": "build/index.html",
