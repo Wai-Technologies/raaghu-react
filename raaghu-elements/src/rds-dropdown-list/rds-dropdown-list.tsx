@@ -400,7 +400,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 {/* chevron_down icon */}
                 {!props.isIconPlaceholder && props.multiSelect !== true && (
                   <span
-                    className=""
+                    className="ms-2"
                     onClick={(e) => {
                       e.stopPropagation();
                       clickedOnDropDown();
@@ -587,7 +587,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               {/* chevron_down icon */}
               {!props.isIconPlaceholder && props.multiSelect !== true && (
                 <span
-                  className=""
+                  className="ms-2"
                   onClick={(e) => {
                     e.stopPropagation();
                     clickedOnDropDown();
