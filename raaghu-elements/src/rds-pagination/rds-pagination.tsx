@@ -198,6 +198,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                     </a>
                   </li>
                 ))}
+
                 <li
                   className={
                     "page-item m-1 cursor-pointer " +
@@ -278,8 +279,8 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   <li
                     key={number}
                     className={`${number === currentPage
-                        ? "page-item m-1 default-li active"
-                        : "page-item m-1 default-li "
+                      ? "page-item m-1 default-li active"
+                      : "page-item m-1 default-li "
                       }`}
                   >
                     <a
@@ -295,8 +296,8 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   <li
                     key={number}
                     className={`${number === currentPage
-                        ? "page-item m-1 default-li active"
-                        : "page-item m-1 default-li "
+                      ? "page-item m-1 default-li active"
+                      : "page-item m-1 default-li "
                       }`}
                   >
                     <a
@@ -341,7 +342,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 >
                   <div className="d-flex justify-content-between">
                     {selectedRecordsPerPage}
-                    <span className="mt-1" onClick={toggleDropdown}>
+                    <span className="mt-0" onClick={toggleDropdown}>
                       <div style={{ pointerEvents: "none" }}>
                         <RdsIcon
                           name={dropdownIcon}
