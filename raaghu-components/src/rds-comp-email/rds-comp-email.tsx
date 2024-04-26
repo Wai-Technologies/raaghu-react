@@ -42,85 +42,88 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
         event.preventDefault();
         props.onEmailDataSubmit && props.onEmailDataSubmit(formData);
         setInputReset(!inputReset);
-    setFormData({
-        defaultFromDisplayName: "",
-        defaultFromAddress: "",
-        smtpHost: "",
-        smtpPort: "",
-        smtpEnableSsl: false,
-        smtpUseDefaultCredentials: false,
-        smtpDomain: "",
-        smtpUserName: "",
-        smtpPassword: ""
-    })};
+        setFormData({
+            defaultFromDisplayName: "",
+            defaultFromAddress: "",
+            smtpHost: "",
+            smtpPort: "",
+            smtpEnableSsl: false,
+            smtpUseDefaultCredentials: false,
+            smtpDomain: "",
+            smtpUserName: "",
+            smtpPassword: ""
+        })
+    };
 
     function emitSubmitSendTestMail(event: any) {
-         event.preventDefault();
-         props.onTestEmailRequest && props.onTestEmailRequest(sendTestEmailData);
-         setInputReset(!inputReset);
-    setSendTestEmailData({
-        senderEmailAddress: "",
-        targetEmailAddress: "",
-        subject: "",
-        body: ""
-    })
-      
+        event.preventDefault();
+        props.onTestEmailRequest && props.onTestEmailRequest(sendTestEmailData);
+        setInputReset(!inputReset);
+        setSendTestEmailData({
+            senderEmailAddress: "",
+            targetEmailAddress: "",
+            subject: "",
+            body: ""
+        })
+
     }
 
     const condition = !formData?.smtpUseDefaultCredentials ? <>
-    <div className="row">
-        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
-            <div className="form-group">
+        <div className="row px-2">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                <div className="form-group">
+                    <RdsInput
+                        fontWeight={"normal"}
+                        value={formData?.smtpDomain}
+                        name="displayName"
+                        label="Domain"
+                        required={false}
+                        placeholder={"Enter Domain"}
+                        customClasses="form-control"
+                        onChange={(e: any) => handleChangeform(e.target.value, "smtpDomain")}
+                        dataTestId="domain"
+                    ></RdsInput>
+                </div>
+            </div>
+        </div>
+        <div className="row px-2">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
                 <RdsInput
                     fontWeight={"normal"}
-                    value={formData?.smtpDomain}
+                    value={formData?.smtpUserName}
                     name="displayName"
-                    label="Domain"
+                    label={"User Name"}
                     required={false}
-                    placeholder={"Enter Domain"}
+                    placeholder="Enter User Name"
                     customClasses="form-control"
-                    onChange={(e: any) => handleChangeform(e.target.value, "smtpDomain")}
-                    dataTestId="domain"
+                    onChange={(e: any) => handleChangeform(e.target.value, "smtpUserName")}
+                    dataTestId="user-name"
+                ></RdsInput>
+            </div>
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
+                <RdsInput
+                    fontWeight={"normal"}
+                    value={formData?.smtpPassword}
+                    name="displayName"
+                    label="Password"
+                    required={false}
+                    placeholder={"Enter Password"}
+                    inputType="password"
+                    customClasses="form-control"
+                    onChange={(e: any) => handleChangeform(e.target.value, "smtpPassword")}
+                    dataTestId="password"
+                    showIcon={false}
                 ></RdsInput>
             </div>
         </div>
-        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
-            <RdsInput
-                fontWeight={"normal"}
-                value={formData?.smtpUserName}
-                name="displayName"
-                label={"User Name"}
-                required={false}
-                placeholder="Enter User Name"
-                customClasses="form-control"
-                onChange={(e: any) => handleChangeform(e.target.value, "smtpUserName")}
-                dataTestId="user-name"
-            ></RdsInput>
-        </div>
-        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
-            <RdsInput
-                fontWeight={"normal"}
-                value={formData?.smtpPassword}
-                name="displayName"
-                label="Password"
-                required={false}
-                placeholder={"Enter Password"}
-                inputType="password"
-                customClasses="form-control"
-                onChange={(e: any) => handleChangeform(e.target.value, "smtpPassword")}
-                dataTestId="password"
-                showIcon= {false}
-            ></RdsInput>
-        </div>
-    </div>
 
-</> : <></>;
+    </> : <></>;
 
     return (
         <div className="pt-3">
             <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
                 <form>
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
@@ -156,7 +159,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                         <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
                     </div>
 
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
                             <div className="form-group">
                                 <RdsInput
@@ -186,13 +189,13 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox label="Enable Ssl" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
                                 label="Smtp Use Default Credentials"
@@ -205,7 +208,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     {condition}
                 </form>
             </div>
-            <div className="bg-transparent d-flex footer-buttons gap-3 mb-2 mb-md-2 pb-4 pb-md-4">
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <div>
                     <RdsButton
                         label="Save"
@@ -295,7 +298,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "body")}
                                             />
                                         </div>
-                            </div>
+                                    </div>
                                 </form>
                                 <div className="mt-5 d-flex gap-3 ">
                                     <RdsButton

@@ -58,14 +58,15 @@ export const List_View: Story = {
                     { id: 8, tenant: "Default", edition: "Standard", price: 100, status: { "badgeColorVariant": "success", "content": "active" } },
                     { id: 9, tenant: "Default", edition: "Standard", price: 100, status: { "badgeColorVariant": "primary", "content": "inactive" } },
                     { id: 10, tenant: "Default", edition: "Standard", price: 100, status: { "badgeColorVariant": "success", "content": "active" } },
+                    { id: 11, tenant: "Default", edition: "Standard", price: 100, status: { "badgeColorVariant": "success", "content": "active" } },
+
                 ],
                 actions: [
                     { id: "delete", displayName: "Delete" },
                     { id: "edit", displayName: "Edit" },
                 ],
                 pagination: true,
-                recordsPerPage: 5,
-                recordsPerPageSelectListOption: true,
+                recordsPerPage: 10,
     }
 } satisfies Story;
 List_View .parameters = { controls: { include: ['enablecheckboxselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
@@ -103,7 +104,18 @@ export const List_View_Avatar: Story = {
                 { id: 3, member: "Joy", cases: 250, active: 5 },
                 { id: 4, member: "Joy", cases: 60, active: 7 },
                 { id: 5, member: "Joy", cases: 100, active: 15 },
+                { id: 6, member: "Joy", cases: 60, active: 5 },
+                { id: 7, member: "Joy", cases: 120, active: 10 },
+                { id: 8, member: "Joy", cases: 250, active: 5 },
+                { id: 9, member: "Joy", cases: 60, active: 7 },
+                { id: 10, member: "Joy", cases: 100, active: 15 },
+                { id: 11, member: "Joy", cases: 250, active: 5 },
+                { id: 12, member: "Joy", cases: 60, active: 7 },
+                { id: 13, member: "Joy", cases: 100, active: 15 },
             ],
+            pagination: true,
+            recordsPerPage: 10,
+            recordsPerPageSelectListOption: false,
 }
 } satisfies Story;
 List_View_Avatar.parameters = { controls: { include: ['enablecheckboxselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
@@ -160,8 +172,8 @@ export const Action_Button_On_Left_Side: Story = {
             { id: "edit", displayName: "Edit" },
         ],
         pagination: true,
-        recordsPerPage: 5,
-        recordsPerPageSelectListOption: true,
+        recordsPerPage: 10,
+        recordsPerPageSelectListOption: false,
     }
 } satisfies Story;
 

@@ -60,6 +60,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const iconForIllustration = localStorage.getItem("theme") || " light";
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeDropdownId, setActiveDropdownId] = useState(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -69,6 +70,18 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   useEffect(() => {
     setTotalRecords(props.totalRecords);
   }, [props.totalRecords]);
+
+ useEffect(() => {
+  function handleClickOutside(event: any) {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false); 
+    }
+  }
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [dropdownRef]);
 
   useEffect(() => {
     if (!sort) {
@@ -172,7 +185,6 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       });
       setData(tempData);      
     }
-
     props.onActionSelection != undefined &&
       props.onActionSelection(tableDataRow, action.id);
   };
@@ -893,7 +905,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
-                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'true' : 'false'}
+                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'false' : 'true'}
                                           onClick={() => toggleDropdown(tableDataRow.id)}
                                           data-bs-toggle="dropdown"
                                           data-bs-auto-close="true"
@@ -904,7 +916,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             name={"three_dots"}
                                             height="14px"
                                             width="14px"
-                                            stroke={false}
+                                            stroke={false} 
                                             fill={true}
                                             tooltip={true}
                                             tooltipTitle="More Actions"
@@ -912,9 +924,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           />
                                         </button>
                                         {
+                                          
+
                                           <ul
+                                            ref={dropdownRef}
                                             aria-labelledby="dropdownMenuButton"
-                                            className={`dropdown-menu ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}                                          >
+                                            className={`dropdown-menu ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
+                                          >
                                             {totalActions?.map(
                                               (action, actionIndex) => (
                                                 <li
@@ -1115,8 +1131,9 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                 }
                 onPageChange={onPageChangeHandler}
                 paginationType={
-                  props.recordsPerPageSelectListOption ? "advance" : "default"
+                  props.recordsPerPageSelectListOption ? "default": "advanced"
                 }
+              
               ></RdsPagination>
             </div>
           )}
