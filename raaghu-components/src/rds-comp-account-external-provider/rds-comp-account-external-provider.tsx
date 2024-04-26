@@ -92,7 +92,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                         </div>
                     </div>
                 )))}
-                <div className="mt-xxl-4 pb-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
+                <div className="mt-xxl-4 pb-4 ps-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
                     <RdsButton
                         label="Save"
                         type="submit"
