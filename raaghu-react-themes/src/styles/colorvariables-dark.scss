@@ -1,4 +1,12 @@
-$theme-colors: ( "primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark ) !default;
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark ) !default;
 $min-contrast-ratio: 4.5 !default;
 
 $secondary: $gray-600 !default;
@@ -194,7 +202,10 @@ $nav-tabs-bottom-border-color: $gray-800 !default;
 $toast-text-color: $black;
 $popover-header-bg-color: $primary !default;
 // /*button transition values*/
-$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$btn-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !default;
 
 $btn-hover-bg-shade-amount: 15% !default;
 $btn-hover-bg-tint-amount: 15% !default;
@@ -292,8 +303,9 @@ $navbar-light-toggler-border-color: $light !default;
 
 .ngx-shimmer {
     background-color: $dark-0;
-    background-image: linear-gradient(to right, $dark-100 0, $primary 20%, $dark-100 40%, $dark-100 100%);
-    opacity: 0.1;
+    background-image: linear-gradient(to right, $dark-100 0, $primary 20%, $dark-100 40%, $dark-100 100%
+    );
+opacity: 0.1;
 }
 
 #sortTable thead th,
@@ -305,6 +317,7 @@ $navbar-light-toggler-border-color: $light !default;
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         background-color: $datatable-bgColor;
@@ -317,6 +330,7 @@ $navbar-light-toggler-border-color: $light !default;
 }
 
 @media screen and (max-width: 768px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         background-color: $datatable-bgColor;
@@ -335,6 +349,7 @@ $navbar-light-toggler-border-color: $light !default;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+
     #sortTable thead th:first-child,
     #sortTable tbody td:first-child {
         position: sticky;
@@ -376,44 +391,44 @@ $navbar-light-toggler-border-color: $light !default;
         stroke: unset !important;
     }
 
-  svg {
-    polyline.icon {
-      stroke: $gray-300;
+    svg {
+        polyline.icon {
+            stroke: $gray-300;
+        }
+
+        line.icon {
+            stroke: $gray-300;
+        }
+
+        polygon.icon {
+            stroke: $gray-300;
+        }
+
+        ellipse.icon {
+            stroke: $gray-300;
+        }
+
+        path.icon {
+            stroke: $gray-300;
+        }
+
+        path.line.icon {
+            stroke: $gray-300;
+        }
+
+        path.rect.icon {
+            stroke: $gray-300;
+        }
+
+        path.circle.icon {
+            stroke: $gray-300;
+        }
     }
 
-    line.icon {
-      stroke: $gray-300;
+    .modal-content {
+        background-color: $dark-400;
+        color: $gray-300;
     }
-
-    polygon.icon {
-      stroke: $gray-300;
-    }
-
-    ellipse.icon {
-      stroke: $gray-300;
-    }
-
-    path.icon {
-      stroke: $gray-300;
-    }
-
-    path.line.icon {
-      stroke: $gray-300;
-    }
-
-    path.rect.icon {
-      stroke: $gray-300;
-    }
-
-    path.circle.icon {
-      stroke: $gray-300;
-    }
-  }
-
-  .modal-content {
-    background-color: $dark-400;
-    color: $gray-300;
-  }
 }
 
 button#dropdownMenuButton:hover {
@@ -569,7 +584,7 @@ button#dropdownMenuButton:focus {
     background-color: $primary;
 }
 
-.rds-fileuploader label.file-upload > div {
+.rds-fileuploader label.file-upload>div {
     color: #9bacbc;
 }
 
@@ -701,6 +716,7 @@ svg {
 .address-body {
     color: $address-body-text;
 }
+
 /* app-detail avatar */
 .icon-bg {
     background: $white;
@@ -727,10 +743,12 @@ svg {
 .feature_list {
     color: light-600;
 }
+
 // /*Notification*/
 .notification-header {
     background-color: $light-800;
 }
+
 // /*avatar color variables*/
 @mixin avatar-variant($background, $border, $color) {
     @include gradient-bg($background);
@@ -750,6 +768,7 @@ svg {
         @include avatar-variant($avatar-background, $avatar-border, $avatar-color);
     }
 }
+
 // /*badge color variables*/
 
 @mixin badge-variant($background, $border, $color) {
@@ -771,6 +790,7 @@ svg {
         @include badge-variant($badge-background, $badge-border, $badge-color);
     }
 }
+
 // /*counter color variables*/
 
 @mixin counter-variant($background, $border, $color) {
@@ -792,6 +812,7 @@ svg {
         @include badge-variant($counter-background, $counter-border, $counter-color);
     }
 }
+
 // /*breadcrumb color variables*/
 .withDivider {
     .breadcrumb-item {
@@ -806,16 +827,17 @@ svg {
 }
 
 .breadcrumb-item {
-    + .breadcrumb-item {
+    +.breadcrumb-item {
         &::before {
             color: $breadcrumb-divider-color;
         }
     }
 }
+
 /*table color variables*/
 
 .table-hover {
-    > tbody > tr > td {
+    >tbody>tr>td {
         color: $table-hover-bg;
     }
 }
@@ -832,7 +854,7 @@ svg {
         }
     }
 
-    > thead {
+    >thead {
         background-color: $table-header-bg;
 
         tr {
@@ -853,27 +875,30 @@ svg {
 }
 
 .table-bordered {
-    > :not(caption) > * {
+    > :not(caption)>* {
         border-width: $table-border-width 0;
 
-        > * {
+        >* {
             border-width: 0 0;
         }
     }
 }
+
 // /*toast*/
 .toast-text {
     color: $toast-text-color;
 }
 
-.table-border > :not(caption) > * > * {
+.table-border> :not(caption)>*>* {
     border-width: 0 1px;
     border-bottom-width: 1px;
 }
+
 /*toast*/
 .toast-text {
     color: $toast-text-color;
 }
+
 // .toast-close{
 //   color:$toast-btn-close-color;
 // }
@@ -881,6 +906,7 @@ svg {
 .popover-header {
     background-color: $popover-header-bg-color;
 }
+
 // /*edition color variables*/
 .edition-grid {
     .edition {
@@ -913,6 +939,7 @@ svg {
         background-color: $status-active-background-color;
     }
 }
+
 /*Member-activity*/
 .HighRate {
     color: $high-rate-color;
@@ -925,6 +952,7 @@ svg {
 .LowRate {
     color: $low-rate-color;
 }
+
 /* Pagination Styles */
 .pagination.rounded {
     .page-item {
@@ -972,6 +1000,7 @@ svg {
         background-color: $pagination-bg-hover-color;
     }
 }
+
 /*Dropdown*/
 .dropdown-item {
     border-bottom-color: $dropdown-border-bottom;
@@ -987,6 +1016,7 @@ svg {
         border-bottom-color: #f8f9fa;
     }
 }
+
 /* list-group color variables*/
 .list-group-item {
     &.active {
@@ -997,6 +1027,7 @@ svg {
         }
     }
 }
+
 /*Tabs color variables*/
 .nav-tabs {
     border-bottom-color: $nav-tabs-bottom-border-color;
@@ -1412,6 +1443,7 @@ svg {
         }
     }
 }
+
 /* File style */
 .files {
     color: $file-color;
@@ -1420,6 +1452,15 @@ svg {
 
     :hover {
         background: $gray-200;
+    }
+
+    textarea::placeholder {
+        color: $placeholder-color;
+    }
+
+    textarea::-webkit-input-placeholder {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-lighter;
     }
 
     :focus {
@@ -1457,6 +1498,7 @@ svg {
 .lf-player-container:hover {
     filter: none;
 }
+
 /*sidebar color styles*/
 #sidebar {
     ul {
@@ -1653,6 +1695,7 @@ svg {
     background-color: $dark-400;
     border-right-color: $sidbar-border-right-color;
 }
+
 /*carousel style*/
 
 .carousel-indicators {
@@ -1668,8 +1711,8 @@ svg {
 }
 
 .carousel-dark .carousel-control-prev-icon,
-.carousel-dark .carousel-control-next-icon{
-        filter: invert(0) grayscale(100);
+.carousel-dark .carousel-control-next-icon {
+    filter: invert(0) grayscale(100);
 }
 
 .form-control,
@@ -1684,8 +1727,7 @@ svg {
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus
-input:-webkit-autofill {
+input:-webkit-autofill:focus input:-webkit-autofill {
     border: 1px solid $dark-100;
     -webkit-text-fill-color: $gray-300;
     -webkit-box-shadow: 0 0 0px 1000px $input-bg inset;
@@ -1717,6 +1759,7 @@ input:-webkit-autofill {
 .description {
     color: $white;
 }
+
 /*input search properrties*/
 
 $form-group-bg-color: $gray-200;
@@ -1739,10 +1782,12 @@ $form-feedback-color: $gray-200;
         color: $form-feedback-color;
     }
 }
+
 /*modal*/
 .text-color {
     color: $delete-modal-text;
 }
+
 /*datatable color variables */
 @mixin table-variant($state, $background, $border, $color) {
     color: shade-color($color, 20%);
@@ -1755,15 +1800,15 @@ $form-feedback-color: $gray-200;
 }
 
 .table {
-    > :not(caption) > * > * {
+    > :not(caption)>*>* {
         background-color: inherit;
     }
 
-    > thead {
+    >thead {
         background-color: $datatable-bgColor;
     }
 
-    > tbody {
+    >tbody {
         background-color: $datatable-bgColor;
     }
 }
@@ -1784,7 +1829,7 @@ $form-feedback-color: $gray-200;
     background-color: $dark-400;
 }
 
-.footer-buttons-profile{
+.footer-buttons-profile {
     background-color: $dark-400;
 }
 
@@ -1807,6 +1852,7 @@ $form-feedback-color: $gray-200;
         border-right: $check-horizotal-border-color;
     }
 }
+
 /*tags color variables*/
 @mixin tag-variant($background, $border, $color) {
     @include gradient-bg($background);
@@ -1827,6 +1873,7 @@ $form-feedback-color: $gray-200;
         @include tag-variant($tag-background, $tag-border, $tag-color);
     }
 }
+
 /*buttons variabes*/
 .form-control {
     &:focus {
@@ -1851,6 +1898,7 @@ $form-feedback-color: $gray-200;
 .offcanvas-header {
     border-bottom-color: $offcanvas-bottom-border-color;
 }
+
 //subscription-page
 .subcription-bg-blue {
     background-color: $subcription-bg-blue;
@@ -1872,8 +1920,7 @@ $form-feedback-color: $gray-200;
     background-color: $subcription-bg-orange;
 }
 
-@mixin button-variant( $background, $border, $color: color-contrast($background), $hover-background: if( $color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount) ), $hover-border: if( $color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount) ), $hover-color: color-contrast($hover-background), $active-background: if( $color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount) ), $active-border: if( $color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount) ), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background) ) {
-}
+@mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {}
 
 @each $color, $value in $theme-colors {
     .btn-#{$color} {
@@ -1882,7 +1929,7 @@ $form-feedback-color: $gray-200;
 }
 
 .table-hover {
-    > tbody > tr:hover > * {
+    >tbody>tr:hover>* {
         --bs-table-accent-bg: transparent;
         background-color: $dark-150;
         --bs-table-bg-state: var(--dark-150);
@@ -2034,6 +2081,7 @@ $form-feedback-color: $gray-200;
 .offcanvas-bg-color {
     background-color: $card-bg-color;
 }
+
 /*#profileOffCanvas .card {
   background-color: transparent;
   border-color: transparent;
@@ -2079,7 +2127,7 @@ $form-feedback-color: $gray-200;
     background-color: $primary;
 }
 
-.react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range ) {
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
     background-color: $primary;
 }
 
@@ -2252,6 +2300,7 @@ $form-feedback-color: $gray-200;
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
+
 //radio button
 .form-check-input:checked {
     background-color: $primary-400;
@@ -2470,6 +2519,7 @@ li.select-option:hover {
 }
 
 .profile-offcanvas {
+
     p,
     div {
         color: $gray-400;
@@ -2500,6 +2550,7 @@ li.select-option:hover {
     background-color: $dark-650;
     border: 1px solid $dark-100;
 }
+
 // react select list new element css
 .css-t3ipsp-control {
     border-color: $primary-150 !important;
@@ -2564,6 +2615,7 @@ li:hover, #react-select-2-listbox li:hover, #react-select-5-listbox li:hover {
     color: $gray-300;
     fill: $gray-300;
 }
+
 // chat page css
 
 .typeMsg {
@@ -2617,6 +2669,7 @@ li:hover, #react-select-2-listbox li:hover, #react-select-5-listbox li:hover {
     color: $gray-300;
     border: 1px solid $dark-100;
 }
+
 // quill editor css
 
 .ql-picker .ql-picker-label::before {
@@ -2690,18 +2743,20 @@ hr {
 
 .FileNode-items {
     .node-icon1 {
-        .btn-group-sm > .btn-icon.btn {
+        .btn-group-sm>.btn-icon.btn {
             svg {
                 color: $white !important;
             }
         }
     }
 }
+
 .raaghu-select__control--is-focused .raaghu-select__dropdown-indicator svg {
     stroke: $gray-300;
     color: $gray-300;
     fill: $gray-300;
 }
+
 .raaghu-logo img {
     filter: brightness(8);
 }
@@ -2721,6 +2776,7 @@ hr {
     background: $light-950;
     border-radius: 10px;
 }
+
 /*.css-1n7v3ny-option {
     background-color: $light-950 !important;
     border-color: $light-950 !important;
@@ -2760,6 +2816,7 @@ hr {
 .css-1nmdiq5-menu {
     /* Your custom styles for the dropdown menu */
     background-color: $dark-300;
+
     /* Add more styles as needed */
     /* Target individual menu items */
     div {
@@ -2770,17 +2827,22 @@ hr {
             /* Your custom styles for menu items */
             background-color: $dark-300;
             color: #fff;
+
             /* Add more styles as needed */
             /* Hover state styles */
             &:hover {
-                background-color: $dark-150; /* Example background color on hover */
-                color: #fff; /* Example text color on hover */
-                cursor: pointer; /* Change cursor on hover */
+                background-color: $dark-150;
+                /* Example background color on hover */
+                color: #fff;
+                /* Example text color on hover */
+                cursor: pointer;
+                /* Change cursor on hover */
                 /* Add more hover state styles as needed */
             }
         }
     }
 }
+
 .profile-tabs:hover {
     .lf-player-container {
         filter: grayscale(1);
@@ -2792,14 +2854,18 @@ hr {
         filter: none;
     }
 }
+
 .raaghu-select__indicator svg {
     stroke: $gray-800;
 }
+
 .lf-player-container {
     svg {
         stroke: none;
     }
 }
-.raaghu-select__single-value, .raaghu-select__placeholder {
-    color:var(--bs-body-color);
+
+.raaghu-select__single-value,
+.raaghu-select__placeholder {
+    color: var(--bs-body-color);
 }

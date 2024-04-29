@@ -116,6 +116,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 preventEscapeKey={false}
                                 offId={"compEditionOff"}>
                                 <RdsNavtabs
+                                    activeNavTabId={0}
                                     navtabsItems={navtabsItems}
                                     type="tabs"
                                     isNextPressed={showTenantSettings}
