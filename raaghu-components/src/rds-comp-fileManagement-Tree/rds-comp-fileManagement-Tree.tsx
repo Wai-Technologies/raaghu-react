@@ -119,9 +119,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                     <div className=" align-items-top mt-3">
                         <div className="FileNode-items d-flex">
                             <div className="FileNode_dot" >
-
                                 <div className="NodeHorizontal" ></div>
-                                <div className={notLastNode ? "verticalNodeSiblingfile" : ''}></div>
                             </div>
                             <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex cursor-pointer file-tree">
                                 <RdsLabel
