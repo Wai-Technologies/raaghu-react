@@ -237,7 +237,7 @@ import expandImage from './assets/expand.png';
     .footerClass{
       margin-top: 40px;
       display: grid;
-      grid-template-columns: repeat(6, 160px);
+      grid-template-columns: repeat(6, 16%);
       grid-gap: 10px;
     }
 
@@ -306,7 +306,7 @@ import expandImage from './assets/expand.png';
     }
     .featureCards {
         display: grid;
-        grid-template-columns: repeat(3, 322px);
+        grid-template-columns: repeat(3, 33%);
         grid-gap: 16px;
     }
 
@@ -349,12 +349,12 @@ import expandImage from './assets/expand.png';
         }
         .footerClass {
           display: grid;
-          grid-template-columns: repeat(2, 240px);
+          grid-template-columns: repeat(2, 49%);
           grid-gap: 14px;
         }
         .featureCards {
           display: grid;
-          grid-template-columns: repeat(2, 238px);
+          grid-template-columns: repeat(2, 49%);
           grid-gap: 16px;
         }
     }
@@ -383,9 +383,9 @@ import expandImage from './assets/expand.png';
           margin: 1.5%;
       }
       .footerClass {
-          display: grid;
-          grid-template-columns: repeat(2, 169px);
-          grid-gap: 14px;
+        display: grid;
+        grid-template-columns: repeat(2, 49%);
+        grid-gap: 14px;
       }
       .cardLayout {
         display: flex;
@@ -395,26 +395,32 @@ import expandImage from './assets/expand.png';
       }
       .featureCards {
           display: grid;
-          grid-template-columns: repeat(2, 164px);
+          grid-template-columns: repeat(1, 100%)!important;
           grid-gap: 16px;
-        }
-        .cardLayout svg {
+      }
+      .cardLayout svg {
           width: 36px;
-        }
+      }
     }
     @media (max-width: 821px) {
       .featureCards {
           display: grid;
-          grid-template-columns: repeat(3, 170px)!important;
+          grid-template-columns: repeat(3, 33%) ;
           grid-gap: 16px;
       }
    }
      @media (max-width: 991.98px) {
       .featureCards {
           display: grid;
-          grid-template-columns: repeat(3, 238px);
+          grid-template-columns: repeat(2, 49%);
           grid-gap: 16px;
       }
+      .footerClass {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(2, 49%);
+        grid-gap: 10px;
+    }
     }
     @media (min-width: 1199.98px) and (max-width : 1920px) { 
       div#storybook-docs {
@@ -427,13 +433,13 @@ import expandImage from './assets/expand.png';
       }
       .featureCards {
         display: grid;
-        grid-template-columns: repeat(3, 329px);
+        grid-template-columns: repeat(3, 33%);
         grid-gap: 16px;
       }
     }
-    .css-1q7pov5 {
-      width: 15%;
-      zoom: 2;
+    .css-1q7pov5, .sidebar-container {
+      width: 15%!important;
+      zoom: 1.5!important;
     }
     .css-sqdry3 {
       width: 85%;
