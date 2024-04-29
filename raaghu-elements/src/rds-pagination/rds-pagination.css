@@ -1,16 +1,17 @@
 .customWidthClass {
     --bs-dropdown-min-width: 4.4rem !important;
 }
-
+/*
 .custom-navigation .customWidthForBtn {
     min-width: 4.4rem !important;
     border-color: #7e2eef !important;
 }
 
 .customWidthClass li:hover {
-    background-color: #7e2eef;
+    background-color: #7e2eef !important;
     color: #ffffff;
 }
+
 
 .customWidthClass .pagination-item {
     padding: 2px 0 2px 10px !important
@@ -19,3 +20,4 @@
 .customWidthClass {
     border-color: #7e2eef !important;
 }
+*/
