@@ -41,6 +41,7 @@ import expandImage from './assets/expand.png';
     line-height:28px;
     font-size:14px;
     margin-bottom:25px;
+    text-align: center;
   }
     .how{
       width:600px;
@@ -153,7 +154,7 @@ import expandImage from './assets/expand.png';
        padding:40px 40px;
        margin-bottom: 40px;
        text-align: center;
-       border-radius: 0px 100px;
+       border-radius: 0px 60px;
    }
    
 
@@ -189,15 +190,20 @@ import expandImage from './assets/expand.png';
       background-color: #99D5F5;
       border-radius: 10px 10px 0px 0px;
       padding: 10px;
+      justify-content: center;
     }
+    
 
     .seamlessUiLayout{
       display: flex;
       background-color: #FADA9A;
       border-radius: 10px 10px 0px 0px;
       padding: 10px;
+      justify-content: center;
     }
-
+    .cardLayout svg {
+        width: 45px;
+    }
     .learnMoreSection {
       background-color: #F1F1F1;
       padding: 30px 30px;
@@ -214,8 +220,9 @@ import expandImage from './assets/expand.png';
           position: relative;
     }
     .c-card-title{       
-          font-size: 1.5rem;
-          font-weight: 900;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-left: 10px;
     }
 
     .title {
@@ -250,6 +257,187 @@ import expandImage from './assets/expand.png';
       width: 100px;
     }
 
+
+
+    .row {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: calc(var(--bs-gutter-y)* -1);
+      margin-right: calc(var(--bs-gutter-x)* -.5);
+      margin-left: calc(var(--bs-gutter-x)* -.5);
+    }
+    .col-12 {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    .align-items-center {
+        align-items: center !important;
+    }
+
+    .justify-content-between {
+        justify-content: space-between !important;
+    }
+    .d-flex {
+        display: flex !important;
+    }
+    
+    .tech-brands {
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      min-width: 100%;
+      max-width: fit-content;
+    }
+
+
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+    }
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+        margin: 1.5%;
+    }
+    .featureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 322px);
+        grid-gap: 16px;
+    }
+
+    .home-page .container {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        width: 100%;
+        padding-right: var(--bs-gutter-x, .75rem);
+        padding-left: var(--bs-gutter-x, .75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .cardLayout {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-direction: row;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+      .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        
+        .container {
+            max-width: 515px;
+        }
+        .cardLayout {
+          display: flex;
+          justify-content: space-between;
+          gap: 1.5rem;
+          flex-direction: column;
+        }
+        .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 240px);
+          grid-gap: 14px;
+        }
+        .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 238px);
+          grid-gap: 16px;
+        }
+    }
+    @media only screen and (max-width: 480px) {
+
+        .container {
+            max-width: 515px;
+        }
+        .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        .tech-brands img {
+            width: 2.8rem;
+        }
+        .toolsUsedSection {
+          padding: 5% 0;
+          display: flex;
+          flex-flow: column;
+      }
+      .tech-brands img {
+          object-fit: contain;
+          max-width: 100%;
+          width: 3em;
+          aspect-ratio: 1 / 1;
+          margin: 1.5%;
+      }
+      .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 169px);
+          grid-gap: 14px;
+      }
+      .cardLayout {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-direction: column;
+      }
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 164px);
+          grid-gap: 16px;
+        }
+        .cardLayout svg {
+          width: 36px;
+        }
+    }
+    @media (max-width: 821px) {
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(3, 170px)!important;
+          grid-gap: 16px;
+      }
+   }
+     @media (max-width: 991.98px) {
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(3, 238px);
+          grid-gap: 16px;
+      }
+    }
+    @media (min-width: 1199.98px) and (max-width : 1920px) { 
+      div#storybook-docs {
+     
+      }
+    }
+     @media (min-width: 1921px) { 
+      div#storybook-docs {
+        
+      }
+      .featureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 329px);
+        grid-gap: 16px;
+      }
+    }
+    .css-1q7pov5 {
+      width: 15%;
+    }
+    .css-sqdry3 {
+      width: 85%;
+    }
 `}
   
 </style>
@@ -257,8 +445,8 @@ import expandImage from './assets/expand.png';
 <img className="bannerSection" src={bannerImage} alt="flow"/>
 
 <div className="containerContent">
- <p>Raaghu is an open-source React based micro front-end design system. Raaghu Design System employs <b>Vite, TypeScript, Million, Boostrap5 and Storybook</b> 
- features to develop highly customizable UI components and build-in pages. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
+ <p>Raaghu Design System is an React based micro front-end design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook
+features to develop highly customizable UI application shells, layouts, elemets and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
 
 </div>
 
@@ -269,15 +457,19 @@ import expandImage from './assets/expand.png';
 </div>
 
 <div className="toolsUsedSection"> 
-    <h4 style={{marginBottom: "2.5rem"}}><strong>Built Using</strong></h4>
-    <div style={{display: "flex", justifyContent: "space-around"}} className="hoverContent">
-    <img className="reactImage" src={reactImage} alt="flow"/>
-    <img className="viteImage" src={viteImage} alt="flow"/>
-    <img className="tsImage" src={tsImage} alt="flow"/>
-    <img className="millionJsImage" src={millionJsImage} alt="flow"/>
-    <img className="bootstrapImage" src={bootstrapImage} alt="flow"/>
-    <img className="storybookImage" src={storybookImage} alt="flow"/>
-  </div>
+    <h3 style={{marginBottom: "1.5rem"}}><strong>Built Using</strong></h3>
+     <div class="row tech-brands">
+          <div class="col-12 col-lg-6 ">
+                <div class="align-item-center d-flex justify-content-between">
+                      <img src={reactImage} alt="React" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={viteImage} alt="Vite" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img className="tsImage" src={tsImage} alt="Typescript" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1"/>
+                      <img src={millionJsImage} alt="Millionjs" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={bootstrapImage} alt="bootstrap icon" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                </div>
+          </div>
+    </div>
+    
 </div>
 
 <div style={{ textAlign: "center"}} className="">
@@ -286,10 +478,10 @@ import expandImage from './assets/expand.png';
 
 Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
 
-<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}}>
+<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}} className="cardLayout">
   <div  style={{border: "0",}}>
     <div className="seamlessUiLayout">
-      <div >
+      <div className="align-items-center d-flex justify-content-center">
         <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_257_2624)">
           <path d="M100.166 29.215V20.8679H95.575C95.0358 18.2536 93.9974 15.7679 92.5158 13.5474L95.7878 10.2753L89.8781 4.37391L86.606 7.65016C84.389 6.17084 81.9078 5.1322 79.298 4.59093V0L70.9509 0V4.59093C68.3391 5.1312 65.8549 6.16834 63.6346 7.64599L60.3667 4.37808L54.4611 10.2837L57.729 13.5516C56.249 15.7708 55.2115 18.2551 54.6739 20.8679H50.083V29.215H54.6739C55.2123 31.8289 56.2495 34.3144 57.729 36.5355L54.4611 39.8076L60.3667 45.7048L63.6346 42.4327C65.8537 43.9135 68.3382 44.9523 70.9509 45.492V50.0829H79.298V45.492C81.9111 44.9528 84.3952 43.9144 86.6143 42.4327L89.8864 45.7007L95.7837 39.795L92.5116 36.5271C93.9945 34.31 95.0349 31.8271 95.575 29.215H100.166ZM75.1245 33.3886C73.4734 33.3886 71.8599 32.899 70.4872 31.9819C69.1145 31.0647 68.0444 29.761 67.4125 28.2358C66.7811 26.7105 66.6158 25.0322 66.9376 23.413C67.2598 21.7938 68.0548 20.3065 69.2222 19.1391C70.3895 17.9718 71.877 17.1768 73.4959 16.8547C75.1153 16.5326 76.7935 16.6979 78.3189 17.3297C79.8439 17.9615 81.1478 19.0313 82.0647 20.404C82.9821 21.7767 83.4716 23.3906 83.4716 25.0415C83.4716 27.2552 82.5922 29.3784 81.0267 30.9438C79.4612 32.5092 77.3381 33.3886 75.1245 33.3886Z" fill="#FAFAFA"/>
@@ -305,13 +497,13 @@ Raaghu Design System bridges the gaps between design and development while maint
       </div>     
     </div>
     <div className="seamlessUIContent">      
-        Raaghu contains ready to use templates for the ASP net and ABP framework. Fully customizable with the help of our Adobe XD and 
-        Figma design kits.         
+        Raaghu Design System contains ready to use templates for a new or built React Application. Fully customizable with the help of 
+        our Adobe XD and Figma design kits.         
     </div>    
   </div>
   <div style={{border: "0"}}>
     <div className="chartsLayout">
-      <div >
+      <div className="align-items-center d-flex justify-content-center">
        <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_257_2639)">
           <path d="M86.2046 70.9538C88.8094 66.4415 90.5398 61.4784 91.305 56.3248L99.5606 57.5769C98.6367 63.7601 96.5567 69.714 93.4294 75.1275L86.2046 70.9538ZM70.9538 86.2005C75.4702 83.5917 79.4592 80.1618 82.7154 76.0875L89.239 81.3005C85.3306 86.1861 80.5448 90.2994 75.1275 93.4294L70.9538 86.2005ZM50.085 91.8225C55.3013 91.7977 60.4678 90.8072 65.3234 88.9009L68.3744 96.6682C62.548 98.96 56.3459 100.147 50.085 100.17V91.8225ZM29.2371 86.2005C33.7494 88.806 38.7124 90.5377 43.8661 91.305L42.614 99.5606C36.4233 98.6405 30.4618 96.5604 25.0425 93.4294L29.2371 86.2005ZM13.9654 70.9538C16.5801 75.4612 20.0109 79.4426 24.0825 82.6945L18.8737 89.2181C13.9888 85.316 9.87417 80.5376 6.74061 75.1275L13.9654 70.9538ZM8.3475 50.085C8.36988 55.3001 9.36055 60.4658 11.2691 65.3192L3.4976 68.3744C1.20912 62.5471 0.0231264 56.3455 0 50.085H8.3475ZM13.9654 29.2371C11.3606 33.7494 9.63024 38.7125 8.86505 43.8661L0.609367 42.614C1.53074 36.4236 3.61081 30.4623 6.74061 25.0425L13.9654 29.2371ZM29.2371 13.9695C24.7207 16.5783 20.7317 20.0081 17.4755 24.0825L10.9519 18.8695C14.8541 13.9859 19.6326 9.87269 25.0425 6.74061L29.2371 13.9695ZM50.085 8.3475C44.8687 8.37226 39.7022 9.36284 34.8466 11.2691L31.7956 3.49343C37.6226 1.2045 43.8246 0.0198563 50.085 0V8.3475ZM70.9538 13.9695C66.4351 11.3616 61.4648 9.62977 56.3039 8.86505L57.556 0.609367C63.7467 1.52947 69.7082 3.60962 75.1275 6.74061L70.9538 13.9695ZM86.2046 29.2371C83.592 24.7222 80.1611 20.7336 76.0875 17.4755L81.2963 10.9519C86.1812 14.854 90.2958 19.6324 93.4294 25.0425L86.2046 29.2371ZM91.8225 50.085C91.8001 44.8699 90.8094 39.7042 88.9009 34.8508L96.6724 31.7956C98.9609 37.6229 100.147 43.8245 100.17 50.085H91.8225Z" fill="#FAFAFA"/>
@@ -352,7 +544,7 @@ Raaghu Design System bridges the gaps between design and development while maint
 <div style={{textAlign:"center", marginTop: "60px", marginBottom: "40px"}}>
   ### Features
 
-  <div style={{display: "flex", justifyContent: "space-between"}}>
+  <div className="featureCards">
     <div>
       <div> 
         <img className="featureImage" src={fastWebGif} alt="fastGif" />
@@ -386,9 +578,6 @@ Raaghu Design System bridges the gaps between design and development while maint
        Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation.
       </div>
     </div>
-  </div>
-
-   <div style={{display: "flex", justifyContent: "space-between", marginBottom: "40px"}}>
     <div>
       <div> 
         <img className="featureImage" src={maintainableGif} alt="maintainableGif" />
@@ -423,6 +612,7 @@ Raaghu Design System bridges the gaps between design and development while maint
       </div>
     </div>
   </div>
+
 </div>
 
 <div style={{textAlign:"center", marginTop: "60px"}}>
