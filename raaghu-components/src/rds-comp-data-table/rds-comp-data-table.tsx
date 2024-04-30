@@ -450,7 +450,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                             {actionPosition != true &&
                               totalActions &&
                               totalActions?.length > 1 && (
-                                <td className="align-middle text-center">
+                                <td className="align-middle bg-transparent text-center">
+                              
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
                                       <div className="btn-group dropstart">
@@ -476,10 +477,10 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           />
                                         </button>
                                         <ul
-                                          ref={dropdownRef}
-                                          aria-labelledby="dropdownMenuButton"
-                                          className={`dropdown-menu ms-5 ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
-                                        >
+  ref={dropdownRef}
+  aria-labelledby="dropdownMenuButton"
+  className={`dropdown-menu dropdown-adjusted ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
+>
                                           {totalActions?.map((action, actionIndex) => (
                                             <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
                                               {action.modalId && (
@@ -519,60 +520,61 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                     </>
                                   ) : (
                                     <div className="d-flex justify-content-center align-items-center w-60px">
-                                      <RdsButton
-                                        class="action"
-                                        colorVariant="primary"
-                                        size="medium"
-                                        tooltipTitle={""}
-                                        type={"button"}
-                                        onClick={(e) => {
-                                          onEditCheck(
-                                            e,
-                                            tableDataRow,
-                                            tableDataRow.id
-                                          );
-                                        }}
-                                      >
-                                        <RdsIcon
-                                          name={"check"}
-                                          height="14px"
-                                          width="14px"
-                                          stroke={true}
-                                          fill={false}
-                                        />
-                                      </RdsButton>
-                                      <RdsButton
-                                        class="ms-2 text-white"
-                                        colorVariant="danger"
-                                        tooltipPlacement="top"
-                                        size="medium"
-                                        tooltipTitle={""}
-                                        type={"button"}
-                                        onClick={(e) => {
-                                          onEditClose(
-                                            e,
-                                            tableDataRow,
-                                            tableDataRow.id
-                                          );
-                                        }}
-                                      >
-                                        <RdsIcon
-                                          name={"close"}
-                                          height="14px"
-                                          width="14px"
-                                          stroke={true}
-                                          fill={true}
-                                        />
-                                      </RdsButton>
-                                    </div>
+                                 <RdsButton
+  class="action"
+  colorVariant="primary"
+  size="medium"
+  tooltipTitle={""}
+  type={"button"}
+  onClick={(e) => {
+    onEditCheck(
+      e,
+      tableDataRow,
+      tableDataRow.id
+    );
+  }}
+  style={{ display: activeDropdownId === tableDataRow.id && isDropdownOpen ? 'none' : 'block' }}
+>
+                                      <RdsIcon
+                                        name={"check"}
+                                        height="14px"
+                                        width="14px"
+                                        stroke={true}
+                                        fill={false}
+                                      />
+                                    </RdsButton>
+                                    <RdsButton
+                                      class="ms-2 text-white"
+                                      colorVariant="danger"
+                                      tooltipPlacement="top"
+                                      size="medium"
+                                      tooltipTitle={""}
+                                      type={"button"}
+                                      onClick={(e) => {
+                                        onEditClose(
+                                          e,
+                                          tableDataRow,
+                                          tableDataRow.id
+                                        );
+                                      }}
+                                    >
+                                      <RdsIcon
+                                        name={"close"}
+                                        height="14px"
+                                        width="14px"
+                                        stroke={true}
+                                        fill={true}
+                                      />
+                                    </RdsButton>
+                                  </div>
                                   )}
                                 </td>
                               )}
-                            {actionPosition != true &&
+                             {actionPosition &&
                               totalActions &&
                               totalActions?.length == 1 && (
                                 <td className="px-2 align-middle">
-                                  <div className="d-grid  justify-content-center">
+                                  <div className="d-grid justify-content-center">
                                     {totalActions?.map((action, actionIndex) => (
                                       <>
                                         <RdsIcon
@@ -583,8 +585,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             index
                                           }
                                           name={action.icon || action.id}
-                                          height="18px"
-                                          width="18px"
+                                          height="16px"
+                                          width="16px"
                                           stroke={true}
                                           fill={false}
                                           tooltip={true}
