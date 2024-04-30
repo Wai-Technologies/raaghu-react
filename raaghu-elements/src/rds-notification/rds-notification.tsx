@@ -165,11 +165,12 @@ const RdsNotification = (props: RdsNotificationProps) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className=" align-self-center">
+                            <div className="me-2 align-self-center">
                                 {" "}
                                 <RdsButton
                                     colorVariant="light"
                                     label="Set as Read"
+                                    size="small"
                                     type={"button"}
                                     onClick={(e) => onSetAsRead(e, notification)}
                                 />
@@ -183,6 +184,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                     <RdsButton
                         colorVariant="primary"
                         label="Mark As Read"
+                        size="small"
                         class="fw-semibold"
                         type={"button"}
                         onClick={(e) => onMarkAsRead(e, props.notifications)}
