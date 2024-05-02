@@ -69,7 +69,7 @@ const reducer = (state: any, action: any) => {
                             childList: tempUser,
                         };
                     } else if (selecteds > 0 && selecteds < parents.childList.length) {
-                        return { ...parents, isIntermediate: true, childList: tempUser };
+                        return { ...parents, isIntermediate: true, isSelected: true, childList: tempUser };
                     } else {
                         return {
                             ...parents,
