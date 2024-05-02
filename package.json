@@ -151,6 +151,8 @@
     "prepare": "npm run build",
     "create:element": "node utils/create.js e",
     "create:component": "node utils/create.js c",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:pages": "npm run lint --prefix raaghu-pages",
+    "preview:pages": "npm run preview --prefix raaghu-pages"
   }
 }
