@@ -132,3 +132,7 @@
   align-items: center;
   justify-content: end;
 }
+
+.small-placeholder {
+  font-size: 12px; 
+}
