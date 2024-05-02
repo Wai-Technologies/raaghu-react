@@ -562,7 +562,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 props.multiSelect &&
                 props.placeholder && (
                   <div>
-                    <span className="dw-placeholder">
+                    <span className="dw-placeholder fs-6">
                       {props.placeholder}
                     </span>
                   </div>
@@ -585,7 +585,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               )}
 
               {/* chevron_down icon */}
-              {!props.isIconPlaceholder && props.multiSelect !== true && (
+              {!props.isIconPlaceholder && props.multiSelect !== false && (
                 <span
                   className="ms-2"
                   onClick={(e) => {

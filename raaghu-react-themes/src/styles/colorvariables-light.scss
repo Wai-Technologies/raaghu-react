@@ -2628,7 +2628,8 @@ hr {
 }
 
 .customWidthClass li:hover {
-    background-color: $light-150;
+    background-color: $primary;
+    color: $light;
 }
 
 .customWidthClass li {
@@ -2637,6 +2638,8 @@ hr {
 
 .custom-navigation .customWidthForBtn {
     border-color: $primary-400 !important;
+    min-width: 4.4rem !important;
+
 }
 
 .customWidthClass {
