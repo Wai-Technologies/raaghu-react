@@ -49,6 +49,7 @@ const reducer = (state: any, action: any) => {
 
 const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
     const [vsItem, dispatch] = useReducer(reducer, props.visualsettingsItem);
+    const [selectedSkin, setSelectedSkin] = useState('');
 
     const [activeTheme, setActiveTheme] = useState("default");
     const [activeTab, setActiveTab] = useState(
@@ -58,6 +59,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
     const onSetActiveTheme = (themeId: any) => {
         setActiveTheme(themeId);
+        setSelectedSkin(themeId.toLowerCase()); // set the selected skin based on the themeId
         setActiveTab(
             props.navtabItems.filter((tabs) => tabs.themeId == themeId)[0].navtabs[0]
                 .id
@@ -82,6 +84,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
     };
     const onSelectListValue = (e: any) => {
         console.log("selected  value e.target.value ", e.target.value);
+        setSelectedSkin(e.target.value);
         dispatch({
             type: "SELECTLIST",
             theme: activeTheme,
@@ -188,7 +191,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                             }
                                         />
 
-                                        <div className="form-group mb-3 mt-3">
+                                        <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                             <RdsButton
                                                 label="Save as system default"
                                                 colorVariant="primary"
@@ -307,7 +310,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                         </option>
                                                     ))}
                                                 </select>
-                                                <div className="form-group mb-3 mt-3">
+                                                <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                                     <RdsButton
                                                         label="Save as system default"
                                                         colorVariant="primary"
@@ -339,7 +342,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                 )[0]?.footer?.fixedFooter
                                             }
                                         />
-                                        <div className="form-group mb-3 mt-3">
+                                        <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                             <RdsButton
                                                 label="Save as system default"
                                                 colorVariant="primary"
@@ -364,10 +367,10 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                             <div className="row">
                                                 <div className="col-md-4">
                                                     {props.listskin && (
-                                                        <div className="mb-3">
+                                                        <div className={`mb-3 ${selectedSkin === 'dark' ? 'dark-class' : selectedSkin === 'semidark' ? 'semidark-class' : ''}`}>
                                                             <label className="mb-2">Skin</label>
                                                             <select
-                                                                defaultValue={"DEFAULT"}
+                                                                value={selectedSkin}
                                                                 className="form-select form-select-sm text-muted"
                                                                 aria-label=".form-select-sm example"
                                                                 onChange={onSelectListValue}
@@ -413,7 +416,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="form-group mb-3 mt-3">
+                                                    <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                                         <RdsButton
                                                             label="Save as system default"
                                                             colorVariant="primary"
