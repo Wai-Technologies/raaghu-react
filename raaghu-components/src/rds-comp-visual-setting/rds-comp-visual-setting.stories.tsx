@@ -29,7 +29,7 @@ export const Default: Story = {
                 layout: { layoutType: "fluid" },
                 menu: {
                     allowAsideMinimizing: false,
-                    asideSkin: "dark",
+                    asideSkin: "Light",
                     defaultMinimizedAside: false,
                     enableSecondary: false,
                     fixedAside: false,
@@ -87,7 +87,7 @@ export const Default: Story = {
                 layout: { layoutType: "fluid" },
                 menu: {
                     allowAsideMinimizing: false,
-                    asideSkin: "dark",
+                    asideSkin: "semidark",
                     defaultMinimizedAside: false,
                     enableSecondary: false,
                     fixedAside: false,
@@ -157,8 +157,9 @@ export const Default: Story = {
             },
         ],
         listskin: [
-            { value: "dark", displayText: "Dark" },
             { value: "light", displayText: "Light" },
+            { value: "dark", displayText: "Dark" },
+            { value: "semidark", displayText: "Semidark" },
         ],
         listSubmenu: [
             { value: "false", displayText: "Accordian" },

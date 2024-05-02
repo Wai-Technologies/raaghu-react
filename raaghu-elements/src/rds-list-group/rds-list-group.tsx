@@ -36,7 +36,7 @@ const RdsListGroup = (props: RdsListGroupProps) => {
             )}
             {props.listGroupWithMultiSelect && (
                 <ul className="list-group mb-1">
-                    {props.listItem.map((listItems) => (
+                    {props.listItem.map((listItems, index) => (
                         <>
                             <li
                                 className={`list-group-item form-check ${listItems.disabled ? "disabled" : ""
@@ -46,14 +46,14 @@ const RdsListGroup = (props: RdsListGroupProps) => {
                                     className="form-check-input ms-1 me-2 mb-0"
                                     type="checkbox"
                                     value=""
-                                    id="flexCheckDefault"
+                                    id={`flexCheckDefault${index}`}
                                 />
                                 <div
                                     className="d-flex justify-content-between mb-0"
                                 >
                                     <label
                                         className="form-check-label"
-                                        htmlFor="flexCheckDefault"
+                                        htmlFor={`flexCheckDefault${index}`}
                                     >
                                         {listItems.label}
                                     </label>
