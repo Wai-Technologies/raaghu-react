@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
-import { RdsDatePicker, RdsIllustration } from "../rds-elements";
+import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsPagination, RdsSelectList } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
 
 export interface RdsCompLoginAttemptsProps {
@@ -11,6 +11,8 @@ export interface RdsCompLoginAttemptsProps {
         dataLength?: number | undefined;
         required?: boolean | undefined;
         sortable?: boolean | undefined;
+        children?: React.ReactNode;
+        selectvalue?: { value: string; displayText: string }[];
         colWidth?: string | undefined;
         disabled?: boolean | undefined;
         isEndUserEditing?: boolean | undefined;
@@ -19,11 +21,26 @@ export interface RdsCompLoginAttemptsProps {
     selectvalue?: { value: string; displayText: string }[];
     pagination?: boolean;
     onActionSelection(arg: any): any;
+    totalRecords?: number;
+    recordsPerPage?: number;
+    recordsPerPageSelectListOption?: boolean;
 }
 
 const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
     const [Tdata, setTdata] = useState(props.tableData);
     const [page, setpage] = useState(false);
+
+    const totalRecords = props.totalRecords || props.tableData?.length || 0;
+    const tableData = props.tableData || [];
+    const selectvalue = props.selectvalue || [];
+    const onPageChangeHandler = (newPage: number) => { };
+    useEffect(() => {
+        if (props.tableData?.length === 0) {
+            setpage(true);
+        } else {
+            setpage(false);
+        }
+    }, [Tdata]);
 
     useEffect(() => {
         if (props.tableData?.length === 0) {
@@ -34,7 +51,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
     }, [Tdata]);
 
     const DatePicker = (start: any, end?: any) => {
-        const tempData = props.tableData?.filter((data: any) => {
+        const tempData = tableData.filter((data: any) => {
             if (data.time > start.toISOString() && data.time < end!.toISOString()) {
                 return data;
             }
@@ -44,9 +61,9 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
 
     const selecthandler = (event: any) => {
         if (event.target.value === "All") {
-            setTdata(props.tableData);
+            setTdata(tableData);
         } else {
-            const tempData = props.tableData?.filter((data: any) => {
+            const tempData = tableData.filter((data: any) => {
                 if (data.result === event.target.value) {
                     return data;
                 }
@@ -55,9 +72,12 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
         }
     };
 
+
     return (
         <div>
+
             <div className="row mb-3 d-flex justify-content-between">
+
                 <div className="col-md-4">
                     <RdsDatePicker
                         type="advanced"
@@ -69,15 +89,17 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                 <div className="col-md-4">
                     <div className="Select">
                         <div>Result</div>
-                        <select
-                            disabled={page}
-                            onClick={selecthandler}
-                            className="form-select form-select-md"
-                        >
-                            {props.selectvalue?.map((x, i) => (
-                                <option key={x.displayText}>{x.value}</option>
-                            ))}
-                        </select>
+                        <RdsDropdownList
+                            data-testid="Result"
+                            placeholder="All"
+                            borderDropdown={true}
+                            listItems={selectvalue.map(item => ({
+                                label: item.displayText,
+                                val: item.value,
+                            }))}
+                            isPlaceholder={true}
+                        />
+
                     </div>
                 </div>
             </div>
@@ -98,7 +120,9 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                         actionPosition="right"
                         tableHeaders={props.tableHeaders || []}
                         tableData={Tdata || []}
-                        pagination={false}
+                        pagination={true}
+                        recordsPerPage={props.recordsPerPage || 5}
+                        recordsPerPageSelectListOption={props.recordsPerPageSelectListOption || false}
                         onActionSelection={props.onActionSelection}
                         actions={[]}
                     ></RdsCompDatatable>
