@@ -27,8 +27,8 @@ export const Default: Story = {
     tableData: [
         { id: 1, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 60, roles: 5, status: "qwerty" },
         { id: 2, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 120, roles: 10, status: "qwerty" },
-        { id: 3, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 250, roles: 5, status: "qwerty" },
-        { id: 4, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 60, roles: 7, status: "qwerty" },
+        { id: 3, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 250, roles: 5, status: "Qwerty" },
+        { id: 4, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 60, roles: 7, status: "Qwerty" },
         { id: 5, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 100, roles: 15, status: "qwerty" },
         { id: 6, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 60, roles: 5, status: "qwerty" },
         { id: 7, name: { avatar: "https://upload.wikimedia.org/wikipedia/commons/4/4a/AMC%2B_logo.png", title: "Amc Corporation", info: "support@amc.com" }, userid: 100, roles: 47, status: "qwerty" },
