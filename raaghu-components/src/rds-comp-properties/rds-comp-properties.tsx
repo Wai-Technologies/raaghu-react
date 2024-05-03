@@ -67,7 +67,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                 ></RdsCompDatatable>
 
                 <div className=" fw-normal row" mb-3 mt-2>
-                    <div className="col-md-5 col-sm-12mb-3">
+                    <div className="col-md-5 col-sm-12 mb-3">
                         <RdsInput
                             label="Key"
                             placeholder="Enter a key"
@@ -91,37 +91,34 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                     </div>
                     <div className="col-2 mb-3 align-self-end">
                         <RdsButton
-                            label="Add"
+                            label="Add"                        
                             colorVariant="primary"
-                            block={true}
+                           block={false}
                             tooltipTitle={""}
                             type="submit"
                             dataTestId="add"
                         />
+
                     </div>
-                </div>
-                <div className="row mt-5 mb-3">
-                    <div className="col-2">
+                </div>    
+                     <div className="d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
-                            label="Cancel"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="button"
-                            isOutline={true}
-                            dataTestId="cancel"
-                        />
-                    </div>
-                    <div className="col-2">
+                              label="Cancel"
+                              colorVariant="primary"                            
+                              tooltipTitle={""}
+                              size="small"
+                              type="button"
+                              isOutline={true}
+                              dataTestId="cancel"
+                        ></RdsButton>
                         <RdsButton
-                            label="Save"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                            dataTestId="save"
-                        />
-                    </div>
+                          label="Save"
+                          colorVariant="primary"                    
+                          size="small"
+                          tooltipTitle={""}
+                          type="submit"
+                          dataTestId="save"
+                        ></RdsButton>
                 </div>
             </form>
         </>
