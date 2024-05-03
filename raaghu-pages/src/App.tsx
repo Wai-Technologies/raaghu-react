@@ -5,8 +5,8 @@ import './App.css'
 function App() {
   return (
     <>
-      <div>
-      <a href="https://raaghu.io" target="_blank">
+      <div className="mb-2">
+        <a href="https://raaghu.io" target="_blank">
           <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" className="logo" alt="Raaghu Logo" />
         </a>
         <a href="https://react.dev" target="_blank">
@@ -16,8 +16,8 @@ function App() {
           <img src={viteLogo} className="logo" alt="Vite Logo" />
         </a>
       </div>
-      <h1>Raaghu with React + Vite</h1>
-      <div className="card">
+      <h1 className="mb-4 fw-bolder">Raaghu with React + Vite</h1>
+      <div className="">
         <p>
           Start creating pages by using Application Shells, Layouts, Component, Elements, Charts and more.
         </p>
