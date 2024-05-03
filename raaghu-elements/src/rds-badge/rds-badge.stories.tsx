@@ -39,7 +39,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBadge>;
 
-const Positioned = (args : any) => (
+const Positioned = (args: any) => (
   <>
     <RdsButton
       type="button"
@@ -47,22 +47,22 @@ const Positioned = (args : any) => (
       size="small"
       label="Button"
     />
-    <span className="position-absolute translate-middle">
+    <span className="position-fixed ms-2 translate-middle">
       <RdsBadge label={""} {...args}></RdsBadge>
     </span>
   </>
 );
 
-const PositionedIcon = (args : any) => (
+const PositionedIcon = (args: any) => (
   <>
-    <span className="position-relative">
-      <RdsIcon
-        name="notification"
-        width="20px"
-        height="20px"
-        fill={false}
-        stroke={true}
-      />
+    <RdsIcon
+      name="notification"
+      width="25px"
+      height="25px"
+      fill={false}
+      stroke={true}
+    />
+    <span className="position-absolute ms-2 translate-middle">
       <RdsBadge label={""} {...args}></RdsBadge>
     </span>
   </>
@@ -95,7 +95,7 @@ export const WithIcon: Story = {
     size: "smallest",
     label: "9",
     colorVariant: "danger",
-    badgeType: "rectangle",
+    badgeType: "pill",
     positioned: true,
   },
   render: PositionedIcon

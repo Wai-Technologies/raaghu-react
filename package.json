@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "@waiin/raaghu-react is an React based micro front-end design system from Raaghu Design System. @waiin/raaghu-react employs React, Typescript, Vite, Millions, Bootstrap and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
@@ -140,15 +140,19 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "install-all": "node utils/install-all.js",
+    "pages": "npm run dev --prefix raaghu-pages",
     "start": "node utils/start-scripts.js",
     "build": "npm-run-all build:elements build:components build:layouts build:vite",
     "build:elements": "tsc -p raaghu-elements/tsconfig.json",
     "build:components": "tsc -p raaghu-components/tsconfig.json",
     "build:layouts": "tsc -p raaghu-layouts/tsconfig.json",
+    "build:pages": "npm run build --prefix raaghu-pages",
     "build:vite": "vite build",
     "prepare": "npm run build",
     "create:element": "node utils/create.js e",
     "create:component": "node utils/create.js c",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:pages": "npm run lint --prefix raaghu-pages",
+    "preview:pages": "npm run preview --prefix raaghu-pages"
   }
 }
