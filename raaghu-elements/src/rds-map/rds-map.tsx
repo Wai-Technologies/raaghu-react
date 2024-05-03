@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { RdsMapWrapper } from './rds-map.styled';
 import { WorldMap } from "react-svg-worldmap"
 
 export interface RdsMapProps {

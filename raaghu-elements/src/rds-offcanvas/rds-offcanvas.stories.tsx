@@ -4,18 +4,18 @@ import RdsButton from "../rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Offcanvas',
-    component: RdsOffcanvas,
-    parameters: {
-        layout: 'padded',
+  title: 'Elements/Offcanvas',
+  component: RdsOffcanvas,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    placement: {
+      options: ["top", "bottom", "end", "start"],
+      control: { type: "select" },
     },
-    tags: ['autodocs'],
-    argTypes: {
-        placement: {
-            options: ["top", "bottom", "end", "start"],
-            control: { type: "select" },
-        },
-    },
+  },
 } satisfies Meta<typeof RdsOffcanvas>;
 
 export default meta;
@@ -31,11 +31,11 @@ export const Offcanvas: Story = {
     offcanvaswidth: 650,
     children: (
       <>
-        <h2 className="p-3">
+        <h4 className="p-3">
           Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing
           elit.
-        </h2>
-        <div className="col-4 m-4">
+        </h4>
+        {/* <div className="col-4 m-4">
           <RdsButton
             label="Close "
             colorVariant="primary"
@@ -48,7 +48,7 @@ export const Offcanvas: Story = {
             databstarget="#canvasExample"
             ariacontrols="canvasExample"
           />
-        </div>
+        </div> */}
       </>
     ),
     offcanvasbutton: (
