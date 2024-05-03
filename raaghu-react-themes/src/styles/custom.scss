@@ -478,7 +478,7 @@ html[theme="semidark"] {
   .custom-content-scroll {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 350px;
+    height: 100%;
     margin-bottom: 3.2rem;
     padding: 0.50rem;
   }
@@ -488,7 +488,7 @@ html[theme="semidark"] {
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 3.4rem;
-  height: 650px;
+  height: 100%;
   padding: 0.50rem;
 }
 

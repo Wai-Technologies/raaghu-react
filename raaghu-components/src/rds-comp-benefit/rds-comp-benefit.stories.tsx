@@ -141,7 +141,7 @@ export const CenterAligned: Story = {
             },
             {
                 id: 3,
-                display_type: "Centre Aligned",
+               
                 iconHeight: "40px",
                 iconWidth: "40px",
                 icon: "shield_check",
