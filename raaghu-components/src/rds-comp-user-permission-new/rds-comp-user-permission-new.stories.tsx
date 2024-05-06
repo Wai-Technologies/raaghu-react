@@ -22,7 +22,7 @@ export const Default: Story = {
             { displayName: "Name", key: "name", datatype: "avatarTitleInfo", sortable: true, },
             { displayName: "User ID", key: "userid", datatype: "text", sortable: true, },
             { displayName: "Roles", key: "roles", datatype: "text", sortable: true, },
-            { displayName: "Status", key: "status", datatype: "badge", sortable: true, },
+            { displayName: "Status", key: "status", datatype: "badge", sortable: false,},
         ],    
         tableData: [
             { id: 1, name: { avatar: "https://media-exp1.licdn.com/dms/image/C4E0BAQE_SFGM1PgQQA/company-logo_200_200/0/1519889670567?e=2147483647&v=beta&t=a7t0VCUvkgkiicBZVFWj7be8pApofE4mjjuHSmaZgbg", title: "Amc Corporation", info: "support@amc.com" }, userid: 1260, roles: "Admin", status: { badgeColorVariant: "success", content: "active" }, },
