@@ -50,7 +50,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
     return (
         <>
             {props.offcanvasbutton && (
-                <div className="offcanvas_btn cursor-pointer"
+                <div className="cursor-pointer"
                     onClick={props.onclick}
                     data-bs-toggle="offcanvas"
                     data-bs-target={`#${props.offId}`}
