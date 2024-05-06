@@ -44,7 +44,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
     return (
 
         <div className="pt-3">
-            <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
+            <div className="overflow-x-hidden overflow-y-auto ">
                 <form onSubmit={handleSubmit}>
                 <div className="custom-content-scroll">
                     {/* Password Settings */}

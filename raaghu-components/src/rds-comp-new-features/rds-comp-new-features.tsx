@@ -163,7 +163,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
   return (
     
     <div className="row">
-      <div className="col-md-5 pe-4 border-end">
+      <div className="col-md-5 pe-4 border-end custom-content-scroll">
         <RdsNavtabs
           navtabsItems={navtabs}
           type="vertical"
@@ -173,7 +173,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
           activeNavtabOrder={handleActiveNavtabVertical}
         />
       </div>
-      <div className="col-md-7 ps-4">
+      <div className="col-md-7 ps-4 ">
         {navtabsItems &&
           navtabsItems?.map((tabsData: any, mainIndex: number) => (
             <div key={mainIndex}>
