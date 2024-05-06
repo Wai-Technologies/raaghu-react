@@ -1,11 +1,11 @@
 .horizontal {
   height: 0rem;
-  width: 1.75rem;
+  width: 1.50rem;
   border-bottom: 1px dashed #adb5bd;
   position: relative;
-  right: 23px;
+  right: 24px;
   margin: none;
-  top: 5px;
+  top: 6px;
   z-index: 0;
 }
 

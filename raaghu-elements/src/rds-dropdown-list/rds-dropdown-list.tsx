@@ -635,12 +635,6 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                           (curElem: any) => curElem.label == language.label
                         ).length == 1
                       }
-                      onChange={(e) =>
-                        `${e.target.checked !== true
-                          ? uncheckHandler(e, language)
-                          : checkHandler(e, language)
-                        }`
-                      }
                       value=""
                       id="flexCheckDefault"
                     />
