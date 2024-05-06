@@ -18,29 +18,6 @@ const RdsCompIntegration = (props: RdsCompIntegrationProps) => {
                         </div>
                     ))}
                 </div>
-                <hr />
-                <div className="m-3 d-flex justify-content-end">
-                    <div className="col-2 me-3">
-                        <RdsButton
-                            label="Cancel"
-                            colorVariant="primary"
-                            block={true}
-                            tooltipTitle={""}
-                            type="button"
-                            isOutline={true}
-                        />
-                    </div>
-                    <div className="col-2">
-                        <RdsButton
-                            label="Save"
-                            colorVariant="primary"
-                            isDisabled={false}
-                            block={true}
-                            tooltipTitle={""}
-                            type="submit"
-                        />
-                    </div>
-                </div>
             </div>
         </>
     );
