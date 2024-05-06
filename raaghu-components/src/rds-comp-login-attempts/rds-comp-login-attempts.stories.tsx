@@ -192,6 +192,11 @@ export const Default: Story = {
                 result: "UserEmailIsNotConfirmed",
             },
         ],
+        
+        pagination: true,
+        recordsPerPage: 10,
+        recordsPerPageSelectListOption: false,
+        totalRecords: 16,      
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };
