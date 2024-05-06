@@ -99,7 +99,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
           }
           classNames={{
             control: (state) =>
-              state.isFocused ? "border-red-600" : "border-grey-300 mt-1",
+              state.isFocused ? "border-red-600 mt-1" : "border-grey-300 mt-1",
           }}
         />
       </div>
