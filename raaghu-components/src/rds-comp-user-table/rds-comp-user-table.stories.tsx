@@ -31,8 +31,8 @@ export const Default: Story = {
             { displayName: "Name", key: "name", datatype: "text", sortable: true },
             { displayName: "Roles", key: "roles", datatype: "text", sortable: true },
             { displayName: "Email Address", key: "email", datatype: "text", sortable: true },
-            { displayName: "Email Confirm", key: "confirmEmail", datatype: "badge", sortable: true },
-            { displayName: "Status", key: "status", datatype: "badge", sortable: true },
+            { displayName: "Email Confirm", key: "confirmEmail", datatype: "badge", sortable: false },
+            { displayName: "Status", key: "status", datatype: "badge", sortable: false },
             { displayName: "Creation Time", key: "time", datatype: "text", sortable: true },
         ],
     
