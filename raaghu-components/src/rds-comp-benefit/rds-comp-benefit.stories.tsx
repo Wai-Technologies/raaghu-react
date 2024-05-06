@@ -55,8 +55,8 @@ export const Default: Story = {
             },
             {
                 id: 3,
-                iconHeight: "40px",
-                iconWidth: "40px",
+                iconHeight: "35px",
+                iconWidth: "35px",
                 icon: "truck",
                 iconFill: false,
                 iconstroke: true,
@@ -97,8 +97,8 @@ export const LeftAligned: Story = {
             },
             {
                 id: 3,
-                iconHeight: "40px",
-                iconWidth: "40px",
+                iconHeight: "35px",
+                iconWidth: "35px",
                 icon: "truck",
                 iconFill: false,
                 iconstroke: true,
@@ -158,7 +158,7 @@ export const CenterAligned: Story = {
 export const WithLabel: Story = {
     args: {
         displayType: "With Label",
-        colsize: 6,
+        colsize: 4,
         itemList: [
             {
                 id: 1,
@@ -184,8 +184,8 @@ export const WithLabel: Story = {
             },
             {
                 id: 3,
-                iconHeight: "40px",
-                iconWidth: "40px",
+                iconHeight: "35px",
+                iconWidth: "35px",
                 icon: "truck",
                 iconFill: false,
                 iconstroke: true,
