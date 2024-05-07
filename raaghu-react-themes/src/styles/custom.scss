@@ -476,8 +476,6 @@ html[theme="semidark"] {
 
 .sb-story {
   .custom-content-scroll {
-    overflow-y: auto;
-    overflow-x: hidden;
     height: 100%;
     margin-bottom: 3.2rem;
     padding: 0.50rem;
@@ -485,8 +483,6 @@ html[theme="semidark"] {
 }
  
 #storybook-root .custom-content-scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
   margin-bottom: 3.4rem;
   height: 100%;
   padding: 0.50rem;
