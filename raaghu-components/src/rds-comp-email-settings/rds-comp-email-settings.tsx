@@ -88,7 +88,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
 
                 <hr></hr>
-                <div className="mt-3 d-flex pb-3 ps-5 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                <div className="mt-3 d-flex pb-3 ms-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                     <RdsButton
                         type="button"
                         colorVariant="primary"

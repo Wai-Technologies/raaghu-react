@@ -65,8 +65,8 @@ const RdsCounter = (props: RdsCounterProps) => {
 
     return (
         <Fragment>
-            <div className="row">
-                <div className="position-relative">
+            <div className="row">   
+                <div className="position-relative ms-1">
                     <div className={classes()}>
                         <label>{props.label}</label>
                         <div className={inputClasses()} style={{ width: props.width }}>
