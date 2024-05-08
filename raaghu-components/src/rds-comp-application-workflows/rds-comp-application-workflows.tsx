@@ -38,7 +38,6 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         borderDropdown={true}
                         isPlaceholder
                         placeholder="Select Consent Type"
-                        multiSelect={false}
                         listItems={props.typeList || []}
                         onClick={(item: any) => handleDataChanges(item.value, "type")}
                     />
@@ -184,7 +183,6 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         borderDropdown={true}
                         isPlaceholder
                         placeholder="Consent Type"
-                        multiSelect={false}
                         listItems={props.consentType || []}
                         onClick={(item: any) => { handleDataChanges(item.value, "consentType"); }}
                     />
