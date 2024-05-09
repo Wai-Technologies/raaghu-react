@@ -44,9 +44,9 @@ const RdsAppDetail = (props: RdsAppDetailProps) => {
                         </label>
                     </div>
                 </div>
-                <div className="border-top pb-4 ps-3 pe-3">
+                <div className="border-top pb-2 ps-3 pe-3">
                     <a
-                        href={props.appDetailsItem?.route}
+                        href={""}
                         className="float-end p-2 fs-6 text-primary"
                     >
                         {props.appDetailsItem?.routeLabel}
