@@ -86,7 +86,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
         <>
             <div className="py-4">
                 <form>
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-md-6 my-3">
                             <RdsInput
                                 label={"Edition Name"}
@@ -114,7 +114,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row px-2">
                         <div className="col-md-6 px-2 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
@@ -141,7 +141,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                         </div>
                     </div>
 
-                    <div className="row mb-3">
+                    <div className="row mb-3 px-2">
                         <div className="col-md-8">
                             <div className="form-group mt-2">
                                 <form>
