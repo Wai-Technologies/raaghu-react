@@ -10,6 +10,7 @@ export interface RdsCompAccountExternalProviderProps {
     accountExternalProvider: any;
     onSubmit: any;
 }
+
 const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderProps) => {
     const [externalProvider, setExternalProvider] = useState(
         props.accountExternalProvider
@@ -18,6 +19,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
     const handlerSubmit = (event: any) => {
         event.preventDefault();
         props.onSubmit && props.onSubmit(externalProvider);
+        setExternalProvider(props.accountExternalProvider); 
     };
 
     const handlerChange = (e: any, value: any, index: number, propertyName: string) => {
@@ -45,56 +47,55 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
     return (
         <div className="overflow-x-hidden overflow-y-auto ">
             <form onSubmit={handlerSubmit}>
-             <div className="custom-content-scroll">
-                {externalProvider?.length !== 0 && (externalProvider?.map((item: any, index: number) => (
-                    <div className={` ${index == 0 ? "pt-3" : ""}`} key={index}>
-                        <div className="fw-medium mb-3">
-                            <RdsLabel label={item?.name} ></RdsLabel>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <RdsCheckbox
-                                    label="Enabled"
-                                    checked={item?.enabled}
-                                    onChange={(e) => {
-                                        handlerChange(e, e.target.checked, index, "enabled");
-                                    }}
-                                    dataTestId="google"
-                                ></RdsCheckbox>
-                            </div>
-                            <div className="row">
-                                <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
-                                    <div className="form-group">
-                                        <RdsInput
-                                            value={item?.properties[0]?.value || ""}
-                                            label="Client Id"
-                                            placeholder="Client Id"
-                                            customClasses="form-control"
-                                            onChange={(e) => handlerChange(e, e.target.value, index, "properties")}
-                                            dataTestId="site-key-google"
-                                        ></RdsInput>
-                                    </div>
-                                </div>
-                                <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
-                                    <div className="form-group">
-                                        <RdsInput
-                                            value={item?.secretProperties[0]?.value}
-                                            name={item?.secretProperties[0]?.name}
-                                            label="Client Secret"
-                                            placeholder="Client Secret"
-                                            customClasses="form-control"
-                                            inputType="password"
-                                            onChange={(e) => handlerChange(e, e.target.value, index, "secretProperties")}
-                                            dataTestId="secret-key-google"
-                                        ></RdsInput>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )))}
+                <div className="custom-content-scroll">
+                    {externalProvider?.length !== 0 && (externalProvider?.map((item: any, index: number) => (
+                       <div className={` ${index == 0 ? "pt-3" : ""}`} key={index}>
+                       <div className="fw-medium mb-3">
+                           <RdsLabel label={item?.name} ></RdsLabel>
+                       </div>
+                       <div className="row">
+                           <div className="col-md-12 mb-3">
+                               <RdsCheckbox
+                                   label="Enabled"
+                                   checked={item?.enabled}
+                                   onChange={(e) => {
+                                       handlerChange(e, e.target.checked, index, "enabled");
+                                   }}
+                                   dataTestId="google"
+                               ></RdsCheckbox>
+                           </div>
+                           <div className="row">
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                                   <div className="form-group">
+                                       <RdsInput
+                                           value={item?.properties[0]?.value || ""}
+                                           label="Client Id"
+                                           placeholder="Client Id"
+                                           customClasses="form-control"
+                                           onChange={(e) => handlerChange(e, e.target.value, index, "properties")}
+                                           dataTestId="site-key-google"
+                                       ></RdsInput>
+                                   </div>
+                               </div>
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                                   <div className="form-group">
+                                       <RdsInput
+                                           value={item?.secretProperties[0]?.value}
+                                           name={item?.secretProperties[0]?.name}
+                                           label="Client Secret"
+                                           placeholder="Client Secret"
+                                           customClasses="form-control"
+                                           inputType="password"
+                                           onChange={(e) => handlerChange(e, e.target.value, index, "secretProperties")}
+                                           dataTestId="secret-key-google"
+                                       ></RdsInput>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                    )))}
                 </div>
-                </form>
                 <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
@@ -104,9 +105,8 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                         dataTestId="save"
                     ></RdsButton>
                 </div>
-            
+            </form>
         </div>
-
     );
 };
 

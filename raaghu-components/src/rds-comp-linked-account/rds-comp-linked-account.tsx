@@ -42,7 +42,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
 
     return (
         <>
-            <div className="card h-100 border-0 px-4 py-4 rounded-0 card-full-stretch">
+            <div className="row px-0">
                 <div className="container-fluid">
                     <div className="d-flex">
                         {!page && (
@@ -128,7 +128,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="small"
                                         onClick={onClickHandler}
                                         dataTestId="cancel"
-                                    ></RdsButton>
+                                    ></RdsButton>                                  
                                 
             
                                     <RdsButton

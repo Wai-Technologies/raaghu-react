@@ -135,9 +135,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     if (props.onClick) {
       props.onClick(event, val);
     }
+    setExpend(!expand);
   }
-  // Toggle the dropdown state
-  setExpend(!expand);
 };
   const IconWidth = props.listItems[selectedOption]?.iconWidth || "16px";
   const IconHeight = props.listItems[selectedOption]?.iconHeight || "12px";
