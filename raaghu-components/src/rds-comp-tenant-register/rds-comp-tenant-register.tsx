@@ -153,8 +153,6 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                 <RdsDropdownList
                                     placeholder="Select Country"
                                     isPlaceholder={true}
-                                    reset={inputReset}
-                                    multiSelect={false}
                                     borderDropdown={true}
                                     listItems={countryList}
                                     id={"countryList"}
