@@ -43,8 +43,9 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
     }, [props.accountExternalProvider]);
 
     return (
-        <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
+        <div className="overflow-x-hidden overflow-y-auto ">
             <form onSubmit={handlerSubmit}>
+             <div className="custom-content-scroll">
                 {externalProvider?.length !== 0 && (externalProvider?.map((item: any, index: number) => (
                     <div className={` ${index == 0 ? "pt-3" : ""}`} key={index}>
                         <div className="fw-medium mb-3">
@@ -67,7 +68,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                         <RdsInput
                                             value={item?.properties[0]?.value || ""}
                                             label="Client Id"
-                                            placeholder=""
+                                            placeholder="Client Id"
                                             customClasses="form-control"
                                             onChange={(e) => handlerChange(e, e.target.value, index, "properties")}
                                             dataTestId="site-key-google"
@@ -80,7 +81,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                             value={item?.secretProperties[0]?.value}
                                             name={item?.secretProperties[0]?.name}
                                             label="Client Secret"
-                                            placeholder=""
+                                            placeholder="Client Secret"
                                             customClasses="form-control"
                                             inputType="password"
                                             onChange={(e) => handlerChange(e, e.target.value, index, "secretProperties")}
@@ -92,7 +93,9 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                         </div>
                     </div>
                 )))}
-                <div className="mt-xxl-4 pb-4 ps-4 mb-xxl-0 mb-xl-0 mb-lg-0 mb-md-0 mb-3 bg-transparent fixed-bottem d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons mt-xl-4 mt-lg-4 mt-md-4 mt-0 pt-2 col-xxl-4 col-xl-4 col-lg-6 col-12 position-absolute">
+                </div>
+                </form>
+                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
                         type="submit"
@@ -101,7 +104,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                         dataTestId="save"
                     ></RdsButton>
                 </div>
-            </form>
+            
         </div>
 
     );
