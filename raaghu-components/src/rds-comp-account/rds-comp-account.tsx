@@ -14,25 +14,21 @@ export interface RdsCompAccountProps {
     accountCaptchaSettings: any;
     developerModeSettings?: any;
     onSubmit: any;
+    reset?: boolean;
     onShow?: (data: any) => void;
     onShowDeveloperMode?: (name: any, value: any) => void;
 }
 const RdsCompAccount = (props: RdsCompAccountProps) => {
     const [activeNavTabId, setActiveNavTabId] = useState("0");
+    const [inputReset, setInputReset] = useState(false);
 
     const [accountGeneralData, setAccountGeneralData] = useState<any>(
         props.accountGeneralSettings
     );
-    const [developerModeData, setDeveloperModeData] = useState<any>(
-        props.developerModeSettings
-    );
-    const [twoFactorData, settwoFactorData] = useState(
-        props.accountTwoFactorSettings
-    );
-    const [accountCaptchData, setaccountCaptchaData] = useState(
-        props.accountCaptchaSettings
-    );
-
+    const handlerChangeGeneral = (value: any, name: any) => {
+        setAccountGeneralData({ ...accountGeneralData, [name]: value });
+    };
+   
     const navtabsItems = [
         { label: "Account Settings General", id: "0" },
         { label: "Account Settings Two Factor", id: "1" },
@@ -48,45 +44,37 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
         { option: "Forced", value: 2 },
     ];
 
-    const handlerSubmit = (event: any) => {
-        event.preventDefault();
-        props.onSubmit && props.onSubmit({
-            accountCaptchData: accountCaptchData,
-            accountGeneralData: accountGeneralData,
-            twoFactorData: twoFactorData,
-            developerMode: developerModeData
-        }
-        );
-    };
-
-    function onClickValue(value: any, name: any) {
-        console.log("name-", name, "value one-", value);
-    }
-    const handlerChangeGeneral = (value: any, name: any) => {
-        setAccountGeneralData({ ...accountGeneralData, [name]: value });
-    };
-    const handlerChangeTwoFact = (value: any, name: any) => {
-        settwoFactorData({ ...twoFactorData, [name]: value });
-    }
-    const handlerChangeCaptcha = (value: any, name: any) => {
-        setaccountCaptchaData({ ...accountCaptchData, [name]: value });
-    };
-
     useEffect(() => {
         setAccountGeneralData(props.accountGeneralSettings);
     }, [props.accountGeneralSettings]);
 
-    useEffect(() => {
-        settwoFactorData(props.accountTwoFactorSettings);
-    }, [props.accountTwoFactorSettings]);
+ useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
-    useEffect(() => {
-        setaccountCaptchaData(props.accountCaptchaSettings);
-    }, [props.accountCaptchaSettings]);
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSubmit && props.onSubmit(accountGeneralData);
+        setInputReset(!inputReset);
+        setAccountGeneralData({
+            isSelfRegistrationEnabled: false,
+            enableLocalLogin: false,
+            twoFactorBehaviour: "",
+            isRememberBrowserEnabled: false,
+            useCaptchaOnLogin: false,
+            useCaptchaOnRegistration: false,
+            verifyBaseUrl: "",
+            version: "",
+            siteKey: "",
+            siteSecret: "",
+            score: ""
+        });
+           
+    }
 
-
+   
     return (
-        <form onSubmit={handlerSubmit}>
+        <form>
           <div className="custom-content-scroll">
             <div className="row pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3 pt-0 ">
                 <div className="col-xxl-3 col-xl-3 col-lg-3 col-12 d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0 border-end pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
@@ -142,9 +130,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 label="Two Factor"
                                 placeholder="Select Option"
                                 selectItems={twoFactList}
-                                selectedValue={twoFactorData?.twoFactorBehaviour}
+                                selectedValue={accountGeneralData?.twoFactorBehaviour}
                                 onChange={(item: any) => {
-                                    handlerChangeTwoFact(item.value, "twoFactorBehaviour");
+                                    handlerChangeGeneral(item.value, "twoFactorBehaviour");
                                 }}
                                 dataTestId="twofactList"
                             ></RdsSelectList>
@@ -153,9 +141,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             <div className="col-md-12 mb-3">
                                 <RdsCheckbox
                                     label="Remember Browser"
-                                    checked={twoFactorData?.isRememberBrowserEnabled}
+                                    checked={accountGeneralData?.isRememberBrowserEnabled}
                                     onChange={(e) => {
-                                        handlerChangeTwoFact(e.target.checked, "isRememberBrowserEnabled");
+                                        handlerChangeGeneral(e.target.checked, "isRememberBrowserEnabled");
                                     }}
                                     dataTestId="remember-browser"
                                 ></RdsCheckbox>
@@ -170,9 +158,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 <div className="col-md-12 mb-3">
                                     <RdsCheckbox
                                         label="Use Security Image Questions(Captcha) On Login"
-                                        checked={accountCaptchData?.useCaptchaOnLogin}
+                                        checked={accountGeneralData?.useCaptchaOnLogin}
                                         onChange={(e) => {
-                                            handlerChangeCaptcha(e.target.checked, "useCaptchaOnLogin");
+                                            handlerChangeGeneral(e.target.checked, "useCaptchaOnLogin");
                                         }}
                                         dataTestId="use-captcha-login"
                                     ></RdsCheckbox>
@@ -182,9 +170,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                 <div className="col-md-12 mb-3">
                                     <RdsCheckbox
                                         label="Use Security Image Questions(Captcha) On Registration"
-                                        checked={accountCaptchData?.useCaptchaOnRegistration}
+                                        checked={accountGeneralData?.useCaptchaOnRegistration}
                                         onChange={(e) => {
-                                            handlerChangeCaptcha(e.target.checked, "useCaptchaOnRegistration");
+                                            handlerChangeGeneral(e.target.checked, "useCaptchaOnRegistration");
                                         }}
                                         dataTestId="use-captcha-reg"
                                     ></RdsCheckbox>
@@ -199,9 +187,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             label="Verify BaseUrl"
                                             placeholder="Enter URL"
                                             customClasses="form-control"
-                                            value={accountCaptchData?.verifyBaseUrl}
+                                            value={accountGeneralData?.verifyBaseUrl}
                                             onChange={(e) => {
-                                                handlerChangeCaptcha(e.target.value, "verifyBaseUrl");
+                                                handlerChangeGeneral(e.target.value, "verifyBaseUrl");
                                             }}
                                             dataTestId="url"
                                         ></RdsInput>
@@ -214,9 +202,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                         label="Version"
                                         placeholder="Select Version"
                                         selectItems={versionList}
-                                        selectedValue={accountCaptchData?.version}
+                                        selectedValue={accountGeneralData?.version}
                                         onChange={(item: any) => {
-                                            handlerChangeCaptcha(item.value, "version");
+                                            handlerChangeGeneral(item.value, "version");
                                         }}
                                         dataTestId="version-list"
                                     ></RdsSelectList>
@@ -231,9 +219,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             label="Site Key"
                                             placeholder="Enter URL"
                                             customClasses="form-control"
-                                            value={accountCaptchData?.siteKey}
+                                            value={accountGeneralData?.siteKey}
                                             onChange={(e) => {
-                                                handlerChangeCaptcha(e.target.value, "siteKey");
+                                                handlerChangeGeneral(e.target.value, "siteKey");
                                             }}
                                             dataTestId="site-key-url"
                                         ></RdsInput>
@@ -246,8 +234,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                         label="Site Secret"
                                         placeholder="Enter Secret"
                                         customClasses="form-control"
-                                        value={accountCaptchData?.siteSecret}
-                                        onChange={(e) => handlerChangeCaptcha(e.target.value, "siteSecret")}
+                                        value={accountGeneralData?.siteSecret}
+                                        onChange={(e) => handlerChangeGeneral(e.target.value, "siteSecret")}
                                         dataTestId="enter-secret"
                                     ></RdsInput>
                                 </div>
@@ -261,9 +249,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             label="Score"
                                             placeholder="Enter Score"
                                             customClasses="form-control"
-                                            value={accountCaptchData?.score}
+                                            value={accountGeneralData?.score}
                                             onChange={(e) => {
-                                                handlerChangeCaptcha(e.target.value, "score");
+                                                handlerChangeGeneral(e.target.value, "score");
                                             }}
                                             dataTestId="score"
                                         ></RdsInput>
@@ -281,6 +269,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     label="Save"
                     type="submit"
                     colorVariant="primary"
+                    onClick={(e: any) => emitSaveData(e)}
                     size="small"
                     dataTestId="save"
                 ></RdsButton>

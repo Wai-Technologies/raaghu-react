@@ -8,12 +8,26 @@ import {
     RdsLabel,
 } from "../rds-elements";
 
-const RdsCompTenantRegister = (props: any) => {
+export interface RdsCompTenantRegisterProps {
+    registerData?: any;
+    countryFlagList?: any;
+    onLogin: any;
+    handleRegisterDataSubmit?: any;
+    onIncreasePageCount?: any;
+    reset?: boolean;
+    onSaveHandler?: (data: any) => void
+}
+const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
 
     const [registerFormData, setRegisterFormData] = useState(props.registerData);
     const [countryList, setCountryList] = useState(props.countryFlagList);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
     const [isCheckTerms, setIsCheckTerms] = useState(false);
+    const [inputReset, setInputReset] = useState(false);
+
+    useEffect(() => {
+        setRegisterFormData(props.registerData);
+    }, [props.registerData]);
 
     useEffect(() => {
         setCountryList(props.countryFlagList);
@@ -44,6 +58,9 @@ const RdsCompTenantRegister = (props: any) => {
     const isZipCodeValid = (zipCode: any) => {
         return zipCode && zipCode.length > 0;
     };
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const isFormValid =
         isEmailValid(registerFormData?.adminEmailAddress) &&
@@ -58,33 +75,40 @@ const RdsCompTenantRegister = (props: any) => {
         props.onLogin(false);
     };
 
-    useEffect(() => {
-        setRegisterFormData(props.registerData);
-    }, [props.registerData]);
+
 
     const handleRegisterDataChanges = (value: any, key: string) => {
         setRegisterFormData({ ...registerFormData, [key]: value });
+        console.log(registerFormData);
     }
 
-    const handleRegisterDataSubmit = (event: any) => {
+    function emitSaveData(event: any) {
         event.preventDefault();
-        props.handleRegisterDataSubmit(registerFormData, () => {
-        // This function will be called when the form is successfully submitted
-        props.onIncreasePageCount();
-        });
+        // if (isFormValid) {
+            props.onSaveHandler && props.onSaveHandler(registerFormData);
+            setInputReset(!inputReset);
+            setRegisterFormData({
+                name: "",
+                adminEmailAddress: "",
+                adminPassword: "",
+                countryCode: "",
+                zipCode: "",
+            });
+        // }
     };
-
+    
     return (
         <div>
             <div className="text-center">
 
                 <div>
-                    <form onSubmit={handleRegisterDataSubmit}>
+                    <form>
                         <div className="form-group text-start">
                             <RdsInput
                                 label="Organization Name"
                                 placeholder="Enter Organization Name"
                                 inputType="text"
+                                reset={inputReset}
                                 required={true}
                                 name={"name"}
                                 value={registerFormData?.name}
@@ -97,6 +121,7 @@ const RdsCompTenantRegister = (props: any) => {
                             <RdsInput
                                 label="Email"
                                 placeholder="Enter Email"
+                                reset={inputReset}
                                 inputType="email"
                                 onChange={(e: any) => handleRegisterDataChanges(e.target.value, "adminEmailAddress")}
                                 value={registerFormData?.adminEmailAddress}
@@ -112,6 +137,7 @@ const RdsCompTenantRegister = (props: any) => {
                                 required={true}
                                 label="Password"
                                 placeholder="Enter Password"
+                                reset={inputReset}
                                 inputType="password"
                                 onChange={(e: any) => handleRegisterDataChanges(e.target.value, "adminPassword")}
                                 name={"password"}
@@ -127,7 +153,6 @@ const RdsCompTenantRegister = (props: any) => {
                                 <RdsDropdownList
                                     placeholder="Select Country"
                                     isPlaceholder={true}
-                                    multiSelect={false}
                                     borderDropdown={true}
                                     listItems={countryList}
                                     id={"countryList"}
@@ -138,6 +163,7 @@ const RdsCompTenantRegister = (props: any) => {
                                 <RdsInput
                                     required={true}
                                     label="Zip Code"
+                                    reset={inputReset}
                                     placeholder="Enter Zip Code"
                                     inputType="text"
                                     value={registerFormData?.zipCode}
@@ -165,8 +191,8 @@ const RdsCompTenantRegister = (props: any) => {
                             tooltipTitle={""}
                             type="submit"
                             dataTestId="register"
+                            onClick={(e: any) => emitSaveData(e)}
                             isDisabled={!isFormValid}
-                            onClick={handleRegisterDataSubmit} // Call handleRegisterDataSubmit directly
                         />
                         <div className="mt-3">
                             <p> Already Have An Account?<span className="ps-2"><a
