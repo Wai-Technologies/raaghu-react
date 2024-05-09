@@ -146,7 +146,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
             adminEmailAddress: "",
             adminPassword: "",
             activationState: null, 
-            connectionStrings: "",
+            connectionStrings: { default: "" },
             isModuleSpecificDb: false,
             radioItemList : []
         });
@@ -226,7 +226,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         onChange={(e: any) => {
                                             handleDataChanges(e.target.value, "adminPassword");
                                         }}
-                                        showIcon={true}
+                                        showIcon={false}
                                     ></RdsInput>
                                 </div>
                             </div>
