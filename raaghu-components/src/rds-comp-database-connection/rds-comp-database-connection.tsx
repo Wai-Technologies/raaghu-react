@@ -78,13 +78,31 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
       const selectedRadio = radioItemList.find((item: { checked: any; }) => item.checked);
       let payload = { ...connectionStrings };
       if (selectedRadio?.label === "Shared Database") {
-         payload = { ...payload, sharedDatabase: true };
+          payload = { ...payload, sharedDatabase: true };
       } else if (selectedRadio?.label === "Separated Database") {
-         payload = { ...payload, specificDatabase: true };
+          payload = { ...payload, specificDatabase: true };
       }
-
+  
       props.onSaveHandler && props.onSaveHandler(payload);
-   }
+  
+      // Reset form fields
+      setConnectionStrings({});
+      setRadioItemList([
+          {
+              id: 1,
+              label: "Shared Database",
+              checked: false,
+              name: "radio_button",
+          },
+          {
+              id: 2,
+              label: "Separated Database",
+              checked: false,
+              name: "radio_button",
+          },
+      ]);
+      setCheck(false);
+  };
 
    return (
       <div>
