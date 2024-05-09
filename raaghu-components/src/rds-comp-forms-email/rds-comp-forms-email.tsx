@@ -45,7 +45,7 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
 
     return (
         <>
-            <div className="ps-2 mt-3">
+            <div className="ps-2 mt-3 custom-content-scroll">
                 <RdsInput
                     required
                     reset={inputReset}

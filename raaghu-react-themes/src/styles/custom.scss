@@ -476,19 +476,15 @@ html[theme="semidark"] {
 
 .sb-story {
   .custom-content-scroll {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 350px;
+    height: 100%;
     margin-bottom: 3.2rem;
     padding: 0.50rem;
   }
 }
  
 #storybook-root .custom-content-scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
   margin-bottom: 3.4rem;
-  height: 650px;
+  height: 100%;
   padding: 0.50rem;
 }
 

@@ -24,13 +24,13 @@ export const Default: Story = {
                 "properties": [
                     {
                         "name": "ClientId",
-                        "value": "1056034749020-pdfg5750dr6stj4utlqtn42jn2nfbt3h"
+                        "value": null
                     }
                 ],
                 "secretProperties": [
                     {
                         "name": "ClientSecret",
-                        "value": "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"
+                        "value": null
                     }
                 ]
             },
