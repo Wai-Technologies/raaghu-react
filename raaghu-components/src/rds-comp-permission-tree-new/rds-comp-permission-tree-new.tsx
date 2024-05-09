@@ -12,8 +12,8 @@ function TreeNode(props: any) {
     useEffect(() => {
         // Update the state of this node based on its children
         if (hasChildren) {
-            const allChildrenSelected = props.node.children.every((child: any) => child.selected);
-            setChecked(allChildrenSelected);
+            const updatedChildren = props.node.children.some((child: any) => child.selected);
+            setChecked(updatedChildren);
         }
     }, [props.node.children]);
 
@@ -117,6 +117,14 @@ function RdsCompPermissionTreeNew(props: RdsCompPermissionTreeProps) {
             } else if (node.children && node.children.length > 0) {
                 // Recursively update the state of child nodes
                 const updatedChildren = updateNodeState(node.children, targetNode, isChecked);
+                node.children = updatedChildren;
+                // If any child is selected, select the parent node
+                if (updatedChildren.some((child: any) => child.selected)) {
+                    node.selected = true;
+                } else {
+                    // If none of the grandchildren are selected, deselect the parent node
+                    node.selected = false;
+                }
                 return { ...node, children: updatedChildren };
             }
             return node;
