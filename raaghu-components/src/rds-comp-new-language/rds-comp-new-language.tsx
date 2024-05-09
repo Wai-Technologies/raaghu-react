@@ -29,7 +29,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
     const [displayName, setDisplayName] = useState(props.displayName || "");
     const [formValid, setFormValid] = useState(true);
     const [inputReset, setInputReset] = useState(props.reset);
-    const [flagIcon, setFlagIcon] = useState("af");
+    const [flagIcon, setFlagIcon] = useState("f");
 
     useEffect(() => {
         setInputReset(props.reset);
@@ -73,9 +73,8 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         setCultureName("Select Culture Name");
         setCultureUIName("Select UI Culture Name");
         setDisplayName(" ");
-        setFlagIcon("af");
+        setFlagIcon(""); 
     };
-
     const inputChangeHandler = (event: any) => {
         setDisplayName(event.target.value);
 
@@ -85,13 +84,10 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         if (fieldname === "cultureName") {
             setCultureName(value);
             setCultureUIName(value);
-            const selectedOption = props.cultureList.find((item) => item.value === value);
-            if (selectedOption) {
-                setDisplayName(selectedOption.option);
-            }
+            setDisplayName(""); 
         }
-        else if (fieldname === "cultureUIName") {
-            setCultureUIName(value);
+        else if (fieldname === "") {
+            setCultureUIName("");
         }
         else if (fieldname === "flagIcon") {
             setFlagIcon(value);
@@ -137,7 +133,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsInput
                                     size="medium"
-                                    label="Display Name"
+                                    label="Display Name"                    
                                     placeholder="Enter Display Name"
                                     value={displayName}
                                     onChange={inputChangeHandler}
