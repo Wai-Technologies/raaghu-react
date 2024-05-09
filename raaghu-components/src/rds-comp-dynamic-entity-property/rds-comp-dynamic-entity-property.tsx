@@ -52,7 +52,6 @@ const RdsCompDynamicEntityProperty = (
               <RdsDropdownList
                 placeholder="Filter"
                 isPlaceholder={true}
-                multiSelect={false}
                 reset={isReset}
                 listItems={props.entityNames}
                 onClick = {handleEntityChange}
