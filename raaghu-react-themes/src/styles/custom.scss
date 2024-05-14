@@ -2829,6 +2829,21 @@ figure.worldmap__figure-container {
   }
 }
 
+.raaghu-not-select__control--is-focused {
+  .raaghu-not-select__dropdown-indicator svg {
+    transition: transform 0.35s ease;
+    transform: rotate(0deg);
+    right: 0;
+  }
+}
+
+.raaghu-not-select__control--is-focused.raaghu-not-select__control--menu-is-open {
+  .raaghu-not-select__dropdown-indicator svg {
+    transform: rotate(180deg);
+    right: 0;
+  }
+}
+
 .lf-player-container {
   svg {
     stroke: none;

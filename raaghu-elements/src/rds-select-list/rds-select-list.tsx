@@ -95,7 +95,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
           isDisabled={props.isDisabled}
           className={props.classes}
           classNamePrefix={
-            !selectedValue ? "m-0 raaghu-not-select" : "raaghu-select"
+            !selectedValue ? "raaghu-not-select" : "raaghu-select"
           }
           classNames={{
             control: (state) =>
