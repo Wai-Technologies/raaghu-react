@@ -58,7 +58,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                       onChange={() => {}}
                       placeholder="Select option"
                       selectItems={item.quantity}
-                      selectedValue={item.quantity}
+                      selectedValue={item.quantity[0].value}
                     />
                   </div>
                   <div>
