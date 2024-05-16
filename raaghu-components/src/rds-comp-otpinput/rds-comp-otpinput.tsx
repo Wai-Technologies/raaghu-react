@@ -6,7 +6,7 @@ export interface RdsOtpInputProps {
    fieldStyle?: 'Default' | 'Circle' | 'Square';
 }
 
-const RdsCompOtpinput = (props: RdsOtpInputProps) => {
+const RdsCompOtpInput = (props: RdsOtpInputProps) => {
    const { otpSize: initialOtpSize = 4 } = props;
    const [otpSize, setOtpSize] = useState(initialOtpSize);
    const [otp, setOtp] = useState(Array(initialOtpSize).fill(""));
@@ -77,4 +77,4 @@ const RdsCompOtpinput = (props: RdsOtpInputProps) => {
    );
 };
 
-export default RdsCompOtpinput;
+export default RdsCompOtpInput;
