@@ -95,6 +95,9 @@ const reducer = (state: any, action: any) => {
                     };
                 }
             });
+
+        case "RESET":
+            return action.payload;
         default:
             return state;
     }
@@ -126,74 +129,77 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
         dispatch({ type: "grand", event: event });
         setcheck(!check);
     };
+    const resetForm = () => {
+        dispatch({ type: "RESET", payload: props.resources });
+    };
 
     return (
         <>
             <div className="form">
-            <div className="custom-content-scroll">
-                <input
-                    type="checkbox"
-                    name="select all"
-                    checked={check}
-                    onChange={(event) => Ghandlechange(event)}
-                    id="flexCheckDefault"
-                    className="form-check-input"
-                ></input>{" "}
-                <label htmlFor="flexCheckDefault" className="form-check-label">
-                    Select all
-                </label>
-                <div className="col-md-12 mt-3">
-                    {Res.map((resource: any, i: number) => {
-                        return (
-                            <div key={i}>
-                                <>
-                                    <h6 className="mt-4">{resource.displayName}</h6>
-                                    <hr />
-                                    <div className="mt-2">
-                                        {" "}
-                                        <input
-                                            type="checkbox"
-                                            name="select everything"
-                                            checked={resource.selected}
-                                            onChange={(event) => Phandlechange(resource)}
-                                            id={`${i}`}
-                                            className="form-check-input"
-                                        ></input>{" "}
-                                        <label className="form-check-label" htmlFor={`${i}`}>
-                                            Select all
-                                        </label>
-                                    </div>
+                <div className="custom-content-scroll">
+                    <input
+                        type="checkbox"
+                        name="select all"
+                        checked={check}
+                        onChange={(event) => Ghandlechange(event)}
+                        id="flexCheckDefault"
+                        className="form-check-input"
+                    ></input>{" "}
+                    <label htmlFor="flexCheckDefault" className="form-check-label">
+                        Select all
+                    </label>
+                    <div className="col-md-12 mt-3">
+                        {Res.map((resource: any, i: number) => {
+                            return (
+                                <div key={i}>
+                                    <>
+                                        <h6 className="mt-4">{resource.displayName}</h6>
+                                        <hr />
+                                        <div className="mt-2">
+                                            {" "}
+                                            <input
+                                                type="checkbox"
+                                                name="select everything"
+                                                checked={resource.selected}
+                                                onChange={(event) => Phandlechange(resource)}
+                                                id={`${i}`}
+                                                className="form-check-input"
+                                            ></input>{" "}
+                                            <label className="form-check-label" htmlFor={`${i}`}>
+                                                Select all
+                                            </label>
+                                        </div>
 
-                                    <div className="accbodycheck mt-3 row">
-                                        {resource.children.map((check: any, idd: number) => (
-                                            <div key={idd} className="col-md-4 pb-2">
-                                                <input
-                                                    id={`${i}${idd}`}
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    name={check.displayName}
-                                                    checked={check.selected}
-                                                    onChange={(event) =>
-                                                        ChandleChange(check, resource, event)
-                                                    }
-                                                ></input>{" "}
-                                                <label
-                                                    className="form-check-label"
-                                                    htmlFor={`${i}${idd}`}
-                                                >
-                                                    {check.displayName}
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </>
-                            </div>
-                        );
-                    })}
+                                        <div className="accbodycheck mt-3 row">
+                                            {resource.children.map((check: any, idd: number) => (
+                                                <div key={idd} className="col-md-4 pb-2">
+                                                    <input
+                                                        id={`${i}${idd}`}
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        name={check.displayName}
+                                                        checked={check.selected}
+                                                        onChange={(event) =>
+                                                            ChandleChange(check, resource, event)
+                                                        }
+                                                    ></input>{" "}
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor={`${i}${idd}`}
+                                                    >
+                                                        {check.displayName}
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
-            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
-                 <RdsButton
+                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <RdsButton
                         class="me-2"
                         tooltipTitle={""}
                         type={"button"}
@@ -210,7 +216,10 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                         tooltipTitle={""}
                         type={"submit"}
                         databsdismiss="offcanvas"
-                        onClick={() => props.onCreate && props.onCreate(Res)}
+                        onClick={() => {
+                            props.onCreate && props.onCreate(Res);
+                            resetForm();
+                        }}
                     ></RdsButton>
                 </div>
             </div>

@@ -20,19 +20,19 @@ export const Default: Story = {
       {
         id: 1,
         label: "Credit Card",
-        checked: true,
+        checked: null,
         name: "Radio-Button",
       },
       {
         id: 2,
         label: "Paypal",
-        checked: true,
+        checked: null,
         name: "Radio-Button",
       },
       {
         id: 3,
         label: "eTransfer",
-        checked: true,
+        checked: null,
         name: "Radio-Button",
       },
     ],

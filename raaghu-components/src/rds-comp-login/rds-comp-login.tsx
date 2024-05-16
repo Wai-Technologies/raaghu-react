@@ -68,8 +68,8 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
     setCurrentTenant(props.currentTenant);
   }, [props.currentTenant]);
 
-  const onCheckedHandler = (e: any) => {
-    setrememberMe(e.target.checked);
+  const onCheckedHandler = (event:any) => {
+    setrememberMe(event.target.checked);
   };
 
   const isEmailValid = (email: any) => {
@@ -84,18 +84,13 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
     }
     return true;
   };
-  const emailhandleChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    props.onEmailChange && props.onEmailChange();
+  const emailhandleChange = (event:any) => {
     setEmail(event.target.value);
   };
-  const passwordhandleChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    props.onPasswordChange && props.onPasswordChange();
+  const passwordhandleChange = (event:any) => {
     setPassword(event.target.value);
   };
+
   const TenancyNameChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -104,9 +99,13 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
 
   const isFormValid = isPasswordValid(password) && isEmailValid(email);
 
-  const handleSubmit: any = (event: any) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     props.onLogin(email, password, rememberMe);
+
+    setEmail('');
+    setPassword('');
+    setrememberMe(false);
   };
 
   const forgotPasswordHandler: any = (isForgotPasswordClicked: boolean) => {
@@ -117,7 +116,6 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
     setIsRegisterClicked(true);
     props.onRegister(isRegisterClicked);
   };
-
   return (
     <>
       <div className="">

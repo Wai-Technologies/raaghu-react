@@ -14,12 +14,14 @@ export interface RdsCompPaymentDetailProps {
   reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
+
 const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
-  const [formData, setFormData] = useState(props.paymentDetails);
+  const [formData, setFormData] = useState(props.paymentDetails || {});
   const [inputReset, setInputReset] = useState(props.reset);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
   useEffect(() => {
-    setFormData(props.paymentDetails);
+    setFormData(props.paymentDetails || {});
   }, [props.paymentDetails]);
 
   useEffect(() => {
@@ -30,26 +32,40 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
     setFormData({ ...formData, [key]: value });
   };
 
+  const handlePaymentMethodChange = (value: any) => {
+    setSelectedPaymentMethod(value);
+    if (value === 'Credit Card') {
+      setFormData({
+        cardNumber: "",
+        cardHolderName: "",
+        cardExpirationDate: "",
+        cardCvc: ""
+      });
+    } else if (value !== 'Credit Card' && selectedPaymentMethod === 'Credit Card') {
+      setSelectedPaymentMethod('eTransfer');
+    }
+  };
+
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
     setInputReset(!inputReset);
-    setFormData({
-      cardNumber: "",
-      cardHolderName: "",
-      cardExpirationDate: "",
-      cardCvc: ""
-  });
+    setFormData({});
+    setSelectedPaymentMethod('');
   }
 
   return (
     <>
-      <form>
+      <form onSubmit={emitSaveData}>
         <div className="contact-information">
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
-              <RdsRadioButton itemList={props.paymentModeList} />
+              <RdsRadioButton 
+                itemList={props.paymentModeList} 
+                onChange={handlePaymentMethodChange} 
+               // value={selectedPaymentMethod}
+              />
             </div>
           </div>
           <div>
