@@ -53,7 +53,6 @@ const RdsCompOtpinput = (props: RdsOtpInputProps) => {
    return (
       <>
          <div className="center-text">
-            <h2>OTP Verification</h2>
             <p>Enter the {otpSize}-digit OTP you have received</p>
          </div>
          <div className="otp-container" style={{ width: `${otpSize * 50}px` }}>
