@@ -570,7 +570,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                   )}
                                 </td>
                               )}
-                            {actionPosition &&
+                            {actionPosition != true &&
                               totalActions &&
                               totalActions?.length == 1 && (
                                 <td className="px-2 align-middle">
