@@ -143,12 +143,13 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                         </p>
                     </div>
                     </div>
-                    <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                            <RdsButton
                                 label="Cancel"
                                 colorVariant="primary"
-                                block={true}
+                                block={false}
                                 type="button"
+                                size="small"
                                 isOutline={true}
                                 dataTestId="cancel"
                             />
@@ -156,7 +157,8 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                                 label="Save"
                                 colorVariant="primary"
                                 isDisabled={!isFormValid}
-                                block={true}
+                                size="small"
+                                block={false}
                                 type="submit"
                                 dataTestId="save"
                                 onClick={(e: any) => emitSaveData(e)}

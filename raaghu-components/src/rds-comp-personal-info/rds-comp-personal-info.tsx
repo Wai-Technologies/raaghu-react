@@ -64,7 +64,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             }}
                             required={true}
                             dataTestId="admin"
-                       
+
                         ></RdsInput>
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
@@ -122,6 +122,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                                 <RdsButton
                                     label="Verify Email"
                                     colorVariant="primary"
+                                    size="medium"
                                     block={false}
                                     type="submit"
                                     onClick={(e) => emailHandler(e, isEmailClicked)}
@@ -151,13 +152,22 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
             </div>
             <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
+                    label="Cancel"
+                    colorVariant="primary"
+                    tooltipTitle={""}
+                    type="button"
+                    size="small"
+                    isOutline={true}
+                    dataTestId="cancel"
+                />
+                <RdsButton
                     label="Save"
                     colorVariant="primary"
-                    block={false}
+                    tooltipTitle={""}
                     type="submit"
                     size="small"
-                    onClick={(e: any) => emitSaveData(e)}
                     dataTestId="save"
+                    onClick={(e: any) => emitSaveData(e)}
                 />
             </div>
         </form>
