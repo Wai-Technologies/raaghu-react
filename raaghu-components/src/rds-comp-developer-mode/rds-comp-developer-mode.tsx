@@ -75,62 +75,60 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
    //    setRadioItemList(radioItems);
    // }, [props.applicationUrl?.default]);
 
-   useEffect(() => {
-      setInputReset(!inputReset);
-   }, [props.reset]);
+    useEffect(() => {
+         setInputReset(!inputReset);
+    }, [props.reset]);
 
-   const radioItemsApp = [{
-      id: 1,
-      label: "Local Host",
-      checked: true,
-      name: "radio_buttona",
-   },
-      // {
-      //    id: 2,
-      //    label: t("Staging"),
-      //    checked: false,
-      //    name: "radio_buttona",
-      // },
-   ]
+    const [radioItemsApp, setRadioItemsApp] = useState([
+         {
+            id: 1,
+            label: "Local Host",
+            checked: true,
+            name: "radio_buttona",
+         },
+      
+         // {
+         //    id: 2,
+         //    label: t("Staging"),
+         //    checked: false,
+         //    name: "radio_buttona",
+         // },
+    ]);
 
-   const replaceItems = [
-      {
-         id: 1,
-         label: "True",
-         checked: null,
-         name: "radio_button",
-      },
-      {
-         id: 2,
-         label: "False",
-         checked: null,
-         name: "radio_button",
-      },
-   ];
-
-   const handleRadioClick = (event: any) => {
-     
-      const items = {
-        id: Number(event.target.id),
-        label: event.target.value,
-        checked: event.target.checked,
-        name: event.target.name,
-      };
-    
-      const updatedReplaceItems = replaceItems.map(item =>
-        item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
-      );
-    
-      if (items.id === 2) {
+    const [replaceItems, setReplaceItems] = useState([
+         {
+            id: 1,
+            label: "True",
+            checked: false,
+            name: "radio_button",
+         },
+         {
+            id: 2,
+            label: "False",
+            checked: false,
+            name: "radio_button",
+         },
+      ]);
+      const handleRadioClick = (event: any) => {
+         const items = {
+           id: Number(event.target.id),
+           label: event.target.value,
+           checked: event.target.checked,
+           name: event.target.name,
+         };
        
-        setRadioItemList(updatedReplaceItems);
-        localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
-      } else {
+         const updatedReplaceItems = replaceItems.map(item =>
+           item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+         );
        
-        setRadioItemList(updatedReplaceItems);
-      }
-    };
-
+         setReplaceItems(updatedReplaceItems);
+       
+         if (items.id === 2) {
+           localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
+         }
+       };
+       
+       
    useEffect(() => {
       setModeData((prevModeData: any) => ({
          ...prevModeData,
@@ -141,7 +139,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          scope: scope || '',
          appUrl: appUrl || '',
          replaceUrl: replaceUrl || false,
-         sideNav: sideNav || "",
+        
       }));
    }, [props.modeData]);
      
@@ -168,21 +166,31 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       event.preventDefault();
       props.onModeDataSubmit && props.onModeDataSubmit(modeData);
       setInputReset(!inputReset);
-      setModeData( ({
-        
+    
+      const resetRadioItemsApp = radioItemsApp.map(item => ({
+        ...item,
+        checked: false,
+      }));
+      setRadioItemsApp(resetRadioItemsApp);
+    
+      const resetReplaceItems = replaceItems.map(item => ({
+        ...item,
+        checked: false, 
+      }));
+      setReplaceItems(resetReplaceItems);
+    
+      setModeData({
          grantType: '',
          environment: '',
          apiUrl: '',
          clientId: '',
          scope: '',
          appUrl: '',
-         replaceItems: '',
          replaceUrl: null,
          sideNav: false,
-      }));
-   };
-
-   return (
+      });
+    };
+    return (
       <>
          <div className="overflow-x-hidden overflow-y-auto">
             <form>
