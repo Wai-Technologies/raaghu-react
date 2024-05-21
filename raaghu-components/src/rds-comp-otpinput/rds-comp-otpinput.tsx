@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./styles.css";
+import { RdsInput } from '../rds-elements';
 
 export interface RdsOtpInputProps {
    otpSize?: number;
@@ -29,16 +30,17 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
    }, [otpSize, props.fieldStyle]);
 
    const handleChange = (index: number, value: string) => {
+      const valueFoucs = value;   
+      console.log("valueFoucs", valueFoucs)
       if (!/^\d*$/.test(value)) {
          return;
       }
       const newOtp = [...otp];
-      newOtp[index] = value;
+      setOtp(newOtp);
 
-      if (value && index < otp.length - 1) {
+      if (value && index < otpSize - 1) {
          inputRefs.current[index + 1]?.focus();
       }
-      setOtp(newOtp);
    };
 
    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -52,23 +54,22 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
 
    return (
       <>
-         <div className="center-text">
+         <div className="text-center">
             <p>Enter the {otpSize}-digit OTP you have received</p>
          </div>
-         <div className="otp-container" style={{ width: `${otpSize * 50}px` }}>
+         <div className="d-flex justify-content-center mx-auto">
             {otp.map((digit, index) => (
-               <input
+               <RdsInput
                   key={index}
-                  className={fieldClass}
-                  type="text"
-                  maxLength={1}
+                  customClasses={fieldClass}
+                  inputType="otp"
+                  maxLength={0}
                   value={digit}
+                  singleDigit={true}
                   name="otp"
                   autoFocus={index === 0}
-                  ref={(ref) => (inputRefs.current[index] = ref)}
-                  onChange={(e) => {
-                     handleChange(index, e.target.value);
-                  }}
+                  ref={(ref:any) => (inputRefs.current[index] = ref)}
+                  onChange={(e) => handleChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
                />
             ))}

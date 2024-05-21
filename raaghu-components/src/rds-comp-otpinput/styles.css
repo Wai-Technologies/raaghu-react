@@ -2,37 +2,37 @@
     text-align: center;
 }
 
-.otp-container {
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
-    margin: 0 auto;
-}
-
 .otp-input-default {
     width: 40px;
+    max-width: 40px;
     height: 40px;
     text-align: center;
     font-size: 20px;
     border: 2px solid #adb5bd;
-    border-radius: 6px;
+    border-radius: 8px !important;
+    margin: 2px;
 }
 
 .otp-input-circle {
     width: 40px;
+    max-width: 40px;
     height: 40px;
     text-align: center;
     font-size: 20px;
     border: 2px solid #adb5bd;
-    border-radius: 50%;
+    border-radius: 50% !important;
+    margin: 2px;
 }
 
 .otp-input-square {
     width: 40px;
+    max-width: 40px;
     height: 40px;
     text-align: center;
     font-size: 20px;
-    border: 2px solid #adb5bd;
+    border: 2px solid #adb5bd !important;
+    margin: 2px;
+
 }
 
 .otp-input-default:focus, .otp-input-square:focus,

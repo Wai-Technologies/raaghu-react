@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./rds-input.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs/types";
@@ -15,6 +15,9 @@ export interface RdsInputProps {
     validatonPattern?: RegExp;
     validationMsg?: string;
     placeholder?: string;
+    autoFocus?: boolean;
+    singleDigit?: boolean;
+    ref?: any;
     labelPosition?: string;
     tooltipPlacement?: placements;
     tooltipTitle?: string;
@@ -47,6 +50,7 @@ const RdsInput = (props: RdsInputProps) => {
     const [hasError, setHasError] = useState(false);
     const [isTouch, setIsTouch] = useState(false);
     const [isValid, setIsValid] = useState<boolean>(true);
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
         setIsTouch(false);
@@ -55,6 +59,7 @@ const RdsInput = (props: RdsInputProps) => {
     useEffect(() => {
         setValue(props.value ?? "");
     }, [props.value]);
+    
     const handlerChange = (e: any) => {
         const inputValue = e.target.value;
         setIsTouch(true);
@@ -92,7 +97,9 @@ const RdsInput = (props: RdsInputProps) => {
         } else {
             setErrorRegardingLengthOrValue("")
         }
-
+        if (props.inputType === "otp" && !/^\d*$/.test(e.target.value) && e.target.value !== "") {
+            return;
+        }
         setValue(e.target.value);
 
     };
@@ -154,8 +161,11 @@ const RdsInput = (props: RdsInputProps) => {
                                     ? showPassword
                                         ? "text"
                                         : "password"
-                                    : props.inputType
+                                    : props.inputType === "otp"
+                                        ? "tel"
+                                        : props.inputType
                             }
+                            maxLength={props.inputType === "otp" && props.singleDigit ? 1 : undefined}
                             className={`${inputClasses}`}
                             id={props.id}
                             placeholder={props.placeholder}
@@ -169,7 +179,10 @@ const RdsInput = (props: RdsInputProps) => {
                             disabled={props.isDisabled}
                             readOnly={props.readonly}
                             data-testid={props.dataTestId}
-                            onClick={props.onClick}
+                            onClick={props.onClick} key={props.id}
+                            name="otp"
+                            autoFocus={true}
+                            ref={(ref: any) => (inputRefs.current[0] = ref)}
                         />
                         {props.inputType === "password" && props.showIcon == true && (
                             <RdsIcon
