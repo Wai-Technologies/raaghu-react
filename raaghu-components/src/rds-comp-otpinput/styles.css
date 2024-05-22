@@ -38,5 +38,5 @@
 .otp-input-default:focus, .otp-input-square:focus,
 .otp-input-circle:focus{
     outline: none;
-    border: 2px solid #7e2eef;
+    border: 2px solid #7e2eef !important;
 }

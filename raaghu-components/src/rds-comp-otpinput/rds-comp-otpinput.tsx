@@ -29,14 +29,13 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
       }
    }, [otpSize, props.fieldStyle]);
 
-   const handleChange = (index: number, value: string) => {
-      const valueFoucs = value;   
-      console.log("valueFoucs", valueFoucs)
-      if (!/^\d*$/.test(value)) {
-         return;
-      }
-      const newOtp = [...otp];
-      setOtp(newOtp);
+  const handleChange = (index: number, value: string) => {
+    if (!/^\d*$/.test(value)) {
+      return;
+    }
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
 
       if (value && index < otpSize - 1) {
          inputRefs.current[index + 1]?.focus();
@@ -67,7 +66,6 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
                   value={digit}
                   singleDigit={true}
                   name="otp"
-                  autoFocus={index === 0}
                   ref={(ref:any) => (inputRefs.current[index] = ref)}
                   onChange={(e) => handleChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}

@@ -15,7 +15,7 @@ export interface RdsInputProps {
     validatonPattern?: RegExp;
     validationMsg?: string;
     placeholder?: string;
-    autoFocus?: boolean;
+    autoFocus?: [boolean, number];
     singleDigit?: boolean;
     ref?: any;
     labelPosition?: string;
@@ -42,7 +42,7 @@ export interface RdsInputProps {
     showIcon?: boolean;
 }
 
-const RdsInput = (props: RdsInputProps) => {
+const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) => {
     const { t } = useTranslation();
     const [value, setValue] = useState(props.value);
     const [errorRegardingLengthOrValue, setErrorRegardingLengthOrValue] = useState("")
@@ -181,8 +181,8 @@ const RdsInput = (props: RdsInputProps) => {
                             data-testid={props.dataTestId}
                             onClick={props.onClick} key={props.id}
                             name="otp"
-                            autoFocus={true}
-                            ref={(ref: any) => (inputRefs.current[0] = ref)}
+                            autoFocus={props.autoFocus && props.autoFocus[1] === 0}
+                            ref={ref}
                         />
                         {props.inputType === "password" && props.showIcon == true && (
                             <RdsIcon
@@ -277,6 +277,6 @@ const RdsInput = (props: RdsInputProps) => {
             </div>
         </>
     );
-};
+})
 
 export default RdsInput;
