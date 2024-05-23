@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useReducer } from "react";
 import "./rds-comp-api-scope-resource.css";
-
+import { RdsButton } from "../rds-elements";
 export interface RdsCompApiScopeResourceProps {
     resources: any[];
-    role: "basic" ;
+    role: "basic";  
+    onCreate?: (State: any) => void;
+    onCancel?: (State: any) => void; 
 }
 
 const reducer = (state: any, action: any) => {
-    state.map((parent: any) => { });
-
     switch (action.type) {
         case "Parent":
             return state.map((parent: any, i: any) => {
@@ -77,7 +77,7 @@ const reducer = (state: any, action: any) => {
                     return t;
                 });
 
-                const selected = tempChi?.filter(
+                const selected = tempChi.filter(
                     (child: any) => child.selected == true
                 ).length;
 
@@ -96,32 +96,27 @@ const reducer = (state: any, action: any) => {
                 }
             });
 
-        case "statechange":
-            return state?.map((parent: any) => {
-                if (parent.id === action.P_id) {
-                    return { ...parent, select: !parent.select };
-                } else {
-                    return parent;
-                }
-            });
-
+        case "RESET":
+            return action.payload;
         default:
             return state;
     }
 };
-
 const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
     const [Res, dispatch] = useReducer(reducer, props.resources);
     const [check, setcheck] = useState(false);
 
-    useEffect(() => {
-        const selected = Res?.filter((Parent: any) => Parent.selected == true).length;
 
-        if (selected === Res?.length) {
+    useEffect(() => {
+        const selected = Res.filter((Parent: any) => Parent.selected == true).length;
+
+        if (selected === Res.length) {
             setcheck(true);
         } else {
             setcheck(false);
         }
+
+
     });
 
     const ChandleChange = (Child: any, Parent: any, e: any) => {
@@ -134,10 +129,10 @@ const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
         dispatch({ type: "grand", event: event });
         setcheck(!check);
     };
-
-    const onClickHandler = (parent: any) => {
-        dispatch({ type: "statechange", P_id: parent.id });
+    const resetForm = () => {
+        dispatch({ type: "RESET", payload: props.resources });
     };
+
 
     return (
         <>
@@ -189,6 +184,30 @@ const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
                     </>
                     );
                 })}
+              <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <RdsButton
+                        class="me-2"
+                        tooltipTitle={""}
+                        type={"button"}
+                        label="Cancel"
+                        colorVariant="outline-primary"
+                        size="small"
+                        databsdismiss="offcanvas"
+                    ></RdsButton>
+                    <RdsButton
+                        class="me-2"
+                        label="Save"
+                        size="small"
+                        colorVariant="primary"
+                        tooltipTitle={""}
+                        type={"submit"}
+                        databsdismiss="offcanvas"
+                        onClick={() => {
+                            props.onCreate && props.onCreate(Res);
+                            resetForm();
+                        }}
+                    ></RdsButton>
+                </div>
             </div>
         </>
     );

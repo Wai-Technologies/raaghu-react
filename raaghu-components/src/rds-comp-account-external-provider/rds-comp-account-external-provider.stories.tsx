@@ -20,7 +20,7 @@ export const Default: Story = {
         accountExternalProvider: [
             {
                 "name": "Google",
-                "enabled": true,
+                "enabled": false,
                 "properties": [
                     {
                         "name": "ClientId",

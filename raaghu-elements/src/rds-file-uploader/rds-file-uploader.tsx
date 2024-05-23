@@ -135,7 +135,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <form>
               <label
                 htmlFor="file1"
-                className={`align-items-center d-flex ${size}`}
+                className={`align-items-center d-flex mt-1`}
               >
                 <span
                   className={`custom-file-button p-0 border-end-0 form-control align-items-center ${size}`}

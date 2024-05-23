@@ -41,7 +41,7 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
                                         required={true}
                                     ></RdsLabel>
                                     <RdsInput
-                                        size="small"
+                                        size="medium"
                                         inputType="text"
                                         isDisabled={false}
                                         readonly={false}
