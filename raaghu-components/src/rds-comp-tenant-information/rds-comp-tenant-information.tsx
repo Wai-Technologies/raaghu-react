@@ -150,6 +150,11 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
             isModuleSpecificDb: false,
             radioItemList : []
         });
+        const resetRadioItems = radioItemList?.map((item: any) => ({
+            ...item,
+            checked: false,
+        }));
+        setRadioItemList(resetRadioItems);
     }
     return (
         <div>

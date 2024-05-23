@@ -37,7 +37,7 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
                 }`}
               onClick={() => handleDivClick(data.id,data.tenureCount)}
             >
-              <div className="col-md-8">
+              <div className="col-md-8 mt-2">
                 <RdsRadioButton
                   displayType="Default"
                   customClass="mb-0 py-2"

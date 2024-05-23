@@ -21,7 +21,7 @@ export const Default: Story = {
         tableHeaders: [
             { displayName: "Tenant", key: "tenant", datatype: "avatarTitleInfo", sortable: true, },
             { displayName: "Edition", key: "edition", datatype: "text", sortable: true, },
-            { displayName: "Status", key: "status", datatype: "badge", sortable: true, },
+            { displayName: "Status", key: "status", datatype: "badge", sortable: false, },
         ],
         tableData: [
             {

@@ -20,12 +20,7 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
             <div className="row">
                 <div
                     className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 text-center p-4 d-grid vh-100">
-                    <div>
-                        <img width={180}
-                            src="/raaghu-components/public/raaghu-logo.svg"
-                            alt="raaghu-logo"
-                        ></img>
-                    </div>
+                
                     <div className="mt-mb-custom">
                         <h1 className="pb-1">
                             <b>

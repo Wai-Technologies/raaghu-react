@@ -149,7 +149,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
             {props.type === "default" && (
                 <>
                     {props.DatePickerLabel && <label className="form-label">{props.DatePickerLabel}</label>}
-                    <div className="input-group input-group-datePicker mb-3">
+                    <div className="input-group input-group-datePicker mb-3 mt-1">
                         {/* <div className="input-group-append datepicker__icon-box">
                             <span className="input-group-text cursor-pointer" id="basic-addon2">
                                 <RdsIcon
@@ -265,7 +265,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     {props.DatePickerLabel && (
                         <label className="form-label">{props.DatePickerLabel}</label>
                     )}
-                    <div className="input-group input-group-datePicker mb-3">
+                    <div className="input-group input-group-datePicker mb-3 mt-1">
                         <DatePicker
                             selected={startDate}
                             onChange={handlerDateTimeChange}

@@ -44,7 +44,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                     <div className="custom-content-scroll">
                     <div className="row align-items-center">
                         <div className="col-md-3 text-center cursor-pointer sm-p-0">
-                            <img src='./raaghu-components/src/rds-comp-profile-edit/edit-pic.png' />
+                            <img   src='/raaghu-components/public/assets/edit-pic.png' />
                              <input type="file" accept="image/*" className="d-none" />
                         </div>
                         <div className="col-md-9 sm-p-0">

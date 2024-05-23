@@ -10,8 +10,8 @@
     @include border-top-radius($accordion-border-radius);
 
     .accordion-button {
-      border-bottom-right-radius: 0px;
-      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px !important;
+      border-top-right-radius: 0px !important;
     }
   }
   // Only set a border-radius on the last item if the accordion is collapsed
@@ -20,8 +20,8 @@
 
     .accordion-button {
       &.collapsed {
-        border-bottom-right-radius: 0px;
-        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px !important;
+        border-top-right-radius: 0px !important;
         box-shadow: none;
       }
     }

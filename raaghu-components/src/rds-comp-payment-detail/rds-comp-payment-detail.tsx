@@ -14,12 +14,14 @@ export interface RdsCompPaymentDetailProps {
   reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
+
 const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
-  const [formData, setFormData] = useState(props.paymentDetails);
+  const [formData, setFormData] = useState(props.paymentDetails || {});
   const [inputReset, setInputReset] = useState(props.reset);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
   useEffect(() => {
-    setFormData(props.paymentDetails);
+    setFormData(props.paymentDetails || {});
   }, [props.paymentDetails]);
 
   useEffect(() => {
@@ -30,26 +32,41 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
     setFormData({ ...formData, [key]: value });
   };
 
+  const handlePaymentMethodChange = (value: any) => {
+    setSelectedPaymentMethod(value);
+    if (value === 'Credit Card') {
+      setFormData({
+        cardNumber: "",
+        cardHolderName: "",
+        cardExpirationDate: "",
+        cardCvc: ""
+      });
+    } else if (value !== 'Credit Card' && selectedPaymentMethod === 'Credit Card') {
+      setSelectedPaymentMethod('eTransfer');
+    }
+  };
+
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(formData);
     setInputReset(!inputReset);
-    setFormData({
-      cardNumber: "",
-      cardHolderName: "",
-      cardExpirationDate: "",
-      cardCvc: ""
-  });
+    setFormData({});
+    setSelectedPaymentMethod('');
   }
 
   return (
     <>
-      <form>
+      <form onSubmit={emitSaveData}>
         <div className="contact-information">
+
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
-              <RdsRadioButton itemList={props.paymentModeList} />
+              <RdsRadioButton 
+                itemList={props.paymentModeList} 
+                onChange={handlePaymentMethodChange} 
+               // value={selectedPaymentMethod}
+              />
             </div>
           </div>
           <div>
@@ -108,33 +125,31 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
               />
             </div>
           </div>
-
-          <div className="pt-3 row">
-            <div className="col-6">
+          </div>
+          <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
               <RdsButton
                 label="Cancel"
                 colorVariant="primary"
-                block={true}
+                block={false}
                 tooltipTitle={""}
+                size="small"
                 type="button"
                 // onClick={props.onBack}
                 isOutline={true}
-              />
-            </div>
-            <div className="col-6">              
+              />        
               <RdsButton
                 label="Confirm"
                 colorVariant="primary"
                 isDisabled={false}
-                block={true}
+                block={false}
+                size="small"
                 tooltipTitle={""}
                 type="submit"
                 // showLoadingSpinner={true}
                 onClick={(e: any) => emitSaveData(e)}
-              />
-            </div>
-          </div>
-        </div>
+              />           
+          </div>    
+      
       </form>
     </>
   );

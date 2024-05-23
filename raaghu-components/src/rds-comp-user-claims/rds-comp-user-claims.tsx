@@ -45,7 +45,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     reset={inputReset}
                                     inputType="text"
                                     placeholder="Type"
-                                    size="small"
+                                    size="medium"
                                     dataTestId="type"
                                     onChange={(e) => {
                                         handleDataChanges(e.target.value, "type");
@@ -62,7 +62,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     reset={inputReset}
                                     inputType="text"
                                     placeholder="Value"
-                                    size="small"
+                                    size="medium"
                                     dataTestId="value"
                                     onChange={(e) => {
                                         handleDataChanges(e.target.value, "value");
