@@ -85,18 +85,21 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         // if (isFormValid) {
-            props.onSaveHandler && props.onSaveHandler(registerFormData);
-            setInputReset(!inputReset);
-            setRegisterFormData({
-                name: "",
-                adminEmailAddress: "",
-                adminPassword: "",
-                countryCode: "",
-                zipCode: "",
-            });
+        props.onSaveHandler && props.onSaveHandler(registerFormData);
+        setInputReset(!inputReset);
+        setRegisterFormData({
+            name: "",
+            adminEmailAddress: "",
+            adminPassword: "",
+            countryCode: "",
+            zipCode: "",
+           
+        });
+        setIsCheckTerms(false); 
+        setCountryList([]);
         // }
     };
-    
+
     return (
         <div>
             <div className="text-center">
@@ -151,6 +154,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                             <div className="col-md-6">
                                 <RdsLabel label="Country" required={true} />
                                 <RdsDropdownList
+                                    key={countryList.length}
                                     placeholder="Select Country"
                                     isPlaceholder={true}
                                     borderDropdown={true}
@@ -180,6 +184,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                 withlabel
                                 checked={isCheckTerms}
                                 onChange={(e: any) => setIsCheckTerms(e.target.checked)}
+                             
                             />
                         </div>
 

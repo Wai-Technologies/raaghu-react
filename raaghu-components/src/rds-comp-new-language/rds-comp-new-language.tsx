@@ -64,7 +64,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         props.onSaveHandler({
             isEnabled: isEnabled,
             cultureName,
-            uiCultureName: cultureUIName,
+            cultureUIName, 
             displayName,
             id: props.id,
             flagIcon: flagIcon
@@ -83,11 +83,10 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
     const onChangeSelectList = (fieldname: string, value: string) => {
         if (fieldname === "cultureName") {
             setCultureName(value);
-            setCultureUIName(value);
             setDisplayName(""); 
         }
-        else if (fieldname === "") {
-            setCultureUIName("");
+        else if (fieldname === "cultureUIName") {
+            setCultureUIName(value);
         }
         else if (fieldname === "flagIcon") {
             setFlagIcon(value);
