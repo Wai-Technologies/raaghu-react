@@ -18,7 +18,7 @@ const RdsListGroup = (props: RdsListGroupProps) => {
                 <RdsLabel label={props.label} class="mx-1"></RdsLabel>
             )}
             {!props.listGroupWithMultiSelect && (
-                <ul className="list-group mb-1" >
+                <ul className="list-group mb-1 mt-1" >
                     {props.listItem.map((listItems) => (
                         <>
                             <li
@@ -35,7 +35,7 @@ const RdsListGroup = (props: RdsListGroupProps) => {
                 </ul>
             )}
             {props.listGroupWithMultiSelect && (
-                <ul className="list-group mb-1">
+                <ul className="list-group mb-1 mt-1">
                     {props.listItem.map((listItems, index) => (
                         <>
                             <li

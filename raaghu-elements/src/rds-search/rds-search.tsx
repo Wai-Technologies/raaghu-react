@@ -57,7 +57,7 @@ const RdsSearch = (props: RdsSearchProps) => {
         <div className={`form-label ` + labelClass()} >{props.label}
             {/* <div className={labelClass()}> */}
             {/* <label>{props.label}</label> */}
-            <div className={`input-group border rounded ` + classes()}>
+            <div className={`input-group border mt-1 rounded ` + classes()}>
                 {props.iconPosition === 'left' && (
                     <span className="input-group-text border-0">
                         <RdsIcon name="search" fill={false} stroke={true} ></RdsIcon>
