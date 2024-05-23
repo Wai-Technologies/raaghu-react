@@ -57,7 +57,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
     props.onChange && props.onChange(e);
   };
   const getClassNames = () => {
-    let defaultClasses: string = "mb-0";
+    let defaultClasses: string = "mb-0 mt-1";
     if (props.isFloatingInputLabel === true) {
       defaultClasses = "form-floating";
     }
