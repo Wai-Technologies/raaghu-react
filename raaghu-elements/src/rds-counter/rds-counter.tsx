@@ -53,7 +53,7 @@ const RdsCounter = (props: RdsCounterProps) => {
     }
 
     const inputClasses = () => {
-        var inputClass: string = 'input-group';
+        var inputClass: string = 'input-group mt-1';
         if (props.position === 'top') {
             inputClass = inputClass + ' mt-2';
         }
@@ -66,7 +66,7 @@ const RdsCounter = (props: RdsCounterProps) => {
     return (
         <Fragment>
             <div className="row">   
-                <div className="position-relative ms-1">
+                <div className="position-relative ms-0">
                     <div className={classes()}>
                         <label>{props.label}</label>
                         <div className={inputClasses()} style={{ width: props.width }}>

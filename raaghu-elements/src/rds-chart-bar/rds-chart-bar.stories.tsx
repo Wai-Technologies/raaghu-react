@@ -242,12 +242,12 @@ export const BarChartWithBorderRadius: Story = {
         width: 300,
         dataSets: [
             {
-                label: "Fully Rounded",
+                label: "Fully Radius",
                 data: [20, 30, 50, 80, 98, 95, 55],
                 backgroundColor: "rgba(75, 192, 192, 1)",
                 borderColor: "rgba(75, 192, 192, 1)",
                 borderWidth: 2,
-                borderRadius: Number.MAX_VALUE,
+                borderRadius: 5,
                 borderSkipped: false,
             },
             {
