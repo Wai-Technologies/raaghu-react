@@ -64,7 +64,7 @@ export const Default: Story = {
         { displayName: "Invoice", key: "invoice", datatype: "text", sortable: true },
         { displayName: "Amount", key: "amount", datatype: "text", sortable: true, },
         { displayName: "Date", key: "expiry", datatype: "text", sortable: true },
-        { displayName: "Status", key: "status", datatype: "badge", sortable: true },
+        { displayName: "Status", key: "status", datatype: "badge", sortable: false },
     ],
 
     billingData: [

@@ -58,6 +58,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
     <>
       <form onSubmit={emitSaveData}>
         <div className="contact-information">
+
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
@@ -124,33 +125,31 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
               />
             </div>
           </div>
-
-          <div className="pt-3 row">
-            <div className="col-6">
+          </div>
+          <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
               <RdsButton
                 label="Cancel"
                 colorVariant="primary"
-                block={true}
+                block={false}
                 tooltipTitle={""}
+                size="small"
                 type="button"
                 // onClick={props.onBack}
                 isOutline={true}
-              />
-            </div>
-            <div className="col-6">              
+              />        
               <RdsButton
                 label="Confirm"
                 colorVariant="primary"
                 isDisabled={false}
-                block={true}
+                block={false}
+                size="small"
                 tooltipTitle={""}
                 type="submit"
                 // showLoadingSpinner={true}
                 onClick={(e: any) => emitSaveData(e)}
-              />
-            </div>
-          </div>
-        </div>
+              />           
+          </div>    
+      
       </form>
     </>
   );
