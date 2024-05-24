@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { RdsButton, RdsLabel, RdsModal } from "../rds-elements";
+import { RdsButton, RdsLabel, RdsModal, RdsProgressBar } from "../rds-elements";
 import { useState } from "react";
 import { RdsInput } from "../rds-elements";
 import { RdsIcon } from "../rds-elements";
@@ -153,7 +153,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                           <li onClick={() => deleteCard(index)}>
                                              <a
                                                 data-bs-toggle="modal" className="dropdown-item">
-                                                Delete Board
+                                                <RdsLabel label="Delete Board"  />
                                              </a>
                                           </li>
                                        </ul>
@@ -176,46 +176,76 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                          modalId={`modal${index}-${subCardIndex}`}
                                                          modalTitle={subCard}
                                                          modalbutton={<RdsIcon name={"three_dots_horizontal"} height="14px" width="14px" fill={true} />}
-                                                         saveChangesName="Save Changes"
-                                                         showModalFooter
                                                          showModalHeader
                                                          size="medium"
                                                          verticallyCentered
                                                       >
                                                          <p>
                                                             <div className="row">
-                                                            <div className="col-md-8">
-                                                               <RdsLabel label="Label" fontWeight="bold"/>
-                                                            </div>
-                                                            <div className="col-md-4">
-                                                               <RdsLabel label="Add to card" fontWeight="bold"/>
-                                                               <div className="mt-1">
-                                                                  <RdsButton
-                                                                     colorVariant="secondary"
-                                                                     label="Add Label"
-                                                                     size="small"   
-                                                                     icon=""
-                                                                     
-                                                                  />
+                                                               <div className="col-md-8">
+                                                                  <div className="">
+                                                                     <RdsLabel label="Label" fontWeight="bold" />
+                                                                  </div>
+                                                                  <div className="mt-5 row">
+                                                                     <div className="col-md-6">
+                                                                        <RdsLabel label="Check List" fontWeight="bold" />
+                                                                     </div>
+                                                                     <div className="col-md-6">
+                                                                        <RdsButton
+                                                                           colorVariant="secondary"
+                                                                           label="Delete all tasks"
+                                                                           size="small"
+                                                                        />
+                                                                     </div>
+                                                                  </div>
+                                                                  <div className="mt-2">
+                                                                     <RdsProgressBar
+                                                                        colorVariant="secondary"
+                                                                        displayPercentage
+                                                                        height={15}
+                                                                        progressWidth={0}
+                                                                        role="single"
+                                                                        striped
+                                                                     />
+                                                                  </div>
+                                                                  <div className="mt-2">
+                                                                     <RdsButton
+                                                                        colorVariant="secondary"
+                                                                        label="Add task"
+                                                                        size="medium"
+                                                                        icon="plus"
+                                                                     />
+                                                                  </div>
                                                                </div>
-                                                               <div className="my-2">
-                                                                  <RdsButton
-                                                                     colorVariant="secondary"
-                                                                     label="Date"
-                                                                     size="small"
-                                                                     icon="calendar"
-                                                                  />
+                                                               <div className="col-md-4">
+                                                                  <RdsLabel label="Add to card" fontWeight="bold" />
+                                                                  <div className="mt-1">
+                                                                     <RdsButton
+                                                                        colorVariant="secondary"
+                                                                        label="Add Label"
+                                                                        size="small"
+                                                                        icon=""
+
+                                                                     />
+                                                                  </div>
+                                                                  <div className="my-2">
+                                                                     <RdsButton
+                                                                        colorVariant="secondary"
+                                                                        label="Date"
+                                                                        size="small"
+                                                                        icon="calendar"
+                                                                     />
+                                                                  </div>
+                                                                  <div>
+                                                                     <RdsButton
+                                                                        colorVariant="secondary"
+                                                                        label="Delete Card"
+                                                                        size="small"
+                                                                        icon="delete"
+                                                                        onClick={() => deleteSubCard(index, subCardIndex)}
+                                                                     />
+                                                                  </div>
                                                                </div>
-                                                               <div>
-                                                                  <RdsButton
-                                                                     colorVariant="secondary"
-                                                                     label="Delete Card"
-                                                                     size="small"
-                                                                     icon="delete"
-                                                                     onClick={() => deleteSubCard(index, subCardIndex)}
-                                                                  />
-                                                               </div>
-                                                            </div>
                                                             </div>
                                                          </p>
                                                       </RdsModal>
