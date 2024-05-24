@@ -7,8 +7,8 @@ import "./rds-card.css";
 export interface RdsCardProps {
     buttonLabel?: string;
     colorVariant?: colors;
-    cardTitle?: string;
-    cardText?: string;
+    cardTitle?: React.ReactNode;
+    cardText?: React.ReactNode;
     showFooter?: boolean;
     isImage?: boolean;
     imageUrl?: string;
@@ -16,6 +16,7 @@ export interface RdsCardProps {
     centerAlign?: boolean;
     isAvatar?: boolean;
     borderColor?: colors;
+    children?: React.ReactNode;
 }
 
 const RdsCard = (props: RdsCardProps) => {
@@ -108,6 +109,7 @@ const RdsCard = (props: RdsCardProps) => {
                         </button>
                     </div>
                 )}
+                {props.children}
             </div>
         </Fragment>
     );

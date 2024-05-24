@@ -1,0 +1,10 @@
+
+.btn-group.dropstart {
+    position: relative;
+  }
+  
+  .dropdown-menu.dropdown-adjusted.dropdown-right {
+    position: absolute;
+    left: 0 !important;
+    top: 100% !important; 
+  }
