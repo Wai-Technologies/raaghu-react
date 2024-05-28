@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { RdsButton, RdsLabel, RdsModal, RdsProgressBar } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsLabel, RdsModal, RdsProgressBar } from "../rds-elements";
 import { useState } from "react";
 import { RdsInput } from "../rds-elements";
 import { RdsIcon } from "../rds-elements";
@@ -20,7 +20,11 @@ const KanbanBoard = (props: KanbanBoardProps) => {
    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean[]>([]);
    const [subCardInputVisible, setSubCardInputVisible] = useState<number | null>(null);
    const [subCardInputValue, setSubCardInputValue] = useState<string>('');
-
+   const [showInputTask, setShowInputTask] = useState(false);
+   const [taskName, setTaskName] = useState('');
+   const [tasks, setTasks] = useState<{ name: string, completed: boolean }[]>([]);
+   const [totalTasks, setTotalTasks] = useState(0);
+   const [completedTasks, setCompletedTasks] = useState(0);
    useEffect(() => {
       setInputValue(props.inputValue);
    }
@@ -71,6 +75,39 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       setSubCardInputValue('');
    };
 
+   const handleAddTask = () => {
+      setTasks([...tasks, { name: taskName, completed: false }]);
+      setTaskName('');
+      setShowInputTask(false);
+      setTotalTasks(totalTasks + 1);
+   };
+   const handleCheckboxClick = (index: any) => {
+      const newTasks = [...tasks];
+      newTasks[index].completed = !newTasks[index].completed;
+      setTasks(newTasks);
+    
+      const newCompletedTasks = newTasks[index].completed ? completedTasks + 1 : completedTasks - 1;
+      setCompletedTasks(newCompletedTasks);
+    };
+
+    const handleDeleteTask = (index: any) => {
+      const newTasks = tasks.filter((_, i) => i !== index);
+      setTasks(newTasks);
+    
+      setTotalTasks(totalTasks - 1);
+      if (tasks[index].completed) {
+        setCompletedTasks(completedTasks - 1);
+      }
+    };
+
+    const handleDeleteAllTasks = () => {
+      setTasks([]);
+      setTotalTasks(0);
+      setCompletedTasks(0);
+    };
+    
+    const noOfCompletedTasks = tasks.filter(task => task.completed)?.length;
+    const progress = tasks?.length > 0 ? Math.round((noOfCompletedTasks / tasks?.length) * 100) : 0;
    return (
       <>
          {visibleInput &&
@@ -153,7 +190,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                           <li onClick={() => deleteCard(index)}>
                                              <a
                                                 data-bs-toggle="modal" className="dropdown-item">
-                                                <RdsLabel label="Delete Board"  />
+                                                <RdsLabel label="Delete Board" />
                                              </a>
                                           </li>
                                        </ul>
@@ -167,90 +204,148 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                           <RdsCard
                                              key={subCardIndex}
                                              cardTitle={
-                                                <div className="d-flex">
-                                                   <span className="me-3">{subCard}</span>
-                                                   <div>
-                                                      <RdsModal
-                                                         cancelButtonName="Close"
-                                                         modalAnimation="modal-fade"
-                                                         modalId={`modal${index}-${subCardIndex}`}
-                                                         modalTitle={subCard}
-                                                         modalbutton={<RdsIcon name={"three_dots_horizontal"} height="14px" width="14px" fill={true} />}
-                                                         showModalHeader
-                                                         size="medium"
-                                                         verticallyCentered
-                                                      >
-                                                         <p>
-                                                            <div className="row">
-                                                               <div className="col-md-8">
-                                                                  <div className="">
-                                                                     <RdsLabel label="Label" fontWeight="bold" />
-                                                                  </div>
-                                                                  <div className="mt-5 row">
-                                                                     <div className="col-md-6">
-                                                                        <RdsLabel label="Check List" fontWeight="bold" />
+                                                <>
+                                                   <div className="d-flex">
+                                                      <span className="me-3">{subCard}</span>
+                                                      <div>
+                                                         <RdsModal
+                                                            cancelButtonName="Close"
+                                                            modalAnimation="modal-fade"
+                                                            modalId={`modal${index}-${subCardIndex}`}
+                                                            modalTitle={subCard}
+                                                            modalbutton={<RdsIcon name={"three_dots_horizontal"} height="14px" width="14px" fill={true} />}
+                                                            showModalHeader
+                                                            size="medium"
+                                                            verticallyCentered
+                                                         >
+                                                            <p>
+                                                               <div className="row">
+                                                                  <div className="col-md-8">
+                                                                     <div className="">
+                                                                        <RdsLabel label="Label" fontWeight="bold" />
                                                                      </div>
-                                                                     <div className="col-md-6">
-                                                                        <RdsButton
-                                                                           colorVariant="secondary"
-                                                                           label="Delete all tasks"
-                                                                           size="small"
+                                                                     <div className="mt-5 row">
+                                                                        <div className="col-md-6">
+                                                                           <RdsLabel label="Check List" fontWeight="bold" />
+                                                                        </div>
+                                                                        <div className="col-md-6">
+                                                                           <RdsButton
+                                                                              colorVariant="secondary"
+                                                                              label="Delete all tasks"
+                                                                              size="small"
+                                                                              onClick={handleDeleteAllTasks}
+                                                                           />
+                                                                        </div>
+                                                                     </div>
+                                                                     <div className="mt-2">
+                                                                        <RdsProgressBar
+                                                                           colorVariant="success"
+                                                                           displayPercentage
+                                                                           height={15}
+                                                                           progressWidth={progress}
+                                                                           role="single"
+                                                                           striped
                                                                         />
                                                                      </div>
+                                                                     <div className="mt-2">
+                                                                        <div>
+                                                                           {tasks.map((task, index) => (
+                                                                              <div key={index} className="row ">
+                                                                                 <div className="col-md-8">
+                                                                                    <RdsCheckbox state="Checkbox" label={task.name} checked={task.completed} onChange={() => handleCheckboxClick(index)} />
+                                                                                 </div>
+                                                                                 <div className="col-md-4">
+                                                                                    <RdsIcon name="delete" height="15px" width="15px" onClick={() => handleDeleteTask(index)} ></RdsIcon>
+                                                                                 </div>
+                                                                              </div>
+                                                                           ))}
+                                                                        </div>
+                                                                        {showInputTask && (
+                                                                           <>
+                                                                              <RdsInput
+                                                                                 value={taskName}
+                                                                                 size="small"
+                                                                                 onChange={(e) => setTaskName(e.target.value)}
+                                                                              />
+                                                                              <div className="mt-2">
+                                                                                 <RdsButton
+                                                                                    colorVariant="primary"
+                                                                                    label="Add Task"
+                                                                                    size="medium"
+                                                                                    onClick={handleAddTask}
+                                                                                 />
+
+                                                                                 <RdsIcon
+                                                                                    colorVariant="secondary"
+                                                                                    name="Cancel"
+                                                                                    height="13px"
+                                                                                    width="13px"
+                                                                                    classes={"m-2"}
+                                                                                    onClick={() => setShowInputTask(false)}
+                                                                                 />
+                                                                              </div>
+                                                                           </>
+                                                                        )}
+                                                                        {!showInputTask && (
+                                                                           <RdsButton
+                                                                              colorVariant="secondary"
+                                                                              label="Add task"
+                                                                              size="medium"
+                                                                              icon="plus"
+                                                                              onClick={() => setShowInputTask(true)}
+                                                                           />
+                                                                        )}
+                                                                     </div>
                                                                   </div>
-                                                                  <div className="mt-2">
-                                                                     <RdsProgressBar
-                                                                        colorVariant="secondary"
-                                                                        displayPercentage
-                                                                        height={15}
-                                                                        progressWidth={0}
-                                                                        role="single"
-                                                                        striped
-                                                                     />
-                                                                  </div>
-                                                                  <div className="mt-2">
-                                                                     <RdsButton
-                                                                        colorVariant="secondary"
-                                                                        label="Add task"
-                                                                        size="medium"
-                                                                        icon="plus"
-                                                                     />
-                                                                  </div>
-                                                               </div>
-                                                               <div className="col-md-4">
-                                                                  <RdsLabel label="Add to card" fontWeight="bold" />
-                                                                  <div className="mt-1">
-                                                                     <RdsButton
+                                                                  <div className="col-md-4">
+                                                                     <RdsLabel label="Add to card" fontWeight="bold" />
+                                                                     <div className="mt-1">
+                                                                        {/* <RdsButton
                                                                         colorVariant="secondary"
                                                                         label="Add Label"
                                                                         size="small"
                                                                         icon=""
-
-                                                                     />
-                                                                  </div>
-                                                                  <div className="my-2">
-                                                                     <RdsButton
-                                                                        colorVariant="secondary"
-                                                                        label="Date"
-                                                                        size="small"
-                                                                        icon="calendar"
-                                                                     />
-                                                                  </div>
-                                                                  <div>
-                                                                     <RdsButton
-                                                                        colorVariant="secondary"
-                                                                        label="Delete Card"
-                                                                        size="small"
-                                                                        icon="delete"
-                                                                        onClick={() => deleteSubCard(index, subCardIndex)}
-                                                                     />
+                                                                     /> */}
+                                                                        <RdsModal
+                                                                           cancelButtonName="Close"
+                                                                           modalAnimation="modal-fade"
+                                                                           modalId={""}
+                                                                           modalTitle="Label"
+                                                                           modalbutton={<RdsButton colorVariant="secondary" label="Add Label" size="small" icon="" />}
+                                                                           showModalHeader
+                                                                           verticallyCentered={false}
+                                                                           size="medium"
+                                                                        >
+                                                                           <p>label modal</p>
+                                                                        </RdsModal>
+                                                                     </div>
+                                                                     <div className="my-2">
+                                                                        <RdsButton
+                                                                           colorVariant="secondary"
+                                                                           label="Date"
+                                                                           size="small"
+                                                                           icon="calendar"
+                                                                        />
+                                                                     </div>
+                                                                     <div>
+                                                                        <RdsButton
+                                                                           colorVariant="secondary"
+                                                                           label="Delete Card"
+                                                                           size="small"
+                                                                           icon="delete"
+                                                                           onClick={() => deleteSubCard(index, subCardIndex)}
+                                                                        />
+                                                                     </div>
                                                                   </div>
                                                                </div>
-                                                            </div>
-                                                         </p>
-                                                      </RdsModal>
+                                                            </p>
+                                                         </RdsModal>
+                                                      </div>
                                                    </div>
-                                                </div>
+                                                   <div className="mt-2">
+                                                      {totalTasks > 0 && `${completedTasks}/${totalTasks}`}
+                                                   </div>
+                                                </>
                                              }
                                           />
                                        </div>
