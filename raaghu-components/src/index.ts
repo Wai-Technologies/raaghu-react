@@ -102,3 +102,4 @@ export { default as RdsCompPaymentTenure } from "./rds-comp-payment-tenure";
 export { default as RdsCompAccountExternalProvider } from "./rds-comp-account-external-provider";
 export { default as RdsCompOtpInput } from "./rds-comp-otpinput";
 export { default as RdsCompAddMember } from "./rds-comp-add-member";
+export { default as RdsCompOrderConfirmation } from "./rds-comp-order-confirmation";
