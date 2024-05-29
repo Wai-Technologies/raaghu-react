@@ -6,6 +6,7 @@ import { RdsIcon } from "../rds-elements";
 import { RdsCard } from "../rds-elements";
 import { RdsBadge } from "../rds-elements";
 import './rds-comp-kanban-board.css';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 export interface KanbanBoardProps {
    inputValue: string;
@@ -22,7 +23,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
    const [subCardInputValue, setSubCardInputValue] = useState<string>('');
    const [showInputTask, setShowInputTask] = useState(false);
    const [taskName, setTaskName] = useState('');
-   const [tasks, setTasks] = useState<{ name: string, completed: boolean }[]>([]);
+   const [tasks, setTasks] = useState<{ name: string, completed: boolean, subCardIndex: number }[]>([]);
    const [totalTasks, setTotalTasks] = useState(0);
    const [completedTasks, setCompletedTasks] = useState(0);
    useEffect(() => {
@@ -75,39 +76,82 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       setSubCardInputValue('');
    };
 
-   const handleAddTask = () => {
-      setTasks([...tasks, { name: taskName, completed: false }]);
+   const handleAddTask = (subCardIndex: number) => {
+      setTasks([...tasks, { name: taskName, completed: false, subCardIndex }]);
       setTaskName('');
       setShowInputTask(false);
       setTotalTasks(totalTasks + 1);
    };
-   const handleCheckboxClick = (index: any) => {
-      const newTasks = [...tasks];
-      newTasks[index].completed = !newTasks[index].completed;
+   const handleCheckboxClick = (subCardIndex: number, taskIndex: number) => {
+      const newTasks = tasks.map((task, index) => {
+          if (task.subCardIndex === subCardIndex && index === taskIndex) {
+              return { ...task, completed: !task.completed };
+          } else {
+              return task;
+          }
+      });
       setTasks(newTasks);
-    
-      const newCompletedTasks = newTasks[index].completed ? completedTasks + 1 : completedTasks - 1;
+  
+      const newCompletedTasks = newTasks.filter(task => task.completed).length;
       setCompletedTasks(newCompletedTasks);
-    };
+  };
+  
+  
 
-    const handleDeleteTask = (index: any) => {
+
+
+   const handleDeleteTask = (index: any) => {
       const newTasks = tasks.filter((_, i) => i !== index);
       setTasks(newTasks);
-    
+
       setTotalTasks(totalTasks - 1);
       if (tasks[index].completed) {
-        setCompletedTasks(completedTasks - 1);
+         setCompletedTasks(completedTasks - 1);
       }
-    };
+   };
 
-    const handleDeleteAllTasks = () => {
+   const handleDeleteAllTasks = () => {
       setTasks([]);
       setTotalTasks(0);
       setCompletedTasks(0);
-    };
-    
-    const noOfCompletedTasks = tasks.filter(task => task.completed)?.length;
-    const progress = tasks?.length > 0 ? Math.round((noOfCompletedTasks / tasks?.length) * 100) : 0;
+   };
+
+   const subCardProgress = (subCardIndex: number) => {
+      const subCardTasks = tasks.filter(task => task.subCardIndex === subCardIndex);
+      const subCardCompletedTasks = subCardTasks.filter(task => task.completed).length;
+      const subCardTotalTasks = subCardTasks.length;
+      return subCardTotalTasks > 0 ? Math.round((subCardCompletedTasks / subCardTotalTasks) * 100) : 0;
+   };
+
+   const onDragEnd = (result: any) => {
+      if (!result.destination) return;
+
+      const { source, destination } = result;
+
+      if (source.droppableId === destination.droppableId && source.index === destination.index) {
+         return;
+      }
+
+      const sourceCardIndex = parseInt(source.droppableId);
+      const destinationCardIndex = parseInt(destination.droppableId);
+
+      const sourceSubCards = Array.from(cards[sourceCardIndex].subCards);
+      const [movedSubCard] = sourceSubCards.splice(source.index, 1);
+
+      const updatedCards = [...cards];
+      if (sourceCardIndex === destinationCardIndex) {
+         sourceSubCards.splice(destination.index, 0, movedSubCard);
+         updatedCards[sourceCardIndex].subCards = sourceSubCards;
+      } else {
+         const destinationSubCards = Array.from(cards[destinationCardIndex].subCards);
+         destinationSubCards.splice(destination.index, 0, movedSubCard);
+         updatedCards[sourceCardIndex].subCards = sourceSubCards;
+         updatedCards[destinationCardIndex].subCards = destinationSubCards;
+      }
+
+      setCards(updatedCards);
+   };
+
    return (
       <>
          {visibleInput &&
@@ -146,6 +190,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
             </>
 
          }
+         <DragDropContext onDragEnd={onDragEnd}>
          <div className="">
             <div className="row d-flex">
                {cards.map((card, index) => (
@@ -199,8 +244,18 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                               }
                               cardText={
                                  <>
-                                    {card.subCards.map((subCard, subCardIndex) => (
-                                       <div className="mt-2 row">
+                                 <Droppable droppableId={`${index}`} type="subCard">
+                                          {(provided:any) => (
+                                             <div {...provided.droppableProps} ref={provided.innerRef}>
+                                                {card.subCards.map((subCard, subCardIndex) => (
+                                                   <Draggable key={subCardIndex} draggableId={`subCard-${index}-${subCardIndex}`} index={subCardIndex}>
+                                                      {(provided:any) => (
+                                                         <div
+                                                            className="mt-2 row"
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                         >
                                           <RdsCard
                                              key={subCardIndex}
                                              cardTitle={
@@ -242,17 +297,17 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                                            colorVariant="success"
                                                                            displayPercentage
                                                                            height={15}
-                                                                           progressWidth={progress}
+                                                                           progressWidth={subCardProgress(subCardIndex)}
                                                                            role="single"
                                                                            striped
                                                                         />
                                                                      </div>
                                                                      <div className="mt-2">
                                                                         <div>
-                                                                           {tasks.map((task, index) => (
-                                                                              <div key={index} className="row ">
+                                                                           {tasks.filter(task => task.subCardIndex === subCardIndex).map((task, index) => (
+                                                                              <div key={index} className="row">
                                                                                  <div className="col-md-8">
-                                                                                    <RdsCheckbox state="Checkbox" label={task.name} checked={task.completed} onChange={() => handleCheckboxClick(index)} />
+                                                                                    <RdsCheckbox state="Checkbox" label={task.name} checked={task.completed} onChange={() => handleCheckboxClick(subCardIndex, index)} />
                                                                                  </div>
                                                                                  <div className="col-md-4">
                                                                                     <RdsIcon name="delete" height="15px" width="15px" onClick={() => handleDeleteTask(index)} ></RdsIcon>
@@ -272,7 +327,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                                                     colorVariant="primary"
                                                                                     label="Add Task"
                                                                                     size="medium"
-                                                                                    onClick={handleAddTask}
+                                                                                    onClick={() => handleAddTask(subCardIndex)}
                                                                                  />
 
                                                                                  <RdsIcon
@@ -343,13 +398,18 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                       </div>
                                                    </div>
                                                    <div className="mt-2">
-                                                      {totalTasks > 0 && `${completedTasks}/${totalTasks}`}
+                                                      {tasks.filter(task => task.subCardIndex === subCardIndex).length > 0 && (
+                                                         `${tasks.filter(task => task.subCardIndex === subCardIndex && task.completed).length}/${tasks.filter(task => task.subCardIndex === subCardIndex).length}`
+                                                      )}
                                                    </div>
                                                 </>
                                              }
                                           />
                                        </div>
+                                       )}
+                                       </Draggable>
                                     ))}
+                                     {provided.placeholder}
                                     {subCardInputVisible === index ? (
                                        <div className="mt-1">
                                           <RdsInput
@@ -389,6 +449,9 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                           />
                                        </div>
                                     )}
+                                    </div>
+                                 )}
+                              </Droppable>
                                  </>
                               }
                            >
@@ -410,6 +473,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                }
             </div>
          </div>
+         </DragDropContext>
       </>
    )
 }
