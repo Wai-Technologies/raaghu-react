@@ -23,7 +23,7 @@ export const Default: Story = {
       { id: 2, name: "User", isDefault: false },
     ],
     reset: false,
-    onAddMemberSaveHandler: (data: any) => console.log(data),
+ 
     onClickAddNewMember: () => console.log("Add new member clicked"),
   }
 } satisfies Story;
