@@ -103,5 +103,5 @@ export { default as RdsCompAccountExternalProvider } from "./rds-comp-account-ex
 export { default as RdsCompAssistance } from "./rds-comp-assistance";
 export { default as RdsCompOtpInput } from "./rds-comp-otpinput";
 export { default as RdsCompAddMember } from "./rds-comp-add-member";
+export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
-
