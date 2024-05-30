@@ -7,8 +7,9 @@ export interface RdsRadioButtonProps {
   inline?: boolean;
   isInputGroup?: boolean;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-  itemList: any;
+  onChange: (value: any) => void;
+  itemList: any[] | undefined;
+  value: string; 
   displayType?: string;
   label?: string;
   id?: number;
@@ -40,9 +41,12 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
     } `;
   const state = props.state || "radio"; //form-check-input-error
   const radioButtonClass = props.displayType === "Horizontal" ? "d-flex" : "";
-  const handlerRadioChange = (e: any) => {
-    props.onChange && props.onChange(e);
-  }
+  const handlerRadioChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+  e.persist(); // This will remove the event from the pool
+  const selectedPaymentMethod = e.currentTarget.value;
+  // Now you can safely use selectedPaymentMethod asynchronously
+  props.onChange && props.onChange(selectedPaymentMethod);
+}
   return (
     <>
       <div key={props.id}>
