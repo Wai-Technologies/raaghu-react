@@ -71,7 +71,14 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
    const deleteSubCard = (index: number, subCardIndex: number) => {
       setCards(prevCards => prevCards.map((card, i) => i === index ? { ...card, subCards: card.subCards.filter((subCard, j) => subCard.SubcardId !== subCardIndex) } : card));
-   }
+  
+      const allBackdrops = document.querySelectorAll(".offcanvas-backdrop, .modal-backdrop");
+      if (allBackdrops.length > 1) {
+          for (let i = 0; i < allBackdrops.length - 1; i++) {
+              allBackdrops[i].remove();
+          }
+      }
+  }
 
    const addSubCard = (index: number) => {
       setSubCardInputVisible(index);
@@ -110,7 +117,6 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   }
 
    const handleCheckboxClick = (cardIndex: number, subCardIndex: number, taskIndex: number) => {
-      debugger
       const updatedTasks = tasks.map((task, index) => {
          if (task.cardIndex === cardIndex && task.subCardIndex === subCardIndex && task.taskId === taskIndex) {
             const updatedTask = { ...task, completed: !task.completed };
