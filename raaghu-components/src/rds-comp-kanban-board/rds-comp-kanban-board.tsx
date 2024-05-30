@@ -71,14 +71,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
    const deleteSubCard = (index: number, subCardIndex: number) => {
       setCards(prevCards => prevCards.map((card, i) => i === index ? { ...card, subCards: card.subCards.filter((subCard, j) => subCard.SubcardId !== subCardIndex) } : card));
-  
-      const allBackdrops = document.querySelectorAll(".offcanvas-backdrop, .modal-backdrop");
-      if (allBackdrops.length > 1) {
-          for (let i = 0; i < allBackdrops.length - 1; i++) {
-              allBackdrops[i].remove();
-          }
-      }
-  }
+   }
 
    const addSubCard = (index: number) => {
       setSubCardInputVisible(index);
