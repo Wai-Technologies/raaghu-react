@@ -100,6 +100,13 @@ export { default as RdsCompTenantRegister} from "./rds-comp-tenant-register";
 export { default as RdsCompSummaryDetails } from "./rds-comp-summary-details";
 export { default as RdsCompPaymentTenure } from "./rds-comp-payment-tenure";
 export { default as RdsCompAccountExternalProvider } from "./rds-comp-account-external-provider";
+export { default as RdsCompAssistance } from "./rds-comp-assistance";
 export { default as RdsCompOtpInput } from "./rds-comp-otpinput";
 export { default as RdsCompAddMember } from "./rds-comp-add-member";
 export { default as RdsCompPaymentCard } from "./rds-comp-payment-card";
+export { default as RdsCompOrderConfirmation } from "./rds-comp-order-confirmation";
+export { default as RdsCompInvoiceDetailReceipt } from "./rds-comp-invoice-detail-receipt";
+export { default as RdsCompGetAssistance } from "./rds-comp-get-assistance";
+export { default as RdsCompCopyText } from "./rds-comp-copy-text";
+export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
+

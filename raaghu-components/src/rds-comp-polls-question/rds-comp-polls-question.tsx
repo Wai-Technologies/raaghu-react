@@ -143,7 +143,7 @@ function RdsCompPollsQuestion(props: any) {
                             label="Show Hours Left"
                             checked={QuestionData?.showHoursLeft}
                             onChange={(e: any) => {
-                                handlerChangeValues("showHoursLeft", e.target.value);
+                                handlerChangeValues("showHoursLeft", e.target.checked);
                             }}
                             dataTestId="remaining-time"
                         ></RdsCheckbox>
@@ -154,7 +154,7 @@ function RdsCompPollsQuestion(props: any) {
                             label="Allow Multiple Vote"
                             checked={QuestionData?.allowMultipleVote}
                             onChange={(e: any) => {
-                                handlerChangeValues("allowMultipleVote", e.target.value);
+                                handlerChangeValues("allowMultipleVote", e.target.checked);
                             }}
                             dataTestId="multiple-voting"
                         ></RdsCheckbox>
@@ -166,7 +166,7 @@ function RdsCompPollsQuestion(props: any) {
                             label="Show Vote Count"
                             checked={QuestionData?.showVoteCount}
                             onChange={(e: any) => {
-                                handlerChangeValues("showVoteCount", e.target.value);
+                                handlerChangeValues("showVoteCount", e.target.checked);
                             }}
                             dataTestId="vote-count"
                         ></RdsCheckbox>
@@ -177,7 +177,7 @@ function RdsCompPollsQuestion(props: any) {
                             label="Show Result Without Giving Vote"
                             checked={QuestionData?.showResultWithoutGivingVote}
                             onChange={(e: any) => {
-                                handlerChangeValues("showResultWithoutGivingVote", e.target.value);
+                                handlerChangeValues("showResultWithoutGivingVote", e.target.checked);
                             }}
                             dataTestId="result-without-vote"
                         ></RdsCheckbox>
