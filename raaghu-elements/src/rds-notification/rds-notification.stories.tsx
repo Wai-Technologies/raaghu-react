@@ -5,6 +5,12 @@ import RdsNotification from "./rds-notification";
 const meta: Meta = {
     title: "Elements/Notification",
     component: RdsNotification,
+
+    parameters: {
+        layout: 'padded',
+      },
+      tags: ['autodocs'],
+      
     argTypes: {
         colorVariant: {
             options: [

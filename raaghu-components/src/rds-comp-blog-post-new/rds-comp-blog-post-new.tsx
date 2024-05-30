@@ -65,7 +65,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                                 colorVariant="dark"
                                 extensions="png, jpg, doc, pdf, ppt"
                                 multiple={false}
-                                size="small"
+                                size="large"
                                 limit={1}
                                 label="Cover Image"
                                 validation={[

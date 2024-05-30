@@ -14,7 +14,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         inputType: {
-            options: ["email", "text", "password"],
+            options: ["email", "text", "password", "otp"],
             control: { type: "select" },
         },
         labelPosition: {
@@ -42,9 +42,10 @@ export const Default: Story = {
         value: "",
         required: true,
         showIcon: true,
+        singleDigit: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
+Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'singleDigit'] } };
 
 export const Tooltip: Story = {
     args: {
