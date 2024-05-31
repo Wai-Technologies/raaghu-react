@@ -195,13 +195,12 @@ const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
         </div>
         <div className="ms-md-3">
           <RdsRadioButton
-            displayType="Default"
-            itemList={profilepicstypes}
-            onlyChecked={true}
-            onChange={() => setavatarType(type)}
-            onClick={(e) => onClickSetProfilePicture(e)}
-            dataTestId="radio-btn"
-          />
+              displayType="Default"
+              itemList={profilepicstypes}
+              onlyChecked={true}
+              onChange={() => setavatarType(type)}
+              onClick={(e) => onClickSetProfilePicture(e)}
+              dataTestId="radio-btn" value={""}          />
         </div>
       </div>
       <div className="row position-relative">
