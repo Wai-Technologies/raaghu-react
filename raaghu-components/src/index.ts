@@ -103,3 +103,4 @@ export { default as RdsCompAccountExternalProvider } from "./rds-comp-account-ex
 export { default as RdsCompOtpInput } from "./rds-comp-otpinput";
 export { default as RdsCompAddMember } from "./rds-comp-add-member";
 export { default as RdsCompPremiumSupport } from "./rds-comp-premium-support";
+export { default as RdsCompPurchaseDeveloperSeats } from "./rds-comp-purchase-developer-seats";
