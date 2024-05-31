@@ -343,7 +343,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
           <div className={props.actionPosition == "left" ? "table-responsive" : "table-responsive-none"}>
             <div className="table-responsive table-responsive-sm">
               <table
-                className={`table table-hover table-bordered     ${Classes} `}
+                className={`table table-bordered     ${Classes} `}
                 id="sortTable"
               >
                 <thead className="text-nowrap">
@@ -480,7 +480,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           ref={dropdownRef}
                                           aria-labelledby="dropdownMenuButton"
                                           className={`dropdown-menu dropdown-adjusted ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
-                                        >
+                                     
+                                       >
                                           {totalActions?.map((action, actionIndex) => (
                                             <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
                                               {action.modalId && (
