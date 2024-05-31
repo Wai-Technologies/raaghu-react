@@ -120,8 +120,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                               displayType="Horizontal"
                               label=""
                               itemList={radioItemList}
-                              onClick={handleConnectionStrings}
-                           ></RdsRadioButton>
+                              onClick={handleConnectionStrings} value={""}                           ></RdsRadioButton>
                         </div>
                      </div>
                   </div>

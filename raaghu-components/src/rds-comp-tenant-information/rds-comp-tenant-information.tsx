@@ -244,12 +244,11 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 />
                                 <div className="form-group mt-2">
                                     <RdsRadioButton
-                                        displayType="Horizontal"
-                                        label=""
-                                        itemList={radioItemList}
-                                        onClick={handleConnectionStrings}
-                                        onChange={(e:any) =>handleDataChanges( e.target.value , "radioItemList")}
-                                    ></RdsRadioButton>
+                                            displayType="Horizontal"
+                                            label=""
+                                            itemList={radioItemList}
+                                            onClick={handleConnectionStrings}
+                                            onChange={(e: any) => handleDataChanges(e.target.value, "radioItemList")} value={""}                                    ></RdsRadioButton>
                                 </div>
                             </div>
                         </div>

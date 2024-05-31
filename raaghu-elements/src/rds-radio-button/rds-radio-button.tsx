@@ -7,7 +7,7 @@ export interface RdsRadioButtonProps {
   inline?: boolean;
   isInputGroup?: boolean;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   itemList: any[] | undefined;
   value: string; 
   displayType?: string;

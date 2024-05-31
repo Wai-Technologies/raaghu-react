@@ -150,8 +150,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                         label=""
                                         itemList={radioItemList}
                                         onClick={handleOptionSelection}
-                                        onChange={(e: any) => handleDataChanges(e.target.value, "radioItemList")}
-                                    ></RdsRadioButton>
+                                        onChange={(e: any) => handleDataChanges(e.target.value, "radioItemList")} value={""}                                    ></RdsRadioButton>
                                 </form>
                             </div>
                         </div>
