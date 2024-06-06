@@ -480,7 +480,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           ref={dropdownRef}
                                           aria-labelledby="dropdownMenuButton"
                                           className={`dropdown-menu dropdown-adjusted ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
-                                        >
+                                     
+                                       >
                                           {totalActions?.map((action, actionIndex) => (
                                             <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
                                               {action.modalId && (
