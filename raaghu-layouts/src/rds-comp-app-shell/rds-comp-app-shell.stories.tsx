@@ -13,7 +13,8 @@ const meta: Meta = {
     layout: "padded",
   },
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+  },
 } satisfies Meta<typeof RdsCompAppShell>;
 
 export default meta;
@@ -24,99 +25,101 @@ export const Classic: Story = {
     displayType: "Classic",
     children: (
       <>
-        <RdsCompAppShellItem title={""}>
+        <RdsCompAppShellItem title="">
           <div className="row">
-            <RdsCompTopNavigation
-              brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-              brandName="Raaghu Design System"
-              languageItems={[
-                {
-                  icon: "us",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "EN(US)",
-                  val: "en",
-                },
-                {
-                  icon: "in",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "English(IND)",
-                  val: "en",
-                },
-                {
-                  icon: "us",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "French",
-                  val: "fr",
-                },
-              ]}
-              logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
-              navbarSubTitle="Statistics and reports"
-              navbarTitle="Dashboard"
-              notifications={[
-                {
-                  selected: false,
-                  state: 1,
-                  status: "success",
-                  time: "a month ago",
-                  title: "Tenant added",
-                  urlTitle: "hello",
-                  userNotificationId: 0,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "error",
-                  time: "a month ago",
-                  title: "Tenant deleted",
-                  urlTitle: "hello",
-                  userNotificationId: 1,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "warn",
-                  time: "a month ago",
-                  title: "Tenant added  warn",
-                  urlTitle: "hello",
-                  userNotificationId: 2,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "info",
-                  time: "a month ago",
-                  title: "Tenant deleted info",
-                  urlTitle: "hello",
-                  userNotificationId: 3,
-                },
-              ]}
-              profileTitle="John Doe"
-              profileEmail="john.doe@raaghu.io"
-              profileName="John Doe"
-              
-              themeItems={[
-                {
-                  icon: "sun",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "Light",
-                  val: "light",
-                },
-                {
-                  icon: "moon",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "Dark",
-                  val: "dark",
-                },
-              ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
-                throw new Error("Function not implemented.");
-              }} onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
-                throw new Error("Function not implemented.");
-              }} />
+            <BrowserRouter>
+              <RdsCompTopNavigation
+                brandLogo="assets/Raaghu-logo-mfe-black.png"
+                brandName="Raaghu"
+                displayType="basic"
+                languageItems={[
+                  {
+                    icon: "us",
+                    iconHeight: "20px",
+                    iconWidth: "20px",
+                    label: "EN(US)",
+                    val: "en",
+                  },
+                  {
+                    icon: "in",
+                    iconHeight: "20px",
+                    iconWidth: "20px",
+                    label: "English(IND)",
+                    val: "en",
+                  },
+                  {
+                    icon: "us",
+                    iconHeight: "20px",
+                    iconWidth: "20px",
+                    label: "French",
+                    val: "fr",
+                  },
+                ]}
+                logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+                navbarSubTitle="Statistics and reports"
+                navbarTitle="Dashboard"
+                notifications={[
+                  {
+                    selected: false,
+                    state: 1,
+                    status: "success",
+                    time: "a month ago",
+                    title: "Tenant added",
+                    urlTitle: "hello",
+                    userNotificationId: 0,
+                  },
+                  {
+                    selected: false,
+                    state: 1,
+                    status: "error",
+                    time: "a month ago",
+                    title: "Tenant deleted",
+                    urlTitle: "hello",
+                    userNotificationId: 1,
+                  },
+                  {
+                    selected: false,
+                    state: 1,
+                    status: "warn",
+                    time: "a month ago",
+                    title: "Tenant added  warn",
+                    urlTitle: "hello",
+                    userNotificationId: 2,
+                  },
+                  {
+                    selected: false,
+                    state: 1,
+                    status: "info",
+                    time: "a month ago",
+                    title: "Tenant deleted info",
+                    urlTitle: "hello",
+                    userNotificationId: 3,
+                  },
+                ]}
+                profileEmail="john.doe@raaghu.io"
+                profileName="John Doe"
+                profileTitle="John Doe"
+                themeItems={[
+                  {
+                    icon: "sun",
+                    iconHeight: "20px",
+                    iconWidth: "20px",
+                    label: "Light",
+                    val: "light",
+                  },
+                  {
+                    icon: "moon",
+                    iconHeight: "20px",
+                    iconWidth: "20px",
+                    label: "Dark",
+                    val: "dark",
+                  },
+                ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
+                  throw new Error("Function not implemented.");
+                } } onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
+                  throw new Error("Function not implemented.");
+                } }              />
+            </BrowserRouter>
           </div>
           <div className="row">
             <div className="d-flex">
@@ -228,6 +231,54 @@ export const Classic: Story = {
               </div>
               <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 m-3">
                 <h2>Add Layout Here</h2>
+              </div>
+            </div>
+          </div>
+        </RdsCompAppShellItem>
+      </>
+    ),
+  },
+} satisfies Story;
+
+export const TopNavigation: Story = {
+  args: {
+    displayType: "TopNavigation",
+    children: (
+      <>
+        <RdsCompAppShellItem title={""}>
+          <div className="row">
+              <RdsCompTopNavigation
+                brandLogo="assets/Raaghu-logo-mfe-black.png"
+                brandName="Raaghu"
+                displayType="advanced"
+                logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-portal/raaghu-enterprise-logo-lightmode.png"
+                navbarSubTitle="Statistics and reports"
+                navbarTitle="Dashboard"
+                onChatClickHandler={() => {}}
+                onClick={() => {}}
+                onClickHamburger={() => {}}
+                onClickThemeCheck={() => {}}
+                onDocumentsClickHandler={() => {}}
+                onElementSelect={() => {}}
+                onForgotPassword={() => {}}
+                onLogout={() => {}}
+                onMyAccount={() => {}}
+                onProfileLinkTopNav={() => {}}
+                profileEmail="john.doe@raaghu.io"
+                profileName="John Doe"
+                profileTitle="John Doe"
+                themeItems={[]}
+                toggleItems={[]}
+                elementList={[]}
+                componentsList={[]}
+                languageLabel={""}
+                themeLabel={""}
+              />
+          </div>
+          <div className="row">
+          <div className="d-flex" id="appLayout">
+            <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 m-3">
+              <h2>Add Layout Here</h2>
               </div>
             </div>
           </div>

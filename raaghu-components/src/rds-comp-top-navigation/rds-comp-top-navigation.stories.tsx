@@ -10,6 +10,13 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        displayType: {
+            options: [
+                "basic",
+                "advanced"
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsCompTopNavigation>;
 
@@ -18,6 +25,7 @@ type Story = StoryObj<typeof RdsCompTopNavigation>;
 
 export const Default: Story = {
     args: {
+        displayType: "basic",
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
@@ -109,4 +117,16 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems'] } };
+export const Advanced: Story = {
+    args: {
+        displayType: "advanced",
+        navbarTitle: "Dashboard",
+        navbarSubTitle: "Statistics and reports",
+        brandName: "Raaghu",
+        brandLogo: "assets/Raaghu-logo-mfe-black.png",
+        profileTitle: "John Doe",
+        profileEmail: "john.doe@raaghu.io",
+        profileName: "John Doe",
+        logo: "https://raaghustorageaccount.blob.core.windows.net/raaghu-portal/raaghu-enterprise-logo-lightmode.png",
+    }
+} satisfies Story;
