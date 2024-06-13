@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList } from '../rds-elements';
 
 interface RdsCompDeveloperModeProps {
-   applicationUrl?: any;
+
    reset?: boolean;
    modeData?: any;
    onModeDataSubmit?: any;
@@ -14,11 +14,12 @@ interface RdsCompDeveloperModeProps {
    appUrl?: string;
    replaceUrl?: boolean;
    selectedValue?: Array<{ option: string; value: string; }>;
+   grantTypeList?: any;
 
 }
 
 const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
-   const [applicationUrl, setApplicationUrl] = useState<any>();
+
    const [modeData, setModeData] = useState(props.modeData);
    const [inputReset, setInputReset] = useState(false);
    const [radioItemList, setRadioItemList] = useState<any>(false);
@@ -78,25 +79,27 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       setInputReset(!inputReset);
    }, [props.reset]);
 
-   const radioItemsApp = [{
-      id: 1,
-      label: "Local Host",
-      checked: true,
-      name: "radio_buttona",
-   },
+   const [radioItemsApp, setRadioItemsApp] = useState([
+      {
+         id: 1,
+         label: "Local Host",
+         checked: true,
+         name: "radio_buttona",
+      },
+
       // {
       //    id: 2,
       //    label: t("Staging"),
       //    checked: false,
       //    name: "radio_buttona",
       // },
-   ]
+   ]);
 
-   const replaceItems = [
+   const [replaceItems, setReplaceItems] = useState([
       {
          id: 1,
          label: "True",
-         checked: true,
+         checked: false,
          name: "radio_button",
       },
       {
@@ -105,49 +108,28 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          checked: false,
          name: "radio_button",
       },
-   ];
-
-   const grantTypeList = [
-      {
-         option: 'Authorization Code',
-         value: 'authorization-code'
-      },
-      {
-         option: 'Hybrid',
-         value: 'hybrid'
-      },
-      {
-         option: 'implicit',
-         value: 'implicit'
-      },
-      {
-         option: 'Password',
-         value: 'password'
-      }
-   ];
-
+   ]);
    const handleRadioClick = (event: any) => {
-      console.log("Value", event.target.id);
-
       const items = {
-         id: event.target.id,
+         id: Number(event.target.id),
          label: event.target.value,
          checked: event.target.checked,
          name: event.target.name,
       };
-      console.log("Items:", items);
 
-      if (items.id === "2") {
-         console.log("Setting radioItemList to true");
-         setRadioItemList(radioItemList);
-         // localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com")
-      } else {
-         console.log("Setting radioItemList to false");
-         setRadioItemList(radioItemList);
+      const updatedReplaceItems = replaceItems.map(item =>
+         item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+      );
+
+      setReplaceItems(updatedReplaceItems);
+
+      if (items.id === 2) {
+         localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
       }
-   }
+   };
+
+
    useEffect(() => {
-      debugger
       setModeData((prevModeData: any) => ({
          ...prevModeData,
          environment: env || '',
@@ -156,15 +138,10 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          clientId: clientId || '',
          scope: scope || '',
          appUrl: appUrl || '',
-         replaceUrl: replaceUrl || true,
-         sideNav: sideNav || false,
+         replaceUrl: replaceUrl || false,
+
       }));
    }, [props.modeData]);
-
-   const onModeDataSubmit = (event: any) => {
-      event.preventDefault();
-      props.onModeDataSubmit(modeData);
-   };
 
    const onSubmitModeData = (value: string, fieldName: string) => {
       setModeData((prevModeData: any) => ({
@@ -174,195 +151,229 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
    };
    const resetToDefault = () => {
       setModeData({
-         environment: env || '',
-         apiUrl: apiURL || '',
-         grantType: grantType || '',
-         clientId: clientId || '',
-         scope: scope || '',
-         appUrl: appUrl || '',
-         replaceUrl: replaceUrl || true,
-         sideNav: sideNav || false,
+         environment: '',
+         apiUrl: '',
+         grantType: '',
+         clientId: '',
+         scope: '',
+         appUrl: '',
+         replaceUrl: '',
+         sideNav: '',
       });
    };
 
+   const emitSaveData = (event: any) => {
+      event.preventDefault();
+      props.onModeDataSubmit && props.onModeDataSubmit(modeData);
+      setInputReset(!inputReset);
+
+      const resetRadioItemsApp = radioItemsApp.map(item => ({
+         ...item,
+         checked: false,
+      }));
+      setRadioItemsApp(resetRadioItemsApp);
+
+      const resetReplaceItems = replaceItems.map(item => ({
+         ...item,
+         checked: false,
+      }));
+      setReplaceItems(resetReplaceItems);
+
+      setModeData({
+         grantType: '',
+         environment: '',
+         apiUrl: '',
+         clientId: '',
+         scope: '',
+         appUrl: '',
+         replaceUrl: null,
+         sideNav: false,
+      });
+   };
    return (
       <>
          <div className="overflow-x-hidden overflow-y-auto">
-            <form onSubmit={onModeDataSubmit}>
-               <div className='mb-3 fw-medium'>
-                  <RdsLabel label="Configuration"></RdsLabel>
-               </div>
-               <div className="row pb-2">
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <div className="form-group">
-                        <RdsInput
-                           value={modeData?.environment}
-                           name="environment"
-                           label="Environment"
-                           placeholder="Enter Environment"
-                           customClasses="form-control"
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "environment")}
-                           dataTestId="env"
-                           required
-                        ></RdsInput>
-                     </div>
-                  </div>
-               </div>
-               <div className='row pb-2'>
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <RdsLabel
-                        label="Application URL"
-                        required={true}
-                     />
-                     <div className="form-group mt-2">
-                        <RdsRadioButton
-                           displayType="Horizontal"
-                           label=""
-                           itemList={radioItemsApp}
-                           onClick={handleRadioClick}
-                        ></RdsRadioButton>
-                     </div>
-
-                     {radioItemList == true &&
-                        (
-                           <div>
-                              <div className="form-group">
-                                 <RdsInput
-                                    value={modeData?.appUrl}
-                                    name="app-url"
-                                    label=""
-                                    placeholder="Enter Application URL"
-                                    customClasses="form-control"
-                                    onChange={(e) => onSubmitModeData(e.target.value, "appUrl")}
-                                    dataTestId="data"
-                                 />
-                              </div>
-                           </div>
-                        )
-                     }
-
-
-                  </div>
-               </div>
-               <div className="row pb-2">
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <div className="form-group">
-                        <RdsInput
-                           value={modeData?.apiUrl}
-                           name="app-url"
-                           label="Application API URL"
-                           placeholder="Enter Application API URL"
-                           customClasses="form-control"
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
-                           dataTestId="applicationUrl"
-                           required
-                        ></RdsInput>
-                     </div>
-                  </div>
-               </div>
-               <div className="row pb-2">
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <div className="form-group mb-3">
-                        <RdsSelectList
-                           id={"grantType"}
-                           label="Application Grant Type"
-                           placeholder="Select Application Grant Type"
-                           selectItems={grantTypeList}
-                           isSearchable={false}
-                           required={true}
-                           selectedValue={grantTypeList[0]?.value}
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "grantType")}
-                        ></RdsSelectList>
-                     </div>
-                  </div>
-               </div>
-               <div className="row pb-2">
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <div className="form-group">
-                        <RdsInput
-                           value={modeData?.clientId}
-                           name="app-client"
-                           label="Application Client ID"
-                           placeholder="EnterApplication Client ID"
-                           customClasses="form-control"
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "clientId")}
-                           dataTestId="applicationClient"
-                           required
-                        ></RdsInput>
-                     </div>
-                  </div>
-               </div>
-               <div className="row pb-2">
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                     <div className="form-group">
-                        <RdsInput
-                           value={modeData?.scope}
-                           name="app-scope"
-                           label="Application Scope"
-                           placeholder="Enter Application Scope"
-                           customClasses="form-control"
-                           onChange={(e: any) => onSubmitModeData(e.target.value, "scope")}
-                           dataTestId="applicationScope"
-                           required
-                        ></RdsInput>
-                     </div>
-                  </div>
-               </div>
-               <div className='row pb-2'>
-                  <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12 mb-2">
-                     <RdsLabel
-                        label="Application Replace URL"
-                        required={true}
-                     />
-                     <div className="form-group mt-2">
-                        <RdsRadioButton
-                           displayType="Horizontal"
-                           label=""
-                           itemList={replaceItems}
-                        ></RdsRadioButton>
-                     </div>
-                  </div>
-               </div>
-               <div className='row'>
+            <form>
+               <div className="custom-content-scroll">
                   <div className='mb-3 fw-medium'>
-                     <RdsLabel label="Settings "></RdsLabel>
+                     <RdsLabel label="Configuration"></RdsLabel>
                   </div>
-                  <div className="col-md-12 mb-3">
-                     <RdsCheckbox
-                        label="Disable Collapsible Side Menu"
-                        checked={modeData?.sideNav}
-                        onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
-                        dataTestId="sideMenu" isDisabled></RdsCheckbox>
+                  <div className="row pb-2">
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div className="form-group">
+                           <RdsInput
+                              value={modeData?.environment}
+                              name="environment"
+                              label="Environment"
+                              reset={inputReset}
+                              placeholder="Enter Environment"
+                              customClasses="form-control"
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "environment")}
+                              dataTestId="env"
+                              required
+                           ></RdsInput>
+                        </div>
+                     </div>
                   </div>
-                  <div className="col-md-12 mb-3">
-                     <RdsCheckbox
-                        label="Enable Static Icons"
-                        checked={modeData?.staticIcons}
-                        onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
-                        dataTestId="staticIcons" isDisabled ></RdsCheckbox>
-                  </div>
-               </div>
-               <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                  <div className='row pb-2'>
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <RdsLabel
+                           label="Application URL"
+                           required={true}
+                        />
+                        <div className="form-group mt-2">
+                           <RdsRadioButton
+                              displayType="Horizontal"
+                              label=""
+                              itemList={radioItemsApp}
+                              onClick={handleRadioClick}
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "radioItemsApp")} value={''}                        ></RdsRadioButton>
+                        </div>
 
-                  {/* <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a> */}
-                  <RdsButton
-                     type="button"
-                     label="RESTORE TO DEFAULT"
-                     colorVariant="outline-primary"
-                     size="small"
-                     databsdismiss="offcanvas"
-                     onClick={resetToDefault}
-                  ></RdsButton>
-                  <RdsButton
-                     type="submit"
-                     colorVariant="primary"
-                     label="Apply"
-                     size="small"
-                     dataTestId="submit"
-                     onClick={() => { props.onModeDataSubmit(modeData); }}
-                  ></RdsButton>
+                        {radioItemList == true &&
+                           (
+                              <div>
+                                 <div className="form-group">
+                                    <RdsInput
+                                       value={modeData?.appUrl}
+                                       name="app-url"
+                                       label="app"
+                                       placeholder="Enter Application URL"
+                                       customClasses="form-control"
+                                       reset={inputReset}
+                                       onChange={(e: any) => onSubmitModeData(e.target.value, "appUrl")}
+                                       dataTestId="data"
+                                    />
+                                 </div>
+                              </div>
+                           )
+                        }
+                     </div>
+                  </div>
+                  <div className="row pb-2">
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div className="form-group">
+                           <RdsInput
+                              value={modeData?.apiUrl}
+                              name="app-url"
+                              label="Application API URL"
+                              placeholder="Enter Application API URL"
+                              customClasses="form-control"
+                              reset={inputReset}
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
+                              dataTestId="applicationUrl"
+                              required
+                           ></RdsInput>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="row pb-2">
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div className="form-group mb-3">
+                           <RdsSelectList
+                              id={"grantType"}
+                              label="Application Grant Type"
+                              placeholder="Select Application Grant Type"
+                              selectItems={props?.grantTypeList}
+                              isSearchable={true}
+                              required={true}
+                              selectedValue={modeData?.grantType}
+                              onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
+                           ></RdsSelectList>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="row pb-2">
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div className="form-group">
+                           <RdsInput
+                              value={modeData?.clientId}
+                              name="app-client"
+                              label="Application Client ID"
+                              reset={inputReset}
+                              placeholder="EnterApplication Client ID"
+                              customClasses="form-control"
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "clientId")}
+                              dataTestId="applicationClient"
+                              required
+                           ></RdsInput>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="row pb-2">
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div className="form-group">
+                           <RdsInput
+                              value={modeData?.scope}
+                              name="app-scope"
+                              label="Application Scope"
+                              placeholder="Enter Application Scope"
+                              customClasses="form-control"
+                              reset={inputReset}
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "scope")}
+                              dataTestId="applicationScope"
+                              required
+                           ></RdsInput>
+                        </div>
+                     </div>
+                  </div>
+                  <div className='row pb-2'>
+                     <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12 mb-2">
+                        <RdsLabel
+                           label="Application Replace URL"
+                           required={true}
+                        />
+                        <div className="form-group mt-2">
+                           <RdsRadioButton
+                              displayType="Horizontal"
+                              label=""
+                              onClick={handleRadioClick}
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "replaceItems")}
+                              itemList={replaceItems} value={''}                           ></RdsRadioButton>
+                        </div>
+                     </div>
+                  </div>
+                  <div className='row'>
+                     <div className='mb-3 fw-medium'>
+                        <RdsLabel label="Settings "></RdsLabel>
+                     </div>
+                     <div className="col-md-12 mb-3">
+                        <RdsCheckbox
+                           label="Disable Collapsible Side Menu"
+                           checked={modeData?.sideNav}
+                           onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
+                           dataTestId="sideMenu"></RdsCheckbox>
+                     </div>
+                     <div className="col-md-12 mb-3">
+                        <RdsCheckbox
+                           label="Enable Static Icons"
+                           checked={modeData?.staticIcons}
+                           onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
+                           dataTestId="staticIcons"></RdsCheckbox>
+                     </div>
+                  </div>
                </div>
             </form>
+            <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+
+               {/* <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a> */}
+               <RdsButton
+                  type="button"
+                  label="RESTORE TO DEFAULT"
+                  colorVariant="outline-primary"
+                  size="small"
+                  databsdismiss="offcanvas"
+                  onClick={resetToDefault}
+               ></RdsButton>
+               <RdsButton
+                  type="submit"
+                  colorVariant="primary"
+                  label="Apply"
+                  size="small"
+                  dataTestId="submit"
+                  onClick={(e: any) => emitSaveData(e)}
+               ></RdsButton>
+            </div>
          </div>
       </>
    );

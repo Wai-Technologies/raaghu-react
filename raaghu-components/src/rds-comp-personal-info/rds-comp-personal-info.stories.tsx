@@ -21,10 +21,9 @@ type Story = StoryObj<typeof RdsCompPersonalInfo>;
 
 export const Default: Story = {
   args: {
-    name: 'default',
-  }
+      
+    }
 } satisfies Story;
-Default.parameters = { controls: { include: [] } };
 
 
 

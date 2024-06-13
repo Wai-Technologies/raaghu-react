@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export interface RdsCompApplicationBasicProps {
     basicData?: any;
+    onSuccess?: any;
     reset?: boolean
     editApplicationData?: any;
 }
@@ -17,18 +18,31 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
     }, [props.basicData]);
 
     useEffect(() => {
-        setInputReset(props.reset)
-    }, [props.reset])
+        setInputReset(props.reset);
+    }, [props.reset]);
 
+   
     const handlerInputChange = (value: any, key: any) => {
         setBasicApplicationData({ ...basicApplicationData, [key]: value });
         props.editApplicationData && props.editApplicationData({ ...basicApplicationData, [key]: value });
     }
+    
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        props.onSuccess && props.onSuccess(basicApplicationData);
+        setInputReset(!inputReset);
+        setBasicApplicationData({
+            clientId: "",
+            displayName: "",
+            clientUri: "",
+            logoUri: "",
+        });
+    };
 
     return (
         <> <div>
             <div className="tab-content pt-3">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="custom-content-scroll">
                         <div className="row">
                             <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
@@ -83,7 +97,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             tooltipTitle={""}
                             type={"button"}
@@ -100,7 +114,6 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             tooltipTitle={""}
                             type={"submit"}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
                             dataTestId="save"
                         ></RdsButton>
                     </div>

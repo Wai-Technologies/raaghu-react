@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompApiResourceBasicProps {
-  dataOne: any;
+  apiResourceBasic: any;
+  reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
-  const [formData, setFormData] = useState(props.dataOne);
+const [formData, setFormData] = useState(props.apiResourceBasic);
+const [inputReset, setInputReset] = useState(false);
 
-  useEffect(() => {
-    setFormData(props.dataOne);
-  }, [props.dataOne]);
+useEffect(() => {
+  setFormData(props.apiResourceBasic);
+}, [props.apiResourceBasic]);
 
-  const handleDataChanges = (value: any, key: string) => {
-    setFormData({ ...formData, [key]: value });
-  };
+useEffect(() => {
+  setInputReset(!inputReset);
+}, [props.reset]);
 
-  function emitSaveData(event: any) {
-    event.preventDefault();
-    props.onSaveHandler && props.onSaveHandler(formData);
-  }
+const handleDataChanges = (value: any, key: string) => {
+  setFormData({ ...formData, [key]: value });
+}
+ 
+function emitSaveData(event: any) {
+  event.preventDefault();
+   props.onSaveHandler && props.onSaveHandler(formData);  
+  setInputReset(!inputReset);
+   setFormData({
+    email: "",
+    fullname: "",
+    message: "",
+    accessTokenSigningAlgorithm: "",
+   })
+
+}
+
   return (
     <>
       <div>
@@ -31,6 +45,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
               <div className="col-6">
                 <RdsInput
                   required={true}
+                  reset={inputReset}
                   label="Name"
                   placeholder="Enter name"
                   inputType="text"
@@ -46,6 +61,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
               <div className="col-6 ">
                 <RdsInput
                   label="Display name"
+                  reset={inputReset}
                   placeholder="Enter display name"
                   inputType="text"
                   onChange={(e) => {
@@ -73,6 +89,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
             <div className=" mb-4">
               <RdsInput
                 label="Allowed access token signing algorithms"
+                reset={inputReset}
                 placeholder="Enter Allowed access token signing algorithms"
                 inputType="text"
                 onChange={(e) => {
@@ -92,7 +109,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
             <RdsCheckboxGroup itemList={props.resourceData.checklist} /> */}
             </div>
           </div>
-          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
             <RdsButton
               class="me-2"
               tooltipTitle={""}
@@ -112,7 +129,6 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
               type={"submit"}
               databsdismiss="offcanvas"
               onClick={(e: any) => emitSaveData(e)}
-              //   isDisabled={!isFormValid}
               dataTestId="save"
             ></RdsButton>
           </div>

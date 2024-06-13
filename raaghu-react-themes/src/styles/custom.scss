@@ -110,6 +110,7 @@ $font-weight-extrabold: 800 !default;
 $font-weight-black: 900 !default;
 $font-size-sm: $font-size-base * 0.875 !default;
 $font-size-lg: $font-size-base * 1.25 !default;
+$font-size-md: $font-size-base;
 
 $input-font-weight: $font-weight-light;
 
@@ -474,6 +475,20 @@ html[theme="semidark"] {
   position: absolute;
   left: 20px;
   width: 94%;
+}
+
+.sb-story {
+  .custom-content-scroll {
+    height: 100%;
+    margin-bottom: 3.2rem;
+    padding: 0.50rem;
+  }
+}
+ 
+#storybook-root .custom-content-scroll {
+  margin-bottom: 3.4rem;
+  height: 100%;
+  padding: 0.50rem;
 }
 
 .i {
@@ -1099,10 +1114,10 @@ a.nav-link.breadcrumb-navlink.active {
 
 .horizontalPermi {
   height: 0rem;
-  width: 2.15rem;
+  width: 2.30rem;
   border-bottom: 1px dashed;
   position: relative;
-  right: 35px;
+  right: 37px;
   margin: none;
   top: 10px;
   z-index: 0;
@@ -2840,6 +2855,21 @@ figure.worldmap__figure-container {
   }
 }
 
+.raaghu-not-select__control--is-focused {
+  .raaghu-not-select__dropdown-indicator svg {
+    transition: transform 0.35s ease;
+    transform: rotate(0deg);
+    right: 0;
+  }
+}
+
+.raaghu-not-select__control--is-focused.raaghu-not-select__control--menu-is-open {
+  .raaghu-not-select__dropdown-indicator svg {
+    transform: rotate(180deg);
+    right: 0;
+  }
+}
+
 .lf-player-container {
     svg{
         stroke:none;
@@ -2892,4 +2922,28 @@ figure.worldmap__figure-container {
   {
     width : 25% !important
   }
+}
+
+.dropdown-toggle-split {
+  min-width: auto !important;
+}
+
+.customClassUL {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(170px, 37px);
+}
+
+.custom-radio-border {
+  border: 1px solid;
+  border-color: #E2E3E5;
+}
+
+.custom-radio-border:hover {
+  border-color: #7E2EEf;
+}
+
+.dw-placeholder {
+  color:#bebebe;
 }

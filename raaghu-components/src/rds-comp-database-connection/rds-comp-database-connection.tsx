@@ -78,13 +78,31 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
       const selectedRadio = radioItemList.find((item: { checked: any; }) => item.checked);
       let payload = { ...connectionStrings };
       if (selectedRadio?.label === "Shared Database") {
-         payload = { ...payload, sharedDatabase: true };
+          payload = { ...payload, sharedDatabase: true };
       } else if (selectedRadio?.label === "Separated Database") {
-         payload = { ...payload, specificDatabase: true };
+          payload = { ...payload, specificDatabase: true };
       }
-
+  
       props.onSaveHandler && props.onSaveHandler(payload);
-   }
+  
+      // Reset form fields
+      setConnectionStrings({});
+      setRadioItemList([
+          {
+              id: 1,
+              label: "Shared Database",
+              checked: false,
+              name: "radio_button",
+          },
+          {
+              id: 2,
+              label: "Separated Database",
+              checked: false,
+              name: "radio_button",
+          },
+      ]);
+      setCheck(false);
+  };
 
    return (
       <div>
@@ -102,8 +120,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                               displayType="Horizontal"
                               label=""
                               itemList={radioItemList}
-                              onClick={handleConnectionStrings}
-                           ></RdsRadioButton>
+                              onClick={handleConnectionStrings} value={""}                           ></RdsRadioButton>
                         </div>
                      </div>
                   </div>
@@ -136,7 +153,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                   )}
                </div>
 
-               <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+               <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                   <RdsButton
                      tooltipTitle={""}
                      type={"button"}

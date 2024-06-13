@@ -1,142 +1,174 @@
 import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 
+export interface RdsCompPersonalInfoProps {
+    personalInfo?: any;
+    onEmail: (isEmailClicked?: boolean) => void;
+    onSaveHandler?: (data: any) => void;
+    handleVerifyEmailSubmit?: any;
+    reset?: boolean;
+}
 
-const RdsCompPersonalInfo = (props: any) => {
-    const [formData, setPersonalFormData] = useState(props.personalInfo);
+const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
+    const [formData, setFormData] = useState(props.personalInfo);
+    const [isEmailClicked, setIsEmailClicked] = useState(false);
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
-        setPersonalFormData(props.personalInfo);
+        setFormData(props.personalInfo);
     }, [props.personalInfo]);
 
-    const handlePersonalDataSubmit = (event: any) => {
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setFormData({ ...formData, [key]: value });
+    }
+
+    const emailHandler = (event: any, isEmailClicked: boolean) => {
         event.preventDefault();
-    };
+        setIsEmailClicked(true);
+        props.onEmail(true);
+    }
 
-    const handleVerifyEmailSubmit = (event: any) => {
+    function emitSaveData(event: any) {
         event.preventDefault();
-    };
-
-    function setUserName(value: any) {
-        setPersonalFormData({ ...formData, userName: value });
-    }
-
-    function setName(value: any) {
-        setPersonalFormData({ ...formData, name: value });
-    }
-
-    function setSurname(value: any) {
-        setPersonalFormData({ ...formData, surname: value });
-    }
-
-    function setEmail(value: any) {
-        setPersonalFormData({ ...formData, email: value });
-    }
-
-    function setPhoneNumber(value: any) {
-        setPersonalFormData({ ...formData, phoneNumber: value });
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
+        setFormData({
+            userName: "",
+            name: "",
+            surname: "",
+            email: "",
+            phoneNumber: "",
+        });
     }
 
     return (
-        <form onSubmit={handlePersonalDataSubmit}>
+        <form>
             <div className="custom-content-scroll">
-            <div className="row py-xxl-4 py-xl-4 py-lg-4 py-md-4 py-0">
-                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
-                    <RdsInput
-                        size="medium"
-                        label="Admin"
-                        inputType="text"
-                        isDisabled={false}
-                        readonly={false}
-                        placeholder="UserName"
-                        value={formData?.userName}
-                        onChange={(e: any) => setUserName(e.target.value)}
-                        required={true}
-                        dataTestId="admin"
-                    ></RdsInput>
-                </div>
-                <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
-                    <RdsInput
-                        size="medium"
-                        label="Name"
-                        inputType="text"
-                        isDisabled={false}
-                        readonly={false}
-                        placeholder="Name"
-                        value={formData?.name}
-                        onChange={(e: any) => setName(e.target.value)}
-                        required={true}
-                        dataTestId="name"
-                    ></RdsInput>
-                </div>
-                <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
-                    <RdsInput
-                        size="medium"
-                        label="Surname"
-                        inputType="text"
-                        isDisabled={false}
-                        readonly={false}
-                        placeholder="Surname"
-                        value={formData?.surname}
-                        onChange={(e: any) => setSurname(e.target.value)}
-                        required={true}
-                        dataTestId="surname"
-                    ></RdsInput>
-                </div>
-                <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
-                    <div className="d-flex personal-info-wid">
+                <div className="row py-xxl-4 py-xl-4 py-lg-4 py-md-4 py-0">
+                    <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                         <RdsInput
                             size="medium"
-                            label="Email"
+                            reset={inputReset}
+                            label="Admin"
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Email"
-                            value={formData?.email}
-                            onChange={(e: any) => setEmail(e.target.value)}
-                            required={false}
-                            dataTestId="email"
+                            placeholder="UserName"
+                            value={formData?.userName}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "userName");
+                            }}
+                            required={true}
+                            dataTestId="admin"
+
                         ></RdsInput>
-                        <span className="mt-auto d-block nowrap ms-2">
-                            <RdsButton
-                                label="Verify Email"
-                                colorVariant="primary"
-                                block={false}
-                                type="submit"
-                                onClick={() => {
-                                    props.handleVerifyEmailSubmit(formData);
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
+                        <RdsInput
+                            size="medium"
+                            reset={inputReset}
+                            label="Name"
+                            inputType="text"
+                            isDisabled={false}
+                            readonly={false}
+                            placeholder="Name"
+                            value={formData?.name}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "name");
+                            }}
+                            required={true}
+                            dataTestId="name"
+                        ></RdsInput>
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
+                        <RdsInput
+                            size="medium"
+                            reset={inputReset}
+                            label="Surname"
+                            inputType="text"
+                            isDisabled={false}
+                            readonly={false}
+                            placeholder="Surname"
+                            value={formData?.surname}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "surname");
+                            }}
+                            required={true}
+                            dataTestId="surname"
+                        ></RdsInput>
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                        <div className="d-flex personal-info-wid">
+                            <RdsInput
+                                size="medium"
+                                reset={inputReset}
+                                label="Email"
+                                inputType="text"
+                                isDisabled={false}
+                                readonly={false}
+                                placeholder="Email"
+                                value={formData?.email}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "email");
                                 }}
-                                dataTestId="verify-email"
-                            /></span></div>
-                </div>
-                <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
-                    <RdsInput
-                        size="medium"
-                        label="Phone Number"
-                        inputType="text"
-                        isDisabled={false}
-                        readonly={false}
-                        placeholder="Phone Number"
-                        value={formData?.phoneNumber}
-                        onChange={(e: any) => setPhoneNumber(e.target.value)}
-                        required={false}
-                        dataTestId="phone-number"
-                    ></RdsInput>
+                                required={false}
+                                dataTestId="email"
+                            ></RdsInput>
+                            <span className="mt-auto d-block nowrap ms-2">
+                                <RdsButton
+                                    label="Verify Email"
+                                    colorVariant="primary"
+                                    size="medium"
+                                    block={false}
+                                    type="submit"
+                                    onClick={(e) => emailHandler(e, isEmailClicked)}
+                                    dataTestId="verify-email"
+                                />
+                            </span>
+                        </div>
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                        <RdsInput
+                            size="medium"
+                            reset={inputReset}
+                            label="Phone Number"
+                            inputType="text"
+                            isDisabled={false}
+                            readonly={false}
+                            placeholder="Phone Number"
+                            value={formData?.phoneNumber}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "phoneNumber");
+                            }}
+                            required={false}
+                            dataTestId="phone-number"
+                        ></RdsInput>
+                    </div>
                 </div>
             </div>
-            </div>
-            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
-                        label="Save"
-                        colorVariant="primary"
-                        block={false}
-                        type="submit"
-                        size="small"
-                        onClick={() => {
-                            props.handlePersonalDataSubmit(formData);
-                        }}
-                        dataTestId="save"
-                    />
+                    label="Cancel"
+                    colorVariant="primary"
+                    tooltipTitle={""}
+                    type="button"
+                    size="small"
+                    isOutline={true}
+                    dataTestId="cancel"
+                />
+                <RdsButton
+                    label="Save"
+                    colorVariant="primary"
+                    tooltipTitle={""}
+                    type="submit"
+                    size="small"
+                    dataTestId="save"
+                    onClick={(e: any) => emitSaveData(e)}
+                />
             </div>
         </form>
     );

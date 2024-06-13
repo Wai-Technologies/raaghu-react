@@ -1,11 +1,41 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
-export interface RdsCompSecretsProps { }
+export interface RdsCompSecretsProps { 
+    onSaveHandler?: (data: any) => void;
+    default: any;
+    reset?: boolean;
+}
 
 const RdsCompSecrets = (props: RdsCompSecretsProps) => {
+    const [data, setdata] = useState(props.default);
+    const [inputReset, setInputReset] = useState(false);
 
+    useEffect(() => {
+        setdata(props.default);
+    }, [props.default]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setdata({ ...data, [key]: value });
+    }
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(data);
+        setInputReset(!inputReset);
+        setdata({
+            type: "",
+            value: "",
+            expiration: "",
+            description: ""
+        });
+    }
 
     return (
         <>
@@ -20,7 +50,12 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter Type"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "type");
+                                  }}
+                                  value={data?.type}
                                 dataTestId="type"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-md-4 mb-3 form-group">
@@ -31,6 +66,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter Value"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "val");
+                                  }}
+                                  value={data?.val}
                                 dataTestId="value"
                             ></RdsInput>
                         </div>
@@ -42,7 +81,12 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 readonly={false}
                                 placeholder="Enter a value"
                                 required={true}
+                                onChange={(e) => {
+                                    handleDataChanges(e.target.value, "expiration");
+                                  }}
+                                  value={data?.expiration}
                                 dataTestId="expiration"
+                                reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
@@ -54,7 +98,12 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             readonly={false}
                             placeholder="Enter Type"
                             required={true}
+                            onChange={(e) => {
+                                handleDataChanges(e.target.value, "description");
+                              }}
+                              value={data?.description}
                             dataTestId="description"
+                            reset={inputReset}
                         ></RdsInput>
                     </div>
                     <div className="mt-3 mb-3">
@@ -67,7 +116,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         ></RdsButton>
                     </div>
                 </div>
-                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div className="d-flex flex-column-reverse ps-3 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <div className="d-flex">
                         <div className="m-2">
                             <RdsButton
@@ -89,6 +138,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                                 dataTestId="create"
+                                onClick={(e: any) => emitSaveData(e)}
                             ></RdsButton>
                         </div>
                     </div>

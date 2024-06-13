@@ -1,17 +1,17 @@
 .horizontal {
   height: 0rem;
-  width: 1.75rem;
+  width: 1.50rem;
   border-bottom: 1px dashed #adb5bd;
   position: relative;
-  right: 29px;
+  right: 24px;
   margin: none;
-  top: 4px;
+  top: 6px;
   z-index: 0;
 }
 
 .vertical {
   position: absolute;
-  left: -25px;
+  left: 8px;
   bottom: 0;
   top: 1.2rem;
   width: 0.1875rem;
@@ -21,7 +21,7 @@
 }
 
 .unitName {
-  margin-left: -28px;
+  margin-left: 31px;
 }
 
 .member-count {
@@ -33,9 +33,9 @@
   height: 14px;
   width: 14px;
   margin-right: 0.5625px;
-  margin-left: -1px;
+  margin-left: 0px;
   margin-top: 0.3125rem;
-  /*z-index: 2;*/
+  z-index: 2 !important;
 }
 
 .node-icons {
@@ -48,4 +48,8 @@
   list-style-position: initial !important;
   list-style-image: initial !important;
   list-style-type: none !important;
+}
+.spacingbetweenbtn
+{
+  margin-left: 5px;
 }

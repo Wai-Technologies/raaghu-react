@@ -50,7 +50,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
     return (
         <>
             {props.offcanvasbutton && (
-                <div className="offcanvas_btn cursor-pointer"
+                <div className="cursor-pointer"
                     onClick={props.onclick}
                     data-bs-toggle="offcanvas"
                     data-bs-target={`#${props.offId}`}
@@ -70,7 +70,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
                 aria-labelledby={`${props.offId}`}
                 style={{ width: Width }}
             >
-                <div className={`${isCanvasTitle ? "offcanvas-header py-2 my-2" : "offcanvas-header py-1 border-0 justify-content-end "}`}>
+                <div className={`${isCanvasTitle ? "offcanvas-header py-2 my-2 d-flex justify-content-between" : "offcanvas-header py-1 border-0 justify-content-end "}`}>
                     {isCanvasTitle && <h5 className="offcanvas-title text-uppercase" id={`'canvas' +${props.offId}`}>
                         {props.canvasTitle}
                     </h5>}

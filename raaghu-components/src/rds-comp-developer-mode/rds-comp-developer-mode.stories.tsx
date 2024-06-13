@@ -19,6 +19,24 @@ type Story = StoryObj<typeof RdsCompDeveloperMode>;
 
 export const Default: Story = {
     args: {
-        
+         grantTypeList 
+         : [
+            {
+               option: 'Authorization Code',
+               value: 'authorization-code'
+            },
+            {
+               option: 'Hybrid',
+               value: 'hybrid'
+            },
+            {
+               option: 'implicit',
+               value: 'implicit'
+            },
+            {
+               option: 'Password',
+               value: 'password'
+            }
+         ],
     }
 } satisfies Story;

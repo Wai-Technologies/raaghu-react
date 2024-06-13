@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { RdsButton, RdsFileUploader, RdsRadioButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
-interface RdsCompProfilePictureProps { }
+interface RdsCompProfilePictureProps {
+  profilePictureData?: any;
+  ProfileType: number;
+  postProfilePic?: (file: any, type: number) => void;
+  profilePicture: any;
+  onSaveHandler?: (data: any) => void;
+ }
 
-
-const RdsCompProfilePicture = (props: any) => {
-
+const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
   const profileList = [
     {
       checked: true,
@@ -30,6 +34,7 @@ const RdsCompProfilePicture = (props: any) => {
       type: 2,
     },
   ];
+  const [formData, setFormData] = useState<any>(props.profilePictureData);
   const [avatarImg, setAvatarImg] = useState<any>(props.profilePictureData);
   const [type, setavatarType] = useState(0);
   const [show, setShow] = useState<boolean>(false);
@@ -47,10 +52,13 @@ const RdsCompProfilePicture = (props: any) => {
       } else {
         setIsExceed(false);
       }
-      props.postProfilePic(data.files[0]);
+      props.postProfilePic && props.postProfilePic(data.files[0], type);
     }
-
   }
+
+  useEffect(() => {
+    setFormData(props.profilePictureData);
+  }, [props.profilePictureData]);
 
   useEffect(() => {
     if (props.ProfileType == 2 && firstload == 0) {
@@ -79,11 +87,7 @@ const RdsCompProfilePicture = (props: any) => {
     } else {
       setShow(false)
     }
-
     setprofilepicstypes(profilelisttypes)
-
-
-
   }, [props.profilePictureData, props.ProfileType, props.profilePicture]);
 
 
@@ -111,7 +115,7 @@ const RdsCompProfilePicture = (props: any) => {
         type: "image/svg+xml",
       });
 
-      props.postProfilePic(file, 0);
+      props.postProfilePic && props.postProfilePic(file, 0);
       setShow(false);
     } else if (event.target.value == "Use Gravatar") {
       setIsExceed(false)
@@ -125,7 +129,7 @@ const RdsCompProfilePicture = (props: any) => {
       const file = new File([imagePath], "avatar.svg", {
         type: "image/svg+xml",
       });
-      props.postProfilePic(file, 1); // pass the file to the function
+      props.postProfilePic && props.postProfilePic(file, 1); // pass the file to the function
       setShow(false);
     } else if (event.target.value == "Upload Files") {
       setIsExceed(true)
@@ -138,17 +142,42 @@ const RdsCompProfilePicture = (props: any) => {
     }
   };
 
-
   const validation = [
     {
       hint: "File size should not be greater than 1 MB.",
       isError: false,
     },
   ];
-  const onSaveHandler = () => {
 
-    props.handleProfileDataSubmit(type)
-  }
+  const handleDataChanges = (value: any, key: string, isFile?: boolean) => {
+    if (isFile) {
+      const fileName = value[0]?.name; 
+      setFormData({ ...formData, [key]: value, fileName });
+    }
+  };
+
+  const emitSaveData = (event: any) => {
+    event.preventDefault();
+    const selectedProfile = profilepicstypes.find((item: any) => item.checked);
+    if (selectedProfile) {
+      const { label, type } = selectedProfile;
+      props.onSaveHandler && props.onSaveHandler({ name: label, id: type, file: formData.file });
+    }
+    
+    setFormData(props.profilePictureData);
+    setAvatarImg(props.profilePictureData);
+    setavatarType(0);
+    setShow(false);
+    setprofilepicstypes(profileList);
+    setfirstload(0);
+    setIsExceed(false); 
+    const clearedProfilepicstypes = profilepicstypes.map((item: any) => ({
+      ...item,
+      checked: false,
+    }));
+    setprofilepicstypes(clearedProfilepicstypes);
+  };
+  
   return (
     <form>
       <div className="custom-content-scroll">
@@ -166,13 +195,12 @@ const RdsCompProfilePicture = (props: any) => {
         </div>
         <div className="ms-md-3">
           <RdsRadioButton
-            displayType="Default"
-            itemList={profilepicstypes}
-            onlyChecked={true}
-            onChange={() => setavatarType(type)}
-            onClick={onClickSetProfilePicture}
-            dataTestId="radio-btn"
-          />
+              displayType="Default"
+              itemList={profilepicstypes}
+              onlyChecked={true}
+              onChange={() => setavatarType(type)}
+              onClick={(e) => onClickSetProfilePicture(e)}
+              dataTestId="radio-btn" value={""}          />
         </div>
       </div>
       <div className="row position-relative">
@@ -189,13 +217,16 @@ const RdsCompProfilePicture = (props: any) => {
                 limit={1}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
+                onFileArray={(files) =>
+                  handleDataChanges(files, "file", true)
+                }
               />
             </div>
           </>
         )}
       </div>
       </div>
-      <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
         <RdsButton
             label="Save Changes"
             colorVariant="primary"
@@ -203,7 +234,7 @@ const RdsCompProfilePicture = (props: any) => {
             block={false}
             type="button"
             size="small"
-            onClick={onSaveHandler}
+            onClick={(e)=>emitSaveData(e)}
             dataTestId="save"
           />
         </div>

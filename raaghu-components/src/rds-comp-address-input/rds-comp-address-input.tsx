@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
-
-export interface RdsCompAddressInputProps {}
+import { RdsDropdownList, RdsInput } from "../rds-elements";
+export interface RdsCompAddressInputProps {
+    adress?: any;
+    address2?: any;
+    statesList?: any;
+    city?: any;
+    zip?: any;
+    countriesList?: any;
+    citiesList: any;
+    AddressData?: any;
+    reset?: boolean;
+    label: React.ReactNode;
+}
 
 const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
     const [country, setCountry] = useState([]);
@@ -8,6 +19,8 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
     const [st, setSt] = useState([]);
     const [stateid, setStateid] = useState("");
     const [city, setCity] = useState([]);
+    const [inputReset, setInputReset] = useState(props.reset)
+    const [AddressData, setAddressData] = useState(props.AddressData);
 
     useEffect(() => {
         const getcountry = async () => {
@@ -22,6 +35,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
         const getcountryid = event.target.value;
         setCountryid(getcountryid);
     };
+    const handlerInputChange = (value: any, key: any) => {
+        setAddressData({ ...AddressData, [key]: value });
+    }
 
     useEffect(() => {
         const getstate = async () => {
@@ -33,11 +49,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
         };
         getstate();
     }, [countryid]);
-
-    const handlestate = (event: any) => {
-        const getstateid = event.target.value;
-        setStateid(getstateid);
-    };
 
     useEffect(() => {
         const getcity = async () => {
@@ -55,107 +66,102 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
             <form className="needs-validation" >
                 <div className="row g-3">
                     <div className="col-md-6">
-                        <label htmlFor="address" className="form-label">
-							Address
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="address"
-                            placeholder="1234 Main St"
-                            required
-                        />
+                        <RdsInput
+                            label="Address"
+                            reset={inputReset}
+                            placeholder="Enter Address"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "address")}
+                            value={AddressData?.address}
+                        ></RdsInput>
                         <div className="invalid-feedback">
-							Please enter your shipping address.
+                            Please enter your shipping address.
                         </div>
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="address2" className="form-label">
-							Address 2 <span className="text-muted">(Optional)</span>
-                        </label>
-                        <input
-                            type="text"
-                           className="form-control"
-                            id="address2"
-                            placeholder="Apartment or suite"
-                        />
+            
+                        <RdsInput
+                            label="Address 2 (Optional)"
+                            reset={inputReset}
+                            placeholder="Enter Address"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "address2")}
+                            value={AddressData?.address2}
+                        ></RdsInput>
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="country" className="form-label">
-							Country
+                            Country
                         </label>
-                        <select
-                            name="country"
-                            className="form-control p-2 form-select selectpicker countrypicker"
-                            onChange={(e) => handlecountry(e)}
-                            data-testid="country"
-                        >
-                            <option value="">--Select Country--</option>
-                            {country.map((getcon: any, index) => (
-                                <option key={index} value={getcon.country_id}>
-                                    {getcon.country_name}{" "}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="form-group">
+                            <RdsDropdownList
+                                data-testid="country"
+                                borderDropdown={true}
+                                placeholder="Select Country"
+                                labelIconWidth="18px"
+                                labelIconHeight="25px"
+                                listItems={props.countriesList}
+                                isPlaceholder={true}
+                            />
+
+                        </div>
                         <div className="invalid-feedback">
-							Please select a valid country.
+                            Please select a valid country.
                         </div>
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="state" className="form-label">
-							State
+                            State
                         </label>
+                        <div className="form-group">
+                            <RdsDropdownList
+                                data-testid="state"
+                                borderDropdown={true}
+                                placeholder="Select State"
+                                labelIconWidth="18px"
+                                labelIconHeight="25px"
+                                isPlaceholder={true}
+                                listItems={props.statesList}
+                            />
 
-                        <select
-                            className="form-select p-2"
-                            name="state"
-                            onChange={(e) => handlestate(e)}
-                            data-testid="state"
-                        >
-                            <option value="">--Select State--</option>
-                            {st.map((getst: any, index) => (
-                                <option key={index} value={getst.state_id}>
-                                    {getst.state_name}{" "}
-                                </option>
-                            ))}
-                        </select>
+                        </div>
                         <div className="invalid-feedback">
-							Please provide a valid state.
+                            Please provide a valid state.
                         </div>
                     </div>
-
-                    <div className="col-md-6">
+                    <div className="col-md-6 ">
                         <label htmlFor="state" className="form-label">
-							City
+                            City
                         </label>
-                        <select className="form-select p-2" name="city" data-testid="city">
-                            <option value="">--Select City--</option>
-                            {city.map((gcity: any, index) => (
-                                <option key={index} value={gcity.city_id}>
-                                    {" "}
-                                    {gcity.city_name}{" "}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="form-group">
+                            <RdsDropdownList
+                                data-testid="city"
+                                borderDropdown={true}
+                                placeholder="Select City"
+                                labelIconWidth="18px"
+                                labelIconHeight="55px"
+                                isPlaceholder={true}
+                                listItems={props.citiesList}
+                            />
+
+                        </div>
                         <div className="invalid-feedback">
-							Please provide a valid state.
+                            Please provide a valid state.
                         </div>
                     </div>
-
                     <div className="col-md-6">
-                        <label htmlFor="zip" className="form-label">
-							Zip
-                        </label>
-                        <input
-                            type="text"
-                           className="form-control"
-                            id="zip"
-                            placeholder="123456"
-                            required
-                        />
+
+                        <RdsInput
+                            label="Zip"
+                            reset={inputReset}
+                            placeholder="Enter Zip code"
+                            inputType="text"
+                            onChange={e => handlerInputChange(e.target.value, "zip")}
+                            value={AddressData?.zip}
+                        ></RdsInput>
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>

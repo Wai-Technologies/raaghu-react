@@ -19,8 +19,8 @@ export interface RdsToastProps {
     iconFill?: boolean;
 }
 const RdsToast = (props: RdsToastProps) => {
-    const borderColor = "border border-" + props.borderColor || " ";
-    const bg = " bg-" + props.colorVariant || "light";
+    const borderColor = props.borderColor ? "border-" + props.borderColor : "border";
+    const bg = props.colorVariant ? " bg-" + props.colorVariant : "light";
     const [state, setState] = useState("show");
 
     useEffect(() => {

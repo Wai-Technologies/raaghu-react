@@ -11,6 +11,7 @@ export interface RdsCounterProps {
     width: number;
     colorVariant?: colors;
     position?: placements;
+    onCounterChange?: (newValue: number) => void;
 }
 
 const RdsCounter = (props: RdsCounterProps) => {
@@ -19,10 +20,19 @@ const RdsCounter = (props: RdsCounterProps) => {
     // This state hook represents counter value
     const [counterValue, setCounterValue] = useState(initialCounterValue);
     const onMinusClick = () => {
-        if (counterValue > props.min) setCounterValue((prev) => prev - 1);
+        if (counterValue > props.min) {
+            const newValue = counterValue - 1;
+            setCounterValue(newValue);
+            props.onCounterChange && props.onCounterChange(newValue);
+        }
     };
+
     const onPlusClick = () => {
-        if (counterValue < props.max) setCounterValue((prev) => prev + 1);
+        if (counterValue < props.max) {
+            const newValue = counterValue + 1;
+            setCounterValue(newValue);
+            props.onCounterChange && props.onCounterChange(newValue);
+        }
     };
 
     const classes = () => {
@@ -43,7 +53,7 @@ const RdsCounter = (props: RdsCounterProps) => {
     }
 
     const inputClasses = () => {
-        var inputClass: string = 'input-group';
+        var inputClass: string = 'input-group mt-1';
         if (props.position === 'top') {
             inputClass = inputClass + ' mt-2';
         }
@@ -55,8 +65,8 @@ const RdsCounter = (props: RdsCounterProps) => {
 
     return (
         <Fragment>
-            <div className="row">
-                <div className="position-relative">
+            <div className="row">   
+                <div className="position-relative ps-3 ms-0">
                     <div className={classes()}>
                         <label>{props.label}</label>
                         <div className={inputClasses()} style={{ width: props.width }}>

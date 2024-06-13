@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { RdsCheckbox, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
+import { RdsCheckbox, RdsDropdownList, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-interface RdsCompApplicationWorkflowsProps {
+
+export interface RdsCompApplicationWorkflowsProps {
     basicData?: any;
     typeList: any[];
     consentType: any[];
@@ -13,21 +14,17 @@ interface RdsCompApplicationWorkflowsProps {
 const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) => {
     const [basicApplicationData, setBasicApplicationData] = useState<any>(props.basicData);
     const [inputReset, setInputReset] = useState(props.reset)
+
     useEffect(() => {
         setInputReset(props.reset)
     }, [props.reset])
+
     const checkboxes = [basicApplicationData?.allowAuthorizationCodeFlow, basicApplicationData?.allowHybridFlow, basicApplicationData?.allowPasswordFlow];
     const isAllowRefreshTokenFlowDisabled = checkboxes.length > 1 && !checkboxes.some((checkbox) => checkbox);
 
     const handleDataChanges = (value: any, key: string) => {
-
         setBasicApplicationData({ ...basicApplicationData, [key]: value });
         props.editApplicationData && props.editApplicationData({ ...basicApplicationData, [key]: value });
-    }
-    const handleTextAreaChange = (value: any, key: string) => {
-        const lines = value.split("\n");
-        setBasicApplicationData({ ...basicApplicationData, [key]: lines });
-        props.editApplicationData && props.editApplicationData({ ...basicApplicationData, [key]: lines });
     }
 
     const isDivVisible = basicApplicationData?.allowAuthorizationCodeFlow || basicApplicationData?.allowImplicitFlow || basicApplicationData?.allowHybridFlow;
@@ -36,15 +33,14 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
         <>
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
-                    <RdsSelectList
-                        id="typ"
-                        required={true}
-                        label="Type"
+                    <label className="mb-2">Type</label>
+                    <RdsDropdownList
+                        borderDropdown={true}
+                        isPlaceholder
                         placeholder="Select Consent Type"
-                        selectItems={props.typeList}
-                        selectedValue={basicApplicationData?.type}
-                        onChange={(item: any) => handleDataChanges(item.value, "type")}
-                    ></RdsSelectList>
+                        listItems={props.typeList || []}
+                        onClick={(item: any) => handleDataChanges(item.value, "type")}
+                    />
                 </div>
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
                     {basicApplicationData?.type == 'confidential' && (
@@ -140,7 +136,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isMultiUrl={true}
                         label="Redirect Uris"
                         placeholder="Enter Redirect Uris"
-                        onChange={(e: any) => handleTextAreaChange(e.target.value, "redirectUris")}
+                        onChange={(e: any) => handleDataChanges(e.target.value, "redirectUris")}
                         value={basicApplicationData?.redirectUris !== null ? basicApplicationData?.redirectUris : basicApplicationData?.redirectUris}
                         rows={3}
                         dataTestId="redirect-uri"
@@ -168,7 +164,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isMultiUrl={true}
                         label="Post Logout Redirect Uris"
                         placeholder="Enter Post Logout Redirect Uris"
-                        onChange={e => handleTextAreaChange(e.target.value, "postLogoutRedirectUris")}
+                        onChange={e => handleDataChanges(e.target.value, "postLogoutRedirectUris")}
                         value={basicApplicationData?.postLogoutRedirectUris !== null ? basicApplicationData?.postLogoutRedirectUris : basicApplicationData?.postLogoutRedirectUris}
                         rows={3}
                         dataTestId="logout-redirect-uri"
@@ -182,16 +178,14 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         } */}
                 </div>
                 <div className="mb-3">
-                    <RdsSelectList
-                        classes="mb-3"
-                        id="Cons"
-                        label="Consent Type"
-                        selectItems={props.consentType}
-                        selectedValue={basicApplicationData?.consentType}
-                        onChange={(item: any) => { handleDataChanges(item.value, "consentType"); }}
-                        dataTestId="consent-type"
-                        isDisabled={isDivVisible}
-                    ></RdsSelectList>
+                    <label className="mb-2">Consent Type</label>
+                    <RdsDropdownList
+                        borderDropdown={true}
+                        isPlaceholder
+                        placeholder="Consent Type"
+                        listItems={props.consentType || []}
+                        onClick={(item: any) => { handleDataChanges(item.value, "consentType"); }}
+                    />
                 </div>
             </div>
             {basicApplicationData?.id && (

@@ -8,16 +8,20 @@ import { useTranslation } from "react-i18next";
 export interface Edition {
   option: string;
   value: string;
+  password: string;
 }
 
 interface RdsCompSetPasswordProps {
+  password(password: any): [any, any];
   reset?: boolean;
-  onSaveHandler?: (data: any) => void
+  setPasswordField: any;
+  onSaveHandler?: (formData: any) => void
 }
 
 const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
   const [inputReset, setInputReset] = useState(false);
-  const [password, setPassword] = useState("");
+  const [passwordField, setPasswordField] = useState(props.setPasswordField);
+ 
 
   const isPasswordValid = (password: any) => {
     if (!password || password.length === 0) {
@@ -25,15 +29,25 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
     }
     return true;
   };
-
-  const isFormValid = isPasswordValid(password);
+const handleDataChanges = (value: any, key: string) => {
+  setPasswordField({ ...passwordField, [key]: value });
+  }
+  const isFormValid = isPasswordValid(passwordField);
   useEffect(() => {
     setInputReset(!inputReset);
-    setPassword("");
   }, [props.reset]);
+useEffect(() => {
+  setPasswordField(props.setPasswordField);
+}, [props.setPasswordField]);
+
   function emitSaveData(event: any) {
     event.preventDefault();
-    props.onSaveHandler && props.onSaveHandler(password);
+    props.onSaveHandler && props.onSaveHandler(passwordField);
+    setInputReset(!inputReset);
+    setPasswordField({
+      password: ""
+    });
+
   }
 
   return (
@@ -52,15 +66,17 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
                     inputType="password"
                     name="adminPassword"
                     id="adminPassword"
-                    value={password}
-                    onChange={(e: any) => setPassword(e.target.value)}
+                      onChange={(e) => {
+                      handleDataChanges(e.target.value, "password");
+                    }}
+                    value={passwordField?.password}
                     showIcon={true}
                   ></RdsInput>
                 </div>
               </div>
             </div>
           </div>
-          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+          <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
             <RdsButton
               tooltipTitle={""}
               type={"button"}

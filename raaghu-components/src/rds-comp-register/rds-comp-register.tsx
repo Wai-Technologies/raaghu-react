@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     RdsLabel,
     RdsButton,
@@ -19,21 +19,17 @@ export interface RdsCompRegisterProps {
     onRegister: (emailAddress: string, password: string, userName: string, appName: string, returnUrl?: string) => void;
     currentTenant: any;
     validTenant: any;
+    onSaveHandler?: (data: any) => void;
     languageData: any;
     onClickHandler?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
     languageLabel?: string;
+    registerFields: any;
 }
 
 const RdsCompRegister = (props: RdsCompRegisterProps) => {
-
-
-
-    const [emailAddress, setEmail] = useState(props.emailAddress);
-    const [password, setPassword] = useState(props.password);
-    const [userName, setUsername] = useState(props.userName);
+    const [registerData, setRegisterData] = useState(props.registerFields );
     const [isLoginClicked, setIsLoginClicked] = useState(false);
-    const [appName, setAppName] = useState(props.appName); // Initialize appName state
-
+    
     const [currentLanguageIcon, setCurrentLanguageIcon] = useState("en");
     const [currentLanguageLabel, setCurrentLanguageLabel] = useState("English");
 
@@ -50,42 +46,41 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
         return true;
     };
 
-    const isFormValid = isPasswordValid(password) && isEmailValid(emailAddress);
+    const isFormValid = isPasswordValid(registerData?.password) && isEmailValid(registerData.emailAddress);
 
-    const loginHandler: any = (isLoginClicked: boolean) => {
+    const loginHandler = (isLoginClicked: boolean) => {
         setIsLoginClicked(true);
         props.onLogin(true);
-    };
+    }
+
     const TenancyNameChange = (event: {
         target: { value: React.SetStateAction<string> };
     }) => {
         setCurrentTenant(event.target.value);
     };
-    const emailhandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        const newEmail = event.target.value;
-        setEmail(newEmail);
-        setUsername(newEmail); // Assign email value to username
-        setAppName("Angular");
-    };
-    const passwordhandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        setPassword(event.target.value);
-    };
-    const handleSubmit: any = (event: React.FormEvent<HTMLFormElement>) => {
 
-        event.preventDefault();
-        props.onRegister(emailAddress, password, userName, appName);
-        setEmail(emailAddress);
-        setPassword(password);
-    };
+    useEffect(() => {
+        setRegisterData(props.registerFields);
+    } , [props.registerFields]);
+    
+    const handleDataChanges = (value: any, key: string) => {
+        setRegisterData({ ...registerData, [key]: value });
+      };
 
     const [checked, setChecked] = useState(false);
     const [currentTenant, setCurrentTenant] = useState(
         checked ? props.currentTenant : "Not Selected"
     );
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(registerData);
+        setRegisterData({
+            emailAddress: "",
+            password: ""
+        });
+    };
+
     return (
         <div>
             <div className="text-center">
@@ -105,7 +100,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             ></RdsLabel>:
                         </span>&nbsp;<span className="fw-semibold">
                             <RdsLabel
-                                label={"NotSelected"}
+                                label={"Not Selected"}
                             ></RdsLabel></span>
                         ( <span>
                             <RdsModal
@@ -171,26 +166,29 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     </small>
                 </div>
                 <div className="mt-3">
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className="form-group text-start">
                             <RdsInput
-                                placeholder="Email"
-                                inputType="email"
-                                onChange={emailhandleChange}
-                                value={emailAddress}
+                                placeholder="Enter Email"
+                                inputType="email"    
+                               onChange={(e) => {
+                                handleDataChanges(e.target.value, "emailAddress");
+                              }}
+                              value={registerData?.emailAddress}                               
                                 name={"email"}
-
                                 dataTestId="email"
                             ></RdsInput>
                         </div>
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                placeholder="Password"
+                                placeholder="Enter Password"
                                 inputType="password"
-                                onChange={passwordhandleChange}
-                                name={"password"}
-                                value={password}
+                                 onChange={(e) => {
+                                    handleDataChanges(e.target.value, "password");
+                                  }}
+                                  value={registerData?.password}
+                                name={"password"}                        
                                 dataTestId="password"
                                 showIcon={true}
                             ></RdsInput>
@@ -200,13 +198,13 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 <div className="form-group mb-3 pb-2 remember-me d-flex">
                                     <RdsCheckbox
                                         id="remembercheckid"
-                                        label="I Accept"
-                                        checked
+                                        label="I Accept Terms Of Service"
+                                        onChange={(e) => {
+                                            handleDataChanges(e.target.checked, "Accept");
+                                        }}
+                                        checked={registerData?.Accept}
                                         dataTestId="remember-me"
                                     ></RdsCheckbox>
-                                    <RdsLabel
-                                        label="Terms Of Service">
-                                    </RdsLabel>
                                 </div>
                             </div>
 
@@ -221,15 +219,14 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 tooltipTitle={""}
                                 type="submit"
                                 dataTestId="register"
-                                onClick={handleSubmit}
-
+                                onClick={(e: any) => emitSaveData(e)}
                             />
                         </div>
                         <div className="mt-4">
                             <p>Dont have an Account<span className="ps-2"><a
                                 className="link-primary text-decoration-none"
                                 href="javascript:void(0)"
-                                onClick={() => loginHandler(isLoginClicked)}
+                                onClick={() => loginHandler(isLoginClicked)}                                
                                 data-testid="login"
                             >Login
                             </a></span></p>
@@ -270,7 +267,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     </form>
                     <div className="d-flex justify-content-center pt-2 pt-lg-3 pt-xl-3 pt-xxl-3">
                         <RdsLabel
-                            class=" p-0 m-0  singleLine   bottom-0 position-lg-relative position-absolute pt-xxl-0 pt-xl-0 pt-lg-4 pt-md-4 pt-4 mb-4"
+                            class="p-0 m-0 singleLine bottom-0 pt-xxl-0 pt-xl-0 pt-lg-4 pt-md-4 pt-4 mt-4 mb-4"
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
                         ></RdsLabel>

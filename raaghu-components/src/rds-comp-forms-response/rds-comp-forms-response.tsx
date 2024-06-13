@@ -220,8 +220,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                             <RdsRadioButton
                               itemList={multipleChoice[i]}
                               inline={false}
-                              checkedId={ele.choiceId}
-                            ></RdsRadioButton>
+                              checkedId={ele.choiceId} value={""}                            ></RdsRadioButton>
                           </div>
                         </>
                       ) : ele.questionType === 4 ? (
@@ -279,7 +278,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                       ) : (
                         ""
                       )}
-                    </>  
+                    </>
                   ))}
                 </div>
               </div>

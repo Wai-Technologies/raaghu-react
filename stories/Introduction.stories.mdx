@@ -5,12 +5,12 @@ import image from "./assets/how.png";
 import demo from "./assets/Demo.gif";
 import bannerImage from './assets/storybook-hero-Banner.png';
 import dasboardImage from './assets/dashboard.png';
-import reactImage from './assets/react.png';
-import tsImage from './assets/ts.png';
-import viteImage from './assets/vite.png';
-import typescriptImage from './assets/typescript.png';
-import bootstrapImage from './assets/bootstrap.png';
-import storybookImage from './assets/storybook.png';
+import reactImage from './assets/react.svg';
+import tsImage from './assets/ts.svg';
+import viteImage from './assets/vite.svg';
+import millionJsImage from './assets/million.svg';
+import bootstrapImage from './assets/bootstrap.svg';
+import storybookImage from './assets/storybook.svg';
 import fastGif from './assets/point-to-point.gif';
 import fastWebGif from './assets/web-dashboard.gif';
 import consistenceGif from './assets/Notes.gif';
@@ -18,12 +18,12 @@ import scalableGif from './assets/layer-stack.gif';
 import flexibleGif from './assets/point-to-point.gif';
 import maintainableGif from './assets/Settings.gif';
 import pixelPerfectGif from './assets/web-designing.gif';
-import appShellImage from './assets/app-shell.png';
-import layoutsImage from './assets/layouts-learn-more.png';
-import componentsImage from './assets/components-learn-more.png';
-import elementsImage from './assets/elements-learn-more.png';
-import chartsImage from './assets/charts-learn-more.png';
-import mapsImage from './assets/maps-learn-more.png';
+import appShellImage from './assets/app-shell-learn-more.svg';
+import layoutsImage from './assets/layouts-learn-more.svg';
+import componentsImage from './assets/components-learn-more.svg';
+import elementsImage from './assets/elements-learn-more.svg';
+import chartsImage from './assets/charts-learn-more.svg';
+import mapsImage from './assets/maps-learn-more.svg';
 import expandImage from './assets/expand.png';
 
 <Meta title="Introduction" />
@@ -41,6 +41,7 @@ import expandImage from './assets/expand.png';
     line-height:28px;
     font-size:14px;
     margin-bottom:25px;
+    text-align: center;
   }
     .how{
       width:600px;
@@ -152,13 +153,12 @@ import expandImage from './assets/expand.png';
        background-color:#EBF8FF;      
        padding:40px 40px;
        margin-bottom: 40px;
-       text-align: center
+       text-align: center;
+       border-radius: 0px 60px;
    }
-   .hoverContent img:hover {
-      filter: drop-shadow(0px 8px 15px #005482);
-    }
+   
 
-     .hoverContent img {
+   .hoverContent img {
         height:73px;
         width:82px;
     }
@@ -174,6 +174,15 @@ import expandImage from './assets/expand.png';
       padding: 1.5rem;
       margin: 0;
       border-radius: 0px 0px 10px 10px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .chartUIContent{
+      background-color: #FAFAFA;
+      padding: 1.5rem;
+      margin: 0;
+      border-radius: 0px 0px 10px 10px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     }
 
     .chartsLayout {
@@ -181,8 +190,20 @@ import expandImage from './assets/expand.png';
       background-color: #99D5F5;
       border-radius: 10px 10px 0px 0px;
       padding: 10px;
+      justify-content: center;
     }
+    
 
+    .seamlessUiLayout{
+      display: flex;
+      background-color: #FADA9A;
+      border-radius: 10px 10px 0px 0px;
+      padding: 10px;
+      justify-content: center;
+    }
+    .cardLayout svg {
+        width: 45px;
+    }
     .learnMoreSection {
       background-color: #F1F1F1;
       padding: 30px 30px;
@@ -199,8 +220,9 @@ import expandImage from './assets/expand.png';
           position: relative;
     }
     .c-card-title{       
-          font-size: 1.5rem;
-          font-weight: 900;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-left: 10px;
     }
 
     .title {
@@ -216,7 +238,7 @@ import expandImage from './assets/expand.png';
     .footerClass{
       margin-top: 40px;
       display: grid;
-      grid-template-columns: repeat(6, 160px);
+      grid-template-columns: repeat(6, 16%);
       grid-gap: 10px;
     }
 
@@ -230,6 +252,199 @@ import expandImage from './assets/expand.png';
       stroke:#ffffff;
     }
 
+    .featureImage {
+      height:100px;
+      width: 100px;
+    }
+
+
+
+    .row {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: calc(var(--bs-gutter-y)* -1);
+      margin-right: calc(var(--bs-gutter-x)* -.5);
+      margin-left: calc(var(--bs-gutter-x)* -.5);
+    }
+    .col-12 {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    .align-items-center {
+        align-items: center !important;
+    }
+
+    .justify-content-between {
+        justify-content: space-between !important;
+    }
+    .d-flex {
+        display: flex !important;
+    }
+    
+    .tech-brands {
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      min-width: 100%;
+      max-width: fit-content;
+    }
+
+
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+    }
+    .tech-brands img {
+        object-fit: contain;
+        max-width: 100%;
+        width: 4em;
+        aspect-ratio: 1 / 1;
+        margin: 1.5%;
+    }
+    .featureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 33%);
+        grid-gap: 16px;
+    }
+
+    .home-page .container {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        width: 100%;
+        padding-right: var(--bs-gutter-x, .75rem);
+        padding-left: var(--bs-gutter-x, .75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .cardLayout {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-direction: row;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+      .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        
+        .container {
+            max-width: 515px;
+        }
+        .cardLayout {
+          display: flex;
+          justify-content: space-between;
+          gap: 1.5rem;
+          flex-direction: column;
+        }
+        .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 49%);
+          grid-gap: 14px;
+        }
+        .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 49%);
+          grid-gap: 16px;
+        }
+    }
+    @media only screen and (max-width: 480px) {
+
+        .container {
+            max-width: 515px;
+        }
+        .home-page .container {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        .tech-brands img {
+            width: 2.8rem;
+        }
+        .toolsUsedSection {
+          padding: 5% 0;
+          display: flex;
+          flex-flow: column;
+      }
+      .tech-brands img {
+          object-fit: contain;
+          max-width: 100%;
+          width: 3em;
+          aspect-ratio: 1 / 1;
+          margin: 1.5%;
+      }
+      .footerClass {
+        display: grid;
+        grid-template-columns: repeat(2, 49%);
+        grid-gap: 14px;
+      }
+      .cardLayout {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-direction: column;
+      }
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(1, 100%)!important;
+          grid-gap: 16px;
+      }
+      .cardLayout svg {
+          width: 36px;
+      }
+    }
+    @media (max-width: 821px) {
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(3, 33%) ;
+          grid-gap: 16px;
+      }
+   }
+     @media (max-width: 991.98px) {
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(2, 49%);
+          grid-gap: 16px;
+      }
+      .footerClass {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(2, 49%);
+        grid-gap: 10px;
+    }
+    }
+    @media (min-width: 1199.98px) and (max-width : 1920px) { 
+      div#storybook-docs {
+     
+      }
+    }
+     @media (min-width: 1921px) { 
+      div#storybook-docs {
+        
+      }
+      .featureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 33%);
+        grid-gap: 16px;
+      }
+    }
+    .css-1q7pov5, .sidebar-container {
+      width: 15%!important;
+      zoom: 1.5!important;
+    }
+    .css-sqdry3 {
+      width: 85%;
+    }
 `}
   
 </style>
@@ -237,8 +452,8 @@ import expandImage from './assets/expand.png';
 <img className="bannerSection" src={bannerImage} alt="flow"/>
 
 <div className="containerContent">
- <p>Raaghu is an open-source React based micro front-end design system. Raaghu Design System employs <b>Vite, TypeScript, Million, Boostrap5 and Storybook</b> 
- features to develop highly customizable UI components and build-in pages. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
+ <p>Raaghu Design System is an React based micro front-end design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook
+features to develop highly customizable UI application shells, layouts, elemets and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
 
 </div>
 
@@ -248,38 +463,40 @@ import expandImage from './assets/expand.png';
     faster and efficiently.
 </div>
 
-<div className="toolsUsedSection">
-  <div style={{fontWeight: "600"}}>
-    Built Using
-  </div>  
-  <div style={{display: "flex", justifyContent: "space-between"}} className="hoverContent">
-    <img className="reactImage" src={reactImage} alt="flow"/>
-    <img className="viteImage" src={viteImage} alt="flow"/>
-    <img className="tsImage" src={tsImage} alt="flow"/>
-    <img className="typescriptImage" src={typescriptImage} alt="flow"/>
-    <img className="bootstrapImage" src={bootstrapImage} alt="flow"/>
-    <img className="storybookImage" src={storybookImage} alt="flow"/>
-  </div>
+<div className="toolsUsedSection"> 
+    <h3 style={{marginBottom: "1.5rem"}}><strong>Built Using</strong></h3>
+     <div class="row tech-brands">
+          <div class="col-12 col-lg-6 ">
+                <div class="align-item-center d-flex justify-content-between">
+                      <img src={reactImage} alt="React" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={viteImage} alt="Vite" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img className="tsImage" src={tsImage} alt="Typescript" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1"/>
+                      <img src={millionJsImage} alt="Millionjs" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                      <img src={bootstrapImage} alt="bootstrap icon" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0"/>
+                </div>
+          </div>
+    </div>
+    
 </div>
 
-<div style={{ textAlign: "center",marginTop: "60px" }} className="">
+<div style={{ textAlign: "center"}} className="">
 
 ### <div className="title"> Why Raaghu Design System?</div>
 
 Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
 
-<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}}>
-  <div  style={{border: "0"}}>
-    <div className="chartsLayout">
-      <div >
-        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="70" viewBox="0 0 247 247" fill="none">
-          <g clip-path="url(#clip0_151_3736)">
-          <path d="M220.35 135.908L227.874 122.875L220.706 118.737C222.221 114.169 222.841 109.352 222.529 104.549L230.587 102.39L226.68 87.8486L218.618 90.0144C216.49 85.7062 213.552 81.8479 209.965 78.6503L214.104 71.4823L201.071 63.9578L196.933 71.1258C192.368 69.615 187.554 68.995 182.755 69.3006L180.599 61.2525L166.055 65.1496L168.211 73.1977C163.9 75.3285 160.041 78.2721 156.846 81.867L149.678 77.7285L142.154 90.7612L149.322 94.8997C147.806 99.4661 147.185 104.282 147.493 109.083L139.441 111.246L143.345 125.777L151.397 123.614C153.527 127.927 156.47 131.788 160.063 134.986L155.924 142.154L168.957 149.679L173.096 142.511C177.662 144.024 182.476 144.642 187.276 144.329L189.439 152.381L203.971 148.477L201.808 140.425C206.121 138.3 209.984 135.361 213.182 131.769L220.35 135.908ZM177.49 119.851C174.912 118.363 172.834 116.144 171.517 113.474C170.201 110.805 169.705 107.805 170.094 104.854C170.483 101.903 171.738 99.1337 173.7 96.8957C175.662 94.658 178.244 93.0525 181.119 92.2822C183.994 91.5118 187.033 91.6114 189.851 92.5679C192.67 93.5248 195.141 95.2957 196.953 97.6571C198.765 100.018 199.836 102.864 200.03 105.834C200.225 108.804 199.535 111.765 198.047 114.343C196.051 117.799 192.764 120.321 188.909 121.354C185.054 122.387 180.946 121.846 177.49 119.851Z" fill="#FAFAFA"/>
-          <path d="M137.818 203.614L165.196 156.195L117.776 128.817C117.789 126.184 117.106 123.595 115.795 121.311C114.484 119.029 112.592 117.132 110.312 115.816C108.032 114.499 105.444 113.81 102.812 113.816C100.179 113.822 97.5945 114.525 95.3208 115.853L60.9339 95.9993L80.7872 61.6125C83.395 61.6038 85.9558 60.9176 88.2186 59.6212L122.605 79.4745L130.13 66.4417L95.743 46.5885C95.7457 44.2856 95.2183 42.013 94.2016 39.9468C93.1848 37.8804 91.7061 36.0759 89.8799 34.673C88.0538 33.27 85.9292 32.3063 83.6707 31.8563C81.4122 31.4064 79.0805 31.4824 76.856 32.0785C74.6316 32.6745 72.5743 33.7745 70.8434 35.2934C69.1124 36.8123 67.7543 38.7093 66.8743 40.8373C65.9943 42.9654 65.6159 45.2675 65.7685 47.5654C65.9212 49.8631 66.6007 52.095 67.7544 54.088L20.5235 135.894C18.2207 135.892 15.9482 136.419 13.8816 137.436C11.8155 138.453 10.011 139.931 8.60804 141.757C7.20511 143.584 6.24126 145.708 5.79147 147.967C5.34131 150.225 5.41738 152.557 6.01345 154.781C6.60952 157.006 7.70955 159.063 9.22842 160.794C10.7473 162.525 12.6444 163.883 14.7724 164.763C16.9004 165.643 19.2028 166.021 21.5004 165.869C23.7984 165.716 26.0301 165.037 28.0231 163.883L109.829 211.114C109.827 213.416 110.354 215.689 111.371 217.756C112.388 219.822 113.866 221.627 115.693 223.029C117.519 224.432 119.643 225.396 121.902 225.846C124.16 226.296 126.492 226.22 128.716 225.624C130.941 225.028 132.998 223.928 134.729 222.409C136.46 220.89 137.818 218.993 138.698 216.865C139.578 214.737 139.956 212.435 139.804 210.137C139.651 207.839 138.972 205.607 137.818 203.614ZM69.9343 170.703L35.5475 150.85C35.5346 148.243 34.8489 145.683 33.5563 143.419L53.4095 109.032L87.7963 128.885C87.8048 131.493 88.4911 134.054 89.7876 136.317L69.9343 170.703ZM117.354 198.081L82.967 178.228L102.82 143.841C105.428 143.832 107.989 143.146 110.252 141.85L144.638 161.703L124.785 196.09C122.177 196.096 119.616 196.782 117.354 198.081Z" fill="#FAFAFA"/>
+<div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}} className="cardLayout">
+  <div  style={{border: "0",}}>
+    <div className="seamlessUiLayout">
+      <div className="align-items-center d-flex justify-content-center">
+        <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_257_2624)">
+          <path d="M100.166 29.215V20.8679H95.575C95.0358 18.2536 93.9974 15.7679 92.5158 13.5474L95.7878 10.2753L89.8781 4.37391L86.606 7.65016C84.389 6.17084 81.9078 5.1322 79.298 4.59093V0L70.9509 0V4.59093C68.3391 5.1312 65.8549 6.16834 63.6346 7.64599L60.3667 4.37808L54.4611 10.2837L57.729 13.5516C56.249 15.7708 55.2115 18.2551 54.6739 20.8679H50.083V29.215H54.6739C55.2123 31.8289 56.2495 34.3144 57.729 36.5355L54.4611 39.8076L60.3667 45.7048L63.6346 42.4327C65.8537 43.9135 68.3382 44.9523 70.9509 45.492V50.0829H79.298V45.492C81.9111 44.9528 84.3952 43.9144 86.6143 42.4327L89.8864 45.7007L95.7837 39.795L92.5116 36.5271C93.9945 34.31 95.0349 31.8271 95.575 29.215H100.166ZM75.1245 33.3886C73.4734 33.3886 71.8599 32.899 70.4872 31.9819C69.1145 31.0647 68.0444 29.761 67.4125 28.2358C66.7811 26.7105 66.6158 25.0322 66.9376 23.413C67.2598 21.7938 68.0548 20.3065 69.2222 19.1391C70.3895 17.9718 71.877 17.1768 73.4959 16.8547C75.1153 16.5326 76.7935 16.6979 78.3189 17.3297C79.8439 17.9615 81.1478 19.0313 82.0647 20.404C82.9821 21.7767 83.4716 23.3906 83.4716 25.0415C83.4716 27.2552 82.5922 29.3784 81.0267 30.9438C79.4612 32.5092 77.3381 33.3886 75.1245 33.3886Z" fill="#FAFAFA"/>
+          <path d="M79.2978 84.6275V54.2564L48.9267 54.2564C48.2025 52.988 47.1562 51.9338 45.8933 51.2005C44.6304 50.4676 43.1959 50.0811 41.7356 50.0811C40.2752 50.0811 38.8409 50.4676 37.578 51.2005C36.315 51.9338 35.2685 52.988 34.5445 54.2564H12.5206L12.5206 32.2324C13.7708 31.505 14.8106 30.4652 15.5381 29.2149H37.562V20.8678H15.5381C14.9007 19.7608 14.017 18.8154 12.9556 18.1049C11.8941 17.3943 10.6834 16.9376 9.41709 16.7701C8.15078 16.6026 6.86294 16.7289 5.65327 17.1391C4.4436 17.5494 3.3446 18.2325 2.4414 19.1358C1.53819 20.039 0.855009 21.138 0.44478 22.3476C0.0345488 23.5573 -0.0917248 24.8452 0.0757404 26.1115C0.243205 27.3778 0.699914 28.5885 1.41049 29.65C2.12107 30.7114 3.06644 31.595 4.17339 32.2324L4.17339 84.6275C3.06644 85.2648 2.12107 86.1483 1.41049 87.2101C0.699914 88.2714 0.243205 89.4822 0.0757404 90.7485C-0.0917248 92.0147 0.0345488 93.3027 0.44478 94.5122C0.855009 95.7221 1.53819 96.821 2.4414 97.7242C3.3446 98.6273 4.4436 99.3106 5.65327 99.7208C6.86294 100.131 8.15078 100.257 9.41709 100.09C10.6834 99.9224 11.8941 99.4654 12.9556 98.7551C14.017 98.0443 14.9007 97.099 15.5381 95.9921H67.9331C68.5704 97.099 69.454 98.0443 70.5157 98.7551C71.5771 99.4654 72.7878 99.9224 74.0541 100.09C75.3204 100.257 76.6083 100.131 77.8178 99.7208C79.0277 99.3106 80.1266 98.6273 81.0298 97.7242C81.933 96.821 82.6162 95.7221 83.0264 94.5122C83.4367 93.3027 83.5627 92.0147 83.3954 90.7485C83.228 89.4822 82.771 88.2714 82.0607 87.2101C81.3499 86.1483 80.4046 85.2648 79.2978 84.6275ZM37.562 87.645H15.5381C14.8088 86.3963 13.7694 85.3566 12.5206 84.6275L12.5206 62.6035H34.5445C35.2719 63.8539 36.3117 64.8936 37.562 65.621L37.562 87.645ZM67.9331 87.645H45.9092L45.9092 65.621C47.1596 64.8936 48.1992 63.8539 48.9267 62.6035L70.9506 62.6035V84.6275C69.6994 85.3537 68.6593 86.3938 67.9331 87.645Z" fill="#FAFAFA"/>
           </g>
           <defs>
-          <clipPath id="clip0_151_3736">
-          <rect width="180.587" height="180.587" fill="white" transform="translate(90.2935) rotate(30)"/>
+          <clipPath id="clip0_257_2624">
+          <rect width="100.166" height="100.166" fill="white"/>
           </clipPath>
           </defs>
         </svg>
@@ -287,29 +504,30 @@ Raaghu Design System bridges the gaps between design and development while maint
       </div>     
     </div>
     <div className="seamlessUIContent">      
-        Raaghu contains ready to use templates for the ASP net and ABP framework. Fully customizable with the help of our Adobe XD and 
-        Figma design kits.         
+        Raaghu Design System contains ready to use templates for a new or built React Application. Fully customizable with the help of 
+        our Adobe XD and Figma design kits.         
     </div>    
   </div>
   <div style={{border: "0"}}>
     <div className="chartsLayout">
-      <div >
-       <svg xmlns="http://www.w3.org/2000/svg"  width="120" height="70" viewBox="0 0 190 190" fill="none">
-          <g clip-path="url(#clip0_151_3728)">
-          <path d="M123.577 144.739C129.823 141.132 135.333 136.379 139.818 130.73L148.849 137.946C143.461 144.72 136.846 150.418 129.349 154.744L123.577 144.739ZM94.7381 152.462C101.959 152.46 109.115 151.109 115.84 148.478L120.052 159.244C111.985 162.396 103.4 164.015 94.7383 164.018L94.7381 152.462ZM65.8266 144.757C72.0976 148.338 78.9776 150.726 86.1185 151.802L84.3999 163.226C75.8281 161.941 67.5704 159.072 60.0484 154.765L65.8266 144.757ZM44.7231 123.586C48.3295 129.833 53.081 135.344 58.7288 139.832L51.5131 148.863C44.7278 143.474 39.0203 136.854 34.6902 129.349L44.7231 123.586ZM36.9672 94.7349C36.982 101.949 38.3394 109.097 40.97 115.814L30.2094 120.03C27.0538 111.97 25.4283 103.393 25.4162 94.7379L36.9672 94.7349ZM44.6771 65.8262C41.0941 72.0942 38.7062 78.9732 37.6349 86.1131L26.2026 84.3966C27.4925 75.8261 30.3634 67.5699 34.6691 60.048L44.6771 65.8262ZM65.8434 44.7199C59.5971 48.3267 54.0871 53.0793 49.6023 58.7284L40.5711 51.5127C45.9608 44.7286 52.581 39.0214 60.085 34.6899L65.8434 44.7199ZM94.7212 36.9863C87.5007 36.9877 80.344 38.3386 73.6198 40.9696L69.4069 30.204C77.4658 27.0501 86.042 25.4263 94.6961 25.4158L94.7212 36.9863ZM123.608 44.6768C117.337 41.0958 110.457 38.7071 103.316 37.6316L105.04 26.1972C113.611 27.4864 121.866 30.3591 129.386 34.6688L123.608 44.6768ZM144.736 65.8625C141.124 59.6079 136.364 54.0912 130.706 49.602L137.921 40.5708C144.707 45.9591 150.414 52.5796 154.744 60.0846L144.736 65.8625ZM152.453 94.7238C152.446 87.5023 151.093 80.3454 148.464 73.6194L159.225 69.4037C162.381 77.4632 164.006 86.0404 164.018 94.6957L152.453 94.7238ZM144.757 123.607C148.34 117.339 150.728 110.46 151.799 103.32L163.232 105.037C161.942 113.607 159.071 121.864 154.765 129.386L144.757 123.607Z" fill="#FAFAFA"/>
-          <path d="M64.693 77.3824C60.0956 85.3453 58.8498 94.8083 61.2295 103.69C63.6093 112.571 69.4197 120.143 77.3826 124.741C85.3455 129.338 94.8085 130.584 103.69 128.204C112.571 125.824 120.144 120.014 124.741 112.051C129.338 104.088 130.584 94.6253 128.204 85.7439C125.825 76.8624 120.014 69.2901 112.051 64.6928C104.088 60.0954 94.6255 58.8496 85.7441 61.2294C76.8626 63.6091 69.2903 69.4196 64.693 77.3824Z" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
-          <path d="M112.052 64.6929L94.7174 94.7169L124.741 112.051" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
-        </g>
-        <defs>
-        <clipPath id="clip0_151_3728">
-        <rect width="138.675" height="138.675" fill="white" transform="translate(69.3379) rotate(30)"/>
-        </clipPath>
-        </defs>
-      </svg>
+      <div className="align-items-center d-flex justify-content-center">
+       <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_257_2639)">
+          <path d="M86.2046 70.9538C88.8094 66.4415 90.5398 61.4784 91.305 56.3248L99.5606 57.5769C98.6367 63.7601 96.5567 69.714 93.4294 75.1275L86.2046 70.9538ZM70.9538 86.2005C75.4702 83.5917 79.4592 80.1618 82.7154 76.0875L89.239 81.3005C85.3306 86.1861 80.5448 90.2994 75.1275 93.4294L70.9538 86.2005ZM50.085 91.8225C55.3013 91.7977 60.4678 90.8072 65.3234 88.9009L68.3744 96.6682C62.548 98.96 56.3459 100.147 50.085 100.17V91.8225ZM29.2371 86.2005C33.7494 88.806 38.7124 90.5377 43.8661 91.305L42.614 99.5606C36.4233 98.6405 30.4618 96.5604 25.0425 93.4294L29.2371 86.2005ZM13.9654 70.9538C16.5801 75.4612 20.0109 79.4426 24.0825 82.6945L18.8737 89.2181C13.9888 85.316 9.87417 80.5376 6.74061 75.1275L13.9654 70.9538ZM8.3475 50.085C8.36988 55.3001 9.36055 60.4658 11.2691 65.3192L3.4976 68.3744C1.20912 62.5471 0.0231264 56.3455 0 50.085H8.3475ZM13.9654 29.2371C11.3606 33.7494 9.63024 38.7125 8.86505 43.8661L0.609367 42.614C1.53074 36.4236 3.61081 30.4623 6.74061 25.0425L13.9654 29.2371ZM29.2371 13.9695C24.7207 16.5783 20.7317 20.0081 17.4755 24.0825L10.9519 18.8695C14.8541 13.9859 19.6326 9.87269 25.0425 6.74061L29.2371 13.9695ZM50.085 8.3475C44.8687 8.37226 39.7022 9.36284 34.8466 11.2691L31.7956 3.49343C37.6226 1.2045 43.8246 0.0198563 50.085 0V8.3475ZM70.9538 13.9695C66.4351 11.3616 61.4648 9.62977 56.3039 8.86505L57.556 0.609367C63.7467 1.52947 69.7082 3.60962 75.1275 6.74061L70.9538 13.9695ZM86.2046 29.2371C83.592 24.7222 80.1611 20.7336 76.0875 17.4755L81.2963 10.9519C86.1812 14.854 90.2958 19.6324 93.4294 25.0425L86.2046 29.2371ZM91.8225 50.085C91.8001 44.8699 90.8094 39.7042 88.9009 34.8508L96.6724 31.7956C98.9609 37.6229 100.147 43.8245 100.17 50.085H91.8225Z" fill="#FAFAFA"/>
+          <path d="M25.043 50.085C25.043 56.7267 27.6814 63.0964 32.3777 67.7927C37.0741 72.4891 43.4438 75.1275 50.0855 75.1275C56.7272 75.1275 63.0968 72.4891 67.7932 67.7927C72.4896 63.0964 75.128 56.7267 75.128 50.085C75.128 43.4433 72.4896 37.0737 67.7932 32.3773C63.0968 27.6809 56.7272 25.0425 50.0855 25.0425C43.4438 25.0425 37.0741 27.6809 32.3777 32.3773C27.6814 37.0737 25.043 43.4433 25.043 50.085Z" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M50.085 25.0425V50.085H75.1275" stroke="#FAFAFA" stroke-width="6" stroke-linejoin="round"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_257_2639">
+          <rect width="100.17" height="100.17" fill="white"/>
+          </clipPath>
+          </defs>
+         </svg>
+
         <span className="c-card-title">Charts, Layouts and Grids</span>
       </div>     
     </div>
-    <div style={{backgroundColor: "#FAFAFA", padding: "1.5rem", margin: "0", borderRadius: "0px 0px 10px 10px"}}>
+    <div className="chartUIContent">
      With more than 60+ react based elements, components , pages and charts , Raaghu offers a wide array catering to the needs for your UI components.
     </div>   
   </div>
@@ -333,10 +551,10 @@ Raaghu Design System bridges the gaps between design and development while maint
 <div style={{textAlign:"center", marginTop: "60px", marginBottom: "40px"}}>
   ### Features
 
-  <div style={{display: "flex", justifyContent: "space-between"}}>
+  <div className="featureCards">
     <div>
       <div> 
-        <img className="fastWebGif" src={fastWebGif} alt="fastGif" />
+        <img className="featureImage" src={fastWebGif} alt="fastGif" />
       </div>
       <div>
         <strong>Fast</strong>
@@ -347,7 +565,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     </div>
     <div>
       <div> 
-        <img className="consistenceGif" src={consistenceGif} alt="consistenceGif" />
+        <img className="featureImage" src={consistenceGif} alt="consistenceGif" />
       </div>
       <div>
         <strong>Consistent</strong>
@@ -358,7 +576,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     </div>
     <div>
      <div> 
-        <img className="scalableGif" src={scalableGif} alt="scalableGif" />
+        <img className="featureImage" src={scalableGif} alt="scalableGif" />
       </div>
       <div>
         <strong>Scalable</strong>
@@ -367,12 +585,9 @@ Raaghu Design System bridges the gaps between design and development while maint
        Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation.
       </div>
     </div>
-  </div>
-
-   <div style={{display: "flex", justifyContent: "space-between", marginBottom: "40px"}}>
     <div>
       <div> 
-        <img className="maintainableGif" src={maintainableGif} alt="maintainableGif" />
+        <img className="featureImage" src={maintainableGif} alt="maintainableGif" />
       </div>
       <div>
         <strong>Maintainable</strong>
@@ -383,7 +598,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     </div>
     <div>
       <div> 
-        <img className="flexibleGif" src={flexibleGif} alt="flexibleGif" />
+        <img className="featureImage" src={flexibleGif} alt="flexibleGif" />
       </div>
       <div>
         <strong>Flexible</strong>
@@ -394,7 +609,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     </div>
     <div>
      <div> 
-        <img className="pixelPerfectGif" src={pixelPerfectGif} alt="pixelPerfectGif" />
+        <img className="featureImage" src={pixelPerfectGif} alt="pixelPerfectGif" />
       </div>
       <div>
         <strong>Pixel-perfect</strong>
@@ -404,6 +619,7 @@ Raaghu Design System bridges the gaps between design and development while maint
       </div>
     </div>
   </div>
+
 </div>
 
 <div style={{textAlign:"center", marginTop: "60px"}}>
@@ -420,7 +636,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="appShellImage" src={appShellImage} alt="appShellImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>App Shell</strong>
     </div>
   </a>
@@ -432,7 +648,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="layoutsImage" src={layoutsImage} alt="layoutsImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>Layouts</strong>
     </div>
   </a>
@@ -444,7 +660,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="componentsImage" src={componentsImage} alt="componentsImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>Components</strong>
     </div>
   </a>
@@ -456,7 +672,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="elementsImage" src={elementsImage} alt="elementsImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>Elements</strong>
     </div>
   </a>
@@ -468,7 +684,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="chartsImage" src={chartsImage} alt="chartsImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>Charts</strong>
     </div>
   </a>
@@ -480,7 +696,7 @@ Raaghu Design System bridges the gaps between design and development while maint
     <div> 
      <img className="mapsImage" src={mapsImage} alt="mapsImage" />
     </div>
-    <div>
+    <div style={{marginTop: "0.5rem"}}>
      <strong>Map</strong>
     </div>
   </a>

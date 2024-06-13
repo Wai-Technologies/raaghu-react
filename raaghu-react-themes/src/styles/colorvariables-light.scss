@@ -1358,6 +1358,10 @@ $form-feedback-color: $gray-700;
   background-color: $white;
 }
 
+.footer-buttons-profile {
+    background-color: $white;
+}
+
 .dottedstyle {
   .vertical-dotted-line {
     border-right-color: $verticle-border-color;
@@ -2067,6 +2071,10 @@ $form-feedback-color: $gray-700;
   background-color: $white;
 }
 
+.footer-buttons-profile {
+    background-color: $white;
+}
+
 .dottedstyle {
   .vertical-dotted-line {
     border-right-color: $verticle-border-color;
@@ -2514,6 +2522,15 @@ input::placeholder {
   color: $placeholder-color;
 }
 
+textarea::placeholder {
+    color: $placeholder-color;
+}
+
+textarea::-webkit-input-placeholder {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-lighter;
+}
+
 .profile-offcanvas {
   p {
     color: $gray-600;
@@ -2687,8 +2704,13 @@ hr {
 }
 // /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.customWidthClass li:hover {
+    background-color: $primary;
+    color: $light;
 }
 //We need this for future reference
 // .customWidthClass li:hover {
@@ -2701,7 +2723,9 @@ hr {
 }
 
 .custom-navigation .customWidthForBtn {
-  border-color: $primary-400 !important;
+    border-color: $primary-400 !important;
+    min-width: 4.4rem !important;
+
 }
 
 .customWidthClass {

@@ -135,9 +135,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     if (props.onClick) {
       props.onClick(event, val);
     }
+    setExpend(!expand);
   }
-  // Toggle the dropdown state
-  setExpend(!expand);
 };
   const IconWidth = props.listItems[selectedOption]?.iconWidth || "16px";
   const IconHeight = props.listItems[selectedOption]?.iconHeight || "12px";
@@ -151,10 +150,11 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   const offset = `${props.xOffset || ""}  ${props.yOffset || ""}`;
   const checkHandler = (e: any, item: any) => {
+    debugger;
     let newTempData: any;
 
     newTempData = {
-      id: item.label,
+      id: item.val,
       label: item.label,
     };
 
@@ -194,7 +194,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const handleMouseLeaveicon = () => {
     setIsHovered(false);
   };
-  const fieldSize = props.size == undefined ? "form-control-sm" : props.size;
+  const fieldSize =  props.size === 'medium' ? 'md ' : props.size === 'large' ? 'lg':props.size;
   const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
   useEffect(() => {
     setIsTouch(false);
@@ -214,7 +214,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   return (
     <>
-      <div className={`dropdown ${block ? "w-100" : ""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""}`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span
@@ -294,7 +294,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         )}
 
                       {props.isPlaceholder == true && (
-                        <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                        <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                           {props.placeholder}
                         </span>
                       )}
@@ -374,7 +374,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   props.multiSelect &&
                   props.placeholder && (
                     <div>
-                      <span className="ms-2 me-2 text-muted">
+                      <span className="me-2  dw-placeholder">
                         {props.placeholder}
                       </span>
                     </div>
@@ -399,7 +399,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 {/* chevron_down icon */}
                 {!props.isIconPlaceholder && props.multiSelect !== true && (
                   <span
-                    className=""
+                    className="ms-2"
                     onClick={(e) => {
                       e.stopPropagation();
                       clickedOnDropDown();
@@ -488,7 +488,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       )}
 
                     {props.isPlaceholder == true && (
-                      <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap dw-placeholder">
+                      <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
                         {props.placeholder}
                       </span>
                     )}
@@ -548,7 +548,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                             {props.listItems[selectedOption].val.toUpperCase()}
                           </span>
                         ) : (
-                          <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                          <span className="fs-6 me-2 flex-grow-1 text-nowrap">
                             {props.listItems[selectedOption].label}
                           </span>
                         ))}
@@ -561,7 +561,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 props.multiSelect &&
                 props.placeholder && (
                   <div>
-                    <span className="ms-2 me-2 text-muted">
+                    <span className="dw-placeholder fs-6">
                       {props.placeholder}
                     </span>
                   </div>
@@ -584,9 +584,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               )}
 
               {/* chevron_down icon */}
-              {!props.isIconPlaceholder && props.multiSelect !== true && (
+              {!props.isIconPlaceholder && props.multiSelect !== false && (
                 <span
-                  className=""
+                  className="ms-2"
                   onClick={(e) => {
                     e.stopPropagation();
                     clickedOnDropDown();
@@ -633,12 +633,6 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         checkedCategoryList.filter(
                           (curElem: any) => curElem.label == language.label
                         ).length == 1
-                      }
-                      onChange={(e) =>
-                        `${e.target.checked !== true
-                          ? uncheckHandler(e, language)
-                          : checkHandler(e, language)
-                        }`
                       }
                       value=""
                       id="flexCheckDefault"

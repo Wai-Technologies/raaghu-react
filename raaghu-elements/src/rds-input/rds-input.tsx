@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./rds-input.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs/types";
@@ -15,6 +15,9 @@ export interface RdsInputProps {
     validatonPattern?: RegExp;
     validationMsg?: string;
     placeholder?: string;
+    autoFocus?: [boolean, number];
+    singleDigit?: boolean;
+    ref?: any;
     labelPosition?: string;
     tooltipPlacement?: placements;
     tooltipTitle?: string;
@@ -39,7 +42,7 @@ export interface RdsInputProps {
     showIcon?: boolean;
 }
 
-const RdsInput = (props: RdsInputProps) => {
+const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) => {
     const { t } = useTranslation();
     const [value, setValue] = useState(props.value);
     const [errorRegardingLengthOrValue, setErrorRegardingLengthOrValue] = useState("")
@@ -47,6 +50,7 @@ const RdsInput = (props: RdsInputProps) => {
     const [hasError, setHasError] = useState(false);
     const [isTouch, setIsTouch] = useState(false);
     const [isValid, setIsValid] = useState<boolean>(true);
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
         setIsTouch(false);
@@ -55,6 +59,7 @@ const RdsInput = (props: RdsInputProps) => {
     useEffect(() => {
         setValue(props.value ?? "");
     }, [props.value]);
+    
     const handlerChange = (e: any) => {
         const inputValue = e.target.value;
         setIsTouch(true);
@@ -92,7 +97,9 @@ const RdsInput = (props: RdsInputProps) => {
         } else {
             setErrorRegardingLengthOrValue("")
         }
-
+        if (props.inputType === "otp" && !/^\d*$/.test(e.target.value) && e.target.value !== "") {
+            return;
+        }
         setValue(e.target.value);
 
     };
@@ -106,7 +113,7 @@ const RdsInput = (props: RdsInputProps) => {
         size = "lg";
     }
     const inputClasses =
-        "form-control rounded form-control-" +
+        "form-control rounded mt-1 form-control-" +
         size +
         " flex-grow-1 " +
         props.customClasses;
@@ -154,8 +161,11 @@ const RdsInput = (props: RdsInputProps) => {
                                     ? showPassword
                                         ? "text"
                                         : "password"
-                                    : props.inputType
+                                    : props.inputType === "otp"
+                                        ? "tel"
+                                        : props.inputType
                             }
+                            maxLength={props.inputType === "otp" && props.singleDigit ? 1 : undefined}
                             className={`${inputClasses}`}
                             id={props.id}
                             placeholder={props.placeholder}
@@ -169,7 +179,10 @@ const RdsInput = (props: RdsInputProps) => {
                             disabled={props.isDisabled}
                             readOnly={props.readonly}
                             data-testid={props.dataTestId}
-                            onClick={props.onClick}
+                            onClick={props.onClick} key={props.id}
+                            name="otp"
+                            autoFocus={props.autoFocus && props.autoFocus[1] === 0}
+                            ref={ref}
                         />
                         {props.inputType === "password" && props.showIcon == true && (
                             <RdsIcon
@@ -264,6 +277,6 @@ const RdsInput = (props: RdsInputProps) => {
             </div>
         </>
     );
-};
+})
 
 export default RdsInput;

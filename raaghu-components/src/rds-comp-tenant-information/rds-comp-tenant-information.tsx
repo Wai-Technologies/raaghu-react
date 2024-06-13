@@ -21,8 +21,7 @@ export interface rdsCompTenantInformationProps {
     isModuleSpecificDb?: boolean;
 }
 const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
-    const [editionList, setEditionList] = useState<any>([]);
-    const [tenantInformationData, setTenantInformationData] = useState<any>(props.tenantInfoData);
+    const [tenantInformationData, setTenantInformationData] = useState(props.tenantInfoData);
     const [inputReset, setInputReset] = useState(false);
     const [radioItemList, setRadioItemList] = useState<any>([]);
 
@@ -32,8 +31,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
         { option: "Inactive", value: "2" },
     ];
 
-    if (radioItemList.length !== 0) {
-    }
+    useEffect(() => {
+        setTenantInformationData(props.tenantInfoData);        
+    },[props.tenantInfoData]);
 
     useEffect(() => {
         let radioItems;
@@ -75,22 +75,6 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
     useEffect(() => {
         setInputReset(!inputReset);
     }, [props.reset]);
-
-
-    useEffect(() => {
-        setTenantInformationData(props.tenantInfoData);
-    }, [props.tenantInfoData]);
-    useEffect(() => {
-        const editionData1: any[] = [];
-        props.editions?.map((item: any) => {
-            const newItem = {
-              option: item.label,
-              value: item.val,
-            };
-            editionData1.push(newItem);
-          });
-          setEditionList(editionData1);
-    }, [props.editions]);
 
     const isEmailValid = (email: any) => {
         if (!props.isEdit) {
@@ -154,6 +138,23 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(tenantInformationData);
+        setInputReset(!inputReset);
+        setTenantInformationData({
+            ...tenantInformationData,
+            name: "",
+            editionId: null, 
+            adminEmailAddress: "",
+            adminPassword: "",
+            activationState: null, 
+            connectionStrings: { default: "" },
+            isModuleSpecificDb: false,
+            radioItemList : []
+        });
+        const resetRadioItems = radioItemList?.map((item: any) => ({
+            ...item,
+            checked: false,
+        }));
+        setRadioItemList(resetRadioItems);
     }
     return (
         <div>
@@ -182,11 +183,11 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     id={"saasEditionlist"}
                                     label="Edition"
                                     placeholder="Select Edition"
-                                    selectItems={editionList}
+                                    selectItems={props.editions}
                                     isSearchable={true}
                                     required={false}
                                     selectedValue={tenantInformationData?.editionId}
-                                    onChange={(item: any) => handleDataChanges(item.value, "editionId")}
+                                    onChange={(e:any) => handleDataChanges(e, "editionId")}
                                 ></RdsSelectList>
                             </div>
                         </div>
@@ -230,7 +231,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         onChange={(e: any) => {
                                             handleDataChanges(e.target.value, "adminPassword");
                                         }}
-                                        showIcon={true}
+                                        showIcon={false}
                                     ></RdsInput>
                                 </div>
                             </div>
@@ -243,11 +244,11 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 />
                                 <div className="form-group mt-2">
                                     <RdsRadioButton
-                                        displayType="Horizontal"
-                                        label=""
-                                        itemList={radioItemList}
-                                        onClick={handleConnectionStrings}
-                                    ></RdsRadioButton>
+                                            displayType="Horizontal"
+                                            label=""
+                                            itemList={radioItemList}
+                                            onClick={handleConnectionStrings}
+                                            onChange={(e: any) => handleDataChanges(e.target.value, "radioItemList")} value={""}                                    ></RdsRadioButton>
                                 </div>
                             </div>
                         </div>
@@ -263,8 +264,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                                     handleDatabaseURL(e.target.value);
                                                 }}
                                                 rows={2}
-                                                value={tenantInformationData?.connectionStrings.default}
+                                                value={tenantInformationData?.connectionStrings?.default}
                                                 dataTestId="data"
+                                                reset={inputReset}
                                             />
                                         </div>
                                     </div>
@@ -290,15 +292,15 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     label="Activation State"
                                     placeholder="Select Activation State"
                                     selectItems={activationStateList}
-                                    selectedValue={tenantInformationData?.activationState?.toString()}
-                                    onChange={(item: any) => handleDataChanges(parseInt(item.value), "activationState")}
+                                    selectedValue={tenantInformationData?.activationState}
+                                    onChange={(e: any) => handleDataChanges(e.value, "activationState")}
                                     required={true}
                                 ></RdsSelectList>
                             </div>
                         </div>
                     </div>
                     </div>
-                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                        <RdsButton
                             class="me-2"
                             tooltipTitle={""}

@@ -74,7 +74,8 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
      const profileName = localStorage.getItem("name");
      const userNames = localStorage.getItem("userName");
     return (
-        <>
+     <>
+        <div>
             <div className="text-center">
                 <div className="text-center">
                     <img
@@ -88,7 +89,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                     ></img>
 
                     {props.showUserName ? (
-                               <p className="text-center m-0 mt-3">{userNames}</p>
+                               <p className="text-center m-0 mt-3">{props.userName}</p>
                      ) : (
                            
                              <p className="text-center m-0 mt-3">{profileName}</p>
@@ -127,7 +128,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                                             name={item.iconPath}
                                             fill={false}
                                             stroke={true}
-                                            height="30px"
+                                            height="20px"
                                             width="30px"
                                             classes="me-2"
                                             isHovered={hoveredItem === item.id}
@@ -162,8 +163,8 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                     </ul>
                 </div>
             </div>
-
-            <div className="pb-4 footer-buttons d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-center">
+         </div>
+            <div className="pb-4 footer-buttons-profile d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row justify-content-center">
                 <RdsButton
                     label="Logout"
                     colorVariant="primary"
@@ -176,6 +177,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                     dataTestId="logout"
                 />
             </div>
+            
         </>
     );
 };

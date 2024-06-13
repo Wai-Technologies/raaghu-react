@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     RdsLabel,
     RdsIcon,
@@ -14,17 +14,43 @@ import "./rds-comp-edition.css";
 export interface RdsCompEditionProps {
     EditionItems: any;
     features: any;
+    editionName: any;
+    reset?: boolean;
+    onSaveHandler?: (data: any) => void;
 }
 const RdsCompEdition = (props: RdsCompEditionProps) => {
     const offCanvasHandler = () => { };
-
+    const [FormData, setFormData] = useState(props.editionName);
     const [activeNavTabId, setActiveNavTabId] = useState("0");
     const [showTenantSettings, setShowTenantSettings] = useState(false);
+    const [inputReset, setInputReset] = useState(false);
+    
+    useEffect(() => {
+        setFormData(props.editionName);
+    }, [props.editionName]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
+    const handleChangeform = (value: any, key: any) => {
+        setFormData({ ...FormData, [key]: value });
+    }   
 
     const navtabsItems = [
         { label: "Basics", tablink: "#nav-home", id: 0 },
         { label: "Features", tablink: "#nav-profile", id: 1 },
     ];
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(FormData);
+        setInputReset(!inputReset);
+        setFormData({
+            editionName: "",
+            plan: "",
+        });
+    }
 
     return (
         <div className="col-md-3 navsm mb-3 featureList ng-star-inserted">
@@ -90,6 +116,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 preventEscapeKey={false}
                                 offId={"compEditionOff"}>
                                 <RdsNavtabs
+                                    activeNavTabId={0}
                                     navtabsItems={navtabsItems}
                                     type="tabs"
                                     isNextPressed={showTenantSettings}
@@ -110,24 +137,25 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                         label={"Edition Name"}
                                                         placeholder="Edition Name"
                                                         name="editionName"
+                                                        value={FormData?.editionName}
+                                                        onChange={(e: any) => handleChangeform(e.target.value, "editionName")}
                                                         id="editionName"
+                                                        reset={inputReset}
                                                     ></RdsInput>
                                                 </div>
                                             </div>
                                             <div className="col-md-6 sm-p-0">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-2">
-                                                        Plan <span className="text-danger">*</span>
-                                                    </label>
+                                                <div className="form-group mb-3">                                              
                                                     <RdsSelectList
-                                                        id="selePla"
-                                                        label="Select Plan"
-                                                        selectItems={[]}
+                                                       id="selePla"
+                                                       label="Select Plan"
+                                                       onChange={(e: any) => handleChangeform(e.target.checked, "selePlan")}                                                       
+                                                       selectItems={[]}
                                                     ></RdsSelectList>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-5">
+                                        <div className="mt-5 d-flex gap-3 ">
                                             <RdsButton
                                                 class="me-2"
                                                 tooltipTitle={""}
@@ -143,6 +171,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                 size="small"
                                                 colorVariant="primary"
                                                 tooltipTitle={""}
+                                                onClick={(e: any) => emitSaveData(e)}
                                                 type={"submit"}
                                             ></RdsButton>
                                         </div>

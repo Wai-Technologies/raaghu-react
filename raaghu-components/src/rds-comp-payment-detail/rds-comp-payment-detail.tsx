@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   RdsRadioButton,
   RdsInput,
@@ -11,37 +11,70 @@ export interface RdsCompPaymentDetailProps {
   buttonSpinner?: boolean;
   paymentModeList?: any[];
   paymentDetails?: any;
+  reset?: boolean;
   onSaveHandler?: (data: any) => void;
 }
+
 const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
-  const [formData, setFormData] = useState(props.paymentDetails);
+  const [formData, setFormData] = useState(props.paymentDetails || {});
+  const [inputReset, setInputReset] = useState(props.reset);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const formKey = useRef(0);
 
   useEffect(() => {
-    setFormData(props.paymentDetails);
+    setFormData(props.paymentDetails || {});
   }, [props.paymentDetails]);
+
+  useEffect(() => {
+    setInputReset(props.reset);
+  }, [props.reset]);
 
   const handleDataChanges = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
   };
 
+  const handlePaymentMethodChange = (value: any) => {
+    setSelectedPaymentMethod(value);
+    if (value === 'Credit Card') {
+      setFormData({
+        cardNumber: "",
+        cardHolderName: "",
+        cardExpirationDate: "",
+        cardCvc: ""
+      });
+    } else if (value !== 'Credit Card' && selectedPaymentMethod === 'Credit Card') {
+      setSelectedPaymentMethod('eTransfer');
+    }
+  };
   function emitSaveData(event: any) {
     event.preventDefault();
-    props.onSaveHandler && props.onSaveHandler(formData);
+    const completeFormData = { ...formData, selectedPaymentMethod };
+    props.onSaveHandler && props.onSaveHandler(completeFormData);
+    setInputReset(!inputReset);
+    setFormData({});
+    setSelectedPaymentMethod('');
+    formKey.current += 1; // increment the key to force re-render of the form
   }
-
   return (
     <>
-      <form>
+      <form onSubmit={emitSaveData} key={formKey.current}>
         <div className="contact-information">
+
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
-              <RdsRadioButton itemList={props.paymentModeList} />
+              <RdsRadioButton
+                itemList={props.paymentModeList}
+                onChange={handlePaymentMethodChange}
+                value={selectedPaymentMethod}
+                key={formKey.current} // add key prop here
+              />
             </div>
           </div>
           <div>
             <RdsInput
               label="Card Number"
+              reset={inputReset}
               required
               size="medium"
               name="cardNumber"
@@ -55,6 +88,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div>
             <RdsInput
               label="Name On Card"
+              reset={inputReset}
               required
               size="medium"
               name="name"
@@ -69,6 +103,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-9">
               <RdsInput
                 label="Expiration Date (MM/YY)"
+                reset={inputReset}
                 required
                 size="medium"
                 name="expirationDate"
@@ -82,6 +117,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-3">
               <RdsInput
                 label="CVV"
+                reset={inputReset}
                 id="txtCvc"
                 required
                 onChange={(e) => {
@@ -91,33 +127,31 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
               />
             </div>
           </div>
-
-          <div className="pt-3 row">
-            <div className="col-6">
-              <RdsButton
-                label="Cancel"
-                colorVariant="primary"
-                block={true}
-                tooltipTitle={""}
-                type="button"
-                // onClick={props.onBack}
-                isOutline={true}
-              />
-            </div>
-            <div className="col-6">              
-              <RdsButton
-                label="Confirm"
-                colorVariant="primary"
-                isDisabled={false}
-                block={true}
-                tooltipTitle={""}
-                type="submit"
-                // showLoadingSpinner={true}
-                onClick={(e: any) => emitSaveData(e)}
-              />
-            </div>
-          </div>
         </div>
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+          <RdsButton
+            label="Cancel"
+            colorVariant="primary"
+            block={false}
+            tooltipTitle={""}
+            size="small"
+            type="button"
+            // onClick={props.onBack}
+            isOutline={true}
+          />
+          <RdsButton
+            label="Confirm"
+            colorVariant="primary"
+            isDisabled={false}
+            block={false}
+            size="small"
+            tooltipTitle={""}
+            type="submit"
+            // showLoadingSpinner={true}
+            onClick={(e: any) => emitSaveData(e)}
+          />
+        </div>
+
       </form>
     </>
   );

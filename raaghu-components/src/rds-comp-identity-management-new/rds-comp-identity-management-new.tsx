@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { set } from "date-fns";
 
 export interface RdsCompIdentityManagementProps {
     onIdentitySettingsSubmit: any;
     lockoutSettings: any;
     passwordSettings: any;
+    onSaveHandler?: (data: any) => void;
     signSettings: any;
     userSettings: any;
 }
@@ -17,35 +19,45 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
 
     const [userSettings, setUserSettings] = useState(props.userSettings);
 
-
     useEffect(() => {
         setLockoutSettings(props.lockoutSettings);
         setPasswordSettings(props.passwordSettings);
         setSignSettings(props.signSettings);
         setUserSettings(props.userSettings);
     }, [props]);
-
-
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-    };
     const handlePasswordChange = (value: any, key: any) => {
         setPasswordSettings({ ...passwordSettings, [key]: value });
     }
-    const handleLockoutChange = (value: any, key: any) => {
-        setLockoutSettings({ ...lockoutSettings, [key]: value });
+    function emitSaveData(event: any) {
+        event.preventDefault();
+      props.onSaveHandler && props.onSaveHandler({ lockout: lockoutSettings, user: userSettings, signIn: signSettings, password: passwordSettings });
+      setPasswordSettings({
+            requiredLength: "",
+            requiredUniqueChars: "",
+            requireNonAlphanumeric: false,
+            requireUppercase: false,
+            requireLowercase: false,
+            requireDigit: false,
+            forceUsersToPeriodicallyChangePassword: false,
+            passwordChangePeriodDays: "",
+            allowedForNewUsers: false,
+            lockoutDuration: "",
+            maxFailedAccessAttempts: "",
+            requireConfirmedEmail: false,
+            enablePhoneNumberConfirmation: false,
+            requireConfirmedPhoneNumber: false,
+            isEmailUpdateEnabled: false,
+            isUserNameUpdateEnabled: false
+        });
     }
-    const handleSignChange = (value: any, key: any) => {
-        setSignSettings({ ...signSettings, [key]: value });
-    }
-    const handleUserChange = (value: any, key: any) => {
-        setUserSettings({ ...userSettings, [key]: value });
-    }
+
+
+
     return (
 
         <div className="pt-3">
             <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
-                <form onSubmit={handleSubmit}>
+                <form>
                 <div className="custom-content-scroll">
                     {/* Password Settings */}
                     <div className="mb-3 fw-medium">
@@ -177,8 +189,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Allowed For New Users"
-                                checked={lockoutSettings?.allowedForNewUsers}
-                                onChange={(e: any) => handleLockoutChange(e.target.checked, "allowedForNewUsers")}
+                                checked={passwordSettings?.allowedForNewUsers}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "allowedForNewUsers")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Allowed For New Users</small>
@@ -195,8 +207,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     readonly={false}
                                     label="Lockout Duration"
                                     placeholder="Enter Length"
-                                    value={lockoutSettings?.lockoutDuration}
-                                    onChange={(e: any) => handleLockoutChange(e.target.value, "lockoutDuration")}
+                                    value={passwordSettings?.lockoutDuration}
+                                    onChange={(e: any) => handlePasswordChange(e.target.value, "lockoutDuration")}
                                     dataTestId="lockout-duration"
                                 ></RdsInput>
                                 <small className="text-secondary-50">Allowed For New Users</small>
@@ -212,8 +224,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     label="Max Failed Access Attempts"
                                     readonly={false}
                                     placeholder="Enter Name"
-                                    value={lockoutSettings?.maxFailedAccessAttempts}
-                                    onChange={(e: any) => handleLockoutChange(e.target.value, "maxFailedAccessAttempts")}
+                                    value={passwordSettings?.maxFailedAccessAttempts}
+                                    onChange={(e: any) => handlePasswordChange(e.target.value, "maxFailedAccessAttempts")}
                                     dataTestId="max-failed-attempts"
                                 ></RdsInput>
                                 <small className="text-secondary-50">Max Failed Access Attempts</small>
@@ -229,8 +241,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Require Confirmed Email"
-                                checked={signSettings?.requireConfirmedEmail}
-                                onChange={(e: any) => handleSignChange(e.target.checked, "requireConfirmedEmail")}
+                                checked={passwordSettings?.requireConfirmedEmail}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedEmail")}
                                 dataTestId="required-confirmed-email"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Require Confirmed Email</small>
@@ -240,8 +252,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Enable Phone Number Confirmation"
-                                checked={signSettings?.enablePhoneNumberConfirmation}
-                                onChange={(e: any) => handleSignChange(e.target.checked, "enablePhoneNumberConfirmation")}
+                                checked={passwordSettings?.enablePhoneNumberConfirmation}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "enablePhoneNumberConfirmation")}
                                 dataTestId="allow-user-conf-phone"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Enable Phone Number Confirmation</small>
@@ -251,8 +263,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Require Confirmed Phone Number"
-                                checked={signSettings?.requireConfirmedPhoneNumber}
-                                onChange={(e: any) => handleSignChange(e.target.checked, "requireConfirmedPhoneNumber")}
+                                checked={passwordSettings?.requireConfirmedPhoneNumber}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedPhoneNumber")}
                                 dataTestId="required-conf-phone"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Require Confirmed Phone Number</small>
@@ -266,8 +278,8 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Is Email Update Enabled"
-                                checked={userSettings?.isEmailUpdateEnabled}
-                                onChange={(e: any) => handleUserChange(e.target.checked, "isEmailUpdateEnabled")}
+                                checked={passwordSettings?.isEmailUpdateEnabled}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "isEmailUpdateEnabled")}
                                 dataTestId="allow-user-change-email"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Is Email Update Enabled</small>
@@ -277,22 +289,23 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
                                 label="Is User Name Update Enabled"
-                                checked={userSettings?.isUserNameUpdateEnabled}
-                                onChange={(e: any) => handleUserChange(e.target.checked, "isUserNameUpdateEnabled")}
+                                checked={passwordSettings?.isUserNameUpdateEnabled}
+                                onChange={(e: any) => handlePasswordChange(e.target.checked, "isUserNameUpdateEnabled")}
                                 dataTestId="allow-user-change-username"
                             ></RdsCheckbox>
                             <small className="text-secondary-50">Enable Phone Number Confirmation</small>
                         </div>
                     </div>
                     </div>
-                    <div  className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
                     label="Save"
                     type="submit"
                     colorVariant="primary"
                     size="small"
                     dataTestId="save"
-                    onClick={() => { props.onIdentitySettingsSubmit({ lockout: lockoutSettings, user: userSettings, signIn: signSettings, password: passwordSettings }); }}
+                    onClick={(e: any) => emitSaveData(e)}
+                    //onClick={() => { props.onIdentitySettingsSubmit({ lockout: lockoutSettings, user: userSettings, signIn: signSettings, password: passwordSettings }); }}
                 ></RdsButton>
                   </div>
                 </form>

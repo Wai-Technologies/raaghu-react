@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsInput, RdsSelectList } from "../rds-elements";
 
 export interface RdsCompEditionNewBasicProps {
     planList: any[];
+    accountTwoFactorSettings: any;
     planListLabel?: string;
+    reset?: boolean;
 }
-
 const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
+    const [inputReset, setInputReset] = useState(false);
+ const [twoFactorData, settwoFactorData] = useState(
+        props.accountTwoFactorSettings
+    );
 
+    const handlerChangeTwoFact = (value: any, key: string) => {
+        settwoFactorData({ ...twoFactorData, [key]: value });
+    };
+
+    useEffect(() => {
+        settwoFactorData(props.accountTwoFactorSettings);
+    }, [props.accountTwoFactorSettings]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+    
     return (
         <>
             <form >
@@ -20,6 +37,7 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                                 placeholder="Edition Name"
                                 inputType="text"
                                 name="editionName"
+                                reset={inputReset}
                                 dataTestId="edition-name"
                             ></RdsInput>
                         </div>
@@ -32,6 +50,11 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                                 isDisabled={false}
                                 isMultiple={false}
                                 selectItems={props.planList}
+                                selectedValue={twoFactorData?.planList}
+                                onChange={(item: any) => {
+                                    handlerChangeTwoFact(item.value, "planList");
+                                }}
+
                                 dataTestId="plan-list"
                                 required={true}
                             />

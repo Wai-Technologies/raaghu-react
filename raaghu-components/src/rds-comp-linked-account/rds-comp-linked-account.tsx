@@ -1,35 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
-export interface RdsLinkedAccountProps { }
+export interface RdsLinkedAccountProps {
+    linkedAccountData?: any;
+    onSaveHandler?: (data: any) => void;
+    reset?: boolean;
+ }
 
 const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
   
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState(props.linkedAccountData);
+    const [inputReset, setInputReset] = useState(false);
+        
+    useEffect(() => {
+        setUserData(props.linkedAccountData);
+    }, [props.linkedAccountData]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setUserData({ ...userData, [key]: value });
+      };
+
+      function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(userData);
+        setInputReset(!inputReset);
+        setUserData({
         tenancyName: "",
         userName: "",
-        password: "",
-    });
+        password: ""
+      });
+      }
+      
     const [page, setPage] = useState(false);
     const onClickHandler = () => {
         setPage((prev) => !prev);
     };
 
-    const onSubmitHandler = (e: any) => {
-        e.preventDefault();
-        const name = e.target[0].value;
-        setUserData({
-            ...userData,
-            tenancyName: e.target[0].value,
-            userName: e.target[1].value,
-            password: e.target[2].value,
-        });
-    };
-
     return (
         <>
-            <div className="card h-100 border-0 px-4 py-4 rounded-0 card-full-stretch">
+            <div className="row px-0">
                 <div className="container-fluid">
                     <div className="d-flex">
                         {!page && (
@@ -50,7 +63,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                         )}
                     </div>
                     {page && (
-                        <form onSubmit={(e) => onSubmitHandler(e)}>
+                        <form>
                             <div className="custom-content-scroll">
                             <div className="row">
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -62,6 +75,11 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="medium"
                                         name="tenancyName"
                                         dataTestId="tenancy-name"
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "tenancyName");
+                                        }}
+                                        value={userData?.tenancyName}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -73,6 +91,11 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="medium"
                                         name="userName"
                                         dataTestId="username"
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "userName");
+                                        }}
+                                        value={userData?.userName}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
@@ -85,12 +108,17 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         name="password"
                                         dataTestId="password"
                                         showIcon= {false}
+                                        onChange={(e) => {
+                                          handleDataChanges(e.target.value, "password");
+                                        }}
+                                        value={userData?.password}
+                                        reset={inputReset}
                                     ></RdsInput>
                                 </div>
                            
                             </div>
                             </div>
-                            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                            <div className="d-flex flex-column-reverse flex-lg-row ps-4 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                 
                                     <RdsButton 
                                         type="button" 
@@ -100,7 +128,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="small"
                                         onClick={onClickHandler}
                                         dataTestId="cancel"
-                                    ></RdsButton>
+                                    ></RdsButton>                                  
                                 
             
                                     <RdsButton
@@ -110,6 +138,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         label="Save"
                                         size="small"
                                         dataTestId="submit"
+                                        onClick={(e: any) => emitSaveData(e)}
                                     ></RdsButton>
                             </div>
                             

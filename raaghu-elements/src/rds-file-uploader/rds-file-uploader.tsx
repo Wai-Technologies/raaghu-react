@@ -35,8 +35,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     props.size === "small"
       ? "form-control-sm"
       : props.size === "large"
-      ? "form-control-lg"
-      : "";
+        ? "form-control-lg"
+        : "";
 
   const kbToMb = (kb: any) => {
     const mb = kb / 1024;
@@ -62,63 +62,63 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     setFileSize([]);
     setIsExceed(false);
     setValidation(
-        validation?.map((ele: any, index: number) => ({
-            ...ele,
-            isError: false,
-        }))
+      validation?.map((ele: any, index: number) => ({
+        ...ele,
+        isError: false,
+      }))
     );
 
     // Process each file
     for (let i = 0; i < files.length; i++) {
-        const selectedFile = files[i];
-        const allowedExtensions = props.extensions.split(", ");
-        const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
-        if (!allowedExtensions.includes(fileExtension)) {
-            setValidation((prevValidation: any) => [
-                ...prevValidation,
-                { isError: true, hint: `File with extension '${fileExtension}' is not allowed` },
-            ]);
-            continue;
-        }
+      const selectedFile = files[i];
+      const allowedExtensions = props.extensions.split(", ");
+      const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        setValidation((prevValidation: any) => [
+          ...prevValidation,
+          { isError: true, hint: `File with extension '${fileExtension}' is not allowed` },
+        ]);
+        continue;
+      }
 
-        // Continue processing the file if extension is allowed
-        // Update file name display
-        setSelectedFileName(selectedFile.name);
+      // Continue processing the file if extension is allowed
+      // Update file name display
+      setSelectedFileName(selectedFile.name);
 
-        const fileSizeInMB = selectedFile.size / (1024 * 1024); // Convert size to MB
-        if (fileSizeInMB > props?.limit) {
-            // If file size exceeds limit, set error state and display error message
-            setIsExceed(true);
-            setValidation((prevValidation: any) => [
-                ...prevValidation,
-                { isError: true, hint: "File size exceeds the limit" },
-            ]);
-            continue;
-        }
+      const fileSizeInMB = selectedFile.size / (1024 * 1024); // Convert size to MB
+      if (fileSizeInMB > props?.limit) {
+        // If file size exceeds limit, set error state and display error message
+        setIsExceed(true);
+        setValidation((prevValidation: any) => [
+          ...prevValidation,
+          { isError: true, hint: "File size exceeds the limit" },
+        ]);
+        continue;
+      }
 
-        // If file size is within limit and extension is allowed, update file arrays
-        setFileSize((prevSize: any) => [...prevSize, selectedFile.size]);
-        setfileName((prevNames: any) => [...prevNames, selectedFile.name]);
+      // If file size is within limit and extension is allowed, update file arrays
+      setFileSize((prevSize: any) => [...prevSize, selectedFile.size]);
+      setfileName((prevNames: any) => [...prevNames, selectedFile.name]);
 
-        // Read file data and update file array
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onload = (event) => {
-            setFileArray((prevArray: any) => [...prevArray, event.target?.result]);
-        };
+      // Read file data and update file array
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (event) => {
+        setFileArray((prevArray: any) => [...prevArray, event.target?.result]);
+      };
     }
 
     // Callback function to pass file info to parent component
     props.getFileUploaderInfo &&
-        props.getFileUploaderInfo({
-            files: event.target.files,
-        });
+      props.getFileUploaderInfo({
+        files: event.target.files,
+      });
 
     // Clear input value if multiple
     if (props.multiple) {
-        event.target.value = null;
+      event.target.value = null;
     }
-};
+  };
 
   useEffect(() => {
     props.onFileArray != undefined && props.onFileArray(FileArray);
@@ -135,16 +135,15 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <form>
               <label
                 htmlFor="file1"
-                className={`align-items-center d-flex ${size}`}
+                className={`align-items-center d-flex mt-1`}
               >
                 <span
                   className={`custom-file-button p-0 border-end-0 form-control align-items-center ${size}`}
                 >
-                  {" "}
                   Choose File
                 </span>
-                <span className={` chosenFileSpan p-1 ps-3`}>
-                  {selectedFileName}{" "}
+                <span className={`chosenFileSpan ps-3 small-placeholder ${size}`}>
+                  {selectedFileName}
                 </span>
                 <input
                   data-testid="rds-file-uploader-input"
@@ -157,19 +156,18 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 />
               </label>
               {validation &&
-              validation.map((val: any, index: number) => (
-                <div key={index} className="ps-3">
-                  <small
-                    className={`${
-                      val.isError ? "showError" : "noError d-none"
-                    }`}
-                  >
-                    {val.isError && val.hint}
-                  </small>
-                </div>
-              ))}
+                validation.map((val: any, index: number) => (
+                  <div key={index} className="ps-3">
+                    <small
+                      className={`${val.isError ? "showError" : "noError d-none"
+                        }`}
+                    >
+                      {val.isError && val.hint}
+                    </small>
+                  </div>
+                ))}
             </form>
-            
+
           </div>
         </div>
       ) : (
@@ -180,9 +178,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           </div>
           <label
             htmlFor="file"
-            className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${
-              props.colorVariant || "primary"
-            } ${size}`}
+            className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"
+              } ${size}`}
           >
             <div className="col-md-10 col-lg-10 col-10">
               <div className={`text-${props.colorVariant}`}>

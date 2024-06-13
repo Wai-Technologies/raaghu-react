@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     RdsInput,
     RdsCheckbox,
@@ -7,22 +7,38 @@ import {
 } from "../rds-elements";
 
 export interface RdsCompSecurityProps {
-    checkgroupList: any;
+    checkgroupList: any[];
 }
 
 const RdsCompSecurity = (props: RdsCompSecurityProps) => {
+    const [isDefaultChecked, setIsDefaultChecked] = useState(false);
+
+    const handleChildCheck = (isChecked: boolean) => {
+        if (isChecked) {
+            setIsDefaultChecked(true);
+        }
+    };
+
+    useEffect(() => {
+        props.checkgroupList.forEach((item: any) => {
+            item.onCheck = handleChildCheck;
+        });
+    }, [props.checkgroupList]);
+
     return (
         <>
-            <div className="mt-4">
+            <div className="mt-2 ms-3">
                 <div>
                     <label className="mb-2 fw-medium">Password Complexity </label>
                     <div className="fw-normal">
-                        <RdsCheckbox label="Use Default Settings" checked={false} />
+                        <RdsCheckbox label="Use Default Settings" checked={isDefaultChecked} />
                         <div className="m-3 ">
-                            <RdsCheckboxGroup itemList={props.checkgroupList} />
+                            {props.checkgroupList.map((item, index) => (
+                                <RdsCheckbox key={index} label={item.label} checked={item.checked} onChange={() => { item.onCheck(!item.checked); item.checked = !item.checked; }} />
+                            ))}
                         </div>
                     </div>
-                    <div className="ms-3">
+                    <div className="mb-2 fw-normal mt-2">
                         <RdsCounter
                             counterValue={0}
                             label=""
@@ -32,7 +48,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                             colorVariant="primary"
                         />
                     </div>
-                    <label className="mt-4 mb-2 fw-medium">User Lock Out</label>
+                    <label className="mt-2 mb-2 fw-medium">User Lock Out</label>
                     <div className="fw-normal">
                         <RdsCheckbox
                             label="Enable user Account Locking On Failed Login Attempts"
@@ -55,7 +71,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                     <RdsInput
                         label=" Account Locking Duration(as seconds) "
                         inputType="number"
-                        placeholder="enter a value"
+                        placeholder="Enter a Value"
                     />
                 </div>
 

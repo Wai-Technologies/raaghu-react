@@ -6,26 +6,44 @@ import { useTranslation } from "react-i18next";
 export interface RdsCompIdentityLdapManagementProps {
     ldapData: any
     onLdapSettingsSubmit?: any
+    onSaveHandler?: (data: any) => void;
+    reset?: boolean;
 }
 const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps) => {
     const [ldap, setLdap] = useState(props.ldapData);
-   
+    const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
         setLdap(props.ldapData);
     }, [props.ldapData]);
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-    };
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
     const handleChangeform = (value: any, key: any) => {
         setLdap({ ...ldap, [key]: value });
     }
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(ldap);
+        setInputReset(!inputReset);
+      setLdap({
+            enableLdapLogin: false,
+            ldapServerHost: "",
+            ldapServerPort: "",
+            ldapBaseDc: "",
+            ldapDomain: "",
+            ldapUserName: "",
+            ldapPassword: ""
+        });
+    } 
+
+
     return (
         <div className="pt-2">
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
                     <RdsLabel label="Ldap Login Settings"></RdsLabel>
@@ -127,14 +145,14 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
                 </div>
               </div>
-              <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+              <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Save"
                         type="submit"
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
-                        onClick={() => { props.onLdapSettingsSubmit(ldap); }}
+                        onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
 

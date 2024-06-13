@@ -9,8 +9,7 @@ const meta: Meta = {
         layout: 'padded',
     },
     tags: ['autodocs'],
-    argTypes: {
-    },
+    argTypes: {},
 } satisfies Meta<typeof RdsCompApplyForPosition>;
 
 export default meta;
@@ -21,4 +20,4 @@ export const Default: Story = {
         
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [] } };
+// Default.parameters = { controls: { include: [] } };

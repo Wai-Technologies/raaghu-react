@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
 import {
     RdsButton,
@@ -6,13 +6,15 @@ import {
     RdsInput,
     RdsTextArea,
 } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompWebhookSubscriptionProps {
-    webhookItem?: (item: any) => void;
+    webhookSubscriptionData?: any;
+    reset?: boolean;
+    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
+   const [inputReset, setInputReset] = useState(false);
     let nextId = 0;
 
     const [webhookheaderfile, setWebhookheaderfile] = useState<any>([]);
@@ -20,13 +22,6 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
         endpoint: "",
         event: "",
         headerKey: "",
-        headerValue: "",
-    });
-    const [error, setError] = useState({
-        endpoint: "",
-        event: "",
-        headerKey: "",
-        position: "",
         headerValue: "",
     });
 
@@ -63,43 +58,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
         }
         return true;
     };
-
-    //****************endPoint********************
-    const endpointhandleChange = (event: any) => {
-        if (isEndpointValid(event.target.value) == "empty") {
-            setError({ ...error, endpoint: "Endpoint is required" });
-        } else if (isEndpointValid(event.target.value) == "notValid") {
-            setError({ ...error, endpoint: "Enter valid url" });
-        } else {
-            setError({ ...error, endpoint: "" });
-        }
-        setUser({ ...user, endpoint: event.target.value });
-    };
-
-    const eventhandleChange = (event: any) => {
-        if (!isEventValid(event.target.value)) {
-            setError({ ...error, event: "Event is required" });
-        } else {
-            setError({ ...error, event: "" });
-        }
-        setUser({ ...user, event: event.target.value });
-    };
-    const headerKeyhandleChange = (event: any) => {
-        if (!isHeaderKeyValid(event.target.value)) {
-            setError({ ...error, headerKey: "Header Key is required" });
-        } else {
-            setError({ ...error, headerKey: "" });
-        }
-        setUser({ ...user, headerKey: event.target.value });
-    };
-    const headerValuehandleChange = (event: any) => {
-        if (!isHeaderValueValid(event.target.value)) {
-            setError({ ...error, headerValue: "Header Value is required" });
-        } else {
-            setError({ ...error, headerValue: "" });
-        }
-        setUser({ ...user, headerValue: event.target.value });
-    };
+    
     const isHeaderFormValid =
         isHeaderValueValid(user.headerValue) && isHeaderKeyValid(user.headerKey);
 
@@ -109,9 +68,10 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
         webhookheaderfile.length != 0;
 
     //****************handle Submit********************
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
-        props.webhookItem != undefined && props.webhookItem(user);
+        props.onSaveHandler && props.onSaveHandler(user);  
+        setInputReset(!inputReset);
         setUser({
             ...user,
             endpoint: "",
@@ -152,73 +112,83 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
         }));
     };
 
+    const handleDataChanges = (value: any, key: string) => {
+        setUser({ ...user, [key]: value });
+    }
+
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form>
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
                             label="Webhook Endpoint"
+                            reset={inputReset}
                             required={true}
                             placeholder="https://example.com/postreceive"
                             inputType="url"
-                            onChange={endpointhandleChange}
-                            value={user.endpoint}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "endpoint");
+                            }}
+                            value={user?.endpoint}
                             name={"endpoint"}
                             dataTestId="webhook-endpoint"
+                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validationMsg="Enter valid url"
                         ></RdsInput>
-                        {error.endpoint && (
-                            <span className="text-danger">{error.endpoint}</span>
-                        )}
                     </div>
                     <div className="fw-normal mb-4">
                         <RdsTextArea
                             label="Webhook Event"
+                            reset={inputReset}
                             placeholder="carolyn Carpenter"
-                            onChange={eventhandleChange}
                             rows={4}
-                            value={user.event}
+                            onChange={(e) => {
+                              handleDataChanges(e.target.value, "event");
+                            }}
+                            value={user?.event}
                             dataTestId="webhook-event"
+                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validationMsg="Enter valid url"
                         />
-                        {error.event && <span className="text-danger">{error.event}</span>}
                     </div>
 
-                    <div className=" fw-normal row mb-3 mt-2">
+                    <div className=" fw-normal row mb-3 mt-2">              
                         <label className="mb-2" id="webhookEndpoint">Additional Webhook Headers</label>
                         <div className="col-5 mb-3">
                             <RdsInput
                                 placeholder="Header key"
+                                reset={inputReset}
                                 inputType="text"
-                                onChange={headerKeyhandleChange}
                                 name={"headerKey"}
-                                value={user.headerKey}
+                                onChange={(e) => {
+                                  handleDataChanges(e.target.value, "headerKey");
+                                }}
+                                value={user?.headerKey}
                                 dataTestId="header-key"
                             ></RdsInput>
-                            {error.headerKey && (
-                                <span className="text-danger">{error.headerKey}</span>
-                            )}
                         </div>
                         <div className="col-5 mb-3">
                             <RdsInput
                                 placeholder="Header Value"
+                                reset={inputReset}
                                 inputType="text"
-                                onChange={headerValuehandleChange}
                                 name={"headerValue"}
-                                value={user.headerValue}
+                                onChange={(e) => {
+                                  handleDataChanges(e.target.value, "headerValue");
+                                }}
+                                value={user?.headerValue}
                                 dataTestId="header-value"
                             ></RdsInput>
-                            {error.headerValue && (
-                                <span className="text-danger">{error.headerValue}</span>
-                            )}
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2 mb-3 mt-1 d-flex justify-content-center">
                             <RdsButton
                                 label="Add"
                                 onClick={additionalHeaderHandleSubmit}
                                 colorVariant="primary"
                                 isDisabled={!isHeaderFormValid}
-                                block={true}
+                                block={false}
                                 tooltipTitle={""}
                                 type="submit"
                                 dataTestId="add"
@@ -252,7 +222,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         ></RdsCompDatatable>
                     )}
                 </div>
-                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                             <RdsButton
                                 label="Cancel"
                                 colorVariant="primary"
@@ -270,6 +240,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 type="submit"
                                 size="small"
                                 dataTestId="save"
+                                onClick={(e: any) => handleSubmit(e)}
                             />
                         </div>
                 </form>

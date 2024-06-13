@@ -1,31 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, {useState } from "react";
 import { RdsButtonGroup } from "../rds-elements";
 import { RdsLabel } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface FileManagementTree {
     id: string;
     name: string;
     children?: FileManagementTree[];
     hasChildren?: boolean;
-    offId?: any
+    offId?: any;
 }
 
 export interface RdsCompFileManagementTreeProps {
     items: FileManagementTree[];
     path?: ({id,  name}:any) => void;
-    setMoveId?: any;
     selectedItemId?: string;
     onDragAndDrop?: (sourceId: string, destinationId: string) => void;
     offId?: any;
-
-    onNodeEdit?: any;
-    onDeleteNode?: any
+    onClickButtonGroup?:(id:any, name:any)=>void;
 }
 
 export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps) => {
-    const firstLevelDirectoryIds = props.items.map((item) => item.id);
-    const {  } = useTranslation();
+   const firstLevelDirectoryIds = props.items.map((item) => item.id);
     const handlerExtraBackdrop = () => {
         const allBackdrops = document.querySelectorAll(".offcanvas-backdrop, .modal-backdrop");
         if (allBackdrops.length > 1) {
@@ -35,10 +30,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
         }
     };
     const [expandedItems, setExpandedItems] = useState<string[]>(firstLevelDirectoryIds);
-    const draggingItem = useRef<string | null>(null);
-
     const handleClick = (id: string, name: string) => () => {
-
         const isExpanded = expandedItems.includes(id);
         if (isExpanded) {
             setExpandedItems(expandedItems.filter((item) => item !== id));
@@ -48,27 +40,10 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
         props.path && props.path({ id, name });
 
     };
-
-    const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-        draggingItem.current = id;
-    };
-
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-        e.preventDefault();
-    };
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-        e.preventDefault();
-        if (draggingItem.current !== null) {
-            if (props.onDragAndDrop) {
-                props.onDragAndDrop(draggingItem.current, id);
-                props.setMoveId(id);
-            }
-            draggingItem.current = null;
-        }
-    };
+   
     const buttonGroupList = [
         {
-            id: 'radio1',
+            id: 'plusButton',
             databstoggle: 'offcanvas',
             ariacontrols: `a${props.offId}`,
             databstarget: `#a${props.offId}`,
@@ -86,7 +61,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             databstoggle: 'offcanvas',
             ariacontrols: `b${props.offId}`,
             databstarget: `#b${props.offId}`,
-            id: 'radio2',
+            id: 'editButton',
             label: (''),
             name: 'btnradio',
             checked: false,
@@ -99,7 +74,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             databstoggle: 'offcanvas',
             ariacontrols: `#c${props.offId}`,
             databstarget: `#c${props.offId}`,
-            id: 'radio3',
+            id: 'moveButton',
             label: (''),
             name: 'btnradio',
             checked: false,
@@ -112,7 +87,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             databstoggle: 'modal',
             ariacontrols: '#deleteTreeNode',
             databstarget: '#deleteTreeNode',
-            id: 'radio4',
+            id: 'deleteButton',
             label: (''),
             name: 'btnradio',
             checked: false,
@@ -123,10 +98,11 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
         }
     ]
 
-    const [name, setName] = useState("");
-    const handlerButtonGroupClick = (e: any, id: any) => {
-                handlerExtraBackdrop();
-    }
+    const handlerButtonGroupClick = (e: any, id: any, name:any) => {
+        handlerExtraBackdrop();
+         props.onClickButtonGroup && props.onClickButtonGroup(id,name)
+       
+      }
     interface RenderDirectoryItemProps {
         item: FileManagementTree; // Assuming FileManagementTree is a type or interface
         siblings: number;
@@ -135,8 +111,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
 
     const RenderDirectoryItem = (prop: RenderDirectoryItemProps) => {
         const isExpanded = expandedItems.includes(prop.item.id);
-        const notLastNode = (prop.siblings - 1) !== prop.childIndex;
-
+        const notLastNode = (prop.siblings - 1) !== prop.childIndex;             
         return (
             <div key={prop.item.id}>
                 <div className="position-relative">
@@ -144,9 +119,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                     <div className=" align-items-top mt-3">
                         <div className="FileNode-items d-flex">
                             <div className="FileNode_dot" >
-
                                 <div className="NodeHorizontal" ></div>
-                                <div className={notLastNode ? "verticalNodeSiblingfile" : ''}></div>
                             </div>
                             <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex cursor-pointer file-tree">
                                 <RdsLabel
@@ -168,7 +141,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                                         role="button"
                                         size="small"
                                         vertical={false}
-                                        onButtonClick={handlerButtonGroupClick}
+                                        onButtonClick={(e:any, id:any) => handlerButtonGroupClick(e, id, prop.item.name)}
                                     />
                                 </span>
                             </div>
@@ -181,6 +154,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                                 selectedItemId={props.selectedItemId}
                                 onDragAndDrop={props.onDragAndDrop}
                                 offId={props.offId}
+                                onClickButtonGroup={props.onClickButtonGroup}
                             />
                         )}
                     </div>
@@ -195,7 +169,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
     };
 
 
-    return <ul className="pt-1 cursor-pointer file-folder pb-3">{renderDirectoryItems(props.items)}</ul>;
+    return <ul className="pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
 };
 
 export default RdsCompFileManagementTree;

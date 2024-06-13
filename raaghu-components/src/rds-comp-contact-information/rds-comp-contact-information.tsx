@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsLabel } from "../rds-elements";
 
 export interface RdsCompContactInfoProps {
-    onContinue?: (
-        event: React.FormEvent<HTMLFormElement>,
+    onSaveHandler?: (
         contactInfomation: any
     ) => void;
+    contactInformationData?: any;
 }
 const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
-    const [user, setUser] = useState<any>({
-        email: "",
-        contact: "",
-        checked: false,
-    });
-    const [error, setError] = useState<any>({
-        email: "",
-        contact: "",
-    });
+    const [user, setUser] = useState<any>(props.contactInformationData);
+    const [error, setError] = useState<any>(props.contactInformationData);
+
+    useEffect(() => {
+        setUser(props.contactInformationData);
+    }, [props.contactInformationData]);
 
     const isEmailValid = (email: any) => {
         if (!email || email.length === 0) {
@@ -34,42 +31,30 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
         return true;
     };
 
-    const emailhandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isEmailValid(event.target.value)) {
-            setError({ ...error, email: "Email is invalid" });
-        } else {
-            setError({ ...error, email: "" });
+    const handleDataChanges = (value: any, key: string) => {
+            if (key === "email" && !isEmailValid(value)) {
+                setError({ ...error, email: "Email is invalid" });
+            } else if (key === "contact" && !isContactValid(value)) {
+                setError({ ...error, contact: "Contact is invalid" });
+            } else {
+                setError({ ...error, [key]: "" });
         }
-        setUser({ ...user, email: event.target.value });
-    };
-    const contacthandleChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        if (!isContactValid(event.target.value)) {
-            setError({ ...error, contact: "Contact is invalid" });
-        } else {
-            setError({ ...error, contact: "" });
-        }
-        setUser({ ...user, contact: event.target.value });
+    
+        setUser({ ...user, [key]: value });
     };
 
-    const checkedHandeler = (event: any) => {
-        setUser({ ...user, checked: event.target.checked });
-    };
     const isFormValid =
-        isContactValid(user.contact) && isEmailValid(user.email) && user.checked;
+        isContactValid(user?.contact) && isEmailValid(user?.email) && user?.checked;
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const emitSaveData = (event: any) => {
         event.preventDefault();
-        props.onContinue != undefined && props.onContinue(event, user);
-        setUser({ ...user, email: "", contact: "", checked: false });
+        props.onSaveHandler && props.onSaveHandler(user);
+        setUser({email: "", contact: "", checked: false });
     };
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit} data-testid="contact-info-form">
+                <form data-testid="contact-info-form">
                     <div className="mt-1 mb-3">
                         <RdsLabel
                             label="Email Address"
@@ -79,13 +64,13 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                         <RdsInput
                             placeholder="Enter Email address"
                             inputType="email"
-                            onChange={emailhandleChange}
-                            value={user.email}
+                            onChange={(e)=>handleDataChanges(e.target.value, "email")}
+                            value={user?.email}
                             name={"email"}
                             dataTestId="email"
                         ></RdsInput>
-                        {error.email != "" && (
-                            <span className="text-danger">{error.email}</span>
+                        {error?.email != "" && (
+                            <span className="text-danger">{error?.email}</span>
                         )}
                     </div>
 
@@ -98,13 +83,13 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                         <RdsInput
                             placeholder="Enter Contact Number"
                             inputType="text"
-                            onChange={contacthandleChange}
+                            onChange={(e)=>handleDataChanges(e.target.value, "contact")}
                             name={"fullname"}
-                            value={user.contact}
+                            value={user?.contact}
                             dataTestId="contact-number"
                         ></RdsInput>
-                        {error.contact != "" && (
-                            <span className="text-danger">{error.contact}</span>
+                        {error?.contact != "" && (
+                            <span className="text-danger">{error?.contact}</span>
                         )}
                     </div>
                     <div className="form-check mt-2 mb-4">
@@ -112,9 +97,9 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             className="form-check-input"
                             type="checkbox"
                             value=""
-                            checked={user.checked}
+                            checked={user?.checked}
                             id="flexCheckDefault"
-                            onChange={checkedHandeler}
+                            onChange={(e) => handleDataChanges(e.target.checked, "checked")}
                             data-testid="terms-and-condition"
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -130,6 +115,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                         tooltipTitle={""}
                         type="submit"
                         dataTestId="continue"
+                        onClick={(e)=>emitSaveData(e)}
                     />
                 </form>
             </div>

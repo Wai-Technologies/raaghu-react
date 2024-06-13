@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
-import {
-    RdsButton,
-    RdsInput,
-    RdsSelectList,
-} from "../rds-elements";
+import { RdsButton, RdsInput, RdsSelectList } from "../rds-elements";
 import "./rds-comp-claims.css";
 
 export interface RdsCompClaimsProps {
@@ -14,6 +10,7 @@ export interface RdsCompClaimsProps {
     getEditClaimData?: any;
     tableHeaders?: any[];
     onActionSelection?: any;
+    reset?: boolean;
     actions?: any;
 }
 
@@ -24,47 +21,66 @@ export interface SelectedItem {
 
 const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const [allClaimsArray, setAllClaimsArray] = useState<any>(props.allClaimsArray);
+    const [inputReset, setInputReset] = useState(props.reset);
     const [selectedData, setSelectedData] = useState<any>({
         id: 0,
         claimType: "",
         claimValue: "",
         roleId: props.id,
         valueTypeAsString: "",
-
     });
     const { tableHeaders = [] } = props;
-    const [tableData, setTableData] = useState<any>(props.claimsTable);
-    const actions = [{ id: "delete", displayName: "Delete" }];
-    const [uniqueIdCounter, setUniqueIdCounter] = useState(0)
+    const [tableData, setTableData] = useState<any>(Array.isArray(props.claimsTable) ? props.claimsTable : []);
+    const [uniqueIdCounter, setUniqueIdCounter] = useState(0);
+
     const handleAddItem = () => {
-        const savedClaims = props.claimsTable;
-        let maxUniqueId = 0;
-
-        savedClaims?.forEach((claim: any) => {
-            if (claim.uniqueId > maxUniqueId) {
-                maxUniqueId = claim.uniqueId;
-            }
-        })
-        const newClaimId = uniqueIdCounter;
-        let newTempData = allClaimsArray.filter((data: any) => (data.id == selectedData.claimType));
-
-
-        newTempData = {
-            uniqueId: newClaimId,
-            id: newTempData[0].id,
-            claimType: newTempData[0].option,
+        const newTempData = {
+            id: uniqueIdCounter,
+            claimType: selectedData.claimType.label,
             claimValue: selectedData.claimValue,
             roleId: props.id,
+            valueTypeAsString: selectedData.claimType.value,
         };
-
+    
         setTableData((prev: any) => [...prev, newTempData]);
-        setUniqueIdCounter(newClaimId + 1);
-        props.getEditClaimData(newTempData);
+        setUniqueIdCounter(uniqueIdCounter + 1);
 
+    
+        if (props.getEditClaimData) {
+            props.getEditClaimData(newTempData);
+        }
+
+        setSelectedData({
+            id: 0,
+            claimType:"",
+            claimValue: "",
+            roleId: props.id,
+            valueTypeAsString: "",
+        });
+    
+        setInputReset(true);
     };
+
+    const handleDeleteItem = (id: number) => {
+        console.log('Deleting item with id:', id);
+        setTableData((prev: any) => prev.filter((item: any) => item.id !== id));
+    };
+
     useEffect(() => {
-        setAllClaimsArray(props.allClaimsArray)
-    })
+        setAllClaimsArray(props.allClaimsArray);
+    }, [props.allClaimsArray]);
+
+    useEffect(() => {
+        setInputReset(props.reset);
+    }, [props.reset]);
+
+    const tableActions = [
+        {
+            id: "delete", 
+            displayName: "Delete",
+            onClick: (row: any) => handleDeleteItem(row.id),
+        },
+    ];
 
     return (
         <>
@@ -72,13 +88,13 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 <div className="row">
                     <div className="col-md-5 mb-3">
                         <RdsSelectList
-                            id="claim"
+                            id="claim"                            
                             label="Claim Types"
                             placeholder="Select Claim Type"
                             selectItems={allClaimsArray}
                             selectedValue={selectedData.claimType}
                             onChange={(item: any) => {
-                                setSelectedData({ ...selectedData, claimType: item.value });
+                                setSelectedData({ ...selectedData, claimType: item });
                             }}
                             dataTestId="select"
                         ></RdsSelectList>
@@ -86,8 +102,9 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
 
                     <div className="col-md-5">
                         <RdsInput
-                            required={true}
+                           required={true}
                             label="Claim Value"
+                            reset={inputReset}
                             placeholder="Enter Value"
                             name="value"
                             value={selectedData.claimValue}
@@ -101,8 +118,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                         ></RdsInput>
                     </div>
 
-                    <div className="col-md-2 mt-xxl-1 mt-xl-1 mt-lg-1 mt-md-1 ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3">
-
+                    <div className="col-md-2 mt-xxl-1 mt-xl-2 mt-lg-1 mt-md-1 ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3">
                         <RdsButton
                             type={"button"}
                             label=""
@@ -110,28 +126,27 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                             iconHeight="15px"
                             onClick={handleAddItem}
                             class="text-start"
-                            isDisabled={selectedData.claimValue ? false : true}
+                            isDisabled={!selectedData.claimValue}
                             iconColorVariant="dark"
                             colorVariant="primary"
                             size="medium"
                             dataTestId="add"
                         ></RdsButton>
-
                     </div>
                 </div>
 
-                <div className="row mt-3 ">
+                <div className="row mt-3">
                     <RdsCompDatatable
+                     key={tableData.length} 
                         actionPosition="right"
                         tableHeaders={props.tableHeaders || []}
-                        tableData={props.claimsTable || []}
+                        tableData={tableData || []}
                         pagination={true}
-                        recordsPerPage={10}
-                        actions={props.actions}
+                        recordsPerPage={5}
+                        actions={tableActions}  
                         recordsPerPageSelectListOption={true}
                         onActionSelection={props.onActionSelection}
                     ></RdsCompDatatable>
-
                 </div>
             </div>
         </>

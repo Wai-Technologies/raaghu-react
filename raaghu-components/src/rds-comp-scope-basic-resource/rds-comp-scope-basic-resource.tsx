@@ -2,94 +2,126 @@ import React, { useEffect, useState } from "react";
 import {
     RdsInput,
     RdsButton,
-    RdsCheckbox,
-    RdsCheckboxGroup,
+    RdsCheckbox
 } from "../rds-elements";
 
 export interface RdsCompScopeBasicResourceProps {
     apiScopeData?: any;
-    saveApiScopeData?: any;
-    resourceData: any;
+    onSaveHandler?: (data: any) => void;
+    reset?: boolean;
 }
 
 const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
-    const [formData, setFormData] = useState({
-        name: "",
-        description: "",
-        displayName: "",
-        enabled: false,
-        required: false,
-        emphasize: false,
-        showInDiscoveryDocument: false,
-    });
-
+    const [formData, setFormData] = useState(props.apiScopeData);
+    const [inputReset, setInputReset] = useState(false);
+    useEffect(() => {
+        setFormData(props.apiScopeData);
+    }, [props.apiScopeData]);
 
     useEffect(() => {
-        if (props.apiScopeData) {
-            setFormData(props.apiScopeData);
-        }
-    }, [props]);
+        setInputReset(!inputReset);
+    }, [props.reset]);
 
-    const handleName = (event: any) => {
-        setFormData({ ...formData, name: event });
+    const apiScopeDataChange = (value: any, key: string) => {
+        setFormData({ ...formData, [key]: value });
     };
-    const handleDescription = (event: any) => {
-        setFormData({ ...formData, description: event });
-    };
-    function handleEnabled(event: any) {
-        setFormData({ ...formData, enabled: event });
-    }
-    function handleRequired(event: any) {
-        setFormData({ ...formData, required: event });
-    }
-    function handleEmphasize(event: any) {
-        setFormData({ ...formData, emphasize: event });
-    }
-    function handleShowInDiscovery(event: any) {
-        setFormData({ ...formData, showInDiscoveryDocument: event });
-    }
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
+        setFormData({
+            name: "",
+            description: "",
+            enabled: false,
+            required: false,
+            emphasize: false,
+            showInDiscovery: false,
+        });
+    }
 
     return (
         <>
             <div>
                 <form>
                     <div className="custom-content-scroll">
-                    <div className="row mt-3">
-                        <div className="col-6">
-                            <RdsInput
-                                required={true}
-                                label="Name"
-                                placeholder="Enter name"
-                                inputType="text"
-                                onChange={(e: any) => {
-                                    handleName(e.target.value);
-                                }}
-                                value={formData.name}
-                                name="name"
-                                dataTestId="name"
-                            ></RdsInput>
+                        <div className="row mt-3">
+                            <div className="col-6">
+                                <RdsInput
+                                    required={true}
+                                    label="Name"
+                                    placeholder="Enter name"
+                                    inputType="text"
+                                    onChange={(e) => {
+                                        apiScopeDataChange(e.target.value, "name");
+                                    }}
+                                    value={formData?.name}
+                                    name="name"
+                                    dataTestId="name"
+                                    reset={inputReset}
+                                ></RdsInput>
+                            </div>
+                            <div className="col-6">
+                                <RdsInput
+                                    label="Description"
+                                    placeholder="Enter Description"
+                                    inputType="text"
+                                    required={false}
+                                    name="Description"
+                                    onChange={(e) => {
+                                        apiScopeDataChange(e.target.value, "description");
+                                    }}
+                                    value={formData?.description}
+                                    dataTestId="description"
+                                ></RdsInput>
+                            </div>
                         </div>
-                        <div className="col-6">
-                            <RdsInput
-                                label="Description"
-                                placeholder="Enter Description"
-                                inputType="text"
-                                onChange={(e: any) => {
-                                    handleDescription(e.target.value);
+                        <div className="row mb-3">
+                            <RdsCheckbox
+                                id="0"
+                                label="Enabled"
+                                checked={formData?.enabled}
+                                onChange={(e) => {
+                                    apiScopeDataChange(e.target.checked, "enabled");
                                 }}
-                                required={false}
-                                name="Description"
-                                value={formData.description}
-                                dataTestId="description"
-                            ></RdsInput>
+                                dataTestId="enabled"
+                            ></RdsCheckbox>
                         </div>
-                    </div>  
-                    <div className="row">                  
-                    <RdsCheckboxGroup itemList={props.resourceData.checklist} />
+                        <div className="row mb-3">
+                            <RdsCheckbox
+                                id="0"
+                                label="Required"
+                                checked={formData?.required}
+                                onChange={(e: any) => {
+                                    apiScopeDataChange(e.target.checked, "required");
+                                }}
+                                dataTestId="required"
+                            ></RdsCheckbox>
+                        </div>
+                        <div className="row mb-3">
+                            <RdsCheckbox
+                                id="0"
+                                label="Emphasize"
+                                checked={formData?.emphasize}
+                                onChange={(e: any) => {
+                                    apiScopeDataChange(e.target.checked, "emphasize");
+                                }}
+                                dataTestId="emphasize"
+                            ></RdsCheckbox>
+                        </div>
+                        <div className="row mb-3">
+                            <RdsCheckbox
+                                id="0"
+                                label="Show in Discovery Document"
+                                checked={formData?.showInDiscovery}
+                                onChange={(e) => {
+                                    apiScopeDataChange(e.target.checked, "showInDiscovery");
+                                }}
+                                dataTestId="discovery-document"
+                            ></RdsCheckbox>
+                        </div>
                     </div>
-                    </div>
-                    <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -107,7 +139,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                             type="button"
                             colorVariant="primary"
                             databsdismiss="offcanvas"
-                            onClick={() => props.saveApiScopeData(formData)}
+                            onClick={(e: any) => emitSaveData(e)}
                             dataTestId="save"
                         ></RdsButton>
                     </div>

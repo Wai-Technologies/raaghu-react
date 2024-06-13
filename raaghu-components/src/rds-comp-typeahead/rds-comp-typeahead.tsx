@@ -50,8 +50,8 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
     return (
         <>
             <div>
-                <div className="row align-items-end d-flex">
-                    <div className="col-lg-9 col-md-9 col-sm-12 mt-2">
+                <div className="row align-items-end d-flex px-2">
+                    <div className="col-lg-11 col-md-11 col-sm-12 mt-2">
                         <RdsSelectList
                             id="selCat"
                             selectedValue={tempSelectedValue}
@@ -60,10 +60,10 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                             placeholder="Select Categories"
                             onChange={(item: any) => handleListChange(item.value)}></RdsSelectList>
                     </div>
-                    <div className="col-lg-3 col-md-3 col-sm-12 mt-2">
+                    <div className="col-lg-1 col-md-1 col-sm-12 mt-2">
                         <RdsButton
                             label="ADD"
-                            block={true}
+                            block={false}
                             size="medium"
                             type="button"
                             colorVariant="primary"

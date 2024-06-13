@@ -29,7 +29,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
     const [displayName, setDisplayName] = useState(props.displayName || "");
     const [formValid, setFormValid] = useState(true);
     const [inputReset, setInputReset] = useState(props.reset);
-    const [flagIcon, setFlagIcon] = useState("af");
+    const [flagIcon, setFlagIcon] = useState("f");
 
     useEffect(() => {
         setInputReset(props.reset);
@@ -64,7 +64,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         props.onSaveHandler({
             isEnabled: isEnabled,
             cultureName,
-            uiCultureName: cultureUIName,
+            cultureUIName, 
             displayName,
             id: props.id,
             flagIcon: flagIcon
@@ -73,9 +73,8 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         setCultureName("Select Culture Name");
         setCultureUIName("Select UI Culture Name");
         setDisplayName(" ");
-        setFlagIcon("af");
+        setFlagIcon(""); 
     };
-
     const inputChangeHandler = (event: any) => {
         setDisplayName(event.target.value);
 
@@ -84,11 +83,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
     const onChangeSelectList = (fieldname: string, value: string) => {
         if (fieldname === "cultureName") {
             setCultureName(value);
-            setCultureUIName(value);
-            const selectedOption = props.cultureList.find((item) => item.value === value);
-            if (selectedOption) {
-                setDisplayName(selectedOption.option);
-            }
+            setDisplayName(""); 
         }
         else if (fieldname === "cultureUIName") {
             setCultureUIName(value);
@@ -137,7 +132,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                             <div className="form-group">
                                 <RdsInput
                                     size="medium"
-                                    label="Display Name"
+                                    label="Display Name"                    
                                     placeholder="Enter Display Name"
                                     value={displayName}
                                     onChange={inputChangeHandler}
@@ -165,7 +160,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                     <RdsButton
                         label="Cancel"
                         type="button"

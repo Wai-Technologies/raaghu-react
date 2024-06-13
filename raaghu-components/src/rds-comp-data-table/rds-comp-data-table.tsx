@@ -58,6 +58,10 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [totalRecords, setTotalRecords] = useState<any>(props.totalRecords);
   const [array, setArray] = useState<boolean[]>([]);
   const iconForIllustration = localStorage.getItem("theme") || " light";
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activeDropdownId, setActiveDropdownId] = useState(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -67,6 +71,18 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   useEffect(() => {
     setTotalRecords(props.totalRecords);
   }, [props.totalRecords]);
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   useEffect(() => {
     if (!sort) {
@@ -170,7 +186,6 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       });
       setData(tempData);
     }
-
     props.onActionSelection != undefined &&
       props.onActionSelection(tableDataRow, action.id);
   };
@@ -272,6 +287,11 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       props.actionPosition === "right"
       ? true
       : false;
+
+  const toggleDropdown = (id: any) => {
+    setIsDropdownOpen(id === activeDropdownId ? !isDropdownOpen : true);
+    setActiveDropdownId(id);
+  };
 
   return (
     <>
@@ -430,17 +450,18 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                             {actionPosition != true &&
                               totalActions &&
                               totalActions?.length > 1 && (
-                                <td className="align-middle text-center">
+                                <td className="align-middle bg-transparent text-center">
+
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
                                       <div className="btn-group dropstart">
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
-                                          aria-expanded="false"
+                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'true' : 'false'}
+                                          onClick={() => toggleDropdown(tableDataRow.id)}
                                           data-bs-toggle="dropdown"
                                           data-bs-auto-close="true"
-                                          data-bs-boundary="clippingParents"
                                           id="dropdownMenuButton"
                                           data-testid="action-btn"
                                         >
@@ -448,95 +469,54 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             name={"three_dots"}
                                             height="14px"
                                             width="14px"
-                                            stroke={true}
+                                            stroke={false}
                                             fill={true}
                                             tooltip={true}
                                             tooltipTitle="More Actions"
                                             tooltipPlacement="top"
                                           />
                                         </button>
-                                        {
-                                          <ul
-                                            aria-labelledby="dropdownMenuButton"
-                                            className="dropdown-menu"
-                                          >
-                                            {totalActions?.map(
-                                              (action, actionIndex) => (
-                                                <li
-                                                  key={
-                                                    "action-" +
-                                                    actionIndex +
-                                                    "-inside-tableRow" +
-                                                    index
-                                                  }
+                                        <ul
+                                          ref={dropdownRef}
+                                          aria-labelledby="dropdownMenuButton"
+                                          className={`dropdown-menu dropdown-adjusted ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
+                                     
+                                       >
+                                          {totalActions?.map((action, actionIndex) => (
+                                            <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
+                                              {action.modalId && (
+                                                <a
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target={`#${action?.modalId}`}
+                                                  aria-controls={action?.modalId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
                                                 >
-                                                  {action.modalId && (
-                                                    <a
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target={`#${action?.modalId}`}
-                                                      aria-controls={
-                                                        action?.modalId
-                                                      }
-                                                      onClick={(e) => {
-                                                        actionOnClickHandler(
-                                                          e,
-                                                          tableDataRow,
-                                                          tableDataRow.id,
-                                                          action
-                                                        );
-                                                      }}
-                                                      className="dropdown-item"
-                                                    >
-                                                      (action.displayName)
-                                                    </a>
-                                                  )}
-                                                  {action.offId && (
-                                                    <>
-                                                      <a
-                                                        data-bs-toggle="offcanvas"
-                                                        data-bs-target={`#${action?.offId}`}
-                                                        aria-controls={
-                                                          action?.offId
-                                                        }
-                                                        onClick={(e) => {
-                                                          actionOnClickHandler(
-                                                            e,
-                                                            tableDataRow,
-                                                            tableDataRow.id,
-                                                            action
-                                                          );
-                                                        }}
-                                                        className="dropdown-item"
-                                                      >
-                                                        {action.displayName}
-                                                      </a>
-                                                    </>
-                                                  )}
-                                                  {action.offId == undefined &&
-                                                    action.modalId ==
-                                                    undefined && (
-                                                      <>
-                                                        <a
-                                                          onClick={(e) => {
-                                                            actionOnClickHandler(
-                                                              e,
-                                                              tableDataRow,
-                                                              tableDataRow.id,
-                                                              action
-                                                            );
-                                                          }}
-                                                          className="dropdown-item"
-                                                        >
-                                                          {" "}
-                                                          {action.displayName}
-                                                        </a>
-                                                      </>
-                                                    )}
-                                                </li>
-                                              )
-                                            )}
-                                          </ul>
-                                        }
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId && (
+                                                <a
+                                                  data-bs-toggle="offcanvas"
+                                                  data-bs-target={`#${action?.offId}`}
+                                                  aria-controls={action?.offId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId == undefined && action.modalId == undefined && (
+                                                <a
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                            </li>
+                                          ))}
+                                        </ul>
                                       </div>
                                     </>
                                   ) : (
@@ -554,6 +534,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tableDataRow.id
                                           );
                                         }}
+                                        style={{ display: activeDropdownId === tableDataRow.id && isDropdownOpen ? 'none' : 'block' }}
                                       >
                                         <RdsIcon
                                           name={"check"}
@@ -594,7 +575,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                               totalActions &&
                               totalActions?.length == 1 && (
                                 <td className="px-2 align-middle">
-                                  <div className="d-grid  justify-content-center">
+                                  <div className="d-grid justify-content-center">
                                     {totalActions?.map((action, actionIndex) => (
                                       <>
                                         <RdsIcon
@@ -605,8 +586,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             index
                                           }
                                           name={action.icon || action.id}
-                                          height="18px"
-                                          width="18px"
+                                          height="16px"
+                                          width="16px"
                                           stroke={true}
                                           fill={false}
                                           tooltip={true}
@@ -886,8 +867,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
-                                          aria-expanded="false"
-                                          //onClick={() => openCloseDropDown(index)}
+                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'false' : 'true'}
+                                          onClick={() => toggleDropdown(tableDataRow.id)}
                                           data-bs-toggle="dropdown"
                                           data-bs-auto-close="true"
                                           id="dropdownMenuButton"
@@ -904,88 +885,46 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tooltipPlacement="top"
                                           />
                                         </button>
-                                        {
-                                          <ul
-                                            aria-labelledby="dropdownMenuButton"
-                                            className="dropdown-menu"
-                                          >
-                                            {totalActions?.map(
-                                              (action, actionIndex) => (
-                                                <li
-                                                  key={
-                                                    "action-" +
-                                                    actionIndex +
-                                                    "-inside-tableRow" +
-                                                    index
-                                                  }
+                                        <ul
+                                          ref={dropdownRef}
+                                          aria-labelledby="dropdownMenuButton"
+                                          className={`dropdown-menu ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
+                                        >
+                                          {totalActions?.map((action, actionIndex) => (
+                                            <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
+                                              {action.modalId && (
+                                                <a
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target={`#${action?.modalId}`}
+                                                  aria-controls={action?.modalId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
                                                 >
-                                                  {action.modalId && (
-                                                    <a
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target={`#${action?.modalId}`}
-                                                      aria-controls={
-                                                        action?.modalId
-                                                      }
-                                                      onClick={(e) => {
-                                                        actionOnClickHandler(
-                                                          e,
-                                                          tableDataRow,
-                                                          tableDataRow.id,
-                                                          action
-                                                        );
-                                                      }}
-                                                      className="dropdown-item"
-                                                    >
-                                                      {(action.displayName)}
-                                                    </a>
-                                                  )}
-                                                  {action.offId && (
-                                                    <>
-                                                      <a
-                                                        data-bs-toggle="offcanvas"
-                                                        data-bs-target={`#${action?.offId}`}
-                                                        aria-controls={
-                                                          action?.offId
-                                                        }
-                                                        onClick={(e) => {
-                                                          actionOnClickHandler(
-                                                            e,
-                                                            tableDataRow,
-                                                            tableDataRow.id,
-                                                            action
-                                                          );
-                                                        }}
-                                                        className="dropdown-item"
-                                                      >
-                                                        {(action.displayName)}
-                                                      </a>
-                                                    </>
-                                                  )}
-                                                  {action.offId == undefined &&
-                                                    action.modalId ==
-                                                    undefined && (
-                                                      <>
-                                                        <a
-                                                          onClick={(e) => {
-                                                            actionOnClickHandler(
-                                                              e,
-                                                              tableDataRow,
-                                                              tableDataRow.id,
-                                                              action
-                                                            );
-                                                          }}
-                                                          className="dropdown-item"
-                                                        >
-                                                          {" "}
-                                                          {(action.displayName)}
-                                                        </a>
-                                                      </>
-                                                    )}
-                                                </li>
-                                              )
-                                            )}
-                                          </ul>
-                                        }
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId && (
+                                                <a
+                                                  data-bs-toggle="offcanvas"
+                                                  data-bs-target={`#${action?.offId}`}
+                                                  aria-controls={action?.offId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId == undefined && action.modalId == undefined && (
+                                                <a
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                            </li>
+                                          ))}
+                                        </ul>
                                       </div>
                                     </>
                                   ) : (
@@ -1098,7 +1037,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
               </table>
             </div>
           </div>
-          {props.pagination && totalRecords > 10 && (
+          {props.pagination && (
             <div className=" d-flex justify-content-end pt-3">
               <RdsPagination
                 totalRecords={
@@ -1109,8 +1048,9 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                 }
                 onPageChange={onPageChangeHandler}
                 paginationType={
-                  props.recordsPerPageSelectListOption ? "advance" : "default"
+                  props.recordsPerPageSelectListOption ? "default" : "advanced"
                 }
+
               ></RdsPagination>
             </div>
           )}
