@@ -198,7 +198,9 @@ it("Check tenant page fuctions", () => {
           <RdsButton label="AbpUi.Cancel" onClick={handleFeatureCancel} databsdismiss="offcanvas"/>
           <RdsButton label="AbpUi.Save" onClick={handlerFeatureUpadate} databsdismiss="offcanvas"/>
           <RdsOffcanvas placement={"end"} backDrop={true} scrolling={false} offId={"tenant-password-off"} canvasTitle={"Set Password"} />
-          <RdsCompSetPassword  onSaveHandler={handlerSetPassword}/>
+          <RdsCompSetPassword  onSaveHandler={handlerSetPassword} password={function (password: any): [any, any] {
+       throw new Error("Function not implemented.");
+     } } setPasswordField={undefined}/>
           <RdsCompAlertPopup alertID={"tenant-delete-off"} onSuccess={handleDeleteRecord}/>
       </Provider>
   );

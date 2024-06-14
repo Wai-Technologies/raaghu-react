@@ -770,7 +770,6 @@ svg {
     $avatar-color: mix(
       $value,
       color-contrast($avatar-background),
-      math.abs($avatar-color-scale)
     );
   }
 
@@ -796,7 +795,6 @@ svg {
     $badge-color: mix(
       $value,
       color-contrast($badge-background),
-      math.abs($badge-color-scale)
     );
   }
 
@@ -824,7 +822,6 @@ svg {
     $counter-color: mix(
       $value,
       color-contrast($counter-background),
-      math.abs($counter-color-scale)
     );
   }
 
@@ -1891,7 +1888,6 @@ $form-feedback-color: $gray-200;
     $tag-color: mix(
       $value,
       color-contrast($tag-background),
-      math.abs($tag-color-scale)
     );
   }
 
@@ -2014,7 +2010,6 @@ $form-feedback-color: $gray-200;
     $alert-color: mix(
       $value,
       color-contrast($alert-background),
-      math.abs($alert-color-scale)
     );
   }
 

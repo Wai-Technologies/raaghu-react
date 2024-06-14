@@ -1,4 +1,4 @@
-@use "sass:math";
+// @use "sass:math";
 //background-color: white;
 $theme-colors: (
   "primary": $primary,
@@ -569,8 +569,7 @@ button#dropdownMenuButton:focus {
   ) {
     $avatar-color: mix(
       $value,
-      color-contrast($avatar-background),
-      math.abs($avatar-color-scale)
+      color-contrast($avatar-background)
     );
   }
 
@@ -605,7 +604,6 @@ button#dropdownMenuButton:focus {
     $badge-color: mix(
       $value,
       color-contrast($badge-background),
-      math.abs($badge-color-scale)
     );
   }
 
@@ -633,7 +631,6 @@ button#dropdownMenuButton:focus {
     $counter-color: mix(
       $value,
       color-contrast($counter-background),
-      math.abs($counter-color-scale)
     );
   }
 
@@ -1404,7 +1401,6 @@ $form-feedback-color: $gray-700;
     $tag-color: mix(
       $value,
       color-contrast($tag-background),
-      math.abs($tag-color-scale)
     );
   }
 
@@ -1605,7 +1601,6 @@ $form-feedback-color: $gray-700;
     $toast-color: mix(
       $value,
       color-contrast($toast-background),
-      math.abs($toast-color-scale)
     );
   }
 
@@ -1662,7 +1657,6 @@ $form-feedback-color: $gray-700;
     $alert-color: mix(
       $value,
       color-contrast($alert-background),
-      math.abs($alert-color-scale)
     );
   }
 
@@ -2116,8 +2110,7 @@ $form-feedback-color: $gray-700;
   @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
     $tag-color: mix(
       $value,
-      color-contrast($tag-background),
-      math.abs($tag-color-scale)
+      color-contrast($tag-background)
     );
   }
 

@@ -885,8 +885,9 @@ const Tenant = () => {
               >
                 <RdsCompSetPassword
                   reset={inputReset}
-                  onSaveHandler={handlerSetPassword}
-                ></RdsCompSetPassword>
+                  onSaveHandler={handlerSetPassword} password={function (password: any): [any, any] {
+                    throw new Error("Function not implemented.");
+                  } } setPasswordField={undefined}                ></RdsCompSetPassword>
               </RdsOffcanvas>
             </div>
             <RdsCompAlertPopup
