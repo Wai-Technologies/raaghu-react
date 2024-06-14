@@ -19,6 +19,7 @@ export interface RdsRadioButtonProps {
   onlyChecked?: boolean;
   checkedId?: string;
   customClass?: string;
+  customLabelClass?: string;
 }
 
 const RdsRadioButton = (props: RdsRadioButtonProps) => {

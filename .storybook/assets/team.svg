@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66" height="66" viewBox="0 0 66 66">
+  <defs>
+    <filter id="Rectangle_151744" x="0" y="0" width="66" height="66" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_195446" data-name="Group 195446" transform="translate(-545 -389)">
+    <g transform="matrix(1, 0, 0, 1, 545, 389)" filter="url(#Rectangle_151744)">
+      <rect id="Rectangle_151744-2" data-name="Rectangle 151744" width="48" height="48" rx="24" transform="translate(9 9)" fill="#fff"/>
+    </g>
+    <g id="flash-1--flash-power-connect-charge-electricity-lightning" transform="translate(568.178 409.536)">
+      <path id="Vector" d="M5.47.464l-3.588,9.8a1.048,1.048,0,0,0,.073.863.775.775,0,0,0,.66.411h4.45L3.876,24.464l13.7-15.028a1.028,1.028,0,0,0,.19-1.005.809.809,0,0,0-.733-.583H11.053L14.242.464H5.47Z" transform="translate(0 0)" fill="none"/>
+      <path id="Vector_2" d="M5.47.464l-3.588,9.8a1.048,1.048,0,0,0,.073.863.775.775,0,0,0,.66.411h4.45L3.876,24.464l13.7-15.028a1.028,1.028,0,0,0,.19-1.005.809.809,0,0,0-.733-.583H11.053L14.242.464H5.47Z" transform="translate(0 0)" fill="none" stroke="#f43e9f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

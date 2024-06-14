@@ -2930,3 +2930,40 @@ figure.worldmap__figure-container {
 .dw-placeholder {
   color:#bebebe;
 }
+
+.check-circle {
+  width: 25px;
+  height: 25px;
+  max-width: 100%;
+  float: right;
+}
+
+.custom-shadow {
+  background: #fff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, .1607843137);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.custom-badge {
+  background-color: #f43e9f !important;
+}
+
+.custom-shadow {
+  background: #fff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, .1607843137);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-danger-50 {
+  color: #f43e9f !important;
+}
