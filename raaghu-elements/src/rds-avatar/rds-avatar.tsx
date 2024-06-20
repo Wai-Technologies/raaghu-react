@@ -145,7 +145,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 {WPP === true && (
                     <div className={profileClass()}>
                         <div className={`flex-grow-0 gap-2 ${Aligned}`}>
-                            <img src={withPP} className={`avatar-md rounded-circle ` + classes()} alt="profile" />
+                            <img src={withPP} className={`avatar-sm rounded-circle ` + classes()} alt="profile" />
                             <span className={"avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" + profileName()}>
                                 <div>
                                     <span>{titleFirstName}{titleLastName}</span>
