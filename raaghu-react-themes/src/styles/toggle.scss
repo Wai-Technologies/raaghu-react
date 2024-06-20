@@ -9,7 +9,7 @@
   position: relative;
   display: inline-block;
   width: 55px;
-  height: 19px;
+  height: 22px;
 }
 
 .toggle-switch input {
@@ -43,8 +43,8 @@
   position: absolute;
   cursor: pointer;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 12px;
+  right: -5px;
   bottom: 0;
   background-color: #e0e0e0;
   // -webkit-transition: .4s;
@@ -67,9 +67,9 @@
 .toggle-small-switch-slider:before {
   position: absolute;
   content: "";
-  height: 18px;
-  width: 25px;
-  left: 1px;
+  height: 20px;
+  width: 20px;
+  left: 0px;
   bottom: 0.9px;
   background-color: white;
   // -webkit-transition: .4s;
@@ -120,6 +120,14 @@
   }
 }
 
+.small-toggle-switch input:checked + .toggle-small-switch-slider{
+  .control-prev-icon{
+    svg{
+      color: #fff;
+    }
+  }
+}
+
 .theme-dark{
   .toggle-switch-slider{
     svg{
@@ -127,5 +135,3 @@
     }
   }
 }
-
-
