@@ -56,6 +56,8 @@ const RdsCompRegisterMember = (props: RdsCompRegisterMemberProps) => {
               value={registerMemberData?.email}
               dataTestId="email"
               onChange={(e: any) => handleRegisterMemberDataChanges(e.target.value, "email")}
+              validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+              validationMsg="Invalid Email Address."  
             />
           </div>
 

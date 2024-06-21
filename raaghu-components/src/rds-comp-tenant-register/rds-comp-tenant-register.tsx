@@ -132,6 +132,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                 required={true}
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                validationMsg="Invalid Email Address."  
                             ></RdsInput>
                         </div>
 

@@ -92,7 +92,7 @@ const RdsCompInvoiceDetailReceipt = (
             <div className="d-lg-flex justify-content-between align-items-center">
               <div className="pb-lg-0 pb-4">
                 <img
-                  src="raaghu-components/public/WAi-logo.png"
+                  src="./assets/WAi-logo.png"
                   alt="WAI logo"
                   height="auto"
                   width="250px"
