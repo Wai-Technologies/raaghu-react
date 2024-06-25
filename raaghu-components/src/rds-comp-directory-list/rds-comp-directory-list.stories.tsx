@@ -4,7 +4,7 @@ import RdsCompDirectoryList from './rds-comp-directory-list';
 
 
 const meta: Meta = { 
-    title: "Components/DirectoryList",
+    title: "Components/Directory List",
     component: RdsCompDirectoryList,
     parameters: {
         layout: 'padded',

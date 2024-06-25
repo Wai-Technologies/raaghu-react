@@ -81,6 +81,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                             value={changePassword?.currentPassword}
                             onChange={(e: any) => handleDataChanges(e.target.value, "currentPassword")}
                             required={true}
+                            showIcon={true}
                         ></RdsInput>
                     </div>
                     <div className="col-12 col-md-12">
@@ -95,6 +96,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                             placeholder="New Password"
                             value={changePassword?.newPassword}
                             onChange={(e: any) => handleDataChanges(e.target.value, "newPassword")}
+                            showIcon={true}
                         ></RdsInput>
                         {/* <div className="form-control-feedback">
 					{errorPatternMessage && (<span className="text-danger">{errorPatternMessage}</span>)}
@@ -112,6 +114,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                             placeholder="Confirm New Password"
                             value={changePassword?.newPasswordConfirm}
                             onChange={(e: any) => handleDataChanges(e.target.value, "newPasswordConfirm")}
+                            showIcon={true}
                         ></RdsInput>
                         <div className="form-control-feedback">
                             {errorMessage && (<span className="text-danger">{errorMessage}</span>)}

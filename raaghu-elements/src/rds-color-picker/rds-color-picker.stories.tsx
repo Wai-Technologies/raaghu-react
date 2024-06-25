@@ -2,7 +2,7 @@ import RdsColorPicker from "./rds-color-picker";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/ColorPicker',
+    title: 'Elements/Color Picker',
     component: RdsColorPicker,
     parameters: {
         layout: 'padded',

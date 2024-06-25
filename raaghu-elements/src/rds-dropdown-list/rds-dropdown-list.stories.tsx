@@ -3,7 +3,7 @@ import RdsDropdownList from "./rds-dropdown-list";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/DropdownList',
+    title: 'Elements/Dropdown List',
     component: RdsDropdownList,
     parameters: {
         layout: 'padded',

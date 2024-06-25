@@ -41,7 +41,7 @@ import RdsCompDownloadCollation from "./rds-comp-download-collation";
 
 
 const meta: Meta = { 
-    title: "Components/DownloadCollation",
+    title: "Components/Download Collection",
     component: RdsCompDownloadCollation,
     parameters: {
         layout: 'padded',
