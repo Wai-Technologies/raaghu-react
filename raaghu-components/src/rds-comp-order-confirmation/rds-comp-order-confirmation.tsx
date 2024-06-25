@@ -18,7 +18,7 @@ const RdsCompOrderConfirmation = (props: any) => {
       <div className="my-4 py-5">
         <div className="align-items-center d-flex justify-content-center text-end">
           <video id="myVideo" className="w-225px" autoPlay muted loop>
-            <source src="raaghu-components/public/payment-inprogress.mp4" type="video/mp4" />
+            <source src="./assets/payment-inprogress.mp4" type="video/mp4" />
           </video>
         </div>
 
