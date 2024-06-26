@@ -16,15 +16,15 @@ export interface RdsCompFeatureProps {
 }
 
 const RdsCompFeatures = (props: RdsCompFeatureProps) => {
-
   const [navtabsItems, setNavtabsItems] = useState<any[]>([]);
   const [navtabs, setNavtabs] = useState<any[]>([]);
   const [activeNavTabId, setActiveNavTabId] = useState("0");
-
+  const [localChanges, setLocalChanges] = useState<any[]>([]);
 
   useEffect(() => {
     setActiveNavTabId("0");
   }, [props.isFeatureTabChange]);
+
   useEffect(() => {
     if (props.featuresData && props.featuresData.length > 0) {
       const navtabsData = props.featuresData.map((feature, index) => {
@@ -59,109 +59,82 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
       localStorage.setItem("initialFeatureData", JSON.stringify(navtabsData));
       setNavtabsItems(navtabsData);
       setNavtabs(navtabsData);
+      setLocalChanges(navtabsData);
     }
   }, [props.featuresData]);
 
-  useEffect(() => {
-    const navtabData: any[] = [];
-    props.featuresData?.forEach((ele, i) => {
-      if (ele) {
-        const item = {
-          id: i,
-          label: ele.displayName,
-          tablink: "#" + `${ele.name}`,
-          name: ele.name,
-          features:
-            ele.features &&
-            ele.features?.map((x: any) =>
-              x.valueType.validator.name === "BOOLEAN"
-                ? {
-                    ...x,
-                    value:
-                      typeof x.value === "string"
-                        ? x.value.toLowerCase() === "false"
-                          ? false
-                          : x.value.toLowerCase() === "true"
-                          ? true
-                          : x.value
-                        : x.value,
-                  }
-                : x.valueType.validator.name === "NUMERIC" &&
-                  typeof x.value === "string"
-                ? { ...x, value: parseInt(x.value) }
-                : { ...x }
-            ),
-        };
-        navtabData.push(item);
-      }
-    });
-    localStorage.setItem("initailFeatureData", JSON.stringify(navtabData));
-    setNavtabsItems(navtabData);
-  }, [props.featuresData]);
-
-  function onChangeFn(event: any, feature: any) {
-    const data = navtabsItems?.map((x: any) => ({
+  const onChangeFn = (event: any, feature: any) => {
+    const data = localChanges.map((x: any) => ({
       ...x,
       features: x.features?.map((f: any) => {
         return feature.name === f.name ? { ...f, value: event } : { ...f };
       }),
     }));
-    const initailData: any[] = JSON.parse(
-      localStorage.getItem("initailFeatureData") as string
+
+    setLocalChanges(data);
+  };
+
+  const handleSave = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    const initialData: any[] = JSON.parse(
+      localStorage.getItem("initialFeatureData") as string
     );
+
     const changedData: any[] = [];
-    for (let mainIndex = 0; mainIndex < initailData.length; mainIndex++) {
+    for (let mainIndex = 0; mainIndex < initialData.length; mainIndex++) {
       for (
         let featureIndex = 0;
-        featureIndex < initailData[mainIndex].features.length;
+        featureIndex < initialData[mainIndex].features.length;
         featureIndex++
       ) {
-        const initialValue = initailData[mainIndex].features[featureIndex];
-        const changedValue = data[mainIndex].features[featureIndex];
-        initialValue.value !== changedValue.value &&
-          initialValue.name === changedValue.name &&
+        const initialValue = initialData[mainIndex].features[featureIndex];
+        const changedValue = localChanges[mainIndex].features[featureIndex];
+        if (
+          initialValue.value !== changedValue.value &&
+          initialValue.name === changedValue.name
+        ) {
           changedData.push({
             name: changedValue.name,
             value: changedValue.value.toString(),
           });
+        }
       }
     }
-    setNavtabsItems(data);
 
-    const initialFeaturesData = data.map((ele: any) => ({
-      displayName: ele.label,
-      name: ele.name,
-      features: ele.features?.map((x: any) => {
-        if (x.valueType.validator.name === "BOOLEAN") {
-          return { ...x, value: x.value ? "True" : "False" };
-        } else if (x.valueType.validator.name === "NUMERIC") {
-          return { ...x, value: x.value.toString() };
-        } else {
-          return { ...x };
-        }
-      }),
-    }));
-    props.emittedDataFeatureData &&
-    props.emittedDataFeatureData(initialFeaturesData);
+    setNavtabsItems(initialData);
+    setLocalChanges(initialData);
+
+    props.emittedDataFeatureData && props.emittedDataFeatureData(initialData);
     props.onFeatureSelection(changedData);
   }
   const handleActiveNavtabVertical = (id: string) => {
     setActiveNavTabId(id);
   };
-  function handleRestoreDefault(event: React.MouseEvent<HTMLButtonElement>): void {
-    throw new Error("Function not implemented.");
-  }
 
-  function handleCancel(event: React.MouseEvent<HTMLButtonElement>): void {
-    throw new Error("Function not implemented.");
-  }
+  const handleRestoreDefault = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    const initialData: any[] = JSON.parse(
+      localStorage.getItem("initialFeatureData") as string
+    );
 
-  function handleSave(event: React.MouseEvent<HTMLButtonElement>): void {
-    throw new Error("Function not implemented.");
-  }
+    setNavtabsItems(initialData);
+    setLocalChanges(initialData);
+
+    props.emittedDataFeatureData && props.emittedDataFeatureData(initialData);
+    props.onFeatureSelection([]);
+  };
+
+  const handleCancel = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    const initialData: any[] = JSON.parse(
+      localStorage.getItem("initialFeatureData") as string
+    );
+
+    setNavtabsItems(initialData);
+    setLocalChanges(initialData);
+
+    props.emittedDataFeatureData && props.emittedDataFeatureData(initialData);
+    props.onFeatureSelection([]);
+  };
 
   return (
-    
     <div className="row">
       <div className="col-md-5 pe-4 border-end custom-content-scroll px-lg-3">
         <RdsNavtabs
@@ -174,8 +147,8 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
         />
       </div>
       <div className="col-md-7 ps-4 ">
-        {navtabsItems &&
-          navtabsItems?.map((tabsData: any, mainIndex: number) => (
+        {localChanges &&
+          localChanges.map((tabsData: any, mainIndex: number) => (
             <div key={mainIndex}>
               {activeNavTabId == mainIndex.toString() && (
                 <>
