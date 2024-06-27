@@ -66,7 +66,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                     onActionSelection={props.onActionSelection}
                 ></RdsCompDatatable>
 
-                <div className=" fw-normal row" mb-3 mt-2>
+                <div className=" fw-normal row mb-3 mt-2">
                     <div className="col-md-5 col-sm-12 mb-3">
                         <RdsInput
                             label="Key"
@@ -89,7 +89,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                             dataTestId="value"
                         ></RdsInput>
                     </div>
-                    <div className="col-2 mb-3 align-self-end">
+                    <div className="col-2 mb-5 mt-4 align-self-end">
                         <RdsButton
                             label="Add"                        
                             colorVariant="primary"
