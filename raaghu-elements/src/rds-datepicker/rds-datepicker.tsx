@@ -165,7 +165,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         <DatePicker
                             selected={startDate}
                             onChange={handlerDateChange}
-                            className="form-control rounded-bottom-0 rounded-end-0"
+                            className="form-control rounded-end-0"
                             wrapperClassName="datepicker__wrapper"
                         />
                         <span className="input-group-text cursor-pointer" id="basic-addon2">
@@ -269,7 +269,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         <DatePicker
                             selected={startDate}
                             onChange={handlerDateTimeChange}
-                            className="form-control rounded-bottom-0 rounded-end-0"
+                            className="form-control rounded-end-0"
                             wrapperClassName="datepicker__wrapper"
                             timeInputLabel="Time:"
                             dateFormat="MM/dd/yyyy h:mm aa"
