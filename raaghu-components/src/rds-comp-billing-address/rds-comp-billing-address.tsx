@@ -60,51 +60,51 @@ function emitSaveData(event: any) {
         useState<string>("");
 
     //Validation functions
-    const firstNameValidation = (firstName: string) => {
-        firstName === ""
-         ? setFirstNameErrorMessage("First Name is required")
-            : setFirstNameErrorMessage("");
-    };
-    const lastNameValidation = (lastName: string) => {
-        lastName === ""
-            ? setLastNameErrorMessage("Last Name is required")
-            : setLastNameErrorMessage("");
-    };
-    const phoneValidationHandler = (phone: any) => {
-        if (phone.trim() === "") setPhoneErrorMessage("Phone is required");
-        else if (phone.trim() != phone)
-            setPhoneErrorMessage("Enter valid phone number");
-        else if (isNaN(phone)) setPhoneErrorMessage("Enter valid phone number");
-        else if (phone.includes("e"))
-            setPhoneErrorMessage("Enter valid phone number");
-        else setPhoneErrorMessage("");
-    };
-    const addressValidation = (address: string) => {
-        address === ""
-            ? setAddressErrorMessage("Address is required")
-            : setAddressErrorMessage("");
-    };
-    const cityValidation = (city: string) => {
-        city === ""
-            ? setCityErrorMessage("City is required")
-            : setCityErrorMessage("");
-    };
-    const countryValidation = (country: string) => {
-        country === "Select Country"
-            ? setCountryErrorMessage("Country is required")
-            : setCountryErrorMessage("");
-    };
-    const stateProvinceValidation = (state: string) => {
-        state === "Select Country"
-            ? setProvinceStateErrorMessage("State/Province is required")
-            : setProvinceStateErrorMessage("");
-    };
-    const postalCodeValidation = (postalCode: string) => {
-        postalCode === ""
-            ? setPostalCodeErrorMessage("Postal code is required")
-            : setPostalCodeErrorMessage("");
-        // Postal code need not be ,numeric-only' in some countries
-    };
+    // const firstNameValidation = (firstName: string) => {
+    //     firstName === ""
+    //      ? setFirstNameErrorMessage("First Name is required")
+    //         : setFirstNameErrorMessage("");
+    // };
+    // const lastNameValidation = (lastName: string) => {
+    //     lastName === ""
+    //         ? setLastNameErrorMessage("Last Name is required")
+    //         : setLastNameErrorMessage("");
+    // };
+    // const phoneValidationHandler = (phone: any) => {
+    //     if (phone.trim() === "") setPhoneErrorMessage("Phone is required");
+    //     else if (phone.trim() != phone)
+    //         setPhoneErrorMessage("Enter valid phone number");
+    //     else if (isNaN(phone)) setPhoneErrorMessage("Enter valid phone number");
+    //     else if (phone.includes("e"))
+    //         setPhoneErrorMessage("Enter valid phone number");
+    //     else setPhoneErrorMessage("");
+    // };
+    // const addressValidation = (address: string) => {
+    //     address === ""
+    //         ? setAddressErrorMessage("Address is required")
+    //         : setAddressErrorMessage("");
+    // };
+    // const cityValidation = (city: string) => {
+    //     city === ""
+    //         ? setCityErrorMessage("City is required")
+    //         : setCityErrorMessage("");
+    // };
+    // const countryValidation = (country: string) => {
+    //     country === "Select Country"
+    //         ? setCountryErrorMessage("Country is required")
+    //         : setCountryErrorMessage("");
+    // };
+    // const stateProvinceValidation = (state: string) => {
+    //     state === "Select Country"
+    //         ? setProvinceStateErrorMessage("State/Province is required")
+    //         : setProvinceStateErrorMessage("");
+    // };
+    // const postalCodeValidation = (postalCode: string) => {
+    //     postalCode === ""
+    //         ? setPostalCodeErrorMessage("Postal code is required")
+    //         : setPostalCodeErrorMessage("");
+    //     // Postal code need not be ,numeric-only' in some countries
+    // };
     const { t } = useTranslation();
     return (
         <>
@@ -123,7 +123,7 @@ function emitSaveData(event: any) {
                                 value={formData?.firstName}
                                 onChange={(e) => { handleChange(e.target.value,"firstName"); }}
                                 required
-                                onBlur={(e) => firstNameValidation(e.target.value)}
+                                // onBlur={(e) => firstNameValidation(e.target.value)}
                                 dataTestId="f-name"
                                 reset={inputReset}
                             />
@@ -141,7 +141,7 @@ function emitSaveData(event: any) {
                                 name="lastName"
                                 placeholder="Enter Last Name"
                                 required={true}
-                                onBlur={(e) => lastNameValidation(e.target.value)}
+                                // onBlur={(e) => lastNameValidation(e.target.value)}
                                 dataTestId="last-name"
                                 value={formData?.lastName}
                                 onChange={(e) => { handleChange(e.target.value,"lastName"); }}
@@ -177,7 +177,7 @@ function emitSaveData(event: any) {
                                 required={true}
                                 value={formData?.phone}
                                 onChange={(e) => { handleChange(e.target.value,"phone"); }}
-                                onBlur={(e) => phoneValidationHandler(e.target.value)}
+                                // onBlur={(e) => phoneValidationHandler(e.target.value)}
                                 dataTestId="phone"
                                 reset={inputReset}
                             />
@@ -197,7 +197,7 @@ function emitSaveData(event: any) {
                                 name="address"
                                 id="txtAddress"
                                 required={true}
-                                onBlur={(e) => addressValidation(e.target.value)}
+                                // onBlur={(e) => addressValidation(e.target.value)}
                                 dataTestId="address"
                                 value={formData?.address}
                                 onChange={(e) => { handleChange(e.target.value,"address"); }}
@@ -219,7 +219,7 @@ function emitSaveData(event: any) {
                                 id="txtCompany"
                                 placeholder="Enter City"
                                 required={true}
-                                onBlur={(e) => cityValidation(e.target.value)}
+                                // onBlur={(e) => cityValidation(e.target.value)}
                                 dataTestId="city"
                                 value={formData?.city}
                                 onChange={(e) => { handleChange(e.target.value,"city"); }}
@@ -276,7 +276,7 @@ function emitSaveData(event: any) {
                                 id="txtPostalCode"
                                 placeholder="Enter Postal code"
                                 required={true}
-                                onBlur={(e) => postalCodeValidation(e.target.value)}
+                                // onBlur={(e) => postalCodeValidation(e.target.value)}
                                 dataTestId="postal-code"
                                 value={formData?.pin}
                                 onChange={(e) => { handleChange(e.target.value,"pin"); }}
