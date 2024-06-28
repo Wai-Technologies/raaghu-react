@@ -64,7 +64,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                                 value={oauth?.clientId}
                                 name="clientId"
                                 required={true}
-                                label="ClientId"
+                                label="Client Id"
                                 placeholder="Enter Client Id"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "clientId")}
@@ -78,7 +78,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                             placeholder="389"
                             customClasses="form-control"
                             inputType="text"
-                            label="ClientSecret"
+                            label="Client Secret"
                             name="clientSecret"
                             value={oauth?.clientSecret}
                             onChange={(e: any) => handleChangeform(e.target.value, "clientSecret")}

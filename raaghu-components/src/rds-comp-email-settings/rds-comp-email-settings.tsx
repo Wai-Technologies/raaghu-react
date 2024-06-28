@@ -9,6 +9,7 @@ export interface RdsCompEmailSettingsProps {
 
 const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
     const [formData, setFormData] = useState(props.emailSettings);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         setFormData(props.emailSettings);
@@ -16,6 +17,11 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
     const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
+        if (key === 'confirmEmail' && value !== formData.newEmail) {
+            setErrorMessage('New Email and Confirm New Email do not match');
+        } else {
+            setErrorMessage('');
+        }
     };
 
     function emitSaveData(event: any) {
@@ -86,6 +92,9 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             value={formData?.confirmEmail}
                             dataTestId="confirm-email"
                         ></RdsInput>
+                        <div className="form-control-feedback">
+                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
+                        </div>
                     </div>
                 </div>
 
