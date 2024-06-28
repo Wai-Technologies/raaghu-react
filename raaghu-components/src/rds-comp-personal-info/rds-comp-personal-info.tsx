@@ -57,7 +57,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="UserName"
+                            placeholder="Username"
                             value={formData?.userName}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "userName");
@@ -117,8 +117,10 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                                 }}
                                 required={false}
                                 dataTestId="email"
+                                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                validationMsg="Invalid Email Address." 
                             ></RdsInput>
-                            <span className="mt-auto d-block nowrap ms-2">
+                            <span className="mt-4 d-block nowrap ms-2">
                                 <RdsButton
                                     label="Verify Email"
                                     colorVariant="primary"

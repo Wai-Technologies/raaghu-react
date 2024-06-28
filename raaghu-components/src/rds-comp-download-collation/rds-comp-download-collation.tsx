@@ -6,11 +6,22 @@ export interface RdsCompDownloadCollationProps {
 }
 
 const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
+    const handleDownloadTXT = (item: any) => {
+        const text = `Date of Data: ${item.DateofData}\nNumber of Days: ${item.NummberofDay}`;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `data-${item.DateofData}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <>
-            <div className=" border p-3">
-                {props.downloadTable?.map((item: any, inidex: number) => (
-                    <div className="d-flex justify-content-between  p-3" role="listitem">
+            <div className="border p-3">
+                {props.downloadTable?.map((item: any, index: number) => (
+                    <div className="d-flex justify-content-between p-3" role="listitem" key={index}>
                         <div className="d-flex justify-content-between">
                             <span className="align-self-center ms-2 me-3">
                                 <RdsIcon
@@ -27,7 +38,7 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
                                 <small className="text-muted"> {item.NummberofDay}</small>
                             </span>
                         </div>
-                        <div>
+                        <div onClick={() => handleDownloadTXT(item)}>
                             <RdsIcon
                                 name="download"
                                 fill={false}
@@ -38,7 +49,6 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
                             />
                         </div>
                     </div>
-
                 ))}
             </div>
         </>

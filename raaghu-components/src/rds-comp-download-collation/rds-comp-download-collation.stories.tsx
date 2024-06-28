@@ -58,17 +58,17 @@ export const Default: Story = {
     args: {
         downloadTable: [
                     {
-                        "DateofData": "08/07/2022",
-                        "NummberofDay": "5 days ago",
+                        "DateofData": "08/07/2024",
+                        "NummberofDay": "25 days ago",
                         "downloadUrl": "assets/Group.jpg"
                     },
                     {
-                        "DateofData": "08/07/2022",
-                        "NummberofDay": "5 days ago",
+                        "DateofData": "02/08/2024",
+                        "NummberofDay": "15 days ago",
                         "downloadUrl": "assets/DeleteIcon.jpg"
                     },
                     {
-                        "DateofData": "08/07/2022",
+                        "DateofData": "05/09/2024",
                         "NummberofDay": "5 days ago",
                         "downloadUrl": "assets/Photp.jpeg"
                     }

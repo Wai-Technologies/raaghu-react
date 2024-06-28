@@ -79,7 +79,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
-                                placeholder="Enter a value"
+                                placeholder="Enter Expiration"
                                 required={true}
                                 onChange={(e) => {
                                     handleDataChanges(e.target.value, "expiration");
@@ -96,7 +96,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Enter Type"
+                            placeholder="Enter Description"
                             required={true}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "description");
