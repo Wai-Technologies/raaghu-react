@@ -17,6 +17,7 @@ export interface RdsCompApplyForPositionProps {
 const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
   const [formData, setFormData] = useState(props.applyForPositionData);
   const [inputReset, setInputReset] = useState(false);
+  const [fileUploaderKey, setFileUploaderKey] = useState(0);
 
   useEffect(() => {
     setFormData(props.applyForPositionData);
@@ -24,6 +25,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
 
   useEffect(() => {
     setInputReset(!inputReset);
+    setFileUploaderKey(prevKey => prevKey + 1);
   }, [props.reset]);
 
 
@@ -49,6 +51,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
       coverLetter: "",
       file: [],
     });
+    setFileUploaderKey(prevKey => prevKey + 1);
   }
 
   const isEmailValid = (email: any) => {
@@ -151,6 +154,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
               </div>
               <div>
                 <RdsFileUploader
+                  key={fileUploaderKey}
                   label="Upload Resume"
                   colorVariant="primary"
                   extensions="png, jpg, doc, pdf, ppt"
