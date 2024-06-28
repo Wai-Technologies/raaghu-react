@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsRadioButton from "./rds-radio-button";
 
 const meta: Meta = {
-    title: "Elements/RadioButton",
+    title: "Elements/Radio Button",
     component: RdsRadioButton,
     argTypes: {
         displayType: {

@@ -129,7 +129,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 labelIcon={currentLanguageIcon}
                 labelIconWidth="18px"
                 labelIconHeight="18px"
-                placeholder={props.languageLabel}
+                placeholder="Select Language"
                 block={false}
                 icon="en"
                 iconFill={false}
@@ -239,7 +239,8 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             <form onSubmit={handleSubmit} className="">
               <div className="form-group text-start">
                 <RdsInput
-                  placeholder="Enter Email/Username"
+                  label="Username/ Email"
+                  placeholder="Enter Username/ Email"
                   inputType="email/text"
                   onChange={emailhandleChange}
                   value={email}
@@ -251,6 +252,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
 
               <div className="form-group text-start mt-4">
                 <RdsInput
+                  label="Password"
                   customClasses="pe-5"
                   required={false}
                   placeholder="Enter Password"
