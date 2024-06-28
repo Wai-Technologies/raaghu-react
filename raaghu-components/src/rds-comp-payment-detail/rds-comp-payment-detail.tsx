@@ -74,6 +74,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div>
             <RdsInput
               label="Card Number"
+              placeholder="XXXX XXXX XXXX XXXX"
               reset={inputReset}
               required
               size="medium"
@@ -88,6 +89,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div>
             <RdsInput
               label="Name On Card"
+              placeholder="Enter Name On Card"
               reset={inputReset}
               required
               size="medium"
@@ -103,6 +105,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-9">
               <RdsInput
                 label="Expiration Date (MM/YY)"
+                placeholder="Enter Expiry Date"
                 reset={inputReset}
                 required
                 size="medium"
@@ -117,6 +120,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             <div className="col-3">
               <RdsInput
                 label="CVV"
+                placeholder="Enter CVV"
                 reset={inputReset}
                 id="txtCvc"
                 required
@@ -128,7 +132,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             </div>
           </div>
         </div>
-        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+        <div className="mt-3 d-flex pb-3 ps-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
           <RdsButton
             label="Cancel"
             colorVariant="primary"
