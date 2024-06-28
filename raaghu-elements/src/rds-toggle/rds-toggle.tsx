@@ -44,8 +44,8 @@ const RdsToggle = (props: RdsToggleProps) => {
                        <span className="control-prev-icon">
                         <RdsIcon
                             name={props.iconOnUncheck}
-                            width="20px"
-                            height="20px"
+                            width="18px"
+                            height="23px"
                             fill={false}
                             stroke={true}
                         />
@@ -55,8 +55,8 @@ const RdsToggle = (props: RdsToggleProps) => {
                         <span className="control-next-icon">
                         <RdsIcon
                             name={props.iconOnCheck}
-                            width="20px"
-                            height="20px"
+                            width="16px"
+                            height="25px"
                             fill={false}
                             stroke={true}
                         />
