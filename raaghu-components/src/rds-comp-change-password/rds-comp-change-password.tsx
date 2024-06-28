@@ -9,6 +9,7 @@ export interface RdsCompChangePasswordProps {
   const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
     const [formData, setFormData] = useState(props.changePasswordData);
     const [inputReset, setInputReset] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         setFormData(props.changePasswordData);
@@ -20,7 +21,12 @@ export interface RdsCompChangePasswordProps {
 
     const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
-    }
+        if (key === 'newPasswordConfirm' && value !== formData.newPassword) {
+            setErrorMessage('New password and confirm new password do not match');
+        } else {
+            setErrorMessage('');
+        }
+    };
 
     function emitSaveData(event: any) {
         event.preventDefault();
@@ -32,6 +38,7 @@ export interface RdsCompChangePasswordProps {
             newPasswordConfirm: "",
         });
     }
+
     return (
         <form data-testid="password-form">
             <div className="custom-content-scroll">
@@ -91,7 +98,11 @@ export interface RdsCompChangePasswordProps {
                             handleDataChanges(e.target.value, "newPasswordConfirm");
                           }}
                         dataTestId='confirm-password'
+                        showIcon={true}
                     ></RdsInput>
+                    <div className="form-control-feedback">
+                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
+                        </div>
                 </div>
             </div>
             </div>
