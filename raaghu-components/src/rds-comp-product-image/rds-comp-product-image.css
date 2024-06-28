@@ -6,8 +6,34 @@
 .product-img {
     width: 370px !important;
     height: 380px !important;
+    border-radius: 12px !important;
 }
 
 .product-container {
     width: 372px !important;
+}
+
+.border {
+    border-radius: 12px !important;
+}
+
+.theme-dark {
+    color: #1c1d20;
+}
+
+.theme-dark a {
+    color: #6610f2;
+}
+
+.theme-dark svg {
+    color: unset !important;
+}
+
+.theme-dark .btn-outline-primary {
+    color: #7e2eef;
+    --bs-btn-hover-color: #f5f5fa !important;
+}
+
+.theme-dark .btn-outline-primary:hover {
+    color: #f5f5fa !important;
 }

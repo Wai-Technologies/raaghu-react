@@ -78,7 +78,7 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
                 inputType="text"
                 label="Expiry Date"
                 labelPosition="top"
-                placeholder="Enter Cardholder Name"
+                placeholder="Enter Expiry Date"
                 required
                 size="medium"
                 value={cardData?.expiryDate}
@@ -113,6 +113,12 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
               showLoadingSpinner
               size="medium"
               onClick={(e: any) => emitSaveData(e)}
+              isDisabled={
+                !cardData?.cardNumber ||
+                !cardData?.cardHolderName ||
+                !cardData?.expiryDate ||
+                !cardData?.cvv
+              }
             />
           </div>
         </div>

@@ -10,6 +10,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        displayType: {
+            options: ["basic", "advanced"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsCompEmailSettings>;
 
@@ -18,9 +22,13 @@ type Story = StoryObj<typeof RdsCompEmailSettings>;
 
 export const Default: Story = {
     args: {
+        displayType: "basic",
     }
 } satisfies Story;
 
-
-
+export const Advanced: Story = {
+    args: {
+        displayType: "advanced",
+    }
+} satisfies Story;
 
