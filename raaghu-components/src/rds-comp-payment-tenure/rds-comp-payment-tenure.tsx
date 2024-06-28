@@ -49,8 +49,7 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
                       name: data.tenureCount
                     }
                   ]}
-                  label={data.licenseTenureName}
-                />
+                  label={data.licenseTenureName} value={""}                />
               </div>
               <div className="col-md-4">
                 {data.discountPercentage > 0 && (<RdsPlandiscount discount={data.discountPercentage} saveLabel={data.saveLabel} discountValue={data.discountAmount} />)}

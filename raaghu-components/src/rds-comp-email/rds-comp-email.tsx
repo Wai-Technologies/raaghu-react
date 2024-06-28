@@ -248,7 +248,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 inputType="text"
                                                 label="Sender email address"
                                                 labelPosition="top"
-                                                placeholder="Add Placeholder"
+                                                placeholder="Enter sender email address"
                                                 reset={inputReset}
                                                 required={true}
                                                 size="medium"
@@ -262,7 +262,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 inputType="text"
                                                 label="Target email address"
                                                 labelPosition="top"
-                                                placeholder="Add Placeholder"
+                                                placeholder="Enter target email address"
                                                 reset={inputReset}
                                                 required={true}
                                                 size="medium"
@@ -278,7 +278,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 inputType="text"
                                                 label="Subject"
                                                 labelPosition="top"
-                                                placeholder="Add Placeholder"
+                                                placeholder="Subject"
                                                 reset={inputReset}
                                                 required={true}
                                                 size="medium"
