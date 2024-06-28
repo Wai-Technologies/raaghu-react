@@ -1,23 +1,25 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompFeeds from "./rds-comp-feeds";
 
-export default {
-    title: "Components/Feeds",
-    component: RdsCompFeeds,
-    argTypes: {
-        variantType: { control: "select", options: ["Basic", "Advanced"] },
-    },
-} as ComponentMeta<typeof RdsCompFeeds>;
+const meta: Meta = {
+  title: "Components/Feeds",
+  component: RdsCompFeeds,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    variantType: { control: "select", options: ["Basic", "Advanced"] },
+  },
+} satisfies Meta<typeof RdsCompFeeds>;
 
-const Template: ComponentStory<typeof RdsCompFeeds> = (args) => (
-    <RdsCompFeeds {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof RdsCompFeeds>;
 
-export const Default = Template.bind({});
-
-Default.args = {
-    variantType: "Basic",
+export const Default: Story = {
+    args: {
+        variantType: "Basic",
     itemList: [
         {
             name: "Jijo Fleshman",
@@ -62,11 +64,12 @@ Default.args = {
             rating: 1,
         },
     ],
-};
+    }
+  } satisfies Story;
 
-export const LongFeed = Template.bind({});
-LongFeed.args = {
-    variantType: "Advanced",
+  export const LongFeed: Story = {
+    args: {
+        variantType: "Advanced",
     itemList: [
         {
             name: "Jijo Fleshman",
@@ -107,4 +110,5 @@ LongFeed.args = {
             rating: 1,
         },
     ],
-};
+    }
+  } satisfies Story;
