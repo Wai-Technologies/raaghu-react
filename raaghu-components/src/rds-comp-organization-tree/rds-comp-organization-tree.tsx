@@ -213,7 +213,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="btn-group dropstart mbdropdown">
+                                        {/* <div className="btn-group dropstart mbdropdown">
                                             <button
                                                 className="btn btn-sm btn-icon border-0 three-dot-btn"
                                                 type="button"
@@ -234,7 +234,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                 />
                                             </button>
                                             <ul aria-labelledby="dropdownMenuButton" className="dropdown-menu"> {mobileList.map((button, index) => (<li data-bs-toggle={button.databstoggle} data-bs-target={button.databstarget} aria-controls={button.ariacontrols} key={index}><a className="dropdown-item" onClick={(e) => handlerButtonGroupClickdrop(e, button.id, node)}>{button.label}</a> </li>))} </ul>
-                                           </div>
+                                           </div> */}
                                     </div>
                                 </div>
 
