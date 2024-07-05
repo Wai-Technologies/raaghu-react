@@ -27,20 +27,20 @@ export const Navbar: Story = {
         navbarItems: [{
             label: "Home",
             isActive: true,
-            navclass: "",
+            navclass: "my-1 me-3",
             href: "",
 
         },
         {
             label: "Features",
             isActive: false,
-            navclass: "",
+            navclass: "my-1 me-3",
             href: "",
         },
         {
             label: "Pricing",
             isActive: false,
-            navclass: "",
+            navclass: "my-1 me-3",
             href: "",
         }]
     }
