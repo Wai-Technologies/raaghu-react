@@ -40,6 +40,8 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
                                     onChange={(e: any) => setReceiverEmailAddress(e.target.value)}
                                     dataTestId="receiver-email"
                                     fontWeight={"normal"}
+                                    validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                    validationMsg="Invalid Email Address."
                                 ></RdsInput>
                             </div>
                         </div>
@@ -52,6 +54,7 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
+                        isDisabled={!receiverEmailAddress}
                     ></RdsButton>
                 </div>
             </form>

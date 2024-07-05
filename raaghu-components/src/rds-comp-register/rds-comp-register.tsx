@@ -169,6 +169,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form>
                         <div className="form-group text-start">
                             <RdsInput
+                                label="Email"
                                 placeholder="Enter Email"
                                 inputType="email"    
                                onChange={(e) => {
@@ -177,11 +178,14 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                               value={registerData?.emailAddress}                               
                                 name={"email"}
                                 dataTestId="email"
+                                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                validationMsg="Invalid Email Address." 
                             ></RdsInput>
                         </div>
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
+                                label="Password"
                                 placeholder="Enter Password"
                                 inputType="password"
                                  onChange={(e) => {
@@ -191,6 +195,10 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 name={"password"}                        
                                 dataTestId="password"
                                 showIcon={true}
+                                validatonPattern={
+                                    /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/
+                                  }
+                                  validationMsg="Please Enter Valid Password length should be at least 8 characters(Alphanumeric)"
                             ></RdsInput>
                         </div>
                         <div className="d-flex justify-content-between mt-3">

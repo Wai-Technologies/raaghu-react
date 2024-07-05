@@ -102,10 +102,10 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
                         <RdsInput
-                            placeholder="Domain"
+                            placeholder="Enter Domain"
                             customClasses="form-control"
                             inputType="text"
-                            label="Enter Domain"
+                            label="Domain"
                             name="ldapDomain"
                             value={ldap?.ldapDomain}
                             onChange={(e: any) => handleChangeform(e.target.value, "ldapDomain")}
@@ -120,7 +120,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             <RdsInput
                                 value={ldap?.ldapUserName}
                                 name="ldapUserName"
-                                label="User Name"
+                                label="Username"
                                 placeholder="Enter Username"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapUserName")}

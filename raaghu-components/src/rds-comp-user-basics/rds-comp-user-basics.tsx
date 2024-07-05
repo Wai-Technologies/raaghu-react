@@ -29,8 +29,8 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
         props.onSaveHandler && props.onSaveHandler(userData);
         setInputReset(!inputReset);
         setUserData({
-            name: "",
-            surname: "",
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
             userName: "",
@@ -49,28 +49,28 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                     <div className="flex-column-reverse flex-lg-row flex-md-row row">
                         <div className="col-lg-6 col-md-6">
                             <RdsInput
-                                value={userData?.name}
-                                placeholder="Enter Name"
+                                value={userData?.firstName}
+                                placeholder="Enter First Name"
                                 inputType="text"
-                                label="Name"
-                                name="name"
+                                label="First Name"
+                                name="firstName"
                                 required={true}
                                 onChange={(e) => {
-                                    handleDataChange(e.target.value, "name");
+                                    handleDataChange(e.target.value, "firstName");
                                 }}
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-lg-6 col-md-6">
                             <RdsInput
-                                value={userData?.surname}
-                                placeholder="Enter Surname"
+                                value={userData?.lastName}
+                                placeholder="Enter Last Name"
                                 inputType="text"
-                                label="Surname"
-                                name="surName"
+                                label="Last Name"
+                                name="lastName"
                                 required={true}
                                 onChange={(e) => {
-                                    handleDataChange(e.target.value, "surname");
+                                    handleDataChange(e.target.value, "lastName");
                                 }}
                                 reset={inputReset}
                             ></RdsInput>
@@ -90,7 +90,11 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "email");
                                     }}
+                                    validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                    validationMsg="Invalid Email Address."
                                     reset={inputReset}
+                                    // validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                    // validationMsg="Invalid Email Address."  
                                 ></RdsInput>
                             </div>
                         </div>
@@ -119,7 +123,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                     value={userData?.userName}
                                     placeholder="Enter Username"
                                     inputType="text"
-                                    label="User Name"
+                                    label="Username"
                                     name="userName"
                                     required={true}
                                     onChange={(e) => {

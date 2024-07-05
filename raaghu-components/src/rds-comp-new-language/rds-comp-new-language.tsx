@@ -60,11 +60,13 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         setCheck(event.target.checked);
     };
 
-    const onSaveHandler = () => {
-        props.onSaveHandler({
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        setInputReset(!inputReset);
+        props.onSaveHandler && props.onSaveHandler({
             isEnabled: isEnabled,
             cultureName,
-            cultureUIName, 
+            cultureUIName,
             displayName,
             id: props.id,
             flagIcon: flagIcon
@@ -72,9 +74,10 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
         setCheck(false);
         setCultureName("Select Culture Name");
         setCultureUIName("Select UI Culture Name");
-        setDisplayName(" ");
+        setDisplayName("");
         setFlagIcon(""); 
-    };
+    }
+
     const inputChangeHandler = (event: any) => {
         setDisplayName(event.target.value);
 
@@ -137,6 +140,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                                     value={displayName}
                                     onChange={inputChangeHandler}
                                     required={true}
+                                    reset={inputReset}
                                 ></RdsInput>
                             </div>
                             <RdsCheckbox
@@ -176,7 +180,7 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
                         isDisabled={formValid}
                         colorVariant="primary"
                         databsdismiss="offcanvas"
-                        onClick={onSaveHandler}
+                        onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
             </form>

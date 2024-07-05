@@ -28,7 +28,7 @@ const RdsCheckboxGroup = (props: RdsCheckboxGroupProps) => {
                     <label className="d-flex my-2 fw-semibold">{props.label}</label>
 
                     {state == "ErrorCheckbox" && (
-                        <span className="error_Msg"> {props.errorMessage}</span>
+                        <span className="error_Msg me-3"> {props.errorMessage}</span>
                     )}
                     {props.itemList.map((item: any, idx: any) => (
                         <div key={item.id} className={`${Switch1} ${Inline1}`}>
@@ -44,7 +44,7 @@ const RdsCheckboxGroup = (props: RdsCheckboxGroupProps) => {
                                         props.state == "Indeterminate"
                                             ? "form-check-input form-check-input-intermediate"
                                             : props.state == "ErrorCheckbox"
-                                                ? " form-check-input form-check-input-error"
+                                                ? "form-check-input form-check-input-error"
                                                 : "form-check-input"
 
 

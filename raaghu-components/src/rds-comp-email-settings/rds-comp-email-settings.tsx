@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsInput, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
 
 export interface RdsCompEmailSettingsProps {
     emailSettings: any;
+    displayType: "basic" | "advanced";
     onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
     const [formData, setFormData] = useState(props.emailSettings);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         setFormData(props.emailSettings);
@@ -15,6 +17,11 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
     const handleDataChanges = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
+        if (key === 'confirmEmail' && value !== formData.newEmail) {
+            setErrorMessage('New Email and Confirm New Email do not match');
+        } else {
+            setErrorMessage('');
+        }
     };
 
     function emitSaveData(event: any) {
@@ -29,6 +36,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
     return (
         <>
+        {props.displayType == "basic" && (
             <form>
                 <div className="form-group px-4 row mb-3">
                     <div className="col-sm-3 pt-2">
@@ -75,7 +83,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                     <div className="col-sm-9">
                         <RdsInput
-                            placeholder="Confirm Email"
+                            placeholder="Confirm New Email"
                             customClasses="form-control"
                             inputType="email"
                             onChange={(e) => {
@@ -84,6 +92,9 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             value={formData?.confirmEmail}
                             dataTestId="confirm-email"
                         ></RdsInput>
+                        <div className="form-control-feedback">
+                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
+                        </div>
                     </div>
                 </div>
 
@@ -107,6 +118,82 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     ></RdsButton>
                 </div>
             </form>
+        )}
+
+        {props.displayType === "advanced" && (
+            <form className="RdsCompEmailSettingsNew__form">
+            <div className="row mb-3">
+                <div className="col-md-6 col-sm-6 col-lg-6">
+                    <div className="form-group">
+                        <RdsLabel
+                            label="Default From Display Name"
+                            class="mb-1"
+                            size="14px"
+                        ></RdsLabel>
+                        <RdsInput
+                            placeholder="Enter Display Name"
+                            customClasses="form-control"
+                            inputType="email"
+                            dataTestId='display-name'
+                        ></RdsInput>
+                    </div>
+                </div>
+                <div className="col-md-6 col-sm-6 col-lg-6">
+                    <RdsLabel
+                        label="Default From Address"
+                        class="mb-1"
+                        size="14px"
+                    ></RdsLabel>
+                    <RdsInput
+                        placeholder="Enter Email Address"
+                        customClasses="form-control"
+                        dataTestId='address'
+                    ></RdsInput>
+                </div>
+            </div>
+
+            <div className="row mb-4">
+                <div className="col-md-6 col-sm-6 col-lg-6">
+                    <div className="form-group">
+                        <RdsLabel label="Host" class="mb-1" size="14px"></RdsLabel>
+                        <RdsInput
+                            placeholder="127.0.0.1"
+                            customClasses="form-control"
+                            dataTestId='host'
+                        ></RdsInput>
+                    </div>
+                </div>
+                <div className="col-md-6 col-sm-6 col-lg-6">
+                    <RdsLabel label="Port" class="mb-1" size="14px"></RdsLabel>
+                    <RdsInput
+                        placeholder="25"
+                        customClasses="form-control"
+                        dataTestId='port'
+                    ></RdsInput>
+                </div>
+            </div>
+
+            <div className="row mb-3">
+                <div
+                    className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
+                >
+                    <RdsCheckbox label="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
+                </div>
+            </div>
+
+            <div className="row mb-3">
+                <div
+                    className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
+                >
+                    <RdsCheckbox
+                        label="Use Default Credentials"
+                        checked={false}
+                        dataTestId='default-credentials'
+                    ></RdsCheckbox>
+                </div>
+            </div>
+            </form>
+        )}
         </>
     );
 };

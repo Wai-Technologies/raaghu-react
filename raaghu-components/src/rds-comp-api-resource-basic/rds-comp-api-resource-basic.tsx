@@ -28,9 +28,9 @@ function emitSaveData(event: any) {
    props.onSaveHandler && props.onSaveHandler(formData);  
   setInputReset(!inputReset);
    setFormData({
-    email: "",
-    fullname: "",
-    message: "",
+    name: "",
+    displayname: "",
+    description: "",
     accessTokenSigningAlgorithm: "",
    })
 
@@ -50,10 +50,10 @@ function emitSaveData(event: any) {
                   placeholder="Enter name"
                   inputType="text"
                   onChange={(e) => {
-                    handleDataChanges(e.target.value, "email");
+                    handleDataChanges(e.target.value, "name");
                   }}
-                  value={formData?.email}
-                  name={"email"}
+                  value={formData?.name}
+                  name={"name"}
                   dataTestId="name"
                 ></RdsInput>
               </div>
@@ -65,11 +65,11 @@ function emitSaveData(event: any) {
                   placeholder="Enter display name"
                   inputType="text"
                   onChange={(e) => {
-                    handleDataChanges(e.target.value, "fullname");
+                    handleDataChanges(e.target.value, "displayname");
                   }}
                   required={false}
-                  name={"Displayname"}
-                  value={formData?.fullname}
+                  name={"displayname"}
+                  value={formData?.Displayname}
                   dataTestId="display-name"
                 ></RdsInput>
               </div>
@@ -79,10 +79,10 @@ function emitSaveData(event: any) {
                 label="Description"
                 placeholder="Description"
                 onChange={(e) => {
-                  handleDataChanges(e.target.value, "message");
+                  handleDataChanges(e.target.value, "description");
                 }}
                 rows={2}
-                value={formData?.message}
+                value={formData?.description}
                 data-testId="desc"
               />
             </div>
