@@ -131,7 +131,7 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
                             <div className="mb-3">
                                 <RdsTextArea
                                     label="Style Description"
-                                    placeholder=""
+                                    placeholder="Enter Description"
                                     readonly={false}
                                     rows={3}
                                     value={data?.style}
