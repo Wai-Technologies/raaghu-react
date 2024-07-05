@@ -13,7 +13,7 @@ const RdsCompIntegration = (props: RdsCompIntegrationProps) => {
             <div>
                 <div className="row">
                     {props.integrationList.map((item: any, index: number) => (
-                        <div className="mb-3 col-4 " key={index}>
+                        <div className="mb-3 col-md-4 " key={index}>
                             <RdsAppDetail appDetailsItem={item} />
                         </div>
                     ))}
