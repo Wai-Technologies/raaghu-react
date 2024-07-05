@@ -192,6 +192,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                                 handlerChangeGeneral(e.target.value, "verifyBaseUrl");
                                             }}
                                             dataTestId="url"
+                                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                                            validationMsg="Enter valid url"
                                         ></RdsInput>
                                     </div>
                                 </div>
@@ -224,6 +226,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                                 handlerChangeGeneral(e.target.value, "siteKey");
                                             }}
                                             dataTestId="site-key-url"
+                                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                                            validationMsg="Enter valid url"
                                         ></RdsInput>
                                     </div>
                                 </div>
