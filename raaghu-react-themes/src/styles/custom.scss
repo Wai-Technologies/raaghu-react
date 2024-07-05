@@ -589,9 +589,9 @@ html[theme="dark"] .btn-primary svg {
 }
 
 .btn-outline-light {
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  color: #6c757d;
+  background-color: #fff !important;
+  border: 1px solid #ced4da !important;
+  color: #6c757d !important;
 }
 
 .btn-outline-light:hover,
@@ -606,9 +606,9 @@ html[theme="dark"] .btn-primary svg {
 .btn-outline-light:active,
 .btn-outline-light.active,
 .btn-outline-light.dropdown-toggle.show {
-  background-color: #fff;
+  background-color: #f3f3f3 !important;
   border: 1px solid #ced4da;
-  color: #6c757d;
+  color: #6c757d !important;
 }
 
 .navbar-nav .dropdown-menu.show {

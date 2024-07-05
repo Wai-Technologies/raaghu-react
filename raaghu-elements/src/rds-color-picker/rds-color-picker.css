@@ -4,3 +4,8 @@
     width: 30px !important;
     height: 30px !important;
 }
+
+.theme-dark .form-control, .theme-dark .form-control:focus, .theme-dark .select-container, .theme-dark .select-container:focus {
+    background-color: #dee2e6;
+    color: #dee2e6;
+}
