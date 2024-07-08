@@ -1,19 +1,44 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RdsButton, RdsFileUploader } from "../rds-elements";
 import "./rds-comp-fileUploader.css";
 
 export interface RdsCompFileUploaderProps {
     onClick: any
     preFileInfo?: any
-    onDeleteFile: (id: any) => void;
+    onSaveHandler?: (data: any) => void;
+    reset?: boolean;
 }
 
 const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
+    const [formData, setFormData] = useState(props.preFileInfo);
+    const [inputReset, setInputReset] = useState(false);
+    const [uploaderKey, setUploaderKey] = useState(0);
 
-    function folder(data: any) {
-        props.preFileInfo(data);
+    useEffect(() => {
+        setFormData(props.preFileInfo);
+      }, [props.preFileInfo]);
+
+      useEffect(() => {
+        setInputReset(!inputReset);
+        setUploaderKey(prevKey => prevKey + 1);
+      }, [props.reset]);
+
+    const handleDataChanges = (value: any, key: string, isFile?: boolean) => {
+        const fileName = value[0]?.name;
+        setFormData({ ...formData, file: value, fileName });
     }
+
+    function emitSaveData(e: any): void {
+        e.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setInputReset(!inputReset);
+        setFormData({
+            file: [],
+        });
+        setUploaderKey(prevKey => prevKey + 1);
+    }
+
     return (
         <>
         <div className="custom-content-scroll">
@@ -24,12 +49,17 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     limit={5}
                     multiple
                     size="large"
+                    key={uploaderKey}
                     validation={[
                         {
                             hint: 'File size exceeds the limit',
                             isError: false
                         }
-                    ]} label={""}                />
+                    ]} label={""}    
+                    onFileArray={(files) =>
+                        handleDataChanges(files, "file", true)
+                    }            
+                />
             </div>
             <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <RdsButton
@@ -48,7 +78,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     databsdismiss="offcanvas"
                     colorVariant="primary"
                     class="me-2"
-                    onClick={props.onClick}
+                    onClick={(e: any) => emitSaveData(e)}
                 ></RdsButton>
             </div>
             </div>
