@@ -29,7 +29,7 @@
     "email": "support@waiin.com",
     "url": "https://waiin.com"
   },
-  "homepage": "https://react.raaghu.io",
+  "homepage": "https://react.raaghu.ai",
   "license": "Apache License 2.0",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
