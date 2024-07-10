@@ -12,4 +12,8 @@
     width: 3rem;
     height: 3rem;
   }
+
+  .theme-dark .avatar-initials {
+    color: #A8A8A8;
+}
   
