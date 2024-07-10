@@ -4,3 +4,12 @@
 button {
   background-color: red;
 }
+
+.btn-light {
+  border-color: #E6E7EB;
+}
+
+.theme-dark .form-control {
+  background-color: #ffffff !important;
+  color: #363636 !important;
+}
