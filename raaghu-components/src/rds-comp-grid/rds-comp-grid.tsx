@@ -3,9 +3,7 @@ import { DndProvider, DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './rds-comp-grid.css';
 import { RdsIcon, RdsPagination, RdsSearch } from '../rds-elements';
-
 import { ResizableBox } from 'react-resizable';
-
 import 'react-resizable/css/styles.css'; // Import the styles for resizable
 
 const Popup: React.FC<{
@@ -45,7 +43,6 @@ const Popup: React.FC<{
 };
 
 
-
 interface Column {
   key: string;
   label: string;
@@ -74,7 +71,6 @@ interface RdsCompGridProps {
   totalRecords?: any;
 }
 
-
 interface DraggableColumnHeaderProps {
   column: {
     displayName: string;
@@ -86,36 +82,14 @@ interface DraggableColumnHeaderProps {
   moveColumn: (fromIndex: number, toIndex: number) => void;
   onSearchChange?: (key: string, value: string) => void;
   allFilter?: boolean;
-  allSearch?: boolean;
-  
+  allSearch?: boolean;  
 }
 
 interface DragItem {
   index: number;
 }
 
-// const PaginationControls: React.FC<{ totalRows: number, rowsPerPage: number, currentPage: number, onPageChange: (page: number) => void }> = ({ totalRows, rowsPerPage, currentPage, onPageChange }) => {
-//   const totalPages = Math.ceil(totalRows / rowsPerPage);
-//   const pages = [...Array(totalPages).keys()].map(num => num + 1);
-
-//   return (
-//     <div className="pagination-controls">
-//       {pages.map(page => (
-//         <button
-//           key={page}
-//           onClick={() => onPageChange(page)}
-//           disabled={page === currentPage}
-//         >
-//           {page}
-//         </button>
-//       ))}
-//     </div>
-//   );
-// };
-
-
 const DraggableColumnHeader: React.FC<{ column: Column; index: number; moveColumn: (fromIndex: number, toIndex: number) => void; hasSearch?: boolean; filter?:boolean; onSearchChange?: (key: string, value: string) => void; onFilterClick?: (key: string, position: DOMRect) => void; allSearch?:boolean; allFilter?: boolean; onSortClick?: (key: string) => void; sortConfig?: { key: string, direction: 'asc' | 'desc' } | null;  }> = ({ column, index, moveColumn, hasSearch, filter, onSearchChange, onFilterClick, allSearch, allFilter, onSortClick, sortConfig}) => {
- 
   const refheader = useRef<HTMLTableHeaderCellElement>(null);
   const [{ isDragging }, drag] = useDrag({
     type: 'COLUMN',
@@ -169,17 +143,15 @@ const handleResize = (event: any, { size }: any) => {
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <span>{column.displayName}</span>
-
           {(column.sortable) && (
-          <div onClick={handleSortIconClick} style={{ cursor: 'pointer' }}>
-            {sortConfig && sortConfig.key === column.key ? (
-              sortConfig.direction === 'asc' ? '▲' : '▼'
-            ) : (
-              '↕'
-            )}
-          </div>
-        )}
-
+            <div onClick={handleSortIconClick} style={{ cursor: 'pointer' }}>
+              {sortConfig && sortConfig.key === column.key ? (
+                sortConfig.direction === 'asc' ? '▲' : '▼'
+              ) : (
+                '↕'
+              )}
+            </div>
+          )}
 
           {(column.filter || allFilter) && (
             <div>
@@ -196,28 +168,46 @@ const handleResize = (event: any, { size }: any) => {
        
         </div>
        
-<div>
-  
-</div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         {(column.hasSearch || allSearch) && (
+            <RdsSearch           
+              labelPosition="top"
+              placeholder="Search"
+              size="small" 
+              onChange={(e) => onSearchChange && onSearchChange(column.key, e.target.value)}             
+            />
+        )}
+
+        <ResizableBox
+          width={10} // Initial width of the column header
+          height={20} // Height of the column header
+          axis="x"
+          resizeHandles={['e']}
+          minConstraints={[100, Infinity]} // Minimum width the column can resize to
+          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
+          onResize={handleResize}
+        >
+        </ResizableBox>
+        </div>
+        {/* {(column.hasSearch || allSearch) && (
             <RdsSearch           
               labelPosition="top"
               placeholder="Search"
               size="small" 
               onChange={(e) => onSearchChange && onSearchChange(column.key, e.target.value)}
             />
-          )}
+        )}
 
         <ResizableBox
-        width={200} // Initial width of the column header
-        height={20} // Height of the column header
-        axis="x"
-        resizeHandles={['e']}
-        minConstraints={[100, Infinity]} // Minimum width the column can resize to
-        maxConstraints={[400, Infinity]} // Maximum width the column can resize to
-        onResize={handleResize}
-      >
-         </ResizableBox>
+          width={200} // Initial width of the column header
+          height={20} // Height of the column header
+          axis="x"
+          resizeHandles={['e']}
+          minConstraints={[100, Infinity]} // Minimum width the column can resize to
+          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
+          onResize={handleResize}
+        >
+        </ResizableBox> */}
       
     </th>  
   );
@@ -227,14 +217,11 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
   const [columns, setColumns] = useState<Column[]>(props.tableHeaders);
   const [totalData, setTotalData] = useState<Row[]>(props.tableData);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10); 
-
+  const [rowsPerPage, setRowsPerPage] = useState(props.recordsPerPage ? props.recordsPerPage : 10); 
   const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>(null);
   const [totalRecords, setTotalRecords] = useState<any>(props.totalRecords);
-  //props.totalRecords =12;
-  //setTotalRecords(12);
+ 
   const moveColumn = (fromIndex: number, toIndex: number) => {
     const updatedColumns = [...columns];
     const [removed] = updatedColumns.splice(fromIndex, 1);
@@ -243,7 +230,8 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
   };
 
   const handleSearchChange = (key: string, value: string) => {
-    setSearchTexts((prev) => ({ ...prev, [key]: value }));
+    setSearchTexts((prev) => ({ ...prev, [key]: value }));    
+    setTotalData(filteredData);
   };
 
   const [popupData, setPopupData] = useState<any[]>([]);
@@ -251,9 +239,6 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
   const [popupPosition, setPopupPosition] = useState<{ top: number, left: number }>({ top: 0, left: 0 });
   const [popupColumnKey, setPopupColumnKey] = useState<string | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: Set<string> }>({});
-
-
-  
 
   const handleFilterClick = (key: string, position: DOMRect) => {  
     const distinctData = Array.from(new Set(props.tableData.map((row) => row[key])));
@@ -269,8 +254,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
     else
     {
       setPopupPosition({ top: position.bottom, left:  position.left + 12});
-    }
-    
+    }    
   };
 
   const handleClosePopup = () => {
@@ -301,20 +285,15 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
     });
   });
 
-  //--------------------
-
   const getSortedData = (data: Row[], config: { key: string, direction: 'asc' | 'desc' } | null, currentPage: any) => {
-    debugger;
     let  startingIndex = 0;
     if (currentPage === 1) {
-      startingIndex = 0;
-   
+      startingIndex = 0;   
     }
     else {
-       startingIndex = (currentPage - 1) * rowsPerPage;
-     
+       startingIndex = (currentPage - 1) * rowsPerPage;     
     }
-    //if (!config) return data;
+  
     if (!config) return data.slice(startingIndex, rowsPerPage*currentPage);
   
     return [...data].sort((a, b) => {
@@ -327,39 +306,23 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
       return 0;
     }).slice(startingIndex, rowsPerPage*currentPage);
   };
-
-
-  //const startingIndex = (currentPage - 1) * rowsPerPage;
-  //const currentData = filteredData.slice(startingIndex, startingIndex + rowsPerPage);
-
-  /// get currentData passing rowstatus
-  //const currentDataNew = filteredData.slice(rowStatus.startingRow, rowStatus.endingRow);
-
-  // if sorting is applied then get sorted data
-  const sortedData = getSortedData(totalData, sortConfig, currentPage);
-  //const sortedData = getSortedData(totalData, sortConfig, currentPage);
-  //const sortedData = getSortedData(filteredData, sortConfig, currentPage);
-
-  //const currentData = sortedData.slice(startingIndex, startingIndex + rowsPerPage);
-  
-
+ 
+  const sortedData = getSortedData( selectedFilters? filteredData : totalData, sortConfig, currentPage);
+ 
   const handleSortClick = (key: string) => {
     let direction: 'asc' | 'desc' = 'asc';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
-    setSortConfig({ key, direction });
-    //setTotalData(getSortedData(totalData, { key, direction }, currentPage));
+    setSortConfig({ key, direction });    
   };
-  //--------------------
-
+ 
   const [rowStatus, setRowStatus] = useState({
-
     startingRow: 0,
     endingRow: props.recordsPerPage,
   });
-  const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
-    debugger;
+
+  const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => { 
     props.onPaginationHandler &&
       props.onPaginationHandler(currentPage, recordsPerPage);
     if (totalRecords) {
@@ -379,18 +342,19 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
   useEffect(() => {
     debugger;
     setTotalRecords(props.totalRecords);  
-    //setTotalData(sortConfig ?filteredData: totalData);
-   // const startingIndex = (currentPage - 1) * rowsPerPage;
-      //const currentData = filteredData.slice(startingIndex, startingIndex + rowsPerPage);
-      // bind this currentData to the grid
-      
-      //sortedData = sortedData.slice(startingIndex, startingIndex + rowsPerPage);
-
+   
   }, [props.totalRecords]);
 
+  const resetGrid = () => {   
+    setSortConfig(null);
+    setTotalData(props.tableData); // Reset data to original
+    setSearchTexts({}); // Reset search texts
+    setSelectedFilters({}); // Reset filters   
+    setCurrentPage(1); // Reset to the first page   
+  };
+
   return (
-    <DndProvider backend={HTML5Backend}>
-     
+    <DndProvider backend={HTML5Backend}>     
       <table className={`table table-hover table-bordered`}
                 id='grid'>
         <thead className="text-nowrap">
@@ -406,8 +370,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
                 onSortClick={handleSortClick}
                 sortConfig={sortConfig}
                 allSearch={props.allSearch}
-                allFilter={props.allFilter} 
-                         
+                allFilter={props.allFilter}                         
               />
             ))}
           </tr>
@@ -437,10 +400,9 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
         />
       )}
 
-            <RdsPagination
-                //totalRecords={sortedData.length}
-                totalRecords={totalRecords}
-                 
+      <div className='pagination-container'>
+              <RdsPagination              
+                totalRecords={totalRecords}                 
                 recordsPerPage={
                   props.recordsPerPage ? props.recordsPerPage : 10
                 }
@@ -448,8 +410,16 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
                 paginationType={
                   props.recordsPerPageSelectListOption ? "default" : "advanced"
                 }
-
               ></RdsPagination>
+              <RdsIcon
+                colorVariant="primary"
+                height="20px"
+                name="refresh"
+                stroke
+                width="20px"
+                onClick={resetGrid}
+              />
+      </div>         
    
     </DndProvider>
   );

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompGrid from "./rds-comp-grid";
-import { tr } from 'date-fns/locale';
 
 const meta: Meta = { 
     title: "Components/Grid",
@@ -114,8 +113,10 @@ export const WithCustomFilter: Story = {
                   { id: 12, name: 'Jakub ', age: 32, email: 'js@ml.com', address: '453, abc street dfd fd dfd fd ttttf ddddddr fdf', role: 'admin', country: 'India', status: 'active'},  
                 ] ,
                 pagination: true,
-                recordsPerPage: 10,
+                recordsPerPage: 5,
                 totalRecords: 12,
+                allFilter: true,
+                allSearch: true,
               
   }
 } satisfies Story;
