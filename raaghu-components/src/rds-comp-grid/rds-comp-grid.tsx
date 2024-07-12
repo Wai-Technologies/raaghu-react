@@ -166,6 +166,18 @@ const handleResize = (event: any, { size }: any) => {
             </div>
           )}
        
+       
+       <ResizableBox
+          width={10} // Initial width of the column header
+          height={20} // Height of the column header
+          axis="x"
+          resizeHandles={['e']}
+          minConstraints={[100, Infinity]} // Minimum width the column can resize to
+          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
+          onResize={handleResize}
+        >
+        </ResizableBox>
+
         </div>
        
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
@@ -177,37 +189,7 @@ const handleResize = (event: any, { size }: any) => {
               onChange={(e) => onSearchChange && onSearchChange(column.key, e.target.value)}             
             />
         )}
-
-        <ResizableBox
-          width={10} // Initial width of the column header
-          height={20} // Height of the column header
-          axis="x"
-          resizeHandles={['e']}
-          minConstraints={[100, Infinity]} // Minimum width the column can resize to
-          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
-          onResize={handleResize}
-        >
-        </ResizableBox>
-        </div>
-        {/* {(column.hasSearch || allSearch) && (
-            <RdsSearch           
-              labelPosition="top"
-              placeholder="Search"
-              size="small" 
-              onChange={(e) => onSearchChange && onSearchChange(column.key, e.target.value)}
-            />
-        )}
-
-        <ResizableBox
-          width={200} // Initial width of the column header
-          height={20} // Height of the column header
-          axis="x"
-          resizeHandles={['e']}
-          minConstraints={[100, Infinity]} // Minimum width the column can resize to
-          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
-          onResize={handleResize}
-        >
-        </ResizableBox> */}
+        </div>       
       
     </th>  
   );
@@ -305,6 +287,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
       }
       return 0;
     }).slice(startingIndex, rowsPerPage*currentPage);
+    //setTotalData(data);
   };
  
   const sortedData = getSortedData( selectedFilters? filteredData : totalData, sortConfig, currentPage);
