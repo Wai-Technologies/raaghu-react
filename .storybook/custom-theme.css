@@ -72,16 +72,3 @@ nav.container.sidebar-container.css-t68aeq {
     padding-left: 10px !important;
     padding-right: 10px !important;
 }
-@media (max-width: 576px) {
-    .chart-container canvas {
-        height: 300px;
-        width: 300px;
-    }
-  }
-  
-  @media (min-width: 577px) and (max-width: 768px) {
-    .chart-container canvas {
-        height: 350px;
-        width: 350px;
-    }
-  }
