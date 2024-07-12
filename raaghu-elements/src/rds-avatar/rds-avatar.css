@@ -17,3 +17,7 @@
     color: #A8A8A8;
 }
   
+.row {
+ /* This ensures vertical alignment is centered */
+  justify-content: space-between; /* Adjust this as needed */
+}
