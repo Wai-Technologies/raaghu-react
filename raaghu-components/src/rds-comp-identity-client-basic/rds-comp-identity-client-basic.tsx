@@ -93,6 +93,8 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "clientUrl");
                 }}
                 value={clientData?.clientUrl}
+                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validationMsg="Enter valid url"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -108,6 +110,8 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     handleDataChanges(e.target.value, "logoUrl");
                   }}
                   value={clientData?.logoUrl}
+                  validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                  validationMsg="Enter valid url"
                 ></RdsInput>
               </div>
             </div>
@@ -125,6 +129,8 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "callbackUrl");
                 }}
                 value={clientData?.callbackUrl}
+                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validationMsg="Enter valid url"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -139,6 +145,8 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "logoutUrl");
                 }}
                 value={clientData?.logoutUrl}
+                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validationMsg="Enter valid url"
               ></RdsInput>
             </div>
           </div>
