@@ -65,6 +65,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) 
         setIsTouch(true);
         props.onChange && props.onChange(e);
         if (e.target.value) {
+            setHasError(false);
+        } else {
             setHasError(true);
         }
         if (props.validatonPattern !== undefined && e.target.value) {
