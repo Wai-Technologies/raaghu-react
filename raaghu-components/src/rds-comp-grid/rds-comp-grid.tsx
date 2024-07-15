@@ -183,7 +183,7 @@ const handleResizeStart = (event: any, { size }: any) => {
           maxConstraints={[400, Infinity]} // Maximum width the column can resize to
           onResizeStop={handleResizeStop}     
           onResizeStart={handleResizeStart}
-        >
+        >        
         </ResizableBox>
 
         </div>

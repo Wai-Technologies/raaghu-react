@@ -107,6 +107,6 @@
   display: flex;
   align-items: center;
   /* Adjust vertical alignment as needed */
-  justify-content: space-between;
+  justify-content: flex-end;
   /* Adjust spacing or alignment as needed */
 }
