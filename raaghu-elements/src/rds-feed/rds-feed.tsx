@@ -2,6 +2,7 @@ import React from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import RdsLikeDislike from "../rds-like-dislike";
 import RdsRating from "../rds-rating";
+import "./rds-feed.styled.css";
 
 
 export interface Item {
