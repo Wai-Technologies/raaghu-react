@@ -21,14 +21,14 @@ const RdsCollapse = (props: RdsCollapseProps) => {
             <div>
                 <button
                     type="button"
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-primary btn-sm ms-1"
                     onClick={toggleDisplay}
                 >
                     Toggle Element
                 </button>
                 {display && (
                     <div className="row">
-                        <div className="col-lg-6 col-md-6 col-sm-12 m-2 collapseContent p-3">
+                        <div className="col-lg-6 col-md-6 col-sm-12 mt-2 ms-3 collapseContent p-3">
                             <div>
                                 This is some placeholder content for a horizontal collapse. its
                                 hidden by default and shown when triggered
