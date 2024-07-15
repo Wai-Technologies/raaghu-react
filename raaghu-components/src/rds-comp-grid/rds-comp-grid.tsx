@@ -144,7 +144,7 @@ const handleResizeStart = (event: any, { size }: any) => {
         style={{
           opacity: isDragging ? 0.5 : 1,
           cursor: 'move',
-          position: 'relative',          
+         // position: 'relative',          
         }}        
       >
         
@@ -343,10 +343,11 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
 
   return (
     <DndProvider backend={HTML5Backend}>     
-      <table className={`table table-hover table-bordered`}
+     <div className="table-responsive-sm">
+     <table className={`table table-hover table-bordered`}
                 id='grid'>
         <thead className="text-nowrap">
-          <tr className="align-middle">
+          <tr className="align-top">
             {columns.map((column, index) => (
               <DraggableColumnHeader
                 key={column.key}
@@ -377,6 +378,8 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
           ))}
         </tbody>
       </table>
+    </div>
+     
 
       {popupVisible && (
         <Popup
@@ -388,7 +391,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
         />
       )}
 
-      <div className='pagination-container'>
+      <div className='pagination-container gap-2'>
               <RdsIcon
                 colorVariant="primary"
                 height="20px"
@@ -397,6 +400,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
                 width="20px"
                 onClick={resetGrid}
               />
+
              {props.pagination  && <RdsPagination              
                 totalRecords={totalRecords}                 
                 recordsPerPage={
@@ -406,6 +410,8 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
                 paginationType={
                   props.recordsPerPageSelectListOption ? "default" : "advanced"
                 }
+                // add  class name to the pagination container
+                
               ></RdsPagination>
              }
              

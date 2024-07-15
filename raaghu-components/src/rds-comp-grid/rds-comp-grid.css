@@ -1,10 +1,11 @@
 @media (max-width: 767px) {
 
-  #sortTable thead th:first-child,
-  #sortTable tbody td:first-child {
+  #grid thead th:first-child,
+  #grid tbody td:first-child{
     position: sticky;
     left: -1px;
     max-width: 190px;
+    background-color: white;
   }
 }
 
@@ -109,4 +110,15 @@
   /* Adjust vertical alignment as needed */
   justify-content: flex-end;
   /* Adjust spacing or alignment as needed */
+}
+
+/* .react-resizable-handle{
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand-vertical" viewBox="0 0 16 16"%3E%3Cpath d="M8 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"%2F%3E%3C%2Fsvg%3E') !important;
+  transform: rotate(0deg) !important;
+    right: auto !important;
+} */
+.react-resizable-handle{
+  background-image: url('') !important;
+  transform: rotate(0deg) !important;
+    right: auto !important;
 }
