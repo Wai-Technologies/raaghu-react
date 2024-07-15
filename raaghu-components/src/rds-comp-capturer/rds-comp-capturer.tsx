@@ -3,7 +3,7 @@ import { RdsButton, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
 import { useReactMediaRecorder } from "react-media-recorder";
 import html2canvas from "html2canvas";
 import { getConsoleLogs, getNetworkLogs, getErrorLogs } from "./logger";
- 
+
 export interface RdsCompCaptureCeProps {
     ModalId: any;
     reset?: boolean;
@@ -19,14 +19,14 @@ export interface RdsCompCaptureCeProps {
     recordScreenColor?: string;
     isModal: boolean;
 }
- 
+
 const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #region VARIABLES
     const CaptureScreenshotLabel = props.captureScreenshotLabel || "Mark the bug";
     const CaptureScreenshotColor = props.captureScreenshotColor || "outline-primary";
     const RecordScreenLabel = props.recordScreenLabel || "Record screen";
     const RecordScreenColor = props.recordScreenColor || "outline-primary";
- 
+
     const [email, setEmail] = useState("");
     // const [imageOrVideo, setImageOrVideo] = useState("");
     const [inputReset, setInputReset] = useState(false);
@@ -44,24 +44,24 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const isItModal = props.isModal;
     const notImportantClass = "!important";
     // #endregion
- 
+
     // #region SCREENSHOTS FUNCTIONS
     useEffect(() => {
         setInputReset((prevReset) => !prevReset);
     }, [props.reset]);
- 
+
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsSelecting(true);
         setShowSelection(true);
         setStartPoint({ x: e.clientX, y: e.clientY });
         setEndPoint({ x: e.clientX, y: e.clientY });
     };
- 
+
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!isSelecting) return;
         setEndPoint({ x: e.clientX, y: e.clientY });
     };
- 
+
     const handleMouseUp = () => {
         setIsSelecting(false);
         setShowSelection(false);
@@ -73,7 +73,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         };
         captureSelectedArea(bounds);
     };
- 
+
     const selectionStyle = {
         position: "absolute" as const,
         left: `${Math.min(startPoint.x, endPoint.x)}px`,
@@ -84,7 +84,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         pointerEvents: "none" as const,
         display: showSelection ? "block" : "none",
     };
- 
+
     const handleCaptureScreenshot = () => {
         if (screenshots.length >= 3) return;
         if (modalRef.current) {
@@ -95,7 +95,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         // console.log("Console Logs", getConsoleLogs());
         // console.log("Error Logs", getErrorLogs());
     };
- 
+
     const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
         html2canvas(document.body, {
             x,
@@ -118,7 +118,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             });
         });
     };
- 
+
     const handleDeleteScreenshot = (index: number) => {
         setScreenshots((prev) => prev.filter((_, i) => i !== index));
         if (screenshots.length > 1) {
@@ -128,7 +128,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         }
     };
     // #endregion
- 
+
     // #region VIDEOS FUNCTIONS
     const handleDeleteVideo = (index: number) => {
         setVideos((prev) => prev.filter((_, i) => i !== index));
@@ -138,7 +138,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             setSelectedVideo(null);
         }
     };
- 
+
     // eslint-disable-next-line prefer-const
     let { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({
         screen: true,
@@ -154,7 +154,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             }
         },
     });
- 
+
     const handleStartRecording = () => {
         if (videos.length >= 2) return;
         startRecording();
@@ -166,19 +166,19 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             modalRef.current.hide();
         }
     };
- 
+
     const handleStopRecording = () => {
         stopRecording();
         setIsRecording(false);
     };
- 
+
     useEffect(() => {
         if (modalRef.current) {
             modalRef.current.show();
         }
     }, [screenshots, videos, getConsoleLogs(), getNetworkLogs(), getErrorLogs()]);
     //#endregion
- 
+
     // #region COMMON FUNCTION
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -191,7 +191,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             modalRef.current.hide();
         }
     };
- 
+
     const handleScreenshotOrVideoClick = (e: any, index?: number, video?: Blob | undefined, screenshot?: Blob | undefined) => {
         if (screenshot) {
             setSelectedScreenshot(screenshot);
@@ -201,7 +201,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             setSelectedScreenshot(null);
         }
     };
- 
+
     function getBase64Image(image: Blob): Promise<string> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -220,10 +220,54 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         });
     }
     // #endregion
- 
+
     // #region RENDER/JSX MARKUP
     return (
         <>
+            {/* <RdsModal
+                modalId="feedbackModal"
+                modalAnimation="modal fade"
+                showModalFooter={true}
+                showModalHeader={true}
+                scrollable={false}
+                verticallyCentered={false}
+                modalbutton={
+                    <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px" }}>
+                        <RdsButton
+                            id="feedback"
+                            class="me-2"
+                            tooltipTitle=""
+                            type="button"
+                            label="Feedback"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="modal"
+                            dataTestId="feedback"
+                            onClick={() => {
+                                if (modalRef.current) {
+                                    modalRef.current.show();
+                                }
+                            }}
+                        />
+                        {isRecording && (
+                            <div>
+                                <RdsButton
+                                    label="Stop Recording"
+                                    type="button"
+                                    colorVariant="danger"
+                                    size="small"
+                                    onClick={handleStopRecording}
+                                />
+                                <p>{status}</p>
+                            </div>
+                        )}
+                    </div>
+                }
+                modalTitle="Feedback"
+                cancelButtonName="CANCEL"
+                saveChangesName="SUBMIT"
+                modalBackdrop="static"
+            > */}
             <form onSubmit={handleSubmit}>
                 <div className="text-start mb-1">
                     <RdsInput
@@ -337,13 +381,14 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         {
                             selectedScreenshot &&
                             <div id="screenshotArea">
-                                <img className="img-fluid rounded" src={URL.createObjectURL(selectedScreenshot)} style={{ background: "black", height: "auto", width: "100%" }}></img>                            
+                                <img className="img-fluid rounded" src={URL.createObjectURL(selectedScreenshot)} style={{ background: "black", height: "auto", width: "100%" }}></img>
                             </div>
                         }
                     </div>
                 </div>
             </form>
- 
+            {/* </RdsModal> */}
+
             {isSelecting && (
                 <div
                     onMouseDown={handleMouseDown}
@@ -366,9 +411,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     );
     // #endregion
 };
- 
+
 export default RdsCompCaptureCe;
- 
+
 // Add CSS for responsive video
 const styles = `
 .video-responsive {
