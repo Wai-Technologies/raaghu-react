@@ -57,3 +57,7 @@
     color: #adadade0;
     border: 2px solid #adadade0;
 }
+
+.theme-dark .description {
+    color: #6f6f6f;
+}

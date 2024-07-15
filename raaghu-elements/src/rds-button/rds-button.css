@@ -19,3 +19,11 @@
 .alignClass {
   top: -1px;
 }
+
+.theme-dark .btn-light {
+  color: #2b2b2b;
+}
+
+.theme-dark .btn-light svg{
+  color: #2b2b2b;
+}

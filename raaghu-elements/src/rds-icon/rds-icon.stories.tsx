@@ -27,10 +27,11 @@ export const Icon: Story = {
         height: "20px",
         fill: false,
         stroke: true,
-        colorVariant: "primary"
+        colorVariant: "primary",
+        isCursorPointer: true,
     }
 } satisfies Story;
-Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant'] } };
+Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
 
 export const Tooltip: Story = {
     args: {
@@ -42,6 +43,7 @@ export const Tooltip: Story = {
         tooltip: true,
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
+        isCursorPointer: true,
     },
     argTypes: {
         tooltipPlacement: {
@@ -50,4 +52,4 @@ export const Tooltip: Story = {
         },
     },
 } satisfies Story;
-Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle', 'colorVariant'] } };
+Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle', 'colorVariant', 'isCursorPointer'] } };

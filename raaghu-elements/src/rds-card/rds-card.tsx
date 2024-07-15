@@ -12,7 +12,7 @@ export interface RdsCardProps {
     showFooter?: boolean;
     isImage?: boolean;
     imageUrl?: string;
-    avatarUrl?: string;
+    src?: string;
     centerAlign?: boolean;
     isAvatar?: boolean;
     borderColor?: colors;
@@ -43,7 +43,7 @@ const RdsCard = (props: RdsCardProps) => {
                                                 <RdsAvatar
                                                     withProfilePic={true}
                                                     roundedAvatar={true}
-                                                    profilePic={props.avatarUrl}
+                                                    profilePic={props.src}
                                                 ></RdsAvatar>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@ const RdsCard = (props: RdsCardProps) => {
                                                 <RdsAvatar
                                                     withProfilePic={true}
                                                     roundedAvatar={true}
-                                                    profilePic={props.avatarUrl}
+                                                    profilePic={props.src}
                                                 ></RdsAvatar>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@ const RdsCard = (props: RdsCardProps) => {
                                         <RdsAvatar
                                             withProfilePic={true}
                                             roundedAvatar={true}
-                                            profilePic={props.avatarUrl}
+                                            profilePic={props.src}
                                         ></RdsAvatar>
                                     </div>
                                 </div>
