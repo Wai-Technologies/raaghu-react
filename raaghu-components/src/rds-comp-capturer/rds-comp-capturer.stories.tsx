@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsCompCaptureCe from "./rds-comp-capture-ce";
+import RdsCompCaptureCe from "./rds-comp-capturer";
 
 const meta: Meta = {
     title: "Components/Capturer",
