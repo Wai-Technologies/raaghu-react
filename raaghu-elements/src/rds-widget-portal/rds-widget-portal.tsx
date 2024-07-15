@@ -2,6 +2,7 @@ import React from "react";
 import RdsProgressBar from "../rds-progress-bar";
 import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
+import "./rds-widget-portal.css";
 
 export interface RdsWidgetPortalProps {
   btnShow?: boolean;
