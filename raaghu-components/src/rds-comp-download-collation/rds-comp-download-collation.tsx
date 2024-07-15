@@ -29,6 +29,7 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant="dark"
+                                    isCursorPointer={false}
                                     width="30px"
                                     height="30px"
                                 />
