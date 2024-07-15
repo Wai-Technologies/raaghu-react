@@ -14,6 +14,10 @@ button {
   color: #363636 !important;
 }
 
-.theme-dark .btn-dark svg {
+.theme-dark .btn-light svg {
+  color: #363636 !important;
+}
+
+.theme-dark svg {
   color: #fff !important;
 }
