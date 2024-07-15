@@ -390,7 +390,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                   vsItem.filter(
                                     (item: any) => item.themeId === activeTheme
                                   )[0]?.header?.headerSkin ||
-                                  "Select Header Skin"
+                                  (activeTheme === "dark" ? "Dark" : "Semidark")
                                 }
                                 selectItems={props.listskin.map(
                                   (skin: any) => ({
