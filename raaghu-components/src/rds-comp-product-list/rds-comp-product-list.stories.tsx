@@ -21,27 +21,27 @@ export const ProductListWithTitle: Story = {
     args: {
             items: [
                 {
-                    imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                    imgUrl: "./assets/inline_price.png",
                     productTitle: "Basic Tee",
                     bordered: true,
                 },
                 {
-                    imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                    imgUrl: "./assets/inline_price.png",
                     productTitle: "Basic Tee",
                     bordered: true,
                 },
                 {
-                    imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                    imgUrl: "./assets/inline_price.png",
                     productTitle: "Basic Tee",
                     bordered: true,
                 },
                 {
-                    imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                    imgUrl: "./assets/inline_price.png",
                     productTitle: "Basic Tee",
                     bordered: true,
                 },
                 {
-                    imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                    imgUrl: "./assets/inline_price.png",
                     productTitle: "Basic Tee",
                     bordered: true,
                 },
@@ -53,31 +53,31 @@ export const DefaProductListWithInfolt: Story = {
   args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                imgUrl: "./assets/inline_price.png",
                 productTitle: "Basic Tee",
                 colorLabel: "White",
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                imgUrl: "./assets/inline_price.png",
                 productTitle: "Basic Tee",
                 colorLabel: "White",
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                imgUrl: "./assets/inline_price.png",
                 productTitle: "Basic Tee",
                 colorLabel: "White",
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                imgUrl: "./assets/inline_price.png",
                 productTitle: "Basic Tee",
                 colorLabel: "White",
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/inline_price.png",
+                imgUrl: "./assets/inline_price.png",
                 productTitle: "Basic Tee",
                 colorLabel: "White",
                 bordered: true,
@@ -90,7 +90,7 @@ export const ProductListWithInlinePrice: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/earthen_bottle.png",
+                imgUrl: "./assets/earthen_bottle.png",
                 productTitle: "Earthen Bottle",
                 colorLabel: "White",
                 cost: "$35",
@@ -98,7 +98,7 @@ export const ProductListWithInlinePrice: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/tumbler_bottle.png",
+                imgUrl: "./assets/tumbler_bottle.png",
                 productTitle: "Nomad Tumbler Bottle",
                 colorLabel: "White",
                 cost: "$35",
@@ -106,7 +106,7 @@ export const ProductListWithInlinePrice: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/pure_glass_bottle.png",
+                imgUrl: "./assets/pure_glass_bottle.png",
                 productTitle: "Pure Glass Bottle",
                 colorLabel: "White",
                 cost: "$35",
@@ -121,21 +121,21 @@ export const ProductListSimple: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/earthen_bottle.png",
+                imgUrl: "./assets/earthen_bottle.png",
                 productTitle: "Earthen Bottle",
                 cost: "$35",
                 badgeWithIcon: { badge: "Quality Assured", icon: "featured" },
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/tumbler_bottle.png",
+                imgUrl: "./assets/tumbler_bottle.png",
                 productTitle: "Nomad Tumbler Bottle",
                 cost: "$35",
                 badgeWithIcon: { badge: "Quality Assured", icon: "featured" },
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/pure_glass_bottle.png",
+                imgUrl: "./assets/pure_glass_bottle.png",
                 productTitle: "Pure Glass Bottle",
                 cost: "$35",
                 badgeWithIcon: { badge: "Quality Assured", icon: "featured" },
@@ -149,7 +149,7 @@ export const ProductListCardWithFullDetails: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/finish_table.png",
+                imgUrl: "./assets/finish_table.png",
                 productTitle: "Premium Finish Table",
                 productDescription:
                     "White tees stain easily, and black tees fade. This is going to be gray for a while.",
@@ -159,7 +159,7 @@ export const ProductListCardWithFullDetails: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/wood_chair.png",
+                imgUrl: "./assets/wood_chair.png",
                 productTitle: "Premium Rose Wood Chair",
                 productDescription:
                     "White tees stain easily, and black tees fade. This is going to be gray for a while.",
@@ -169,7 +169,7 @@ export const ProductListCardWithFullDetails: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Lounge_Chair.png",
+                imgUrl: "./assets/Lounge_Chair.png",
                 productTitle: "Lounge Chair",
                 productDescription:
                     "White tees stain easily, and black tees fade. This is going to be gray for a while.",
@@ -186,7 +186,7 @@ export const ProductListWithBorder: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/school_bag_red.png",
+                imgUrl: "./assets/school_bag_red.png",
                 productTitle: "Orange Bag",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -194,7 +194,7 @@ export const ProductListWithBorder: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/school_bag_black_red.png",
+                imgUrl: "./assets/school_bag_black_red.png",
                 productTitle: "multicolor Bag",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -202,7 +202,7 @@ export const ProductListWithBorder: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/school_bag_green.png",
+                imgUrl: "./assets/school_bag_green.png",
                 productTitle: "Green Bag",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -217,7 +217,7 @@ export const WithImageOverlayAndAddButton: Story = {
   args : {
     items: [
         {
-            imgUrl: "https://angular.raaghu.ai/assets/leather_bag.png",
+            imgUrl: "./assets/leather_bag.png",
             productTitle: "Leather Hand Bag",
             colorLabel: "White",
             cost: "$35",
@@ -226,7 +226,7 @@ export const WithImageOverlayAndAddButton: Story = {
             bordered: true,
         },
         {
-            imgUrl: "https://angular.raaghu.ai/assets/leather_girls_bag.png",
+            imgUrl: "./assets/leather_girls_bag.png",
             productTitle: "Leather long Wallet",
             colorLabel: "White",
             cost: "$35",
@@ -235,7 +235,7 @@ export const WithImageOverlayAndAddButton: Story = {
             bordered: true,
         },
         {
-            imgUrl: "https://angular.raaghu.ai/assets/Leather_wallet.png",
+            imgUrl: "./assets/Leather_wallet.png",
             productTitle: "Leather Girls Bag",
             colorLabel: "White",
             cost: "$35",
@@ -244,7 +244,7 @@ export const WithImageOverlayAndAddButton: Story = {
             bordered: true,
         },
         {
-            imgUrl: "https://angular.raaghu.ai/assets/leather_office_bag.png",
+            imgUrl: "./assets/leather_office_bag.png",
             productTitle: "Leather Office Bag",
             colorLabel: "White",
             cost: "$35",
@@ -260,7 +260,7 @@ export const WithSupportingText: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Leather_long_wallet.png",
+                imgUrl: "./assets/Leather_long_wallet.png",
                 productTitle: "Leather Long Wallet",
                 colorLabel: "White",
                 cost: "$35",
@@ -270,7 +270,7 @@ export const WithSupportingText: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Pen_with_diary.png",
+                imgUrl: "./assets/Pen_with_diary.png",
                 productTitle: "Pen with Diary",
                 colorLabel: "White",
                 cost: "$35",
@@ -280,7 +280,7 @@ export const WithSupportingText: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/tea_coaster_Set_antique.png",
+                imgUrl: "./assets/tea_coaster_Set_antique.png",
                 productTitle: "Tea Coaster Set Antique",
                 colorLabel: "White",
                 cost: "$35",
@@ -290,7 +290,7 @@ export const WithSupportingText: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/wood_primer_toy.png",
+                imgUrl: "./assets/wood_primer_toy.png",
                 productTitle: "Wood Primer Toy",
                 colorLabel: "White",
                 cost: "$35",
@@ -307,7 +307,7 @@ export const WithColorSwatchesAndHorizontalScrolling: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Ink_pen.png",
+                imgUrl: "./assets/Ink_pen.png",
                 productTitle: "Premium Quality Ink Pen",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -322,7 +322,7 @@ export const WithColorSwatchesAndHorizontalScrolling: Story = {
                 ],
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Layer_glass_bottle.png",
+                imgUrl: "./assets/Layer_glass_bottle.png",
                 productTitle: "Layer Glass Water Bottle",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -337,7 +337,7 @@ export const WithColorSwatchesAndHorizontalScrolling: Story = {
                 ],
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/elegant_creative_art.png",
+                imgUrl: "./assets/elegant_creative_art.png",
                 productTitle: "Elegant Creative Art",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -352,7 +352,7 @@ export const WithColorSwatchesAndHorizontalScrolling: Story = {
                 ],
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Door_hanger.png",
+                imgUrl: "./assets/Door_hanger.png",
                 productTitle: "Door Hanger",
                 rating: 3,
                 reviews: "See all 123 reviews",
@@ -449,7 +449,7 @@ export const WithCTALink: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Leather_long_wallet.png",
+                imgUrl: "./assets/Leather_long_wallet.png",
                 productTitle: "Leather Long Wallet",
                 colorLabel: "White",
                 cost: "$35",
@@ -459,7 +459,7 @@ export const WithCTALink: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Pen_with_diary.png",
+                imgUrl: "./assets/Pen_with_diary.png",
                 productTitle: "Pen with Diary",
                 colorLabel: "White",
                 cost: "$35",
@@ -469,7 +469,7 @@ export const WithCTALink: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/tea_coaster_Set_antique.png",
+                imgUrl: "./assets/tea_coaster_Set_antique.png",
                 productTitle: "Tea Coaster Set Antique",
                 colorLabel: "White",
                 cost: "$35",
@@ -479,7 +479,7 @@ export const WithCTALink: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/wood_primer_toy.png",
+                imgUrl: "./assets/wood_primer_toy.png",
                 productTitle: "Wood Primer Toy",
                 colorLabel: "White",
                 cost: "$35",
@@ -498,7 +498,7 @@ export const WithTallImages: Story = {
     args : {
         items: [
             {
-                imgUrl: "https://angular.raaghu.ai/assets/finish_table.png",
+                imgUrl: "./assets/finish_table.png",
                 productTitle: "Premium Finish Table",
                 colorLabel: "White",
                 cost: "$35",
@@ -506,7 +506,7 @@ export const WithTallImages: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/wood_chair.png",
+                imgUrl: "./assets/wood_chair.png",
                 productTitle: "Premium Rose Wood Chair",
                 colorLabel: "White",
                 cost: "$35",
@@ -514,7 +514,7 @@ export const WithTallImages: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/Lounge_Chair.png",
+                imgUrl: "./assets/Lounge_Chair.png",
                 productTitle: "Lounge Chair",
                 colorLabel: "White",
                 cost: "$35",
@@ -522,7 +522,7 @@ export const WithTallImages: Story = {
                 bordered: true,
             },
             {
-                imgUrl: "https://angular.raaghu.ai/assets/brass_metal.png",
+                imgUrl: "./assets/brass_metal.png",
                 productTitle: "Brass Peace Sign Metal Paperweight",
                 colorLabel: "White",
                 cost: "$35",
