@@ -79,6 +79,7 @@
     "react-big-calendar": "^1.5.2",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-flow-renderer": "^10.3.17",
     "react-i18next": "^13.5.0",
     "react-lottie-player": "^1.5.5",
     "react-player": "^2.13.0",
