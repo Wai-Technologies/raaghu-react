@@ -162,8 +162,8 @@ export const Default: Story = {
             { value: "semidark", displayText: "Semidark" },
         ],
         listSubmenu: [
-            { value: "false", displayText: "Accordian" },
-            { value: "true", displayText: "Dropdown" },
+            { value: "Accordian", displayText: "Accordian" },
+            { value: "Dropdown", displayText: "Dropdown" },
         ],
         themeItem: [
             {

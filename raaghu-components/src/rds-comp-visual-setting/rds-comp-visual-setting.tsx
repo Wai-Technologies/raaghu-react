@@ -292,7 +292,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                     </div>
 
                     {props.listSubmenu && (
-                      <div className=" col-md-4 mb-3 mt-1">
+                      <div className=" col-md-4 mb-3 mt-1 mb-4">
                         <RdsSelectList
                           id="submenuToggle"
                           label="Submenu Toggle"
@@ -383,31 +383,35 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                   : ""
                               }`}
                             >
-                              <label className="mb-2">Skin</label>
-                              <select
-                                value={selectedSkin}
-                                className="form-select form-select-sm text-muted"
-                                aria-label=".form-select-sm example"
-                                onChange={onSelectListValue}
-                                name="headerSkin"
-                              >
-                                <option value="DEFAULT" disabled hidden>
-                                  {
-                                    vsItem.filter(
-                                      (item: any) => item.themeId == activeTheme
-                                    )[0]?.header?.headerSkin
-                                  }
-                                </option>
-                                {props.listskin.map((skin: any) => (
-                                  <option value={skin.value} key={skin.value}>
-                                    {skin.displayText}
-                                  </option>
-                                ))}
-                              </select>
+                              <label className="">Skin</label>
+                              <RdsSelectList
+                                id="headerSkin"
+                                placeholder={
+                                  vsItem.filter(
+                                    (item: any) => item.themeId === activeTheme
+                                  )[0]?.header?.headerSkin ||
+                                  (activeTheme === "dark" ? "Dark" : "Semidark")
+                                }
+                                selectItems={props.listskin.map(
+                                  (skin: any) => ({
+                                    option: skin.displayText,
+                                    value: skin.value,
+                                  })
+                                )}
+                                dataTestId="select-header-skin"
+                                onChange={(item: any) =>
+                                  onSelectListValue({
+                                    target: {
+                                      name: "headerSkin",
+                                      value: item.value,
+                                    },
+                                  })
+                                }
+                              />
                             </div>
                           )}
 
-                          <div className="form-group mb-3">
+                          <div className="form-group mb-4">
                             <label className="mb-2">Desktop</label>
                             <RdsCheckbox
                               onChange={onCheckboxCheck}

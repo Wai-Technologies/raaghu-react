@@ -138,7 +138,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     <div>
                         <h5 className="fw-bolder">Where you are logged in</h5>
                         <p className="fw-normal">
-                            We wll alert you via olivia@rdssysteminc.com if there is any
+                            We will alert you via olivia@rdssysteminc.com if there is any
                             unusual activity on your account.
                         </p>
                     </div>

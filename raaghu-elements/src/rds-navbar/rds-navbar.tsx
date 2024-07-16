@@ -21,7 +21,7 @@ const RdsNavbar = (props: RdsNavbarProps) => {
                         {props.title}
                     </a>
                     <button
-                        className="navbar-toggler"
+                        className="navbar-toggler mb-2"
                         type="button"
                         onClick={toggleCollapse}
                         aria-expanded={!isCollapsed}

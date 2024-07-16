@@ -46,7 +46,7 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 ></RdsLabel>
                                             </h5>
                                         </div>
-                                        <div className="d-flex justify-content-center text-muted">
+                                        <div className="d-flex justify-content-center text-muted gap-2">
                                             <RdsIcon
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
