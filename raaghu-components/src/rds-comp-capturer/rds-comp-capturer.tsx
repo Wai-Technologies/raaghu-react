@@ -12,6 +12,7 @@ export interface RdsCompCaptureCeProps {
     takeScreenshotButtonLabel?: string;
     recordScreenButtonLabel?: string;
     submitButtonLabel?: string;
+    uploadButtonLabel?: string;
     isModal: boolean;
     screenshotLimit?: number;
     videoLimit?: number;
@@ -21,7 +22,7 @@ export interface RdsCompCaptureCeProps {
 type ConsoleMessage = {
     type: "error" | "warn" | "log";
     message: any; // Consider using a more specific type than 'any' if possible
-  };
+};
 
 // Create a global array to store all console messages
 const consoleMessages: ConsoleMessage[] = [];
@@ -55,7 +56,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const RecordScreenColor = "outline-primary";
     const SubmitButtonLabel = props.submitButtonLabel || "Submit";
     const SubmitButtonColor = "outline-primary";
-    const UploadButtonLabel = props.recordScreenButtonLabel || "Upload image/video";
+    const UploadButtonLabel = props.uploadButtonLabel || "Upload image/video";
     const UploadButtonColor = "outline-primary";
     const ScreenshotLimit = props.screenshotLimit || 3;
     const VideoLimit = props.videoLimit || 1;
@@ -343,7 +344,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 dataTestId="description"
                 onChange={(e) => setDescription(e.target.value)}
             />
-            <RdsModal
+            {/* <RdsModal
                 modalId="feedbackModal"
                 modalAnimation="modal fade"
                 showModalFooter={true}
@@ -386,139 +387,139 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 cancelButtonName="CANCEL"
                 saveChangesName="SUBMIT"
                 modalBackdrop="static"
-            >
-                <form onSubmit={handleSubmit}>
-                    <div className="text-start mb-1">
-                        <RdsInput
-                            customClasses="no-blur"
-                            label="Bug Title"
-                            placeholder="Login Issue"
-                            inputType="text"
-                            onChange={(e) => setBugTitle(e.target.value)}
-                            value={bugTitle}
-                            name="bugTitle"
-                            required={true}
-                            labelPosition="top"
-                            dataTestId="bugTitle"
-                            id=""
-                            reset={inputReset}
-                            size="medium"
+            > */}
+            <form onSubmit={handleSubmit}>
+                <div className="text-start mb-1">
+                    <RdsInput
+                        customClasses="no-blur"
+                        label="Bug Title"
+                        placeholder="Login Issue"
+                        inputType="text"
+                        onChange={(e) => setBugTitle(e.target.value)}
+                        value={bugTitle}
+                        name="bugTitle"
+                        required={true}
+                        labelPosition="top"
+                        dataTestId="bugTitle"
+                        id=""
+                        reset={inputReset}
+                        size="medium"
+                    />
+                    <RdsInput
+                        customClasses="no-blur"
+                        label="Email"
+                        placeholder="john.doe@gmail.com"
+                        inputType="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        name="email"
+                        required={true}
+                        labelPosition="top"
+                        dataTestId="email"
+                        id=""
+                        readonly={true}
+                        reset={inputReset}
+                        size="medium"
+                        validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                        validationMsg="Please Enter Valid Email Address."
+                    />
+                    <RdsTextArea
+                        label="Describe the issue"
+                        placeholder="I am facing bug regarding..."
+                        isRequired={false}
+                        readonly={false}
+                        labelPosition="top"
+                        value={description}
+                        dataTestId="description"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px", marginTop: "15px" }}>
+                        <RdsButton
+                            id="captureScreenshotBtn"
+                            class="me-2"
+                            label={CaptureScreenshotLabel}
+                            icon="camera"
+                            type="button"
+                            colorVariant={CaptureScreenshotColor}
+                            size="small"
+                            databsdismiss="modal"
+                            dataTestId="captureScreenshotBtn"
+                            onClick={handleCaptureScreenshot}
+                            isDisabled={screenshots.length >= ScreenshotLimit || isSelecting}
                         />
-                        <RdsInput
-                            customClasses="no-blur"
-                            label="Email"
-                            placeholder="john.doe@gmail.com"
-                            inputType="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            name="email"
-                            required={true}
-                            labelPosition="top"
-                            dataTestId="email"
-                            id=""
-                            readonly={true}
-                            reset={inputReset}
-                            size="medium"
-                            validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                            validationMsg="Please Enter Valid Email Address."
+                        <RdsButton
+                            id="recordScreenBtn"
+                            class="me-2"
+                            label={RecordScreenLabel}
+                            icon="camera-video"
+                            type="button"
+                            colorVariant={RecordScreenColor}
+                            size="small"
+                            databsdismiss="modal"
+                            dataTestId="recordScreenBtn"
+                            onClick={handleStartRecording}
+                            isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
                         />
-                        <RdsTextArea
-                            label="Describe the issue"
-                            placeholder="I am facing bug regarding..."
-                            isRequired={false}
-                            readonly={false}
-                            labelPosition="top"
-                            value={description}
-                            dataTestId="description"
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px", marginTop: "15px" }}>
-                            <RdsButton
-                                id="captureScreenshotBtn"
-                                class="me-2"
-                                label={CaptureScreenshotLabel}
-                                icon="camera"
-                                type="button"
-                                colorVariant={CaptureScreenshotColor}
-                                size="small"
-                                databsdismiss="modal"
-                                dataTestId="captureScreenshotBtn"
-                                onClick={handleCaptureScreenshot}
-                                isDisabled={screenshots.length >= ScreenshotLimit || isSelecting}
-                            />
-                            <RdsButton
-                                id="recordScreenBtn"
-                                class="me-2"
-                                label={RecordScreenLabel}
-                                icon="camera-video"
-                                type="button"
-                                colorVariant={RecordScreenColor}
-                                size="small"
-                                databsdismiss="modal"
-                                dataTestId="recordScreenBtn"
-                                onClick={handleStartRecording}
-                                isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
-                            />
-                            <div>
-                                <label htmlFor="upload" className="btn btn-sm btn-outline-primary" style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}>
-                                    Upload
-                                </label>
-                                <input
-                                    type="file"
-                                    id="upload"
-                                    style={{ display: "none" }}
-                                    accept="image/*,video/*"
-                                    disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
-                                    onChange={(e) => {
-                                        if (e.target.files) {
-                                            const file = e.target.files[0];
-                                            const type = file.type.split("/")[0];
-                                
-                                            // Step 2: Check if video limit is reached
-                                            if (type === "video" && videos.length >= VideoLimit) {
-                                                alert("You have reached your maximum video limit.");
-                                                e.target.value = ""; // Reset the input value
-                                                return; // Exit early
-                                            }
-                                
-                                            // Step 3: Check if screenshot limit is reached
-                                            if (type === "image" && screenshots.length >= ScreenshotLimit) {
-                                                alert("You have reached your maximum screenshot limit.");
-                                                e.target.value = ""; // Reset the input value
-                                                return; // Exit early
-                                            }
-                                
-                                            // Existing logic for processing the file
-                                            if (type === "image") {
-                                                if (screenshots.length < ScreenshotLimit) {
-                                                    setScreenshots((prevScreenshots) => [...prevScreenshots, file]);
-                                                }
-                                            } else if (type === "video") {
-                                                const video = document.createElement("video");
-                                                video.preload = "metadata";
-                                                video.src = URL.createObjectURL(file);
-                                
-                                                video.onloadedmetadata = () => {
-                                                    URL.revokeObjectURL(video.src); // Clean up the URL object
-                                
-                                                    const duration = video.duration;
-                                                    if (duration < 5) {
-                                                        alert("Video is too short. It must be longer than 5 seconds.");
-                                                    } else if (duration > 120) {
-                                                        alert("Video is too long. It must be less than 2 minutes.");
-                                                    } else if (videos.length < VideoLimit) {
-                                                        // If the video duration is within the limits, add it to the videos array
-                                                        setVideos((prevVideos) => [...prevVideos, file]);
-                                                    }
-                                                };
-                                            }
-                                            // Reset the input value
-                                            e.target.value = "";
+                        <div>
+                            <label htmlFor="upload" className="btn btn-sm btn-outline-primary" style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}>
+                                {UploadButtonLabel}
+                            </label>
+                            <input
+                                type="file"
+                                id="upload"
+                                style={{ display: "none" }}
+                                accept="image/*,video/*"
+                                disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
+                                onChange={(e) => {
+                                    if (e.target.files) {
+                                        const file = e.target.files[0];
+                                        const type = file.type.split("/")[0];
+
+                                        // Step 2: Check if video limit is reached
+                                        if (type === "video" && videos.length >= VideoLimit) {
+                                            alert("You have reached your maximum video limit.");
+                                            e.target.value = ""; // Reset the input value
+                                            return; // Exit early
                                         }
-                                    }}
-                                />
-                            </div>
-                            {/* <RdsButton
+
+                                        // Step 3: Check if screenshot limit is reached
+                                        if (type === "image" && screenshots.length >= ScreenshotLimit) {
+                                            alert("You have reached your maximum screenshot limit.");
+                                            e.target.value = ""; // Reset the input value
+                                            return; // Exit early
+                                        }
+
+                                        // Existing logic for processing the file
+                                        if (type === "image") {
+                                            if (screenshots.length < ScreenshotLimit) {
+                                                setScreenshots((prevScreenshots) => [...prevScreenshots, file]);
+                                            }
+                                        } else if (type === "video") {
+                                            const video = document.createElement("video");
+                                            video.preload = "metadata";
+                                            video.src = URL.createObjectURL(file);
+
+                                            video.onloadedmetadata = () => {
+                                                URL.revokeObjectURL(video.src); // Clean up the URL object
+
+                                                const duration = video.duration;
+                                                if (duration < 5) {
+                                                    alert("Video is too short. It must be longer than 5 seconds.");
+                                                } else if (duration > 120) {
+                                                    alert("Video is too long. It must be less than 2 minutes.");
+                                                } else if (videos.length < VideoLimit) {
+                                                    // If the video duration is within the limits, add it to the videos array
+                                                    setVideos((prevVideos) => [...prevVideos, file]);
+                                                }
+                                            };
+                                        }
+                                        // Reset the input value
+                                        e.target.value = "";
+                                    }
+                                }}
+                            />
+                        </div>
+                        {/* <RdsButton
                             id="submitBtn"
                             class="me-2"
                             label={SubmitButtonLabel}
@@ -530,28 +531,28 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             dataTestId="submitBtn"
                             onClick={handleSubmit}
                         /> */}
-                            {isRecording && (
-                                <div>
-                                    <RdsButton
-                                        label="Stop Recording"
-                                        type="button"
-                                        colorVariant="danger"
-                                        size="small"
-                                        onClick={handleStopRecording}
-                                    />
-                                    {
-                                        status && status !== "stopped" && (
-                                            <div style={{ marginTop: "15px" }}>
-                                                <RdsBadge
-                                                    className="badge badge-success"
-                                                    label="Recording..."
-                                                    size="small"
-                                                    badgeType="rectangle"
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                    {/* {
+                        {isRecording && (
+                            <div>
+                                <RdsButton
+                                    label="Stop Recording"
+                                    type="button"
+                                    colorVariant="danger"
+                                    size="small"
+                                    onClick={handleStopRecording}
+                                />
+                                {
+                                    status && status !== "stopped" && (
+                                        <div style={{ marginTop: "15px" }}>
+                                            <RdsBadge
+                                                className="badge badge-success"
+                                                label="Recording..."
+                                                size="small"
+                                                badgeType="rectangle"
+                                            />
+                                        </div>
+                                    )
+                                }
+                                {/* {
                                     status && status === "recording" && (
                                         <div>
                                             <p style={{ paddingRight: "7px"}}>Screen Recording Status:
@@ -565,61 +566,61 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                         </div>
                                     )
                                 } */}
-                                </div>
-                            )}
-                        </div>
-                        {screenshots.length >= ScreenshotLimit && (
-                            <div style={{ color: "red", marginBottom: "10px" }}>
-                                Maximum limit for screenshots is {ScreenshotLimit}.
                             </div>
                         )}
-                        {videos.length >= VideoLimit && (
-                            <div style={{ color: "red", marginBottom: "10px" }}>
-                                Maximum limit for videos is {VideoLimit}.
-                            </div>
-                        )}
-                        <div className="mb-2">
-                            <div className="d-flex flex-wrap gap-3" style={{ marginBottom: "15px" }}>
-                                {screenshots.map((screenshot, index) => (
-                                    <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedScreenshot === screenshot ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
-                                        <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera" viewBox="0 0 16 16">
-                                                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z" />
-                                                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
-                                            </svg>
-                                            <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedScreenshot === screenshot ? "white" : "black"*/ }}>{`Screenshot_${index + 1}`}</span>
-                                        </div>
-                                        <button id="deleteScreenshot" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteScreenshot(index)} />
-                                    </div>
-                                ))}
-                                {videos.map((video, index) => (
-                                    <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedVideo === video ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
-                                        <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera-video" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" />
-                                            </svg>
-                                            <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedVideo === video ? "white" : "black"*/ }}>{`Video_${index + 1}`}</span>
-                                        </div>
-                                        <button id="deleteVideo" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteVideo(index)} />
-                                    </div>
-                                ))}
-                            </div>
-                            {
-                                selectedVideo &&
-                                <div id="videoArea" className="video-responsive">
-                                    <video autoPlay controls loop src={URL.createObjectURL(selectedVideo)}></video>
-                                </div>
-                            }
-                            {
-                                selectedScreenshot &&
-                                <div id="screenshotArea">
-                                    <img className="img-fluid rounded" src={URL.createObjectURL(selectedScreenshot)} style={{ background: "black", height: "auto", width: "100%" }}></img>
-                                </div>
-                            }
-                        </div>
                     </div>
-                </form>
-            </RdsModal>
+                    {screenshots.length >= ScreenshotLimit && (
+                        <div style={{ color: "red", marginBottom: "10px" }}>
+                            Maximum limit for screenshots is {ScreenshotLimit}.
+                        </div>
+                    )}
+                    {videos.length >= VideoLimit && (
+                        <div style={{ color: "red", marginBottom: "10px" }}>
+                            Maximum limit for videos is {VideoLimit}.
+                        </div>
+                    )}
+                    <div className="mb-2">
+                        <div className="d-flex flex-wrap gap-3" style={{ marginBottom: "15px" }}>
+                            {screenshots.map((screenshot, index) => (
+                                <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedScreenshot === screenshot ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
+                                    <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera" viewBox="0 0 16 16">
+                                            <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z" />
+                                            <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+                                        </svg>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedScreenshot === screenshot ? "white" : "black"*/ }}>{`Screenshot_${index + 1}`}</span>
+                                    </div>
+                                    <button id="deleteScreenshot" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteScreenshot(index)} />
+                                </div>
+                            ))}
+                            {videos.map((video, index) => (
+                                <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedVideo === video ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
+                                    <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera-video" viewBox="0 0 16 16">
+                                            <path fillRule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" />
+                                        </svg>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedVideo === video ? "white" : "black"*/ }}>{`Video_${index + 1}`}</span>
+                                    </div>
+                                    <button id="deleteVideo" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteVideo(index)} />
+                                </div>
+                            ))}
+                        </div>
+                        {
+                            selectedVideo &&
+                            <div id="videoArea" className="video-responsive">
+                                <video autoPlay controls loop src={URL.createObjectURL(selectedVideo)}></video>
+                            </div>
+                        }
+                        {
+                            selectedScreenshot &&
+                            <div id="screenshotArea">
+                                <img className="img-fluid rounded" src={URL.createObjectURL(selectedScreenshot)} style={{ background: "black", height: "auto", width: "100%" }}></img>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </form>
+            {/* </RdsModal> */}
 
             {isSelecting && (
                 <div
