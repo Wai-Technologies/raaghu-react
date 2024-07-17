@@ -55,6 +55,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const RecordScreenColor = "outline-primary";
     const SubmitButtonLabel = props.submitButtonLabel || "Submit";
     const SubmitButtonColor = "outline-primary";
+    const UploadButtonLabel = props.recordScreenButtonLabel || "Upload image/video";
+    const UploadButtonColor = "outline-primary";
     const ScreenshotLimit = props.screenshotLimit || 3;
     const VideoLimit = props.videoLimit || 1;
 
@@ -215,7 +217,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         screen: true,
         audio: false,
         onStop: async (blobUrl, videoToAdd) => {
-            if (videoToAdd && videoToAdd.size > 0 && videoToAdd.size / videoToAdd.type.length > 10 * 1024) {
+            if (videoToAdd && videoToAdd.size > 0 && videoToAdd.size / videoToAdd.type.length > 5 * 1024) {
                 const videoName = `Video_${videos.length + 1}`;
                 setVideos((existingVideosArray) => [...existingVideosArray, videoToAdd]);
                 const videoData = await getBase64Image(videoToAdd);
@@ -457,6 +459,65 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                 onClick={handleStartRecording}
                                 isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
                             />
+                            <div>
+                                <label htmlFor="upload" className="btn btn-sm btn-outline-primary" style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}>
+                                    Upload
+                                </label>
+                                <input
+                                    type="file"
+                                    id="upload"
+                                    style={{ display: "none" }}
+                                    accept="image/*,video/*"
+                                    disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
+                                    onChange={(e) => {
+                                        if (e.target.files) {
+                                            const file = e.target.files[0];
+                                            const type = file.type.split("/")[0];
+                                
+                                            // Step 2: Check if video limit is reached
+                                            if (type === "video" && videos.length >= VideoLimit) {
+                                                alert("You have reached your maximum video limit.");
+                                                e.target.value = ""; // Reset the input value
+                                                return; // Exit early
+                                            }
+                                
+                                            // Step 3: Check if screenshot limit is reached
+                                            if (type === "image" && screenshots.length >= ScreenshotLimit) {
+                                                alert("You have reached your maximum screenshot limit.");
+                                                e.target.value = ""; // Reset the input value
+                                                return; // Exit early
+                                            }
+                                
+                                            // Existing logic for processing the file
+                                            if (type === "image") {
+                                                if (screenshots.length < ScreenshotLimit) {
+                                                    setScreenshots((prevScreenshots) => [...prevScreenshots, file]);
+                                                }
+                                            } else if (type === "video") {
+                                                const video = document.createElement("video");
+                                                video.preload = "metadata";
+                                                video.src = URL.createObjectURL(file);
+                                
+                                                video.onloadedmetadata = () => {
+                                                    URL.revokeObjectURL(video.src); // Clean up the URL object
+                                
+                                                    const duration = video.duration;
+                                                    if (duration < 5) {
+                                                        alert("Video is too short. It must be longer than 5 seconds.");
+                                                    } else if (duration > 120) {
+                                                        alert("Video is too long. It must be less than 2 minutes.");
+                                                    } else if (videos.length < VideoLimit) {
+                                                        // If the video duration is within the limits, add it to the videos array
+                                                        setVideos((prevVideos) => [...prevVideos, file]);
+                                                    }
+                                                };
+                                            }
+                                            // Reset the input value
+                                            e.target.value = "";
+                                        }
+                                    }}
+                                />
+                            </div>
                             {/* <RdsButton
                             id="submitBtn"
                             class="me-2"
