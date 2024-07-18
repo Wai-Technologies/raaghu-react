@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import Chart from "chart.js/auto";
+import React, { useEffect, useRef } from "react";
+import Chart, { ChartConfiguration } from "chart.js/auto";
 
 export interface RdsScatterChartProps {
     labels: any[],
-    options: any,
-    dataSets: any[],
+    options: ChartConfiguration['options'],
+    dataSets: ChartConfiguration['data']['datasets'],
     width: number,
     height?: number,
     chartStyle?: string,
@@ -12,31 +12,41 @@ export interface RdsScatterChartProps {
 }
 
 const RdsScatterChart = (props: RdsScatterChartProps) => {
-    const CanvasId = props.id;
-    let ctx;
-
+    const { id, labels, options, dataSets, width, height } = props;
+    const chartRef = useRef<Chart | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
-        const canvasElm = document.getElementById(
-            CanvasId
-        ) as HTMLCanvasElement | null;
-        ctx = canvasElm?.getContext("2d") as CanvasRenderingContext2D;
+        if (chartRef.current) {
+            chartRef.current.destroy();
+        }
 
-        const ScatterCanvas = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: props.labels,
-                datasets: props.dataSets
-            },
-            options: props.options,
-        });
-        ScatterCanvas.canvas.style.height = props.height + "px";
-        ScatterCanvas.canvas.style.width = props.width + "px";
-    });
+        const ctx = canvasRef.current?.getContext("2d");
+        if (ctx) {
+            chartRef.current = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: dataSets
+                },
+                options: options,
+            });
+            if (height) {
+                chartRef.current.canvas.style.height = height + "px";
+            }
+            chartRef.current.canvas.style.width = width + "px";
+        }
+
+        return () => {
+            if (chartRef.current) {
+                chartRef.current.destroy();
+            }
+        };
+    }, [id, labels, options, dataSets, width, height]);
 
     return (
         <div>
-            <canvas id={CanvasId} ref={ctx} />
+            <canvas id={id} ref={canvasRef} />
         </div>
     );
 };
