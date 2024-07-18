@@ -446,9 +446,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
                         return;
                     } else {
-                        if (duration < 5) {
+                        if (duration < VideoMinDuration) {
                             alert(`Video is too short. It must be longer than ${VideoMinDuration} seconds.`);
-                        } else if (duration > 120) {
+                        } else if (duration > VideoMaxDuration) {
                             alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000 } minutes.`);
                         } else if (videos.length < VideoLimit) {
                             // If the video duration is within the limits, add it to the videos array
