@@ -15,8 +15,18 @@ export interface RdsCompCaptureCeProps {
     uploadButtonLabel?: string;
     isModal: boolean;
     screenshotLimit?: number;
-    videoLimit?: number;
     email?: string;
+
+    // Video Settings
+    videoLimit?: number;
+    videoWidth?: number;
+    videoHeight?: number;
+    videoMimeType?: string;
+    videoAudioBitsPerSecond?: number;
+    videoVideoBitsPerSecond?: number;
+    VideoSizeInMb?: number;
+    videoMinDuration?: number;
+    videoMaxDuration?: number;
 }
 
 // Define a type for the message objects
@@ -75,7 +85,17 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const UploadButtonColor = "outline-primary";
     const EmailValue = props.email || "";
     const ScreenshotLimit = props.screenshotLimit || 3;
+
+    // Video Settings
     const VideoLimit = props.videoLimit || 1;
+    const VideoWidth = props.videoWidth || 7680;
+    const VideoHeight = props.videoHeight || 4320;
+    const VideoMimeType = props.videoMimeType || "video/mp4";
+    const VideoAudioBitsPerSecond = props.videoAudioBitsPerSecond || 128000;
+    const VideoVideoBitsPerSecond = props.videoVideoBitsPerSecond || 5000000;
+    const VideoSizeInMb = props.VideoSizeInMb || 20;
+    const VideoMinDuration = props.videoMinDuration || 5;
+    const VideoMaxDuration = props.videoMaxDuration || 120;
 
     const [email, setEmail] = useState("");
     const [bugTitle, setBugTitle] = useState("");
@@ -240,14 +260,29 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     let { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({
         screen: true,
         audio: false,
+        video: {
+            // Specify the resolution as 720p
+            width: VideoWidth,
+            height: VideoHeight
+        },
+        mediaRecorderOptions: {
+            mimeType: VideoMimeType,
+            audioBitsPerSecond: VideoAudioBitsPerSecond,
+            videoBitsPerSecond: VideoVideoBitsPerSecond,
+        },
         onStop: async (blobUrl, videoToAdd) => {
-            if (videoToAdd && videoToAdd.size > 0 && videoToAdd.size / videoToAdd.type.length > 5 * 1024) {
-                const videoName = `Video_${videos.length + 1}`;
-                setVideos((existingVideosArray) => [...existingVideosArray, videoToAdd]);
-                const videoData = await getBase64Image(videoToAdd);
-                localStorage.setItem(videoName, videoData);
+            // Validate the video size after recording
+            if (videoToAdd && videoToAdd.size > 0) {
+                if (videoToAdd.size <= VideoSizeInMb * 1024 * 1024) {
+                    const videoName = `Video_${videos.length + 1}`;
+                    setVideos((existingVideosArray) => [...existingVideosArray, videoToAdd]);
+                    const videoData = await getBase64Image(videoToAdd);
+                    localStorage.setItem(videoName, videoData);
+                } else {
+                    alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
+                }
             } else {
-                alert("Video length should be more than 10 seconds.");
+                alert(`Video length should be more than ${VideoMinDuration} seconds.`);
             }
         },
     });
@@ -259,7 +294,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         handleBlurEffect(true);
         setTimeout(() => {
             handleStopRecording();
-        }, 120000);
+        }, VideoMaxDuration * 1000);
         if (modalRef.current) {
             modalRef.current.hide();
         }
@@ -591,13 +626,19 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                                 URL.revokeObjectURL(video.src); // Clean up the URL object
 
                                                 const duration = video.duration;
-                                                if (duration < 5) {
-                                                    alert("Video is too short. It must be longer than 5 seconds.");
-                                                } else if (duration > 120) {
-                                                    alert("Video is too long. It must be less than 2 minutes.");
-                                                } else if (videos.length < VideoLimit) {
-                                                    // If the video duration is within the limits, add it to the videos array
-                                                    setVideos((prevVideos) => [...prevVideos, file]);
+                                                const size = file.size;
+                                                if (size > VideoSizeInMb * 1024 * 1024) {
+                                                    alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
+                                                    return;
+                                                } else {
+                                                    if (duration < 5) {
+                                                        alert(`Video is too short. It must be longer than ${VideoMinDuration} seconds.`);
+                                                    } else if (duration > 120) {
+                                                        alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000 } minutes.`);
+                                                    } else if (videos.length < VideoLimit) {
+                                                        // If the video duration is within the limits, add it to the videos array
+                                                        setVideos((prevVideos) => [...prevVideos, file]);
+                                                    }
                                                 }
                                             };
                                         }
