@@ -183,7 +183,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             default:
                 break;
             }
-        }); // This closing bracket was missing
+        });
         if (modalRef.current) {
             modalRef.current.hide();
         }
@@ -201,11 +201,11 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             windowWidth: document.documentElement.offsetWidth,
             windowHeight: document.documentElement.offsetHeight,
         }).then((canvas) => {
-            canvas.toBlob(async (blob) => {
-                if (blob) {
+            canvas.toBlob(async (screenshotToAdd) => {
+                if (screenshotToAdd) {
                     const screenshotName = `Screenshot_${screenshots.length + 1}`;
-                    setScreenshots((prevScreenshots) => [...prevScreenshots, blob]);
-                    const imgData = await getBase64Image(blob);
+                    setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
+                    const imgData = await getBase64Image(screenshotToAdd);
                     localStorage.setItem(screenshotName, imgData);
                     document.getElementById("feedback")?.click();
                 }
@@ -220,11 +220,11 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             // tempCtx.filter = "blur(5px)"; // Apply blur effect
             // tempCtx.drawImage(canvas, 0, 0);
 
-            // tempCanvas.toBlob(async (blob) => {
-            //     if (blob) {
+            // tempCanvas.toBlob(async (screenshotToAdd) => {
+            //     if (screenshotToAdd) {
             //         const screenshotName = `Screenshot_${screenshots.length + 1}`;
-            //         setScreenshots((prevScreenshots) => [...prevScreenshots, blob]);
-            //         const imgData = await getBase64Image(blob);
+            //         setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
+            //         const imgData = await getBase64Image(screenshotToAdd);
             //         localStorage.setItem(screenshotName, imgData);
             //         document.getElementById("feedback")?.click();
             //     }
@@ -430,7 +430,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             // Existing logic for processing the file
             if (type === "image") {
                 if (screenshots.length < ScreenshotLimit) {
-                    setScreenshots((prevScreenshots) => [...prevScreenshots, file]);
+                    setScreenshots((existingScreenshots) => [...existingScreenshots, file]);
                 }
             } else if (type === "video") {
                 const video = document.createElement("video");
