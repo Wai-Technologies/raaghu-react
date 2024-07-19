@@ -34,6 +34,7 @@ export interface RdsIconProps {
     isContinueAnimate?: boolean;
     hovered?: boolean;
     isHovered?: boolean;
+    isCursorPointer?: boolean; // New prop for cursor-pointer class
 }
 
 const RdsIcon = (props: RdsIconProps) => {
@@ -175,6 +176,9 @@ const RdsIcon = (props: RdsIconProps) => {
         setIsHovered(false);
     };
 
+    const className = `${props.isCursorPointer ? 'cursor-pointer' : ''} ${props.classes}`;
+
+
     return (<>
         {props.type === "lottie" && (
             <>
@@ -238,7 +242,7 @@ const RdsIcon = (props: RdsIconProps) => {
                 {props.tooltip ? (
                     <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
                         <span
-                            className={`cursor-pointer ${props.classes}`}
+                            className={className}
                             onClick={props.onClick}
                             dangerouslySetInnerHTML={{ __html: stringData }}
                             role="img"
@@ -251,7 +255,7 @@ const RdsIcon = (props: RdsIconProps) => {
                         ></span>
                     </Tooltip>
                 ) : <span
-                    className={`cursor-pointer ${props.classes}`}
+                    className={className}
                     onClick={props.onClick}
                     dangerouslySetInnerHTML={{ __html: stringData }}
                     role="img"

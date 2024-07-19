@@ -38,11 +38,11 @@ const RdsPieChart = (props: RdsPieProps) => {
     }
   }, [props]);
 
-  return (
-    <div>
-      <canvas id={props.id} ref={canvasRef} />
-    </div>
-  );
+    return (
+        <div className="chart-container">
+            <canvas id={props.id} ref={canvasRef} />
+        </div>
+    );
 };
 
 export default RdsPieChart;
