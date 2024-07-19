@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
 import { useReactMediaRecorder } from "react-media-recorder";
 import domToImage from "dom-to-image";
-// import html2canvas from "html2canvas";
+import html2canvas from "html2canvas";
+import * as htmlToImage from "html-to-image";
+import { toPng } from "html-to-image";
 // import { handleError } from "./logger";
 
 export interface RdsCompCaptureCeProps {
@@ -91,7 +93,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const VideoLimit = props.videoLimit || 1;
     const VideoWidth = props.videoWidth || 7680;
     const VideoHeight = props.videoHeight || 4320;
-    const VideoMimeType = props.videoMimeType || "video/mp4";
+    const VideoMimeType = props.videoMimeType || "video/webm";
     const VideoAudioBitsPerSecond = props.videoAudioBitsPerSecond || 128000;
     const VideoVideoBitsPerSecond = props.videoVideoBitsPerSecond || 5000000;
     const VideoSizeInMb = props.VideoSizeInMb || 20;
@@ -121,7 +123,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     }, [props.reset]);
 
     useEffect(() => {
-        // debugger;
         window.addEventListener("error", /*handleError*/ originalConsoleError);
         return () => {
             window.removeEventListener("error", /*handleError*/originalConsoleError);
@@ -166,61 +167,92 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     const handleCaptureScreenshot = () => {
         if (screenshots.length >= ScreenshotLimit) return;
-        // Log all stored console messages
-        consoleMessages.forEach(msg => {
-            switch (msg.type) {
-            case "error":
-                originalConsoleError.apply(console, msg.message);
-                break;
-            case "warn":
-                originalConsoleWarn.apply(console, msg.message);
-                break;
-            case "log":
-                originalConsoleLog.apply(console, msg.message);
-                break;
-            case "fetch":
-                originalFetchLog.apply(console, msg.message);
-                break;
-            default:
-                break;
-            }
-        });
+        // // Ensure consoleMessages is an array before iterating
+        // if (Array.isArray(consoleMessages)) {
+        //     consoleMessages.forEach(msg => {
+        //         switch (msg.type) {
+        //         case "error":
+        //             originalConsoleError.apply(console, msg.message);
+        //             break;
+        //         case "warn":
+        //             originalConsoleWarn.apply(console, msg.message);
+        //             break;
+        //         case "log":
+        //             originalConsoleLog.apply(console, msg.message);
+        //             break;
+        //         case "fetch":
+        //             originalFetchLog.apply(console, msg.message);
+        //             break;
+        //         default:
+        //             break;
+        //         }
+        //     });
+        // } else {
+        //     console.error("consoleMessages is not an array:", consoleMessages);
+        // }
         if (modalRef.current) {
             modalRef.current.hide();
         }
         setIsSelecting(true);
     };
 
-    const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
-        // Blur inputs and textareas before capturing
-        const inputs = document.querySelectorAll("input, textarea");
-        inputs.forEach((input) => {
-            (input as HTMLInputElement).style.filter = "blur(5px)";
-        });
+    // const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
+    //     html2canvas(document.body, {
+    //         x,
+    //         y,
+    //         width,
+    //         height,
+    //         scrollX: -window.scrollX,
+    //         scrollY: -window.scrollY,
+    //         windowWidth: document.documentElement.offsetWidth,
+    //         windowHeight: document.documentElement.offsetHeight,
+    //     }).then((canvas) => {
+    //         canvas.toBlob(async (blob) => {
+    //             if (blob) {
+    //                 const screenshotName = `Screenshot_${screenshots.length + 1}`;
+    //                 setScreenshots((prevScreenshots) => [...prevScreenshots, blob]);
+    //                 const imgData = await getBase64Image(blob);
+    //                 localStorage.setItem(screenshotName, imgData);
+    //                 document.getElementById("feedback")?.click();
+    //             }
+    //         });
+    //     });
+    // };
 
-        domToImage.toBlob(document.body, {
-            style: {
-                transform: `translate(${-x}px, ${-y}px)`,
-                width: `${document.documentElement.offsetWidth}px`,
-                height: `${document.documentElement.offsetHeight}px`,
-                position: "absolute",
-            },
-            width,
-            height,
-        }).then(async (screenshotToAdd) => {
-            if (screenshotToAdd) {
-                const screenshotName = `Screenshot_${screenshots.length + 1}`;
-                setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
-                const imgData = await getBase64Image(screenshotToAdd);
-                localStorage.setItem(screenshotName, imgData);
-                document.getElementById("feedback")?.click();
-            }
-
-            // Revert blur effect after capturing
-            inputs.forEach((input) => {
-                (input as HTMLInputElement).style.filter = "";
+    const captureSelectedArea = async ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {    
+        try {
+            
+            // Capture screenshot
+            await htmlToImage.toBlob(document.body, {
+                style: {
+                    transform: `translate(${-x}px, ${-y}px)`,
+                    width: `${document.documentElement.offsetWidth}px`,
+                    height: `${document.documentElement.offsetHeight}px`,
+                    position: "absolute",
+                },
+                type: "image/jpeg",
+                width,
+                height,
+                quality: 1,
+            }).then(async (screenshotToAdd) => {
+                if (screenshotToAdd) {
+                    setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
+                    const screenshotName = `Screenshot_${screenshots.length + 1}`;
+                    const imgData = await getBase64Image(screenshotToAdd);
+                    localStorage.setItem(screenshotName, imgData);
+                    if (modalRef.current) {
+                        modalRef.current.show();
+                    }
+                    if (isItModal) {
+                        document.getElementById("feedback")?.click();
+                    }
+                }
             });
-        });
+        } catch (error) {
+            console.error("Error capturing screenshot:", error);
+        } finally {
+            // setIsSelecting(false);
+        }
     };
 
     const handleDeleteScreenshot = (index: number) => {
@@ -319,7 +351,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
 
     useEffect(() => {
-        if (isRecording) {
+        if (isSelecting || isRecording) {
             handleBlurEffect(true); // Apply blur effect
         } else {
             handleBlurEffect(false); // Remove blur effect
