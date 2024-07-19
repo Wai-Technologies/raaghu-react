@@ -263,7 +263,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
                               dataTestId="applicationUrl"
                               validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                              validationMsg="Enter valid url"
+                              validationMsg="Enter Valid URL Format"
                               required
                            ></RdsInput>
                         </div>
