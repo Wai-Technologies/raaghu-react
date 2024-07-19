@@ -30,7 +30,7 @@ export const Default: Story = {
                value: 'hybrid'
             },
             {
-               option: 'implicit',
+               option: 'Implicit',
                value: 'implicit'
             },
             {

@@ -121,7 +121,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
 
     return (
         <div className="pt-3">
-            <div className="overflow-x-hidden overflow-y-auto card-custom-scroll">
+            <div className="overflow-x-hidden overflow-y-auto custom-content-scroll">
                 <form>
                     <div className="row px-2">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -154,6 +154,10 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 onChange={(e: any) => handleChangeform(e.target.value, "defaultFromAddress")}
                                 dataTestId="sender-email"
                                 reset={inputReset}
+                                validatonPattern={
+                                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                                  }
+                                  validationMsg="Please Enter Valid Email Address."
                             ></RdsInput>
                         </div>
                         <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
@@ -191,14 +195,14 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     </div>
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                            <RdsCheckbox label="Enable Ssl" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
+                            <RdsCheckbox label="Enable SSL" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
-                                label="Smtp Use Default Credentials"
+                                label="SMTP Use Default Credentials"
                                 onChange={(e: any) => { handleChangeform(e.target.checked, "smtpUseDefaultCredentials"); }}
                                 checked={formData?.smtpUseDefaultCredentials}
                                 dataTestId="use-default-credential"
@@ -208,7 +212,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     {condition}
                 </form>
             </div>
-            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 ms-2 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                 <div>
                     <RdsButton
                         label="Save"
@@ -254,6 +258,10 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 size="medium"
                                                 value={sendTestEmailData?.senderEmailAddress}
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "senderEmailAddress")}
+                                                validatonPattern={
+                                                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                                                  }
+                                                  validationMsg="Please Enter Valid Email Address."
                                             />
                                         </div>
                                         <div className="col-6">
@@ -268,6 +276,10 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                                 size="medium"
                                                 value={sendTestEmailData?.targetEmailAddress}
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "targetEmailAddress")}
+                                                validatonPattern={
+                                                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                                                  }
+                                                  validationMsg="Please Enter Valid Email Address."
                                             />
                                         </div>
                                     </div>

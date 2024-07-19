@@ -1,7 +1,7 @@
 import React from "react";
 import { RdsAppDetail, RdsButton, RdsSpinner } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-
+import './rds-comp-integration.css'
 export interface RdsCompIntegrationProps {
     integrationList: any[];
 }
