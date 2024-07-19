@@ -3,7 +3,7 @@ import "./rds-chart-bubble.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/BubbleChart',
+    title: 'Charts/Bubble Chart',
     component: RdsBubbleChart,
     parameters: {
         layout: 'padded',

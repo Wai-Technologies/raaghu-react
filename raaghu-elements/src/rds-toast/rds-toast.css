@@ -11,3 +11,6 @@
     align-items: center;
     justify-content: space-between;  
 }
+.theme-dark .btn-close {
+ filter: unset;
+}

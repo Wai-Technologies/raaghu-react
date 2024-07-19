@@ -92,17 +92,21 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                 <div className="form-group mb-3 text-start">
                                     <RdsInput
                                         size="medium"
-
+                                        label="Email"
                                         inputType="email"
                                         isDisabled={false}
                                         readonly={false}
-                                        placeholder="Email"                            
+                                        placeholder="Enter Email"                            
                                        onChange={(e) => {
                                         handleDataChanges(e.target.value, "email");
                                       }}
                                       value={registerData?.email}
                                         required={false}
                                         dataTestId="email"
+                                        validatonPattern={
+                                            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                                            }
+                                        validationMsg="Please Enter Valid Email Address."
                                     ></RdsInput>
 
                                 </div>
