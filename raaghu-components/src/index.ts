@@ -42,7 +42,6 @@ export { default as RdsCompApiScopeBasicResource } from "./rds-comp-api-scope-ba
 export { default as RdsCompScopeBasicResource } from "./rds-comp-scope-basic-resource";
 export { default as RdsCompSecurityLogs } from "./rds-comp-security-logs";
 export { default as RdsCompClaims } from "./rds-comp-claims";
-export { default as RdsCompEmailSettingsNew } from "./rds-comp-email-settings-new";
 export { default as RdsCompIdentityManagement } from "./rds-comp-identity-management-new";
 export { default as RdsCompThemeNew } from "./rds-comp-theme-new";
 export { default as RdsCompAccount } from "./rds-comp-account";
