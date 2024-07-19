@@ -136,7 +136,7 @@
 .line-wobble {
   --uib-size: 80px;
   --uib-speed: 1.55s;
-  --uib-color: black;
+  --uib-color: #0071e2;
   --uib-line-weight: 5px;
   display: flex;
   height: var(--uib-line-weight);
@@ -165,6 +165,10 @@
   animation: wobble var(--uib-speed) ease-in-out infinite;
   transform: translateX(-90%);
   background-color: var(--uib-color);
+ }
+
+ .theme-dark .line-wobble, .theme-dark .loader-moving {
+  background-color: #fff;
  }
  
  @keyframes wobble {
