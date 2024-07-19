@@ -12,7 +12,7 @@
 
 .border {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 2px solid #AAAAAA ;
+    border: 2px solid #AAAAAA;
     border-radius: 8px;
     opacity: 1;
 }
@@ -78,7 +78,7 @@
 
 .theme-dark .border {
     background: #505050 0% 0% no-repeat padding-box;
-    border: 2px solid #505050 !important;
+    border: 2px solid #505050;
 }
 
 .theme-dark .border-color {
