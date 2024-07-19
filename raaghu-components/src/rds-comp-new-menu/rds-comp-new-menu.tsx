@@ -74,6 +74,8 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
                             name="url"
                             onChange={(e) => handlerChangeInput(e, "url")}
                             dataTestId="url"
+                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validationMsg="Enter valid url"
                         />
                     </div>
                     <div className="col-md-12 mb-3">

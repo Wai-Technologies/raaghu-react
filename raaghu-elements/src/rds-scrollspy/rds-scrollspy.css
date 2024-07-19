@@ -2,7 +2,7 @@
   background: #7e2eef 0% 0% no-repeat padding-box !important;
   border-radius: 4px !important;
   opacity: 1 !important;
-  min-width: 116px !important;
+  min-width: 80px !important;
   height: 32px !important;
   text-align: center !important;
   font: normal normal 300 14px/21px Poppins !important;
@@ -12,8 +12,9 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin-right: 33px;
-  margin-bottom: 30px;
+  white-space: nowrap; 
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .scrossSpyItem {
@@ -30,16 +31,95 @@
 .contentHeader {
   text-align: left;
   font: normal normal 600 14px/21px Poppins;
-  letter-spacing: 0px;
   color: #323b47;
   opacity: 1;
   margin-bottom: 16px;
 }
 
+
 .contentParagraph {
   text-align: left;
   font: normal normal 300 14px/21px Poppins;
-  letter-spacing: 0px;
   color: #323b47;
-  opacity: 1;
+}
+
+@media (max-width: 414px) {
+  .nav-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .navButton {
+    min-width: 80px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .scrossSpyItem {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+
+  .contentHeader {
+    font-size: 1.25em;
+  }
+
+  .contentParagraph {
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 415px) and (max-width: 768px) {
+  .scrossSpyItem {
+    padding: 18px 25px;
+    margin-bottom: 30px;
+  }
+
+  .navButton {
+    min-width: 110px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .contentHeader {
+    font-size: 1.4em;
+  }
+
+  .contentParagraph {
+    font-size: 0.95em;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 896px) {
+  .scrossSpyItem {
+    padding: 20px 30px;
+    margin-bottom: 40px;
+    min-height: 300px;
+  }
+
+  .navButton {
+    min-width: 116px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .contentHeader {
+    font-size: 1.5em;
+  }
+
+  .contentParagraph {
+    font-size: 1em;
+  }
+
+  .nav-pills {
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    margin-bottom: 10px;
+  }
 }
