@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
 import { useReactMediaRecorder } from "react-media-recorder";
-import html2canvas from "html2canvas";
+import domToImage from "dom-to-image";
+// import html2canvas from "html2canvas";
 // import { handleError } from "./logger";
 
 export interface RdsCompCaptureCeProps {
@@ -191,49 +192,35 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
 
     const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
-        html2canvas(document.body, {
-            x,
-            y,
+        // Blur inputs and textareas before capturing
+        const inputs = document.querySelectorAll("input, textarea");
+        inputs.forEach((input) => {
+            (input as HTMLInputElement).style.filter = "blur(5px)";
+        });
+
+        domToImage.toBlob(document.body, {
+            style: {
+                transform: `translate(${-x}px, ${-y}px)`,
+                width: `${document.documentElement.offsetWidth}px`,
+                height: `${document.documentElement.offsetHeight}px`,
+                position: "absolute",
+            },
             width,
             height,
-            scrollX: -window.scrollX,
-            scrollY: -window.scrollY,
-            windowWidth: document.documentElement.offsetWidth,
-            windowHeight: document.documentElement.offsetHeight,
-        }).then((canvas) => {
-            canvas.toBlob(async (screenshotToAdd) => {
-                if (screenshotToAdd) {
-                    const screenshotName = `Screenshot_${screenshots.length + 1}`;
-                    setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
-                    const imgData = await getBase64Image(screenshotToAdd);
-                    localStorage.setItem(screenshotName, imgData);
-                    document.getElementById("feedback")?.click();
-                }
+        }).then(async (screenshotToAdd) => {
+            if (screenshotToAdd) {
+                const screenshotName = `Screenshot_${screenshots.length + 1}`;
+                setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
+                const imgData = await getBase64Image(screenshotToAdd);
+                localStorage.setItem(screenshotName, imgData);
+                document.getElementById("feedback")?.click();
+            }
+
+            // Revert blur effect after capturing
+            inputs.forEach((input) => {
+                (input as HTMLInputElement).style.filter = "";
             });
-
-            // const tempCanvas = document.createElement("canvas");
-            // const tempCtx = tempCanvas.getContext("2d");
-
-            // tempCanvas.width = canvas.width;
-            // tempCanvas.height = canvas.height;
-
-            // tempCtx.filter = "blur(5px)"; // Apply blur effect
-            // tempCtx.drawImage(canvas, 0, 0);
-
-            // tempCanvas.toBlob(async (screenshotToAdd) => {
-            //     if (screenshotToAdd) {
-            //         const screenshotName = `Screenshot_${screenshots.length + 1}`;
-            //         setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
-            //         const imgData = await getBase64Image(screenshotToAdd);
-            //         localStorage.setItem(screenshotName, imgData);
-            //         document.getElementById("feedback")?.click();
-            //     }
-            // });
         });
-        originalConsoleError;
-        originalConsoleWarn;
-        originalConsoleLog;
-        originalFetchLog;
     };
 
     const handleDeleteScreenshot = (index: number) => {
@@ -332,7 +319,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
 
     useEffect(() => {
-        if (isSelecting || isRecording) {
+        if (isRecording) {
             handleBlurEffect(true); // Apply blur effect
         } else {
             handleBlurEffect(false); // Remove blur effect
