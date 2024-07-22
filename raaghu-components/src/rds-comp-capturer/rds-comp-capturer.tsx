@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
 import { useReactMediaRecorder } from "react-media-recorder";
-import domToImage from "dom-to-image";
-import html2canvas from "html2canvas";
 import * as htmlToImage from "html-to-image";
-import { toPng } from "html-to-image";
 // import { handleError } from "./logger";
 
 export interface RdsCompCaptureCeProps {
@@ -19,6 +16,7 @@ export interface RdsCompCaptureCeProps {
     isModal: boolean;
     screenshotLimit?: number;
     email?: string;
+    isBlur?: boolean;
 
     // Video Settings
     videoLimit?: number;
@@ -34,7 +32,7 @@ export interface RdsCompCaptureCeProps {
 
 // Define a type for the message objects
 type ConsoleMessage = {
-    type: "error" | "warn" | "log" | "fetch";
+    type: "error" | "warning";
     message: any; // Consider using a more specific type than 'any' if possible
 };
 
@@ -51,29 +49,8 @@ console.error = function (...args) {
 // Override console.warn
 const originalConsoleWarn = console.warn;
 console.warn = function (...args) {
-    consoleMessages.push({ type: "warn", message: args });
+    consoleMessages.push({ type: "warning", message: args });
     originalConsoleWarn.apply(console, args);
-};
-
-const originalFetchLog = window.fetch;
-window.fetch = async (...args) => {
-    try {
-        const response = await originalFetchLog(...args);
-        // Log successful fetch call
-        consoleMessages.push({ type: "log", message: `Fetch successful: ${args[0]}` });
-        return response;
-    } catch (error) {
-        // Log fetch error
-        consoleMessages.push({ type: "error", message: `Fetch error: ${args[0]}, Error: ${error}` });
-        throw error;
-    }
-};
-
-// Override console.log
-const originalConsoleLog = console.log;
-console.log = function (...args) {
-    consoleMessages.push({ type: "log", message: args });
-    originalConsoleLog.apply(console, args);
 };
 
 const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
@@ -88,6 +65,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const UploadButtonColor = "outline-primary";
     const EmailValue = props.email || "";
     const ScreenshotLimit = props.screenshotLimit || 3;
+    const IsBlur = props.isBlur || false;
 
     // Video Settings
     const VideoLimit = props.videoLimit || 1;
@@ -124,10 +102,12 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     useEffect(() => {
         window.addEventListener("error", /*handleError*/ originalConsoleError);
+        window.addEventListener("warning", /*handleError*/ originalConsoleWarn);
         return () => {
             window.removeEventListener("error", /*handleError*/originalConsoleError);
+            window.removeEventListener("warning", /*handleError*/originalConsoleWarn);
         };
-    }, [screenshots, videos, /*handleError*/ originalConsoleError]);
+    }, [screenshots, videos, /*handleError*/ originalConsoleError, originalConsoleWarn]);
 
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsSelecting(true);
@@ -167,61 +147,17 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     const handleCaptureScreenshot = () => {
         if (screenshots.length >= ScreenshotLimit) return;
-        // // Ensure consoleMessages is an array before iterating
-        // if (Array.isArray(consoleMessages)) {
-        //     consoleMessages.forEach(msg => {
-        //         switch (msg.type) {
-        //         case "error":
-        //             originalConsoleError.apply(console, msg.message);
-        //             break;
-        //         case "warn":
-        //             originalConsoleWarn.apply(console, msg.message);
-        //             break;
-        //         case "log":
-        //             originalConsoleLog.apply(console, msg.message);
-        //             break;
-        //         case "fetch":
-        //             originalFetchLog.apply(console, msg.message);
-        //             break;
-        //         default:
-        //             break;
-        //         }
-        //     });
-        // } else {
-        //     console.error("consoleMessages is not an array:", consoleMessages);
-        // }
         if (modalRef.current) {
             modalRef.current.hide();
         }
         setIsSelecting(true);
+        originalConsoleWarn;
+        originalConsoleError;
     };
 
-    // const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
-    //     html2canvas(document.body, {
-    //         x,
-    //         y,
-    //         width,
-    //         height,
-    //         scrollX: -window.scrollX,
-    //         scrollY: -window.scrollY,
-    //         windowWidth: document.documentElement.offsetWidth,
-    //         windowHeight: document.documentElement.offsetHeight,
-    //     }).then((canvas) => {
-    //         canvas.toBlob(async (blob) => {
-    //             if (blob) {
-    //                 const screenshotName = `Screenshot_${screenshots.length + 1}`;
-    //                 setScreenshots((prevScreenshots) => [...prevScreenshots, blob]);
-    //                 const imgData = await getBase64Image(blob);
-    //                 localStorage.setItem(screenshotName, imgData);
-    //                 document.getElementById("feedback")?.click();
-    //             }
-    //         });
-    //     });
-    // };
-
-    const captureSelectedArea = async ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {    
+    const captureSelectedArea = async ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
         try {
-            
+
             // Capture screenshot
             await htmlToImage.toBlob(document.body, {
                 style: {
@@ -237,7 +173,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             }).then(async (screenshotToAdd) => {
                 if (screenshotToAdd) {
                     setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
-                    const screenshotName = `Screenshot_${screenshots.length + 1}`;
+                    const screenshotName = `SCREENSHOT_${screenshots.length + 1}`;
                     const imgData = await getBase64Image(screenshotToAdd);
                     localStorage.setItem(screenshotName, imgData);
                     if (modalRef.current) {
@@ -293,7 +229,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             // Validate the video size after recording
             if (videoToAdd && videoToAdd.size > 0) {
                 if (videoToAdd.size <= VideoSizeInMb * 1024 * 1024) {
-                    const videoName = `Video_${videos.length + 1}`;
+                    const videoName = `VIDEO_${videos.length + 1}`;
                     setVideos((existingVideosArray) => [...existingVideosArray, videoToAdd]);
                     const videoData = await getBase64Image(videoToAdd);
                     localStorage.setItem(videoName, videoData);
@@ -326,8 +262,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         // handleError;
         originalConsoleError;
         originalConsoleWarn;
-        originalConsoleLog;
-        originalFetchLog;
+
     };
 
     useEffect(() => {
@@ -336,15 +271,16 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         }
         originalConsoleWarn;
         originalConsoleError;
-        originalConsoleLog;
-        originalFetchLog;
-    }, [screenshots, videos, email, description, /*handleError,*/ originalConsoleError, originalConsoleWarn, originalConsoleLog, originalFetchLog]);
+    }, [screenshots, videos, email, description, /*handleError,*/ originalConsoleError, originalConsoleWarn
+    ]);
     //#endregion
 
     // #region COMMON FUNCTION
     const handleBlurEffect = (apply: boolean) => {
         if (apply) {
-            document.body.classList.add("blur-controls");
+            if (IsBlur) {
+                document.body.classList.add("blur-controls");
+            }
         } else {
             document.body.classList.remove("blur-controls");
         }
@@ -468,7 +404,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         if (duration < VideoMinDuration) {
                             alert(`Video is too short. It must be longer than ${VideoMinDuration} seconds.`);
                         } else if (duration > VideoMaxDuration) {
-                            alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000 } minutes.`);
+                            alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000} minutes.`);
                         } else if (videos.length < VideoLimit) {
                             // If the video duration is within the limits, add it to the videos array
                             setVideos((prevVideos) => [...prevVideos, file]);
@@ -493,7 +429,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     //             if (modalRef.current) {
     //                 modalRef.current.show();
     //             }
-    
+
     //             // New recording logic
     //             if (isRecording) {
     //                 stopRecording(); // You need to implement this function
@@ -501,10 +437,10 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     //             }
     //         }
     //     };
-    
+
     //     // Add event listener for keydown
     //     document.addEventListener("keydown", handleKeyDown);
-    
+
     //     // Cleanup function to remove event listener
     //     return () => {
     //         document.removeEventListener("keydown", handleKeyDown);
@@ -585,9 +521,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             > */}
             <form onSubmit={handleSubmit}>
                 <div className="text-start mb-1">
-                    <RdsInput name="bugTitle" id="bugTitle" placeholder="Login Issue" label="Bug Title" customClasses="no-blur"  inputType="text" onChange={(e) => setBugTitle(e.target.value)} value={bugTitle} required={true} labelPosition="top" dataTestId="bugTitle" reset={inputReset} size="medium" />
+                    <RdsInput name="bugTitle" id="bugTitle" placeholder="Login Issue" label="Bug Title" customClasses="no-blur" inputType="text" onChange={(e) => setBugTitle(e.target.value)} value={bugTitle} required={true} labelPosition="top" dataTestId="bugTitle" reset={inputReset} size="medium" />
                     <RdsInput name="email" id="bugReportersEmail" placeholder="john.doe@gmail.com" label="Email" customClasses="no-blur" inputType="email" onChange={(e) => setEmail(e.target.value)} value={EmailValue} required={true} labelPosition="top" dataTestId="email" readonly={true} reset={inputReset} size="medium" validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i} validationMsg="Please Enter Valid Email Address." />
-                    <RdsTextArea id="bugDescription" placeholder="I am facing bug regarding..." label="Describe the issue" isRequired={false} readonly={false} labelPosition="top" value={description} dataTestId="description" onChange={(e) => setDescription(e.target.value)} />
+                    <RdsTextArea id="bugDescription" placeholder="I am facing issue regarding..." label="Describe the issue" isRequired={false} readonly={false} labelPosition="top" value={description} dataTestId="description" onChange={(e) => setDescription(e.target.value)} />
                     <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px", marginTop: "15px" }}>
                         <RdsButton id="captureScreenshotButton" icon="camera" type="button" label={CaptureScreenshotLabel} class="me-2" size="small" colorVariant={CaptureScreenshotColor} databsdismiss="modal" dataTestId="captureScreenshotButton" onClick={handleCaptureScreenshot} isDisabled={screenshots.length >= ScreenshotLimit || isSelecting} />
                         <RdsButton id="recordScreenButton" icon="camera-video" type="button" label={RecordScreenLabel} class="me-2" size="small" colorVariant={RecordScreenColor} databsdismiss="modal" dataTestId="recordScreenButton" onClick={handleStartRecording} isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"} />
@@ -624,26 +560,33 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                     <div className="mb-2">
                         <div className="d-flex flex-wrap gap-3" style={{ marginBottom: "15px" }}>
                             {screenshots.map((screenshot, index) => (
-                                <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedScreenshot === screenshot ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
+                                <div className="image-video-container" key={index} style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedScreenshot === screenshot ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}>
                                     <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera" viewBox="0 0 16 16">
-                                            <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z" />
-                                            <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+                                        <svg width="18" height="18" style={{ marginBottom: "1px" }} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.57143 1C5.57143 1 4.00385 1.00002 2.42244 1.10353C1.71129 1.15008 1.1503 1.71098 1.10368 2.42213C1 4.00373 1 5.57143 1 5.57143M12.4286 1C12.4286 1 13.9962 1.00002 15.5776 1.10353C16.2887 1.15008 16.8497 1.71098 16.8963 2.42213C17 4.00373 17 5.57143 17 5.57143M12.4286 17C12.4286 17 13.9962 17 15.5776 16.8965C16.2887 16.8499 16.8497 16.289 16.8963 15.5779C17 13.9963 17 12.4286 17 12.4286M5.57143 17C5.57143 17 4.00385 17 2.42244 16.8965C1.71129 16.8499 1.1503 16.289 1.10368 15.5779C1 13.9963 1 12.4286 1 12.4286M6.46975 5.61497C6.0768 5.62941 5.73695 5.64606 5.45013 5.6627C4.76099 5.70267 4.21562 6.22823 4.15623 6.91596C4.10053 7.56118 4.04762 8.42556 4.04762 9.38095C4.04762 10.3363 4.10053 11.2007 4.15623 11.8459C4.21562 12.5337 4.76099 13.0592 5.45013 13.0992C6.23531 13.1448 7.41771 13.1905 9 13.1905C10.5823 13.1905 11.7647 13.1448 12.5499 13.0992C13.239 13.0592 13.7844 12.5337 13.8438 11.8459C13.8995 11.2007 13.9524 10.3363 13.9524 9.38095C13.9524 8.42556 13.8995 7.56118 13.8438 6.91596C13.7844 6.22823 13.239 5.70267 12.5499 5.6627C12.263 5.64606 11.9232 5.62941 11.5302 5.61497L11.1853 4.7616C11.033 4.38495 10.692 4.11859 10.2867 4.09029C9.96286 4.06766 9.52731 4.04762 9 4.04762C8.47269 4.04762 8.03714 4.06766 7.7133 4.09029C7.30804 4.11859 6.96701 4.38495 6.81474 4.7616L6.46975 5.61497ZM7.09524 9C7.09524 9.25014 7.14451 9.49783 7.24023 9.72892C7.33595 9.96002 7.47626 10.17 7.65313 10.3469C7.83 10.5237 8.03998 10.664 8.27108 10.7598C8.50218 10.8555 8.74986 10.9048 9 10.9048C9.25014 10.9048 9.49783 10.8555 9.72892 10.7598C9.96002 10.664 10.17 10.5237 10.3469 10.3469C10.5237 10.17 10.664 9.96002 10.7598 9.72892C10.8555 9.49783 10.9048 9.25014 10.9048 9C10.9048 8.74986 10.8555 8.50218 10.7598 8.27108C10.664 8.03998 10.5237 7.83 10.3469 7.65313C10.17 7.47626 9.96002 7.33595 9.72892 7.24023C9.49783 7.14451 9.25014 7.09524 9 7.09524C8.74986 7.09524 8.50218 7.14451 8.27108 7.24023C8.03998 7.33595 7.83 7.47626 7.65313 7.65313C7.47626 7.83 7.33595 8.03998 7.24023 8.27108C7.14451 8.50218 7.09524 8.74986 7.09524 9Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedScreenshot === screenshot ? "white" : "black"*/ }}>{`Screenshot_${index + 1}`}</span>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedScreenshot === screenshot ? "white" : "black"*/ }}>{`SCREENSHOT_${index + 1}`}</span>
                                     </div>
-                                    <button id="deleteScreenshot" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteScreenshot(index)} />
+                                    <span id="deleteScreenshot" className="screenshotDeleteButton" onClick={() => handleDeleteScreenshot(index)} style={{ marginBottom: "2px" }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-sm" viewBox="0 0 16 16">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                        </svg>
+                                    </span>
                                 </div>
                             ))}
                             {videos.map((video, index) => (
-                                <div key={index} style={{ background: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", padding: "4px", paddingLeft: "7px", paddingRight: "7px", width: "auto", border: selectedVideo === video ? "2px solid #7e2eef" : "2px solid #f3e4fd" }}>
+                                <div className="image-video-container" key={index} style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedVideo === video ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}>
                                     <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera-video" viewBox="0 0 16 16">
-                                            <path fillRule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" />
+                                        <svg width="18" height="18" style={{ marginBottom: "1px" }} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.30435 10.0435H1.69565C1.51115 10.0435 1.33421 9.97019 1.20375 9.83973C1.07329 9.70927 1 9.53232 1 9.34783V1.69565C1 1.51115 1.07329 1.33421 1.20375 1.20375C1.33421 1.07329 1.51115 1 1.69565 1H10.7391C10.9236 1 11.1006 1.07329 11.231 1.20375C11.3615 1.33421 11.4348 1.51115 11.4348 1.69565V7.58226M8.65217 13.1739C8.65217 14.1887 9.05528 15.1618 9.77281 15.8794C10.4903 16.5969 11.4635 17 12.4783 17C13.493 17 14.4662 16.5969 15.1837 15.8794C15.9012 15.1618 16.3043 14.1887 16.3043 13.1739C16.3043 12.1592 15.9012 11.186 15.1837 10.4685C14.4662 9.75093 13.493 9.34783 12.4783 9.34783C11.4635 9.34783 10.4903 9.75093 9.77281 10.4685C9.05528 11.186 8.65217 12.1592 8.65217 13.1739ZM10.7391 13.1739C10.7391 13.6352 10.9224 14.0775 11.2485 14.4037C11.5747 14.7298 12.017 14.913 12.4783 14.913C12.9395 14.913 13.3819 14.7298 13.708 14.4037C14.0342 14.0775 14.2174 13.6352 14.2174 13.1739C14.2174 12.7127 14.0342 12.2703 13.708 11.9442C13.3819 11.618 12.9395 11.4348 12.4783 11.4348C12.017 11.4348 11.5747 11.618 11.2485 11.9442C10.9224 12.2703 10.7391 12.7127 10.7391 13.1739ZM17 8.22226C16.9999 8.34079 16.9696 8.45734 16.9118 8.56085C16.8541 8.66436 16.7708 8.7514 16.67 8.8137C16.5691 8.876 16.4541 8.9115 16.3356 8.91683C16.2172 8.92217 16.0994 8.89716 15.9934 8.84417L13.2108 7.45287C13.0952 7.39513 12.9981 7.30638 12.9301 7.19654C12.8622 7.0867 12.8262 6.96011 12.8261 6.83095V4.21252C12.8262 4.08336 12.8622 3.95678 12.9301 3.84694C12.9981 3.7371 13.0952 3.64834 13.2108 3.59061L15.9934 2.1993C16.0994 2.14632 16.2172 2.12131 16.3356 2.12664C16.4541 2.13197 16.5691 2.16747 16.67 2.22978C16.7708 2.29208 16.8541 2.37911 16.9118 2.48262C16.9696 2.58613 16.9999 2.70268 17 2.82121V8.22226Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedVideo === video ? "white" : "black"*/ }}>{`Video_${index + 1}`}</span>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedVideo === video ? "white" : "black"*/ }}>{`VIDEO_${index + 1}`}</span>
                                     </div>
-                                    <button id="deleteVideo" type="button" className="btn-close btn-danger" style={{ width: "7px", height: "7px" }} onClick={() => handleDeleteVideo(index)} />
+                                    <span id="deleteVideo" className="videoDeleteButton" onClick={() => handleDeleteVideo(index)} style={{ marginBottom: "2px" }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-sm" viewBox="0 0 16 16">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                        </svg>
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -698,6 +641,27 @@ const styles = `
   left: 0;
   width: 100%;
   height: 100%;
+}
+.image-video-container {
+  background: #fff; /* Default background */
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 4px 7px;
+  width: auto;
+  transition: background-color 0.3s ease;
+}
+.image-video-container:hover {
+  background-color: #7e2eef;
+  cursor: pointer;
+  color: #fff;
+}
+.image-video-container:hover svg,
+.image-video-container:hover div svg,
+.image-video-container:hover .screenshotDeleteButton svg {
+  fill: #fff;
+  color: #fff;
+  stroke: #fff;
 }
 `;
 
