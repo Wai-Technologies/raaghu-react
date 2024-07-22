@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompNewLanguage from "./rds-comp-new-language";
+import RdsCompLanguage from "./rds-comp-language";
 
 
 const meta: Meta = {
-  title: "Components/New Language",
-  component: RdsCompNewLanguage,
+  title: "Components/Language",
+  component: RdsCompLanguage,
   parameters: {
     layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {
   },
-} satisfies Meta<typeof RdsCompNewLanguage>;
+} satisfies Meta<typeof RdsCompLanguage>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompNewLanguage>;
+type Story = StoryObj<typeof RdsCompLanguage>;
 
 export const Default: Story = {
   args: {

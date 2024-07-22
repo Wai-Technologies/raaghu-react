@@ -7,7 +7,7 @@ import {
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
-export interface RdsCompNewLanguageProps {
+export interface RdsCompLanguageProps {
     cultureList: { option: any, value: any }[];
     flagIconList: { option: any, value: any }[];
     onSaveHandler: any;
@@ -21,7 +21,7 @@ export interface RdsCompNewLanguageProps {
     languageData?: any;
 }
 
-const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
+const RdsCompLanguage = (props: RdsCompLanguageProps) => {
 
     const [isEnabled, setCheck] = useState(props.isEnabled);
     const [cultureName, setCultureName] = useState(("Select Culture Name"));
@@ -188,4 +188,4 @@ const RdsCompNewLanguage = (props: RdsCompNewLanguageProps) => {
     );
 };
 
-export default RdsCompNewLanguage;
+export default RdsCompLanguage;
