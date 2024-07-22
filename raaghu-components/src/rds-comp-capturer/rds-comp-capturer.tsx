@@ -59,6 +59,24 @@ console.warn = function (...args) {
     originalConsoleWarn.apply(console, args);
 };
 
+function getBase64Image(image: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onloadend = function () {
+            const base64data = reader.result;
+            if (typeof base64data === "string") {
+                resolve(base64data);
+            } else {
+                reject("");
+            }
+        };
+        reader.onerror = function () {
+            reject("");
+        };
+    });
+}
+
 const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #region VARIABLES
     const CaptureScreenshotLabel = props.takeScreenshotButtonLabel || "Take screenshot";
@@ -103,19 +121,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #endregion
 
     // #region SCREENSHOTS FUNCTIONS
-    useEffect(() => {
-        setInputReset((prevReset) => !prevReset);
-    }, [props.reset]);
-
-    useEffect(() => {
-        window.addEventListener("error", /*handleError*/ originalConsoleError);
-        window.addEventListener("warning", /*handleError*/ originalConsoleWarn);
-        return () => {
-            window.removeEventListener("error", /*handleError*/originalConsoleError);
-            window.removeEventListener("warning", /*handleError*/originalConsoleWarn);
-        };
-    }, [screenshots, videos, /*handleError*/ originalConsoleError, originalConsoleWarn]);
-
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsSelecting(true);
         setShowSelection(true);
@@ -209,15 +214,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #endregion
 
     // #region VIDEOS FUNCTIONS
-    const handleDeleteVideo = (index: number) => {
-        setVideos((prev) => prev.filter((_, i) => i !== index));
-        if (videos.length > VideoLimit) {
-            setSelectedVideo(videos[videos.length - 2]);
-        } else {
-            setSelectedVideo(null);
-        }
-    };
-
     // eslint-disable-next-line prefer-const
     let { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({
         screen: true,
@@ -272,17 +268,40 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     };
 
+    const handleDeleteVideo = (index: number) => {
+        setVideos((prev) => prev.filter((_, i) => i !== index));
+        if (videos.length > VideoLimit) {
+            setSelectedVideo(videos[videos.length - 2]);
+        } else {
+            setSelectedVideo(null);
+        }
+    };
+    //#endregion
+
+    // #region ERROR RELATED
     useEffect(() => {
         // if (modalRef.current) {
         //     modalRef.current.show(); // Will be needed for modal
         // }
-        originalConsoleWarn;
-        originalConsoleError;
-    }, [screenshots, videos, /* email, description,*/ /*handleError,*/ originalConsoleError, originalConsoleWarn
-    ]);
-    //#endregion
+        window.addEventListener("error", /*handleError*/ originalConsoleError);
+        window.addEventListener("warning", /*handleError*/ originalConsoleWarn);
+        return () => {
+            window.removeEventListener("error", /*handleError*/originalConsoleError);
+            window.removeEventListener("warning", /*handleError*/originalConsoleWarn);
+        };
+    }, [screenshots, videos, /*handleError*/ originalConsoleError, originalConsoleWarn]);
+    // #endregion
 
     // #region COMMON FUNCTION
+    useEffect(() => {
+        if (isSelecting || isRecording) {
+            handleBlurEffect(true);
+        } else {
+            handleBlurEffect(false);
+        }
+        return () => handleBlurEffect(false); // Clean up on unmount
+    }, [isSelecting, isRecording]);
+
     const handleBlurEffect = (apply: boolean) => {
         if (apply) {
             if (IsBlur) {
@@ -293,16 +312,46 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         }
     };
 
-    useEffect(() => {
-        if (isSelecting || isRecording) {
-            handleBlurEffect(true); // Apply blur effect
-        } else {
-            handleBlurEffect(false); // Remove blur effect
+    const handleScreenshotOrVideoClick = (e: any, index?: number, video?: Blob | undefined, screenshot?: Blob | undefined) => {
+        // e.stopPropagation();
+        if (screenshot) {
+            setSelectedScreenshot(screenshot);
+            setSelectedVideo(null);
+        } else if (video) {
+            setSelectedVideo(video);
+            setSelectedScreenshot(null);
         }
-        return () => handleBlurEffect(false); // Clean up on unmount
-    }, [isSelecting, isRecording]);
+    };
 
-    // #region COMMON
+    // ESCAPE KEY FUNCTIONALITY
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setScreenshots([]);
+                setVideos([]);
+                setSelectedScreenshot(null);
+                setSelectedVideo(null);
+                setShowSelection(false);
+                setIsRecording(false);
+                setIsSelecting(false);
+                stopRecording();
+                // if (modalRef.current) {
+                //     modalRef.current.show(); // Will be needed for modal
+                // }
+            }
+        };
+
+        // Add event listener
+        document.addEventListener("keydown", handleKeyDown);
+
+        // Cleanup function to remove event listener
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+    // #endregion
+
+    // #region SUBMIT FUNCTIONALITY
     useEffect(() => {
         // This hook updates capturerData when screenshots change
         setCapturerData((existingScreenshots) => ({
@@ -346,62 +395,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
     // #endregion
 
-    const handleScreenshotOrVideoClick = (e: any, index?: number, video?: Blob | undefined, screenshot?: Blob | undefined) => {
-        // e.stopPropagation();
-        if (screenshot) {
-            setSelectedScreenshot(screenshot);
-            setSelectedVideo(null);
-        } else if (video) {
-            setSelectedVideo(video);
-            setSelectedScreenshot(null);
-        }
-    };
-
-    function getBase64Image(image: Blob): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onloadend = function () {
-                const base64data = reader.result;
-                if (typeof base64data === "string") {
-                    resolve(base64data);
-                } else {
-                    reject("");
-                }
-            };
-            reader.onerror = function () {
-                reject("");
-            };
-        });
-    }
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape") {
-                setScreenshots([]);
-                setVideos([]);
-                setSelectedScreenshot(null);
-                setSelectedVideo(null);
-                setShowSelection(false);
-                setIsRecording(false);
-                setIsSelecting(false);
-                stopRecording();
-                // if (modalRef.current) {
-                //     modalRef.current.show(); // Will be needed for modal
-                // }
-            }
-        };
-
-        // Add event listener
-        document.addEventListener("keydown", handleKeyDown);
-
-        // Cleanup function to remove event listener
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-    }, []);
-
-    function handleImageVideoUpload(e: any) {
+    // #region IMAGE/VIDEO UPLOAD
+    const handleImageVideoUpload = (e: any) => {
         if (e.target.files) {
             const file = e.target.files[0];
             const type = file.type.split("/")[0];
@@ -453,7 +448,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             // Reset the input value
             e.target.value = "";
         }
-    }
+    };
+    // #endregion
 
     // TODO: IMPLEMENT ESCAPE AND CANCEL BUTTON FUNCTIONALITY
     // useEffect(() => {
@@ -484,35 +480,10 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     //         document.removeEventListener("keydown", handleKeyDown);
     //     };
     // }, [isRecording]); // Add isRecording to the dependency array if it's part of your state
-    // #endregion
 
     // #region RENDER/JSX MARKUP
     return (
         <>
-            <RdsInput
-                label="SAMPLE INPUT (WILL BE REMOVED)"
-                placeholder="SAMPLE INPUT (WILL BE REMOVED)"
-                inputType="text"
-                // onChange={(e) => setBugTitle(e.target.value)}
-                // value={bugTitle}
-                name="bugTitle"
-                required={true}
-                labelPosition="top"
-                dataTestId="sampleInput"
-                id=""
-                reset={inputReset}
-                size="medium"
-            />
-            <RdsTextArea
-                label="SAMPLE TEXTAREA (WILL BE REMOVED)"
-                placeholder="SAMPLE TEXTAREA (WILL BE REMOVED)"
-                isRequired={false}
-                readonly={false}
-                labelPosition="top"
-                // value={description}
-                // onChange={(e) => setDescription(e.target.value)}
-                dataTestId="sampleTextArea"
-            />
             {/* <RdsModal
                 modalId="feedbackModal"
                 modalAnimation="modal fade"
@@ -559,26 +530,126 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             > */}
             <form onSubmit={handleSubmit}>
                 <div className="text-start mb-1">
-                    <RdsInput name="bugTitle" id="bugTitle" placeholder="Login Issue" label="Bug Title" customClasses="no-blur" inputType="text" onChange={(e) => { handleDataChanges(e.target.value, "bugTitle"); }} value={capturerData?.bugTitle} required={true} labelPosition="top" dataTestId="bugTitle" reset={inputReset} size="medium" />
-                    <RdsInput name="email" id="bugReportersEmail" placeholder="john.doe@gmail.com" label="Email" customClasses="no-blur" inputType="email" onChange={(e) => { handleDataChanges(e.target.value, "email"); }} value={EmailValue} required={true} labelPosition="top" dataTestId="email" readonly={true} reset={inputReset} size="medium" validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i} validationMsg="Please Enter Valid Email Address." />
-                    <RdsTextArea id="bugDescription" placeholder="I am facing issue regarding..." label="Describe the issue" isRequired={false} readonly={false} labelPosition="top" value={capturerData?.description} dataTestId="description" onChange={(e) => handleDataChanges(e.target.value, "description")} />
-                    <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px", marginTop: "15px" }}>
-                        <RdsButton id="captureScreenshotButton" icon="camera" type="button" label={CaptureScreenshotLabel} class="me-2" size="small" colorVariant={CaptureScreenshotColor} databsdismiss="modal" dataTestId="captureScreenshotButton" onClick={handleCaptureScreenshot} isDisabled={screenshots.length >= ScreenshotLimit || isSelecting} />
-                        <RdsButton id="recordScreenButton" icon="camera-video" type="button" label={RecordScreenLabel} class="me-2" size="small" colorVariant={RecordScreenColor} databsdismiss="modal" dataTestId="recordScreenButton" onClick={handleStartRecording} isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"} />
+                    <RdsInput
+                        name="bugTitle"
+                        id="bugTitle"
+                        placeholder="Login Issue"
+                        label="Bug Title"
+                        customClasses="no-blur"
+                        inputType="text"
+                        onChange={(e) => { handleDataChanges(e.target.value, "bugTitle"); }}
+                        value={capturerData?.bugTitle}
+                        required={true}
+                        labelPosition="top"
+                        dataTestId="bugTitle"
+                        reset={inputReset}
+                        size="medium"
+                    />
+                    <RdsInput name="email" id="bugReportersEmail"
+                        placeholder="john.doe@gmail.com"
+                        label="Email"
+                        customClasses="no-blur"
+                        inputType="email"
+                        onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                        value={EmailValue}
+                        required={true}
+                        labelPosition="top"
+                        dataTestId="email"
+                        readonly={true}
+                        reset={inputReset}
+                        size="medium"
+                        validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                        validationMsg="Please Enter Valid Email Address."
+                    />
+                    <RdsTextArea
+                        id="bugDescription"
+                        placeholder="I am facing issue regarding..."
+                        label="Describe the issue"
+                        isRequired={false}
+                        readonly={false}
+                        labelPosition="top"
+                        value={capturerData?.description}
+                        dataTestId="description"
+                        onChange={(e) => handleDataChanges(e.target.value, "description")}
+                    />
+                    <div
+                        className="d-flex justify-content gap-2"
+                        style={{ paddingBottom: "15px", marginTop: "15px" }}
+                    >
+                        <RdsButton
+                            id="captureScreenshotButton"
+                            icon="camera"
+                            type="button"
+                            label={CaptureScreenshotLabel}
+                            class="me-2"
+                            size="small"
+                            colorVariant={CaptureScreenshotColor}
+                            databsdismiss="modal"
+                            dataTestId="captureScreenshotButton"
+                            onClick={handleCaptureScreenshot}
+                            isDisabled={screenshots.length >= ScreenshotLimit || isSelecting}
+                        />
+                        <RdsButton
+                            id="recordScreenButton"
+                            icon="camera-video"
+                            type="button"
+                            label={RecordScreenLabel}
+                            class="me-2"
+                            size="small"
+                            colorVariant={RecordScreenColor}
+                            databsdismiss="modal"
+                            dataTestId="recordScreenButton"
+                            onClick={handleStartRecording}
+                            isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
+                        />
                         <div>
-                            <label id="imageVideoUploadButton" htmlFor="upload" className="btn btn-sm btn-outline-primary" style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}>
+                            <label
+                                id="imageVideoUploadButton"
+                                htmlFor="upload"
+                                className="btn btn-sm btn-outline-primary"
+                                style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}
+                            >
                                 {UploadButtonLabel}
                             </label>
-                            <input id="upload" type="file" style={{ display: "none" }} accept="image/*,video/*" disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit} onChange={(e) => { handleImageVideoUpload(e); }} />
+                            <input
+                                id="upload"
+                                type="file"
+                                style={{ display: "none" }}
+                                accept="image/*,video/*"
+                                disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
+                                onChange={(e) => { handleImageVideoUpload(e); }}
+                            />
                         </div>
-                        <RdsButton id="submitButton" icon="send" type="submit" label={SubmitButtonLabel} class="me-2" size="small" colorVariant={SubmitButtonColor} databsdismiss="modal" dataTestId="submitButton"/>
+                        <RdsButton
+                            id="submitButton"
+                            icon="send"
+                            type="submit"
+                            label={SubmitButtonLabel}
+                            class="me-2"
+                            size="small"
+                            colorVariant={SubmitButtonColor}
+                            databsdismiss="modal"
+                            dataTestId="submitButton"
+                        />
                         {isRecording && (
                             <div>
-                                <RdsButton id="stopRecordingButton" type="button" label="Stop Recording" size="small" colorVariant="danger" onClick={handleStopRecording} />
+                                <RdsButton
+                                    id="stopRecordingButton"
+                                    type="button"
+                                    label="Stop Recording"
+                                    size="small"
+                                    colorVariant="danger"
+                                    onClick={handleStopRecording}
+                                />
                                 {
                                     status && status !== "stopped" && (
                                         <div style={{ marginTop: "15px" }}>
-                                            <RdsBadge className="badge badge-success" label="Recording..." size="small" badgeType="rectangle" />
+                                            <RdsBadge
+                                                className="badge badge-success"
+                                                label="Recording..."
+                                                size="small"
+                                                badgeType="rectangle"
+                                            />
                                         </div>
                                     )
                                 }
@@ -598,30 +669,79 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                     <div className="mb-2">
                         <div className="d-flex flex-wrap gap-3" style={{ marginBottom: "15px" }}>
                             {screenshots.map((screenshot, index) => (
-                                <div className="image-video-container" key={index} style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedScreenshot === screenshot ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}>
+                                <div
+                                    className="image-video-container"
+                                    key={index}
+                                    style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedScreenshot === screenshot ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}
+                                >
                                     <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
-                                        <svg width="18" height="18" style={{ marginBottom: "1px" }} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            style={{ marginBottom: "1px" }}
+                                            viewBox="0 0 18 18"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
                                             <path d="M5.57143 1C5.57143 1 4.00385 1.00002 2.42244 1.10353C1.71129 1.15008 1.1503 1.71098 1.10368 2.42213C1 4.00373 1 5.57143 1 5.57143M12.4286 1C12.4286 1 13.9962 1.00002 15.5776 1.10353C16.2887 1.15008 16.8497 1.71098 16.8963 2.42213C17 4.00373 17 5.57143 17 5.57143M12.4286 17C12.4286 17 13.9962 17 15.5776 16.8965C16.2887 16.8499 16.8497 16.289 16.8963 15.5779C17 13.9963 17 12.4286 17 12.4286M5.57143 17C5.57143 17 4.00385 17 2.42244 16.8965C1.71129 16.8499 1.1503 16.289 1.10368 15.5779C1 13.9963 1 12.4286 1 12.4286M6.46975 5.61497C6.0768 5.62941 5.73695 5.64606 5.45013 5.6627C4.76099 5.70267 4.21562 6.22823 4.15623 6.91596C4.10053 7.56118 4.04762 8.42556 4.04762 9.38095C4.04762 10.3363 4.10053 11.2007 4.15623 11.8459C4.21562 12.5337 4.76099 13.0592 5.45013 13.0992C6.23531 13.1448 7.41771 13.1905 9 13.1905C10.5823 13.1905 11.7647 13.1448 12.5499 13.0992C13.239 13.0592 13.7844 12.5337 13.8438 11.8459C13.8995 11.2007 13.9524 10.3363 13.9524 9.38095C13.9524 8.42556 13.8995 7.56118 13.8438 6.91596C13.7844 6.22823 13.239 5.70267 12.5499 5.6627C12.263 5.64606 11.9232 5.62941 11.5302 5.61497L11.1853 4.7616C11.033 4.38495 10.692 4.11859 10.2867 4.09029C9.96286 4.06766 9.52731 4.04762 9 4.04762C8.47269 4.04762 8.03714 4.06766 7.7133 4.09029C7.30804 4.11859 6.96701 4.38495 6.81474 4.7616L6.46975 5.61497ZM7.09524 9C7.09524 9.25014 7.14451 9.49783 7.24023 9.72892C7.33595 9.96002 7.47626 10.17 7.65313 10.3469C7.83 10.5237 8.03998 10.664 8.27108 10.7598C8.50218 10.8555 8.74986 10.9048 9 10.9048C9.25014 10.9048 9.49783 10.8555 9.72892 10.7598C9.96002 10.664 10.17 10.5237 10.3469 10.3469C10.5237 10.17 10.664 9.96002 10.7598 9.72892C10.8555 9.49783 10.9048 9.25014 10.9048 9C10.9048 8.74986 10.8555 8.50218 10.7598 8.27108C10.664 8.03998 10.5237 7.83 10.3469 7.65313C10.17 7.47626 9.96002 7.33595 9.72892 7.24023C9.49783 7.14451 9.25014 7.09524 9 7.09524C8.74986 7.09524 8.50218 7.14451 8.27108 7.24023C8.03998 7.33595 7.83 7.47626 7.65313 7.65313C7.47626 7.83 7.33595 8.03998 7.24023 8.27108C7.14451 8.50218 7.09524 8.74986 7.09524 9Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedScreenshot === screenshot ? "white" : "black"*/ }}>{`SCREENSHOT_${index + 1}`}</span>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px" }}>
+                                            {`SCREENSHOT_${index + 1}`}
+                                        </span>
                                     </div>
-                                    <span id="deleteScreenshot" className="screenshotDeleteButton" onClick={() => handleDeleteScreenshot(index)} style={{ marginBottom: "2px" }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-sm" viewBox="0 0 16 16">
+                                    <span
+                                        id="deleteScreenshot"
+                                        className="screenshotDeleteButton"
+                                        onClick={() => handleDeleteScreenshot(index)}
+                                        style={{ marginBottom: "2px" }}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            className="bi bi-x-sm"
+                                            viewBox="0 0 16 16"
+                                        >
                                             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                                         </svg>
                                     </span>
                                 </div>
                             ))}
                             {videos.map((video, index) => (
-                                <div className="image-video-container" key={index} style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedVideo === video ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}>
+                                <div 
+                                    className="image-video-container" 
+                                    key={index} 
+                                    style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedVideo === video ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}
+                                >
                                     <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
-                                        <svg width="18" height="18" style={{ marginBottom: "1px" }} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                        <svg 
+                                            width="18" 
+                                            height="18" 
+                                            style={{ marginBottom: "1px" }} 
+                                            viewBox="0 0 18 18" 
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
                                             <path d="M8.30435 10.0435H1.69565C1.51115 10.0435 1.33421 9.97019 1.20375 9.83973C1.07329 9.70927 1 9.53232 1 9.34783V1.69565C1 1.51115 1.07329 1.33421 1.20375 1.20375C1.33421 1.07329 1.51115 1 1.69565 1H10.7391C10.9236 1 11.1006 1.07329 11.231 1.20375C11.3615 1.33421 11.4348 1.51115 11.4348 1.69565V7.58226M8.65217 13.1739C8.65217 14.1887 9.05528 15.1618 9.77281 15.8794C10.4903 16.5969 11.4635 17 12.4783 17C13.493 17 14.4662 16.5969 15.1837 15.8794C15.9012 15.1618 16.3043 14.1887 16.3043 13.1739C16.3043 12.1592 15.9012 11.186 15.1837 10.4685C14.4662 9.75093 13.493 9.34783 12.4783 9.34783C11.4635 9.34783 10.4903 9.75093 9.77281 10.4685C9.05528 11.186 8.65217 12.1592 8.65217 13.1739ZM10.7391 13.1739C10.7391 13.6352 10.9224 14.0775 11.2485 14.4037C11.5747 14.7298 12.017 14.913 12.4783 14.913C12.9395 14.913 13.3819 14.7298 13.708 14.4037C14.0342 14.0775 14.2174 13.6352 14.2174 13.1739C14.2174 12.7127 14.0342 12.2703 13.708 11.9442C13.3819 11.618 12.9395 11.4348 12.4783 11.4348C12.017 11.4348 11.5747 11.618 11.2485 11.9442C10.9224 12.2703 10.7391 12.7127 10.7391 13.1739ZM17 8.22226C16.9999 8.34079 16.9696 8.45734 16.9118 8.56085C16.8541 8.66436 16.7708 8.7514 16.67 8.8137C16.5691 8.876 16.4541 8.9115 16.3356 8.91683C16.2172 8.92217 16.0994 8.89716 15.9934 8.84417L13.2108 7.45287C13.0952 7.39513 12.9981 7.30638 12.9301 7.19654C12.8622 7.0867 12.8262 6.96011 12.8261 6.83095V4.21252C12.8262 4.08336 12.8622 3.95678 12.9301 3.84694C12.9981 3.7371 13.0952 3.64834 13.2108 3.59061L15.9934 2.1993C16.0994 2.14632 16.2172 2.12131 16.3356 2.12664C16.4541 2.13197 16.5691 2.16747 16.67 2.22978C16.7708 2.29208 16.8541 2.37911 16.9118 2.48262C16.9696 2.58613 16.9999 2.70268 17 2.82121V8.22226Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px"/*, color: selectedVideo === video ? "white" : "black"*/ }}>{`VIDEO_${index + 1}`}</span>
+                                        <span style={{ paddingLeft: "7px", paddingRight: "7px" }}>
+                                            {`VIDEO_${index + 1}`}
+                                        </span>
                                     </div>
-                                    <span id="deleteVideo" className="videoDeleteButton" onClick={() => handleDeleteVideo(index)} style={{ marginBottom: "2px" }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-sm" viewBox="0 0 16 16">
+                                    <span 
+                                        id="deleteVideo" 
+                                        className="videoDeleteButton" 
+                                        onClick={() => handleDeleteVideo(index)} 
+                                        style={{ marginBottom: "2px" }}
+                                    >
+                                        <svg 
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            width="16" 
+                                            height="16" 
+                                            fill="currentColor" 
+                                            className="bi bi-x-sm" 
+                                            viewBox="0 0 16 16"
+                                        >
                                             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                                         </svg>
                                     </span>
@@ -631,13 +751,22 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         {
                             selectedVideo &&
                             <div id="videoArea" className="video-responsive">
-                                <video autoPlay controls loop src={URL.createObjectURL(selectedVideo)}></video>
+                                <video 
+                                    autoPlay 
+                                    controls 
+                                    loop 
+                                    src={URL.createObjectURL(selectedVideo)} 
+                                />
                             </div>
                         }
                         {
                             selectedScreenshot &&
                             <div id="screenshotArea">
-                                <img className="img-fluid rounded" src={URL.createObjectURL(selectedScreenshot)} style={{ background: "black", height: "auto", width: "100%" }}></img>
+                                <img 
+                                    className="img-fluid rounded" 
+                                    src={URL.createObjectURL(selectedScreenshot)} 
+                                    style={{ background: "black", height: "auto", width: "100%" }} 
+                                />
                             </div>
                         }
                     </div>
