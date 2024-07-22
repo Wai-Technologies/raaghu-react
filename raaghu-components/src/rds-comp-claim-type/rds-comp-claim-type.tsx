@@ -2,7 +2,7 @@ import { RdsCheckbox, RdsSelectList } from "../rds-elements";
 import React, { useState, useEffect } from "react";
 import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-export interface RdsCompNewClaimTypeProps {
+export interface RdsCompClaimTypeProps {
    
     claimsData?: any;
     valueType: { option: any, value: any }[];
@@ -11,7 +11,7 @@ export interface RdsCompNewClaimTypeProps {
     onSaveHandler?: (data: any) => void;
 }
 
-const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
+const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
     const [formData, setFormData] = useState(props.claimsData);
     const [isFormValid, setIsFormValid] = useState(false);
     const [inputReset, setInputReset] = useState(props.reset);
@@ -145,4 +145,4 @@ const RdsCompNewClaimType = (props: RdsCompNewClaimTypeProps) => {
     );
 };
 
-export default RdsCompNewClaimType;
+export default RdsCompClaimType;
