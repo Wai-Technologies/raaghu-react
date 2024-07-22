@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
 
-export interface RdsCompNewPageProps {
+export interface RdsCompPageProps {
     newPageData?: any;
     reset?: boolean;
     onSaveHandler?: (data: any) => void;
     onCancel?: any;
 }
 
-const RdsCompNewPage = (props: RdsCompNewPageProps) => {
+const RdsCompPage = (props: RdsCompPageProps) => {
     const [activeTab, setActiveTab] = useState("content");
     const [inputReset, setInputReset] = useState(props.reset)
     const [data, setData] = useState(props.newPageData);
@@ -175,4 +175,4 @@ const RdsCompNewPage = (props: RdsCompNewPageProps) => {
     );
 };
 
-export default RdsCompNewPage;
+export default RdsCompPage;
