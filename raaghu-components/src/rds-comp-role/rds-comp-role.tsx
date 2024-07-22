@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { RdsLabel, RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
 
-export interface RdsCompNewRoleProps {
+export interface RdsCompRoleProps {
     roleData: any;
     onSaveHandler?: (data: any) => void;
 }
 
-const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
+const RdsCompRole = (props: RdsCompRoleProps) => {
     const [roleData, setRoleData] = useState(props.roleData);
 
     useEffect(() => {
@@ -97,4 +97,4 @@ const RdsCompNewRole = (props: RdsCompNewRoleProps) => {
     );
 };
 
-export default RdsCompNewRole;
+export default RdsCompRole;
