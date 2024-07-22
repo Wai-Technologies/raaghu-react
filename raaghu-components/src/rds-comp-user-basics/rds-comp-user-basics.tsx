@@ -82,7 +82,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                             <div className="">
                                 <RdsInput
                                     value={userData?.email}
-                                    placeholder="Enter Email"
+                                    placeholder="Enter Email Address"
                                     inputType="email"
                                     label="Email Address"
                                     name="email"
@@ -137,7 +137,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                             <div>
                                 <RdsInput
                                     value={userData?.phoneNumber}
-                                    placeholder="Enter Phone"
+                                    placeholder="Enter Phone Number"
                                     inputType="text"
                                     label="Phone Number"
                                     name="phone"
@@ -145,6 +145,25 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "phoneNumber");
                                     }}
+
+                                    onKeyDown={(e) => {
+                                        const inputElement = e.target as HTMLInputElement;
+                                        const currentLength = inputElement.value.length;
+                                        const isPlusEntered = inputElement.value.startsWith('+');
+                                        const maxLength = isPlusEntered ? 13 : 10;
+                                        
+                                        const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                        const isNumberOrPlus = /[0-9+]/.test(e.key);
+                                
+                                        if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                
+                                        if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+
                                     reset={inputReset}
                                 ></RdsInput>
                             </div>
