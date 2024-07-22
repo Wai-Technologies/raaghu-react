@@ -2,7 +2,7 @@ import { RdsCheckbox, RdsSelectList } from "../rds-elements";
 import React, { useState, useEffect } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-export interface RdsCompNewMenuProps {
+export interface RdsCompMenuProps {
     onSubmit: any;
     menusData: any;
     valueType?: any;
@@ -17,7 +17,7 @@ export interface MenuPage {
     option: string;
     value: number;
 }
-const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
+const RdsCompMenu = (props: RdsCompMenuProps) => {
     const [data, setData] = useState(props.menusData);
     const [inputReset, setInputReset] = useState(props.reset);
     const [menuPageList, setMenuPageList] = useState<MenuPage[]>([]);
@@ -183,4 +183,4 @@ const RdsCompNewMenu = (props: RdsCompNewMenuProps) => {
     );
 };
 
-export default RdsCompNewMenu;
+export default RdsCompMenu;

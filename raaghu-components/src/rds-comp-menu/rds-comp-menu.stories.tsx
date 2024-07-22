@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompNewMenu from './rds-comp-new-menu';
+import RdsCompMenu from './rds-comp-menu';
 
 
 const meta: Meta = { 
-  title: "Components/ New Menu",
-    component: RdsCompNewMenu,
+  title: "Components/Menu",
+    component: RdsCompMenu,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompNewMenu>;
+} satisfies Meta<typeof RdsCompMenu>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompNewMenu>;
+type Story = StoryObj<typeof RdsCompMenu>;
 
 export const Default: Story = {
     args: {
