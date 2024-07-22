@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompFeatures from './rds-comp-new-features';
+import RdsCompFeatures from './rds-comp-features';
  
  
 const meta: Meta = {
-    title: "Components/Features New",
+    title: "Components/Features",
     component: RdsCompFeatures,
     parameters: {
         layout: 'padded',
