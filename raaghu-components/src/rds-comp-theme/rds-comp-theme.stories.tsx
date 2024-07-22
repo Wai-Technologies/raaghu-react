@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompThemeNew from "./rds-comp-theme-new";
+import RdsCompTheme from "./rds-comp-theme";
 
 
 const meta: Meta = { 
-    title: "Components/Theme New",
-    component: RdsCompThemeNew,
+    title: "Components/Theme",
+    component: RdsCompTheme,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompThemeNew>;
+} satisfies Meta<typeof RdsCompTheme>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompThemeNew>;
+type Story = StoryObj<typeof RdsCompTheme>;
 
 export const Default: Story = {
     args: {

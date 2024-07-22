@@ -4,10 +4,10 @@ import {
     RdsSelectList,
 } from "../rds-elements";
 
-import "./rds-comp-theme-new.css";
+import "./rds-comp-theme.css";
 
 
-export interface RdsCompThemeNewProps {
+export interface RdsCompThemeProps {
     StyleList: { option: any, value: any }[];
     WebList: { option: any, value: any }[];
     MenuList: { option: any, value: any }[];
@@ -15,7 +15,7 @@ export interface RdsCompThemeNewProps {
     onSaveHandler?: (data: any) => void;
 }
 
-const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
+const RdsCompTheme = (props: RdsCompThemeProps) => {
     ;
     const [formData, setFormData] = useState({
         StyleList: "",
@@ -123,4 +123,4 @@ const RdsCompThemeNew = (props: RdsCompThemeNewProps) => {
     );
 };
 
-export default RdsCompThemeNew;
+export default RdsCompTheme;
