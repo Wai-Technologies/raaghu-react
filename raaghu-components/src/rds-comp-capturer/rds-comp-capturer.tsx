@@ -5,7 +5,7 @@ import * as htmlToImage from "html-to-image";
 // import { handleError } from "./logger";
 
 export interface RdsCompCaptureCeProps {
-    ModalId: any;
+    // ModalId: any; // Will be needed for modal
     reset?: boolean;
     onCancel?: (event: any) => void;
     onSubmit?: (event: any, email: string, description: string, screenshots: Blob[], videos: Blob[]) => void;
@@ -13,10 +13,16 @@ export interface RdsCompCaptureCeProps {
     recordScreenButtonLabel?: string;
     submitButtonLabel?: string;
     uploadButtonLabel?: string;
-    isModal: boolean;
+    // isModal: boolean; // Will be needed for modal
     screenshotLimit?: number;
+    bugTitle?: string;
     email?: string;
+    description?: string;
+    screenshots: Blob[], 
+    videos: Blob[];
     isBlur?: boolean;
+    onSaveHandler?: (data: any) => void;
+    capturerFields?: any; 
 
     // Video Settings
     videoLimit?: number;
@@ -33,7 +39,7 @@ export interface RdsCompCaptureCeProps {
 // Define a type for the message objects
 type ConsoleMessage = {
     type: "error" | "warning";
-    message: any; // Consider using a more specific type than 'any' if possible
+    message: any;
 };
 
 // Create a global array to store all console messages
@@ -78,10 +84,10 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const VideoMinDuration = props.videoMinDuration || 5;
     const VideoMaxDuration = props.videoMaxDuration || 120;
 
-    const [email, setEmail] = useState("");
-    const [bugTitle, setBugTitle] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [bugTitle, setBugTitle] = useState("");
     const [inputReset, setInputReset] = useState(false);
-    const [description, setDescription] = useState("");
+    //const [description, setDescription] = useState("");
     const [screenshots, setScreenshots] = useState<Blob[]>([]);
     const [videos, setVideos] = useState<Blob[]>([]);
     const [selectedScreenshot, setSelectedScreenshot] = useState<Blob | null>(null);
@@ -91,8 +97,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const [endPoint, setEndPoint] = useState({ x: 0, y: 0 });
     const [showSelection, setShowSelection] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
-    const modalRef = useRef<any>(null);
-    const isItModal = props.isModal;
+    const [capturerData, setCapturerData] = useState(props.capturerFields);
+    // const modalRef = useRef<any>(null); // Will be needed for modal
+    // const isItModal = props.isModal; // Will be needed for modal
     // #endregion
 
     // #region SCREENSHOTS FUNCTIONS
@@ -147,9 +154,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     const handleCaptureScreenshot = () => {
         if (screenshots.length >= ScreenshotLimit) return;
-        if (modalRef.current) {
-            modalRef.current.hide();
-        }
+        // if (modalRef.current) {
+        //     modalRef.current.hide(); // Will be needed for modal
+        // }
         setIsSelecting(true);
         originalConsoleWarn;
         originalConsoleError;
@@ -176,12 +183,12 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                     const screenshotName = `SCREENSHOT_${screenshots.length + 1}`;
                     const imgData = await getBase64Image(screenshotToAdd);
                     localStorage.setItem(screenshotName, imgData);
-                    if (modalRef.current) {
-                        modalRef.current.show();
-                    }
-                    if (isItModal) {
-                        document.getElementById("feedback")?.click();
-                    }
+                    // if (modalRef.current) {
+                    //     modalRef.current.show(); // Will be needed for modal
+                    // }
+                    // if (isItModal) {
+                    //     document.getElementById("feedback")?.click(); // Will be needed for modal
+                    // }
                 }
             });
         } catch (error) {
@@ -250,9 +257,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         setTimeout(() => {
             handleStopRecording();
         }, VideoMaxDuration * 1000);
-        if (modalRef.current) {
-            modalRef.current.hide();
-        }
+        // if (modalRef.current) {
+        //     modalRef.current.hide(); // Will be needed for modal
+        // }
     };
 
     const handleStopRecording = () => {
@@ -266,12 +273,12 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
 
     useEffect(() => {
-        if (modalRef.current) {
-            modalRef.current.show();
-        }
+        // if (modalRef.current) {
+        //     modalRef.current.show(); // Will be needed for modal
+        // }
         originalConsoleWarn;
         originalConsoleError;
-    }, [screenshots, videos, email, description, /*handleError,*/ originalConsoleError, originalConsoleWarn
+    }, [screenshots, videos, /* email, description,*/ /*handleError,*/ originalConsoleError, originalConsoleWarn
     ]);
     //#endregion
 
@@ -295,18 +302,49 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         return () => handleBlurEffect(false); // Clean up on unmount
     }, [isSelecting, isRecording]);
 
+    // #region COMMON
+    useEffect(() => {
+        // This hook updates capturerData when screenshots change
+        setCapturerData((existingScreenshots) => ({
+            ...existingScreenshots,
+            screenshots: screenshots,
+        }));
+    }, [screenshots]);
+    
+    useEffect(() => {
+        // This hook updates capturerData when videos change
+        setCapturerData((existingVideos) => ({
+            ...existingVideos,
+            videos: videos,
+        }));
+    }, [videos]);
+
+    useEffect(() => {
+        setCapturerData(props.capturerFields);
+    } , [props.capturerFields]);
+
+    const handleDataChanges = (value: any, key: string) => {
+        setCapturerData({ ...capturerData, [key]: value });
+    };
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        props.onSubmit && props.onSubmit(event, email, description, screenshots, videos);
-        setBugTitle("");
-        setEmail("");
-        setDescription("");
+        props.onSaveHandler && props.onSaveHandler(capturerData);
+        setCapturerData({
+            email: "",
+            description: "",
+            screenshots: [],
+            videos: [],
+        });
+        console.log("Capturer Data: ", capturerData);
+        // After successful submission, reset screenshots and videos
         setScreenshots([]);
         setVideos([]);
-        if (modalRef.current) {
-            modalRef.current.hide();
-        }
+        // if (modalRef.current) {
+        //     modalRef.current.hide(); // Will be needed for modal
+        // }
     };
+    // #endregion
 
     const handleScreenshotOrVideoClick = (e: any, index?: number, video?: Blob | undefined, screenshot?: Blob | undefined) => {
         // e.stopPropagation();
@@ -348,9 +386,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 setIsRecording(false);
                 setIsSelecting(false);
                 stopRecording();
-                if (modalRef.current) {
-                    modalRef.current.show();
-                }
+                // if (modalRef.current) {
+                //     modalRef.current.show(); // Will be needed for modal
+                // }
             }
         };
 
@@ -455,8 +493,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 label="SAMPLE INPUT (WILL BE REMOVED)"
                 placeholder="SAMPLE INPUT (WILL BE REMOVED)"
                 inputType="text"
-                onChange={(e) => setBugTitle(e.target.value)}
-                value={bugTitle}
+                // onChange={(e) => setBugTitle(e.target.value)}
+                // value={bugTitle}
                 name="bugTitle"
                 required={true}
                 labelPosition="top"
@@ -471,9 +509,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 isRequired={false}
                 readonly={false}
                 labelPosition="top"
-                value={description}
+                // value={description}
+                // onChange={(e) => setDescription(e.target.value)}
                 dataTestId="sampleTextArea"
-                onChange={(e) => setDescription(e.target.value)}
             />
             {/* <RdsModal
                 modalId="feedbackModal"
@@ -496,7 +534,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             dataTestId="feedback"
                             onClick={() => {
                                 if (modalRef.current) {
-                                    modalRef.current.show();
+                                    modalRef.current.show(); // Will be needed for modal
                                 }
                             }}
                         />
@@ -521,9 +559,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             > */}
             <form onSubmit={handleSubmit}>
                 <div className="text-start mb-1">
-                    <RdsInput name="bugTitle" id="bugTitle" placeholder="Login Issue" label="Bug Title" customClasses="no-blur" inputType="text" onChange={(e) => setBugTitle(e.target.value)} value={bugTitle} required={true} labelPosition="top" dataTestId="bugTitle" reset={inputReset} size="medium" />
-                    <RdsInput name="email" id="bugReportersEmail" placeholder="john.doe@gmail.com" label="Email" customClasses="no-blur" inputType="email" onChange={(e) => setEmail(e.target.value)} value={EmailValue} required={true} labelPosition="top" dataTestId="email" readonly={true} reset={inputReset} size="medium" validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i} validationMsg="Please Enter Valid Email Address." />
-                    <RdsTextArea id="bugDescription" placeholder="I am facing issue regarding..." label="Describe the issue" isRequired={false} readonly={false} labelPosition="top" value={description} dataTestId="description" onChange={(e) => setDescription(e.target.value)} />
+                    <RdsInput name="bugTitle" id="bugTitle" placeholder="Login Issue" label="Bug Title" customClasses="no-blur" inputType="text" onChange={(e) => { handleDataChanges(e.target.value, "bugTitle"); }} value={capturerData?.bugTitle} required={true} labelPosition="top" dataTestId="bugTitle" reset={inputReset} size="medium" />
+                    <RdsInput name="email" id="bugReportersEmail" placeholder="john.doe@gmail.com" label="Email" customClasses="no-blur" inputType="email" onChange={(e) => { handleDataChanges(e.target.value, "email"); }} value={EmailValue} required={true} labelPosition="top" dataTestId="email" readonly={true} reset={inputReset} size="medium" validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i} validationMsg="Please Enter Valid Email Address." />
+                    <RdsTextArea id="bugDescription" placeholder="I am facing issue regarding..." label="Describe the issue" isRequired={false} readonly={false} labelPosition="top" value={capturerData?.description} dataTestId="description" onChange={(e) => handleDataChanges(e.target.value, "description")} />
                     <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px", marginTop: "15px" }}>
                         <RdsButton id="captureScreenshotButton" icon="camera" type="button" label={CaptureScreenshotLabel} class="me-2" size="small" colorVariant={CaptureScreenshotColor} databsdismiss="modal" dataTestId="captureScreenshotButton" onClick={handleCaptureScreenshot} isDisabled={screenshots.length >= ScreenshotLimit || isSelecting} />
                         <RdsButton id="recordScreenButton" icon="camera-video" type="button" label={RecordScreenLabel} class="me-2" size="small" colorVariant={RecordScreenColor} databsdismiss="modal" dataTestId="recordScreenButton" onClick={handleStartRecording} isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"} />
@@ -533,7 +571,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             </label>
                             <input id="upload" type="file" style={{ display: "none" }} accept="image/*,video/*" disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit} onChange={(e) => { handleImageVideoUpload(e); }} />
                         </div>
-                        {/* <RdsButton id="submitButton" icon="bi bi-send" type="submit" label={SubmitButtonLabel} class="me-2" size="small" colorVariant={SubmitButtonColor} databsdismiss="modal" dataTestId="submitButton" onClick={handleSubmit} /> */}
+                        <RdsButton id="submitButton" icon="send" type="submit" label={SubmitButtonLabel} class="me-2" size="small" colorVariant={SubmitButtonColor} databsdismiss="modal" dataTestId="submitButton"/>
                         {isRecording && (
                             <div>
                                 <RdsButton id="stopRecordingButton" type="button" label="Stop Recording" size="small" colorVariant="danger" onClick={handleStopRecording} />
