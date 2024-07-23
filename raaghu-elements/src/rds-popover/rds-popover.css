@@ -5,8 +5,8 @@
   border-radius: 5px;
   opacity: 1;
   text-align: center;
-  min-width: 192px;
-  min-height: 120px;
+  min-width: 105px;
+  height: 65px;
   align-items: center;
 }
 
@@ -20,27 +20,27 @@
 
 .popoverTop {
   position: absolute;
-  top: -128px;
-  left: -62px;
+  top: -74px;
+  left: -13px;
 }
 
 .popoverRight {
   position: absolute;
-  margin-left: 8px;
-  top: -150%;
+  margin-left: 9px;
+  top: -66%;
 }
 
 .popoverLeft {
   position: absolute;
-  left: -200px;
-  top: -150%;
+  left: -114px;
+  top: -71%;
 }
 
 .popoverBottom {
   position: absolute;
   top: 100%;
-  margin-top: 8px;
-  left: -25%;
+  margin-top: 10px;
+  left: -14%;
 }
 
 .popoverCardTop::after {
@@ -53,7 +53,7 @@
   width: 10px;
   height: 10px;
   left: 50%;
-  bottom: -5px;
+  bottom: -6px;
   transform: rotate(45deg);
   background: white;
 }
@@ -67,7 +67,7 @@
   border-top: 0;
   width: 10px;
   height: 10px;
-  left: -3%;
+  left: -5%;
   bottom: 45%;
   transform: rotate(45deg);
   background: white;
@@ -82,7 +82,7 @@
   border-left: 0;
   width: 10px;
   height: 10px;
-  left: 98%;
+  left: 97%;
   bottom: 44%;
   transform: rotate(45deg);
   background: white;
@@ -97,8 +97,56 @@
   border-right: 0;
   width: 10px;
   height: 10px;
-  left: 44%;
-  bottom: 114px;
+  left: 48%;
+  bottom: 59px;
   transform: rotate(45deg);
   background: white;
+}
+
+
+/* .sb-show-main.sb-main-centered {
+    min-width: 490px !important;
+} */
+.popover-container {
+  position: relative;
+  display: inline-block;
+}
+
+.popover-trigger {
+  cursor: pointer;
+  margin: 12px !important;
+  align-items: center !important;
+}
+
+.popover-content {
+  position: absolute;
+  z-index: 1000;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popover-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.popover-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.popover-left {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+
+.popover-right {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
 }
