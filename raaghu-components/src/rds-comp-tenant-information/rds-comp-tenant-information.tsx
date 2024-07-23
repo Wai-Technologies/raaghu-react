@@ -213,7 +213,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                             handleDataChanges(e.target.value, "adminEmailAddress");
                                         }}
                                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                                        validationMsg="This Field Is Not A Valid EmailAddress."
+                                        validationMsg="Please Enter Valid Email Address."
                                     ></RdsInput>
                                 </div>
                             </div>

@@ -80,7 +80,7 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                                     value={formData?.email}
                                     dataTestId="email"
                                     validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                                    validationMsg="This Field Is Not A Valid Email Address."                                    
+                                    validationMsg="Please Enter Valid Email Address."                                    
                                 ></RdsInput>
                              </div>
                         </div>
