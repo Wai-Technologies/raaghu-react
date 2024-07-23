@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
 import { useReactMediaRecorder } from "react-media-recorder";
 import * as htmlToImage from "html-to-image";
+import "./rds-comp-capturer.css";
+import icons from "../rds-comp-icon-list/Icons";
 // import { handleError } from "./logger";
 
 export interface RdsCompCaptureCeProps {
@@ -102,10 +104,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const VideoMinDuration = props.videoMinDuration || 5;
     const VideoMaxDuration = props.videoMaxDuration || 120;
 
-    // const [email, setEmail] = useState("");
-    // const [bugTitle, setBugTitle] = useState("");
-    const [inputReset, setInputReset] = useState(false);
-    //const [description, setDescription] = useState("");
     const [screenshots, setScreenshots] = useState<Blob[]>([]);
     const [videos, setVideos] = useState<Blob[]>([]);
     const [selectedScreenshot, setSelectedScreenshot] = useState<Blob | null>(null);
@@ -118,6 +116,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const [capturerData, setCapturerData] = useState(props.capturerFields);
     // const modalRef = useRef<any>(null); // Will be needed for modal
     // const isItModal = props.isModal; // Will be needed for modal
+    const isDisabled = screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit;
+    const pointerOpacityClass = isDisabled ? "disabled-state" : "default-state";
     // #endregion
 
     // #region SCREENSHOTS FUNCTIONS
@@ -492,7 +492,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 scrollable={false}
                 verticallyCentered={false}
                 modalbutton={
-                    <div className="d-flex justify-content gap-2" style={{ paddingBottom: "15px" }}>
+                    <div className="common-container fifteen-px-padding-bottom gap-nine-px">
                         <RdsButton
                             id="feedback"
                             class="me-2"
@@ -542,7 +542,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         required={true}
                         labelPosition="top"
                         dataTestId="bugTitle"
-                        reset={inputReset}
                         size="medium"
                     />
                     <RdsInput name="email" id="bugReportersEmail"
@@ -556,7 +555,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         labelPosition="top"
                         dataTestId="email"
                         readonly={true}
-                        reset={inputReset}
                         size="medium"
                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                         validationMsg="Please Enter Valid Email Address."
@@ -572,13 +570,11 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         dataTestId="description"
                         onChange={(e) => handleDataChanges(e.target.value, "description")}
                     />
-                    <div
-                        className="d-flex justify-content gap-2"
-                        style={{ paddingBottom: "15px", marginTop: "15px" }}
-                    >
+                    <div className="common-container gap-nine-px ten-px-margin-top">
                         <RdsButton
                             id="captureScreenshotButton"
-                            icon="camera"
+                            // icon={ <RdsIcon name="screenshot" /> }
+                            // icon="screenshot"
                             type="button"
                             label={CaptureScreenshotLabel}
                             class="me-2"
@@ -591,7 +587,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         />
                         <RdsButton
                             id="recordScreenButton"
-                            icon="camera-video"
+                            // icon={ <RdsIcon name="record" /> }
+                            // icon="record"
                             type="button"
                             label={RecordScreenLabel}
                             class="me-2"
@@ -606,15 +603,15 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             <label
                                 id="imageVideoUploadButton"
                                 htmlFor="upload"
-                                className="btn btn-sm btn-outline-primary"
-                                style={{ pointerEvents: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? "none" : undefined, opacity: (screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit) ? 0.65 : 1.0 }}
+                                className={`btn btn-sm btn-outline-primary ${pointerOpacityClass}`}
                             >
+                                {/* <RdsIcon classes="seven-px-padding-right" name="upload_data" /> */}
                                 {UploadButtonLabel}
                             </label>
                             <input
                                 id="upload"
                                 type="file"
-                                style={{ display: "none" }}
+                                className="display-none"
                                 accept="image/*,video/*"
                                 disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
                                 onChange={(e) => { handleImageVideoUpload(e); }}
@@ -622,7 +619,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         </div>
                         <RdsButton
                             id="submitButton"
-                            icon="send"
+                            // icon={ <RdsIcon name="send_or_submit" /> }
+                            // icon="send_or_submit"
                             type="submit"
                             label={SubmitButtonLabel}
                             class="me-2"
@@ -643,7 +641,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                 />
                                 {
                                     status && status !== "stopped" && (
-                                        <div style={{ marginTop: "15px" }}>
+                                        <div className="ten-px-margin-top">
                                             <RdsBadge
                                                 className="badge badge-success"
                                                 label="Recording..."
@@ -657,43 +655,41 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         )}
                     </div>
                     {screenshots.length >= ScreenshotLimit && (
-                        <div style={{ color: "red", marginBottom: "10px" }}>
+                        <div className="ten-px-margin-top danger-color">
                             Maximum limit for screenshots is {ScreenshotLimit}.
                         </div>
                     )}
                     {videos.length >= VideoLimit && (
-                        <div style={{ color: "red", marginBottom: "10px" }}>
+                        <div className="ten-px-margin-top danger-color">
                             Maximum limit for videos is {VideoLimit}.
                         </div>
                     )}
                     <div className="mb-2">
-                        <div className="d-flex flex-wrap gap-3" style={{ marginBottom: "15px" }}>
+                        <div className="d-flex flex-wrap gap-nine-px ten-px-margin-top">
                             {screenshots.map((screenshot, index) => (
                                 <div
-                                    className="image-video-container"
+                                    className={`image-video-container screenshot-video-label ${selectedScreenshot === screenshot ? "primary-color" : "screenshot-video-label-border-default-color"}`}
                                     key={index}
-                                    style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedScreenshot === screenshot ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}
                                 >
                                     <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
                                         <svg
                                             width="18"
                                             height="18"
-                                            style={{ marginBottom: "1px" }}
+                                            className="one-px-margin-bottom"
                                             viewBox="0 0 18 18"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <path d="M5.57143 1C5.57143 1 4.00385 1.00002 2.42244 1.10353C1.71129 1.15008 1.1503 1.71098 1.10368 2.42213C1 4.00373 1 5.57143 1 5.57143M12.4286 1C12.4286 1 13.9962 1.00002 15.5776 1.10353C16.2887 1.15008 16.8497 1.71098 16.8963 2.42213C17 4.00373 17 5.57143 17 5.57143M12.4286 17C12.4286 17 13.9962 17 15.5776 16.8965C16.2887 16.8499 16.8497 16.289 16.8963 15.5779C17 13.9963 17 12.4286 17 12.4286M5.57143 17C5.57143 17 4.00385 17 2.42244 16.8965C1.71129 16.8499 1.1503 16.289 1.10368 15.5779C1 13.9963 1 12.4286 1 12.4286M6.46975 5.61497C6.0768 5.62941 5.73695 5.64606 5.45013 5.6627C4.76099 5.70267 4.21562 6.22823 4.15623 6.91596C4.10053 7.56118 4.04762 8.42556 4.04762 9.38095C4.04762 10.3363 4.10053 11.2007 4.15623 11.8459C4.21562 12.5337 4.76099 13.0592 5.45013 13.0992C6.23531 13.1448 7.41771 13.1905 9 13.1905C10.5823 13.1905 11.7647 13.1448 12.5499 13.0992C13.239 13.0592 13.7844 12.5337 13.8438 11.8459C13.8995 11.2007 13.9524 10.3363 13.9524 9.38095C13.9524 8.42556 13.8995 7.56118 13.8438 6.91596C13.7844 6.22823 13.239 5.70267 12.5499 5.6627C12.263 5.64606 11.9232 5.62941 11.5302 5.61497L11.1853 4.7616C11.033 4.38495 10.692 4.11859 10.2867 4.09029C9.96286 4.06766 9.52731 4.04762 9 4.04762C8.47269 4.04762 8.03714 4.06766 7.7133 4.09029C7.30804 4.11859 6.96701 4.38495 6.81474 4.7616L6.46975 5.61497ZM7.09524 9C7.09524 9.25014 7.14451 9.49783 7.24023 9.72892C7.33595 9.96002 7.47626 10.17 7.65313 10.3469C7.83 10.5237 8.03998 10.664 8.27108 10.7598C8.50218 10.8555 8.74986 10.9048 9 10.9048C9.25014 10.9048 9.49783 10.8555 9.72892 10.7598C9.96002 10.664 10.17 10.5237 10.3469 10.3469C10.5237 10.17 10.664 9.96002 10.7598 9.72892C10.8555 9.49783 10.9048 9.25014 10.9048 9C10.9048 8.74986 10.8555 8.50218 10.7598 8.27108C10.664 8.03998 10.5237 7.83 10.3469 7.65313C10.17 7.47626 9.96002 7.33595 9.72892 7.24023C9.49783 7.14451 9.25014 7.09524 9 7.09524C8.74986 7.09524 8.50218 7.14451 8.27108 7.24023C8.03998 7.33595 7.83 7.47626 7.65313 7.65313C7.47626 7.83 7.33595 8.03998 7.24023 8.27108C7.14451 8.50218 7.09524 8.74986 7.09524 9Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px" }}>
+                                        <span className="seven-px-padding-left seven-px-padding-right">
                                             {`SCREENSHOT_${index + 1}`}
                                         </span>
                                     </div>
                                     <span
                                         id="deleteScreenshot"
-                                        className="screenshotDeleteButton"
+                                        className="screenshotDeleteButton two-px-margin-bottom"
                                         onClick={() => handleDeleteScreenshot(index)}
-                                        style={{ marginBottom: "2px" }}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -710,29 +706,27 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             ))}
                             {videos.map((video, index) => (
                                 <div 
-                                    className="image-video-container" 
-                                    key={index} 
-                                    style={{ borderRadius: "5px", display: "flex", alignItems: "center", padding: "3px 7px", width: "auto", fontSize: "small", border: selectedVideo === video ? "1px solid #7e2eef" : "1px solid #f3e4fd" }}
+                                    className={`image-video-container screenshot-video-label ${selectedVideo === video ? "primary-color" : "screenshot-video-label-border-default-color"}`}
+                                    key={index}
                                 >
                                     <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
                                         <svg 
                                             width="18" 
                                             height="18" 
-                                            style={{ marginBottom: "1px" }} 
+                                            className="one-px-margin-bottom"
                                             viewBox="0 0 18 18" 
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <path d="M8.30435 10.0435H1.69565C1.51115 10.0435 1.33421 9.97019 1.20375 9.83973C1.07329 9.70927 1 9.53232 1 9.34783V1.69565C1 1.51115 1.07329 1.33421 1.20375 1.20375C1.33421 1.07329 1.51115 1 1.69565 1H10.7391C10.9236 1 11.1006 1.07329 11.231 1.20375C11.3615 1.33421 11.4348 1.51115 11.4348 1.69565V7.58226M8.65217 13.1739C8.65217 14.1887 9.05528 15.1618 9.77281 15.8794C10.4903 16.5969 11.4635 17 12.4783 17C13.493 17 14.4662 16.5969 15.1837 15.8794C15.9012 15.1618 16.3043 14.1887 16.3043 13.1739C16.3043 12.1592 15.9012 11.186 15.1837 10.4685C14.4662 9.75093 13.493 9.34783 12.4783 9.34783C11.4635 9.34783 10.4903 9.75093 9.77281 10.4685C9.05528 11.186 8.65217 12.1592 8.65217 13.1739ZM10.7391 13.1739C10.7391 13.6352 10.9224 14.0775 11.2485 14.4037C11.5747 14.7298 12.017 14.913 12.4783 14.913C12.9395 14.913 13.3819 14.7298 13.708 14.4037C14.0342 14.0775 14.2174 13.6352 14.2174 13.1739C14.2174 12.7127 14.0342 12.2703 13.708 11.9442C13.3819 11.618 12.9395 11.4348 12.4783 11.4348C12.017 11.4348 11.5747 11.618 11.2485 11.9442C10.9224 12.2703 10.7391 12.7127 10.7391 13.1739ZM17 8.22226C16.9999 8.34079 16.9696 8.45734 16.9118 8.56085C16.8541 8.66436 16.7708 8.7514 16.67 8.8137C16.5691 8.876 16.4541 8.9115 16.3356 8.91683C16.2172 8.92217 16.0994 8.89716 15.9934 8.84417L13.2108 7.45287C13.0952 7.39513 12.9981 7.30638 12.9301 7.19654C12.8622 7.0867 12.8262 6.96011 12.8261 6.83095V4.21252C12.8262 4.08336 12.8622 3.95678 12.9301 3.84694C12.9981 3.7371 13.0952 3.64834 13.2108 3.59061L15.9934 2.1993C16.0994 2.14632 16.2172 2.12131 16.3356 2.12664C16.4541 2.13197 16.5691 2.16747 16.67 2.22978C16.7708 2.29208 16.8541 2.37911 16.9118 2.48262C16.9696 2.58613 16.9999 2.70268 17 2.82121V8.22226Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        <span style={{ paddingLeft: "7px", paddingRight: "7px" }}>
+                                        <span className="seven-px-padding-left seven-px-padding-right">
                                             {`VIDEO_${index + 1}`}
                                         </span>
                                     </div>
                                     <span 
                                         id="deleteVideo" 
-                                        className="videoDeleteButton" 
-                                        onClick={() => handleDeleteVideo(index)} 
-                                        style={{ marginBottom: "2px" }}
+                                        className="videoDeleteButton two-px-margin-bottom" 
+                                        onClick={() => handleDeleteVideo(index)}
                                     >
                                         <svg 
                                             xmlns="http://www.w3.org/2000/svg" 
@@ -750,7 +744,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         </div>
                         {
                             selectedVideo &&
-                            <div id="videoArea" className="video-responsive">
+                            <div id="videoArea" className="video-responsive ten-px-margin-top">
                                 <video 
                                     autoPlay 
                                     controls 
@@ -763,9 +757,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             selectedScreenshot &&
                             <div id="screenshotArea">
                                 <img 
-                                    className="img-fluid rounded" 
+                                    className="img-fluid rounded screenshotArea ten-px-margin-top" 
                                     src={URL.createObjectURL(selectedScreenshot)} 
-                                    style={{ background: "black", height: "auto", width: "100%" }} 
                                 />
                             </div>
                         }
@@ -775,7 +768,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             {/* </RdsModal> */}
 
             {isSelecting && (
-                <div onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} style={{ width: "100%", height: "100%", cursor: "crosshair", position: "absolute", top: 0, left: 0, zIndex: 9999 }}>
+                <div onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} className="image-capture-selector">
                     <div style={selectionStyle}></div>
                 </div>
             )}

@@ -1,0 +1,143 @@
+:root {
+    --primary-color: #7e2eef;
+    --secondary-color: #6c757d; /* Gray */
+    --success-color: #28a745; /* Green */
+    --danger-color: #dc3545; /* Red */
+    --warning-color: #ffc107; /* Yellow */
+    --info-color: #17a2b8; /* Cyan */
+    --light-color: #f8f9fa; /* Light Gray */
+    --dark-color: #343a40; /* Dark Gray */
+    --text-color: #212529; /* Almost Black */
+    --background-color: #ffffff; /* White */
+    --default-border-color: #f3e4fd; /* Light Purple */
+  }
+
+.common-container {
+  display: flex;
+  justify-content: left;
+}
+
+.fifteen-px-padding-bottom {
+    padding-bottom: 15px;
+}
+
+.gap-nine-px {
+    gap: 9px;
+}
+
+.seven-px-padding-right {
+    padding-right: 7px;
+}
+
+.seven-px-padding-left {
+    padding-left: 7px;
+}
+
+.ten-px-margin-top {
+    margin-top: 10px;
+}
+
+.one-px-margin-bottom {
+    margin-bottom: 1px;
+}
+
+.two-px-margin-bottom {
+    margin-bottom: 2px;
+}
+
+.danger-color {
+    color: var(--danger-color);
+}
+
+.screenshot-video-label {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    /* padding: 3px 7px; */
+    width: auto;
+    font-size: small;
+}
+
+.screenshot-video-label-border-default-color {
+    border: 1px solid var(--default-border-color);
+}
+
+.primary-color {
+    border: 1px solid var(--primary-color);
+}
+
+.disable-pointer-state {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.default-pointer-state {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.display-none {
+    display: none;
+}
+
+.screenshotArea {
+    background-color: var(--background-color);
+    height: auto;
+    width: 100%;
+}
+
+.image-capture-selector {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+/* image container */
+/* .image-video-container {
+    background: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 4px 7px;
+    width: auto;
+    transition: background-color 0.3s ease;
+}
+.image-video-container:hover {
+    background-color: #7e2eef;
+    cursor: pointer;
+    color: #fff;
+}
+.image-video-container:hover svg,
+.image-video-container:hover div svg,
+.image-video-container:hover .screenshotDeleteButton svg {
+    fill: #fff;
+    color: #fff;
+    stroke: #fff;
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 5px;
+}
+.video-responsive video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.blur-controls input:not(.no-blur),
+.blur-controls textarea:not(.no-blur),
+.blur-controls select:not(.no-blur) {
+    filter: blur(5px);
+} */
