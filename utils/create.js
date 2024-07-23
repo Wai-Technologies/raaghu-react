@@ -26,6 +26,7 @@ let pascalCaseName = toPascalCase(name);
 // Define the folder paths
 let appFolderPath = ".";
 let mainIndexFilePath = "";
+let titleType = "";
 if (process.argv[2] === "e") {
   appFolderPath = path.join(__dirname, "..", "raaghu-elements");
   mainIndexFilePath = path.join(
@@ -35,6 +36,7 @@ if (process.argv[2] === "e") {
     "src",
     "index.ts"
   );
+  titleType = "Elements";
 } else if (process.argv[2] === "c") {
   appFolderPath = path.join(__dirname, "..", "raaghu-components");
   mainIndexFilePath = path.join(
@@ -44,6 +46,7 @@ if (process.argv[2] === "e") {
     "src",
     "index.ts"
   );
+  titleType = "Components";
 } else {
   console.log(
     "\x1b[31m%s\x1b[0m",
@@ -81,35 +84,35 @@ if (fs.existsSync(appFolderPath)) {
 
     // Create the .tsx file with the specified content
     let componentContent = `
-import React from "react";
-import './${name}.css';
+        import React from "react";
+        import './${name}.css';
 
-interface ${pascalCaseName}Props {}
+        interface ${pascalCaseName}Props {}
 
-const ${pascalCaseName} = (props: ${pascalCaseName}Props) => (
-  <div>${pascalCaseName} Component</div>
-);
+        const ${pascalCaseName} = (props: ${pascalCaseName}Props) => (
+        <div>${pascalCaseName} Component</div>
+        );
 
-export default ${pascalCaseName};
-        `;
+        export default ${pascalCaseName};
+    `;
     fs.writeFile(filePath, componentContent.trim(), writeFileErrorHandler);
 
     // Create the .stories.tsx file with the specified content
     let storyContent = `
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import ${pascalCaseName} from './${name}';
+        import React from 'react';
+        import { Story, Meta } from '@storybook/react';
+        import ${pascalCaseName} from './${name}';
 
-export default {
-  title: 'Components/${pascalCaseName}',
-  component: ${pascalCaseName},
-} as Meta;
+        export default {
+        title: '${titleType}/${pascalCaseName}',
+        component: ${pascalCaseName},
+        } as Meta;
 
-const Template: Story<{}> = (args) => <${pascalCaseName} {...args} />;
+        const Template: Story<{}> = (args) => <${pascalCaseName} {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {};
-        `;
+        export const Default = Template.bind({});
+        Default.args = {};
+    `;
     fs.writeFile(storyFilePath, storyContent.trim(), writeFileErrorHandler);
 
     // Create the .css file with some initial content
@@ -117,7 +120,7 @@ Default.args = {};
 .${name} {
   /* Add your styles here */
 }
-        `;
+    `;
     fs.writeFile(cssFilePath, cssContent.trim(), writeFileErrorHandler);
 
     // Create the index.ts file
@@ -143,17 +146,10 @@ Default.args = {};
       "\x1b[32m%s\x1b[0m",
       `CSS ${name + ".css"} file created successfully.`
     );
-    if (process.argv[2] === "e") {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        `Export line added to elements index.ts`
-      );
-    } else if (process.argv[2] === "c") {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        `Export line added to components index.ts`                  
-      );
-    }
+    console.log(
+      "\x1b[32m%s\x1b[0m",
+      `Export line added to ${titleType.toLowerCase()} index.ts`
+    );
   }
 } else {
   if (process.argv[2] === "e") {
