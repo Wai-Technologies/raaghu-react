@@ -267,6 +267,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                                 value={tenantInformationData?.connectionStrings?.default}
                                                 dataTestId="data"
                                                 reset={inputReset}
+                                                 validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                                                 validationMsg="Enter valid url"
                                             />
                                         </div>
                                     </div>
