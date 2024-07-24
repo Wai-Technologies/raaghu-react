@@ -120,7 +120,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
-                                        placeholder="Password"
+                                        placeholder="Enter Password"
                                         required={true}
                                         label="Password"
                                         name="password"
@@ -134,14 +134,14 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         showIcon= {true}
                                         reset={inputReset}
                                     ></RdsInput>
-                                    {errors.password && <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
+                                    {errors.password && formData?.password &&  <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
                                 </div>
                             </div>
                             <div className="col-md-6 sm-p-0">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
-                                        placeholder="Confirm Password"
+                                        placeholder="Enter Confirm Password"
                                         required={true}
                                         label="Confirm Password"
                                         name="cpassword"
@@ -156,7 +156,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         showIcon= {true}
                                         reset={inputReset}
                                     ></RdsInput>
-                                    {errors.cpassword && <div className="form-control-feedback"><span className="text-danger">{errors.cpassword}</span></div>}
+                                    {errors.cpassword &&  formData?.cpassword && <div className="form-control-feedback"><span className="text-danger">{errors.cpassword}</span></div>}
                                 </div>
                             </div>
                         </div>

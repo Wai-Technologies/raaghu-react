@@ -75,6 +75,7 @@ const RdsTable = (props: RdsTableProps) => {
                                             fill={true}
                                             stroke={false}
                                             colorVariant={props.iconColorVariant}
+                                            isCursorPointer={false}
                                         ></RdsIcon>
                                     )}
                                     {headerData.dataType != "icon" && tableData[headerData.key]}

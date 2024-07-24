@@ -32,3 +32,7 @@
 .RdsReviewCategory__review-type-2 .avatar img {
     border-radius: 50%;
 }
+
+.theme-dark svg {
+    color: unset;
+}   

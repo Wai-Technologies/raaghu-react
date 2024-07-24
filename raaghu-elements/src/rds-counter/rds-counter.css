@@ -4,3 +4,20 @@
 button {
   background-color: red;
 }
+
+.btn-light {
+  border-color: #E6E7EB;
+}
+
+.theme-dark .form-control {
+  background-color: #343a40  !important;
+  color:  #ffffff!important;
+}
+
+.theme-dark .btn-light svg {
+  color: #363636 !important;
+}
+
+.theme-dark svg {
+  color: #fff !important;
+}

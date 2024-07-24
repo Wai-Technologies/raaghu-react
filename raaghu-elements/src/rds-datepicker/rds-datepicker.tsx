@@ -36,6 +36,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
             (end != null ? " - " + end.toDateString().slice(4) : "")
         );
         setIsDropdownOpen(false);
+        if (typeof props.onDatePicker === 'function') {
+            props.onDatePicker([start, end]);
+        }
     };
 
     const handlerDateChange = (date: any) => {

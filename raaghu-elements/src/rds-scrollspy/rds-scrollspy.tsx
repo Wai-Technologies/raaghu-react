@@ -12,9 +12,9 @@ export interface RdsScrollspyProps {
 
 const RdsScrollspy = (props: RdsScrollspyProps) => {
   return (
-    <div className="col-md-10 col-10 container">
-      <div id="scrollspy">
-        <nav className="navbar navbar-light">
+    <div className="container">
+      <div id="scrollspy" className="row">
+        <nav className="navbar navbar-light col-12">
           <ul className="nav nav-pills">
             {props.data.map((item) => (
               <li className="nav-item" key={item.id}>
@@ -35,7 +35,7 @@ const RdsScrollspy = (props: RdsScrollspyProps) => {
           <div id={`scrollspyHeading${item.id}`} className="scrossSpyItem" key={item.id}>
             <div>
               <h4 className="contentHeader">{item.header}</h4>
-              <p className="contentParagrph">{item.content}</p>
+              <p className="contentParagraph">{item.content}</p>
             </div>
             <div className="d-flex justify-content-end align-items-end">
               <a href="#scrollspy" target="_self" className="text-decoration-none">

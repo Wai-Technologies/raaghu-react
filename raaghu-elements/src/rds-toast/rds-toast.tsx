@@ -78,7 +78,7 @@ const RdsToast = (props: RdsToastProps) => {
 
                     {!props.showHeader && (
                         <div className="m-1 toastbody ">
-                            <div className="d-flex justify-content-between     align-items-baseline  ">
+                            <div className="d-flex justify-content-between     align-items-center  ">
                                 <div className="toast-body toastbody d-flex justify-content-between  align-items-end ">
                                     <div className="me-2">
                                         {props.withIcon && (

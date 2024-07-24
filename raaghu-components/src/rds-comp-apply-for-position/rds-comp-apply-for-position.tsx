@@ -102,7 +102,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
               ></RdsInput>
             </div>
           </div>
-          <div className="row ">
+          <div className="row mt-2">
             <div className="col-md-6 col-sm-12">
               <RdsInput
                 label="Contact Number"
@@ -137,7 +137,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
           </div>
           <div className="row">
             <div className="col-md-6 col-sm-12">
-              <div className="mb-2">
+              <div className="mb-2 mt-2">
                 <RdsInput
                   label="When Can You Start?"
                   placeholder="Notice Period"
@@ -174,7 +174,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
               </div>
             </div>
 
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-sm-12 mt-2">
               <RdsTextArea
                 label="Cover Letter"
                 placeholder="Cover Letter.."
