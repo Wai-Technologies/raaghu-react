@@ -34,7 +34,7 @@ const RdsCompEditionNewBasic = (props: RdsCompEditionNewBasicProps) => {
                             <RdsInput
                                 label={"Edition Name"}
                                 required={true}
-                                placeholder="Edition Name"
+                                placeholder="Enter Edition Name"
                                 inputType="text"
                                 name="editionName"
                                 reset={inputReset}
