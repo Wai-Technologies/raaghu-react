@@ -112,3 +112,5 @@ export { default as RdsCompGetAssistance } from "./rds-comp-get-assistance";
 export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
 
+
+export { default as RdsCompAccount1 } from "./rds-comp-account1";
