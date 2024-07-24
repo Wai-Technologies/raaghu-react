@@ -213,7 +213,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                             handleDataChanges(e.target.value, "adminEmailAddress");
                                         }}
                                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                                        validationMsg="This Field Is Not A Valid EmailAddress."
+                                        validationMsg="Please Enter Valid Email Address"
                                     ></RdsInput>
                                 </div>
                             </div>
@@ -267,6 +267,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                                 value={tenantInformationData?.connectionStrings?.default}
                                                 dataTestId="data"
                                                 reset={inputReset}
+                                                 validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                                                 validationMsg="Enter valid url"
                                             />
                                         </div>
                                     </div>

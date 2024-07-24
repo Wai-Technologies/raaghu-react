@@ -23,12 +23,15 @@ export interface RdsCompUserPermissionProps {
   pagination?: boolean;
   onActionSelection(arg: any): any;
   enablecheckboxselection?: boolean;
+  displayType?: "basic" | "advanced";
 }
 
 const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
 
 
   return (
+    <>
+    {props.displayType == "basic" && (
     <div>
       <div className="d-flex justify-content-end">
         <RdsButton
@@ -56,6 +59,35 @@ const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
         enablecheckboxselection={props.enablecheckboxselection}
       ></RdsCompDatatable>
     </div>
+    )}
+    {props.displayType == "advanced" && (
+      <div>
+      <div className="d-flex justify-content-end mb-3">
+        <RdsButton
+          type={"button"}
+          colorVariant="primary"
+          label="New User"
+          icon="plus"
+          iconHeight="15px"
+          iconFill={false}
+          iconStroke={true}
+          iconWidth="15px"
+          iconColorVariant="light"
+          dataTestId="new-user"
+          size="small"
+        />
+      </div>
+      <RdsCompDatatable
+        actionPosition="right"
+        tableHeaders={props.tableHeaders}
+        actions={props.actions}
+        tableData={props.tableData}
+        pagination={false}
+        onActionSelection={props.onActionSelection}
+      ></RdsCompDatatable>
+    </div>
+    )}
+    </>
   );
 };
 
