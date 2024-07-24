@@ -10,8 +10,8 @@ button {
 }
 
 .theme-dark .form-control {
-  background-color: #ffffff !important;
-  color: #363636 !important;
+  background-color: #343a40  !important;
+  color:  #ffffff!important;
 }
 
 .theme-dark .btn-light svg {
