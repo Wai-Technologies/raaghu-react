@@ -3,7 +3,7 @@ import RdsCompBlogPostNew from './rds-comp-blog-post-new';
 
 
 const meta: Meta = { 
-    title: "Components/Blog Post New",
+    title: "Components/Blog Post",
     component: RdsCompBlogPostNew,
     parameters: {
         layout: 'padded',
