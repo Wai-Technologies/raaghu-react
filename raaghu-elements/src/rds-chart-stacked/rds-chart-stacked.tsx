@@ -35,7 +35,7 @@ const RdsStackedChart = (props: RdsStackedprops) => {
     });
 
     return (
-        <div>
+        <div className="chart-container">
             <canvas id={CanvasId} ref={ctx} />
         </div>
     );
