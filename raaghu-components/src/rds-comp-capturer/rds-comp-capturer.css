@@ -97,7 +97,7 @@
 }
 
 /* image container */
-/* .image-video-container {
+.image-video-container {
     background: #fff;
     border-radius: 5px;
     display: flex;
@@ -140,4 +140,4 @@
 .blur-controls textarea:not(.no-blur),
 .blur-controls select:not(.no-blur) {
     filter: blur(5px);
-} */
+}
