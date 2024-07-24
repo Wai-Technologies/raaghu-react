@@ -40,7 +40,7 @@ const RdsPopover = (props: RdsPopoverProps) => {
                                     ? "popoverLeft popoverCardLeft"
                                     : ""
                         }`}
-                    style={{ display: displayType, padding: "10px" }}
+                    style={{ display: displayType, padding: "5px" }}
                 >
                     <span>{props.children}</span>
                 </div>

@@ -57,7 +57,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Username"
+                            placeholder="Enter Username"
                             value={formData?.userName}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "userName");
@@ -75,7 +75,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Name"
+                            placeholder="Enter Name"
                             value={formData?.name}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "name");
@@ -92,7 +92,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Surname"
+                            placeholder="Enter Surname"
                             value={formData?.surname}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "surname");
@@ -110,7 +110,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
-                                placeholder="Email"
+                                placeholder="Enter Email"
                                 value={formData?.email}
                                 onChange={(e) => {
                                     handleDataChanges(e.target.value, "email");
@@ -141,11 +141,29 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Phone Number"
+                            placeholder="Enter Phone Number"
                             value={formData?.phoneNumber}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "phoneNumber");
                             }}
+                            onKeyDown={(e) => {
+                                const inputElement = e.target as HTMLInputElement;
+                                const currentLength = inputElement.value.length;
+                                const isPlusEntered = inputElement.value.startsWith('+');
+                                const maxLength = isPlusEntered ? 13 : 10;
+                               
+                                const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                const isNumberOrPlus = /[0-9+]/.test(e.key);
+                       
+                                if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                       
+                                if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                    e.preventDefault();
+                                }
+                            }}
+
                             required={false}
                             dataTestId="phone-number"
                         ></RdsInput>

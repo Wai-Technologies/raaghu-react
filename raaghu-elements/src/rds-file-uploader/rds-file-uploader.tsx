@@ -16,20 +16,16 @@ export interface RdsFileUploaderProps {
   onDeleteFile?: (id: any) => void;
 }
 
-const fileholder: any = [];
-const filenameholder: any = [];
-const filesize: any = [];
-
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(
     "No file chosen"
   );
 
   const { t } = useTranslation();
-  const [FileArray, setFileArray] = useState(fileholder);
+  const [FileArray, setFileArray] = useState<any[]>([]);
   const [isExceed, setIsExceed] = useState(false);
-  const [fileName, setfileName] = useState(filenameholder);
-  const [FileSize, setFileSize] = useState(filesize);
+  const [fileName, setfileName] = useState<any[]>([]);
+  const [FileSize, setFileSize] = useState<any[]>([]);
   const [validation, setValidation] = useState(props.validation);
   const size =
     props.size === "small"
@@ -56,10 +52,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
   const onchangehandler = (event: any) => {
     const files = event.target.files;
 
-    // Clear previous file arrays and reset validation state
-    setFileArray([]);
-    setfileName([]);
-    setFileSize([]);
+    // Clear previous validation state
     setIsExceed(false);
     setValidation(
       validation?.map((ele: any, index: number) => ({

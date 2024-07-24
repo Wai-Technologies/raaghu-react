@@ -65,10 +65,11 @@ const RdsSelectList = (props: RdsSelectProps) => {
     ? options.filter((item: any) => selectedValue?.includes(item.value))
     : options.find((item: any) => item.value === selectedValue);
 
-  const placeholder =
-    props.selectedValue !== undefined && props.selectedValue !== null
-      ? selectedItem?.label
-      : props.placeholder;
+    //Not required so commented.
+    // const placeholder =
+    //   props.selectedValue !== undefined && props.selectedValue !== null
+    //     ? selectedItem?.label
+    //     : props.placeholder;
   return (
     <Fragment>
       <div>
@@ -83,8 +84,8 @@ const RdsSelectList = (props: RdsSelectProps) => {
         {props.required && <span className="text-danger ms-1">*</span>}
         <Select
           id={props.id}
-          value={selectedValue}
-          placeholder={placeholder}
+          value={selectedItem}
+          placeholder={props.placeholder}
           isMulti={props.isMultiple}
           options={options}
           aria-label="select example"

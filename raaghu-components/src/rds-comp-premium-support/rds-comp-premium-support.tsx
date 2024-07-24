@@ -50,15 +50,15 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
           <p className="fss-6 mb-2 text-secondary-50">Get Live Support To Address Your Queries. Raise Unlimited Tickets On Our Support Forum With Our Premium Offering</p>
         </div>
 
-        <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mb-lg-0 mb-4 gap-5 justify-content-center pt-5 pb-5 mb-4">
-          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center">
+        <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mb-lg-0 gap-5 justify-content-center pt-5 pb-5">
+          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center mb-4">
             <div className="text-center">
               <img src="./assets/screen-sharing.svg" alt="screen-sharing" className="py-3" />
               <p className="text-secondary-50">Screen Sharing</p>
             </div>
           </div>
 
-          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center">
+          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center mb-4">
             <div className="text-center">
               <img src="./assets/headset.svg" alt="headset" className="py-3" />
               <p className="text-secondary-50 px-3">Live Assistance By Raaghu Developer</p>
