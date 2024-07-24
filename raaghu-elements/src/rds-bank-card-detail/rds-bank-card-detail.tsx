@@ -44,13 +44,11 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                                                 colorVariant={data.iconColorVarient}
                                             />
 
-                                            <div className="ms-3">
-                                                <div className="ms-3 d-flex fs-6">
-                                                    <span>{data.cardName}</span>
-                                                    <span className="ms-1 me-1">Ending with</span>
-                                                    <span>{data.cardNumber}</span>
+                                            <div className="ms-1">
+                                                <div className="ms-2 fs-6">
+                                                    <span>{data.cardName} Ending with {data.cardNumber}</span>
                                                 </div>
-                                                <div className="ms-3 fs-7">
+                                                <div className="ms-2 fs-7">
                                                     <span className="text-muted fs-7">
                                                         {" "}
                                                         Expiry {data.cardExpiry}
@@ -82,7 +80,7 @@ const RdsBankCardDetail = (props: RdsBankCardDetailProps) => {
                                 </div>
 
                                 {props.isEditable == true && (
-                                    <div className="mt-2 ms-5">
+                                    <div className="mt-2 ms-4">
                                         {activeButton == index ? (clicked == false ? (<a
                                             className="ms-3 text-primary text-decoration-none"
                                             onClick={setDefaultHandler}

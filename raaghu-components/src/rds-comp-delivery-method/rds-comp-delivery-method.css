@@ -12,7 +12,7 @@
 
 .border {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 2px solid #AAAAAA;
+    border: 2px solid #AAAAAA ;
     border-radius: 8px;
     opacity: 1;
 }
@@ -76,3 +76,12 @@
     background-color: #7e2eef;
 }
 
+.theme-dark .border {
+    background: #505050 0% 0% no-repeat padding-box;
+    border: 2px solid #505050 !important;
+}
+
+.theme-dark .border-color {
+    border: 2px solid #7e2eef;
+    background: #505050 0% 0% no-repeat padding-box;
+}

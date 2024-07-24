@@ -122,15 +122,11 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
 
         {props.displayType === "advanced" && (
             <form className="RdsCompEmailSettingsNew__form">
-            <div className="row mb-3">
-                <div className="col-md-6 col-sm-6 col-lg-6">
+            <div className="row">
+                <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
-                        <RdsLabel
-                            label="Default From Display Name"
-                            class="mb-1"
-                            size="14px"
-                        ></RdsLabel>
                         <RdsInput
+                            label="Default From Display Name"
                             placeholder="Enter Display Name"
                             customClasses="form-control"
                             inputType="email"
@@ -138,34 +134,34 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         ></RdsInput>
                     </div>
                 </div>
-                <div className="col-md-6 col-sm-6 col-lg-6">
-                    <RdsLabel
-                        label="Default From Address"
-                        class="mb-1"
-                        size="14px"
-                    ></RdsLabel>
+                <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
+                        label="Default From Address"
                         placeholder="Enter Email Address"
                         customClasses="form-control"
                         dataTestId='address'
+                        validatonPattern={
+                            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                            }
+                        validationMsg="Please Enter Valid Email Address."
                     ></RdsInput>
                 </div>
             </div>
 
-            <div className="row mb-4">
-                <div className="col-md-6 col-sm-6 col-lg-6">
+            <div className="row">
+                <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
-                        <RdsLabel label="Host" class="mb-1" size="14px"></RdsLabel>
                         <RdsInput
+                            label="Host"
                             placeholder="127.0.0.1"
                             customClasses="form-control"
                             dataTestId='host'
                         ></RdsInput>
                     </div>
                 </div>
-                <div className="col-md-6 col-sm-6 col-lg-6">
-                    <RdsLabel label="Port" class="mb-1" size="14px"></RdsLabel>
+                <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
+                        label="Port"
                         placeholder="25"
                         customClasses="form-control"
                         dataTestId='port'
@@ -173,7 +169,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
             </div>
 
-            <div className="row mb-3">
+            <div className="row mt-3">
                 <div
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
@@ -181,7 +177,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
             </div>
 
-            <div className="row mb-3">
+            <div className="row mt-3">
                 <div
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
