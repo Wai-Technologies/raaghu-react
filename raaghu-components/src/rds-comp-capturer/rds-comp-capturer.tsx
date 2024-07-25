@@ -24,6 +24,9 @@ export interface RdsCompCaptureCeProps {
     onSaveHandler?: (data: any) => void;
     capturerFields?: any; 
 
+    culture: string;
+    timeZone: string;
+
     // Video Settings
     videoLimit?: number;
     videoWidth?: number;
@@ -66,6 +69,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const UploadButtonColor = "outline-primary";
     const ScreenshotLimit = props.screenshotLimit || 3;
     const IsBlur = props.isBlur || false;
+    const Culture = props.culture || "en-IN";
+    const TimeZone = props.timeZone || "Asia/Kolkata";
 
     // Video Settings
     const VideoLimit = props.videoLimit || 1;
@@ -303,6 +308,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             screenshots: screenshots,
             videos: videos,
             consoleErrors: consoleErrors,
+            // captureDateTime: new Date().toISOString(),
+            captureDateTime: new Date().toLocaleString(Culture, { timeZone: TimeZone }),
         }));
     }, [screenshots, videos, consoleErrors]);
 
