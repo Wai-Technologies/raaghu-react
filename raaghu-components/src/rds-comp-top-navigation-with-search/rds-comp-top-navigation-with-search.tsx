@@ -260,6 +260,7 @@ const RdsCompTopNavigationWithSearch = (
                             height="18px"
                             width="18px"
                             onClick={props.mobileViewLogoClick}
+                            isCursorPointer={true}
                         ></RdsIcon>
                     </div>
                     {/* star----------------------------------------------------------------------------------------------- */}
@@ -274,6 +275,7 @@ const RdsCompTopNavigationWithSearch = (
                             height="18px"
                             width="18px"
                             onClick={props.mobileViewLogoClick}
+                            isCursorPointer={true}
                         ></RdsIcon>
                     </div>
                     {/* notification----------------------------------------------------------------------------------------------- */}
@@ -288,6 +290,7 @@ const RdsCompTopNavigationWithSearch = (
                             height="18px"
                             width="18px"
                             onClick={props.mobileViewLogoClick}
+                            isCursorPointer={true}
                         ></RdsIcon>
                     </div>
                     
@@ -318,6 +321,7 @@ const RdsCompTopNavigationWithSearch = (
                                             width="11px"
                                             fill={false}
                                             stroke={true}
+                                            isCursorPointer={true}
                                         ></RdsIcon>
                                     </span>
                                 </div>
