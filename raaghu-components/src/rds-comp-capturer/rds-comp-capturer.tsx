@@ -323,18 +323,22 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        props.onSaveHandler && props.onSaveHandler(capturerData);
-        setCapturerData({
-            bugTitle: "",
-            email: "",
-            description: "",
-            screenshots: [],
-            videos: [],
-        });
-        console.log("Capturer Data: ", capturerData);
-        // After successful submission, reset screenshots and videos
-        setScreenshots([]);
-        setVideos([]);
+        if (screenshots.length !== 0) {
+            props.onSaveHandler && props.onSaveHandler(capturerData);
+            setCapturerData({
+                bugTitle: "",
+                email: "",
+                description: "",
+                screenshots: [],
+                videos: [],
+            });
+            console.log("Capturer Data: ", capturerData);
+            // After successful submission, reset screenshots and videos
+            setScreenshots([]);
+            setVideos([]);
+        } else {
+            alert("Please attach at least one screenshot before submitting the form.");
+        }
     };
     // #endregion
 
