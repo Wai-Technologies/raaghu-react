@@ -3,7 +3,7 @@ import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from ".
 import { useReactMediaRecorder } from "react-media-recorder";
 import * as htmlToImage from "html-to-image";
 import "./rds-comp-capturer.css";
-import { consoleErrors, consoleWarnings } from "./console-loggers/console-logger";
+import { consoleErrors } from "./console-loggers/console-logger";
 
 export interface RdsCompCaptureCeProps {
     // ModalId: any; // Will be needed for modal
@@ -17,7 +17,6 @@ export interface RdsCompCaptureCeProps {
     // isModal: boolean; // Will be needed for modal
     screenshotLimit?: number;
     bugTitle?: string;
-    email?: string;
     description?: string;
     screenshots: Blob[], 
     videos: Blob[];
@@ -65,7 +64,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const SubmitButtonColor = "outline-primary";
     const UploadButtonLabel = props.uploadButtonLabel || "Upload image/video";
     const UploadButtonColor = "outline-primary";
-    const EmailValue = props.email || "";
     const ScreenshotLimit = props.screenshotLimit || 3;
     const IsBlur = props.isBlur || false;
 
@@ -93,14 +91,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const isDisabled = screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit;
     const pointerOpacityClass = isDisabled ? "disabled-state" : "default-state";
     // #endregion
-
-    // useEffect(() => {
-    //     console.log("Console Error", consoleErrors);
-    //     console.log("Console Warning", consoleWarnings);
-    //     console.log("Console Info", consoleInfo);
-    //     console.log("Console Log", consoleLog);
-    //     console.log("Console Trace", consoleTrace);
-    // }, [screenshots, videos]);
 
     // #region SCREENSHOTS FUNCTIONS
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -170,7 +160,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         } finally {
             // setIsSelecting(false);
             console.log("Console Error", consoleErrors);
-            console.log("Console Warning", consoleWarnings);
         }
     };
 
@@ -235,7 +224,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             console.error("Error stopping recording:", error);
         } finally {
             console.log("Console Error", consoleErrors);
-            console.log("Console Warning", consoleWarnings);
         }
     };
 
@@ -310,19 +298,13 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #region SUBMIT FUNCTIONALITY
     useEffect(() => {
         // This hook updates capturerData when screenshots change
-        setCapturerData((existingScreenshots: any) => ({
-            ...existingScreenshots,
+        setCapturerData((existingData: any) => ({
+            ...existingData,
             screenshots: screenshots,
-        }));
-    }, [screenshots]);
-    
-    useEffect(() => {
-        // This hook updates capturerData when videos change
-        setCapturerData((existingVideos: any) => ({
-            ...existingVideos,
             videos: videos,
+            consoleErrors: consoleErrors,
         }));
-    }, [videos]);
+    }, [screenshots, videos, consoleErrors]);
 
     useEffect(() => {
         setCapturerData(props.capturerFields);
@@ -336,6 +318,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(capturerData);
         setCapturerData({
+            bugTitle: "",
             email: "",
             description: "",
             screenshots: [],
@@ -406,7 +389,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             console.error("Error uploading image/video:", error);
         } finally {
             console.log("Console Error", consoleErrors);
-            console.log("Console Warning", consoleWarnings);
         }
     };
     // #endregion
@@ -436,11 +418,10 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         customClasses="no-blur"
                         inputType="email"
                         onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
-                        value={EmailValue}
+                        value={capturerData?.email}
                         required={true}
                         labelPosition="top"
                         dataTestId="email"
-                        readonly={true}
                         size="medium"
                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                         validationMsg="Please Enter Valid Email Address."
