@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "@waiin/raaghu-react is an React based micro front-end design system from Raaghu Design System. @waiin/raaghu-react employs React, Typescript, Vite, Millions, Bootstrap and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
