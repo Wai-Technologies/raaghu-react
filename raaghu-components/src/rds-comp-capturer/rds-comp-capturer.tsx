@@ -76,7 +76,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const VideoLimit = props.videoLimit || 1;
     const VideoWidth = props.videoWidth || 7680;
     const VideoHeight = props.videoHeight || 4320;
-    const VideoMimeType = props.videoMimeType || "video/webm";
+    const VideoMimeType = props.videoMimeType || "video/mp4";
     const VideoAudioBitsPerSecond = props.videoAudioBitsPerSecond || 128000;
     const VideoVideoBitsPerSecond = props.videoVideoBitsPerSecond || 5000000;
     const VideoSizeInMb = props.VideoSizeInMb || 20;
@@ -148,7 +148,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                     height: `${document.documentElement.offsetHeight}px`,
                     position: "absolute",
                 },
-                type: "image/jpeg",
+                type: "image/png",
                 width,
                 height,
                 quality: 1,
@@ -345,6 +345,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 const file = e.target.files[0];
                 const type = file.type.split("/")[0];
     
+                // Convert file to Blob
+                const blob = new Blob([file], { type: file.type });
+
                 // Step 2: Check if video limit is reached
                 if (type === "video" && videos.length >= VideoLimit) {
                     alert("You have reached your maximum video limit.");
@@ -362,18 +365,18 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 // Existing logic for processing the file
                 if (type === "image") {
                     if (screenshots.length < ScreenshotLimit) {
-                        setScreenshots((existingScreenshots) => [...existingScreenshots, file]);
+                        setScreenshots((existingScreenshots) => [...existingScreenshots, blob]);
                     }
                 } else if (type === "video") {
                     const video = document.createElement("video");
                     video.preload = "metadata";
-                    video.src = URL.createObjectURL(file);
+                    video.src = URL.createObjectURL(blob);
     
                     video.onloadedmetadata = () => {
                         URL.revokeObjectURL(video.src); // Clean up the URL object
     
                         const duration = video.duration;
-                        const size = file.size;
+                        const size = blob.size;
                         if (size > VideoSizeInMb * 1024 * 1024) {
                             alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
                             return;
@@ -384,7 +387,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                 alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000} minutes.`);
                             } else if (videos.length < VideoLimit) {
                                 // If the video duration is within the limits, add it to the videos array
-                                setVideos((prevVideos) => [...prevVideos, file]);
+                                setVideos((prevVideos) => [...prevVideos, blob]);
                             }
                         }
                     };
