@@ -18,14 +18,14 @@ export interface RdsCompCaptureCeProps {
     screenshotLimit?: number;
     bugTitle?: string;
     description?: string;
-    screenshots: Blob[], 
-    videos: Blob[];
+    screenshots?: Blob[], 
+    videos?: Blob[];
     isBlur?: boolean;
     onSaveHandler?: (data: any) => void;
     capturerFields?: any; 
 
-    culture: string;
-    timeZone: string;
+    culture?: string;
+    timeZone?: string;
 
     // Video Settings
     videoLimit?: number;
@@ -286,7 +286,6 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 setShowSelection(false);
                 setIsRecording(false);
                 setIsSelecting(false);
-                stopRecording();
             }
         };
 
@@ -336,6 +335,8 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             // After successful submission, reset screenshots and videos
             setScreenshots([]);
             setVideos([]);
+            setSelectedScreenshot(null);
+            setSelectedScreenshot(null);
         } else {
             alert("Please attach at least one screenshot before submitting the form.");
         }
@@ -510,7 +511,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             databsdismiss="modal"
                             dataTestId="submitButton"
                         />
-                        {isRecording && (
+                        {isRecording && status !== "idle" && status !== "acquiring_media" && (
                             <div>
                                 <RdsButton
                                     id="stopRecordingButton"
@@ -525,7 +526,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                                         <div className="ten-px-margin-top">
                                             <RdsBadge
                                                 className="badge badge-success"
-                                                label="Recording..."
+                                                label={status}
                                                 size="small"
                                                 badgeType="rectangle"
                                             />
@@ -624,7 +625,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             ))}
                         </div>
                         {
-                            selectedVideo &&
+                            selectedVideo && videos.length > 0 &&
                             <div id="videoArea" className="video-responsive ten-px-margin-top">
                                 <video 
                                     autoPlay 
@@ -635,7 +636,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             </div>
                         }
                         {
-                            selectedScreenshot &&
+                            selectedScreenshot && screenshots.length > 0 &&
                             <div id="screenshotArea">
                                 <img 
                                     className="img-fluid rounded screenshotArea ten-px-margin-top" 
