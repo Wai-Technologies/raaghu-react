@@ -480,11 +480,11 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             onClick={handleStartRecording}
                             isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
                         />
-                        <div>
+                        <div className={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit ? "opacity-75" : "opacity-100"}>
                             <label
                                 id="imageVideoUploadButton"
                                 htmlFor="upload"
-                                className={`btn btn-sm btn-outline-primary ${pointerOpacityClass}`}
+                                className={`btn btn-sm btn-${UploadButtonColor} ${pointerOpacityClass} w-auto h-auto`}
                             >
                                 {/* <RdsIcon classes="padding-right" name="upload_data" /> */}
                                 {UploadButtonLabel}
