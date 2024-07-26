@@ -19,9 +19,9 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
         <div>
             {props.type === "With Tall Images And CTA Link" && (
                 <div className="d-flex justify-content-between">
-                    <h6>
+                    <h5>
                         <RdsLabel label="Trending Products" multiline={false}></RdsLabel>
-                    </h6>
+                    </h5>
                     <a href="" className="text-decoration-none">
                         Shop the collection{" "}
                         <RdsIcon
@@ -55,14 +55,14 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
             )}
             {props.type !== "Infinite List" &&
                 props.items.map((item: any, index: any) => (
-                    <div className="mb-5 d-inline-block gap-2">
+                    <div className="mb-5 d-inline-block h-100 gap-2">
                         <RdsCompProductImage item={item} />
                     </div>
                 ))}
             {props.type === "Infinite List" && (
                 <div>
                     {props.items.map((item: any, index: number) => (
-                        <div className="mb-5 d-inline-block gap-2">
+                        <div className="mb-5 d-inline-block h-100 gap-2">
                             {index <= 5 && !isLoadMoreClicked && (
                                 <RdsCompProductImage item={item} />
                             )}
@@ -85,5 +85,6 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
         </div>
     );
 };
+
 
 export default RdsCompProductList;
