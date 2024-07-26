@@ -17,20 +17,16 @@
   justify-content: left;
 }
 
-.fifteen-px-padding-bottom {
-    padding-bottom: 15px;
-}
-
 .gap-nine-px {
     gap: 9px;
 }
 
 .padding-right {
-    padding-right: 7px;
+    padding-right: 4px;
 }
 
 .padding-left {
-    padding-left: 7px;
+    padding-left: 4px;
 }
 
 .ten-px-margin-top {
@@ -102,7 +98,7 @@
     border-radius: 5px;
     display: flex;
     align-items: center;
-    padding: 4px 7px;
+    padding: 4px 4px;
     width: auto;
     transition: background-color 0.3s ease;
 }

@@ -451,7 +451,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         dataTestId="description"
                         onChange={(e) => handleDataChanges(e.target.value, "description")}
                     />
-                    <div className="common-container gap-nine-px ten-px-margin-top">
+                    <div className="d-flex flex-wrap align-content-start gap-2 mt-2">
                         <RdsButton
                             id="captureScreenshotButton"
                             // icon={ <RdsIcon classes="padding-right" name="screenshot" /> }
@@ -546,7 +546,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                         </div>
                     )}
                     <div className="mb-2">
-                        <div className="d-flex flex-wrap gap-nine-px ten-px-margin-top">
+                        <div className="d-flex flex-wrap align-content-start gap-2 mt-2">
                             {screenshots.map((screenshot, index) => (
                                 <div
                                     className={`image-video-container screenshot-video-label ${selectedScreenshot === screenshot ? "primary-color" : "screenshot-video-label-border-default-color"}`}
