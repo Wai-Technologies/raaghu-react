@@ -62,7 +62,7 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
             {props.type === "Infinite List" && (
                 <div>
                     {props.items.map((item: any, index: number) => (
-                        <div className="mb-5 d-inline-block h-100 gap-2">
+                        <div className="mb-5   d-flex h-100 gap-2">
                             {index <= 5 && !isLoadMoreClicked && (
                                 <RdsCompProductImage item={item} />
                             )}
