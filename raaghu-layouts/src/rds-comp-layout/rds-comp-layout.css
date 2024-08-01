@@ -1,0 +1,17 @@
+.resizable {    
+    padding: 20px;
+    min-width: 280px;
+    width: 280px;
+    resize: horizontal;
+    overflow-x: auto;   
+    flex-grow: 1;
+    height: 80vh; 
+    cursor: ew-resize;
+  }
+  
+  
+  .grid-container-3{
+    overflow-x: auto;
+  }
+  
+  

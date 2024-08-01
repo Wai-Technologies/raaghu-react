@@ -473,3 +473,20 @@ export const Highlight: Story = {
         ),
     },
 } satisfies Story;
+
+export const Resizable: Story = {
+    args: {
+      displayType: "Resizable",
+      children: (
+        <>
+          <RdsCompLayoutItem title={""}>
+            <div className="grid-container-3">
+              <div className="resizable content-with-full-height">Add Layout Here 1</div>
+              <div className="resizable content-with-full-height">Add Layout Here 2</div>
+              <div className="resizable content-with-full-height">Add Layout Here 3</div>
+            </div>
+          </RdsCompLayoutItem>
+        </>
+      ),
+    },
+  } satisfies Story;
