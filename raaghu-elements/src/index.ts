@@ -93,4 +93,4 @@ export { default as RdsFeed } from "./rds-feed";
 export { default as RdsCardDetail } from "./rds-card-detail";
 // //Map
 export { default as RdsMap } from "./rds-map";
-export { default as RdsLoader } from "./rds-loader";
+export { default as RdsLoader } from "./rds-loader";export { default as RdsAdvanceAvatar } from "./rds-advance-avatar";
