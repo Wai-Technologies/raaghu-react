@@ -1,0 +1,23 @@
+/* rds-advance-input.css */
+.form-control {
+  border-width: 1px 1px 2px 1px;
+  border-radius: 0;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control.error {
+  border-color: #ef2e2e;
+}
+
+.form-control.error:focus {
+  border-color: #ef2e2e;
+  box-shadow: none;
+}
+
+
+.shape{
+  border-radius: 24px !important;
+}
