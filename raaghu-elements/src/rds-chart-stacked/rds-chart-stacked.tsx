@@ -28,14 +28,17 @@ const RdsStackedChart = (props: RdsStackedprops) => {
                 labels: props.labels,
                 datasets: props.dataSets
             },
-            options: props.options,
+            options: {
+                ...props.options,
+                maintainAspectRatio: false,
+            },
         });
         StackedCanvas.canvas.style.height = props.height + "px";
         StackedCanvas.canvas.style.width = props.width + "px";
     });
 
     return (
-        <div className="chart-container">
+        <div className="Stack-chart-container">
             <canvas id={CanvasId} ref={ctx} />
         </div>
     );
