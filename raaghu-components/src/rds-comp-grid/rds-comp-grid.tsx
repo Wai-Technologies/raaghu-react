@@ -42,26 +42,26 @@ const Popup: React.FC<{
   );
 };
 
-interface Column {
-  key: string;
-  label: string;
-  displayName: string;
-  hasSearch?: boolean;
-  filter?: boolean;
-  wraptext?: boolean;
-  sortable?: boolean;
-  datatype?: string;
-  dataLength?: number;
+interface DragItem {
+  index: number;
 }
 
-interface Row {
-  id: string | number;
-  [key: string]: any;
-}
-
-interface RdsCompGridProps {
-  tableHeaders: Column[];
-  tableData: Row[];
+interface RdsCompGridCombinedProps {
+  tableHeaders: {
+    key: string;
+    label: string;
+    displayName: string;
+    hasSearch?: boolean;
+    filter?: boolean;
+    wraptext?: boolean;
+    sortable?: boolean;
+    datatype?: string;
+    dataLength?: number;
+  }[];
+  tableData: {
+    id: string | number;
+    [key: string]: any;
+  }[];
   allSearch?: boolean;
   allFilter?: boolean;
   recordsPerPage?: number;
@@ -79,28 +79,31 @@ interface RdsCompGridProps {
   onActionSelection?: (rowData: any, actionId: any) => void;
   enablecheckboxselection?: boolean;
   onRowSelect?: (data: any) => void;
+  draggableColumnHeaderProps?: {
+    column: {
+      displayName: string;
+      key: string;
+      hasSearch?: boolean;
+      filter?: boolean;
+    };
+    index: number;
+    moveColumn: (fromIndex: number, toIndex: number) => void;
+    onSearchChange?: (key: string, value: string) => void;
+    allFilter?: boolean;
+    allSearch?: boolean;
+  };
+  dragItem?: {
+    index: number;
+  };
 }
-
-interface DraggableColumnHeaderProps {
+const DraggableColumnHeader: React.FC<{
   column: {
+    sortable: React.JSX.Element;
     displayName: string;
     key: string;
     hasSearch?: boolean;
     filter?: boolean;
   };
-  index: number;
-  moveColumn: (fromIndex: number, toIndex: number) => void;
-  onSearchChange?: (key: string, value: string) => void;
-  allFilter?: boolean;
-  allSearch?: boolean;
-}
-
-interface DragItem {
-  index: number;
-}
-
-const DraggableColumnHeader: React.FC<{
-  column: Column;
   index: number;
   moveColumn: (fromIndex: number, toIndex: number) => void;
   hasSearch?: boolean;
@@ -252,10 +255,10 @@ const DraggableColumnHeader: React.FC<{
   );
 };
 
-const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
+const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombinedProps) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
-  const [columns, setColumns] = useState<Column[]>(props.tableHeaders);
-  const [totalData, setTotalData] = useState<Row[]>(props.tableData);
+  const [columns, setColumns] = useState(props.tableHeaders);
+  const [totalData, setTotalData] = useState(props.tableData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(
     props.recordsPerPage ? props.recordsPerPage : 10
@@ -352,7 +355,7 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
   });
 
   const getSortedData = (
-    data: Row[],
+    data: any[],
     config: { key: string; direction: "asc" | "desc" } | null,
     currentPage: any
   ) => {
@@ -552,7 +555,10 @@ const RdsCompGrid: React.FC<RdsCompGridProps> = (props: RdsCompGridProps) => {
                 {columns.map((column, index) => (
                   <DraggableColumnHeader
                     key={column.key}
-                    column={column}
+                    column={{
+                      ...column,
+                      sortable: <></> // Replace undefined with an empty React element
+                    }}
                     index={index}
                     moveColumn={moveColumn}
                     onSearchChange={handleSearchChange}
