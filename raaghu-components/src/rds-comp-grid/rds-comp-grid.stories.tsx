@@ -233,3 +233,42 @@ export const WithWrapText: Story = {
   }
 } satisfies Story;
 WithWrapText.parameters = { controls: { include: ['tableHeaders','tableData','pagination', 'recordsPerPage','', 'allSearch', 'allFilter'] } };
+
+export const WithAction: Story = {
+  args: {
+   
+               tableHeaders : [
+                { key: 'name', label: 'Name', displayName: 'Name', wraptext: true },
+                { key: 'age', label: 'Age', displayName: 'Age' },
+                { key: 'email', label: 'Email', displayName: 'Email', wraptext: true },
+                { key: 'address', label: 'Address', displayName: 'Address', wraptext: true },
+                { key: 'role', label: 'Role', displayName: 'Role' },
+                { key: 'country', label: 'Country', displayName: 'Country' },
+                { key: 'status', label: 'Status', displayName: 'Status', datatype: 'badge' },               
+                ],
+                 tableData : [                 
+                  { id: 1, name: 'John Doe', age: 25, email: 'test@mm.com', address: '123, abc street, apt 456, cityname, statename, countryname, 123456, landmark near xyz, building name, block 7, floor 3, door 8, some additional text to make it 200 characters.', role: 'admin', country: 'India',  status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 2, name: 'Jane Doe', age: 28, email: 'test@mm.com', address: '456, def street, apt 789, cityname, statename, countryname, 654321, landmark near abc, building name, block 9, floor 2, door 12, some additional text to make it 200 characters.', role: 'admin', country: 'USA', status:  { "badgeColorVariant": "primary", "content": "deactive" }},
+                  { id: 3, name: 'Mary Smith', age: 32, email: 'xyz@mm.com', address: '789, ghi street, apt 012, cityname, statename, countryname, 789012, landmark near lmn, building name, block 1, floor 5, door 15, some additional text to make it 200 characters.', role: 'admin', country: 'UK', status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 4, name: 'Marry Doe', age: 25, email: 'dfjd@mm.com', address: '012, jkl street, apt 345, cityname, statename, countryname, 210345, landmark near opq, building name, block 2, floor 4, door 18, some additional text to make it 200 characters.', role: 'admin', country: 'India', status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 5, name: 'Marry Com', age: 28, email: 'kdfds@com', address: '345, mno street, apt 678, cityname, statename, countryname, 543678, landmark near rst, building name, block 3, floor 1, door 21, some additional text to make it 200 characters.', role: 'admin', country: 'USA', status: { "badgeColorVariant": "primary", "content": "deactive" }},
+                  { id: 6, name: 'Jakub Edwadard', age: 32, email: 'js@ml.com', address: '453, abc street', role: 'admin', country: 'India', status:{ "badgeColorVariant": "success", "content": "active" }},  
+                  { id: 7, name: 'John Doe666', age: 25, email: 'test@mm.com', address: '123, abc street', role: 'admin', country: 'India', status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 8, name: 'Jane Doe444', age: 28, email: 'test@mm.com', address: '123, abc street', role: 'admin', country: 'USA', status:  { "badgeColorVariant": "primary", "content": "deactive" }},
+                  { id: 9, name: 'Mary Smith7', age: 32, email: 'xyz.mm.com', address: '5656, abc street', role: 'admin', country: 'UK', status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 10, name: 'Marry Doer', age: 25, email: 'dfjd@mm.com', address: '123, abc street', role: 'admin', country: 'India', status:{ "badgeColorVariant": "success", "content": "active" }},
+                  { id: 11, name: 'Marry', age: 28, email: 'kdfds@com', address: '433, abc street', role: 'admin', country: 'USA', status:  { "badgeColorVariant": "primary", "content": "deactive" }}, 
+                  { id: 12, name: 'Jakub ', age: 32, email: 'js@ml.com', address: '453, abc street dfd fd dfd fd ttttf ddddddr fdf', role: 'admin', country: 'India', status:{ "badgeColorVariant": "success", "content": "active" }},  
+                ] ,
+                pagination: true,
+                recordsPerPage: 5,
+                totalRecords: 12,
+                actions: [
+                  { id: "delete", displayName: "Delete" },
+                  { id: "edit", displayName: "Edit" },
+              ],             
+              actionPosition: "right",      
+              enablecheckboxselection: true,     
+  }
+} satisfies Story;
+WithAction.parameters = { controls: { include: ['tableHeaders','tableData','pagination', 'recordsPerPage','', 'allSearch', 'allFilter','actions','actionPosition','enablecheckboxselection'] } };
