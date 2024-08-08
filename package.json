@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wai-Technologies/raaghu-react"
+    "url": "git+https://github.com/Wai-Technologies/raaghu-react.git"
   },
   "author": {
     "name": "WAi Technologies",
@@ -47,6 +47,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.2.41",
@@ -156,6 +157,10 @@
     "create:component": "node utils/create.js c",
     "preview": "vite preview",
     "lint:pages": "npm run lint --prefix raaghu-pages",
-    "preview:pages": "npm run preview --prefix raaghu-pages"
+    "preview:pages": "npm run preview --prefix raaghu-pages",
+    "chromatic": "npx chromatic --project-token=chpt_e0908206295b243"
+  },
+  "bugs": {
+    "url": "https://github.com/Wai-Technologies/raaghu-react/issues"
   }
 }
