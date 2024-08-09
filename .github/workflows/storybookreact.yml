@@ -5,7 +5,7 @@ on:
       environment:
           description: 'Select the deployment environment'
           required: true
-          default: 'Development'
+          default: 'Staging'
           type: choice
           options:
           - Staging
@@ -80,6 +80,19 @@ jobs:
         with:
           name: node-app
 
+      - name: Azure service principal login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Purge CDN
+        run: 
+          az cdn endpoint purge -n storybookreact --profile-name storybookreact-cdn-profile --content-paths "/*" --resource-group Raaghu-MFE-Demo-WebApp --no-wait
+
+      - name: Azure service principal logout
+        run: |
+          az logout
+
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
@@ -104,6 +117,19 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+
+      - name: Azure service principal login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Purge CDN
+        run: 
+          az cdn endpoint purge -n storybook-stage-react --profile-name storybook-stage-react-cdn-profile --content-paths "/*" --resource-group Raaghu-MFE-Demo-WebApp --no-wait
+
+      - name: Azure service principal logout
+        run: |
+          az logout
 
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
