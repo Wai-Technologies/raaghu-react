@@ -8,8 +8,8 @@ import { Meta, StoryObj } from "@storybook/react";
 const textAlignArgTypes = {
     textAlign: {
         options: ["text-start", "text-center", "text-end"],
-        control: { type: "select" },
-    },
+        control: { type: "select"},
+    } as const,
 };
 
 const meta: Meta = {

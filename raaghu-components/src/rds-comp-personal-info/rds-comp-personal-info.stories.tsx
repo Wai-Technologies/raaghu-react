@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { ComponentStory } from "@storybook/react";
+//import { ComponentStory } from "@storybook/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompPersonalInfo from './rds-comp-personal-info';
 

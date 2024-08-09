@@ -9,8 +9,8 @@ const colorVariantArgTypes = {
 const textAlignArgTypes = {
     titleAlign: {
         options: ["horizontal", "vertical"],
-        control: { type: "select" },
-    },
+        control: { type: "select"},
+    }as const,
 };
 
 const meta: Meta = {
@@ -23,8 +23,8 @@ const meta: Meta = {
     argTypes: {
         size: {
             options: ["small", "medium", "large"],
-            control: { type: "radio" },
-        },
+            control: { type: "radio"},
+        } as const,
     },
 } satisfies Meta<typeof RdsAvatar>;
 

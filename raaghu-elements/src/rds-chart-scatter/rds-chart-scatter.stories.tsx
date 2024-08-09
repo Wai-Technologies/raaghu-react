@@ -57,22 +57,25 @@ export const ScatterChart: Story = {
                         y: 5.5
                     }
                 ],
-                backgroundColor: "rgb(255, 99, 132)"
+                backgroundColor: "rgb(255, 99, 132)",
+                pointStyle: "triangle",
+                pointRadius: 10 
             }
         ],
         labels: ["January", "February", "March", "April"],
 
         options: {
             responsive: true,
-            maintainAspectRatio: false, pointStyle: "triangle",
-            radius: 10,
+            maintainAspectRatio: false,
+            // radius: 10,
             plugins: {
                 legend: {
                     position: "top",
                     align: "center",
-                    pointStyle: "line",
+                    //pointStyle: "line",
                     labels: {
-                        usePointStyle: true
+                        usePointStyle: true,
+                       //  pointStyle: "triangle"
                     }
                 },
                 tooltip: {

@@ -4,6 +4,8 @@ import RdsInputGroup from "./rds-input-group";
 import { input_size } from "../../libs/types/size";
 import { button_colors } from "../../libs/types/colorvariant";
 
+const buttonColorsArray = Object.values(button_colors);
+const inputSizeArray = Object.values(input_size);
 
 const meta: Meta = {
     title: 'Elements/Input Group',
@@ -14,11 +16,11 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         colorVariant: {
-            options: button_colors,
+            options: buttonColorsArray ,
             control: { type: "select" },
         },
         size: {
-            options: input_size,
+            options: inputSizeArray,
             control: { type: "select" },
         },
         labelPosition: {
