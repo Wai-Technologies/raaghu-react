@@ -1,14 +1,13 @@
- li#breadcrumbItem::before {
-   display: none;
+.breadcrumb-background .breadcrumb-item {
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+}
 
-   float: left;
-   color: var(--bs-breadcrumb-divider-color);
-   content: var(--bs-breadcrumb-divider, "") !important;
- }
- .theme-light .breadcrumb-items + .breadcrumb-items::before {
-   display: none;
- }
-
- .breadcrumb-items + .breadcrumb-items{
-   padding-left: none;
- }
+.breadcrumb-background .breadcrumb-item.breadcrumb-round {
+  border-radius: 1.5rem;
+}
+.breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  margin: 0 0.55rem;
+}
