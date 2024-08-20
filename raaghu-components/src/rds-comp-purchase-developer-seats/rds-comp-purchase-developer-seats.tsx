@@ -75,7 +75,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
               <div className="d-flex align-items-center gap-3 py-3 px-4">
                 <div>
                   <img
-                    src="raaghu-components/public/assets/seatPurple.svg"
+                    src="./assets/seatPurple.svg"
                     alt="seatPurple"
                     width="25px"
                   />

@@ -55,7 +55,7 @@ export const LineChart: Story = {
                 },
                 title: {
                     display: true,
-                    text: "Area Chart with boundries"
+                    text: "Line Chart with boundries"
                 }
             },
             interaction: {

@@ -61,3 +61,17 @@
 .theme-dark svg {
     color: #f5efef !important;
 }
+
+.css-zqpgva[data-orientation="vertical"] {
+    padding-right: 0px !important;
+    padding-left: 8px !important;
+}
+
+nav.container.sidebar-container.css-t68aeq {
+    padding: 0 !important;
+}
+
+.css-14774g3{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}

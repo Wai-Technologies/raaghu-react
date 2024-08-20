@@ -29,7 +29,7 @@ function emitSaveData(event: any) {
   setInputReset(!inputReset);
    setFormData({
     name: "",
-    displayname: "",
+    displayName: "",
     description: "",
     accessTokenSigningAlgorithm: "",
    })
@@ -65,12 +65,12 @@ function emitSaveData(event: any) {
                   placeholder="Enter display name"
                   inputType="text"
                   onChange={(e) => {
-                    handleDataChanges(e.target.value, "displayname");
+                    handleDataChanges(e.target.value, "displayName");
                   }}
                   required={false}
-                  name={"displayname"}
-                  value={formData?.Displayname}
-                  dataTestId="display-name"
+                  name={"displayName"}
+                  value={formData?.displayName}
+                  dataTestId="displayName"
                 ></RdsInput>
               </div>
             </div>

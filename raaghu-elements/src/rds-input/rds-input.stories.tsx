@@ -106,11 +106,11 @@ export const Email: Story = {
         id: "",
         value: "",
         required: true,
-        readonly: true,
+        readonly: false,
         showIcon: true,
     }
 } satisfies Story;
-Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required',] } };
+Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required',, 'readonly'] } };
 
 export const Password: Story = {
     args: {
@@ -122,8 +122,8 @@ export const Password: Story = {
         id: "",
         value: "",
         required: true,
-        readonly: true,
+        readonly: false,
         showIcon: true,
     }
 } satisfies Story;
-Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon'] } };
+Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };

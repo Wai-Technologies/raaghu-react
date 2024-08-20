@@ -40,7 +40,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
 
   return (<>
     <section className="downloadable-contents pb-5 pt-4" style={{
-      background: `#06051B url('raaghu-components/public/assets/downloadable-section.png') no-repeat`,
+      background: `#06051B url('./assets/downloadable-section.png') no-repeat`,
       backgroundSize: "cover",
       backgroundPosition: "center"
     }}>
@@ -50,17 +50,17 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
           <p className="fss-6 mb-2 text-secondary-50">Get Live Support To Address Your Queries. Raise Unlimited Tickets On Our Support Forum With Our Premium Offering</p>
         </div>
 
-        <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mb-lg-0 mb-4 gap-5 justify-content-center pt-5 pb-5 mb-4">
-          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center">
+        <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mb-lg-0 gap-5 justify-content-center pt-5 pb-5">
+          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center mb-4">
             <div className="text-center">
-              <img src="raaghu-components/public/assets/screen-sharing.svg" alt="screen-sharing" className="py-3" />
+              <img src="./assets/screen-sharing.svg" alt="screen-sharing" className="py-3" />
               <p className="text-secondary-50">Screen Sharing</p>
             </div>
           </div>
 
-          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center">
+          <div className="support-cards rounded-4 d-flex justify-content-center align-items-center mb-4">
             <div className="text-center">
-              <img src="raaghu-components/public/assets/headset.svg" alt="headset" className="py-3" />
+              <img src="./assets/headset.svg" alt="headset" className="py-3" />
               <p className="text-secondary-50 px-3">Live Assistance By Raaghu Developer</p>
             </div>
           </div>
@@ -87,7 +87,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
             <div>
               <div className="offcanvas-intive-banner">
                 <div className="d-flex align-items-center gap-3 py-3 px-4">
-                  <div><img src="raaghu-components/public/assets/headset-purple.svg" alt="headset-purple" width="25px" /></div>
+                  <div><img src="./assets/headset-purple.svg" alt="headset-purple" width="25px" /></div>
                   <div>
                     <p className="fw-medium mb-0 smaller text-start">Get Live Support To Address Your Queries. Raise Unlimited Tickets On Our Support Forum With Our Premium Offering.</p>
                   </div>

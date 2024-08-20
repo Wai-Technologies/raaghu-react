@@ -79,7 +79,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
 
                         </div>
                     </div>
-                    <div className=" mb-4">
+                    <div className=" mb-3 mt-2">
                         <RdsInput
                             reset={inputReset}
                             label="Description"
@@ -92,7 +92,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             dataTestId="desc"
                         ></RdsInput>
                     </div>
-                    <div className=" mb-4">
+                    <div className=" mb-3">
                         <RdsTextArea
                             label="Resources"
                             placeholder="Resources"

@@ -10,6 +10,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        displayType: {
+            options: ["basic", "advanced"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsCompProperties>;
 
@@ -18,6 +22,7 @@ type Story = StoryObj<typeof RdsCompProperties>;
 
 export const Default: Story = {
     args: {
+        displayType: "basic",
         propertyHeaders: [
                     { displayName: "Member", key: "member", datatype: "avatarTitleInfo", sortable: false },
                     { displayName: "Cases", key: "cases", datatype: "number", sortable: false, },
@@ -58,6 +63,8 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-
-
-
+export const Advanced: Story = {
+    args: {
+        displayType: "advanced",
+    }
+} satisfies Story;

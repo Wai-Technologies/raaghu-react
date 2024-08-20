@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "description": "@waiin/raaghu-react is an React based micro front-end design system from Raaghu Design System. @waiin/raaghu-react employs React, Typescript, Vite, Millions, Bootstrap and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
@@ -29,7 +29,7 @@
     "email": "support@waiin.com",
     "url": "https://waiin.com"
   },
-  "homepage": "https://react.raaghu.io",
+  "homepage": "https://react.raaghu.ai",
   "license": "Apache License 2.0",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -47,6 +47,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.2.41",
@@ -125,6 +126,7 @@
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "babel-loader": "^9.1.3",
+    "chromatic": "^11.7.0",
     "css-loader": "^6.8.1",
     "eslint": "^8.55.0",
     "eslint-config-standard-with-typescript": "^40.0.0",
@@ -160,6 +162,10 @@
     "create:component": "node utils/create.js c",
     "preview": "vite preview",
     "lint:pages": "npm run lint --prefix raaghu-pages",
-    "preview:pages": "npm run preview --prefix raaghu-pages"
+    "preview:pages": "npm run preview --prefix raaghu-pages",
+    "chromatic": "npx chromatic --project-token=chpt_e0908206295b243"
+  },
+  "bugs": {
+    "url": "https://github.com/Wai-Technologies/raaghu-react/issues"
   }
 }

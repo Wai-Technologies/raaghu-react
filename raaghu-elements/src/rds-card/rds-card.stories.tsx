@@ -81,13 +81,13 @@ export const Avatar: Story = {
         showFooter: true,
         isImage: true,
         imageUrl: "https://picsum.photos/seed/picsum/1200/600",
-        avatarUrl: "https://placekitten.com/300/300",
+        src: "./assets/raaghu_icon.png",
         isAvatar: true,
         centerAlign: false,
         borderColor: "",
     }
 } satisfies Story;
-Avatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'avatarUrl', 'isAvatar', 'centerAlign', 'borderColor'] } };
+Avatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor'] } };
 
 export const WithCenteredAvatar: Story = {
     args: {
@@ -99,11 +99,11 @@ export const WithCenteredAvatar: Story = {
         showFooter: true,
         isImage: true,
         imageUrl: "https://picsum.photos/seed/picsum/1200/600",
-        avatarUrl: "https://placekitten.com/300/300",
+        src: "./assets/raaghu_icon.png",
         isAvatar: true,
         centerAlign: true,
         borderColor: "",
     }
 } satisfies Story;
-WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'avatarUrl', 'isAvatar', 'centerAlign', 'borderColor'] } };
+WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor'] } };
 
