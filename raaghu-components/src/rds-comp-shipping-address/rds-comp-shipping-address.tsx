@@ -54,7 +54,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter First Name"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "firstName");
@@ -71,7 +71,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter Last Name"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "lastName");
@@ -91,7 +91,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter Company"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "company");
@@ -108,11 +108,28 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter Phone"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "phone");
                   }}
+                  onKeyDown={(e) => {
+                    const inputElement = e.target as HTMLInputElement;
+                    const currentLength = inputElement.value.length;
+                    const isPlusEntered = inputElement.value.startsWith('+');
+                    const maxLength = isPlusEntered ? 13 : 10;
+                   
+                    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                    const isNumberOrPlus = /[0-9+]/.test(e.key);
+           
+                    if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                        e.preventDefault();
+                    }
+           
+                    if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                        e.preventDefault();
+                    }
+                }}
                   value={formData?.phone}
                   reset={inputReset}
                 ></RdsInput>
@@ -127,7 +144,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 inputType="text"
                 isDisabled={false}
                 readonly={false}
-                placeholder="Enter a value"
+                placeholder="Enter Address"
                 required={true}
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "address");
@@ -146,7 +163,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter City"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "city");
@@ -161,6 +178,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 <RdsSelectList
                   id="seleCon"
                   label="Country"
+                  placeholder="Select Country"
                   selectItems={props.countryList}
                   selectedValue={formData?.country}
                   onChange={(item: any) => {
@@ -179,7 +197,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter State/Province"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "state");
@@ -196,7 +214,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
-                  placeholder="Enter a value"
+                  placeholder="Enter Postal Code"
                   required={true}
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "postalCode");
