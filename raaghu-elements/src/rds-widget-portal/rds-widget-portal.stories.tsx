@@ -16,7 +16,7 @@ export const Default: Story = {
     args: {
       btnLabel: "Buy Ticket",
       widgetTitle: "Team",
-      statusMsg: "Upgrade liecece to get more features",
+      statusMsg: "Upgrade licence to get more features",
       subTitle: "Liecence Type",
       icon: "arrow_down",
       btnShow: true,

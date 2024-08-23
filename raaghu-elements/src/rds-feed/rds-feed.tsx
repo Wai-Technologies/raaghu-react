@@ -43,6 +43,7 @@ const RdsFeed = (props: RdsFeedProps) => {
                                     width="50px"
                                     height="50px"
                                     fill={false}
+                                    isCursorPointer={true}
                                 ></RdsIcon>
                             </div>
                             <div className="flex-grow-1">

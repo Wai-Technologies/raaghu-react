@@ -1,5 +1,6 @@
 import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating } from "../rds-elements";
+import "./rds-comp-feeds.css";
 export interface Item {
     name: string;
     username?: string;
