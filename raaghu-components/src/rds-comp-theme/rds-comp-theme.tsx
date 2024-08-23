@@ -48,7 +48,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             <RdsSelectList
                                 id="style"
                                 label="Style"
-                                placeholder="select"
+                                placeholder="Select Style"
                                 selectItems={props.StyleList}
                                 selectedValue={formData?.StyleList} 
                                 onChange={(item: any) => {
@@ -60,7 +60,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             <RdsSelectList
                                 id="webL"
                                 label="Public Website Style"
-                                placeholder="select"
+                                placeholder="Select Public Website Style"
                                 selectItems={props.WebList}
                                 selectedValue={formData?.WebList}
                                 onChange={(item: any) => {
@@ -75,7 +75,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             <RdsSelectList
                                 id="menuL"
                                 label="Menu Placement"
-                                placeholder="select"
+                                placeholder="Select Menu Placement"
                                 selectItems={props.MenuList}
                                 selectedValue={formData?.MenuList}
                                 onChange={(item: any) => {
@@ -87,7 +87,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             <RdsSelectList
                                 id="statl"
                                 label="Menu Status"
-                                placeholder="select"
+                                placeholder="Select Menu Status"
                                 selectItems={props.StatusList}
                                 selectedValue={formData?.StatusList}
                                 onChange={(item: any) => {
