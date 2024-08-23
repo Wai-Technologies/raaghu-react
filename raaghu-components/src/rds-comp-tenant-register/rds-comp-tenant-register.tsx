@@ -224,6 +224,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltip={true}
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
+                                    isCursorPointer={true}
                                 ></RdsIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
                                 <RdsIcon
@@ -236,6 +237,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltip={true}
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
+                                    isCursorPointer={true}
                                 ></RdsIcon>
                             </span>
                         </div>

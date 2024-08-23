@@ -54,6 +54,7 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 stroke={true}
                                                 width="27px"
                                                 colorVariant=""
+                                                isCursorPointer={true}
                                             ></RdsIcon>
                                             <RdsIcon
                                                 //	class="mx-2"
@@ -63,6 +64,7 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 stroke={true}
                                                 width="27px"
                                                 colorVariant=""
+                                                isCursorPointer={true}
                                             ></RdsIcon>
                                         </div>
                                     </div>
