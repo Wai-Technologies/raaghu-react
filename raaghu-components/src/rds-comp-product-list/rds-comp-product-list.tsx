@@ -55,7 +55,7 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
             )}
             {props.type !== "Infinite List" &&
                 props.items.map((item: any, index: any) => (
-                    <div className="mb-5 d-inline-block h-100 gap-2">
+                    <div className="mb-5 d-inline-block h-100 gap-2 custom_margin_class">
                         <RdsCompProductImage item={item} />
                     </div>
                 ))}
