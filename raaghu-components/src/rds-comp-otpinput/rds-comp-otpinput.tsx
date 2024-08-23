@@ -54,7 +54,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
    return (
       <>
          <div className="text-center">
-            <p>Enter the {otpSize}-digit OTP you have received</p>
+            <p>Enter the {otpSize}-digit OTP you received</p>
          </div>
          <div className="d-flex justify-content-center mx-auto">
             {otp.map((digit, index) => (
