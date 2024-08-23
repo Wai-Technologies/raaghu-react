@@ -68,6 +68,8 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
               onChange={(e) => {
                 handleDataChanges(e.target.value, "email");
               }}
+              validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+              validationMsg="Invalid Email Address."
               reset={inputReset}
             ></RdsInput>
           </div>
@@ -82,6 +84,23 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                   handleDataChanges(e.target.value, "contactNumber");
                 }}
                 reset={inputReset}
+                onKeyDown={(e) => {
+                  const inputElement = e.target as HTMLInputElement;
+                      const currentLength = inputElement.value.length;
+                      const isPlusEntered = inputElement.value.startsWith('+');
+                      const maxLength = isPlusEntered ? 13 : 10;
+                     
+                      const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                      const isNumberOrPlus = /[0-9+]/.test(e.key);
+             
+                      if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                          e.preventDefault();
+                      }
+             
+                      if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                          e.preventDefault();
+                      }
+                  }}
               ></RdsInput>
             </div>
           <div className="form-group mb-2">

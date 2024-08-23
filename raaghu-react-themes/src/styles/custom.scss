@@ -634,6 +634,11 @@ ul#languageDropdown {
   max-height: calc(100vh - 50px);
 }
 
+ul#languageDropdownForSearch {
+  max-height: calc(100vh - 50px);
+}
+
+
 // commentted class for further use
 
 .dropdown-toggle::after {
