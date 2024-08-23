@@ -58,33 +58,32 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
             <div className="text-center">
                 {!showmailsuccess && (
                     <div>
-
-                        <div className="d-flex align-items-center mb-1">
-                            <div className="col-8 col-md-8 mb-3 offset-2">
-                                <h2 className="mb-0">
-                                    Forgot Password
-                                </h2>
-                            </div>
-                            <div className="col-2 col-md-2 mb-3">
-                                <RdsDropdownList
-                                    labelIcon={currentLanguageIcon}
-                                    labelIconWidth='18px'
-                                    labelIconHeight='18px'
-                                    borderDropdown={false}
-                                    isPlaceholder
-                                    listItems={props.languageData}
-                                    placeholder="Select Language"
-                                    icon="en"
-                                    id={"langDrop"}
-                                    block={false}
-                                    iconFill={false}
-                                    iconStroke={false}
-                                    showIcon={false}
-
-                                />
-                            </div>
-
+                    <div className="container">
+                    <div className="row align-items-center mb-1">
+                        <div className="col-12 col-md-11 text-md-end mb-3">
+                        <h2 className="mb-0 text-center">
+                            Forgot Password
+                        </h2>
                         </div>
+                        <div className="col-12 col-md-1 mb-3">
+                        <RdsDropdownList
+                            labelIcon={currentLanguageIcon}
+                            labelIconWidth="18px"
+                            labelIconHeight="18px"
+                            borderDropdown={false}
+                            isPlaceholder
+                            listItems={props.languageData}
+                            placeholder="Select Language"
+                            icon="en"
+                            id={"langDrop"}
+                            block={false}
+                            iconFill={false}
+                            iconStroke={false}
+                            showIcon={false}
+                        />
+                        </div>
+                    </div>
+                    </div>
                         <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
