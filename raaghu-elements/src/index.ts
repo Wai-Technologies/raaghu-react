@@ -94,3 +94,4 @@ export { default as RdsCardDetail } from "./rds-card-detail";
 // //Map
 export { default as RdsMap } from "./rds-map";
 export { default as RdsLoader } from "./rds-loader";
+export { default as RdsDivider } from "./rds-divider";

@@ -234,15 +234,19 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
             <div className="row mt-2">
                 <div className="col-md-6 mb-3">
                     <div className="form-group">
-                        <RdsInput
-                            label={"Edition Name"}
-                            required={true}
-                            placeholder="Edition Name"
-                            inputType="text"
-                            name="editionName"
-                            reset={inputReset}
-                            dataTestId="edition-name"
-                        ></RdsInput>
+                    <RdsInput
+                        required={true}
+                        inputType="text"
+                        label={"Edition Name"}
+                        placeholder="Edition Name"
+                        name="editionName"
+                        value={FormData?.editionName}
+                        onChange={(e: any) =>
+                          handleChangeform(e.target.value, "editionName")
+                        }
+                        id="editionName"
+                        reset={inputReset}
+                ></RdsInput>
                     </div>
                 </div>
                 <div className="col-md-6 mb-3">

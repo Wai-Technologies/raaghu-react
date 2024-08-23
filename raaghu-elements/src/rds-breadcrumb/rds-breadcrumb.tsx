@@ -53,6 +53,7 @@ const RdsBreadcrumb = (props: breadcrumbprop) => {
                                             height={breadItem.iconHeight}
                                             colorVariant={`${breadItem.active && breadItem.iconColor
                                                 }`}
+                                            isCursorPointer={true}
                                         />
                                     </span>
                                 )}
@@ -81,6 +82,7 @@ const RdsBreadcrumb = (props: breadcrumbprop) => {
                                         stroke={true}
                                         height="8px"
                                         width="14px"
+                                        isCursorPointer={true}
                                     />
                                 </span>
                                 {breadItem.icon && (
@@ -93,6 +95,7 @@ const RdsBreadcrumb = (props: breadcrumbprop) => {
                                             height={breadItem.iconHeight}
                                             colorVariant={`${breadItem.active && breadItem.iconColor
                                                 }`}
+                                            isCursorPointer={true}
                                         />
                                     </span>
                                 )}
