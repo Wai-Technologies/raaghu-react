@@ -70,7 +70,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="text"
                                         label="Tenancy Name"
-                                        placeholder="Tenancy Name"
+                                        placeholder="Enter Tenancy Name"
                                         required={true}
                                         size="medium"
                                         name="tenancyName"
@@ -86,7 +86,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="text"
                                         label="User Name"
-                                        placeholder="User Name"
+                                        placeholder="Enter User Name"
                                         required={true}
                                         size="medium"
                                         name="userName"
@@ -102,7 +102,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="password"
                                         label="Password"
-                                        placeholder="Password"
+                                        placeholder="Enter Password"
                                         required={true}
                                         size="medium"
                                         name="password"

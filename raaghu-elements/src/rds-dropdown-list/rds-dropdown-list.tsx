@@ -150,7 +150,6 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   const offset = `${props.xOffset || ""}  ${props.yOffset || ""}`;
   const checkHandler = (e: any, item: any) => {
-    debugger;
     let newTempData: any;
 
     newTempData = {

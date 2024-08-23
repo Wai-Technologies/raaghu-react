@@ -28,7 +28,7 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
                             </b>
                         </h1>
                         <RdsLabel
-                            label="Sorry, we couldn't find the page you are looking for."
+                            label="Sorry, we couldn't find the page you were looking for."
                             class="text-muted fw-medium mb-3" 
                         ></RdsLabel>
                         <p className="mb-0 pt-4">

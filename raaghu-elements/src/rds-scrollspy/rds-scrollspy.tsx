@@ -13,7 +13,7 @@ export interface RdsScrollspyProps {
 const RdsScrollspy = (props: RdsScrollspyProps) => {
   return (
     <div className="container">
-      <div id="scrollspy" className="row">
+      <div id="scrollspy">
         <nav className="navbar navbar-light col-12">
           <ul className="nav nav-pills">
             {props.data.map((item) => (
