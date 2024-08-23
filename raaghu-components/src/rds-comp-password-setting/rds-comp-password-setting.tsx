@@ -136,10 +136,9 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                         {error3 && <span className="text-danger">{error3}</span>}
                     </div>
                     <div>
-                        <h5 className="fw-bolder">Where you are logged in</h5>
+                        <h5 className="fw-bolder">Where you are logged in,</h5>
                         <p className="fw-normal">
-                            We will alert you via olivia@rdssysteminc.com if there is any
-                            unusual activity on your account.
+                        We will alert you via olivia@rdssysteminc.com if there is any unusual activity on your account.
                         </p>
                     </div>
                     </div>

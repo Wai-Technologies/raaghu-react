@@ -72,3 +72,14 @@ nav.container.sidebar-container.css-t68aeq {
     padding-left: 10px !important;
     padding-right: 10px !important;
 }
+
+.leftChevronPosition {
+    position: relative !important;
+    top: -107px !important;
+    left: 11px !important;
+}
+.rightChevronPosition {
+    top: -107px !important;
+    left: -10px !important;
+    position: relative !important;
+}

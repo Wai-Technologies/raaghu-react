@@ -50,7 +50,7 @@ export const DoughnutChart: Story = {
                     "#ff9f40",
                     "#ffcd56",
                     "#4bc0c0",
-                    "#059bff"
+                    "#0000FF"
                 ],
                 borderColor: [
                     "#fff",
