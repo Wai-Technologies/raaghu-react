@@ -237,6 +237,8 @@ $card-dashboard-bg-color: #161618 !default;
 $card-dashboard-border-color: #3c3e47;
 
 $offcanvasbg: $dark-400 !default;
+$offcanvascolor:#A8A8A8;
+$textareaplaceholdercolor :#A8A8A8;
 
 $modal-bg-color: $dark-400 !default;
 $wrapper-bg: $dark-900 !default;
@@ -2032,6 +2034,11 @@ $form-feedback-color: $gray-200;
 
 .offcanvas {
     background-color: $offcanvasbg;
+    color:$offcanvascolor;
+}
+
+textarea::placeholder {
+    color: $textareaplaceholdercolor;  
 }
 
 .form-select {
@@ -2867,12 +2874,12 @@ hr {
 
 .raaghu-select__single-value,
 .raaghu-select__placeholder {
-    color: var(--bs-body-color);
+    // color: var(--bs-body-color);
+     color:#A8A8A8;
 }
 
 // collapsible container css start
- 
-.container-collapse {
+ .container-collapse {
     width: 190px;
     overflow: hidden !important;
     transition: width 0.3s ease !important;
