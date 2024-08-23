@@ -132,7 +132,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                 {props.notifications?.map((notification: any, index: any) => (
                     <div key={notification.userNotificationId}>
                         <div
-                            className="d-flex py-2 px-4  justify-content-between"
+                            className="d-flex py-2 px-2  justify-content-between"
                             onClick={() => textColorHandler(notification, index)}
                         >
                             <div className="d-flex p-1">
