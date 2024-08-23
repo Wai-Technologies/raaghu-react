@@ -44,12 +44,13 @@ export const DoughnutChart: Story = {
         dataSets: [
             {
                 label: "Dataset 1",
-                data: [20, 10, 30, 40],
+                data: [20, 10, 30, 30,10],
                 backgroundColor: [
                     "#ff6384",
                     "#ff9f40",
                     "#ffcd56",
-                    "#4bc0c0"
+                    "#4bc0c0",
+                    "#0000FF"
                 ],
                 borderColor: [
                     "#fff",

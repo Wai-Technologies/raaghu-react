@@ -31,6 +31,7 @@ const RdsStat = (props: RdsStatProps) => {
                     //stroke={item.iconStroke}
                     height={item.iconHeight}
                     width={item.iconWidth}
+                    isCursorPointer={true}
                   />
                 </div>
                 <h1 className={"fw-bold mt-4 text-center " + `${textColr}`}>
