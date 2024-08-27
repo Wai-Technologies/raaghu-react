@@ -97,6 +97,7 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                                                     stroke={true}
                                                     colorVariant="danger"
                                                     onClick={() => { onDeleteIconClick(item.value); }}
+                                                    isCursorPointer={true}
                                                 />
                                             </td>
                                         </tr>

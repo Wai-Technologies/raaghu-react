@@ -51,6 +51,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                                 placeholder="Select Style"
                                 selectItems={props.StyleList}
                                 selectedValue={formData?.StyleList} 
+                                key={`style-${formData.StyleList}`} 
                                 onChange={(item: any) => {
                                     handleSelectListChange(item.value, "StyleList");
                                 }}
@@ -63,6 +64,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                                 placeholder="Select Public Website Style"
                                 selectItems={props.WebList}
                                 selectedValue={formData?.WebList}
+                                key={`web-${formData.WebList}`}
                                 onChange={(item: any) => {
                                     handleSelectListChange(item.value, "WebList");
                                 }}
@@ -78,6 +80,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                                 placeholder="Select Menu Placement"
                                 selectItems={props.MenuList}
                                 selectedValue={formData?.MenuList}
+                                key={`menu-${formData.MenuList}`}
                                 onChange={(item: any) => {
                                     handleSelectListChange(item.value, "MenuList");
                                 }}
@@ -90,6 +93,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                                 placeholder="Select Menu Status"
                                 selectItems={props.StatusList}
                                 selectedValue={formData?.StatusList}
+                                key={`status-${formData.StatusList}`} 
                                 onChange={(item: any) => {
                                     handleSelectListChange(item.value, "StatusList");
                                 }}

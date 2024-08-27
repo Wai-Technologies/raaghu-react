@@ -41,6 +41,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                                 stroke={true}
                                                 width="10px"
                                                 height="10px"
+                                                isCursorPointer={true}
                                             />
                                         </span>
                                     </div>
@@ -59,6 +60,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                         stroke={true}
                                         width="92px"
                                         height="100px"
+                                        isCursorPointer={true}
                                     />
                                     <h2 className="card-title p-2 pb-0">{item.price}</h2>
                                     <p className="card-text fs-5">{item.duration}</p>
@@ -75,6 +77,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                                                 colorVariant="dark"
                                                                 width="16px"
                                                                 height="16px"
+                                                                isCursorPointer={true}
                                                             />
                                                         </div>
                                                         <div> {feature.title} </div>

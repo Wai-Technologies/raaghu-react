@@ -85,7 +85,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                             </div>
 
                         </div>
-                        <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
+                        <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email. If you don't receive it within a few minutes, please try again." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
                             <form>
