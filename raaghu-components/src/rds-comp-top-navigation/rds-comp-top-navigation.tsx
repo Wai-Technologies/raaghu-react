@@ -245,7 +245,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             {breacrumItem?.length > 0 && (
               <div className="mob-description ">
                 <>
-                  <RdsBreadcrumb breadItems={breacrumItem}></RdsBreadcrumb>
+                  <RdsBreadcrumb breadcrumbItems={breacrumItem}></RdsBreadcrumb>
                 </>
               </div>
             )}
