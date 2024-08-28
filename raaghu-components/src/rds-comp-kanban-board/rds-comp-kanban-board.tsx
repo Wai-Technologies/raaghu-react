@@ -249,30 +249,29 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
    return (
       <DragDropContext onDragEnd={onDragEnd}>
-         <div className="row d-flex">
+         <div className="row d-flex ">
             {cards.map((card, index) => (
-               <div className={showCard && card.name ? 'col-md-3 mt-2' : ''} key={index}>
+               <div className={showCard && card.name ? 'col-md-3 mt-2 ' : ''} key={index}>
                   {showCard && card.name &&
-                     <div className="">
+                     <div className="kanban-board">
                         <RdsCard
                            cardTitle={
-                              <div className="d-flex">
-                                 <div className="">
+                              <div className="row">
+                                 <div className="col-md-8">
                                     <div className="d-flex">
-                                       {card.name}
-                                       <div className="mx-1">
-                                          <RdsBadge
-                                             badgeType="pill"
-                                             colorVariant="dark"
-                                             label={card.subCards.length.toString()}
-                                             size="smallest"
-                                          />
-                                       </div>
+                                       <div className="d-flex">
+                                          {card.name}
+                                          <div className="mx-3">
+                                             <p>({card.subCards.length.toString()})</p>
+                                          </div>
+                                     </div>
                                     </div>
                                  </div>
-                                 <div className="btn-group dropstart">
+                                 <div className="col-md-4">
+                                    <div className="d-flex justify-content-end">
+                                    <div className="btn-group dropstart">
                                     <button
-                                       className="btn btn-sm btn-icon border-0 three-dot-btn justify-content-end"
+                                       className="btn btn-sm btn-icon border-0 three-dot-btn"
                                        type="button"
                                        data-bs-toggle="dropdown"
                                        data-bs-auto-close="true"
@@ -280,7 +279,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                        onClick={() => toggleDropdown(index)}
                                     >
                                        <RdsIcon
-                                          name={"three_dots_horizontal"}
+                                          name={"three_dots"}
                                           height="14px"
                                           width="14px"
                                           fill={true}
@@ -289,26 +288,40 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                     <ul aria-labelledby="dropdownMenuButton"
                                        className={`dropdown-menu dropdown-adjusted ${isDropdownOpen[index] ? 'show' : ''} dropdown-right`}
                                     >
-                                       <li onClick={() => deleteCard(index)}>
+                                       {/* <li onClick={() => deleteCard(index)}>
                                           <a
                                              data-bs-toggle="modal" className="dropdown-item">
                                              <RdsLabel label="Delete Board" />
                                           </a>
+                                       </li> */}
+                                       <li>
+                                          <a
+                                             data-bs-toggle="modal" className="dropdown-item">
+                                             <RdsLabel label="Edit" />
+                                          </a>
+                                       </li>
+                                       <li>
+                                          <a
+                                             data-bs-toggle="modal" className="dropdown-item">
+                                             <RdsLabel label="Change Status" />
+                                          </a>
                                        </li>
                                     </ul>
                                  </div>
-                              </div>
+                                    </div>
+                                 </div>
+                              </div>                              
                            }
                            cardText={
                               <>
                                  <Droppable droppableId={`${index}`} type="subCard">
-                                    {(provided) => (
+                                    {(provided: any) => (
                                        <div {...provided.droppableProps} ref={provided.innerRef}>
                                           {card.subCards.map((subCard) => (
                                              <Draggable key={subCard.SubcardId} draggableId={`${subCard.SubcardId}`} index={subCard.SubcardId}>
-                                                {(provided) => (
+                                                {(provided: any) => (
                                                    <div
-                                                      className="mt-2 row"
+                                                      className="mt-2 row sub-card"
                                                       ref={provided.innerRef}
                                                       {...provided.draggableProps}
                                                       {...provided.dragHandleProps}
@@ -325,7 +338,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                                         modalAnimation="modal-fade"
                                                                         modalId={`modal${index}-${subCard.SubcardId}`}
                                                                         modalTitle={subCard.subcardName}
-                                                                        modalbutton={<RdsIcon name={"three_dots_horizontal"} height="14px" width="14px" fill={true} />}
+                                                                        modalbutton={<RdsIcon name={"three_dots"} height="14px" width="14px" fill={true} />}
                                                                         showModalHeader
                                                                         size="medium"
                                                                         verticallyCentered
@@ -475,7 +488,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                    <RdsButton
                                                       colorVariant="primary"
                                                       icon="plus"
-                                                      label="Add Card"
+                                                      label="Add Item"
                                                       size="medium"
                                                       onClick={() => onAddSubCardClick(index)}
                                                    />
@@ -495,7 +508,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                 <RdsButton
                                                    colorVariant="default"
                                                    icon="plus"
-                                                   label="Add Card"
+                                                   label="Add Item"
                                                    size="medium"
                                                    onClick={() => addSubCard(index)}
                                                 />

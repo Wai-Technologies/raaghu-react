@@ -1,10 +1,48 @@
-
 .btn-group.dropstart {
-    position: relative;
+  position: relative;
+}
+
+.dropdown-menu.dropdown-adjusted.dropdown-right {
+  position: absolute;
+  left: 0 !important;
+  top: 100% !important;
+}
+
+.kanban-board {
+  .card-header {
+    background-color: #ebdcff !important;
+    min-height: 35px !important;
+    height: 35px !important;
+    display: flow !important;
   }
-  
-  .dropdown-menu.dropdown-adjusted.dropdown-right {
-    position: absolute;
-    left: 0 !important;
-    top: 100% !important; 
+
+  .pt-3 {
+    padding-top: 8px !important;
   }
+
+  .btn-sm svg {
+    height: 20px !important;
+    stroke-width: inherit !important;
+    fill: none !important;
+  }
+
+  .btn-group {
+    margin-top: -4px !important;
+  }
+
+  ul {
+    min-width: 125px !important;
+    padding: 6px 0px;
+    border-color: #ebdcff !important;
+    
+  }
+  .sub-card{
+    .card-header {
+      background-color: transparent !important;
+      min-height: 35px !important;
+      height: 35px !important;
+      display: flow !important;
+    }
+  }
+
+}
