@@ -64,13 +64,12 @@ export const ScatterChart: Story = {
 
         options: {
             responsive: true,
-            maintainAspectRatio: false, pointStyle: "triangle",
-            radius: 10,
+            maintainAspectRatio: false,
+            // radius: 10,
             plugins: {
                 legend: {
                     position: "top",
                     align: "center",
-                    pointStyle: "line",
                     labels: {
                         usePointStyle: true
                     }

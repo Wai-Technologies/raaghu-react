@@ -72,7 +72,7 @@ const breadItems = [
 
 export const breadcrumb: Story = {
     args: {
-        breadItems,
+        breadcrumbItems: breadItems,
         type: 'simple',
         separator: '/',
     }
