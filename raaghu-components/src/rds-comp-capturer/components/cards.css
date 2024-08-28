@@ -1,0 +1,9 @@
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.5s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title:hover {
+    color: var(--primary-color);
+}

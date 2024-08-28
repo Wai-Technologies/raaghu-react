@@ -1,20 +1,34 @@
+.custom-modal-backdrop {
+    background: white;
+}
+
 :root {
     --primary-color: #7e2eef;
-    --secondary-color: #6c757d; /* Gray */
-    --success-color: #28a745; /* Green */
-    --danger-color: #dc3545; /* Red */
-    --warning-color: #ffc107; /* Yellow */
-    --info-color: #17a2b8; /* Cyan */
-    --light-color: #f8f9fa; /* Light Gray */
-    --dark-color: #343a40; /* Dark Gray */
-    --text-color: #212529; /* Almost Black */
-    --background-color: #ffffff; /* White */
-    --default-border-color: #f3e4fd; /* Light Purple */
-  }
+    --secondary-color: #6c757d;
+    /* Gray */
+    --success-color: #28a745;
+    /* Green */
+    --danger-color: #dc3545;
+    /* Red */
+    --warning-color: #ffc107;
+    /* Yellow */
+    --info-color: #17a2b8;
+    /* Cyan */
+    --light-color: #f8f9fa;
+    /* Light Gray */
+    --dark-color: #343a40;
+    /* Dark Gray */
+    --text-color: #212529;
+    /* Almost Black */
+    --background-color: #ffffff;
+    /* White */
+    --default-border-color: #f3e4fd;
+    /* Light Purple */
+}
 
 .common-container {
-  display: flex;
-  justify-content: left;
+    display: flex;
+    justify-content: left;
 }
 
 .gap-nine-px {
@@ -102,15 +116,29 @@
     width: auto;
     transition: background-color 0.3s ease;
 }
+
 .image-video-container:hover {
     background-color: #7e2eef;
     cursor: pointer;
     color: #fff;
 }
+
 .image-video-container:hover svg,
 .image-video-container:hover div svg,
 .image-video-container:hover .screenshotDeleteButton svg {
-    fill: #fff;
+    color: #fff;
+    stroke: #fff;
+}
+
+.clicked {
+    background-color: #7e2eef;
+    color: #fff;
+    cursor: pointer;
+}
+
+.clicked svg,
+.clicked div svg,
+.clicked .screenshotDeleteButton svg {
     color: #fff;
     stroke: #fff;
 }
@@ -124,6 +152,7 @@
     background: #000;
     border-radius: 5px;
 }
+
 .video-responsive video {
     position: absolute;
     top: 0;
@@ -135,5 +164,263 @@
 .blur-controls input:not(.no-blur),
 .blur-controls textarea:not(.no-blur),
 .blur-controls select:not(.no-blur) {
+    filter: blur(3px);
+}
+
+.blur-all {
     filter: blur(5px);
+}
+
+/*Toggle CSS*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 5px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: var(--primary-color);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 20px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/*INFO ICON CSS*/
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 230px;
+    background-color: #7e2eef;
+    color: #fff;
+    text-align: left;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* Position the tooltip above the icon */
+    left: 50%;
+    margin-left: -100px;
+    /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*Scrollbar CSS*/
+.scrollable-content {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scrollable-content::-webkit-scrollbar { 
+    display: none;
+}
+/*Blinking Dot CSS*/
+.blinking-dot {
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 2s forwards;
+}
+
+/*Take Screenshot and Record Screen Button CSS*/
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.button-wrapper {
+    flex: 1 1 100%;
+}
+
+.button-wrapper button svg,
+.button-wrapper label svg {
+    stroke: #7e2eef; /* Default stroke color */
+}
+
+.button-wrapper button:hover svg,
+.button-wrapper label:hover svg {
+    stroke: white; /* Stroke color on hover */
+}
+
+@media (min-width: 600px) {
+    .button-wrapper {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+/*Modal Slide UP CSS*/
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+/*Footer CSS*/
+.footer-items:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+    color: #7e2eef;
+}
+
+.footer-items:hover svg {
+    stroke: #7e2eef;
+}
+
+/*CARDS CSS*/
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.5s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title:hover {
+    color: var(--primary-color);
+}
+
+/*UPLOAD BUTTON CSS*/
+.uploadButton:hover label,
+.uploadButton:hover label svg {
+    color: var(--primary-color);
+    stroke: var(--primary-color);
+}
+
+/*CLOSE ICON CSS*/
+.headerIcon:hover {
+    background-color: #fff;
+}
+
+.headerIcon:hover svg path {
+    stroke: #7e2eef;
+}
+
+/*Upload Button CSS*/
+.upload-label {
+    display: flex;
+    align-items: center;
+}
+
+.upload-text {
+    position: relative;
+    display: inline-block;
+}
+
+.upload-text::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--underline-color, blue);
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+.icon-blue {
+    stroke: blue;
+}
+
+/*screenshot responsive*/
+.screenshot-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 5px;
+}
+
+.screenshot-responsive img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

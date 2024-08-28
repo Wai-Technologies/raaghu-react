@@ -1,45 +1,72 @@
-import React, { useEffect, useRef, useState } from "react";
-import { RdsBadge, RdsButton, RdsIcon, RdsInput, RdsModal, RdsTextArea } from "../rds-elements";
-import { useReactMediaRecorder } from "react-media-recorder";
+import React, { CSSProperties, useState, useEffect } from "react";
+import { RdsButton, RdsCheckbox, RdsInput, RdsTextArea } from "../rds-elements";
+import raaghuIcon from "./assets/icons/raaghu-icon.png";
+import headerBackground from "./assets/icons/header-background.png";
 import * as htmlToImage from "html-to-image";
+import { consoleErrors } from "../rds-comp-capturer/console-loggers/console-logger";
+import { BackIcon, BugIcon, CloseIcon, FeatureRequestIcon, HelpIcon, HomeIcon, InfoIcon, MessagesIcon, NewsIcon, PaperClipIcon, ReleaseUpdatesIcon, ScreenshotIcon, SendMessageIcon, SettingsIcon, UploadIcon, VideoIcon } from "./assets/svg-icons";
 import "./rds-comp-capturer.css";
-import { consoleErrors } from "./console-loggers/console-logger";
+// import "./components/cards.css" ;
+// import "./components/footer.css";
+import Modal from "react-modal";
+declare const InstallTrigger: any;
 
-export interface RdsCompCaptureCeProps {
-    // ModalId: any; // Will be needed for modal
-    reset?: boolean;
-    onCancel?: (event: any) => void;
-    onSubmit?: (event: any, email: string, description: string, screenshots: Blob[], videos: Blob[]) => void;
+interface ExtendedCSSProperties extends CSSProperties {
+    "--underline-color"?: string;
+}
+
+export interface RdsCompCapturerProps {
+    username?: string;
+
     takeScreenshotButtonLabel?: string;
     recordScreenButtonLabel?: string;
     submitButtonLabel?: string;
     uploadButtonLabel?: string;
-    // isModal: boolean; // Will be needed for modal
-    screenshotLimit?: number;
+
+    email?: string;
     bugTitle?: string;
     description?: string;
-    screenshots?: Blob[], 
-    videos?: Blob[];
-    isBlur?: boolean;
     onSaveHandler?: (data: any) => void;
-    capturerFields?: any; 
+    capturerFields?: any;
 
     culture?: string;
     timeZone?: string;
 
-    // Video Settings
-    videoLimit?: number;
-    videoWidth?: number;
-    videoHeight?: number;
-    videoMimeType?: string;
-    videoAudioBitsPerSecond?: number;
-    videoVideoBitsPerSecond?: number;
-    VideoSizeInMb?: number;
-    videoMinDuration?: number;
-    videoMaxDuration?: number;
+    // Backend PermissiomaskData
+    isMaskingEnabled?: boolean;
+    hasBackendPermissions?: {
+        homeLabel: boolean;
+        messagesLabel: boolean;
+        newsLabel: boolean;
+        helpLabel: boolean;
+        settingsLabel: boolean;
+        reportIssue: boolean;
+        featureRequest: boolean;
+        sendMessage: boolean;
+        releaseUpdates: boolean;
+    };
 }
 
-function getBase64Image(image: Blob): Promise<string> {
+export type CaptureBugUploadCreateDto = {
+    upload: CaptureBugUploadDto;
+    create: CaptureBugCreateDto;
+};
+
+export type CaptureBugUploadDto = {
+    files?: Array<Blob>;
+};
+
+export type CaptureBugCreateDto = {
+    bugId?: number;
+    email: string;
+    title: string;
+    description?: string | null;
+    captureDateTime?: Date | null;
+    consoleError?: string | null;
+    isAdvanceMasked?: boolean | null | undefined;
+};
+
+function getBase64Image(image: File): Promise<string> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(image);
@@ -57,71 +84,114 @@ function getBase64Image(image: Blob): Promise<string> {
     });
 }
 
-const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
+const RdsCompCapturer: React.FC<RdsCompCapturerProps> = (props) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeCard, setActiveCard] = useState<string | null>(null);
+    const username = props.username || "David";
+
     // #region VARIABLES
-    const CaptureScreenshotLabel = props.takeScreenshotButtonLabel || "Take screenshot";
+    const CaptureScreenshotLabel = props.takeScreenshotButtonLabel || "Screenshot";
     const CaptureScreenshotColor = "outline-primary";
-    const RecordScreenLabel = props.recordScreenButtonLabel || "Record screen";
+    const RecordScreenLabel = props.recordScreenButtonLabel || "Record";
     const RecordScreenColor = "outline-primary";
     const SubmitButtonLabel = props.submitButtonLabel || "Submit";
-    const SubmitButtonColor = "outline-primary";
-    const UploadButtonLabel = props.uploadButtonLabel || "Upload image/video";
+    const SubmitButtonColor = "primary";
+    const UploadButtonLabel = props.uploadButtonLabel || "Upload";
     const UploadButtonColor = "outline-primary";
-    const ScreenshotLimit = props.screenshotLimit || 3;
-    const IsBlur = props.isBlur || false;
+
+    const ScreenshotLimit = 3;
     const Culture = props.culture || "en-IN";
     const TimeZone = props.timeZone || "Asia/Kolkata";
+    const CopilotVersion = "V1.0.0";
+    const VideoLimit = 1;
+    const VideoWidth = 7680;
+    const VideoHeight = 4320;
+    const VideoMimeType = "video/mp4";
+    const VideoAudioBitsPerSecond = 128000;
+    const VideoVideoBitsPerSecond = 5000000;
+    const VideoSizeInMb = 20;
+    const VideoMinDuration = 5;
+    const VideoMaxDuration = 120;
 
-    // Video Settings
-    const VideoLimit = props.videoLimit || 1;
-    const VideoWidth = props.videoWidth || 7680;
-    const VideoHeight = props.videoHeight || 4320;
-    const VideoMimeType = props.videoMimeType || "video/mp4";
-    const VideoAudioBitsPerSecond = props.videoAudioBitsPerSecond || 128000;
-    const VideoVideoBitsPerSecond = props.videoVideoBitsPerSecond || 5000000;
-    const VideoSizeInMb = props.VideoSizeInMb || 20;
-    const VideoMinDuration = props.videoMinDuration || 5;
-    const VideoMaxDuration = props.videoMaxDuration || 120;
-
-    const [screenshots, setScreenshots] = useState<Blob[]>([]);
-    const [videos, setVideos] = useState<Blob[]>([]);
-    const [selectedScreenshot, setSelectedScreenshot] = useState<Blob | null>(null);
-    const [selectedVideo, setSelectedVideo] = useState<Blob | null>(null);
+    const [screenshots, setScreenshots] = useState<File[]>([]);
+    const [videos, setVideos] = useState<File[]>([]);
+    const [selectedScreenshot, setSelectedScreenshot] = useState<File | null>(null);
+    const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
     const [isSelecting, setIsSelecting] = useState(false);
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
     const [endPoint, setEndPoint] = useState({ x: 0, y: 0 });
     const [showSelection, setShowSelection] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
     const [capturerData, setCapturerData] = useState(props.capturerFields);
-    const isDisabled = screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit;
-    const pointerOpacityClass = isDisabled ? "disabled-state" : "default-state";
+    const [isMaskingEnabled, setIsMaskingEnabled] = useState(false);
+    const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+    // const [maskingType, setMaskingType] = useState("none");
+    const cardIds = { reportIssue: "reportIssue", featureRequest: "featureRequest", sendMessage: "sendMessage", releaseUpdates: "releaseUpdates" };
+    const hasFooterPermission = { homeLabel: true, messagesLabel: false, newsLabel: false, helpLabel: false, settingsLabel: false };
+    const hasCardPermission = { reportIssue: true, featureRequest: false, sendMessage: false, releaseUpdates: false };
+
+    const [formData, setFormData] = useState<CaptureBugUploadCreateDto>({
+        upload: {
+            files: []
+        },
+        create: {
+            bugId: 0,
+            email: "",
+            title: "",
+            description: "",
+            captureDateTime: null,
+            consoleError: "",
+            isAdvanceMasked: null,
+        }
+    });
+
+    const uploadButtonStyle: ExtendedCSSProperties = {
+        color: screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit || props.isMaskingEnabled === true ? "#99a3f8" : "#5567F4",
+        "--underline-color": screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit || props.isMaskingEnabled === true ? "#99a3f8" : "#5567F4"
+    };
+
+    // const [] = useState<DTO>({
+    //     container name
+    //     connection string 
+    //     Blob Service Endpoint
+    //     BLOB SAS Token
+    //     Token Start Date
+    //     Token Expiry Date
+    //     Role
+    // });
+
+    useEffect(() => {
+        setFormData(props.capturerFields);
+    }, [props.capturerFields]);
     // #endregion
 
-    // #region SCREENSHOTS FUNCTIONS
-    const handleMouseDown = (e: React.MouseEvent) => {
-        setIsSelecting(true);
-        setShowSelection(true);
-        setStartPoint({ x: e.clientX, y: e.clientY });
-        setEndPoint({ x: e.clientX, y: e.clientY });
+    // #region MASKING FUNCTIONS
+    const handleMaskingCheck = (e: any) => {
+        const isChecked = e.target.checked;
+        setIsMaskingEnabled(isChecked);
+        // if (isChecked) {
+        //     setMaskingType("basic");
+        // } else {
+        //     setMaskingType("none");
+        // }
     };
 
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isSelecting) return;
-        setEndPoint({ x: e.clientX, y: e.clientY });
-    };
+    // const handleToggleChange = (e: any) => {
+    //     setMaskingType((prevType) => {
+    //         const newType = prevType === "basic" ? "advanced" : "basic";
+    //         return newType;
+    //     });
+    // };
 
-    const handleMouseUp = () => {
-        setIsSelecting(false);
-        setShowSelection(false);
-        const bounds = {
-            x: Math.min(startPoint.x, endPoint.x),
-            y: Math.min(startPoint.y, endPoint.y),
-            width: Math.abs(startPoint.x - endPoint.x),
-            height: Math.abs(startPoint.y - endPoint.y),
-        };
-        captureSelectedArea(bounds);
-    };
+    // const handleElementSelect = (selectedOptions: any) => {
+    // setSelectedElements(selectedOptions.map((option: { value: any; }) => option.value)); IMPORTANT: Uncomment this code if given basic and advance masking options
+    // };
 
+    // const options = elements.map(el => (el !== undefined  ? { value: el.tagName, label: el.tagName } : undefined)); IMPORTANT: Uncomment this code if given basic and advance masking options
+    // #endregion
+
+    // #region SCREENSHOTS
     const selectionStyle = {
         position: "absolute" as const,
         left: `${Math.min(startPoint.x, endPoint.x)}px`,
@@ -136,17 +206,45 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     const handleCaptureScreenshot = () => {
         if (screenshots.length >= ScreenshotLimit) return;
         setIsSelecting(true);
+        setIsModalOpen(false);
     };
 
-    const captureSelectedArea = async ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
+    const handleMouseDown = (e: React.MouseEvent) => {
+        setIsSelecting(true);
+        setShowSelection(true);
+        setStartPoint({ x: e.clientX, y: e.clientY });
+        setEndPoint({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isSelecting) return;
+        setEndPoint({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleMouseUp = async () => {
+        setIsSelecting(false);
+        setShowSelection(false);
+        const bounds = {
+            x: Math.min(startPoint.x, endPoint.x),
+            y: Math.min(startPoint.y, endPoint.y),
+            width: Math.abs(startPoint.x - endPoint.x),
+            height: Math.abs(startPoint.y - endPoint.y),
+        };
+        captureSelectedArea(bounds);
+    };
+
+    const captureSelectedArea = ({ x, y, width, height }: { x: number; y: number; width: number; height: number }) => {
         try {
-            // Capture screenshot
-            await htmlToImage.toBlob(document.body, {
+            htmlToImage.toPng(document.body, {
                 style: {
                     transform: `translate(${-x}px, ${-y}px)`,
                     width: `${document.documentElement.offsetWidth}px`,
                     height: `${document.documentElement.offsetHeight}px`,
                     position: "absolute",
+                    filter: `${
+                        isMaskingEnabled ? "blur(3px)" : "none"
+                        // isMaskingEnabled ? (maskingType === "basic" ? "blur(3px)" : (maskingType === "advanced" ? document.body.classList.add("blur-controls") : "")) : "none" // IMPORTANT: Uncomment this code if given basic and advance masking options
+                    }`,
                 },
                 type: "image/png",
                 width,
@@ -154,17 +252,27 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 quality: 1,
             }).then(async (screenshotToAdd) => {
                 if (screenshotToAdd) {
-                    setScreenshots((existingScreenshots) => [...existingScreenshots, screenshotToAdd]);
-                    const screenshotName = ScreenshotLimit > 1 ? `SCREENSHOT_${screenshots.length + 1}` : "SCREENSHOT";
-                    const imgData = await getBase64Image(screenshotToAdd);
-                    localStorage.setItem(screenshotName, imgData);
+                    // Convert base64 string to Blob
+                    const byteString = atob(screenshotToAdd.split(",")[1]);
+                    const mimeString = screenshotToAdd.split(",")[0].split(":")[1].split(";")[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    const blob = new Blob([ab], { type: mimeString });
+                    const screenshotName = ScreenshotLimit > 1 ? `SCREENSHOT_${screenshots.length + 1}.png` : "SCREENSHOT.png";
+                    const file = new File([blob], screenshotName, { type: mimeString });
+                    setScreenshots((existingScreenshots) => [...existingScreenshots, file]);
+                    // const screenshotData = await getBase64Image(screenshotToAdd);
                 }
-            });           
+                setIsModalOpen(true);
+                document.body.classList.remove("blur-controls");
+            });
         } catch (error) {
             console.error("Error capturing screenshot:", error);
         } finally {
             // setIsSelecting(false);
-            console.log("Console Error", consoleErrors);
         }
     };
 
@@ -179,57 +287,102 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #endregion
 
     // #region VIDEOS FUNCTIONS
-    // eslint-disable-next-line prefer-const
-    let { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({
-        screen: true,
-        audio: false,
-        video: {
-            // Specify the resolution as 720p
-            width: VideoWidth,
-            height: VideoHeight
-        },
-        mediaRecorderOptions: {
-            mimeType: VideoMimeType,
-            audioBitsPerSecond: VideoAudioBitsPerSecond,
-            videoBitsPerSecond: VideoVideoBitsPerSecond,
-        },
-        onStop: async (blobUrl, videoToAdd) => {
-            // Validate the video size after recording
-            if (videoToAdd && videoToAdd.size > 0) {
-                if (videoToAdd.size <= VideoSizeInMb * 1024 * 1024) {
-                    const videoName = VideoLimit > 1 ? `VIDEO_${videos.length + 1}` : "VIDEO";
-                    setVideos((existingVideosArray) => [...existingVideosArray, videoToAdd]);
-                    const videoData = await getBase64Image(videoToAdd);
-                    localStorage.setItem(videoName, videoData);
-                } else {
-                    alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
-                }
-            } else {
-                alert(`Video length should be more than ${VideoMinDuration} seconds.`);
-            }
-        },
-    });
-
-    const handleStartRecording = () => {
-        if (videos.length >= VideoLimit) return;
-        startRecording();
-        setIsRecording(true);
-        handleBlurEffect(true);
-        setTimeout(() => {
-            handleStopRecording();
-        }, VideoMaxDuration * 1000);
-    };
-
-    const handleStopRecording = () => {
+    const handleStartRecording = async () => {
+        let stream: MediaStream | null = null;
+    
         try {
-            stopRecording();
-            setIsRecording(false);
-            handleBlurEffect(false);
+            // Detect Firefox
+            const isFirefox = typeof InstallTrigger !== "undefined";
+    
+            if (!navigator.mediaDevices.getDisplayMedia) {
+                throw new Error("getDisplayMedia API is not supported in this browser.");
+            }
+    
+            stream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    width: VideoWidth,
+                    height: VideoHeight,
+                    frameRate: 30
+                },
+                audio: false
+            });
+    
+            const mediaRecorder = new MediaRecorder(stream, {
+                mimeType: VideoMimeType,
+                audioBitsPerSecond: VideoAudioBitsPerSecond,
+                videoBitsPerSecond: VideoVideoBitsPerSecond,
+            });
+    
+            const chunks: Blob[] = [];
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    chunks.push(event.data);
+                }
+            };
+    
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: VideoMimeType });
+                const videoName = new File([blob], `${VideoLimit > 1 ? `VIDEO_${videos.length + 1}.mp4` : "VIDEO.mp4"}`, { type: VideoMimeType });
+                setVideos((prevVideos) => [...prevVideos, videoName]);
+                setIsRecording(false);
+    
+                // Stop all tracks of the media stream
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                setIsModalOpen(true);
+    
+                // Remove masking effect
+                document.body.style.filter = "";
+                document.body.classList.remove("blur-controls");
+            };
+    
+            mediaRecorder.start();
+            setIsRecording(true);
+            setIsModalOpen(false);
+    
+            // Apply masking effect
+            isMaskingEnabled ? document.body.style.filter = "blur(3px)" : "none";
+            // isMaskingEnabled ? (maskingType === "basic" ? document.body.style.filter = "blur(3px)" : (maskingType === "advanced" ? document.body.classList.add("blur-controls") : "")) : (document.body.style.filter = "", document.body.classList.remove("blur-controls"));
+
+            // Store mediaRecorder instance to stop it later
+            setMediaRecorder(mediaRecorder);
+            setMediaStream(stream);
+    
+            // Stop recording after the max duration
+            setTimeout(() => {
+                handleStopRecording(mediaRecorder);
+            }, VideoMaxDuration * 1000);
+    
+        } catch (error) {
+            console.error("Error starting screen recording:", error);
+            alert("Screen recording is not supported in this browser. Please use a supported browser like Chrome or Edge.");
+    
+            // Stop all tracks of the media stream if it exists
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        }
+    };
+    
+    const handleStopRecording = (mediaRecorder: MediaRecorder) => {
+        try {
+            if (mediaRecorder && mediaRecorder.state !== "inactive") {
+                mediaRecorder.stop();
+                setIsRecording(false);
+
+                // Stop all tracks of the media stream
+                if (mediaStream) {
+                    mediaStream.getTracks().forEach(track => track.stop());
+                }
+            }
         } catch (error) {
             console.error("Error stopping recording:", error);
         } finally {
-            console.log("Console Error", consoleErrors);
+            document.body.style.filter = "";
+            document.body.classList.remove("blur-controls");
         }
+        setIsModalOpen(true);
     };
 
     const handleDeleteVideo = (index: number) => {
@@ -242,27 +395,108 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     };
     //#endregion
 
-    // #region COMMON FUNCTION
-    useEffect(() => {
-        if (isSelecting || isRecording) {
-            handleBlurEffect(true);
-        } else {
-            handleBlurEffect(false);
-        }
-        return () => handleBlurEffect(false); // Clean up on unmount
-    }, [isSelecting, isRecording]);
+    // #region FOOTER Data
+    const footerData = [
+        { id: "homeLabel", text: "Home", icon: <HomeIcon />, hasPermission: hasFooterPermission.homeLabel },
+        { id: "messagesLabel", text: "Messages", icon: <MessagesIcon />, hasPermission: hasFooterPermission.messagesLabel },
+        { id: "newsLabel", text: "News", icon: <NewsIcon />, hasPermission: hasFooterPermission.newsLabel },
+        { id: "helpLabel", text: "Help", icon: <HelpIcon />, hasPermission: hasFooterPermission.helpLabel },
+        { id: "settingsLabel", text: "Settings", icon: <SettingsIcon />, hasPermission: hasFooterPermission.settingsLabel },
+    ];
 
-    const handleBlurEffect = (apply: boolean) => {
-        if (apply) {
-            if (IsBlur) {
-                document.body.classList.add("blur-controls");
+    const colorStyle = {
+        defaultColor: "#000",
+        clickedColor: "#7e2eef",
+        stroke: "#7e2eef",
+    };
+
+    const updateLabelStyles = (label: HTMLElement | null, isActive: boolean) => {
+        if (label) {
+            label.style.color = isActive ? colorStyle.clickedColor : colorStyle.defaultColor;
+            const svgElement = label.querySelector("svg");
+            if (svgElement) {
+                svgElement.style.stroke = isActive ? colorStyle.clickedColor : colorStyle.defaultColor;
             }
-        } else {
-            document.body.classList.remove("blur-controls");
         }
     };
 
-    const handleScreenshotOrVideoClick = (e: any, index?: number, video?: Blob | undefined, screenshot?: Blob | undefined) => {
+    const handleItemClick = (e: any, itemId: string) => {
+        const homeLabel = document.getElementById("homeLabel");
+        const messagesLabel = document.getElementById("messagesLabel");
+        const newsLabel = document.getElementById("newsLabel");
+        const helpLabel = document.getElementById("helpLabel");
+        const settingsLabel = document.getElementById("settingsLabel");
+
+        updateLabelStyles(homeLabel, itemId === "homeLabel");
+        updateLabelStyles(messagesLabel, itemId === "messagesLabel");
+        updateLabelStyles(newsLabel, itemId === "newsLabel");
+        updateLabelStyles(helpLabel, itemId === "helpLabel");
+        updateLabelStyles(settingsLabel, itemId === "settingsLabel");
+
+        e.stopPropagation();
+    };
+
+    useEffect(() => {
+        if (activeCard === null) {
+            const homeLabel = document.getElementById("homeLabel");
+            updateLabelStyles(homeLabel, true);
+        }
+    }, [activeCard]);
+    // #endregion
+
+    // #region CARDS DATA
+    const formattedDateForCard = new Date().toLocaleDateString("en-GB", {
+        month: "long",
+        year: "numeric"
+    }).replace(/ /g, " ");
+
+    const cardData = [
+        {
+            id: "reportIssue",
+            icon: <BugIcon />,
+            title: "Report an issue",
+            text: "Found a bug? Let us know.",
+            hasPermission: hasCardPermission.reportIssue
+        },
+        {
+            id: "featureRequest",
+            icon: <FeatureRequestIcon />,
+            title: "Request a feature",
+            text: "What features would you like next?",
+            hasPermission: hasCardPermission.featureRequest
+        },
+        {
+            id: "sendMessage",
+            icon: <SendMessageIcon />,
+            title: "Send us a message",
+            text: "What can we do for you?",
+            hasPermission: hasCardPermission.sendMessage
+        },
+        {
+            id: "releaseUpdates",
+            icon: <ReleaseUpdatesIcon />,
+            title: "Release updates",
+            text: formattedDateForCard,
+            hasPermission: hasCardPermission.releaseUpdates
+        }
+    ];
+    const visibleCards = cardData.filter(card => card.hasPermission);
+    // #endregion
+
+    // #region COMMON FUNCTION
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    }).replace(/ /g, " ");
+    const formattedDateWithParentheses = `(${formattedDate})`;
+    
+    const handleCardClick = (id: string) => {
+        setActiveCard(id);
+    };
+
+    const handleScreenshotOrVideoClick = (e: any, index?: number, video?: File | undefined, screenshot?: File | undefined) => {
         // e.stopPropagation();
         if (screenshot) {
             setSelectedScreenshot(screenshot);
@@ -286,6 +520,7 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 setShowSelection(false);
                 setIsRecording(false);
                 setIsSelecting(false);
+                // stopRecording();
             }
         };
 
@@ -297,6 +532,22 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, []);
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        setActiveCard(null);
+    };
+
+    const handleFormSubmitAndBackButtonClick = (event: any) => {
+        event.preventDefault();
+        // Handle form submission logic here
+        setActiveCard(null);
+    };
+
     // #endregion
 
     // #region SUBMIT FUNCTIONALITY
@@ -307,23 +558,50 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             screenshots: screenshots,
             videos: videos,
             consoleErrors: consoleErrors,
-            // captureDateTime: new Date().toISOString(),
-            captureDateTime: new Date().toLocaleString(Culture, { timeZone: TimeZone }),
+            captureDateTime: new Date(),
         }));
+        setFormData({
+            upload: {
+                files: [...screenshots, ...videos]
+            },
+            create: {
+                bugId: 0,
+                email: capturerData?.email,
+                title: capturerData?.bugTitle,
+                description: capturerData?.description,
+                captureDateTime: new Date(),
+                consoleError: consoleErrors,
+                isAdvanceMasked: isMaskingEnabled ? false : null,
+                // isAdvanceMasked: isMaskingEnabled 
+                //     ? (maskingType === "basic" ? false : (maskingType === "advanced" ? true : null)) 
+                //     : null,
+            }
+        });
     }, [screenshots, videos, consoleErrors]);
 
     useEffect(() => {
         setCapturerData(props.capturerFields);
-    } , [props.capturerFields]);
+        setFormData(props.capturerFields);
+    }, [props.capturerFields]);
 
     const handleDataChanges = (value: any, key: string) => {
         setCapturerData({ ...capturerData, [key]: value });
+        setFormData({...capturerData, [key]: value});
     };
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        if (screenshots.length !== 0) {
-            props.onSaveHandler && props.onSaveHandler(capturerData);
+        if (screenshots.length === 0 && videos.length === 0) {
+            alert("Please attach at least a screenshot or a video before submitting the form.");
+        } else if (capturerData.bugTitle === "" || capturerData.bugTitle === undefined || capturerData.bugTitle === null) {
+            alert("Please enter the issue title before submitting the form.");
+        } else if (capturerData.email === "" || capturerData.email === undefined || capturerData.email === null) {
+            alert("Please enter your email address before submitting the form.");
+        } else {
+            // props.onSaveHandler && props.onSaveHandler(capturerData);
+            props.onSaveHandler && props.onSaveHandler(formData);
+            console.log("Form Data: ", formData);
+            console.log("Capturer Data: ", capturerData);
             setCapturerData({
                 bugTitle: "",
                 email: "",
@@ -331,14 +609,11 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                 screenshots: [],
                 videos: [],
             });
-            console.log("Capturer Data: ", capturerData);
-            // After successful submission, reset screenshots and videos
+            // console.log("Capturer Data: ", capturerData);
             setScreenshots([]);
             setVideos([]);
             setSelectedScreenshot(null);
-            setSelectedScreenshot(null);
-        } else {
-            alert("Please attach at least one screenshot before submitting the form.");
+            setSelectedVideo(null);
         }
     };
     // #endregion
@@ -349,9 +624,10 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
             if (e.target.files) {
                 const file = e.target.files[0];
                 const type = file.type.split("/")[0];
-    
-                // Convert file to Blob
-                const blob = new Blob([file], { type: file.type });
+                const fileType = file.type.split("/")[1];
+
+                // // Convert file to Blob
+                // const blob = new Blob([file], { type: file.type });
 
                 // Step 2: Check if video limit is reached
                 if (type === "video" && videos.length >= VideoLimit) {
@@ -359,29 +635,31 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                     e.target.value = ""; // Reset the input value
                     return; // Exit early
                 }
-    
+
                 // Step 3: Check if screenshot limit is reached
                 if (type === "image" && screenshots.length >= ScreenshotLimit) {
                     alert("You have reached your maximum screenshot limit.");
                     e.target.value = ""; // Reset the input value
                     return; // Exit early
                 }
-    
+
                 // Existing logic for processing the file
                 if (type === "image") {
                     if (screenshots.length < ScreenshotLimit) {
-                        setScreenshots((existingScreenshots) => [...existingScreenshots, blob]);
+                        const screenshotName = ScreenshotLimit > 1 ? `SCREENSHOT_${screenshots.length + 1}.${fileType}` : `SCREENSHOT.${fileType}`;
+                        const newFile = new File([file], screenshotName, { type: file.type });
+                        setScreenshots((existingScreenshots) => [...existingScreenshots, newFile]);
                     }
                 } else if (type === "video") {
                     const video = document.createElement("video");
                     video.preload = "metadata";
-                    video.src = URL.createObjectURL(blob);
-    
+                    video.src = URL.createObjectURL(file);
+
                     video.onloadedmetadata = () => {
                         URL.revokeObjectURL(video.src); // Clean up the URL object
-    
+
                         const duration = video.duration;
-                        const size = blob.size;
+                        const size = file.size;
                         if (size > VideoSizeInMb * 1024 * 1024) {
                             alert(`Video size should not be more than ${VideoSizeInMb} MB.`);
                             return;
@@ -391,8 +669,9 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
                             } else if (duration > VideoMaxDuration) {
                                 alert(`Video is too long. It must be less than ${(VideoMaxDuration * 1000) / 60000} minutes.`);
                             } else if (videos.length < VideoLimit) {
-                                // If the video duration is within the limits, add it to the videos array
-                                setVideos((prevVideos) => [...prevVideos, blob]);
+                                const videoName = VideoLimit > 1 ? `VIDEO_${videos.length + 1}.${fileType}` : `VIDEO.${fileType}`;
+                                const newFile = new File([file], videoName, { type: file.type });
+                                setVideos((existingVideos) => [...existingVideos, newFile]);
                             }
                         }
                     };
@@ -403,251 +682,559 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
         } catch (error) {
             console.error("Error uploading image/video:", error);
         } finally {
-            console.log("Console Error", consoleErrors);
+            // console.log("Console Error", consoleErrors);
         }
     };
     // #endregion
 
-    // #region RENDER/JSX MARKUP
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <div className="text-start mb-1">
-                    <RdsInput
-                        name="bugTitle"
-                        id="bugTitle"
-                        placeholder="Login Issue"
-                        label="Bug Title"
-                        customClasses="no-blur"
-                        inputType="text"
-                        onChange={(e) => { handleDataChanges(e.target.value, "bugTitle"); }}
-                        value={capturerData?.bugTitle}
-                        required={true}
-                        labelPosition="top"
-                        dataTestId="bugTitle"
-                        size="medium"
-                    />
-                    <RdsInput name="email" id="bugReportersEmail"
-                        placeholder="john.doe@gmail.com"
-                        label="Email"
-                        customClasses="no-blur"
-                        inputType="email"
-                        onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
-                        value={capturerData?.email}
-                        required={true}
-                        labelPosition="top"
-                        dataTestId="email"
-                        size="medium"
-                        validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                        validationMsg="Please Enter Valid Email Address."
-                    />
+            <>
+                <RdsInput
+                    name="bugTitle"
+                    id="bugTitle"
+                    placeholder="Login Issue"
+                    label="Issue"
+                    customClasses="no-blur mb-3"
+                    inputType="text"
+                    required={true}
+                    labelPosition="top"
+                    dataTestId="bugTitle"
+                    size="medium"
+                />
+                <div className="mb-3"> {/* Remove this dive once STYLE or CLASS attribute is implemented in RdsTextArea */}
                     <RdsTextArea
                         id="bugDescription"
                         placeholder="I am facing issue regarding..."
                         label="Describe the issue"
+                        rows={3}
                         isRequired={false}
                         readonly={false}
                         labelPosition="top"
-                        value={capturerData?.description}
                         dataTestId="description"
-                        onChange={(e) => handleDataChanges(e.target.value, "description")}
                     />
-                    <div className="d-flex flex-wrap align-content-start gap-2 mt-2">
-                        <RdsButton
-                            id="captureScreenshotButton"
-                            // icon={ <RdsIcon classes="padding-right" name="screenshot" /> }
-                            // icon="screenshot"
-                            type="button"
-                            label={CaptureScreenshotLabel}
-                            class="me-2"
-                            size="small"
-                            colorVariant={CaptureScreenshotColor}
-                            databsdismiss="modal"
-                            dataTestId="captureScreenshotButton"
-                            onClick={handleCaptureScreenshot}
-                            isDisabled={screenshots.length >= ScreenshotLimit || isSelecting}
-                        />
-                        <RdsButton
-                            id="recordScreenButton"
-                            // icon={ <RdsIcon classes="padding-right" name="record" /> }
-                            // icon="record"
-                            type="button"
-                            label={RecordScreenLabel}
-                            class="me-2"
-                            size="small"
-                            colorVariant={RecordScreenColor}
-                            databsdismiss="modal"
-                            dataTestId="recordScreenButton"
-                            onClick={handleStartRecording}
-                            isDisabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
-                        />
-                        <div className={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit ? "opacity-75" : "opacity-100"}>
-                            <label
-                                id="imageVideoUploadButton"
-                                htmlFor="upload"
-                                className={`btn btn-sm btn-${UploadButtonColor} ${pointerOpacityClass} w-auto h-auto`}
-                            >
-                                {/* <RdsIcon classes="padding-right" name="upload_data" /> */}
-                                {UploadButtonLabel}
-                            </label>
-                            <input
-                                id="upload"
-                                type="file"
-                                className="display-none"
-                                accept="image/*,video/*"
-                                disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
-                                onChange={(e) => { handleImageVideoUpload(e); }}
-                            />
-                        </div>
-                        <RdsButton
-                            id="submitButton"
-                            // icon={ <RdsIcon name="send_or_submit" /> }
-                            // icon="send_or_submit"
-                            type="submit"
-                            label={SubmitButtonLabel}
-                            class="me-2"
-                            size="small"
-                            colorVariant={SubmitButtonColor}
-                            databsdismiss="modal"
-                            dataTestId="submitButton"
-                        />
-                        {isRecording && status !== "idle" && status !== "acquiring_media" && (
-                            <div>
-                                <RdsButton
-                                    id="stopRecordingButton"
-                                    type="button"
-                                    label="Stop Recording"
-                                    size="small"
-                                    colorVariant="danger"
-                                    onClick={handleStopRecording}
-                                />
-                                {
-                                    status && status !== "stopped" && (
-                                        <div className="ten-px-margin-top">
-                                            <RdsBadge
-                                                className="badge badge-success"
-                                                label={status}
-                                                size="small"
-                                                badgeType="rectangle"
-                                            />
-                                        </div>
-                                    )
-                                }
+                </div>
+                <RdsInput name="email" id="bugReportersEmail"
+                    placeholder="john.doe@gmail.com"
+                    label="Email"
+                    customClasses="no-blur"
+                    inputType="email"
+                    required={true}
+                    labelPosition="top"
+                    dataTestId="email"
+                    size="medium"
+                    validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                    validationMsg="Please Enter Valid Email Address."
+                />
+            </>
+            <div className="end-0 mbhome position-fixed top-0 top-50" style={{ transform: "rotate(-90deg)" }}>
+                <button 
+                    type="button" 
+                    className="btn btn-primary cursor-pointer" 
+                    onClick={handleModalOpen}
+                    disabled={isModalOpen || isRecording || isSelecting}
+                >
+                    Feedback
+                </button>
+            </div>
+            {
+                isRecording && (
+                    <div className="d-flex position-fixed top-0 end-0 align-items-baseline">
+                        <div><div className="blinking-dot" /></div>
+                        <div className="px-2"><span className="fade-in">recording</span></div>
+                        <RdsButton id="stopRecordingButton" type="button" label="Stop Recording" size="small" colorVariant="danger" onClick={() => mediaRecorder && handleStopRecording(mediaRecorder)} />
+                    </div>
+                )
+            }
+            {isModalOpen && (
+                <Modal
+                    id="modal"
+                    isOpen={isModalOpen}
+                    onRequestClose={handleModalClose}
+                    style={{
+                        content: {
+                            bottom: "20px",
+                            right: "20px",
+                            borderRadius: "15px",
+                            maxHeight: "calc(100% - 10%)",
+                        },
+                    }}
+                    overlayClassName="overlay"
+                    role="dialog"
+                    className={"p-0 m-auto shadow-lg position-fixed w-25 h-auto bg-white scrollable-content modal-slide-up"}
+                    ariaHideApp={false}
+                >
+                    <div 
+                        id="modalHeader" 
+                        className={`modal-header h-25 align-items-baseline justify-content-between d-block ${activeCard === null ? "p-4" : ""}`}
+                        style={{ backgroundImage: `url(${headerBackground})`, backgroundSize: "cover", backgroundPosition: "center" }}
+                    >
+                        { activeCard === null ? (
+                            <>
+                                <div className="d-flex justify-content-between">
+                                    <div className="align-content-center bg-white rounded-circle cursor-pointer" style={{ height: "50px", width: "50px", objectFit: "cover" }} >
+                                        <img src={raaghuIcon} alt="raaghu-copilot" style={{ width: "100%" }} className="p-2" /> 
+                                    </div>
+                                    <div style={{width: "30px", height: "30px", borderRadius: "5px"}} className="align-content-center headerIcon px-2 cursor-pointer" onClick={handleModalClose}>
+                                        <CloseIcon stroke="#FFF"/>
+                                    </div>
+                                </div>
+                                <div className="d-block text-white mt-3">
+                                    <h3 className="modal-title">Hi {username}</h3>
+                                    <h5 className="small mb-0">How can we help you today?</h5>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="align-items-center d-flex p-3 text-white" style={{height: `${activeCard === "releaseUpdates" ? "10px" : ""}`}}>
+                                <div style={{width: "30px", height: "30px", borderRadius: "5px"}} className="align-content-center headerIcon px-2 cursor-pointer" onClick={handleFormSubmitAndBackButtonClick}>
+                                    <BackIcon />
+                                </div>
+                                <div className="flex-grow-1 mb-0 text-center" style={{fontSize: "unset"}}>
+                                    {activeCard === cardIds.reportIssue ? "Report an issue".toUpperCase() : ""}
+                                    {activeCard === cardIds.featureRequest ? "Request a feature".toUpperCase() : ""}
+                                    {activeCard === cardIds.sendMessage ? "Send us a message".toUpperCase() : ""}
+                                    {activeCard === cardIds.releaseUpdates ? (
+                                        <>
+                                            Raaghu Copilot 
+                                            <br />
+                                            <div style={{ fontSize: "xx-small" }}>{CopilotVersion} {formattedDateWithParentheses}</div>
+                                        </>
+                                    ) : ""}
+                                </div>
+                                <div style={{width: "30px", height: "30px", borderRadius: "5px"}} className="align-content-center headerIcon px-2 cursor-pointer" onClick={handleModalClose}>
+                                    <CloseIcon stroke="#FFF"/>
+                                </div>
                             </div>
                         )}
                     </div>
-                    {screenshots.length >= ScreenshotLimit && (
-                        <div className="ten-px-margin-top danger-color">
-                            Maximum limit for screenshots is {ScreenshotLimit}.
-                        </div>
-                    )}
-                    {videos.length >= VideoLimit && (
-                        <div className="ten-px-margin-top danger-color">
-                            Maximum limit for videos is {VideoLimit}.
-                        </div>
-                    )}
-                    <div className="mb-2">
-                        <div className="d-flex flex-wrap align-content-start gap-2 mt-2">
-                            {screenshots.map((screenshot, index) => (
-                                <div
-                                    className={`image-video-container screenshot-video-label ${selectedScreenshot === screenshot ? "primary-color" : "screenshot-video-label-border-default-color"}`}
-                                    key={index}
-                                >
-                                    <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
-                                        <svg
-                                            width="18"
-                                            height="18"
-                                            className="one-px-margin-bottom"
-                                            viewBox="0 0 18 18"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path d="M5.57143 1C5.57143 1 4.00385 1.00002 2.42244 1.10353C1.71129 1.15008 1.1503 1.71098 1.10368 2.42213C1 4.00373 1 5.57143 1 5.57143M12.4286 1C12.4286 1 13.9962 1.00002 15.5776 1.10353C16.2887 1.15008 16.8497 1.71098 16.8963 2.42213C17 4.00373 17 5.57143 17 5.57143M12.4286 17C12.4286 17 13.9962 17 15.5776 16.8965C16.2887 16.8499 16.8497 16.289 16.8963 15.5779C17 13.9963 17 12.4286 17 12.4286M5.57143 17C5.57143 17 4.00385 17 2.42244 16.8965C1.71129 16.8499 1.1503 16.289 1.10368 15.5779C1 13.9963 1 12.4286 1 12.4286M6.46975 5.61497C6.0768 5.62941 5.73695 5.64606 5.45013 5.6627C4.76099 5.70267 4.21562 6.22823 4.15623 6.91596C4.10053 7.56118 4.04762 8.42556 4.04762 9.38095C4.04762 10.3363 4.10053 11.2007 4.15623 11.8459C4.21562 12.5337 4.76099 13.0592 5.45013 13.0992C6.23531 13.1448 7.41771 13.1905 9 13.1905C10.5823 13.1905 11.7647 13.1448 12.5499 13.0992C13.239 13.0592 13.7844 12.5337 13.8438 11.8459C13.8995 11.2007 13.9524 10.3363 13.9524 9.38095C13.9524 8.42556 13.8995 7.56118 13.8438 6.91596C13.7844 6.22823 13.239 5.70267 12.5499 5.6627C12.263 5.64606 11.9232 5.62941 11.5302 5.61497L11.1853 4.7616C11.033 4.38495 10.692 4.11859 10.2867 4.09029C9.96286 4.06766 9.52731 4.04762 9 4.04762C8.47269 4.04762 8.03714 4.06766 7.7133 4.09029C7.30804 4.11859 6.96701 4.38495 6.81474 4.7616L6.46975 5.61497ZM7.09524 9C7.09524 9.25014 7.14451 9.49783 7.24023 9.72892C7.33595 9.96002 7.47626 10.17 7.65313 10.3469C7.83 10.5237 8.03998 10.664 8.27108 10.7598C8.50218 10.8555 8.74986 10.9048 9 10.9048C9.25014 10.9048 9.49783 10.8555 9.72892 10.7598C9.96002 10.664 10.17 10.5237 10.3469 10.3469C10.5237 10.17 10.664 9.96002 10.7598 9.72892C10.8555 9.49783 10.9048 9.25014 10.9048 9C10.9048 8.74986 10.8555 8.50218 10.7598 8.27108C10.664 8.03998 10.5237 7.83 10.3469 7.65313C10.17 7.47626 9.96002 7.33595 9.72892 7.24023C9.49783 7.14451 9.25014 7.09524 9 7.09524C8.74986 7.09524 8.50218 7.14451 8.27108 7.24023C8.03998 7.33595 7.83 7.47626 7.65313 7.65313C7.47626 7.83 7.33595 8.03998 7.24023 8.27108C7.14451 8.50218 7.09524 8.74986 7.09524 9Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        <span className="padding-left padding-right">
-                                            {ScreenshotLimit > 1 ? `SCREENSHOT_${index + 1}` : "SCREENSHOT"}
-                                        </span>
-                                    </div>
-                                    <span
-                                        id="deleteScreenshot"
-                                        className="screenshotDeleteButton two-px-margin-bottom"
-                                        onClick={() => handleDeleteScreenshot(index)}
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            className="bi bi-x-sm"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            ))}
-                            {videos.map((video, index) => (
-                                <div 
-                                    className={`image-video-container screenshot-video-label ${selectedVideo === video ? "primary-color" : "screenshot-video-label-border-default-color"}`}
-                                    key={index}
-                                >
-                                    <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
-                                        <svg 
-                                            width="18" 
-                                            height="18" 
-                                            className="one-px-margin-bottom"
-                                            viewBox="0 0 18 18" 
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path d="M8.30435 10.0435H1.69565C1.51115 10.0435 1.33421 9.97019 1.20375 9.83973C1.07329 9.70927 1 9.53232 1 9.34783V1.69565C1 1.51115 1.07329 1.33421 1.20375 1.20375C1.33421 1.07329 1.51115 1 1.69565 1H10.7391C10.9236 1 11.1006 1.07329 11.231 1.20375C11.3615 1.33421 11.4348 1.51115 11.4348 1.69565V7.58226M8.65217 13.1739C8.65217 14.1887 9.05528 15.1618 9.77281 15.8794C10.4903 16.5969 11.4635 17 12.4783 17C13.493 17 14.4662 16.5969 15.1837 15.8794C15.9012 15.1618 16.3043 14.1887 16.3043 13.1739C16.3043 12.1592 15.9012 11.186 15.1837 10.4685C14.4662 9.75093 13.493 9.34783 12.4783 9.34783C11.4635 9.34783 10.4903 9.75093 9.77281 10.4685C9.05528 11.186 8.65217 12.1592 8.65217 13.1739ZM10.7391 13.1739C10.7391 13.6352 10.9224 14.0775 11.2485 14.4037C11.5747 14.7298 12.017 14.913 12.4783 14.913C12.9395 14.913 13.3819 14.7298 13.708 14.4037C14.0342 14.0775 14.2174 13.6352 14.2174 13.1739C14.2174 12.7127 14.0342 12.2703 13.708 11.9442C13.3819 11.618 12.9395 11.4348 12.4783 11.4348C12.017 11.4348 11.5747 11.618 11.2485 11.9442C10.9224 12.2703 10.7391 12.7127 10.7391 13.1739ZM17 8.22226C16.9999 8.34079 16.9696 8.45734 16.9118 8.56085C16.8541 8.66436 16.7708 8.7514 16.67 8.8137C16.5691 8.876 16.4541 8.9115 16.3356 8.91683C16.2172 8.92217 16.0994 8.89716 15.9934 8.84417L13.2108 7.45287C13.0952 7.39513 12.9981 7.30638 12.9301 7.19654C12.8622 7.0867 12.8262 6.96011 12.8261 6.83095V4.21252C12.8262 4.08336 12.8622 3.95678 12.9301 3.84694C12.9981 3.7371 13.0952 3.64834 13.2108 3.59061L15.9934 2.1993C16.0994 2.14632 16.2172 2.12131 16.3356 2.12664C16.4541 2.13197 16.5691 2.16747 16.67 2.22978C16.7708 2.29208 16.8541 2.37911 16.9118 2.48262C16.9696 2.58613 16.9999 2.70268 17 2.82121V8.22226Z" stroke="#646464" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        <span className="padding-left padding-right">
-                                            { VideoLimit > 1 ? `VIDEO_${index + 1}` : "VIDEO" }
-                                        </span>
-                                    </div>
-                                    <span 
-                                        id="deleteVideo" 
-                                        className="videoDeleteButton two-px-margin-bottom" 
-                                        onClick={() => handleDeleteVideo(index)}
-                                    >
-                                        <svg 
-                                            xmlns="http://www.w3.org/2000/svg" 
-                                            width="16" 
-                                            height="16" 
-                                            fill="currentColor" 
-                                            className="bi bi-x-sm" 
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                        {
-                            selectedVideo && videos.length > 0 &&
-                            <div id="videoArea" className="video-responsive ten-px-margin-top">
-                                <video 
-                                    autoPlay 
-                                    controls 
-                                    loop 
-                                    src={URL.createObjectURL(selectedVideo)} 
-                                />
-                            </div>
-                        }
-                        {
-                            selectedScreenshot && screenshots.length > 0 &&
-                            <div id="screenshotArea">
-                                <img 
-                                    className="img-fluid rounded screenshotArea ten-px-margin-top" 
-                                    src={URL.createObjectURL(selectedScreenshot)} 
-                                />
-                            </div>
-                        }
-                    </div>
-                </div>
-            </form>
+                    <div id="modalBody" className="modal-body" style={{ background: "#F5F7FA", height: (activeCard === null && visibleCards.length === 1 ) ? "325px" : (activeCard === null && visibleCards.length > 1 ) || activeCard === cardIds.reportIssue ? "" : activeCard === cardIds.releaseUpdates ? "505px" : "515px"}}>
+                        {!activeCard ? (
+                            <div className={`${visibleCards.length % 2 !== 0 ? "row d-flex p-4" : "row d-flex p-4"}`}>
+                                {
+                                    visibleCards.map((card, index) => {
+                                        let className = "";
 
+                                        if (visibleCards.length === 2) {
+                                            className = "col-12 mb-4";
+                                        } else {
+                                            if (visibleCards.length % 2 !== 0) {
+                                                if (index === visibleCards.length - 1) {
+                                                    className = "col-12";
+                                                } else {
+                                                    className = "col-6 mb-4";
+                                                }
+                                            } else { 
+                                                className = "col-6 mb-4";
+                                            }
+                                        }
+
+                                        return (
+                                            <div className={className} key={card.id}>
+                                                <div id={card.id} className={`card w-100 h-auto cursor-pointer ${""}`} onClick={(e: React.MouseEvent<HTMLDivElement>) => handleCardClick(e.currentTarget.id)}>
+                                                    <div className="card-body">
+                                                        <h6>{card.icon}</h6>
+                                                        <p className="card-title small text-truncate mb-1 w-100" title={card.title}>
+                                                            <strong style={{fontSize:"16px"}}>{card.title}</strong>
+                                                        </p>
+                                                        <p className="card-text small text-muted text-truncate w-100" title={card.text}>{card.text}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                        ) : (
+                            <div className="p-4">
+                                {(() => {
+                                    switch (activeCard) {
+                                    case cardIds.reportIssue:
+                                        return (<div className="text-start mb-1">
+                                            <RdsInput
+                                                name="bugTitle"
+                                                id="bugTitle"
+                                                placeholder="Login Issue"
+                                                label="Issue"
+                                                customClasses="no-blur mb-3"
+                                                inputType="text"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "bugTitle"); }}
+                                                value={capturerData?.bugTitle}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="bugTitle"
+                                                size="medium"
+                                            />
+                                            <div className="mb-3"> {/* Remove this dive once STYLE or CLASS attribute is implemented in RdsTextArea */}
+                                                <RdsTextArea
+                                                    id="bugDescription"
+                                                    placeholder="I am facing issue regarding..."
+                                                    label="Describe the issue"
+                                                    rows={3}
+                                                    isRequired={false}
+                                                    readonly={false}
+                                                    labelPosition="top"
+                                                    value={capturerData?.description}
+                                                    dataTestId="description"
+                                                    onChange={(e) => handleDataChanges(e.target.value, "description")}
+                                                />
+                                            </div>
+                                            <RdsInput name="email" id="bugReportersEmail"
+                                                placeholder="john.doe@gmail.com"
+                                                label="Email"
+                                                customClasses="no-blur"
+                                                inputType="email"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                                                value={capturerData?.email}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="email"
+                                                size="medium"
+                                                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                                validationMsg="Please Enter Valid Email Address."
+                                            />
+                                        </div>);
+                                    case cardIds.featureRequest:
+                                        return (<div className="text-start mb-1">
+                                            <RdsInput
+                                                name="featureEmail"
+                                                id="featureEmail"
+                                                placeholder="john.doe@gmail.com"
+                                                label="Email"
+                                                customClasses="no-blur"
+                                                inputType="email"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                                                value={capturerData?.email}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="email"
+                                                size="medium"
+                                                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                                validationMsg="Please Enter Valid Email Address."
+                                            />
+                                            <RdsInput
+                                                name="featureTitle"
+                                                id="featureTitle"
+                                                placeholder="Video recording feature"
+                                                label="Feature"
+                                                customClasses="no-blur"
+                                                inputType="text"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "featureTitle"); }}
+                                                value={capturerData?.featureTitle}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="featureTitle"
+                                                size="medium"
+                                            />
+                                            <RdsTextArea
+                                                id="featureDescription"
+                                                placeholder="I would like to have a feature that..."
+                                                label="Feature description"
+                                                rows={3}
+                                                isRequired={false}
+                                                readonly={false}
+                                                labelPosition="top"
+                                                value={capturerData?.featureDescription}
+                                                dataTestId="featureDescription"
+                                                onChange={(e) => handleDataChanges(e.target.value, "featureDescription")}
+                                            />
+                                        </div>);
+                                    case cardIds.sendMessage:
+                                        return (<div className="text-start mb-1">
+                                            <RdsInput
+                                                name="messageEmail"
+                                                id="messageEmail"
+                                                placeholder="john.doe@gmail.com"
+                                                label="Email"
+                                                customClasses="no-blur"
+                                                inputType="email"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                                                value={capturerData?.email}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="email"
+                                                size="medium"
+                                                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                                validationMsg="Please Enter Valid Email Address."
+                                            />
+                                            <RdsInput
+                                                name="messageTitle"
+                                                id="messageTitle"
+                                                placeholder="New feature in the latest update!"
+                                                label="Message"
+                                                customClasses="no-blur"
+                                                inputType="text"
+                                                onChange={(e) => { handleDataChanges(e.target.value, "messageTitle"); }}
+                                                value={capturerData?.messageTitle}
+                                                required={true}
+                                                labelPosition="top"
+                                                dataTestId="messageTitle"
+                                                size="medium"
+                                            />
+                                            <RdsTextArea
+                                                id="messageDescription"
+                                                placeholder="I am very pleased with the new feature..."
+                                                label="Message description"
+                                                rows={3}
+                                                isRequired={false}
+                                                readonly={false}
+                                                labelPosition="top"
+                                                value={capturerData?.messageDescription}
+                                                dataTestId="messageDescription"
+                                                onChange={(e) => handleDataChanges(e.target.value, "messageDescription")}
+                                            />
+                                        </div>);
+                                    case cardIds.releaseUpdates:
+                                        return (<></>);
+                                    default:
+                                        console.log("No card selected");
+                                    }
+                                })()}
+                                {
+                                    activeCard === cardIds.reportIssue ? (
+                                        <>
+                                            <div className="align-items-center justify-content-between d-flex gap-2 mb-3 flex-wrap">
+                                                <RdsCheckbox
+                                                    id="maskingCheckbox"
+                                                    label="Hide Sensitive Data"
+                                                    checked={props.isMaskingEnabled === true ? true : isMaskingEnabled}
+                                                    onChange={(e) => handleMaskingCheck(e)}
+                                                    isDisabled={props.isMaskingEnabled === true ? true : false}
+                                                />
+                                                <div className="uploadButton">
+                                                    <label
+                                                        id="imageVideoUploadButton"
+                                                        htmlFor="upload"
+                                                        className="upload-label cursor-pointer d-flex"
+                                                    >
+                                                        <PaperClipIcon stroke={`${screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit || props.isMaskingEnabled === true ? "#99a3f8" : "#5567F4"}`} />
+                                                        <span 
+                                                            className="px-1 upload-text" 
+                                                            style={uploadButtonStyle}
+                                                        >{UploadButtonLabel}</span>
+                                                    </label>
+                                                    <input
+                                                        id="upload"
+                                                        type="file"
+                                                        className="d-none"
+                                                        accept="image/*,video/*"
+                                                        disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit || props.isMaskingEnabled === true}
+                                                        onChange={(e) => { handleImageVideoUpload(e); }}
+                                                    />
+                                                </div>
+                                                {/* {
+                                                    //IMPORTANT: Uncomment this code if given basic and advance masking options
+                                                    isMaskingEnabled && (
+                                                        <>
+                                                            <div className="tooltip-container">
+                                                                <InfoIcon />
+                                                                <div className="tooltip-text">
+                                                                    Masking helps to obscure sensitive information.
+                                                                    <br />
+                                                                    <strong>Basic Masking:</strong> Applies a blur effect to the entire body.
+                                                                    <br />
+                                                                    <strong>Advanced Masking:</strong> Adds a blur effect to specific elements.
+                                                                </div>
+                                                            </div>
+                                                            <div className="d-flex flex-wrap align-items-center">
+                                                                <span className="toggle-label">Basic</span>
+                                                                <label className="switch mx-3">
+                                                                    <input type="checkbox" checked={maskingType === "advanced"} onChange={handleToggleChange}></input>
+                                                                    <span className="slider round"></span>
+                                                                </label>
+                                                                <span className="toggle-label">Advance</span>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                } */}
+                                            </div>
+                                            {/* {
+                                                //IMPORTANT: Uncomment this code if given basic and advance masking options
+                                                maskingType === "advanced" && (
+                                                    <div className="multiselect mb-3">
+                                                        <label>Select elements to mask:</label>
+                                                        <Select
+                                                            isMulti
+                                                            options={options as Array<{ value: string; label: string }>}
+                                                            value={options.filter(option => selectedElements.includes(option.value))}
+                                                            onChange={handleElementSelect}
+                                                            placeholder="Select elements to mask"
+                                                            closeMenuOnSelect={false}
+                                                        />
+                                                    </div>
+                                                )
+                                            } */}
+                                            <div className="button-container">
+                                                <div className="button-wrapper">
+                                                    <button
+                                                        id="captureScreenshotButton"
+                                                        type="button"
+                                                        data-test-id="captureScreenshotButton"
+                                                        onClick={handleCaptureScreenshot}
+                                                        disabled={screenshots.length >= ScreenshotLimit || isSelecting}
+                                                        className="btn btn-sm btn-outline-primary w-100"
+                                                    >
+                                                        <ScreenshotIcon />
+                                                        <span className="mx-1">{CaptureScreenshotLabel}</span>
+                                                    </button>
+                                                </div>
+                                                <div className="button-wrapper">
+                                                    <button
+                                                        id="recordScreenButton"
+                                                        type="button"
+                                                        data-test-id="recordScreenButton"
+                                                        onClick={handleStartRecording}
+                                                        disabled={videos.length >= VideoLimit || isRecording || status === "acquiring_media"}
+                                                        className="btn btn-sm btn-outline-primary w-100"
+                                                    >
+                                                        <VideoIcon />
+                                                        <span className="mx-1">{RecordScreenLabel}</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="d-grid gap-3 mt-3">
+                                                {/* <div className={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit ? "opacity-75 mt-3 button-wrapper" : "opacity-100 mt-3 button-wrapper"}>
+                                                    <label
+                                                        id="imageVideoUploadButton"
+                                                        htmlFor="upload"
+                                                        className={`btn btn-medium btn-${UploadButtonColor} w-100`}
+                                                    >
+                                                        <UploadIcon />
+                                                        <span>{UploadButtonLabel}</span>
+                                                    </label>
+                                                    <input
+                                                        id="upload"
+                                                        type="file"
+                                                        className="d-none"
+                                                        accept="image/*,video/*"
+                                                        disabled={screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit}
+                                                        onChange={(e) => { handleImageVideoUpload(e); }}
+                                                    />
+                                                </div> */}
+                                                <RdsButton
+                                                    id="submitButton"
+                                                    // icon={ <RdsIcon name="send_or_submit" /> }
+                                                    // icon="send_or_submit"
+                                                    type="submit"
+                                                    label={SubmitButtonLabel}
+                                                    class="me-2"
+                                                    size="small"
+                                                    colorVariant={SubmitButtonColor}
+                                                    dataTestId="submitButton"
+                                                    onClick={handleSubmit}
+                                                />
+                                            </div>
+                                            <div className={`${screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit ? "text-danger" : ""} small mt-2 d-flex`}>
+                                                <InfoIcon stroke={`${screenshots.length >= ScreenshotLimit && videos.length >= VideoLimit ? "#EF3338" : "#646464"}`}/>
+                                                <p className="px-1 mb-0">Attach up to {ScreenshotLimit} {screenshots.length > 1 ? "screenshots" : "screenshot"} and {VideoLimit} {videos.length > 1 ? "videos" : "video"}.</p>
+                                            </div>
+                                            <>
+                                                <div className="d-flex flex-wrap align-content-start gap-2 mt-2">
+                                                    {screenshots.map((screenshot, index) => (
+                                                        <div
+                                                            className={`image-video-container screenshot-video-label ${selectedScreenshot === screenshot ? "primary-color" : "screenshot-video-label-border-default-color"} border ${selectedScreenshot === screenshot ? "clicked" : ""}`}
+                                                            key={index}
+                                                        >
+                                                            <div id="screenshotDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, undefined, screenshot)}>
+                                                                <ScreenshotIcon />
+                                                                <span className="padding-left padding-right">
+                                                                    {ScreenshotLimit > 1 ? `SCREENSHOT_${index + 1}` : "SCREENSHOT"}
+                                                                </span>
+                                                            </div>
+                                                            <span
+                                                                id="deleteScreenshot"
+                                                                className="screenshotDeleteButton two-px-margin-bottom"
+                                                                onClick={() => handleDeleteScreenshot(index)}
+                                                            >
+                                                                <CloseIcon />
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                    {videos.map((video, index) => (
+                                                        <div
+                                                            className={`image-video-container screenshot-video-label ${selectedVideo === video ? "primary-color" : "screenshot-video-label-border-default-color"} border ${selectedVideo === video ? "clicked" : ""}`}
+                                                            key={index}
+                                                        >
+                                                            <div id="videoDiv" onClick={(e) => handleScreenshotOrVideoClick(e, index, video, undefined)}>
+                                                                <VideoIcon />
+                                                                <span className="padding-left padding-right">
+                                                                    {VideoLimit > 1 ? `VIDEO_${index + 1}` : "VIDEO"}
+                                                                </span>
+                                                            </div>
+                                                            <span
+                                                                id="deleteVideo"
+                                                                className="videoDeleteButton two-px-margin-bottom"
+                                                                onClick={() => handleDeleteVideo(index)}
+                                                            >
+                                                                <CloseIcon />
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                {
+                                                    selectedVideo &&
+                                                    <div id="videoArea" className="video-responsive mt-2">
+                                                        <video
+                                                            controls
+                                                            loop
+                                                            src={URL.createObjectURL(selectedVideo)}
+                                                        />
+                                                    </div>
+                                                }
+                                                {
+                                                    selectedScreenshot &&
+                                                    <div id="screenshotArea" className="screenshot-responsive mt-2">
+                                                        <img
+                                                            className="border img-fluid rounded screenshotArea"
+                                                            src={URL.createObjectURL(selectedScreenshot)}
+                                                        />
+                                                    </div>
+                                                }
+                                            </>
+                                        </>
+                                    ) : activeCard === cardIds.featureRequest || activeCard === cardIds.sendMessage  ? (
+                                        <div className="d-grid mt-7">
+                                            <RdsButton
+                                                id="submitButton"
+                                                // icon={ <RdsIcon name="send_or_submit" /> }
+                                                // icon="send_or_submit"
+                                                type="submit"
+                                                label={SubmitButtonLabel}
+                                                class="me-2"
+                                                size="small"
+                                                colorVariant={SubmitButtonColor}
+                                                dataTestId="submitButton"
+                                                onClick={handleSubmit}
+                                            />
+                                        </div>
+                                    ) : (<></>)
+                                }
+                            </div>
+                        )}
+                        
+                    </div>
+                    {!activeCard ? (
+                        <div id="modalFooter" className="modal-footer d-flex justify-content-evenly w-100 sticky-bottom bg-white p-2">
+                            {
+                                footerData.map((data, index) => (
+                                    data.hasPermission && (
+                                        <div
+                                            key={data.id}
+                                            id={data.id}
+                                            onClick={(e) => handleItemClick(e, data.id)}
+                                            className="cursor-pointer footer-items"
+                                        >
+                                            <div className="d-flex justify-content-center mt-2">{data.icon}</div>
+                                            <div className="d-flex mt-1 mb-1" style={{ fontSize: "small" }}>{data.text}</div>
+                                        </div>
+                                    )
+                                ))
+                            }
+                        </div>
+                    ) : activeCard === cardIds.reportIssue? (
+                        <div className="bottom-0 p-4 pt-0 w-auto smaller" style={{ background: "#F5F7FA", fontSize: "smaller" }}>Still facing challenges? Contact us at <a className="text-primary cursor-pointer" onClick={() => window.location.href = "mailto:support@raaghu.ai"}>support@raaghu.ai</a></div>
+                    ) : (<></>)}
+                </Modal>
+            )}
             {isSelecting && (
                 <div onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} className="image-capture-selector">
                     <div style={selectionStyle}></div>
@@ -658,4 +1245,4 @@ const RdsCompCaptureCe: React.FC<RdsCompCaptureCeProps> = (props) => {
     // #endregion
 };
 
-export default RdsCompCaptureCe;
+export default RdsCompCapturer;

@@ -1,0 +1,9 @@
+.footer-items:hover {
+    transform: scale(1.15);
+    transition: transform 0.5s;
+    color: #7e2eef;
+}
+
+.footer-items:hover svg {
+    stroke: #7e2eef;
+}
