@@ -9,21 +9,30 @@
 }
 
 .kanban-board {
+  font-family: poppins !important;
+  .card{
+    padding: 5px !important;
+  }
   .card-header {
     background-color: #ebdcff !important;
     min-height: 35px !important;
     height: 35px !important;
     display: flow !important;
   }
+  .card-body{
+    padding: 0px 12px !important
+  }
 
   .pt-3 {
     padding-top: 8px !important;
   }
 
-  .btn-sm svg {
-    height: 20px !important;
+  .btn-sm svg {   
     stroke-width: inherit !important;
     fill: none !important;
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
   }
 
   .btn-group {
@@ -34,15 +43,71 @@
     min-width: 125px !important;
     padding: 6px 0px;
     border-color: #ebdcff !important;
-    
+
   }
-  .sub-card{
+
+  .sub-card {
     .card-header {
       background-color: transparent !important;
-      min-height: 35px !important;
+      min-height: 60px !important;
       height: 35px !important;
       display: flow !important;
     }
-  }
 
+    .card {
+      padding: 0px !important;
+      background: var(--Background-bg-primary-lighter-default, #FEF7FF);
+      border-radius: 0px !important;
+    }
+
+    .card-body {
+      padding: 0px 15px !important;
+    }
+
+    .card-body-font {
+      font-size: small !important;
+    }
+  }
 }
+
+.priority-btn {
+  .custom-badge{
+     border-color: #904cec !important;
+     background-color: transparent !important;
+     color: #904cec !important;
+     border: 1px solid #904cec !important;
+   }
+
+   .small {
+     font-size: 0.65rem !important;
+   }
+ }
+.f-12{
+  font-size: 12px !important;
+}
+.f-14{
+  font-size: 14px !important;
+}
+.f-16{
+  font-size: 16px !important;
+}
+.fw-400{
+  font-weight: 400 !important;
+}
+.fw-500{
+  font-weight: 500 !important;
+}
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 265px; 
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.truncate-text:hover {
+  max-width: 130px; 
+}
+
+
