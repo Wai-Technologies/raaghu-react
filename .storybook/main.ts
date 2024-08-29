@@ -16,6 +16,7 @@ const config: StorybookConfig = {
     "@storybook/preset-scss",
     //"@storybook/addon-toolbars"
     "@storybook/addon-themes",
+    // "storybook-addon-themes",
     "@storybook/addon-mdx-gfm"
   ],
   core: {
