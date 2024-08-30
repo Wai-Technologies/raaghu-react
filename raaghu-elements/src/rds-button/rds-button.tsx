@@ -63,6 +63,9 @@ const RdsButton = (props: RdsButtonProps) => {
             const iconLabelClass = defaultClass.replace('btn-icon', '');
             defaultClass = iconLabelClass;
         }
+        if (props.isRoundedButton) {
+            defaultClass = defaultClass + 'rounded-pill';
+        }
         return defaultClass;
     }
 

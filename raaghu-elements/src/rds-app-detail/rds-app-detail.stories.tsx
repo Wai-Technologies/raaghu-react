@@ -22,7 +22,7 @@ export const Default: Story = {
     args: {
         appDetailsItem: {
             title: "Zapier",
-            subtitle: "Build custom automation and intefrations with app",
+            subtitle: "Build custom automation and integration with app",
             icon: "zapier",
             route: "/home",
             selected: true,
