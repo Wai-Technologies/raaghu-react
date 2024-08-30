@@ -708,7 +708,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                       //                                                 colorVariant="secondary"
                                       //                                                 label="Add task"
                                       //                                                 size="medium"
-                                      //                                                 icon="plus"
+                                      //                                                 icon="plus_circle"
                                       //                                                 onClick={() => setShowInputTask(true)}
                                       //                                              />
                                       //                                           )}
@@ -817,12 +817,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                    type="default"
                                                    isDropdownOpen={false}
                                                 /> */}
-                                <div className="mt-2 d-flex">
+                                <div className="mt-2 d-flex add-item-btn btn-margin">
                                   <RdsButton
-                                    colorVariant="primary"
+                                    colorVariant="default"
                                     icon="plus_circle"
                                     label="Add Item"
-                                    size="small"
+                                    size="medium"
                                     onClick={() => onAddSubCardClick(index)}
                                   />
                                   <RdsIcon
@@ -836,11 +836,11 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                 </div>
                               </div>
                             ) : (
-                              <div className="mt-2">
+                              <div className="mt-2 add-item-btn">
                                 <RdsButton
-                                class="col-md-12"
+                                  class="w-100"
                                   colorVariant="default"
-                                  icon="plus"
+                                  icon="plus_circle"
                                   label="Add Item"
                                   size="medium"
                                   onClick={() => addSubCard(index)}
@@ -858,48 +858,48 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           </div>
         ))}
         {visibleInput && (
-          <div className="col-md-3 mt-2">
-            <div className="row">
-              <div className="col-md-8">
-                <RdsInput
-                  id=""
-                  inputType="text"
-                  placeholder="Enter Board Title"
-                  size="small"
-                  value={inputValue}
-                  onChange={(event) => handleDataChanges(event)}
-                />
-              </div>
+          <div className="mx-2 mt-2 add-board">
+            <div className="col-md-12">
+              <RdsInput
+                id=""
+                inputType="text"
+                placeholder="Enter Board Title"
+                size="small"
+                value={inputValue}
+                onChange={(event) => handleDataChanges(event)}
+              />
             </div>
-            <div className="mt-3 d-flex">
-              <div className="">
-                <RdsButton
-                  colorVariant="primary"
-                  label="Add Board"
-                  size="medium"
-                  onClick={onAddButtonClick}
-                />
-              </div>
-              <div className="m-2">
-                <RdsIcon
-                  height="13px"
-                  name="cancel"
-                  width="13px"
-                  onClick={onCancel}
-                />
-              </div>
+            <div className="mt-2 d-flex add-item-btn btn-margin">
+              <RdsButton
+                colorVariant="default"
+                icon="plus_circle"
+                label="Add Board"
+                size="medium"
+                onClick={onAddButtonClick}
+              />
+              <RdsIcon
+                classes={"m-2"}
+                colorVariant="black"
+                name="cancel"
+                height="13px"
+                width="13px"
+                onClick={onCancel}
+              />
             </div>
           </div>
         )}
         {!visibleInput && addButton && (
-          <div className="col-md-3 mt-2">
-            <RdsButton
-              colorVariant="default"
-              icon="plus"
-              label="Add Board"
-              size="medium"
-              onClick={showInput}
-            />
+          <div className="mt-2 mx-2 add-board">
+            <div className="add-item-btn add-board-btn">
+              <RdsButton
+                class="mt-2"
+                colorVariant="default"
+                icon="plus_circle"
+                label="Add Board"
+                size="medium"
+                onClick={showInput}
+              />
+            </div>
           </div>
         )}
       </div>
