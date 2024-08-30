@@ -469,13 +469,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                 isDropdownOpen[index] ? "show" : ""
                               } dropdown-right`}
                             >
-                              {/* <li onClick={() => deleteCard(index)}>
-                                          <a
-                                             data-bs-toggle="modal" className="dropdown-item">
-                                             <RdsLabel label="Delete Board" />
-                                          </a>
-                                       </li> */}
-                              <li>
+                              <li onClick={() => deleteCard(index)}>
                                 <a
                                   data-bs-toggle="modal"
                                   className="dropdown-item"
@@ -483,12 +477,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                   <RdsLabel label="Edit" />
                                 </a>
                               </li>
-                              <li>
+                              <li onClick={() => deleteCard(index)}>
                                 <a
                                   data-bs-toggle="modal"
                                   className="dropdown-item"
                                 >
-                                  <RdsLabel label="Change Status" />
+                                  <RdsLabel label="Delete Board" />
                                 </a>
                               </li>
                             </ul>
@@ -889,8 +883,8 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           </div>
         )}
         {!visibleInput && addButton && (
-          <div className="mt-2 mx-2 add-board">
-            <div className="add-item-btn add-board-btn">
+          <div className="d-flex align-items-center mt-2 mx-2 add-board">
+            <div className="add-item-btn add-board-btn flex-grow-1">
               <RdsButton
                 class="mt-2"
                 colorVariant="default"

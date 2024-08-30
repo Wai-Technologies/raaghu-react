@@ -149,7 +149,7 @@
   width: 300px !important;
   height: 600px !important;
   background-color: #fff;
-  border: 1px solid #D4BBFF;
+  border: 1px dashed #D4BBFF;
   border-radius: 0.5rem !important;
 }
 
