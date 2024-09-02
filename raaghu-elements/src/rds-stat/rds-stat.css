@@ -8,6 +8,11 @@
   border-width: 30px !important;
 }
 
+.h-600px {
+  height: 600px !important;
+  border-width: 30px !important;
+}
+
 .w-300px {
   width: 300px !important;
 }
