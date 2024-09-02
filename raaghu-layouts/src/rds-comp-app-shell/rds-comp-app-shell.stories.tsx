@@ -20,9 +20,9 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-export const Classic: Story = {
+export const Basic: Story = {
   args: {
-    displayType: "Classic",
+    displayType: "Basic",
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -238,9 +238,9 @@ export const Classic: Story = {
   },
 } satisfies Story;
 
-export const Advanced: Story = {
+export const Header: Story = {
   args: {
-    displayType: "Advanced",
+    displayType: "Header",
     children: (
       <>
         <div className="container-fluid bg-white px-0">
