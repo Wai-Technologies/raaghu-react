@@ -181,6 +181,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   placeholder="Select Country"
                   selectItems={props.countryList}
                   selectedValue={formData?.country}
+                  key={`menu-${formData?.country}`}
                   onChange={(item: any) => {
                     handleDataChanges(item.value, "country");
                   }}
