@@ -25,6 +25,8 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   const [visibleInput, setVisibleInput] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [showCard, setShowCard] = useState(false);
+  const [isEditingBoardName, setIsEditingBoardName] = useState(false);
+  
   const [cards, setCards] = useState<
     {
       subCardIndex: number;
@@ -40,6 +42,9 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     }[]
   >([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean[]>([]);
+  const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<boolean[]>(
+    []
+  );
   const [subCardInputVisible, setSubCardInputVisible] = useState<number | null>(
     null
   );
@@ -136,6 +141,21 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     );
   };
 
+  const toggleSubCardDropdown = (index: number) => {
+    setIsSubCardDropdownOpen((prevState) =>
+      prevState.map((state, i) => (i === index ? !state : state))
+    );
+  };
+
+  const editBoardName = (index: number) => {
+    setIsEditingBoardName(true);
+    setInputValue(cards[index].name);
+    setIsDropdownOpen((prevState) =>
+      prevState.map((state, i) => (i === index ? !state : state))
+    );
+  };
+
+
   const deleteCard = (index: number) => {
     setCards((prevCards) => prevCards.filter((card, i) => i !== index));
     setIsDropdownOpen((prevState) =>
@@ -178,7 +198,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       updatedCards[index].subCards.push(subcard);
       return updatedCards;
     });
-
+    setIsSubCardDropdownOpen((prevState) => [...prevState, false]);
     // Reset sub-card input visibility and value
     setSubCardInputVisible(null);
     setsubCardTitleValue("");
@@ -422,6 +442,17 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     }
   };
 
+  const handleChange = (val: any, selectedCardId: any) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.cardId === selectedCardId
+          ? { ...card, name: val.defaultValue }
+          : card
+      )
+    );
+    setIsEditingBoardName(false);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="row d-flex ">
@@ -436,14 +467,28 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                   cardTitle={
                     <div className="row">
                       <div className="col-md-8">
-                        <div className="d-flex">
+                        {!isEditingBoardName ? (
                           <div className="d-flex">
                             <span className="f-14 fw-400">{card.name}</span>
                             <span className="mx-2 f-14 fw-400">
                               ({card.subCards.length.toString()})
                             </span>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="d-flex">
+                            <RdsInput
+                              size="small"
+                              inputType="text"
+                              customClasses="form-control margin-top-5"
+                              value={card.name}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  handleChange(e.target, card.cardId);
+                                }
+                              }}
+                            ></RdsInput>
+                          </div>
+                        )}
                       </div>
                       <div className="col-md-4">
                         <div className="d-flex justify-content-end">
@@ -469,7 +514,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                 isDropdownOpen[index] ? "show" : ""
                               } dropdown-right`}
                             >
-                              <li onClick={() => deleteCard(index)}>
+                              <li onClick={() => editBoardName(index)}>
                                 <a
                                   data-bs-toggle="modal"
                                   className="dropdown-item"
@@ -545,7 +590,9 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                     data-bs-auto-close="true"
                                                     aria-expanded="false"
                                                     onClick={() =>
-                                                      toggleDropdown(index)
+                                                      toggleSubCardDropdown(
+                                                        index
+                                                      )
                                                     }
                                                   >
                                                     <RdsIcon
@@ -558,25 +605,27 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                   <ul
                                                     aria-labelledby="dropdownMenuButton"
                                                     className={`dropdown-menu dropdown-adjusted ${
-                                                      isDropdownOpen[index]
+                                                      isSubCardDropdownOpen[
+                                                        index
+                                                      ]
                                                         ? "show"
                                                         : ""
                                                     } dropdown-right`}
                                                   >
-                                                    <li>
+                                                    
+                                                    <li
+                                                      onClick={() =>
+                                                        deleteSubCard(
+                                                          index,
+                                                          subCard.SubcardId
+                                                        )
+                                                      }
+                                                    >
                                                       <a
                                                         data-bs-toggle="modal"
                                                         className="dropdown-item"
                                                       >
-                                                        <RdsLabel label="Assign" />
-                                                      </a>
-                                                    </li>
-                                                    <li>
-                                                      <a
-                                                        data-bs-toggle="modal"
-                                                        className="dropdown-item"
-                                                      >
-                                                        <RdsLabel label="View" />
+                                                        <RdsLabel label="Delete Card" />
                                                       </a>
                                                     </li>
                                                   </ul>
@@ -610,169 +659,13 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                             </div>
                                           </div>
                                         </>
-                                      }
-
-                                      //                      {/* <div className="d-flex">
-                                      //   <span className="me-3">
-                                      //     {subCard.subcardName}
-                                      //   </span>
-
-                                      //    <div>
-                                      //                            <RdsModal
-                                      //                               cancelButtonName="Close"
-                                      //                               modalAnimation="modal-fade"
-                                      //                               modalId={`modal${index}-${subCard.SubcardId}`}
-                                      //                               modalTitle={subCard.subcardName}
-                                      //                               modalbutton={<RdsIcon name={"three_dots"} height="14px" width="14px" fill={true} />}
-                                      //                               showModalHeader
-                                      //                               size="medium"
-                                      //                               verticallyCentered
-                                      //                            >
-                                      //                               <p>
-                                      //                                  <div className="row">
-                                      //                                     <div className="col-md-8">
-                                      //                                        <div className="">
-                                      //                                           <RdsLabel label="Label" fontWeight="bold" />
-                                      //                                        </div>
-                                      //                                        <div className="mt-5 row">
-                                      //                                           <div className="col-md-6">
-                                      //                                              <RdsLabel label="Check List" fontWeight="bold" />
-                                      //                                           </div>
-                                      //                                           <div className="col-md-6">
-                                      //                                              <RdsButton
-                                      //                                                 colorVariant="secondary"
-                                      //                                                 label="Delete all tasks"
-                                      //                                                 size="small"
-                                      //                                                 onClick={() => handleDeleteAllTasks(subCard.SubcardId)}
-                                      //                                              />
-                                      //                                           </div>
-                                      //                                        </div>
-                                      //                                        <div className="mt-2">
-                                      //                                           <RdsProgressBar
-                                      //                                              colorVariant="success"
-                                      //                                              displayPercentage
-                                      //                                              height={15}
-                                      //                                              progressWidth={subCardProgress(index, subCard.SubcardId)} // Pass both index and subCardIndex as arguments
-                                      //                                              role="single"
-                                      //                                              striped
-                                      //                                           />
-                                      //                                        </div>
-                                      //                                        <div className="mt-2">
-                                      //                                           <div>
-                                      //                                              {tasks
-                                      //                                                 .filter(task => task.cardIndex === index && task.subCardIndex === subCard.SubcardId)
-                                      //                                                 .map((task, taskIndex) => (
-                                      //                                                    <div key={taskIndex} className="row">
-                                      //                                                       <div className="col-md-8">
-                                      //                                                          <RdsCheckbox state="Checkbox" label={task.name} checked={task.completed} onChange={() => handleCheckboxClick(index, subCard.SubcardId, task.taskId)} />
-                                      //                                                       </div>
-                                      //                                                       <div className="col-md-4">
-                                      //                                                          <RdsIcon name="delete" height="15px" width="15px" onClick={() => handleDeleteTask(index, subCard.SubcardId, task.taskId)}></RdsIcon>
-                                      //                                                       </div>
-                                      //                                                    </div>
-                                      //                                                 ))}
-                                      //                                           </div>
-                                      //                                           {showInputTask && (
-                                      //                                              <>
-                                      //                                                 <RdsInput
-                                      //                                                    value={taskName}
-                                      //                                                    size="small"
-                                      //                                                    onChange={(e) => setTaskName(e.target.value)}
-                                      //                                                 />
-                                      //                                                 <div className="mt-2">
-                                      //                                                    <RdsButton
-                                      //                                                       colorVariant="primary"
-                                      //                                                       label="Add Task"
-                                      //                                                       size="medium"
-                                      //                                                       onClick={() => handleAddTask(index, subCard.SubcardId)}
-                                      //                                                    />
-                                      //                                                    <RdsIcon
-                                      //                                                       colorVariant="secondary"
-                                      //                                                       name="Cancel"
-                                      //                                                       height="13px"
-                                      //                                                       width="13px"
-                                      //                                                       classes={"m-2"}
-                                      //                                                       onClick={() => setShowInputTask(false)}
-                                      //                                                    />
-                                      //                                                 </div>
-                                      //                                              </>
-                                      //                                           )}
-                                      //                                           {!showInputTask && (
-                                      //                                              <RdsButton
-                                      //                                                 colorVariant="secondary"
-                                      //                                                 label="Add task"
-                                      //                                                 size="medium"
-                                      //                                                 icon="plus_circle"
-                                      //                                                 onClick={() => setShowInputTask(true)}
-                                      //                                              />
-                                      //                                           )}
-                                      //                                        </div>
-                                      //                                     </div>
-                                      //                                     <div className="col-md-4">
-                                      //                                        <RdsLabel label="Add to card" fontWeight="bold" />
-                                      //                                        <div className="mt-1">
-                                      //                                           <RdsModal
-                                      //                                              cancelButtonName="Close"
-                                      //                                              modalAnimation="modal-fade"
-                                      //                                              modalId={""}
-                                      //                                              modalTitle="Label"
-                                      //                                              modalbutton={<RdsButton colorVariant="secondary" label="Add Label" size="small" icon="" />}
-                                      //                                              showModalHeader
-                                      //                                              verticallyCentered={false}
-                                      //                                              size="medium"
-                                      //                                           >
-                                      //                                              <p>label modal</p>
-                                      //                                           </RdsModal>
-                                      //                                        </div>
-                                      //                                        <div className="my-2">
-                                      //                                           <RdsButton
-                                      //                                              colorVariant="secondary"
-                                      //                                              label="Date"
-                                      //                                              size="small"
-                                      //                                              icon="calendar"
-                                      //                                           />
-                                      //                                        </div>
-                                      //                                        <div>
-                                      //                                           <RdsButton
-                                      //                                              colorVariant="secondary"
-                                      //                                              label="Delete Card"
-                                      //                                              size="small"
-                                      //                                              icon="delete"
-                                      //                                              onClick={() => deleteSubCard(index, subCard.SubcardId)}
-                                      //                                           />
-                                      //                                        </div>
-                                      //                                     </div>
-                                      //                                  </div>
-                                      //                               </p>
-                                      //                            </RdsModal>
-                                      //                         </div>
-                                      // </div>*/}
-
-                                      //  {/* Display completed tasks count out of total tasks for the current subcard */}
-                                      // {/* <div className="mt-2">
-                                      //    {`${tasks.filter(
-                                      //       (task) =>
-                                      //          task.cardIndex === index &&
-                                      //          task.subCardIndex ===
-                                      //          subCard.SubcardId &&
-                                      //          task.completed
-                                      //    ).length
-                                      //       }/${tasks.filter(
-                                      //          (task) =>
-                                      //             task.cardIndex === index &&
-                                      //             task.subCardIndex ===
-                                      //             subCard.SubcardId
-                                      //       ).length
-                                      //       }`}
-                                      // </div> */}
-                                      //    </>
-                                      // }
+                                      }                                      
                                     />
                                   </div>
                                 )}
                               </Draggable>
                             ))}
-                            {provided.placeholder}
+                            {/* {provided.placeholder} */}
                             {subCardInputVisible === index ? (
                               <div className="mt-1">
                                 <RdsInput
