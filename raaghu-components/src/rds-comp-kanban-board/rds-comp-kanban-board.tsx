@@ -17,35 +17,35 @@ import "./rds-comp-kanban-board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export interface KanbanBoardProps {
-  inputValue: string;
+  boardName: string;
 }
 
 const KanbanBoard = (props: KanbanBoardProps) => {
-  const [inputValue, setInputValue] = useState(props.inputValue);
-  const [visibleInput, setVisibleInput] = useState(false);
+  const [boardName, setboardName] = useState(props.boardName);
+  const [showAddBoardBtn, setShowAddBoardBtn] = useState(false);
   const [addButton, setAddButton] = useState(true);
-  const [showCard, setShowCard] = useState(false);
+  const [showBoard, setShowBoard] = useState(false);
   const [isEditingBoardName, setIsEditingBoardName] = useState(false);
   
-  const [cards, setCards] = useState<
+  const [boards, setBoards] = useState<
     {
       subCardIndex: number;
       name: string;
       subCards: {
-        subcardName: string;
-        subcardPriority: string;
-        subcardQuestion: string;
-        subcardDate: string;
+        ticketId: string;
+        ticketPriority: string;
+        ticketQuestion: string;
+        ticketDate: string;
         SubcardId: number;
       }[];
       cardId: number;
     }[]
   >([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean[]>([]);
+  const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>([]);
   const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<boolean[]>(
     []
   );
-  const [subCardInputVisible, setSubCardInputVisible] = useState<number | null>(
+  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(
     null
   );
   const formatDate = (date: Date) => {
@@ -62,14 +62,13 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
     return `${ordinalSuffix(day)} ${month} ${year}`;
   };
-  const [subCardTitleValue, setsubCardTitleValue] = useState<string>("");
-  const [subCardPriorityValue, setsubCardPriorityValue] = useState<string>("");
-  const [subCardQuestionValue, setsubCardQuestionValue] = useState<string>("");
-  const [subCardDateValue, setsubCardDateValue] = useState<string>(
+  const [ticketIdValue, setticketIdValue] = useState<string>("");
+  const [ticketPriorityValue, setTicketPriorityValue] = useState<string>("");
+  const [ticketQuestionValue, setTicketQuestionValue] = useState<string>("");
+  const [ticketDateValue, setTicketDateValue] = useState<string>(
     formatDate(new Date())
   );
-  const [showInputTask, setShowInputTask] = useState(false);
-  const [taskName, setTaskName] = useState("");
+ 
   const [tasks, setTasks] = useState<
     {
       name: string;
@@ -98,45 +97,45 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   ];
 
   useEffect(() => {
-    setInputValue(props.inputValue);
-  }, [props.inputValue]);
+    setboardName(props.boardName);
+  }, [props.boardName]);
 
-  const showInput = () => {
-    setVisibleInput(true);
-    setInputValue("");
-    // setShowCard(false);
+  const handleShowInputBox = () => {
+    setShowAddBoardBtn(true);
+    setboardName("");
+    // setShowBoard(false);
   };
 
   const onAddButtonClick = () => {
     // When initializing tasks for each sub-card, ensure correct assignment of subCardIndex
-    setCards((prevCards) => [
+    setBoards((prevCards) => [
       ...prevCards,
       {
-        name: inputValue,
+        name: boardName,
         subCards: [],
         subCardIndex: prevCards.length,
         cardId: generateRandomId(),
       },
     ]);
-    setIsDropdownOpen((prevState) => [...prevState, false]);
-    setVisibleInput(false);
+    setIsBoardDropdownOpen((prevState) => [...prevState, false]);
+    setShowAddBoardBtn(false);
     setAddButton(true);
-    setShowCard(true);
+    setShowBoard(true);
   };
 
   const onCancel = () => {
-    setVisibleInput(false);
+    setShowAddBoardBtn(false);
     setAddButton(true);
-    setInputValue("");
-    setShowCard(true);
+    setboardName("");
+    setShowBoard(true);
   };
 
   const handleDataChanges = (event: any) => {
-    setInputValue(event.target.value);
+    setboardName(event.target.value);
   };
 
   const toggleDropdown = (index: number) => {
-    setIsDropdownOpen((prevState) =>
+    setIsBoardDropdownOpen((prevState) =>
       prevState.map((state, i) => (i === index ? !state : state))
     );
   };
@@ -149,22 +148,22 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
   const editBoardName = (index: number) => {
     setIsEditingBoardName(true);
-    setInputValue(cards[index].name);
-    setIsDropdownOpen((prevState) =>
+    setboardName(boards[index].name);
+    setIsBoardDropdownOpen((prevState) =>
       prevState.map((state, i) => (i === index ? !state : state))
     );
   };
 
 
   const deleteCard = (index: number) => {
-    setCards((prevCards) => prevCards.filter((card, i) => i !== index));
-    setIsDropdownOpen((prevState) =>
+    setBoards((prevCards) => prevCards.filter((card, i) => i !== index));
+    setIsBoardDropdownOpen((prevState) =>
       prevState.filter((state, i) => i !== index)
     );
   };
 
   const deleteSubCard = (index: number, subCardIndex: number) => {
-    setCards((prevCards) =>
+    setBoards((prevCards) =>
       prevCards.map((card, i) =>
         i === index
           ? {
@@ -179,20 +178,20 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   };
 
   const addSubCard = (index: number) => {
-    setSubCardInputVisible(index);
+    setSubCardInputsVisible(index);
   };
 
   const onAddSubCardClick = (index: number) => {
-    setsubCardDateValue(formatDate(new Date()));
+    setTicketDateValue(formatDate(new Date()));
 
-    // Update the cards state to add the new sub-card to the specified card index
-    setCards((prevCards) => {
+    // Update the boards state to add the new sub-card to the specified card index
+    setBoards((prevCards) => {
       const updatedCards = [...prevCards];
       const subcard = {
-        subcardName: subCardTitleValue,
-        subcardPriority: subCardPriorityValue,
-        subcardQuestion: subCardQuestionValue,
-        subcardDate: subCardDateValue,
+        ticketId: ticketIdValue,
+        ticketPriority: ticketPriorityValue,
+        ticketQuestion: ticketQuestionValue,
+        ticketDate: ticketDateValue,
         SubcardId: generateRandomId(),
       };
       updatedCards[index].subCards.push(subcard);
@@ -200,113 +199,18 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     });
     setIsSubCardDropdownOpen((prevState) => [...prevState, false]);
     // Reset sub-card input visibility and value
-    setSubCardInputVisible(null);
-    setsubCardTitleValue("");
-    setsubCardPriorityValue("");
-    setsubCardQuestionValue("");
-    setsubCardDateValue(formatDate(new Date()));
+    setSubCardInputsVisible(null);
+    setticketIdValue("");
+    setTicketPriorityValue("");
+    setTicketQuestionValue("");
+    setTicketDateValue(formatDate(new Date()));
   };
 
-  const handleAddTask = (cardIndex: number, subCardIndex: number) => {
-    const newTask = {
-      name: taskName,
-      completed: false,
-      cardIndex,
-      subCardIndex,
-      taskId: generateRandomId(),
-    };
-    // rest of your code...
-    setTasks([...tasks, newTask]);
-    setTaskName("");
-    setShowInputTask(false);
-    setTotalTasks(totalTasks + 1);
-
-    // Update completed tasks count if the new task is completed
-    if (newTask.completed) {
-      setCompletedTasks(completedTasks + 1);
-    }
-  };
+  
 
   function generateRandomId() {
     return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
   }
-
-  const handleCheckboxClick = (
-    cardIndex: number,
-    subCardIndex: number,
-    taskIndex: number
-  ) => {
-    const updatedTasks = tasks.map((task, index) => {
-      if (
-        task.cardIndex === cardIndex &&
-        task.subCardIndex === subCardIndex &&
-        task.taskId === taskIndex
-      ) {
-        const updatedTask = { ...task, completed: !task.completed };
-        if (updatedTask.completed) {
-          setCompletedTasks(completedTasks + 1);
-        } else {
-          setCompletedTasks(completedTasks - 1);
-        }
-        return updatedTask;
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handleDeleteTask = (
-    cardIndex: number,
-    subCardIndex: number,
-    taskIndex: number
-  ) => {
-    const deletedTask = tasks.find(
-      (task, index) =>
-        task.cardIndex === cardIndex &&
-        task.subCardIndex === subCardIndex &&
-        task.taskId === taskIndex
-    );
-    if (deletedTask) {
-      const updatedTasks = tasks.filter(
-        (task, index) =>
-          !(
-            task.cardIndex === cardIndex &&
-            task.subCardIndex === subCardIndex &&
-            task.taskId === taskIndex
-          )
-      );
-      setTasks(updatedTasks);
-      setTotalTasks(totalTasks - 1);
-      if (deletedTask.completed) {
-        setCompletedTasks(completedTasks - 1);
-      }
-    }
-  };
-
-  const handleDeleteAllTasks = (index: number) => {
-    const newTasks = tasks.filter((task) => task.subCardIndex !== index);
-    setTasks(newTasks);
-    setTotalTasks(totalTasks - newTasks.length);
-    const deletedCompletedTasks = newTasks.filter((task) => task.completed);
-    setCompletedTasks(completedTasks - deletedCompletedTasks.length);
-  };
-
-  const subCardProgress = (cardIndex: number, subCardIndex: number) => {
-    const subCardTasks = tasks.filter(
-      (task) =>
-        task.cardIndex === cardIndex && task.subCardIndex === subCardIndex
-    );
-    const completedTasks = subCardTasks.filter((task) => task.completed).length;
-    const totalTasks = subCardTasks.length;
-
-    if (totalTasks > 0) {
-      const progressPercentage = (completedTasks / totalTasks) * 100;
-      const progress = Math.floor(progressPercentage);
-      return progress;
-    } else {
-      return 0;
-    }
-  };
 
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId, type } = result;
@@ -322,10 +226,10 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     }
 
     if (type === "subCard") {
-      const startCard = cards.find(
+      const startCard = boards.find(
         (card) => card.subCardIndex == source.droppableId
       );
-      const finishCard = cards.find(
+      const finishCard = boards.find(
         (card) => card.subCardIndex == destination.droppableId
       );
 
@@ -333,8 +237,8 @@ const KanbanBoard = (props: KanbanBoardProps) => {
         return;
       }
 
-      const startCardIndex = cards.indexOf(startCard);
-      const finishCardIndex = cards.indexOf(finishCard);
+      const startCardIndex = boards.indexOf(startCard);
+      const finishCardIndex = boards.indexOf(finishCard);
 
       if (startCardIndex === finishCardIndex) {
         // Reorder within the same card
@@ -357,13 +261,13 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           newSubCards[sourceIndex] = newSubCards[secondsourceIndex];
           newSubCards[secondsourceIndex] = temp;
 
-          const newCards = Array.from(cards);
+          const newCards = Array.from(boards);
           newCards[startCardIndex] = {
             ...newCards[startCardIndex],
             subCards: newSubCards,
           };
 
-          setCards(newCards);
+          setBoards(newCards);
 
           // Reorder tasks within the same card
           const reorderedTasks = tasks.map((task) => {
@@ -398,7 +302,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           const finishSubCards = Array.from(finishCard.subCards);
           finishSubCards.splice(destination.index, 0, movedSubCard);
 
-          const newCards = Array.from(cards);
+          const newCards = Array.from(boards);
           newCards[startCardIndex] = {
             ...newCards[startCardIndex],
             subCards: startSubCards,
@@ -408,7 +312,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
             subCards: finishSubCards,
           };
 
-          setCards(newCards);
+          setBoards(newCards);
 
           // Update the cardId and subCardId of the moved subcard's tasks
           const updateTask = tasks
@@ -443,7 +347,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   };
 
   const handleChange = (val: any, selectedCardId: any) => {
-    setCards((prevCards) =>
+    setBoards((prevCards) =>
       prevCards.map((card) =>
         card.cardId === selectedCardId
           ? { ...card, name: val.defaultValue }
@@ -456,12 +360,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="row d-flex ">
-        {cards.map((card, index) => (
+        {boards.map((card, index) => (
           <div
-            className={showCard && card.name ? "col-md-3 mt-2 " : ""}
+            className={showBoard && card.name ? "col-md-3 mt-2 " : ""}
             key={index}
           >
-            {showCard && card.name && (
+            {showBoard && card.name && (
               <div className="kanban-board">
                 <RdsCard
                   cardTitle={
@@ -511,7 +415,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                             <ul
                               aria-labelledby="dropdownMenuButton"
                               className={`dropdown-menu dropdown-adjusted ${
-                                isDropdownOpen[index] ? "show" : ""
+                                isBoardDropdownOpen[index] ? "show" : ""
                               } dropdown-right`}
                             >
                               <li onClick={() => editBoardName(index)}>
@@ -565,14 +469,14 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                             <div className="col-md-8">
                                               <div className="d-flex flex-column">
                                                 <span className="f-12 fw-500">
-                                                  {subCard.subcardName}
+                                                  {subCard.ticketId}
                                                 </span>
                                                 <div className="priority-btn mt-1">
                                                   <RdsBadge
                                                     badgeType="rectangle"
                                                     colorVariant="primary"
                                                     label={
-                                                      subCard.subcardPriority
+                                                      subCard.ticketPriority
                                                     }
                                                     size="small"
                                                     className="custom-badge"
@@ -639,13 +543,13 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                         <>
                                           <div className="mb-2">
                                             <span className="f-16 fw-500 truncate-text">
-                                              {subCard.subcardQuestion}
+                                              {subCard.ticketQuestion}
                                             </span>
                                           </div>
                                           <div className="row">
                                             <div className="col-12 d-flex justify-content-between">
                                               <span className="f-12 fw-500">
-                                                {subCard.subcardDate}
+                                                {subCard.ticketDate}
                                               </span>
                                               <span className="f-12 fw-500">
                                                 <img
@@ -666,16 +570,16 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                               </Draggable>
                             ))}
                             {/* {provided.placeholder} */}
-                            {subCardInputVisible === index ? (
+                            {subCardInputsVisible === index ? (
                               <div className="mt-1">
                                 <RdsInput
                                   id=""
                                   inputType="text"
                                   placeholder="Enter Card Title"
                                   size="small"
-                                  value={subCardTitleValue}
+                                  value={ticketIdValue}
                                   onChange={(event) =>
-                                    setsubCardTitleValue(event.target.value)
+                                    setticketIdValue(event.target.value)
                                   }
                                 />
                                 <RdsDropdownList
@@ -685,7 +589,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                   listItems={priorityList}
                                   isPlaceholder={true}
                                   onClick={(e: any, val: any) =>
-                                    setsubCardPriorityValue(val)
+                                    setTicketPriorityValue(val)
                                   }
                                 />
                                 <RdsInput
@@ -693,16 +597,16 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                   inputType="text"
                                   placeholder="Enter Question"
                                   size="small"
-                                  value={subCardQuestionValue}
+                                  value={ticketQuestionValue}
                                   onChange={(event) =>
-                                    setsubCardQuestionValue(event.target.value)
+                                    setTicketQuestionValue(event.target.value)
                                   }
                                 />
                                 {/* <RdsDatePicker
                                                    onDatePicker={handleEndDate}
                                                    DatePickerLabel="Select Date"
                                                    type="default"
-                                                   isDropdownOpen={false}
+                                                   isBoardDropdownOpen={false}
                                                 /> */}
                                 <div className="mt-2 d-flex add-item-btn btn-margin">
                                   <RdsButton
@@ -718,7 +622,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                     name="cancel"
                                     height="13px"
                                     width="13px"
-                                    onClick={() => setSubCardInputVisible(null)}
+                                    onClick={() => setSubCardInputsVisible(null)}
                                   />
                                 </div>
                               </div>
@@ -744,7 +648,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
             )}
           </div>
         ))}
-        {visibleInput && (
+        {showAddBoardBtn && (
           <div className="mx-2 mt-2 add-board">
             <div className="col-md-12">
               <RdsInput
@@ -752,7 +656,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                 inputType="text"
                 placeholder="Enter Board Title"
                 size="small"
-                value={inputValue}
+                value={boardName}
                 onChange={(event) => handleDataChanges(event)}
               />
             </div>
@@ -775,7 +679,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
             </div>
           </div>
         )}
-        {!visibleInput && addButton && (
+        {!showAddBoardBtn && addButton && (
           <div className="d-flex align-items-center mt-2 mx-2 add-board">
             <div className="add-item-btn add-board-btn flex-grow-1">
               <RdsButton
@@ -784,7 +688,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                 icon="plus_circle"
                 label="Add Board"
                 size="medium"
-                onClick={showInput}
+                onClick={handleShowInputBox}
               />
             </div>
           </div>
