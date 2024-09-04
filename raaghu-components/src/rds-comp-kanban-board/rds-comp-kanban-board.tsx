@@ -25,7 +25,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [showBoard, setShowBoard] = useState(false);
-  const [isEditingBoardName, setIsEditingBoardName] = useState(false);
+  const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>([]);
   
   const [boards, setBoards] = useState<
     {
@@ -118,6 +118,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       },
     ]);
     setIsBoardDropdownOpen((prevState) => [...prevState, false]);
+    setIsEditingBoardName((prevState) => [...prevState, false]);  
     setShowAddBoardBtn(false);
     setAddButton(true);
     setShowBoard(true);
@@ -145,9 +146,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       prevState.map((state, i) => (i === index ? !state : state))
     );
   };
+  
 
   const editBoardName = (index: number) => {
-    setIsEditingBoardName(true);
+    setIsEditingBoardName((prevState) =>
+      prevState.map((state, i) => (i === index ? true : false))
+    );
     setboardName(boards[index].name);
     setIsBoardDropdownOpen((prevState) =>
       prevState.map((state, i) => (i === index ? !state : state))
@@ -354,7 +358,9 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           : card
       )
     );
-    setIsEditingBoardName(false);
+    setIsEditingBoardName((prevState) =>
+      prevState.map(() => false)
+    );
   };
 
   return (
@@ -371,7 +377,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                   cardTitle={
                     <div className="row">
                       <div className="col-md-8">
-                        {!isEditingBoardName ? (
+                        {!isEditingBoardName[index] ? (
                           <div className="d-flex">
                             <span className="f-14 fw-400">{card.name}</span>
                             <span className="mx-2 f-14 fw-400">
@@ -575,7 +581,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                 <RdsInput
                                   id=""
                                   inputType="text"
-                                  placeholder="Enter Card Title"
+                                  placeholder="Enter Ticket Id"
                                   size="small"
                                   value={ticketIdValue}
                                   onChange={(event) =>
