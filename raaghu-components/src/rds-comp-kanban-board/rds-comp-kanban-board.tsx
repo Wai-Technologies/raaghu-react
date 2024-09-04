@@ -16,17 +16,17 @@ import { RdsBadge } from "../rds-elements";
 import "./rds-comp-kanban-board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export interface KanbanBoardProps {
+export interface RdsCompKanbanBoardProps {
   boardName: string;
 }
 
-const KanbanBoard = (props: KanbanBoardProps) => {
+const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   const [boardName, setboardName] = useState(props.boardName);
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [showBoard, setShowBoard] = useState(false);
   const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>([]);
-  
+
   const [boards, setBoards] = useState<
     {
       subCardIndex: number;
@@ -42,12 +42,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     }[]
   >([]);
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>([]);
-  const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<boolean[]>(
-    []
-  );
-  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(
-    null
-  );
+  const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<{
+    [key: number]: boolean;
+  }>({});
+  const [subCardInputsVisible, setSubCardInputsVisible] = useState<
+    number | null
+  >(null);
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "long" });
@@ -68,7 +68,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   const [ticketDateValue, setTicketDateValue] = useState<string>(
     formatDate(new Date())
   );
- 
+
   const [tasks, setTasks] = useState<
     {
       name: string;
@@ -118,7 +118,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       },
     ]);
     setIsBoardDropdownOpen((prevState) => [...prevState, false]);
-    setIsEditingBoardName((prevState) => [...prevState, false]);  
+    setIsEditingBoardName((prevState) => [...prevState, false]);
     setShowAddBoardBtn(false);
     setAddButton(true);
     setShowBoard(true);
@@ -141,12 +141,17 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     );
   };
 
-  const toggleSubCardDropdown = (index: number) => {
-    setIsSubCardDropdownOpen((prevState) =>
-      prevState.map((state, i) => (i === index ? !state : state))
-    );
+  // const toggleSubCardDropdown = (index: number) => {
+  //   setIsSubCardDropdownOpen((prevState) =>
+  //     prevState.map((state, i) => (i === index ? true : false))
+  //   );
+  // };
+  const toggleSubCardDropdown = (subCardId: number) => {
+    setIsSubCardDropdownOpen((prevState) => ({
+      ...prevState,
+      [subCardId]: !prevState[subCardId],
+    }));
   };
-  
 
   const editBoardName = (index: number) => {
     setIsEditingBoardName((prevState) =>
@@ -157,7 +162,6 @@ const KanbanBoard = (props: KanbanBoardProps) => {
       prevState.map((state, i) => (i === index ? !state : state))
     );
   };
-
 
   const deleteCard = (index: number) => {
     setBoards((prevCards) => prevCards.filter((card, i) => i !== index));
@@ -187,21 +191,26 @@ const KanbanBoard = (props: KanbanBoardProps) => {
 
   const onAddSubCardClick = (index: number) => {
     setTicketDateValue(formatDate(new Date()));
-
-    // Update the boards state to add the new sub-card to the specified card index
+   
+    const newSubcard = {
+      ticketId: ticketIdValue,
+      ticketPriority: ticketPriorityValue,
+      ticketQuestion: ticketQuestionValue,
+      ticketDate: ticketDateValue,
+      SubcardId: generateRandomId(), // Ensure unique SubcardId for each subcard
+    };
+   
     setBoards((prevCards) => {
       const updatedCards = [...prevCards];
-      const subcard = {
-        ticketId: ticketIdValue,
-        ticketPriority: ticketPriorityValue,
-        ticketQuestion: ticketQuestionValue,
-        ticketDate: ticketDateValue,
-        SubcardId: generateRandomId(),
-      };
-      updatedCards[index].subCards.push(subcard);
+      updatedCards[index].subCards.push(newSubcard);
       return updatedCards;
     });
-    setIsSubCardDropdownOpen((prevState) => [...prevState, false]);
+   
+    setIsSubCardDropdownOpen((prevState) => ({
+      ...prevState,
+      [newSubcard.SubcardId]: false, 
+    }));
+   
     // Reset sub-card input visibility and value
     setSubCardInputsVisible(null);
     setticketIdValue("");
@@ -209,8 +218,6 @@ const KanbanBoard = (props: KanbanBoardProps) => {
     setTicketQuestionValue("");
     setTicketDateValue(formatDate(new Date()));
   };
-
-  
 
   function generateRandomId() {
     return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
@@ -358,9 +365,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
           : card
       )
     );
-    setIsEditingBoardName((prevState) =>
-      prevState.map(() => false)
-    );
+    setIsEditingBoardName((prevState) => prevState.map(() => false));
   };
 
   return (
@@ -498,10 +503,10 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                     type="button"
                                                     data-bs-toggle="dropdown"
                                                     data-bs-auto-close="true"
-                                                    aria-expanded="false"
+                                                    aria-expanded="true"
                                                     onClick={() =>
                                                       toggleSubCardDropdown(
-                                                        index
+                                                        subCard.SubcardId
                                                       )
                                                     }
                                                   >
@@ -516,13 +521,12 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                                     aria-labelledby="dropdownMenuButton"
                                                     className={`dropdown-menu dropdown-adjusted ${
                                                       isSubCardDropdownOpen[
-                                                        index
+                                                        subCard.SubcardId
                                                       ]
                                                         ? "show"
                                                         : ""
                                                     } dropdown-right`}
                                                   >
-                                                    
                                                     <li
                                                       onClick={() =>
                                                         deleteSubCard(
@@ -569,7 +573,7 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                             </div>
                                           </div>
                                         </>
-                                      }                                      
+                                      }
                                     />
                                   </div>
                                 )}
@@ -628,7 +632,9 @@ const KanbanBoard = (props: KanbanBoardProps) => {
                                     name="cancel"
                                     height="13px"
                                     width="13px"
-                                    onClick={() => setSubCardInputsVisible(null)}
+                                    onClick={() =>
+                                      setSubCardInputsVisible(null)
+                                    }
                                   />
                                 </div>
                               </div>
@@ -704,4 +710,4 @@ const KanbanBoard = (props: KanbanBoardProps) => {
   );
 };
 
-export default KanbanBoard;
+export default RdsCompKanbanBoard;
