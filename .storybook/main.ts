@@ -14,9 +14,8 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
-    //"@storybook/addon-toolbars"
+   // "@storybook/addon-toolbars",
     "@storybook/addon-themes",
-    // "storybook-addon-themes",
     "@storybook/addon-mdx-gfm"
   ],
   core: {
