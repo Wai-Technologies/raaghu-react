@@ -102,6 +102,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                                 colorVariant={bgColor.includes('bg-dark') || bgColor.includes('bg-primary') || bgColor.includes('bg-danger') ? 'light' : 'dark'}
                                 width="30px"
                                 height="30px"
+                                isCursorPointer={true}
                             />
                         </span>
                         <span className={`ms-2 me-3 ${
@@ -126,6 +127,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                             colorVariant={bgColor.includes('bg-dark') || bgColor.includes('bg-primary') || bgColor.includes('bg-danger') ? 'light' : 'dark'}
                             width="20px"
                             height="20px"
+                            isCursorPointer={true}
                         />{" "}
                     </div>
                 </div>
@@ -146,6 +148,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                                         colorVariant={getColor(notification, true)}
                                         width="20px"
                                         height="20px"
+                                        isCursorPointer={true}
                                     />
                                 </div>
                                 <div className="text-start ps-0 w-100">

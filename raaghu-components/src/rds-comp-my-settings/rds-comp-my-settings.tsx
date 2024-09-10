@@ -19,6 +19,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
     newPass: "",
     curNewPass: "",
   });
+  const [touched, setTouched] = useState({
+    Email: false,
+  });
 
   useEffect(() => {
     setInputReset(props.reset);
@@ -37,31 +40,36 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
   };
 
   const emailRegex =
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    const handleDataChanges = (event:any, key: string) => {
-        const { value } = event.target;
-        let errorMessage = "";
-      
-        if (key === "ProfileName") {
-          errorMessage = value.trim() ? "" : "Profile Name is required";
-        } else if (key === "Email") {
-          errorMessage = emailRegex.test(value) ? "" : "Please enter a valid email address";
-        } else if (key === "UserName") {
-          errorMessage = value.trim() ? "" : "User Name is required";
-        } else if (key === "curPass") {
-          errorMessage = isCurPassValid(value) ? "" : "Current Password is invalid";
-        } else if (key === "newPass") {
-          errorMessage = isNewPassValid(value) ? "" : "New password is invalid";
-        } else if (key === "curNewPass") {
-          errorMessage = isCurNewPassValid(value) ? "" : "Password mismatch found";
-        }
-      
-        setErrors({ ...errors, [key]: errorMessage });
-        setFormData({ ...formData, [key]: value });
-      };
-      
-      
+  const handleDataChanges = (event: any, key: string) => {
+    const { value } = event.target;
+    let errorMessage = "";
+
+    if (key === "ProfileName") {
+      errorMessage = value.trim() ? "" : "Profile Name is required";
+    } else if (key === "Email") {
+      setTouched({ ...touched, Email: true });
+      if (value.trim() && !emailRegex.test(value)) {
+        errorMessage = "Please enter a valid email address";
+      }
+    } else if (key === "UserName") {
+      errorMessage = value.trim() ? "" : "User Name is required";
+    } else if (key === "curPass") {
+      errorMessage = isCurPassValid(value) ? "" : "Current Password is invalid";
+    } else if (key === "newPass") {
+      errorMessage = isNewPassValid(value) ? "" : "New password is invalid";
+    } else if (key === "curNewPass") {
+      errorMessage = isCurNewPassValid(value) ? "" : "Password mismatch found";
+    }
+
+    setErrors({ ...errors, [key]: errorMessage });
+    setFormData({ ...formData, [key]: value });
+  };
+
+  const handleBlur = (key: string) => {
+    setTouched({ ...touched, [key]: true });
+  };
 
   const emitSaveData = (event: any) => {
     event.preventDefault();
@@ -106,8 +114,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               value={formData?.Email}
               onChange={(e) => handleDataChanges(e, "Email")}
+              onBlur={() => handleBlur("Email")}
             />
-            {errors.Email && <div className="form-control-feedback"><span className="text-danger">{errors.Email}</span></div>}
+            {touched.Email && errors.Email && <div className="form-control-feedback"><span className="text-danger">{errors.Email}</span></div>}
           </div>
           <div className="mb-3">
             <RdsInput
@@ -130,7 +139,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               placeholder="Current password"
               inputType="password"
-              onChange={(e)=>handleDataChanges(e,"curPass")}
+              onChange={(e) => handleDataChanges(e, "curPass")}
               name="curPass"
               value={formData?.curPass}
               showIcon={true}
@@ -144,7 +153,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               placeholder="New password"
               inputType="password"
-              onChange={(e)=>handleDataChanges(e,"newPass")}
+              onChange={(e) => handleDataChanges(e, "newPass")}
               name="newPass"
               value={formData?.newPass}
               showIcon={true}
@@ -158,7 +167,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               placeholder="Confirm new password"
               inputType="password"
-              onChange={(e)=>handleDataChanges(e,"curNewPass")}
+              onChange={(e) => handleDataChanges(e, "curNewPass")}
               name="curNewPass"
               value={formData?.curNewPass}
               showIcon={true}

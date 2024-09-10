@@ -44,7 +44,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
-                                    placeholder="Type"
+                                    placeholder="Enter Type"
                                     size="medium"
                                     dataTestId="type"
                                     onChange={(e) => {
@@ -61,7 +61,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
-                                    placeholder="Value"
+                                    placeholder="Enter Value"
                                     size="medium"
                                     dataTestId="value"
                                     onChange={(e) => {
