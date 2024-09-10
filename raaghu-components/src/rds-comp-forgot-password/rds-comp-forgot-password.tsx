@@ -60,8 +60,8 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                     <div>
                     <div className="container">
                     <div className="row align-items-center mb-1">
-                        <div className="col-12 col-md-11 text-md-end mb-3">
-                        <h2 className="mb-0 text-center">
+                        <div className="col-12 col-md-10 text-md-end mb-3">
+                        <h2 className="mb-0 ms-4 text-center">
                             Forgot Password
                         </h2>
                         </div>
