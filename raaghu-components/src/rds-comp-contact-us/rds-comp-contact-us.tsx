@@ -14,8 +14,7 @@ const RdsCompContactUs = (props: RdsCompContactUsProps) => {
     const [error2, setError2] = useState("");
     const [error3, setError3] = useState("");
 
-
-const isEmailValid = (email: any) => {
+        const isEmailValid = (email: any) => {
             if (!email || email.length === 0) {
                 return false;
             }
@@ -31,8 +30,8 @@ const isEmailValid = (email: any) => {
             }
             return true;
         };
-        const isMessageValid = (fullname: any) => {
-            if (!fullname || fullname.length === 0) {
+        const isMessageValid = (message: any) => {
+            if (!message || message.length === 0) {
                 return false;
             }
             return true;
@@ -50,8 +49,11 @@ const isFormValid = isFullnameValid(formData?.fullname) && isEmailValid(formData
 
 const emailhandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
-    if (!isEmailValid(value)) {
-        setError1("Email is invalid");
+    if (value.trim() === "") {
+        setError1("");
+    }
+    else if (!isEmailValid(value)) {
+        setError1("Email ID is invalid");
     } else {
         setError1("");
     }
@@ -60,8 +62,11 @@ const emailhandleChange = (value: any, key: string) => {
 
 const fullnamehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
-    if (!isFullnameValid(value)) {
-        setError2("fullname is invalid");
+    if (value.trim() === "") {
+        setError2("");
+    }
+    else if (!isFullnameValid(value)) {
+        setError2("Fullname is invalid");
     } else {
         setError2("");
     }
@@ -70,7 +75,7 @@ const fullnamehandleChange = (value: any, key: string) => {
 const messagehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (!isMessageValid(value)) {
-        setError3("Message is invalid");
+        setError3("Message is required");
     } else {
         setError3("");
     }
@@ -104,7 +109,6 @@ function emitSaveData(event: any) {
                             value={formData?.email}
                             name={"email"}
                         ></RdsInput>
-                        {error1 && <span className="text-danger">{error1}</span>}
                     </div>
 
                     <div className=" mb-3">
@@ -119,20 +123,18 @@ function emitSaveData(event: any) {
                             name={"fullname"}
                             value={formData?.fullname}
                         ></RdsInput>
-                        {error2 && <span className="text-danger">{error2}</span>}
                     </div>
                     <div className=" mb-4">
                         <RdsTextArea
                             label='Message'
                             placeholder='Message'
-                        
+                            isRequired={true}
                             onChange= {(e) =>{messagehandleChange(e.target.value , "message");}}
 
                             rows={3}
                             value={formData?.message}
                             dataTestId="message"
                         />
-                        {error3 && <span className="text-danger">{error3}</span>}
                     </div>
 
                     <RdsButton
