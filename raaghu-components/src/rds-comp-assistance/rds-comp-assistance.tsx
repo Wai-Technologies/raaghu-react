@@ -14,18 +14,37 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
   useEffect(() => {
     setAssistance(props.assistanceData);
   }, [props.assistanceData]);
-
+  const [touched, setTouched] = useState({
+    Email: false,
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    Email: "",
+    contactNumber: "",
+  });
   useEffect(() => {
     setInputReset(!inputReset);
   }, [props.reset]);
+  const emailRegex =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleDataChanges = (value: any, key: string, isFile?: boolean) => {
+    let errorMessage = ""; 
     if (isFile) {
       const fileName = value[0]?.name;
       setAssistance({ ...assistance, file: value, fileName });
     } else {
       setAssistance({ ...assistance, [key]: value });
     }
+    const  emailvalue  = value;
+    if (key === "Email") {
+      setTouched({ ...touched, Email: true });    
+      if (emailvalue.trim() && !emailRegex.test(emailvalue)) {
+        errorMessage = "Invalid Email Address.";
+      }
+    }
+    setErrors({ ...errors, [key]: errorMessage });
+    setAssistance({ ...assistance, [key]: emailvalue });
   };
 
   function emitSaveData(event: any) {
@@ -34,12 +53,14 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
     setInputReset(!inputReset);
     setAssistance({
       name: "",
-      email: "",
+      Email: "",
       contactNumber: "",
       message: "",
     });
   }
-
+  const handleBlur = (key: string) => {
+    setTouched({ ...touched, [key]: true });
+  };
   return (
     <div>
       <form>
@@ -48,7 +69,7 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
           <div className="col-md-6 form-group mb-2">
             <RdsInput
               inputType="text"
-              required={true}
+              required
               label={"Name"}
               value={assistance?.name}
               placeholder={"Enter Name"}
@@ -56,22 +77,25 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                 handleDataChanges(e.target.value, "name");
               }}
               reset={inputReset}
-            ></RdsInput>
+            />  
+            
+              {errors.name && <div className="form-control-feedback"><span className="text-danger">{errors.name}</span></div>}
           </div>
-          <div className="col-md-6 form-group mb-2">
-            <RdsInput
-              inputType="text"
-              label={"Email"}
-              required={true}
-              placeholder={"Enter Email"}
-              value={assistance?.email}
-              onChange={(e) => {
-                handleDataChanges(e.target.value, "email");
-              }}
-              validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-              validationMsg="Invalid Email Address."
+          <div className="col-md-6  mb-2">
+             <RdsInput
+              label="Email"
               reset={inputReset}
-            ></RdsInput>
+              size="medium"
+              inputType="text"
+              name="Email"
+              placeholder={"Enter Email"}
+              required
+              value={assistance?.Email}
+              onChange={(e) => handleDataChanges(e.target.value, "Email")}
+              onBlur={() => handleBlur("Email")}
+            />
+            
+            {touched.Email && errors.Email && <div className="form-control-feedback"><span className="text-danger">{errors.Email}</span></div>}
           </div>
             <div className="col-md-6 form-group mb-2">
               <RdsInput
@@ -101,7 +125,9 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                           e.preventDefault();
                       }
                   }}
-              ></RdsInput>
+              />
+                          {errors.contactNumber && <div className="form-control-feedback"><span className="text-danger">{errors.contactNumber}</span></div>}
+
             </div>
           <div className="form-group mb-2">
             <RdsTextArea

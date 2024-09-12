@@ -6,3 +6,8 @@
 .right{
     
 }
+.form-control-feedback2 {
+    min-height: 13px;
+    text-align: end;
+    font-size: 0.765625rem;
+  }

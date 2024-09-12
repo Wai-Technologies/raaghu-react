@@ -83,7 +83,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       {
          id: 1,
          label: "Local Host",
-         checked: true,
+         checked: false,
          name: "radio_buttona",
       },
 
@@ -127,7 +127,10 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
       }
    };
-
+   const [errors, setErrors] = useState({
+      apiUrl: "",
+     
+    });
 
    useEffect(() => {
       setModeData((prevModeData: any) => ({
@@ -142,12 +145,22 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
 
       }));
    }, [props.modeData]);
+   const emailRegex=/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
 
    const onSubmitModeData = (value: string, fieldName: string) => {
+      let errorMessage = ""; 
       setModeData((prevModeData: any) => ({
          ...prevModeData,
          [fieldName]: value,
       }));
+      const apiUrlvalue = value;
+      if (fieldName === "apiUrl") {
+         setTouched({ ...touched, apiUrl: true });
+         if (apiUrlvalue.trim() && !emailRegex.test(apiUrlvalue)) {
+            errorMessage = "Enter Valid URL Format";
+         }
+      }
+      setErrors({ ...errors, [fieldName]: errorMessage });
    };
    const resetToDefault = () => {
       setModeData({
@@ -161,7 +174,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          sideNav: '',
       });
    };
-
+   const [touched, setTouched] = useState({
+      apiUrl: false,
+    });
    const emitSaveData = (event: any) => {
       event.preventDefault();
       props.onModeDataSubmit && props.onModeDataSubmit(modeData);
@@ -190,6 +205,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          sideNav: false,
       });
    };
+   const handleBlur = (key: string) => {
+      setTouched({ ...touched, [key]: true });
+    };
    return (
       <>
          <div className="overflow-x-hidden overflow-y-auto">
@@ -261,11 +279,13 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               customClasses="form-control"
                               reset={inputReset}
                               onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
+                              onBlur={() => handleBlur("apiUrl")}
                               dataTestId="applicationUrl"
-                              validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                              validationMsg="Enter Valid URL Format"
+                              
                               required
-                           ></RdsInput>
+                           />
+                                       {touched.apiUrl && errors.apiUrl && <div className="form-control-feedback"><span className="text-danger">{errors.apiUrl}</span></div>}
+
                         </div>
                      </div>
                   </div>
@@ -293,7 +313,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               name="app-client"
                               label="Application Client ID"
                               reset={inputReset}
-                              placeholder="EnterApplication Client ID"
+                              placeholder="Enter Application Client ID"
                               customClasses="form-control"
                               onChange={(e: any) => onSubmitModeData(e.target.value, "clientId")}
                               dataTestId="applicationClient"
