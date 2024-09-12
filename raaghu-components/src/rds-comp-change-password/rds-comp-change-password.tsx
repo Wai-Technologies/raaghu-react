@@ -101,7 +101,7 @@ export interface RdsCompChangePasswordProps {
                         showIcon={true}
                     ></RdsInput>
                     <div className="form-control-feedback">
-                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
+                            {errorMessage &&  formData?.newPasswordConfirm && (<span className="text-danger">{errorMessage}</span>)}
                         </div>
                 </div>
             </div>
