@@ -138,6 +138,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row mt-3">
+          <div className="col-md-12 sm-p-0">
             <div className="form-group">
               <RdsInput
                 label="Address"
@@ -152,6 +153,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 value={formData?.address}
                 reset={inputReset}
               ></RdsInput>
+            </div>
             </div>
           </div>
 

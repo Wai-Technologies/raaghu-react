@@ -1,3 +1,6 @@
 .red-color-error {
     color: red;
 }
+.theme-dark {
+    color: rgb(168, 168, 168) !important;
+}
