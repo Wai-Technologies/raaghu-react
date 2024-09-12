@@ -19,7 +19,7 @@ const RdsButton = (props: RdsButtonProps) => {
         }
         if (props.showLoadingSpinner) {
 
-            setSpinnerClass(`spinner disabled`);
+            setSpinnerClass(` spinner disabled`);
             setTurnSpinnerOff(1);
 
             setTimeout(() => {

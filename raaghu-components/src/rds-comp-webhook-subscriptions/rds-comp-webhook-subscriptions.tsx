@@ -154,9 +154,9 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         />
                     </div>
 
-                    <div className=" fw-normal row mb-3 mt-2">              
+                     <div className="fw-normal row mb-3 mt-2 align-items-center">              
                         <label className="mb-2" id="webhookEndpoint">Additional Webhook Headers</label>
-                        <div className="col-5 mb-3">
+                        <div className="col-12 col-md-5 mb-3">
                             <RdsInput
                                 placeholder="Header key"
                                 reset={inputReset}
@@ -169,7 +169,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="header-key"
                             ></RdsInput>
                         </div>
-                        <div className="col-5 mb-3">
+                        <div className="col-12 col-md-5 mb-3">
                             <RdsInput
                                 placeholder="Header Value"
                                 reset={inputReset}
@@ -182,7 +182,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="header-value"
                             ></RdsInput>
                         </div>
-                        <div className="col-2 mb-3 mt-1 d-flex justify-content-center">
+                        <div className="col-12 col-md-2 mb-3 mt-1 d-flex justify-content-center justify-content-md-end">
                             <RdsButton
                                 label="Add"
                                 onClick={additionalHeaderHandleSubmit}
@@ -194,8 +194,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="add"
                             />
                         </div>
-                    </div>
-
+                    </div> 
                     {webhookheaderfile.length == 0 && (
                         <div>
                             <RdsIllustration

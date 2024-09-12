@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RdsDropdownList, RdsInput } from "../rds-elements";
 export interface RdsCompAddressInputProps {
-    adress?: any;
+    address?: any;
     address2?: any;
     statesList?: any;
     city?: any;
