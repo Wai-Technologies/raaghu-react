@@ -82,6 +82,7 @@
     "react-dom": "^18.2.0",
     "react-i18next": "^13.5.0",
     "react-lottie-player": "^1.5.5",
+    "react-measure": "^2.5.2",
     "react-player": "^2.13.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.20.0",

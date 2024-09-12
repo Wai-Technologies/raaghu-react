@@ -111,5 +111,5 @@ export { default as RdsCompInvoiceDetailReceipt } from "./rds-comp-invoice-detai
 export { default as RdsCompGetAssistance } from "./rds-comp-get-assistance";
 export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
-export {default as RdsCompContributor} from "./rds-comp-contributor";
+export { default as RdsCompContribution } from "./rds-comp-contribution";
 
