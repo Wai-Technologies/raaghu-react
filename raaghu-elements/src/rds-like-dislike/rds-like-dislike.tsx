@@ -42,6 +42,7 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
                         width="24px"
                         colorVariant={props.colorVariant}
                         onClick={() => handleLikeDislike(like + 1, dislike)}
+                        isCursorPointer={true}
                     ></RdsIcon>
                     <span className="ms-2">
                         <label className="me-2">{like}</label>
@@ -57,6 +58,7 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
                         width="24px"
                         colorVariant={props.colorVariant}
                         onClick={() => handleLikeDislike(like, dislike + 1)}
+                        isCursorPointer={true}
                     ></RdsIcon>
                     <span className="ms-2">
                         <label>{dislike}</label>

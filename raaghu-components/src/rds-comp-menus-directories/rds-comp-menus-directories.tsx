@@ -88,6 +88,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                             stroke={true}
                             colorVariant="primary"
                             onClick={handleClick(item.data.id)}
+                            isCursorPointer={true}
                         />
                     </button>
                 )}
@@ -101,6 +102,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                         colorVariant="primary"
                         onClick={handleClick(item.data.id)}
                         dataTestId="folder-icon"
+                        isCursorPointer={true}
                     />
                 </span>
                 <span className="mt-1 ms-2 node-label d-flex">

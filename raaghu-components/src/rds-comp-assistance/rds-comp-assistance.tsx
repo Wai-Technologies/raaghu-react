@@ -43,6 +43,7 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
   return (
     <div>
       <form>
+        <div className="custom-content-scroll">
         <div className="row">
           <div className="col-md-6 form-group mb-2">
             <RdsInput
@@ -67,6 +68,8 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
               onChange={(e) => {
                 handleDataChanges(e.target.value, "email");
               }}
+              validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+              validationMsg="Invalid Email Address."
               reset={inputReset}
             ></RdsInput>
           </div>
@@ -81,6 +84,23 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                   handleDataChanges(e.target.value, "contactNumber");
                 }}
                 reset={inputReset}
+                onKeyDown={(e) => {
+                  const inputElement = e.target as HTMLInputElement;
+                      const currentLength = inputElement.value.length;
+                      const isPlusEntered = inputElement.value.startsWith('+');
+                      const maxLength = isPlusEntered ? 13 : 10;
+                     
+                      const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                      const isNumberOrPlus = /[0-9+]/.test(e.key);
+             
+                      if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                          e.preventDefault();
+                      }
+             
+                      if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                          e.preventDefault();
+                      }
+                  }}
               ></RdsInput>
             </div>
           <div className="form-group mb-2">
@@ -96,7 +116,8 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
               reset={inputReset}
             ></RdsTextArea>
           </div>
-          <div className="footer-buttons d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
+          </div>
+          <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
             <RdsButton
               class="me-2"
               tooltipTitle={""}

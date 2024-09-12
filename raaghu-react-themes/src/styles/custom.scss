@@ -467,7 +467,13 @@ html[theme="semidark"] {
   height: 80vh;
   width: 80vw;
 }
-
+.stack-chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
 .footer-buttons {
   position: absolute;
   left: 20px;
@@ -633,6 +639,11 @@ html[theme="dark"] .btn-primary svg {
 ul#languageDropdown {
   max-height: calc(100vh - 50px);
 }
+
+ul#languageDropdownForSearch {
+  max-height: calc(100vh - 50px);
+}
+
 
 // commentted class for further use
 
@@ -2931,3 +2942,131 @@ figure.worldmap__figure-container {
   color:#bebebe;
 }
 
+.theme-dark .card {
+  background-color: #1c1d20 !important;
+  border-color: #343a40;
+}
+// collapsible container css start
+ 
+.container-collapse {
+  width: 190px !important;
+  //overflow: hidden !important;
+  transition: width 0.5s ease !important;
+  //top: 0 !important;
+  //background-color: #ffffff !important;
+  //display: flex !important;
+  //flex-direction: column !important;
+  //box-shadow: 5px solid #ede1e1 !important;
+  //visibility: visible !important;
+  //border-radius: 5px !important;
+  border: 0px solid #ccc !important;
+  //box-shadow: var(--bs-box-shadow) !important;
+  .right {
+    right: 0 !important;
+    border: 1px solid #ccc !important;
+  }
+  .menu-item-collapsible-container {
+  padding: 10px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  i {
+    margin-right: 10px !important;
+  }
+}
+}
+ 
+// .container-collapse.right {
+//   right: 0 !important;
+//   border: 1px solid #ccc !important;
+// }
+ 
+.container-collapse.collapsed-container {
+  width: 50px !important;
+  border-radius: 5px !important;
+}
+ 
+// .chevron-position-left {
+//   justify-content: flex-start !important;
+//   align-items: center !important;
+//   /* Align items vertically */
+// }
+ 
+// .chevron-position-right {
+//   display: flex !important;
+//   justify-content: flex-end !important;
+//   align-items: center !important;
+//   /* Align items vertically */
+// }
+ 
+.collapse-button-for-container {
+  border: none !important;
+  background: #3089D1 !important;
+  border-radius: 50% !important;
+  font-size: 1em !important;
+  cursor: pointer !important;
+  color: #fff !important;
+  padding-bottom: 6px !important;
+}
+ 
+// .menu-item-collapsible-container {
+//   padding: 10px 0 !important;
+//   display: flex !important;
+//   align-items: center !important;
+//   cursor: pointer !important;
+// }
+ 
+// .menu-item-collapsible-container i {
+//   margin-right: 10px !important;
+// }
+ 
+.collapsed-container{
+  .menu-item-collapsible-container{
+    span {
+      padding-left: 2px !important;
+    }
+    i {
+      margin: 0 !important;
+    }
+  }
+}
+ 
+// .collapsed-container .menu-item-collapsible-container span {
+//   padding-left: 2px !important;
+// }
+ 
+// .collapsed-container .menu-item-collapsible-container i {
+//   margin: 0 !important;
+// }
+ 
+.leftChevronPosition {
+  position: relative !important;
+  top: 5px !important;
+  left: 9px !important;
+}
+ 
+.rightChevronPosition {
+  top: 5px !important;
+  left: -10px !important;
+  position: relative !important;
+}
+ 
+.wrapperContainer {
+  position: relative !important;
+  display: flex !important;
+  // align-items: center !important;
+}
+ 
+.wrapperContainer.right {
+  // justify-content: flex-end !important;
+  height: 100%;
+  // min-height: 515px;
+  // max-height: 100%;
+}
+ 
+.wrapperContainer.left {
+  justify-content: flex-start !important;
+  height: 100%;
+}
+ 
+// collapsible container css end

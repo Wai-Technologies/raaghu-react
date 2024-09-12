@@ -57,9 +57,9 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
   }
   return (
     <>
-      <form onSubmit={emitSaveData} key={formKey.current}>
+      <form>
+        <div className="custom-content-scroll">
         <div className="contact-information">
-
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
@@ -132,7 +132,8 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             </div>
           </div>
         </div>
-        <div className="mt-3 d-flex pb-3 ps-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+        </div>
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
           <RdsButton
             label="Cancel"
             colorVariant="primary"

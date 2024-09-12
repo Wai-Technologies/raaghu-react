@@ -60,7 +60,7 @@ const RdsSearch = (props: RdsSearchProps) => {
             <div className={`input-group border mt-1 rounded ` + classes()}>
                 {props.iconPosition === 'left' && (
                     <span className="input-group-text border-0">
-                        <RdsIcon name="search" fill={false} stroke={true} ></RdsIcon>
+                        <RdsIcon name="search" fill={false} stroke={true} isCursorPointer={true} ></RdsIcon>
                     </span>)}
                 <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === 'left' ? ' border-end-0' : ' border-start-0')} type="search"
                     defaultValue={props.value}
@@ -78,6 +78,7 @@ const RdsSearch = (props: RdsSearchProps) => {
                             name="search"
                             fill={false}
                             stroke={true}
+                            isCursorPointer={true}
                         ></RdsIcon>
                     </span>)}
             </div>
