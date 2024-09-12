@@ -4,7 +4,7 @@ import "./rds-accordion.css";
 export interface AccordionItem {
     id: string;
     title: string;
-    content: ReactNode;
+    accordionContent: ReactNode;
     defaultOpen?: boolean;
 }
 
@@ -59,7 +59,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                                 aria-labelledby={`heading${item.id}`}
                                 data-bs-parent={props.accordionType === 'single' ? `#accordion${props.accordionId}` : undefined}
                             >
-                                <div className="accordion-body">{item.content}</div>
+                                <div className="accordion-body">{item.accordionContent}</div>
                             </div>
                         </div>
                     );

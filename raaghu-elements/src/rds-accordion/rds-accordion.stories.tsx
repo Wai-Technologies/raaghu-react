@@ -26,16 +26,18 @@ export const Default: Story = {
             {
                 id: "1",
                 title: "Section 1 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello</h1>
+                        <p>Some content</p>
+                        <button>Click me</button>                        
                     </div>
                 ),
             },
             {
                 id: "2",
                 title: "Section 2 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello2</h1>
                     </div>
@@ -44,7 +46,7 @@ export const Default: Story = {
             {
                 id: "3",
                 title: "Section 3 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello3</h1>
                     </div>
@@ -62,7 +64,7 @@ export const flush: Story = {
             {
                 id: "1",
                 title: "Section 1 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello</h1>
                     </div>
@@ -71,7 +73,7 @@ export const flush: Story = {
             {
                 id: "2",
                 title: "Section 2 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello2</h1>
                     </div>
@@ -80,7 +82,7 @@ export const flush: Story = {
             {
                 id: "3",
                 title: "Section 3 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello3</h1>
                     </div>
@@ -100,7 +102,7 @@ export const AlwaysOpen: Story = {
             {
                 id: "1",
                 title: "Section 1 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello</h1>
                     </div>
@@ -109,7 +111,7 @@ export const AlwaysOpen: Story = {
             {
                 id: "2",
                 title: "Section 2 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello2</h1>
                     </div>
@@ -118,7 +120,7 @@ export const AlwaysOpen: Story = {
             {
                 id: "3",
                 title: "Section 3 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello3</h1>
                     </div>
@@ -139,7 +141,7 @@ export const StackOpen: Story = {
                 id: "1",
                 title: "Section 1 Title",
                 defaultOpen: true,
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello</h1>
                     </div>
@@ -148,7 +150,7 @@ export const StackOpen: Story = {
             {
                 id: "2",
                 title: "Section 2 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello2</h1>
                     </div>
@@ -157,7 +159,7 @@ export const StackOpen: Story = {
             {
                 id: "3",
                 title: "Section 3 Title",
-                content: (
+                accordionContent: (
                     <div>
                         <h1>Hello3</h1>
                     </div>
