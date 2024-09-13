@@ -57,21 +57,6 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) 
     }, [props?.reset]);
 
     useEffect(() => {
-        if (props.inputType === "email" && props.value) {
-            const isEmailValid = (email: any) => {
-                if (!email || email.length === 0) {
-                    return false;
-                } else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))) {
-                    return false;
-                }
-                return true;
-            };
-
-            setIsValid(isEmailValid(props.value));
-        }
-    }, [props.value, props.inputType]);
-
-    useEffect(() => {
         setValue(props.value ?? "");
     }, [props.value]);
     
@@ -268,29 +253,17 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) 
                         </div>
                     </Tooltip>
                 )}
-                <div className="form-control-feedback d-block text-end">
-                    {props.required && (!props.validationMsg) && (
-                        <div className="me-2">
-                            {props.required && props.value == "" && hasError && isTouch && (
-                                <span className="text-danger">{props.label} {t("is required") || ""} </span>
-                            )}
-                        </div>
-                    )}
-
-                    {props.inputType === "email" && !isValid && isTouch && (
-                        <div className="me-2">
-                            <span className="text-danger">Email ID is invalid</span>
-                        </div>
-                    )}
-                </div>
-
-
-                {props.validatonPattern && (
+                {props.required && !props.validationMsg && hasError && isTouch && (
                     <div className="form-control-feedback">
-                        {props.validatonPattern && props.validationMsg && isTouch && (isValid == false) && (
-                            <span className="text-danger">{props.validationMsg} </span>
+                        {props.value === "" && (
+                            <span className="text-danger">{props.label} {t("is required") || ""}</span>
                         )}
+                    </div>
+                )}
 
+                {props.validatonPattern && props.validationMsg && isTouch && !isValid && (
+                    <div className="form-control-feedback">
+                        <span className="text-danger">{props.validationMsg}</span>
                     </div>
                 )}
 

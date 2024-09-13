@@ -102,6 +102,8 @@ function emitSaveData(event: any) {
                             label='Email ID'
                             reset={inputReset}
                             required={true}
+                            validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i}
+                            validationMsg={error1}
                             placeholder='name@gmail.com'
                             inputType='email'
                             onChange= {(e) =>{emailhandleChange(e.target.value , "email");}}
