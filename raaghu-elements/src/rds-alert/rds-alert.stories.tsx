@@ -65,7 +65,7 @@ export const With_icon: Story = {
         dismisable: false,
         icon: "information",
         iconFill: false,
-        iconStroke: true,
+     //   iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         sticky: false,
@@ -84,7 +84,7 @@ export const With_close_button: Story = {
         position: "top",
         icon: "information",
         iconFill: false,
-        iconStroke: true,
+      //  iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
     }
@@ -102,7 +102,7 @@ export const With_Delay_Alert: Story = {
         delay: 3000,
         icon: "information",
         iconFill: false,
-        iconStroke: true,
+       // iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
     }
