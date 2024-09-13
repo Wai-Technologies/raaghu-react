@@ -424,7 +424,7 @@ export const Header: Story = {
           </div>
         </div>
 
-        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 h-600px">
+        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-header-layout">
           <h2 className="fw-bolder">Add Layout Here</h2>
         </div>
       </>
