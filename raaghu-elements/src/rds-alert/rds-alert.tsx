@@ -9,7 +9,7 @@ export interface RdsAlertProps {
     delay?: number;
     icon?: string;
     iconFill?: boolean;
-    iconStroke?: boolean;
+   // iconStroke?: boolean;
     iconHeight?: string;
     iconWidth?: string;
     position?: "top" | "bottom";
@@ -47,11 +47,13 @@ const RdsAlert = (props: RdsAlertProps) => {
         if (props.dismisable) {
             defaultClass = " alert-dismissible ";
         }
+       
 
         if (props.sticky) {
             const position = `${props.position === 'top' ? ' position-absolute top-0 start-0 fullWidth z-index' : ' position-absolute bottom-0 start-0 fullWidth z-index'}`;
             defaultClass = defaultClass + defaultClass + position;
         }
+      
 
         const sizeClass = `${props.size === 'small' ? ' alert-sm' : props.size === 'large' ? ' alert-lg' : ' alert-md'}`;
         defaultClass = defaultClass + sizeClass;
@@ -64,7 +66,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                         <RdsIcon
                             name={props.icon || " "}
                             fill={props.iconFill}
-                            stroke={props.iconStroke}
+                           // stroke={props.iconStroke}
                             height={props.iconHeight}
                             width={props.iconWidth}
                             colorVariant={props.colorVariant}
