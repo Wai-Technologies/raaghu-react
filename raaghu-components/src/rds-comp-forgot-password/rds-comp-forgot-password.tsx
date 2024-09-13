@@ -9,21 +9,26 @@ export interface RdsForgotPasswordProps {
     languageData: any;
     languageLabel?: string;
     registerFields: any;
+    reset?: boolean;
 }
 
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
-   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
+    const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
     const [isResendClicked, setIsResendClicked] = useState(false);
-   const [registerData, setRegisterData] = useState(props.registerFields );
-
+    const [registerData, setRegisterData] = useState(props.registerFields);
+    const [error, setError] = useState("");
+    const [inputReset, setInputReset] = useState(false);
 
     const isEmailValid = (email: any) => {
         if (!email || email.length === 0) {
-
             return false;
         }
+        else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))) {
+            return false;
+        }
+
         return true;
     };
 
@@ -35,9 +40,22 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     useEffect(() => {
         setRegisterData(props.registerFields);
     } , [props.registerFields]);
-   
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
     const handleDataChanges = (value: any, key: string) => {
         setRegisterData({ ...registerData, [key]: value });
+        if (value.trim() === "") {
+            setError("");
+        }
+        else if (!isEmailValid(value)) {
+            setError("Please Enter Valid Email Address.");
+        } 
+        else {
+            setError("");
+        }
     };
 
     const resendHandler: any = (isForgotPasswordClicked: boolean) => {
@@ -48,6 +66,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onForgotPassword && props.onForgotPassword(registerData);
+        setInputReset(!inputReset);
         setRegisterData({
             email: ""
         });
@@ -93,19 +112,14 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         size="medium"
                                         label="Email"
                                         inputType="email"
-                                        isDisabled={false}
-                                        readonly={false}
                                         placeholder="Enter Email"                            
-                                       onChange={(e) => {
-                                        handleDataChanges(e.target.value, "email");
-                                      }}
-                                      value={registerData?.email}
-                                        required={false}
+                                        onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                                        value={registerData?.email}
+                                        required={true}
                                         dataTestId="email"
-                                        validatonPattern={
-                                            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-                                            }
-                                        validationMsg="Please Enter Valid Email Address."
+                                        validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                        validationMsg={error}
+                                        reset={inputReset}
                                     ></RdsInput>
 
                                 </div>
