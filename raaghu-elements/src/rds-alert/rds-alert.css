@@ -30,5 +30,6 @@
 }
 
 .alert-left-border {
-  border-left: 5px solid var(--bs-alert-border-color); 
+  border-left: 5px solid; 
+  
 }

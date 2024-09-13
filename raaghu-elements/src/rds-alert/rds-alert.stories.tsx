@@ -122,8 +122,6 @@ With_Delay_Alert.parameters = { controls: { include: ['alertmessage', 'colorVari
 export const With_Buttons: Story = {
     args: {
         icon: "information",
-        iconFill: false,
-        iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         linkbutton: true,
@@ -134,20 +132,16 @@ export const With_Buttons: Story = {
         colorVariant: "primary",
         size: "small",
         dismisable: true,
-        sticky: false,
         position: "top",
         withBorder: true,
-        withLeftBorder: false,
         displayType: "singleline",
     }
 };
-With_Buttons.parameters = { controls: { include: ['alertmessage', 'icon', 'iconFill', 'iconHeight', 'iconWidth', 'colorVariant', 'size', 'sticky', 'position', 'alertheading', 'withBorder', 'withLeftBorder'] } };
+With_Buttons.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading', 'withBorder'] } };
 
 export const With_Buttons_Multiline: Story = {
     args: {
         icon: "information",
-        iconFill: false,
-        iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         linkbutton: true,
@@ -158,7 +152,6 @@ export const With_Buttons_Multiline: Story = {
         colorVariant: "primary",
         size: "small",
         dismisable: true,
-        sticky: false,
         position: "top",
         withBorder: true,
         withLeftBorder: false,
@@ -166,13 +159,11 @@ export const With_Buttons_Multiline: Story = {
         displayType: "multiline",
     }
 };
-With_Buttons_Multiline.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'sticky', 'position', 'alertheading', 'withBorder', 'withLeftBorder', 'description'] } };
+With_Buttons_Multiline.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'alertheading', 'withBorder', 'withLeftBorder', 'description'] } };
 
 export const With_Shadow: Story = {
     args: {
         icon: "information",
-        iconFill: false,
-        iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         linkbutton: true,
@@ -183,19 +174,16 @@ export const With_Shadow: Story = {
         colorVariant: "primary",
         size: "small",
         dismisable: true,
-        sticky: false,
         position: "top",
         withBorder: false,
         displayType: "singleline",
     }
 };
-With_Shadow.parameters = { controls: { include: ['alertmessage', 'icon', 'iconFill', 'iconHeight', 'iconWidth', 'colorVariant', 'size', 'sticky', 'position', 'alertheading', 'withBorder'] } };
+With_Shadow.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading', 'withBorder'] } };
 
 export const With_Left_Border: Story = {
     args: {
         icon: "information",
-        iconFill: false,
-        iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         linkbutton: true,
@@ -212,4 +200,4 @@ export const With_Left_Border: Story = {
         displayType: "singleline",
     }
 };
-With_Left_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'iconFill', 'iconHeight', 'iconWidth', 'colorVariant', 'size', 'position', 'alertheading'] } };
+With_Left_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading'] } };
