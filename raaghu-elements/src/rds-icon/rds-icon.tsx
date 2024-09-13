@@ -146,7 +146,6 @@ const RdsIcon = (props: RdsIconProps) => {
         svgElement.style.stroke = strokeColor;
       } else {
         svgElement.style.removeProperty("stroke");
-        svgElement.style.removeProperty("stroke-width");
       }
     });
 
