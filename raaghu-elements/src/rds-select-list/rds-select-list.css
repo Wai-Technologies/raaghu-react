@@ -1,3 +1,5 @@
-.theme-dark .css-1dimb5e-singleValue {
-    color: white;
+.theme-dark .raaghu-select__single-value,
+.theme-dark .raaghu-select__placeholder
+{
+    color: #fff;
 }
