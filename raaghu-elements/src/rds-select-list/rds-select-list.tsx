@@ -18,6 +18,7 @@ export interface RdsSelectProps {
   dataTestId?: string;
   isSearchable?: boolean;
   isDisabled?: boolean;
+  reset  ? : boolean;
 }
 
 const RdsSelectList = (props: RdsSelectProps) => {
