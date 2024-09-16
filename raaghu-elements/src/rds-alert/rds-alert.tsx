@@ -5,7 +5,7 @@ import "./rds-alert.css";
 import RdsButton from "../rds-button";
 export interface RdsAlertProps {
     dismisable?: boolean;
-    alertmessage: string;
+    alertmessage?: string;
     colorVariant: string;
     delay?: number;
     icon?: string;
@@ -24,8 +24,8 @@ export interface RdsAlertProps {
     alertheading?: string;
     withBorder?: boolean;
     withLeftBorder?: boolean;
-    displayType: "singleline" | "multiline";
-    description: string;
+    displayType?: "singleline" | "multiline";
+    description?: string;
   }
 
 const RdsAlert = (props: RdsAlertProps) => {
