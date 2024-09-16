@@ -83,7 +83,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 size="small"
                                 onClick={onClickHandler}
                             ></RdsButton>
-                        <div>
+                        <div className="d-flex flex-column-reverse">
                             <RdsButton
                                 type="submit"
                                 isOutline={false}
