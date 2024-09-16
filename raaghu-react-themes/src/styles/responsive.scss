@@ -148,7 +148,24 @@
     max-height: calc(100vh - 350px) !important;
   }
 
+  #languageDropdownForSearch{
+    bottom: 2.2rem;
+    top: auto !important;
+    max-height: calc(100vh - 350px) !important;
+  }
+
   .dropdown-raaghu #languageDropdown {
+    max-height: calc(100vh - 240px) !important;
+  }
+
+  #languageDropdownTopNavigation {
+    bottom: 2.2rem;
+    top: auto !important;
+    left: -0.3rem !important;
+    max-height: calc(100vh - 350px) !important;
+  }
+
+  .dropdown-raaghu #languageDropdownTopNavigation {
     max-height: calc(100vh - 240px) !important;
   }
 
@@ -232,7 +249,7 @@
   position: sticky;
   left: -1px;
   background: $white;
-  z-index: 1;
+  // z-index: 1;
   max-width: 190px;
 }
 

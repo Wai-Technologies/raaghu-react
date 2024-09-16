@@ -40,6 +40,7 @@ const RdsRating = (props: RdsRatingProps) => {
           colorVariant="review"
           classes={`${i < rating ? `on text-${props.colorVariant}` : "off"}`}
           onClick={() => handleRating(i + 1)}
+          isCursorPointer={true}
         />
       ))}
       <span className="fs-6 mt-1"> See all {props.noOfReviews} review </span>

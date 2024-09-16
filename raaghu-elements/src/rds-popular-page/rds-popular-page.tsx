@@ -23,6 +23,7 @@ const RdsPopularPage = (props: RdsPopularPageProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant="primary"
+                                    isCursorPointer={true}
                                 />
                                 </div>
                             </div>

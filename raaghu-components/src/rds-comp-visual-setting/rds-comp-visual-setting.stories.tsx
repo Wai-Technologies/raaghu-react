@@ -157,9 +157,9 @@ export const Default: Story = {
             },
         ],
         listskin: [
-            { value: "light", displayText: "Light" },
-            { value: "dark", displayText: "Dark" },
-            { value: "semidark", displayText: "Semidark" },
+            { value: "Light", displayText: "Light" },
+            { value: "Dark", displayText: "Dark" },
+            { value: "Semidark", displayText: "Semidark" },
         ],
         listSubmenu: [
             { value: "Accordian", displayText: "Accordian" },
