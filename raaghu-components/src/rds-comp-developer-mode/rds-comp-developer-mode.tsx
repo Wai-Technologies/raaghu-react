@@ -8,19 +8,29 @@ interface RdsCompDeveloperModeProps {
    onModeDataSubmit?: any;
    environment?: string;
    apiUrl?: string;
-   grantType?: string;
+   grantType: { option: any, value: any }[];
    clientId?: string;
    scope?: string;
    appUrl?: string;
    replaceUrl?: boolean;
    selectedValue?: Array<{ option: string; value: string; }>;
-   grantTypeList?: any;
+   //grantTypeList?: any;
 
 }
 
 const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
 
-   const [modeData, setModeData] = useState(props.modeData);
+   const [modeData, setModeData] = useState({
+      environment: '',
+      apiUrl: '',
+      grantType: '',
+      clientId: '',
+      scope: '',
+      appUrl: '',
+      replaceUrl: '',
+      sideNav: '',
+      staticIcons: '',
+   });
    const [inputReset, setInputReset] = useState(false);
    const [radioItemList, setRadioItemList] = useState<any>(false);
 
@@ -131,13 +141,13 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       apiUrl: "",
      
     });
-
+  
    useEffect(() => {
       setModeData((prevModeData: any) => ({
          ...prevModeData,
          environment: env || '',
          apiUrl: apiURL || '',
-         grantType: grantType || 'Authorization Code',
+         grantType: grantType || '',
          clientId: clientId || '',
          scope: scope || '',
          appUrl: appUrl || '',
@@ -148,19 +158,10 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
    const emailRegex=/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
 
    const onSubmitModeData = (value: string, fieldName: string) => {
-      let errorMessage = ""; 
       setModeData((prevModeData: any) => ({
          ...prevModeData,
-         [fieldName]: value,
+         [fieldName]: value
       }));
-      const apiUrlvalue = value;
-      if (fieldName === "apiUrl") {
-         setTouched({ ...touched, apiUrl: true });
-         if (apiUrlvalue.trim() && !emailRegex.test(apiUrlvalue)) {
-            errorMessage = "Enter Valid URL Format";
-         }
-      }
-      setErrors({ ...errors, [fieldName]: errorMessage });
    };
    const resetToDefault = () => {
       setModeData({
@@ -172,6 +173,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          appUrl: '',
          replaceUrl: '',
          sideNav: '',
+         staticIcons: '',
       });
    };
    const [touched, setTouched] = useState({
@@ -181,7 +183,19 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       event.preventDefault();
       props.onModeDataSubmit && props.onModeDataSubmit(modeData);
       setInputReset(!inputReset);
+      setModeData((prevModeData) => ({
+         ...prevModeData,
+         environment: '',
+         apiUrl: '',
+         grantType: '',
+         clientId: '',
+         scope: '',
+         appUrl: '',
+         replaceUrl: '',
+         sideNav: '',
+         staticIcons: ''
 
+      }));
       const resetRadioItemsApp = radioItemsApp.map(item => ({
          ...item,
          checked: false,
@@ -194,20 +208,42 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       }));
       setReplaceItems(resetReplaceItems);
 
-      setModeData({
-         grantType: '',
-         environment: '',
-         apiUrl: '',
-         clientId: '',
-         scope: '',
-         appUrl: '',
-         replaceUrl: null,
-         sideNav: false,
-      });
+     
    };
    const handleBlur = (key: string) => {
       setTouched({ ...touched, [key]: true });
     };
+    const isEnvironmentValid = (environment: any) => {
+      if (!environment || environment.length === 0) {
+          return false;
+      }
+      return true;
+  };
+  const isApplicationApiUrlValid = (apiUrl: any) => {
+   if (!apiUrl || apiUrl.length === 0) {
+       return false;
+   }
+   return true;
+   };
+   const isClientIdValid = (clientId: any) => {
+      if (!clientId || clientId.length === 0) {
+         return false;
+      }
+      return true;
+   }
+   const isScopeValid = (scope: any) => {
+      if (!scope || scope.length === 0) {
+         return false;
+      }
+      return true;
+   }
+
+   const isReplaceItemsValid = replaceItems.some(item => item.checked);
+
+   const isRadioItemsAppValid = radioItemsApp.some(item => item.checked);
+   const isGrantTypevalid = !!modeData.grantType && modeData.grantType?.length > 0;
+   const isFormValid = isEnvironmentValid(modeData?.environment) && isApplicationApiUrlValid(modeData?.apiUrl) && isClientIdValid(modeData?.clientId) && isScopeValid(modeData?.scope) && isReplaceItemsValid && isRadioItemsAppValid && isGrantTypevalid   ; 
+
    return (
       <>
          <div className="overflow-x-hidden overflow-y-auto">
@@ -245,7 +281,11 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               label=""
                               itemList={radioItemsApp}
                               onClick={handleRadioClick}
-                              onChange={(e: any) => onSubmitModeData(e.target.value, "radioItemsApp")} value={''}                        ></RdsRadioButton>
+                              onChange={(e: any) => onSubmitModeData(e.target.value, "radioItemsApp")} 
+                              value={''}
+                             >
+                             </RdsRadioButton>
+                            
                         </div>
 
                         {radioItemList == true &&
@@ -279,29 +319,28 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               customClasses="form-control"
                               reset={inputReset}
                               onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
-                              onBlur={() => handleBlur("apiUrl")}
                               dataTestId="applicationUrl"
-                              
-                              required
-                           />
-                                       {touched.apiUrl && errors.apiUrl && <div className="form-control-feedback"><span className="text-danger">{errors.apiUrl}</span></div>}
-
+                              required={true}
+                              validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                              validationMsg="Please Enter valid url (https or http)"
+                            ></RdsInput>
                         </div>
                      </div>
                   </div>
                   <div className="row pb-2">
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group mb-3">
-                           <RdsSelectList
-                              id={"grantType"}
-                              label="Application Grant Type"
-                              placeholder="Select Application Grant Type"
-                              selectItems={props?.grantTypeList}
-                              isSearchable={true}
-                              required={true}
-                              selectedValue={modeData?.grantType}
-                              onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
-                           ></RdsSelectList>
+                        <RdsSelectList
+                           id={"grantType"}
+                           label="Application Grant Type"
+                           placeholder="Select Application Grant Type"
+                           selectItems={props.grantType}
+                           isSearchable={true}
+                           required={true}
+                           selectedValue={modeData.grantType} 
+                           key={`grantType-${modeData.grantType}`} 
+                           onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
+                        ></RdsSelectList>
                         </div>
                      </div>
                   </div>
@@ -394,6 +433,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                   size="small"
                   dataTestId="submit"
                   onClick={(e: any) => emitSaveData(e)}
+                  isDisabled={!isFormValid }
                ></RdsButton>
             </div>
          </div>
