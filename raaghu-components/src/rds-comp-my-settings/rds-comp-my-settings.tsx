@@ -21,6 +21,11 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
   });
   const [touched, setTouched] = useState({
     Email: false,
+    ProfileName: false,
+    UserName: false,
+    curPass: false,
+    newPass: false,
+    curNewPass: false,
   });
 
   useEffect(() => {
@@ -46,21 +51,18 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
     const { value } = event.target;
     let errorMessage = "";
 
-    if (key === "ProfileName") {
-      errorMessage = value.trim() ? "" : "Profile Name is required";
-    } else if (key === "Email") {
+    if (key === "Email") {
       setTouched({ ...touched, Email: true });
-      if (value.trim() && !emailRegex.test(value)) {
-        errorMessage = "Please enter a valid email address";
-      }
-    } else if (key === "UserName") {
-      errorMessage = value.trim() ? "" : "User Name is required";
+      errorMessage = value.trim() && !emailRegex.test(value) ? "Please enter a valid email address" : "";
     } else if (key === "curPass") {
-      errorMessage = isCurPassValid(value) ? "" : "Current Password is invalid";
+      setTouched({ ...touched, curPass: true });
+      errorMessage = value.trim() && !isCurPassValid(value) ? "Current Password is invalid" : "";
     } else if (key === "newPass") {
-      errorMessage = isNewPassValid(value) ? "" : "New password is invalid";
+      setTouched({ ...touched, newPass: true });
+      errorMessage = value.trim() && !isNewPassValid(value) ? "New password is invalid" : "";
     } else if (key === "curNewPass") {
-      errorMessage = isCurNewPassValid(value) ? "" : "Password mismatch found";
+      setTouched({ ...touched, curNewPass: true });
+      errorMessage = value.trim() && !isCurNewPassValid(value) ? "Password mismatch found" : "";
     }
 
     setErrors({ ...errors, [key]: errorMessage });
@@ -100,8 +102,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               value={formData?.ProfileName}
               onChange={(e) => handleDataChanges(e, "ProfileName")}
+              onBlur={() => handleBlur("ProfileName")}
             />
-            {errors.ProfileName && <div className="form-control-feedback"><span className="text-danger">{errors.ProfileName}</span></div>}
+            {touched.ProfileName && errors.ProfileName && <div className="form-control-feedback"><span className="text-danger">{errors.ProfileName}</span></div>}
           </div>
           <div className="mb-3">
             <RdsInput
@@ -129,8 +132,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               required
               value={formData?.UserName}
               onChange={(e) => handleDataChanges(e, "UserName")}
+              onBlur={() => handleBlur("UserName")}
             />
-            {errors.UserName && <div className="form-control-feedback"><span className="text-danger">{errors.UserName}</span></div>}
+            {touched.UserName && errors.UserName && <div className="form-control-feedback"><span className="text-danger">{errors.UserName}</span></div>}
           </div>
           <div className="mb-3">
             <RdsInput
@@ -143,8 +147,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               name="curPass"
               value={formData?.curPass}
               showIcon={true}
+              onBlur={() => handleBlur("curPass")}
             />
-            {errors.curPass && <div className="form-control-feedback"><span className="text-danger">{errors.curPass}</span></div>}
+            {touched.curPass && errors.curPass && <div className="form-control-feedback"><span className="text-danger">{errors.curPass}</span></div>}
           </div>
           <div className="mb-3">
             <RdsInput
@@ -157,8 +162,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               name="newPass"
               value={formData?.newPass}
               showIcon={true}
+              onBlur={() => handleBlur("newPass")}
             />
-            {errors.newPass && <div className="form-control-feedback"><span className="text-danger">{errors.newPass}</span></div>}
+            {touched.newPass && errors.newPass && <div className="form-control-feedback"><span className="text-danger">{errors.newPass}</span></div>}
           </div>
           <div className="mb-3">
             <RdsInput
@@ -171,8 +177,9 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
               name="curNewPass"
               value={formData?.curNewPass}
               showIcon={true}
+              onBlur={() => handleBlur("curNewPass")}
             />
-            {errors.curNewPass && <div className="form-control-feedback"><span className="text-danger">{errors.curNewPass}</span></div>}
+            {touched.curNewPass && errors.curNewPass && <div className="form-control-feedback"><span className="text-danger">{errors.curNewPass}</span></div>}
           </div>
         </div>
         <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">

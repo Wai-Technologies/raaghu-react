@@ -83,6 +83,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                       width={breadItem.iconWidth}
                       height={breadItem.iconHeight}
                       colorVariant={breadItem.active ? breadItem.iconColor : ""}
+                      isCursorPointer={true}
                     />
                   </span>
                 )}

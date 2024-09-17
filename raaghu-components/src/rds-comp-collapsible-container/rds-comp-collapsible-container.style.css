@@ -1,0 +1,78 @@
+.wrapperContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.wrapperContainer.right {
+    justify-content: flex-end;
+}
+
+.wrapperContainer.left {
+    justify-content: flex-start;
+}
+
+.container-collapse {
+    width: 180px;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px solid #ede1e1;
+    visibility: visible;
+    border-radius: 2%;
+    border: 1px solid #ccc;
+}
+
+.container-collapse.collapsed-container {
+    width: 50px;
+    border-radius: 3%;
+}
+
+.chevron-container {
+    display: flex;
+    align-items: center;
+}
+
+.collapse-button-for-container {
+    border: none;
+    background: #3089D1;
+    border-radius: 50%;
+    font-size: 1em;
+    cursor: pointer;
+    color: #fff;
+    padding-bottom: 2px !important;
+}
+
+.menu-item-collapsible-container {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-item-collapsible-container i {
+    margin-right: 10px;
+}
+
+.collapsed-container .menu-item-collapsible-container span {
+    padding-left: 2px !important;
+}
+
+.collapsed-container .menu-item-collapsible-container i {
+    margin: 0;
+}
+.rightChevronPosition {
+    top: -107px !important;
+    left: -10px !important;
+    position: relative !important;
+}
+.leftChevronPosition {
+    position: relative !important;
+    top: -108px !important;
+    left: 9px !important;
+}
+.theme-dark svg {
+    color: rgb(168, 168, 168) !important;
+}
