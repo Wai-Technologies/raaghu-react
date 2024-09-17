@@ -22,9 +22,12 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         size: {
-            options: ["small", "medium", "large"],
+            options: [ "smallest" , "small" , "medium", "large","largest"],
             control: { type: "radio" },
         },
+        activityChain: {
+        control: { type: "boolean" },
+    },
     },
 } satisfies Meta<typeof RdsAvatar>;
 
@@ -87,3 +90,23 @@ withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName'
 
 
 withProfile.argTypes = textAlignArgTypes;
+
+// New story for Advance Avatar
+export const Advance: Story = {
+    args: {
+        size: "large",
+        withProfilePic: true,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "vertical",
+        role: "Developer",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        colorVariant: "success",
+        activityChain: false,
+        activeDotTop: false,
+        activeDotBottom: false,
+    }
+} satisfies Story;
+ 
+Advance.parameters = { controls: { include: ['size', 'withProfilePic', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic', 'colorVariant', 'roundedAvatar', 'height', 'width', 'activityChain', 'activeDotTop', 'activeDotBottom'] } };
+Advance.argTypes = { ...textAlignArgTypes };

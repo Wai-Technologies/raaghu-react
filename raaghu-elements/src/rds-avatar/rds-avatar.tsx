@@ -12,7 +12,7 @@ export interface RdsAvatarProps {
     role?: string;
     colorVariant?: colors;
     titleAlign?: string;
-    size?: "small" | "large" | "medium";
+    size?: "smallest"|"small" | "large" | "medium"| "largest";
     verticallyAlligned?: boolean;
     roundedAvatar?: boolean;
     roundedPills?: boolean;
@@ -20,6 +20,9 @@ export interface RdsAvatarProps {
     isTitle?: boolean;
     profileContentAlign?: boolean;
     width?: string;
+    activityChain?: boolean;
+    activeDotTop?: boolean;
+    activeDotBottom?: boolean;
     customClass?:string;
 }
 
@@ -53,23 +56,13 @@ const RdsAvatar = (props: RdsAvatarProps) => {
         }
 
         if (props.size) {
-            const size = 'avatar-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
+            const size = 'avatar-' + `${props.size === 'smallest' ? 'xs' : props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : props.size === 'largest' ? 'xl': 'md'}`;
             classes = ' ' + size;
         }
         return classes;
     }
 
-    const profileName = () => {
-        let classes: string = '';
-        if (props.firstName == "" && props.lastName == "") {
-            classes = "d-flex";
-        }
-
-        return classes;
-    }
-
-
-
+        const profileName = () => (!props.firstName && !props.lastName) ? "d-flex" : '';
 
     const FL = props.firstName || "";
     const LL = props.lastName || "";
@@ -106,10 +99,15 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             <div className={`${Aligned}`}>
                 {WPP === false && hasName && !props.isTitle && (
                     <div className={`d-flex justify-content-center bg-light align-items-center avatar rounded-circle ` + classes()}>
-                        <div className="avatar-initials flex-shrink-0 d-flex align-items-center">
+                        <div className={`${props.activityChain?"avatar-ring ":"hidden-ring avatar-ring "} d-flex   p-1 border-2 ${props.activityChain ? `border border-${props.colorVariant}` : ''}`}>
+                            {props.activeDotTop && 
+                           <div className={`dot-one bg-${props.colorVariant}`}></div>}
+                            {props.activeDotBottom && <div className={`dot-two bg-${props.colorVariant}`}></div>}
+                           <div className="avatar-initials flex-shrink-0 d-flex align-items-center">
                             <div className="fw-bold ">
                                 {fLetter}{lLetter}
                             </div>
+                         </div>
                         </div>
                     </div>
                 )}
@@ -144,16 +142,21 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 )}
                 {WPP === true && (
                     <div className={profileClass()}>
-                        <div className={`flex-grow-0 gap-2 ${Aligned}`}>
-                            <img src={withPP} className={`avatar-sm rounded-circle ` + classes()} alt="profile" />
-                            <span className={"avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" + profileName()}>
-                                <div>
-                                    <span>{titleFirstName}{titleLastName}</span>
-                                    <p className="mb-0 text-muted">
-                                        {titleRole}
-                                    </p>
-                                </div>
-                            </span>
+                        <div className={`${classes()} ${Aligned}` }>
+                            <div className={`${props.activityChain?"avatar-ring ":"hidden-ring avatar-ring "} d-flex  align-items-center p-1 border-2 me-2 ${props.activityChain ? `border border-${props.colorVariant}` : ''}`}>
+                            {props.activeDotTop && <div className={`dot-one bg-${props.colorVariant}`}></div>}
+                            {props.activeDotBottom && <div className={`dot-two bg-${props.colorVariant}`}></div>}
+
+                                <img src={withPP} className="avatar-inner" alt="profile" />
+                            </div>
+                            {hasName && (
+                                <span className={`avatar-initials fw-bold me-2 ${profileClass()}`}>
+                                    <div className="nowrap">
+                                        <span>{FL} {LL}</span>
+                                        {userRole && <p className="mb-0 text-muted">{userRole}</p>}
+                                    </div>
+                                </span>
+                            )}
                         </div>
                     </div>
                 )}
