@@ -237,6 +237,8 @@ $card-dashboard-bg-color: #161618 !default;
 $card-dashboard-border-color: #3c3e47;
 
 $offcanvasbg: $dark-400 !default;
+$offcanvascolor:#A8A8A8;
+$textareaplaceholdercolor :#A8A8A8;
 
 $modal-bg-color: $dark-400 !default;
 $wrapper-bg: $dark-900 !default;
@@ -645,7 +647,7 @@ a {
 }
 
 svg {
-    fill: none;
+    // fill: none;
     /*stroke: $dark-750;
   color: $dark-750;*/
     stroke: $white;
@@ -2032,6 +2034,11 @@ $form-feedback-color: $gray-200;
 
 .offcanvas {
     background-color: $offcanvasbg;
+    color:$offcanvascolor;
+}
+
+textarea::placeholder {
+    color: $textareaplaceholdercolor;  
 }
 
 .form-select {
@@ -2867,5 +2874,95 @@ hr {
 
 .raaghu-select__single-value,
 .raaghu-select__placeholder {
-    color: var(--bs-body-color);
+    // color: var(--bs-body-color);
+     color:#A8A8A8;
 }
+
+// collapsible container css start
+ .container-collapse {
+    width: 190px;
+    overflow: hidden !important;
+    transition: width 0.3s ease !important;
+    /* position: fixed; */
+    top: 0 !important;
+    background-color: #49494D !important;
+    color: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 5px solid #ede1e1 !important;
+    visibility: visible !important;
+  }
+   
+  .container-collapse.right {
+    right: 0 !important;
+    border: 1px solid #ccc !important;
+  }
+   
+  .container-collapse.collapsed-container {
+    width: 50px !important;
+    border-radius: 3% !important;
+  }
+   
+  .chevron-position-left {
+    justify-content: flex-start !important;
+    align-items: center !important; /* Align items vertically */
+  }
+  .chevron-position-right
+  {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important; /* Align items vertically */
+  }
+   
+  .collapse-button-for-container {
+    border: none !important;
+    background: #3089D1 !important;
+    border-radius: 50% !important;
+    font-size: 1em !important;
+    cursor: pointer !important;
+    color: #fff !important;
+    padding-bottom: 5px !important;
+  }
+   
+  .menu-item-collapsible-container {
+    padding: 10px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+  }
+   
+  .menu-item-collapsible-container i {
+    margin-right: 10px !important;
+  }
+   
+  .collapsed-container .menu-item-collapsible-container span {
+   padding-left: 2px !important;
+  }
+   
+  .collapsed-container .menu-item-collapsible-container i {
+    margin: 0 !important;
+  }
+  .leftChevronPosition {
+    position: relative ;
+    top: 5px ;
+    left: 9px ;
+  }
+  .rightChevronPosition {
+    top: 5px ;
+    left: -10px ;
+    position: relative ;
+  }
+  .wrapperContainer {
+    position: relative;
+    display: flex;
+    // align-items: center;
+  }
+   
+  .wrapperContainer.right {
+    justify-content: flex-end;
+  }
+   
+  .wrapperContainer.left {
+    justify-content: flex-start;
+  }
+  // collapsible container css end

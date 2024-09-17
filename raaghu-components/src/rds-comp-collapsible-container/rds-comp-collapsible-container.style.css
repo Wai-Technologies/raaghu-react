@@ -73,3 +73,6 @@
     top: -108px !important;
     left: 9px !important;
 }
+.theme-dark svg {
+    color: rgb(168, 168, 168) !important;
+}

@@ -19,7 +19,7 @@ export { default as RdsDoubleRange } from "./rds-double-range";
 export { default as RdsInputGroup } from "./rds-input-group";
 export { default as RdsCarousel } from "./rds-carousel";
 export { default as RdsSideNav } from "./rds-side-nav";
-export { default as RdsAccordion ,RdsAccordionItem  } from "./rds-accordion";
+export { default as RdsAccordion } from "./rds-accordion";
 export { default as RdsAlert } from "./rds-alert";
 export { default as RdsBadge } from "./rds-badge";
 export { default as RdsBanner } from "./rds-banner";
@@ -93,4 +93,5 @@ export { default as RdsFeed } from "./rds-feed";
 export { default as RdsCardDetail } from "./rds-card-detail";
 // //Map
 export { default as RdsMap } from "./rds-map";
-export { default as RdsLoader } from "./rds-loader";export { default as RdsAdvanceAvatar } from "./rds-advance-avatar";
+export { default as RdsLoader } from "./rds-loader";
+export { default as RdsDivider } from "./rds-divider";

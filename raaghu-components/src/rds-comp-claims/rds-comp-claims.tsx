@@ -24,7 +24,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const [inputReset, setInputReset] = useState(props.reset);
     const [selectedData, setSelectedData] = useState<any>({
         id: 0,
-        claimType: "",
+        claimType: null,
         claimValue: "",
         roleId: props.id,
         valueTypeAsString: "",
@@ -32,6 +32,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const { tableHeaders = [] } = props;
     const [tableData, setTableData] = useState<any>(Array.isArray(props.claimsTable) ? props.claimsTable : []);
     const [uniqueIdCounter, setUniqueIdCounter] = useState(0);
+    const [dropdownKey, setDropdownKey] = useState(0);
 
     const handleAddItem = () => {
         const newTempData = {
@@ -52,12 +53,12 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
 
         setSelectedData({
             id: 0,
-            claimType:"",
+            claimType:null,
             claimValue: "",
             roleId: props.id,
             valueTypeAsString: "",
         });
-    
+        setDropdownKey((prevKey) => prevKey + 1);
         setInputReset(true);
     };
 
@@ -88,6 +89,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 <div className="row">
                     <div className="col-md-5 mb-3">
                         <RdsSelectList
+                            key={dropdownKey}
                             id="claim"                            
                             label="Claim Types"
                             placeholder="Select Claim Type"
