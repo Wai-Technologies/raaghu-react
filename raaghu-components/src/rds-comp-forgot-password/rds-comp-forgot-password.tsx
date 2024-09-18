@@ -18,7 +18,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
     const [isResendClicked, setIsResendClicked] = useState(false);
     const [registerData, setRegisterData] = useState(props.registerFields);
-    const [error, setError] = useState("");
+    const [errorMessageForEmail, setErrorMessageForEmail] = useState("");
     const [inputReset, setInputReset] = useState(false);
 
     const isEmailValid = (email: any) => {
@@ -48,13 +48,13 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     const handleDataChanges = (value: any, key: string) => {
         setRegisterData({ ...registerData, [key]: value });
         if (value.trim() === "") {
-            setError("");
+            setErrorMessageForEmail("");
         }
         else if (!isEmailValid(value)) {
-            setError("Please Enter Valid Email Address.");
+            setErrorMessageForEmail("Please Enter Valid Email Address.");
         } 
         else {
-            setError("");
+            setErrorMessageForEmail("");
         }
     };
 
@@ -118,7 +118,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         required={true}
                                         dataTestId="email"
                                         validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-                                        validationMsg={error}
+                                        validationMsg={errorMessageForEmail}
                                         reset={inputReset}
                                     ></RdsInput>
 
