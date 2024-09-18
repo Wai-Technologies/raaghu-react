@@ -36,10 +36,12 @@ const meta: Meta<typeof RdsAlert> = {
                 "large"
             ],
             control: { type: "select" },
-        }
-
+        },
+        displayType: {
+            options: ["singleline", "multiline"],
+            control: { type: "select" },
+        },
     },
-    
 };
 
 export default meta;
@@ -53,6 +55,8 @@ export const Default: Story = {
         dismisable: false,
         sticky: false,
         position: "top",
+        withBorder: true,
+        displayType: "singleline",
     }
 };
 Default.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'sticky', 'position'] } };
@@ -70,6 +74,8 @@ export const With_icon: Story = {
         iconWidth: "20px",
         sticky: false,
         position: "top",
+        withBorder: true,
+        displayType: "singleline",
     }
 };
 With_icon.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
@@ -87,6 +93,8 @@ export const With_close_button: Story = {
         iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
+        withBorder: true,
+        displayType: "singleline",
     }
 };
 With_close_button.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position'] } };
@@ -105,7 +113,91 @@ export const With_Delay_Alert: Story = {
         iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
+        withBorder: true,
+        displayType: "singleline",
     }
 };
 With_Delay_Alert.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'dismisable', 'icon', 'iconFill', 'iconStroke', 'iconHeight', 'iconWidth', 'sticky', 'position', 'delay'] } };
 
+export const With_Buttons: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: true,
+        displayType: "singleline",
+    }
+};
+With_Buttons.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading', 'withBorder'] } };
+
+export const With_Buttons_Multiline: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: true,
+        withLeftBorder: false,
+        description: "This is the description which should not exceed 100 character limit.",
+        displayType: "multiline",
+    }
+};
+With_Buttons_Multiline.parameters = { controls: { include: ['alertmessage', 'colorVariant', 'size', 'alertheading', 'withBorder', 'withLeftBorder', 'description'] } };
+
+export const With_Shadow: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: false,
+        displayType: "singleline",
+    }
+};
+With_Shadow.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading', 'withBorder'] } };
+
+export const With_Left_Border: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: true,
+        withLeftBorder: true,
+        displayType: "singleline",
+    }
+};
+With_Left_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading'] } };
