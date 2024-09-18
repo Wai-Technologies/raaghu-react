@@ -10,9 +10,9 @@ export interface RdsCompContactUsProps {
 const RdsCompContactUs = (props: RdsCompContactUsProps) => {
     const [formData, setFormData] = useState(props.contactus);
     const [inputReset, setInputReset] = useState(false);
-    const [error1, setError1] = useState("");
-    const [error2, setError2] = useState("");
-    const [error3, setError3] = useState("");
+    const [errorEmail, setErrorForEmail] = useState("");
+    const [errorFullName, setErrorForFullName] = useState("");
+    const [errorMessage, setErrorForMessage] = useState("");
 
         const isEmailValid = (email: any) => {
             if (!email || email.length === 0) {
@@ -50,12 +50,12 @@ const isFormValid = isFullnameValid(formData?.fullname) && isEmailValid(formData
 const emailhandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (value.trim() === "") {
-        setError1("");
+        setErrorForEmail("");
     }
     else if (!isEmailValid(value)) {
-        setError1("Email ID is invalid");
+        setErrorForEmail("Email ID is invalid");
     } else {
-        setError1("");
+        setErrorForEmail("");
     }
     
 }
@@ -63,21 +63,21 @@ const emailhandleChange = (value: any, key: string) => {
 const fullnamehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (value.trim() === "") {
-        setError2("");
+        setErrorForFullName("");
     }
     else if (!isFullnameValid(value)) {
-        setError2("Fullname is invalid");
+        setErrorForFullName("Fullname is invalid");
     } else {
-        setError2("");
+        setErrorForFullName("");
     }
 }
 
 const messagehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (!isMessageValid(value)) {
-        setError3("Message is required");
+        setErrorForMessage("Message is required");
     } else {
-        setError3("");
+        setErrorForMessage("");
     }
 }
 
@@ -103,7 +103,7 @@ function emitSaveData(event: any) {
                             reset={inputReset}
                             required={true}
                             validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i}
-                            validationMsg={error1}
+                            validationMsg={errorEmail}
                             placeholder='name@gmail.com'
                             inputType='email'
                             onChange= {(e) =>{emailhandleChange(e.target.value , "email");}}
