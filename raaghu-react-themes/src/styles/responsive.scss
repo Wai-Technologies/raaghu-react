@@ -25,6 +25,19 @@
     max-width: 190px;
   }
 
+  .left-action{
+    thead{
+      th{
+        background-color: #fff !important;
+      }
+    }
+    tbody{
+      td{
+        background-color: #fff !important;
+      }
+    }
+  }
+
   thead {
     white-space: nowrap;
   }
