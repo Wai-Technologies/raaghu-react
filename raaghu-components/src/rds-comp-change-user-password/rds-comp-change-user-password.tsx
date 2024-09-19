@@ -117,7 +117,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
                             showIcon={true}
                         ></RdsInput>
                         <div className="form-control-feedback">
-                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
+                            {errorMessage && changePassword?.newPasswordConfirm &&(<span className="text-danger">{errorMessage}</span>)}
                         </div>
                     </div>
                 </div>
