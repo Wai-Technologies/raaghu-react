@@ -15,74 +15,42 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof RdsDropdownListWithSearch>;
-//     args: {
-//         placeholder: "Filter",
-//         borderDropdown: true,
-//         isPlaceholder: true,
-//         listItems: [
-//             { label: "EN(US)", val: "en", icon: "us", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "English(IND)", val: "en", icon: "in", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "Français", val: "fr", icon: "fr", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "Deutsch", val: "de", icon: "de", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "Português (Brasil)", val: "pt-BR", icon: "br", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "Türkçe", val: "tr", icon: "tr", iconWidth: "20px", iconHeight: "20px" },
-//             { label: "Italiano", val: "it", icon: "it", iconWidth: "20px", iconHeight: "20px" },
-//         ],
-//         reset: false,
-//     }
-// } satisfies Story;
-// Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems'] } };
 
 export const Default: Story = {
     args: {
-        reset: false,
+        id: "story",
+        isMultiple: true,
         placeholder: "Filter",
-        multiSelect: true,
-        borderDropdown: true,
-        listItems: [
+        selectItems: [
             {
-                label: "EN(US)",
-                val: "en",
-                iconWidth: "20px",
-                iconHeight: "20px",
+                option: "Riya Sharma",
+                value: "Riya"
             },
             {
-                label: "English(IND)",
-                val: "en",
-                iconWidth: "20px",
-                iconHeight: "20px",
+                option: "John Doe",
+                value: "John"
             },
             {
-                label: "Français",
-                val: "fr",
-                iconWidth: "20px",
-                iconHeight: "20px",
+                option: "Richard P",
+                value: "Richard"
             },
             {
-                label: "Deutsch",
-                val: "de",
-                iconWidth: "20px",
-                iconHeight: "20px",
+                option: "Alex Brown",
+                value: "Alex"
             },
             {
-                label: "Português (Brasil)",
-                val: "pt-BR",
-                iconWidth: "20px",
-                iconHeight: "20px",
+                option: "Chris Johnson",
+                value: "Chris"
             },
             {
-                label: "Türkçe",
-                val: "tr",
-                iconWidth: "20px",
-                iconHeight: "20px",
-            },
-            {
-                label: "Italiano",
-                val: "it",
-                iconWidth: "20px",
-                iconHeight: "20px",
-            },
+                option: "Rihan Diva",
+                value: "Rihan"   
+            }
         ],
-    },
+        isDisabled: false,
+        required: false,
+        isSearchable: true,
+        isBold: false
+    }
 }
-Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'listItems', 'reset'] } };
+Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'onChange'] } };
