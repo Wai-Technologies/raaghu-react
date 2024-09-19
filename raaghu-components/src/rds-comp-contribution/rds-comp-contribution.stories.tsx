@@ -17,7 +17,6 @@ export default meta;
 type Story = StoryObj<typeof RdsCompContribution>;
 
 export const Default: Story = {
-
     args: {
       weekNames: ['', 'M', '', 'W', '', 'F', ''],
       monthNames: [
@@ -33,13 +32,16 @@ export const Default: Story = {
         '2016-06-28': 4,
         '2016-06-29': 4
       },
-      until : '2016-06-30'      
+      until : '2016-06-30',
+      monthLabelHeight: 15,
+      weekLabelWidth: 15,
+      panelSize: 12,
+      panelMargin: 2,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['weekNames','MonthNames', 'panelColors','dateFormat','values', 'until'] } };
+Default.parameters = { controls: { include: ['weekNames','MonthNames', 'panelColors','dateFormat','values', 'until', 'monthLabelHeight', 'weekLabelWidth', 'panelSize', 'panelMargin'] } };
 
 export const WithAttribute: Story = {
-
   args: {
     weekNames: ['', 'M', '', 'W', '', 'F', ''],
     monthNames: [
@@ -65,7 +67,11 @@ export const WithAttribute: Story = {
       }
     },
     weekLabelAttributes : {'rotate': 20},
-    panelAttributes :  { 'rx': 6, 'ry': 6 }
+    panelAttributes :  { 'rx': 6, 'ry': 6 } ,
+    monthLabelHeight: 15,
+    weekLabelWidth: 15,
+    panelSize: 12,
+    panelMargin: 2,
   }
 } satisfies Story;
-WithAttribute.parameters = { controls: { include: ['weekNames','MonthNames', 'panelColors','dateFormat','values', 'until','monthLabelAttributes','weekLabelAttributes','panelAttributes'] } };
+WithAttribute.parameters = { controls: { include: ['weekNames','MonthNames', 'panelColors','dateFormat','values', 'until','monthLabelAttributes','weekLabelAttributes','panelAttributes', 'monthLabelHeight', 'weekLabelWidth', 'panelSize', 'panelMargin'] } };

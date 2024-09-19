@@ -79,3 +79,14 @@
   .contribution-svg{
     fill: transparent;   
   }  
+
+  .full-width {
+    width: 100%;
+  }
+
+  .contribution-font{
+    font-family: 'poppins, sans-serif';
+    height: 100%;
+    width: 100% ;
+    stroke: none !important;
+  }

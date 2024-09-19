@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useState, ReactElement } from 'react';
 import Measure, { BoundingRect } from 'react-measure';
+import './rds-comp-contribution.css';
 
 export interface RdsCompContributionProps {
   weekNames?: string[];
@@ -12,6 +13,10 @@ export interface RdsCompContributionProps {
   weekLabelAttributes: any | undefined;
   monthLabelAttributes: any | undefined;
   panelAttributes: any | undefined;
+  monthLabelHeight: number;
+  weekLabelWidth: number;
+  panelSize?: number;
+  panelMargin?: number;
 }
 
 export interface State {
@@ -23,13 +28,13 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
   const [columns, setColumns] = useState(53);
   const [maxWidth, setMaxWidth] = useState(53);
 
-  const monthLabelHeight = 15;
-  const weekLabelWidth = 15;
-  const panelSize = 11;
-  const panelMargin = 2;
+  const monthLabelHeight = props.monthLabelHeight;
+  const weekLabelWidth = props.weekLabelWidth;
+  const panelSize = props.panelSize;
+  const panelMargin = props.panelMargin;
 
   const getPanelPosition = (row: number, col: number) => {
-    const bounds = panelSize + panelMargin;
+    const bounds = (panelSize ?? 0) + (panelMargin ?? 0);
     return {
       x: weekLabelWidth + bounds * row,
       y: monthLabelHeight + bounds * col,
@@ -112,8 +117,8 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
             alignmentBaseline: 'central',
             fill: '#AAA',
           } }
-          x={ textBasePos.x - panelSize / 2 - 2 }
-          y={ textBasePos.y + panelSize / 2 }
+          x={ textBasePos.x - (panelSize ?? 0) / 2 - 2 }
+          y={ textBasePos.y + (panelSize ?? 0) / 2 }
           textAnchor={ 'middle' }
           { ...props.weekLabelAttributes }
         >
@@ -141,8 +146,8 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
               alignmentBaseline: 'central',
               fill: '#AAA',
             } }
-            x={ textBasePos.x + panelSize / 2 }
-            y={ textBasePos.y - panelSize / 2 - 2 }
+            x={ textBasePos.x + (panelSize ?? 0) / 2 }
+            y={ textBasePos.y - (panelSize ?? 0) / 2 - 2 }
             textAnchor={ 'middle' }
             { ...props.monthLabelAttributes }
           >
@@ -156,15 +161,9 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     return (
       <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
         { ({ measureRef }: any) => (
-          <div ref={ measureRef } style={ { width: "100%" } }>
+          <div ref={ measureRef } className="full-width">
             <svg
-              style={ {
-                fontFamily: 'poppins, sans-serif',
-                width: '100%',
-                stroke: 'none',
-              } }
-              className='contribution-svg'
-              height="110">
+              className='contribution-svg contribution-font'>
               { innerDom }
             </svg>
           </div>
