@@ -119,7 +119,6 @@
       </td>
       <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components.svg" width="80" title="React"/>
           <p>
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.svg">
