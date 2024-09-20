@@ -253,20 +253,17 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>((props, ref) 
                         </div>
                     </Tooltip>
                 )}
-                {props.required && (!props.validationMsg) && (
+                {props.required && !props.validationMsg && hasError && isTouch && (
                     <div className="form-control-feedback">
-                        {props.required && props.value == "" && hasError && isTouch && (
-                            <span className="text-danger">{props.label} {t("is required") || ""} </span>
+                        {props.value === "" && (
+                            <span className="text-danger">{props.label} {t("is required") || ""}</span>
                         )}
                     </div>
                 )}
 
-                {props.validatonPattern && (
+                {props.validatonPattern && props.validationMsg && isTouch && !isValid && (
                     <div className="form-control-feedback">
-                        {props.validatonPattern && props.validationMsg && isTouch && (isValid == false) && (
-                            <span className="text-danger">{props.validationMsg} </span>
-                        )}
-
+                        <span className="text-danger">{props.validationMsg}</span>
                     </div>
                 )}
 

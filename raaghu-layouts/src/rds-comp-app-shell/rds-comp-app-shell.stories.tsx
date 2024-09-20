@@ -5,7 +5,7 @@ import RdsCompAppShellItem from "./rds-comp-app-shell-item";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
-import { RdsIcon } from "../../../raaghu-elements/src";
+import { RdsDropdown, RdsIcon } from "../../../raaghu-elements/src";
 
 const meta: Meta = {
   title: "Application Shells",
@@ -24,10 +24,9 @@ const toggleDropdown = () => {
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-export const Classic: Story = {
+export const Basic: Story = {
   args: {
-    displayType: "Classic",
-  
+    displayType: "Basic",
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -233,7 +232,7 @@ export const Classic: Story = {
                 </BrowserRouter>
               </div>
               <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 m-3">
-                <h2>Add Layout Here</h2>
+                <h2 className="fw-bolder">Add Layout Here</h2>
               </div>
             </div>
           </div>
@@ -243,11 +242,9 @@ export const Classic: Story = {
   },
 } satisfies Story;
 
-
-
-export const Advance: Story = {
+export const Header: Story = {
   args: {
-    displayType: "Advance",
+    displayType: "Header",
     children: (
       <>
         <div className="container-fluid bg-white px-0">
@@ -263,7 +260,7 @@ export const Advance: Story = {
 
                   <div className="d-md-none d-block">
                     <button
-                      className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-none border-0"
+                      className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-none border-0 btn-sm"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#navbarSupportedContent"
@@ -280,44 +277,41 @@ export const Advance: Story = {
                       >
                         <img
                           className="cursor-pointer tenant-sidenav-logo"
-                          src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                          src="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
                           alt="logo"
-                          height="45px"
+                          height="35px"
                         ></img>
                       </div>
 
                       <div className="align-items-center d-flex ms-auto">
                         <div className="px-2 px-md-3">
-                          <div className="dropdown">
-
-                            <button className="align-items-center bg-transparent border-0 d-flex dropdown-toggle justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <div className="px-2">
-                                {/* <RdsAvatar
-                                                                firstName="Hi"
-                                                                lastName={props.profileName}
-                                                                profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
-                                                                role=""
-                                                                size="small"
-                                                                titleAlign="horizontal"
-                                                                withProfilePic
-                                                            /> */}
-                                <img
-                                  src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                                  alt={"profilePic"}
-                                  width="30px"
-                                  height="30px"
-                                  className="profil_image_Class rounded-circle"
-                                  data-testid="avatar"
-                                  style={{ height: '-webkit-fill-available' }}
-                                ></img>
-                                <span className="ps-2">Hi, <span className="fw-bolder"></span></span>
-                              </div>
-                            </button>
-                            <ul className="dropdown-menu mt-2 avatar-dropdown">
-                              <li><a className="dropdown-item" >My Account</a></li>
-                              <li><a className="dropdown-item" >Logout</a></li>
-                            </ul>
-                          </div>
+                        <img
+                          src="./assets/profile-picture-circle.svg"
+                          alt={"profilePic"}
+                          width="30px"
+                          height="30px"
+                          className="profil_image_Class rounded-circle"
+                          data-testid="avatar"
+                          style={{ height: '-webkit-fill-available' }}
+                        ></img>
+                        <RdsDropdown
+                          colorVariant="white"
+                          displayType="dropdown"
+                          id="1"
+                          label="Hi, John Doe"
+                          listItems={[
+                            {
+                              id: '1',
+                              label: 'My Account',
+                              path: ''
+                            },
+                            {
+                              id: '2',
+                              label: 'Logout',
+                              path: ''
+                            },
+                          ]}
+                          size="small" darkDropdown={false} />
                         </div>
                       </div>
                     </div>
@@ -336,7 +330,7 @@ export const Advance: Story = {
                           className="cursor-pointer tenant-sidenav-logo"
                           src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
                           alt="logo"
-                          height="45px"
+                          height="35px"
                         ></img>
                       </div>
                       <div className="ps-lg-4 d-flex pe-md-0 px-4 justify-content-between gap-4 ms-lg-4 top-link">
@@ -394,42 +388,39 @@ export const Advance: Story = {
                       </div>
                     </div>
                     <div className="align-items-center d-flex ms-auto d-none d-md-block">
-                      <div className="px-2 px-md-3 d-none d-md-block">
+                      <div className="px-2 px-md-3 d-none d-md-block ">
 
-                        <div className="dropdown">
-
-                          <button className="align-items-center bg-transparent border-0 d-flex dropdown-toggle justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={toggleDropdown}>
-                            <div className="px-2">
-                              {/* <RdsAvatar
-                                                            firstName="Hi"
-                                                            lastName={props.profileName}
-                                                            profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
-                                                            role=""
-                                                            size="small"
-                                                            titleAlign="horizontal"
-                                                            withProfilePic
-                                                        /> */}
-                              <img
-                                src="./assets/profile-picture-circle.svg"
-                                alt={"profilePic"}
-                                width="30px"
-                                height="30px"
-                                className="profil_image_Class rounded-circle"
-                                data-testid="avatar"
-                                style={{ height: '-webkit-fill-available' }}
-                              ></img>
-                              <span className="ps-2">Hi, <span className="fw-bolder"></span></span>
-                            </div>
-                          </button>
-
-                          <ul className="dropdown-menu mt-2 avatar-dropdown">
-                            <li><a className="dropdown-item">My Account</a></li>
-                            <li><a className="dropdown-item">Logout</a></li>
-                          </ul>
-                        </div>
+                        <img
+                          src="./assets/profile-picture-circle.svg"
+                          alt={"profilePic"}
+                          width="30px"
+                          height="30px"
+                          className="profil_image_Class rounded-circle"
+                          data-testid="avatar"
+                          style={{ height: '-webkit-fill-available' }}
+                        ></img>
+                        <RdsDropdown
+                          colorVariant="white"
+                          displayType="dropdown"
+                          id="1"
+                          label="Hi, John Doe"
+                          listItems={[
+                            {
+                              id: '1',
+                              label: 'My Account',
+                              path: ''
+                            },
+                            {
+                              id: '2',
+                              label: 'Logout',
+                              path: ''
+                            },
+                          ]}
+                          size="mid" darkDropdown={false} />
 
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -437,11 +428,10 @@ export const Advance: Story = {
           </div>
         </div>
 
-          <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 h-300px">
-          <h2>Add Layout Here</h2>
-        </div>                
+        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-header-layout">
+          <h2 className="fw-bolder">Add Layout Here</h2>
+        </div>
       </>
     ),
   },
 } satisfies Story;
-

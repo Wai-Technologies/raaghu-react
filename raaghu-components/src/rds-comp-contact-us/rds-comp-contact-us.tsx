@@ -10,12 +10,11 @@ export interface RdsCompContactUsProps {
 const RdsCompContactUs = (props: RdsCompContactUsProps) => {
     const [formData, setFormData] = useState(props.contactus);
     const [inputReset, setInputReset] = useState(false);
-    const [error1, setError1] = useState("");
-    const [error2, setError2] = useState("");
-    const [error3, setError3] = useState("");
+    const [errorEmail, setErrorForEmail] = useState("");
+    const [errorFullName, setErrorForFullName] = useState("");
+    const [errorMessage, setErrorForMessage] = useState("");
 
-
-const isEmailValid = (email: any) => {
+        const isEmailValid = (email: any) => {
             if (!email || email.length === 0) {
                 return false;
             }
@@ -31,8 +30,8 @@ const isEmailValid = (email: any) => {
             }
             return true;
         };
-        const isMessageValid = (fullname: any) => {
-            if (!fullname || fullname.length === 0) {
+        const isMessageValid = (message: any) => {
+            if (!message || message.length === 0) {
                 return false;
             }
             return true;
@@ -50,29 +49,35 @@ const isFormValid = isFullnameValid(formData?.fullname) && isEmailValid(formData
 
 const emailhandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
-    if (!isEmailValid(value)) {
-        setError1("Email is invalid");
+    if (value.trim() === "") {
+        setErrorForEmail("");
+    }
+    else if (!isEmailValid(value)) {
+        setErrorForEmail("Email ID is invalid");
     } else {
-        setError1("");
+        setErrorForEmail("");
     }
     
 }
 
 const fullnamehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
-    if (!isFullnameValid(value)) {
-        setError2("fullname is invalid");
+    if (value.trim() === "") {
+        setErrorForFullName("");
+    }
+    else if (!isFullnameValid(value)) {
+        setErrorForFullName("Fullname is invalid");
     } else {
-        setError2("");
+        setErrorForFullName("");
     }
 }
 
 const messagehandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (!isMessageValid(value)) {
-        setError3("Message is invalid");
+        setErrorForMessage("Message is required");
     } else {
-        setError3("");
+        setErrorForMessage("");
     }
 }
 
@@ -97,6 +102,8 @@ function emitSaveData(event: any) {
                             label='Email ID'
                             reset={inputReset}
                             required={true}
+                            validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i}
+                            validationMsg={errorEmail}
                             placeholder='name@gmail.com'
                             inputType='email'
                             onChange= {(e) =>{emailhandleChange(e.target.value , "email");}}
@@ -104,7 +111,6 @@ function emitSaveData(event: any) {
                             value={formData?.email}
                             name={"email"}
                         ></RdsInput>
-                        {error1 && <span className="text-danger">{error1}</span>}
                     </div>
 
                     <div className=" mb-3">
@@ -119,20 +125,18 @@ function emitSaveData(event: any) {
                             name={"fullname"}
                             value={formData?.fullname}
                         ></RdsInput>
-                        {error2 && <span className="text-danger">{error2}</span>}
                     </div>
                     <div className=" mb-4">
                         <RdsTextArea
                             label='Message'
                             placeholder='Message'
-                        
+                            isRequired={true}
                             onChange= {(e) =>{messagehandleChange(e.target.value , "message");}}
 
                             rows={3}
                             value={formData?.message}
                             dataTestId="message"
                         />
-                        {error3 && <span className="text-danger">{error3}</span>}
                     </div>
 
                     <RdsButton
