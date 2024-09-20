@@ -422,7 +422,7 @@ $bg-connect: $white;
 }
 
 svg {
-    fill: none;
+    // fill: none;
     stroke: $gray-800;
 }
 
@@ -2712,7 +2712,7 @@ hr {
     }
 }
 
-.raaghu-select__single-value,
-.raaghu-select__placeholder {
+.select-value,
+.select-placeholder {
     color: var(--bs-body-color);
 }

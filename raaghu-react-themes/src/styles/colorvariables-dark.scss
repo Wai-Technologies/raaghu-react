@@ -647,7 +647,7 @@ a {
 }
 
 svg {
-    fill: none;
+    // fill: none;
     /*stroke: $dark-750;
   color: $dark-750;*/
     stroke: $white;
@@ -2872,10 +2872,10 @@ hr {
     }
 }
 
-.raaghu-select__single-value,
-.raaghu-select__placeholder {
+.select-value,
+.select-placeholder {
     // color: var(--bs-body-color);
-     color:#A8A8A8;
+     color:white;
 }
 
 // collapsible container css start

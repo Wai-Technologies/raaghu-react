@@ -28,7 +28,7 @@ const RdsProductImage = (props: RdsProductImageProps) => {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="bg-light h-100 w-100 align-items-start card-stretch-100 border">
-                            <img src={props.itemList[0]} className="w-100" alt={props.itemList[0]} />
+                            <img src={props.itemList[0]} className="h-100 w-100" alt={props.itemList[0]} />
                             </div>
                         </div>
                     
@@ -42,7 +42,7 @@ const RdsProductImage = (props: RdsProductImageProps) => {
                     </div>
                     <div className="col-md-4">
                         <div className="bg-light h-100 w-100 card-stretch-100 border">
-                        <img src={props.itemList[0]} className="w-100" alt={props.itemList[3]} />
+                        <img src={props.itemList[3]} className="h-100 w-100" alt={props.itemList[3]} />
                         </div>
                     </div>
                     </div>

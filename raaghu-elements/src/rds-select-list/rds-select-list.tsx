@@ -23,7 +23,8 @@ export interface RdsSelectProps {
 
 const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setselectedValue] = useState<any | null>(
-    props.selectedValue || null
+    props.isMultiple ? [] : null 
+
   );
   const [options, setOptions] = useState<any>([]);
 
@@ -59,7 +60,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         return { option: item.label, value: item.value };
       });
       props.onChange(multiSelectValue);
-      setselectedValue(items);
+      setselectedValue(items.map((item: any) => item.value));
     }
   };
   const selectedItem = props.isMultiple
