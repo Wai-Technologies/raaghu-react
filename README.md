@@ -20,9 +20,8 @@
 - [What is Raaghu?](#raaghu-intro)
 - [Why Raaghu?](#why)
 - [How Raaghu works?](#how)
-- [Getting Started with Raaghu](#started)
-- [Startup Templates](#templates)
-- [Build with](#build_with)
+- [Features](#features)
+- [Learn more about Raaghu Design System](#learn-more) 
 - [License](#license)
 - [How to Contribute](#contribute)
 - [WAi Technologies Contributors](#contributers)
@@ -32,34 +31,110 @@
 ## <a name='raaghu-intro'></a> What is Raaghu?
 
 <p>
-<b>Raaghu</b> is an open source React based front-end design system leveraging micro front end capabilities that helps in building efficient, reliable and scalable front-end applications . Raaghu is built on top of raaghu elements as well as front end toolkit like <b>Bootstrap</b>, <b>storybook</b> offering highly customizable UI components and built in pages.
+  <b>Raaghu</b> Raaghu Design System is an React based micro front-end design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook features to develop highly customizable UI application shells, layouts, elemets and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.
+  
+  Through the storybook you can visualize and navigate around the features of the Raaghu Design System. Snippets for the elements allow you to test and design your UI faster and efficiently.
 </p>
-
-## <a name='why'></a> Why Raaghu?
-
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
   </picture>
 </p>
 
-## <a name='how'></a> How Raaghu works?
+## <a name='why'></a> Why Raaghu Design System?
 
+<p> 
+  Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
+</p>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+  </picture>
+</p>
+
+## <a name='how'></a> How Raaghu Design System Works?
+
+<p>
+  Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
+</p>
 </br></br></br>
 
-<p align="center">
-  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-illustration.png" alt="logo" width="600"/>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+  </picture>
 </p>
 <br/>
 <br/>
 <p>
-We create your wireframes or use the existing available wireframes. Based on your wireframe and theme design / branding, we apply the same CSS to elements, components and pages that we have. With the help of Component driven development and our micro front end architecture, we break your page design into components and enrich your library.
-
-These components come together to create the same wireframe design and form a page.We deploy these components through our Ci/Cd pipeline and make use of our micro front end architecture.
-
+  Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
 </p>
+
+## <a name='features'></a> Features
+</br></br>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
+    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+  </picture>
+</p>
+
+## <a name='learn-more'></a> Learn more about Raaghu Design System
+<p>
+  Learn more about Raaghu Design System
+</p>
+
+</br></br>
+<center>
+  <table align="center">
+    <tr>  
+      <td align="center">
+        <a href="https://reactjs.org/">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <p style="color:#000"><b>App Shell</b></p>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://reactjs.org/" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <p style="color:#000"><b>Layout</b></p>       
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://reactjs.org/">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <p style="color:#000"><b>Components</b></p>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://reactjs.org/" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <p style="color:#000"><b>Elements</b></p>       
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://reactjs.org/">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <p style="color:#000"><b>Charts</b></p>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://reactjs.org/" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <p style="color:#000"><b>Map</b></p>       
+        </a>
+      </td>
+    </tr>    
+  </table> 
+</center>
+</br></br></br>
 
 ## <a name='started'></a> Getting Started with Raaghu
 
@@ -74,76 +149,6 @@ These components come together to create the same wireframe design and form a pa
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
  
-##  <a name='templates'></a> Startup Templates
-<p>
-A collection of open-source statrter templates, Free templates that are perfect starter layouts for your application. Create your solution based on free or premium startup templates. Either with an React Single-Page Application or Classic MVC & Microfrontend architecture.
-</p> 
-</br>
-<p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png" alt="logo" width="1200"/>
-  </picture> 
-</p>
- 
-</br>
- <a name='build_with'></a> Build with
-<p>
-Built on a robust tech stack and platform
-</p> 
-</br>
-
-<table align="center">
-  <tr>  
-  <td>
-    <a href="https://reactjs.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
-    </td>
-       <td>
-        <a href="https://getbootstrap.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/bootstrap.png" width="80" title="Bootstrap"/>
-    </td>
-     </td>
-       <td>
-        <a href="https://www.typescriptlang.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/logo_typescript.png" width="70" title="typescript"/>
-    </td>
-    <td>
-        <a href="https://storybook.js.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook.png" width="80" title="Storybook"/>
-    </td>
-      <td>
-        <a href="https://www.gatsbyjs.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/gatsby.png" width="80" title="Gatsby"/>
-    </td>
-  </tr>  
-  <tr>
-  <td>
-        <a href="https://vitejs.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/vite.png" width="80" title="Vite"/>
-    </td>
-        <td>
-        <a href="https://million.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/millionjs.svg" width="80" title="Million"/>
-    </td>
-     <td>
-         <a href="https://www.adobe.com/in/products/xd.html?promoid=3NQZBBTZ&mv=other">
-         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/xd.png" width="80" title="Adobe XD"/>
-    </td>
-     <td>
-         <a href="https://www.figma.com/">
-         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma.png" width="80" title="Figma"/>
-    </td>
-     <td>
-        <a href="https://visualstudio.microsoft.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/visual-studio.png" width="80" title="Visual Studio"/>
-    </td>
-  </tr>
-</table> 
- 
-</br></br>
-
 ## <a name='license'></a> License
 
 This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE) file for details.
