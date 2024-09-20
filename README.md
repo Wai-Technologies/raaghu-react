@@ -37,9 +37,9 @@
 </p>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build-using.PNG">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build-using.PNG">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build-using.PNG" width="1000"/>
   </picture>
 </p>
 
@@ -50,9 +50,9 @@
 </p>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system.png" width="1000"/>
   </picture>
 </p>
 
@@ -65,9 +65,9 @@
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/dashboard.png">
-    <source media="(prefers-color-scheme: light)" srcset="./assets/dashboard.png">
-    <img  alt="Features" src="./assets/dashboard.png" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
   </picture>
 </p>
 <br/>
@@ -80,9 +80,9 @@
 </br></br>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features.PNG">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features.PNG">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features.PNG" width="1000"/>
   </picture>
 </p>
 
@@ -96,38 +96,38 @@
   <table align="center">
     <tr>  
       <td align="center">
-        <a href="https://reactjs.org/">
-          <img src="./assets/app-shell-learn-more.svg" width="80" title="React"/>
+        <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell.svg" width="80" title="React"/>
           <p style="color:#000"><b>App Shell</b></p>
         </a>
       </td>
       <td align="center">
-        <a href="https://reactjs.org/" style="color:red">
-          <img src="./assets/layouts-learn-more.svg" width="80" title="React"/>    
+        <a href="https://react.raaghu.ai/?path=/docs/layouts--docs" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Layout</b></p>       
         </a>
       </td>
       <td align="center">
-        <a href="https://reactjs.org/">
-          <img src="./assets/components-learn-more.svg" width="80" title="React"/>
+        <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components.svg" width="80" title="React"/>
           <p style="color:#000"><b>Components</b></p>
         </a>
       </td>
       <td align="center">
-        <a href="https://reactjs.org/" style="color:red">
-          <img src="./assets/elements-learn-more.svg" width="80" title="React"/>    
+        <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Elements</b></p>       
         </a>
       </td>
       <td align="center">
-        <a href="https://reactjs.org/">
-          <img src="./assets/charts-learn-more.svg" width="80" title="React"/>
+        <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts.svg" width="80" title="React"/>
           <p style="color:#000"><b>Charts</b></p>
         </a>
       </td>
       <td align="center">
-        <a href="https://reactjs.org/" style="color:red">
-          <img src="./assets/maps-learn-more.svg" width="80" title="React"/>    
+        <a href="https://react.raaghu.ai/?path=/docs/map-map--docs" style="color:red">
+          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Map</b></p>       
         </a>
       </td>
