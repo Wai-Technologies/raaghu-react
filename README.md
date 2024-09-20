@@ -121,9 +121,9 @@
         <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.svg">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.svg">
-              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.svg" width="1000"/>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png">
+              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png" width="200"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Components</b></p>
