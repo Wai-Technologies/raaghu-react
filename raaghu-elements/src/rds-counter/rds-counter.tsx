@@ -19,12 +19,14 @@ const RdsCounter = (props: RdsCounterProps) => {
 
     // This state hook represents counter value
     const [counterValue, setCounterValue] = useState(initialCounterValue);
+    const [isEditing, setIsEditing] = useState(false); // To track if the user is editing the input manually
 
     const onMinusClick = () => {
         if (counterValue > props.min) {
             const newValue = counterValue - 1;
             setCounterValue(newValue);
             props.onCounterChange?.(newValue);
+            setIsEditing(false); // Reset editing state after clicking minus
         }
     };
 
@@ -33,15 +35,17 @@ const RdsCounter = (props: RdsCounterProps) => {
             const newValue = counterValue + 1;
             setCounterValue(newValue);
             props.onCounterChange?.(newValue);
+            setIsEditing(false); // Reset editing state after clicking plus
         }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = Number(e.target.value);
+        const newValue = e.target.value === "" ? 0 : Number(e.target.value);
         if (!isNaN(newValue) && newValue >= props.min && newValue <= props.max) {
             setCounterValue(newValue);
             props.onCounterChange?.(newValue);
         }
+        setIsEditing(true); // User is manually editing the input
     };
 
     const classes = () => {
@@ -52,7 +56,7 @@ const RdsCounter = (props: RdsCounterProps) => {
             case 'right': return 'align-items-baseline d-flex flex-row-reverse gap-3 justify-content-end';
             default: return '';
         }
-    }
+    };
 
     const inputClasses = () => {
         let inputClass = 'input-group mt-1';
@@ -62,7 +66,7 @@ const RdsCounter = (props: RdsCounterProps) => {
             inputClass += ' mb-2';
         }
         return inputClass;
-    }
+    };
 
     return (
         <Fragment>
@@ -79,10 +83,12 @@ const RdsCounter = (props: RdsCounterProps) => {
                             <input
                                 type="number"
                                 className="form-control text-center"
-                                value={counterValue}
+                                value={isEditing && counterValue === 0 ? "" : counterValue}
                                 onChange={handleInputChange}
                                 min={props.min}
                                 max={props.max}
+                                onFocus={() => setIsEditing(true)} // When focused, user is editing
+                                onBlur={() => setIsEditing(false)}  // Reset editing state when focus is lost
                             />
                             <RdsButton
                                 colorVariant={props.colorVariant}
@@ -98,3 +104,4 @@ const RdsCounter = (props: RdsCounterProps) => {
 };
 
 export default RdsCounter;
+
