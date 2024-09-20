@@ -159,7 +159,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-dark.svg">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.svg">
-              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.svg" width="1000"/>
+              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.svg" width="800px" height="800px"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Map</b></p>       
