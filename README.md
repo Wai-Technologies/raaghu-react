@@ -70,8 +70,6 @@
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
   </picture>
 </p>
-<br/>
-<br/>
 <p>
   Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
 </p>
@@ -91,9 +89,9 @@
   Learn more about Raaghu Design System
 </p>
 
-</br></br>
+</br>
 <center>
-  <table align="center">
+  <table align="center" cellpadding="12">
     <tr>  
       <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
