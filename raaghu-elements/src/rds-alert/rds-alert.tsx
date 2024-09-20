@@ -9,7 +9,7 @@ export interface RdsAlertProps {
     delay?: number;
     icon?: string;
     iconFill?: boolean;
-   // iconStroke?: boolean;
+    iconStroke?: boolean;
     iconHeight?: string;
     iconWidth?: string;
     position?: "top" | "bottom";
