@@ -254,10 +254,11 @@ function emitSaveData(event: any) {
                                 label="Country"
                                 placeholder="Select Country"
                                 selectItems={props.countryList}
+                                 key={`country-${formData?.countryList}`} 
                                 selectedValue={formData?.countryList}
                                 dataTestId="select-country"
                                 onChange={(item: any) => { handleChange(item.value,"countryList"); }}
-                                required
+                                required  
                             />
                             {countryErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -272,8 +273,9 @@ function emitSaveData(event: any) {
                                 id="seleSta"
                                 label="State/Province"
                                 placeholder="Select State/Province"
-                                selectItems={props.IndianStateList}
-                                selectedValue={formData?.indianStateList}
+                                selectItems={props.IndianStateList}   
+                                key={`state-${formData?.indianStateList}`}                            
+                                selectedValue={formData?.indianStateList}                              
                                 dataTestId="select-state"
                                 onChange={(item: any) => { handleChange(item.value,"indianStateList"); }}
                                 required
@@ -284,7 +286,7 @@ function emitSaveData(event: any) {
                                         {stateProvinceErrorMessage}
                                     </span>
                                 </div>
-                            )}
+                            )} 
                         </div>
                         <div className="col-md-6 mb-3">
                             <RdsInput
