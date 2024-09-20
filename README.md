@@ -65,9 +65,9 @@
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <source media="(prefers-color-scheme: light)" srcset="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg">
-    <img  alt="Features" src="https://www.plasterworks.com.sg/wp-content/uploads/2019/02/image-placeholder-940x470-940x470.jpg" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/dashboard.png">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/dashboard.png">
+    <img  alt="Features" src="./assets/dashboard.png" width="1000"/>
   </picture>
 </p>
 <br/>
@@ -97,37 +97,37 @@
     <tr>  
       <td align="center">
         <a href="https://reactjs.org/">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <img src="./assets/app-shell-learn-more.svg" width="80" title="React"/>
           <p style="color:#000"><b>App Shell</b></p>
         </a>
       </td>
       <td align="center">
         <a href="https://reactjs.org/" style="color:red">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <img src="./assets/layouts-learn-more.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Layout</b></p>       
         </a>
       </td>
       <td align="center">
         <a href="https://reactjs.org/">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <img src="./assets/components-learn-more.svg" width="80" title="React"/>
           <p style="color:#000"><b>Components</b></p>
         </a>
       </td>
       <td align="center">
         <a href="https://reactjs.org/" style="color:red">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <img src="./assets/elements-learn-more.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Elements</b></p>       
         </a>
       </td>
       <td align="center">
         <a href="https://reactjs.org/">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
+          <img src="./assets/charts-learn-more.svg" width="80" title="React"/>
           <p style="color:#000"><b>Charts</b></p>
         </a>
       </td>
       <td align="center">
         <a href="https://reactjs.org/" style="color:red">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>    
+          <img src="./assets/maps-learn-more.svg" width="80" title="React"/>    
           <p style="color:#000"><b>Map</b></p>       
         </a>
       </td>
