@@ -7,7 +7,6 @@ export interface RdsCompFormsBasicProps {
     handleNewFormData?: any;
     questions?: any[];
     reset?: boolean;
-
 }
 
 const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
@@ -18,22 +17,20 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
         setInputReset(props.reset)
     }, [props.reset])
 
-
     const [basicFormData, setBasicFormData] = useState(props.basicInfo);
+
     function setDescription(value: any) {
         setBasicFormData({ ...basicFormData, description: value });
-        props.handleNewFormData({ ...basicFormData, description: value });
     }
     function setTitle(value: any) {
         setBasicFormData({ ...basicFormData, title: value });
-        props.handleNewFormData({ ...basicFormData, title: value });
     }
 
     useEffect(() => {
-
         setBasicFormData(props.basicInfo);
-
+        setInputReset(!inputReset);
     }, [props.basicInfo]);
+
     return (
         <>
             <form>
@@ -45,8 +42,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                                     label="Title"
                                     placeholder="Enter title"
                                     inputType="text"
-                                    onChange={(e: any) => setTitle(e.target.value)}
-                                    value={basicFormData.title || ""}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={basicFormData?.title}
                                     name={"title"}
                                     required={true}
                                     dataTestId="title"
@@ -73,8 +70,8 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                                 label="Title"
                                 placeholder="Enter title"
                                 inputType="text"
-                                onChange={(e: any) => setTitle(e.target.value)}
-                                value={basicFormData?.title || ""}
+                                onChange={(e) => setTitle(e.target.value)}
+                                value={basicFormData?.title}
                                 name={"title"}
                                 required={true}
                                 dataTestId="title"

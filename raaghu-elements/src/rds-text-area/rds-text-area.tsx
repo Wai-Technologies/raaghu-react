@@ -68,6 +68,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
 
   return (
     <>
+      
       {props.tooltip ? (
         <div className="row vh-100">
           <div className="align-items-center col-md-12 d-flex justify-content-center">
@@ -86,7 +87,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                 )}
                 <div className={getClassNames()}>
                   <textarea
-                    className="form-control"
+                    className="form-control "
                     disabled={props.isDisabled}
                     rows={props.rows}
                     readOnly={props.readonly}
