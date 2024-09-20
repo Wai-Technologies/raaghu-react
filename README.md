@@ -172,12 +172,12 @@
 
 ## <a name='started'></a> Getting Started with Raaghu
 
-- [Setup raaghu](https://raaghu.ai): For development
-- [Development Support](https://raaghu.ai): Create a common Library, Component, Screen / MFE etc
-- [Storybook](https://storybookreact.raaghu.ai/): Build bulletproof UI components faster
-- [Demo](https://anzdemoui.raaghu.ai/): Dashboard Demo (Light & Dark theme)
+- [Setup raaghu](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): For development
+- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screen / MFE etc
+- [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster
+<!-- - [Demo](https://anzdemoui.raaghu.ai/): Dashboard Demo (Light & Dark theme)
 - [Figma](http://raaghu.ai/): Preview & download Figma designs
-- [XD](http://raaghu.ai/): Preview & download xd Designs
+- [XD](http://raaghu.ai/): Preview & download xd Designs -->
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
