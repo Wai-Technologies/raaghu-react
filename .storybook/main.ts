@@ -16,7 +16,7 @@ const config: StorybookConfig = {
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
     //"@storybook/addon-toolbars"
-    "storybook-addon-themes",
+    "storybook-addon-themes",  
   ],
   core: {
     builder: '@storybook/builder-vite', // 👈 The builder enabled here.
