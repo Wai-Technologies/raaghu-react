@@ -129,6 +129,8 @@
           <!-- <p style="color:#000"><b>Elements</b></p>        -->
         </a>
       </td>    
+      </tr>
+      <tr>
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
           <p>
