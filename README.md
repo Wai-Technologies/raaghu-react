@@ -50,9 +50,9 @@
 </p>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-dark.png">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system.png" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png" width="1000"/>
   </picture>
 </p>
 
