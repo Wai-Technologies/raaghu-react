@@ -117,18 +117,18 @@
           <p style="color:#000"><b>Layout</b></p>       
         </a>
       </td>
-      <!-- <td align="center">
+      <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png">
-              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png" width="200"/>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?raw=true">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?raw=true">
+              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true" width="200"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Components</b></p>
         </a>
-      </td> -->
+      </td>
       <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" style="color:red">
           <p>
