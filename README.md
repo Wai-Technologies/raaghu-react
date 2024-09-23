@@ -91,7 +91,7 @@
 
 </br>
 <center>
-  <table align="center" cellpadding="12">
+  <table align="center" cellpadding="12" border="0">
     <tr>  
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
@@ -99,10 +99,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-light.png?raw=true?">
-              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?" width="200"/>
+              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?" width="300"/>
             </picture>
           </p>
-          <p style="color:#000"><b>App Shell</b></p>
+          <!-- <p style="color:#000"><b>App Shell</b></p> -->
         </a>
       </td>
       <td align="center" width="16.66%">
@@ -111,10 +111,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
-              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="200" />
+              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300" />
             </picture>
           </p>  
-          <p style="color:#000"><b>Layout</b></p>       
+          <!-- <p style="color:#000"><b>Layout</b></p>        -->
         </a>
       </td>
       <td align="center" width="16.66%">
@@ -123,10 +123,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png?raw=true?">
-              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true" width="200" />
+              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true" width="300" />
             </picture>
           </p>  
-          <p style="color:#000"><b>Components</b></p>
+          <!-- <p style="color:#000"><b>Components</b></p> -->
         </a>
       </td>
       <td align="center" width="16.66%">
@@ -135,10 +135,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/elements-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/elements-light.png?raw=true?">
-              <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?" width="200"/>
+              <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?" width="300"/>
             </picture>
           </p>    
-          <p style="color:#000"><b>Elements</b></p>       
+          <!-- <p style="color:#000"><b>Elements</b></p>        -->
         </a>
       </td>
       <td align="center" width="16.66%">
@@ -147,10 +147,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-card-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-card-light.png?raw=true?">
-              <img  alt="Charts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-light.png?raw=true?" width="200"/>
+              <img  alt="Charts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-light.png?raw=true?" width="300"/>
             </picture>
           </p>  
-          <p style="color:#000"><b>Charts</b></p>
+          <!-- <p style="color:#000"><b>Charts</b></p> -->
         </a>
       </td>
       <td align="center" width="16.66%">
@@ -159,10 +159,10 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-light.png?raw=true?">
-              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="200"/>
+              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="300"/>
             </picture>
           </p>  
-          <p style="color:#000"><b>Map</b></p>       
+          <!-- <p style="color:#000"><b>Map</b></p>        -->
         </a>
       </td>
     </tr>    
