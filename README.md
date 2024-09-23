@@ -99,7 +99,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-light.png?raw=true?">
-              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?" width="300"/>
+              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-light.png?raw=true?" width="300"/>
             </picture>
           </p>
           <!-- <p style="color:#000"><b>App Shell</b></p> -->
@@ -147,7 +147,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-light.png?raw=true?">
-              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="300"/>
+              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-light.png?raw=true?"  width="300"/>
             </picture>
           </p>  
           <!-- <p style="color:#000"><b>Map</b></p>-->
