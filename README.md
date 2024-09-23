@@ -78,9 +78,9 @@
 </br></br>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.PNG">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.png?raw=true?">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.png?raw=true?" width="1000"/>
   </picture>
 </p>
 
@@ -97,9 +97,9 @@
         <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-dark.png?raw=true?">
-              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?" width="100"/>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-light.png?raw=true?">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app-shell-dark.png?raw=true?">
+              <img  alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/appshell-light.png?raw=true?" width="200"/>
             </picture>
           </p>
           <p style="color:#000"><b>App Shell</b></p>
@@ -111,7 +111,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
-              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="100" />
+              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="200" />
             </picture>
           </p>  
           <p style="color:#000"><b>Layout</b></p>       
@@ -123,7 +123,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
-              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true" width="100" />
+              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true" width="200" />
             </picture>
           </p>  
           <p style="color:#000"><b>Components</b></p>
@@ -135,7 +135,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-dark.png?raw=true?">
-              <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?" width="100"/>
+              <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?" width="200"/>
             </picture>
           </p>    
           <p style="color:#000"><b>Elements</b></p>       
@@ -145,9 +145,9 @@
         <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-light.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-dark.png?raw=true?">
-              <img  alt="Charts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-light.png?raw=true?" width="100"/>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-card-light.png?raw=true?">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-card-dark.png?raw=true?">
+              <img  alt="Charts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts-light.png?raw=true?" width="200"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Charts</b></p>
@@ -157,9 +157,9 @@
         <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-dark.png?raw=true?">
-              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="100"/>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-light.png?raw=true?">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps-dark.png?raw=true?">
+              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="200"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Map</b></p>       
