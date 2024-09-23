@@ -128,9 +128,7 @@
           </p>  
           <!-- <p style="color:#000"><b>Components</b></p> -->
         </a>
-      </td>
-    </tr>
-    <tr>
+      </td>   
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
           <p>
