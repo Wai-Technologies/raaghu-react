@@ -123,12 +123,14 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png?raw=true?">
-              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png?raw=true" width="300" />
+              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png??raw=true?" width="300" />
             </picture>
           </p>  
           <!-- <p style="color:#000"><b>Components</b></p> -->
         </a>
       </td>
+    </tr>
+    <tr>
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
           <p>
@@ -140,9 +142,7 @@
           </p>    
           <!-- <p style="color:#000"><b>Elements</b></p>        -->
         </a>
-      </td>
-    </tr>
-    <tr>
+      </td>    
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
           <p>
