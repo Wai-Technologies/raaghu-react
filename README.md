@@ -117,7 +117,7 @@
           <p style="color:#000"><b>Layout</b></p>       
         </a>
       </td>
-      <td align="center">
+      <!-- <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
           <p>
             <picture>
@@ -128,7 +128,7 @@
           </p>  
           <p style="color:#000"><b>Components</b></p>
         </a>
-      </td>
+      </td> -->
       <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" style="color:red">
           <p>
