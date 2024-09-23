@@ -114,7 +114,7 @@
               <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300"/>
             </picture>
           </p>    
-          <!-- <p style="color:#000"><b>Layout</b></p>        -->
+          <!-- <p style="color:#000"><b>Layout</b></p> -->
         </a>
       </td>             
       <td align="center" width="16.66%">
@@ -126,11 +126,9 @@
               <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/element-light.png?raw=true?" width="300"/>
             </picture>
           </p>    
-          <!-- <p style="color:#000"><b>Elements</b></p>        -->
+          <!-- <p style="color:#000"><b>Elements</b></p>-->
         </a>
-      </td>    
-      </tr>
-      <tr>
+      </td> 
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
           <p>
@@ -152,7 +150,7 @@
               <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/map-light.png?raw=true?" width="300"/>
             </picture>
           </p>  
-          <!-- <p style="color:#000"><b>Map</b></p>        -->
+          <!-- <p style="color:#000"><b>Map</b></p>-->
         </a>
       </td>
       <td align="center" width="16.66%">
