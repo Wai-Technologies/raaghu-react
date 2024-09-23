@@ -111,7 +111,7 @@
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
-              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="200"/>
+              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="200" style="padding: 20px;"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Layout</b></p>       
@@ -119,11 +119,11 @@
       </td>
       <td align="center">
         <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
-          <p style="padding:50px;">
+          <p>
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
-              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true" width="200"/>
+              <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true" width="100" style="padding: 20px;"/>
             </picture>
           </p>  
           <p style="color:#000"><b>Components</b></p>
