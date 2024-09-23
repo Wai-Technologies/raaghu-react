@@ -79,10 +79,10 @@
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.png?raw=true?">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.png?raw=true?" width="1000"/>
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?" width="1000"/>
   </picture>
-</p>
+</p> 
 
 ## <a name='learn-more'></a> Learn more about Raaghu Design System
 <p>
@@ -104,9 +104,9 @@
           </p>
           <!-- <p style="color:#000"><b>App Shell</b></p> -->
         </a>
-      </td>
+      </td>      
       <td align="center" width="16.66%">
-        <a href="https://react.raaghu.ai/?path=/docs/layouts--docs">
+        <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
           <p>
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
@@ -114,19 +114,7 @@
               <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300" />
             </picture>
           </p>  
-          <!-- <p style="color:#000"><b>Layout</b></p>        -->
-        </a>
-      </td>
-      <td align="center" width="16.66%">
-        <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
-          <p>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
-              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300" />
-            </picture>
-          </p>  
-          <!-- <p style="color:#000"><b>Components</b></p> -->
+          <!-- <p style="color:#000"><b>Layout</b></p> -->
         </a>
       </td>
       <td align="center" width="16.66%">
