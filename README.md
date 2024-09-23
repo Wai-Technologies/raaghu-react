@@ -104,31 +104,19 @@
           </p>
           <!-- <p style="color:#000"><b>App Shell</b></p> -->
         </a>
-      </td>      
+      </td>  
       <td align="center" width="16.66%">
-        <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
+        <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
           <p>
             <picture>
               <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
-              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300" />
+              <img  alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300"/>
             </picture>
-          </p>  
-          <!-- <p style="color:#000"><b>Layout</b></p> -->
+          </p>    
+          <!-- <p style="color:#000"><b>Layout</b></p>        -->
         </a>
-      </td>
-      <td align="center" width="16.66%">
-        <a href="https://react.raaghu.ai/?path=/docs/components-account--docs">
-          <p>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png?raw=true?">
-              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?" width="300" />
-            </picture>
-          </p>  
-          <!-- <p style="color:#000"><b>Components</b></p> -->
-        </a>
-      </td>   
+      </td>             
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
           <p>
@@ -163,6 +151,18 @@
             </picture>
           </p>  
           <!-- <p style="color:#000"><b>Map</b></p>        -->
+        </a>
+      </td>
+      <td align="center" width="16.66%">
+        <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
+          <p>
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark-1.png?raw=true?">
+              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
+              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?" width="300"/>
+            </picture>
+          </p>  
+          <!-- <p style="color:#000"><b>Components</b></p> -->
         </a>
       </td>
     </tr>    
