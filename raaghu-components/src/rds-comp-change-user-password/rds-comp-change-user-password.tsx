@@ -12,7 +12,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
     props.changePasswordData
   );
   const [inputReset, setInputReset] = useState(false);
-  const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const pattern =
     "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{6,}$";
@@ -28,9 +28,15 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
   const handleDataChanges = (value: any, key: string) => {
     setChangePassword({ ...changePassword, [key]: value });
     if (key === "newPasswordConfirm" && value !== changePassword.newPassword) {
-      setPasswordMismatch(value !== changePassword.newPassword);
+      if (value) {
+        setErrorMessage(
+          () => "New password and confirm new password do not match"
+        );
+      } else {
+        setErrorMessage("");
+      }
     } else {
-      setPasswordMismatch(false);
+      setErrorMessage("");
     }
   };
 
@@ -122,11 +128,11 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
               required={true}
               placeholder="Confirm New Password"
               value={changePassword?.newPasswordConfirm}
+              validationMsg={errorMessage}
               onChange={(e: any) =>
                 handleDataChanges(e.target.value, "newPasswordConfirm")
               }
               showIcon={true}
-              passwordMismatch={passwordMismatch}
             ></RdsInput>
             {/* <div className="form-control-feedback">
               {errorMessage && changePassword?.newPasswordConfirm && (

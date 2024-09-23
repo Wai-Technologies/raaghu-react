@@ -40,7 +40,6 @@ export interface RdsInputProps {
   minValue?: any;
   maxValue?: any;
   showIcon?: boolean;
-  passwordMismatch?: boolean;
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -277,16 +276,6 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             </Tooltip>
           )}
 
-          {props.passwordMismatch && props.value !== "" && (
-            <div className="form-control-feedback">
-              {props.required && (
-                <span className="text-danger">
-                  {"New password and confirm new password do not match"}
-                </span>
-              )}
-            </div>
-          )}
-
           {props.required && !props.validationMsg && (
             <div className="form-control-feedback">
               {props.required && props.value == "" && hasError && isTouch && (
@@ -297,14 +286,24 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             </div>
           )}
 
+          {props.required && props.value !== "" && (
+            <div className="form-control-feedback">
+              {props.validationMsg &&
+                props.inputType === "password" &&
+                isTouch && (
+                  <span className="text-danger">{props.validationMsg}</span>
+                )}
+            </div>
+          )}
+
           {props.validatonPattern && (
             <div className="form-control-feedback">
-              {props.value === "" && isTouch && props.required && (
+              {/* {props.value === "" && isTouch && props.required && (
                 <span className="text-danger">
                   {" "}
                   {props.label} {t("is required") || ""}{" "}
                 </span>
-              )}
+              )} */}
               {props.validatonPattern &&
                 props.validationMsg &&
                 isTouch &&

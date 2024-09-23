@@ -9,7 +9,7 @@ export interface RdsCompChangePasswordProps {
 const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
   const [formData, setFormData] = useState(props.changePasswordData);
   const [inputReset, setInputReset] = useState(false);
-  const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setFormData(props.changePasswordData);
@@ -22,9 +22,17 @@ const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
   const handleDataChanges = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (key === "newPasswordConfirm" && value !== formData.newPassword) {
-      setPasswordMismatch(value !== formData.newPassword);
+      // setPasswordMismatch(value !== formData.newPassword);
+      if (value) {
+        setErrorMessage(
+          () => "New password and confirm new password do not match"
+        );
+      } else {
+        setErrorMessage("");
+      }
     } else {
-      setPasswordMismatch(false);
+      // setPasswordMismatch(false);
+      setErrorMessage("");
     }
   };
 
@@ -94,13 +102,18 @@ const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
               required={true}
               placeholder="New Password Confirm"
               value={formData?.newPasswordConfirm}
+              validationMsg={errorMessage}
               onChange={(e) => {
                 handleDataChanges(e.target.value, "newPasswordConfirm");
               }}
               dataTestId="confirm-password"
               showIcon={true}
-              passwordMismatch={passwordMismatch}
             ></RdsInput>
+            {/* <div className="form-control-feedback">
+              {errorMessage && formData?.newPasswordConfirm && (
+                <span className="text-danger">{errorMessage}</span>
+              )}
+            </div> */}
           </div>
         </div>
       </div>
