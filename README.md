@@ -91,7 +91,7 @@
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
   <tr>  
-    <td align="center" width="16.66%">
+    <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app_shell_dark.png?raw=true">
@@ -100,7 +100,7 @@
         </picture>
       </a>
     </td>  
-    <td align="center" width="16.66%">
+    <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout_dark.png?raw=true">
@@ -109,7 +109,7 @@
         </picture>
       </a>
     </td>  
-    <td align="center" width="16.66%">
+    <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/elements_dark.png?raw=true">
@@ -117,8 +117,12 @@
           <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/elements_light.png?raw=true" width="300"/>
         </picture>
       </a>
-    </td>  
-    <td align="center" width="16.66%">
+    </td> 
+  </tr>
+</table>
+<table align="center" cellpadding="0" border="0" width="50%">
+  <tr> 
+    <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts_card_dark.png?raw=true">
@@ -127,10 +131,6 @@
         </picture>
       </a>
     </td>
-  </tr>
-</table>
-<table align="center" cellpadding="0" border="0" width="50%">
-  <tr>
     <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
         <picture>
