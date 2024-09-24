@@ -28,9 +28,7 @@ export const Default: Story = {
                 title: "Section 1 Title",
                 accordionContent: (
                     <div>
-                        <h1>Hello</h1>
-                        <p>Some content</p>
-                        <button>Click me</button>                        
+                        <h1>Hello</h1>                  
                     </div>
                 ),
             },
