@@ -23,11 +23,17 @@ const RdsScatterChart = (props: RdsScatterChartProps) => {
 
         const ctx = canvasRef.current?.getContext("2d");
         if (ctx) {
+            // Modify the dataSets to include the pointStyle
+            const modifiedDataSets = dataSets.map(dataset => ({
+                ...dataset,
+                pointStyle: 'triangle' // This sets the point style to triangle
+            }));
+
             chartRef.current = new Chart(ctx, {
-                type: "bar",
+                type: "scatter", // Make sure the type is scatter for this example
                 data: {
                     labels: labels,
-                    datasets: dataSets
+                    datasets: modifiedDataSets
                 },
                 options: options,
             });

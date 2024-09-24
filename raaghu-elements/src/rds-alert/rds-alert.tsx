@@ -56,6 +56,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         if (props.dismisable) {
             defaultClass = " alert-dismissible ";
         }
+       
 
       if (props.sticky) {
         const position = `${props.position === 'top' ? ' position-absolute top-0 start-0 fullWidth z-index' : ' position-absolute bottom-0 start-0 fullWidth z-index'}`;
