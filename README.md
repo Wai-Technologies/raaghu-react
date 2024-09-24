@@ -88,8 +88,7 @@
 <p>
   Learn more about Raaghu Design System
 </p>
-
-</br>
+ 
 <center>
   <table align="center" cellpadding="12" border="0">
     <tr>  
@@ -154,19 +153,18 @@
         </a>
       </td>
       <td align="center" width="16.66%">
-        <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
+        <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
           <p>
             <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png?raw=true?">
+              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-dark.png">
               <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?">
-              <img  alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?"  width="300"/>
+              <img  alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components-light.png?raw=true?"  width="300"/>
             </picture>
           </p>  
           <!-- <p style="color:#000"><b>Components</b></p>-->
         </a>
       </td>
-      
-    </tr>    
+      </tr>  
   </table> 
 </center>
 </br></br></br>
