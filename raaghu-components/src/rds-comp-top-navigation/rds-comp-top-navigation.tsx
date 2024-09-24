@@ -345,7 +345,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
           <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
             <RdsOffcanvas
-              className="pb-0 m-auto"
+              className="pb-5 m-auto"
               placement="end"
               offcanvaswidth={307}
               offId="Profile1"
