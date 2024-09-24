@@ -106,14 +106,12 @@
       </td>  
       <td align="center" width="16.66%">
         <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="150" title="Layout"/>
-          <!-- <p>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true?">
-              <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?">
-              <img  alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true?" width="300"/>
-            </picture>    
-          </p>     -->
+          <!-- Dark mode image -->
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-dark.png?raw=true">
+            <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true">
+            <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout-light.png?raw=true" width="300"/>
+          </picture>
           <!-- <p style="color:#000"><b>Layout</b></p> -->
         </a>
       </td>             
