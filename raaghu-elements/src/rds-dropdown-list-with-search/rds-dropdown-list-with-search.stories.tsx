@@ -18,39 +18,54 @@ type Story = StoryObj<typeof RdsDropdownListWithSearch>;
 
 export const Default: Story = {
     args: {
-        id: "story",
-        isMultiple: true,
-        placeholder: "Filter",
-        selectItems: [
+        id: 'example-id',
+        placeholder: 'Filter',
+        isSearchable: true,
+        isDisabled: false,
+       selectItems: [
             {
-                option: "Riya Sharma",
-                value: "Riya"
+                label: "Riya Sharma",
+                value: "Riya",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px",
             },
             {
-                option: "John Doe",
-                value: "John"
+                label: "John Doe",
+                value: "John",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px",
             },
             {
-                option: "Richard P",
-                value: "Richard"
+                label: "Richard P",
+                value: "Richard",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px",
             },
             {
-                option: "Alex Brown",
-                value: "Alex"
+                label: "Alex Brown",
+                value: "Alex",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px",
             },
             {
-                option: "Chris Johnson",
-                value: "Chris"
+                label: "Chris Johnson",
+                value: "Chris",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px",
             },
             {
-                option: "Rihan Diva",
-                value: "Rihan"   
+                label: "Rihan Diva",
+                value: "Rihan",
+                icon: "profile_picture_circle",
+                iconWidth: "50px",
+                iconHeight: "25px", 
             }
         ],
-        isDisabled: false,
-        required: false,
-        isSearchable: true,
-        isBold: false
     }
 }
 Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'onChange'] } };
