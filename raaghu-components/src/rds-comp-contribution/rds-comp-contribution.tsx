@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useState, ReactElement } from 'react';
-import Measure, { BoundingRect } from 'react-measure';
+//import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.css';
 
 export interface RdsCompContributionProps {
@@ -65,12 +65,14 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     return result;
   }
 
-  const updateSize = (size?: BoundingRect) => {
-    if (!size) return;
+  // const updateSize = (size?: 100
+  //  // BoundingRect
+  // ) => {
+  //   if (!size) return;
 
-    const visibleWeeks = Math.floor((size.width - weekLabelWidth) / 13);
-    setColumns(Math.min(visibleWeeks, maxWidth));
-  };
+  //   const visibleWeeks = Math.floor((size.width - weekLabelWidth) / 13);
+  //   setColumns(Math.min(visibleWeeks, maxWidth));
+  // };
 
     // TODO: More sophisticated typing
     if (props.panelColors == undefined || props.weekNames == undefined || props.monthNames == undefined) {
@@ -159,16 +161,17 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     }
 
     return (
-      <Measure bounds onResize={ (rect: { bounds: any; }) => updateSize(rect.bounds) }>
-        { ({ measureRef }: any) => (
-          <div ref={ measureRef } className="full-width">
-            <svg
-              className='contribution-svg contribution-font'>
-              { innerDom }
-            </svg>
-          </div>
-        ) }
-      </Measure>
+      <></>
+      // <Measure bounds onResize={ (rect: { bounds: any; }) => updateSize(rect.bounds) }>
+      //   { ({ measureRef }: any) => (
+      //     <div ref={ measureRef } className="full-width">
+      //       <svg
+      //         className='contribution-svg contribution-font'>
+      //         { innerDom }
+      //       </svg>
+      //     </div>
+      //   ) }
+      // </Measure>
     );
   }
 
