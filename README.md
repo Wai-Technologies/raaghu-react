@@ -121,7 +121,7 @@
     </td>  
   </tr>
 </table>
-<table align="center" cellpadding="12" border="0">
+<table align="center" cellpadding="0" border="0">
   <tr>
     <td align="center" width="16.66%">
       <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
