@@ -245,4 +245,54 @@ export const Without_Pagination: Story = {
 Without_Pagination.parameters = { controls: { include: ['enablecheckboxselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 
 
+export const hide_icon: Story = { 
+    args: {
+        buttonAction: true,
+        tableHeaders: [
+            {
+                displayName: "Edition Name",
+                key: "editionName",
+                datatype: "hidden",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            {
+                displayName: "Price ($)",
+                key: "price",
+                datatype: "number",
+                dataLength: 5,
+                required: false,
+                sortable: true,
+            },
+            {
+                displayName: "Trial Period(Day(s))",
+                key: "trialPeriod",
+                datatype: "number",
+                dataLength: 5,
+                required: true,
+            },
+            {
+                displayName: "Status",
+                key: "status",
+                datatype: "badge",
+                dataLength: 5,
+                required: true,
+            },
+        ],
+        tableData: [
+            { id: 1, editionName: "Standard", price: 60, trialPeriod: 5, status: { "badgeColorVariant": "success", "content": "active" } },
+            { id: 2, editionName: "Basic", price: 120, trialPeriod: 10, status: { "badgeColorVariant": "success", "content": "active" } },
+            { id: 3, editionName: "Premium", price: 250, trialPeriod: 5, status: { "badgeColorVariant": "success", "content": "active" } },
+            { id: 4, editionName: "Standard", price: 60, trialPeriod: 7, status: { "badgeColorVariant": "success", "content": "active" } },
+            { id: 5, editionName: "Basic", price: 100, trialPeriod: 15, status: { "badgeColorVariant": "success", "content": "active" } },
+        ],
+        actions: [
+            { id: "delete", displayName: "Delete" },
+            { id: "edit", displayName: "Edit" },
+        ],
+        pagination: false,
+        actionPosition: "right",
+    }
 
+} satisfies Story;

@@ -159,7 +159,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     }
 
     return (
-      <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
+      <Measure bounds onResize={ (rect: { bounds: any; }) => updateSize(rect.bounds) }>
         { ({ measureRef }: any) => (
           <div ref={ measureRef } className="full-width">
             <svg

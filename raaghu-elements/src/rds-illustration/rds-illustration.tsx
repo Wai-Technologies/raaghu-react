@@ -11,6 +11,8 @@ export interface RdsIllustrationProps {
     iconWidth?: string;
     iconPath?: string;
     isContinueAnimate?: boolean;
+    displayType? : string;
+    height ? : string;
 }
 
 const RdsIllustration = (props: RdsIllustrationProps) => {

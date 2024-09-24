@@ -30,15 +30,3 @@
         transform: rotate(360deg);
     }
 }
-
-#sortTable{
-    .dropdown-adjusted.show{
-        z-index: 2;
-    }
-    tr{
-        &:hover{
-            z-index: 0;
-            position: relative;
-        }
-    }
-}
