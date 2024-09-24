@@ -17,6 +17,10 @@ const meta: Meta = {
   argTypes: {},
 } satisfies Meta<typeof RdsCompAppShell>;
 
+const toggleDropdown = () => {
+  console.log('Dropdown clicked');
+};
+
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
@@ -97,7 +101,7 @@ export const Basic: Story = {
               profileTitle="John Doe"
               profileEmail="john.doe@raaghu.io"
               profileName="John Doe"
-              
+
               themeItems={[
                 {
                   icon: "sun",
