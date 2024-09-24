@@ -2,7 +2,6 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- Custom style -->
-
 <p align="center">
   <a href="https://raaghu.io" target="_blank">
     <p>
@@ -90,7 +89,7 @@
 </p>
  
 <!-- Centered table with dark/light mode support for images -->
-<table align="center" cellpadding="12" border="0" width="80%">
+<table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
   <tr>  
     <td align="center" width="16.66%">
       <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
@@ -130,7 +129,7 @@
     </td>
   </tr>
 </table>
-<table align="center" cellpadding="0" border="0" width="50%">
+<table align="center" cellpadding="0" border="0" style="width: 50%; max-width: 50%;">
   <tr>
     <td align="center" width="16.66%">
       <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
