@@ -130,8 +130,8 @@
   </tr>
 </table>
 <table align="center" cellpadding="0" border="0" style="width: 50%; max-width: 50%;">
-  <tr>
-    <td align="center" width="16.66%">
+  <tr border="0">
+    <td align="center" width="16.66%" border="0">
       <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps_dark.png?raw=true">
