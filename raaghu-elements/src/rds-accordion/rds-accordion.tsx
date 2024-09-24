@@ -9,7 +9,7 @@ export interface AccordionItem {
 }
 
 export interface RdsAccordionProps {
-    accordionType: 'single' | 'multiple';
+    accordionType?: 'single' | 'multiple';
     accordionId?: string;
     items: AccordionItem[];
     onclick?: (event: React.MouseEvent<HTMLInputElement>) => void;
