@@ -87,7 +87,7 @@
 <p>
   Learn more about Raaghu Design System
 </p>
- 
+</br></br>
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
   <tr>  
