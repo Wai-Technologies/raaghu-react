@@ -140,7 +140,7 @@
     <td align="center" width="16.66%">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
         <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_dark">
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_dark.png?raw=true">
           <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true">
           <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true" width="300"/>
         </picture>
