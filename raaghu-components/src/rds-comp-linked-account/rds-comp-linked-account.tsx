@@ -39,7 +39,25 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
     const onClickHandler = () => {
         setPage((prev) => !prev);
     };
-
+    const isTenancyNameValid = (tenancyName: any) => {
+        if (!tenancyName || tenancyName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isUserNameValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isPasswordValid = (password: any) => {
+        if (!password || password.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid = isTenancyNameValid(userData?.tenancyName) && isUserNameValid(userData?.userName) && isPasswordValid(userData?.password);
     return (
         <>
             <div className="row px-0">
@@ -138,6 +156,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         label="Save"
                                         size="small"
                                         dataTestId="submit"
+                                        isDisabled={!isFormValid}
                                         onClick={(e: any) => emitSaveData(e)}
                                     ></RdsButton>
                             </div>

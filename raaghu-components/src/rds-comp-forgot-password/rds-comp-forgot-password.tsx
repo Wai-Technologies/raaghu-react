@@ -72,6 +72,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
         });
         setShowMailSuccess(true);
     }
+    const isFormValid = isEmailValid(registerData?.email);
     return (
         <div>
             <div className="text-center">
@@ -135,6 +136,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         onClick={(e: any) => emitSaveData(e)}
                                         showLoadingSpinner={true}
                                         type={"submit"}
+                                        isDisabled={!isFormValid}
                                         dataTestId="submit"
                                     ></RdsButton>
 

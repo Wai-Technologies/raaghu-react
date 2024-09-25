@@ -72,7 +72,25 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
         useState(false);
     const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] =
         useState(false);
-
+        const isConnectionStringValid = (dcstring: string) => {
+            if (!dcstring || dcstring.length === 0) {
+                return false;
+            }
+            return true;
+        }
+        const isPasswordValid = (password: string) => {
+            if (!password || password.length === 0 || errors.password) {
+                return false;
+            }
+            return true;
+        }
+        const isConfirmPasswordValid = (cpassword: string) => {
+            if (!cpassword || cpassword.length === 0 || errors.cpassword) {
+                return false;
+            }
+            return true;
+        }
+const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid(formData?.password) && isConfirmPasswordValid(formData?.cpassword);
     return (
         <div>
             <div className="tab-content py-4">
@@ -237,6 +255,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                             class="ms-2"
                             databsdismiss="offcanvas"
                             dataTestId="save"
+                            isDisabled={!isFormValid}
                             onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>
                     </div>

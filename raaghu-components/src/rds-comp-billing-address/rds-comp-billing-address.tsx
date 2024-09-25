@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsSelectList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { is } from "date-fns/locale";
 
 export interface RdsCompBillingAddressProps {
     onSaveHandler?: (data: any) => void;
@@ -106,6 +107,55 @@ function emitSaveData(event: any) {
     //     // Postal code need not be ,numeric-only' in some countries
     // };
     const { t } = useTranslation();
+    const isFirstNameValid = (firstName: any) => {
+        if (!firstName || firstName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isLastNameValid = (lastName: any) => {
+        if (!lastName || lastName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPhoneValid = (phone: any) => {
+        if (!phone || phone.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isAddressValid = (address: any) => {
+        if (!address || address.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isCityValid = (city: any) => {
+        if (!city || city.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isCountryValid = (country: any) => {
+        if (!country || country.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isStateValid = (state: any) => {
+        if (!state || state.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPostalCodeValid = (postalCode: any) => {
+        if (!postalCode || postalCode.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isFormValid=isFirstNameValid(formData?.firstName) && isLastNameValid(formData?.lastName) && isPhoneValid(formData?.phone) && isAddressValid(formData?.address) && isCityValid(formData?.city) && isCountryValid(formData?.countryList) && isStateValid(formData?.indianStateList) && isPostalCodeValid(formData?.pin);
     return (
         <>
             <div className="contact-information">
@@ -329,7 +379,7 @@ function emitSaveData(event: any) {
                             type={"submit"}
                             onClick={(e: any) => emitSaveData(e)}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
+                            isDisabled={!isFormValid}
                             dataTestId="save"
                         ></RdsButton>
                 </div>

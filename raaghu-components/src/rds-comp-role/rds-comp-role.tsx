@@ -25,7 +25,13 @@ const RdsCompRole = (props: RdsCompRoleProps) => {
             isDefault: false,
         });
     }
-
+    const isRoleNameValid = (roleName: any) => {
+        if (!roleName || roleName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+const isFormValid = isRoleNameValid(roleData?.displayName);
     return (
         <>
             <div>
@@ -88,6 +94,7 @@ const RdsCompRole = (props: RdsCompRoleProps) => {
                             label="Save"
                             data-bs-dismiss="offcanvas"
                             onClick={(e: any) => emitSaveData(e)}
+                            isDisabled={!isFormValid}
                             type="button"
                         ></RdsButton>
                     </div>

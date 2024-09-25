@@ -20,6 +20,15 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
         setInputReset(!inputReset);
         setReceiverEmailAddress("");
     };
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid = isEmailValid(receiverEmailAddress);
 
 
     return (
@@ -54,7 +63,7 @@ const RdsCompCMS = (props: RdsCompCMSProps) => {
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
-                        isDisabled={!receiverEmailAddress}
+                        isDisabled={!isFormValid}
                     ></RdsButton>
                 </div>
             </form>

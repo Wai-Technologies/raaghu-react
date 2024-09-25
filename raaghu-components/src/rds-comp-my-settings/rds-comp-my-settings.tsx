@@ -86,7 +86,27 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
       curNewPass: "",
     });
   };
-
+  const isProfileNameValid = (ProfileName: any) => {
+    if (!ProfileName || ProfileName.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  const isEmailValid = (email: any) => {
+    if (!email || email.length === 0) {
+      return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      return false;
+    } else return true;
+  }
+  const isUserNameValid = (UserName: any) => {
+    if (!UserName || UserName.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  
+const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(formData?.Email) && isUserNameValid(formData?.UserName) && isCurPassValid(formData?.curPass) && isNewPassValid(formData?.newPass) && isCurNewPassValid(formData?.curNewPass);
   return (
     <div>
       <form>
@@ -197,6 +217,7 @@ const RdsCompMySettings = (props: RdsCompMySettingsProps) => {
             colorVariant="primary"
             label="Save"
             type="submit"
+            isDisabled={!isFormValid}
             onClick={(e) => emitSaveData(e)}
           ></RdsButton>
         </div>

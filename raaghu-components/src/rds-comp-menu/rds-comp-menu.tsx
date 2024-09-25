@@ -61,7 +61,20 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
             cssClass: "",
         });
     }
+   const isUrlValid = (url: any) => {
+        if (!url || url.length === 0) {
+            return false;
+        }
+        return true;
+    }
+  const  isDisplayNameValid = (displayName: any) => {
+        if (!displayName || displayName.length === 0) {
+            return false;
+        }
+        return true;
+    }
 
+const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName);
     return (
         <>
             <div className="custom-content-scroll">
@@ -172,7 +185,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                     type={"button"}
                     size="small"
                     databsdismiss="offcanvas"
-                    isDisabled={!data?.displayName}
+                    isDisabled={!isFormValid}
                     colorVariant="primary"
                     class="me-2"
                     onClick={(e: any) => emitSaveData(e)}

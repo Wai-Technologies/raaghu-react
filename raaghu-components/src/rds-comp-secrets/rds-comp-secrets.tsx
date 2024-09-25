@@ -36,7 +36,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
             description: ""
         });
     }
-
+   
     return (
         <>
             <div className="secrets">
@@ -138,6 +138,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 data-bs-dismiss="offcanvas"
                                 type="button"
                                 dataTestId="create"
+                                isDisabled={!data?.type || !data.val || !data.expiration || !data.description}
                                 onClick={(e: any) => emitSaveData(e)}
                             ></RdsButton>
                         </div>

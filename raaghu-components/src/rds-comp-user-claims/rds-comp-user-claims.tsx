@@ -31,6 +31,19 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
         value: ""
     });
     }
+    const isTypeValid=(type: string)=>{
+        if (!type || type.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isValueValid=(value: string)=>{
+        if (!value || value.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isFormValid=isTypeValid(formData?.type) && isValueValid(formData?.value);
     return (
         <>
             <div className="tab-content">
@@ -89,6 +102,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                     class="save-btn"
                     size="small"
                     dataTestId="next"
+                    isDisabled={!isFormValid}
                     onClick={(e: any) => emitSaveData(e)}
                 ></RdsButton>
             </div>

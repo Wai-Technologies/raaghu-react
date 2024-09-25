@@ -41,7 +41,44 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
             shouldChangePasswordOnNextLogin: false
         });
     }
-
+    const isFirstNameValid = (firstName: any) => {
+        if (!firstName || firstName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isLastNameValid = (lastName: any) => {
+        if (!lastName || lastName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        } else return true;
+    };
+    const isPasswordValid = (password: any) => {
+        if (!password || password.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isUsernameValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPhoneNumberValid = (phoneNumber: any) => {
+        if (!phoneNumber || phoneNumber.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(userData?.lastName )&& isEmailValid(userData?.email) && isPasswordValid(userData?.password) && isUsernameValid(userData?.userName) && isPhoneNumberValid(userData?.phoneNumber);
     return (
         <>
             <form className="pt-3">
@@ -240,6 +277,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         type={"submit"}
                         databsdismiss="offcanvas"
                         dataTestId="save"
+                        isDisabled={!isFormValid}
                         onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>

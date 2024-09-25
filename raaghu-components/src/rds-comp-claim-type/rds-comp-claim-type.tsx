@@ -26,7 +26,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
     };
 
     const checkFormValidity = (formData: any) => {
-        const requiredFields = ["name"];
+        const requiredFields = ["name", "regex", "valueType", "regexDescription"];
         const isFormValid = requiredFields.every((field) => formData[field] !== "");
         setIsFormValid(isFormValid);
     };

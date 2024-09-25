@@ -38,7 +38,26 @@ export interface RdsCompChangePasswordProps {
             newPasswordConfirm: "",
         });
     }
+    const isCurrentPasswordValid = (currentPassword: any) => {
+        if (!currentPassword || currentPassword.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isNewPasswordValid = (newPassword: any) => {
+        if (!newPassword || newPassword.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isNewPasswordConfirmValid = (newPasswordConfirm: any) => {
+        if (!newPasswordConfirm || newPasswordConfirm.length === 0 || errorMessage) {
+            return false;
+        }
+        return true
+    }
 
+const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPasswordValid(formData?.newPassword) && isNewPasswordConfirmValid(formData?.newPasswordConfirm);
     return (
         <form data-testid="password-form">
             <div className="custom-content-scroll">
@@ -126,7 +145,7 @@ export interface RdsCompChangePasswordProps {
                             type={"submit"}
                             onClick={(e: any) => emitSaveData(e)}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
+                            isDisabled={!isFormValid}
                             dataTestId="save"
                         ></RdsButton>
             </div>

@@ -25,7 +25,40 @@ const RdsCompRegisterMember = (props: RdsCompRegisterMemberProps) => {
     setRegisterMemberData({});
     setIsCheckTerms(false);
   }
+  const isUserNameValid = (userName: any) => {
+    if (!userName || userName.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  const isEmailValid = (email: any) => {
+    if (!email || email.length === 0) {
+        return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+        return false;
+    } else return true;
+};
+  const isNameValid = (name: any) => {
+    if (!name || name.length === 0) {
+      return false;
+    }
+    return true;
+  };
+  const isSurnameValid = (surname: any) => {
+    if (!surname || surname.length === 0) {
+      return false;
+    }
+    return true;
+  };
+  const isPasswordValid = (password: any) => {
+    if (!password || password.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  
 
+const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(registerMemberData?.email) && isNameValid(registerMemberData?.name) && isSurnameValid(registerMemberData?.surname) && isPasswordValid(registerMemberData?.password) ;
   return (
     <>
       <div>
@@ -129,7 +162,7 @@ const RdsCompRegisterMember = (props: RdsCompRegisterMemberProps) => {
             tooltipTitle={""}
             type="submit"
             dataTestId="register"
-            isDisabled={!isCheckTerms || !registerMemberData?.userName || !registerMemberData?.name || !registerMemberData?.surname || (registerMemberData?.password && registerMemberData.password.length < 8)}
+            isDisabled={!isFormValid}
             onClick={(e: any) => emitSaveData(e)}
           />
         </form>
