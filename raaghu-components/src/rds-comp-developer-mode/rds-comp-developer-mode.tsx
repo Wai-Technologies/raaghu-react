@@ -91,16 +91,17 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
 
    const [radioItemsApp, setRadioItemsApp] = useState([
       {
-         id: 1,
+         id:1,
          label: "Local Host",
          checked: false,
          name: "radio_buttona",
       },
 
       // {
-      //    id: 2,
-      //    label: t("Staging"),
+      //    id:4,
+      //    label: "Staging",
       //    checked: false,
+      //    value: "Staging",
       //    name: "radio_buttona",
       // },
    ]);
@@ -119,24 +120,61 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          name: "radio_button",
       },
    ]);
-   const handleRadioClick = (event: any) => {
+//    const handleRadioClick = (event: any) => {
+//       console.log("event",event.target)
+//       const items = {
+//          id: Number(event.target.id),
+//          label: event.target.value,
+//          checked: event.target.checked,
+//          name: event.target.name,
+//       };
+     
+//       const updatedReplaceItems = replaceItems.map(item =>
+//          item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+//       );
+// const updatedRadioItemsApp = radioItemsApp.map(item =>
+//          item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+//       );
+//       setRadioItemsApp(updatedRadioItemsApp);
+//       setReplaceItems(updatedReplaceItems);
+
+//       if (items.id === 2) {
+//          localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
+//       }
+//    };
+   const handleRadioClickApp = (event: any) => {
       const items = {
-         id: Number(event.target.id),
-         label: event.target.value,
-         checked: event.target.checked,
-         name: event.target.name,
-      };
-
-      const updatedReplaceItems = replaceItems.map(item =>
-         item.id === items.id ? { ...item, checked: true } : { ...item, checked: false }
+                  id: Number(event.target.id),
+                  label: event.target.value,
+                  checked: event.target.checked,
+                  name: event.target.name,
+               };
+      const updatedItems = radioItemsApp.map(item =>
+          item.id === Number(event.target.id)
+              ? { ...item, checked: true }
+              : { ...item, checked: false }
       );
+      setRadioItemsApp(updatedItems);
+     
+  };
 
-      setReplaceItems(updatedReplaceItems);
-
+  const handleRadioClickReplace = (event: any) => {
+   const items = {
+      id: Number(event.target.id),
+      label: event.target.value,
+      checked: event.target.checked,
+      name: event.target.name,
+   };
+      const updatedItems = replaceItems.map(item =>
+          item.id === Number(event.target.id)
+              ? { ...item, checked: true }
+              : { ...item, checked: false }
+      );
+      setReplaceItems(updatedItems);
       if (items.id === 2) {
          localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
       }
-   };
+  };
    const [errors, setErrors] = useState({
       apiUrl: "",
      
@@ -280,8 +318,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               displayType="Horizontal"
                               label=""
                               itemList={radioItemsApp}
-                              onClick={handleRadioClick}
-                              onChange={(e: any) => onSubmitModeData(e.target.value, "radioItemsApp")} 
+                              onClick={handleRadioClickApp}
+                              onChange={(e: any) => onSubmitModeData(e, "radioItemsApp")} 
                               value={''}
                              >
                              </RdsRadioButton>
@@ -388,8 +426,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            <RdsRadioButton
                               displayType="Horizontal"
                               label=""
-                              onClick={handleRadioClick}
-                              onChange={(e: any) => onSubmitModeData(e.target.value, "replaceItems")}
+                              onClick={handleRadioClickReplace}
+                              onChange={(e: any) => onSubmitModeData(e, "replaceItems")}
                               itemList={replaceItems} value={''}                           ></RdsRadioButton>
                         </div>
                      </div>
