@@ -127,3 +127,64 @@ export const Password: Story = {
     }
 } satisfies Story;
 Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
+
+export const Label: Story = {
+    args: {
+        size: "medium",
+        inputType: "number",
+        placeholder: "Add Label",
+        label: "Label",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: false,
+        showIcon: true,
+    }
+} satisfies Story;
+Label.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
+export const PhoneNo: Story = {
+    args: {
+        size: "medium",
+        inputType: "number",
+        placeholder: "Add PhoneNo",
+        label: "PhoneNo",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: false,
+        showIcon: true,
+    }
+} satisfies Story;
+PhoneNo.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
+export const Numbers: Story = {
+    args: {
+        size: "medium",
+        inputType: "number",
+        placeholder: "Add Number",
+        label: "Number",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: false,
+        showIcon: true,
+    }
+} satisfies Story;
+Numbers.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
+export const CardNumber: Story = {
+    args: {
+        size: "medium",
+        inputType: "number",
+        placeholder: "xxxx xxxx xxxx xxxx",
+        label: "Card Number",
+        labelPosition: "top",
+        id: "",
+        value: "",
+        required: true,
+        readonly: false,
+        showIcon: true,
+    }
+} satisfies Story;
+CardNumber.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
