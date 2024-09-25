@@ -38,6 +38,15 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   return (
     <div>
+      {props.label && (
+        <label
+          htmlFor={props.id}
+          className={`form-label ${props?.isBold ? "fw-bold" : ""}`}
+        >
+          {props.label}
+        </label>
+      )}
+      {props.required && <span className="text-danger ms-1">*</span>}
       <ReactSelect
         options={props.selectItems}
         isMulti
@@ -51,6 +60,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         placeholder={props.placeholder}
         isSearchable={props.isSearchable}
         isDisabled={props.isDisabled}
+        classNamePrefix="custom-select"
       />
     </div>
   );
@@ -68,21 +78,23 @@ const Option = (props: any) => {
     <div>
       <components.Option {...props}>
         <input
-        className="form-check-input"
+          className="form-check-input my-1"
           type="checkbox"
           checked={props.isSelected}
           onChange={handleChange}
           onClick={(e) => e.stopPropagation()} // Prevent the dropdown from closing
         />{" "}
-        <RdsIcon
-          colorVariant="secondary"
-          height={props.data.iconHeight}
-          isCursorPointer
-          name={props.data.icon}
-          stroke
-          width={props.data.iconWidth}
-        />
-        <label>{props.label}</label>
+        {props.data.icon && (
+          <img
+            src={props.data.icon}
+            style={{
+              width: props.data.iconWidth,
+              height: props.data.iconHeight,
+              cursor: "pointer",
+            }}
+          />
+        )}
+        <label className="cursor-pointer ms-1">{props.label}</label>
       </components.Option>
     </div>
   );
