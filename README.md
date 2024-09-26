@@ -84,7 +84,7 @@
 </p>
 
 ## <a name='features'></a> Features
-</br></br>
+</br>
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
@@ -153,7 +153,7 @@
     </td>
   </tr>  
 </table> -->
-</br></br></br>
+</br> 
 
 ## <a name='Insights'></a> Raaghu Design System Insights Episodes
 
@@ -225,7 +225,7 @@
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
 - [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs
 - [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools
-- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust
+- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust CLI
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
