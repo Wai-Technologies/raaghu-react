@@ -167,9 +167,15 @@
 </table> -->
 </br></br></br>
 
-# Fluent UI Insights Episodes
+# Raaghu Design System Insights Episodes
 
-| [EP01: Positioning](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-positioning?utm_source=github) | [EP02: Styling](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-styling?utm_source=github) | [EP03: Griffel](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-griffel?utm_source=github) |
+| [Trailer](https://youtu.be/LiZdckORQEg) | [Why Raaghu](https://youtu.be/TgNxlkP1qww) | [Introduction to Raaghu](https://youtu.be/FlU9GiVXkc0) |
+|:---:|:---:|:---:|
+| ![Watch EP01: Positioning](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) | ![Watch EP02: Styling](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) | ![Watch EP03: Griffel](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) |
+
+</br>
+
+| [Building Web Apps with Raaghu Source Code](https://youtu.be/kZDPn5CHkhg) | [Building Web Apps with Raaghu Package](https://youtu.be/kZDPn5CHkhg) | [Storybook-Backbone of Raaghu](https://youtu.be/qYAqjI_ta20) |
 |:---:|:---:|:---:|
 | ![Watch EP01: Positioning](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep01-preview.gif) | ![Watch EP02: Styling](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep02-preview.gif) | ![Watch EP03: Griffel](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep03-preview.gif) |
 
