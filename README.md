@@ -136,7 +136,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
-    <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="400" style="max-width:100%; margin: 0 20px;">
+    <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
   </picture>
 </a>
 
@@ -144,7 +144,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
-    <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="400" style="max-width:100%; margin: 0 20px;">
+    <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
   </picture>
 </a>
 
@@ -153,7 +153,7 @@
 
 
 <!-- Centered table with dark/light mode support for images -->
-<table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
+<!-- <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
   <tr>  
     <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
@@ -174,7 +174,7 @@
       </a>
     </td>
   </tr>
-</table>
+</table> -->
 
 <!-- <table align="center" cellpadding="0" border="0" width="50%">
   <tr> 
