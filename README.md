@@ -70,7 +70,12 @@
 </br></br>
 
 <p>
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4" alt="Dashboard Gif" width="1000">
+ [Watch the Dashboard Gif](https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4)
+<video width="1000" controls>
+  <source src="https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
   <!-- <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
