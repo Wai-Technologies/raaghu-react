@@ -6,9 +6,9 @@
   <a href="https://raaghu.io" target="_blank">
     <p>
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook-banner.png">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook-banner.png">
-        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png" width="1000"/>
+        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png?raw=true">
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues">
+        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues" width="1000"/>
       </picture>
     </p>
   </a>
@@ -252,7 +252,7 @@
  
 ## <a name='license'></a> License
 
-This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE) file for details.
+This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) file for details.
 
 ## <a name='contribute'></a> How to Contribute 🤝
 
