@@ -68,11 +68,12 @@
 </br></br>
 
 <p>
-  <picture>
+  <img src="https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4" alt="Dashboard Gif" width="1000">
+  <!-- <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
-  </picture>
+  </picture> -->
 </p>
 <p>
   Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
