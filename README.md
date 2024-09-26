@@ -13,12 +13,14 @@
     </p>
   </a>
 </p>
+<div align="center">
 
 [![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
 [![GitHub contributors](https://img.shields.io/github/contributors/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
 [![GitHub top language](https://img.shields.io/github/languages/top/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
 [![Twitter Follow](https://img.shields.io/twitter/follow/fluentui?logo=x&style=flat-square)](https://twitter.com/FluentUI?ref_src=twsrc%5Etfw)
 
+</div>
 </br>
 
 <div align="center">
@@ -34,6 +36,7 @@
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mui/material-ui.svg)](https://isitmaintained.com/project/mui/material-ui)
 [![Open Collective backers and sponsors](https://img.shields.io/opencollective/all/mui-org)](https://opencollective.com/mui-org)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1320/badge)](https://bestpractices.coreinfrastructure.org/projects/1320)
+
 
 </div>
 
