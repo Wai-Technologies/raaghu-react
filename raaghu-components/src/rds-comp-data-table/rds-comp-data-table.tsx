@@ -340,7 +340,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         </div>
       ) : (
         <>
-          <div className={props.actionPosition == "left" ? "table-responsive" : "table-responsive-none"}>
+          <div className={props.actionPosition == "left" ? "table-responsive left-action" : "table-responsive-none"}>
             <div className="table-responsive table-responsive-sm">
               <table
                 className={`table table-hover table-bordered     ${Classes} `}
@@ -397,6 +397,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                     height="12px"
                                     width="auto"
                                     stroke={true}
+                                    isCursorPointer={true}
                                   />
                                 </span>
                               </span>
@@ -474,6 +475,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tooltip={true}
                                             tooltipTitle="More Actions"
                                             tooltipPlacement="top"
+                                            isCursorPointer={true}
                                           />
                                         </button>
                                         <ul
@@ -542,6 +544,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           width="14px"
                                           stroke={true}
                                           fill={false}
+                                          isCursorPointer={true}
                                         />
                                       </RdsButton>
                                       <RdsButton
@@ -565,6 +568,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           width="14px"
                                           stroke={true}
                                           fill={true}
+                                          isCursorPointer={true}
                                         />
                                       </RdsButton>
                                     </div>
@@ -593,6 +597,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           tooltip={true}
                                           tooltipTitle={action.displayName}
                                           tooltipPlacement={"top"}
+                                          isCursorPointer={true}
                                           databstoggle={
                                             action.offId
                                               ? "offcanvas"
@@ -630,6 +635,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                   width="14px"
                                   stroke={false}
                                   fill={true}
+                                  isCursorPointer={true}
                                 />
                               </th>
                             )}
@@ -792,6 +798,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                                   tableDataRow[tableHeader.key]
                                                     .iconStrokeWidth
                                                 }
+                                                isCursorPointer={true}
                                               />
                                             </div>
                                             {tableDataRow[tableHeader.key]
@@ -883,6 +890,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tooltip={true}
                                             tooltipTitle="More Actions"
                                             tooltipPlacement="top"
+                                            isCursorPointer={true}
                                           />
                                         </button>
                                         <ul
@@ -949,6 +957,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           width="14px"
                                           stroke={true}
                                           fill={false}
+                                          isCursorPointer={true}
                                         />
                                       </RdsButton>
                                       <RdsButton
@@ -972,6 +981,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           width="14px"
                                           stroke={true}
                                           fill={true}
+                                          isCursorPointer={true}
                                         />
                                       </RdsButton>
                                     </div>
@@ -1000,6 +1010,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           tooltip={true}
                                           tooltipTitle={action.displayName}
                                           tooltipPlacement={"top"}
+                                          isCursorPointer={true}
                                           databstoggle={
                                             action.offId
                                               ? "offcanvas"

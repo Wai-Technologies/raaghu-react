@@ -9,21 +9,26 @@ export interface RdsForgotPasswordProps {
     languageData: any;
     languageLabel?: string;
     registerFields: any;
+    reset?: boolean;
 }
 
 const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     const [showmailsuccess, setShowMailSuccess] = useState(false);
     const [isLoginClicked, setIsLoginClicked] = useState(false);
-   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
+    const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
     const [isResendClicked, setIsResendClicked] = useState(false);
-   const [registerData, setRegisterData] = useState(props.registerFields );
-
+    const [registerData, setRegisterData] = useState(props.registerFields);
+    const [errorMessageForEmail, setErrorMessageForEmail] = useState("");
+    const [inputReset, setInputReset] = useState(false);
 
     const isEmailValid = (email: any) => {
         if (!email || email.length === 0) {
-
             return false;
         }
+        else if (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))) {
+            return false;
+        }
+
         return true;
     };
 
@@ -35,9 +40,22 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     useEffect(() => {
         setRegisterData(props.registerFields);
     } , [props.registerFields]);
-   
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+
     const handleDataChanges = (value: any, key: string) => {
         setRegisterData({ ...registerData, [key]: value });
+        if (value.trim() === "") {
+            setErrorMessageForEmail("");
+        }
+        else if (!isEmailValid(value)) {
+            setErrorMessageForEmail("Please Enter Valid Email Address.");
+        } 
+        else {
+            setErrorMessageForEmail("");
+        }
     };
 
     const resendHandler: any = (isForgotPasswordClicked: boolean) => {
@@ -48,6 +66,7 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onForgotPassword && props.onForgotPassword(registerData);
+        setInputReset(!inputReset);
         setRegisterData({
             email: ""
         });
@@ -58,33 +77,32 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
             <div className="text-center">
                 {!showmailsuccess && (
                     <div>
-
-                        <div className="d-flex align-items-center mb-1">
-                            <div className="col-8 col-md-8 mb-3 offset-2">
-                                <h2 className="mb-0">
-                                    Forgot Password
-                                </h2>
-                            </div>
-                            <div className="col-2 col-md-2 mb-3">
-                                <RdsDropdownList
-                                    labelIcon={currentLanguageIcon}
-                                    labelIconWidth='18px'
-                                    labelIconHeight='18px'
-                                    borderDropdown={false}
-                                    isPlaceholder
-                                    listItems={props.languageData}
-                                    placeholder="Select Language"
-                                    icon="en"
-                                    id={"langDrop"}
-                                    block={false}
-                                    iconFill={false}
-                                    iconStroke={false}
-                                    showIcon={false}
-
-                                />
-                            </div>
-
+                    <div className="container">
+                    <div className="row align-items-center mb-1">
+                        <div className="col-12 col-md-10 text-md-end mb-3">
+                        <h2 className="mb-0 ms-4 text-center">
+                            Forgot Password
+                        </h2>
                         </div>
+                        <div className="col-12 col-md-1 mb-3">
+                        <RdsDropdownList
+                            labelIcon={currentLanguageIcon}
+                            labelIconWidth="18px"
+                            labelIconHeight="18px"
+                            borderDropdown={false}
+                            isPlaceholder
+                            listItems={props.languageData}
+                            placeholder="Select Language"
+                            icon="en"
+                            id={"langDrop"}
+                            block={false}
+                            iconFill={false}
+                            iconStroke={false}
+                            showIcon={false}
+                        />
+                        </div>
+                    </div>
+                    </div>
                         <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
@@ -94,19 +112,14 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                                         size="medium"
                                         label="Email"
                                         inputType="email"
-                                        isDisabled={false}
-                                        readonly={false}
                                         placeholder="Enter Email"                            
-                                       onChange={(e) => {
-                                        handleDataChanges(e.target.value, "email");
-                                      }}
-                                      value={registerData?.email}
-                                        required={false}
+                                        onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
+                                        value={registerData?.email}
+                                        required={true}
                                         dataTestId="email"
-                                        validatonPattern={
-                                            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-                                            }
-                                        validationMsg="Please Enter Valid Email Address."
+                                        validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                                        validationMsg={errorMessageForEmail}
+                                        reset={inputReset}
                                     ></RdsInput>
 
                                 </div>

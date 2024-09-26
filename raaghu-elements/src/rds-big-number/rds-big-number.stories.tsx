@@ -93,6 +93,7 @@ export const delta: Story = {
                     width="15px"
                     height="15px"
                     colorVariant="primary"
+                    isCursorPointer={true}
                 />
                 <label className="ps-2 text-primary fs-5">75%</label>
             </>
@@ -274,6 +275,7 @@ export const icon: Story = {
                 width="50px"
                 height="50px"
                 colorVariant="primary"
+                isCursorPointer={true}
             />
         ),
     },

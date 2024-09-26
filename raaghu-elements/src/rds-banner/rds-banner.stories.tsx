@@ -32,7 +32,7 @@ type Story = StoryObj<typeof RdsBanner>;
 export const Banner: Story = {
     args: {
         textAlign: "start",
-        bannerText: "Big news! We are excited to announce a brand new product.",
+        bannerText: "Big news ! We are excited to announce a brand new product.",
         sticky: false,
         position: "top",
         colorVariant: "info",

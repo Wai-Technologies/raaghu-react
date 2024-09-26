@@ -84,6 +84,23 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             placeholder="Enter Contact Number"
                             inputType="text"
                             onChange={(e)=>handleDataChanges(e.target.value, "contact")}
+                            onKeyDown={(e) => {
+                                const inputElement = e.target as HTMLInputElement;
+                                    const currentLength = inputElement.value.length;
+                                    const isPlusEntered = inputElement.value.startsWith('+');
+                                    const maxLength = isPlusEntered ? 13 : 10;
+                                   
+                                    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                    const isNumberOrPlus = /[0-9+]/.test(e.key);
+                           
+                                    if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                        e.preventDefault();
+                                    }
+                           
+                                    if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                        e.preventDefault();
+                                    }
+                                }}
                             name={"fullname"}
                             value={user?.contact}
                             dataTestId="contact-number"

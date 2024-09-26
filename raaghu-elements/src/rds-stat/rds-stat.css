@@ -8,6 +8,11 @@
   border-width: 30px !important;
 }
 
+.app-shell-header-layout {
+  height: 550px !important;
+  border-width: 30px !important;
+}
+
 .w-300px {
   width: 300px !important;
 }

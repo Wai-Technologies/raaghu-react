@@ -19,7 +19,7 @@ const RdsButton = (props: RdsButtonProps) => {
         }
         if (props.showLoadingSpinner) {
 
-            setSpinnerClass(`spinner disabled`);
+            setSpinnerClass(` spinner disabled`);
             setTurnSpinnerOff(1);
 
             setTimeout(() => {
@@ -62,6 +62,9 @@ const RdsButton = (props: RdsButtonProps) => {
         if (props.icon && props.label) {
             const iconLabelClass = defaultClass.replace('btn-icon', '');
             defaultClass = iconLabelClass;
+        }
+        if (props.isRoundedButton) {
+            defaultClass = defaultClass + 'rounded-pill';
         }
         return defaultClass;
     }
