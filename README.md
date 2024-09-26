@@ -70,11 +70,8 @@
 </br></br>
 
 <p>
- [Watch the Dashboard Gif](https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4)
-<video width="1000" controls>
-  <source src="https://raaghu.ai/assets/img/Revamp_website_images/New_Page_Animation_Dark_low.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<img src="path_to_converted_gif.gif" alt="Dashboard Gif" width="1000">
+
 
   <!-- <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
@@ -102,27 +99,9 @@
 </p> 
 </br></br>
 <!-- Centered table with dark/light mode support for images -->
-<table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
+<table align="center" cellpadding="12" style="width: 70%; max-width: 100%;">
   <tr>  
-    <!-- <td align="center" width="200px">
-      <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app_shell_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app_shell_light.png?raw=true">
-          <img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app_shell_light.png?raw=true" width="300"/>
-        </picture>
-      </a>
-    </td>  
-    <td align="center" width="200px">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout_light.png?raw=true">
-          <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout_light.png?raw=true" width="300"/>
-        </picture>
-      </a>
-    </td>   -->
-    <td align="center" width="200px">
+    <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
@@ -131,7 +110,7 @@
         </picture>
       </a>
     </td> 
-    <td align="center" width="200px">
+    <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
@@ -142,6 +121,7 @@
     </td>
   </tr>
 </table>
+
 <!-- <table align="center" cellpadding="0" border="0" width="50%">
   <tr> 
     <td align="center" width="200px">
