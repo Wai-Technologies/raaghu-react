@@ -96,7 +96,7 @@
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
   <tr>  
-    <td align="center" width="200px">
+    <!-- <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/application-shells--docs">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/app_shell_dark.png?raw=true">
@@ -113,7 +113,7 @@
           <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layout_light.png?raw=true" width="300"/>
         </picture>
       </a>
-    </td>  
+    </td>   -->
     <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
         <picture>
@@ -177,7 +177,7 @@
 
 | [Building Web Apps with Raaghu Source Code](https://youtu.be/kZDPn5CHkhg) | [Building Web Apps with Raaghu Package](https://youtu.be/kZDPn5CHkhg) | [Storybook-Backbone of Raaghu](https://youtu.be/qYAqjI_ta20) |
 |:---:|:---:|:---:|
-| ![Watch EP01: Positioning](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep01-preview.gif) | ![Watch EP02: Styling](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep02-preview.gif) | ![Watch EP03: Griffel](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep03-preview.gif) |
+| <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/> | <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/> | <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/> |
 
 Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
 
