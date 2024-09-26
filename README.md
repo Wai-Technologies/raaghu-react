@@ -30,9 +30,12 @@
 ## <a name='raaghu-intro'></a> What is Raaghu?
 
 <p>
-  <b>Raaghu Design System</b> is an React based design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook features to develop highly customizable UI application shells, layouts, elemets and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.
-  
-  Through the storybook you can visualize and navigate around the features of the Raaghu Design System. Snippets for the elements allow you to test and design your UI faster and efficiently.
+
+  <b>Raaghu</b>, a React-based design system, utilizes React, Vite, TypeScript, Million, Bootstrap 5, and Storybook to develop highly customizable UI application shells, layouts, elements, and components. It serves as an online repository for developers, providing access to a wide range of elements, components, maps, and charts.
+
+ With <b>Storybook</b>, you can visualize and navigate through the features of the Raaghu Design System. Code snippets for each element allow you to design and test your UI more quickly and efficiently.
+
+
 </p>
 <p>
   <picture>
@@ -45,7 +48,8 @@
 ## <a name='why'></a> Why Raaghu Design System?
 
 <p> 
-  Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
+  Raaghu seamlessly bridges the gap between design and development while maintaining a high level of standardization.
+
 </p>
 <p>
   <picture>
@@ -58,7 +62,8 @@
 ## <a name='how'></a> How Raaghu Design System Works?
 
 <p>
-  Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
+  Raaghu Design System leverages micro-frontend capabilities by breaking down page designs into individual components. Based on the wireframe and theme, the Raaghu Design System applies consistent CSS to elements, components, and pages within its framework.
+
 </p>
 </br></br>
 
@@ -86,7 +91,7 @@
 ## <a name='learn-more'></a> Learn more about Raaghu Design System
 <p>
   Learn more about Raaghu Design System
-</p>
+</p> 
 </br></br>
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" border="0" style="width: 70%; max-width: 80%;">
@@ -118,9 +123,18 @@
         </picture>
       </a>
     </td> 
+    <td align="center" width="200px">
+      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_dark.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true">
+          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true" width="300"/>
+        </picture>
+      </a>
+    </td>
   </tr>
 </table>
-<table align="center" cellpadding="0" border="0" width="50%">
+<!-- <table align="center" cellpadding="0" border="0" width="50%">
   <tr> 
     <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
@@ -150,8 +164,17 @@
       </a>
     </td>
   </tr>  
-</table>
+</table> -->
 </br></br></br>
+
+# Fluent UI Insights Episodes
+
+| [EP01: Positioning](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-positioning?utm_source=github) | [EP02: Styling](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-styling?utm_source=github) | [EP03: Griffel](https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-griffel?utm_source=github) |
+|:---:|:---:|:---:|
+| ![Watch EP01: Positioning](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep01-preview.gif) | ![Watch EP02: Styling](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep02-preview.gif) | ![Watch EP03: Griffel](https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep03-preview.gif) |
+
+Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
+
 
 ## <a name='started'></a> Getting Started with Raaghu
 
