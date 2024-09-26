@@ -70,7 +70,7 @@
 </br></br>
 
 <p>
-<img src="path_to_converted_gif.gif" alt="Dashboard Gif" width="1000">
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000">
 
 
   <!-- <picture>
@@ -169,17 +169,17 @@
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/LiZdckORQEg" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_trailer_snap.jpg" alt="Trailer" width="250"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu-snap.jpg" alt="Why Raaghu" width="250"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu-snap.jpg" alt="Introduction" width="250"/>
   </a>
 </td>
 </tr>
@@ -198,17 +198,17 @@
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Build_with_source_code_snap.jpg" alt="Raaghu Source Code" width="240"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build_with_packages_snap.jpg" alt="Raaghu Package" width="240"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
-    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_snap.jpg" alt="Storybook" width="240"/>
   </a>
 </td>
 </tr>
