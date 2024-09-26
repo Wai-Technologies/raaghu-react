@@ -170,43 +170,29 @@
 </table> -->
 </br></br></br>
 
-# Raaghu Design System Insights Episodes
-
-| [Trailer](https://youtu.be/LiZdckORQEg) | [Why Raaghu](https://youtu.be/TgNxlkP1qww) | [Introduction to Raaghu](https://youtu.be/FlU9GiVXkc0) |
-|:---:|:---:|:---:|
-| ![Watch EP01: Positioning](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) | ![Watch EP02: Styling](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) | ![Watch EP03: Griffel](https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360) |
-
-</br>
-
-| [Building Web Apps with Raaghu Source Code](https://youtu.be/kZDPn5CHkhg) | [Building Web Apps with Raaghu Package](https://youtu.be/kZDPn5CHkhg) | [Storybook-Backbone of Raaghu](https://youtu.be/qYAqjI_ta20) |
-|:---:|:---:|:---:|
-| <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/> | <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/> | <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/> |
-
-Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
-
 ## <a name='Insights'></a> Raaghu Design System Insights Episodes
 
-<table>
+<table width="100%">
 <thead>
 <tr>
-<th align="center">Trailer</th>
-<th align="center">Why Raaghu</th>
-<th align="center">Introduction to Raaghu</th>
+<th align="center" width="33%">Trailer</th>
+<th align="center" width="33%">Why Raaghu</th>
+<th align="center" width="33%">Introduction to Raaghu</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/LiZdckORQEg" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
   </a>
 </td>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
   </a>
 </td>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
   </a>
@@ -215,27 +201,27 @@ Click on any episode to watch directly on the [Microsoft Learn](https://learn.mi
 </tbody>
 </table>
 
-<table>
+<table width="100%">
 <thead>
 <tr>
-<th align="center">Building Web Apps with Raaghu Source Code</th>
-<th align="center">Building Web Apps with Raaghu Package</th>
-<th align="center">Storybook-Backbone of Raaghu</th>
+<th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
+<th align="center" width="33%">Building Web Apps with Raaghu Package</th>
+<th align="center" width="33%">Storybook-Backbone of Raaghu</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
   </a>
 </td>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
   </a>
 </td>
-<td align="center">
+<td align="center" width="33%">
   <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
     <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
   </a>
