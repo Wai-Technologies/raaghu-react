@@ -94,10 +94,10 @@
 </p> 
 
 ## <a name='learn-more'></a> Learn more about Raaghu Design System
-<p>
+<!-- <p>
   Learn more about Raaghu Design System
-</p> 
-</br></br>
+</p>  -->
+</br>
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
   <tr>  
@@ -218,12 +218,14 @@
 
 ## <a name='started'></a> Getting Started with Raaghu
 
-- [Setup raaghu](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): For development
-- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screen / MFE etc
-- [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster
-<!-- - [Demo](https://anzdemoui.raaghu.ai/): Dashboard Demo (Light & Dark theme)
-- [Figma](http://raaghu.ai/): Preview & download Figma designs
-- [XD](http://raaghu.ai/): Preview & download xd Designs -->
+- [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): For development.
+- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screen / MFE etc.
+- [Create new solution](): Guide to create new React Solution. 
+- [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
+- [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
+- [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs
+- [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools
+- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
