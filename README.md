@@ -129,6 +129,29 @@
   Learn more about Raaghu Design System
 </p>  -->
 </br>
+
+<div align="center">
+
+<a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
+    <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="400" style="max-width:100%; margin: 0 20px;">
+  </picture>
+</a>
+
+<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
+    <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="400" style="max-width:100%; margin: 0 20px;">
+  </picture>
+</a>
+
+</div>
+
+
+
 <!-- Centered table with dark/light mode support for images -->
 <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
   <tr>  
