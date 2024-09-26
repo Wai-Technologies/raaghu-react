@@ -187,32 +187,60 @@ Click on any episode to watch directly on the [Microsoft Learn](https://learn.mi
 <table>
 <thead>
 <tr>
-<th align="center">EP01: Positioning</th>
-<th align="center">EP02: Styling</th>
-<th align="center">EP03: Griffel</th>
+<th align="center">Trailer</th>
+<th align="center">Why Raaghu</th>
+<th align="center">Introduction to Raaghu</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center">
-  <a href="https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-positioning?utm_source=github" target="_blank">
-    <img src="https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep01-preview.gif" alt="Watch EP01: Positioning" width="240"/>
+  <a href="https://youtu.be/LiZdckORQEg" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
   </a>
 </td>
 <td align="center">
-  <a href="https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-styling?utm_source=github" target="_blank">
-    <img src="https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep02-preview.gif" alt="Watch EP02: Styling" width="240"/>
+  <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
   </a>
 </td>
 <td align="center">
-  <a href="https://learn.microsoft.com/en-us/shows/fluent-ui-insights/fluent-ui-insights-griffel?utm_source=github" target="_blank">
-    <img src="https://github.com/microsoft/fluentui/raw/master/ghdocs/medias/fluentui-ep03-preview.gif" alt="Watch EP03: Griffel" width="240"/>
+  <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
   </a>
 </td>
 </tr>
 </tbody>
 </table>
 
+<table>
+<thead>
+<tr>
+<th align="center">Building Web Apps with Raaghu Source Code</th>
+<th align="center">Building Web Apps with Raaghu Package</th>
+<th align="center">Storybook-Backbone of Raaghu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+  <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP01: Positioning" width="240"/>
+  </a>
+</td>
+<td align="center">
+  <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP02: Styling" width="240"/>
+  </a>
+</td>
+<td align="center">
+  <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
+    <img src="https://i.vimeocdn.com/video/1857269582-5dd35602f7bf3acd40f10527e5a9bf416e8b363108a384e2b717b9f2eeced0ed-d_640x360" alt="Watch EP03: Griffel" width="240"/>
+  </a>
+</td>
+</tr>
+</tbody>
+</table>
 Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
 
 
