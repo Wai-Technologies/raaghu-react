@@ -64,7 +64,21 @@ const RdsCompAddMember = (props: RdsCompAddMemberProps) => {
     setAddMemberData({ email: "", roleId: "" });
     setAssignableRolesList(assignableRolesList.map((assignableRoles: any) => ({ ...assignableRoles, isDefault: false })));
   }
+  const isEmailValid = (email: any) => {
+    if (!email || email.length === 0) {
+      return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      return false;
+    } else return true;
+};
 
+const isRoleIdValid = (roleId: any) => {
+    if (!roleId ) {
+        return false;
+    }
+    return true;
+};
+  const isFormValid=isEmailValid(addMemberData?.email) && isRoleIdValid(addMemberData.roleId);
 
   return (
     <div className="pt-md-0 pt-2">
@@ -166,7 +180,7 @@ const RdsCompAddMember = (props: RdsCompAddMemberProps) => {
             tooltipTitle={""}
             onClick={(e: any) => emitSaveData(e)}
             type={"submit"}
-            isDisabled={!addMemberData.email || !addMemberData.roleId}
+            isDisabled={!isFormValid}
             databsdismiss="offcanvas"
           ></RdsButton>
         </div>
