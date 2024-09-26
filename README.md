@@ -13,6 +13,7 @@
     </p>
   </a>
 </p>
+
 <div align="center">
 
 [![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
@@ -39,7 +40,8 @@
 
 
 </div>
-
+</br>
+</br>
 
   
 <h1 style="border-bottom:0;">Contents</h1>
