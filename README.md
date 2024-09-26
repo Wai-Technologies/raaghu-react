@@ -21,9 +21,11 @@
 - [How Raaghu works?](#how)
 - [Features](#features)
 - [Learn more about Raaghu Design System](#learn-more) 
+- [Raaghu Design System Insights Episodes](#Insights) 
 - [License](#license)
 - [How to Contribute](#contribute)
 - [WAi Technologies Contributors](#contributers)
+
 
 </br></br>
 
@@ -182,7 +184,7 @@
 
 Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
 
-# Fluent UI Insights Episodes
+## <a name='Insights'></a> Raaghu Design System Insights Episodes
 
 <table>
 <thead>
@@ -241,8 +243,7 @@ Click on any episode to watch directly on the [Microsoft Learn](https://learn.mi
 </tr>
 </tbody>
 </table>
-Click on any episode to watch directly on the [Microsoft Learn](https://learn.microsoft.com) platform.
-
+ 
 
 ## <a name='started'></a> Getting Started with Raaghu
 
