@@ -122,3 +122,17 @@
   transform: rotate(0deg) !important;
     right: auto !important;
 }
+
+.full-width {
+  width: 100%;
+}
+
+.dragging {
+  opacity: 0.5;
+  cursor: move;
+}
+
+.not-dragging {
+  opacity: 1;
+  cursor: move;
+}

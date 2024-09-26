@@ -6,47 +6,7 @@ import { RdsBadge, RdsIcon, RdsPagination, RdsSearch } from "../rds-elements";
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css"; // Import the styles for resizable
 
-const Popup: React.FC<{
-  data: any[];
-  onClose: () => void;
-  onFilterChange: (value: string, checked: boolean) => void;
-  selectedValues: Set<string>;
-  position: { top: number; left: number };
-}> = ({ data, onClose, onFilterChange, selectedValues, position }) => {
-  return (
-    <div className="popup" style={{ top: position.top, left: position.left }}>
-      <div className="popup-content">
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <RdsIcon
-            colorVariant="dark"
-            height="10px"
-            name="cancel"
-            stroke
-            width="10px"
-            onClick={onClose}
-          />
-        </div>
-        {data.map((item, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              id={`checkbox-${index}`}
-              checked={selectedValues.has(item)}
-              onChange={(e) => onFilterChange(item, e.target.checked)}
-            />
-            <label htmlFor={`checkbox-${index}`}>{item}</label>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-interface DragItem {
-  index: number;
-}
-
-interface RdsCompGridCombinedProps {
+export interface RdsCompGridCombinedProps {
   tableHeaders: {
     key: string;
     label: string;
@@ -79,23 +39,8 @@ interface RdsCompGridCombinedProps {
   onActionSelection?: (rowData: any, actionId: any) => void;
   enablecheckboxselection?: boolean;
   onRowSelect?: (data: any) => void;
-  draggableColumnHeaderProps?: {
-    column: {
-      displayName: string;
-      key: string;
-      hasSearch?: boolean;
-      filter?: boolean;
-    };
-    index: number;
-    moveColumn: (fromIndex: number, toIndex: number) => void;
-    onSearchChange?: (key: string, value: string) => void;
-    allFilter?: boolean;
-    allSearch?: boolean;
-  };
-  dragItem?: {
-    index: number;
-  };
 }
+
 const DraggableColumnHeader: React.FC<{
   column: {
     sortable: React.JSX.Element;
@@ -140,7 +85,7 @@ const DraggableColumnHeader: React.FC<{
 
   const [, drop] = useDrop({
     accept: "COLUMN",
-    hover(item: DragItem) {
+    hover(item: { index: number }) {
       if (item.index !== index) {
         if (resizeStop == true) {
           moveColumn(item.index, index);
@@ -179,25 +124,13 @@ const DraggableColumnHeader: React.FC<{
   return (
     <>
       <th
-        className="text-nowrap"
+        className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
         ref={refheader}
-        style={{
-          opacity: isDragging ? 0.5 : 1,
-          cursor: "move",
-          // position: 'relative',
-        }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
+        <div className="d-flex justify-content-between align-items-center full-width">
           <span>{column.displayName}</span>
           {column.sortable && (
-            <div onClick={handleSortIconClick} style={{ cursor: "pointer" }}>
+            <div className="cursor-pointer" onClick={handleSortIconClick}>
               {sortConfig && sortConfig.key === column.key
                 ? sortConfig.direction === "asc"
                   ? "▲"
@@ -231,14 +164,7 @@ const DraggableColumnHeader: React.FC<{
           ></ResizableBox>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
+        <div className="d-flex justify-content-between align-items-center full-width">
           {(column.hasSearch || allSearch) && (
             <RdsSearch
               labelPosition="top"
@@ -255,7 +181,7 @@ const DraggableColumnHeader: React.FC<{
   );
 };
 
-const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombinedProps) => {
+const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
   const [columns, setColumns] = useState(props.tableHeaders);
   const [totalData, setTotalData] = useState(props.tableData);
@@ -493,10 +419,7 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
       props.onActionSelection(tableDataRow, action.id);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    rowIndex: number
-  ) => {
+  const handleChange = ( e: any, rowIndex: number ) => {
     const { checked } = e.target;
     setSelectedRows((prevSelectedRows) => {
       const newSelectedRows = new Set(prevSelectedRows);
@@ -518,6 +441,42 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
       return newSelectedRows;
     });
   };
+
+const Popup: React.FC<{
+  data: any[];
+  onClose: () => void;
+  onFilterChange: (value: string, checked: boolean) => void;
+  selectedValues: Set<string>;
+  position: { top: number; left: number };
+}> = ({ data, onClose, onFilterChange, selectedValues, position }) => {
+  return (
+    <div className="popup" style={{ top: position.top, left: position.left }}>
+      <div className="popup-content">
+        <div className="d-flex justify-content-end">
+          <RdsIcon
+            colorVariant="dark"
+            height="10px"
+            name="cancel"
+            stroke
+            width="10px"
+            onClick={onClose}
+          />
+        </div>
+        {data.map((item, index) => (
+          <div key={index}>
+            <input
+              type="checkbox"
+              id={`checkbox-${index}`}
+              checked={selectedValues.has(item)}
+              onChange={(e) => onFilterChange(item, e.target.checked)}
+            />
+            <label htmlFor={`checkbox-${index}`}>{item}</label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -595,9 +554,7 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                             <button
                               className="btn btn-sm btn-icon border-0 three-dot-btn"
                               type="button"
-                              aria-expanded={
-                                activeDropdownId === row.id ? "true" : "false"
-                              }
+                              aria-expanded={ activeDropdownId === row.id ? "true" : "false" }
                               onClick={() => toggleDropdown(row.id)}
                               data-bs-toggle="dropdown"
                               data-bs-auto-close="true"
@@ -618,34 +575,16 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                             <ul
                               ref={dropdownRef}
                               aria-labelledby="dropdownMenuButton"
-                              className={`dropdown-menu dropdown-adjusted ${
-                                activeDropdownId === row.id && isDropdownOpen
-                                  ? "show"
-                                  : ""
-                              }`}
+                              className={`dropdown-menu dropdown-adjusted ${ activeDropdownId === row.id && isDropdownOpen ? "show" : "" }`}
                             >
                               {props.actions.map((action, actionIndex) => (
-                                <li
-                                  key={
-                                    "action-" +
-                                    actionIndex +
-                                    "-inside-tableRow" +
-                                    row.id
-                                  }
-                                >
+                                <li key={"action-" + actionIndex + "-inside-tableRow" + row.id } >
                                   {action.modalId && (
                                     <a
                                       data-bs-toggle="modal"
                                       data-bs-target={`#${action?.modalId}`}
                                       aria-controls={action?.modalId}
-                                      onClick={(e) =>
-                                        actionOnClickHandler(
-                                          e,
-                                          row,
-                                          Number(row.id),
-                                          action
-                                        )
-                                      }
+                                      onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action )}
                                       className="dropdown-item"
                                     >
                                       {action.displayName}
@@ -656,30 +595,15 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                                       data-bs-toggle="offcanvas"
                                       data-bs-target={`#${action?.offId}`}
                                       aria-controls={action?.offId}
-                                      onClick={(e) =>
-                                        actionOnClickHandler(
-                                          e,
-                                          row,
-                                          Number(row.id),
-                                          action
-                                        )
-                                      }
+                                      onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
                                       className="dropdown-item"
                                     >
                                       {action.displayName}
                                     </a>
                                   )}
-                                  {action.offId == undefined &&
-                                    action.modalId == undefined && (
+                                  {action.offId == undefined && action.modalId == undefined && (
                                       <a
-                                        onClick={(e) =>
-                                          actionOnClickHandler(
-                                            e,
-                                            row,
-                                            Number(row.id),
-                                            action
-                                          )
-                                        }
+                                        onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
                                         className="dropdown-item"
                                       >
                                         {action.displayName}
@@ -708,16 +632,12 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
 
                   {columns.map((column) => (
                     <td
-                      className={`px-2 align-middle fw-medium ${
-                        column.wraptext ? "wrap-text" : "text-nowrap"
-                      }`}
+                      className={`px-2 align-middle fw-medium ${ column.wraptext ? "wrap-text" : "text-nowrap" }`}
                       key={column.key}
                     >
                       {column.datatype === "badge" ? (
                         <RdsBadge
-                          colorVariant={
-                            row[column.key]?.badgeColorVariant || "success"
-                          }
+                          colorVariant={ row[column.key]?.badgeColorVariant || "success" }
                           label={row[column.key]?.content || row[column.key]}
                         />
                       ) : (
@@ -737,9 +657,7 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                             <button
                               className="btn btn-sm btn-icon border-0 three-dot-btn"
                               type="button"
-                              aria-expanded={
-                                activeDropdownId === row.id ? "true" : "false"
-                              }
+                              aria-expanded={ activeDropdownId === row.id ? "true" : "false" }
                               onClick={() => toggleDropdown(row.id)}
                               data-bs-toggle="dropdown"
                               data-bs-auto-close="true"
@@ -760,34 +678,17 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                             <ul
                               ref={dropdownRef}
                               aria-labelledby="dropdownMenuButton"
-                              className={`dropdown-menu dropdown-adjusted ${
-                                activeDropdownId === row.id && isDropdownOpen
-                                  ? "show"
-                                  : ""
-                              }`}
+                              className={`dropdown-menu dropdown-adjusted ${ activeDropdownId === row.id && isDropdownOpen ? "show" : "" }`}
                             >
                               {props.actions.map((action, actionIndex) => (
                                 <li
-                                  key={
-                                    "action-" +
-                                    actionIndex +
-                                    "-inside-tableRow" +
-                                    row.id
-                                  }
-                                >
+                                  key={ "action-" + actionIndex + "-inside-tableRow" + row.id } >
                                   {action.modalId && (
                                     <a
                                       data-bs-toggle="modal"
                                       data-bs-target={`#${action?.modalId}`}
                                       aria-controls={action?.modalId}
-                                      onClick={(e) =>
-                                        actionOnClickHandler(
-                                          e,
-                                          row,
-                                          Number(row.id),
-                                          action
-                                        )
-                                      }
+                                      onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
                                       className="dropdown-item"
                                     >
                                       {action.displayName}
@@ -798,14 +699,7 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                                       data-bs-toggle="offcanvas"
                                       data-bs-target={`#${action?.offId}`}
                                       aria-controls={action?.offId}
-                                      onClick={(e) =>
-                                        actionOnClickHandler(
-                                          e,
-                                          row,
-                                          Number(row.id),
-                                          action
-                                        )
-                                      }
+                                      onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
                                       className="dropdown-item"
                                     >
                                       {action.displayName}
@@ -814,14 +708,7 @@ const RdsCompGrid: React.FC<RdsCompGridCombinedProps> = (props: RdsCompGridCombi
                                   {action.offId == undefined &&
                                     action.modalId == undefined && (
                                       <a
-                                        onClick={(e) =>
-                                          actionOnClickHandler(
-                                            e,
-                                            row,
-                                            Number(row.id),
-                                            action
-                                          )
-                                        }
+                                        onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
                                         className="dropdown-item"
                                       >
                                         {action.displayName}
