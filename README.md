@@ -156,7 +156,7 @@
 </br> 
 
 ## <a name='Insights'></a> Raaghu Design System Insights Episodes
-
+</br> </br> 
 <table width="100%">
 <thead>
 <tr>
@@ -185,7 +185,7 @@
 </tr>
 </tbody>
 </table>
-
+</br> 
 <table width="100%">
 <thead>
 <tr>
@@ -214,7 +214,7 @@
 </tr>
 </tbody>
 </table>
- 
+ </br> </br> 
 
 ## <a name='started'></a> Getting Started with Raaghu
 
