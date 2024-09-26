@@ -106,7 +106,7 @@
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
           <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
-          <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="300"/>
+          <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="400"/>
         </picture>
       </a>
     </td> 
@@ -115,7 +115,7 @@
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
           <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
-          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="300"/>
+          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="400"/>
         </picture>
       </a>
     </td>
