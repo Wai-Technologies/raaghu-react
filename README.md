@@ -99,7 +99,7 @@
 </p> 
 </br></br>
 <!-- Centered table with dark/light mode support for images -->
-<table align="center" cellpadding="12" style="width: 70%; max-width: 100%;">
+<table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
   <tr>  
     <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
@@ -191,7 +191,7 @@
 <tr>
 <th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
 <th align="center" width="33%">Building Web Apps with Raaghu Package</th>
-<th align="center" width="33%">Storybook-Backbone of Raaghu</th>
+<th align="center" width="33%">Storybook-Backbone of Raaghu Design System</th>
 </tr>
 </thead>
 <tbody>
