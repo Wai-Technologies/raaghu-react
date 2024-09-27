@@ -48,7 +48,11 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                                 "text-muted text-end flex-grow-1 "
                                             }
                                         >
-                                            {item.date.toDateString().slice(4)}
+                                            {item.date.toLocaleDateString('en-GB', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            }).replace(/ (\d{4})/, ', $1')}
                                         </div>
                                     )}
                                 </div>
@@ -104,8 +108,12 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                         </span>
                                     )}
                                     {item.date && (
-                                        <div className={"text-muted  flex-grow-1 "}>
-                                            {item.date.toDateString().slice(4)}
+                                        <div className={"text-muted flex-grow-1 "}>
+                                            {item.date.toLocaleDateString('en-GB', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            }).replace(/ (\d{4})/, ', $1')}
                                         </div>
                                     )}
                                 </div>
