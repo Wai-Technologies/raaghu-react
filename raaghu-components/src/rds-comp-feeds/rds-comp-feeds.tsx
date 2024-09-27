@@ -45,7 +45,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                     {item.date && (
                                         <div
                                             className={
-                                                "text-muted text-end text-lowercase flex-grow-1 "
+                                                "text-muted text-end flex-grow-1 "
                                             }
                                         >
                                             {item.date.toDateString().slice(4)}
