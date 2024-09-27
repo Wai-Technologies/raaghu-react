@@ -32,15 +32,6 @@
 [![Build Status](https://img.shields.io/badge/build-passing-red)](https://github.com/Wai-Technologies/raaghu-react/actions)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
 
-## <a name='raaghu-intro'></a> ---------------------------------------?
-
-# Wai Technologies Raaghu
-
-[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
-[![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
-[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) <!-- Replace with actual Discord link -->
-[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/) <!-- Replace with actual community link -->
-[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://www.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
 </div>
 
 </br>
@@ -289,6 +280,19 @@
 ## <a name='license'></a> License
 
 This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) file for details.
+
+
+
+# Communities
+
+<div align="center">
+
+[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
+[![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
+[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) <!-- Replace with actual Discord link -->
+[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/) <!-- Replace with actual community link -->
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://www.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
+</div>
 
 ## <a name='contribute'></a> How to Contribute 🤝
 
