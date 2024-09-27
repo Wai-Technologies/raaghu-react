@@ -25,7 +25,7 @@
 [![Issues](https://img.shields.io/npm/v/@waiin.technologies/issues.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![Contributors](https://img.shields.io/npm/v/@waiin.technologies/contributors.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
 
-[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu?style=social)](https://github.com/Wai-Technologies/raaghu/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 
 
 
