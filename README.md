@@ -21,8 +21,9 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
 [![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/npm.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages)
-
-
+[![GitHub stars](https://img.shields.io/npm/v/@waiin.technologies/github.svg)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
+[![Issues](https://img.shields.io/npm/v/@waiin.technologies/issues.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
+[![Contributors](https://img.shields.io/npm/v/@waiin.technologies/contributors.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
 
 
 [![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
