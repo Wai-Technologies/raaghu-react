@@ -209,7 +209,7 @@ function emitSaveData(event: any) {
                         <div className="col-md-12 mb-3">
                             <RdsInput
                                 label="Address"
-                                placeholder="Address"
+                                placeholder=" Enter Address"
                                 size="medium"
                                 name="address"
                                 id="txtAddress"
