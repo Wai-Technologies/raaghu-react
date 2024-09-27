@@ -22,10 +22,6 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
 [![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/npm.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages)
 [![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
-[![Issues](https://img.shields.io/npm/v/@waiin.technologies/issues.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
-[![Contributors](https://img.shields.io/npm/v/@waiin.technologies/contributors.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
-
-[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![GitHub license](https://img.shields.io/github/license/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/blob/main/LICENSE)
@@ -33,8 +29,18 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
 
+# Raaghu Design System
+
+[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-blue)](https://github.com/Wai-Technologies/raaghu-react)
+[![Documentation](https://img.shields.io/badge/Docs-Online-brightgreen)](https://react.raaghu.ai/)
+[![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://github.com/Wai-Technologies/raaghu-react)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Wai-Technologies/raaghu-react/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Wai-Technologies/raaghu-react/actions)
 
 
+[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
+[![Issues](https://img.shields.io/npm/v/@waiin.technologies/issues.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
+[![Contributors](https://img.shields.io/npm/v/@waiin.technologies/contributors.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
 [![npm downloads](https://img.shields.io/npm/dm/@mui/material.svg)](https://www.npmjs.com/package/@mui/material)
 [![GitHub branch status](https://img.shields.io/github/checks-status/mui/material-ui/HEAD)](https://github.com/mui/material-ui/commits/HEAD/)
