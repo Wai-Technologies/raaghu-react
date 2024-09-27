@@ -20,6 +20,10 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
+[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-blue)](https://github.com/Wai-Technologies/raaghu-react)
+[![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://github.com/Wai-Technologies/raaghu-react)
+[![License](https://img.shields.io/badge/license-MIT-purple)](https://github.com/Wai-Technologies/raaghu-react/blob/main/LICENSE)
+
 <!-- [![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/npm.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages) -->
 [![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
