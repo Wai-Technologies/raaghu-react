@@ -104,7 +104,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                         </span>
                                     )}
                                     {item.date && (
-                                        <div className={"text-muted text-lowercase flex-grow-1 "}>
+                                        <div className={"text-muted  flex-grow-1 "}>
                                             {item.date.toDateString().slice(4)}
                                         </div>
                                     )}
