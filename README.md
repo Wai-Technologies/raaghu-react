@@ -19,8 +19,8 @@
 
 <div align="center">
 
-[![License: MIT](https://github.com/Wai-Technologies/raaghu-react/blob/staging/LICENSE)
-[![npm latest package](https://www.npmjs.com/~waiin.technologies)
+[![License: MIT]](https://github.com/Wai-Technologies/raaghu-react/blob/staging/LICENSE)
+[![npm latest package]](https://www.npmjs.com/~waiin.technologies)
 [![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
 [![npm downloads](https://img.shields.io/npm/dm/@mui/material.svg)](https://www.npmjs.com/package/@mui/material)
 [![GitHub branch status](https://img.shields.io/github/checks-status/mui/material-ui/HEAD)](https://github.com/mui/material-ui/commits/HEAD/)
@@ -37,7 +37,7 @@
 
 [![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
 [![GitHub contributors](https://img.shields.io/github/contributors/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![Linkedin: Follow @waitechnologies](https://www.linkedin.com/company/waitechnologies)
+[![Linkedin: Follow @waitechnologies]](https://www.linkedin.com/company/waitechnologies)
 [![Twitter: Follow @waitechnologies](https://raaghu.ai/assets/img/Revamp_website_images/Twitter-white.svg)](https://twitter.com/waitechnologies)
 
 </div>
