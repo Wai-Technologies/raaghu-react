@@ -20,9 +20,10 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
+[![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/latest.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages)
 
-[![npm latest package](https://img.shields.io/npm/v/@mui/material/latest.svg)](https://www.npmjs.com/package/@mui/material)
+
+
 [![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
 [![npm downloads](https://img.shields.io/npm/dm/@mui/material.svg)](https://www.npmjs.com/package/@mui/material)
 [![GitHub branch status](https://img.shields.io/github/checks-status/mui/material-ui/HEAD)](https://github.com/mui/material-ui/commits/HEAD/)
