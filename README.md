@@ -109,6 +109,21 @@
 
 ## <a name='features'></a> Features
 </br>
+
+# Features of Raaghu Design System
+
+| Feature | Description | Icon |
+| --- | --- | --- |
+| **Customizable UI** | Easily customize components to fit your brand's identity. | ![🎨](https://raw.githubusercontent.com/animated-icons/color-palette.gif) |
+| **Accessibility First** | Built with accessibility in mind to ensure usability for all. | ![♿](https://raw.githubusercontent.com/animated-icons/accessibility.gif) |
+| **Responsive Design** | Adapts seamlessly to any screen size. | ![📱](https://raw.githubusercontent.com/animated-icons/responsive.gif) |
+| **Lightweight & Fast** | Optimized for performance with minimal footprint. | ![⚡](https://raw.githubusercontent.com/animated-icons/speed.gif) |
+| **Extensive Documentation** | Comprehensive docs for developers to get started quickly. | ![📖](https://raw.githubusercontent.com/animated-icons/documentation.gif) |
+| **Theming Support** | Full support for light and dark themes. | ![🌗](https://raw.githubusercontent.com/animated-icons/theme-switch.gif) |
+| **Cross-Browser Compatibility** | Works perfectly across all modern browsers. | ![🌐](https://raw.githubusercontent.com/animated-icons/browser.gif) |
+
+
+
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
