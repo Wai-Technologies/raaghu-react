@@ -19,8 +19,8 @@
 
 <div align="center">
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mui/material-ui/blob/HEAD/LICENSE)
-[![npm latest package](https://img.shields.io/npm/v/@mui/material/latest.svg)](https://www.npmjs.com/package/@mui/material)
+[![License: MIT](https://github.com/Wai-Technologies/raaghu-react/blob/staging/LICENSE)
+[![npm latest package](https://www.npmjs.com/~waiin.technologies)
 [![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
 [![npm downloads](https://img.shields.io/npm/dm/@mui/material.svg)](https://www.npmjs.com/package/@mui/material)
 [![GitHub branch status](https://img.shields.io/github/checks-status/mui/material-ui/HEAD)](https://github.com/mui/material-ui/commits/HEAD/)
@@ -37,8 +37,8 @@
 
 [![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
 [![GitHub contributors](https://img.shields.io/github/contributors/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![GitHub top language](https://img.shields.io/github/languages/top/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![Twitter Follow](https://img.shields.io/twitter/follow/fluentui?logo=x&style=flat-square)](https://twitter.com/FluentUI?ref_src=twsrc%5Etfw)
+[![Linkedin: Follow @waitechnologies](https://raaghu.ai/assets/img/Revamp_website_images/LinkedIn-white.svg)](https://www.linkedin.com/company/waitechnologies)
+[![Twitter: Follow @waitechnologies](https://raaghu.ai/assets/img/Revamp_website_images/Twitter-white.svg)](https://twitter.com/waitechnologies)
 
 </div>
 </br>
