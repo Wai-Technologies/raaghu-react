@@ -37,7 +37,7 @@
 
 [![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
 [![GitHub contributors](https://img.shields.io/github/contributors/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![Linkedin: Follow @waitechnologies](https://raaghu.ai/assets/img/Revamp_website_images/LinkedIn-white.svg)](https://www.linkedin.com/company/waitechnologies)
+[![Linkedin: Follow @waitechnologies](https://www.linkedin.com/company/waitechnologies)
 [![Twitter: Follow @waitechnologies](https://raaghu.ai/assets/img/Revamp_website_images/Twitter-white.svg)](https://twitter.com/waitechnologies)
 
 </div>
