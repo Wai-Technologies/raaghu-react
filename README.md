@@ -20,7 +20,8 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wai-Technologies/raaghu-react?tab=Apache-2.0-1-ov-file#readme)
-[![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/latest.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages)
+[![npm latest package](https://img.shields.io/npm/v/@waiin.technologies/npm.svg)](https://www.npmjs.com/~waiin.technologies?activeTab=packages)
+
 
 
 
