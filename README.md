@@ -112,16 +112,20 @@
 
 # Features of Raaghu Design System
 
-| Feature | Description | Icon |
-| --- | --- | --- |
-| **Customizable UI** | Easily customize components to fit your brand's identity. | ![🎨](https://raw.githubusercontent.com/animated-icons/color-palette.gif) |
-| **Accessibility First** | Built with accessibility in mind to ensure usability for all. | ![♿](https://raw.githubusercontent.com/animated-icons/accessibility.gif) |
-| **Responsive Design** | Adapts seamlessly to any screen size. | ![📱](https://raw.githubusercontent.com/animated-icons/responsive.gif) |
-| **Lightweight & Fast** | Optimized for performance with minimal footprint. | ![⚡](https://raw.githubusercontent.com/animated-icons/speed.gif) |
-| **Extensive Documentation** | Comprehensive docs for developers to get started quickly. | ![📖](https://raw.githubusercontent.com/animated-icons/documentation.gif) |
-| **Theming Support** | Full support for light and dark themes. | ![🌗](https://raw.githubusercontent.com/animated-icons/theme-switch.gif) |
-| **Cross-Browser Compatibility** | Works perfectly across all modern browsers. | ![🌐](https://raw.githubusercontent.com/animated-icons/browser.gif) |
+# Features of Raaghu Design System
 
+<div align="center">
+
+| Feature      | Description                                                                                                  | GIF                                  |
+|--------------|--------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| ![Fast](https://link-to-fast-gif)      | **Fast**<br>Achieve up to 3X acceleration with front end development through modular creation and component composition. | ![Fast GIF](https://link-to-fast-gif)   |
+| ![Consistent](https://link-to-consistent-gif) | **Consistent**<br>Get a consistent unified experience via smooth integration, code maintenance and consistency in user interface. | ![Consistent GIF](https://link-to-consistent-gif) |
+| ![Scalable](https://link-to-scalable-gif)    | **Scalable**<br>Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation. | ![Scalable GIF](https://link-to-scalable-gif)  |
+| ![Maintainable](https://link-to-maintainable-gif) | **Maintainable**<br>Replace, Rewrite & update components easily even when maintaining large applications. Components allow for easier user testing. | ![Maintainable GIF](https://link-to-maintainable-gif) |
+| ![Flexible](https://link-to-flexible-gif)    | **Flexible**<br>Components are inherently independent of the tech stack allowing multiple components and features to be deployed rapidly. | ![Flexible GIF](https://link-to-flexible-gif)  |
+| ![Pixel-perfect](https://link-to-pixel-perfect-gif) | **Pixel-perfect**<br>Designed with pixel perfect precision and accessibility in mind, with multiple well designed and scalable User Interfaces. | ![Pixel-perfect GIF](https://link-to-pixel-perfect-gif) |
+
+</div>
 
 
 <p>
