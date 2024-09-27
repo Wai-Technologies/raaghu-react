@@ -24,41 +24,25 @@
 [![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
-[![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
 [![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-blue)](https://github.com/Wai-Technologies/raaghu-react)
 [![Documentation](https://img.shields.io/badge/Docs-Online-brightgreen)](https://react.raaghu.ai/)
 [![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://github.com/Wai-Technologies/raaghu-react)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Wai-Technologies/raaghu-react/actions)
-
+[![Build Status](https://img.shields.io/badge/build-passing-red)](https://github.com/Wai-Technologies/raaghu-react/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
 
 ## <a name='raaghu-intro'></a> ---------------------------------------?
 
+# Wai Technologies Raaghu
 
-[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
-[![Issues](https://img.shields.io/npm/v/@waiin.technologies/issues.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
-[![Contributors](https://img.shields.io/npm/v/@waiin.technologies/contributors.svg)](https://github.com/Wai-Technologies/raaghu-react/issues)
-[![npm next package](https://img.shields.io/npm/v/@mui/material/next.svg)](https://www.npmjs.com/package/@mui/material)
-[![npm downloads](https://img.shields.io/npm/dm/@mui/material.svg)](https://www.npmjs.com/package/@mui/material)
-[![GitHub branch status](https://img.shields.io/github/checks-status/mui/material-ui/HEAD)](https://github.com/mui/material-ui/commits/HEAD/)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mui/material-ui.svg)](https://app.codecov.io/gh/mui/material-ui/)
-[![Follow on X](https://img.shields.io/twitter/follow/MaterialUI.svg?label=follow+Material+UI)](https://x.com/MaterialUI)
-[![Renovate status](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://github.com/mui/material-ui/issues/27062)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mui/material-ui.svg)](https://isitmaintained.com/project/mui/material-ui)
-[![Open Collective backers and sponsors](https://img.shields.io/opencollective/all/mui-org)](https://opencollective.com/mui-org)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1320/badge)](https://bestpractices.coreinfrastructure.org/projects/1320)
-
-
+[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
+[![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
+[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) <!-- Replace with actual Discord link -->
+[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/) <!-- Replace with actual community link -->
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://www.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
 </div>
-<div align="center">
 
-[![Build Status](https://img.shields.io/azure-devops/build/uifabric/fabricpublic/164/master?style=flat-square)](https://dev.azure.com/uifabric/fabricpublic/_build?definitionId=164)
-[![GitHub contributors](https://img.shields.io/github/contributors/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![GitHub top language](https://img.shields.io/github/languages/top/microsoft/fluentui?style=flat-square)](https://github.com/microsoft/fluentui)
-[![Twitter Follow](https://img.shields.io/twitter/follow/fluentui?logo=x&style=flat-square)](https://twitter.com/FluentUI?ref_src=twsrc%5Etfw)
-
-</div>
 </br>
 </br>
 
