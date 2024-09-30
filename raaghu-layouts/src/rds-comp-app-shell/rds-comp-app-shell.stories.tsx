@@ -283,7 +283,7 @@ export const Header: Story = {
                         ></img>
                       </div>
 
-                      <div className="align-items-center d-flex ms-auto">
+                      <div className="align-items-center d-flex ms-auto mx-3">
                         <div className="px-2 px-md-3">
                         <img
                           src="./assets/profile-picture-circle.svg"
@@ -311,7 +311,7 @@ export const Header: Story = {
                               path: ''
                             },
                           ]}
-                          size="small" darkDropdown={false} />
+                          size="mid" darkDropdown={false} />
                         </div>
                       </div>
                     </div>

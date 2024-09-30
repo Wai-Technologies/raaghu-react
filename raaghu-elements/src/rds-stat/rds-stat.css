@@ -9,8 +9,8 @@
 }
 
 .app-shell-header-layout {
-  height: 550px !important;
-  border-width: 30px !important;
+  height: 80vh;
+  border-width: 5%;
 }
 
 .w-300px {
