@@ -6,9 +6,9 @@
   <a href="https://raaghu.io" target="_blank">
     <p>
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-react-banner.png?raw=true">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-react-banner.png?raw=trues">
-        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-react-banner.png?raw=trues" width="1000"/>
+        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png?raw=true">
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues">
+        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues" width="1000"/>
       </picture>
     </p>
   </a>
@@ -204,7 +204,7 @@
 <thead>
 <tr>
 <th align="center" width="33%">Accelerate Your Frontend Development with raaghu!</th>
-<th align="center" width="33%">⁠Supercharge Your React Projects with Raaghu </th>
+<th align="center" width="33%">Why Raaghu</th>
 <th align="center" width="33%">Introduction to Raaghu</th>
 </tr>
 </thead>
@@ -232,7 +232,7 @@
 <table width="100%">
 <thead>
 <tr>
-<th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>0
+<th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
 <th align="center" width="33%">Building Web Apps with Raaghu Package</th>
 <th align="center" width="33%">Storybook-Backbone of Raaghu Design System</th>
 </tr>
