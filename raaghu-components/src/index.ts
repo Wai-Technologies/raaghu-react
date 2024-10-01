@@ -112,4 +112,4 @@ export { default as RdsCompGetAssistance } from "./rds-comp-get-assistance";
 export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
 export { default as RdsCompContribution } from "./rds-comp-contribution";
-
+export { default as RdsCompDialog } from "./rds-comp-dialog";
