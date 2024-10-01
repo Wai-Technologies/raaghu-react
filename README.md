@@ -214,7 +214,7 @@
 </br> 
 
 ## <a name='Insights'></a> Raaghu Resources
-</br> </br> 
+</br> 
 <table width="100%">
 <thead>
 <tr>
@@ -296,10 +296,10 @@ This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) f
 
 # Communities
 
-<div align="center">
+<div align="left">
 
-[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
 [![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) 
+[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
 [![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube&logoColor=white)](https://www.youtube.com/@wai-technologies)
 <!-- [![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
 [![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) 
