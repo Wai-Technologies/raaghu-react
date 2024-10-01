@@ -102,3 +102,24 @@ export const WithIcon: Story = {
 } satisfies Story;
 WithIcon.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } };
 
+export const TextWithLabel: Story = {
+  args: {
+    size: "smallest",
+    label: "9",
+    colorVariant: "danger",
+    badgeType: "pill",
+  },
+ // render: PositionedIcon
+} satisfies Story;
+TextWithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned','borderColor'] } };
+
+export const IconOnly: Story = {
+  args: {
+    size: "smallest",
+    //label: "9",
+    colorVariant: "danger",
+    badgeType: "pill",
+  },
+  render: PositionedIcon
+} satisfies Story;
+IconOnly.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned','borderColor'] } };
