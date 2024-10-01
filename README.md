@@ -59,13 +59,20 @@
  With <b>Storybook</b>, you can visualize and navigate through the features of the Raaghu Design System. Code snippets for each element allow you to design and test your UI more quickly and efficiently.
 
 </p>
-<p>
+<div align="center">
+
+<p> Built on a Robust technology stack </p>
+
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/bootstrap.svg" width="50" height="50" alt="Bootstrap"/> 
+</div>
+
+<!-- <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-dark.png?raw=true?">
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-light.png?raw=true?">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-light.png?raw=true?" width="1000"/>
   </picture>
-</p>
+</p> -->
 
 ## <a name='why'></a> Why Raaghu Design System?
 
