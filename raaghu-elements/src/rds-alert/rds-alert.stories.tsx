@@ -201,3 +201,46 @@ export const With_Left_Border: Story = {
     }
 };
 With_Left_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading'] } };
+
+export const No_Border: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: false,
+        withLeftBorder: false,
+        displayType: "singleline",
+    }
+};
+No_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading'] } };
+
+
+export const With_Border: Story = {
+    args: {
+        icon: "information",
+        iconHeight: "20px",
+        iconWidth: "20px",
+        linkbutton: true,
+        cancelbutton: true,
+        okaybutton: true,
+        alertheading: "Heading Title: ",
+        alertmessage: "This is the description of the message bar.",
+        colorVariant: "primary",
+        size: "small",
+        dismisable: true,
+        position: "top",
+        withBorder: true,
+        withLeftBorder: false,
+        displayType: "singleline",
+    }
+};
+With_Border.parameters = { controls: { include: ['alertmessage', 'icon', 'colorVariant', 'size', 'alertheading'] } };
