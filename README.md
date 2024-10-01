@@ -51,12 +51,10 @@
 
 </br></br>
 
-## <a name='raaghu-intro'></a> What is Raaghu?
+## <a name='raaghu-intro'></a> What is Raaghu Design System?
 
 <p>
-  <b>Raaghu</b>, a React-based design system, utilizes React, Vite, TypeScript, Million, Bootstrap 5, and Storybook to develop highly customizable UI application shells, layouts, elements, and components. It serves as an online repository for developers, providing access to a wide range of elements, components, maps, and charts.
-
- With <b>Storybook</b>, you can visualize and navigate through the features of the Raaghu Design System. Code snippets for each element allow you to design and test your UI more quickly and efficiently.
+  <b>The Raaghu Design System</b> is an AI-powered, component-driven development platform backed by a large, active community. It offers a Figma design kit available on the Figma Community and provides well-tested UI components documented in Storybook. We continuously enhance our platform by adding app shells, layouts, and component designs, which are transformed into coded components by AI Pundit and community members, enriching our component library. Each design component is seamlessly connected to code through Figma Code Connect, allowing designers and developers to achieve 3x faster front-end development. All components are rigorously tested using Chromatic to ensure quality and reliability.
 
 </p>
 </br>
@@ -82,9 +80,9 @@
   </picture>
 </p> -->
 
-## <a name='why'></a> Why Raaghu Design System?
+## <a name='why'></a> Why Choose the Raaghu Design System?
 
-<p> 
+<!-- <p> 
   Raaghu seamlessly bridges the gap between design and development while maintaining a high level of standardization.
 
 </p>
@@ -94,7 +92,33 @@
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png" width="1000"/>
   </picture>
-</p>
+</p> -->
+
+
+### 🚀 **AI-Powered Component-Driven Development**
+Raaghu leverages cutting-edge AI technology to simplify and accelerate the component development process.
+
+### 🎨 **Figma Design Kit Integration**
+Raaghu offers a comprehensive Figma design kit available through the [Figma Community](https://www.figma.com/). This ensures that designers have access to standardized, high-quality design assets, allowing them to quickly prototype and collaborate with developers for a unified design-to-code workflow.
+
+### 🔗 **Seamless Design-to-Code Workflow**
+Figma Code Connect links design components directly to code, enabling smoother collaboration between designers and developers.
+
+### 🌍 **Vibrant Community Support**
+Raaghu is supported by a large and active community of designers, developers, and contributors, enriching the overall ecosystem and ensuring constant innovation and improvement.
+
+### 📖 **Comprehensive Storybook Documentation**
+Well-documented UI components in Storybook ensure ease of use and consistency across projects.
+
+### ⚡ **3x Faster Development**
+AI-powered automation accelerates front-end development, cutting time to market significantly.
+
+### ✅ **Rigorous Testing**
+All components are tested with **Chromatic** for top-tier quality, ensuring visual consistency and responsiveness.
+
+### 🔄 **Constant Evolution and Innovation**
+Raaghu is not a static system. It evolves regularly with new components and designs from AI and community contributors, staying ahead of trends.
+
 
 ## <a name='how'></a> How Raaghu Design System Works?
 
