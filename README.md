@@ -99,8 +99,7 @@
 ## <a name='how'></a> How Raaghu Design System Works?
 
 <p>
-  Raaghu Design System leverages micro-frontend capabilities by breaking down page designs into individual components. Based on the wireframe and theme, the Raaghu Design System applies consistent CSS to elements, components, and pages within its framework.
-
+Raaghu Design System leverages AI capabilities by breaking down page designs into individual components. Based on the wireframe and theme, the Raaghu Design System applies consistent CSS to elements, components, and pages within its framework.
 </p>
 </br></br>
 
