@@ -95,29 +95,76 @@
 </p> -->
 
 
-### 🚀 **AI-Powered Component-Driven Development**
-Raaghu leverages cutting-edge AI technology to simplify and accelerate the component development process.
+# Why Choose the Raaghu Design System?
 
-### 🎨 **Figma Design Kit Integration**
-Raaghu offers a comprehensive Figma design kit available through the [Figma Community](https://www.figma.com/). This ensures that designers have access to standardized, high-quality design assets, allowing them to quickly prototype and collaborate with developers for a unified design-to-code workflow.
+<div align="center">
+  
+  <!-- AI-Powered Component-Driven Development Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/emoji/80/rocket-emoji.png" alt="AI-Powered Component-Driven Development" style="width:80px;"/>
+    <h3>AI-Powered Component-Driven Development</h3>
+    <p>Raaghu leverages cutting-edge AI technology to simplify and accelerate the component development process.</p>
+  </div>
 
-### 🔗 **Seamless Design-to-Code Workflow**
-Figma Code Connect links design components directly to code, enabling smoother collaboration between designers and developers.
+  <!-- Figma Design Kit Integration Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/color/80/figma.png" alt="Figma Design Kit Integration" style="width:80px;"/>
+    <h3>Figma Design Kit Integration</h3>
+    <p>Raaghu offers a comprehensive Figma design kit available through the <a href="https://www.figma.com/">Figma Community</a>. Quickly prototype and collaborate with developers for a unified design-to-code workflow.</p>
+  </div>
 
-### 🌍 **Vibrant Community Support**
-Raaghu is supported by a large and active community of designers, developers, and contributors, enriching the overall ecosystem and ensuring constant innovation and improvement.
+  <!-- Seamless Design-to-Code Workflow Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/fluency/80/code.png" alt="Seamless Design-to-Code Workflow" style="width:80px;"/>
+    <h3>Seamless Design-to-Code Workflow</h3>
+    <p>Figma Code Connect links design components directly to code, enabling smoother collaboration between designers and developers.</p>
+  </div>
 
-### 📖 **Comprehensive Storybook Documentation**
-Well-documented UI components in Storybook ensure ease of use and consistency across projects.
+</div>
 
-### ⚡ **3x Faster Development**
-AI-powered automation accelerates front-end development, cutting time to market significantly.
+<div align="center">
 
-### ✅ **Rigorous Testing**
-All components are tested with **Chromatic** for top-tier quality, ensuring visual consistency and responsiveness.
+  <!-- Vibrant Community Support Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/color/80/community-graveyard.png" alt="Vibrant Community Support" style="width:80px;"/>
+    <h3>Vibrant Community Support</h3>
+    <p>Raaghu is supported by a large and active community of designers, developers, and contributors, ensuring constant innovation and improvement.</p>
+  </div>
 
-### 🔄 **Constant Evolution and Innovation**
-Raaghu is not a static system. It evolves regularly with new components and designs from AI and community contributors, staying ahead of trends.
+  <!-- Comprehensive Storybook Documentation Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/color/80/book-shelf.png" alt="Comprehensive Storybook Documentation" style="width:80px;"/>
+    <h3>Comprehensive Storybook Documentation</h3>
+    <p>Well-documented UI components in Storybook ensure ease of use and consistency across projects.</p>
+  </div>
+
+  <!-- 3x Faster Development Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/emoji/80/fast-forward-button-emoji.png" alt="3x Faster Development" style="width:80px;"/>
+    <h3>3x Faster Development</h3>
+    <p>AI-powered automation accelerates front-end development, cutting time to market significantly.</p>
+  </div>
+
+</div>
+
+<div align="center">
+  
+  <!-- Rigorous Testing Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/fluency/80/checked-checkbox.png" alt="Rigorous Testing" style="width:80px;"/>
+    <h3>Rigorous Testing</h3>
+    <p>All components are tested with Chromatic for top-tier quality, ensuring visual consistency and responsiveness.</p>
+  </div>
+
+  <!-- Constant Evolution and Innovation Card -->
+  <div style="display:inline-block; width:30%; text-align:center; margin:10px;">
+    <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/80/external-innovation-innovation-flatart-icons-outline-flatarticons.png" alt="Constant Evolution and Innovation" style="width:80px;"/>
+    <h3>Constant Evolution and Innovation</h3>
+    <p>Raaghu is not a static system. It evolves regularly with new components and designs from AI and community contributors.</p>
+  </div>
+
+</div>
+
 
 
 ## <a name='how'></a> How Raaghu Design System Works?
