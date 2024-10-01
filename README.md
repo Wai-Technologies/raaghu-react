@@ -287,7 +287,9 @@ This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) f
 [![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
 [![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) <!-- Replace with actual Discord link -->
 [![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/) <!-- Replace with actual community link -->
-[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://www.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
+[![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube&logoColor=white)](https://www.youtube.com/@wai-technologies)
+
 </div>
 
 ## <a name='contribute'></a> How to Contribute 🤝
