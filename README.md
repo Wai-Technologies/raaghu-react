@@ -63,7 +63,11 @@
 
 <p> Built on a Robust technology stack </p>
 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/> <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/bootstrap.svg" width="50" height="50" alt="Bootstrap"/> 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> &nbsp;&nbsp;&nbsp;
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/> &nbsp;&nbsp;&nbsp;
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/> &nbsp;&nbsp;&nbsp;
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/bootstrap.svg" width="50" height="50" alt="Bootstrap"/> &nbsp;&nbsp;&nbsp;
 </div>
 
 <!-- <p>
