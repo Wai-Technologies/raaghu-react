@@ -25,6 +25,19 @@
     max-width: 190px;
   }
 
+  .left-action{
+    thead{
+      th{
+        background-color: #fff !important;
+      }
+    }
+    tbody{
+      td{
+        background-color: #fff !important;
+      }
+    }
+  }
+
   thead {
     white-space: nowrap;
   }
@@ -140,7 +153,6 @@
     content: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M2 5l6 6 6-6%27/%3e%3c/svg%3e") !important;
   }
 
-
   #languageDropdown {
     bottom: 2.2rem;
     top: auto !important;
@@ -148,7 +160,7 @@
     max-height: calc(100vh - 350px) !important;
   }
 
-  #languageDropdownForSearch{
+  #languageDropdownForSearch {
     bottom: 2.2rem;
     top: auto !important;
     max-height: calc(100vh - 350px) !important;
@@ -178,7 +190,6 @@
   .navbar .dropdown-raaghu-button div div:last-child svg {
     display: block !important;
   }
-
 
   .FlipCard {
     height: 24rem;
@@ -234,8 +245,6 @@
   }
 }
 
-
-
 .bd-links.toggle-sidebar-menu .menuLabels {
   display: none;
 }
@@ -261,9 +270,9 @@
   max-width: auto;
 }
 
-@media screen and (max-width:1279px) {
+@media screen and (max-width: 1279px) {
   .shadow-md-lg {
-    box-shadow: 0rem 0.1rem 0.6rem 0.1rem rgba(0, 0, 0, 0.10);
+    box-shadow: 0rem 0.1rem 0.6rem 0.1rem rgba(0, 0, 0, 0.1);
   }
 
   .position-lg-relative {
@@ -279,10 +288,7 @@
     overflow-y: hidden;
     //margin-bottom: 30px;
   }
-
 }
-
-
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .mobile-btn .btn-icon {
@@ -357,7 +363,6 @@
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
-
   #sortTable thead th:first-child,
   #sortTable tbody td:first-child {
     position: sticky;
@@ -418,12 +423,14 @@
   bottom: 25px;
 }
 
-form input[type=password] {
+form input[type="password"] {
   padding-right: 0.3rem;
 }
 
 .form-control .npm__react-simple-code-editor__textarea:focus,
-.form-control .npm__react-simple-code-editor__textarea:focus-visible .npm__react-simple-code-editor__textarea:focus,
+.form-control
+  .npm__react-simple-code-editor__textarea:focus-visible
+  .npm__react-simple-code-editor__textarea:focus,
 .npm__react-simple-code-editor__textarea:focus-visible {
   border: 1px solid #bf97f7 !important;
   border-radius: 0.25rem;
@@ -443,9 +450,9 @@ p.cursor-pointer label {
   min-width: auto;
 }
 
-.btn-group>.btn:not(:last-child):not(.dropdown-toggle),
-.btn-group>.btn.dropdown-toggle-split:first-child,
-.btn-group>.btn-group:not(:last-child)>.btn {
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn.dropdown-toggle-split:first-child,
+.btn-group > .btn-group:not(:last-child) > .btn {
   border-right: 0;
 }
 
@@ -478,17 +485,18 @@ p.cursor-pointer label {
   z-index: 9999;
 }
 
-.input-group-sm>.form-control,
-.input-group-sm>.form-select,
-.input-group-sm>.input-group-text,
-.input-group-sm>.btn {
+.input-group-sm > .form-control,
+.input-group-sm > .form-select,
+.input-group-sm > .input-group-text,
+.input-group-sm > .btn {
   padding: 0.38rem 0.5rem;
 }
 
 // ios notch devices css
 
 body {
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .text-secondary-50 {
@@ -503,7 +511,6 @@ form .form-group .select-options,
 .card .select-options {
   z-index: 0;
 }
-
 
 .file-folder:first-child {
   padding-left: 1px !important;
@@ -526,7 +533,6 @@ form .form-group .select-options,
 
 .single_action_icon span {
   padding: 7px 7px;
-
 }
 
 .single_action_icon span:hover {
