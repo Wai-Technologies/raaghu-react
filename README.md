@@ -204,7 +204,7 @@
 <thead>
 <tr>
 <th align="center" width="33%">Accelerate Your Frontend Development with raaghu!</th>
-<th align="center" width="33%">Why Raaghu</th>
+<th align="center" width="33%">Supercharge Your React Projects with Raaghu </th>
 <th align="center" width="33%">Introduction to Raaghu</th>
 </tr>
 </thead>
