@@ -113,7 +113,7 @@
   </picture>
 </p> 
 
-## <a name='learn-more'></a> Learn more about Raaghu Design System
+<!-- ## <a name='learn-more'></a> Learn more about Raaghu Design System -->
 <!-- <p>
   Learn more about Raaghu Design System
 </p>  -->
@@ -198,7 +198,7 @@
 </table> -->
 </br> 
 
-## <a name='Insights'></a> Raaghu Design System Insights Episodes
+## <a name='Insights'></a> Raaghu Resources
 </br> </br> 
 <table width="100%">
 <thead>
@@ -284,10 +284,10 @@ This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) f
 <div align="center">
 
 [![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
-[![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
-[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) <!-- Replace with actual Discord link -->
-[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/) <!-- Replace with actual community link -->
-[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) <!-- Replace with actual LinkedIn link -->
+<!-- [![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
+[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) 
+[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/)  -->
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) 
 [![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube&logoColor=white)](https://www.youtube.com/@wai-technologies)
 
 </div>
