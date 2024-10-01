@@ -143,7 +143,7 @@
       <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
-
+  &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
