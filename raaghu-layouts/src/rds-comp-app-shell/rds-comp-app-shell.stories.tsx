@@ -231,7 +231,7 @@ export const Basic: Story = {
                   />
                 </BrowserRouter>
               </div>
-              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 m-3">
+              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 app-shell-layout m-3">
                 <h2 className="fw-bolder">Add Layout Here</h2>
               </div>
             </div>
@@ -428,7 +428,7 @@ export const Header: Story = {
           </div>
         </div>
 
-        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-header-layout">
+        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-layout">
           <h2 className="fw-bolder">Add Layout Here</h2>
         </div>
       </>
