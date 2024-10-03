@@ -3,11 +3,14 @@ import { colors } from "../../libs/types";
 import RdsAvatar from "../rds-avatar";
 
 import "./rds-card.css";
+import RdsButton from "../rds-button";
+import RdsIcon from "../rds-icon";
 
 export interface RdsCardProps {
     buttonLabel?: string;
     colorVariant?: colors;
     cardTitle?: string;
+    cardSubTitle?: string;
     cardText?: string;
     showFooter?: boolean;
     isImage?: boolean;
@@ -84,13 +87,33 @@ const RdsCard = (props: RdsCardProps) => {
 
                 {props.isImage || props.isAvatar ? (
                     <div className="card-body">
+                        <RdsIcon
+                            colorVariant="primary"
+                            height="20px"
+                            isCursorPointer
+                            name="users"
+                            stroke
+                            width="20px"
+                            />
+                            <br></br>
                         <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
+                        <h6>{props.cardSubTitle}</h6>
                         <p>{props.cardText}</p>
                     </div>
                 ) : (
                     <>
-                        <div className={`${isCenter === true ? "" : "card-header pt-3"}`}>
+                        <div className="card-body">
+                        <RdsIcon
+                            colorVariant="primary"
+                            height="20px"
+                            isCursorPointer
+                            name="users"
+                            stroke
+                            width="20px"
+                            />
+                            <br></br>
                             <h5>{props.cardTitle}</h5>
+                            <h6>{props.cardSubTitle}</h6>
                         </div>
 
                         <div className="card-body">
@@ -103,10 +126,17 @@ const RdsCard = (props: RdsCardProps) => {
 
                 {props.showFooter === true && (
                     <div className="card-footer">
-                        <button type="button" className={` ${btnColor}`}>
-                            {props.buttonLabel}
-                        </button>
+                    <RdsButton
+                    class="btn-link"
+                    label="Link Button >"
+                    />  
+                    <br></br> 
+                     <RdsButton
+                    class="btn-link"
+                    label="Link Button >"
+                    />                                         
                     </div>
+                    
                 )}
             </div>
         </Fragment>

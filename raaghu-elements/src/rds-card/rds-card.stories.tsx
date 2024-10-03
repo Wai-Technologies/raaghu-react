@@ -48,8 +48,10 @@ export const Default: Story = {
         colorVariant: "primary",
         borderColor: "",
         cardTitle: "Card title",
+        cardSubTitle: "Card Sub title",
         cardText:
-            "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            `Some quick example text to build on the card title and make up the bulk of the card's content
+             Some quick example text to build on the card title and make up the bulk of the card's content.`,
         buttonLabel: "Button",
         showFooter: true,
     }
@@ -57,11 +59,13 @@ export const Default: Story = {
 Default.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle', 'cardText', 'buttonLabel', 'showFooter'] } };
 
 export const CardWithImage: Story = {
-    args: {
+    args: { 
         colorVariant: "primary",
         cardTitle: "Card title",
+        cardSubTitle: "Card Sub title",
         cardText:
-            "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        `Some quick example text to build on the card title and make up the bulk of the card's content
+         Some quick example text to build on the card title and make up the bulk of the card's content.`,
         buttonLabel: "Button",
         showFooter: true,
         isImage: true,
@@ -75,8 +79,10 @@ export const Avatar: Story = {
     args: {
         colorVariant: "primary",
         cardTitle: "Card title",
+        cardSubTitle: "Card Sub title",
         cardText:
-            "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            `Some quick example text to build on the card title and make up the bulk of the card's content
+             Some quick example text to build on the card title and make up the bulk of the card's content.`,
         buttonLabel: "Button",
         showFooter: true,
         isImage: true,
@@ -93,8 +99,10 @@ export const WithCenteredAvatar: Story = {
     args: {
         colorVariant: "primary",
         cardTitle: "Card title",
+        cardSubTitle: "Card Sub title",
         cardText:
-            "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        `Some quick example text to build on the card title and make up the bulk of the card's content
+         Some quick example text to build on the card title and make up the bulk of the card's content.`,
         buttonLabel: "Button",
         showFooter: true,
         isImage: true,
