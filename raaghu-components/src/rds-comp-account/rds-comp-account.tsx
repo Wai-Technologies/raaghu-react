@@ -25,10 +25,11 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
     const [accountGeneralData, setAccountGeneralData] = useState<any>(
         props.accountGeneralSettings
     );
+
     const handlerChangeGeneral = (value: any, name: any) => {
         setAccountGeneralData({ ...accountGeneralData, [name]: value });
     };
-   
+ 
     const navtabsItems = [
         { label: "Account Settings General", id: "0" },
         { label: "Account Settings Two Factor", id: "1" },
@@ -68,10 +69,24 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
             siteKey: "",
             siteSecret: "",
             score: ""
-        });
-           
+        });        
     }
 
+    const isBaseUrlValid = (baseUrl: any) => {
+        if (!baseUrl || baseUrl.length === 0) {
+            return false;
+        }
+        return true;
+    };
+
+    const isSiteKeyValid = (siteKey: any) => {
+        if (!siteKey || siteKey.length === 0) {
+            return false;
+        }
+        return true;
+    };
+
+    const isFormValid=isBaseUrlValid(accountGeneralData?.verifyBaseUrl) && isSiteKeyValid(accountGeneralData?.siteKey);
    
     return (
         <form>
@@ -191,9 +206,10 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             onChange={(e) => {
                                                 handlerChangeGeneral(e.target.value, "verifyBaseUrl");
                                             }}
+                                            required={true}
                                             dataTestId="url"
                                             validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                                            validationMsg="Enter valid url"
+                                            validationMsg="Please Enter valid url (https or http)"
                                         ></RdsInput>
                                     </div>
                                 </div>
@@ -226,9 +242,10 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                                 handlerChangeGeneral(e.target.value, "siteKey");
                                             }}
                                             dataTestId="site-key-url"
+                                            required={true}
                                             validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                                            validationMsg="Enter valid url"
-                                        ></RdsInput>
+                                            validationMsg="Please Enter valid url (https or http)"
+                                        ></RdsInput>                                     
                                     </div>
                                 </div>
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
@@ -276,6 +293,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     onClick={(e: any) => emitSaveData(e)}
                     size="small"
                     dataTestId="save"
+                    isDisabled={!isFormValid}
                 ></RdsButton>
             </div>
         </form >
