@@ -122,7 +122,7 @@
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true" width="450" style="max-width:90%; margin: 0 20px;">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -130,7 +130,7 @@
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true" width="450" style="max-width:90%; margin: 0 20px;">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
