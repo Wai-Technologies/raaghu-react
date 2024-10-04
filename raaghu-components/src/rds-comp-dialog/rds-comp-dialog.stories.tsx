@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import RdsCompDialog from './rds-comp-dialog'; // Ensure the correct import path
 
 const meta: Meta<typeof RdsCompDialog> = {
-  title: 'Components/RdsCompDialog',
+  title: 'Components/Dialog',
   component: RdsCompDialog,
   parameters: {
     layout: 'padded',
