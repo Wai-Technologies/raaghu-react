@@ -33,25 +33,25 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
     });
   }
   const isClientUrlValid = (clientUrl: any) => {
-  if(!clientUrl || clientUrl.length === 0){
+  if(!clientUrl || clientUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(clientUrl)){
     return false;
   }
   return true;
   }
   const isLogoUrlValid = (logoUrl: any) => {
-  if(!logoUrl || logoUrl.length === 0){
+  if(!logoUrl || logoUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoUrl)){
     return false;
   }
   return true;
   }
   const isCallBackUrlValid = (callbackUrl: any) => {
-  if(!callbackUrl || callbackUrl.length === 0){
+  if(!callbackUrl || callbackUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(callbackUrl)){
     return false;
   }
   return true;
   }
   const isLogoutUrlValid = (logoutUrl: any) => {
-  if(!logoutUrl || logoutUrl.length === 0){
+  if(!logoutUrl || logoutUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoutUrl)){
     return false;
   }
   return true;

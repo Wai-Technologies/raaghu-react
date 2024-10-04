@@ -73,14 +73,14 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
     }
 
     const isBaseUrlValid = (baseUrl: any) => {
-        if (!baseUrl || baseUrl.length === 0) {
+        if (!baseUrl || baseUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(baseUrl)) {
             return false;
         }
         return true;
     };
 
     const isSiteKeyValid = (siteKey: any) => {
-        if (!siteKey || siteKey.length === 0) {
+        if (!siteKey || siteKey.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(siteKey)) {
             return false;
         }
         return true;

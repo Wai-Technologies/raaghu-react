@@ -62,7 +62,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
         });
     }
     const isUrlValid = (url: any) => {
-        if (!url || url.length === 0) {
+        if (!url || url.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(url)) {
             return false;
         }
         return true;

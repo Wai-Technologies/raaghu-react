@@ -51,13 +51,13 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
         return true;
     };
     const isClientUriValid = (clientUri: any) => {
-        if (!clientUri || clientUri.length === 0) {
+        if (!clientUri || clientUri.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(clientUri)) {
             return false;
         }
         return true;
     };
     const isLogoUriValid = (logoUri: any) => {
-        if (!logoUri || logoUri.length === 0) {
+        if (!logoUri || logoUri.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoUri)) {
             return false;
         }
         return true;

@@ -73,8 +73,9 @@ const RdsCompAddMember = (props: RdsCompAddMemberProps) => {
 };
 
 const isRoleIdValid = (roleId: any) => {
-    if (!roleId ) {
-        return false;
+  console.log("roleId",roleId);
+    if (!roleId || roleId.length === 0 || roleId === "0") {
+      return false;
     }
     return true;
 };
@@ -151,7 +152,16 @@ const isRoleIdValid = (roleId: any) => {
                     key={index}
                     id={`checkbox-${assignRoles.id}`}
                     label={assignRoles.name}
-                    onChange={() => checkboxHandler(assignRoles.id, "roleId")}
+                    onChange={() => {
+                      if (assignRoles.isDefault) {
+                        setAddMemberData((prevAddMemberData: any) => ({
+                          ...prevAddMemberData,
+                          roleId: "0"
+                        }));
+                      } else {
+                        checkboxHandler(assignRoles.id, "roleId");
+                      }
+                    }}
                     checked={assignRoles.isDefault}
                     withlabel
                   />

@@ -258,7 +258,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       return true;
   };
   const isApplicationApiUrlValid = (apiUrl: any) => {
-   if (!apiUrl || apiUrl.length === 0) {
+   if (!apiUrl || apiUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(apiUrl)) {
        return false;
    }
    return true;
