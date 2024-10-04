@@ -220,7 +220,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+      <img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -228,7 +228,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+      <img alt="Layouts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
@@ -258,9 +258,9 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_cardments_card.png?raw=true">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+      <img alt="Design Tokens" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
