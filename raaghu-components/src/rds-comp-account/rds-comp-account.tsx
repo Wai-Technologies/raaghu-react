@@ -25,10 +25,11 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
     const [accountGeneralData, setAccountGeneralData] = useState<any>(
         props.accountGeneralSettings
     );
+
     const handlerChangeGeneral = (value: any, name: any) => {
         setAccountGeneralData({ ...accountGeneralData, [name]: value });
     };
-   
+ 
     const navtabsItems = [
         { label: "Account Settings General", id: "0" },
         { label: "Account Settings Two Factor", id: "1" },
@@ -68,10 +69,24 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
             siteKey: "",
             siteSecret: "",
             score: ""
-        });
-           
+        });        
     }
 
+    const isBaseUrlValid = (baseUrl: any) => {
+        if (!baseUrl || baseUrl.length === 0) {
+            return false;
+        }
+        return true;
+    };
+
+    const isSiteKeyValid = (siteKey: any) => {
+        if (!siteKey || siteKey.length === 0) {
+            return false;
+        }
+        return true;
+    };
+
+    const isFormValid=isBaseUrlValid(accountGeneralData?.verifyBaseUrl) && isSiteKeyValid(accountGeneralData?.siteKey);
    
     return (
         <form>
@@ -191,6 +206,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             onChange={(e) => {
                                                 handlerChangeGeneral(e.target.value, "verifyBaseUrl");
                                             }}
+                                            required={true}
                                             dataTestId="url"
                                             validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
                                             validationMsg="Enter valid url"
@@ -275,6 +291,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     onClick={(e: any) => emitSaveData(e)}
                     size="small"
                     dataTestId="save"
+                    isDisabled={!isFormValid}
                 ></RdsButton>
             </div>
         </form >

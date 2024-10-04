@@ -15,7 +15,7 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof RdsCompAlertPopup>;
-
+ 
 export const Default: Story = (args : any) => (
     <>
         <button

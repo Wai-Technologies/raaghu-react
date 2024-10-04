@@ -14,10 +14,11 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
   useEffect(() => {
     setAssistance(props.assistanceData);
   }, [props.assistanceData]);
-
+  
   useEffect(() => {
     setInputReset(!inputReset);
   }, [props.reset]);
+ 
 
   const handleDataChanges = (value: any, key: string, isFile?: boolean) => {
     if (isFile) {
@@ -28,18 +29,47 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
     }
   };
 
+  const isEmailValid = (email: any) => {
+    if (!email || email.length === 0) {
+      return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      return false;
+    } else return true;
+  };
+  const isNameValid = (name: any) => {
+    if (!name || name.length === 0) {
+        return false;
+    }
+    return true;
+};
+
+const isContactNumberValid = (contactNumber: any) => {
+    if (!contactNumber || contactNumber.length === 0) {
+        return false;
+    }
+    return true;
+};
+const isMessageValid = (msg: any) => {
+  if (!msg || msg.length === 0) {
+      return false;
+  }
+  return true;
+};
+
+const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assistance.contactNumber) && isEmailValid(assistance?.Email) && isMessageValid(assistance.message);
+ 
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(assistance);
     setInputReset(!inputReset);
     setAssistance({
       name: "",
-      email: "",
+      Email: "",
       contactNumber: "",
       message: "",
     });
   }
-
+ 
   return (
     <div>
       <form>
@@ -56,21 +86,22 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                 handleDataChanges(e.target.value, "name");
               }}
               reset={inputReset}
-            ></RdsInput>
+            ></RdsInput>  
+            
           </div>
-          <div className="col-md-6 form-group mb-2">
-            <RdsInput
-              inputType="text"
-              label={"Email"}
-              required={true}
-              placeholder={"Enter Email"}
-              value={assistance?.email}
-              onChange={(e) => {
-                handleDataChanges(e.target.value, "email");
-              }}
-              validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
-              validationMsg="Invalid Email Address."
+          <div className="col-md-6  mb-2">
+             <RdsInput
+              label="Email"
               reset={inputReset}
+              size="medium"
+              inputType="text"
+              name="Email"
+              placeholder={"Enter Email"}
+              required={true}
+              value={assistance?.Email}
+              onChange={(e) => handleDataChanges(e.target.value, "Email")}
+              validatonPattern={ /^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/}
+              validationMsg="Please enter a valid email address"
             ></RdsInput>
           </div>
             <div className="col-md-6 form-group mb-2">
@@ -101,7 +132,8 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
                           e.preventDefault();
                       }
                   }}
-              ></RdsInput>
+              />
+
             </div>
           <div className="form-group mb-2">
             <RdsTextArea
@@ -138,6 +170,7 @@ const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
               // onClick={() => {
               //     props.onSaveHandler(tenantInformationData);
               // }}
+              isDisabled={!isFormValid}
               onClick={(e: any) => emitSaveData(e)}
             ></RdsButton>
           </div>

@@ -5,6 +5,7 @@ import {
     RdsIllustration,
     RdsInput,
     RdsTextArea,
+    RdsLabel,
 } from "../rds-elements";
 
 export interface RdsCompWebhookSubscriptionProps {
@@ -64,7 +65,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
 
     const isFormValid =
         isEndpointValid(user.endpoint) &&
-        isEventValid(user.event) &&
+       
         webhookheaderfile.length != 0;
 
     //****************handle Submit********************
@@ -155,7 +156,12 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     </div>
 
                      <div className="fw-normal row mb-3 mt-2 align-items-center">              
-                        <label className="mb-2" id="webhookEndpoint">Additional Webhook Headers</label>
+                        {/* <label className="mb-2" id="webhookEndpoint">Additional Webhook Headers</label> */}
+                        <RdsLabel
+                           label="Additional Webhook Headers"
+                           id="webhookEndpoint"
+                           required={true}
+                        />
                         <div className="col-12 col-md-5 mb-3">
                             <RdsInput
                                 placeholder="Header key"
@@ -166,6 +172,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                   handleDataChanges(e.target.value, "headerKey");
                                 }}
                                 value={user?.headerKey}
+                                
                                 dataTestId="header-key"
                             ></RdsInput>
                         </div>
@@ -175,6 +182,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 reset={inputReset}
                                 inputType="text"
                                 name={"headerValue"}
+                               
                                 onChange={(e) => {
                                   handleDataChanges(e.target.value, "headerValue");
                                 }}
