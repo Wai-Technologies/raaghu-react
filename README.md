@@ -6,9 +6,9 @@
   <a href="https://raaghu.io" target="_blank">
     <p>
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png?raw=true">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues">
-        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues" width="1000"/>
+        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-dark.png?raw=true">
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues">
+        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues" width="1000"/>
       </picture>
     </p>
   </a>
@@ -18,7 +18,7 @@
 
 <div align="center">
 
-[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Wai-Technologies/raaghu-react/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
@@ -58,7 +58,7 @@
 
 </p>
 </br>
-<div align="left">
+<div align="center">
 
 <p> Built on a Robust technology stack </p>
 </br>
@@ -97,88 +97,90 @@
 # Why Choose the Raaghu Design System?
 
 <div align="center">
-  
-  <!-- Row 1 -->
-  <!-- AI-Powered Component-Driven Development Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/emoji/80/rocket-emoji.png" alt="AI-Powered Component-Driven Development" style="width:80px;"/>
-    <h3>AI-Powered Component-Driven Development</h3>
-    <p>Raaghu leverages cutting-edge AI technology to simplify and accelerate the component development process.</p>
-  </div>
 
-  <!-- Figma Design Kit Integration Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/color/80/figma.png" alt="Figma Design Kit Integration" style="width:80px;"/>
-    <h3>Figma Design Kit Integration</h3>
-    <p>Raaghu offers a comprehensive Figma design kit available through the <a href="https://www.figma.com/">Figma Community</a>. Quickly prototype and collaborate with developers for a unified design-to-code workflow.</p>
-  </div>
-  
-</div>
-
-<div align="center">
-
-  <!-- Row 2 -->
-  <!-- Seamless Design-to-Code Workflow Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/fluency/80/code.png" alt="Seamless Design-to-Code Workflow" style="width:80px;"/>
-    <h3>Seamless Design-to-Code Workflow</h3>
-    <p>Figma Code Connect links design components directly to code, enabling smoother collaboration between designers and developers.</p>
-  </div>
-
-  <!-- Vibrant Community Support Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/color/80/community-graveyard.png" alt="Vibrant Community Support" style="width:80px;"/>
-    <h3>Vibrant Community Support</h3>
-    <p>Raaghu is supported by a large and active community of designers, developers, and contributors, ensuring constant innovation and improvement.</p>
-  </div>
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
 
 </div>
 
 <div align="center">
 
-  <!-- Row 3 -->
-  <!-- Comprehensive Storybook Documentation Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/color/80/book-shelf.png" alt="Comprehensive Storybook Documentation" style="width:80px;"/>
-    <h3>Comprehensive Storybook Documentation</h3>
-    <p>Well-documented UI components in Storybook ensure ease of use and consistency across projects.</p>
-  </div>
-
-  <!-- 3x Faster Development Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/emoji/80/fast-forward-button-emoji.png" alt="3x Faster Development" style="width:80px;"/>
-    <h3>3x Faster Development</h3>
-    <p>AI-powered automation accelerates front-end development, cutting time to market significantly.</p>
-  </div>
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
 
 </div>
 
 <div align="center">
 
-  <!-- Row 4 -->
-  <!-- Rigorous Testing Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/fluency/80/checked-checkbox.png" alt="Rigorous Testing" style="width:80px;"/>
-    <h3>Rigorous Testing</h3>
-    <p>All components are tested with Chromatic for top-tier quality, ensuring visual consistency and responsiveness.</p>
-  </div>
-
-  <!-- Constant Evolution and Innovation Card -->
-  <div style="display:inline-block; width:45%; text-align:center; margin:20px;">
-    <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/80/external-innovation-innovation-flatart-icons-outline-flatarticons.png" alt="Constant Evolution and Innovation" style="width:80px;"/>
-    <h3>Constant Evolution and Innovation</h3>
-    <p>Raaghu is not a static system. It evolves regularly with new components and designs from AI and community contributors.</p>
-  </div>
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
 
 </div>
 
+<div align="center">
 
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
 
 
 ## <a name='how'></a> How Raaghu Design System Works?
 
 <p>
-Raaghu Design System leverages AI capabilities by breaking down page designs into individual components. Based on the wireframe and theme, the Raaghu Design System applies consistent CSS to elements, components, and pages within its framework.
+The Raaghu Design System streamlines front-end development by combining an AI-powered component-driven approach with seamless design-to-code integration. Designers use the Figma design kit, available on the Figma Community, to create prototypes, which are automatically linked to code via Figma Code Connect. Raaghu’s AI Pundit converts these designs into fully functional, reusable components, documented in Storybook. Continuous updates from community contributors and rigorous testing with Chromatic ensure quality, enabling designers and developers to achieve up to 3x faster development.
 </p>
 </br></br>
 
@@ -206,12 +208,31 @@ Raaghu Design System leverages AI capabilities by breaking down page designs int
   </picture>
 </p> 
 
-<!-- ## <a name='learn-more'></a> Learn more about Raaghu Design System -->
+## <a name='learn-more'></a> More about Raaghu Design System
 <!-- <p>
   Learn more about Raaghu Design System
 </p>  -->
 </br>
 
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -227,6 +248,17 @@ Raaghu Design System leverages AI capabilities by breaking down page designs int
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
       <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/EleDesign_tokens_cardments_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
