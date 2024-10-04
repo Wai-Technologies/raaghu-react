@@ -5,6 +5,7 @@ import RdsAvatar from "../rds-avatar";
 import "./rds-card.css";
 import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
+import { isDisabled } from "@testing-library/user-event/dist/types/utils";
 
 export interface RdsCardProps {
     buttonLabel?: string;
@@ -19,6 +20,11 @@ export interface RdsCardProps {
     centerAlign?: boolean;
     isAvatar?: boolean;
     borderColor?: colors;
+    isDisabled ? : boolean
+    iconName ? : string ;
+    isBordered ? : boolean ;
+    isFilled ? : boolean ;
+    
 }
 
 const RdsCard = (props: RdsCardProps) => {
@@ -28,7 +34,8 @@ const RdsCard = (props: RdsCardProps) => {
 
     return (
         <Fragment>
-            <div className={`card ${props.borderColor ? borderColor : ""}`}>
+           <div className={`card ${props.borderColor ? props.borderColor : ""} ${props.isDisabled ? 'card-disabled' : ""} ${props.isBordered ? 'card-bordered' : ""} ${props.isFilled ? 'card-filled' : ""}`}>
+
                 <div className="headerClass">
                     {props.isImage === true ? (
                         <div className="position-relative">
@@ -90,8 +97,7 @@ const RdsCard = (props: RdsCardProps) => {
                         <RdsIcon
                             colorVariant="primary"
                             height="20px"
-                            isCursorPointer
-                            name="users"
+                            isCursorPointer                           
                             stroke
                             width="20px"
                             />
@@ -102,7 +108,7 @@ const RdsCard = (props: RdsCardProps) => {
                     </div>
                 ) : (
                     <>
-                        <div className="card-body">
+                      {/* <div className="card-body">
                         <RdsIcon
                             colorVariant="primary"
                             height="20px"
@@ -114,18 +120,30 @@ const RdsCard = (props: RdsCardProps) => {
                             <br></br>
                             <h5>{props.cardTitle}</h5>
                             <h6>{props.cardSubTitle}</h6>
-                        </div>
+                        </div> */}
+
+
+                    
 
                         <div className="card-body">
-                            <div>
-                                <p>{props.cardText}</p>
-                            </div>
-                        </div>
+                        <RdsIcon
+                            colorVariant="primary"
+                            height="20px"
+                            isCursorPointer
+                            name={props.iconName}
+                            stroke
+                            width="20px"
+                            />
+
+                        <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
+                        <h6 className={`${isCenter ? "" : "mt-3"}`}>{props.cardSubTitle}</h6>
+                        <p>{props.cardText}</p>
+                    </div>
                     </>
                 )}
-
-                {props.showFooter === true && (
-                    <div className="card-footer">
+              
+                   {props.showFooter === true && (
+                   <div className={`card-footer ${props.isFilled ? 'card-filled' : ""}`}>
                     <RdsButton
                     class="btn-link"
                     label="Link Button >"
