@@ -94,7 +94,6 @@
   </picture>
 </p> -->
 
-# Why Choose the Raaghu Design System?
 
 <div align="center">
 
