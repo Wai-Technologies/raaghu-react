@@ -93,7 +93,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "clientUrl");
                 }}
                 value={clientData?.clientUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
@@ -110,7 +110,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     handleDataChanges(e.target.value, "logoUrl");
                   }}
                   value={clientData?.logoUrl}
-                  validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                  validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                   validationMsg="Enter Valid URL Format"
                 ></RdsInput>
               </div>
@@ -129,7 +129,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "callbackUrl");
                 }}
                 value={clientData?.callbackUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
@@ -145,7 +145,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "logoutUrl");
                 }}
                 value={clientData?.logoutUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>

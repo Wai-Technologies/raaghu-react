@@ -87,7 +87,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             name="url"
                             onChange={(e) => handlerChangeInput(e, "url")}
                             dataTestId="url"
-                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
                         />
                     </div>

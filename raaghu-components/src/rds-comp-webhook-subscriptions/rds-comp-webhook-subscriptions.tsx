@@ -134,7 +134,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             value={user?.endpoint}
                             name={"endpoint"}
                             dataTestId="webhook-endpoint"
-                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
                         ></RdsInput>
                     </div>
@@ -149,7 +149,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             }}
                             value={user?.event}
                             dataTestId="webhook-event"
-                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
                         />
                     </div>
