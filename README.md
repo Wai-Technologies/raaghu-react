@@ -218,9 +218,9 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -233,6 +233,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </a>
 
 </div>
+</br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -252,6 +253,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </a>
 
 </div>
+</br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
