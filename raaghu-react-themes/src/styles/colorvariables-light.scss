@@ -2716,3 +2716,11 @@ hr {
 .select-placeholder {
     color: var(--bs-body-color);
 }
+
+.form-check-input-type-square-indeterminate{
+    border-color:$primary;
+}
+
+.form-check-input-type-circular-indeterminate{
+    border-color:$primary;
+}
