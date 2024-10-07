@@ -1,18 +1,43 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import "./rds-accordion.css";
+import RdsIcon from "../rds-icon";
 
 export interface AccordionItem {
     id: string;
     title: string;
     accordionContent: ReactNode;
     defaultOpen?: boolean;
+    
 }
 
 export interface RdsAccordionProps {
+    icon?: string;
+    iconFill?: boolean;
+    iconStroke?: boolean;
+    iconHeight?: string;
+    iconWidth?: string;
+    size?: "small" | "medium" | "large";
+    border?:"border" | "bottomline" | "borderhide"
     accordionType?: 'single' | 'multiple';
     accordionId?: string;
     items: AccordionItem[];
+
     onclick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+}
+
+const classes = (props: RdsAccordionProps) => {
+    let classes: string = '';
+
+    if (props.size) {
+        const size = 'accordion-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
+        classes = ' ' + size;
+    }
+     if (props.border) {
+        const borderClass = `accordion-${props.border}`;
+        classes += ' ' + borderClass;
+    }
+   
+    return classes;
 }
 
 const RdsAccordion = (props: RdsAccordionProps) => {
@@ -34,6 +59,32 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                 : [...openItemIds, id]);
         }
     };
+    const iconClasses = () => {
+        let iconSpan: string = '';
+        if (props.icon) {
+            const iconClass = 'accordion-icon';
+            iconSpan = iconClass;
+        }
+
+        return iconSpan;
+    }
+    useEffect(() => {
+        openItemIds.forEach(id => {
+            const element = document.getElementById(`heading${id}`);
+            if (element) {
+                element.classList.add('accordion-active-bg');
+            }
+        });
+
+        return () => {
+            openItemIds.forEach(id => {
+                const element = document.getElementById(`heading${id}`);
+                if (element) {
+                    element.classList.remove('accordion-active-bg');
+                }
+            });
+        };
+    }, [openItemIds]);
 
     return (
         <div id={`accordion${props.accordionId}`}>
@@ -41,15 +92,23 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                 {props.items.map((item) => {
                     const isOpen = openItemIds.includes(item.id);
                     return (
-                        <div className="accordion-item" key={item.id}>
+                        <div className={"accordion-item" + classes(props)} key={item.id} >
                             <h2 className="accordion-header" id={`heading${item.id}`}>
                                 <button
-                                    className={`accordion-button ${isOpen ? '' : 'collapsed'}`}
+                                    className={`accordion-button ${isOpen ? "" : "collapsed"}`}
                                     type="button"
                                     aria-expanded={isOpen}
                                     aria-controls={`collapse${item.id}`}
                                     onClick={() => toggleOpen(item.id)}
                                 >
+                                {props.icon && (
+                    <span className={iconClasses()}>
+                        <RdsIcon
+                            name={props.icon}
+                            fill={props.iconFill}
+                            stroke={props.iconStroke} />
+                    </span>
+                )}
                                     {item.title}
                                 </button>
                             </h2>
