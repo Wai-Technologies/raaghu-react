@@ -12,15 +12,11 @@ export interface RdsCarouselProps {
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
-    const Role = `${props.hasOwnProperty("role") ? props.role : "basic"}`;
+    const Role = `${props.hasOwnProperty("role") ? props.role : "advanced"}`;
     const Fade = props.crossFade || false;
     let roleClass = "";
     let indicatorClass="";
     switch (Role) {
-      case "basic":
-        roleClass = "carousel-fade";
-        indicatorClass="carousel-indicators-onImage";
-        break;
       case "style1":
         roleClass = "carousel-slide";
         indicatorClass="carousel-indicators-bottom";
@@ -43,7 +39,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
     }
     return (
       <Fragment>
-        {(Role == "basic" ||
+        {(
           Role == "style1" ||
           Role == "style2" ||
           Role == "style3" ||
