@@ -7,12 +7,15 @@ const meta: Meta = {
     title: "Elements/Select List",
     component: RdsSelectList,
     argTypes: {
-
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "select" },
+        }
     },
     parameters: {
         layout: 'padded',
     },
-    tags: ['autodocs']
+    tags: ['autodocs'],
 } satisfies Meta<typeof RdsSelectList>;
 
 
@@ -49,7 +52,7 @@ export const Default: Story = {
         selectedValue: "",
         required: false,
         isSearchable: true,
-        isBold: false
+        isBold: false,
     }
 }
 Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'onChange'] } };
@@ -90,10 +93,11 @@ Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'plac
 export const WithIcon: Story = {
     args: {
         id: "story",
-        label: "Select List With Icon",
+        label: "Lable",
+        size: "medium",
         isMultiple: true,
         defaultImgUrl:"https://www.svgrepo.com/show/497407/profile-circle.svg",
-        placeholder: "Select label",      
+        placeholder: "placeholder",      
         selectItems: [
             {
                 label: "Riya Sharma",
@@ -139,9 +143,11 @@ export const WithIcon: Story = {
             }
         ],
         isDisabled: false,
+        showTitle: true,
+        showHint: false,
         required: false,
         isSearchable: true,
         isBold: false
     }
 }
-WithIcon.parameters = { controls: { include: ['id','label', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
+WithIcon.parameters = { controls: { include: ['id','label','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showTitle', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };

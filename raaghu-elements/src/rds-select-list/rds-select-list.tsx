@@ -3,7 +3,10 @@ import Select, { components } from "react-select";
 import "./rds-select-list.css";
 
 export interface RdsSelectProps {
+  size?: "small" | "large" | "medium" | string;
   label?: string;
+  showHint?: boolean;
+  showTitle?: boolean;
   isBold?: boolean;
   isMultiple?: boolean;
   selectItems: {
@@ -51,6 +54,22 @@ const RdsSelectList = (props: RdsSelectProps) => {
     }
   };
 
+  const customStyles = {
+    control: (provided: any) => ({
+      ...provided,
+      minHeight: props.size === "small" ? "1.875rem" : props.size === "large" ? "3.125rem" : "2.5rem", 
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem", 
+    }),
+    menu: (provided: any) => ({
+      ...provided,
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem", 
+    }),
+    option: (provided: any) => ({
+      ...provided,
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+    }),
+  };
+
   const selectedItem = props.isMultiple
     ? props.selectItems.filter((item: any) => selectedValue?.includes(item.value))
     : props.selectItems.find((item: any) => item.value === selectedValue);
@@ -90,7 +109,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   return (
     <div className={props.classes}>
-      {props.label && (
+      {props.label &&props.showTitle&& (
         <label
           htmlFor={props.id}
           className={`form-label ${props.isBold ? "fw-bold" : ""}`}
@@ -114,7 +133,13 @@ const RdsSelectList = (props: RdsSelectProps) => {
         classNamePrefix="custom-select"
         aria-label="select example"
         data-testid={props.dataTestId}
+        styles={customStyles}
       />
+      {props.showHint && (
+        <p className="my-1 text-black-50">
+          <small>Hint Text</small>
+        </p>
+      )}
     </div>
   );
 };
