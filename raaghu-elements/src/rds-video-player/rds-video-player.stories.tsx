@@ -22,7 +22,7 @@ export const Default: Story = {
         height: "240px",
         autoplay: false,
         muted: false,
-        videoLink: "https://www.w3schools.com/html/mov_bbb.mp4",  // Example of a default .mp4 video
+        videoLink: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",  // Example of a hosted .mp4 file
     }
 } satisfies Story;
 
@@ -32,9 +32,11 @@ export const Vimeo: Story = {
         height: "240px",
         autoplay: false,
         muted: false,
-        videoLink: "https://vimeo.com/76979871",  // Replace with a valid Vimeo link
+        videoLink: "https://vimeo.com/420192272",  // React tutorial on Vimeo
     }
 } satisfies Story;
+
+Vimeo.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };
 
 export const YouTube: Story = {
     args: {
