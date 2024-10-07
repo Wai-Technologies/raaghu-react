@@ -41,7 +41,19 @@ const RdsCompPage = (props: RdsCompPageProps) => {
             style: ""
         });
         }
-
+        const isTitleValid = (title: any) => {
+            if (!title || title.length === 0) {
+                return false;
+            }
+            return true;
+        }
+        const isSlugValid = (slug: any) => {
+            if (!slug || slug.length === 0) {
+                return false;
+            }
+            return true;
+        }
+const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
     return (
         <>
             <div className="custom-content-scroll">
@@ -164,7 +176,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                     type={"button"}
                     size="small"
                     databsdismiss="offcanvas"
-                    isDisabled={!data}
+                    isDisabled={!isFormValid}
                     colorVariant="primary"
                     class="me-2"
                     onClick={(e: any) => emitSaveData(e)}
