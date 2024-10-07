@@ -66,6 +66,9 @@ const RdsButton = (props: RdsButtonProps) => {
         if (props.isRoundedButton) {
             defaultClass = defaultClass + 'rounded-pill';
         }
+        if (props.class) {
+            defaultClass = defaultClass + 'btn-link';
+        }
         return defaultClass;
     }
 

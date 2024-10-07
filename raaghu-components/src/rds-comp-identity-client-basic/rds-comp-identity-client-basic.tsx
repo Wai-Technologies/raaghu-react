@@ -18,6 +18,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
     setClientData({ ...clientData, [key]: value });
   };
 
+  
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(clientData);
@@ -31,7 +32,31 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
       logoutUrl: "",
     });
   }
-
+  const isClientUrlValid = (clientUrl: any) => {
+  if(!clientUrl || clientUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(clientUrl)){
+    return false;
+  }
+  return true;
+  }
+  const isLogoUrlValid = (logoUrl: any) => {
+  if(!logoUrl || logoUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoUrl)){
+    return false;
+  }
+  return true;
+  }
+  const isCallBackUrlValid = (callbackUrl: any) => {
+  if(!callbackUrl || callbackUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(callbackUrl)){
+    return false;
+  }
+  return true;
+  }
+  const isLogoutUrlValid = (logoutUrl: any) => {
+  if(!logoutUrl || logoutUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoutUrl)){
+    return false;
+  }
+  return true;
+  }
+const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(clientData?.logoUrl) && isCallBackUrlValid(clientData?.callbackUrl) && isLogoutUrlValid(clientData?.logoutUrl);
   return (
     <>
       <form className="p-2 mt-1">
@@ -93,7 +118,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "clientUrl");
                 }}
                 value={clientData?.clientUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
@@ -110,7 +135,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                     handleDataChanges(e.target.value, "logoUrl");
                   }}
                   value={clientData?.logoUrl}
-                  validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                  validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                   validationMsg="Enter Valid URL Format"
                 ></RdsInput>
               </div>
@@ -129,7 +154,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "callbackUrl");
                 }}
                 value={clientData?.callbackUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
@@ -145,7 +170,7 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
                   handleDataChanges(e.target.value, "logoutUrl");
                 }}
                 value={clientData?.logoutUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                 validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
@@ -181,7 +206,9 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
             type={"submit"}
             onClick={(e: any) => emitSaveData(e)}
             databsdismiss="offcanvas"
+            isDisabled={!isFormValid}
           ></RdsButton>
+           
         </div>
       </form>
     </>
