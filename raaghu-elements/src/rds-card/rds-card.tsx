@@ -14,9 +14,13 @@ export interface RdsCardProps {
     cardSubTitle?: string;
     cardText?: string;
     showFooter?: boolean;
+    showTitle?: boolean;
+    showSubTitle?: boolean;
     isImage?: boolean;
     imageUrl?: string;
     src?: string;
+    style?:string;
+    state?: string;
     centerAlign?: boolean;
     isAvatar?: boolean;
     borderColor?: colors;
@@ -24,6 +28,7 @@ export interface RdsCardProps {
     iconName ? : string ;
     isBordered ? : boolean ;
     isFilled ? : boolean ;
+   iconShow ? : boolean;
     
 }
 
@@ -31,10 +36,10 @@ const RdsCard = (props: RdsCardProps) => {
     const btnColor = "btn btn-md btn-" + (props.colorVariant || "primary");
     const isCenter = props.centerAlign || false;
     const borderColor = `border border-${props.borderColor}`;
-
+ 
     return (
         <Fragment>
-           <div className={`card ${props.borderColor ? props.borderColor : ""} ${props.isDisabled ? 'card-disabled' : ""} ${props.isBordered ? 'card-bordered' : ""} ${props.isFilled ? 'card-filled' : ""}`}>
+           <div className={`card ${props.borderColor ? props.borderColor : ""} ${props.isDisabled || props.state==='Disabled'? 'card-disabled' : ""} ${props.style==='Outlined' ? 'card-bordered' : ""} ${props.style==='Filled' ? 'card-filled' : ""} ${props.state==='Hovered'?'card-hovered':''} ${props.state==='Selected'?'card-selected':''}`}>
 
                 <div className="headerClass">
                     {props.isImage === true ? (
@@ -92,7 +97,7 @@ const RdsCard = (props: RdsCardProps) => {
                     )}
                 </div>
 
-                {props.isImage || props.isAvatar ? (
+                {props.isImage || props.isAvatar || !props.iconShow? (
                     <div className="card-body">
                         <RdsIcon
                             colorVariant="primary"
@@ -102,8 +107,12 @@ const RdsCard = (props: RdsCardProps) => {
                             width="20px"
                             />
                             <br></br>
-                        <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
-                        <h6>{props.cardSubTitle}</h6>
+                            {props.showTitle && ( 
+                                <h5 className={`${isCenter ? "" : "mt-3"} `}>{props.cardTitle}</h5>
+                            )}
+                            {props.showSubTitle && (
+                        <h6 className={`${props.state === 'Selected' ? 'text-color-primary' : ''}`}>{props.cardSubTitle}</h6>
+                            )}
                         <p>{props.cardText}</p>
                     </div>
                 ) : (
@@ -132,23 +141,29 @@ const RdsCard = (props: RdsCardProps) => {
                             width="20px"
                             />
 
-                        <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
-                        <h6 className={`${isCenter ? "" : "mt-3"}`}>{props.cardSubTitle}</h6>
+                        {props.showTitle && (
+                            <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
+                        )}
+                        {props.showSubTitle && (
+                        <h6 className={`${isCenter ? "" : "mt-3"} ${props.state === 'Selected' ? 'text-color-primary' : ''}`}>{props.cardSubTitle}</h6>
+                        )}
                         <p>{props.cardText}</p>
                     </div>
                     </>
                 )}
               
                    {props.showFooter === true && (
-                   <div className={`card-footer ${props.isFilled ? 'card-filled' : ""}`}>
+                   <div className={`card-footer ${props.style==='Filled' ? 'card-filled' : ""} ${props.isDisabled || props.state==='Disabled'? 'card-disabled' : ""} ${props.state==='Hovered'?'card-hovered':''} ${props.state==='Selected'?'card-selected':''}`}>
                     <RdsButton
                     class="btn-link"
                     label="Link Button >"
+                    
                     />  
                     <br></br> 
                      <RdsButton
                     class="btn-link"
                     label="Link Button >"
+                   
                     />                                         
                     </div>
                     

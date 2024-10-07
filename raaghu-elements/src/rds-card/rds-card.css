@@ -166,3 +166,16 @@
     background-color: #efdcff !important ;/* Filled background color (light blue) */
     border-color: none;
   }
+  .btn-link{
+text-decoration: none !important;
+  }
+ 
+  .card-hovered {
+    background-color: #E9E9E9!important;
+  }
+  .card-selected{
+    background-color: #E9E9E9 !important;
+  }
+ .text-color-primary{
+ color: #7825E9 !important
+ }
