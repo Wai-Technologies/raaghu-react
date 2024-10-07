@@ -1,16 +1,29 @@
 export type colors = 
   | "primary"
   | "secondary"
+  | "tertiary"
   | "success"
-  | "danger"
+  | "error"
   | "warning"
-  | "info"
+  | "neutral"
   | "dark"
   | "light"
   | "gradient-primary"
   | "white"
   | "transparent"
+
+
   | string;
+
+  export const badge_colors = {
+    Primary: "primary",
+    Secondary: "secondary",
+    Tertiary : "tertiary",
+    Success: "success",
+    Error: "error",
+    Warning: "warning",
+    Neutral: "nuetral",
+};
 
 export const alert_colors = {
     Primary: "primary",

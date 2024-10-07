@@ -3,6 +3,8 @@ import RdsBadge from "./rds-badge";
 import RdsIcon from "../rds-icon/rds-icon";
 import RdsButton from "../rds-button/rds-button";
 import { Meta, StoryObj, } from "@storybook/react";
+import { alert_colors } from "../../libs";
+import { badge_colors } from "../../libs/types/colorvariant";
 
 const meta: Meta = {
   title: 'Elements/Badge',
@@ -21,16 +23,7 @@ const meta: Meta = {
       control: { type: "select" },
     },
     colorVariant: {
-      options: [
-        "primary",
-        "success",
-        "danger",
-        "warning",
-        "light",
-        "info",
-        "secondary",
-        "dark",
-      ],
+      options: badge_colors,
       control: { type: "select" },
     },
   },
