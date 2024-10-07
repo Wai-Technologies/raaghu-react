@@ -44,7 +44,32 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
             phoneNumber: "",
         });
     }
-
+    const isAdminValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isNameValid = (name: any) => {
+        if (!name || name.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isSurnameValid = (surname: any) => {
+        if (!surname || surname.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        } else return true;
+    };
+const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name) && isSurnameValid(formData?.surname) && isEmailValid(formData?.email);
     return (
         <form>
             <div className="custom-content-scroll">
@@ -128,6 +153,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                                     block={false}
                                     type="submit"
                                     onClick={(e) => emailHandler(e, isEmailClicked)}
+                                    isDisabled={!isEmailValid(formData?.email)}
                                     dataTestId="verify-email"
                                 />
                             </span>
@@ -187,6 +213,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                     type="submit"
                     size="small"
                     dataTestId="save"
+                    isDisabled={!isFormValid}
                     onClick={(e: any) => emitSaveData(e)}
                 />
             </div>
