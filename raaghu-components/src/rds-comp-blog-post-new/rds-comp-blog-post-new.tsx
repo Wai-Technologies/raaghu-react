@@ -60,7 +60,25 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
       return newData;
     });
   }
-
+  const isTitleValid=(title: string)=>{
+    if (!title || title.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isSlugValid=(slug: string)=>{
+    if (!slug || slug.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isTagsValid=(tags: string)=>{
+    if (!tags || tags.length === 0) {
+        return false;
+    }
+    return true;
+  }
+const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) && isTagsValid(postData?.tags);
   return (
     <>
       <div>
@@ -202,6 +220,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                   isOutline={true}
                   colorVariant="primary"
                   databsdismiss="offcanvas"
+                  isDisabled={!isFormValid}
                   databstoggle="offcanvas"
                   databstarget={`#${props?.offId}`}
                   dataTestId="save"
@@ -214,6 +233,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                   isOutline={false}
                   colorVariant="primary"
                   databsdismiss="offcanvas"
+                  isDisabled={!isFormValid}
                   databstoggle="offcanvas"
                   databstarget={`#${props?.offId}`}
                   size="small"
@@ -240,6 +260,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
                   colorVariant="primary"
                   size="small"
                   databsdismiss="offcanvas"
+                  isDisabled={!isFormValid}
                   databstoggle="offcanvas"
                   databstarget={`#${props?.offId}`}
                   onClick={(e: any) => emitSaveData(e)}
