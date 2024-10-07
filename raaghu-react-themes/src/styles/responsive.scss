@@ -6,6 +6,13 @@
     min-width: 40px;
   }
 
+  .footer-buttons{
+    .btn{
+      width:100%;
+      max-width: 100%;
+    }
+  }
+
   .dropdown-menu {
     max-height: 390px;
   }
@@ -23,6 +30,19 @@
     background: #f8f8f8;
     z-index: 0;
     max-width: 190px;
+  }
+
+  .left-action{
+    thead{
+      th{
+        background-color: #fff !important;
+      }
+    }
+    tbody{
+      td{
+        background-color: #fff !important;
+      }
+    }
   }
 
   thead {
@@ -534,4 +554,23 @@ form .form-group .select-options,
 
 .lottie-border-0 #lottie path {
   stroke: transparent;
+}
+.map-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  height: auto; 
+  padding: 1rem; 
+}
+
+@media (max-width: 767px) {
+  .map-container{
+    flex-direction: column;
+    width: 210px !important; 
+    padding: 1rem !important;
+  }
+  .worldmap__figure-container svg {
+    transform: scale(0.9);
+  }
 }

@@ -139,6 +139,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 type="button"
                                 dataTestId="create"
                                 onClick={(e: any) => emitSaveData(e)}
+                                isDisabled={!data?.type || !data.val || !data.expiration || !data.description}
                             ></RdsButton>
                         </div>
                     </div>
