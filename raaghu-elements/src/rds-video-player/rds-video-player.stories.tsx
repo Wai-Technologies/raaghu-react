@@ -16,14 +16,32 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsVideoPlayer>;
 
-
-export const VideoPlayer: Story = {
+export const Default: Story = {
     args: {
         width: "480px",
         height: "240px",
         autoplay: false,
         muted: false,
-        videoLink: "https://youtu.be/7sDY4m8KNLc",
+        videoLink: "https://www.w3schools.com/html/mov_bbb.mp4",  // Example of a default .mp4 video
     }
 } satisfies Story;
-VideoPlayer.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };
+
+export const Vimeo: Story = {
+    args: {
+        width: "480px",
+        height: "240px",
+        autoplay: false,
+        muted: false,
+        videoLink: "https://vimeo.com/76979871",  // Replace with a valid Vimeo link
+    }
+} satisfies Story;
+
+export const YouTube: Story = {
+    args: {
+        width: "480px",
+        height: "240px",
+        autoplay: false,
+        muted: false,
+        videoLink: "https://youtu.be/7sDY4m8KNLc",  // YouTube link
+    }
+} satisfies Story;
