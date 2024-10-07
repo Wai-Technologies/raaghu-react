@@ -95,4 +95,3 @@ export { default as RdsCardDetail } from "./rds-card-detail";
 export { default as RdsMap } from "./rds-map";
 export { default as RdsLoader } from "./rds-loader";
 export { default as RdsDivider } from "./rds-divider";
-export { default as RdsDropdownListWithSearch } from "./rds-dropdown-list-with-search";
