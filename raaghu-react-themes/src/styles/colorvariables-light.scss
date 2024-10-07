@@ -2,26 +2,277 @@
 $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
-    "success": $success,
-    "info": $info,
+    "tertiary": $tertiary,
+    "neutral": $neutral,
+    "error":$error,
     "warning": $warning,
-    "danger": $danger,
+    "success": $success,
+
+/*     "info": $info,
+    "danger": $danger, */
     "light": $light,
     "dark": $dark ) !default;
+
+    /*Primary background colors*/
+$bg-primary-darker-default:#19003E;
+$bg-primary-dark-default:#7825E9;
+$bg-primary-medium-default:#D4BBFF;
+$bg-primary-light-default:#EBDCFF;
+$bg-primary-lighter-default:#FEF7FF;
+
+    /*Secondary background colors*/
+    $bg-secondary-darker-default:#111755;
+    $bg-secondary-dark-default:#2534E9;
+    $bg-secondary-medium-default:#93B8FF;
+    $bg-secondary-light-default:#BCD5FF;
+    $bg-secondary-lighter-default:#EBF3FF;
+
+    /*Tertiary background colors*/
+    $bg-tertiary-darker-default:#530054;
+    $bg-tertiary-dark-default:#B30FBC;
+    $bg-tertiary-medium-default:#F8A4FF;
+    $bg-tertiary-light-default:#F9CCFF;
+    $bg-tertiary-lighter-default:#FEF3FF;
+
+    /*Neutral Background colors */
+    $bg-neutral-darker-default:#202020;
+    $bg-neutral-dark-default:#4C4C4C;
+    $bg-neutral-medium-default:#CDCDCD;
+    $bg-neutral-light-default:#E9E9E9;
+    $bg-neutral-lighter-default:#646464;
+
+    /*Error Background colors */
+    $bg-error-darker-default:#410003;
+    $bg-error-dark-default:#BD0D1D;
+    $bg-error-medium-default:#FFB3AD;
+    $bg-error-light-default:#FFDAD6;
+    $bg-error-lighter-default:#FFF8F7;
+
+     /*Warning Background colors */
+     $bg-warning-darker-default:#431907;
+     $bg-warning-dark-default:#C2510C;
+     $bg-warning-medium-default:#FDC674;
+     $bg-warning-light-default:#CDCDCD;
+     $bg-warning-lighter-default:#FFF9ED;
+
+      /*Success Background colors */
+      $bg-success-darker-default:#431907;
+      $bg-success-dark-default:#C2510C;
+      $bg-success-medium-default:#FDC674;
+
+      /*Primary icons colors*/
+      $icon-primary-outline-default:#7825E9;
+      $icon-primary-outline-hover:#4F00A6;
+      $icon-primary-outline-selected:#340071;
+      $icon-primary-outline-disabled:#D4BBFF;
+      $icon-primary-outline-invert:#FFFFFF;
+
+      /*Secondary icons colors*/
+      $icon-secondary-outline-default:#2534E9;
+      $icon-secondary-outline-hover:#1827BB;
+      $icon-secondary-outline-selected:#1D2B92;
+      $icon-secondary-outline-disabled:#93B8FF;
+      $icon-secondary-outline-invert:#FFFFFF;
+
+      /*Tertiary icons colors*/
+      $icon-tertiary-outline-default:#B30FBC;
+      $icon-tertiary-outline-hover:#940F99;
+      $icon-tertiary-outline-selected:#7B127D;
+      $icon-tertiary-outline-disabled:#F8A4FF;
+      $icon-tertiary-outline-invert:#FFFFFF;
+
+       /*Neutral icons colors*/
+       $icon-neutral-outline-default:#646464;
+       $icon-neutral-outline-hover:#4C4C4C;
+       $icon-neutral-outline-selected:#353535;
+       $icon-neutral-outline-disabled:#CDCDCD;
+       $icon-neutral-outline-invert:#FFFFFF;
+
+       /*Error icons colors*/
+       $icon-error-outline-default:#BD0D1D;
+       $icon-error-outline-hover:#930011;
+       $icon-error-outline-selected:#680009;
+       $icon-error-outline-disabled:#FFB3AD;
+       $icon-error-outline-invert:#FFFFFF;
+
+       /*Warning icons colors*/
+       $icon-warning-outline-default:#C2510C;
+       $icon-warning-outline-hover:#9A4012;
+       $icon-warning-outline-selected:#7C3712;
+       $icon-warning-outline-disabled:#FDC674;
+       $icon-warning-outline-invert:#FFFFFF;
+
+        /*Success icons colors*/
+        $icon-success-outline-default:#1F7630;
+        $icon-success-outline-hover:#1D5E2A;
+        $icon-success-outline-selected:#1A4D25;
+
+
+        /*Primary Input colors*/
+        $input-primary-solid-default:#7825E9;
+        $input-primary-solid-hover:#4F00A6;
+        $input-primary-solid-disabled:#D4BBFF;
+        $input-primary-outline-default:#7825E9;
+        $input-primary-outline-hover:#4F00A6;
+        $input-primary-outline-disabled:#D4BBFF;
+
+          /*Secondary Input colors*/
+          $input-secondary-solid-default:#2534E9;
+          $input-secondary-solid-hover:#1827BB;
+          $input-secondary-solid-disabled:#93B8FF;
+          $input-secondary-outline-default:#2534E9;
+          $input-secondary-outline-hover:#1827BB;
+          $input-secondary-outline-disabled:#93B8FF;
+
+           /*Tertiary Input colors*/
+           $input-tertiary-solid-default:#B30FBC;
+           $input-tertiary-solid-hover:#940F99;
+           $input-tertiary-solid-disabled:#F8A4FF;
+           $input-tertiary-outline-default:#B30FBC;
+           $input-tertiary-outline-hover:#940F99;
+           $input-tertiary-outline-disabled:#F8A4FF;
+
+            /*Neutral Input colors*/
+            $input-tertiary-solid-default:#646464;
+            $input-tertiary-solid-hover:#4C4C4C;
+            $input-tertiary-solid-disabled:#CDCDCD;
+            $input-tertiary-outline-default:#646464;
+            $input-tertiary-outline-hover:#4C4C4C;
+            $input-tertiary-outline-disabled:#CDCDCD;
+
+             /*Error Input colors*/
+             $input-error-solid-default:#BD0D1D;
+             $input-error-solid-hover:#930011;
+             $input-error-solid-disabled:#FFB3AD;
+             $input-error-outline-default:#BD0D1D;
+             $input-error-outline-hover:#930011;
+             $input-error-outline-disabled:#FFB3AD;
+
+             /*Warning Input colors*/
+             $input-warning-solid-default:#C2510C;
+             $input-warning-solid-hover:#9A4012;
+             $input-warning-solid-disabled:#FDC674;
+             $input-warning-outline-default:#C2510C;
+             $input-warning-outline-hover:#9A4012;
+             $input-warning-outline-disabled:#FDC674;
+
+              /*Successs Input colors*/
+              $input-warning-solid-default:#1F7630;
+              $input-warning-solid-hover:#1D5E2A;
+              $input-warning-solid-disabled:#90E5A0;
+              $input-warning-outline-default:#1F7630;
+              $input-warning-outline-hover:#1D5E2A;
+              $input-warning-outline-disabled:#90E5A0;
+  
+
+              /*Primary Link Colors*/
+              $line-primary-dark-defaut:#7E2EEF;
+              $line-primary-medium-defaut:#BE98FF;
+              $line-primary-light-defaut:#EBDCFF;
+
+                 /*Secondary Link Colors*/
+                 $line-secondary-dark-defaut:#2539FF;
+                 $line-secondary-medium-defaut:#698FFF;
+                 $line-secondary-light-defaut:#BCD5FF;
+
+                 /*Teritary Link Colors*/
+                 $line-tertiary-dark-defaut:#DA25E9;
+                 $line-tertiary-medium-defaut:#F56EFF;
+                 $line-tertiary-light-defaut:#F9CCFF;
+
+                 /*Neutral Link Colors*/
+                 $line-neutral-dark-defaut:#4C4C4C;
+                 $line-neutral-medium-defaut:#B1B1B1;
+                 $line-neutral-light-defaut:#E9E9E9;
+
+                 /*Error Link Colors*/
+                 $line-error-dark-defaut:#E02D30;
+                 $line-error-medium-defaut:#FF8980;
+                 $line-error-light-defaut:#FFDAD6;
+
+                 /*Warning Link Colors*/
+                 $line-warning-dark-defaut:#EA6C0C;
+                 $line-warning-medium-defaut:#FBA33C;
+                 $line-warning-light-defaut:#FED99B;
+
+                  /*Success Link Colors*/
+                  $line-success-dark-defaut:#24993A;
+                  $line-success-medium-defaut:#58D06E;
+                  $line-success-light-defaut:#C1F1C9;
+
+                  /*Text Primary color*/
+                 $txt-primary-darker-default:#19003E;
+                 $txt-primary-dark-default:#340071;
+                 $txt-primary-medium-default:#7825E9;
+                 $txt-primary-light-default:#A875FF;
+                 $txt-primary-lighter-default:#FEF7FF;
+
+                  /*Text Secondary color*/
+                  $txt-secondary-darker-default:#111755;
+                  $txt-secondary-dark-default:#1D2B92;
+                  $txt-secondary-medium-default:#2534E9;
+                  $txt-secondary-light-default:#4666FF;
+                  $txt-secondary-lighter-default:#EBF3FF;
+
+ /*Text Tertiary color*/
+ $txt-tertiary-darker-default:#530054;
+ $txt-tertiary-dark-default:#7B127D;
+ $txt-tertiary-medium-default:#B30FBC;
+ $txt-tertiary-light-default:#EB37FE;
+ $txt-tertiary-lighter-default:#FEF3FF;  
+
+  /*Text Neutral color*/
+  $txt-neutral-darker-default:#202020;
+  $txt-neutral-dark-default:#353535;
+  $txt-neutral-medium-default:#353535;
+  $txt-neutral-light-default:#969696;
+  $txt-neutral-lighter-default:#FCFCFC;
+
+
+   /*Text Error color*/
+   $txt-error-darker-default:#410003;
+   $txt-error-dark-default:#680009;
+   $txt-error-medium-default:#BD0D1D;
+   $txt-error-light-default:#FF544F;
+   $txt-error-lighter-default:#FFF8F7;
+
+      /*Text Warning color*/
+      $txt-warning-darker-default:#431907;
+      $txt-warning-dark-default:#7C3712;
+      $txt-warning-medium-default:#C2510C;
+      $txt-warning-light-default:#F98816;
+      $txt-warning-lighter-default:#FFF9ED;
+
+      /*Text Success color*/
+      $txt-success-darker-default:#092A11;
+      $txt-success-dark-default:#1A4D25;
+      $txt-success-medium-default:#1F7630;
+ 
+ 
+   
+  
+ 
+ 
+
+
 $min-contrast-ratio: 4.5 !default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
 $body-bg: white;
 $input-bg: $body-bg !default;
 
 $border-color: $gray-100;
+$accordion-border-color: #646464 ;
+
+
 $toast-btn-close-color: $gray-100 !default;
 $btn-close-width: 1em !default;
 $btn-close-color: $gray-100 !default;
 $btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
 
 // /*accordion color variables*/
-$accordion-bg: $primary;
+$accordion-bg: $white;
 $accordion-button-bg: $light;
+$accordion-border-color: $neutral-40 !default;
 
 // /*badge mixins color variables*/
 $badge-bg-scale: -80%;
@@ -238,9 +489,23 @@ $offcanvas-bottom-border-color: $border-color !default;
 
 $bg-connect: $white;
 
+$accordion-border-color: $neutral-40 !default;
+
+.accordion-bottomline {
+
+    .accordion-header {
+        &:not(.collapsed) {
+            border-bottom: 1px solid $accordion-border-color;
+        }
+    }
+}
+
+.accordion-border {
+    border:1px solid $accordion-border-color;
+}
+
 .lf-player-container {
-    filter: grayscale(1
-    );
+    filter: grayscale(1 );
 }
 
 .lf-player-container:hover {
@@ -533,6 +798,9 @@ button#dropdownMenuButton:focus {
 .accordion-header {
     background: $accordion-bg;
     border-color: $primary;
+}
+.accordion-active-bg {
+    background-color: var(--bs-accordion-active-bg);
 }
 
 .outline {
@@ -2712,7 +2980,7 @@ hr {
     }
 }
 
-.raaghu-select__single-value,
-.raaghu-select__placeholder {
+.select-value,
+.select-placeholder {
     color: var(--bs-body-color);
 }

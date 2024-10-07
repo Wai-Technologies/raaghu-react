@@ -42,7 +42,7 @@ export const Gridify: Story = {
                     <div className="grid-container-3">
                         <div className=" content-with-small-height"></div>
                         <div className=" content-with-small-height"></div>
-                        <div className=" content-with-small-height"></div>
+                        <div className=" content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
                         <div className="content-with-full-height"></div>
@@ -59,13 +59,13 @@ export const Spotlight: Story = {
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-1">
+                    <div className="grid-container-1 mb-sm-2">
                         <div className="content-with-small-height"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
                         <div className="content-with-full-height"></div>
@@ -85,12 +85,12 @@ export const Matrix: Story = {
                     <div className="grid-col-container-2-1-1">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-1-2">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
                         <div className="col-md-12 content-with-medium-height"></div>
@@ -124,38 +124,38 @@ export const Snapshots: Story = {
             <>
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-container-4">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-4">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-col-container-1-1-2">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>{" "}
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
                         <div className="col-md-12 content-with-medium-height"></div>
@@ -173,29 +173,29 @@ export const Sections: Story = {
             <>
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-small-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
                     </div>
                     <div className="grid-container-4">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-container-2">
                         <div className="col-md-12 content-with-medium-height"></div>
-                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
                     </div>
                     <div className="grid-container-4">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-2-1-1">
                         <div className="content-with-medium-height"></div>
@@ -215,16 +215,16 @@ export const Boxify: Story = {
             <>
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-small-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-medium-height"></div>
@@ -244,10 +244,10 @@ export const Stacks: Story = {
             <>
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-1">
-                        <div className="col-md-12 content-with-full-height">
+                        <div className="">
                             <div className="grid-container-2">
                                 <div className="content-with-medium-height"></div>
-                                <div className="content-with-medium-height"></div>
+                                <div className="content-with-medium-height mb-sm-2"></div>
                             </div>
                             <div className="grid-container-2">
                                 <div className="content-with-medium-height"></div>
@@ -272,13 +272,13 @@ export const Nexus: Story = {
                         <div className="content-with-medium-height"></div>
                         <div>
                             <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
+                                <div className="content-with-small-height mb-sm-2"></div>
                             </div>
                             <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
+                                <div className="content-with-small-height "></div>
                             </div>
                         </div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-1-2">
                         <div className="content-with-medium-height"></div>
@@ -300,7 +300,7 @@ export const Mosaic: Story = {
                     <div className="grid-col-container-1-1-2">
                         <div>
                             <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
+                                <div className="content-with-small-height mb-sm-2"></div>
                             </div>
                             <div className="grid-container-1">
                                 <div className="content-with-small-height"></div>
@@ -308,21 +308,21 @@ export const Mosaic: Story = {
                         </div>
                         <div>
                             <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
+                                <div className="content-with-small-height mb-sm-2"></div>
                             </div>
                             <div className="grid-container-1">
                                 <div className="content-with-small-height"></div>
                             </div>
                         </div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
@@ -343,15 +343,15 @@ export const Collage: Story = {
                     <div className="grid-col-container-1-1-2">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
@@ -370,14 +370,14 @@ export const Pinboard: Story = {
             <>
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-1">
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-1">
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-2-1">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
@@ -395,26 +395,26 @@ export const Cardify: Story = {
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-6">
+                    <div className="grid-container-6 mb-md-0">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
                     </div>
-                    <div className="grid-col-container-1-2">
+                    <div className="grid-col-container-1-2 md-vh-auto">
                         <div className="content-with-full-height"></div>
                         <div>
                             <div className="grid-container-1">
-                                <div className="content-with-medium-height"></div>
-                                <div className="content-with-medium-height"></div>
+                                <div className="content-with-medium-height mb-sm-1"></div>
+                                <div className="content-with-medium-height mb-sm-2"></div>
                             </div>
                         </div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-col-container-1-2">
                         <div className="content-with-medium-height"></div>
@@ -434,12 +434,12 @@ export const Board: Story = {
                 <RdsCompLayoutItem title={""}>
                     <div className="grid-container-2">
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-2">
                         <div className="content-with-medium-height"></div>
@@ -461,7 +461,7 @@ export const Highlight: Story = {
                     <div className="grid-container-3">
                         <div className="content-with-medium-height"></div>
                         <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-small-height"></div>
