@@ -150,3 +150,19 @@
   .headerClass{
     border-radius: 5px 5px 0px 0px;
   }
+  /* Disabled state styling */
+  .card-disabled {
+    opacity: 0.6; /* Make the card look faded */
+    pointer-events: none; /* Prevent any interactions */
+    cursor: not-allowed; /* Show a 'not allowed' cursor */
+    background-color: #b5acac !important;
+  }
+  .card-bordered{
+    border: 1px solid #ccc; /* Optional border */
+    outline: 1px solid #707470; /* Hex color for green outline */    
+  }
+  .card-filled{
+    padding: 20px;
+    background-color: #efdcff !important ;/* Filled background color (light blue) */
+    border-color: none;
+  }
