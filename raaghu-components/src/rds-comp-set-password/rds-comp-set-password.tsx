@@ -32,7 +32,7 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
 const handleDataChanges = (value: any, key: string) => {
   setPasswordField({ ...passwordField, [key]: value });
   }
-  const isFormValid = isPasswordValid(passwordField);
+  const isFormValid = isPasswordValid(passwordField?.password);
   useEffect(() => {
     setInputReset(!inputReset);
   }, [props.reset]);
