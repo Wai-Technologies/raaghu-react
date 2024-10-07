@@ -555,3 +555,22 @@ form .form-group .select-options,
 .lottie-border-0 #lottie path {
   stroke: transparent;
 }
+.map-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  height: auto; 
+  padding: 1rem; 
+}
+
+@media (max-width: 767px) {
+  .map-container{
+    flex-direction: column;
+    width: 210px !important; 
+    padding: 1rem !important;
+  }
+  .worldmap__figure-container svg {
+    transform: scale(0.9);
+  }
+}

@@ -645,7 +645,8 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     bigNumberLabel="$632,230"
                                     iconLabel="$27,203"
                                     onIconClick={onBackSide}>
-                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0">
+                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0 map-container">
+                                        
                                         <RdsMap
                                             color="purple"
                                             mapList={mapList}></RdsMap>
@@ -666,7 +667,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     bigNumberLabel="$49,361"
                                     iconLabel="$9,543"
                                     onIconClick={onFrontSide}>
-                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0">
+                                    <div className="pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-5 pt-3 mt-lg-0 mt-md-5 mt-0 map-container">
                                         <RdsMap
                                             color="#A478E6"
                                             mapList={mapList}></RdsMap>
@@ -1471,8 +1472,6 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         isRefreshRequired={true}  >
                         <div className="table-responsive">
                             <RdsTable
-                                tableHeightForScroll="356px"
-
                                 headerDatas={[
                                     {
                                         displayName: "Members",
@@ -1755,9 +1754,9 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         headerTitle="To do List"
                         isRefreshRequired={true}
                     >
-                        <div>
+                        <div className="table-responsive">
                             <RdsTable id="sortable"
-
+                                // tableHeightForScroll="356px"
                                 headerDatas={[
                                     {
                                         displayName: "Project",
