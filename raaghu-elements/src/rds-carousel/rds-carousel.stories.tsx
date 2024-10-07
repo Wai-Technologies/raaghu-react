@@ -20,6 +20,13 @@ const meta: Meta = {
                 "style4"
             ],
             control: { type: "select" },
+        },
+        IndicatorType: {
+            options: [
+                "Circle",
+                "Line",
+            ],
+            control: { type: "select" },
         }
     },
 } satisfies Meta<typeof RdsCarousel>;
@@ -33,6 +40,7 @@ export const Default: Story = {
         crossFade: true,
         controls: true,
         role: "basic",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -51,7 +59,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Default.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Advanced: Story = {
     args: {
@@ -59,6 +67,7 @@ export const Advanced: Story = {
         crossFade: true,
         controls: true,
         role: "advanced",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -77,7 +86,7 @@ export const Advanced: Story = {
         ],
     }
 } satisfies Story;
-Advanced.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Advanced.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Style1: Story = {
     args: {
@@ -85,6 +94,7 @@ export const Style1: Story = {
         crossFade: true,
         controls: true,
         role: "style1",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -100,17 +110,11 @@ export const Style1: Story = {
                 roleName: "Tech Lead",
                 subTitle: "this is the caption section were u can add the caption for the image"
             },
-            {
-                id: 3,
-                imgUrl: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
-                name: "king John",
-                roleName: "Tech Lead",
-                subTitle: "this is the caption section were u can add the caption for the image"
-            },
+            
         ],
     }
 } satisfies Story;
-Style1.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Style1.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Style2: Story = {
     args: {
@@ -118,6 +122,7 @@ export const Style2: Story = {
         crossFade: true,
         controls: true,
         role: "style2",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -133,17 +138,11 @@ export const Style2: Story = {
                 roleName: "Tech Lead",
                 subTitle: "this is the caption section were u can add the caption for the image"
             },
-            {
-                id: 3,
-                imgUrl: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
-                name: "king John",
-                roleName: "Tech Lead",
-                subTitle: "this is the caption section were u can add the caption for the image"
-            },
+           
         ],
     }
 } satisfies Story;
-Style2.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Style2.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Style3: Story = {
     args: {
@@ -151,6 +150,7 @@ export const Style3: Story = {
         crossFade: true,
         controls: true,
         role: "style3",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -166,17 +166,11 @@ export const Style3: Story = {
                 roleName: "Tech Lead",
                 subTitle: "this is the caption section were u can add the caption for the image"
             },
-            {
-                id: 3,
-                imgUrl: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
-                name: "king John",
-                roleName: "Tech Lead",
-                subTitle: "this is the caption section were u can add the caption for the image"
-            },
+            
         ],
     }
 } satisfies Story;
-Style3.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Style3.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
 
 export const Style4: Story = {
     args: {
@@ -184,6 +178,7 @@ export const Style4: Story = {
         crossFade: true,
         controls: true,
         role: "style4",
+        IndicatorType: "Circle",
         carouselItems: [
             {
                 id: 1,
@@ -198,15 +193,9 @@ export const Style4: Story = {
                 name: "king John",
                 roleName: "Tech Lead",
                 subTitle: "this is the caption section were u can add the caption for the image"
-            },
-            {
-                id: 3,
-                imgUrl: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
-                name: "king John",
-                roleName: "Tech Lead",
-                subTitle: "this is the caption section were u can add the caption for the image"
-            },
+            }
+        
         ],
     }
 } satisfies Story;
-Style4.parameters = { controls: { include: ['Indicators', 'crossFade', 'controls', 'role', 'carouselItems'] } };
+Style4.parameters = { controls: { include: ['Indicators','IndicatorType', 'crossFade', 'controls', 'role', 'carouselItems'] } };
