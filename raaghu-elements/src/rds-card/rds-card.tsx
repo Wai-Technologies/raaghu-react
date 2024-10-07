@@ -122,9 +122,6 @@ const RdsCard = (props: RdsCardProps) => {
                             <h6>{props.cardSubTitle}</h6>
                         </div> */}
 
-
-                    
-
                         <div className="card-body">
                         <RdsIcon
                             colorVariant="primary"
