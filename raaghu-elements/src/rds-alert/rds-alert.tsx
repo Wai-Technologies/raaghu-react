@@ -111,7 +111,7 @@ const RdsAlert = (props: RdsAlertProps) => {
               </span>
               
               <span>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 alertBtns">
                 {props.cancelbutton === true && (
                   <RdsButton
                     colorVariant="primary"
@@ -185,7 +185,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                     />
                   )}
                 </div>
-                <div className="d-flex align-items-flex-end mt-4 gap-2">
+                <div className="d-flex align-items-flex-end mt-4 gap-2 alertBtns">
                   {props.cancelbutton === true && (
                     <RdsButton
                       colorVariant="primary"

@@ -134,6 +134,16 @@
     }
 }
 
+.aside {
+    width: 62px;
+}
+
+.aside{
+    .toggle{
+        right: -200px;
+    }
+}
+
 .sidebar.toggle {
     width: 245px !important;
 }
@@ -161,15 +171,24 @@
 }
 
 .sidenav-footer {
-    position: absolute;
-    top: 40px;
-    z-index: 99;
-    right: -10px;
-    opacity: 0;
+    position: absolute; /* Keep as absolute */
+    top: 20px; /* Adjust if necessary */
+    z-index: 980;
+    right: -13px; /* Adjust this value */
     transition: all 0.2s ease-in-out;
-    background-color: $white;
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
+}
+
+
+.lock-icon{
+    svg{
+        path{
+            &:first-child{
+                stroke-width: 0;
+            }
+        }
+    }
 }
 
 #sidebar:hover .sidenav-footer {
@@ -180,10 +199,10 @@
     width: 245px !important;
 }
 
-.toggle-sidebar-menu .collpase-button svg {
-    transform: rotate(180deg);
-    transition: all 1s ease-in-out;
-}
+// .toggle-sidebar-menu .collpase-button svg {
+//     transform: rotate(180deg);
+//     transition: all 1s ease-in-out;
+// }
 
 .sidenav-logo {
     position: absolute;
