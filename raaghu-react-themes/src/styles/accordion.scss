@@ -4,79 +4,168 @@
 }
 
 .accordion-item {
-  margin-bottom: $accordio-margin;
+    margin-bottom: $accordio-margin;
 
-  &:first-of-type {
     @include border-top-radius($accordion-border-radius);
-
-    .accordion-button {
-      border-bottom-right-radius: 0px !important;
-      border-top-right-radius: 0px !important;
-    }
-  }
-  // Only set a border-radius on the last item if the accordion is collapsed
-  &:last-of-type {
     @include border-bottom-radius($accordion-border-radius);
 
     .accordion-button {
-      &.collapsed {
         border-bottom-right-radius: 0px !important;
         border-top-right-radius: 0px !important;
-        box-shadow: none;
-      }
     }
-  }
+    // Only set a border-radius on the last item if the accordion is collapsed
+    &:last-of-type {
+        @include border-bottom-radius($accordion-border-radius);
+
+        .accordion-button {
+            &.collapsed {
+                border-bottom-right-radius: 0px !important;
+                border-top-right-radius: 0px !important;
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+.accordion-lg {
+    .accordion-icon{
+        width:16px;
+        height: 16px;
+        margin-right: 1rem;
+        display: grid;
+    align-content: center;
+    }
+
+    h2 {
+        height: 3rem;
+    }
+
+    .accordion-button {
+        font-size: $font-size-lg;
+        height: 2.9rem;
+        padding: 1.4rem 1.5rem;
+    }
+
+    .accordion-button::after {
+        height: 3rem;
+        background-position: 0.938rem 1.2rem;
+        background-size: 1.3rem;
+    }
+}
+
+.accordion-md {
+    .accordion-icon{
+        width:14px;
+        height: 14px;
+        margin-right: 1rem;
+        display: grid;
+    align-content: center;
+    }
+
+    h2 {
+        height: 2.25rem;
+    }
+
+    .accordion-button {
+        font-size: $font-size-md;
+        height: 2.20rem;
+        padding: 1.115rem 1.125rem;
+
+        &:not(.collapsed) {
+            &::after {
+                background-position: 0.813rem 0.8rem;
+            }
+        }
+    }
+
+    .accordion-button::after {
+        height: 2.25rem;
+        background-position: 0.938rem 0.8rem;
+        background-size: 1.3rem;
+    }
+}
+
+.accordion-sm {
+    .accordion-icon{
+        width:12px;
+        height: 12px;
+        margin-right: 1rem;
+        display: grid;
+    align-content: center;
+    }
+
+
+    h2 {
+        height: 1.5rem;
+    }
+
+    .accordion-button {
+        height: 1.4rem;
+        padding: 0.70rem 0.75rem;
+        font-size: $font-size-sm;
+
+        &:not(.collapsed) {
+            &::after {
+                background-position: 0.813rem 0.5rem;
+            }
+        }
+    }
+
+    .accordion-button::after {
+        height: 1.5rem;
+        background-position: 0.938rem 0.5rem;
+        background-size: 1rem;
+    }
 }
 
 .accordion-button {
-  width: calc(100% - 2.875rem);
-  height: 2.8125rem;
+    width: calc(100% - 2.875rem);
 
-  &:not(.collapsed) {
-    box-shadow: none;
-
-    &::after {
-      background-position: 0.813rem 1rem;
-      background-image: escape-svg($accordion-button-icon);
-    }
-  }
-
-  &:focus {
-    outline: 0;
-  }
-
-  &::after {
-    position: absolute;
-    right: -2.875rem;
-    background-position: 0.938rem 1.25rem;
-    background-image: escape-svg($accordion-button-icon);
-    background-size: calc($accordion-icon-width - 1.7375rem);
-    border-bottom-right-radius: $accordion-border-radius;
-    border-top-right-radius: $accordion-border-radius;
-  }
-}
-
-.accordion-item {
-  &:last-of-type {
-    .accordion-collapse {
-      border-bottom-right-radius: 0;
-    }
-  }
-}
-
-.outline {
-  $accordion-button-blueicon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M19413.9-9696l7 7 7-7' transform='translate%28-19412.486 9697.414%29' fill='none' stroke='%23fff' stroke-linecap='round' stroke-width='2'/%3e%3c/svg%3e") !default;
-  $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M19413.9-9696l7 7 7-7' transform='translate(-19412.486 9697.414)' fill='none' stroke='#6a8ce4' stroke-linecap='round' stroke-width='2'/ ></svg>") !default;
-
-  .accordion-button {
+    border-radius: 0.4rem;
+    
     &:not(.collapsed) {
-      &::after {
-        background-image: escape-svg($accordion-button-blueicon);
-      }
+        box-shadow: none;
+
+        &::after {
+            background-image: escape-svg($accordion-button-icon);
+        }
+    }
+
+    &:focus {
+        outline: 0;
     }
 
     &::after {
-      background-image: escape-svg($accordion-button-blueicon);
+        position: absolute;
+        right: -2.875rem;
+        background-position: 0.938rem 1.25rem;
+        background-image: escape-svg($accordion-button-icon);
+        background-size: calc($accordion-icon-width - 1.7375rem);
+        border-bottom-right-radius: $accordion-border-radius;
+        border-top-right-radius: $accordion-border-radius;
     }
-  }
 }
+
+    .accordion-item {
+
+        .accordion-collapse {
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    .outline {
+        $accordion-button-blueicon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M19413.9-9696l7 7 7-7' transform='translate%28-19412.486 9697.414%29' fill='none' stroke='%23fff' stroke-linecap='round' stroke-width='2'/%3e%3c/svg%3e") !default;
+        $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M19413.9-9696l7 7 7-7' transform='translate(-19412.486 9697.414)' fill='none' stroke='#6a8ce4' stroke-linecap='round' stroke-width='2'/ ></svg>") !default;
+
+        .accordion-button {
+            &:not(.collapsed) {
+                &::after {
+                    background-image: escape-svg($accordion-button-blueicon);
+                }
+            }
+
+            &::after {
+                background-image: escape-svg($accordion-button-blueicon);
+            }
+        }
+    }
