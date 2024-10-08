@@ -1,5 +1,21 @@
 $theme: "default" !default;
 
+
+
+$info: #3ef1e8;
+
+$danger: #E02D30;
+$dark: #7D7D7D;
+
+$body-bg: white;
+$body-bg-dark: #232933;
+$black: #000 !default;
+$white: #fff !default;
+
+/*
+$dark:$neuytal;
+$danger:$error;
+*/
 $primary: #7e2eef;
 $secondary: #2539FF;
 $tertiary: #DA25E9;
@@ -8,15 +24,6 @@ $error: #E02D30;
 $warning: #EA6C0C;
 $success: #24993A;
 
-$info: #3ef1e8;
-
-$danger: #E30707;
-$dark: #363636;
-$light: #f8f9fa;
-$body-bg: white;
-$body-bg-dark: #232933;
-$black: #000 !default;
-$white: #fff !default;
 $light-gray:#CED4DA !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -223,6 +230,15 @@ $warning-99: #FFF9ED;
 $warning-100: #fff;
 
 /* new color vaiables ended here*/
+
+$primary: #7e2eef;
+$secondary: #2539FF;
+$tertiary: #DA25E9;
+$neutral: #7D7D7D;
+$error: #E02D30;
+$warning: #EA6C0C;
+$success: #24993A;
+
 // /*Chart color variables*/
 :root {
   --dark-150: #2D253D;
