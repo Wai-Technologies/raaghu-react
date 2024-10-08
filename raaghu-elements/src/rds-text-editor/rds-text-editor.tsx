@@ -22,6 +22,7 @@ export interface RdsTextEditorProps {
 	label?: string;
 	required?: boolean;
 	labelClass?: string;
+	State?:string;
 }
 
 const RdsTextEditor = (props: RdsTextEditorProps) => {
@@ -44,10 +45,22 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
 	return (
 		<>
 			<RdsLabel label={props.label} required={props.required} class={"mb-2" + props.labelClass}></RdsLabel>
-			<ReactQuill theme="snow" bounds={props.bounds} children={props.children} className={props.className}
-				defaultValue={props.defaultValue} value={props.value} formats={props.formats} id={props.id} modules={modules}
-				onChange={props.onChange} placeholder={props.placeholder} preserveWhitespace={props.preserveWhitespace}
-				readOnly={props.readOnly} tabIndex={props.tabIndex} style={props.style} />
+			<ReactQuill
+				theme="snow"
+				bounds={props.bounds}
+				children={props.children}
+				className={`${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
+				defaultValue={props.defaultValue}
+				value={props.value}
+				formats={props.formats}
+				id={props.id}
+				modules={modules}
+				onChange={props.onChange}
+				placeholder={props.placeholder}
+				preserveWhitespace={props.preserveWhitespace}
+				readOnly={props.readOnly}
+				tabIndex={props.tabIndex}
+			/>
 		</>
 	);
 };
