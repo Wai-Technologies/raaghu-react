@@ -35,7 +35,7 @@ Default.args = {
     iconUrl: "delete",
     colorVariant: "danger",
     alertConfirmation: "Are you sure to Delete",
-    messageAlert: "This record will be deleted permanently",
+    messageAlert: "This record will be deleted permanently", 
     cancelBtnLabel: "Cancel",
     deleteBtnLabel: "Delete",
 };
