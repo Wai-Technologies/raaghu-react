@@ -99,17 +99,17 @@
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
@@ -119,17 +119,17 @@
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
@@ -139,17 +139,17 @@
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
@@ -159,17 +159,17 @@
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true">
-      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true">
-      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
     </picture>
   </a>
 
@@ -184,7 +184,10 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000">
+<!-- <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000">
+# Video Preview -->
+
+[![Storybook Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4)
 
 
   <!-- <picture>
