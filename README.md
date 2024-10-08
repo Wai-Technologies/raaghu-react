@@ -184,17 +184,21 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<!-- <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000">
-# Video Preview -->
+<!-- <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000"> -->
 
-[![Storybook Video]](https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4)
+<div align="center">
+  <video width="600" controls>
+    <source src="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4">
-    <img  alt="Features" src="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4" width="1000"/>
-  </picture>
+  <!-- <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
+  </picture> -->
 </p>
 <p>
   Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
