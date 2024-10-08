@@ -69,7 +69,7 @@ export const Default: Story = {
         cardText:
             `Some quick example text to build on the card title and make up the bulk of the card's content
              Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,  
         showTitle: true,
         showSubTitle: true,  
@@ -92,7 +92,7 @@ export const CardWithImage: Story = {
         cardText:
         `Some quick example text to build on the card title and make up the bulk of the card's content
          Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
         showSubTitle: true,
@@ -118,7 +118,7 @@ export const Avatar: Story = {
         cardText:
             `Some quick example text to build on the card title and make up the bulk of the card's content
              Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
         showSubTitle: true,
@@ -147,7 +147,7 @@ export const WithCenteredAvatar: Story = {
         cardText:
         `Some quick example text to build on the card title and make up the bulk of the card's content
          Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
         showSubTitle: true,
@@ -177,7 +177,7 @@ WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTit
 //         cardText:
 //             `Some quick example text to build on the card title and make up the bulk of the card's content
 //              Some quick example text to build on the card title and make up the bulk of the card's content.`,
-//         buttonLabel: "Button",
+//         buttonLabel: "Link Button",
 //         showFooter: true,    
 //         isDisabled : true,   
 //         iconName  : "users"            
@@ -194,7 +194,7 @@ export const Bordered: Story = {
         cardText:
             `Some quick example text to build on the card title and make up the bulk of the card's content
              Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,    
         showTitle: true,
         showSubTitle: true,
@@ -218,7 +218,7 @@ export const Filled: Story = {
         cardText:
             `Some quick example text to build on the card title and make up the bulk of the card's content
              Some quick example text to build on the card title and make up the bulk of the card's content.`,
-        buttonLabel: "Button",
+        buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
         showSubTitle: true,    

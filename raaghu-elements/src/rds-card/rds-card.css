@@ -158,8 +158,8 @@
     background-color: #b5acac !important;
   }
   .card-bordered{
-    border: 1px solid #ccc; /* Optional border */
-    outline: 1px solid #707470; /* Hex color for green outline */    
+    border: 1px solid ; /* Optional border */
+    /* outline: 1px solid #707470;    */
   }
   .card-filled{
     padding: 20px;
@@ -178,4 +178,25 @@ text-decoration: none !important;
   }
  .text-color-primary{
  color: #7825E9 !important
+ }
+ .text-color-success{
+  color: #24993A !important
+  }
+ .text-color-secondary{
+      color: #2539FF !important
+ }
+.text-color-info{
+    color: #3ef1e8 !important
+}
+.text-color-warning{
+  color: #EA6C0C !important;
+ }
+.text-color-danger{
+  color:#E30707 !important;
+}
+.text-color-dark{
+ color: #363636 !important;
+ }
+.text-color-light{
+  color:#f8f9fa !important;
  }

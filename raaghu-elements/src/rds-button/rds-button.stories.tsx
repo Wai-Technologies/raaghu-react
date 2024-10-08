@@ -134,7 +134,8 @@ RoundedButton.parameters = { controls: { include: ['colorVariant', 'label', 'blo
 export const LinkButton: Story = {
     args: {
       class : "btn-link",
-      label : "Link Button"
+      label : "Link Button",
+      
     }
 } satisfies Story;
 LinkButton.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner','isRoundedButton'] } };
