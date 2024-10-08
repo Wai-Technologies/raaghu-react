@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import RdsLabel from "../rds-label";
@@ -26,6 +26,14 @@ export interface RdsTextEditorProps {
 }
 
 const RdsTextEditor = (props: RdsTextEditorProps) => {
+	const [value, setValue] = React.useState(props.value || "");
+	const [isTouch, setIsTouch] = useState(false);
+
+	const handleChange = (value: string, delta: any, source: any, editor: any) => {
+		setValue(value);
+		setIsTouch(true);
+	};
+
 	const defaultModules = {
 		toolbar: {
 			container: [
@@ -44,24 +52,32 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
 
 	return (
 		<>
-			<RdsLabel label={props.label} required={props.required} class={"mb-2" + props.labelClass}></RdsLabel>
-			<ReactQuill
-				theme="snow"
-				bounds={props.bounds}
-				children={props.children}
-				className={`${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
-				defaultValue={props.defaultValue}
-				value={props.value}
-				formats={props.formats}
-				id={props.id}
-				modules={modules}
-				onChange={props.onChange}
-				placeholder={props.placeholder}
-				preserveWhitespace={props.preserveWhitespace}
-				readOnly={props.readOnly}
-				tabIndex={props.tabIndex}
-			/>
-		</>
+    <RdsLabel label={props.label} required={props.required} class={"mb-2" + props.labelClass}></RdsLabel>
+    <ReactQuill
+        theme="snow"
+        bounds={props.bounds}
+        children={props.children}
+        className={`${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
+        defaultValue={props.defaultValue}
+        value={value}
+        formats={props.formats}
+        id={props.id}
+        modules={modules}
+        onChange={handleChange}
+        placeholder={props.placeholder}
+        preserveWhitespace={props.preserveWhitespace}
+        readOnly={props.readOnly}
+        tabIndex={props.tabIndex}
+    />
+    {props.required && (!value || value.trim() === "" || value==="<p><br></p>") && isTouch && (
+        <div className="form-control-feedback">
+            <span className="text-danger">
+                {props.label} is required
+            </span>
+        </div>
+    )}
+</>
+
 	);
 };
 
