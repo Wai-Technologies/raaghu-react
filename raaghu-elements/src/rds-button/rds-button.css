@@ -1,3 +1,7 @@
+.alertBtns .btn {
+  text-transform: none !important;
+}
+
 .btn-sm svg {
   width: 10px !important;
   height: 10px !important;
