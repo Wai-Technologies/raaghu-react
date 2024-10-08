@@ -1,13 +1,13 @@
 //background-color: white;
 $theme-colors: (
-    "primary": $primary,
-    "secondary": $secondary,
-    "tertiary": $tertiary,
-    "neutral": $neutral,
-    "error":$error,
-    "warning": $warning,
-    "success": $success,
-
+    $primary: #7e2eef,
+$secondary: #2539FF,
+$tertiary: #DA25E9,
+$neutral: #7D7D7D,
+$error: #E02D30,
+$warning: #EA6C0C,
+$success: #24993A,
+            
 /*     "info": $info,
     "danger": $danger, */
     "light": $light,
@@ -56,9 +56,9 @@ $bg-primary-lighter-default:#FEF7FF;
      $bg-warning-lighter-default:#FFF9ED;
 
       /*Success Background colors */
-      $bg-success-darker-default:#431907;
-      $bg-success-dark-default:#C2510C;
-      $bg-success-medium-default:#FDC674;
+      $bg-success-darker-default:#092A11;
+      $bg-success-dark-default:#1F7630;
+      $bg-success-medium-default:#90E5A0;
 
       /*Primary icons colors*/
       $icon-primary-outline-default:#7825E9;
@@ -200,6 +200,119 @@ $bg-primary-lighter-default:#FEF7FF;
                   $line-success-medium-defaut:#58D06E;
                   $line-success-light-defaut:#C1F1C9;
 
+/*Buton color*/
+$btn-primary-solid-default:#7825E9;
+$btn-primary-solid-hover:#4F00A6;
+$btn-primary-solid-selected:#340071;
+$btn-primary-solid-disabled:#D4BBFF;
+$btn-primary-outline-default:#7825E9;
+$btn-primary-outline-hover:#4F00A6;
+$btn-primary-outline-selected:#340071;
+$btn-primary-outline-disabled:#D4BBFF;
+$btn-primary-transparent-default:#ffffff;
+$btn-primary-transparent-hover:#EBDCFF;
+$btn-primary-transparent-selected:#D4BBFF;
+$btn-primary-transparent-disabled:#EBDCFF;
+$btn-primary-text-default:#7825E9;
+$btn-primary-text-disabled:#A875FF;
+$btn-primary-text-invert:#FFFFFF;
+
+$btn-secondary-solid-default:#2534E9;
+$btn-secondary-solid-hover:#1827BB;
+$btn-secondary-solid-selected:#1D2B92;
+$btn-secondary-solid-disabled:#93B8FF;
+$btn-secondary-outline-default:#2534E9;
+$btn-secondary-outline-hover:#1827BB;
+$btn-secondary-outline-selected:#1D2B92;
+$btn-secondary-outline-disabled:#93B8FF;
+$btn-secondary-transparent-default:#ffffff;
+$btn-secondary-transparent-hover:#EBDCFF;
+$btn-secondary-transparent-selected:#D4BBFF;
+$btn-secondary-transparent-disabled:#EBDCFF;
+$btn-secondary-text-default:#7825E9;
+$btn-secondary-text-disabled:#A875FF;
+$btn-secondary-text-invert:#FFFFFF;
+
+$btn-tertiary-solid-default:#B30FBC;
+$btn-tertiary-solid-hover:#940F99;
+$btn-tertiary-solid-selected:#7B127D;
+$btn-tertiary-solid-disabled:#F8A4FF;
+$btn-tertiary-outline-default:#B30FBC;
+$btn-tertiary-outline-hover:#940F99;
+$btn-tertiary-outline-selected:#7B127D;
+$btn-tertiary-outline-disabled:#F8A4FF;
+$btn-tertiary-transparent-default:#ffffff;
+$btn-tertiary-transparent-hover:#F9CCFF;
+$btn-tertiary-transparent-selected:#F8A4FF;
+$btn-tertiary-transparent-disabled:#F9CCFF;
+$btn-tertiary-text-default:#B30FBC;
+$btn-tertiary-text-disabled:#EB37FE;
+$btn-tertiary-text-invert:#FFFFFF;
+
+$btn-neutral-solid-default:#646464;
+$btn-neutral-solid-hover:#4C4C4C;
+$btn-neutral-solid-selected:#353535;
+$btn-neutral-solid-disabled:#CDCDCD;
+$btn-neutral-outline-default:#646464;
+$btn-neutral-outline-hover:#4C4C4C;
+$btn-neutral-outline-selected:#4C4C4C;
+$btn-neutral-outline-disabled:#CDCDCD;
+$btn-neutral-transparent-default:#ffffff;
+$btn-neutral-transparent-hover:#E9E9E9;
+$btn-neutral-transparent-selected:#CDCDCD;
+$btn-neutral-transparent-disabled:#E9E9E9;
+$btn-neutral-text-default:#646464;
+$btn-neutral-text-disabled:#969696;
+$btn-neutral-text-invert:#FFFFFF;
+
+$btn-error-solid-default:#BD0D1D;
+$btn-error-solid-hover:#930011;
+$btn-error-solid-selected:#7C3712;
+$btn-error-solid-disabled:#FFB3AD;
+$btn-error-outline-default:#BD0D1D;
+$btn-error-outline-hover:#930011;
+$btn-error-outline-selected:#7C3712;
+$btn-error-outline-disabled:#FFB3AD;
+$btn-error-transparent-default:#ffffff;
+$btn-error-transparent-hover:#FFDAD6;
+$btn-error-transparent-selected:#FFB3AD;
+$btn-error-transparent-disabled:#FFDAD6;
+$btn-error-text-default:#BD0D1D;
+$btn-error-text-disabled:#FF544F;
+$btn-error-text-invert:#FFFFFF;
+
+$btn-warning-solid-default:#C2510C;
+$btn-warning-solid-hover:#9A4012;
+$btn-warning-solid-selected:#7C3712;
+$btn-warning-solid-disabled:#FDC674;
+$btn-warning-outline-default:#C2510C;
+$btn-warning-outline-hover:#9A4012;
+$btn-warning-outline-selected:#7C3712;
+$btn-warning-outline-disabled:#FDC674;
+$btn-warning-transparent-default:#ffffff;
+$btn-warning-transparent-hover:#FED99B;
+$btn-warning-transparent-selected:#FDC674;
+$btn-warning-transparent-disabled:#FED99B;
+$btn-warning-text-default:#C2510C;
+$btn-warning-text-disabled:#F98816;
+$btn-warning-text-invert:#FFFFFF;
+
+$btn-success-solid-default:#1F7630;
+$btn-success-solid-hover:#1D5E2A;
+$btn-success-solid-selected:#1A4D25;
+$btn-success-solid-disabled:#90E5A0;
+$btn-success-outline-default:#1F7630;
+$btn-success-outline-hover:#1D5E2A;
+$btn-success-outline-selected:#1A4D25;
+$btn-success-outline-disabled:#90E5A0;
+$btn-success-transparent-default:#ffffff;
+$btn-success-transparent-hover:#C1F1C9;
+$btn-success-transparent-selected:#90E5A0;
+$btn-success-transparent-disabled:#C1F1C9;
+$btn-success-text-default:#1F7630;
+$btn-success-text-disabled:#31B64A;
+$btn-success-text-invert:#FFFFFF;
+
                   /*Text Primary color*/
                  $txt-primary-darker-default:#19003E;
                  $txt-primary-dark-default:#340071;
@@ -213,6 +326,7 @@ $bg-primary-lighter-default:#FEF7FF;
                   $txt-secondary-medium-default:#2534E9;
                   $txt-secondary-light-default:#4666FF;
                   $txt-secondary-lighter-default:#EBF3FF;
+
 
  /*Text Tertiary color*/
  $txt-tertiary-darker-default:#530054;
@@ -275,9 +389,9 @@ $accordion-button-bg: $light;
 $accordion-border-color: $neutral-40 !default;
 
 // /*badge mixins color variables*/
-$badge-bg-scale: -80%;
+$badge-bg-scale: 20%;
 $badge-border-scale: -70%;
-$badge-color-scale: -80%;
+$badge-color-scale: -100%;
 
 // /*counter mixins color variables*/
 $counter-bg-scale: -80%;
@@ -287,7 +401,7 @@ $counter-color-scale: -80%;
 // /*alert mixins color variables*/
 $alert-color-scale: 40% !default;
 $alert-bg-scale: -80% !default;
-$alert-border-scale: -70% !default;
+$alert-border-scale: 100% !default;
 
 // /*icon mixins color variable*/
 $icon-color-scale: 40% !default;
@@ -850,7 +964,27 @@ button#dropdownMenuButton:focus {
     border-color: $border;
     color: $color;
 }
-
+.badge-error {
+    @include badge-variant(
+         $btn-error-solid-default, // background
+         $btn-error-solid-default, 
+         $btn-error-text-invert // border        // text color
+    );
+}
+.badge-neutral {
+    @include badge-variant(
+        $btn-neutral-solid-default, // background
+        $btn-neutral-solid-default,   // border
+         $btn-neutral-text-invert       // text color
+    );
+}
+.badge-tertiary {
+    @include badge-variant(
+        $btn-tertiary-solid-default, // background
+        $btn-tertiary-solid-default,   // border
+         $btn-tertiary-text-invert       // text color
+    );
+}
 @each $state, $value in $theme-colors {
     $badge-background: shift-color($value, $badge-bg-scale);
     $badge-border: shift-color($value, $badge-border-scale);
@@ -883,7 +1017,7 @@ button#dropdownMenuButton:focus {
     }
 
     .counter-#{$state} {
-        @include badge-variant($counter-background, $counter-border, $counter-color);
+        @include counter-variant($counter-background, $counter-border, $counter-color);
     }
 }
 
@@ -1846,56 +1980,72 @@ $form-feedback-color: $gray-700;
     }
 }
 
-@mixin alert-variant($background, $border, $color) {
-    color: $color;
+@mixin alert-variant($background, $border) {
+    background-color: $background;
+    border-color: $border;
+    
+}
+.alert-error {
+    @include alert-variant(
+         $bg-error-light-default, // background
+         $line-error-medium-defaut,  // border
+                    // text color
+    );
+}
+.alert-warning {
+    @include alert-variant(
+         $bg-warning-light-default, // background
+         $line-warning-medium-defaut,  // border
+                    // text color
+    );
 }
 
 @each $state, $value in $theme-colors {
     $alert-background: shift-color($value, $alert-bg-scale);
     $alert-border: shift-color($value, $alert-border-scale);
-    $alert-color: shift-color($value, $alert-color-scale);
 
-    @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
-        $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
+    .alert-#{$state} {
+        @include alert-variant($alert-background, $alert-border);
     }
-
     .alert {
         svg {
             width: 22px;
             height: 22px;
             fill: none;
-            stroke: $alert-color;
+            stroke: $alert-border;
 
             polyline.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             polygon.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             ellipse.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             path.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             line.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             rect.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
 
             circle.icon {
-                stroke: $alert-color;
+                stroke: $alert-border;
             }
         }
     }
 }
+
+
 
 .bs-datepicker {
     background: $white;
