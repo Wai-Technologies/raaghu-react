@@ -150,3 +150,53 @@
   .headerClass{
     border-radius: 5px 5px 0px 0px;
   }
+  /* Disabled state styling */
+  .card-disabled {
+    opacity: 0.6; /* Make the card look faded */
+    pointer-events: none; /* Prevent any interactions */
+    cursor: not-allowed; /* Show a 'not allowed' cursor */
+    background-color: #b5acac !important;
+  }
+  .card-bordered{
+    border: 1px solid ; /* Optional border */
+    /* outline: 1px solid #707470;    */
+  }
+  .card-filled{
+    padding: 20px;
+    background-color: #efdcff !important ;/* Filled background color (light blue) */
+    border-color: none;
+  }
+  .btn-link{
+text-decoration: none !important;
+  }
+ 
+  .card-hovered {
+    background-color: #E9E9E9!important;
+  }
+  .card-selected{
+    background-color: #E9E9E9 !important;
+  }
+ .text-color-primary{
+ color: #7825E9 !important
+ }
+ .text-color-success{
+  color: #24993A !important
+  }
+ .text-color-secondary{
+      color: #2539FF !important
+ }
+.text-color-info{
+    color: #3ef1e8 !important
+}
+.text-color-warning{
+  color: #EA6C0C !important;
+ }
+.text-color-danger{
+  color:#E30707 !important;
+}
+.text-color-dark{
+ color: #363636 !important;
+ }
+.text-color-light{
+  color:#f8f9fa !important;
+ }

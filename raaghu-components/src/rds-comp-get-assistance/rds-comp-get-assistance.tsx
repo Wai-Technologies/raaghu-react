@@ -68,7 +68,7 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
                   label="Name"
                   labelPosition="top"
                   placeholder="Enter Name"
-                  // required
+                  required={true}
                   readonly={false}
                   isDisabled={false}
                   size="medium"

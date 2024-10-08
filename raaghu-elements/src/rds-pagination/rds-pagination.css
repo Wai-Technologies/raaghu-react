@@ -21,3 +21,43 @@
     border-color: #7e2eef !important;
 }
 */
+
+/* Add consistent styling for all pagination items */
+.page-item {
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
+  
+  .page-item a {
+    padding: .188rem 0rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    text-align: center;
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    border: 0;
+    justify-content: center;
+    z-index: 0;
+    font-size: small;
+  }
+  
+  .page-item.active a {
+    background-color: #ced4da; /* Customize as needed */
+    color: #343a40;
+   /* // border-color: #007bff; */
+  }
+  
+  .page-item.disabled a {
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .page-item a:hover {
+    background-color: #e9ecef; /* Customize as needed */
+  }
+  
+  .page-item.roundeds a {
+    border-radius: 50%;
+  }
+  
