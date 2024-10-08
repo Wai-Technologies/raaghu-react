@@ -1367,7 +1367,7 @@ $accordion-body-padding-y:0.5rem;
             animation: anim#{$i} 10.1s infinite;
             animation-delay: $i;
             background: $color;
-            background: radial-gradient(circle at top left, lighten($color, 15%), $color);
+           /*  background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
             box-shadow: 0 0 15px 2px lighten($color, 15%);
             border: 1px solid $color;
             border-radius: 2px;
@@ -1377,7 +1377,7 @@ $accordion-body-padding-y:0.5rem;
             animation: anim#{$i} 50.1s infinite;
             animation-delay: $i;
             background: $color;
-            background: radial-gradient(circle at top left, lighten($color, 15%), $color);
+          /*   background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
             box-shadow: 0 0 15px 2px lighten($color, 15%);
             border: 1px solid $color;
             border-radius: 2px;
