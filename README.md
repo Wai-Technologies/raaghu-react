@@ -190,11 +190,11 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 [![Storybook Video]](https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4)
 
 
-  <!-- <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
-  </picture> -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4">
+    <img  alt="Features" src="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4" width="1000"/>
+  </picture>
 </p>
 <p>
   Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
