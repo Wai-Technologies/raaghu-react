@@ -434,6 +434,12 @@ form input[type="password"] {
   padding-right: 0.3rem;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+
 .form-control .npm__react-simple-code-editor__textarea:focus,
 .form-control
   .npm__react-simple-code-editor__textarea:focus-visible
@@ -554,4 +560,23 @@ form .form-group .select-options,
 
 .lottie-border-0 #lottie path {
   stroke: transparent;
+}
+.map-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  height: auto; 
+  padding: 1rem; 
+}
+
+@media (max-width: 767px) {
+  .map-container{
+    flex-direction: column;
+    width: 210px !important; 
+    padding: 1rem !important;
+  }
+  .worldmap__figure-container svg {
+    transform: scale(0.9);
+  }
 }

@@ -73,14 +73,14 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
     }
 
     const isBaseUrlValid = (baseUrl: any) => {
-        if (!baseUrl || baseUrl.length === 0) {
+        if (!baseUrl || baseUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(baseUrl)) {
             return false;
         }
         return true;
     };
 
     const isSiteKeyValid = (siteKey: any) => {
-        if (!siteKey || siteKey.length === 0) {
+        if (!siteKey || siteKey.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(siteKey)) {
             return false;
         }
         return true;
@@ -208,8 +208,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             }}
                                             required={true}
                                             dataTestId="url"
-                                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                                            validationMsg="Please Enter valid url (https or http)"
+                                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
+                                            validationMsg="Enter valid url"
                                         ></RdsInput>
                                     </div>
                                 </div>
@@ -242,10 +242,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                                 handlerChangeGeneral(e.target.value, "siteKey");
                                             }}
                                             dataTestId="site-key-url"
-                                            required={true}
-                                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                                            validationMsg="Please Enter valid url (https or http)"
-                                        ></RdsInput>                                     
+                                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                                             validationMsg="Enter valid url"
+                                        ></RdsInput>
                                     </div>
                                 </div>
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">

@@ -258,7 +258,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       return true;
   };
   const isApplicationApiUrlValid = (apiUrl: any) => {
-   if (!apiUrl || apiUrl.length === 0) {
+   if (!apiUrl || apiUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(apiUrl)) {
        return false;
    }
    return true;
@@ -358,10 +358,10 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               reset={inputReset}
                               onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
                               dataTestId="applicationUrl"
-                              required={true}
-                              validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                              validationMsg="Please Enter valid url (https or http)"
-                            ></RdsInput>
+                              validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                              
+                              validationMsg="Enter Valid URL Format"
+                              required
+                           ></RdsInput>
                         </div>
                      </div>
                   </div>
