@@ -4,6 +4,7 @@ import "./rds-select-list.css";
 
 export interface RdsSelectProps {
   size?: "small" | "large" | "medium" | string;
+  style?:"default" | "BottomLine";
   label?: string;
   showHint?: boolean;
   showTitle?: boolean;
@@ -26,6 +27,8 @@ export interface RdsSelectProps {
   isSearchable?: boolean;
   isDisabled?: boolean;
   defaultImgUrl?: string;
+  borderBottomWidth?: string;
+  customClasses?: string;
 }
 
 const RdsSelectList = (props: RdsSelectProps) => {
@@ -54,6 +57,25 @@ const RdsSelectList = (props: RdsSelectProps) => {
     }
   };
 
+  const customStyles = {
+    control: (provided: any) => ({
+      ...provided,
+      minHeight: props.size === "small" ? "1.875rem" : props.size === "large" ? "3.125rem" : "2.5rem", 
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+      borderBottomWidth: props.style === "BottomLine" ? (props.borderBottomWidth || "2px") : undefined,
+      borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined, 
+    }),
+    menu: (provided: any) => ({
+      ...provided,
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem", 
+    }),
+    option: (provided: any) => ({
+      ...provided,
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+    }),
+  };
+
+
   const selectedItem = props.isMultiple
     ? props.selectItems.filter((item: any) => selectedValue?.includes(item.value))
     : props.selectItems.find((item: any) => item.value === selectedValue);
@@ -71,11 +93,12 @@ const RdsSelectList = (props: RdsSelectProps) => {
       <components.Option {...optionProps}>
         {optionProps.selectProps.isMulti && (
           <input
-            className="form-check-input my-1 mx-1"
+            className="form-check-input selectClasses my-1 mx-1"
             type="checkbox"
             checked={optionProps.isSelected}
             onChange={handleOptionChange}
             onClick={(e) => e.stopPropagation()} 
+            
           />
         )}
         <img
@@ -117,6 +140,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         classNamePrefix="custom-select"
         aria-label="select example"
         data-testid={props.dataTestId}
+        styles={customStyles} 
       />
       {props.showHint && (
         <p className="my-1 text-black-50">

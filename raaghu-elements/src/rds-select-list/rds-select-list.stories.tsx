@@ -10,7 +10,12 @@ const meta: Meta = {
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
-        }
+        },
+        style: {
+            options: ["default", "BottomLine"],
+            control: { type: "select" },
+        },
+ 
     },
     parameters: {
         layout: 'padded',
@@ -95,6 +100,7 @@ export const WithIcon: Story = {
         id: "story",
         label: "Lable",
         size: "medium",
+        style: "default",
         isMultiple: true,
         defaultImgUrl:"https://www.svgrepo.com/show/497407/profile-circle.svg",
         placeholder: "placeholder",      
@@ -150,4 +156,4 @@ export const WithIcon: Story = {
         isBold: false
     }
 }
-WithIcon.parameters = { controls: { include: ['id','label','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showTitle', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
+WithIcon.parameters = { controls: { include: ['id','label','style','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showTitle', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
