@@ -1,15 +1,14 @@
-import React from "react";
 import RdsToast from "./rds-toast";
 import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Toast',
+    title: "Elements/Toast",
     component: RdsToast,
     parameters: {
-        layout: 'padded',
+        layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
         colorVariant: {
             options: [
@@ -50,6 +49,8 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+        state: {
+            options: ["basic", "info", "success", "error"], control: {type: "select"},}
     },
 } satisfies Meta<typeof RdsToast>;
 
@@ -59,54 +60,124 @@ type Story = StoryObj<typeof RdsToast>;
 
 export const Default: Story = {
     args: {
-        headerTitle: "Toast",
-        message: "This is a sample toast",
+        headerTitle: "Toast Headline",
+        message: "This is a big sample placeholder text.",
+        delay: 5000,
+        autohide: false,    
         colorVariant: "light",
         showHeader: true,
         withIcon: true,
-        iconName: "folder",
+        iconName: "circle",
         iconColorvariant: "primary",
         iconHeight: "18px",
         iconWidth: "18px",
         iconFill: false,
-        borderColor: "primary"
+        borderColor: "primary",
+        layout : "text",
+        state: "basic"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['headerTitle', 'message', 'colorVariant', 'showHeader', 'withIcon', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill', 'borderColor'] } };
+Default.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state"] } };
 
-export const toastWithAutohide: Story = {
+export const toastWithDownload: Story = {
     args: {
-        headerTitle: "Toast",
-        message: "This is a sample toast",
+        headerTitle: "Toast Headline",
+        message: "This is a help text",
         delay: 5000,
-        autohide: true,
-        withIcon: true,
+        autohide: false,    
+        colorVariant: "light",
         showHeader: true,
-        iconName: "folder",
-        colorVariant: "light",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false
-    }
-} satisfies Story;
-toastWithAutohide.parameters = { controls: { include: ['headerTitle', 'message', 'delay', 'autohide', 'withIcon', 'showHeader', 'iconName', 'colorVariant', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
-
-export const toastWithoutHeader: Story = {
-    args: {
-        headerTitle: "Toast",
-        autohide: false,
         withIcon: true,
-        delay: 5000,
-        showHeader: false,
-        message: "This is a sample toast",
-        colorVariant: "light",
-        iconName: "folder",
+        iconName: "circle",
         iconColorvariant: "primary",
         iconHeight: "18px",
         iconWidth: "18px",
-        iconFill: false
+        iconFill: false,
+        borderColor: "primary",
+        layout : "download",
+        state: "basic",
+        progressWidth: 40,
+        filename: "Filename.txt"
     }
 } satisfies Story;
-toastWithoutHeader.parameters = { controls: { include: ['headerTitle', 'autohide', 'withIcon', 'delay', 'showHeader', 'message', 'colorVariant', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
+toastWithDownload.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state", "progressWidth", "filename"] } };
+
+export const toastWithChat: Story = {
+    args: {
+        headerTitle: "Toast Headline",
+        message: "This is a help text",
+        delay: 5000,
+        autohide: false,    
+        colorVariant: "light",
+        showHeader: true,
+        withIcon: true,
+        iconName: "circle",
+        iconColorvariant: "primary",
+        iconHeight: "18px",
+        iconWidth: "18px",
+        iconFill: false,
+        borderColor: "primary",
+        layout : "chat",
+        state: "basic",
+        placeholder: "Placeholder Text"
+    }
+} satisfies Story;
+toastWithChat.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "placeholder"] } };
+
+export const toastWithRequest: Story = {
+    args: {
+        headerTitle: "Toast Headline",
+        message: "This is a big sample placeholder text.",
+        delay: 5000,
+        autohide: false,    
+        colorVariant: "light",
+        showHeader: true,
+        withIcon: true,
+        iconName: "circle",
+        iconColorvariant: "primary",
+        iconHeight: "18px",
+        iconWidth: "18px",
+        iconFill: false,
+        borderColor: "primary",
+        layout : "request",
+        state: "basic"
+    }
+} satisfies Story;
+toastWithRequest.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state"] } };
+
+// export const toastWithAutohide: Story = {
+//     args: {
+//         headerTitle: "Toast",
+//         message: "This is a sample toast",
+//         delay: 5000,
+//         autohide: true,
+//         withIcon: true,
+//         showHeader: true,
+//         iconName: "folder",
+//         colorVariant: "light",
+//         iconColorvariant: "primary",
+//         iconHeight: "18px",
+//         iconWidth: "18px",
+//         iconFill: false
+//     }
+// } satisfies Story;
+// toastWithAutohide.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "colorVariant", "iconColorvariant", "iconHeight", "iconWidth", "iconFill", "layout", "state"] } };
+
+// export const toastWithoutHeader: Story = {
+//     args: {
+//         headerTitle: "Toast",
+//         autohide: false,
+//         withIcon: true,
+//         delay: 5000,
+//         showHeader: false,
+//         message: "This is a sample toast",
+//         colorVariant: "light",
+//         iconName: "folder",
+//         iconColorvariant: "primary",
+//         iconHeight: "18px",
+//         iconWidth: "18px",
+//         iconFill: false
+//     }
+// } satisfies Story;
+// toastWithoutHeader.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "colorVariant", "iconColorvariant", "iconHeight", "iconWidth", "iconFill", "layout", "state"] } };
 

@@ -7,3 +7,23 @@
 rds-toasts {
     position: relative;
 }
+
+.toast-comp{
+    border-radius: 5px !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: 5px !important;
+}
+
+.toast-comp.toast-info{
+    border-left-color: slategrey !important;
+}
+
+.toast-comp.toast-success{
+    border-left-color: blueviolet !important;
+}
+
+.toast-comp.toast-error{
+    border-left-color: orangered !important;
+}
