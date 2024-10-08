@@ -31,8 +31,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     props.size === "small"
       ? "form-control-sm"
       : props.size === "large"
-        ? "form-control-lg"
-        : "";
+      ? "form-control-lg"
+      : "";
 
   const kbToMb = (kb: any) => {
     const mb = kb / 1024;
@@ -69,7 +69,10 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       if (!allowedExtensions.includes(fileExtension)) {
         setValidation((prevValidation: any) => [
           ...prevValidation,
-          { isError: true, hint: `File with extension '${fileExtension}' is not allowed` },
+          {
+            isError: true,
+            hint: `File with extension '${fileExtension}' is not allowed`,
+          },
         ]);
         continue;
       }
@@ -128,14 +131,16 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <form>
               <label
                 htmlFor="file1"
-                className={`align-items-center d-flex mt-1`}
+                className={`align-items-center d-flex mt-1 flex-row`}
               >
                 <span
                   className={`custom-file-button p-0 border-end-0 form-control align-items-center ${size}`}
                 >
                   Choose File
                 </span>
-                <span className={`chosenFileSpan ps-3 small-placeholder ${size}`}>
+                <span
+                  className={`chosenFileSpan ps-3 small-placeholder ${size}`}
+                >
                   {selectedFileName}
                 </span>
                 <input
@@ -152,15 +157,15 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 validation.map((val: any, index: number) => (
                   <div key={index} className="ps-3">
                     <small
-                      className={`${val.isError ? "showError" : "noError d-none"
-                        }`}
+                      className={`${
+                        val.isError ? "showError" : "noError d-none"
+                      }`}
                     >
                       {val.isError && val.hint}
                     </small>
                   </div>
                 ))}
             </form>
-
           </div>
         </div>
       ) : (
@@ -171,8 +176,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           </div>
           <label
             htmlFor="file"
-            className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"
-              } ${size}`}
+            className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${
+              props.colorVariant || "primary"
+            } ${size}`}
           >
             <div className="col-md-10 col-lg-10 col-10">
               <div className={`text-${props.colorVariant}`}>

@@ -1,10 +1,15 @@
 $theme: "default" !default;
 
 $primary: #7e2eef;
-$secondary: #c7c7c7;
-$success: #30CC4D;
+$secondary: #2539FF;
+$tertiary: #DA25E9;
+$neutral: #7D7D7D;
+$error: #E02D30;
+$warning: #EA6C0C;
+$success: #24993A;
+
 $info: #3ef1e8;
-$warning: #EFAD07;
+
 $danger: #E30707;
 $dark: #363636;
 $light: #f8f9fa;
@@ -25,16 +30,18 @@ $gray-750: #BEBEBE !default;
 $gray-800: #343a40 !default;
 $gray-900: #34384f !default;
 // /*Variables*/ /*Success - Green*/
-$success-0: #deffe4;
-$success-100: #befeca;
-$success-200: #9efcb0;
-$success-300: #61f780;
-$success-400: #2eef59;
-$success-500: #07e33f;
-$success-600: #00d33e;
-$success-700: #00a443;
-$success-800: #00863f;
-$success-900: #006636;
+
+$success-0: #000;
+$success-100: #092A11;
+$success-200: #1A4D25;
+$success-300: #1D5E2A;
+$success-400: #1F7630;
+$success-500: #24993A;
+$success-600: #31B64A;
+$success-700: #58D06E;
+$success-800: #90E5A0;
+$success-900: #DFF9E3;
+/* $success-95 */
 // /*Danger - Red*/
 $danger-0: #ffdede;
 $danger-100: #febebe;
@@ -83,6 +90,8 @@ $primary-600: #5800d3;
 $primary-700: #4400a4;
 $primary-800: #380086;
 $primary-900: #2b0066;
+
+
 // /*Secondary - Pink*/
 $secondary-0: #ff7afd;
 $secondary-100: #fe65fb;
@@ -126,6 +135,94 @@ $dark-900: #141414;
 $dark-950: #3D344F;
 $default-100: #f58220;
 
+/* new color variables added here*/
+
+$primary-0: #000000;
+$primary-10: #19003E;
+$primary-20: #340071;
+$primary-30: #4F00A6;
+$primary-40: #7825E9;
+$primary-50: #7E2EEF;
+$primary-60: #A875FF;
+$primary-70: #BE98FF;
+$primary-80: #D4BBFF;
+$primary-90: #EBDCFF;
+$primary-95: #F7EDFF;
+$primary-99: #FEF7FF;
+$primary-100: #FFFFFF;
+
+$secondary-0: #000000;
+$secondary-10: #111755;
+$secondary-20: #1D2B92;
+$secondary-30: #1827BB;
+$secondary-40: #2534E9;
+$secondary-50: #2539FF;
+$secondary-60: #4666FF;
+$secondary-70: #698FFF;
+$secondary-80: #93B8FF;
+$secondary-90: #BCD5FF;
+$secondary-95: #DAEAFF;
+$secondary-99: #EBF3FF;
+$secondary-100: #FFFFFF;
+
+$tertiary-0: #000000;
+$tertiary-10: #530054;
+$tertiary-20: #7B127D;
+$tertiary-30: #940F99;
+$tertiary-40: #B30FBC;
+$tertiary-50: #DA25E9;
+$tertiary-60: #EB37FE;
+$tertiary-70: #F56EFF;
+$tertiary-80: #F8A4FF;
+$tertiary-90: #F9CCFF;
+$tertiary-95: #FCE6FF;
+$tertiary-99: #FEF3FF;
+$tertiary-100: #FFFFFF;
+
+$neutral-0: #000;
+$neutral-10: #202020;
+$neutral-20: #353535;
+$neutral-30: #4C4C4C;
+$neutral-40: #646464;
+$neutral-50: #7D7D7D;
+$neutral-60: #969696;
+$neutral-70: #B1B1B1;
+$neutral-80: #CDCDCD;
+$neutral-90: #E9E9E9;
+$neutral-95: #F7F7F7;
+$neutral-99: #FCFCFC;
+$neutral-100: #FFFFFF;
+
+$error-0: #000000;
+$error-10: #410003;
+$error-20: #680009;
+$error-30: #930011;
+$error-40: #BD0D1D;
+$error-50: #E02D30;
+$error-60: #FF544F;
+$error-70: #FF8980;
+$error-80: #FFB3AD;
+$error-90: #FFDAD6;
+$error-95: #FFEDEB;
+$error-99: #FFF8F7;
+$error-100: #FFFFFF;
+
+
+$warning-0: #000000;
+$warning-10: #431907;
+$warning-20: #7C3712;
+$warning-30: #9A4012;
+$warning-40: #C2510C;
+$warning-50: #EA6C0C;
+$warning-60: #F98816;
+$warning-70: #FBA33C;
+$warning-80: #FDC674;
+$warning-90: #FED99B;
+$warning-95: #FFF1D5;
+$warning-99: #FFF9ED;
+$warning-100: #fff;
+
+/* new color vaiables ended here*/
 // /*Chart color variables*/
 :root {
   --dark-150: #2D253D;
