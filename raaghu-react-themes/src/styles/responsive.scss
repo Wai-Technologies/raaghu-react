@@ -434,6 +434,12 @@ form input[type="password"] {
   padding-right: 0.3rem;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+
 .form-control .npm__react-simple-code-editor__textarea:focus,
 .form-control
   .npm__react-simple-code-editor__textarea:focus-visible
