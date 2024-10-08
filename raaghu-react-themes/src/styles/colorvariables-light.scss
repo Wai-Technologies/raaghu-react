@@ -965,17 +965,17 @@ button#dropdownMenuButton:focus {
     color: $color;
 }
 .badge-error {
-    @include badge-variant(
-         $btn-error-solid-default, // background
-         $btn-error-solid-default, 
-         $btn-error-text-invert // border        // text color
+    @include badge-variant( 
+    $btn-error-solid-default, // background
+    $btn-error-solid-default, // border
+    $btn-error-text-invert // text color
     );
 }
 .badge-neutral {
     @include badge-variant(
         $btn-neutral-solid-default, // background
         $btn-neutral-solid-default,   // border
-         $btn-neutral-text-invert       // text color
+        $btn-neutral-text-invert       // text color
     );
 }
 .badge-tertiary {
@@ -984,6 +984,11 @@ button#dropdownMenuButton:focus {
         $btn-tertiary-solid-default,   // border
          $btn-tertiary-text-invert       // text color
     );
+}
+@mixin badge-disabled($background, $border, $color) {
+    @include gradient-bg($background);
+    border-color: $border;
+    color: $color;
 }
 @each $state, $value in $theme-colors {
     $badge-background: shift-color($value, $badge-bg-scale);
@@ -996,6 +1001,14 @@ button#dropdownMenuButton:focus {
 
     .badge-#{$state} {
         @include badge-variant($badge-background, $badge-border, $badge-color);
+        
+        &.disabled {
+            @include badge-disabled(
+                $btn-primary-solid-disabled, // Darker background for disabled state
+                $btn-primary-solid-disabled, // Darker border for disabled state
+                $btn-primary-text-disabled // Lighter text color for disabled state
+            );
+        }
     }
 }
 
