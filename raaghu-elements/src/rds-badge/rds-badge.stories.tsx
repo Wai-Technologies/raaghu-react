@@ -102,3 +102,33 @@ export const WithIcon: Story = {
 } satisfies Story;
 WithIcon.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } };
 
+export const IconBadge: Story = {
+  args: {
+    iconName: "circle",
+    size: "smallest",
+    colorVariant: "danger",
+    badgeType: "pill",
+    iconFill: true,
+    iconStroke: true,
+    isIconshow: true,
+    isIconBorder: true,
+    isOutline: true,
+  },
+} satisfies Story;
+IconBadge.parameters = { controls: { include: ['iconName', 'size', 'colorVariant', 'badgeType', 'iconFill', 'iconStroke', 'isOutline'] } };
+
+export const textWithIcon: Story = {
+  args: {
+    iconName: "circle",
+    size: "smallest",
+    label: "Badge",
+    colorVariant: "danger",
+    badgeType: "pill",
+    iconFill: true,
+    iconStroke: true,
+    iconPosition: "left",
+    isTextWithIcon: true,
+    isOutline: true,
+  },
+} satisfies Story;
+textWithIcon.parameters = { controls: { include: ['iconName','size', 'label', 'colorVariant', 'badgeType', 'iconFill', 'iconStroke', 'iconPosition', 'isOutline'] } };
