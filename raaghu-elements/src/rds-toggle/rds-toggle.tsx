@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./rds-toggle.css";
 
 export interface RdsToggleProps {
     onClick?: React.MouseEventHandler<HTMLInputElement>;
