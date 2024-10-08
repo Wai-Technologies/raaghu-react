@@ -205,18 +205,31 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
                 autoFocus={props.autoFocus && props.autoFocus[1] === 0}
                 ref={ref}
               />
-              {props.inputType === "password" && props.showIcon == true && (
-                <RdsIcon
-                  name={showPassword ? "eye" : "eye_slash"}
-                  classes="password-toggle"
-                  height="16px"
-                  width="16px"
-                  fill={false}
-                  stroke={true}
-                  opacity="0.5"
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-              )}
+              {props.inputType === "password" && props.showIcon ? (
+        <RdsIcon
+          name={showPassword ? "eye" : "eye_slash"}
+          classes="password-toggle"
+          height="16px"
+          width="16px"
+          fill={false}
+          stroke={true}
+          opacity="0.5"
+          onClick={() => setShowPassword(!showPassword)}
+        />
+      ) : (
+        props.showIcon && (
+          <RdsIcon
+            name="information"
+            classes="password-toggle"
+            height="16px"
+            width="16px"
+            fill={false}
+            stroke={true}
+            opacity="0.5"
+          />
+        )
+      )}
+             
             </div>
           )}
           {props.tooltipTitle && (
@@ -260,18 +273,30 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
                     )}
                   </>
                 )}
-                {props.inputType === "password" && props.showIcon == true && (
-                  <RdsIcon
-                    name={showPassword ? "eye" : "eye_slash"}
-                    classes="password-toggle"
-                    height="20px"
-                    width="20px"
-                    fill={false}
-                    stroke={true}
-                    opacity="0.5"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                )}
+                {props.inputType === "password" && props.showIcon ? (
+        <RdsIcon
+          name={showPassword ? "eye" : "eye_slash"}
+          classes="password-toggle"
+          height="16px"
+          width="16px"
+          fill={false}
+          stroke={true}
+          opacity="0.5"
+          onClick={() => setShowPassword(!showPassword)}
+        />
+      ) : (
+        props.showIcon && (
+          <RdsIcon
+            name="information"
+            classes="password-toggle"
+            height="16px"
+            width="16px"
+            fill={false}
+            stroke={true}
+            opacity="0.5"
+          />
+        )
+      )}
               </div>
             </Tooltip>
           )}
