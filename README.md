@@ -3,7 +3,17 @@
 
 <!-- Custom style -->
 
-
+<p align="center">
+  <a href="https://raaghu.io" target="_blank">
+    <p>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-dark.png?raw=trues">
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues">
+        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues" width="1000"/>
+      </picture>
+    </p>
+  </a>
+</p>
 </br>
 
 <div align="center">
@@ -335,17 +345,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/LiZdckORQEg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_trailer_snap.jpg" alt="Trailer" width="250"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/trailer.gif" alt="Trailer" width="250"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu-snap.jpg" alt="Why Raaghu" width="250"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu.gif" alt="Why Raaghu" width="250"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu-snap.jpg" alt="Introduction" width="250"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_introduction.gif" alt="Introduction" width="250"/>
   </a>
 </td>
 </tr>
@@ -364,17 +374,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Build_with_source_code_snap.jpg" alt="Raaghu Source Code" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/source_code.gif" alt="Raaghu Source Code" width="240"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build_with_packages_snap.jpg" alt="Raaghu Package" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/packages.gif" alt="Raaghu Package" width="240"/>
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_snap.jpg" alt="Storybook" width="240"/>
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook.gif" alt="Storybook" width="240"/>
   </a>
 </td>
 </tr>
