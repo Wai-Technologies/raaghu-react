@@ -2,17 +2,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- Custom style -->
-<p align="center">
-  <a href="https://raaghu.io" target="_blank">
-    <p>
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-dark.png?raw=true">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues">
-        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/hero-banner-light.png?raw=trues" width="1000"/>
-      </picture>
-    </p>
-  </a>
-</p>
+
 
 </br>
 
