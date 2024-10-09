@@ -15,7 +15,7 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof RdsCompAlertPopup>;
-
+ 
 export const Default: Story = (args : any) => (
     <>
         <button
@@ -34,10 +34,14 @@ Default.args = {
     alertID: "alert_popup",
     iconUrl: "delete",
     colorVariant: "danger",
-    alertConfirmation: "Are you sure to Delete",
-    messageAlert: "This record will be deleted permanently",
+    alertConfirmation: "Are you sure to Delete?", // Added question mark for clarity
+    messageAlert: "This record will be deleted permanently.", // Added period for completeness
     cancelBtnLabel: "Cancel",
     deleteBtnLabel: "Delete",
 };
 
-Default.parameters = { controls: { include: ['alertID', 'iconUrl', 'colorVariant','alertConfirmation','messageAlert','cancelButtonLabel','deleteButtonLabel'] } };
+Default.parameters = { 
+    controls: { 
+        include: ['alertID', 'iconUrl', 'colorVariant', 'alertConfirmation', 'messageAlert', 'cancelBtnLabel', 'deleteBtnLabel'] 
+    } 
+};
