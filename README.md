@@ -14,6 +14,9 @@
     </p>
   </a>
 </p>
+
+
+
 </br>
 
 <div align="center">
@@ -184,14 +187,14 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<!-- <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Dashboard Gif" width="1000"> -->
-
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Storybook-page.gif" alt="Dashboard Gif" width="1000">
+<!-- 
 <div align="center">
   <video width="600" controls>
     <source src="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-</div>
+</div> -->
 
 
   <!-- <picture>
