@@ -28,34 +28,13 @@ export const ScatterChart: Story = {
                 type: "scatter",
                 label: "Scatter Dataset",
                 data: [
-                    {
-                        x: -10,
-                        y: 0
-                    },
-                    {
-                        x: -8,
-                        y: 3
-                    },
-                    {
-                        x: -5,
-                        y: 5
-                    },
-                    {
-                        x: 0,
-                        y: 9
-                    },
-                    {
-                        x: 4,
-                        y: 3
-                    },
-                    {
-                        x: 9,
-                        y: 5
-                    },
-                    {
-                        x: 0.5,
-                        y: 5.5
-                    }
+                    { x: -10, y: 0 },
+                    { x: -8, y: 3 },
+                    { x: -5, y: 5 },
+                    { x: 0, y: 9 },
+                    { x: 4, y: 3 },
+                    { x: 9, y: 5 },
+                    { x: 0.5, y: 5.5 }
                 ],
                 backgroundColor: "rgb(255, 99, 132)",
                 pointStyle: "triangle",
@@ -63,11 +42,9 @@ export const ScatterChart: Story = {
             }
         ],
         labels: ["January", "February", "March", "April"],
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            // radius: 10,
             plugins: {
                 legend: {
                     position: "top",
@@ -85,12 +62,13 @@ export const ScatterChart: Story = {
             scales: {
                 x: {
                     type: "linear",
-                    position: "bottom"
-                }
-            }
+                    position: "bottom",
+                },
+            },
         },
     }
 };
+
 
 export const ScatterChartWithMultiAxis: Story = {
     args: {
