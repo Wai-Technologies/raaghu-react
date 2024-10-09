@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { colors } from "../../libs/types";
 import "./rds-toast.css";
 import RdsIcon from "../rds-icon/rds-icon";
-import RdsButton from "../rds-button";
 
 export interface RdsToastProps {
     colorVariant?: colors;
