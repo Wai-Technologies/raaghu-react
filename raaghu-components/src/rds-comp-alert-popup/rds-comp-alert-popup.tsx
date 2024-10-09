@@ -1,5 +1,6 @@
 import React from "react";
 import { RdsModal, RdsIcon, RdsButton, RdsLabel } from "../rds-elements";
+
 export interface RdsCompAlertPopupProps {
     alertID: any;
     iconUrl?: string;
@@ -11,16 +12,18 @@ export interface RdsCompAlertPopupProps {
     cancelButtonColor?: string;
     deleteButtonColor?: string;
 
-    onSuccess?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-    onCancel?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
+    onSuccess?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onCancel?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
 const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const iconUrl = props.iconUrl || "delete";
     const colorVariant = props.colorVariant || "danger";
-    const alertConfirmation = props.alertConfirmation || "Are You Sure";
-    const messageAlert = props.messageAlert || "This record will be deleted permanently";
+    const alertConfirmation = props.alertConfirmation || "Are You Sure?";
+    const messageAlert = props.messageAlert || "This record will be deleted permanently.";
     const CancelButtonLabel = props.cancelBtnLabel || "Cancel";
     const DeleteButtonLabel = props.deleteBtnLabel || "Delete";
+
     return (
         <div>
             <RdsModal
@@ -34,7 +37,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                 size='default'
                 verticallyCentered={true}
             >
-                <div className="text-center  py-3 px-4 ">
+                <div className="text-center py-3 px-4">
                     <p className="align-items-center d-flex justify-content-center">
                         <RdsIcon
                             height="28px"
@@ -50,16 +53,16 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                         <RdsLabel label={alertConfirmation} />
                     </h4>
                     <span>
-                        <RdsLabel class="" label={messageAlert} />
+                        <RdsLabel label={messageAlert} />
                     </span>
                     <div className="mt-4 pt-2 d-flex gap-3 justify-content-center">
                         <RdsButton
                             onClick={props.onCancel}
                             class="px-2"
-                            databsdismiss="modal"
-                            arialabel="close"
+                            data-bs-dismiss="modal" // Corrected from `databsdismiss` to `data-bs-dismiss`
+                            aria-label="close"
                             label={CancelButtonLabel}
-                            size="'small'"
+                            size="small" // Corrected from "'small'" to "small"
                             type="button"
                             tooltipTitle=""
                             colorVariant="danger"
@@ -69,11 +72,11 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             type="button"
                             class="px-2 text-white"
                             label={DeleteButtonLabel}
-                            size="'small'"
+                            size="small" // Corrected from "'small'" to "small"
                             tooltipTitle=""
                             colorVariant="danger"
-                            databsdismiss="modal"
-                            arialabel="close"
+                            data-bs-dismiss="modal" // Corrected from `databsdismiss` to `data-bs-dismiss`
+                            aria-label="close"
                             onClick={props.onSuccess}
                         />
                     </div>

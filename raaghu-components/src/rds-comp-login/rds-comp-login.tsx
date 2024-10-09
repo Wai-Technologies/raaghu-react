@@ -121,11 +121,11 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
       <div className="">
         <div className="text-center">
         <div className="container">
-          <div className="row align-items-center mb-1">
+          <div className="row align-items-center mb-1 mx-md-1">
             <div className="col-12 col-md-11 text-center mb-3">
               <h2 className="mb-0 ms-4">Login</h2>
             </div>
-            <div className="col-12 col-md-1 text-center text-md-end mb-3">
+            <div className="col-12 col-md-1 text-center text-md-end mb-3 px-md-0 px-lg-4">
               <RdsDropdownList
                 labelIcon={currentLanguageIcon}
                 labelIconWidth="18px"

@@ -38,6 +38,13 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
             showInDiscovery: false,
         });
     }
+    const isNameValid = (name: any) => {
+        if (!name || name.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isFormValid=isNameValid(identityBasicData?.name);
     return (
         <>
             <div>
@@ -151,6 +158,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             databsdismiss="offcanvas"
                             dataTestId="save"
                             onClick={(e: any) => emitSaveData(e)}
+                            isDisabled={!isFormValid}
                         ></RdsButton>
                     </div>
                 </form>

@@ -81,7 +81,19 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
         }));
         setRadioItemList(updatedRadioItems);
     }
-
+    const isEditionNameValid = (editionName: any) => {
+        if (!editionName || editionName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isAnnualPriceValid = (annualPrice: any) => {
+        if (!annualPrice || annualPrice.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
     return (
         <>
             <div className="py-4">
@@ -179,7 +191,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                             tooltipTitle={""}
                             type={"submit"}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
+                            isDisabled={!isFormValid}
                             dataTestId="save"
                             onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>

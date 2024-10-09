@@ -35,7 +35,13 @@ function emitSaveData(event: any) {
    })
 
 }
-
+const isNameValid = (name: any) => {
+  if (!name || name.length === 0) {
+      return false;
+  }
+  return true;
+};
+const isFormValid = isNameValid(formData?.name);
   return (
     <>
       <div>
@@ -128,6 +134,7 @@ function emitSaveData(event: any) {
               tooltipTitle={""}
               type={"submit"}
               databsdismiss="offcanvas"
+              isDisabled={!isFormValid}
               onClick={(e: any) => emitSaveData(e)}
               dataTestId="save"
             ></RdsButton>

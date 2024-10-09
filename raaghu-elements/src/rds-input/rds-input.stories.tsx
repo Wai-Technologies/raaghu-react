@@ -14,7 +14,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         inputType: {
-            options: ["email", "text", "password", "otp"],
+            options: ["email", "text", "password", "otp","number"],
             control: { type: "select" },
         },
         labelPosition: {
