@@ -377,8 +377,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/source_code.gif" alt="Raaghu Source Code" width="240"/>
   </a>
 </td>
-<td align="center" width="33%">
-  <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
+<td align="center" style="width: 33%;">
+  <a href="https://youtu.be/kZDPn5CHkhg">
     <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/packages.gif" alt="Raaghu Package" width="240"/>
   </a>
 </td>
