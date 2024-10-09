@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./rds-file-uploader.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import { useTranslation } from "react-i18next";
+
 export interface RdsFileUploaderProps {
   size: string;
   colorVariant?: string;
@@ -14,19 +15,18 @@ export interface RdsFileUploaderProps {
   getFileUploaderInfo?: any;
   validation?: any[];
   onDeleteFile?: (id: any) => void;
+  title?: string;
+  mandatory?: boolean;
+  showTitle?: boolean;
+  showHint?: boolean;
 }
 
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(
-    "No file chosen"
-  );
-
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [validation, setValidation] = useState(props.validation || []);
   const { t } = useTranslation();
-  const [FileArray, setFileArray] = useState<any[]>([]);
-  const [isExceed, setIsExceed] = useState(false);
-  const [fileName, setfileName] = useState<any[]>([]);
-  const [FileSize, setFileSize] = useState<any[]>([]);
-  const [validation, setValidation] = useState(props.validation);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const size =
     props.size === "small"
       ? "form-control-sm"
@@ -34,98 +34,101 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       ? "form-control-lg"
       : "";
 
-  const kbToMb = (kb: any) => {
-    const mb = kb / 1024;
-    return Math.round(mb * 100) / 100; // Round off to 2 decimal places
-  };
+  const onchangehandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    const allowedExtensions = props.extensions.split(", ");
+    const newFiles: File[] = [];
+    const newValidation = [...validation];
 
-  const onDelete = (id: any) => {
-    const tempFN = fileName.filter((Fname: any, i: number) => i !== id);
-    setfileName(tempFN);
-    const tempFS = FileSize.filter((Fsize: any, i: number) => i !== id);
-    setFileSize(tempFS);
-    const tempFA = FileArray.filter((Farray: any, i: number) => i !== id);
-    setFileArray(tempFA);
-    props.onDeleteFile && props.onDeleteFile(id);
-  };
-
-  const onchangehandler = (event: any) => {
-    const files = event.target.files;
-
-    // Clear previous validation state
-    setIsExceed(false);
-    setValidation(
-      validation?.map((ele: any, index: number) => ({
-        ...ele,
-        isError: false,
-      }))
-    );
-
-    // Process each file
-    for (let i = 0; i < files.length; i++) {
-      const selectedFile = files[i];
-      const allowedExtensions = props.extensions.split(", ");
-      const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
-      if (!allowedExtensions.includes(fileExtension)) {
-        setValidation((prevValidation: any) => [
-          ...prevValidation,
-          {
-            isError: true,
-            hint: `File with extension '${fileExtension}' is not allowed`,
-          },
-        ]);
-        continue;
+    files.forEach((file) => {
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      if (!allowedExtensions.includes(fileExtension || "")) {
+        newValidation.push({
+          isError: true,
+          hint: `File with extension '${fileExtension}' is not allowed`,
+        });
+        return;
       }
 
-      // Continue processing the file if extension is allowed
-      // Update file name display
-      setSelectedFileName(selectedFile.name);
-
-      const fileSizeInMB = selectedFile.size / (1024 * 1024); // Convert size to MB
-      if (fileSizeInMB > props?.limit) {
-        // If file size exceeds limit, set error state and display error message
-        setIsExceed(true);
-        setValidation((prevValidation: any) => [
-          ...prevValidation,
-          { isError: true, hint: "File size exceeds the limit" },
-        ]);
-        continue;
+      const fileSizeInMB = file.size / (1024 * 1024); // Convert size to MB
+      if (fileSizeInMB > props.limit) {
+        newValidation.push({
+          isError: true,
+          hint: "File size exceeds the limit",
+        });
+        return;
       }
 
-      // If file size is within limit and extension is allowed, update file arrays
-      setFileSize((prevSize: any) => [...prevSize, selectedFile.size]);
-      setfileName((prevNames: any) => [...prevNames, selectedFile.name]);
+      newFiles.push(file);
+    });
 
-      // Read file data and update file array
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);
-      reader.onload = (event) => {
-        setFileArray((prevArray: any) => [...prevArray, event.target?.result]);
-      };
+    if (props.multiple) {
+      setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    } else {
+      setSelectedFiles(newFiles);
     }
+    setValidation(newValidation);
 
     // Callback function to pass file info to parent component
     props.getFileUploaderInfo &&
       props.getFileUploaderInfo({
-        files: event.target.files,
+        files: newFiles,
       });
 
     // Clear input value if multiple
     if (props.multiple) {
-      event.target.value = null;
+      event.target.value = "";
+    }
+  };
+
+  const onDelete = (index: number) => {
+    const newFiles = selectedFiles.filter((_, i) => i !== index);
+    setSelectedFiles(newFiles);
+    props.onDeleteFile && props.onDeleteFile(index);
+
+    // Clear the input value without triggering the file explorer
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   };
 
   useEffect(() => {
-    props.onFileArray != undefined && props.onFileArray(FileArray);
-  }, [FileArray]);
+    props.onFileArray && props.onFileArray(selectedFiles);
+  }, [selectedFiles]);
+  const [dragging, setDragging] = useState(false);
 
+  const handleDragOver = (e:any) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setDragging(false);
+  };
+
+  const handleDrop = (e:any) => {
+    e.preventDefault();
+    setDragging(false);
+    const files = e.dataTransfer.files;
+    if (files.length) {
+      onchangehandler({
+        target: {
+          files,
+        },
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+  };
   return (
     <>
       {props.multiple === false ? (
         <div className="">
           <div>
-            <label className={"form-label label-gray"}>{props.label}</label>
+            {props.showTitle && (
+              <label className={"form-label label-gray"}>
+                {props.title}
+                {props.mandatory && <span className="text-danger ml-1">*</span>}
+              </label>
+            )}
           </div>
           <div>
             <form>
@@ -134,16 +137,34 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 className={`align-items-center d-flex mt-1 flex-row`}
               >
                 <span
-                  className={`custom-file-button p-0 border-end-0 form-control align-items-center ${size}`}
+                  className={`custom-file-button p-0 border-end-0 form-control align-items-center bg-primary text-light ${size}`}
                 >
-                  Choose File
+                 Choose File
                 </span>
                 <span
-                  className={`chosenFileSpan ps-3 small-placeholder ${size}`}
+                  className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder ${size}`}
                 >
-                  {selectedFileName}
+                  {selectedFiles.length > 0
+                    ? selectedFiles[0].name
+                    : "No file chosen"}
+                  {selectedFiles.length > 0 && (
+                    <span
+                      className="iconbox ms-2"
+                      onClick={() => onDelete(0)}
+                    >
+                      <RdsIcon
+                        colorVariant="danger"
+                        name={"delete"}
+                        height="16px"
+                        width="16px"
+                        stroke={true}
+                        fill={false}
+                      />
+                    </span>
+                  )}
                 </span>
                 <input
+                  ref={fileInputRef}
                   data-testid="rds-file-uploader-input"
                   className={`col-md-12 input mulinput d-none text-${props.colorVariant}`}
                   type="file"
@@ -151,6 +172,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   id="file1"
                   accept={props.extensions}
                   onChange={onchangehandler}
+                  multiple={props.multiple}
                 />
               </label>
               {validation &&
@@ -165,14 +187,24 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     </small>
                   </div>
                 ))}
+              {props.showHint && (
+                <div className="d-flex justify-content-end text-muted">
+                  <span>Maximum {props.limit}MB</span>
+                </div>
+              )}
             </form>
           </div>
         </div>
       ) : (
         <div>
           {/* Multiple file uploader */}
-          <div className="d-flex justify-content-end">
-            <span>Maximum {props.limit}MB</span>
+          <div>
+            {props.showTitle && (
+              <label className={"form-label label-gray"}>
+                {props.title}
+                {props.mandatory && <span className="text-danger ml-1">*</span>}
+              </label>
+            )}
           </div>
           <label
             htmlFor="file"
@@ -180,11 +212,26 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               props.colorVariant || "primary"
             } ${size}`}
           >
-            <div className="col-md-10 col-lg-10 col-10">
+            
+            <div
+                className={`col-md-10 col-lg-10 col-10 text-center ${dragging ? "dragging" : ""}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+    >       <span className=" text-center">
+              <RdsIcon
+                colorVariant={props.colorVariant}
+                height="20px"
+                isAnimate
+                name="upload_data"
+                stroke
+                width="20px"
+              />
+            </span>
               <div className={`text-${props.colorVariant}`}>
-                {t("Drop your files here.") || ""}
+                {t("Drag and Drop your files or") || ""} <span className="{primary}"> Browse</span>
               </div>
-              <div>(PNG, JPG, Doc, PDF, PPT) </div>
+              <div>(PNG, JPG, DOC, PDF, PPT) </div>
               <input
                 data-testid="rds-file-uploader-input"
                 className={` col-md-12 input mulinput d-none `}
@@ -196,43 +243,37 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 multiple
               />
             </div>
-            <div className="col-md-2 col-lg-2 col-2 text-end">
-              <RdsIcon
-                colorVariant={props.colorVariant}
-                height="20px"
-                isAnimate
-                name="upload_data"
-                stroke
-                width="20px"
-              />
-            </div>
+            
           </label>
+          {props.showHint && (
+            <div className="d-flex justify-content-start text-muted">
+              <span>Maximum {props.limit}MB</span>
+            </div>
+          )}
 
           {/* ------------------ Display names--------------------------- */}
-          {fileName.map((filename: string, i: number) => (
+          {selectedFiles.map((file, index) => (
             <div
-              key={i}
+              key={index}
               className="d-flex justify-content-between p-3 mt-3 fileName"
             >
               <div className="d-flex gap-2 align-items-center">
                 <span>
-                  {" "}
                   <RdsIcon
                     name={"file"}
                     height="16px"
                     width="16px"
                     stroke={true}
                     fill={false}
-                  />{" "}
+                  />
                 </span>
-                <span> {fileName[i]}</span>
+                <span>{file.name}</span>
               </div>
               <div className="closeIcon">
                 <span className="text-muted opacity-50">
-                  {" "}
-                  {(FileSize[i] / 1048576).toFixed(2)} MB{" "}
+                  {(file.size / 1048576).toFixed(2)} MB
                 </span>
-                <span className="iconbox ms-2" onClick={() => onDelete(i)}>
+                <span className="iconbox ms-2" onClick={() => onDelete(index)}>
                   <RdsIcon
                     colorVariant="secondary"
                     name={"close_circle"}
@@ -260,4 +301,5 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     </>
   );
 };
+
 export default RdsFileUploader;

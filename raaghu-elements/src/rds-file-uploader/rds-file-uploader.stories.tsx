@@ -27,6 +27,18 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+        title: {
+            control: { type: "text" },
+        },
+        mandatory: {
+            control: { type: "boolean" },
+        },
+        showTitle: {
+            control: { type: "boolean" },
+        },
+        showHint: {
+            control: { type: "boolean" },
+        },
     },
 } satisfies Meta<typeof RdsFileUploader>;
 
@@ -42,11 +54,16 @@ export const Default: Story = {
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
+        title: "Title",
+        mandatory: false,
+        showTitle: false,
+        showHint: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'multiple', 'extensions', 'limit'] } };
+Default.parameters = { controls: { include: ['size', 'multiple', 'extensions', 'limit', 'title', 'mandatory', 'showTitle', 'showHint'] } };
 
-export const Multiple: Story = {
+export const Drop_Area_Top_Icon
+: Story = {
     args: {
         colorVariant: "primary",
         multiple: true,
@@ -56,8 +73,10 @@ export const Multiple: Story = {
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
+        title: "Title",
+        mandatory: false,
+        showTitle: false,
+        showHint: true,
     }
 } satisfies Story;
-Multiple.parameters = { controls: { include: ['colorVariant', 'multiple', 'extensions', 'limit', 'size'] } };
-
-
+Drop_Area_Top_Icon.parameters = { controls: { include: ['colorVariant', 'multiple', 'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
