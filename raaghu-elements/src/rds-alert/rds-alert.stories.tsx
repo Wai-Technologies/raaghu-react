@@ -11,13 +11,12 @@ const meta: Meta<typeof RdsAlert> = {
         colorVariant: {
             options: [
                 "primary",
-                "success",
-                "danger",
-                "warning",
-                "light",
-                "info",
                 "secondary",
-                "dark",
+                "tertiary",
+                "warning",
+                "error",
+                "neutral",
+                "success"            
             ],
             control: { type: "select" },
         },
