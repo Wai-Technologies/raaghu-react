@@ -18,9 +18,11 @@ export interface RdsSelectProps {
     imgHeight?: string;
   }[];
   selectedValue?: string | string[];
+  selectedValue?: string | string[];
   id: string;
   required?: boolean;
   classes?: string;
+  onChange?: (value: any) => void;
   onChange?: (value: any) => void;
   placeholder?: string;
   dataTestId?: string;
@@ -37,6 +39,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
   );
 
   useEffect(() => {
+    setSelectedValue(props.selectedValue);
     setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
 
@@ -150,5 +153,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
     </div>
   );
 };
+
 
 export default RdsSelectList;
