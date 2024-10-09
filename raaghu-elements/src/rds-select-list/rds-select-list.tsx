@@ -18,11 +18,9 @@ export interface RdsSelectProps {
     imgHeight?: string;
   }[];
   selectedValue?: string | string[];
-  selectedValue?: string | string[];
   id: string;
   required?: boolean;
   classes?: string;
-  onChange?: (value: any) => void;
   onChange?: (value: any) => void;
   placeholder?: string;
   dataTestId?: string;
