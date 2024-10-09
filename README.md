@@ -345,17 +345,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/LiZdckORQEg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/trailer.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/trailer.gif" alt="Raaghu Trailer" width="240">
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why_raaghu.gif" alt="Why Raaghu" width="240">
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_introduction.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_introduction.gif" alt="Raaghu Introduction" width="240">
   </a>
 </td>
 </tr>
@@ -374,7 +374,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/source_code.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/source_code.gif" alt="Raaghu Source Code" width="240">
   </a>
 </td>
 <td align="center" style="width: 33%;">
@@ -384,7 +384,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/dashboard_animation.gif" alt="Raaghu Storybook" width="240">
   </a>
 </td>
 </tr>
