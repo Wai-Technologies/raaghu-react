@@ -1928,7 +1928,16 @@ $form-feedback-color: $gray-700;
 }
 
 @mixin toast-variant($background, $border, $color) {
+    background: $background;
     color: $color;
+    border:$border;
+}
+.toast-basic {
+    @include toast-variant(
+         $bg-neutral-lighter-default, // background
+         $bg-neutral-lighter-default, // border  
+         $txt-neutral-dark-default    // text color
+    );
 }
 
 @each $state, $value in $theme-colors {

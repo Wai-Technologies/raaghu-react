@@ -60,6 +60,7 @@ type Story = StoryObj<typeof RdsToast>;
 
 export const Default: Story = {
     args: {
+        state: "basic",
         headerTitle: "Toast Headline",
         message: "This is a big sample placeholder text.",
         delay: 5000,
@@ -73,14 +74,15 @@ export const Default: Story = {
         iconWidth: "18px",
         iconFill: false,
         borderColor: "primary",
-        layout : "text",
-        state: "basic"
+        layout : "text"
+
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state"] } };
+Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName","iconFill"] } };
 
 export const toastWithDownload: Story = {
     args: {
+        state: "basic",
         headerTitle: "Toast Headline",
         message: "This is a help text",
         delay: 5000,
@@ -90,20 +92,18 @@ export const toastWithDownload: Story = {
         withIcon: true,
         iconName: "circle",
         iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
         iconFill: false,
         borderColor: "primary",
         layout : "download",
-        state: "basic",
         progressWidth: 40,
         filename: "Filename.txt"
     }
 } satisfies Story;
-toastWithDownload.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state", "progressWidth", "filename"] } };
+toastWithDownload.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill", "progressWidth", "filename"] } };
 
 export const toastWithChat: Story = {
     args: {
+        state: "basic",
         headerTitle: "Toast Headline",
         message: "This is a help text",
         delay: 5000,
@@ -118,14 +118,14 @@ export const toastWithChat: Story = {
         iconFill: false,
         borderColor: "primary",
         layout : "chat",
-        state: "basic",
         placeholder: "Placeholder Text"
     }
 } satisfies Story;
-toastWithChat.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "placeholder"] } };
+toastWithChat.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill", "placeholder"] } };
 
 export const toastWithRequest: Story = {
     args: {
+                state: "basic",
         headerTitle: "Toast Headline",
         message: "This is a big sample placeholder text.",
         delay: 5000,
@@ -140,7 +140,7 @@ export const toastWithRequest: Story = {
         iconFill: false,
         borderColor: "primary",
         layout : "request",
-        state: "basic"
+
     }
 } satisfies Story;
-toastWithRequest.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state"] } };
+toastWithRequest.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill"] } };
