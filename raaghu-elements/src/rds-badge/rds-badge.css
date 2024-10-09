@@ -1,19 +1,50 @@
 .medium {
-
     font-size: 1.05rem !important;
 }
 
 .small {
-
     font-size: 0.85rem !important;
 }
 
 .smaller {
-
     font-size: 0.65rem !important;
 }
 
 .smallest {
-
     font-size: 0.60rem !important;
+}
+
+.smaller svg{
+    height: 14px !important;
+    width: 13px !important;
+}
+
+.smallest svg{
+    height: 12px !important;
+    width: 12px !important;
+}
+
+.small svg{
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.medium svg{
+    height: 17px !important;
+    width: 18px !important;
+}
+
+.text-with-icon{
+    display: inline-flex;
+    gap: 0.3rem;
+    align-items: center;
+    border: 1px solid;
+}
+
+.border-icon{
+    border: 1px solid;
+}
+
+.badge-outline{
+    border: 1px solid;
 }
