@@ -54,7 +54,7 @@ const RdsToast = (props: RdsToastProps) => {
                     role="alert"
                     aria-live="assertive"
                     aria-atomic="true"
-                    className={`toast fade ${props.layout != "chat" ?  "toast-comp": ""} ${props.state === "info" ? "toast-comp.toast-info" : props.state === "success"? "toast-comp.toast-success" : props.state === "error"? "toast-comp.toast-error" : ""} ${showState} ${bg} ${borderColor}`}
+                    className={`toast fade ${props.layout != "chat" ?  "toast-comp": ""} ${props.state === "info" ? "toast-info" : props.state === "success"? "toast-success" : props.state === "error"? "toast-error" : "toast-basic"} ${showState} ${bg} ${borderColor}`}
                     id="toastId"
                 >
                     {props.showHeader && (
@@ -81,7 +81,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     type="button"
                                     data-bs-dismiss="toast"
                                     aria-label="Close"
-                                    className="btn-close btn-primary"
+                                    className="btn-close btn-primary text-primary"
                                 ></button>
                             </div>
                             <div className="toast-body">{props.message}</div>
@@ -147,7 +147,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     type="button"
                                     data-bs-dismiss="toast"
                                     aria-label="Close"
-                                    className="btn-close btn-primary"
+                                    className="btn-close btn-primary text-primary"
                                 ></button>                                                                
                             </div>
 

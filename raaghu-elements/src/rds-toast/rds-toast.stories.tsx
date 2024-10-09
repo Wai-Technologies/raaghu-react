@@ -77,7 +77,7 @@ export const Default: Story = {
         state: "basic"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state"] } };
+Default.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state"] } };
 
 export const toastWithDownload: Story = {
     args: {
@@ -100,7 +100,7 @@ export const toastWithDownload: Story = {
         filename: "Filename.txt"
     }
 } satisfies Story;
-toastWithDownload.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state", "progressWidth", "filename"] } };
+toastWithDownload.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state", "progressWidth", "filename"] } };
 
 export const toastWithChat: Story = {
     args: {
@@ -122,7 +122,7 @@ export const toastWithChat: Story = {
         placeholder: "Placeholder Text"
     }
 } satisfies Story;
-toastWithChat.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "placeholder"] } };
+toastWithChat.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "placeholder"] } };
 
 export const toastWithRequest: Story = {
     args: {
@@ -143,4 +143,4 @@ export const toastWithRequest: Story = {
         state: "basic"
     }
 } satisfies Story;
-toastWithRequest.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "borderColor", "layout", "state"] } };
+toastWithRequest.parameters = { controls: { include: ["headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconHeight", "iconWidth", "iconFill", "state"] } };
