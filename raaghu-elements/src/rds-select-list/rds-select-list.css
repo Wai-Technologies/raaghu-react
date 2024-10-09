@@ -11,3 +11,8 @@
     margin: 2px;
     box-sizing: border-box;
 }
+
+.custom-select__multi-value__remove:hover {
+    background-color: #d8c0fa !important;
+    color: #6525bf !important;
+}
