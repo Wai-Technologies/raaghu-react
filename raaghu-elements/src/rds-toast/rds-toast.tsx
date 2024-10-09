@@ -13,9 +13,6 @@ export interface RdsToastProps {
     borderColor?: string;
     showHeader?: boolean;
     iconName?: string;
-    iconColorvariant?: string;
-    iconHeight?: string;
-    iconWidth?: string;
     iconFill?: boolean;
     layout: string;
     state: "basic" | "info" | "success" | "error";
@@ -29,9 +26,6 @@ const RdsToast = (props: RdsToastProps) => {
     const borderColor = "border-left-" + statewiseColor;
     
     // const iconColorColor = props.state === "info"? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "dark";
-    
-    const bg = props.colorVariant ? " bg-" + props.colorVariant : "light";
-
     
     const [showState, setshowState] = useState("show");
 
@@ -54,7 +48,7 @@ const RdsToast = (props: RdsToastProps) => {
                     role="alert"
                     aria-live="assertive"
                     aria-atomic="true"
-                    className={`toast fade ${props.layout != "chat" ?  "toast-comp": ""} ${props.state === "info" ? "toast-info" : props.state === "success"? "toast-success" : props.state === "error"? "toast-error" : "toast-basic"} ${showState} ${bg} ${borderColor}`}
+                    className={`toast fade ${props.layout != "chat" ?  "toast-comp": ""} ${props.state === "info" ? "toast-info" : props.state === "success"? "toast-success" : props.state === "error"? "toast-error" : "toast-basic"} ${showState} ${borderColor}`}
                     id="toastId"
                 >
                     {props.showHeader && (
@@ -64,9 +58,6 @@ const RdsToast = (props: RdsToastProps) => {
                                     {props.withIcon && (
                                         <RdsIcon
                                             name={props.iconName}
-                                            colorVariant= {props.iconColorvariant}
-                                            height={props.iconHeight}
-                                            width={props.iconWidth}
                                             stroke={true}
                                             fill={props.iconFill}
                                         ></RdsIcon>
@@ -133,9 +124,6 @@ const RdsToast = (props: RdsToastProps) => {
                                         {props.withIcon && (
                                             <RdsIcon
                                                 name={props.iconName}
-                                                colorVariant={props.iconColorvariant}
-                                                height={props.iconHeight}
-                                                width={props.iconWidth}
                                                 stroke={true}
                                                 fill={props.iconFill}
                                             ></RdsIcon>

@@ -39,7 +39,7 @@ $bg-primary-lighter-default:#FEF7FF;
     $bg-neutral-dark-default:#4C4C4C;
     $bg-neutral-medium-default:#CDCDCD;
     $bg-neutral-light-default:#E9E9E9;
-    $bg-neutral-lighter-default:#646464;
+    $bg-neutral-lighter-default:#ffffff;
 
     /*Error Background colors */
     $bg-error-darker-default:#410003;
@@ -133,12 +133,12 @@ $bg-primary-lighter-default:#FEF7FF;
            $input-tertiary-outline-disabled:#F8A4FF;
 
             /*Neutral Input colors*/
-            $input-tertiary-solid-default:#646464;
-            $input-tertiary-solid-hover:#4C4C4C;
-            $input-tertiary-solid-disabled:#CDCDCD;
-            $input-tertiary-outline-default:#646464;
-            $input-tertiary-outline-hover:#4C4C4C;
-            $input-tertiary-outline-disabled:#CDCDCD;
+            $input-neutral-solid-default:#646464;
+            $input-neutral-solid-hover:#4C4C4C;
+            $input-neutral-solid-disabled:#CDCDCD;
+            $input-neutral-outline-default:#646464;
+            $input-neutral-outline-hover:#4C4C4C;
+            $input-neutral-outline-disabled:#CDCDCD;
 
              /*Error Input colors*/
              $input-error-solid-default:#BD0D1D;
@@ -381,8 +381,7 @@ $accordion-border-color: #646464 ;
 $toast-btn-close-color: $gray-100 !default;
 $btn-close-width: 1em !default;
 $btn-close-color: $gray-100 !default;
-$btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
-
+$btn-close-bg: url("data:image/svg+xml,<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M13 13L0.999969 1M13 1L0.999969 13' stroke='#7825E9' stroke-linecap='round' stroke-linejoin='round'/ ></svg > ") !default;
 // /*accordion color variables*/
 $accordion-bg: $white;
 $accordion-button-bg: $light;
@@ -1939,7 +1938,135 @@ $form-feedback-color: $gray-700;
          $txt-neutral-dark-default    // text color
     );
 }
+.toast-info {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-neutral-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-neutral-outline-default;
 
+        polyline.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        polygon.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        ellipse.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        path.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        line.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        rect.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        circle.icon {
+            stroke: $input-neutral-outline-default;
+        }
+    }
+}
+.toast-success {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-primary-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-primary-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-primary-outline-default;
+
+        polyline.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        polygon.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        ellipse.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        path.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        line.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        rect.icon {
+            stroke: $input-primary-outline-default;
+        }
+
+        circle.icon {
+            stroke: $input-primary-outline-default;
+        }
+    }
+}
+.toast-error {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-error-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-error-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-error-outline-default;
+
+        polyline.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        polygon.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        ellipse.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        path.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        line.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        rect.icon {
+            stroke: $input-error-outline-default;
+        }
+
+        circle.icon {
+            stroke: $input-error-outline-default;
+        }
+    }
+}
 @each $state, $value in $theme-colors {
     $toast-background: shift-color($value, $toast-bg-scale);
     $toast-border: shift-color($value, $toast-border-scale);
