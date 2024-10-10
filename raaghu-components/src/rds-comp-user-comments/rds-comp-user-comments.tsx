@@ -1,5 +1,6 @@
+/* eslint-disable quotes */
 import React, { useState } from "react";
-import './rds-comp-user-comments.css';
+import './rds-comp-user-comments.scss';
 import { RdsIcon, RdsInput } from "../rds-elements";
 
 interface Comment {
@@ -66,21 +67,21 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                 const isLastCurrentUserComment = isCurrentUser && lastUserCommentIndex === index;
 
                 return (
-                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>                        
-                   <div className="profile-initials">
-                    {comment.profilePic && comment.profilePic.trim() !== "" ? (
-                        <img 
-                            src={comment.profilePic} 
-                            alt={`${comment.username}'s profile`} 
-                            className="profile-pic" 
-                        />
-                    ) : (
-                        <div className="initials">
-                            {`${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`}
-                        </div>
-                    )}
-                </div>
-
+                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>  
+                        <div className="d-flex flex-row-reverse">
+                            <div className="profile-initials">
+                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
+                                    <img
+                                        src={comment.profilePic}
+                                        alt={`${comment.username}'s profile`}
+                                        className="profile-pic"
+                                    />
+                                ) : (
+                                    <div className="initials">
+                                        {`${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`}
+                                    </div>
+                                )}
+                            </div>
                         <div className="comment-content">
                             <div className="comment-text">
                                 {comment.comment}
@@ -99,9 +100,12 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                                 )}
                             </div>
                         </div>
-                        <div className="comment-footer">
+                   
+                </div>
+                       
+                        <div className="comment-footer d-flex justify-content-end">
                             <div className="username">{comment.username}</div>
-                            <div className="date">{comment.date.toLocaleString()}</div>
+                            <div className="date text-muted ms-2">{comment.date.toLocaleString()}</div>
                         </div>
                     </div>
                 );

@@ -1,8 +1,9 @@
 /* Container Styles */
 .comments-container {
-  padding: 10px;
-  border-radius: 8px;
-  margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    color: #202020;
 }
 
 .comments-container.small {
@@ -20,7 +21,6 @@
 /* Comment Box Layout */
 .comment-box {
   margin: 10px 0;
-  display: flex;
   align-items: flex-start;
 }
 
@@ -30,10 +30,12 @@
 }
 
 .current-user .comment-content {
-  background-color: #d3d3d3;
-  border-radius: 8px;
-  padding: 10px;
-  order: 1; /* Ensures comment content comes after the profile picture */
+    background-color: #D6D6D6;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #202020;
+    order: 1; /* Ensures comment content comes after the profile picture */
 }
 
 .current-user .profile-initials,
@@ -43,20 +45,24 @@
 
 /* Other User Comments */
 .other-user {
+   
   justify-content: flex-end; /* Align other user comments to the right */
   flex-direction: row-reverse; /* Reverse order to put profile picture on the right */
 }
 
 .other-user .comment-content {
-  background-color: #e6f7ff;
-  border-radius: 8px;
-  padding: 10px;
-  order: 1; /* Ensures comment content comes before the profile picture */
+    background-color: #C3DCF4;
+    border-radius: 8px;
+    border-bottom-right-radius:0px;
+    padding: 8px 12px;
+    font-size:14px;
+    order: 1; /* Ensures comment content comes before the profile picture */
+    display:flex;
+    justify-content:end;
 }
 
-.other-user .profile-initials,
-.other-user .profile-pic {
-  margin-left: 10px; /* Space between comment and profile for other users */
+.other-user .profile-initials {
+  margin-left: 0.3rem; /* Space between comment and profile for other users */
 }
 
 /* Profile Image & Initials */
@@ -98,15 +104,6 @@
 .comment-footer {
   margin-top: 5px;
   font-size: 0.8em;
-  color: gray;
-}
-
-.username {
-  font-weight: bold;
-}
-
-.date {
-  color: gray;
 }
 
 /* Input Area for New Comments */
@@ -129,4 +126,10 @@
   border: none;
   color: red;
   cursor: pointer;
+}
+.username {
+    color: #646464;
+}
+.text-muted {
+    color: #969696;
 }
