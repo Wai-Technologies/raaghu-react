@@ -1,3 +1,4 @@
+/* Container Styles */
 .comments-container {
   padding: 10px;
   border-radius: 8px;
@@ -5,73 +6,99 @@
 }
 
 .comments-container.small {
-  width: 300px; /* Adjust width as needed */
+  width: 300px;
 }
 
 .comments-container.medium {
-  width: 500px; /* Adjust width as needed */
+  width: 500px;
 }
 
 .comments-container.large {
-  width: 800px; /* Adjust width as needed */
+  width: 800px;
 }
 
-.comment-input {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.comment-input input {
-  flex: 1; /* Allow the input to take the remaining space */
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
+/* Comment Box Layout */
 .comment-box {
   margin: 10px 0;
   display: flex;
-  align-items: flex-start; /* Align items vertically at the start */
+  align-items: flex-start;
+}
+
+/* Current User Comments */
+.current-user {
+  justify-content: flex-start; /* Align current user comments to the left */
 }
 
 .current-user .comment-content {
-  background-color: #d3d3d3; /* Light gray background for current user */
-  border-radius: 4px;
+  background-color: #d3d3d3;
+  border-radius: 8px;
   padding: 10px;
+  order: 1; /* Ensures comment content comes after the profile picture */
+}
+
+.current-user .profile-initials,
+.current-user .profile-pic {
+  margin-right: 10px; /* Space between profile and comment for current user */
+}
+
+/* Other User Comments */
+.other-user {
+  justify-content: flex-end; /* Align other user comments to the right */
+  flex-direction: row-reverse; /* Reverse order to put profile picture on the right */
 }
 
 .other-user .comment-content {
-  background-color: #e6f7ff; /* Light blue background for other users */
-  border-radius: 4px;
+  background-color: #e6f7ff;
+  border-radius: 8px;
   padding: 10px;
+  order: 1; /* Ensures comment content comes before the profile picture */
 }
 
-.profile-initials {
-  width: 30px;
-  height: 30px;
+.other-user .profile-initials,
+.other-user .profile-pic {
+  margin-left: 10px; /* Space between comment and profile for other users */
+}
+
+/* Profile Image & Initials */
+.profile-initials, .profile-pic {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #007bff; /* Example background color for initials */
+  overflow: hidden;
+  background-color: #007bff;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
 }
 
+.profile-pic {
+  object-fit: cover;
+}
+
+/* Initials Styling */
+.initials {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+/* Comment Content Styling */
 .comment-content {
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  flex: 1; /* Allow comment content to take available space */
+  flex-direction: column;
+  max-width: 70%; /* Ensure comments don't take too much space */
 }
 
 .comment-text {
-  display: flex; /* Use flex to keep the delete button inline with the text */
-  justify-content: space-between; /* Align comment text and button */
+  display: flex;
+  justify-content: space-between;
 }
 
+/* Footer for Name & Date */
 .comment-footer {
-  margin-top: 5px; /* Margin to separate footer from the comment */
+  margin-top: 5px;
+  font-size: 0.8em;
+  color: gray;
 }
 
 .username {
@@ -79,38 +106,27 @@
 }
 
 .date {
-  font-size: 0.8em;
   color: gray;
 }
 
+/* Input Area for New Comments */
+.comment-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comment-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Delete Button Styling */
 .delete-button {
-  border: none;
   background: transparent;
+  border: none;
+  color: red;
   cursor: pointer;
-  color: red; /* Color for delete button */
-}
-
-.profile-initials {
-  width: 30px; /* Adjust size as needed */
-  height: 30px; /* Adjust size as needed */
-  border-radius: 50%; /* Circular shape */
-  overflow: hidden; /* Ensure overflow is hidden */
-  background-color: #007bff; /* Default background color for initials */
-  color: white; /* Text color for initials */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  margin-right: 10px; /* Space between image and comment */
-}
-
-.profile-pic {
-  width: 100%; /* Use full size of the container */
-  height: 100%; /* Use full size of the container */
-  object-fit: cover; /* Maintain aspect ratio */
-  border-radius: 50%; /* Circular shape */
-}
-
-.initials {
-  font-weight: bold; /* Bold initials */
-  font-size: 1em; /* Adjust size as needed */
 }
