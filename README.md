@@ -84,10 +84,9 @@
   </picture>
 </p> -->
 
-<p>
-  It offers a Figma design kit available on the Figma Community and provides well-tested UI components documented in Storybook.
-
-</p>
+<div align="center">
+  Design System offers a Figma design kit available on the Figma Community and provides well-tested UI components documented in Storybook.
+</div>
 
 </br>
 
