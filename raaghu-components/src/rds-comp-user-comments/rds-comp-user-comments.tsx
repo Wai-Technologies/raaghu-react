@@ -2,12 +2,13 @@
 import React, { useState } from "react";
 import './rds-comp-user-comments.scss';
 import { RdsIcon, RdsInput, RdsButton } from "../rds-elements";
+import EmojiPicker from 'emoji-picker-react';
 
 interface Comment {
     firstName: string;
     lastName: string;
     profilePic: string;
-    date: Date;
+    date: string;
     comment: string;
 }
 
@@ -31,6 +32,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     const [commentText, setCommentText] = useState('');
     const [commentList, setCommentList] = useState<Comment[]>(comments);
     const [lastUserCommentIndex, setLastUserCommentIndex] = useState<number | null>(null); // Track last comment index
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
 
     const handleAddComment = () => {
         if (commentText.trim() === '') return;
@@ -39,13 +41,17 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             profilePic: currentUser.profilePic,
-            date: new Date(),
+            date: new Date().toLocaleDateString('en-US'),
             comment: commentText,
         };
 
         setCommentList([...commentList, newComment]);
         setCommentText('');
         setLastUserCommentIndex(commentList.length); // Update the index of the last user comment
+    };
+    const onEmojiClick = (event: any, emojiObject: any) => {
+        setCommentText(prevText => prevText + emojiObject.emoji);
+        setShowEmojiPicker(false); // Close emoji picker after selecting
     };
 
     const handleDeleteComment = (index: number) => {
@@ -62,97 +68,84 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         }
     };
 
+
+
     return (
         <div className={`comments-container ${width}`}>
-            {commentList.map((comment, index) => {
-                const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName; // Check if the comment is from the current user
-                const isLastCurrentUserComment = isCurrentUser && lastUserCommentIndex === index;
+       {commentList.map((comment, index) => {
+    const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
 
-                return (
-                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
-                        {/* Current user image on the left */}
-                        <div className={`d-flex ${isCurrentUser ? '' : 'flex-row-reverse'}`}  >
-                        {isCurrentUser && (
-                            <div className="profile-initials">
-                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
-                                    <img 
-                                        src={comment.profilePic} 
-                                        alt={`${comment.firstName}'s profile`} 
-                                        className="profile-pic" 
-                                    />
-                                ) : (
-                                    <div className="initials">
-                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                        {!isCurrentUser && (
-                            <div className="profile-initials" >
-                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
-                                    <img
-                                        src={comment.profilePic}
-                                        alt={`${comment.firstName}'s profile`}
-                                        className="profile-pic"
-                                    />
-                                ) : (
-                                    <div className="initials">
-                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                            {/* Comment content */}
-
-                        <div className="comment-content">
-                            <div className="comment-text">
-                                {comment.comment}
-                                {/* Show delete icon only for the last comment of the current user */}
-                               
-                            </div>
-                                
-                            </div>
-                            <span className="d-flex align-items-center ms-1">
-                            {allowDelete && isLastCurrentUserComment && (
-                                <RdsIcon
-                                    name="delete"
-                                    fill={false}
-                                    stroke={true}
-                                    colorVariant="danger"
-                                    isCursorPointer={true}
-                                    width="18px"
-                                    height="18px"
-                                    onClick={() => handleDeleteComment(index)}
-                                />
-                                )}
-                            </span>
-                       </div>
-
-                        <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-start' : 'justify-content-end'}`}>
-                            <div className="username">{comment.firstName} {comment.lastName}</div>
-                            <div className="date text-muted ms-2">{comment.date.toLocaleString()}</div>
+    return (
+        <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
+            <div className={`d-flex ${isCurrentUser ? '' : 'flex-row-reverse'}`}>
+                <div className="profile-initials">
+                    {comment.profilePic && comment.profilePic.trim() !== "" ? (
+                        <img 
+                            src={comment.profilePic} 
+                            alt={`${comment.firstName}'s profile`} 
+                            className="profile-pic" 
+                        />
+                    ) : (
+                        <div className="initials">
+                            {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
                         </div>
-                        {/* Other user image on the right */}
-                      
+                    )}
+                </div>
+                <div className="comment-content">
+                    <div className="comment-text">
+                        {comment.comment}
                     </div>
-                );
-            })}
+                </div>
+
+                {/* Show delete icon for all current user comments */}
+                {allowDelete && isCurrentUser && (
+                    <span className="d-flex align-items-center ms-1">
+                        <RdsIcon
+                            name="delete"
+                            fill={false}
+                            stroke={true}
+                            colorVariant="danger"
+                            isCursorPointer={true}
+                            width="18px"
+                            height="18px"
+                            onClick={() => handleDeleteComment(index)}
+                        />
+                    </span>
+                )}
+            </div>
+
+            <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-start' : 'justify-content-end'}`}>
+                <div className="username">{comment.firstName} {comment.lastName}</div>
+                <div className="date text-muted ms-2">{comment.date.toLocaleString()}</div>
+            </div>
+        </div>
+    );
+})}
+
 
             <div className="comment-input mt-4">
-                <span className="me-2"><RdsButton
-                    colorVariant="primary"
-                    icon="plus"
-                    size="medium"
-                /></span>
-                <span className="me-2"><RdsIcon
-                    name="smileys"
-                    fill={false}
-                    stroke={true}
-                    colorVariant="neutral"
-                    isCursorPointer={true}
-                    width="30px"
-                    height="30px"
-                /></span>
+                   {/* Emoji Picker */}
+                   {showEmojiPicker && (
+                    <div className="emoji-popup">
+                        <EmojiPicker onEmojiClick={onEmojiClick} />
+                    </div>
+                )}
+
+                <span className="me-2">
+                    <RdsButton colorVariant="primary" icon="plus" size="medium" />
+                </span>
+                <span className="me-2">
+                    <RdsIcon
+                        name="smileys"
+                        fill={false}
+                        stroke={true}
+                        colorVariant="neutral"
+                        isCursorPointer={true}
+                        width="30px"
+                        height="30px"
+                        onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Toggle emoji picker
+                    />
+                </span>
                 <span className="w-100 d-flex input-box border p-1">
                     <span className="w-100">
                 <RdsInput

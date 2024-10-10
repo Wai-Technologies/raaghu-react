@@ -65,7 +65,7 @@
   align-items: center;
   margin: 0 10px; /* Space between image and comment */
 }
-.profile-initials,{
+.profile-initials{
     margin-right:0px;
 }
 .profile-pic {
@@ -139,4 +139,10 @@
     margin-top: 0px !important;
     padding: 2px;
 }
+}
+.emoji-popup {
+  position: absolute;
+  bottom: 60px; /* Adjust depending on the input field */
+  left: 10px; /* Adjust for alignment */
+  z-index: 1000; /* Ensure it appears on top */
 }
