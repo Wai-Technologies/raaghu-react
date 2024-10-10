@@ -1,24 +1,12 @@
-/* Container Styles */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 .comments-container {
     padding: 10px;
     border-radius: 8px;
     margin: 10px 0;
     color: #202020;
+    font-family: "Nunito", sans-serif;
 }
 
-.comments-container.small {
-  width: 300px;
-}
-
-.comments-container.medium {
-  width: 500px;
-}
-
-.comments-container.large {
-  width: 800px;
-}
-
-/* Comment Box Layout */
 .comment-box {
   margin: 10px 0;
   align-items: flex-start;
@@ -32,15 +20,15 @@
 .current-user .comment-content {
     background-color: #D6D6D6;
     border-radius: 8px;
+    border-bottom-left-radius:0px;
     padding: 8px 12px;
     font-size: 14px;
-    color: #202020;
-    order: 1; /* Ensures comment content comes after the profile picture */
+    color: #202020;/* Ensures comment content comes after the profile picture */
 }
 
 .current-user .profile-initials,
 .current-user .profile-pic {
-  margin-right: 10px; /* Space between profile and comment for current user */
+  margin-right: 0.3rem; /* Space between profile and comment for current user */
 }
 
 /* Other User Comments */
@@ -75,20 +63,29 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin: 0 10px; /* Space between image and comment */
 }
-
+.profile-initials,{
+    margin-right:0px;
+}
 .profile-pic {
-  object-fit: cover;
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Ensures the image is rounded */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
 }
 
-/* Initials Styling */
 .initials {
+  width: 40px; /* Same size as profile picture */
+  height: 40px; /* Same size as profile picture */
+  border-radius: 50%; /* Ensure initials div is also rounded */
+  background-color: lightgray; /* Background color for initials */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
-  font-size: 1em;
 }
 
-/* Comment Content Styling */
 .comment-content {
   display: flex;
   flex-direction: column;
@@ -103,21 +100,21 @@
 /* Footer for Name & Date */
 .comment-footer {
   margin-top: 5px;
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
-/* Input Area for New Comments */
 .comment-input {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  width:100%;
 }
 
 .comment-input input {
   flex: 1;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
 }
 
 /* Delete Button Styling */
@@ -132,4 +129,14 @@
 }
 .text-muted {
     color: #969696;
+}
+.input-box{
+    box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.08);
+
+    input
+{
+    border: 0px;
+    margin-top: 0px !important;
+    padding: 2px;
+}
 }

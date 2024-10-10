@@ -1,10 +1,11 @@
 /* eslint-disable quotes */
 import React, { useState } from "react";
 import './rds-comp-user-comments.scss';
-import { RdsIcon, RdsInput } from "../rds-elements";
+import { RdsIcon, RdsInput, RdsButton } from "../rds-elements";
 
 interface Comment {
-    username: string;
+    firstName: string;
+    lastName: string;
     profilePic: string;
     date: Date;
     comment: string;
@@ -35,7 +36,8 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         if (commentText.trim() === '') return;
 
         const newComment: Comment = {
-            username: `${currentUser.firstName} ${currentUser.lastName}`,
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
             profilePic: currentUser.profilePic,
             date: new Date(),
             comment: commentText,
@@ -63,74 +65,116 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     return (
         <div className={`comments-container ${width}`}>
             {commentList.map((comment, index) => {
-                const isCurrentUser = comment.username === `${currentUser.firstName} ${currentUser.lastName}`;
+                const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName; // Check if the comment is from the current user
                 const isLastCurrentUserComment = isCurrentUser && lastUserCommentIndex === index;
 
                 return (
-                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>  
-                        <div className="d-flex flex-row-reverse">
+                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
+                        {/* Current user image on the left */}
+                        <div className={`d-flex ${isCurrentUser ? '' : 'flex-row-reverse'}`}  >
+                        {isCurrentUser && (
                             <div className="profile-initials">
+                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
+                                    <img 
+                                        src={comment.profilePic} 
+                                        alt={`${comment.firstName}'s profile`} 
+                                        className="profile-pic" 
+                                    />
+                                ) : (
+                                    <div className="initials">
+                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        {!isCurrentUser && (
+                            <div className="profile-initials" >
                                 {comment.profilePic && comment.profilePic.trim() !== "" ? (
                                     <img
                                         src={comment.profilePic}
-                                        alt={`${comment.username}'s profile`}
+                                        alt={`${comment.firstName}'s profile`}
                                         className="profile-pic"
                                     />
                                 ) : (
                                     <div className="initials">
-                                        {`${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`}
+                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
                                     </div>
                                 )}
                             </div>
+                        )}
+                            {/* Comment content */}
+
                         <div className="comment-content">
                             <div className="comment-text">
                                 {comment.comment}
                                 {/* Show delete icon only for the last comment of the current user */}
-                                {allowDelete && isLastCurrentUserComment && (
-                                    <RdsIcon
-                                        name="delete"
-                                        fill={false}
-                                        stroke={true}
-                                        colorVariant="primary"
-                                        isCursorPointer={true}
-                                        width="30px"
-                                        height="30px"
-                                        onClick={() => handleDeleteComment(index)}
-                                    />
-                                )}
+                               
                             </div>
-                        </div>
-                   
-                </div>
-                       
-                        <div className="comment-footer d-flex justify-content-end">
-                            <div className="username">{comment.username}</div>
+                                
+                            </div>
+                            <span className="d-flex align-items-center ms-1">
+                            {allowDelete && isLastCurrentUserComment && (
+                                <RdsIcon
+                                    name="delete"
+                                    fill={false}
+                                    stroke={true}
+                                    colorVariant="danger"
+                                    isCursorPointer={true}
+                                    width="18px"
+                                    height="18px"
+                                    onClick={() => handleDeleteComment(index)}
+                                />
+                                )}
+                            </span>
+                       </div>
+
+                        <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-start' : 'justify-content-end'}`}>
+                            <div className="username">{comment.firstName} {comment.lastName}</div>
                             <div className="date text-muted ms-2">{comment.date.toLocaleString()}</div>
                         </div>
+                        {/* Other user image on the right */}
+                      
                     </div>
                 );
             })}
-            <div className="comment-input">              
-                   <RdsInput
-                                   value={commentText}
-                                    inputType="text"                                 
-                                    placeholder="Type comment..."
-                                    name="password"                                   
-                                    onChange={(e) => setCommentText(e.target.value)}                                  
-                                    showIcon={true}
-                                ></RdsInput>
-          
+
+            <div className="comment-input mt-4">
+                <span className="me-2"><RdsButton
+                    colorVariant="primary"
+                    icon="plus"
+                    size="medium"
+                /></span>
+                <span className="me-2"><RdsIcon
+                    name="smileys"
+                    fill={false}
+                    stroke={true}
+                    colorVariant="neutral"
+                    isCursorPointer={true}
+                    width="30px"
+                    height="30px"
+                /></span>
+                <span className="w-100 d-flex input-box border p-1">
+                    <span className="w-100">
+                <RdsInput
+                    value={commentText}
+                    inputType="text"                                 
+                    placeholder="Type comment..."
+                    name="comment"                                   
+                    onChange={(e) => setCommentText(e.target.value)}                                  
+                    showIcon={true}
+                        />
+                    </span>
+                    <span className="d-flex align-items-center mx-2">
                 <RdsIcon
-                                        name="sun"
-                                        fill={false}
-                                        stroke={true}
-                                        colorVariant="primary"
-                                        isCursorPointer={true}
-                                        width="30px"
-                                        height="30px"
-                                        onClick={handleAddComment}
-                                    />
-                
+                    name="send_email"
+                    fill={false}
+                    stroke={true}
+                    colorVariant="neutral"
+                    isCursorPointer={true}
+                    width="30px"
+                    height="30px"
+                    onClick={handleAddComment}
+                        /></span></span>
             </div>
         </div>
     );
