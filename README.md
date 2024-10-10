@@ -398,7 +398,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
 <th align="center" width="33%">Building Web Apps with Raaghu Package</th>
-<th align="center" width="33%">Storybook-Backbone of Raaghu Design System</th>
+<th align="center" width="33%">Storybook - Backbone of Raaghu Design System</th>
 </tr>
 </thead>
 <tbody>
@@ -425,8 +425,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 
 ## <a name='started'></a> Getting Started with Raaghu
 
-- [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): For development.
-- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screen / MFE etc.
+- [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
+- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
 - [Create new solution](): Guide to create new React Solution. 
 - [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
