@@ -1,0 +1,116 @@
+.comments-container {
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.comments-container.small {
+  width: 300px; /* Adjust width as needed */
+}
+
+.comments-container.medium {
+  width: 500px; /* Adjust width as needed */
+}
+
+.comments-container.large {
+  width: 800px; /* Adjust width as needed */
+}
+
+.comment-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comment-input input {
+  flex: 1; /* Allow the input to take the remaining space */
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.comment-box {
+  margin: 10px 0;
+  display: flex;
+  align-items: flex-start; /* Align items vertically at the start */
+}
+
+.current-user .comment-content {
+  background-color: #d3d3d3; /* Light gray background for current user */
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.other-user .comment-content {
+  background-color: #e6f7ff; /* Light blue background for other users */
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.profile-initials {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #007bff; /* Example background color for initials */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  flex: 1; /* Allow comment content to take available space */
+}
+
+.comment-text {
+  display: flex; /* Use flex to keep the delete button inline with the text */
+  justify-content: space-between; /* Align comment text and button */
+}
+
+.comment-footer {
+  margin-top: 5px; /* Margin to separate footer from the comment */
+}
+
+.username {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.delete-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: red; /* Color for delete button */
+}
+
+.profile-initials {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  border-radius: 50%; /* Circular shape */
+  overflow: hidden; /* Ensure overflow is hidden */
+  background-color: #007bff; /* Default background color for initials */
+  color: white; /* Text color for initials */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  margin-right: 10px; /* Space between image and comment */
+}
+
+.profile-pic {
+  width: 100%; /* Use full size of the container */
+  height: 100%; /* Use full size of the container */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circular shape */
+}
+
+.initials {
+  font-weight: bold; /* Bold initials */
+  font-size: 1em; /* Adjust size as needed */
+}

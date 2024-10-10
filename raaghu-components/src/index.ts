@@ -113,3 +113,4 @@ export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
 export { default as RdsCompContribution } from "./rds-comp-contribution";
 
+export { default as RdsCompUserComments } from "./rds-comp-user-comments";
