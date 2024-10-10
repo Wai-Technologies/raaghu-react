@@ -141,3 +141,6 @@
     align-items: center;
     justify-content: space-between;
 }
+.fileFormat{
+  font-size: 12px !important;
+}

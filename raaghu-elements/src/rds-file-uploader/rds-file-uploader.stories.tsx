@@ -48,25 +48,29 @@ type Story = StoryObj<typeof RdsFileUploader>;
 export const Default: Story = {
     args: {
         size: "large",
-        multiple: false,
+        Drop_Area_Top_Icon: false,
+        Drop_Area_Side_Icon: false,
+        Drop_Area_With_Upload_Button : false,
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        mandatory: false,
-        showTitle: false,
+        mandatory: true,
+        showTitle: true,
         showHint: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'multiple', 'extensions', 'limit', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+Default.parameters = { controls: { include: ['size', 'extensions', 'limit', 'title', 'mandatory', 'showTitle', 'showHint'] } };
 
 export const Drop_Area_Top_Icon
 : Story = {
     args: {
         colorVariant: "primary",
-        multiple: true,
+        Drop_Area_Top_Icon: true,
+        Drop_Area_Side_Icon: false,
+        Drop_Area_With_Upload_Button : false,
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         size: "large",
@@ -74,9 +78,51 @@ export const Drop_Area_Top_Icon
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        mandatory: false,
-        showTitle: false,
+        mandatory: true,
+        showTitle: true,
         showHint: true,
     }
 } satisfies Story;
-Drop_Area_Top_Icon.parameters = { controls: { include: ['colorVariant', 'multiple', 'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+Drop_Area_Top_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+
+export const Drop_Area_Side_Icon
+: Story = {
+    args: {
+        colorVariant: "primary",
+        Drop_Area_Top_Icon: false,
+        Drop_Area_Side_Icon: true,
+        Drop_Area_With_Upload_Button : false,
+        extensions: "png, jpg, doc, pdf, ppt",
+        limit: 5,
+        size: "large",
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
+        title: "Title",
+        mandatory: true,
+        showTitle: true,
+        showHint: true,
+    }
+} satisfies Story;
+Drop_Area_Side_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+
+export const Drop_Area_With_Upload_Button
+: Story = {
+    args: {
+        colorVariant: "primary",
+        Drop_Area_Top_Icon: false,
+        Drop_Area_Side_Icon: false,
+        Drop_Area_With_Upload_Button : true,
+        extensions: "png, jpg, doc, pdf, ppt",
+        limit: 5,
+        size: "large",
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
+        title: "Title",
+        mandatory: true,
+        showTitle: true,
+        showHint: true,
+    }
+} satisfies Story;
+Drop_Area_With_Upload_Button.parameters = { controls: { include: ['colorVariant',  'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
