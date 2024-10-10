@@ -1,104 +1,44 @@
-/* Container Styles */
 .comments-container {
-  padding: 10px;
-  border-radius: 8px;
-  margin: 10px 0;
-}
-
-.comments-container.small {
-  width: 300px;
-}
-
-.comments-container.medium {
-  width: 500px;
-}
-
-.comments-container.large {
-  width: 800px;
-}
-
-/* Comment Box Layout */
-.comment-box {
-  margin: 10px 0;
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
 }
 
-/* Current User Comments */
-.current-user {
-  justify-content: flex-start; /* Align current user comments to the left */
+.comment-box {
+  display: flex;
+  align-items: flex-start; /* Align items to the start */
+  margin: 10px 0;
+  position: relative; /* To allow proper positioning of floating elements */
 }
 
-.current-user .comment-content {
-  background-color: #d3d3d3;
-  border-radius: 8px;
-  padding: 10px;
-  order: 1; /* Ensures comment content comes after the profile picture */
-}
-
-.current-user .profile-initials,
-.current-user .profile-pic {
-  margin-right: 10px; /* Space between profile and comment for current user */
-}
-
-/* Other User Comments */
-.other-user {
-  justify-content: flex-end; /* Align other user comments to the right */
-  flex-direction: row-reverse; /* Reverse order to put profile picture on the right */
-}
-
-.other-user .comment-content {
-  background-color: #e6f7ff;
-  border-radius: 8px;
-  padding: 10px;
-  order: 1; /* Ensures comment content comes before the profile picture */
-}
-
-.other-user .profile-initials,
-.other-user .profile-pic {
-  margin-left: 10px; /* Space between comment and profile for other users */
-}
-
-/* Profile Image & Initials */
-.profile-initials, .profile-pic {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #007bff;
-  color: white;
+.profile-initials {
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin: 0 10px; /* Space between image and comment */
 }
 
 .profile-pic {
-  object-fit: cover;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%; /* Ensures the image is rounded */
+  object-fit: cover; /* Ensures the image covers the area without stretching */
 }
 
-/* Initials Styling */
 .initials {
+  width: 40px; /* Same size as profile picture */
+  height: 40px; /* Same size as profile picture */
+  border-radius: 50%; /* Ensure initials div is also rounded */
+  background-color: lightgray; /* Background color for initials */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
-  font-size: 1em;
 }
 
-/* Comment Content Styling */
 .comment-content {
-  display: flex;
-  flex-direction: column;
-  max-width: 70%; /* Ensure comments don't take too much space */
-}
-
-.comment-text {
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Footer for Name & Date */
-.comment-footer {
-  margin-top: 5px;
-  font-size: 0.8em;
-  color: gray;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%; /* Make sure it takes the remaining space */
 }
 
 .username {
@@ -106,27 +46,12 @@
 }
 
 .date {
+  font-size: 0.8em;
   color: gray;
 }
 
-/* Input Area for New Comments */
 .comment-input {
   display: flex;
   align-items: center;
   margin-top: 10px;
-}
-
-.comment-input input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Delete Button Styling */
-.delete-button {
-  background: transparent;
-  border: none;
-  color: red;
-  cursor: pointer;
 }

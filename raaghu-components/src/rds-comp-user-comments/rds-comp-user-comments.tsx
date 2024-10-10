@@ -35,8 +35,8 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         if (commentText.trim() === '') return;
 
         const newComment: Comment = {
-            firstName :currentUser.firstName,
-            lastName :currentUser.lastName,
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
             profilePic: currentUser.profilePic,
             date: new Date(),
             comment: commentText,
@@ -64,27 +64,30 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     return (
         <div className={`comments-container ${width}`}>
             {commentList.map((comment, index) => {
-                const isCurrentUser = comment.firstName ;
+                const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName; // Check if the comment is from the current user
                 const isLastCurrentUserComment = isCurrentUser && lastUserCommentIndex === index;
 
                 return (
-                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>                        
-                   <div className="profile-initials">
-                    {comment.profilePic && comment.profilePic.trim() !== "" ? (
-                        <img 
-                            src={comment.profilePic} 
-                            alt={`${comment.firstName}'s profile`} 
-                            className="profile-pic" 
-                        />
-                    ) : (
-                        <div className="initials">
-                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
-                    </div>
-                    
-                    )}
-                </div>
+                    <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
+                        {/* Current user image on the left */}
+                        {isCurrentUser && (
+                            <div className="profile-initials" style={{ float: 'left' }}>
+                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
+                                    <img 
+                                        src={comment.profilePic} 
+                                        alt={`${comment.firstName}'s profile`} 
+                                        className="profile-pic" 
+                                    />
+                                ) : (
+                                    <div className="initials">
+                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
-                        <div className="comment-content">
+                        {/* Comment content */}
+                        <div className="comment-content" style={{ backgroundColor: isCurrentUser ? 'lightgray' : 'lightblue' }}>
                             <div className="comment-text">
                                 {comment.comment}
                                 {/* Show delete icon only for the last comment of the current user */}
@@ -101,35 +104,51 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                                     />
                                 )}
                             </div>
+                            <div className="comment-footer">
+                                <div className="username">{comment.firstName} {comment.lastName}</div>
+                                <div className="date">{comment.date.toLocaleString()}</div>
+                            </div>
                         </div>
-                        <div className="comment-footer">
-                            <div className="username">{comment.firstName} {comment.lastName}</div>
-                            <div className="date">{comment.date.toLocaleString()}</div>
-                        </div>
+
+                        {/* Other user image on the right */}
+                        {!isCurrentUser && (
+                            <div className="profile-initials" style={{ float: 'right' }}>
+                                {comment.profilePic && comment.profilePic.trim() !== "" ? (
+                                    <img 
+                                        src={comment.profilePic} 
+                                        alt={`${comment.firstName}'s profile`} 
+                                        className="profile-pic" 
+                                    />
+                                ) : (
+                                    <div className="initials">
+                                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 );
             })}
+
             <div className="comment-input">              
-                   <RdsInput
-                                   value={commentText}
-                                    inputType="text"                                 
-                                    placeholder="Type comment..."
-                                    name="password"                                   
-                                    onChange={(e) => setCommentText(e.target.value)}                                  
-                                    showIcon={true}
-                                ></RdsInput>
-          
+                <RdsInput
+                    value={commentText}
+                    inputType="text"                                 
+                    placeholder="Type comment..."
+                    name="comment"                                   
+                    onChange={(e) => setCommentText(e.target.value)}                                  
+                    showIcon={true}
+                />
                 <RdsIcon
-                                        name="sun"
-                                        fill={false}
-                                        stroke={true}
-                                        colorVariant="primary"
-                                        isCursorPointer={true}
-                                        width="30px"
-                                        height="30px"
-                                        onClick={handleAddComment}
-                                    />
-                
+                    name="sun"
+                    fill={false}
+                    stroke={true}
+                    colorVariant="primary"
+                    isCursorPointer={true}
+                    width="30px"
+                    height="30px"
+                    onClick={handleAddComment}
+                />
             </div>
         </div>
     );
