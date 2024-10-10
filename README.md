@@ -430,9 +430,9 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 - [Create new solution](): Guide to create new React Solution. 
 - [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
-- [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs
-- [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools
-- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust CLI
+- [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs.
+- [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools.
+- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust CLI.
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
