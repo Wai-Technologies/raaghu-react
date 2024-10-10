@@ -92,7 +92,7 @@
 
 <div align="center">
 
-  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+  <a href="https://www.figma.com/community/file/1425066439193737902/raaghu-design-system-open-source" rel="nofollow">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true">
@@ -100,7 +100,7 @@
     </picture>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+  <a href="https://react.raaghu.ai/?path=/docs/introduction--docs" rel="nofollow">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true">
       <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true">
@@ -215,7 +215,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Storybook Gif" width="1000">
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000">
 <!-- 
 <div align="center">
   <video width="600" controls>
