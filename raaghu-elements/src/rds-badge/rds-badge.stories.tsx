@@ -15,17 +15,29 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ["small", "smaller", "smallest", "medium"],
+      options: ["small", "smaller", "smallest", "medium","large"],
       control: { type: "select" },
     },
     badgeType: {
-      options: ["rectangle", "pill"],
+      options: ["rectangle", "pill","box"],
       control: { type: "select" },
     },
     colorVariant: {
       options: badge_colors,
       control: { type: "select" },
     },
+    layout :{
+      options:  ["Icon only", "Icon+Text","Text only","Text+Icon"],
+      control: { type: "select" },
+    },
+    style :{
+      options:  ["Primary", "Outline","disabled","transparent"],
+      control: { type: "select" },
+    },
+    state :{
+      options:  ["Primary", "Secondary","Tertiary","Error","Neutral"],
+      control: { type: "select" },
+    }  
   },
 } satisfies Meta<typeof RdsBadge>;
 
@@ -67,9 +79,12 @@ export const TextBadge: Story = {
     label: "Badge",
     colorVariant: "primary",
     badgeType: "rectangle",
+    layout :"Text Only",
+    style : "Primary",
+    state : "Primary"
   }
 } satisfies Story;
-TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType'] } };
+TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType','layout','style','state'] } };
 
 export const WithLabel: Story = {
   args: {

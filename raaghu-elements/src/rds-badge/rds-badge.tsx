@@ -30,6 +30,9 @@ export interface RdsBadgeProps {
     isTextWithIcon?: boolean;
     isOutline?: boolean;
     isIconBorder?: boolean;
+    layout ? : string ;
+    style ? :string
+    state ? :string
 }
 
 const RdsBadge = (props: RdsBadgeProps) => {
