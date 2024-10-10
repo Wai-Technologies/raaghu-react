@@ -215,7 +215,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000">
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Storybook Gif" width="1000">
 <!-- 
 <div align="center">
   <video width="600" controls>
