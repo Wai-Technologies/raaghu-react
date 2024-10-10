@@ -3,7 +3,8 @@ import './rds-comp-user-comments.css';
 import { RdsIcon, RdsInput } from "../rds-elements";
 
 interface Comment {
-    username: string;
+    firstName: string;
+    lastName: string;
     profilePic: string;
     date: Date;
     comment: string;
@@ -34,7 +35,8 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         if (commentText.trim() === '') return;
 
         const newComment: Comment = {
-            username: `${currentUser.firstName} ${currentUser.lastName}`,
+            firstName :currentUser.firstName,
+            lastName :currentUser.lastName,
             profilePic: currentUser.profilePic,
             date: new Date(),
             comment: commentText,
@@ -62,7 +64,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     return (
         <div className={`comments-container ${width}`}>
             {commentList.map((comment, index) => {
-                const isCurrentUser = comment.username === `${currentUser.firstName} ${currentUser.lastName}`;
+                const isCurrentUser = comment.firstName ;
                 const isLastCurrentUserComment = isCurrentUser && lastUserCommentIndex === index;
 
                 return (
@@ -71,13 +73,14 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                     {comment.profilePic && comment.profilePic.trim() !== "" ? (
                         <img 
                             src={comment.profilePic} 
-                            alt={`${comment.username}'s profile`} 
+                            alt={`${comment.firstName}'s profile`} 
                             className="profile-pic" 
                         />
                     ) : (
                         <div className="initials">
-                            {`${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`}
-                        </div>
+                        {`${comment.firstName.charAt(0)}${comment.lastName.charAt(0)}`}
+                    </div>
+                    
                     )}
                 </div>
 
@@ -100,7 +103,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             </div>
                         </div>
                         <div className="comment-footer">
-                            <div className="username">{comment.username}</div>
+                            <div className="username">{comment.firstName} {comment.lastName}</div>
                             <div className="date">{comment.date.toLocaleString()}</div>
                         </div>
                     </div>

@@ -21,31 +21,36 @@ type Story = StoryObj<typeof RdsCompUserComments>;
 export const Default: Story = {
     args: {
         currentUser: {
-            firstName: "John",
-            lastName: "Doe",
-            profilePic :"https://cdn.shortpixel.ai/spai/q_lossy+ret_img+to_webp/honestproductreviews.com/wp-content/uploads/2018/08/Asset-5.png"
+            firstName: "Max",
+            lastName: "Kevin",
+            profilePic : "",
+            // profilePic :"https://cdn.shortpixel.ai/spai/q_lossy+ret_img+to_webp/honestproductreviews.com/wp-content/uploads/2018/08/Asset-5.png"
         },
         comments: [
             {
-                username: "Alice Smith",
+                firstName: "Alice",
+                lastName: "Smith",
                 profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
                 date: new Date(),
                 comment: "This is a great product!"
             },
             {
-                username: "Maria Brown",
+                firstName: "Maria",
+                lastName: "Brown",
                 profilePic: "https://www.educationworld.co.in/wp-content/uploads/2023/05/dummy-female.jpg",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Anup Mathew",
+                firstName: "Ann",
+                lastName: "Augustine",
                 profilePic: "https://static.vecteezy.com/system/resources/previews/009/398/577/original/man-avatar-clipart-illustration-free-png.png",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Brown Mathew",
+                firstName: "David",
+                lastName: "Brown",
                 profilePic: "",
                 date: new Date(),
                 comment: "I had a wonderful experience."
@@ -64,25 +69,29 @@ export const WithDelete: Story = {
         },
         comments: [
             {
-                username: "Alice Smith",
+                firstName: "Alice",
+                lastName: "Smith",
                 profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
                 date: new Date(),
                 comment: "This is a great product!"
             },
             {
-                username: "Maria Brown",
+                firstName: "Maria",
+                lastName: "Brown",
                 profilePic: "https://www.educationworld.co.in/wp-content/uploads/2023/05/dummy-female.jpg",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Anup Mathew",
+                firstName: "Ann",
+                lastName: "Augustine",
                 profilePic: "https://static.vecteezy.com/system/resources/previews/009/398/577/original/man-avatar-clipart-illustration-free-png.png",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Brown Mathew",
+                firstName: "David",
+                lastName: "Brown",
                 profilePic: "",
                 date: new Date(),
                 comment: "I had a wonderful experience."
@@ -97,29 +106,35 @@ export const LongComments: Story = {
         currentUser: {
             firstName: "Max",
             lastName: "Parker",
-            profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
+            profilePic : ""
+
+            //profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
         },
         comments: [
             {
-                username: "Alice Smith",
+                firstName: "Alice",
+                lastName: "Smith",
                 profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
                 date: new Date(),
                 comment: "This is a great product!"
             },
             {
-                username: "Maria Brown",
+                firstName: "Maria",
+                lastName: "Brown",
                 profilePic: "https://www.educationworld.co.in/wp-content/uploads/2023/05/dummy-female.jpg",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Anup Mathew",
+                firstName: "Ann",
+                lastName: "Augustine",
                 profilePic: "https://static.vecteezy.com/system/resources/previews/009/398/577/original/man-avatar-clipart-illustration-free-png.png",
                 date: new Date(),
                 comment: "I had a wonderful experience."
             },
             {
-                username: "Brown Mathew",
+                firstName: "David",
+                lastName: "Brown",
                 profilePic: "",
                 date: new Date(),
                 comment: "I had a wonderful experience."
