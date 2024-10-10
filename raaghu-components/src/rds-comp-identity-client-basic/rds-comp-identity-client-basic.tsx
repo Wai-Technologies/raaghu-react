@@ -33,25 +33,25 @@ const RdsCompIdentityClientBasic = (props: RdsCompIdentityClientBasicProps) => {
     });
   }
   const isClientUrlValid = (clientUrl: any) => {
-  if(!clientUrl || clientUrl.length === 0){
+  if(!clientUrl || clientUrl.length === 0 || !/^(ftp|http|https):\/\/[^ "]+$/.test(clientUrl)){
     return false;
   }
   return true;
   }
   const isLogoUrlValid = (logoUrl: any) => {
-  if(!logoUrl || logoUrl.length === 0){
+  if(!logoUrl || logoUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoUrl)){
     return false;
   }
   return true;
   }
   const isCallBackUrlValid = (callbackUrl: any) => {
-  if(!callbackUrl || callbackUrl.length === 0){
+  if(!callbackUrl || callbackUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(callbackUrl)){
     return false;
   }
   return true;
   }
   const isLogoutUrlValid = (logoutUrl: any) => {
-  if(!logoutUrl || logoutUrl.length === 0){
+  if(!logoutUrl || logoutUrl.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoutUrl)){
     return false;
   }
   return true;
@@ -118,8 +118,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                   handleDataChanges(e.target.value, "clientUrl");
                 }}
                 value={clientData?.clientUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                validationMsg="Please Enter valid url (https or http)"
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
+                validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -135,9 +135,9 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                     handleDataChanges(e.target.value, "logoUrl");
                   }}
                   value={clientData?.logoUrl}
-                  validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                validationMsg="Please Enter valid url (https or http)"
-              ></RdsInput>
+                  validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
+                  validationMsg="Enter Valid URL Format"
+                ></RdsInput>
               </div>
             </div>
           </div>
@@ -154,8 +154,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                   handleDataChanges(e.target.value, "callbackUrl");
                 }}
                 value={clientData?.callbackUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                validationMsg="Please Enter valid url (https or http)"
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
+                validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -170,8 +170,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                   handleDataChanges(e.target.value, "logoutUrl");
                 }}
                 value={clientData?.logoutUrl}
-                validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
-                validationMsg="Please Enter valid url (https or http)"
+                validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
+                validationMsg="Enter Valid URL Format"
               ></RdsInput>
             </div>
           </div>

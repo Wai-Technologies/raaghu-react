@@ -61,7 +61,20 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
             cssClass: "",
         });
     }
+    const isUrlValid = (url: any) => {
+        if (!url || url.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(url)) {
+            return false;
+        }
+        return true;
+    }
+  const  isDisplayNameValid = (displayName: any) => {
+        if (!displayName || displayName.length === 0) {
+            return false;
+        }
+        return true;
+    }
 
+const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName);
     return (
         <>
             <div className="custom-content-scroll">
@@ -74,7 +87,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                             name="url"
                             onChange={(e) => handlerChangeInput(e, "url")}
                             dataTestId="url"
-                            validatonPattern={/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/}
+                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
                         />
                     </div>
@@ -172,7 +185,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                     type={"button"}
                     size="small"
                     databsdismiss="offcanvas"
-                    isDisabled={!data?.displayName}
+                    isDisabled={!isFormValid}
                     colorVariant="primary"
                     class="me-2"
                     onClick={(e: any) => emitSaveData(e)}

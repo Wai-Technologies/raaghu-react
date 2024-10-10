@@ -61,8 +61,32 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
       return false;
     } else return true;
   };
+  const ifFullNameValid = (fullName: any) => {
+    if (!fullName || fullName.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isContactNumberValid = (contactNumber: any) => {
+    if (!contactNumber || contactNumber.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isPositionValid = (position: any) => {
+    if (!position || position.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isPeriodValid = (period: any) => {
+    if (!period || period.length === 0) {
+        return false;
+    }
+    return true;
+}
 
-  const isFormValid = isEmailValid(formData?.email);
+  const isFormValid = isEmailValid(formData?.email) && ifFullNameValid(formData?.fullName) && isContactNumberValid(formData?.contactNumber) && isPositionValid(formData?.position) && isPeriodValid(formData?.period) ;
 
   const { t } = useTranslation();
   return (

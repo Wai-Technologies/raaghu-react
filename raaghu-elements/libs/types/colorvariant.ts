@@ -2,10 +2,13 @@ export type colors =
   | "primary"
   | "secondary"
   | "tertiary"
-  | "success"
+  | "neutral"
   | "error"
   | "warning"
-  | "neutral"
+  | "success"
+  | "danger"
+
+  | "info"
   | "dark"
   | "light"
   | "gradient-primary"
@@ -28,9 +31,13 @@ export type colors =
 export const alert_colors = {
     Primary: "primary",
     Secondary: "secondary",
-    Success: "success",
-    Danger: "danger",
+    Tertiary: "tertiary",
+    Neutral: "neutral",
+    Error: "error",
     Warning: "warning",
+    Success: "success",
+
+    Danger: "danger",
     Info: "info",
     Dark: "dark",
     Light: "light",
@@ -41,10 +48,9 @@ export const alert_colors = {
 export const button_colors = {
     Primary: "primary",
     Secondary: "secondary",
-    Success: "success",
-    Danger: "danger",
+    Tertiary: "tertiary",
+    Neutral: "neutral",
+    Error: "error",
     Warning: "warning",
-    Info: "info",
-    Dark: "dark",
-    Light: "light",
+    Success: "success",
 };
