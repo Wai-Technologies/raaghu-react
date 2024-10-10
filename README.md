@@ -41,16 +41,17 @@
   
 <h1 style="border-bottom:0;">Contents</h1>
 
-- [What is Raaghu?](#raaghu-intro)
-- [Why Raaghu?](#why)
-- [How Raaghu works?](#how)
+- [What is Raaghu Design System?](#raaghu-intro)
+- [Why Choose Raaghu Design System??](#why)
+- [How Raaghu Design System Works?](#how)
 - [Features](#features)
-- [Learn more about Raaghu Design System](#learn-more) 
-- [Raaghu Design System Insights Episodes](#Insights) 
+- [More about Raaghu Design System](#learn-more) 
+- [Raaghu Resources](#insights) 
+- [Getting Started with Raaghu](#started) 
 - [License](#license)
+- [Communities](#communities)
 - [How to Contribute](#contribute)
-- [WAi Technologies Contributors](#contributers)
-
+ 
 
 </br></br>
 
@@ -63,7 +64,7 @@
 </br>
 <div align="center">
 
-<p> Built on a Robust technology stack </p>
+<p> Built on a Robust Technology Stack </p>
 </br>
 <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -83,7 +84,7 @@
   </picture>
 </p> -->
 
-## <a name='why'></a> Why Choose the Raaghu Design System?
+## <a name='why'></a> Why Choose Raaghu Design System?
 
 <!-- <p> 
   Raaghu seamlessly bridges the gap between design and development while maintaining a high level of standardization.
@@ -187,7 +188,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Storybook-page.gif" alt="Dashboard Gif" width="1000">
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook-page.gif" alt="Dashboard Gif" width="1000">
 <!-- 
 <div align="center">
   <video width="600" controls>
@@ -334,7 +335,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </table> -->
 </br> 
 
-## <a name='Insights'></a> Raaghu Resources
+## <a name='insights'></a> Raaghu Resources
 </br> 
 <table width="100%">
 <thead>
@@ -411,11 +412,10 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
  
 ## <a name='license'></a> License
 
-This project is licensed under the MIT License - see the [`LICENSE`](/LICENSE) file for details.
+This project is licensed under the MIT License - see the [`LICENSE`](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE) file for details.
 
 
-
-# Communities
+## <a name='communities'></a> Communities 
 
 <div align="left">
 
