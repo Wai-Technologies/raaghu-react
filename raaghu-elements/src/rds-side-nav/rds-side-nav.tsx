@@ -32,21 +32,31 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [menuToShow, filterMenus] = useState(mainMenu);
     const [searchQuery, setSearchQuery] = useState("");
 
-    // const handleSearchChange = (event:any) => {
-    //     setSearchQuery(event.target.value);
-    // };
-
-    const addFilter = (value:string) => {
+    const addFilter = (value: string) => {
+        setSearchQuery(value);
+    
         if (value) {
-            setSearchQuery(value);
-            const filteredProducts = mainMenu
-                .filter((menuItem: { label: string }) => menuItem.label.toLowerCase().includes(searchQuery.toLowerCase()));
+            const filteredProducts = mainMenu.filter((menuItem: { label: string, children?: any[] }) =>
+                filterMenuItem(menuItem, value.toLowerCase())
+            );
             filterMenus(filteredProducts);
         } else {
-            setSearchQuery("");
             filterMenus(mainMenu);
         }
     };
+    
+    const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: string): boolean => {
+        if (menuItem.label.toLowerCase().includes(query)) {
+            return true;
+        }
+    
+        if (menuItem.children) {
+            return menuItem.children.some(child => filterMenuItem(child, query));
+        }
+    
+        return false;
+    };
+
 
     mainMenu.forEach((item: any) => {
         labelObj[item.key] = false;
