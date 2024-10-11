@@ -340,7 +340,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         </div>
       ) : (
         <>
-          <div className={props.actionPosition == "left" ? "table-responsive" : "table-responsive-none"}>
+          <div className={props.actionPosition == "left" ? "table-responsive left-action" : "table-responsive-none"}>
             <div className="table-responsive table-responsive-sm">
               <table
                 className={`table table-hover table-bordered     ${Classes} `}

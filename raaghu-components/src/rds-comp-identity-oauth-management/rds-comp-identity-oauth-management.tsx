@@ -40,7 +40,19 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
             validateIssuerName: false
         });
     }
-
+    const isClientIdValid = (clientId: any) => {
+        if (!clientId || clientId.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isAuthorityValid = (authority: any) => {
+        if (!authority || authority.length === 0) {
+            return false;
+        }
+        return true;
+    };
+const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.authority) ;
     return (
         <div className="pt-3">
             <form>
@@ -151,6 +163,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         size="small"
                         dataTestId="save"
                         onClick={(e: any) => emitSaveData(e)}
+                        isDisabled={!isFormValid}
                     ></RdsButton>
                 </div>
              

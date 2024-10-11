@@ -15,15 +15,18 @@ export interface RdsCounterProps {
 }
 
 const RdsCounter = (props: RdsCounterProps) => {
-    const initialCounterValue: number = props.counterValue ? props.counterValue : 0;
+    const initialCounterValue: number = props.counterValue ?? 0;
 
     // This state hook represents counter value
     const [counterValue, setCounterValue] = useState(initialCounterValue);
+    const [isEditing, setIsEditing] = useState(false); // To track if the user is editing the input manually
+
     const onMinusClick = () => {
         if (counterValue > props.min) {
             const newValue = counterValue - 1;
             setCounterValue(newValue);
-            props.onCounterChange && props.onCounterChange(newValue);
+            props.onCounterChange?.(newValue);
+            setIsEditing(false); // Reset editing state after clicking minus
         }
     };
 
@@ -31,41 +34,43 @@ const RdsCounter = (props: RdsCounterProps) => {
         if (counterValue < props.max) {
             const newValue = counterValue + 1;
             setCounterValue(newValue);
-            props.onCounterChange && props.onCounterChange(newValue);
+            props.onCounterChange?.(newValue);
+            setIsEditing(false); // Reset editing state after clicking plus
         }
     };
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value === "" ? 0 : Number(e.target.value);
+        if (!isNaN(newValue) && newValue >= props.min && newValue <= props.max) {
+            setCounterValue(newValue);
+            props.onCounterChange?.(newValue);
+        }
+        setIsEditing(true); // User is manually editing the input
+    };
+
     const classes = () => {
-        let defaultClass: string = '';
-        if (props.position === 'top') {
-            defaultClass = 'top-0';
+        switch (props.position) {
+            case 'top': return 'top-0';
+            case 'bottom': return 'd-flex flex-column-reverse';
+            case 'left': return 'd-flex align-items-baseline gap-3';
+            case 'right': return 'align-items-baseline d-flex flex-row-reverse gap-3 justify-content-end';
+            default: return '';
         }
-        else if (props.position === 'bottom') {
-            defaultClass = 'd-flex flex-column-reverse';
-        }
-        else if (props.position === 'left') {
-            defaultClass = 'd-flex align-items-baseline gap-3';
-        }
-        else if (props.position === 'right') {
-            defaultClass = 'align-items-baseline d-flex flex-row-reverse gap-3 justify-content-end';
-        }
-        return defaultClass;
-    }
+    };
 
     const inputClasses = () => {
-        var inputClass: string = 'input-group mt-1';
+        let inputClass = 'input-group mt-1';
         if (props.position === 'top') {
-            inputClass = inputClass + ' mt-2';
-        }
-        else if (props.position === 'bottom') {
-            inputClass = inputClass + ' mb-2';
+            inputClass += ' mt-2';
+        } else if (props.position === 'bottom') {
+            inputClass += ' mb-2';
         }
         return inputClass;
-    }
+    };
 
     return (
         <Fragment>
-            <div className="row">   
+            <div className="row">
                 <div className="position-relative ps-3 ms-0">
                     <div className={classes()}>
                         <label>{props.label}</label>
@@ -73,14 +78,23 @@ const RdsCounter = (props: RdsCounterProps) => {
                             <RdsButton
                                 colorVariant={props.colorVariant}
                                 icon="minus"
-                                onClick={onMinusClick}>
-                            </RdsButton>
-                            <input type="text" className="form-control text-center" value={counterValue} min={props.min} max={props.max} />
+                                onClick={onMinusClick}
+                            />
+                            <input
+                                type="number"
+                                className="form-control text-center"
+                                value={isEditing && counterValue === 0 ? "" : counterValue}
+                                onChange={handleInputChange}
+                                min={props.min}
+                                max={props.max}
+                                onFocus={() => setIsEditing(true)} // When focused, user is editing
+                                onBlur={() => setIsEditing(false)}  // Reset editing state when focus is lost
+                            />
                             <RdsButton
                                 colorVariant={props.colorVariant}
                                 icon="plus"
-                                onClick={onPlusClick}>
-                            </RdsButton>
+                                onClick={onPlusClick}
+                            />
                         </div>
                     </div>
                 </div>
@@ -90,3 +104,4 @@ const RdsCounter = (props: RdsCounterProps) => {
 };
 
 export default RdsCounter;
+
