@@ -10,6 +10,7 @@ interface Comment {
     date: string;
     comment: string;
     image?: string; // Optional image field for comments with images
+    addedTime?: number; // Track when the comment was added
 }
 
 interface RdsCompUserCommentsProps {
@@ -23,30 +24,53 @@ interface RdsCompUserCommentsProps {
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
     isFilepload?: boolean;
-    dateFormat ?: string;
-    onCommentCountChange?: (count: number) => void; // New callback prop
+    dateFormat?: string;
+    onCommentCountChange?: (count: number) => void; // New callback prop    
+    currentUserCommentBgColor?: string;
+    currentUserCommentTextColor?: string;
+    otherUserCommentBgColor?: string;
+    OtherUserCommentTextColor?: string;
+    deleteIconTimeout?: number;
 }
 
 const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     comments,
     currentUser,
-    allowDelete = false,
+    allowDelete = true,
     width = "medium",// Default width
     isEmojiPicker = false,
     isFilepload = false,
     dateFormat = 'mm/dd/yyyy',
-    onCommentCountChange // Callback prop
+    onCommentCountChange,// Callback prop,
+    currentUserCommentBgColor = '#7825E9',
+    currentUserCommentTextColor = 'FEF7FF',
+    otherUserCommentBgColor = '#D6D6D6',
+    OtherUserCommentTextColor = '#202020',
+    deleteIconTimeout = 60000, // Default timeout of 1 minute (60,000 ms)
+
 }) => {
     const [commentText, setCommentText] = useState<string>('');
     const [commentList, setCommentList] = useState<Comment[]>(comments);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
+    const [visibleDeleteIcons, setVisibleDeleteIcons] = useState<{ [key: number]: boolean }>({});
+    useEffect(() => {
+        if (allowDelete) {
+            const timers: NodeJS.Timeout[] = [];
 
-      // Use useEffect to notify the parent component when the comment list changes
-      useEffect(() => {
-        if (onCommentCountChange) {
-            onCommentCountChange(commentList.length); // Notify parent with the updated count
+            comments.forEach((comment, index) => {
+                setVisibleDeleteIcons((prev) => ({ ...prev, [index]: true }));
+                const timer = setTimeout(() => {
+                    setVisibleDeleteIcons((prev) => ({ ...prev, [index]: false }));
+                }, deleteIconTimeout);
+                timers.push(timer);
+            });
+
+            // Cleanup timers on unmount
+            return () => {
+                timers.forEach((timer) => clearTimeout(timer));
+            };
         }
-    }, [commentList, onCommentCountChange]);
+    }, [comments, allowDelete, deleteIconTimeout]);
 
     const handleAddComment = () => {
         if (commentText.trim() === '') return;
@@ -57,6 +81,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
             profilePic: currentUser.profilePic,
             date: new Date().toLocaleDateString('en-US'),
             comment: commentText, // Emoji and text will be added here
+            addedTime: Date.now(), // Store the time when the comment was added
         };
 
         setCommentList([...commentList, newComment]);
@@ -95,7 +120,6 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         }
     };
     const formatDate = (date: Date, dateFormat: string) => {
-        debugger
         switch (dateFormat) {
             case 'mm/dd/yyyy':
                 return date.toLocaleDateString('en-US'); // mm/dd/yyyy format
@@ -112,7 +136,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         <div className={`comments-container ${width}`}>
             {commentList.map((comment, index) => {
                 const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
-
+                const showDeleteIcon = comment.addedTime ? Date.now() - comment.addedTime < 600000 : false; // Show delete icon for 10 minutes
                 return (
                     <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
                         <div className={`d-flex ${isCurrentUser ? '' : 'flex-row-reverse'}`}>
@@ -129,7 +153,13 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                                     </div>
                                 )}
                             </div>
-                            <div className="comment-content">
+                            <div
+                                className="comment-content"
+                                style={{
+                                    backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor,
+                                    color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor,
+                                }}
+                            >
                                 <div className="comment-text">
                                     {comment.comment}
                                     {comment.image && <img src={comment.image} alt="uploaded" className="comment-image" />}
@@ -138,7 +168,8 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             </div>
 
                             {/* Show delete icon for current user comments */}
-                            {allowDelete && isCurrentUser && (
+
+                            {isCurrentUser && showDeleteIcon && allowDelete && (
                                 <span className="d-flex align-items-center ms-1">
                                     <RdsIcon
                                         name="delete"
@@ -158,10 +189,10 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             <div className="username">{comment.firstName} {comment.lastName}</div>
                             <div className="date text-muted ms-2">
                                 <div className="date text-muted ms-2">
-                                {formatDate(new Date(comment.date), dateFormat)}
-                                </div>                             
-                                
+                                    {formatDate(new Date(comment.date), dateFormat)}
                                 </div>
+
+                            </div>
                         </div>
                     </div>
                 );

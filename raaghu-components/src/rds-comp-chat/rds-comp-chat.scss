@@ -38,9 +38,14 @@
   justify-content: flex-end; /* Align other user comments to the right */
   flex-direction: row-reverse; /* Reverse order to put profile picture on the right */
 }
+.content-custom-color{
+    background-color: #C3DCF4 !important;
+    color: #353535 !important; 
+}
 
 .other-user .comment-content {
-    background-color: #C3DCF4;
+    background-color: #7825E9;    
+    color: #FEF7FF;
     border-radius: 8px;
     border-bottom-right-radius:0px;
     padding: 8px 12px;
