@@ -139,7 +139,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                 const showDeleteIcon = comment.addedTime ? Date.now() - comment.addedTime < 600000 : false; // Show delete icon for 10 minutes
                 return (
                     <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
-                        <div className={`d-flex ${isCurrentUser ? '' : 'flex-row-reverse'}`}>
+                        <div className={`d-flex ${isCurrentUser ? 'flex-row-reverse' : ''}`}>
                             <div className="profile-initials">
                                 {comment.profilePic && comment.profilePic.trim() !== "" ? (
                                     <img
@@ -170,7 +170,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             {/* Show delete icon for current user comments */}
 
                             {isCurrentUser && showDeleteIcon && allowDelete && (
-                                <span className="d-flex align-items-center ms-1">
+                                <span className="d-flex align-items-top me-1">
                                     <RdsIcon
                                         name="delete"
                                         fill={false}
@@ -185,7 +185,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             )}
                         </div>
 
-                        <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-start' : 'justify-content-end'}`}>
+                        <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`}>
                             <div className="username">{comment.firstName} {comment.lastName}</div>
                             <div className="date text-muted ms-2">
                                 <div className="date text-muted ms-2">

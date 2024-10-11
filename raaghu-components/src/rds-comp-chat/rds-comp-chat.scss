@@ -20,7 +20,7 @@
 .current-user .comment-content {
     background-color: #D6D6D6;
     border-radius: 8px;
-    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
     padding: 8px 12px;
     font-size: 14px;
     color: #202020;/* Ensures comment content comes after the profile picture */
@@ -28,8 +28,8 @@
 
 .current-user .profile-initials,
 .current-user .profile-pic {
-  margin-right: 0.3rem; /* Space between profile and comment for current user */
-  margin-left: 0px;
+  margin-left: 0.3rem; /* Space between profile and comment for current user */
+  margin-right: 0px;
 }
 
 /* Other User Comments */
@@ -47,7 +47,7 @@
     background-color: #7825E9;    
     color: #FEF7FF;
     border-radius: 8px;
-    border-bottom-right-radius:0px;
+    border-bottom-left-radius:0px;
     padding: 8px 12px;
     font-size:14px;
     order: 1; /* Ensures comment content comes before the profile picture */
@@ -56,7 +56,8 @@
 }
 
 .other-user .profile-initials {
-  margin-left: 0.3rem; /* Space between comment and profile for other users */
+  margin-right: 0.3rem; /* Space between comment and profile for other users */
+  margin-left:0px;
 }
 
 /* Profile Image & Initials */
