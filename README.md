@@ -32,8 +32,8 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
 
 ![Design System Version](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
-[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-orange)](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
-[![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
+[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-orange)](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
+[![Design System Version](https://img.shields.io/badge/Version-orange)](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
 
 </div>
 
