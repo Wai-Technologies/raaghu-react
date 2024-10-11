@@ -14,14 +14,14 @@
 }
 
 html[theme="light"] {
-  --chart-bool-icon-color: black;
-  --bs-body-color: black;
+    --chart-bool-icon-color: black;
+    --bs-body-color: black;
 
-  :root {
-    --bs-border-color: #ced4da;
-  }
+    :root {
+        --bs-border-color: #646464;
+    }
 
-  @import "./colorvariables-light.scss";
+    @import "./colorvariables-light.scss";
 }
 
 html[theme="dark"] {

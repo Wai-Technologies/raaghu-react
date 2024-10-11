@@ -56,6 +56,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         if (props.dismisable) {
             defaultClass = " alert-dismissible ";
         }
+       
 
       if (props.sticky) {
         const position = `${props.position === 'top' ? ' position-absolute top-0 start-0 fullWidth z-index' : ' position-absolute bottom-0 start-0 fullWidth z-index'}`;
@@ -110,7 +111,7 @@ const RdsAlert = (props: RdsAlertProps) => {
               </span>
               
               <span>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 alertBtns">
                 {props.cancelbutton === true && (
                   <RdsButton
                     colorVariant="primary"
@@ -184,7 +185,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                     />
                   )}
                 </div>
-                <div className="d-flex align-items-flex-end mt-4 gap-2">
+                <div className="d-flex align-items-flex-end mt-4 gap-2 alertBtns">
                   {props.cancelbutton === true && (
                     <RdsButton
                       colorVariant="primary"

@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./rds-select-list.css";
-import Select from "react-select";
+import Select, { MultiValue, SingleValue } from "react-select";
+
 export interface RdsSelectProps {
   label?: string;
   isBold?: boolean;
@@ -9,11 +10,11 @@ export interface RdsSelectProps {
     option: any;
     value: any;
   }[];
-  selectedValue?: string;
+  selectedValue?: string | string[];
   id: string;
   required?: boolean;
   classes?: string;
-  onChange?: any;
+  onChange?: (value: any) => void;
   placeholder?: string;
   dataTestId?: string;
   isSearchable?: boolean;
@@ -21,15 +22,15 @@ export interface RdsSelectProps {
 }
 
 const RdsSelectList = (props: RdsSelectProps) => {
-  const [selectedValue, setselectedValue] = useState<any | null>(
+  const [selectedValue, setSelectedValue] = useState<any | null>(
     props.selectedValue || null
   );
   const [options, setOptions] = useState<any>([]);
 
   useEffect(() => {
-    setselectedValue(props.selectedValue);
-
+    setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
+
   useEffect(() => {
     if (props.selectItems) {
       const tempOptions = props.selectItems.map((item) => ({
@@ -37,46 +38,42 @@ const RdsSelectList = (props: RdsSelectProps) => {
         label: item.option,
         className: "rds-select-list-items",
       }));
-      // Check if tempOptions is different from the current options
       if (!areArraysEqual(tempOptions, options)) {
         setOptions(tempOptions);
       }
     }
   }, [props.selectItems, options]);
 
-  // Function to compare arrays
-  function areArraysEqual(arr1: { value: any; label: any; className: string; }[], arr2: { value: any; label: any; className: string; }[]) {
+  function areArraysEqual(arr1: any[], arr2: any[]) {
     return JSON.stringify(arr1) === JSON.stringify(arr2);
   }
 
-  const handleSelectChange = (items: any) => {
+  const handleSelectChange = (items: SingleValue<any> | MultiValue<any>) => {
     if (!props.isMultiple) {
-      props.onChange(items);
-      setselectedValue(items.value);
+      const selectedSingle = items as SingleValue<any>;
+      setSelectedValue(selectedSingle?.value || "");
+      props.onChange?.(selectedSingle);
     } else {
-      const multiSelectValue = items.map((item: any) => {
-        return { option: item.label, value: item.value };
-      });
-      props.onChange(multiSelectValue);
-      setselectedValue(items);
+      const selectedMultiple = (items as MultiValue<any>).map((item) => ({
+        option: item.label,
+        value: item.value,
+      }));
+      setSelectedValue(selectedMultiple.map((item) => item.value));
+      props.onChange?.(selectedMultiple);
     }
   };
+
   const selectedItem = props.isMultiple
     ? options.filter((item: any) => selectedValue?.includes(item.value))
     : options.find((item: any) => item.value === selectedValue);
 
-    //Not required so commented.
-    // const placeholder =
-    //   props.selectedValue !== undefined && props.selectedValue !== null
-    //     ? selectedItem?.label
-    //     : props.placeholder;
   return (
     <Fragment>
       <div>
         {props.label && (
           <label
             htmlFor={props.id}
-            className={`form-label ${props?.isBold ? "fw-bold" : ""}`}
+            className={`form-label ${props.isBold ? "fw-bold" : ""}`}
           >
             {props.label}
           </label>
@@ -91,7 +88,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
           aria-label="select example"
           data-testid={props.dataTestId}
           onChange={handleSelectChange}
-          isSearchable={props.isSearchable ?? false}
+          isSearchable={props.isSearchable ?? true}
           required={props.required}
           isDisabled={props.isDisabled}
           className={props.classes}
@@ -107,4 +104,5 @@ const RdsSelectList = (props: RdsSelectProps) => {
     </Fragment>
   );
 };
+
 export default RdsSelectList;
