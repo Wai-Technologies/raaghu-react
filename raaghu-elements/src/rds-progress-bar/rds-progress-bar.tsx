@@ -19,8 +19,9 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
         <>
             {props.role == "single" && (
                 <>
+                    <div className="d-flex align-items-center">
                     <div
-                        className="progress p-0"
+                        className="progress p-0 w-100"
                         style={{ height: `${props.height + 'px'}`, maxWidth: `${props.width + 'px'}` }}
                     >
                         <div
@@ -34,8 +35,11 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                             aria-valuemin={0}
                             aria-valuemax={100}
                         >
-                            {props.displayPercentage && <>{props.progressWidth}%</>}
+                            
                         </div>
+
+                    </div>
+                        <span className="ms-2 progresss-percentage">{props.displayPercentage && <>{props.progressWidth}%</>}</span>
                     </div>
                     {props.displayLabel && (
                         <div className="d-flex justify-content-between">

@@ -32,7 +32,7 @@ export const Default: Story = {
         striped: true,
         progressWidth: 40,
         animation: false,
-        height: 15,
+        height: 4,
         displayLabel: true,
         displayPercentage: true
     }
