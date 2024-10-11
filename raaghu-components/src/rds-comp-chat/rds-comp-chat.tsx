@@ -21,7 +21,7 @@ interface RdsCompUserCommentsProps {
         profilePic: string;
     };
     allowDelete?: boolean; // Optional prop to control delete functionality
-    width?: "small" | "medium" | "large"; // Width options,
+    width?: "small" | "medium" | "large"; // Width options
     isEmojiPicker?: boolean;
     isFilepload?: boolean;
     dateFormat?: string;
@@ -37,40 +37,24 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     comments,
     currentUser,
     allowDelete = true,
-    width = "medium",// Default width
+    width = "medium", // Default width
     isEmojiPicker = false,
     isFilepload = false,
     dateFormat = 'mm/dd/yyyy',
-    onCommentCountChange,// Callback prop,
+    onCommentCountChange, // Callback prop
     currentUserCommentBgColor = '#7825E9',
     currentUserCommentTextColor = 'FEF7FF',
     otherUserCommentBgColor = '#D6D6D6',
     OtherUserCommentTextColor = '#202020',
     deleteIconTimeout = 60000, // Default timeout of 1 minute (60,000 ms)
-
 }) => {
     const [commentText, setCommentText] = useState<string>('');
     const [commentList, setCommentList] = useState<Comment[]>(comments);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
-    const [visibleDeleteIcons, setVisibleDeleteIcons] = useState<{ [key: number]: boolean }>({});
+
     useEffect(() => {
-        if (allowDelete) {
-            const timers: NodeJS.Timeout[] = [];
-
-            comments.forEach((comment, index) => {
-                setVisibleDeleteIcons((prev) => ({ ...prev, [index]: true }));
-                const timer = setTimeout(() => {
-                    setVisibleDeleteIcons((prev) => ({ ...prev, [index]: false }));
-                }, deleteIconTimeout);
-                timers.push(timer);
-            });
-
-            // Cleanup timers on unmount
-            return () => {
-                timers.forEach((timer) => clearTimeout(timer));
-            };
-        }
-    }, [comments, allowDelete, deleteIconTimeout]);
+        setCommentList(comments); // Update the comment list whenever the prop changes
+    }, [comments]);
 
     const handleAddComment = () => {
         if (commentText.trim() === '') return;
@@ -80,11 +64,11 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
             lastName: currentUser.lastName,
             profilePic: currentUser.profilePic,
             date: new Date().toLocaleDateString('en-US'),
-            comment: commentText, // Emoji and text will be added here
+            comment: commentText,
             addedTime: Date.now(), // Store the time when the comment was added
         };
 
-        setCommentList([...commentList, newComment]);
+        setCommentList((prevComments) => [...prevComments, newComment]);
         setCommentText(''); // Clear input after adding the comment
     };
 
@@ -102,23 +86,23 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                     image: reader.result as string, // Base64 image data
                 };
 
-                setCommentList([...commentList, newComment]); // Add the new image comment
+                setCommentList((prevComments) => [...prevComments, newComment]); // Add the new image comment
             };
             reader.readAsDataURL(file); // Convert image to Base64
         }
     };
 
     const onEmojiClick = (event: any, emojiObject: any) => {
-        setCommentText(prevText => prevText + emojiObject.emoji); // Append the selected emoji
+        setCommentText((prevText) => prevText + emojiObject.emoji); // Append the selected emoji
         setShowEmojiPicker(false); // Close the emoji picker
     };
 
     const handleDeleteComment = (index: number) => {
         if (allowDelete) {
-            const updatedComments = commentList.filter((_, i) => i !== index);
-            setCommentList(updatedComments);
+            setCommentList((prevComments) => prevComments.filter((_, i) => i !== index));
         }
     };
+
     const formatDate = (date: Date, dateFormat: string) => {
         switch (dateFormat) {
             case 'mm/dd/yyyy':
@@ -136,7 +120,6 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
         <div className={`comments-container ${width}`}>
             {commentList.map((comment, index) => {
                 const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
-                const showDeleteIcon = comment.addedTime ? Date.now() - comment.addedTime < 600000 : false; // Show delete icon for 10 minutes
                 return (
                     <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
                         <div className={`d-flex ${isCurrentUser ? 'flex-row-reverse' : ''}`}>
@@ -163,13 +146,10 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                                 <div className="comment-text">
                                     {comment.comment}
                                     {comment.image && <img src={comment.image} alt="uploaded" className="comment-image" />}
-
                                 </div>
                             </div>
-
                             {/* Show delete icon for current user comments */}
-
-                            {isCurrentUser && showDeleteIcon && allowDelete && (
+                            {isCurrentUser && allowDelete && (
                                 <span className="d-flex align-items-top me-1">
                                     <RdsIcon
                                         name="delete"
@@ -184,14 +164,10 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                                 </span>
                             )}
                         </div>
-
                         <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`}>
                             <div className="username">{comment.firstName} {comment.lastName}</div>
                             <div className="date text-muted ms-2">
-                                <div className="date text-muted ms-2">
-                                    {formatDate(new Date(comment.date), dateFormat)}
-                                </div>
-
+                                {formatDate(new Date(comment.date), dateFormat)}
                             </div>
                         </div>
                     </div>
@@ -206,7 +182,6 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                     </div>
                 )}
                 {isFilepload && (
-
                     <span className="me-2">
                         <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
                         <input
@@ -218,7 +193,6 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                         />
                     </span>
                 )}
-
                 {isEmojiPicker && (
                     <span className="me-2">
                         <RdsIcon
@@ -232,14 +206,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Toggle emoji picker
                         />
                     </span>
-
-
-                )
-
-                }
-
-
-
+                )}
                 <span className="w-100 d-flex input-box border p-1">
                     <span className="w-100">
                         <RdsInput
