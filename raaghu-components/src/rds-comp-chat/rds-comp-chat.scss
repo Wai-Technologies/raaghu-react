@@ -29,6 +29,7 @@
 .current-user .profile-initials,
 .current-user .profile-pic {
   margin-right: 0.3rem; /* Space between profile and comment for current user */
+  margin-left: 0px;
 }
 
 /* Other User Comments */
@@ -145,4 +146,13 @@
   bottom: 60px; /* Adjust depending on the input field */
   left: 10px; /* Adjust for alignment */
   z-index: 1000; /* Ensure it appears on top */
+}
+.comment-image {
+    max-width: 100px;  // Adjust to fit within your layout
+    max-height: 100px; // Adjust the max height as needed
+    width: auto;       // Maintain aspect ratio
+    height: auto;      // Maintain aspect ratio
+    border-radius: 8px; // Optional: Add some rounding for a cleaner look
+    margin-top: 8px;   // Optional: Add spacing above the image
+    object-fit: cover; // Ensures the image doesn't distort and covers the box
 }
