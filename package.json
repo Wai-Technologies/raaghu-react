@@ -91,7 +91,7 @@
     "react-slick": "^0.29.0",
     "redux-persist": "^6.0.0",
     "rollup-plugin-typescript-paths": "^1.5.0",
-    "sass": "^1.69.5",
+    "sass": "1.64.0",
     "slick-carousel": "^1.8.1",
     "storybook-addon-themes": "^6.1.0",
     "styled-components": "^6.1.8",
