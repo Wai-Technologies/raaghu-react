@@ -22,6 +22,10 @@ const meta: Meta<typeof RdsCompUserComments> = {
 export default meta;
 
 type Story = StoryObj<typeof RdsCompUserComments>;
+const handleCommentCountChange = (newCount: number) => {
+    console.log("Updated comment count:", newCount);
+};
+
 
 export const Default: Story = {
     args: {
@@ -64,7 +68,8 @@ export const Default: Story = {
         allowDelete: false,
         isEmojiPicker : false ,
         isFilepload : false,
-        dateFormat  : 'mm/dd/yyyy'
+        dateFormat  : 'mm/dd/yyyy',
+        onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
     },
 };
 
@@ -108,6 +113,7 @@ export const WithDelete: Story = {
         allowDelete: true,
         isEmojiPicker : false ,
         isFilepload : false,
-        dateFormat  : 'mm/dd/yyyy'
+        dateFormat  : 'mm/dd/yyyy',
+        onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
     },
 };

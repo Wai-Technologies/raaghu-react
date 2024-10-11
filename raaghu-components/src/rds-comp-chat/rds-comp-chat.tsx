@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './rds-comp-chat.scss';
 import { RdsIcon, RdsInput, RdsButton } from "../rds-elements";
 import EmojiPicker from 'emoji-picker-react';
@@ -23,7 +23,8 @@ interface RdsCompUserCommentsProps {
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
     isFilepload?: boolean;
-    dateFormat ?: string
+    dateFormat ?: string;
+    onCommentCountChange?: (count: number) => void; // New callback prop
 }
 
 const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
@@ -33,11 +34,19 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     width = "medium",// Default width
     isEmojiPicker = false,
     isFilepload = false,
-    dateFormat = 'mm/dd/yyyy'
+    dateFormat = 'mm/dd/yyyy',
+    onCommentCountChange // Callback prop
 }) => {
     const [commentText, setCommentText] = useState<string>('');
     const [commentList, setCommentList] = useState<Comment[]>(comments);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
+
+      // Use useEffect to notify the parent component when the comment list changes
+      useEffect(() => {
+        if (onCommentCountChange) {
+            onCommentCountChange(commentList.length); // Notify parent with the updated count
+        }
+    }, [commentList, onCommentCountChange]);
 
     const handleAddComment = () => {
         if (commentText.trim() === '') return;
