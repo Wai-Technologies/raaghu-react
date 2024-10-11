@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import RdsButton from './rds-button';
+import type { Meta, StoryObj } from "@storybook/react";
+import RdsButton from "./rds-button";
 
 const meta: Meta = {
     title: "Elements/Button",
@@ -7,7 +7,7 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
         colorVariant: {
             options: [
@@ -46,7 +46,7 @@ export const Default: Story = {
         isRoundedButton : false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner','isRoundedButton'] } };
+Default.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "showLoadingSpinner","isRoundedButton"] } };
 
 export const Disable: Story = {
     args: {
@@ -58,7 +58,7 @@ export const Disable: Story = {
         isRoundedButton : false,
     }
 } satisfies Story;
-Disable.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'isDisabled','isRoundedButton'] } };
+Disable.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "isDisabled","isRoundedButton"] } };
 
 export const WithIcon: Story = {
     args: {
@@ -68,7 +68,7 @@ export const WithIcon: Story = {
         isFabIcon: true,
     }
 } satisfies Story;
-WithIcon.parameters = { controls: { include: ['colorVariant', 'icon', 'size','isFabIcon'] } };
+WithIcon.parameters = { controls: { include: ["colorVariant", "icon", "size","isFabIcon"] } };
 
 export const Outline: Story = {
     args: {
@@ -80,7 +80,7 @@ export const Outline: Story = {
         isRoundedButton : false,
     }
 } satisfies Story;
-Outline.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'isOutline','isRoundedButton'] } };
+Outline.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "isOutline","isRoundedButton"] } };
 
 export const Tooltip: Story = {
     args: {
@@ -106,7 +106,7 @@ export const Tooltip: Story = {
         },
     }
 } satisfies Story;
-Tooltip.parameters = { controls: { include: ['colorVariant', 'icon', 'block', 'size', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle','isRoundedButton'] } };
+Tooltip.parameters = { controls: { include: ["colorVariant", "icon", "block", "size", "databstoggle", "tooltip", "tooltipPlacement", "tooltipTitle","isRoundedButton"] } };
 
 export const TextWithIcon: Story = {
     args: {
@@ -119,7 +119,8 @@ export const TextWithIcon: Story = {
         isRoundedButton : false,
     }
 } satisfies Story;
-TextWithIcon.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner', 'icon','isRoundedButton'] } };
+TextWithIcon.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "showLoadingSpinner", "icon","isRoundedButton"] } };
+
 export const RoundedButton: Story = {
     args: {
         colorVariant: "primary",
@@ -130,15 +131,15 @@ export const RoundedButton: Story = {
         isRoundedButton : true,
     }
 } satisfies Story;
-RoundedButton.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner','isRoundedButton'] } };
+RoundedButton.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "showLoadingSpinner"] } };
+
 export const LinkButton: Story = {
     args: {
-      class : "btn-link",
-      label : "Link Button",
-      
+        class : "btn-link",
+        label : "Link Button",      
     }
 } satisfies Story;
-LinkButton.parameters = { controls: { include: ['colorVariant', 'label', 'block', 'size', 'showLoadingSpinner','isRoundedButton'] } };
+LinkButton.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "showLoadingSpinner","isRoundedButton"] } };
 
 
 
