@@ -50,12 +50,12 @@ $path: "../../fonts/Poppins-Regular.ttf";
     --bs-nav-pills-link-active-bg: $primary-100;
 }
 
-$h1-font-size: 4.5rem;
+/*$h1-font-size: 4.5rem;
 $h2-font-size: 3.75rem;
 $h3-font-size: 3rem;
 $h4-font-size: 2.25rem;
 $h5-font-size: 2rem;
-$h6-font-size: 1.5rem;
+$h6-font-size: 1.5rem;*/
 
 $text-xlarge: 1.25rem;
 $text-large: 1.125rem;
@@ -66,15 +66,7 @@ $text-xsmall: 0.75rem;
 $border-width: 1px !default;
 $border-widths: ( 1: 1px, 2: 2px, 3: 3px, 4: 4px, 5: 5px ) !default;
 
-$border-radius-nil: 0rem;
-$border-radius-xxs: 0.125rem;
-$border-radius-xs: 0.25rem;
-$border-radius-sm: .5rem;
-$border-radius-m: 0.75rem;
-$border-radius-lg: 1.5rem;
-$border-radius-xl: 1rem;
-$border-radius-xxl: 2rem;
-$border-radius-pill: 50rem;
+
 
 $font-family-sans-serif: "Poppins", sans-serif !default;
 $font-family-monospace: "Fira Code", monospace !default;
@@ -98,6 +90,16 @@ $border-radius-lg: 0.3rem !default;
 $border-radius-pill: 50rem !default;
 $border-radius-sm: 0.2rem !default;
 $border-radius-xl: 0.5rem !default;
+
+$border-radius-nil: 0rem;
+$border-radius-xxs: 0.125rem;
+$border-radius-xs: 0.25rem;
+$border-radius-sm: .5rem;
+$border-radius-m: 0.75rem;
+$border-radius-lg: 1.5rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 2rem;
+$border-radius-pill: 50rem;
 
 $line-height-base: 1.5 !default;
 $line-height-sm: 1.25 !default;
@@ -238,6 +240,7 @@ $toast-box-shadow:0px 3px 6px 0px rgba(62, 62, 62, 0.08);
 $toast-padding-x: $spacing-xs;
 $toast-padding-y: $spacing-s;
 
+$btn-border-radius: $border-radius-xs !default;
 
 .toast-info, .toast-success, .toast-error{
     .toast-body{

@@ -361,15 +361,9 @@ $btn-success-text-invert:#FFFFFF;
       $txt-success-darker-default:#092A11;
       $txt-success-dark-default:#1A4D25;
       $txt-success-medium-default:#1F7630;
- 
- 
-   
-  
- 
- 
-
 
 $min-contrast-ratio: 4.5 !default;
+$input-border-color: $input-neutral-outline-default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
 $body-bg: white;
 $input-bg: $body-bg !default;
@@ -377,8 +371,6 @@ $input-bg: $body-bg !default;
 $border-color: $gray-100;
 $accordion-border-color: #646464 ;
 
-
-$toast-btn-close-color: $gray-100 !default;
 $btn-close-width: 1em !default;
 $btn-close-color: $gray-100 !default;
 $btn-close-bg: url("data:image/svg+xml,<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M13 13L0.999969 1M13 1L0.999969 13' stroke='#7825E9' stroke-linecap='round' stroke-linejoin='round'/ ></svg > ") !default;
@@ -1932,11 +1924,45 @@ $form-feedback-color: $gray-700;
     border:$border;
 }
 .toast-basic {
-    @include toast-variant(
-         $bg-neutral-lighter-default, // background
-         $bg-neutral-lighter-default, // border  
-         $txt-neutral-dark-default    // text color
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
     );
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-neutral-outline-default;
+
+        polyline.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        polygon.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        ellipse.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        path.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        line.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        rect.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        circle.icon {
+            stroke: $input-neutral-outline-default;
+        }
+    }
 }
 .toast-info {
     @include toast-variant(

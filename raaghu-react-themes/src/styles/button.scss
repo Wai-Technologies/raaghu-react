@@ -1,6 +1,6 @@
 // /*button custom properties*/
 .btn {
-  text-transform: uppercase;
+  text-transform: capitalize;
   min-width: 4.35rem;
   padding: $btn-padding-x $btn-padding-y;
 }
