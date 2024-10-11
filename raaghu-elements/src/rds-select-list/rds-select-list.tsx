@@ -7,7 +7,7 @@ export interface RdsSelectProps {
   style?:"default" | "BottomLine";
   label?: string;
   showHint?: boolean;
-  showTitle?: boolean;
+  showLabel?: boolean;
   isBold?: boolean;
   isMultiple?: boolean;
   selectItems: {
@@ -117,7 +117,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   return (
     <div className={props.classes}>
-      {props.label &&props.showTitle&& (
+      {props.showLabel&&props.label && (
         <label
           htmlFor={props.id}
           className={`form-label ${props.isBold ? "fw-bold" : ""}`}

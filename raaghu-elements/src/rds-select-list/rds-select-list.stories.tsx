@@ -98,6 +98,7 @@ Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'plac
 export const WithIcon: Story = {
     args: {
         id: "story",
+        showLabel: true,
         label: "Lable",
         size: "medium",
         style: "default",
@@ -149,11 +150,10 @@ export const WithIcon: Story = {
             }
         ],
         isDisabled: false,
-        showTitle: true,
         showHint: false,
         required: false,
         isSearchable: true,
         isBold: false
     }
 }
-WithIcon.parameters = { controls: { include: ['id','label','style','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showTitle', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
+WithIcon.parameters = { controls: { include: ['id','label','style','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showLabel', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
