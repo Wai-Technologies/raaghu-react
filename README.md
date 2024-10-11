@@ -26,12 +26,16 @@
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
-[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-purple)](https://github.com/Wai-Technologies/raaghu-react)
+
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
 [![Documentation](https://img.shields.io/badge/Docs-Online-brightgreen)](https://react.raaghu.ai/)
-[![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://github.com/Wai-Technologies/raaghu-react)
+
 [![Build Status](https://img.shields.io/badge/build-passing-skyblue)](https://github.com/Wai-Technologies/raaghu-react/actions)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
+
+![GitHub release](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
+[![Raaghu Design System](https://img.shields.io/badge/Raaghu_Design_System-v1.0.0-purple)](https://github.com/Wai-Technologies/raaghu-react)
+[![Design System Version](https://img.shields.io/badge/Version-1.0.0-orange)](https://github.com/Wai-Technologies/raaghu-react)
 
 </div>
 
