@@ -134,6 +134,5 @@ export const WithDelete: Story = {
         isFilepload: false,
         dateFormat: 'mm/dd/yyyy',
         onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
-        deleteIconTimeout: 60000, // Delete icon will disappear after 1 minute
     },
 };
