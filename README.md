@@ -44,7 +44,7 @@
 <h1 style="border-bottom:0;">Contents</h1>
 
 - [What is Raaghu Design System?](#raaghu-intro)
-- [Why Choose Raaghu Design System??](#why)
+- [Why Choose Raaghu Design System?](#why)
 - [How Raaghu Design System Works?](#how)
 - [Features](#features)
 - [More about Raaghu Design System](#learn-more) 
