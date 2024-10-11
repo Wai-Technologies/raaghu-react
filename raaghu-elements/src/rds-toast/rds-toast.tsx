@@ -96,18 +96,18 @@ const RdsToast = (props: RdsToastProps) => {
                                 </div>
                             </div>
 
-                            <div className={`toast-footer justify-content-end align-items-end ${props.layout === "chat" ? "d-block" : "d-none"}`}>
+                            <div className={`toast-footer justify-content-end align-items-end pt-0 ${props.layout === "chat" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex ml-2 pl-2">
                                     <input type="text" className="form-control form-text pl-1" placeholder={props.placeholder} />
                                 </div>
-                                <div className="d-flex toast-footer justify-justify-content-start">
+                                <div className="d-flex justify-justify-content-start mt-2">
                                     <button type="button" className="btn btn-primary btn-sm">Reply</button>
                                     <button type="button" className="btn text-primary btn-sm">Mark As Read</button>
                                 </div>
                             </div>
 
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "request" ? "d-block" : "d-none"}`}>
-                                <div className="d-flex toast-footer justify-content-end">
+                                <div className="d-flex justify-content-end">
                                     <button type="button" className="btn text-primary btn-sm">Reject</button>
                                     <button type="button" className="btn btn-primary btn-sm">Accept</button>
                                 </div>
