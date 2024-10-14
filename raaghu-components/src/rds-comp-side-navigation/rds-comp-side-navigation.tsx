@@ -5,10 +5,13 @@ export interface RdsCompSideNavigationProps {
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   toggleClass?: any;
   collapse?: any;
+  layoutType?: string; // Add layoutType prop
+  brandLogo?: string; 
 }
 
 const RdsCompSideNavigation = (props: RdsCompSideNavigationProps) => {
-  return <RdsSideNav sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
+  return <RdsSideNav sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass} layoutType={props.layoutType} brandLogo={props.brandLogo} // Pass layoutType prop
+/>;
 };
 
 export default RdsCompSideNavigation;
