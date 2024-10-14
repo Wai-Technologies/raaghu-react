@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import { colors, size } from "../../libs/types";
 import RdsIcon from "../rds-icon";
 import "./rds-alert.css";
 import RdsButton from "../rds-button";
+
 export interface RdsAlertProps {
     dismisable?: boolean;
     alertmessage?: string;
-    colorVariant: string;
+    type: string;    
+    border?:"none" | "single" | "left Border";
     delay?: number;
     icon?: string;
     iconFill?: boolean;
@@ -23,7 +24,7 @@ export interface RdsAlertProps {
     okaybutton?: boolean;
     alertheading?: string;
     withBorder?: boolean;
-    withLeftBorder?: boolean;
+    //withLeftBorder?: boolean;
     displayType?: "singleline" | "multiline";
     description?: string;
   }
@@ -31,7 +32,7 @@ export interface RdsAlertProps {
 const RdsAlert = (props: RdsAlertProps) => {
     const [clicked, setClicked] = useState(false);
     const delay = props.delay;
-    const handler = props.hasOwnProperty("delay");
+    const handler = "delay" in props;
 
     useEffect(() => {
         if (handler == true) {
@@ -49,166 +50,159 @@ const RdsAlert = (props: RdsAlertProps) => {
     };
 
     const delayClass = `${clicked == true ? " d-none " : "w-100 "}`;
+    const colorType = props.type === "success" ? "primary" : props.type === "warning" ? "warning" : props.type === "error" ?  "danger" : "";
 
     const classes = () => {
 
-        let defaultClass: string = '';
+        let defaultClass: string = "";
         if (props.dismisable) {
             defaultClass = " alert-dismissible ";
-        }
-       
+        }       
 
-      if (props.sticky) {
-        const position = `${props.position === 'top' ? ' position-absolute top-0 start-0 fullWidth z-index' : ' position-absolute bottom-0 start-0 fullWidth z-index'}`;
-        defaultClass = defaultClass + defaultClass + position;
-    }
+        if (props.sticky) {
+            const position = `${props.position === "top" ? " position-absolute top-0 start-0 fullWidth z-index" : " position-absolute bottom-0 start-0 fullWidth z-index"}`;
+            defaultClass = defaultClass + defaultClass + position;
+        }
+
+        if (props.border === "left Border") {
+            defaultClass = defaultClass + " alert-left-border " + colorType; //props.type;
+        }
   
-      if (props.withLeftBorder) {
-        defaultClass = defaultClass + " alert-left-border " + props.colorVariant;
-      }
-  
-      const sizeClass = `${props.size === 'small' ? ' alert-sm' : props.size === 'large' ? ' alert-lg' : ' alert-md'}`;
-      defaultClass = defaultClass + sizeClass;
-      return defaultClass;
+        const sizeClass = `${props.size === "small" ? " alert-sm" : props.size === "large" ? " alert-lg" : " alert-md"}`;
+        defaultClass = defaultClass + sizeClass;
+        return defaultClass;
     };
+
+   
     return (
-      <>
-        <div
-          className={
-            "alert alert-" +
-            props.colorVariant +
-            " d-flex justify-content-between align-items-center z-0" +
-            (props.withBorder ? "" : " shadow") +
-            classes() +
-            ` ${delayClass} ${props.withLeftBorder ? "alert-left-border" : ""}`
-          }
-          role="alert"
-        >
-          {props.displayType == "singleline" && (
-            <>
-              <span className="wordbreak d-flex">
-                {props.hasOwnProperty("icon") && (
-                  <RdsIcon
-                    name={props.icon || " "}
-                    fill={props.iconFill}
-                    stroke={props.iconStroke}
-                    height={props.iconHeight}
-                    width={props.iconWidth}
-                    colorVariant={props.colorVariant}
-                    classes="me-2"
-                  />
+        <>
+            <div
+                className={
+                    "alert alert-" +
+                    //props.type +
+                    colorType +
+                  " d-flex justify-content-between align-items-center z-0" +
+                  (props.border === "single" ? " border" : " shadow") +
+                  classes() +
+                  ` ${delayClass} ${props.border === "left Border" ? "alert-left-border" : ""}`
+                }
+                role="alert"
+            >
+                {props.displayType == "singleline" && (
+                    <>
+                        <span className="wordbreak d-flex">
+                            {props.icon && (
+                                <RdsIcon
+                                    name={props.icon || " "}
+                                    fill={props.iconFill}
+                                    stroke={props.iconStroke}
+                                    height={props.iconHeight}
+                                    width={props.iconWidth}
+                                    // colorVariant={props.type}
+                                    colorVariant= "{colorType}"
+                                    classes="me-2"
+                                />
+                            )}
+      
+                            <div>
+                                {props.alertheading && <strong>{props.alertheading}</strong>}
+                                {props.alertmessage}
+                                {props.linkbutton === true && (
+                                    <a className=" text-decoration-underline ms-2" href="#">
+                                      Link
+                                    </a>
+                                )}
+                            </div>
+                        </span>
+                  
+                        <span>
+                            <div className="d-flex gap-2 alertBtns">
+                                {props.cancelbutton === true && (
+                                    <button type="button" className="text-primary border-0 bg-transparent"> Cancel </button>
+                                )}
+                                {props.okaybutton === true && (
+                                    <RdsButton
+                                        colorVariant="primary"
+                                        onClick={(e: any) => closeHandler(e)}
+                                        label="Okay"
+                                        size="small"
+                                    />
+                                )}
+                                {props.dismisable === true && (
+                                    <RdsIcon
+                                        colorVariant="primary"
+                                        name="close"
+                                        stroke={false}
+                                        height="12px"
+                                        width="12px"
+                                        onClick={(e: any) => closeHandler(e)}
+                                        isCursorPointer={true}
+                                    />
+                                )}
+                            </div>
+                        </span>
+                    </>
                 )}
-  
-                <div>
-                  {props.alertheading && <strong>{props.alertheading}</strong>}
-                  {props.alertmessage}
-                  {props.linkbutton === true && (
-                    <a className="ms-2" href="#">
-                      Link
-                    </a>
-                  )}
-                </div>
-              </span>
-              
-              <span>
-                <div className="d-flex gap-2 alertBtns">
-                {props.cancelbutton === true && (
-                  <RdsButton
-                    colorVariant="primary"
-                    isOutline
-                    label="Cancel"
-                    onClick={(e: any) => closeHandler(e)}
-                    size="small"
-                  />
-                )}
-                {props.okaybutton === true && (
-                  <RdsButton
-                    colorVariant="primary"
-                    onClick={(e: any) => closeHandler(e)}
-                    label="Okay"
-                    size="small"
-                  />
-                )}
-                {props.dismisable === true && (
-                  <RdsIcon
-                    colorVariant="primary"
-                    name="close"
-                    stroke={false}
-                    height="12px"
-                    width="12px"
-                    onClick={(e: any) => closeHandler(e)}
-                    isCursorPointer={true}
-                  />
+      
+                {props.displayType == "multiline" && (
+                    <>
+                        <span className="wordbreak d-flex">
+                            {props.icon && (
+                                <RdsIcon
+                                    name={props.icon || " "}
+                                    fill={props.iconFill}
+                                    stroke={props.iconStroke}
+                                    height={props.iconHeight}
+                                    width={props.iconWidth}
+                                    // colorVariant={props.type}
+                                    colorVariant= {colorType}
+                                    classes="me-2"
+                                />
+                            )}
+      
+                            <div>
+                                {props.alertheading && <strong>{props.alertheading}</strong>}
+                                {props.alertmessage}
+                                <p>{props.description}</p>
+                                {props.linkbutton === true && (
+                                    <a className="text-decoration-underline" href="#">
+                                      Link
+                                    </a>
+                                )}
+                            </div>
+                        </span>
+                        <span>
+                            <div className="d-flex align-items-top justify-content-end gap-2">
+                                {props.dismisable === true && (
+                                    <RdsIcon
+                                        colorVariant="primary"
+                                        name="close"
+                                        stroke={false}
+                                        height="12px"
+                                        width="12px"
+                                        onClick={(e: any) => closeHandler(e)}
+                                        isCursorPointer={true}
+                                    />
+                                )}
+                            </div>
+                            <div className="d-flex align-items-flex-end mt-4 gap-2 alertBtns">
+                                {props.cancelbutton === true && (
+                                    <button className="text-primary border-0 bg-transparent"> Cancel </button>
+                                )}
+                                {props.okaybutton === true && (
+                                    <RdsButton
+                                        colorVariant="primary"
+                                        onClick={(e: any) => closeHandler(e)}
+                                        label="Okay"
+                                        size="small"
+                                    />
+                                )}
+                            </div>
+                        </span>
+                    </>
                 )}
             </div>
-              </span>
-            </>
-          )}
-  
-          {props.displayType == "multiline" && (
-            <>
-              <span className="wordbreak d-flex">
-                {props.hasOwnProperty("icon") && (
-                  <RdsIcon
-                    name={props.icon || " "}
-                    fill={props.iconFill}
-                    stroke={props.iconStroke}
-                    height={props.iconHeight}
-                    width={props.iconWidth}
-                    colorVariant={props.colorVariant}
-                    classes="me-2"
-                  />
-                )}
-  
-                <div>
-                  {props.alertheading && <strong>{props.alertheading}</strong>}
-                  {props.alertmessage}
-                  <p>{props.description}</p>
-                  {props.linkbutton === true && (
-                    <a className="" href="#">
-                      Link
-                    </a>
-                  )}
-                </div>
-              </span>
-              <span>
-                <div className="d-flex align-items-top justify-content-end gap-2">
-                  {props.dismisable === true && (
-                    <RdsIcon
-                      colorVariant="primary"
-                      name="close"
-                      stroke={false}
-                      height="12px"
-                      width="12px"
-                      onClick={(e: any) => closeHandler(e)}
-                      isCursorPointer={true}
-                    />
-                  )}
-                </div>
-                <div className="d-flex align-items-flex-end mt-4 gap-2 alertBtns">
-                  {props.cancelbutton === true && (
-                    <RdsButton
-                      colorVariant="primary"
-                      isOutline
-                      label="Cancel"
-                      onClick={(e: any) => closeHandler(e)}
-                      size="small"
-                    />
-                  )}
-                  {props.okaybutton === true && (
-                    <RdsButton
-                      colorVariant="primary"
-                      onClick={(e: any) => closeHandler(e)}
-                      label="Okay"
-                      size="small"
-                    />
-                  )}
-                </div>
-              </span>
-            </>
-          )}
-        </div>
-      </>
+        </>
     );
 };
 

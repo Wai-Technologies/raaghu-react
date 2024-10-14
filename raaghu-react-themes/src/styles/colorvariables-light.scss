@@ -1985,12 +1985,137 @@ $form-feedback-color: $gray-700;
     border-color: $border;
     
 }
+.alert-info {
+    @include alert-variant(
+         $bg-neutral-lighter-default, // background
+         $line-info-medium-default,  // border
+                    // text color
+    );
+    .alert {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-neutral-outline-default;
+
+            polyline.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            polygon.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            ellipse.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            path.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            line.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            rect.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+
+            circle.icon {
+                stroke: $icon-neutral-outline-default;
+            }
+        }
+    }
+}
+
+.alert-success {
+    @include alert-variant(
+         $bg-primary-light-default, // background
+         $line-primary-medium-defaut,  // border
+                    // text color
+    );
+    .alert {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-primary-outline-default;
+
+            polyline.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            polygon.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            ellipse.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            path.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            line.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            rect.icon {
+                stroke: $icon-primary-outline-default;
+            }
+
+            circle.icon {
+                stroke: $icon-primary-outline-default;
+            }
+        }
+    }
+}
+
+
 .alert-error {
     @include alert-variant(
          $bg-error-light-default, // background
          $line-error-medium-defaut,  // border
                     // text color
     );
+    .alert {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-error-outline-default;
+
+            polyline.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            polygon.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            ellipse.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            path.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            line.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            rect.icon {
+                stroke: $icon-error-outline-default;
+            }
+
+            circle.icon {
+                stroke: $icon-error-outline-default;
+            }
+        }
+    }
 }
 .alert-warning {
     @include alert-variant(
@@ -1998,6 +2123,42 @@ $form-feedback-color: $gray-700;
          $line-warning-medium-defaut,  // border
                     // text color
     );
+    .alert {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: $icon-tertiary-outline-default;
+
+            polyline.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            polygon.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            ellipse.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            path.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            line.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            rect.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+
+            circle.icon {
+                stroke: $icon-tertiary-outline-default;
+            }
+        }
+    }
 }
 
 @each $state, $value in $theme-colors {
