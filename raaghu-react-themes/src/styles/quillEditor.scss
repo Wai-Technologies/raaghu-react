@@ -8,7 +8,7 @@
 }
 
 .ql-toolbar svg .ql-fill {
-    fill: currentColor;
+    
 }
 
 .ql-script svg :first-child {
@@ -104,4 +104,77 @@
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
     stroke: $primary;
 }
-
+.theme-light .quill.editor-error{
+    .ql-toolbar.ql-snow {
+        border: 1px solid $danger;
+        border-bottom: none;
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+    .ql-container.ql-snow {
+        border: 1px solid $danger;
+        border-top: none;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
+.theme-light .quill.editor-selected{
+    .ql-toolbar.ql-snow {
+        border: 1px solid $dark;
+        border-bottom: none;
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+    .ql-container.ql-snow {
+        border: 1px solid $dark;
+        border-top: none;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
+.theme-light .quill.editor-disabled{
+    .ql-toolbar.ql-snow {
+         opacity: 0.6; /* Make the card look faded */
+        pointer-events: none; /* Prevent any interactions */
+        cursor: not-allowed; /* Show a 'not allowed' cursor */
+        background-color: $gray-200 !important;
+        border-bottom: none;
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+    .ql-container.ql-snow {
+         opacity: 0.6; /* Make the card look faded */
+        pointer-events: none; /* Prevent any interactions */
+        cursor: not-allowed; /* Show a 'not allowed' cursor */
+        background-color: $gray-200 !important;
+        border-top: none;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
+.theme-light .quill.editor-active{
+    .ql-toolbar.ql-snow {
+        border: 1px solid $primary;
+        border-bottom: none;
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+    .ql-container.ql-snow {
+        border: 1px solid $primary;
+        border-top: none;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
+.theme-light .quill{
+    .ql-toolbar.ql-snow {
+        border-bottom: none;
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+    .ql-container.ql-snow {
+        border-top: none;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
