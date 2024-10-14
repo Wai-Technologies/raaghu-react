@@ -25,7 +25,7 @@ interface RdsCompUserCommentsProps {
     isEmojiPicker?: boolean;
     isFilepload?: boolean;
     dateFormat?: string;
-    onCommentCountChange?: (count: number) => void; // New callback prop    
+    //onCommentCountChange?: (count: number) => void; // New callback prop    
     currentUserCommentBgColor?: string;
     currentUserCommentTextColor?: string;
     otherUserCommentBgColor?: string;
@@ -41,7 +41,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     isEmojiPicker = false,
     isFilepload = false,
     dateFormat = 'mm/dd/yyyy',
-    onCommentCountChange, // Callback prop,
+    //onCommentCountChange, // Callback prop,
     currentUserCommentBgColor = '#7825E9',
     currentUserCommentTextColor = 'FEF7FF',
     otherUserCommentBgColor = '#D6D6D6',

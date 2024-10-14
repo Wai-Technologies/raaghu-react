@@ -79,7 +79,7 @@ export const Default: Story = {
         isEmojiPicker: false,
         isFilepload: false,
         dateFormat: 'mm/dd/yyyy',
-        onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
+        //onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
         currentUserCommentBgColor: '#7825E9',
         currentUserCommentTextColor: '#FEF7FF', // Ensure hex code is correct
         otherUserCommentBgColor: '#D6D6D6',
