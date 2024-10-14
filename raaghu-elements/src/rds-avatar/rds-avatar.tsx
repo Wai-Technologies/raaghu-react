@@ -10,7 +10,7 @@ export interface RdsAvatarProps {
     firstName?: string;
     lastName?: string;
     role?: string;
-    colorVariant?: colors;
+    colorVariant: string;
     titleAlign?: string;
     size?: "smallest"|"small" | "large" | "medium"| "largest";
     verticallyAlligned?: boolean;
