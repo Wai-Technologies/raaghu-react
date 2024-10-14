@@ -21,6 +21,19 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
+            control: { type: "select" },
+        },
         size: {
             options: [ "smallest" , "small" , "medium", "large","largest"],
             control: { type: "radio" },
