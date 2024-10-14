@@ -75,7 +75,7 @@ export const Default: Story = {
                 addedTime: Date.now(),
             },
         ],
-        allowDelete: false,
+        allowDelete: true,
         isEmojiPicker: false,
         isFilepload: false,
         dateFormat: 'mm/dd/yyyy',
@@ -84,55 +84,7 @@ export const Default: Story = {
         currentUserCommentTextColor: '#FEF7FF', // Ensure hex code is correct
         otherUserCommentBgColor: '#D6D6D6',
         OtherUserCommentTextColor: '#202020',
-        deleteIconTimeout: 60000, // Delete icon will disappear after 1 minute
+        deleteIconTimeout: 30000, // Delete icon will disappear after 30s
     },
 };
 
-export const WithDelete: Story = {
-    args: {
-        currentUser: {
-            firstName: "Jane",
-            lastName: "Doe",
-            profilePic: ""
-        },
-        comments: [
-            {
-                firstName: "Alice",
-                lastName: "Smith",
-                profilePic: "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-women-avatar-wearing-suit-with-long-black-hair-png-image_6102781.png",
-                date: new Date().toLocaleDateString('en-US'),
-                comment: "This is a great product!",
-                addedTime: Date.now(),
-            },
-            {
-                firstName: "Maria",
-                lastName: "Brown",
-                profilePic: "https://www.educationworld.co.in/wp-content/uploads/2023/05/dummy-female.jpg",
-                date: new Date().toLocaleDateString('en-US'),
-                comment: "I had a wonderful experience.",
-                addedTime: Date.now(),
-            },
-            {
-                firstName: "Ann",
-                lastName: "Augustine",
-                profilePic: "https://static.vecteezy.com/system/resources/previews/009/398/577/original/man-avatar-clipart-illustration-free-png.png",
-                date: new Date().toLocaleDateString('en-US'),
-                comment: "I had a wonderful experience.",
-                addedTime: Date.now(),
-            },
-            {
-                firstName: "David",
-                lastName: "Brown",
-                profilePic: "",
-                date: new Date().toLocaleDateString('en-US'),
-                comment: "I had a wonderful experience.",
-                addedTime: Date.now(),
-            },
-        ],
-        allowDelete: true,
-        isEmojiPicker: false,
-        isFilepload: false,
-        dateFormat: 'mm/dd/yyyy',
-        onCommentCountChange: handleCommentCountChange, // Added callback for comment count change
-    },
-};

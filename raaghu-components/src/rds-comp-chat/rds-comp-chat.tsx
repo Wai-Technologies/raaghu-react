@@ -36,7 +36,7 @@ interface RdsCompUserCommentsProps {
 const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
     comments,
     currentUser,
-    allowDelete = true,
+    allowDelete = false,
     width = "medium", // Default width
     isEmojiPicker = false,
     isFilepload = false,
@@ -156,6 +156,21 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                             {/* Show delete icon for current user comments */}
                             {isCurrentUser && showDeleteIcon && (
                                 <span className="d-flex align-items-top me-1">
+                                    <RdsIcon
+                                        name="delete"
+                                        fill={false}
+                                        stroke={true}
+                                        colorVariant="danger"
+                                        isCursorPointer={true}
+                                        width="18px"
+                                        height="18px"
+                                        onClick={() => handleDeleteComment(index)}
+                                    />
+                                </span>
+                            )}
+
+                            {isCurrentUser && !showDeleteIcon && (
+                                <span className="d-flex align-items-top me-1 d-none">
                                     <RdsIcon
                                         name="delete"
                                         fill={false}
