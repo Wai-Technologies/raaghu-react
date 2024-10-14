@@ -12,7 +12,15 @@ export interface RdsCompClaimTypeProps {
 }
 
 const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
-    const [formData, setFormData] = useState(props.claimsData);
+    const [formData, setFormData] = useState({
+        name: "",
+        regex: "",
+        valueType: null,
+        regexDescription: "",
+        description: "",
+        required: false,
+        ...props.claimsData
+    });
     const [isFormValid, setIsFormValid] = useState(false);
     const [inputReset, setInputReset] = useState(props.reset);
 
@@ -20,29 +28,36 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
         setInputReset(props.reset);
     }, [props.reset]);
 
+    useEffect(() => {
+        checkFormValidity(formData);
+    }, [formData]);
+
     const handleSelectChange = (value: any, key: string) => {
         setFormData({ ...formData, [key]: value });
-        checkFormValidity({ ...formData, [key]: value });
     };
 
     const checkFormValidity = (formData: any) => {
-        const requiredFields = ["name"];
-        const isFormValid = requiredFields.every((field) => formData[field] !== "");
-        setIsFormValid(isFormValid);
+        const requiredFields = ["name", "regex", "valueType", "regexDescription"];
+        const isValid = requiredFields.every((field) => formData[field] && formData[field].toString().trim() !== "");
+        setIsFormValid(isValid);
     };
-    function emitSaveData(event: any) {
+
+    const emitSaveData = (event: any) => {
         event.preventDefault();
-        props.onSaveHandler && props.onSaveHandler(formData);
-        setInputReset(!inputReset);
-        setFormData({
-            valueType: null,
-            name: "",
-            regex: "",
-            regexDescription: "",
-            description: "",
-            required: false
-        });
-    }
+        if (isFormValid) {
+            props.onSaveHandler && props.onSaveHandler(formData);
+            setInputReset(!inputReset);
+            setFormData({
+                name: "",
+                regex: "",
+                valueType: null,
+                regexDescription: "",
+                description: "",
+                required: false
+            });
+        }
+    };
+
     return (
         <>
          <div className="custom-content-scroll">

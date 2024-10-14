@@ -16,14 +16,34 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsVideoPlayer>;
 
-
-export const VideoPlayer: Story = {
+export const Default: Story = {
     args: {
         width: "480px",
         height: "240px",
         autoplay: false,
         muted: false,
-        videoLink: "https://youtu.be/7sDY4m8KNLc",
+        videoLink: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",  // Example of a hosted .mp4 file
     }
 } satisfies Story;
-VideoPlayer.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };
+
+export const Vimeo: Story = {
+    args: {
+        width: "480px",
+        height: "240px",
+        autoplay: false,
+        muted: false,
+        videoLink: "https://vimeo.com/420192272",  // React tutorial on Vimeo
+    }
+} satisfies Story;
+
+Vimeo.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };
+
+export const YouTube: Story = {
+    args: {
+        width: "480px",
+        height: "240px",
+        autoplay: false,
+        muted: false,
+        videoLink: "https://youtu.be/7sDY4m8KNLc",  // YouTube link
+    }
+} satisfies Story;

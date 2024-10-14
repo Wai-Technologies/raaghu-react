@@ -36,7 +36,11 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     />
                                     {props.item.date && (
                                         <p className="mt-2 text-secondary">
-                                            {props.item.date.toDateString().slice(4)}
+                                            {props.item.date.toLocaleDateString('en-GB', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            }).replace(/ (\d{4})/, ', $1')}
                                         </p>
                                     )}
                                 </div>
