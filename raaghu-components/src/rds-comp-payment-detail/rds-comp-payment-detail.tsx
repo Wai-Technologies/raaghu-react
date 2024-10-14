@@ -55,11 +55,37 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
     setSelectedPaymentMethod('');
     formKey.current += 1; // increment the key to force re-render of the form
   }
+  const isCardNumberValid = (cardNumber: any) => {
+    if (!cardNumber || cardNumber.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  const isCardHolderNameValid = (cardHolderName: any) => {
+    if (!cardHolderName || cardHolderName.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  const isCardExpirationDateValid = (cardExpirationDate: any) => {
+    if (!cardExpirationDate || cardExpirationDate.length === 0) {
+      return false;
+    }
+    return true;
+  }
+  const isCardCvcValid = (cardCvc: any) => {
+    if (!cardCvc || cardCvc.length === 0) {
+      return false;
+    }
+    return true;
+  }
+
+  const isFormValid=isCardNumberValid(formData?.cardNumber) && isCardHolderNameValid(formData?.cardHolderName) && isCardExpirationDateValid(formData?.cardExpirationDate) && isCardCvcValid(formData?.cardCvc);
   return (
     <>
-      <form onSubmit={emitSaveData} key={formKey.current}>
+      <form>
+        <div className="custom-content-scroll">
         <div className="contact-information">
-
           <h4>Payment details</h4>
           <div className="row mb-3">
             <div className="col-md-4">
@@ -132,7 +158,8 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             </div>
           </div>
         </div>
-        <div className="mt-3 d-flex pb-3 ps-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+        </div>
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
           <RdsButton
             label="Cancel"
             colorVariant="primary"
@@ -146,7 +173,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <RdsButton
             label="Confirm"
             colorVariant="primary"
-            isDisabled={false}
+            isDisabled={!isFormValid}
             block={false}
             size="small"
             tooltipTitle={""}

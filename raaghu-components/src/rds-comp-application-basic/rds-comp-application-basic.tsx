@@ -38,7 +38,31 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
             logoUri: "",
         });
     };
-
+    const isClientIdValid = (clientId: any) => {
+        if (!clientId || clientId.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isDisplayNameValid = (displayName: any) => {
+        if (!displayName || displayName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isClientUriValid = (clientUri: any) => {
+        if (!clientUri || clientUri.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(clientUri)) {
+            return false;
+        }
+        return true;
+    };
+    const isLogoUriValid = (logoUri: any) => {
+        if (!logoUri || logoUri.length === 0|| !/^(ftp|http|https):\/\/[^ "]+$/.test(logoUri)) {
+            return false;
+        }
+        return true;
+    };
+    const isFormValid = isClientIdValid(basicApplicationData?.clientId) && isDisplayNameValid(basicApplicationData?.displayName) && isClientUriValid(basicApplicationData?.clientUri) && isLogoUriValid(basicApplicationData?.logoUri);
     return (
         <> <div>
             <div className="tab-content pt-3">
@@ -76,7 +100,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                                     placeholder="Enter Client Uri"
                                     inputType="url"
                                     validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                                    validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                                    validationMsg="This field is not a valid fully qualified HTTP, HTTPS, or FTP URL"
                                     onChange={e => handlerInputChange(e.target.value, "clientUri")}
                                     value={basicApplicationData?.clientUri}
                                     required={false}
@@ -89,7 +113,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                                     placeholder="Enter Logo Uri"
                                     inputType="url"
                                     validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                                    validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                                    validationMsg="This field is not a valid fully qualified HTTP, HTTPS, or FTP URL"
                                     onChange={e => handlerInputChange(e.target.value, "logoUri")}
                                     value={basicApplicationData?.logoUri}
                                     required={false}
@@ -115,6 +139,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                             type={"submit"}
                             databsdismiss="offcanvas"
                             dataTestId="save"
+                            isDisabled={!isFormValid}
                         ></RdsButton>
                     </div>
                 </form>

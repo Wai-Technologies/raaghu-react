@@ -61,8 +61,32 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
       return false;
     } else return true;
   };
+  const ifFullNameValid = (fullName: any) => {
+    if (!fullName || fullName.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isContactNumberValid = (contactNumber: any) => {
+    if (!contactNumber || contactNumber.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isPositionValid = (position: any) => {
+    if (!position || position.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isPeriodValid = (period: any) => {
+    if (!period || period.length === 0) {
+        return false;
+    }
+    return true;
+}
 
-  const isFormValid = isEmailValid(formData?.email);
+  const isFormValid = isEmailValid(formData?.email) && ifFullNameValid(formData?.fullName) && isContactNumberValid(formData?.contactNumber) && isPositionValid(formData?.position) && isPeriodValid(formData?.period) ;
 
   const { t } = useTranslation();
   return (
@@ -83,6 +107,8 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                 name={"email"}
                 required
                 dataTestId="email"
+                validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                validationMsg="Invalid Email Address."   
               ></RdsInput>
             </div>
 
@@ -111,6 +137,23 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "contactNumber");
                 }}
+                onKeyDown={(e) => {
+                  const inputElement = e.target as HTMLInputElement;
+                      const currentLength = inputElement.value.length;
+                      const isPlusEntered = inputElement.value.startsWith('+');
+                      const maxLength = isPlusEntered ? 13 : 10;
+                     
+                      const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                      const isNumberOrPlus = /[0-9+]/.test(e.key);
+             
+                      if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                          e.preventDefault();
+                      }
+             
+                      if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                          e.preventDefault();
+                      }
+                  }}
                 value={formData?.contactNumber}
                 reset={inputReset}
                 name={"contactNumber"}
@@ -121,7 +164,7 @@ const RdsCompApplyForPosition = (props: RdsCompApplyForPositionProps) => {
 
             <div className="col-md-6 col-sm-12">
               <RdsInput
-                label="Applying For Position:"
+                label="Applying For Position"
                 placeholder="Position Name"
                 inputType="text"
                 onChange={(e) => {

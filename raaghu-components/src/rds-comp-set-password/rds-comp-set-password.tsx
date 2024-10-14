@@ -21,7 +21,15 @@ interface RdsCompSetPasswordProps {
 const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
   const [inputReset, setInputReset] = useState(false);
   const [passwordField, setPasswordField] = useState(props.setPasswordField);
- 
+  const [errors, setErrors] = useState({
+    password: "",
+      
+  });
+  const isNewPassValid = (password: string) => {
+    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    return pattern.test(password);
+  };
+  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
 
   const isPasswordValid = (password: any) => {
     if (!password || password.length === 0) {
@@ -30,9 +38,14 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
     return true;
   };
 const handleDataChanges = (value: any, key: string) => {
+  let errorMessage = "";
+  if (key === "password") {
+    errorMessage = isNewPassValid(value) ? "" : "Please Enter Valid Password length should be at least 8 characters(Alphanumeric)";
+  } 
+  setErrors({ ...errors, [key]: errorMessage });
   setPasswordField({ ...passwordField, [key]: value });
   }
-  const isFormValid = isPasswordValid(passwordField);
+  const isFormValid = isPasswordValid(passwordField?.password);
   useEffect(() => {
     setInputReset(!inputReset);
   }, [props.reset]);
@@ -59,19 +72,25 @@ useEffect(() => {
               <div className="col-md-6 mb-2">
                 <div className="form-group">
                   <RdsInput
-                    reset={inputReset}
+                    inputType="password"
+                    placeholder="Enter Password"
                     required={true}
                     label="Password"
-                    placeholder="Enter Password"
-                    inputType="password"
-                    name="adminPassword"
-                    id="adminPassword"
-                      onChange={(e) => {
+                    name="password"
+                    id="password"
+                    onBlur={() => setIsPasswordTouched(true)}
+                    onChange={(e) => {
                       handleDataChanges(e.target.value, "password");
                     }}
                     value={passwordField?.password}
+                    dataTestId="password"
                     showIcon={true}
                   ></RdsInput>
+                  {errors.password && passwordField?.password && (
+                    <div className="form-control-feedback">
+                      <span className="text-danger">{errors.password}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,109 +1,225 @@
-
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsAccordion from './rds-accordion';
-import RdsAccordionItem from "./rds-accordion-item";
-
 
 const meta: Meta = {
     title: 'Elements/Accordion',
     component: RdsAccordion,
-    parameters: { 
+    parameters: {
         layout: 'padded',
-        disableZoom : false
+        disableZoom: false
     },
-    tags:['autodocs'],
-    argTypes: {},
+    tags: ['autodocs'],
+    argTypes: {
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "radio" },
+        },
+        border:{
+            options:["border","bottomline","borderhide"],
+            control:{type:"radio"}
+        }
+    },
 } satisfies Meta<typeof RdsAccordion>;
-
 
 export default meta;
 type Story = StoryObj<typeof RdsAccordion>;
 
 export const Default: Story = {
     args: {
-            accordionType: "Default",
-            accordionId: "1",
-            children: (
-                <>
-                    <RdsAccordionItem id={"1"} title={"Section 1 Title"}>
-                        <h1>Hello</h1>
-                    </RdsAccordionItem>
-                    <RdsAccordionItem id={"2"} title={"Section 2 Title"}>
-                        <h1>Hello2</h1>
-                    </RdsAccordionItem>
-                    <RdsAccordionItem id={"3"} title={"Section 3 Title"}>
-                        <h1>Hello3</h1>
-                    </RdsAccordionItem>
-                </>
-            ),
-        }
+        accordionId: "1",
+        accordionType: "single",
+        size: "medium",
+        border:"border",
+        items: [
+            {
+                id: "1",
+                title: "Accordion Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "2",
+                title: "Accordion Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "3",
+                title: "Accordion Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+        ],
+    },
+    parameters: { controls: { include: ['size', 'accordionId', 'items', 'border'] } }
 } satisfies Story;
-Default.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const flush: Story = {
     args: {
-                accordionType: "flush",
-                accordionId: "1",
-                children: (
-                    <>
-                        {" "}
-                        <RdsAccordionItem id={"1"} title={"Section 1 Title"}>
-                            <h1>Hello</h1>
-                        </RdsAccordionItem>
-                        <RdsAccordionItem id={"2"} title={"Section 2 Title"}>
-                            <h1>Hello2</h1>
-                        </RdsAccordionItem>
-                        <RdsAccordionItem id={"3"} title={"Section 3 Title"}>
-                            <h1>Hello3</h1>
-                        </RdsAccordionItem>
-                    </>
+        accordionId: "1",
+        accordionType: "single",
+        size: "medium",
+        border:"border",
+        items: [
+            {
+                id: "1",
+                title: "Section 1 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
                 ),
-            }
-        
+            },
+            {
+                id: "2",
+                title: "Section 2 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "3",
+                title: "Section 3 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+        ],
+    },
+    parameters: { controls: { include: ['size', 'accordionId', 'items', 'border'] } }
 } satisfies Story;
-flush.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const AlwaysOpen: Story = {
     args: {
-        accordionType: "",
-    accordionId: "1",
-    children: (
-        <>
-            {" "}
-            <RdsAccordionItem id={"1"} AlwaysOpen={true} title={"Section 1 Title"}>
-                <h1>Hello</h1>
-            </RdsAccordionItem>
-            <RdsAccordionItem id={"2"} AlwaysOpen={true} title={"Section 2 Title"}>
-                <h1>Hello2</h1>
-            </RdsAccordionItem>
-            <RdsAccordionItem id={"3"} AlwaysOpen={true} title={"Section 3 Title"}>
-                <h1>Hello3</h1>
-            </RdsAccordionItem>
-        </>
-    ),
-            }
+        accordionId: "2",
+        accordionType: "multiple",
+        size: "medium",
+        border:"border",
+        items: [
+            {
+                id: "1",
+                title: "Section 1 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "2",
+                title: "Section 2 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "3",
+                title: "Section 3 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+        ],
+    },
+    parameters: { controls: { include: ['size', 'accordionId', 'items','border'] } }
 } satisfies Story;
-AlwaysOpen.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
 
 export const StackOpen: Story = {
     args: {
-        accordionType: "",
-        accordionId: "1",
-        children: (
-            <>
-                {" "}
-                <RdsAccordionItem id={"1"} defaultOpen={true} title={"Section 1 Title"}>
-                    <h1>Hello</h1>
-                </RdsAccordionItem>
-                <RdsAccordionItem id={"2"} title={"Section 2 Title"}>
-                    <h1>Hello2</h1>
-                </RdsAccordionItem>
-                <RdsAccordionItem id={"3"} title={"Section 3 Title"}>
-                    <h1>Hello3</h1>
-                </RdsAccordionItem>
-            </>
-        ),
-    }
+        accordionId: "2",
+        accordionType: "single",
+        size: "medium",
+        border:"border",
+        items: [
+            {
+                id: "1",
+                title: "Section 1 Title",
+                defaultOpen: true,
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "2",
+                title: "Section 2 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+            {
+                id: "3",
+                title: "Section 3 Title",
+                accordionContent: (
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
+                    </div>
+                ),
+            },
+        ],
+    },
+    parameters: { controls: { include: ['size', 'accordionId', 'items','border'] } }
 } satisfies Story;
-StackOpen.parameters = { controls: { include: ['accordionType', 'accordionId', 'children'] } };
+
+export const With_icon: Story = {
+    args: {
+        icon: "plus",
+        accordionType: "single",
+        accordionId: "3",
+        size: "medium",
+        border:"border",
+        iconFill: false,
+        iconStroke: true,
+        items: [
+            {
+                id: "1",
+                title: "Section 1 Title with Icon",
+                accordionContent: (
+                    <div>
+                        <h1>Hello</h1>
+                    </div>
+                ),
+            },
+            {
+                id: "2",
+                title: "Section 2 Title with Icon",
+                accordionContent: (
+                    <div>
+                        <h1>Hello2</h1>
+                    </div>
+                ),
+            },
+            {
+                id: "3",
+                title: "Section 3 Title with Icon",
+                accordionContent: (
+                    <div>
+                        <h1>Hello3</h1>
+                    </div>
+                ),
+            },
+        ],
+    }
+};
+With_icon.parameters = { controls: { include: ['size', 'icon', 'accordionId', 'items','border'] } };

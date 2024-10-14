@@ -39,7 +39,55 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
       postalCode: ""
   });
   }
-
+  const isNameValid = (name: any) => {
+    if (!name || name.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isLastNameValid = (lastName: any) => {
+    if (!lastName || lastName.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isCompanyValid = (company: any) => {
+    if (!company || company.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isAddressValid = (address: any) => {
+    if (!address || address.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isCityValid = (city: any) => {
+    if (!city || city.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isStateValid = (state: any) => {
+    if (!state || state.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isPostalCodeValid = (postalCode: any) => {
+    if (!postalCode || postalCode.length === 0) {
+        return false;
+    }
+    return true;
+  }
+  const isPhoneValid = (phone: any) => {
+    if (!phone || phone.length === 0) {
+        return false;
+    }
+    return true;
+  }
+   const isFormValid=isNameValid(formData?.firstName) && isLastNameValid(formData?.lastName) && isCompanyValid(formData?.company)&& isPhoneValid(formData?.phone) && isNameValid(formData?.phone) && isAddressValid(formData?.address) && isCityValid(formData?.city) && isStateValid(formData?.state) && isPostalCodeValid(formData?.postalCode);
  
   return (
       <>
@@ -138,6 +186,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row mt-3">
+          <div className="col-md-12 sm-p-0">
             <div className="form-group">
               <RdsInput
                 label="Address"
@@ -152,6 +201,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 value={formData?.address}
                 reset={inputReset}
               ></RdsInput>
+            </div>
             </div>
           </div>
 
@@ -181,6 +231,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   placeholder="Select Country"
                   selectItems={props.countryList}
                   selectedValue={formData?.country}
+                  key={`menu-${formData?.country}`}
                   onChange={(item: any) => {
                     handleDataChanges(item.value, "country");
                   }}
@@ -240,6 +291,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             isOutline={false}
             colorVariant="primary"
             size="small"
+            isDisabled={!isFormValid}
             onClick={(e: any) => emitSaveData(e)}
           ></RdsButton>
         </div>

@@ -120,11 +120,12 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
     <>
       <div className="">
         <div className="text-center">
-          <div className="d-flex align-items-center mb-1">
-            <div className="col-8 col-md-8 mb-3 offset-2">
-              <h2 className="mb-0">Login</h2>
+        <div className="container">
+          <div className="row align-items-center mb-1 mx-md-1">
+            <div className="col-12 col-md-11 text-center mb-3">
+              <h2 className="mb-0 ms-4">Login</h2>
             </div>
-            <div className="col-2 col-md-2 mb-3">
+            <div className="col-12 col-md-1 text-center text-md-end mb-3 px-md-0 px-lg-4">
               <RdsDropdownList
                 labelIcon={currentLanguageIcon}
                 labelIconWidth="18px"
@@ -143,6 +144,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
               />
             </div>
           </div>
+        </div>
           <div>
             <small className="d-flex justify-content-center">
               <span className="d-flex">
@@ -221,6 +223,12 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
               )
             </small>
           </div>
+
+
+
+
+
+          
           <div className="">
             <div className="invalid-popup">
               {Alert?.show && (
@@ -330,6 +338,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     tooltip={true}
                     tooltipTitle={"Connect with Google"}
                     tooltipPlacement="bottom"
+                    isCursorPointer={true}
                   ></RdsIcon>
                 </span>
                 <span className="w-20px h-20px border p-2 mx-3 rounded-2">
@@ -343,6 +352,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     tooltip={true}
                     tooltipTitle={"Connect with Microsoft"}
                     tooltipPlacement="bottom"
+                    isCursorPointer={true}
                   ></RdsIcon>
                 </span>
               </div>
