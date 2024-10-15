@@ -4,10 +4,10 @@ import "./rds-alert.css";
 import RdsButton from "../rds-button";
 
 export interface RdsAlertProps {
+    type: "info" | "success" | "warning" | "error";    
     dismisable?: boolean;
     alertmessage?: string;
-    type: string;    
-    border?:"none" | "single" | "left Border";
+    border?:"none" | "single" | "left border";
     delay?: number;
     icon?: string;
     iconFill?: boolean;
@@ -23,8 +23,6 @@ export interface RdsAlertProps {
     cancelbutton?: boolean;
     okaybutton?: boolean;
     alertheading?: string;
-    withBorder?: boolean;
-    //withLeftBorder?: boolean;
     displayType?: "singleline" | "multiline";
     description?: string;
   }
@@ -50,7 +48,7 @@ const RdsAlert = (props: RdsAlertProps) => {
     };
 
     const delayClass = `${clicked == true ? " d-none " : "w-100 "}`;
-    const colorType = props.type === "success" ? "primary" : props.type === "warning" ? "warning" : props.type === "error" ?  "danger" : "";
+    const colorType = props.type === "success" ? "primary" : props.type === "warning" ? "warning" : props.type === "error" ?  "danger" : "neutral";
 
     const classes = () => {
 
@@ -64,8 +62,18 @@ const RdsAlert = (props: RdsAlertProps) => {
             defaultClass = defaultClass + defaultClass + position;
         }
 
-        if (props.border === "left Border") {
-            defaultClass = defaultClass + " alert-left-border " + colorType; //props.type;
+        
+        if (props.border === "none") {
+            defaultClass = defaultClass + " shadow ";
+        }
+          
+        if (props.border === "single") {
+            defaultClass = defaultClass + " border-" + (props.type === "info" ? "dark" : colorType);
+        }
+  
+
+        if (props.border === "left border") {
+            defaultClass = defaultClass + "border-"+ (props.type === "info" ? "dark" : colorType) + " alert-left-border " + colorType;
         }
   
         const sizeClass = `${props.size === "small" ? " alert-sm" : props.size === "large" ? " alert-lg" : " alert-md"}`;
@@ -78,14 +86,8 @@ const RdsAlert = (props: RdsAlertProps) => {
         <>
             <div
                 className={
-                    "alert alert-" +
-                    //props.type +
-                    colorType +
-                  " d-flex justify-content-between align-items-center z-0" +
-                  (props.border === "single" ? " border" : " shadow") +
-                  classes() +
-                  ` ${delayClass} ${props.border === "left Border" ? "alert-left-border" : ""}`
-                }
+                    "alert alert-" + colorType +
+                  " d-flex justify-content-between align-items-center z-0 " + classes()}
                 role="alert"
             >
                 {props.displayType == "singleline" && (
@@ -98,7 +100,6 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     stroke={props.iconStroke}
                                     height={props.iconHeight}
                                     width={props.iconWidth}
-                                    // colorVariant={props.type}
                                     colorVariant= "{colorType}"
                                     classes="me-2"
                                 />
@@ -132,7 +133,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     <RdsIcon
                                         colorVariant="primary"
                                         name="close"
-                                        stroke={false}
+                                        stroke={true}
                                         height="12px"
                                         width="12px"
                                         onClick={(e: any) => closeHandler(e)}
@@ -154,7 +155,6 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     stroke={props.iconStroke}
                                     height={props.iconHeight}
                                     width={props.iconWidth}
-                                    // colorVariant={props.type}
                                     colorVariant= {colorType}
                                     classes="me-2"
                                 />
@@ -177,7 +177,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     <RdsIcon
                                         colorVariant="primary"
                                         name="close"
-                                        stroke={false}
+                                        stroke={true}
                                         height="12px"
                                         width="12px"
                                         onClick={(e: any) => closeHandler(e)}
