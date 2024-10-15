@@ -23,7 +23,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
     const [inputReset, setInputReset] = useState(false);
 
     const [accountGeneralData, setAccountGeneralData] = useState<any>(
-        props.accountGeneralSettings
+        props.accountGeneralSettings,
     );
 
     const handlerChangeGeneral = (value: any, name: any) => {
@@ -95,8 +95,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                 <div className="col-xxl-3 col-xl-3 col-lg-3 col-12 d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0 border-end pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
                     <RdsNavtabs
                         navtabsItems={navtabsItems}
-                        type="vertical"
+                        layout="Vertical"
                         fill={false}
+                        type="default"
                         justified={false}
                         activeNavTabId={activeNavTabId}
                         activeNavtabOrder={(activeNavTabId) => {
