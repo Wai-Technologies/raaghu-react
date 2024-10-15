@@ -9,6 +9,7 @@ export interface RdsFileUploaderProps {
   Drop_Area_Top_Icon?: boolean;
   Drop_Area_Side_Icon?: boolean;
   Drop_Area_With_Upload_Button? : boolean;
+  Drop_Area_With_Icon?: boolean;
   extensions: string;
   placeholder?: string;
   limit: number;
@@ -223,7 +224,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       );
     }
 
-    if (props.Drop_Area_Side_Icon) {
+    if (props.Drop_Area_Side_Icon || props.Drop_Area_With_Icon) {
       return (
         <div>
         {/* Multiple file uploader with side icon */}
@@ -292,14 +293,25 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             className="d-flex justify-content-between p-3 mt-3 fileName border"
           >
             <div className="d-flex gap-2 align-items-center">
-              <span>
-                <RdsIcon
-                  name={"file"}
-                  height="16px"
-                  width="16px"
-                  stroke={true}
-                  fill={false}
-                />
+            <span>
+                {props.Drop_Area_With_Icon && 
+                file.type.startsWith('image/') ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    height="120px"
+                    width="120px"
+                    className="file-thumbnail"
+                  />
+                ) : (
+                  <RdsIcon
+                    name={"file"}
+                    height="16px"
+                    width="16px"
+                    stroke={true}
+                    fill={false}
+                  />
+                )}
               </span>
               <span>{file.name}</span>
             </div>
@@ -309,8 +321,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               </span>
               <span className="iconbox ms-2" onClick={() => onDelete(index)}>
                 <RdsIcon
-                  colorVariant="secondary"
-                  name={"close_circle"}
+                  colorVariant="danger"
+                  name={"delete"}
                   height="16px"
                   width="16px"
                   stroke={true}

@@ -51,6 +51,7 @@ export const Default: Story = {
         Drop_Area_Top_Icon: false,
         Drop_Area_Side_Icon: false,
         Drop_Area_With_Upload_Button : false,
+        Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         validation: [
@@ -71,6 +72,7 @@ export const Drop_Area_Top_Icon
         Drop_Area_Top_Icon: true,
         Drop_Area_Side_Icon: false,
         Drop_Area_With_Upload_Button : false,
+        Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         size: "large",
@@ -92,6 +94,7 @@ export const Drop_Area_Side_Icon
         Drop_Area_Top_Icon: false,
         Drop_Area_Side_Icon: true,
         Drop_Area_With_Upload_Button : false,
+        Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
         limit: 5,
         size: "large",
@@ -126,3 +129,24 @@ export const Drop_Area_With_Upload_Button
     }
 } satisfies Story;
 Drop_Area_With_Upload_Button.parameters = { controls: { include: ['colorVariant',  'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+export const Drop_Area_With_Icon
+: Story = {
+    args: {
+        colorVariant: "primary",
+        Drop_Area_Top_Icon: false,
+        Drop_Area_Side_Icon: false,
+        Drop_Area_With_Upload_Button : false,
+        Drop_Area_With_Icon: true,
+        extensions: "png, jpg, doc, pdf, ppt",
+        limit: 5,
+        size: "large",
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
+        title: "Title",
+        mandatory: true,
+        showTitle: true,
+        showHint: true,
+    }
+} satisfies Story;
+Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
