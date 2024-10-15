@@ -131,40 +131,39 @@ export const Basic: Story = {
               <div>
                 <BrowserRouter>
                   <RdsCompSideNavigation
-                    sideNavItems={[
+                     sideNavItems={[
                       {
                         icon: "home",
                         key: "0",
+                        label: "Home",
+                        path: "/home",
+                      },
+                      {
+                        icon: "dashboard_new",
+                        key: "1",
                         label: "Dashboard",
                         path: "/dashboard",
                       },
                       {
-                        icon: "demo_ui",
-                        key: "1",
-                        label: "UI Components",
-                        path: "/demo-ui",
-                      },
-                      {
-                        icon: "icons",
+                      children: [
+                        {
+                          icon: "tenant",
+                          key: "2-0",
+                          label: "Tenants",
+                          path: "/tenant",
+                        },
+                        {
+                          icon: "editions",
+                          key: "2-1",
+                          label: "Editions",
+                          path: "/edition",
+                        },
+                      ],
+                        icon: "saas",
                         key: "2",
-                        label: "Icons",
-                        path: "/icons",
+                        label: "Saas",
                       },
                       {
-                        children: [
-                          {
-                            icon: "tenant",
-                            key: "3-0",
-                            label: "Tenants",
-                            path: "/tenant",
-                          },
-                          {
-                            icon: "editions",
-                            key: "3-1",
-                            label: "Editions",
-                            path: "/edition",
-                          },
-                          {
                             children: [
                               {
                                 icon: "organization",
@@ -224,12 +223,32 @@ export const Basic: Story = {
                             icon: "administration",
                             key: "3-2",
                             label: "Administration",
-                          },
-                        ],
-                        icon: "pages",
-                        key: "3",
-                        label: "Pages",
                       },
+                   
+                      {
+                        icon: "file",
+                        key: "4",
+                        label: "File Management",
+                        path: "/file-management",
+                      },
+                      {
+                        icon: "forms",
+                        key: "5",
+                        label: "Forms",
+                        path: "/file-management",
+                      },
+                      {
+                        icon: "payment",
+                        key: "7",
+                        label: "Payment",
+                        path: "/payment",
+                      },
+                      {
+                        icon: "cms",
+                        key: "8",
+                        label: "CMS",
+                        path: "/cms",
+                      }
                     ]}
                     layoutType="basic"
                   />
@@ -555,7 +574,7 @@ export const Relaxing: Story = {
                         path: "/home",
                       },
                       {
-                        icon: "dashboard",
+                        icon: "dashboard_new",
                         key: "1",
                         label: "Dashboard",
                         path: "/dashboard",
@@ -799,7 +818,7 @@ export const TopNav: Story = {
                         path: "/home",
                       },
                       {
-                        icon: "dashboard",
+                        icon: "dashboard_new",
                         key: "1",
                         label: "Dashboard",
                         path: "/dashboard",
@@ -947,7 +966,7 @@ export const SideNav: Story = {
                         path: "/home",
                       },
                       {
-                        icon: "dashboard",
+                        icon: "dashboard_new",
                         key: "1",
                         label: "Dashboard",
                         path: "/dashboard",
@@ -1294,7 +1313,7 @@ export const DoubleNav: Story = {
                           path: "/home",
                         },
                         {
-                          icon: "dashboard",
+                          icon: "dashboard_new",
                           key: "1",
                           label: "Dashboard",
                           path: "/dashboard",
@@ -1343,13 +1362,13 @@ export const DoubleNav: Story = {
                   <RdsCompSideNavigation
                     sideNavItems={[
                       {
-                        icon: "blog",
+                        icon: "blog_new",
                         key: "0",
                         label: "Blogs",
                         path: "/blogs",
                       },
                       {
-                        icon: "blog",
+                        icon: "blogpost",
                         key: "1",
                         label: "Blog Posts",
                         path: "/blog-posts",
@@ -1525,7 +1544,7 @@ export const LeftAndRightNav: Story = {
                           path: "/home",
                         },
                         {
-                          icon: "dashboard",
+                          icon: "dashboard_new",
                           key: "1",
                           label: "Dashboard",
                           path: "/dashboard",
@@ -1648,7 +1667,7 @@ export const LeftAndRightNav: Story = {
                   <RdsCompSideNavigation
                     sideNavItems={[
                       {
-                        icon: "pencil",
+                        icon: "edit_new",
                         key: "0",
                         label: "Edit",
                         path: "/edit",
@@ -1660,19 +1679,19 @@ export const LeftAndRightNav: Story = {
                         path: "/delete",
                       },
                       {
-                        icon: "icons",
+                        icon: "archive",
                         key: "3",
                         label: "Archive",
                         path: "/archive",
                       },
                       {
-                        icon: "icons",
+                        icon: "usage",
                         key: "3",
                         label: "Usage",
                         path: "/usage",
                       },
                       {
-                        icon: "upload_data",
+                        icon: "import",
                         key: "4",
                         label: "Import",
                         path: "/import",
