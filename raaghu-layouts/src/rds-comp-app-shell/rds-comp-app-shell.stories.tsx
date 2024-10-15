@@ -1648,7 +1648,7 @@ export const LeftAndRightNav: Story = {
                   <RdsCompSideNavigation
                     sideNavItems={[
                       {
-                        icon: "edit",
+                        icon: "pencil",
                         key: "0",
                         label: "Edit",
                         path: "/edit",

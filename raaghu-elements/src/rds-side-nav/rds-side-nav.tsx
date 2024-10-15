@@ -209,9 +209,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     return items.map((item: any) => (
       <>
         <li
-          onMouseEnter={(e) => handleMouseEnter(item, e)}
-          onMouseLeave={handleMouseLeave}
-          className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0 position-relative" // Add position-relative class
+          className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0 position-relative"
           value={item.key + "_" + parent}
           onClick={() => onMenuClick(item, parent, level, !item.children)}
         >
@@ -259,8 +257,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 : "false"
             }
           >
-            <span>
-              {item.iconPath ? (
+            <span
+              onMouseEnter={(e) => handleMouseEnter(item, e)}
+              onMouseLeave={handleMouseLeave}
+              className="icon-container position-relative"
+            >
+               {item.iconPath ? (
                 <RdsIcon
                   iconPath={item.iconPath}
                   fill={false}
@@ -270,6 +272,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   classes="me-2"
                   type="lottie"
                   isHovered={hoveredItem === item.key}
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "doubleNavLeft" ? tooltipVisible : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               ) : (
@@ -280,6 +285,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   height="20px"
                   width="20px"
                   classes="me-2 "
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "doubleNavLeft" ? tooltipVisible : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               )}
@@ -291,11 +299,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
               {item.label}
             </span>
           </a>
-          {props.layoutType==="doubleNavLeft" && tooltipVisible && hoveredItem === item.key && (
-            <Tooltip text={tooltipContent} place="bottom" style={{ top: tooltipPosition.top, left: tooltipPosition.left }}>
-              <span className="tooltip-content">{tooltipContent}</span>
-            </Tooltip>
-          )}
         </li>
         {item.children && (
           <ul
