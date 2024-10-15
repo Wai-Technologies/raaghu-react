@@ -359,7 +359,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               onChange={(e: any) => onSubmitModeData(e.target.value, "apiUrl")}
                               dataTestId="applicationUrl"
                               validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                              
-                              validationMsg="Enter Valid URL Format"
+                              validationMsg="Please Enter valid url (https or http)"
                               required
                            ></RdsInput>
                         </div>
