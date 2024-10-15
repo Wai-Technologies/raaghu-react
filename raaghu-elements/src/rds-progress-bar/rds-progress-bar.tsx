@@ -12,6 +12,8 @@ export interface RdsProgressBarProps {
     displayLabel?: boolean;
     displayPercentage?: boolean;
     width?: string;
+    State?: string;
+    state?: string;
 }
 
 const RdsProgressBar = (props: RdsProgressBarProps) => {
@@ -68,6 +70,32 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     </div>
                 </>
             )}
+
+            {props.role === "Circular" && (
+                <>
+                    <div
+                        className="progress-circle-container"
+                        style={{
+                            width: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
+                            height: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
+                            "--progress-value": props.progressWidth
+                        } as React.CSSProperties}
+                    >
+                        <div className={`progress-circle circular-progress-${props.State}`} data-color={props.State}>
+                            <div className="progress-circle-inner">
+                                {props.displayPercentage && (
+                                    <span className="progress-percentage">
+                                        {props.progressWidth}%
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+
+
+            
         </>
     );
 };

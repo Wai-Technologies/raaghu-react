@@ -1,8 +1,38 @@
 import React, { useState } from "react";
 import "./rds-stepper.css";
+import RdsIcon from "../rds-icon";
 
 export interface RdsStepperProps {
+    selectedStep?: number;
+    steps?: number;
     stepperType: string;
+    role?: string;
+    state?: string;
+    height?: number;
+    width?: number;
+    displayPercentage?: string;
+    variant?: string;
+    iconName?: string;
+    Icon?: boolean;
+    iconFill?: boolean;
+    iconStroke?: boolean;
+    iconWidth?: string;
+    iconHeight?: string;
+    stepNames?: string[];
+    StepIconName?: {
+        iconName: string;
+        iconFill: boolean;
+        iconStroke: boolean;
+        iconWidth: string;
+        iconHeight: string;
+    }[];
+    stepiconName?: string;
+    icons?: {
+        iconName: string;
+        iconSize: string;
+        iconStroke: boolean;
+        iconFill: boolean;
+    }[];
 }
 
 const RdsStepper = (props: RdsStepperProps) => {
@@ -64,25 +94,206 @@ const RdsStepper = (props: RdsStepperProps) => {
                             </>
                         ))}
                     </div>
+
+                    <div className="mt-5">
+                        <button
+                            disabled={page === 1}
+                            className="btn btn-primary btn-sm me-2"
+                            onClick={decreasePageCountHandler}
+                        >
+                            Prev
+                        </button>
+                        <button
+                            disabled={page === formTitles.length + 1}
+                            className="btn btn-primary btn-sm"
+                            onClick={increasePageCountHandler}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </>
+
+
+            )}
+
+            {props.role === "Dash" && (
+                <>
+                    <div className="stepper-container" style={{ width: `100%` }}>
+                        {[...Array(props.steps)].map((_, index) => (
+                            <div
+                                key={index}
+                                className={`step ${props.state === 'default'
+                                    ? 'bg-default'
+                                    : props.state === 'inprogress'
+                                        ? index === 0
+                                            ? 'bg-completed'
+                                            : index === 1
+                                                ? 'bg-inprogress'
+                                                : 'bg-default'
+                                        : props.state === 'completed'
+                                            ? index < (props.steps ?? 0) - 1
+                                                ? 'bg-completed'
+                                                : 'bg-inprogress'
+                                            : props.state === 'error'
+                                                ? index === 0 || index === 1
+                                                    ? 'bg-completed'
+                                                    : index === 2
+                                                        ? 'bg-error'
+                                                        : 'bg-default'
+                                                : index < (props.steps ?? 0) - 1
+                                                    ? 'bg-completed'
+                                                    : 'bg-inprogress'
+                                    }`}
+                                style={{ flex: 1, height: `${props.height}px` }}
+                            >
+                            </div>
+                        ))}
+                    </div>
                 </>
             )}
 
-            <div className="mt-5">
-                <button
-                    disabled={page === 1}
-                    className="btn btn-primary btn-sm me-2"
-                    onClick={decreasePageCountHandler}
-                >
-                    Prev
-                </button>
-                <button
-                    disabled={page === formTitles.length + 1}
-                    className="btn btn-primary btn-sm"
-                    onClick={increasePageCountHandler}
-                >
-                    Next
-                </button>
-            </div>
+            {props.role === "Block" && (
+                <>
+                    <div className="stepper-container" style={{ width: `100%` }}>
+                        {[...Array(props.steps)].map((_, index) => (
+                            <div
+                                key={index}
+                                className={`block_step d-flex align-items-center justify-content-center ${props.state === 'default'
+                                    ? 'bg-default'
+                                    : props.state === 'inprogress'
+                                        ? index === 0
+                                            ? 'bg-completed'
+                                            : index === 1
+                                                ? 'bg-inprogress'
+                                                : 'bg-default'
+                                        : props.state === 'completed'
+                                            ? index < (props.steps ?? 0) - 1
+                                                ? 'bg-completed'
+                                                : 'bg-inprogress'
+                                            : props.state === 'error'
+                                                ? index === 0 || index === 1
+                                                    ? 'bg-completed'
+                                                    : index === 2
+                                                        ? 'bg-error'
+                                                        : 'bg-default'
+                                                : index < (props.steps ?? 0) - 1
+                                                    ? 'bg-completed'
+                                                    : 'bg-inprogress'
+                                    }`}
+                                style={{
+                                    flex: 1,
+                                    height: `32px`,
+                                    borderRadius: props.steps === 1
+                                        ? '4px'
+                                        : props.steps === 2
+                                            ? index === 0
+                                                ? '4px 0 0 4px'
+                                                : '0 4px 4px 0'
+                                            : index === 0
+                                                ? '4px 0 0 4px'
+                                                : index === (props.steps ?? 0) - 1
+                                                    ? '0 4px 4px 0'
+                                                    : '0'
+                                }}
+                            >
+                                {props.stepNames && props.stepNames[index] ? props.stepNames[index] : `Step ${index + 1}`}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
+
+            {props.role === "Stepper" && (
+                <>
+                    <div className="stepper-container" style={{ width: `100%`, position: 'relative' }}>
+                        {[...Array(props.steps)].map((_, index) => (
+                            <div
+                                key={index}
+                                className="Stepper_step d-flex align-items-center justify-content-center"
+                                style={{
+                                    flex: 1,
+                                    height: `32px`,
+                                    borderRadius: props.steps === 1
+                                        ? '4px'
+                                        : props.steps === 2
+                                            ? index === 0
+                                                ? '4px 0 0 4px'
+                                                : '0 4px 4px 0'
+                                            : index === 0
+                                                ? '4px 0 0 4px'
+                                                : index === (props.steps ?? 0) - 1
+                                                    ? '0 4px 4px 0'
+                                                    : '0',
+                                    position: 'relative'
+                                }}
+                            >
+                                <div className="step-content">
+                                    <div className={`step-icon ${props.state === 'default'
+                                        ? props.variant === 'outlined' ? 'outline-default' : 'bg-default'
+                                        : props.state === 'inprogress'
+                                            ? index === 0
+                                                ? props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
+                                                : index === 1
+                                                    ? props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
+                                                    : props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
+                                            : props.state === 'completed'
+                                                ? index < (props.steps ?? 0) - 1
+                                                    ? props.variant === 'outlined' ? 'outline-completed' : 'bg-completed'
+                                                    : props.variant === 'outlined' ? 'outline-completed' : 'bg-completed'
+                                                : props.state === 'error'
+                                                    ? index === 0 || index === 1
+                                                        ? props.variant === 'outlined' ? 'outline-error' : 'bg-error'
+                                                        : index === 2
+                                                            ? props.variant === 'outlined' ? 'outline-error' : 'bg-error'
+                                                            : props.variant === 'outlined' ? 'outline-error' : 'bg-error'
+                                                    : index < (props.steps ?? 0) - 1
+                                                        ? props.variant === 'outlined' ? 'outline-error' : 'bg-error'
+                                                        : props.variant === 'outlined' ? 'outline-error' : 'bg-error'
+                                        }`}>
+                                        {props.Icon ? (
+                                            props.StepIconName && props.StepIconName[index] ? (
+                                                <RdsIcon
+                                                    name={props.StepIconName[index].iconName}
+                                                    fill={props.StepIconName[index].iconFill}
+                                                    stroke={props.StepIconName[index].iconStroke}
+                                                    width={props.StepIconName[index].iconWidth}
+                                                    height={props.StepIconName[index].iconHeight}
+                                                />
+                                            ) : (
+                                                <RdsIcon
+                                                    name={props.iconName}
+                                                    fill={props.iconFill}
+                                                    stroke={props.iconStroke}
+                                                    width={props.iconWidth}
+                                                    height={props.iconHeight}
+                                                />
+                                            )
+                                        ) : (
+                                            index + 1
+                                        )}
+                                    </div>
+                                </div>
+                                {index < (props.steps ?? 0) - 1 && (
+                                    <div
+                                        className="step-line"
+                                        style={{
+                                            backgroundColor: props.state === 'default'
+                                                ? '#d3d3d3'
+                                                : props.state === 'inprogress'
+                                                    ? '#D4BBFF'
+                                                    : props.state === 'completed'
+                                                        ? '#7825E9'
+                                                        : props.state === 'error'
+                                                            ? '#BD0D1D'
+                                                            : '#BD0D1D'
+                                        }}
+                                    ></div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </>
     );
 };
