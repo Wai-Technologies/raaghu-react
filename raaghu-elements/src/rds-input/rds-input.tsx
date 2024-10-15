@@ -323,12 +323,12 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
           {props.validatonPattern && (
             <div className="form-control-feedback">
-              {/* {props.value === "" && isTouch && props.required && (
+              {props.value === "" && isTouch && props.required && (
                 <span className="text-danger">
                   {" "}
                   {props.label} {t("is required") || ""}{" "}
                 </span>
-              )} */}
+              )}
               {props.validatonPattern &&
                 props.validationMsg &&
                 isTouch &&
