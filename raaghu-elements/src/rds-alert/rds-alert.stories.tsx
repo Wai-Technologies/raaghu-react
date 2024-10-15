@@ -1,7 +1,6 @@
 import RdsAlert from "./rds-alert";
 import type { Meta, StoryObj } from "@storybook/react";
 
-
 const meta: Meta<typeof RdsAlert> = {
     title: "Elements/Alert",
     component: RdsAlert,

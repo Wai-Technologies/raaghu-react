@@ -80,7 +80,6 @@ const RdsAlert = (props: RdsAlertProps) => {
         defaultClass = defaultClass + sizeClass;
         return defaultClass;
     };
-
    
     return (
         <>
