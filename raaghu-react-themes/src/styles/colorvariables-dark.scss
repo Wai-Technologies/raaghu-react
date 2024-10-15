@@ -14,131 +14,131 @@ $theme-colors: (
     "dark": $dark ) !default;
 
     /*Primary background colors*/
-$bg-primary-darker-default:#19003E;
-$bg-primary-dark-default:#7825E9;
-$bg-primary-medium-default:#D4BBFF;
-$bg-primary-light-default:#EBDCFF;
-$bg-primary-lighter-default:#FEF7FF;
+$bg-primary-darker-default:#D4BBFF;
+$bg-primary-dark-default:#A875FF;
+$bg-primary-medium-default:#7825E9;
+$bg-primary-light-default:#340071;
+$bg-primary-lighter-default:#19003E;
 
     /*Secondary background colors*/
-    $bg-secondary-darker-default:#111755;
-    $bg-secondary-dark-default:#2534E9;
-    $bg-secondary-medium-default:#93B8FF;
-    $bg-secondary-light-default:#BCD5FF;
-    $bg-secondary-lighter-default:#EBF3FF;
+    $bg-secondary-darker-default:#93B8FF;
+    $bg-secondary-dark-default:#4666FF;
+    $bg-secondary-medium-default:#2534E9;
+    $bg-secondary-light-default:#353535;
+    $bg-secondary-lighter-default:#111755;
 
     /*Tertiary background colors*/
-    $bg-tertiary-darker-default:#530054;
-    $bg-tertiary-dark-default:#B30FBC;
-    $bg-tertiary-medium-default:#F8A4FF;
-    $bg-tertiary-light-default:#F9CCFF;
-    $bg-tertiary-lighter-default:#FEF3FF;
+    $bg-tertiary-darker-default:#F8A4FF;
+    $bg-tertiary-dark-default:#EB37FE;
+    $bg-tertiary-medium-default:#B30FBC;
+    $bg-tertiary-light-default:#7B127D;
+    $bg-tertiary-lighter-default:#530054;
 
     /*Neutral Background colors */
-    $bg-neutral-darker-default:#202020;
-    $bg-neutral-dark-default:#4C4C4C;
-    $bg-neutral-medium-default:#CDCDCD;
-    $bg-neutral-light-default:#E9E9E9;
-    $bg-neutral-lighter-default:#646464;
+    $bg-neutral-darker-default:#CDCDCD;
+    $bg-neutral-dark-default:#969696;
+    $bg-neutral-medium-default:#4C4C4C;
+    $bg-neutral-light-default:#353535;
+    $bg-neutral-lighter-default:#000000;
 
     /*Error Background colors */
-    $bg-error-darker-default:#410003;
-    $bg-error-dark-default:#BD0D1D;
-    $bg-error-medium-default:#FFB3AD;
-    $bg-error-light-default:#FFDAD6;
-    $bg-error-lighter-default:#FFF8F7;
+    $bg-error-darker-default:#FFB3AD;
+    $bg-error-dark-default:#FF544F;
+    $bg-error-medium-default:#BD0D1D;
+    $bg-error-light-default:#680009;
+    $bg-error-lighter-default:#410003;
 
      /*Warning Background colors */
-     $bg-warning-darker-default:#431907;
-     $bg-warning-dark-default:#C2510C;
-     $bg-warning-medium-default:#FDC674;
-     $bg-warning-light-default:#CDCDCD;
-     $bg-warning-lighter-default:#FFF9ED;
+     $bg-warning-darker-default:#FDC674;
+     $bg-warning-dark-default:#F98816;
+     $bg-warning-medium-default:#C2510C;
+     $bg-warning-light-default:#7C3712;
+     $bg-warning-lighter-default:#431907;
 
       /*Success Background colors */
-      $bg-success-darker-default:#431907;
-      $bg-success-dark-default:#C2510C;
-      $bg-success-medium-default:#FDC674;
+      $bg-success-darker-default:#90E5A0;
+      $bg-success-dark-default:#31B64A;
+      $bg-success-medium-default:#1F7630;
 
       /*Primary icons colors*/
       $icon-primary-outline-default:#7825E9;
-      $icon-primary-outline-hover:#4F00A6;
-      $icon-primary-outline-selected:#340071;
-      $icon-primary-outline-disabled:#D4BBFF;
+      $icon-primary-outline-hover:#19003E;
+      $icon-primary-outline-selected:#D4BBFF;
+      $icon-primary-outline-disabled:#340071;
       $icon-primary-outline-invert:#FFFFFF;
 
       /*Secondary icons colors*/
       $icon-secondary-outline-default:#2534E9;
-      $icon-secondary-outline-hover:#1827BB;
-      $icon-secondary-outline-selected:#1D2B92;
-      $icon-secondary-outline-disabled:#93B8FF;
+      $icon-secondary-outline-hover:#111755;
+      $icon-secondary-outline-selected:#93B8FF;
+      $icon-secondary-outline-disabled:#1D2B92;
       $icon-secondary-outline-invert:#FFFFFF;
 
       /*Tertiary icons colors*/
       $icon-tertiary-outline-default:#B30FBC;
-      $icon-tertiary-outline-hover:#940F99;
-      $icon-tertiary-outline-selected:#7B127D;
-      $icon-tertiary-outline-disabled:#F8A4FF;
+      $icon-tertiary-outline-hover:#530054;
+      $icon-tertiary-outline-selected:#F8A4FF;
+      $icon-tertiary-outline-disabled:#7B127D;
       $icon-tertiary-outline-invert:#FFFFFF;
 
        /*Neutral icons colors*/
        $icon-neutral-outline-default:#646464;
-       $icon-neutral-outline-hover:#4C4C4C;
-       $icon-neutral-outline-selected:#353535;
-       $icon-neutral-outline-disabled:#CDCDCD;
+       $icon-neutral-outline-hover:#202020;
+       $icon-neutral-outline-selected:#CDCDCD;
+       $icon-neutral-outline-disabled:#353535;
        $icon-neutral-outline-invert:#FFFFFF;
 
        /*Error icons colors*/
        $icon-error-outline-default:#BD0D1D;
-       $icon-error-outline-hover:#930011;
-       $icon-error-outline-selected:#680009;
-       $icon-error-outline-disabled:#FFB3AD;
+       $icon-error-outline-hover:#969696;
+       $icon-error-outline-selected:#FFB3AD;
+       $icon-error-outline-disabled:#680009;
        $icon-error-outline-invert:#FFFFFF;
 
        /*Warning icons colors*/
        $icon-warning-outline-default:#C2510C;
-       $icon-warning-outline-hover:#9A4012;
-       $icon-warning-outline-selected:#7C3712;
-       $icon-warning-outline-disabled:#FDC674;
+       $icon-warning-outline-hover:#431907;
+       $icon-warning-outline-selected:#FDC674;
+       $icon-warning-outline-disabled:#7C3712;
        $icon-warning-outline-invert:#FFFFFF;
 
         /*Success icons colors*/
         $icon-success-outline-default:#1F7630;
-        $icon-success-outline-hover:#1D5E2A;
-        $icon-success-outline-selected:#1A4D25;
+        $icon-success-outline-hover:#092A11;
+        $icon-success-outline-selected:#90E5A0;
 
 
         /*Primary Input colors*/
         $input-primary-solid-default:#7825E9;
-        $input-primary-solid-hover:#4F00A6;
-        $input-primary-solid-disabled:#D4BBFF;
+        $input-primary-solid-hover:#A875FF;
+        $input-primary-solid-disabled:#353535;
         $input-primary-outline-default:#7825E9;
-        $input-primary-outline-hover:#4F00A6;
-        $input-primary-outline-disabled:#D4BBFF;
+        $input-primary-outline-hover:#A875FF;
+        $input-primary-outline-disabled:#353535;
 
           /*Secondary Input colors*/
           $input-secondary-solid-default:#2534E9;
-          $input-secondary-solid-hover:#1827BB;
-          $input-secondary-solid-disabled:#93B8FF;
+          $input-secondary-solid-hover:#4666FF;
+          $input-secondary-solid-disabled:#1D2B92;
           $input-secondary-outline-default:#2534E9;
-          $input-secondary-outline-hover:#1827BB;
-          $input-secondary-outline-disabled:#93B8FF;
+          $input-secondary-outline-hover:#4666FF;
+          $input-secondary-outline-disabled:#1D2B92;
 
            /*Tertiary Input colors*/
            $input-tertiary-solid-default:#B30FBC;
-           $input-tertiary-solid-hover:#940F99;
-           $input-tertiary-solid-disabled:#F8A4FF;
+           $input-tertiary-solid-hover:#EB37FE;
+           $input-tertiary-solid-disabled:#7B127D;
            $input-tertiary-outline-default:#B30FBC;
-           $input-tertiary-outline-hover:#940F99;
-           $input-tertiary-outline-disabled:#F8A4FF;
+           $input-tertiary-outline-hover:#EB37FE;
+           $input-tertiary-outline-disabled:#7B127D;
 
             /*Neutral Input colors*/
             $input-tertiary-solid-default:#646464;
-            $input-tertiary-solid-hover:#4C4C4C;
-            $input-tertiary-solid-disabled:#CDCDCD;
+            $input-tertiary-solid-hover:#969696;
+            $input-tertiary-solid-disabled:#353535;
             $input-tertiary-outline-default:#646464;
-            $input-tertiary-outline-hover:#4C4C4C;
-            $input-tertiary-outline-disabled:#CDCDCD;
+            $input-tertiary-outline-hover:#969696;
+            $input-tertiary-outline-disabled:#353535;
 
              /*Error Input colors*/
              $input-error-solid-default:#BD0D1D;

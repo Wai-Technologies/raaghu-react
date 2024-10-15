@@ -1,62 +1,80 @@
-$path: "../fonts/Poppins-Regular.ttf";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+$path: "../../fonts/Poppins-Regular.ttf";
+
 
 @if import-exists($path) {
-  $path: "../fonts/";
+    $path: "../../fonts/";
 }
 
 @else {
-  $path: "../../../../raaghu-react-themes/public/fonts/";
+    $path: "../../fonts/";
 }
 
 @if $path !="" {
-  @font-face {
-    font-family: "Poppins";
-    src:
-      local("Poppins"),
-      url($path + "Poppins-Regular.ttf") format("truetype");
-    font-weight: normal;
-  }
+    @font-face {
+        font-family: "Poppins";
+        src: local("Poppins"), url($path + "Poppins-Regular.ttf") format("truetype");
+        font-weight: normal;
+    }
 
-  @font-face {
-    font-family: "Poppins-SemiBold";
-    src:
-      local("Poppins-SemiBold"),
-      url($path + "Poppins-SemiBold.ttf") format("truetype");
-    font-weight: bold;
-  }
+    @font-face {
+        font-family: "Poppins-SemiBold";
+        src: local("Poppins-SemiBold"), url($path + "Poppins-SemiBold.ttf") format("truetype");
+        font-weight: bold;
+    }
 
-  @font-face {
-    font-family: "Poppins-Bold";
-    src:
-      local("Poppins-Bold"),
-      url($path + "Poppins-Bold.ttf") format("truetype");
-    font-weight: bolder;
-  }
+    @font-face {
+        font-family: "Poppins-Bold";
+        src: local("Poppins-Bold"), url($path + "Poppins-Bold.ttf") format("truetype");
+        font-weight: bolder;
+    }
 
-  @font-face {
-    font-family: "Poppins-Light";
-    src:
-      local("Poppins-Light"),
-      url($path + "Poppins-Light.ttf") format("truetype");
-    font-weight: lighter;
-  }
+    @font-face {
+        font-family: "Poppins-Light";
+        src: local("Poppins-Light"), url($path + "Poppins-Light.ttf") format("truetype");
+        font-weight: lighter;
+    }
 
-  @font-face {
-    font-family: "Poppins-Medium";
-    src:
-      local("Poppins-Medium"),
-      url($path + "Poppins-Medium.ttf") format("truetype");
-    font-weight: normal;
-  }
+    @font-face {
+        font-family: "Poppins-Medium";
+        src: local("Poppins-Medium"), url($path + "Poppins-Medium.ttf") format("truetype");
+        font-weight: normal;
+    }
 }
 
 :root {
-  --bs-font-sans-serif: "Poppins", sans-serif;
-  --bs-font-monospace: "Fira Code", monospace;
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-datepicker-zindex: 1046;
-  --bs-nav-pills-link-active-bg: $primary-100;
+    --bs-font-sans-serif: "Poppins", sans-serif;
+    --bs-font-monospace: "Fira Code", monospace;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-datepicker-zindex: 1046;
+    --bs-nav-pills-link-active-bg: $primary-100;
 }
+/*$h1-font-size: 4.5rem;
+$h2-font-size: 3.75rem;
+$h3-font-size: 3rem;
+$h4-font-size: 2.25rem;
+$h5-font-size: 2rem;
+$h6-font-size: 1.5rem;*/
+
+/*$text-xlarge: 1.25rem;
+$text-large: 1.125rem;
+$text-medium: 1rem;
+$text-small: 0.875rem;
+$text-xsmall: 0.75rem;*/
+
+
+$border-width: 1px !default;
+$border-widths: ( 1: 1px, 2: 2px, 3: 3px, 4: 4px, 5: 5px ) !default;
+
+$border-radius-nil: 0rem;
+$border-radius-xxs: 0.125rem;
+$border-radius-xs: 0.25rem;
+$border-radius-sm: .5rem;
+$border-radius-m: 0.75rem;
+$border-radius-lg: 1.5rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 2rem;
+$border-radius-pill: 50rem;
 
 $font-family-sans-serif: "Poppins", sans-serif !default;
 $font-family-monospace: "Fira Code", monospace !default;
@@ -139,7 +157,7 @@ $tag-dismissible-padding-r: $tag-padding-x * 3 !default;
 // 3x covers width of x plus default padding on either side
 // /*badge mixins color variables*/
 $badge-padding-y: 0.35em !default;
-$badge-padding-x: 0.95em !default;
+$badge-padding-x: 0.35em !default;
 $badge-font-size: 0.675rem;
 
 // /*counter mixins color variables*/
@@ -1367,7 +1385,7 @@ $accordion-body-padding-y:0.5rem;
             animation: anim#{$i} 10.1s infinite;
             animation-delay: $i;
             background: $color;
-            background: radial-gradient(circle at top left, lighten($color, 15%), $color);
+           /*  background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
             box-shadow: 0 0 15px 2px lighten($color, 15%);
             border: 1px solid $color;
             border-radius: 2px;
@@ -1377,7 +1395,7 @@ $accordion-body-padding-y:0.5rem;
             animation: anim#{$i} 50.1s infinite;
             animation-delay: $i;
             background: $color;
-            background: radial-gradient(circle at top left, lighten($color, 15%), $color);
+          /*   background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
             box-shadow: 0 0 15px 2px lighten($color, 15%);
             border: 1px solid $color;
             border-radius: 2px;
