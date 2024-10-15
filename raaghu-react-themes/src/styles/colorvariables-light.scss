@@ -362,8 +362,6 @@ $btn-success-text-invert:#FFFFFF;
       $txt-success-dark-default:#1A4D25;
       $txt-success-medium-default:#1F7630;
  
- 
-   
   
  
  
@@ -2044,6 +2042,115 @@ $form-feedback-color: $gray-700;
         }
     }
 }
+
+
+// progress color variables
+
+@mixin progress-variant($background, $border-radius: 0, $color) {
+    background: $background;
+    border-radius: $border-radius;
+    color: $color;
+}
+
+$success-progress-color: conic-gradient(
+    $bg-primary-dark-default calc(var(--progress-value) * 1%),
+    $bg-neutral-light-default calc(var(--progress-value) * 1%)
+);
+
+$error-progress-color: conic-gradient(
+    $bg-error-dark-default calc(var(--progress-value) * 1%),
+    $bg-neutral-light-default calc(var(--progress-value) * 1%)
+);
+
+.circular-progress-success {
+    @include progress-variant($success-progress-color, 96px, $txt-neutral-dark-default);
+}
+
+.circular-progress-error {
+    @include progress-variant($error-progress-color, 96px, $txt-neutral-dark-default);
+}
+
+.bg-default{
+    @include progress-variant($bg-neutral-light-default, 96px, $txt-neutral-dark-default);
+}
+
+.bg-inprogress {
+    @include progress-variant($bg-primary-medium-default, 96px, $txt-neutral-lighter-default);
+}
+
+.bg-completed {
+    @include progress-variant($bg-primary-dark-default, 96px, $txt-neutral-lighter-default);
+}
+
+.bg-error {
+    @include progress-variant($bg-error-dark-default, 96px, $txt-neutral-lighter-default);
+}
+
+.outline-default{
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-neutral-light-default;
+}
+
+.outline-completed{
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-primary-dark-default;
+}
+
+.outline-inprogress{
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-primary-medium-default;
+}
+
+.outline-error{
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-error-dark-default;
+}
+
+.stepper-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.step {
+    padding: 5px;
+    margin: 0 12px;
+    border-radius: 96px;
+}
+
+.Stepper_step {
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.block_step, .step-icon{
+    font-size: 0.75rem;
+}
+
+
+.step-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.step-line {
+    position: absolute;
+    top: 50%;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    z-index: -1;
+}
+
+
 
 
 
