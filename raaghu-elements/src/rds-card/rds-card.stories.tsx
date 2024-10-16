@@ -67,8 +67,7 @@ export const Default: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-            `Some quick example text to build on the card title and make up the bulk of the card's content
-             Some quick example text to build on the card title and make up the bulk of the card's content.`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,  
         showTitle: true,
@@ -90,8 +89,7 @@ export const CardWithImage: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-        `Some quick example text to build on the card title and make up the bulk of the card's content
-         Some quick example text to build on the card title and make up the bulk of the card's content.`,
+        `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
@@ -116,8 +114,7 @@ export const Avatar: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-            `Some quick example text to build on the card title and make up the bulk of the card's content
-             Some quick example text to build on the card title and make up the bulk of the card's content.`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
@@ -145,8 +142,7 @@ export const WithCenteredAvatar: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-        `Some quick example text to build on the card title and make up the bulk of the card's content
-         Some quick example text to build on the card title and make up the bulk of the card's content.`,
+        `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,
@@ -175,8 +171,8 @@ WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTit
 //         cardTitle: "Card title",
 //         cardSubTitle: "Card Sub title",
 //         cardText:
-//             `Some quick example text to build on the card title and make up the bulk of the card's content
-//              Some quick example text to build on the card title and make up the bulk of the card's content.`,
+//             `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+//              In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo.`,
 //         buttonLabel: "Link Button",
 //         showFooter: true,    
 //         isDisabled : true,   
@@ -192,8 +188,7 @@ export const Bordered: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-            `Some quick example text to build on the card title and make up the bulk of the card's content
-             Some quick example text to build on the card title and make up the bulk of the card's content.`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,    
         showTitle: true,
@@ -216,8 +211,7 @@ export const Filled: Story = {
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         cardText:
-            `Some quick example text to build on the card title and make up the bulk of the card's content
-             Some quick example text to build on the card title and make up the bulk of the card's content.`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel: "Link Button",
         showFooter: true,
         showTitle: true,

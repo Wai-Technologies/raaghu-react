@@ -11,6 +11,32 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        layout: {
+            options: [
+                "Horizontal",
+                "Vertical"  
+            ],
+            control: { type: "select" },
+        },
+        style: {
+            options: [
+                "Bottom Select",
+                "Top Select",
+                "Bottom Select Alt",
+                "Top Select Alt",
+                "Background Filled",
+                "Pill",
+                "Select Tabs",
+                "Vertical -Alt Right Line",
+                "Vertical -Alt Left Line",
+                "Vertical -Left Line",
+                "Vertical -Right Line",
+                "Vertical -Left Filled",
+                "Vertical -Pointer", 
+                "Vertical -Flap" 
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsNavtabs>;
 
@@ -40,12 +66,14 @@ export const Pills: Story = {
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        type: "pills",
+        style: "Pill",
+       
         fill: false,
-        justified: false
+        justified: false,
+        layout:"Horizontal"
     }
 } satisfies Story;
-Pills.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+Pills.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 export const Tabs: Story = {
     args: {
@@ -57,10 +85,12 @@ export const Tabs: Story = {
         ],
         type: "tabs",
         fill: false,
-        justified: false
+        justified: false,
+        layout:"Horizontal"
+
     }
 } satisfies Story;
-Tabs.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+Tabs.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 export const Vertical: Story = {
     args: {
@@ -70,12 +100,13 @@ export const Vertical: Story = {
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        type: "vertical",
+        type: "default",
         fill: false,
-        justified: false
+        justified: false,
+        layout:"Vertical"
     }
 } satisfies Story;
-Vertical.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+Vertical.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 export const Fill: Story = {
     args: {
@@ -87,10 +118,11 @@ export const Fill: Story = {
         ],
         type: "default",
         fill: true,
-        justified: false
+        justified: false,
+        layout:"Horizontal"
     }
 } satisfies Story;
-Fill.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+Fill.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 export const Justified: Story = {
     args: {
@@ -102,10 +134,11 @@ export const Justified: Story = {
         ],
         type: "default",
         fill: false,
-        justified: true
+        justified: true,
+        layout:"Horizontal"
     }
 } satisfies Story;
-Justified.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+Justified.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 export const WithIcon: Story = {
     args: {
@@ -117,10 +150,11 @@ export const WithIcon: Story = {
         ],
         type: "default",
         fill: false,
-        justified: false
+        justified: false,
+        layout:"Horizontal"
     }
 } satisfies Story;
-WithIcon.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified'] } };
+WithIcon.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
 
 
 
