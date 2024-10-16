@@ -58,6 +58,9 @@
 .css-194spiq {
     padding: 15px !important;
 }
+.theme-dark svg {
+    color: #f5efef !important;
+}
 
 .css-zqpgva[data-orientation="vertical"] {
     padding-right: 0px !important;
@@ -82,4 +85,9 @@ nav.container.sidebar-container.css-t68aeq {
     top: -107px !important;
     left: -10px !important;
     position: relative !important;
+}
+.css-1rb1jn6 {
+    display: block;
+    max-width: 115px !important;
+    max-height: 100px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import RdsProgressBar from "./rds-progress-bar";
-import { button_colors } from "../../libs/types/colorvariant";
+import { progress_colors } from "../../libs/types/colorvariant";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -13,7 +13,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         colorVariant: {
-            options: button_colors,
+            options: progress_colors,
             control: { type: "select" },
             if: { arg: 'colorVariant' }
         }
@@ -32,7 +32,7 @@ export const Default: Story = {
         striped: true,
         progressWidth: 40,
         animation: false,
-        height: 15,
+        height: 4,
         displayLabel: true,
         displayPercentage: true
     }

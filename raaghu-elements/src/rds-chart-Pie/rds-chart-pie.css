@@ -1,1 +1,58 @@
+.chart-container {
+    position: relative;
+    width: 100%;  /* Allow the chart to take the full width */
+    height: auto; /* Automatically adjust height */
+    overflow: hidden; /* Ensure content does not overflow */
+    margin-bottom: 20px; /* Add margin for spacing */
+}
 
+/* Default canvas styles */
+canvas {
+    width: 100% !important;  /* Make canvas fill container */
+    height: auto !important; /* Allow height to adjust based on width */
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 480px) {
+    .chart-container {
+        height: 400px; /* Increased height for small mobiles */
+        margin-bottom: 15px; /* Adjust margin for small mobile */
+    }
+
+    canvas {
+        height: 400px !important; /* Ensure canvas has fixed height */
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        height: 360px; /* Increased height for tablets */
+        margin-bottom: 20px; /* Provide some margin */
+    }
+
+    canvas {
+        height: 360px !important; /* Ensure canvas has fixed height */
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    .chart-container {
+        height: 480px; /* Increased height for large mobiles */
+        margin-bottom: 20px; /* Provide some margin */
+    }
+
+    canvas {
+        height: 480px !important; /* Ensure canvas has fixed height */
+    }
+}
+
+@media (min-width: 1025px) {
+    .chart-container {
+        height: 550px; /* Adequate height for larger screens */
+        margin-bottom: 20px; /* Consistent margin */
+    }
+
+    canvas {
+        height: 550px !important; /* Ensure canvas has fixed height */
+    }
+}

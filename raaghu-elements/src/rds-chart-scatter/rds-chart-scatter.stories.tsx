@@ -17,7 +17,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsScatterChart>;
 
-
 export const ScatterChart: Story = {
     args: {
         id: "Scatter Chart",
@@ -28,51 +27,30 @@ export const ScatterChart: Story = {
                 type: "scatter",
                 label: "Scatter Dataset",
                 data: [
-                    {
-                        x: -10,
-                        y: 0
-                    },
-                    {
-                        x: -8,
-                        y: 3
-                    },
-                    {
-                        x: -5,
-                        y: 5
-                    },
-                    {
-                        x: 0,
-                        y: 9
-                    },
-                    {
-                        x: 4,
-                        y: 3
-                    },
-                    {
-                        x: 9,
-                        y: 5
-                    },
-                    {
-                        x: 0.5,
-                        y: 5.5
-                    }
+                    { x: -10, y: 0 },
+                    { x: -8, y: 3 },
+                    { x: -5, y: 5 },
+                    { x: 0, y: 9 },
+                    { x: 4, y: 3 },
+                    { x: 9, y: 5 },
+                    { x: 0.5, y: 5.5 }
                 ],
-                backgroundColor: "rgb(255, 99, 132)"
+                backgroundColor: "rgb(255, 99, 132)",
+                pointStyle: 'triangle', // Set pointStyle to triangle
+                pointRadius: 8, // Set pointRadius to increase icon size
             }
         ],
         labels: ["January", "February", "March", "April"],
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            // radius: 10,
             plugins: {
                 legend: {
                     position: "top",
                     align: "center",
                     labels: {
-                        usePointStyle: true
-                    }
+                        usePointStyle: true,
+                    },
                 },
                 tooltip: {
                     usePointStyle: true,
@@ -81,9 +59,9 @@ export const ScatterChart: Story = {
             scales: {
                 x: {
                     type: "linear",
-                    position: "bottom"
-                }
-            }
+                    position: "bottom",
+                },
+            },
         },
     }
 };
@@ -97,22 +75,10 @@ export const ScatterChartWithMultiAxis: Story = {
             {
                 label: "Scatter Dataset 1",
                 data: [
-                    {
-                        x: -10,
-                        y: 0
-                    },
-                    {
-                        x: 0,
-                        y: 10
-                    },
-                    {
-                        x: 9,
-                        y: 5
-                    },
-                    {
-                        x: 0.5,
-                        y: 5.5
-                    }
+                    { x: -10, y: 0 },
+                    { x: 0, y: 10 },
+                    { x: 9, y: 5 },
+                    { x: 0.5, y: 5.5 }
                 ],
                 backgroundColor: "rgb(255, 99, 132)",
                 yAxisID: "y",
@@ -120,29 +86,16 @@ export const ScatterChartWithMultiAxis: Story = {
             {
                 label: "Scatter Dataset 2",
                 data: [
-                    {
-                        x: -20,
-                        y: 9
-                    },
-                    {
-                        x: 10,
-                        y: -10
-                    },
-                    {
-                        x: 20,
-                        y: 15
-                    },
-                    {
-                        x: 1.5,
-                        y: 15.5
-                    }
+                    { x: -20, y: 9 },
+                    { x: 10, y: -10 },
+                    { x: 20, y: 15 },
+                    { x: 1.5, y: 15.5 }
                 ],
                 backgroundColor: "rgb(155, 99, 132)",
                 yAxisID: "y",
             }
         ],
         labels: ["January", "February", "March", "April"],
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
@@ -157,14 +110,14 @@ export const ScatterChartWithMultiAxis: Story = {
             },
             scales: {
                 y: {
-                    type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: "linear",
                     position: "left",
                     ticks: {
                         color: "red"
                     }
                 },
                 y2: {
-                    type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: "linear",
                     position: "right",
                     reverse: true,
                     ticks: {

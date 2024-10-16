@@ -14,7 +14,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         inputType: {
-            options: ["email", "text", "password", "otp"],
+            options: ["email", "text", "password", "otp","number"],
             control: { type: "select" },
         },
         labelPosition: {
@@ -110,7 +110,7 @@ export const Email: Story = {
         showIcon: true,
     }
 } satisfies Story;
-Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required',, 'readonly'] } };
+Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required','showIcon', 'readonly'] } };
 
 export const Password: Story = {
     args: {
