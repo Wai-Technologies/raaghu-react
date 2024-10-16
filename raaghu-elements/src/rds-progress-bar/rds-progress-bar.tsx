@@ -27,7 +27,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                         <div
                             className={`progress-bar ${props.striped ? "progress-bar progress-bar-striped" : "progress-bar"}   
                             ${props.animation ? "progress-bar-striped progress-bar-animated" : "progress-bar"}
-                            bg-${props.colorVariant}
+                            progress-bar-bg-${props.colorVariant}
                             `}
                             role="progressbar"
                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
@@ -57,7 +57,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     >
                         {props.progressValues && props.progressValues?.map((progressValue) => (
                             <div
-                                className={`progress-bar bg-${progressValue.colorVariant}` +
+                                className={`progress-bar progress-bar-bg-${progressValue.colorVariant}` +
                                     (progressValue.stripe ? " progress-bar progress-bar-striped" : "") +
                                     (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "")}
                                 role="progressbar"
