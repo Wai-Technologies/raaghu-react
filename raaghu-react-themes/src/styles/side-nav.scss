@@ -144,6 +144,12 @@
     }
 }
 
+.aside-right {
+    width: 62px;
+    position: absolute;
+    right: 0;
+}
+
 .sidebar.toggle {
     width: 245px !important;
 }
@@ -264,6 +270,9 @@
     }
 
     .aside {
+        width: 0px;
+    }
+    .aside-right {
         width: 0px;
     }
 
