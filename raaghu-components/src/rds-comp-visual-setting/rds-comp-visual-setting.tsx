@@ -181,7 +181,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                             <div className="tab-content" id="headerbar">
                                 {activeTab == "subheader" && (
                                     <div
-                                        className="  pt-4 pb-3"
+                                        className="  pt-4 pb-4"
                                         id="nav-subheader"
                                         role="tabpanel"
                                         aria-labelledby="nav-subheader"
