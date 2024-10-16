@@ -27,19 +27,19 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
 
   const handleDataChanges = (value: any, key: string) => {
     setChangePassword({ ...changePassword, [key]: value });
-    if (key === "newPasswordConfirm" && value !== changePassword.newPassword) {
-      if (value) {
-        setErrorMessage(
-          () => "New password and confirm new password do not match"
-        );
+  
+    if (key === "newPassword" || key === "newPasswordConfirm") {
+      const newPassword = key === "newPassword" ? value : changePassword?.newPassword;
+      const confirmPassword = key === "newPasswordConfirm" ? value : changePassword?.newPasswordConfirm;
+  
+      if (confirmPassword !== newPassword) {
+        setErrorMessage("New password and confirm new password do not match");
       } else {
         setErrorMessage("");
       }
-    } else {
-      setErrorMessage("");
     }
   };
-
+  
   function emitSaveData(event: any) {
     event.preventDefault();
     props.onSaveHandler && props.onSaveHandler(changePassword);
