@@ -18,6 +18,7 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+
         colorVariant: {
             options: [
                 "primary",
@@ -29,6 +30,15 @@ const meta: Meta = {
                 "light",
                 "dark",
                 "white",
+            ],
+            control: { type: "select" },
+        },
+
+        layout: {
+            options: [
+                "Textonly",
+                "IconBefore",
+                "onlyIcon",
             ],
             control: { type: "select" },
         },
@@ -44,12 +54,16 @@ type Story = StoryObj<typeof RdsDropdown>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
         id: "1",
+        displayType: 'dropdown',
+        colorVariant: "primary",
+        label: "Dropdown Button",
+        layout: "Textonly",
+        icon: "plus",
+        iconFill: true,
+        iconStroke:false,
         size: "mid",
         darkDropdown: false,
-        displayType: 'dropdown',
-        label: "Dropdown Button",
         listItems: [
             {
                 label: "Export To Excel",
@@ -68,7 +82,8 @@ export const Default: Story = {
             },
         ],
     }
-} satisfies Story;
+} 
+Default.parameters = { controls: { include: ['displayType','colorVariant','layout', 'iconFill', 'iconStroke', 'icon','size','label'] } };
 
 
 export const WithSplit: Story = {
@@ -98,3 +113,5 @@ export const WithSplit: Story = {
         ],
     }
 } satisfies Story;
+
+
