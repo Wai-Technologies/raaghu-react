@@ -90,7 +90,6 @@ export const MultilineAlert: Story = {
         linkbutton: true,
         cancelbutton: true,
         okaybutton: true,
-
         displayType: "multiline",
     }
 };
