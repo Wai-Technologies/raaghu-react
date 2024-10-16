@@ -4,10 +4,10 @@ import "./rds-alert.css";
 import RdsButton from "../rds-button";
 
 export interface RdsAlertProps {
-    type: "info" | "success" | "warning" | "error";    
+    type: "info" | "success" | "warning" | "error";
     dismisable?: boolean;
     alertmessage?: string;
-    border?:"none" | "single" | "left border";
+    border?: "none" | "single" | "left border";
     delay?: number;
     icon?: string;
     iconFill?: boolean;
@@ -25,7 +25,7 @@ export interface RdsAlertProps {
     alertheading?: string;
     displayType?: "singleline" | "multiline";
     description?: string;
-  }
+}
 
 const RdsAlert = (props: RdsAlertProps) => {
     const [clicked, setClicked] = useState(false);
@@ -48,45 +48,45 @@ const RdsAlert = (props: RdsAlertProps) => {
     };
 
     const delayClass = `${clicked == true ? " d-none " : "w-100 "}`;
-    const colorType = props.type === "success" ? "primary" : props.type === "warning" ? "warning" : props.type === "error" ?  "danger" : "neutral";
+    const colorType = props.type === "success" ? "primary" : props.type === "warning" ? "warning" : props.type === "error" ? "danger" : "neutral";
 
     const classes = () => {
 
         let defaultClass: string = "";
         if (props.dismisable) {
             defaultClass = " alert-dismissible ";
-        }       
+        }
 
         if (props.sticky) {
             const position = `${props.position === "top" ? " position-absolute top-0 start-0 fullWidth z-index" : " position-absolute bottom-0 start-0 fullWidth z-index"}`;
             defaultClass = defaultClass + defaultClass + position;
         }
 
-        
+
         if (props.border === "none") {
             defaultClass = defaultClass + " shadow ";
         }
-          
+
         if (props.border === "single") {
             defaultClass = defaultClass + " border-" + (props.type === "info" ? "dark" : colorType);
         }
-  
+
 
         if (props.border === "left border") {
-            defaultClass = defaultClass + "border-"+ (props.type === "info" ? "dark" : colorType) + " alert-left-border " + colorType;
+            defaultClass = defaultClass + "border-" + (props.type === "info" ? "dark" : colorType) + " alert-left-border " + colorType;
         }
-  
+
         const sizeClass = `${props.size === "small" ? " alert-sm" : props.size === "large" ? " alert-lg" : " alert-md"}`;
         defaultClass = defaultClass + sizeClass;
         return defaultClass;
     };
-   
+
     return (
         <>
             <div
                 className={
                     "alert alert-" + colorType +
-                  " d-flex justify-content-between align-items-center z-0 " + classes()}
+                    " d-flex justify-content-between align-items-center z-0 " + classes()}
                 role="alert"
             >
                 {props.displayType == "singleline" && (
@@ -99,22 +99,22 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     stroke={props.iconStroke}
                                     height={props.iconHeight}
                                     width={props.iconWidth}
-                                    colorVariant= "{colorType}"
+                                    colorVariant="{colorType}"
                                     classes="me-2"
                                 />
                             )}
-      
+
                             <div>
                                 {props.alertheading && <strong>{props.alertheading}</strong>}
                                 {props.alertmessage}
                                 {props.linkbutton === true && (
                                     <a className=" text-decoration-underline ms-2" href="#">
-                                      Link
+                                        Link
                                     </a>
                                 )}
                             </div>
                         </span>
-                  
+
                         <span>
                             <div className="d-flex gap-2 alertBtns">
                                 {props.cancelbutton === true && (
@@ -143,7 +143,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                         </span>
                     </>
                 )}
-      
+
                 {props.displayType == "multiline" && (
                     <>
                         <span className="wordbreak d-flex">
@@ -154,18 +154,18 @@ const RdsAlert = (props: RdsAlertProps) => {
                                     stroke={props.iconStroke}
                                     height={props.iconHeight}
                                     width={props.iconWidth}
-                                    colorVariant= {colorType}
+                                    colorVariant={colorType}
                                     classes="me-2"
                                 />
                             )}
-      
+
                             <div>
                                 {props.alertheading && <strong>{props.alertheading}</strong>}
                                 {props.alertmessage}
                                 <p>{props.description}</p>
                                 {props.linkbutton === true && (
                                     <a className="text-decoration-underline" href="#">
-                                      Link
+                                        Link
                                     </a>
                                 )}
                             </div>
