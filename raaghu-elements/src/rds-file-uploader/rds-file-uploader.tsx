@@ -89,7 +89,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
   };
 
 
-  const onChangeHandlerForSingleSelection = (event) => {
+  const onChangeHandlerForSingleSelection = (event: any) => {
     event.stopPropagation(); 
     const files = event.target.files;
     if (files.length > 0) {
@@ -97,9 +97,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     }
   };
 
-  const onDeleteHandlerForSingleSelection = (index) => {
+  const onDeleteHandlerForSingleSelection = () => {
     setSelectedFiles([]);
-    fileInputRef.current.value = null; // Clear the file input
+    if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Clear the file input
+    }
   };
 
 
@@ -224,7 +226,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       );
     }
 
-    if (props.Drop_Area_Side_Icon || props.Drop_Area_With_Icon) {
+    if (props.Drop_Area_Side_Icon) {
       return (
         <div>
         {/* Multiple file uploader with side icon */}
@@ -249,7 +251,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            multiple
           >
             <div>
               <div>
@@ -277,6 +278,118 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               accept={props.extensions}
               onChange={onchangehandler}
               multiple
+            />
+          </div>
+        </label>
+        {props.showHint && (
+          <div className="d-flex justify-content-start text-muted">
+            <span>Maximum {props.limit}MB</span>
+          </div>
+        )}
+
+        {/* Display file names */}
+        {selectedFiles.map((file, index) => (
+          <div
+            key={index}
+            className="d-flex justify-content-between p-3 mt-3 fileName border"
+          >
+            <div className="d-flex gap-2 align-items-center">
+            <span>
+              
+                  <RdsIcon
+                    name={"file"}
+                    height="16px"
+                    width="16px"
+                    stroke={true}
+                    fill={false}
+                  />
+              
+              </span>
+              <span>{file.name}</span>
+            </div>
+            <div className="closeIcon">
+              <span className="text-muted opacity-50">
+                {(file.size / 1048576).toFixed(2)} MB
+              </span>
+              <span className="iconbox ms-2" onClick={() => onDelete(index)}>
+                <RdsIcon
+                  colorVariant="danger"
+                  name={"delete"}
+                  height="16px"
+                  width="16px"
+                  stroke={true}
+                  fill={false}
+                />
+              </span>
+            </div>
+          </div>
+        ))}
+        {validation &&
+          validation.map((val: any, index: number) => (
+            <div key={index} className="ps-3">
+              <small
+                className={`${val.isError ? "showError" : "noError d-none"}`}
+              >
+                {val.isError && val.hint}
+              </small>
+            </div>
+          ))}
+      </div>
+      );
+    }
+    
+ if (props.Drop_Area_With_Icon) {
+      return (
+        <div>
+        {/* Multiple file uploader with side icon */}
+        <div>
+          {props.showTitle && (
+            <label className={"form-label label-gray"}>
+              {props.title}
+              {props.mandatory && <span className="text-danger ml-1">*</span>}
+            </label>
+          )}
+        </div>
+        <label
+          htmlFor="file"
+          className={`align-items-center multiUploader row mx-0 py-3 px-3 rounded-4 border-${
+            props.colorVariant || "primary"
+          } ${size}`}
+        >
+          <div
+            className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between ${
+              dragging ? "dragging" : ""
+            }`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <div>
+              <div>
+                {t("Drag and Drop your files or") || ""}{" "}
+                <span className={`text-${props.colorVariant}`}> Browse</span>
+              </div>
+              <div className="fileFormat text-muted ">(PNG, JPG, DOC, PDF, PPT) </div>
+            </div>
+            <span className="ms-2">
+              <RdsIcon
+                colorVariant={props.colorVariant}
+                height="20px"
+                isAnimate
+                name="upload_data"
+                stroke
+                width="20px"
+              />
+            </span>
+            <input
+              data-testid="rds-file-uploader-input"
+              className={`col-md-12 input mulinput d-none`}
+              type="file"
+              name="file"
+              id="file"
+              accept={props.extensions}
+              onChange={onChangeHandlerForSingleSelection}
+              multiple={false}
             />
           </div>
         </label>
@@ -345,7 +458,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       </div>
       );
     }
-    
 
     if (props.Drop_Area_With_Upload_Button) {
       return (
@@ -488,7 +600,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   {selectedFiles.length > 0 && (
                     <span
                       className="iconbox ms-2"
-                      onClick={() => onDeleteHandlerForSingleSelection(0)}
+                      onClick={() => onDeleteHandlerForSingleSelection()}
                     >
                       <RdsIcon
                         colorVariant="danger"
