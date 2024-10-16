@@ -147,6 +147,7 @@ export const Drop_Area_With_Icon
         mandatory: true,
         showTitle: true,
         showHint: true,
+        showIcon: true,
     }
 } satisfies Story;
-Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint'] } };
+Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint','showIcon'] } };
