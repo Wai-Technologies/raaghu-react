@@ -19,14 +19,15 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
         <>
             {props.role == "single" && (
                 <>
+                    <div className="d-flex align-items-center">
                     <div
-                        className="progress p-0"
+                        className="progress p-0 w-100"
                         style={{ height: `${props.height + 'px'}`, maxWidth: `${props.width + 'px'}` }}
                     >
                         <div
                             className={`progress-bar ${props.striped ? "progress-bar progress-bar-striped" : "progress-bar"}   
                             ${props.animation ? "progress-bar-striped progress-bar-animated" : "progress-bar"}
-                            bg-${props.colorVariant}
+                            progress-bar-bg-${props.colorVariant}
                             `}
                             role="progressbar"
                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
@@ -34,8 +35,11 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                             aria-valuemin={0}
                             aria-valuemax={100}
                         >
-                            {props.displayPercentage && <>{props.progressWidth}%</>}
+                            
                         </div>
+
+                    </div>
+                        <span className="ms-2 progresss-percentage">{props.displayPercentage && <>{props.progressWidth}%</>}</span>
                     </div>
                     {props.displayLabel && (
                         <div className="d-flex justify-content-between">
@@ -53,7 +57,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     >
                         {props.progressValues && props.progressValues?.map((progressValue) => (
                             <div
-                                className={`progress-bar bg-${progressValue.colorVariant}` +
+                                className={`progress-bar progress-bar-bg-${progressValue.colorVariant}` +
                                     (progressValue.stripe ? " progress-bar progress-bar-striped" : "") +
                                     (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "")}
                                 role="progressbar"
