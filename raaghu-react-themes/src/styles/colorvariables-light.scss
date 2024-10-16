@@ -361,12 +361,12 @@ $btn-success-text-invert:#FFFFFF;
       $txt-success-darker-default:#092A11;
       $txt-success-dark-default:#1A4D25;
       $txt-success-medium-default:#1F7630;
- 
- 
-   
-  
- 
- 
+
+
+
+
+$progress-bar-bg-primary:$bg-primary-dark-default;
+$progress-bar-bg-error:$bg-error-dark-default;
 
 
 $min-contrast-ratio: 4.5 !default;
@@ -604,6 +604,16 @@ $offcanvas-bottom-border-color: $border-color !default;
 $bg-connect: $white;
 
 $accordion-border-color: $neutral-40 !default;
+
+$progress-bar-bg-primary:$bg-primary-dark-default;
+$progress-bar-bg-error:$bg-error-dark-default;
+
+.progress-bar-bg-error{
+    background-color: $progress-bar-bg-error;
+}
+.progress-bar-bg-primary{
+    background-color: $progress-bar-bg-primary;
+}
 
 .accordion-bottomline {
 
