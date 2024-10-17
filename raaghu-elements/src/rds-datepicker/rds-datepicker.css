@@ -2,3 +2,9 @@
   padding-top: 0.16rem !important;
   padding-bottom: 0.16rem !important;
 }
+.date-picker-disable {
+  opacity: 0.6; /* Make the card look faded */
+  pointer-events: none; /* Prevent any interactions */
+  cursor: not-allowed; /* Show a 'not allowed' cursor */
+  background-color: #EBEBE4 !important;
+}

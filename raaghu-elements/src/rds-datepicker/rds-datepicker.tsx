@@ -13,6 +13,7 @@ export interface RdsDatepickerProps {
     type?: "default" | "advanced" | "withTime";
     customDate?: any;
     isDropdownOpen: boolean;
+    isDisabled?: boolean;
 }
 const RdsDatepicker = (props: RdsDatepickerProps) => {
     const today = new Date();
@@ -168,8 +169,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         <DatePicker
                             selected={startDate}
                             onChange={handlerDateChange}
-                            className="form-control rounded-end-0"
+                            className={`form-control rounded-end-0 ${props.isDisabled ? 'date-picker-disable' : ''}`}
                             wrapperClassName="datepicker__wrapper"
+                            disabled={props.isDisabled} 
                         />
                         <span className="input-group-text cursor-pointer" id="basic-addon2">
                             <RdsIcon
@@ -258,6 +260,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 selectsRange
                                 popperPlacement="right"
                                 customInput={<ExampleCustomInput />}
+                                disabled={props.isDisabled}
                             />
                         </ul>
                     </div>
@@ -277,6 +280,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                             timeInputLabel="Time:"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             showTimeInput
+                             disabled={props.isDisabled}
                         />
                         <span className="input-group-text cursor-pointer" id="basic-addon2">
                             <RdsIcon
