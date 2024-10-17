@@ -19,7 +19,7 @@ export interface RdsFileUploaderProps {
   validation?: any[];
   onDeleteFile?: (id: any) => void;
   title?: string;
-  mandatory?: boolean;
+  isrequired?: boolean;
   showTitle?: boolean;
   showHint?: boolean;
 }
@@ -140,7 +140,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           
           <label className="form-label label-gray">
             {props.title}
-            {props.mandatory && <span className="text-danger ml-1">*</span>}
+            {props.isrequired && <span className="text-danger ml-1">*</span>}
           </label>
           <label
             htmlFor="file-input"
@@ -234,7 +234,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.mandatory && <span className="text-danger ml-1">*</span>}
+              {props.isrequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -346,7 +346,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.mandatory && <span className="text-danger ml-1">*</span>}
+              {props.isrequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -467,7 +467,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.mandatory && <span className="text-danger ml-1">*</span>}
+              {props.isrequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -575,7 +575,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             {props.showTitle && (
               <label className={"form-label label-gray"}>
                 {props.title}
-                {props.mandatory && <span className="text-danger ml-1">*</span>}
+                {props.isrequired && <span className="text-danger ml-1">*</span>}
               </label>
             )}
           </div>
@@ -639,7 +639,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 ))}
               {props.showHint && (
                 <div className="d-flex justify-content-end text-muted">
-                  <span>Maximum {props.limit}MB</span>
+                  <small>Maximum {props.limit}MB</small>
                 </div>
               )}
             </form>
