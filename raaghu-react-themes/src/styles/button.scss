@@ -2,6 +2,7 @@
 .btn {
   text-transform: uppercase;
   min-width: 4.35rem;
+  align-items: center !important;
 }
 
 .btn-icon {
@@ -44,7 +45,7 @@
 .btn-sm,
 .btn-group-sm>.btn {
   height: 1.5rem;
-  line-height: initial;
+  line-height: 1rem;
   position: relative;
 }
 

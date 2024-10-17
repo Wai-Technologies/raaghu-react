@@ -89,6 +89,11 @@ $h6-font-size: $font-size-base * 0.875 !default;
 // /*Modal*/
 $modal-sm: 350px !default;
 
+// button border radius
+$btn-border-radius:$border-radius-xs;
+$btn-border-radius-lg:$border-radius-xs;
+$btn-border-radius-sm:$border-radius-xs;
+
 // /*------- Main accordian variables-------------*/
 $border-radius: 0.25rem !default;
 $accordian-border-radius: 0.2rem !default;
