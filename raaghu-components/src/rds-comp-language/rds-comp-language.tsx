@@ -132,7 +132,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                             </div>
                         )}
 
-                        <div className="col-md-6">
+                        <div className="col-md-6 pt-2">
                             <div className="form-group">
                                 <RdsInput
                                     size="medium"
@@ -144,13 +144,15 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                     reset={inputReset}
                                 ></RdsInput>
                             </div>
-                            <RdsCheckbox
-                                label="Is Enabled"
-                                checked={isEnabled}
-                                onChange={checkboxHandler}
-                            ></RdsCheckbox>
+                            <div className="form-group pt-3"> 
+                                <RdsCheckbox
+                                    label="Is Enabled"
+                                    checked={isEnabled}
+                                    onChange={checkboxHandler}
+                                ></RdsCheckbox>
+                            </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 pt-2">
                             <div className="form-group">
                                 <div className="form-group">
                                     <RdsSelectList

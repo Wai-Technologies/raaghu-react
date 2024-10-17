@@ -85,7 +85,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             reset={inputReset}
                         />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6  pt-2">
                         {" "}
                         <RdsInput
                             label="Regex"
@@ -98,7 +98,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             reset={inputReset}
                         />
                     </div>
-                    <div className="col-md-6 mb-md-0 mb-3">
+                    <div className="col-md-6 mb-md-0 mb-3  pt-2">
                         <RdsSelectList
                             id="idenval"
                             label="Value Type"
@@ -112,7 +112,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                         ></RdsSelectList>
 
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 pt-2">
                         <RdsInput
                             label="Regex Description"
                             value={formData?.regexDescription}
@@ -124,7 +124,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             reset={inputReset}
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12 mb-3 pt-2">
                         <RdsTextArea
                             label="Description"
                             placeholder="Enter Description"
