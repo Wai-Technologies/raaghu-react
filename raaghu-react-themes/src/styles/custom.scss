@@ -246,9 +246,12 @@ $accordion-body-padding-y:0.5rem;
 .chosenFileSpan {
     padding: $spacing-xxs $spacing-xs;
     border-radius: $border-radius-nil $border-radius-xs $border-radius-xs $border-radius-nil;
+$progresss-percentage: $text-xsmall;
 
-    
-}
+.progresss-percentage{
+  font-size:  $progresss-percentage;
+  }
+
 .accordion-header {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;

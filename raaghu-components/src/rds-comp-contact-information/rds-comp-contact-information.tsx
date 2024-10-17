@@ -56,33 +56,28 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
             <div>
                 <form data-testid="contact-info-form">
                     <div className="mt-1 mb-3">
-                        <RdsLabel
-                            label="Email Address"
-                            fontWeight={"600"}
-                            required={true}
-                        />
                         <RdsInput
                             placeholder="Enter Email address"
                             inputType="email"
+                            label="Email Address"
                             onChange={(e)=>handleDataChanges(e.target.value, "email")}
                             value={user?.email}
                             name={"email"}
                             dataTestId="email"
+                            required={true}
+                            validatonPattern={
+                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                              }
+                              validationMsg="Please Enter Valid Email Address."
                         ></RdsInput>
-                        {error?.email != "" && (
-                            <span className="text-danger">{error?.email}</span>
-                        )}
                     </div>
 
                     <div className=" mb-3">
-                        <RdsLabel
-                            label="Contact Number"
-                            required={true}
-                            fontWeight={"600"}
-                        />
                         <RdsInput
                             placeholder="Enter Contact Number"
                             inputType="text"
+                            label="Contact Number"
+                            required={true}
                             onChange={(e)=>handleDataChanges(e.target.value, "contact")}
                             onKeyDown={(e) => {
                                 const inputElement = e.target as HTMLInputElement;
@@ -105,9 +100,6 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                             value={user?.contact}
                             dataTestId="contact-number"
                         ></RdsInput>
-                        {error?.contact != "" && (
-                            <span className="text-danger">{error?.contact}</span>
-                        )}
                     </div>
                     <div className="form-check mt-2 mb-4">
                         <input
