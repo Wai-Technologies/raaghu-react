@@ -65,7 +65,7 @@ const RdsDoughnutChart = (props: RdsDoughnutprops) => {
                 doughnutCanvas.destroy();
             };
         }
-    }, []);
+    }, [props]);
 
     return (
         <div>

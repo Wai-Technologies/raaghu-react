@@ -210,7 +210,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             required={true}
                                             dataTestId="url"
                                             validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
-                                            validationMsg="Enter valid url"
+                                            validationMsg="Please Enter valid url (https or http)"
                                         ></RdsInput>
                                     </div>
                                 </div>
@@ -242,8 +242,10 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                                             onChange={(e) => {
                                                 handlerChangeGeneral(e.target.value, "siteKey");
                                             }}
+                                            required={true}
                                             dataTestId="site-key-url"
-                                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                                             validationMsg="Enter valid url"
+                                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/} 
+                                            validationMsg="Please Enter valid url (https or http)"
                                         ></RdsInput>
                                     </div>
                                 </div>
