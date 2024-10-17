@@ -72,13 +72,12 @@ export const Default: Story = {
         iconColorvariant: "primary",
         iconHeight: "18px",
         iconWidth: "18px",
-        iconFill: false,
         borderColor: "primary",
         layout : "text"
 
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName","iconFill"] } };
+Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName"] } };
 
 export const toastWithDownload: Story = {
     args: {
@@ -99,7 +98,7 @@ export const toastWithDownload: Story = {
         filename: "Filename.txt"
     }
 } satisfies Story;
-toastWithDownload.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill", "progressWidth", "filename"] } };
+toastWithDownload.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "progressWidth", "filename"] } };
 
 export const toastWithChat: Story = {
     args: {
@@ -121,7 +120,7 @@ export const toastWithChat: Story = {
         placeholder: "Placeholder Text"
     }
 } satisfies Story;
-toastWithChat.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill", "placeholder"] } };
+toastWithChat.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "placeholder"] } };
 
 export const toastWithRequest: Story = {
     args: {
@@ -143,4 +142,4 @@ export const toastWithRequest: Story = {
 
     }
 } satisfies Story;
-toastWithRequest.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "iconFill"] } };
+toastWithRequest.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName"] } };

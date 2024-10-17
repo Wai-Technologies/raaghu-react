@@ -13,7 +13,6 @@ export interface RdsToastProps {
     borderColor?: string;
     showHeader?: boolean;
     iconName?: string;
-    iconFill?: boolean;
     layout: string;
     state: "basic" | "info" | "success" | "error";
     placeholder?: string;
@@ -59,7 +58,7 @@ const RdsToast = (props: RdsToastProps) => {
                                         <RdsIcon
                                             name={props.iconName}
                                             stroke={true}
-                                            fill={props.iconFill}
+                                            
                                         ></RdsIcon>
                                     )}
                                 </div>
@@ -125,7 +124,7 @@ const RdsToast = (props: RdsToastProps) => {
                                             <RdsIcon
                                                 name={props.iconName}
                                                 stroke={true}
-                                                fill={props.iconFill}
+                                                
                                             ></RdsIcon>
                                         )}
                                     </div>
