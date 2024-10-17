@@ -92,40 +92,40 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     event.stopPropagation();
     const files = Array.from(event.target.files || []);
     const allowedExtensions = props.extensions.split(", ");
-        const newFiles: File[] = [];
-        const newValidation = [...validation];
-      
-        files.forEach((file) => {
-          const fileExtension = (file as File).name.split(".").pop()?.toLowerCase();
-          if (!allowedExtensions.includes(fileExtension || "")) {
-            newValidation.push({
-              isError: true,
-              hint: `File with extension '${fileExtension}' is not allowed`,
-            });
-            return;
-          }
-      
-          const fileSizeInMB = (file as File).size / (1024 * 1024); // Convert size to MB
-          if (fileSizeInMB > props.limit) {
-            newValidation.push({
-              isError: true,
-              hint: "File size exceeds the limit",
-            });
-            return;
-          }
-      
-          newFiles.push((file as File));
+    const newFiles: File[] = [];
+    const newValidation = [...validation];
+  
+    files.forEach((file) => {
+      const fileExtension = (file as File).name.split(".").pop()?.toLowerCase();
+      if (!allowedExtensions.includes(fileExtension || "")) {
+        newValidation.push({
+          isError: true,
+          hint: `File with extension '${fileExtension}' is not allowed`,
         });
-      
-        setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
-        setValidation(newValidation);
-      
-        props.getFileUploaderInfo &&
-          props.getFileUploaderInfo({
-            files: newFiles,
-          });
-        }
-
+        return;
+      }
+  
+      const fileSizeInMB = (file as File).size / (1024 * 1024); // Convert size to MB
+      if (fileSizeInMB > props.limit) {
+        newValidation.push({
+          isError: true,
+          hint: "File size exceeds the limit",
+        });
+        return;
+      }
+  
+      newFiles.push((file as File));
+    });
+  
+    // Set the selected files to the new files, erasing the previous selection
+    setSelectedFiles(newFiles);
+    setValidation(newValidation);
+  
+    props.getFileUploaderInfo &&
+      props.getFileUploaderInfo({
+        files: newFiles,
+      });
+  };
   const onDeleteHandlerForSingleSelection = () => {
     setSelectedFiles([]);
     if (fileInputRef.current) {
