@@ -23,7 +23,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
   const [totalRecords, setTotalRecords] = useState(props.totalRecords);
   const [recordsPerPage, setRecordsPerPage] = useState(props.recordsPerPage || 10);
   const [selectedRecordsPerPage, setSelectedRecordsPerPage] = useState(props.recordsPerPage || 10);
-  
+
   const paginType = props.paginationType || "default";
   const dropdownButtonRef = useRef(null);
   const values = [10, 25, 50, 100];
@@ -185,100 +185,100 @@ const RdsPagination = (props: RdsPaginationProps) => {
           </nav>
         )}
 
-{paginType === "advanced" && (
-  <nav aria-label="page navigation" className={"d-flex align-items-baseline" + `${align}`}>
-    <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align}`}>
-      {/* Previous Page Button */}
-      <li className={`m-1 page-item chevron cursor-pointer ${currentPage === 1 ? "disabled" : ""}`}>
-        <a onClick={() => onPrevious(currentPage)}>
-          {totalRecords > recordsPerPage && (
-            <RdsIcon
-              name="chevron_left"
-              width="15px"
-              height="15px"
-              fill={false}
-              stroke={true}
-              colorVariant="primary"
-            />
-          )}
-        </a>
-      </li>
+        {paginType === "advanced" && (
+          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align}`}>
+            <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align}`}>
+              {/* Previous Page Button */}
+              <li className={`m-1 page-item chevron cursor-pointer ${currentPage === 1 ? "disabled" : ""}`}>
+                <a onClick={() => onPrevious(currentPage)}>
+                  {totalRecords > recordsPerPage && (
+                    <RdsIcon
+                      name="chevron_left"
+                      width="15px"
+                      height="15px"
+                      fill={false}
+                      stroke={true}
+                      colorVariant="primary"
+                    />
+                  )}
+                </a>
+              </li>
 
-      {/* Displayed Pages */}
-      {previous.map((number, index) => (
-        <li
-          key={number}
-          className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
-        >
-          <a onClick={() => typeof number === 'number' && onPage(number)}>
-            {number}
-          </a>
-        </li>
-      ))}
+              {/* Displayed Pages */}
+              {previous.map((number, index) => (
+                <li
+                  key={number}
+                  className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
+                >
+                  <a onClick={() => typeof number === 'number' && onPage(number)}>
+                    {number}
+                  </a>
+                </li>
+              ))}
 
-      {/* Continued Pages */}
-      {continued.map((number, index) => (
-        <li
-          key={number}
-          className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
-        >
-          <a onClick={() => typeof number === 'number' && onPage(number)}>
-            {number}
-          </a>
-        </li>
-      ))}
+              {/* Continued Pages */}
+              {continued.map((number, index) => (
+                <li
+                  key={number}
+                  className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
+                >
+                  <a onClick={() => typeof number === 'number' && onPage(number)}>
+                    {number}
+                  </a>
+                </li>
+              ))}
 
-      {/* Next Page Button */}
-      <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
-        <a onClick={() => onNext(currentPage)}>
-          {totalRecords > recordsPerPage && (
-            <RdsIcon
-              name="chevron_right"
-              width="15px"
-              height="15px"
-              fill={false}
-              stroke={true}
-              colorVariant="primary"
-            />
-          )}
-        </a>
-      </li>
-    </ul>
+              {/* Next Page Button */}
+              <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
+                <a onClick={() => onNext(currentPage)}>
+                  {totalRecords > recordsPerPage && (
+                    <RdsIcon
+                      name="chevron_right"
+                      width="15px"
+                      height="15px"
+                      fill={false}
+                      stroke={true}
+                      colorVariant="primary"
+                    />
+                  )}
+                </a>
+              </li>
+            </ul>
 
-    {/* Dropdown for Records Per Page */}
-    <div className="dropdown custom-navigation">
-      <button
-        className="btn customWidthForBtn btn-outline border-primary"
-        id="paginationBtnId"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded={isDropdownOpen}
-        onClick={toggleDropdown}
-        ref={dropdownButtonRef}
-      >
-        <div className="d-flex justify-content-between">
-          {selectedRecordsPerPage}
-          <span className="mt-0" onClick={toggleDropdown}>
-            <div style={{ pointerEvents: "none" }}>
-              <RdsIcon name={dropdownIcon} fill={false} stroke={true} height="12px" width="12px" />
+            {/* Dropdown for Records Per Page */}
+            <div className="dropdown custom-navigation">
+              <button
+                className="btn customWidthForBtn btn-outline border-primary"
+                id="paginationBtnId"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded={isDropdownOpen}
+                onClick={toggleDropdown}
+                ref={dropdownButtonRef}
+              >
+                <div className="d-flex justify-content-between">
+                  {selectedRecordsPerPage}
+                  <span className="mt-0" onClick={toggleDropdown}>
+                    <div style={{ pointerEvents: "none" }}>
+                      <RdsIcon name={dropdownIcon} fill={false} stroke={true} height="12px" width="12px" />
+                    </div>
+                  </span>
+                </div>
+              </button>
+              <ul className={`dropdown-menu customWidthClass ${isDropdownOpen ? "show" : ""}`}>
+                {values.map((value) => (
+                  <li
+                    key={value}
+                    className={`pagination-item ${selectedRecordsPerPage === value ? "active" : ""}`}
+                    onClick={() => handleItemsPerPageChange(value)}
+                  >
+                    {value}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </span>
-        </div>
-      </button>
-      <ul className={`dropdown-menu customWidthClass ${isDropdownOpen ? "show" : ""}`}>
-        {values.map((value) => (
-          <li
-            key={value}
-            className={`pagination-item ${selectedRecordsPerPage === value ? "active" : ""}`}
-            onClick={() => handleItemsPerPageChange(value)}
-          >
-            {value}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </nav>
-)}
+          </nav>
+        )}
 
 
         {paginType === "onPagerPagination" && (
