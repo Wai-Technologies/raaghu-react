@@ -18,6 +18,7 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+
         colorVariant: {
             options: [
                 "primary",
@@ -29,6 +30,15 @@ const meta: Meta = {
                 "light",
                 "dark",
                 "white",
+            ],
+            control: { type: "select" },
+        },
+
+        layout: {
+            options: [
+                "Textonly",
+                "IconBefore",
+                "onlyIcon",
             ],
             control: { type: "select" },
         },
@@ -44,31 +54,40 @@ type Story = StoryObj<typeof RdsDropdown>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
         id: "1",
+        displayType: 'dropdown',
+        colorVariant: "primary",
+        label: "Dropdown Button",
+        layout: "Textonly",
+        buttonIcon: "plus",
+        iconFill: false,
+        iconStroke: true,
         size: "mid",
         darkDropdown: false,
-        displayType: 'dropdown',
-        label: "Dropdown Button",
+        disable: false,
+        isSelected: false,
+        selectIcon: "circle",
+        profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         listItems: [
             {
-                label: "Export To Excel",
+                label: "Option 1",
                 id: "1",
                 path: "",
             },
             {
-                label: "Import From Excel",
+                label: "Option 2",
                 id: "2",
                 path: "",
             },
             {
-                label: "Click here download sample import file",
+                label: "Option 3",
                 id: "3",
                 path: "",
             },
         ],
     }
-} satisfies Story;
+}
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected','selectIcon','profileImage'] } };
 
 
 export const WithSplit: Story = {
@@ -79,22 +98,33 @@ export const WithSplit: Story = {
         darkDropdown: false,
         displayType: 'split',
         label: "Dropdown Button",
+        layout: "Textonly",
+        buttonIcon: "plus",
+        iconFill: false,
+        iconStroke: true,
+        disable: false,
+        isSelected: false,
+        selectIcon: "circle",
+        profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         listItems: [
             {
-                label: "Export To Excel",
+                label: "Option 1",
                 id: "1",
                 path: "",
             },
             {
-                label: "Import From Excel",
+                label: "Option 2",
                 id: "2",
                 path: "",
             },
             {
-                label: "Click here download sample import file",
+                label: "Option 3",
                 id: "3",
                 path: "",
             },
         ],
     }
-} satisfies Story;
+}
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected','selectIcon','profileImage'] } };
+
+
