@@ -383,7 +383,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   <div>
                     {checkedCategoryList.map((item: any) => (
                       <RdsBadge
-                        className="me-1 "
+                        className="me-1 mt-1"
                         key={item.id}
                         label={item.label}
                         colorVariant="primary"
@@ -570,7 +570,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 <div>
                   {checkedCategoryList.map((item: any) => (
                     <RdsBadge
-                      className="me-1 "
+                      className="me-1 mt-1"
                       key={item.id}
                       label={item.label}
                       colorVariant="primary"
