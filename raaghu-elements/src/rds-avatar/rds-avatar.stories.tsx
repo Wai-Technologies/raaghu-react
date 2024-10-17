@@ -44,6 +44,8 @@ export const withInitials: Story = {
     args: {
         //colorVariant: "primary",
         firstName: "Wai",
+        avtarOnly: false,
+        avtarWithName: false,
         lastName: "Technologies",
         size: "medium",
     }
@@ -58,6 +60,8 @@ export const withLabel: Story = {
         //colorVariant: "primary",
         firstName: "Wai",
         lastName: "Technologies",
+        avtarOnly: false,
+        avtarWithName: false,
         size: "medium",
         isTitle: true,
         titleAlign: "horizontal",
@@ -74,6 +78,8 @@ export const withProfile: Story = {
     args: {
         size: "small",
         withProfilePic: true,
+        avtarOnly: false,
+        avtarWithName: false,
         firstName: "Wai",
         lastName: "Technologies",
         titleAlign: "horizontal",
@@ -87,3 +93,37 @@ withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName'
 
 
 withProfile.argTypes = textAlignArgTypes;
+
+export const Avtar_Only: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarOnly: true,
+        avtarWithName: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "horizontal",
+        role: "Developer",
+        //colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Avtar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic'] } };
+
+export const Avtar_With_Name: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarOnly: false,
+        avtarWithName: true,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "horizontal",
+        role: "Developer",
+        //colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Avtar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'withProfilePic', 'titleAlign', 'role', 'profilePic'] } };

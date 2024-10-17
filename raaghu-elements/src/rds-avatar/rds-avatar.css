@@ -16,3 +16,84 @@
   .theme-dark .avatar-initials {
     color: #A8A8A8;
 }
+
+.bottom-dot-sm{
+  right: -1px !important;
+  bottom: 0px;
+  top: 21px;
+  width: 9px;
+  height: 9px;
+
+}
+.bottom-dot-md{
+  right: 0px !important;
+    bottom: 0px;
+    top: 30px;
+    width: 13px;
+    height: 13px;
+
+}
+.bottom-dot-lg{
+  right: 1px !important;
+  bottom: 0px;
+  top: 36px;
+
+}
+.top-dot-sm{
+  right: 0px !important;
+  top: -1px;
+  width: 9px;
+  height: 9px;
+
+}
+.top-dot-md{
+  right: 0 !important;
+  top: -3px !important;
+  width: 13px;
+  height: 13px;
+
+}
+.top-dot-lg{
+  right: 0 !important;
+  bottom: 0 !important;
+  top: 0 !important;
+
+}
+.dot-md{
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: -5px;
+}
+.dot-lg{
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: -5px;
+
+}
+.dot-sm{
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: -5px;
+
+}
+.textTopMd{
+  font-size: 13px !important;
+}
+.textTopLg{
+  font-size: 15px !important;
+}
+.textTopSm{
+  font-size: 10px !important;
+}

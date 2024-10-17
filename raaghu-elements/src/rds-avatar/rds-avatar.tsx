@@ -21,6 +21,8 @@ export interface RdsAvatarProps {
     profileContentAlign?: boolean;
     width?: string;
     customClass?:string;
+    avtarOnly?: boolean;
+    avtarWithName?: boolean;
 }
 
 const RdsAvatar = (props: RdsAvatarProps) => {
@@ -42,21 +44,25 @@ const RdsAvatar = (props: RdsAvatarProps) => {
         // const bgColor = 'bg-light' ;
         // classes = bgColor;
         if (props.roundedPills) {
-            classes = " rounded ";
+            classes += " rounded ";
         }
         if (props.roundedAvatar && props.withProfilePic) {
 
-            classes = " rounded-circle ";
+            classes += " rounded-circle ";
         }
         if (!props.profileContentAlign) {
-            classes = " mb-0 ";
+            classes += " mb-0 ";
         }
-
+       
         if (props.size) {
             const size = 'avatar-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
-            classes = ' ' + size;
+            classes += ' ' + size;
         }
-        return classes;
+        if (props.avtarOnly || props.avtarWithName) {
+
+            classes += " rounded-circle border border-2 border-primary ";
+        }
+        return classes.trim();
     }
 
     const profileName = () => {
@@ -78,6 +84,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
 
     const WPP = props.withProfilePic || false;
     const src = props.profilePic || " ";
+    const avtarOnly = props.avtarOnly || false;
+    const avtarWithName = props.avtarWithName || false;
 
     const validate: boolean = validator.isURL(src);
 
@@ -104,7 +112,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
     return (
         <Fragment>
             <div className={`${Aligned}`}>
-                {WPP === false && hasName && !props.isTitle && (
+                {WPP === false && hasName && !avtarOnly  && !avtarWithName && !props.isTitle && (
                     <div className={`d-flex justify-content-center bg-light align-items-center avatar rounded-circle ` + classes()}>
                         <div className="avatar-initials flex-shrink-0 d-flex align-items-center">
                             <div className="fw-bold ">
@@ -156,6 +164,34 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                             </span>
                         </div>
                     </div>
+                )}
+
+                {(avtarOnly || avtarWithName) && (
+                    <>
+                    <div className={`flex-grow-0 align-items-center ${Aligned}`} style={{ position: "relative" }}>
+                        <img
+                            src={withPP}
+                            className={classes()}
+                            alt="profile-default"
+                        />
+                        
+                        <div className={`dot  ${props.size === 'small' ? 'top-dot-sm' : props.size === 'large' ? 'top-dot-lg' : 'top-dot-md'} bg-primary`}></div>
+                        <div className={`dot ${props.size === 'small' ? 'bottom-dot-sm' : props.size === 'large' ? 'bottom-dot-lg' : 'bottom-dot-md'} bg-primary`}></div>
+                        
+                    </div>
+                    {avtarWithName && (
+                         <span className={`avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${props.size === 'small' ? 'textTopSm' : props.size === 'large' ? 'textToplg' : 'textTopMd'}` + profileName()} >
+                         <div>
+                             <span>{titleFirstName}{titleLastName}</span>
+                             <p className="mb-0 text-muted">
+                                 {titleRole}
+                             </p>
+                         </div>
+                     </span>
+                    )}
+                    </>
+                    
+                    
                 )}
 
 
