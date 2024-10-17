@@ -101,7 +101,7 @@ withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName'
 
 withProfile.argTypes = textAlignArgTypes;
 
-export const Avtar_Only: Story = {
+export const Avatar_Only: Story = {
     args: {
         size: "large",
         withProfilePic: false,
@@ -120,9 +120,9 @@ export const Avtar_Only: Story = {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avtar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','activeDotTop','activeDotBottom'] } };
+Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','activeDotTop','activeDotBottom'] } };
 
-export const Avtar_With_Name: Story = {
+export const Avatar_With_Name: Story = {
     args: {
         size: "large",
         withProfilePic: false,
@@ -141,7 +141,7 @@ export const Avtar_With_Name: Story = {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avtar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','activeDotTop','activeDotBottom'] } };
+Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','activeDotTop','activeDotBottom'] } };
 
 export const Name_On_Bottom: Story = {
     args: {
@@ -172,7 +172,7 @@ const avatars = [
     { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
     { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
 ];
-export const Stacking_Avtar_Only: Story = {
+export const Stacking_Avatar_Only: Story = {
     args: {
         size: "large",
         withProfilePic: false,
@@ -184,4 +184,4 @@ export const Stacking_Avtar_Only: Story = {
         avatars: avatars,
     }
 } satisfies Story;
-Stacking_Avtar_Only.parameters = { controls: { include: ['size', 'titleAlign','maxVisibleAvatars'] } };
+Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign','maxVisibleAvatars'] } };
