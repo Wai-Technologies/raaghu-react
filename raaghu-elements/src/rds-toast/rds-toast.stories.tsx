@@ -1,9 +1,7 @@
-import React from "react";
-import RdsToast from "./rds-toast";
+import RdsToast, { RdsToastProps } from "./rds-toast";
 import { Meta, StoryObj } from "@storybook/react";
 
-
-const meta: Meta = {
+const meta: Meta<typeof RdsToast> = {
     title: 'Elements/Toast',
     component: RdsToast,
     parameters: {
@@ -11,44 +9,24 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
+        type: {
+            options: ["success", "error", "info", "warning"],
             control: { type: "select" },
         },
-        borderColor: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
+        message: {
+            control: { type: "text" },
         },
-        iconColorvariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
+        autoHide: {
+            control: { type: "boolean" },
+        },
+        delay: {
+            control: { type: "number" },
+        },
+        show: {
+            control: { type: "boolean" },
+        },
+        onClose: {
+            action: 'closed',
         },
     },
 } satisfies Meta<typeof RdsToast>;
@@ -56,57 +34,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsToast>;
 
-
 export const Default: Story = {
     args: {
-        headerTitle: "Toast",
-        message: "This is a sample toast",
-        colorVariant: "light",
-        showHeader: true,
-        withIcon: true,
-        iconName: "folder",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false,
-        borderColor: "primary"
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ['headerTitle', 'message', 'colorVariant', 'showHeader', 'withIcon', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill', 'borderColor'] } };
-
-export const toastWithAutohide: Story = {
-    args: {
-        headerTitle: "Toast",
-        message: "This is a sample toast",
+        type: "success",
+        message: "This is a success toast message",
+        autoHide: true,
         delay: 5000,
-        autohide: true,
-        withIcon: true,
-        showHeader: true,
-        iconName: "folder",
-        colorVariant: "light",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false
-    }
-} satisfies Story;
-toastWithAutohide.parameters = { controls: { include: ['headerTitle', 'message', 'delay', 'autohide', 'withIcon', 'showHeader', 'iconName', 'colorVariant', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
-
-export const toastWithoutHeader: Story = {
-    args: {
-        headerTitle: "Toast",
-        autohide: false,
-        withIcon: true,
-        delay: 5000,
-        showHeader: false,
-        message: "This is a sample toast",
-        colorVariant: "light",
-        iconName: "folder",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false
-    }
-} satisfies Story;
-toastWithoutHeader.parameters = { controls: { include: ['headerTitle', 'autohide', 'withIcon', 'delay', 'showHeader', 'message', 'colorVariant', 'iconName', 'iconColorvariant', 'iconHeight', 'iconWidth', 'iconFill'] } };
-
+        show: true,
+    },
+};

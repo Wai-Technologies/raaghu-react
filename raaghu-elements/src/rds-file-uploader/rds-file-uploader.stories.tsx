@@ -9,6 +9,8 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        
+       
         title: {
             control: { type: "text" },
         },
@@ -20,6 +22,9 @@ const meta: Meta = {
         },
         showHint: {
             control: { type: "boolean" },
+        },
+        hintText: {
+            control: { type: "text" },
         },
     },
 } satisfies Meta<typeof RdsFileUploader>;
@@ -42,9 +47,10 @@ export const Default: Story = {
         isrequired: true,
         showTitle: true,
         showHint: true,
+        hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint'] } };
+Default.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_Top_Icon
 : Story = {
@@ -59,12 +65,13 @@ export const Drop_Area_Top_Icon
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        isrequired: true,
+        isRequired: true,
         showTitle: true,
         showHint: true,
+        hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_Top_Icon.parameters = { controls: { include: ['colorVariant','extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint'] } };
+Drop_Area_Top_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_Side_Icon
 : Story = {
@@ -79,12 +86,13 @@ export const Drop_Area_Side_Icon
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        isrequired: true,
+        isRequired: true,
         showTitle: true,
         showHint: true,
+        hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_Side_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint'] } };
+Drop_Area_Side_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_With_Upload_Button
 : Story = {
@@ -98,12 +106,13 @@ export const Drop_Area_With_Upload_Button
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        isrequired: true,
+        isRequired: true,
         showTitle: true,
         showHint: true,
+        hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_With_Upload_Button.parameters = { controls: { include: [ 'extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint'] } };
+Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
 export const Drop_Area_With_Icon
 : Story = {
     args: {
@@ -117,9 +126,10 @@ export const Drop_Area_With_Icon
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        isrequired: true,
+        isRequired: true,
         showTitle: true,
         showHint: true,
+        hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_With_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint'] } };
+Drop_Area_With_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };

@@ -4,8 +4,6 @@ import RdsIcon from "../rds-icon/rds-icon";
 import { useTranslation } from "react-i18next";
 
 export interface RdsFileUploaderProps {
-  size: string;
-  colorVariant?: string;
   Drop_Area_Top_Icon?: boolean;
   Drop_Area_Side_Icon?: boolean;
   Drop_Area_With_Upload_Button? : boolean;
@@ -90,12 +88,42 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
 
 
   const onChangeHandlerForSingleSelection = (event: any) => {
-    event.stopPropagation(); 
-    const files = event.target.files;
-    if (files.length > 0) {
-      setSelectedFiles([files[0]]);
-    }
-  };
+    event.stopPropagation();
+    const files = Array.from(event.target.files || []);
+    const allowedExtensions = props.extensions.split(", ");
+        const newFiles: File[] = [];
+        const newValidation = [...validation];
+      
+        files.forEach((file) => {
+          const fileExtension = (file as File).name.split(".").pop()?.toLowerCase();
+          if (!allowedExtensions.includes(fileExtension || "")) {
+            newValidation.push({
+              isError: true,
+              hint: `File with extension '${fileExtension}' is not allowed`,
+            });
+            return;
+          }
+      
+          const fileSizeInMB = (file as File).size / (1024 * 1024); // Convert size to MB
+          if (fileSizeInMB > props.limit) {
+            newValidation.push({
+              isError: true,
+              hint: "File size exceeds the limit",
+            });
+            return;
+          }
+      
+          newFiles.push((file as File));
+        });
+      
+        setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+        setValidation(newValidation);
+      
+        props.getFileUploaderInfo &&
+          props.getFileUploaderInfo({
+            files: newFiles,
+          });
+        }
 
   const onDeleteHandlerForSingleSelection = () => {
     setSelectedFiles([]);
@@ -133,18 +161,21 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     }
   };
 
+
+  
   const renderFileUploader = () => {
     if (props.Drop_Area_Top_Icon) {
       return (
         <div>
-          
-          <label className="form-label label-gray">
-            {props.title}
-            {props.isrequired && <span className="text-danger ml-1">*</span>}
-          </label>
+              {props.showTitle && (
+                  <label className={"form-label label-gray"}>
+                      {props.title}
+                      {props.isrequired && <span className="text-danger ml-1">*</span>}
+                  </label>
+              )}
           <label
             htmlFor="file-input"
-            className={`multiUploader row mx-0 py-4 px-4 rounded-4 border-${
+            className={`multiUploader row mx-0 rounded-4 border-${
               props.colorVariant || "primary"
             } ${size}`}
             onDragOver={handleDragOver}
@@ -162,9 +193,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               />
               <div>
                 {t("Drag and Drop your files or") || ""}{" "}
-                <span className={`text-${props.colorVariant}`}> Browse</span>
+                          <span className='text-primary text-semibold'> Browse</span>
               </div>
-              <div className="fileFormat text-muted">(PNG, JPG, DOC, PDF, PPT)</div>
+              <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT)</div>
               <input
                 id="file-input"
                 data-testid="rds-file-uploader-input"
@@ -214,7 +245,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         ))}
         {validation &&
           validation.map((val: any, index: number) => (
-            <div key={index} className="ps-3">
+            <div key={index} className="">
               <small
                 className={`${val.isError ? "showError" : "noError d-none"}`}
               >
@@ -240,7 +271,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         </div>
         <label
           htmlFor="file"
-          className={`align-items-center multiUploader row mx-0 py-3 px-3 rounded-4 border-${
+          className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
         >
@@ -255,9 +286,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <div>
               <div>
                 {t("Drag and Drop your files or") || ""}{" "}
-                <span className={`text-${props.colorVariant}`}> Browse</span>
+                              <span className='text-primary text-semibold'> Browse</span>
               </div>
-              <div className="fileFormat text-muted ">(PNG, JPG, DOC, PDF, PPT) </div>
+                          <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT) </div>
             </div>
             <span className="ms-2">
               <RdsIcon
@@ -281,11 +312,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             />
           </div>
         </label>
-        {props.showHint && (
-          <div className="d-flex justify-content-start text-muted">
-            <span>Maximum {props.limit}MB</span>
-          </div>
-        )}
+              {props.showHint && (
+                  <div className="d-flex justify-content-start text-muted mt-1">
+                      <small>{props.hintText}</small>
+                  </div>
+              )}
 
         {/* Display file names */}
         {selectedFiles.map((file, index) => (
@@ -326,7 +357,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         ))}
         {validation &&
           validation.map((val: any, index: number) => (
-            <div key={index} className="ps-3">
+            <div key={index} className="">
               <small
                 className={`${val.isError ? "showError" : "noError d-none"}`}
               >
@@ -352,7 +383,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         </div>
         <label
           htmlFor="file"
-          className={`align-items-center multiUploader row mx-0 py-3 px-3 rounded-4 border-${
+          className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
         >
@@ -367,9 +398,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <div>
               <div>
                 {t("Drag and Drop your files or") || ""}{" "}
-                <span className={`text-${props.colorVariant}`}> Browse</span>
+                              <span className='text-primary text-semibold'> Browse</span>
               </div>
-              <div className="fileFormat text-muted ">(PNG, JPG, DOC, PDF, PPT) </div>
+                          <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT) </div>
             </div>
             <span className="ms-2">
               <RdsIcon
@@ -393,11 +424,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             />
           </div>
         </label>
-        {props.showHint && (
-          <div className="d-flex justify-content-start text-muted">
-            <span>Maximum {props.limit}MB</span>
-          </div>
-        )}
+              {props.showHint && (
+                  <div className="d-flex justify-content-start text-muted mt-1">
+                      <small>{props.hintText}</small>
+                  </div>
+              )}
 
         {/* Display file names */}
         {selectedFiles.map((file, index) => (
@@ -447,7 +478,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         ))}
         {validation &&
           validation.map((val: any, index: number) => (
-            <div key={index} className="ps-3">
+            <div key={index} className="">
               <small
                 className={`${val.isError ? "showError" : "noError d-none"}`}
               >
@@ -473,7 +504,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         </div>
         <label
           htmlFor="file"
-          className={`align-items-center multiUploader row mx-0 py-3 px-3 rounded-4 border-${
+          className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
         >
@@ -486,20 +517,20 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             onDrop={handleDrop}
             style={{ cursor: "pointer" }}
           >
-            <span className="me-2 text-muted">
+            <span className="me-2 upload-icon-color">
               <RdsIcon
                 colorVariant={props.colorVariant}
                 height="20px"
                 isAnimate
                 name="upload_data"
-                stroke
+                stroke="true"
                 width="20px"
               />
             </span>
-            <div className="flex-grow-1 text-center">
+            <div className="flex-grow-1 text-center d-flex justify-content-end">
               <div>
-                {t("Drag and Drop your files") || ""}{" "} <span className="text-muted mx-2"> or</span>
-                <button className={`btn btn-${props.colorVariant} btn-sm`}  onClick={() => document.getElementById('file')?.click()}>Upload Files</button>
+                {t("Drag and Drop your files") || ""}{" "} <span className="text-muted mx-2"> or </span>
+                <button className={`btn btn-primary btn-sm`}  onClick={() => document.getElementById('file')?.click()}>Upload Files</button>
               </div>
             </div>
             <input
@@ -514,11 +545,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             />
           </div>
         </label>
-        {props.showHint && (
-          <div className="d-flex justify-content-start text-muted">
-            <span>Maximum {props.limit}MB</span>
-          </div>
-        )}
+              {props.showHint && (
+                  <div className="d-flex justify-content-start text-muted mt-1">
+                      <small>{props.hintText}</small>
+                  </div>
+              )}
       
         {/* Display file names */}
         {selectedFiles.map((file, index) => (
@@ -557,7 +588,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         ))}
         {validation &&
           validation.map((val: any, index: number) => (
-            <div key={index} className="ps-3">
+            <div key={index} className="">
               <small
                 className={`${val.isError ? "showError" : "noError d-none"}`}
               >
@@ -587,7 +618,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               >
                 <label
                   htmlFor="file1"
-                  className={`custom-file-button p-0 border-end-0 form-control align-items-center bg-primary text-light ${size}`}
+                            className={`border-end-0 align-items-center custom-file-button ${size}`}
                 >
                  Choose File
                 </label>
@@ -624,10 +655,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   onChange={onChangeHandlerForSingleSelection}
                   multiple={false}
                 />
-              </div>
-              {validation &&
-                validation.map((val: any, index: number) => (
-                  <div key={index} className="ps-3">
+                    </div>
+                    <div className="d-flex justify-content-between">
+             <div> {validation &&
+                            validation.map((val: any, index: number) => (
+
+                  <div key={index} className="">
                     <small
                       className={`${
                         val.isError ? "showError" : "noError d-none"
@@ -636,12 +669,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                       {val.isError && val.hint}
                     </small>
                   </div>
-                ))}
-              {props.showHint && (
-                <div className="d-flex justify-content-end text-muted">
-                  <small>Maximum {props.limit}MB</small>
-                </div>
-              )}
+                ))}</div>
+                        {props.showHint && (
+                            <div className="d-flex justify-content-start text-muted mt-1">
+                                <small>{props.hintText}</small>
+                            </div>
+                        )}</div>
             </form>
           </div>
         </div>
