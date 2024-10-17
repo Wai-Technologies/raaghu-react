@@ -11,11 +11,11 @@ const meta: Meta = {
     argTypes: {
         type: {
             control: 'select',
-            options: ['simple', 'background'],
+            options: ['Simple', 'Background'],
         },
         shape: {
             control: 'select',
-            options: ['round', 'square'],
+            options: ['Pill Background', 'Square Background'],
         },
         separator: {
             control: {
@@ -73,7 +73,7 @@ const breadItems = [
 export const breadcrumb: Story = {
     args: {
         breadcrumbItems: breadItems,
-        type: 'simple',
+        type: 'Simple',
         separator: '/',
     }
 };

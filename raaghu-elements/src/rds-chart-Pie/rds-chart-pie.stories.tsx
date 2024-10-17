@@ -9,6 +9,7 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        radius: { control: 'number' }, 
     },
 } satisfies Meta<typeof RdsPieChart>;
 
@@ -18,23 +19,20 @@ type Story = StoryObj<typeof RdsPieChart>;
 export const PieChart: Story = {
     args: {
         id: "chart pie",
-        width: 300,
-        height: 300,
+        radius: 100,
         labels: ["red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             circumference: 360,
-            radius: 100,
             maintainAspectRatio: false,
             animation: {
                 animateRotate: false,
-                animateScale: true
+                animateScale: true,
             },
             responsive: true,
             plugins: {
                 legend: {
                     position: "top",
                     pointStyle: "line",
-
                     labels: {
                         pointStyleWidth: 13,
                         usePointStyle: true,
@@ -42,13 +40,13 @@ export const PieChart: Story = {
                         boxHeight: 10,
                         padding: 30,
                         height: 5,
-                    }
+                    },
                 },
                 title: {
                     display: true,
-                    text: "Pie Chart"
-                }
-            }
+                    text: "Pie Chart",
+                },
+            },
         },
         dataSets: [
             {
@@ -61,11 +59,9 @@ export const PieChart: Story = {
                     "#4bc0c0",
                     "#059bff",
                 ],
-                borderColor: [
-                    "#fff",
-                ],
-                borderWidth: 1
-            }
+                borderColor: ["#fff"],
+                borderWidth: 1,
+            },
         ],
-    }
+    },
 };

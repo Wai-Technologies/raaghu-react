@@ -236,11 +236,10 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                   <RdsAlert
                     dismisable={true}
                     alertmessage={Alert?.message}
-                    colorVariant={Alert?.color}
+                    // colorVariant={Alert?.color}
                     size="small"
                     onDismiss={props.onDismissAlert}
-                    reset={Alert?.show}
-                  />
+                    reset={Alert?.show} type={"error"}                  />
                 </div>
               )}
             </div>

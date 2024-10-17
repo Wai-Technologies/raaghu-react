@@ -235,6 +235,7 @@ $accordion-border-width: 0px;
 $accordion-body-padding-x:0.5rem;
 $accordion-body-padding-y:0.5rem;
 
+$progresss-percentage: $text-xsmall;
 $toast-border-width:0px;
 $toast-border-radius: $border-radius-xs;
 $toast-box-shadow:0px 3px 6px 0px rgba(62, 62, 62, 0.08);
@@ -251,10 +252,13 @@ $btn-border-radius: $border-radius-xs !default;
 .toast-body, .toast-footer {
     padding: $toast-padding-x $toast-padding-y;
 }
+.progresss-percentage{
+  font-size:  $progresss-percentage;
+  }
 
-.accordion-header{
-    border-bottom-left-radius:0px;
-    border-bottom-right-radius:0px;
+.accordion-header {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .accordion-borderhide {
