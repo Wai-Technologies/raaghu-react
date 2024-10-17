@@ -5,7 +5,6 @@ import {
     RdsInput,
     RdsButton
 } from "../rds-elements";
-import { useTranslation } from "react-i18next";
 
 export interface RdsCompLanguageProps {
     cultureList: { option: any, value: any }[];
@@ -111,6 +110,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                         selectedValue={cultureName}
                                         onChange={(item: any) => onChangeSelectList("cultureName", item.value)}
                                         required={true}
+                                        key={`cultureName-${cultureName}`}
                                     ></RdsSelectList>
                                 </div>
                             </div>
@@ -126,6 +126,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                         selectedValue={cultureUIName}
                                         onChange={(item: any) => onChangeSelectList("cultureUIName", item.value)}
                                         required={true}
+                                        key={`cultureUIName-${cultureUIName}`}
                                     ></RdsSelectList>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                 ></RdsInput>
                             </div>
                             <RdsCheckbox
-                                label={("Is Enabled") || ""}
+                                label="Is Enabled"
                                 checked={isEnabled}
                                 onChange={checkboxHandler}
                             ></RdsCheckbox>
@@ -158,6 +159,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                         selectItems={props.flagIconList}
                                         onChange={(item: any) => onChangeSelectList("flagIcon", item.value)}
                                         selectedValue={flagIcon}
+                                        key={`flagIcon-${flagIcon}`}
                                     ></RdsSelectList>
                                 </div>
                             </div>
