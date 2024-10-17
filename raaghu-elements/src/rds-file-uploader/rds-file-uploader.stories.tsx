@@ -129,7 +129,8 @@ export const Drop_Area_With_Icon
         isRequired: true,
         showTitle: true,
         showHint: true,
+        showIcon: true,
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_With_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant', 'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint', 'showIcon'] } };

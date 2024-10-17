@@ -20,6 +20,7 @@ export interface RdsFileUploaderProps {
   isrequired?: boolean;
   showTitle?: boolean;
   showHint?: boolean;
+  showIcon?: boolean;
 }
 
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
@@ -195,7 +196,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 {t("Drag and Drop your files or") || ""}{" "}
                           <span className='text-primary text-semibold'> Browse</span>
               </div>
-              <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT)</div>
+                      <div className="fileFormat text-muted mt-2 text-semibold">{props.extensions} </div>
               <input
                 id="file-input"
                 data-testid="rds-file-uploader-input"
@@ -288,7 +289,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 {t("Drag and Drop your files or") || ""}{" "}
                               <span className='text-primary text-semibold'> Browse</span>
               </div>
-                          <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT) </div>
+                          <div className="fileFormat text-muted mt-2 text-semibold">{props.extensions} </div>
             </div>
             <span className="ms-2">
               <RdsIcon
@@ -400,7 +401,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 {t("Drag and Drop your files or") || ""}{" "}
                               <span className='text-primary text-semibold'> Browse</span>
               </div>
-                          <div className="fileFormat text-muted mt-2 text-semibold">(PNG, JPG, DOC, PDF, PPT) </div>
+                          <div className="fileFormat text-muted mt-2 text-semibold">{props.extensions} </div>
             </div>
             <span className="ms-2">
               <RdsIcon
@@ -438,7 +439,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           >
             <div className="d-flex gap-2 align-items-center">
             <span>
-                {props.Drop_Area_With_Icon && 
+                {props.Drop_Area_With_Icon && props.showIcon &&
                 file.type.startsWith('image/') ? (
                   <img
                     src={URL.createObjectURL(file)}
