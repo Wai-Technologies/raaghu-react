@@ -132,7 +132,7 @@ const RdsCard = (props: RdsCardProps) => {
                 >
                   {props.cardSubTitle}
                 </h6>
-              )}
+              )}<br></br>
               <p>{props.cardText}</p>
             </div>
           ) : (
@@ -174,7 +174,7 @@ const RdsCard = (props: RdsCardProps) => {
                   >
                     {props.cardSubTitle}
                   </h6>
-                )}
+                )}<br></br>
                 <p>{props.cardText}</p>
               </div>
             </>
