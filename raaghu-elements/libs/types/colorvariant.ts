@@ -42,3 +42,7 @@ export const button_colors = {
     Warning: "warning",
     Success: "success",
 };
+export const progress_colors = {
+    Primary: "primary",
+    Error: "error",
+};

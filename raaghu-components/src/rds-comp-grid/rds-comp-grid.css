@@ -1,0 +1,138 @@
+@media (max-width: 767px) {
+
+  #grid thead th:first-child,
+  #grid tbody td:first-child{
+    position: sticky;
+    left: -1px;
+    max-width: 190px;
+    background-color: white;
+  }
+}
+
+.table>tbody {
+  vertical-align: middle !important;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.popup {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  max-height: 200px;
+  /* Maximum height before showing a scrollbar */
+  overflow-y: auto;
+  /* Show vertical scrollbar if needed */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup-content button {
+  align-self: flex-end;
+}
+
+.checkbox-input {
+  margin-right: 100px;
+  /* Adjust the value as needed */
+}
+
+.theme-dark .popup-content .resizable .react-resizable-handle {
+  background-color: #333;
+  /* Dark background for dark theme */
+  color: white;
+  /* Ensure text is readable on dark background */
+  border: #333;
+  /* Dark background for dark theme */
+}
+
+.resizable {
+  position: relative;
+  display: inline-block;
+}
+
+.resizer {
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: col-resize;
+  user-select: none;
+}
+
+
+.sort-asc::after {
+  content: '↑';
+  margin-left: 5px;
+}
+
+.sort-desc::after {
+  content: '↓';
+  margin-left: 5px;
+}
+
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  /* Adjust vertical alignment as needed */
+  justify-content: flex-end;
+  /* Adjust spacing or alignment as needed */
+}
+
+/* .react-resizable-handle{
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand-vertical" viewBox="0 0 16 16"%3E%3Cpath d="M8 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"%2F%3E%3C%2Fsvg%3E') !important;
+  transform: rotate(0deg) !important;
+    right: auto !important;
+} */
+.react-resizable-handle{
+  background-image: url('') !important;
+  transform: rotate(0deg) !important;
+    right: auto !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dragging {
+  opacity: 0.5;
+  cursor: move;
+}
+
+.not-dragging {
+  opacity: 1;
+  cursor: move;
+}

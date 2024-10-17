@@ -10,16 +10,73 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        State: {
+            options: [
+                "Default"   ,
+                "Active"  ,
+                "Selected",
+                "Disabled" ,
+                "Error"   
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsTextEditor>;
 
 export default meta;
 type Story = StoryObj<typeof RdsTextEditor>;
 
-export const TextEditor: Story = {
+export const Default: Story = {
     args: {
         id: "",
-        value: "<p>Hello!</p>"
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Default"
     }
 } satisfies Story;
-TextEditor.parameters = { controls: { include: ['id', 'value'] } };
+Default.parameters = { controls: { include: ['id','label', 'value','State','required','required'] } };
+
+export const Active: Story = {
+    args: {
+        id: "",
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Active"
+    }
+} satisfies Story;
+Active.parameters = { controls: { include: ['id','label', 'value','State','required'] } };
+
+export const Selected: Story = {
+    args: {
+        id: "",
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Selected"
+    }
+} satisfies Story;
+Selected.parameters = { controls: { include: ['id','label', 'value','State','required'] } };
+
+export const Disabled: Story = {
+    args: {
+        id: "",
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Disabled"
+    }
+} satisfies Story;
+Disabled.parameters = { controls: { include: ['id','label', 'value','State','required'] } };
+
+export const Error: Story = {
+    args: {
+        id: "",
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Error"
+    }
+} satisfies Story;
+Error.parameters = { controls: { include: ['id','label', 'value','State','required'] } };
