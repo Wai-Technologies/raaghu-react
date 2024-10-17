@@ -1,3 +1,7 @@
+.avatar-smallest{
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .avatar-sm {
     width: 2rem;
     height: 2rem;
@@ -12,7 +16,10 @@
     width: 3rem;
     height: 3rem;
   }
-
+  .avatar-largest{
+    width: 4rem;
+    height: 4rem;
+  }
   .theme-dark .avatar-initials {
     color: #A8A8A8;
 }
@@ -59,33 +66,34 @@
   top: 0 !important;
 
 }
-.dot-md{
-  height: 15px;
-  width: 15px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  top: -5px;
-}
-.dot-lg{
-  height: 15px;
-  width: 15px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  top: -5px;
+.top-dot-smallest{
+  right: 0 !important;
+  top: -1px !important;
+  width: 9px;
+  height: 9px;
 
 }
-.dot-sm{
-  height: 15px;
-  width: 15px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  top: -5px;
+.bottom-dot-smallest{
+  right: 0 !important;
+  bottom: 0 !important;
+  top: 16px !important;
+  width: 9px;
+  height: 9px;
+
+}
+.bottom-dot-largest{
+  right: 0 !important;
+    bottom: 0 !important;
+    top: 44px !important;
+    width: 16px;
+    height: 16px;
+
+}
+.top-dot-largest{
+    right: 1px !important;
+    top: 2px !important;
+    width: 16px;
+    height: 16px;
 
 }
 .textTopMd{
@@ -96,4 +104,180 @@
 }
 .textTopSm{
   font-size: 10px !important;
+}
+.textTopLarge{
+  font-size: 17px !important;
+}
+.textTopSmall{
+  font-size: 8px !important;
+}
+
+.avtarText{
+  width: 160px;
+    text-align: center;
+}
+.top-dot-largest-name-on-bottom {
+  right: 68px !important;
+  top: 19px !important;
+  width: 16px;
+  height: 16px
+}
+.bottom-dot-largest-name-on-bottom {
+  right: 66px !important;
+  bottom: 0 !important;
+  top: 66px !important;
+  width: 16px;
+  height: 16px;
+}
+.top-dot-lg-name-on-top {
+  right: 62px !important;
+  bottom: 3px !important;
+  top: 19px !important;
+}
+.bottom-dot-lg-name-on-bottom{
+  right: 62px !important;
+  bottom: 0px;
+  top: 51px;
+}
+.top-dot-md-name-on-top {
+  right: 59px !important;
+  top: 19px !important;
+  width: 13px;
+  height: 13px;
+}
+.bottom-dot-md-name-on-bottom {
+    right: 59px !important;
+    bottom: 0 !important;
+    top: 48px !important;
+    width: 13px;
+    height: 13px;
+}
+.top-dot-smallest-name-on-top {
+  right: 42px !important;
+  top: 19px !important;
+  width: 9px;
+  height: 9px;
+}
+.bottom-dot-smallest-name-on-bottom{
+  right: 42px !important;
+  bottom: 0 !important;
+  top: 37px !important;
+  width: 9px;
+  height: 9px;
+}
+.top-dot-sm-name-on-top{
+  right: 50px !important;
+    top: 19px !important;
+    width: 9px;
+    height: 9px;
+}
+.bottom-dot-sm-name-on-bottom{
+  right: 50px !important;
+  bottom: 0 !important;
+  top: 42px !important;
+  width: 9px;
+  height: 9px;
+}
+.textTopMd h5{
+  font-size: 13px !important;
+}
+.textTopLg h5{
+  font-size: 15px !important;
+}
+.textTopSm h5{
+  font-size: 10px !important;
+}
+.textTopLarge h5{
+  font-size: 17px !important;
+}
+.textTopSmall h5{
+  font-size: 8px !important;
+}
+.avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  position: relative;
+  margin-right: -12px;
+}
+
+.plus-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+}
+.plus-indecator-smallest{
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+  font-size: smaller;
+}
+.plus-indecator-sm{
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+}
+.plus-indecator-md{
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+}
+.plus-indecator-lg{
+  width: 3rem;
+    height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+}
+.plus-indecator-largest{
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
 }
