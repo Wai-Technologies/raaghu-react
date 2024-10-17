@@ -59,31 +59,35 @@ export const Default: Story = {
         colorVariant: "primary",
         label: "Dropdown Button",
         layout: "Textonly",
-        icon: "plus",
-        iconFill: true,
-        iconStroke:false,
+        buttonIcon: "plus",
+        iconFill: false,
+        iconStroke: true,
         size: "mid",
         darkDropdown: false,
+        disable: false,
+        isSelected: false,
+        selectIcon: "circle",
+        profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         listItems: [
             {
-                label: "Export To Excel",
+                label: "Option 1",
                 id: "1",
                 path: "",
             },
             {
-                label: "Import From Excel",
+                label: "Option 2",
                 id: "2",
                 path: "",
             },
             {
-                label: "Click here download sample import file",
+                label: "Option 3",
                 id: "3",
                 path: "",
             },
         ],
     }
-} 
-Default.parameters = { controls: { include: ['displayType','colorVariant','layout', 'iconFill', 'iconStroke', 'icon','size','label'] } };
+}
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected','selectIcon','profileImage'] } };
 
 
 export const WithSplit: Story = {
@@ -94,24 +98,33 @@ export const WithSplit: Story = {
         darkDropdown: false,
         displayType: 'split',
         label: "Dropdown Button",
+        layout: "Textonly",
+        buttonIcon: "plus",
+        iconFill: false,
+        iconStroke: true,
+        disable: false,
+        isSelected: false,
+        selectIcon: "circle",
+        profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         listItems: [
             {
-                label: "Export To Excel",
+                label: "Option 1",
                 id: "1",
                 path: "",
             },
             {
-                label: "Import From Excel",
+                label: "Option 2",
                 id: "2",
                 path: "",
             },
             {
-                label: "Click here download sample import file",
+                label: "Option 3",
                 id: "3",
                 path: "",
             },
         ],
     }
-} satisfies Story;
+}
+Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected','selectIcon','profileImage'] } };
 
 
