@@ -14,7 +14,7 @@ export interface RdsToastProps {
     showHeader?: boolean;
     iconName?: string;
     layout: string;
-    state: "basic" | "info" | "success" | "error";
+    state: string;
     placeholder?: string;
     progressWidth?: number;
     filename?: string;
