@@ -91,3 +91,9 @@ nav.container.sidebar-container.css-t68aeq {
     max-width: 115px !important;
     max-height: 100px;
 }
+.container{
+    padding-right: 0px !important;
+}
+.container .sidebar-container .css-r1cy5n{
+    padding-right: 0px !important;
+}
