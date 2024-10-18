@@ -9,6 +9,7 @@ export interface RdsSideNavProps {
   collapse?: boolean;
   toggleClass?: boolean;
   brandLogo?: string;
+  layoutType?: string;
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -50,6 +51,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
       setMenuClick(false);
     }
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (props.layoutType === "basic-expanded" || props.layoutType === "list-expanded") {
+      setcollapse(false);
+    }
+  }, [props.layoutType]);
 
   const setIsShown = (event: boolean) => {
     if (!isLocked) {
@@ -250,6 +257,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   classes="me-2"
                   type="lottie"
                   isHovered={hoveredItem === item.key}
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "basic-collapsed" ? true : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               ) : (
@@ -260,6 +270,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   height="20px"
                   width="20px"
                   classes="me-2 "
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "basic-collapsed" ? true : false}
+                  tooltipPlacement="auto"
 
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
@@ -299,7 +312,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
   return (
     <>
-      <div
+      {/* <div
         className={`aside`}
         id="aside"
         onMouseEnter={() => setIsShown(true)}
@@ -340,7 +353,80 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
           </ul>
         </nav>
-      </div>
+      </div> */}
+
+      <div
+        className={`aside`}
+        id="aside"
+        onMouseEnter={() => (props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed") ? setIsShown(false) : setIsShown(true)}
+        onMouseLeave={() => (props.layoutType == "basic-expanded" || props.layoutType === "list-expanded") ? setIsShown(true) : setIsShown(false)}
+      >
+        <div
+          className={` ${props.layoutType=='list-expanded' ?'sidenav-footer':''}  text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
+            props.toggleClass ? " show" : " hide"
+          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
+        >
+         { props.layoutType=='list-expanded'  && ( <span className="collpase-button cursor-pointer d-flex lock-icon">
+          <RdsIcon
+              name={!isLocked ? "unlock" : "lock_nav"}
+              height="21px"
+              width="21px"
+              stroke={true}
+              fill={false}
+              strokeWidth="1.2"
+              colorVariant="white"
+              onClick={() => setIsLocked(!isLocked)}
+            ></RdsIcon>
+          </span>)}
+        </div>
+        <nav
+          id="sidebar"
+          ref={ref}
+          className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1
+               ${props.toggleClass ? " show" : " hide"} ${
+            collapse ? "toggle-sidebar-menu show" : "toggle"
+          }`}
+        >
+          <ul className="list-unstyled pt-3 ">
+                  <li className="nav-logo">
+                    <img className="cursor-pointer sidenav-mobile-logo p-1" src={props.brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
+                  </li>
+          </ul>
+          {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') &&( <div className="sidebar-search px-3 mb-4">
+              <input
+                type="text"
+                placeholder="Search"
+                className="form-control "
+              />
+            </div>)}
+            
+          <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
+           {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') && (   <li className="nav-section-title p-2">Overview</li>)}
+            {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
+          </ul>
+          {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') &&(
+          <ul className="list-unstyled  pd-md-0  mb-md-0 pt-0">
+            <li className="nav-section-title p-2">Account</li>
+            {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
+          </ul>
+          )}
+
+        {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') && ( <div className="sidebar-footer text-center mt-auto px-3 py-4">
+          <hr />
+              <img
+                src={props.brandLogo}
+                alt="User"
+                className="rounded-circle"
+                style={{ width: "50px", height: "50px" }}
+              />
+              <div className="mt-2">
+                <h6 className="mb-0">{"props"}</h6>
+                <small className="text-muted">{"props.userDesignation"}</small>
+              </div>
+            </div>
+          )}
+        </nav>
+        </div>
     </>
   );
 };
