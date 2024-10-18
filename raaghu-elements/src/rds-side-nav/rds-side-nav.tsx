@@ -8,6 +8,7 @@ export interface RdsSideNavProps {
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   collapse?: boolean;
   toggleClass?: boolean;
+  brandLogo?: string;
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -330,6 +331,11 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             collapse ? "toggle-sidebar-menu show" : "toggle"
           }`}
         >
+          <ul className="list-unstyled pt-3 ">
+                  <li className="nav-logo">
+                    <img className="cursor-pointer sidenav-mobile-logo" src={props.brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
+                  </li>
+                </ul>
           <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3">
             {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
           </ul>
