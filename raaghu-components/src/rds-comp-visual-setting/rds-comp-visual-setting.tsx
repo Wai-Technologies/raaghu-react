@@ -335,20 +335,22 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
                                 {activeTab == "footer" && (
                                     <div
-                                        className="  pt-4"
+                                        className="  pb-4"
                                         id="nav-footer"
                                         role="tabpanel"
                                         aria-labelledby="nav-footer"
                                     >
-                                        <RdsCheckbox
-                                            label="Fixed Footer"
-                                            name="fixedFooter"
-                                            checked={
-                                                vsItem.filter(
-                                                    (item: any) => item.themeId == activeTheme
-                                                )[0]?.footer?.fixedFooter
-                                            }
-                                        />
+                                        <div className="pt-4"> 
+                                            <RdsCheckbox
+                                                label="Fixed Footer"
+                                                name="fixedFooter"
+                                                checked={
+                                                    vsItem.filter(
+                                                        (item: any) => item.themeId == activeTheme
+                                                    )[0]?.footer?.fixedFooter
+                                                }
+                                            />
+                                        </div>
                                         <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                             <RdsButton
                                                 label="Save as system default"
