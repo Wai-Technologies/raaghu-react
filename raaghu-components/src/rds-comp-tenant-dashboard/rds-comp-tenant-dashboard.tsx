@@ -1502,7 +1502,7 @@ const RdsCompTenantDashboard = () => {
                         headerTitle="To do List"
                         isRefreshRequired={true}
                     >
-                        <div>
+                        <div className="table-responsive">
                             <RdsTable id="sortable"
 
                                 headerDatas={[
