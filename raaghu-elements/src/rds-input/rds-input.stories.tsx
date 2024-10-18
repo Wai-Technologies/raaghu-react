@@ -1,7 +1,7 @@
-import RdsInput from "./rds-input";
+import RdsInput, { RdsInputProps } from "./rds-input";
 import { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta = {
+const meta: Meta<typeof RdsInput> = {
     title: 'Elements/Input',
     component: RdsInput,
     parameters: {
@@ -9,21 +9,24 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        size: {
-            options: ["small", "medium", "large"],
+        type: {
+            options: ["text", "password", "email", "number", "url", "tel", "search"],
             control: { type: "select" },
         },
-        inputType: {
-            options: ["email", "text", "password", "otp","number"],
-            control: { type: "select" },
+        placeholder: {
+            control: { type: "text" },
         },
-        labelPosition: {
-            options: ["top", "bottom", "floating", "right", "left"],
-            control: { type: "select" },
+        disabled: {
+            control: { type: "boolean" },
         },
-        tooltipPlacement: {
-            options: ["top", "bottom", "right", "left"],
-            control: { type: "radio" },
+        readOnly: {
+            control: { type: "boolean" },
+        },
+        value: {
+            control: { type: "text" },
+        },
+        onChange: {
+            action: 'changed',
         },
     },
 } satisfies Meta<typeof RdsInput>;
@@ -33,97 +36,10 @@ type Story = StoryObj<typeof RdsInput>;
 
 export const Default: Story = {
     args: {
-        size: "medium",
-        inputType: "text",
-        placeholder: "Add Placeholder",
-        label: "Label",
-        labelPosition: "top",
-        id: "",
+        type: "text",
+        placeholder: "Enter text",
+        disabled: false,
+        readOnly: false,
         value: "",
-        required: true,
-        showIcon: true,
-        singleDigit: false,
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'singleDigit'] } };
-
-export const Tooltip: Story = {
-    args: {
-        size: "medium",
-        inputType: "text",
-        placeholder: "Add Placeholder",
-        label: "Label",
-        labelPosition: "top",
-        id: "",
-        value: "",
-        required: true,
-        tooltipPlacement: "top",
-        tooltipTitle: "This is tooltip",
-        showIcon: true,
-    }
-} satisfies Story;
-Tooltip.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'tooltipPlacement', 'tooltipTitle', 'showIcon'] } };
-
-export const Disabled: Story = {
-    args: {
-        size: "medium",
-        inputType: "text",
-        placeholder: "Add Placeholder",
-        label: "Label",
-        labelPosition: "top",
-        id: "",
-        value: "",
-        required: true,
-        isDisabled: true,
-        showIcon: true,
-    }
-} satisfies Story;
-Disabled.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon'] } };
-
-export const Readonly: Story = {
-    args: {
-        size: "medium",
-        inputType: "text",
-        placeholder: "Add Placeholder",
-        label: "Label",
-        labelPosition: "top",
-        id: "",
-        value: "",
-        required: true,
-        readonly: true,
-        showIcon: true,
-    }
-} satisfies Story;
-Readonly.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon'] } };
-
-export const Email: Story = {
-    args: {
-        size: "medium",
-        inputType: "email",
-        placeholder: "Add Email",
-        label: "Email",
-        labelPosition: "top",
-        id: "",
-        value: "",
-        required: true,
-        readonly: false,
-        showIcon: true,
-    }
-} satisfies Story;
-Email.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required','showIcon', 'readonly'] } };
-
-export const Password: Story = {
-    args: {
-        size: "medium",
-        inputType: "password",
-        placeholder: "Add Password",
-        label: "Password",
-        labelPosition: "top",
-        id: "",
-        value: "",
-        required: true,
-        readonly: false,
-        showIcon: true,
-    }
-} satisfies Story;
-Password.parameters = { controls: { include: ['size', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly'] } };
+    },
+};
