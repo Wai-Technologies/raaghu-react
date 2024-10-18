@@ -73,7 +73,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
         <div className="row vh-100">
           <div className="align-items-center col-md-12 d-flex justify-content-center">
             <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-              <div>
+              <div className="mt-2">
                 {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
                     className={` form-label ${props.isDisabled ? " opacity-50 " : ""
@@ -85,7 +85,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                     )}
                   </label>
                 )}
-                <div className={getClassNames()}>
+                <div className={`${getClassNames()} mt-2`}>
                   <textarea
                     className="form-control "
                     disabled={props.isDisabled}
@@ -118,7 +118,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                   )}
                 </div>
                 {labelPosition === "bottom" && (
-                  <label className="form-label mt-1">
+                  <label className="form-label mt-2">
                     {props.label}
                     {props.isRequired && (
                       <span className="text-danger fs-6"> *</span>
@@ -130,7 +130,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="mt-2">
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
               className={` form-label ${props.isDisabled ? " opacity-50 " : ""
@@ -140,7 +140,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
-          <div className={getClassNames()}>
+          <div className={`${getClassNames()} mt-2`}>
             <textarea
               className="form-control mt-1"
               disabled={props.isDisabled}
