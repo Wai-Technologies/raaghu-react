@@ -23,12 +23,12 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
     };
     return (
         <>
-            <div className="d-flex justify-content-center text-center  my-4">
+            <div className="justify-content-center text-center my-4 col">
                 {props.subscriptionData.map((item: any) => {
                     const bg = "bg-" + item.colorVariant || "primary";
                     const border = "border-" + item.colorVariant || "primary";
                     return (
-                        <div className="px-2 position-relative mb-3" data-testid="subscription-card">
+                        <div className="px-2 position-relative mb-3 mx-2" data-testid="subscription-card" style={{ width: width }}>
                             {item.recommended ? (
                                 <>
                                     {" "}
@@ -68,7 +68,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                         <div className="mt-4 mb-4 text-start">
                                             {item.features.map((feature: any, index: number) => {
                                                 return (
-                                                    <div key={index} className="d-flex " >
+                                                    <div key={index} className="d-flex" >
                                                         <div className="me-2">
                                                             <RdsIcon
                                                                 name={getIcon(feature)}

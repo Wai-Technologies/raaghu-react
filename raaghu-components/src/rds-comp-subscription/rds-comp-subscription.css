@@ -18,7 +18,7 @@
 .ribbon2 {
     width: 26px;
     position: absolute;
-    top: 24px;
+    top: 21px;
     right: 0;
     text-align: center;
     background: #F58220;
@@ -54,26 +54,38 @@
     font: normal normal medium 14px/21px Poppins;
     padding: 16px;
 }
+.col {
+   display:flex;
+}
 /* Small mobile view (up to 480px) */
 @media (max-width: 480px) {
-    .d-flex {
+  /*  .d-flex {
         flex-direction: column;
         align-items: center;
-    }
+    }*/
 
     .d-flex .justify-content-between {
         justify-content: center;
         text-align: center;
     }
+    .col {
+        
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 /* Large mobile view (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-    .d-flex {
+    /*.d-flex {
+        flex-direction: column;
+        align-items: center;
+    }*/
+    .col {
+        
         flex-direction: column;
         align-items: center;
     }
-
     .d-flex .justify-content-between {
         justify-content: space-between;
         width: 100%;

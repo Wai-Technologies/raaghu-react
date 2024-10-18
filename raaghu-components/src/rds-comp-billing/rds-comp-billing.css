@@ -2,10 +2,10 @@
 
 /* Small mobile view (up to 480px) */
 @media (max-width: 480px) {
-    .d-flex {
+    /*.d-flex {
         flex-direction: column;
         align-items: center;
-    }
+    }*/
 
     .d-flex .justify-content-between {
         justify-content: center;
@@ -15,10 +15,10 @@
 
 /* Large mobile view (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-    .d-flex {
+   /* .d-flex {
         flex-direction: column;
         align-items: center;
-    }
+    }*/
 
     .d-flex .justify-content-between {
         justify-content: space-between;
@@ -30,9 +30,9 @@
         flex: 1;
     }
 
-    .d-flex  {
+   /* .d-flex  {
         flex: 1;
         display: flex;
         justify-content: flex-end;
-    }
+    }*/
 }
