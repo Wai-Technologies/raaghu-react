@@ -116,9 +116,9 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         ></RdsButton>
                     </div>
                 </div>
-                <div  className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons " >
+                <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3" >
                    
-                        <div className="m-2">
+                        
                             <RdsButton
                                 size="small"
                                 isOutline={true}
@@ -128,8 +128,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 type="button"
                                 dataTestId="cancel"
                             ></RdsButton>
-                        </div>
-                        <div className="m-2">
+                       
+                        
                             <RdsButton
                                 size="small"
                                 isOutline={false}
@@ -141,7 +141,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 onClick={(e: any) => emitSaveData(e)}
                                 isDisabled={!data?.type || !data.val || !data.expiration || !data.description}
                             ></RdsButton>
-                        </div>
+                        
                     
                 </div>
             </div>
