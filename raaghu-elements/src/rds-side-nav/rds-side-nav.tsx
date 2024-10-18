@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
+import RdsAvatar from "../rds-avatar";
 
 export interface RdsSideNavProps {
   sideNavItems: any;
@@ -10,6 +11,11 @@ export interface RdsSideNavProps {
   toggleClass?: boolean;
   brandLogo?: string;
   layoutType?: string;
+  sideNavFirstListTitle?: string;
+  sideNavItemsFirstList?: any;
+  sideNavSecondListTitle?: string;
+  sideNavItemsSecondList?: any;
+
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -24,7 +30,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   const [isShowOne, setShowOne] = useState(false);
   const [isShowTwo, setShowTwo] = useState(false);
   const [isOnNavigate, setOnNavigate] = useState(false);
-  const mainMenu = props.sideNavItems;
+  const mainMenu = props.sideNavItems || props.sideNavItemsFirstList;
+  const listTwo = props.sideNavItemsSecondList;
+
   const labelObj: any = {};
   const [hoveredItem, setHoveredItem] = useState("");
 
@@ -312,49 +320,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
   return (
     <>
-      {/* <div
-        className={`aside`}
-        id="aside"
-        onMouseEnter={() => setIsShown(true)}
-        onMouseLeave={() => setIsShown(false)}
-      >
-        <div
-          className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
-            props.toggleClass ? " show" : " hide"
-          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
-        >
-          <span className="collpase-button cursor-pointer d-flex lock-icon">
-            <RdsIcon
-              name={!isLocked ? "unlock" : "lock_nav"}
-              height="21px"
-              width="21px"
-              stroke={true}
-              fill={false}
-              strokeWidth="1.2"
-              colorVariant="white"
-              onClick={() => setIsLocked(!isLocked)}
-            ></RdsIcon>
-          </span>
-        </div>
-        <nav
-          id="sidebar"
-          ref={ref}
-          className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1
-               ${props.toggleClass ? " show" : " hide"} ${
-            collapse ? "toggle-sidebar-menu show" : "toggle"
-          }`}
-        >
-          <ul className="list-unstyled pt-3 ">
-                  <li className="nav-logo">
-                    <img className="cursor-pointer sidenav-mobile-logo" src={props.brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
-                  </li>
-                </ul>
-          <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3">
-            {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
-          </ul>
-        </nav>
-      </div> */}
-
+    
       <div
         className={`aside`}
         id="aside"
@@ -407,24 +373,41 @@ const RdsSideNav = (props: RdsSideNavProps) => {
           {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') &&(
           <ul className="list-unstyled  pd-md-0  mb-md-0 pt-0">
             <li className="nav-section-title p-2">Account</li>
-            {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
+            {listTwo.length != 0 ? displayMenu(listTwo, "", 1) : ""}
           </ul>
           )}
 
-        {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') && ( <div className="sidebar-footer text-center mt-auto px-3 py-4">
+        <div className="sidebar-footer text-center mt-auto mb-2">
           <hr />
-              <img
-                src={props.brandLogo}
-                alt="User"
-                className="rounded-circle"
-                style={{ width: "50px", height: "50px" }}
-              />
-              <div className="mt-2">
-                <h6 className="mb-0">{"props"}</h6>
-                <small className="text-muted">{"props.userDesignation"}</small>
-              </div>
-            </div>
+          { props.layoutType =='list-collapsed' && (
+            <RdsAvatar
+            activeDotBottom
+            avtarWithName
+            colorVariant="primary"
+            firstName="Wai"
+            lastName="Technologies"
+            profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+            role="Developer"
+            size="large"
+            titleAlign="horizontal" avatars={[]}        />
           )}
+              {props.layoutType == 'list-expanded'  && ( 
+                <>
+              <RdsAvatar
+                  activeDotBottom
+                  avtarWithName
+                  colorVariant="primary"
+                  firstName="Wai"
+                  lastName="Technologies"
+                  profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+                  role="Developer"
+                  size="large"
+                  titleAlign="horizontal" avatars={[]}              />
+              </>
+                  )}
+            </div>
+      
+         
         </nav>
         </div>
     </>
