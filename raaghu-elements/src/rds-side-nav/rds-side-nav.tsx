@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Link, NavLink } from "react-router-dom";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
-
+import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 export interface RdsSideNavProps {
-  sideNavItems: any;
+  sideNavItems?: any;
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   collapse?: boolean;
   toggleClass?: boolean;
@@ -15,6 +15,10 @@ export interface RdsSideNavProps {
   sideNavItemsFirstList?: any;
   sideNavSecondListTitle?: string;
   sideNavItemsSecondList?: any;
+  profilePic?: string;
+  brandName?: string;
+  langaugeItems?: any[];
+  themeItems?: any[];
 
 }
 
@@ -266,7 +270,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   type="lottie"
                   isHovered={hoveredItem === item.key}
                   tooltipTitle={item.label}
-                  tooltip={props.layoutType === "basic-collapsed" ? true : false}
+                  tooltip={(props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed" ) ? true : false}
                   tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
@@ -279,7 +283,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   width="20px"
                   classes="me-2 "
                   tooltipTitle={item.label}
-                  tooltip={props.layoutType === "basic-collapsed" ? true : false}
+                  tooltip={(props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed" ) ? true : false}
                   tooltipPlacement="auto"
 
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
@@ -321,6 +325,8 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   return (
     <>
     
+    
+    {(props.layoutType !='right-collapsed') &&(props.layoutType=='list-expanded' || props.layoutType=='basic-expanded' || props.layoutType=='basic-collapsed' || props.layoutType=='list-collapsed') && (  
       <div
         className={`aside`}
         id="aside"
@@ -367,19 +373,21 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             </div>)}
             
           <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
-           {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') && (   <li className="nav-section-title p-2">Overview</li>)}
+           {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') && (   <li className="nav-section-title p-2">{props.sideNavFirstListTitle}</li>)}
             {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
           </ul>
           {(props.layoutType == 'list-expanded' || props.layoutType =='list-collapsed') &&(
           <ul className="list-unstyled  pd-md-0  mb-md-0 pt-0">
-            <li className="nav-section-title p-2">Account</li>
+            <li className="nav-section-title p-2">{props.sideNavSecondListTitle}</li>
             {listTwo.length != 0 ? displayMenu(listTwo, "", 1) : ""}
           </ul>
           )}
 
         <div className="sidebar-footer text-center mt-auto mb-2">
-          <hr />
+          
           { props.layoutType =='list-collapsed' && (
+            <>
+            <hr />
             <RdsAvatar
             activeDotBottom
             avtarWithName
@@ -390,9 +398,11 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             role="Developer"
             size="large"
             titleAlign="horizontal" avatars={[]}        />
+            </>
           )}
               {props.layoutType == 'list-expanded'  && ( 
                 <>
+                <hr />
               <RdsAvatar
                   activeDotBottom
                   avtarWithName
@@ -410,6 +420,33 @@ const RdsSideNav = (props: RdsSideNavProps) => {
          
         </nav>
         </div>
+    )}
+
+
+          {props.layoutType =='right-collapsed' &&(
+            <div className="row">
+              <div  className={`aside p-2`}
+                id="aside">
+            <RdsCompTopNavigation
+              layoutType="rightSideNav"
+              brandLogo={props.brandLogo}
+              brandName={props.brandName}
+              languageItems={props.langaugeItems}
+              logo={props.brandLogo}
+              profileTitle="John D"
+              profileEmail="john.doe@raaghu.io"
+              profileName="John Doe"
+              profilePic={props.profilePic}
+              themeItems={props.themeItems || []}
+               toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
+                throw new Error("Function not implemented.");
+              }} onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
+                throw new Error("Function not implemented.");
+              }} />
+              </div>
+          </div>
+          )}
+         
     </>
   );
 };

@@ -12,7 +12,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         layoutType: {
-            options: ['basic-expanded','basic-collapsed','list-expanded','list-collapsed','right'],
+            options: ['basic-expanded','basic-collapsed','list-expanded','list-collapsed','right-collapsed'],
             control: { type: 'select' }
         },
     },
@@ -153,13 +153,13 @@ Basic.args = {
 };
 Basic.parameters = { controls: { include: ['sideNavItems','brandLogo','layoutType'] } };
 
-export const Collapased: Story = (args: any) => (
+export const Collapase: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-Collapased.args = {
+Collapase.args = {
     sideNavItems:[
         {
           icon: "home",
@@ -283,513 +283,231 @@ Collapased.args = {
     layoutType: "basic-collapsed",
 
 };
-Collapased.parameters = { controls: { include: ['sideNavItems','brandLogo','layoutType'] } };
+Collapase.parameters = { controls: { include: ['sideNavItems','brandLogo','layoutType'] } };
 
-export const List_Exapanded: Story = (args: any) => (
+export const List_Exapand: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-List_Exapanded.args = {
-    sideNavFirstListTitle:"First List",
+List_Exapand.args = {
+    sideNavFirstListTitle:"Overview",
     sideNavItemsFirstList: [
-        {
-          icon: "home",
-          key: "0",
-          label: "Home",
-          path: "/home",
-        },
+       
         {
           icon: "dashboard_new",
-          key: "1",
+          key: "0",
           label: "Dashboard",
           path: "/dashboard",
         },
-        {
-        children: [
-          {
-            icon: "tenant",
-            key: "2-0",
-            label: "Tenants",
-            path: "/tenant",
-          },
-          {
-            icon: "editions",
-            key: "2-1",
-            label: "Editions",
-            path: "/edition",
-          },
-        ],
-          icon: "saas",
-          key: "2",
-          label: "Saas",
-        },
-        {
-              children: [
-                {
-                  icon: "organization",
-                  key: "3-2-0",
-                  label: "Organization Units",
-                  path: "/organization-unit",
-                },
-                {
-                  icon: "roles",
-                  key: "3-2-1",
-                  label: "Roles",
-                  path: "/role",
-                },
-                {
-                  icon: "users",
-                  key: "3-2-2",
-                  label: "Users",
-                  path: "/user",
-                },
-                {
-                  icon: "languages",
-                  key: "3-2-3",
-                  label: "Language",
-                  path: "/language",
-                },
-                {
-                  icon: "audit_logs",
-                  key: "3-2-4",
-                  label: "Audit Logs",
-                  path: "/audit-logs",
-                },
-                {
-                  icon: "webhook_subscription",
-                  key: "3-2-5",
-                  label: "Webhook Subscriptions",
-                  path: "/webhook-subscription",
-                },
-                {
-                  icon: "maintenance",
-                  key: "3-2-6",
-                  label: "Maintenance",
-                  path: "/maintainance",
-                },
-                {
-                  icon: "visual_settings",
-                  key: "3-2-7",
-                  label: "Visual Settings",
-                  path: "/visual-setting",
-                },
-                {
-                  icon: "setting",
-                  key: "3-2-8",
-                  label: "Settings",
-                  path: "/settings",
-                },
-              ],
-              icon: "administration",
-              key: "3-2",
-              label: "Administration",
-        },
      
         {
-          icon: "file",
+          icon: "workspace",
+          key: "1",
+          label: "Workspace",
+          path: "/workspace",
+        },
+        {
+          icon: "message",
+          key: "2",
+          label: "Messages",
+          path: "/messages",
+        },
+        {
+          icon: "calendar",
+          key: "3",
+          label: "Calendar",
+          path: "/calendar",
+        },
+        {
+          icon: "activity",
           key: "4",
-          label: "File Management",
-          path: "/file-management",
+          label: "Activity",
+          path: "/activity",
         },
         {
-          icon: "forms",
-          key: "5",
-          label: "Forms",
-          path: "/file-management",
+            icon: "library",
+            key: "5",
+            label: "Library",
+            path: "/library",
+          },
+        {
+            icon: "community",
+            key: "6",
+            label: "Community",
+            path: "/community",
         },
         {
-          icon: "payment",
-          key: "7",
-          label: "Payment",
-          path: "/payment",
-        },
-        {
-          icon: "cms",
-          key: "8",
-          label: "CMS",
-          path: "/cms",
+            icon: "favorite",
+            key: "7",
+            label: "Favorites",
+            path: "/favorites",
         }
       ],
-    sideNavSecondListTitle:"First List",
+    sideNavSecondListTitle:"Account",
     sideNavItemsSecondList:[
         {
-          icon: "home",
+          icon: "chat",
           key: "0",
-          label: "Home",
-          path: "/home",
+          label: "Chat",
+          path: "/chat",
         },
         {
-          icon: "dashboard_new",
+          icon: "setting",
           key: "1",
-          label: "Dashboard",
-          path: "/dashboard",
+          label: "Settings",
+          path: "/settings",
         },
         {
-        children: [
-          {
-            icon: "tenant",
-            key: "2-0",
-            label: "Tenants",
-            path: "/tenant",
-          },
-          {
-            icon: "editions",
-            key: "2-1",
-            label: "Editions",
-            path: "/edition",
-          },
-        ],
-          icon: "saas",
-          key: "2",
-          label: "Saas",
-        },
-        {
-              children: [
-                {
-                  icon: "organization",
-                  key: "3-2-0",
-                  label: "Organization Units",
-                  path: "/organization-unit",
-                },
-                {
-                  icon: "roles",
-                  key: "3-2-1",
-                  label: "Roles",
-                  path: "/role",
-                },
-                {
-                  icon: "users",
-                  key: "3-2-2",
-                  label: "Users",
-                  path: "/user",
-                },
-                {
-                  icon: "languages",
-                  key: "3-2-3",
-                  label: "Language",
-                  path: "/language",
-                },
-                {
-                  icon: "audit_logs",
-                  key: "3-2-4",
-                  label: "Audit Logs",
-                  path: "/audit-logs",
-                },
-                {
-                  icon: "webhook_subscription",
-                  key: "3-2-5",
-                  label: "Webhook Subscriptions",
-                  path: "/webhook-subscription",
-                },
-                {
-                  icon: "maintenance",
-                  key: "3-2-6",
-                  label: "Maintenance",
-                  path: "/maintainance",
-                },
-                {
-                  icon: "visual_settings",
-                  key: "3-2-7",
-                  label: "Visual Settings",
-                  path: "/visual-setting",
-                },
-                {
-                  icon: "setting",
-                  key: "3-2-8",
-                  label: "Settings",
-                  path: "/settings",
-                },
-              ],
-              icon: "administration",
-              key: "3-2",
-              label: "Administration",
-        },
-     
-        {
-          icon: "file",
-          key: "4",
-          label: "File Management",
-          path: "/file-management",
-        },
-        {
-          icon: "forms",
+          icon: "logout",
           key: "5",
-          label: "Forms",
-          path: "/file-management",
+          label: "Logout",
+          path: "/logout",
         },
-        {
-          icon: "payment",
-          key: "7",
-          label: "Payment",
-          path: "/payment",
-        },
-        {
-          icon: "cms",
-          key: "8",
-          label: "CMS",
-          path: "/cms",
-        }
       ],
-    brandLogo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     brandLogo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     layoutType: "list-expanded",
 
 };
-List_Exapanded.parameters = { controls: { include: ['sideNavFirstListTitle','sideNavItemsFirstList','sideNavSecondListTitle', 'sideNavItemsSecondList','brandLogo','layoutType'] } };
+List_Exapand.parameters = { controls: { include: ['sideNavFirstListTitle','sideNavItemsFirstList','sideNavSecondListTitle', 'sideNavItemsSecondList','brandLogo','layoutType'] } };
 
-export const List_Collapsed: Story = (args: any) => (
+export const List_Collapse: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-List_Collapsed.args = {
-    sideNavFirstListTitle:"First List",
+List_Collapse.args = {
+    sideNavFirstListTitle:"Overview",
     sideNavItemsFirstList: [
-        {
-          icon: "home",
-          key: "0",
-          label: "Home",
-          path: "/home",
-        },
+       
         {
           icon: "dashboard_new",
-          key: "1",
+          key: "0",
           label: "Dashboard",
           path: "/dashboard",
         },
-        {
-        children: [
-          {
-            icon: "tenant",
-            key: "2-0",
-            label: "Tenants",
-            path: "/tenant",
-          },
-          {
-            icon: "editions",
-            key: "2-1",
-            label: "Editions",
-            path: "/edition",
-          },
-        ],
-          icon: "saas",
-          key: "2",
-          label: "Saas",
-        },
-        {
-              children: [
-                {
-                  icon: "organization",
-                  key: "3-2-0",
-                  label: "Organization Units",
-                  path: "/organization-unit",
-                },
-                {
-                  icon: "roles",
-                  key: "3-2-1",
-                  label: "Roles",
-                  path: "/role",
-                },
-                {
-                  icon: "users",
-                  key: "3-2-2",
-                  label: "Users",
-                  path: "/user",
-                },
-                {
-                  icon: "languages",
-                  key: "3-2-3",
-                  label: "Language",
-                  path: "/language",
-                },
-                {
-                  icon: "audit_logs",
-                  key: "3-2-4",
-                  label: "Audit Logs",
-                  path: "/audit-logs",
-                },
-                {
-                  icon: "webhook_subscription",
-                  key: "3-2-5",
-                  label: "Webhook Subscriptions",
-                  path: "/webhook-subscription",
-                },
-                {
-                  icon: "maintenance",
-                  key: "3-2-6",
-                  label: "Maintenance",
-                  path: "/maintainance",
-                },
-                {
-                  icon: "visual_settings",
-                  key: "3-2-7",
-                  label: "Visual Settings",
-                  path: "/visual-setting",
-                },
-                {
-                  icon: "setting",
-                  key: "3-2-8",
-                  label: "Settings",
-                  path: "/settings",
-                },
-              ],
-              icon: "administration",
-              key: "3-2",
-              label: "Administration",
-        },
      
         {
-          icon: "file",
+          icon: "workspace",
+          key: "1",
+          label: "Workspace",
+          path: "/workspace",
+        },
+        {
+          icon: "message",
+          key: "2",
+          label: "Messages",
+          path: "/messages",
+        },
+        {
+          icon: "calendar",
+          key: "3",
+          label: "Calendar",
+          path: "/calendar",
+        },
+        {
+          icon: "activity",
           key: "4",
-          label: "File Management",
-          path: "/file-management",
+          label: "Activity",
+          path: "/activity",
         },
         {
-          icon: "forms",
-          key: "5",
-          label: "Forms",
-          path: "/file-management",
+            icon: "library",
+            key: "5",
+            label: "Library",
+            path: "/library",
+          },
+        {
+            icon: "community",
+            key: "6",
+            label: "Community",
+            path: "/community",
         },
         {
-          icon: "payment",
-          key: "7",
-          label: "Payment",
-          path: "/payment",
-        },
-        {
-          icon: "cms",
-          key: "8",
-          label: "CMS",
-          path: "/cms",
+            icon: "favorite",
+            key: "7",
+            label: "Favorites",
+            path: "/favorites",
         }
       ],
-    sideNavSecondListTitle:"First List",
+    sideNavSecondListTitle:"Account",
     sideNavItemsSecondList:[
         {
-          icon: "home",
+          icon: "chat",
           key: "0",
-          label: "Home",
-          path: "/home",
+          label: "Chat",
+          path: "/chat",
         },
         {
-          icon: "dashboard_new",
+          icon: "setting",
           key: "1",
-          label: "Dashboard",
-          path: "/dashboard",
+          label: "Settings",
+          path: "/settings",
         },
         {
-        children: [
-          {
-            icon: "tenant",
-            key: "2-0",
-            label: "Tenants",
-            path: "/tenant",
-          },
-          {
-            icon: "editions",
-            key: "2-1",
-            label: "Editions",
-            path: "/edition",
-          },
-        ],
-          icon: "saas",
-          key: "2",
-          label: "Saas",
-        },
-        {
-              children: [
-                {
-                  icon: "organization",
-                  key: "3-2-0",
-                  label: "Organization Units",
-                  path: "/organization-unit",
-                },
-                {
-                  icon: "roles",
-                  key: "3-2-1",
-                  label: "Roles",
-                  path: "/role",
-                },
-                {
-                  icon: "users",
-                  key: "3-2-2",
-                  label: "Users",
-                  path: "/user",
-                },
-                {
-                  icon: "languages",
-                  key: "3-2-3",
-                  label: "Language",
-                  path: "/language",
-                },
-                {
-                  icon: "audit_logs",
-                  key: "3-2-4",
-                  label: "Audit Logs",
-                  path: "/audit-logs",
-                },
-                {
-                  icon: "webhook_subscription",
-                  key: "3-2-5",
-                  label: "Webhook Subscriptions",
-                  path: "/webhook-subscription",
-                },
-                {
-                  icon: "maintenance",
-                  key: "3-2-6",
-                  label: "Maintenance",
-                  path: "/maintainance",
-                },
-                {
-                  icon: "visual_settings",
-                  key: "3-2-7",
-                  label: "Visual Settings",
-                  path: "/visual-setting",
-                },
-                {
-                  icon: "setting",
-                  key: "3-2-8",
-                  label: "Settings",
-                  path: "/settings",
-                },
-              ],
-              icon: "administration",
-              key: "3-2",
-              label: "Administration",
-        },
-     
-        {
-          icon: "file",
-          key: "4",
-          label: "File Management",
-          path: "/file-management",
-        },
-        {
-          icon: "forms",
+          icon: "logout",
           key: "5",
-          label: "Forms",
-          path: "/file-management",
+          label: "Logout",
+          path: "/logout",
         },
-        {
-          icon: "payment",
-          key: "7",
-          label: "Payment",
-          path: "/payment",
-        },
-        {
-          icon: "cms",
-          key: "8",
-          label: "CMS",
-          path: "/cms",
-        }
       ],
     brandLogo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     layoutType: "list-collapsed",
 
 };
-List_Collapsed.parameters = { controls: { include: ['sideNavFirstListTitle','sideNavItemsFirstList','sideNavSecondListTitle', 'sideNavItemsSecondList','brandLogo','layoutType'] } };
+List_Collapse.parameters = { controls: { include: ['sideNavFirstListTitle','sideNavItemsFirstList','sideNavSecondListTitle', 'sideNavItemsSecondList','brandLogo','layoutType'] } };
 
+export const Right_Collapse: Story = (args: any) => (
+    <BrowserRouter>
+        <RdsSideNav {...args} />
+    </BrowserRouter>
+);
 
+Right_Collapse.args = {
+    langaugeItems:[
+        {
+          icon: "us",
+          iconHeight: "20px",
+          iconWidth: "20px",
+          label: "EN(US)",
+          val: "en",
+        },
+        {
+          icon: "in",
+          iconHeight: "20px",
+          iconWidth: "20px",
+          label: "English(IND)",
+          val: "en",
+        },
+        {
+          icon: "us",
+          iconHeight: "20px",
+          iconWidth: "20px",
+          label: "French",
+          val: "fr",
+        },
+      ],
+    profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    brandLogo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+    brandName:"Raaghu Design System",
+    layoutType: "right-collapsed",
+    themeItems:[
+        {
+          icon: "sun",
+          iconHeight: "20px",
+          iconWidth: "20px",
+          label: "Light",
+          val: "light",
+        },
+        {
+          icon: "moon",
+          iconHeight: "20px",
+          iconWidth: "20px",
+          label: "Dark",
+          val: "dark",
+        }
+    ],
+};
+Right_Collapse.parameters = { controls: { include: ['langaugeItems','profilePic','brandName','themeItems','brandLogo','layoutType'] } };
