@@ -4,7 +4,7 @@ import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
 export interface RdsCompClaimTypeProps {
    
     claimsData?: any;
-    //valueType: { option: any, value: any }[];
+    valueType: { option: any, value: any }[];
     onCancel?: any
     reset?: boolean;
     onSaveHandler?: (data: any) => void;
@@ -22,13 +22,6 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
     });
     const [isFormValid, setIsFormValid] = useState(false);
     const [inputReset, setInputReset] = useState(props.reset);
-
-    const valueTypeList= [
-        { option: "One", value: "One" },
-        { option: "Two", value: "Two" },
-        { option: "Three", value: "Three" },
-        { option: "Four", value: "Four" },
-    ];
     
     useEffect(() => {
         setInputReset(props.reset);
@@ -52,9 +45,6 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
         event.preventDefault();
         if (isFormValid) {
             props.onSaveHandler && props.onSaveHandler(formData);
-            //handleSelectChange("", "valueType");
-            // setFormData({ ...formData, valueType: "" });
-            // console.log("formData", formData);
 
             setFormData({
                 name: "",
@@ -71,7 +61,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
 
     return (
         <>
-         <div className="custom-content-scroll">
+            <div className="custom-content-scroll">
                 <div className="row">
                     <div className="col-md-12">
                         <RdsInput
@@ -103,7 +93,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             id="idenval"
                             label="Value Type"
                             placeholder="Select Value Type"
-                            selectItems= {valueTypeList}
+                            selectItems= {props.valueType}
                             selectedValue={formData?.valueType}
                             onChange= {(item: any) =>{handleSelectChange(item.value, "valueType");}}
                             dataTestId="value-type"
