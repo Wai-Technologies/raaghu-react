@@ -21,6 +21,19 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
+            control: { type: "select" },
+        },
         size: {
             options: ["smallest","small", "medium", "large","largest"],
             control: { type: "radio" },
@@ -109,18 +122,19 @@ export const Avatar_Only: Story = {
         avtarWithName: false,
         activeDotTop: true,
         activeDotBottom: true,
+        activityChain : true,
         nameOnBottom: false,
         stackingAvatar: false,
         firstName: "Wai",
         lastName: "Technologies",
         titleAlign: "horizontal",
         role: "Developer",
-        //colorVariant: "primary",
+        colorVariant: "primary",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','activeDotTop','activeDotBottom'] } };
+Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
 
 export const Avatar_With_Name: Story = {
     args: {
@@ -130,18 +144,19 @@ export const Avatar_With_Name: Story = {
         avtarWithName: true,
         activeDotTop: true,
         activeDotBottom: true,
+        activityChain : true,
         nameOnBottom: false,
         stackingAvatar: false,
         firstName: "Wai",
         lastName: "Technologies",
         titleAlign: "horizontal",
         role: "Developer",
-        //colorVariant: "primary",
+        colorVariant: "primary",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','activeDotTop','activeDotBottom'] } };
+Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
 
 export const Name_On_Bottom: Story = {
     args: {
@@ -151,18 +166,19 @@ export const Name_On_Bottom: Story = {
         avtarWithName: false,
         activeDotTop: true,
         activeDotBottom: true,
+        activityChain : true,
         nameOnBottom: true,
         stackingAvatar: false,
         firstName: "Wai",
         lastName: "Technologies",
         titleAlign: "horizontal",
         role: "Developer",
-        //colorVariant: "primary",
+        colorVariant: "primary",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Name_On_Bottom.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','activeDotTop','activeDotBottom'] } };
+Name_On_Bottom.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
 
 const avatars = [
     // Example avatars data

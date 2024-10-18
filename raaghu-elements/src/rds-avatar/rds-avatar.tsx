@@ -29,6 +29,7 @@ export interface RdsAvatarProps {
     activeDotTop?: boolean;
     activeDotBottom?: boolean;
     maxVisibleAvatars?: number;
+    activityChain?: boolean;
 }
 
 const RdsAvatar = (props: RdsAvatarProps) => {
@@ -66,11 +67,11 @@ const RdsAvatar = (props: RdsAvatarProps) => {
         }
         if ((props.avtarOnly || props.avtarWithName || props.nameOnBottom)&& !props.stackingAvatar) {
 
-            classes += " rounded-circle border border-2 border-primary ";
+            classes += ` rounded-circle ${props.activityChain ? 'border border-2' : ""} border-${props.activityChain ? props.colorVariant  : ""} `;
         }
         if (props.avtarOnly || props.avtarWithName || props.nameOnBottom ||props.stackingAvatar) {
 
-            classes += " rounded-circle border border-2 ";
+            classes += " rounded-circle ";
         }
         return classes.trim();
     }
@@ -205,10 +206,11 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                             src={withPP}
                             className={classes()}
                             alt="profile-default"
+                            style={{padding:'2px'}}
                         />
                         
-                       {props.activeDotTop && (  <div className={`dot ${props.size === 'smallest' ? 'top-dot-smallest' : props.size === 'small' ? 'top-dot-sm' : props.size === 'medium' ? 'top-dot-md' : props.size === 'large' ? 'top-dot-lg' : props.size === 'largest' ? 'top-dot-largest' : ''} bg-primary`}></div>)}
-                       {props.activeDotBottom && (  <div className={`dot ${props.size === 'smallest' ? 'bottom-dot-smallest' : props.size === 'small' ? 'bottom-dot-sm' : props.size === 'medium' ? 'bottom-dot-md' : props.size === 'large' ? 'bottom-dot-lg' : props.size === 'largest' ? 'bottom-dot-largest' : ''} bg-primary`}></div>)}                       
+                       {props.activeDotTop && (  <div className={`dot ${props.size === 'smallest' ? 'top-dot-smallest' : props.size === 'small' ? 'top-dot-sm' : props.size === 'medium' ? 'top-dot-md' : props.size === 'large' ? 'top-dot-lg' : props.size === 'largest' ? 'top-dot-largest' : ''} bg-${props.colorVariant}`}></div>)}
+                       {props.activeDotBottom && (  <div className={`dot ${props.size === 'smallest' ? 'bottom-dot-smallest' : props.size === 'small' ? 'bottom-dot-sm' : props.size === 'medium' ? 'bottom-dot-md' : props.size === 'large' ? 'bottom-dot-lg' : props.size === 'largest' ? 'bottom-dot-largest' : ''} bg-${props.colorVariant}`}></div>)}                       
                     </div>
                     {avtarWithName && (
                          <span className={`avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${props.size === 'smallest' ? 'textTopSmall' : props.size === 'small' ? 'textTopSm' : props.size === 'medium' ? 'textTopMd' : props.size === 'large' ? 'textTopLg' : props.size === 'largest' ? 'textTopLarge' : ''}` + profileName()} >
@@ -235,10 +237,11 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                             src={withPP}
                                 className={classes()}
                                 alt="profile-default"
+                                style={{padding:'2px'}}
                     
                             />
-                            {props.activeDotTop && (  <div className={`dot ${props.size === 'smallest' ? 'top-dot-smallest-name-on-top' : props.size === 'small' ? 'top-dot-sm-name-on-top' : props.size === 'medium' ? 'top-dot-md-name-on-top' : props.size === 'large' ? 'top-dot-lg-name-on-top' : props.size === 'largest' ? 'top-dot-largest-name-on-bottom' : ''} bg-primary`}></div>)}
-                            {props.activeDotBottom && (  <div className={`dot ${props.size === 'smallest' ? 'bottom-dot-smallest-name-on-bottom' : props.size === 'small' ? 'bottom-dot-sm-name-on-bottom' : props.size === 'medium' ? 'bottom-dot-md-name-on-bottom' : props.size === 'large' ? 'bottom-dot-lg-name-on-bottom' : props.size === 'largest' ? 'bottom-dot-largest-name-on-bottom' : ''} bg-primary`}></div>)}               
+                            {props.activeDotTop && (  <div className={`dot ${props.size === 'smallest' ? 'top-dot-smallest-name-on-top' : props.size === 'small' ? 'top-dot-sm-name-on-top' : props.size === 'medium' ? 'top-dot-md-name-on-top' : props.size === 'large' ? 'top-dot-lg-name-on-top' : props.size === 'largest' ? 'top-dot-largest-name-on-bottom' : ''} bg-${props.colorVariant}`}></div>)}
+                            {props.activeDotBottom && (  <div className={`dot ${props.size === 'smallest' ? 'bottom-dot-smallest-name-on-bottom' : props.size === 'small' ? 'bottom-dot-sm-name-on-bottom' : props.size === 'medium' ? 'bottom-dot-md-name-on-bottom' : props.size === 'large' ? 'bottom-dot-lg-name-on-bottom' : props.size === 'largest' ? 'bottom-dot-largest-name-on-bottom' : ''} bg-${props.colorVariant}`}></div>)}               
                             <span className={`avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${props.size === 'smallest' ? 'textTopSmall' : props.size === 'small' ? 'textTopSm' : props.size === 'medium' ? 'textTopMd' : props.size === 'large' ? 'textTopLg' : props.size === 'largest' ? 'textTopLarge' : ''}` + profileName()} >        
                             <h5 className="card-title mb-1 fw-bold mt-2">{titleFirstName}{titleLastName}</h5>
                             <p className="card-text text-muted">{titleRole}</p>
