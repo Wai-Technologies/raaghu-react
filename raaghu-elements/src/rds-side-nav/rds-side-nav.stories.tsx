@@ -323,7 +323,7 @@ List_Exapand.args = {
           path: "/workspace",
         },
         {
-          icon: "message",
+          icon: "mail_send_envolope",
           key: "2",
           label: "Messages",
           path: "/messages",
@@ -417,7 +417,7 @@ List_Collapse.args = {
         path: "/workspace",
       },
       {
-        icon: "message",
+        icon: "mail_send_envolope",
         key: "2",
         label: "Messages",
         path: "/messages",

@@ -40,6 +40,7 @@ export interface RdsDropdownListProps {
   showIcon?: boolean;
   isCode?: boolean;
   block?: boolean;
+  isHideChevron?: boolean;
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
@@ -286,7 +287,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         )}
 
                       {props.isPlaceholder == true && (
-                        <span className="fs-6 flex-grow-1 text-nowrap dw-placeholder">
+                        <span className="fs-6 flex-grow-1 text-nowrap">
                           {props.placeholder}
                         </span>
                       )}
@@ -397,13 +398,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       clickedOnDropDown();
                     }}
                   >
-                    <RdsIcon
+                   {!props.isHideChevron  &&( <RdsIcon
                       name={expand ? "chevron_up" : "chevron_down"}
                       fill={false}
                       stroke={true}
                       height="11px"
                       width="11px"
-                    ></RdsIcon>
+                    ></RdsIcon>)}
                   </span>
                 )}
               </div>

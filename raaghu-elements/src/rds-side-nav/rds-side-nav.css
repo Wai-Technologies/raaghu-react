@@ -38,3 +38,9 @@
     display: block;
     transition: all 0.5s;
 }
+.input-group-text .search {
+    background-color: #fff !important;
+    border: none !important;
+    z-index: 1 !important;
+
+}

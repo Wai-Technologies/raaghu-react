@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
 import RdsDropdownList from "../rds-dropdown-list";
+import Tooltip from "../rds-tooltip/rds-tooltip";
 export interface RdsSideNavProps {
   isChatPermission?: boolean;
   sideNavItems?: any;
@@ -49,10 +50,13 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   const [isShowTwo, setShowTwo] = useState(false);
   const [isOnNavigate, setOnNavigate] = useState(false);
   const mainMenu = (props.sideNavItems || props.listOne) || [];
-  const listTwo = props.listSecond || [];
-
+  const subList = props.listSecond || [];
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const labelObj: any = {};
   const [hoveredItem, setHoveredItem] = useState("");
+  const [layoutType, setLayoutType] = useState(props.layoutType);
+  const [listCollapse, setListCollapse] = useState(false);
+
 
   mainMenu.forEach((item: any) => {
     labelObj[item.key] = false;
@@ -61,12 +65,13 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   const currentPath = window.location.pathname;
 
   const onCollapse = () => {
-    if (!isLocked) {
+    debugger
       // Only toggle if not locked
+      const list = listCollapse ? false : true;
+       setListCollapse(list);
       setcollapse(!collapse);
       localStorage.setItem("isMenuCollapse", !collapse + "");
       setMenuHover(collapse);
-    }
   };
 
   useEffect(() => {
@@ -80,10 +85,10 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   }, [window.location.pathname]);
 
   useEffect(() => {
-    if (props.layoutType === "basic-expanded" || props.layoutType === "list-expanded") {
+    if (layoutType === "basic-expanded" || layoutType === "list-expanded") {
       setcollapse(false);
     }
-  }, [props.layoutType]);
+  }, [layoutType]);
 
   const setIsShown = (event: boolean) => {
     if (!isLocked) {
@@ -285,7 +290,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   type="lottie"
                   isHovered={hoveredItem === item.key}
                   tooltipTitle={item.label}
-                  tooltip={(props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed" ) ? true : false}
+                  tooltip={(layoutType === "basic-collapsed" || layoutType === "list-collapsed" ||collapse) ? true : false}
                   tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
@@ -298,7 +303,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   width="20px"
                   classes="me-2 "
                   tooltipTitle={item.label}
-                  tooltip={(props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed" ) ? true : false}
+                  tooltip={(layoutType === "basic-collapsed" || layoutType === "list-collapsed" ||collapse) ? true : false}
                   tooltipPlacement="auto"
 
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
@@ -346,32 +351,36 @@ const RdsSideNav = (props: RdsSideNavProps) => {
       props.onClickThemeCheck(e, val);
     }
   };
-
+  const handleSerachIconClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
   return (
     <>
     
-    {(props.layoutType !="right-collapsed") &&(props.layoutType=="list-expanded" || props.layoutType=="basic-expanded" || props.layoutType=="basic-collapsed" || props.layoutType=="list-collapsed") && (  
+    {(layoutType !="right-collapsed") &&(layoutType=="list-expanded" || layoutType=="basic-expanded" || layoutType=="basic-collapsed" || layoutType=="list-collapsed") && (  
       <div
         className={`aside`}
         id="aside"
-        onMouseEnter={() => (props.layoutType === "basic-collapsed" || props.layoutType === "list-collapsed") ? setIsShown(false) : setIsShown(true)}
-        onMouseLeave={() => (props.layoutType == "basic-expanded" || props.layoutType === "list-expanded") ? setIsShown(true) : setIsShown(false)}
+        onMouseEnter={() => (layoutType === "basic-collapsed" || layoutType === "list-collapsed") ? setIsShown(false) : setIsShown(true)}
+        onMouseLeave={() => (layoutType == "basic-expanded" || layoutType === "list-expanded") ? setIsShown(true) : setIsShown(false)}
       >
         <div
-          className={` ${props.layoutType=='list-expanded' ?'sidenav-footer':''}  text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
+          className={` ${layoutType=="list-expanded" ? "sidenav-footer bg-light":""}  text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center${
             props.toggleClass ? " show" : " hide"
-          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
+          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`} style={{right:`${(layoutType=="list-expanded" && !collapse) ? "-160px":"-15px"} `}}
         >
-         { props.layoutType=='list-expanded'  && ( <span className="collpase-button cursor-pointer d-flex lock-icon">
+         { layoutType=="list-expanded"  && ( <span className="collpase-button cursor-pointer d-flex">
           <RdsIcon
-              name={!isLocked ? "unlock" : "lock_nav"}
-              height="21px"
-              width="21px"
+              name={!collapse ? "chevron_left" : "chevron_right"}
+              height="15px"
+              width="15px"
               stroke={true}
               fill={false}
-              strokeWidth="1.2"
-              colorVariant="white"
-              onClick={() => setIsLocked(!isLocked)}
+              strokeWidth="1.8"
+              colorVariant="dark"
+              onClick={() => onCollapse()}
             ></RdsIcon>
           </span>)}
         </div>
@@ -388,28 +397,70 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                     <img className="cursor-pointer sidenav-mobile-logo p-1" src={props.brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
                   </li>
           </ul>
-          {(props.layoutType == "list-expanded" || props.layoutType =="list-collapsed") &&( <div className="sidebar-search px-3 mb-4">
-              <input
-                type="text"
-                placeholder="Search"
-                className="form-control "
-              />
-            </div>)}
+          {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+            <div className={`sidebar-search  mb-4 ${(layoutType=="list-expanded" && !collapse )? "px-3":"px-1"}`}>
+              <div className="input-group" style={{ border: "1px solid #ccc", borderRadius: "5px", overflow: "hidden" }}>
+                <input
+                  type="text"
+                  placeholder={`${layoutType=="list-expanded" ? "Search":""}`}
+                  className="form-control"
+                  style={{ border: "none", boxShadow: "none" }}
+                  ref={inputRef}
+                />
+                <div className="input-group-append cursor-pointer" style={{zIndex:"1"}} onClick={handleSerachIconClick}>
+                  <span className="input-group-text search " style={{ backgroundColor: "white", border: "none",marginTop:`${(layoutType=="list-collapsed" || collapse)? "-30px":"0px"}`}}>
+                    <RdsIcon
+                      name="search"
+                      width="16px"
+                      height="16px"
+                      colorVariant="dark"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
             
           <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
-           {(props.layoutType == "list-expanded" || props.layoutType =="list-collapsed") && (   <li className="nav-section-title p-2">{props.listOneTitle}</li>)}
+           {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+          <li className="nav-section-title p-2">
+            {(layoutType == "list-collapsed" || listCollapse) ? (
+               <Tooltip text={props.listOneTitle} place="auto">
+                 {( props.listOneTitle &&<span className="truncated-text">
+                 { props.listOneTitle.length > 4 ? `${props.listOneTitle.substring(0, 4)}...` : props.listOneTitle}
+                </span>)}
+              </Tooltip>
+            ) : (
+              props.listOneTitle
+            )}
+          </li>
+           )}
             {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
           </ul>
-          {(props.layoutType == "list-expanded" || props.layoutType =="list-collapsed") &&(
-          <ul className="list-unstyled  pd-md-0  mb-md-0 pt-0">
-            <li className="nav-section-title p-2">{props.listTwoTitle}</li>
-            {listTwo.length != 0 ? displayMenu(listTwo, "", 1) : ""}
-          </ul>
+
+          {(layoutType == "list-expanded" || layoutType =="list-collapsed") &&(
+          <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
+          {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+         <li className="nav-section-title p-2">
+           {(layoutType == "list-collapsed" || listCollapse) ? (
+              <Tooltip text={props.listTwoTitle} place="auto">
+                {( props.listTwoTitle &&<span className="truncated-text">
+                { props.listTwoTitle.length > 4 ? `${props.listTwoTitle.substring(0, 4)}...` : props.listTwoTitle}
+               </span>)}
+             </Tooltip>
+           ) : (
+             props.listTwoTitle
+           )}
+         </li>
+          )}
+           {subList.length != 0 ? displayMenu(subList, "", 1) : ""}
+         </ul>
           )}
 
         <div className="sidebar-footer text-center mt-auto mb-2">
           
-          { props.layoutType =="list-collapsed" && (
+          { layoutType == "list-collapsed"  && (
             <>
             <hr />
             <RdsAvatar
@@ -424,7 +475,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                  />
             </>
           )}
-              {props.layoutType == 'list-expanded'  && ( 
+              {layoutType == 'list-expanded'  && ( 
                 <>
                 <hr />
                 <RdsAvatar
@@ -449,7 +500,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     )}
 
 
-    { props.layoutType =='right-collapsed' &&(
+    { layoutType =='right-collapsed' &&(
        <div>
        <nav className="w-25">
          <div className="d-flex flex-column align-items-center right-side-menu shadow w-25 pt-2">
@@ -483,6 +534,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                tooltipTitle={"Select Language"}
                tooltipPlacement="bottom"
                isCode={true}
+               isHideChevron
              ></RdsDropdownList>
              <div className="d-block d-none fs-8 text-center">Language</div>
            </div>
