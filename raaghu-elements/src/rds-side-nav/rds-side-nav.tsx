@@ -4,7 +4,7 @@ import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
 import RdsDropdownList from "../rds-dropdown-list";
 export interface RdsSideNavProps {
-  isChatPermission: string;
+  isChatPermission?: boolean;
   sideNavItems?: any;
   collapse?: boolean;
   toggleClass?: boolean;

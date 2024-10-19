@@ -551,6 +551,7 @@ Right_Collapse.args = {
         iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
       },
     ],
+    isChatPermission: true,
     layoutType: "right-collapsed",
 
 };
