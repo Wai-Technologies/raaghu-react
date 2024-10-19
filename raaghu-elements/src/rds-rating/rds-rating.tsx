@@ -81,7 +81,7 @@ const RdsRating = (props: RdsRatingProps) => {
   const primaryColor =
     props.colorVariant === 'primary' ? '#7e2eef' :
     props.colorVariant === 'success' ? '#24993A' :
-    props.colorVariant === 'danger' ? '#dc3545' :
+    props.colorVariant === 'danger' ? '#E02D30' :
     props.colorVariant === 'warning' ? '#EA6C0C' :
     props.colorVariant === 'light' ? '#f8f9fa' :
     props.colorVariant === 'info' ? '#3ef1e8' :
@@ -106,6 +106,56 @@ const RdsRating = (props: RdsRatingProps) => {
 
     return background;
   };
+ 
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= totalStars; i++) {
+      if (i <= rating) {
+        stars.push(
+          <RdsIcon
+          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          fill={true}
+          stroke={false}
+          name="star"
+          colorVariant="review"
+
+            classes={`me-2 star filled text-${props.colorVariant}`}
+            onClick={() => handleRating(i)}
+          />
+        );
+      } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+        stars.push(
+          <RdsIcon
+          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          fill={true}
+          stroke={false}
+          colorVariant="review"
+
+            name={props.style ==="outline" ? "starhalf_outline" : "starhalf"}
+            classes={`me-2 star filled text-${props.colorVariant}`}
+            onClick={() => handleRating(i)}
+          />
+        );
+      } else {
+        stars.push(
+          <RdsIcon
+          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+          fill={false}
+          stroke={false}
+          colorVariant="review"
+            name={props.style ==="outline" ? "starempty_outline" : "starempty"}
+            classes={`me-2 star empty ${props.colorVariant}`}
+            onClick={() => handleRating(i)}
+          />
+        );
+      }
+    }
+    return stars;
+  };
+
 
   return (
     <>
@@ -114,24 +164,7 @@ const RdsRating = (props: RdsRatingProps) => {
           {!props.outline && !props.filled && !props.defaultSlider && (
             <span className="fs-5 me-2 mt-2">{rating}</span>
           )}
-          {[...Array(totalStars)].map((_, i) => (
-            <RdsIcon
-              key={i}
-              height={
-                props.size === "small" ? "14px" : props.size === "large" ? "22px" : "19px"
-              }
-              width={
-                props.size === "small" ? "14px" : props.size === "large" ? "22px" : "19px"
-              }
-              fill={true}
-              stroke={false}
-              name="star"
-              colorVariant="review"
-              classes={`${i < rating ? `on text-${props.colorVariant}` : "off"}`}
-              onClick={() => handleRating(i + 1)}
-              isCursorPointer={true}
-            />
-          ))}
+          {renderStars()}
           {!props.outline && !props.filled && !props.defaultSlider && (
             <span className="fs-6 mt-1"> See all {props.noOfReviews} review </span>
           )}
@@ -150,7 +183,7 @@ const RdsRating = (props: RdsRatingProps) => {
             style={{
               background: getBackgroundStyle(),
               '--thumb-color': primaryColor,
-            }}
+            } as React.CSSProperties}
             className="slider rounded"
           />
           <div className="labels">
