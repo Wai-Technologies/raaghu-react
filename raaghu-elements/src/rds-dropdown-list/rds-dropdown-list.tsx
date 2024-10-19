@@ -28,14 +28,7 @@ export interface RdsDropdownListProps {
   databstoggle?: string;
   ariacontrols?: string;
   size?: string;
-  listItems: {
-    label: string;
-    val: string;
-    icon?: string;
-    iconWidth?: string;
-    iconHeight?: string;
-    iconPath?: string;
-  }[];
+  listItems: any;
 
   multiSelect?: boolean;
   xOffset?: string;

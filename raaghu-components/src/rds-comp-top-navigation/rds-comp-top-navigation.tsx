@@ -48,7 +48,6 @@ export interface RdsCompTopNavigationProps {
   isChatPermission?: any;
   showUserName?: boolean;
   navbarSubTitle?: any;
-  layoutType?: string;
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -125,7 +124,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   }, [props.breacrumItem]);
 
   const [profilePic, setProfilePic] = useState(
-    props.profilePic || "./assets/profile-picture-circle.svg"
+    "./assets/profile-picture-circle.svg"
   );
   useEffect(() => {
     if (props.profilePic) {
@@ -206,8 +205,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   };
 
   return (
-    <>
-   {props.layoutType != "rightSideNav" &&( <div >
+    <div >
       <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
         <div
           onClick={handlerLogoClick}
@@ -431,178 +429,6 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
         </div>
       </nav>
     </div>
-   )}
-
-    {props.layoutType=="rightSideNav" &&(
-      <div>
-      <nav className="">
-        <button
-          className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-          type="button"
-          onClick={props.onClickHamburger}
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="d-flex flex-column align-items-center right-side-menu">
-          <div className="px-2 px-md-3 d-none d-lg-block mb-3">
-            <RdsOffcanvas
-              className="pb-0"
-              placement="end"
-              offcanvaswidth={307}
-              offId="Profile"
-              offcanvasbutton={
-                <div className="d-flex align-items-center cursorpointer">
-                  <img
-                    className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                    src={profilePic}
-                  ></img>
-                </div>
-              }
-              backDrop={true}
-              scrolling={false}
-              preventEscapeKey={false}
-              canvasTitle={""}
-            >
-              <RdsCompProfile
-                navtabItems={navtabItems}
-                profilePic={profilePic}
-                userName={props.profileTitle}
-                userEmail={props.profileEmail}
-                userRole={props.tenantName}
-                onLogout={props.onLogout}
-                isImpersonation={props.isImpersonation}
-                backToMyAccount={props.backToMyAccount}
-                onProfileLink={profileLinkListHandler}
-                showUserName={true}
-              ></RdsCompProfile>
-            </RdsOffcanvas>
-          </div>
-        
-          <div
-            className={`position-relative px-2 px-md-3 mb-3 
-            }  col text-center d-flex align-items-center language`}
-          >
-            <RdsDropdownList
-              placeholder={"EN"}
-              icon={props.languageIcon}
-              iconFill={false}
-              iconStroke={false}
-              isPlaceholder={true}
-              id={"languageDropdown"}
-              listItems={languageItems}
-              showIcon={false}
-              onClick={onClickHandler}
-              tooltip={true}
-              tooltipTitle={"Select Language"}
-              tooltipPlacement="bottom"
-              isCode={true}
-            ></RdsDropdownList>
-            <div className="d-block d-none fs-8 text-center">Language</div>
-          </div>
-          <div
-            className={`position-relative px-2 px-md-3 mb-3 col ${
-              currentPath != "/" 
-            }  ${
-              props.isChatPermission && "border-end-custom"
-            } border-2 d-flex justify-content-center align-items-center text-center`}
-          >
-            <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
-              <span className="cursor-pointer" onClick={props.chatsHandler}>
-                <RdsIcon
-                  iconPath={
-                    "./assets/lottie-files/outlined/dual-color/chatting.json"
-                  }
-                  tooltip={true}
-                  tooltipTitle={"Chat"}
-                  tooltipPlacement="bottom"
-                  width="28px"
-                  height="28px"
-                  type="lottie"
-                  isHovered
-                ></RdsIcon>
-              </span>
-            </div>
-          </div>
-      
-          <div className="d-block d-none fs-8 text-center">Chat</div>
-      
-          <div
-            className={`position-relative px-2 px-md-3 d-flex
-            } justify-content-center d-lg-none d-md-none col text-center  border-2 align-items-center`}
-          >
-            <div className="rounded-circle mbhome bg-primary">
-              <RdsIcon
-                name="home"
-                fill={false}
-                stroke={true}
-                height="18px"
-                width="18px"
-                colorVariant="light"
-                onClick={props.mobileViewLogoClick}
-              ></RdsIcon>
-            </div>
-          </div>
-          <div className="position-relative px-2 px-md-3 col text-center mb-3">
-            <RdsDropdownList
-              iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
-              labelIconWidth="30px"
-              labelIconHeight="26px"
-              isIconPlaceholder={true}
-              isPlaceholder={false}
-              placeholder={"/assets/lottie-files/outlined/dual-color/sun.json"}
-              id={"themeDropdown"}
-              listItems={themeItems}
-              onClick={onClicktheme}
-              showIcon={true}
-              tooltip={true}
-              tooltipTitle={"Select Theme"}
-              tooltipPlacement="bottom"
-            />
-            <div className="d-block d-none fs-8 text-center">Light</div>
-          </div>
-         
-      
-          <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
-            <RdsOffcanvas
-              className="pb-5 m-auto"
-              placement="end"
-              offcanvaswidth={307}
-              offId="Profile1"
-              offcanvasbutton={
-                <div className="d-flex align-items-center justify-content-center cursorpointer">
-                  <img
-                    className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                    src={profilePic}
-                  ></img>
-                </div>
-              }
-              backDrop={true}
-              scrolling={false}
-              preventEscapeKey={false}
-              canvasTitle={""}
-            >
-              <RdsCompProfile
-                navtabItems={navtabItems}
-                profilePic={profilePic}
-                userName={props.profileTitle}
-                userEmail={props.profileEmail}
-                userRole={props.tenantName}
-                onProfileLink={profileLinkListHandler}
-                onLogout={props.onLogout}
-                isImpersonation={props.isImpersonation}
-                backToMyAccount={props.backToMyAccount}
-                showUserName={true}
-              ></RdsCompProfile>
-            </RdsOffcanvas>
-      
-            <div className="d-block d-none fs-8 text-center">Profile</div>
-          </div>
-        </div>
-      </nav>
-      </div>
-    )}
-   </>
-
   );
 };
 
