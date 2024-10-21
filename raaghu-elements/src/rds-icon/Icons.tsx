@@ -51,6 +51,14 @@ export const Icons: any = {
     "<svg id=\"a\" viewBox=\"0 0 12 21\"><path class=\"icon\" d=\"M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5\"/></svg>",
     chevron_left:
     "<svg id=\"a\" viewBox=\"0 0 12 21\"><path class=\"icon\" d=\"M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462\"/></svg>",
+     chevron_up_outline:
+    `<svg id="uuid-chevron_up_outline-icon" viewBox="0 0 17 17" class="icon">
+    <path d="M13 7L7.3228 1.14409C7.28898 1.10157 7.24351 1.06635 7.19015 1.04134C7.13679 1.01634 7.07707 1.00225 7.01589 1.00025C6.95472 0.998246 6.89386 1.00839 6.83831 1.02983C6.78276 1.05127 6.73412 1.08341 6.6964 1.12359L6.6766 1.14409L1 7" stroke="#A875FF" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+    chevron_down_outline:
+    `<svg id="uuid-chevron_down_outline-icon" viewBox="0 0 17 17" class="icon">
+    <path d="M1 3L6.6772 8.85589C6.71103 8.89842 6.75649 8.93364 6.80985 8.95864C6.86321 8.98365 6.92293 8.99775 6.9841 8.99975C7.04528 9.00175 7.10614 8.99162 7.16169 8.97018C7.21724 8.94874 7.26588 8.91658 7.3036 8.8764L7.3234 8.85589L13 3" stroke="#7825E9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
     chevron_up:
     "<svg id=\"a\" viewBox=\"0 0 21 12\"><path class=\"icon\" d=\"M20.5,11.5L11.038,.764c-.279-.337-.746-.354-1.044-.038-.011,.012-.022,.025-.033,.038L.5,11.5\"/></svg>",
     circle:
