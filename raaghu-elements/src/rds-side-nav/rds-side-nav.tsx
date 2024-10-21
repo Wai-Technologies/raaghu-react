@@ -1,13 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
-
+import RdsAvatar from "../rds-avatar";
+import RdsDropdownList from "../rds-dropdown-list";
+import Tooltip from "../rds-tooltip/rds-tooltip";
 export interface RdsSideNavProps {
-  sideNavItems: any;
-  toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
+  isChatPermission?: boolean;
+  sideNavItems?: any;
   collapse?: boolean;
   toggleClass?: boolean;
+  brandLogo?: string;
+  layoutType?: string;
+  listOneTitle?: string;
+  listOne?: any;
+  listTwoTitle?: string;
+  listSecond?: any;
+  profilePic?: string;
+  brandName?: string;
+  langaugeItems?: any[];
+  themeItems?: any[];
+  profileFirstName?: string;
+  profileLastName?: string;
+  profileEmail?: string;
+  profileTitle?: string;
+  role?: string;
+  profileSize?: "smallest" | "small" | "large" | "medium" | "largest";
+  colorVariantForActiveDot?: "primary" | "success" | "danger" | "warning" | "light" | "info" | "secondary" | "dark";
+  onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
+  toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
+  onClickThemeCheck?: (
+    event: React.MouseEvent<HTMLLIElement>,
+    val: string
+  ) => void;
+    chatsHandler?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
+    mobileViewLogoClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
+
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -22,22 +49,29 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   const [isShowOne, setShowOne] = useState(false);
   const [isShowTwo, setShowTwo] = useState(false);
   const [isOnNavigate, setOnNavigate] = useState(false);
-  const mainMenu = props.sideNavItems;
+  const mainMenu = (props.sideNavItems || props.listOne) || [];
+  const subList = props.listSecond || [];
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const labelObj: any = {};
   const [hoveredItem, setHoveredItem] = useState("");
+  const [layoutType, setLayoutType] = useState(props.layoutType);
+  const [listCollapse, setListCollapse] = useState(false);
+
 
   mainMenu.forEach((item: any) => {
     labelObj[item.key] = false;
   });
   const [hoverState, setHoverState] = useState(labelObj);
+  const currentPath = window.location.pathname;
 
   const onCollapse = () => {
-    if (!isLocked) {
+    debugger
       // Only toggle if not locked
+      const list = listCollapse ? false : true;
+       setListCollapse(list);
       setcollapse(!collapse);
       localStorage.setItem("isMenuCollapse", !collapse + "");
       setMenuHover(collapse);
-    }
   };
 
   useEffect(() => {
@@ -49,6 +83,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
       setMenuClick(false);
     }
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (layoutType === "basic-expanded" || layoutType === "list-expanded") {
+      setcollapse(false);
+    }
+  }, [layoutType]);
 
   const setIsShown = (event: boolean) => {
     if (!isLocked) {
@@ -249,6 +289,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   classes="me-2"
                   type="lottie"
                   isHovered={hoveredItem === item.key}
+                  tooltipTitle={item.label}
+                  tooltip={(layoutType === "basic-collapsed" || layoutType === "list-collapsed" ||collapse) ? true : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               ) : (
@@ -259,6 +302,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   height="20px"
                   width="20px"
                   classes="me-2 "
+                  tooltipTitle={item.label}
+                  tooltip={(layoutType === "basic-collapsed" || layoutType === "list-collapsed" ||collapse) ? true : false}
+                  tooltipPlacement="auto"
 
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
@@ -295,32 +341,48 @@ const RdsSideNav = (props: RdsSideNavProps) => {
       </>
     ));
   };
-
+  const onClickHandler = (e: any, val: any) => {
+    if (props.onClick) {
+      props.onClick(e, val);
+    }
+  };
+  const onClicktheme = (e: any, val: string) => {
+    if (props.onClickThemeCheck) {
+      props.onClickThemeCheck(e, val);
+    }
+  };
+  const handleSerachIconClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
   return (
     <>
+    
+    {(layoutType !="right-collapsed") &&(layoutType=="list-expanded" || layoutType=="basic-expanded" || layoutType=="basic-collapsed" || layoutType=="list-collapsed") && (  
       <div
         className={`aside`}
         id="aside"
-        onMouseEnter={() => setIsShown(true)}
-        onMouseLeave={() => setIsShown(false)}
+        onMouseEnter={() => (layoutType === "basic-collapsed" || layoutType === "list-collapsed") ? setIsShown(false) : setIsShown(true)}
+        onMouseLeave={() => (layoutType == "basic-expanded" || layoutType === "list-expanded") ? setIsShown(true) : setIsShown(false)}
       >
         <div
-          className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
+          className={` ${layoutType=="list-expanded" ? "sidenav-footer bg-light":""}  text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center${
             props.toggleClass ? " show" : " hide"
-          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
+          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`} style={{right:`${(layoutType=="list-expanded" && !collapse) ? "-160px":"-15px"} `}}
         >
-          <span className="collpase-button cursor-pointer d-flex lock-icon">
-            <RdsIcon
-              name={!isLocked ? "unlock" : "lock_nav"}
-              height="21px"
-              width="21px"
+         { layoutType=="list-expanded"  && ( <span className="collpase-button cursor-pointer d-flex">
+          <RdsIcon
+              name={!collapse ? "chevron_left" : "chevron_right"}
+              height="15px"
+              width="15px"
               stroke={true}
               fill={false}
-              strokeWidth="1.2"
-              colorVariant="white"
-              onClick={() => setIsLocked(!isLocked)}
+              strokeWidth="1.8"
+              colorVariant="dark"
+              onClick={() => onCollapse()}
             ></RdsIcon>
-          </span>
+          </span>)}
         </div>
         <nav
           id="sidebar"
@@ -330,11 +392,233 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             collapse ? "toggle-sidebar-menu show" : "toggle"
           }`}
         >
-          <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3">
+          <ul className="list-unstyled pt-3 ">
+                  <li className="nav-logo">
+                    <img className="cursor-pointer sidenav-mobile-logo p-1" src={props.brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
+                  </li>
+          </ul>
+          {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+            <div className={`sidebar-search  mb-4 ${(layoutType=="list-expanded" && !collapse )? "px-3":"px-1"}`}>
+              <div className="input-group" style={{ border: "1px solid #ccc", borderRadius: "5px", overflow: "hidden" }}>
+                <input
+                  type="text"
+                  placeholder={`${layoutType=="list-expanded" ? "Search":""}`}
+                  className="form-control"
+                  style={{ border: "none", boxShadow: "none" }}
+                  ref={inputRef}
+                />
+                <div className="input-group-append cursor-pointer" style={{zIndex:"1"}} onClick={handleSerachIconClick}>
+                  <span className="input-group-text search " style={{ backgroundColor: "white", border: "none",marginTop:`${(layoutType=="list-collapsed" || collapse)? "-30px":"0px"}`}}>
+                    <RdsIcon
+                      name="search"
+                      width="16px"
+                      height="16px"
+                      colorVariant="dark"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+            
+          <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
+           {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+          <li className="nav-section-title p-2">
+            {(layoutType == "list-collapsed" || listCollapse) ? (
+               <Tooltip text={props.listOneTitle} place="auto">
+                 {( props.listOneTitle &&<span className="truncated-text">
+                 { props.listOneTitle.length > 4 ? `${props.listOneTitle.substring(0, 4)}...` : props.listOneTitle}
+                </span>)}
+              </Tooltip>
+            ) : (
+              props.listOneTitle
+            )}
+          </li>
+           )}
             {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
           </ul>
+
+          {(layoutType == "list-expanded" || layoutType =="list-collapsed") &&(
+          <ul className="list-unstyled pd-md-0 mb-md-0 pt-0">
+          {(layoutType == "list-expanded" || layoutType == "list-collapsed") && (
+         <li className="nav-section-title p-2">
+           {(layoutType == "list-collapsed" || listCollapse) ? (
+              <Tooltip text={props.listTwoTitle} place="auto">
+                {( props.listTwoTitle &&<span className="truncated-text">
+                { props.listTwoTitle.length > 4 ? `${props.listTwoTitle.substring(0, 4)}...` : props.listTwoTitle}
+               </span>)}
+             </Tooltip>
+           ) : (
+             props.listTwoTitle
+           )}
+         </li>
+          )}
+           {subList.length != 0 ? displayMenu(subList, "", 1) : ""}
+         </ul>
+          )}
+
+        <div className="sidebar-footer text-center mt-auto mb-2">
+          
+          { layoutType == "list-collapsed"  && (
+            <>
+            <hr />
+            <RdsAvatar
+            activeDotBottom
+            avtarWithName
+            colorVariant={props.colorVariantForActiveDot}
+            firstName={props.profileFirstName}
+            lastName={props.profileLastName}
+            profilePic={props.profilePic}
+            role={props.role}
+            size={props.profileSize}
+                 />
+            </>
+          )}
+              {layoutType == 'list-expanded'  && ( 
+                <>
+                <hr />
+                <RdsAvatar
+                    activeDotBottom
+                    activeDotTop ={false}
+                    activityChain = {false}
+                    avtarWithName
+                    colorVariant={props.colorVariantForActiveDot}
+                    firstName={props.profileFirstName}
+                    lastName={props.profileLastName}
+                    profilePic= {props.profilePic}
+                    role={props.role}
+                    size={props.profileSize}
+                  />
+              </>
+                  )}
+            </div>
+      
+         
         </nav>
-      </div>
+        </div>
+    )}
+
+
+    { layoutType =='right-collapsed' &&(
+       <div>
+       <nav className="w-25">
+         <div className="d-flex flex-column align-items-center right-side-menu shadow w-25 pt-2">
+           <div className="px-2 px-md-3 d-none d-lg-block mb-3">
+           <RdsAvatar
+           activeDotBottom
+           avtarOnly
+           colorVariant={props.colorVariantForActiveDot}
+           firstName={props.profileFirstName}
+           lastName={props.profileLastName}
+           profilePic={props.profilePic}
+           role={props.role}
+           size={props.profileSize}
+                />
+           </div>
+         
+           <div
+             className={`position-relative px-2 px-md-3 mb-3 
+             }  col text-center d-flex align-items-center language`}
+           >
+             <RdsDropdownList
+               placeholder={"EN"}
+               iconFill={false}
+               iconStroke={false}
+               isPlaceholder={true}
+               id={"languageDropdown"}
+               listItems={props.langaugeItems}
+               showIcon={false}
+               onClick={onClickHandler}
+               tooltip={true}
+               tooltipTitle={"Select Language"}
+               tooltipPlacement="bottom"
+               isCode={true}
+               isHideChevron
+             ></RdsDropdownList>
+             <div className="d-block d-none fs-8 text-center">Language</div>
+           </div>
+           <div
+             className={`position-relative px-2 px-md-3 mb-3 col ${
+               currentPath != "/" 
+             }  ${
+               props.isChatPermission && ""
+             } border-2 d-flex justify-content-center align-items-center text-center`}
+           >
+             <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
+               <span className="cursor-pointer" onClick={props.chatsHandler}>
+                 <RdsIcon
+                   iconPath={
+                     "./assets/lottie-files/outlined/dual-color/chatting.json"
+                   }
+                   tooltip={true}
+                   tooltipTitle={"Chat"}
+                   tooltipPlacement="bottom"
+                   width="28px"
+                   height="28px"
+                   type="lottie"
+                   isHovered
+                 ></RdsIcon>
+               </span>
+             </div>
+           </div>
+       
+           <div className="d-block d-none fs-8 text-center">Chat</div>
+       
+           <div
+             className={`position-relative px-2 px-md-3 d-flex
+             } justify-content-center d-lg-none d-md-none col text-center  border-2 align-items-center`}
+           >
+             <div className="rounded-circle mbhome bg-primary">
+               <RdsIcon
+                 name="home"
+                 fill={false}
+                 stroke={true}
+                 height="18px"
+                 width="18px"
+                 colorVariant="light"
+                 onClick={props.mobileViewLogoClick}
+               ></RdsIcon>
+             </div>
+           </div>
+           <div className="position-relative px-2 px-md-3 col text-center mb-3">
+             <RdsDropdownList
+               iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+               labelIconWidth="30px"
+               labelIconHeight="26px"
+               isIconPlaceholder={true}
+               isPlaceholder={false}
+               placeholder={"/assets/lottie-files/outlined/dual-color/sun.json"}
+               id={"themeDropdown"}
+               listItems={props.themeItems}
+               onClick={onClicktheme}
+               showIcon={true}
+               tooltip={true}
+               tooltipTitle={"Select Theme"}
+               tooltipPlacement="bottom"
+             />
+             <div className="d-block d-none fs-8 text-center">Light</div>
+           </div>
+          
+       
+           <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
+           <RdsAvatar
+              activeDotBottom
+              avtarOnly
+              colorVariant={props.colorVariantForActiveDot}
+              firstName={props.profileFirstName}
+              lastName={props.profileLastName}
+              profilePic={props.profilePic}
+              role={props.role}
+              size={props.profileSize}
+                />
+       
+             <div className="d-block d-none fs-8 text-center">Profile</div>
+           </div>
+         </div>
+       </nav>
+       </div>
+    )}
     </>
   );
 };

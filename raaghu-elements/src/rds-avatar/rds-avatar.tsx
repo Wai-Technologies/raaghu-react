@@ -157,14 +157,14 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 {props.isTitle && (
                     <div className={` flex-grow-0 ${Aligned}`}>
                         <div
-                            className={`d-flex justify-content-center bg-light me-2 mb-2 align-items-center avatar rounded-circle ` + classes()}
+                            className={`d-flex justify-content-center bg-light me-2 mb-2 align-items-center avatar rounded-circle m-2 ` + classes()}
                         >
                             <span className="fw-bold ">
                                 {fLetter}
                                 {lLetter}
                             </span>
                         </div>
-                        <div>
+                        <div style={{marginLeft:'15px'}}>
                             <span className="fw-bold ">
                                 {titleFirstName}
                                 {titleLastName}
@@ -185,8 +185,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 )}
                 {WPP === true && !stackingAvatar &&(
                     <div className={profileClass()}>
-                        <div className={`flex-grow-0 gap-2 ${Aligned}`}>
-                            <img src={withPP} className={`avatar-sm rounded-circle ` + classes()} alt="profile" />
+                        <div className={`flex-grow-0  ${Aligned}`}>
+                            <img src={withPP} className={`rounded-circle ` + classes()} alt="profile" />
                             <span className={"avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" + profileName()}>
                                 <div>
                                     <span>{titleFirstName}{titleLastName}</span>
@@ -213,7 +213,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                        {props.activeDotBottom && (  <div className={`dot ${props.size === 'smallest' ? 'bottom-dot-smallest' : props.size === 'small' ? 'bottom-dot-sm' : props.size === 'medium' ? 'bottom-dot-md' : props.size === 'large' ? 'bottom-dot-lg' : props.size === 'largest' ? 'bottom-dot-largest' : ''} bg-${props.colorVariant}`}></div>)}                       
                     </div>
                     {avtarWithName && (
-                         <span className={`avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${props.size === 'smallest' ? 'textTopSmall' : props.size === 'small' ? 'textTopSm' : props.size === 'medium' ? 'textTopMd' : props.size === 'large' ? 'textTopLg' : props.size === 'largest' ? 'textTopLarge' : ''}` + profileName()} >
+                         <span className={`avatar-initials  align-items-center ms-2 fw-bold text-decoration-none ${props.size === 'smallest' ? 'textTopSmall' : props.size === 'small' ? 'textTopSm' : props.size === 'medium' ? 'textTopMd' : props.size === 'large' ? 'textTopLg' : props.size === 'largest' ? 'textTopLarge' : ''}` + profileName()} >
                          <div>
                              <span>{titleFirstName}{titleLastName}</span>
                              <p className="mb-0 text-muted">
@@ -253,7 +253,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 {stackingAvatar && (
                         <>
                         <div
-                        className="card text-center border-0"
+                        className="card text-center stacking_avtar border-0"
                             >
                                 {props.stackingAvatar && props.avatars && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
                         </div>
