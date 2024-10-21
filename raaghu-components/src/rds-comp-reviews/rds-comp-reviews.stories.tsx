@@ -11,6 +11,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        style: {
+            options: [ "style1", "style2", "style3","style4", "style5", "style6", "style7", "style8", "style9", "style10"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsCompReviews>;
 
@@ -18,6 +22,30 @@ export default meta;
 type Story = StoryObj<typeof RdsCompReviews>;
 
 export const Default: Story = {
+    args: {
+        variantType: "Default",
+        style: "style1",
+        itemList: [
+            {
+                name: "jane doe",
+                username: "@jijolife123",
+                date: new Date(),
+                feedIcon: "person",
+                imageUrl:
+                    "https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1",
+                description:"This bag is of the quality expected for the price. The lining inside the bag seems like satin and it is very strong one It has huge space inside inside as the zipper can be opened in either side.",
+                descriptionShort:
+                    "Awesome website and funnel for you business",
+                hashtags: "#newbag #fancybag #designerbag",
+                reviews: "See all 125 reviews",
+                rating: 4,
+            },
+        ],
+    }
+} satisfies Story;
+Default.parameters = { controls: { include: ['itemList','style'] } };
+
+export const SummaryChart: Story = {
     args: {
         variantType: "with-summary-chart",
         itemList: [
@@ -62,7 +90,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['variantType', 'itemList'] } };
+SummaryChart.parameters = { controls: { include: ['itemList'] } };
 
 export const MultiColumn: Story = {
     args: {
@@ -111,4 +139,4 @@ export const MultiColumn: Story = {
         ]
     }
 } satisfies Story;
-MultiColumn.parameters = { controls: { include: ['variantType', 'itemList'] } };
+MultiColumn.parameters = { controls: { include: ['itemList'] } };
