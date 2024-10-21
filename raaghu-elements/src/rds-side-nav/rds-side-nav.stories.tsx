@@ -167,13 +167,13 @@ Basic.args = {
 };
 Basic.parameters = { controls: { include: ['sideNavItems','brandLogo'] } };
 
-export const Collapase: Story = (args: any) => (
+export const Collapse: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-Collapase.args = {
+Collapse.args = {
     sideNavItems:[
         {
           icon: "home",
@@ -297,7 +297,7 @@ Collapase.args = {
     layoutType: "basic-collapsed",
 
 };
-Collapase.parameters = { controls: { include: ['sideNavItems','brandLogo'] } };
+Collapse.parameters = { controls: { include: ['sideNavItems','brandLogo'] } };
 
 export const List_Exapand: Story = (args: any) => (
     <BrowserRouter>
