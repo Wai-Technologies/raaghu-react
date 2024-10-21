@@ -38,8 +38,8 @@ type Story = StoryObj<typeof RdsPagination>;
 export const Default: Story = {
     args: {
         paginationType: "default",
-        totalRecords: 10,
-        recordsPerPage: 3,
+        totalRecords: 10,  // Ensure this value matches your test cases
+        recordsPerPage: 3, // This will yield 4 pages total
         size: "small",
         alignmentType: "start",
     }
@@ -56,4 +56,3 @@ export const Advanced: Story = {
     }
 } satisfies Story;
 Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
-
