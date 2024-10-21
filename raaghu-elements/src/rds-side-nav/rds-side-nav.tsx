@@ -542,7 +542,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
              className={`position-relative px-2 px-md-3 mb-3 col ${
                currentPath != "/" 
              }  ${
-               props.isChatPermission && "border-end-custom"
+               props.isChatPermission && ""
              } border-2 d-flex justify-content-center align-items-center text-center`}
            >
              <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
