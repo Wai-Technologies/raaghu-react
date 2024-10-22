@@ -7,7 +7,12 @@
         max-width: 190px;
     }
 }
-
+#sortTable thead th:first-child,
+#sortTable tbody td:first-child {
+    position: unset !important;
+    left: -1px;
+    max-width: 190px;
+}
 .table>tbody {
     vertical-align: middle !important;
 }
