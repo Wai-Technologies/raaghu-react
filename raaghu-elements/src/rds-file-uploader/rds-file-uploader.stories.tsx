@@ -14,7 +14,7 @@ const meta: Meta = {
         title: {
             control: { type: "text" },
         },
-        isrequired: {
+        isRequired: {
             control: { type: "boolean" },
         },
         showTitle: {
@@ -39,18 +39,18 @@ export const Default: Story = {
         Drop_Area_With_Upload_Button : false,
         Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
-        limit: 5,
+        fileSizeLimitInMb: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
         title: "Title",
-        isrequired: true,
+        isRequired: true,
         showTitle: true,
         showHint: true,
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
+Default.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_Top_Icon
 : Story = {
@@ -60,7 +60,7 @@ export const Drop_Area_Top_Icon
         Drop_Area_With_Upload_Button : false,
         Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
-        limit: 5,
+        fileSizeLimitInMb: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
@@ -71,7 +71,7 @@ export const Drop_Area_Top_Icon
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_Top_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Top_Icon.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_Side_Icon
 : Story = {
@@ -81,7 +81,7 @@ export const Drop_Area_Side_Icon
         Drop_Area_With_Upload_Button : false,
         Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
-        limit: 5,
+        fileSizeLimitInMb: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
@@ -92,7 +92,7 @@ export const Drop_Area_Side_Icon
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_Side_Icon.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Side_Icon.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_With_Upload_Button
 : Story = {
@@ -101,7 +101,7 @@ export const Drop_Area_With_Upload_Button
         Drop_Area_Side_Icon: false,
         Drop_Area_With_Upload_Button : true,
         extensions: "png, jpg, doc, pdf, ppt",
-        limit: 5,
+        fileSizeLimitInMb: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
@@ -112,7 +112,7 @@ export const Drop_Area_With_Upload_Button
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'limit', 'title', 'isrequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 export const Drop_Area_With_Icon
 : Story = {
     args: {
@@ -121,7 +121,7 @@ export const Drop_Area_With_Icon
         Drop_Area_With_Upload_Button : false,
         Drop_Area_With_Icon: true,
         extensions: "png, jpg, doc, pdf, ppt",
-        limit: 5,
+        fileSizeLimitInMb: 5,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
@@ -133,4 +133,4 @@ export const Drop_Area_With_Icon
         hintText: "File size should be less than 5MB",
     }
 } satisfies Story;
-Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant', 'extensions', 'limit', 'size', 'title', 'mandatory', 'showTitle', 'showHint', 'showIcon','hintText'] } };
+Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant', 'extensions', 'fileSizeLimitInMb', 'size', 'title', 'isRequired', 'showTitle', 'showHint', 'showIcon','hintText'] } };

@@ -89,9 +89,8 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 key={counter}
                 colorVariant="dark"
                 extensions="png, jpg, doc, pdf, ppt"
-                multiple={false}
                 size="large"
-                limit={1}
+                fileSizeLimitInMb={1}
                 label="Cover Image"
                 validation={[
                   {

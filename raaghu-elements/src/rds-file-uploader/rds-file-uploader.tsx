@@ -10,17 +10,20 @@ export interface RdsFileUploaderProps {
   Drop_Area_With_Icon?: boolean;
   extensions: string;
   placeholder?: string;
-  limit: number;
+  fileSizeLimitInMb?: number;
   label: string;
   onFileArray?: (files: any[]) => void;
   getFileUploaderInfo?: any;
   validation?: any[];
   onDeleteFile?: (id: any) => void;
   title?: string;
-  isrequired?: boolean;
+  isRequired?: boolean;
   showTitle?: boolean;
   showHint?: boolean;
   showIcon?: boolean;
+  size?: "small" | "medium" | "large";
+  colorVariant?: string;
+  hintText?: string;
 }
 
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
@@ -40,7 +43,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         const files = Array.from(event.target.files || []);
         const allowedExtensions = props.extensions.split(", ");
         const newFiles: File[] = [];
-        const newValidation = [...validation];
+        const newValidation: { isError: boolean; hint: string }[] = [];
       
         files.forEach((file) => {
           const fileExtension = file.name.split(".").pop()?.toLowerCase();
@@ -53,13 +56,15 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           }
       
           const fileSizeInMB = file.size / (1024 * 1024); // Convert size to MB
-          if (fileSizeInMB > props.limit) {
+          if(props.fileSizeLimitInMb){
+          if (fileSizeInMB > props.fileSizeLimitInMb) {
             newValidation.push({
               isError: true,
               hint: "File size exceeds the limit",
             });
             return;
           }
+         }
       
           newFiles.push(file);
         });
@@ -93,7 +98,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     const files = Array.from(event.target.files || []);
     const allowedExtensions = props.extensions.split(", ");
     const newFiles: File[] = [];
-    const newValidation = [...validation];
+    const newValidation: { isError: boolean; hint: string }[] = [];
   
     files.forEach((file) => {
       const fileExtension = (file as File).name.split(".").pop()?.toLowerCase();
@@ -106,14 +111,15 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       }
   
       const fileSizeInMB = (file as File).size / (1024 * 1024); // Convert size to MB
-      if (fileSizeInMB > props.limit) {
+      if(props.fileSizeLimitInMb){
+      if (fileSizeInMB > props.fileSizeLimitInMb) {
         newValidation.push({
           isError: true,
           hint: "File size exceeds the limit",
         });
         return;
       }
-  
+    }
       newFiles.push((file as File));
     });
   
@@ -171,7 +177,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               {props.showTitle && (
                   <label className={"form-label label-gray"}>
                       {props.title}
-                      {props.isrequired && <span className="text-danger ml-1">*</span>}
+                      {props.isRequired && <span className="text-danger ml-1">*</span>}
                   </label>
               )}
           <label
@@ -204,7 +210,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 type="file"
                 accept={props.extensions}
                 onChange={onchangehandler}
-                multiple
+                multiple={true}
+                required={props.isRequired ? true : false}
               />
             </div>
             
@@ -266,7 +273,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.isrequired && <span className="text-danger ml-1">*</span>}
+              {props.isRequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -309,7 +316,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               id="file"
               accept={props.extensions}
               onChange={onchangehandler}
-              multiple
+              multiple={true}
+              required={props.isRequired ? true : false}
             />
           </div>
         </label>
@@ -378,7 +386,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.isrequired && <span className="text-danger ml-1">*</span>}
+              {props.isRequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -422,6 +430,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               accept={props.extensions}
               onChange={onChangeHandlerForSingleSelection}
               multiple={false}
+                required={props.isRequired ? true : false}
             />
           </div>
         </label>
@@ -499,7 +508,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.isrequired && <span className="text-danger ml-1">*</span>}
+              {props.isRequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -524,7 +533,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 height="20px"
                 isAnimate
                 name="upload_data"
-                stroke="true"
+                stroke={true}
                 width="20px"
               />
             </span>
@@ -542,7 +551,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               id="file"
               accept={props.extensions}
               onChange={onchangehandler}
-              multiple
+              multiple={true}
+              required={props.isRequired ? true : false}
             />
           </div>
         </label>
@@ -607,7 +617,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             {props.showTitle && (
               <label className={"form-label label-gray"}>
                 {props.title}
-                {props.isrequired && <span className="text-danger ml-1">*</span>}
+                {props.isRequired && <span className="text-danger ml-1">*</span>}
               </label>
             )}
           </div>
@@ -655,6 +665,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   accept={props.extensions}
                   onChange={onChangeHandlerForSingleSelection}
                   multiple={false}
+                  required={props.isRequired ? true : false}
                 />
                     </div>
                     <div className="d-flex justify-content-between">

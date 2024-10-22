@@ -46,8 +46,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                 <RdsFileUploader
                     colorVariant="primary"
                     extensions="png, jpg, doc, pdf, ppt"
-                    limit={5}
-                    multiple
+                    fileSizeLimitInMb={5}
                     size="large"
                     key={uploaderKey}
                     validation={[
