@@ -10,45 +10,6 @@ const meta: Meta = {
     },
     tags: ["autodocs"],
     argTypes: {
-        colorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
-        borderColor: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
-        iconColorvariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
         state: {
             options: ["basic", "info", "success", "error"], control: {type: "select"},}
     },
@@ -69,9 +30,6 @@ export const Default: Story = {
         showHeader: true,
         withIcon: true,
         iconName: "circle",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
         borderColor: "primary",
         layout : "text"
 
@@ -90,8 +48,6 @@ export const toastWithDownload: Story = {
         showHeader: true,
         withIcon: true,
         iconName: "circle",
-        iconColorvariant: "primary",
-        iconFill: false,
         borderColor: "primary",
         layout : "download",
         progressWidth: 40,
@@ -111,10 +67,6 @@ export const toastWithChat: Story = {
         showHeader: true,
         withIcon: true,
         iconName: "circle",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false,
         borderColor: "primary",
         layout : "chat",
         placeholder: "Placeholder Text"
@@ -133,10 +85,6 @@ export const toastWithRequest: Story = {
         showHeader: true,
         withIcon: true,
         iconName: "circle",
-        iconColorvariant: "primary",
-        iconHeight: "18px",
-        iconWidth: "18px",
-        iconFill: false,
         borderColor: "primary",
         layout : "request",
 
