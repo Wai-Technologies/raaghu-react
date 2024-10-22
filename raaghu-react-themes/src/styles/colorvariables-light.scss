@@ -2089,50 +2089,6 @@ $form-feedback-color: $gray-700;
     }    
 }
 
-.alert-warning {
-    @include alert-variant(
-         $bg-warning-light-default, // background
-         $line-warning-medium-defaut,  // border
-                    // text color
-    );
-    border-left: 4px solid $input-warning-outline-default; // border
-
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $icon-tertiary-outline-default;
-
-        polyline.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        polygon.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        ellipse.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        path.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        line.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        rect.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        circle.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-    }
-}
-
 .alert-error {
     @include alert-variant(
          $bg-error-light-default, // background
