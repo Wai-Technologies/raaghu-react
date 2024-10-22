@@ -81,7 +81,6 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
 
     function emitSaveData(event: any) {
         event.preventDefault();
-        console.log("Before Save:", accountGeneralData);
         props.onSubmit && props.onSubmit(accountGeneralData);
         setInputReset(!inputReset);
         setAccountGeneralData({
