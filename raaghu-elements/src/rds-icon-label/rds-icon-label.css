@@ -25,9 +25,3 @@
   height: 25px !important;
   width: 25px !important;
 }
-@media (max-width: 480px) {
-  .d-flex {
-      /* flex-direction: column; */
-      /* align-items: center; */
-  }
-}

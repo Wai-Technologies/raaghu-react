@@ -45,6 +45,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                     ></RdsLabel>
                     <div className="mt-4">
                       <RdsIconLabel
+                      
                         colorVariant="success"
                         icon={item.highlightsIcon}
                         label={item.highlights}
