@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
+import Tooltip from "../rds-tooltip";
 
 export interface RdsSideNavProps {
   sideNavItems: any;
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   collapse?: boolean;
   toggleClass?: boolean;
+  layoutType?: string; // Add layoutType prop
+  brandLogo?: string;
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
   const [isLocked, setIsLocked] = useState(false);
-
   const [collapse, setcollapse] = useState(true);
   const [isMenuHover, setMenuHover] = useState(true);
   const [isMenuClick, setMenuClick] = useState(false);
@@ -22,9 +23,13 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   const [isShowOne, setShowOne] = useState(false);
   const [isShowTwo, setShowTwo] = useState(false);
   const [isOnNavigate, setOnNavigate] = useState(false);
+  const [brandLogo, setBrandLogo] = useState(props.brandLogo);
   const mainMenu = props.sideNavItems;
   const labelObj: any = {};
   const [hoveredItem, setHoveredItem] = useState("");
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipContent, setTooltipContent] = useState('');
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
   mainMenu.forEach((item: any) => {
     labelObj[item.key] = false;
@@ -50,8 +55,18 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     }
   }, [window.location.pathname]);
 
+  useEffect(() => {
+    if (props.layoutType !== "basic" && props.layoutType !== "doubleNavLeft") {
+      setcollapse(false); // Show the navbar
+    }
+  }, [props.layoutType]);
+
+  useEffect(() => {
+    setBrandLogo(props.brandLogo);
+  }, [props.brandLogo]);
+
   const setIsShown = (event: boolean) => {
-    if (!isLocked) {
+    if (!isLocked && props.layoutType == "basic") {
       if (event && isMenuHover) {
         setcollapse(false);
       } else if (!event && isMenuHover) {
@@ -166,13 +181,19 @@ const RdsSideNav = (props: RdsSideNavProps) => {
   };
 
   // Function to handle mouse enter on an li item
-  const handleMouseEnter = (itemKey: string) => {
-    setHoveredItem(itemKey);
+  const handleMouseEnter = (itemKey: any, event: React.MouseEvent) => {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    setHoveredItem(itemKey.key);
+    setTooltipContent(itemKey.label); // Assuming itemKey has a label property
+    setTooltipPosition({ top: rect.top, left: rect.left });
+    setTooltipVisible(true);
   };
 
   // Function to handle mouse leave on an li item
   const handleMouseLeave = () => {
     setHoveredItem("");
+    setTooltipVisible(false);
   };
 
   function handleLinkClick(
@@ -188,9 +209,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     return items.map((item: any) => (
       <>
         <li
-          onMouseEnter={() => handleMouseEnter(item.key)}
-          onMouseLeave={handleMouseLeave}
-          className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0"
+          className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0 position-relative"
           value={item.key + "_" + parent}
           onClick={() => onMenuClick(item, parent, level, !item.children)}
         >
@@ -238,8 +257,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 : "false"
             }
           >
-            <span>
-              {item.iconPath ? (
+            <span
+              onMouseEnter={(e) => handleMouseEnter(item, e)}
+              onMouseLeave={handleMouseLeave}
+              className="icon-container position-relative"
+            >
+               {item.iconPath ? (
                 <RdsIcon
                   iconPath={item.iconPath}
                   fill={false}
@@ -249,6 +272,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   classes="me-2"
                   type="lottie"
                   isHovered={hoveredItem === item.key}
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "doubleNavLeft" ? tooltipVisible : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               ) : (
@@ -259,7 +285,9 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                   height="20px"
                   width="20px"
                   classes="me-2 "
-
+                  tooltipTitle={item.label}
+                  tooltip={props.layoutType === "doubleNavLeft" ? tooltipVisible : false}
+                  tooltipPlacement="auto"
                   // classes={"me-2 " + (level === 1 ? "text-primary " : "")}
                 ></RdsIcon>
               )}
@@ -295,46 +323,71 @@ const RdsSideNav = (props: RdsSideNavProps) => {
       </>
     ));
   };
+  
 
   return (
     <>
-      <div
-        className={`aside`}
-        id="aside"
-        onMouseEnter={() => setIsShown(true)}
-        onMouseLeave={() => setIsShown(false)}
-      >
-        <div
-          className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
-            props.toggleClass ? " show" : " hide"
-          } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
-        >
-          <span className="collpase-button cursor-pointer d-flex lock-icon">
-            <RdsIcon
-              name={!isLocked ? "unlock" : "lock_nav"}
-              height="21px"
-              width="21px"
-              stroke={true}
-              fill={false}
-              strokeWidth="1.2"
-              colorVariant="white"
-              onClick={() => setIsLocked(!isLocked)}
-            ></RdsIcon>
-          </span>
+      {props.layoutType === "horizontal" ? (
+        <div className="outer-container">
+          <div className="horizontal-layout shadow" id="aside">
+            <nav
+              id="sidebar"
+              ref={ref}
+              className="bd-links text-capitalize sidebar pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 shadow"
+            >
+              <ul className="list-unstyled pb-2 pd-md-0 mb-2 mb-md-0 d-flex flex-row">
+                {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
+              </ul>
+            </nav>
+          </div>
         </div>
-        <nav
-          id="sidebar"
-          ref={ref}
-          className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1
-               ${props.toggleClass ? " show" : " hide"} ${
-            collapse ? "toggle-sidebar-menu show" : "toggle"
-          }`}
-        >
-          <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3">
-            {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
-          </ul>
-        </nav>
-      </div>
+      ) : (
+        <div>
+          <div
+            className={`aside ${(props.layoutType === "relaxing" || props.layoutType === "doubleNavLeft" || props.layoutType === "doubleNavRight" ) ? "rounded-3" : ""}`} // Default layout
+            id="aside"
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
+          >
+            {props.layoutType == "basic" && (
+              <div
+                className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
+              >
+                <span className="collpase-button cursor-pointer d-flex lock-icon">
+                  <RdsIcon
+                    name={!isLocked ? "unlock" : "lock_nav"}
+                    height="21px"
+                    width="21px"
+                    stroke={true}
+                    fill={false}
+                    strokeWidth="1.2"
+                    colorVariant="white"
+                    onClick={() => setIsLocked(!isLocked)}
+                  ></RdsIcon>
+                </span>
+              </div>
+            )}
+
+            <nav
+              id="sidebar"
+              ref={ref}
+              className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1 ${props.toggleClass || (props.layoutType !== "basic" && props.layoutType !== "doubleNavLeft") ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle"} ${(props.layoutType === "relaxing" || props.layoutType === "doubleNavLeft" || props.layoutType === "doubleNavRight" ) ? "customRadius" : ""}`}
+            >
+              {props.layoutType == "sideNav" && (
+                <ul className="list-unstyled pt-3 ">
+                  <li className="nav-logo">
+                    <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
+                  </li>
+                </ul>
+              )}
+              <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3">
+                {mainMenu.length != 0 ? displayMenu(mainMenu, "", 1) : ""}
+              </ul>
+              
+            </nav>
+          </div>
+        </div>
+      )}
     </>
   );
 };
