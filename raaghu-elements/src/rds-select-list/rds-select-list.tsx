@@ -69,11 +69,11 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   return (
     <Fragment>
-      <div>
+      <div className="mt-2">
         {props.label && (
           <label
             htmlFor={props.id}
-            className={`form-label ${props.isBold ? "fw-bold" : ""}`}
+            className={`form-label  ${props.isBold ? "fw-bold" : ""}`}
           >
             {props.label}
           </label>
