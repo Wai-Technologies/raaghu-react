@@ -21,8 +21,21 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
+            control: { type: "select" },
+        },
         size: {
-            options: ["small", "medium", "large"],
+            options: ["smallest","small", "medium", "large","largest"],
             control: { type: "radio" },
         },
     },
@@ -44,6 +57,11 @@ export const withInitials: Story = {
     args: {
         //colorVariant: "primary",
         firstName: "Wai",
+        avtarOnly: false,
+        avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: false,
+
         lastName: "Technologies",
         size: "medium",
     }
@@ -58,6 +76,10 @@ export const withLabel: Story = {
         //colorVariant: "primary",
         firstName: "Wai",
         lastName: "Technologies",
+        avtarOnly: false,
+        avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: false,
         size: "medium",
         isTitle: true,
         titleAlign: "horizontal",
@@ -74,6 +96,10 @@ export const withProfile: Story = {
     args: {
         size: "small",
         withProfilePic: true,
+        avtarOnly: false,
+        avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: false,
         firstName: "Wai",
         lastName: "Technologies",
         titleAlign: "horizontal",
@@ -87,3 +113,91 @@ withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName'
 
 
 withProfile.argTypes = textAlignArgTypes;
+
+export const Avatar_Only: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarOnly: true,
+        avtarWithName: false,
+        activeDotTop: true,
+        activeDotBottom: true,
+        activityChain : true,
+        nameOnBottom: false,
+        stackingAvatar: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "horizontal",
+        role: "Developer",
+        colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
+
+export const Avatar_With_Name: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarOnly: false,
+        avtarWithName: true,
+        activeDotTop: true,
+        activeDotBottom: true,
+        activityChain : true,
+        nameOnBottom: false,
+        stackingAvatar: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "horizontal",
+        role: "Developer",
+        colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
+
+export const Name_On_Bottom: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarOnly: false,
+        avtarWithName: false,
+        activeDotTop: true,
+        activeDotBottom: true,
+        activityChain : true,
+        nameOnBottom: true,
+        stackingAvatar: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        titleAlign: "horizontal",
+        role: "Developer",
+        colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Name_On_Bottom.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
+
+const avatars = [
+    // Example avatars data
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',  },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+];
+export const Stacking_Avatar_Only: Story = {
+    args: {
+        size: "large",
+        withProfilePic: false,
+        avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: true,
+        titleAlign: "horizontal",
+        maxVisibleAvatars: 3,
+        avatars: avatars,
+    }
+} satisfies Story;
+Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign','maxVisibleAvatars'] } };
