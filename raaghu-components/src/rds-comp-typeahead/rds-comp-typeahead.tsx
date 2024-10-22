@@ -58,7 +58,9 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                             selectItems={selectItems}
                             label={props.label}
                             placeholder="Select Authors"
-                            onChange={(item: any) => handleListChange(item.value)}></RdsSelectList>
+                            key={`selectItem-${tempSelectedValue}`}
+                            onChange={(item: any) => handleListChange(item.value)}>
+                            </RdsSelectList>
                     </div>
                     <div className="col-lg-1 col-md-1 col-sm-12 mt-2">
                         <RdsButton

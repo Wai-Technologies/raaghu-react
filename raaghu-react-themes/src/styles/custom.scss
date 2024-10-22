@@ -3200,3 +3200,12 @@ $progresss-percentage: $text-xsmall;
         height: 100%;
     }
     // collapsible container css end
+  
+    @media (max-width: 480px) {
+        .d-flexLabelIcon{
+        .d-flex {
+            flex-direction: none !important;
+            align-items: left !important;
+        }
+    }
+    }

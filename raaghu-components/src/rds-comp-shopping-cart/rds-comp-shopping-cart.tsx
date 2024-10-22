@@ -15,7 +15,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
             {props.itemList.map((item: any, index: number) => (
               <>
                 <div
-                  className="d-flex justify-content-between shopping___cart"
+                  className="d-lg-flex d-md-flex justify-content-between shopping___cart"
                   key={index}
                   data-testid="shopping-cart-item"
                 >
@@ -31,7 +31,10 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                     ></img>
                   </div>
                   <div>
-                    <RdsLabel fontWeight="bold" label={item.prodName}></RdsLabel>
+                    <RdsLabel
+                      fontWeight="bold"
+                      label={item.prodName}
+                    ></RdsLabel>
                     <RdsLabel
                       fontWeight="lighter"
                       label={item.description}
@@ -41,35 +44,38 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                       label={item.price}
                     ></RdsLabel>
                     <div className="mt-4">
-                    <RdsIconLabel
-                      colorVariant="success"
-                      icon={item.highlightsIcon}
-                      label={item.highlights}
-                      size="medium"
-                      fill={false}
-                      iconposition="left"
-                    />
+                      <RdsIconLabel
+                      
+                        colorVariant="success"
+                        icon={item.highlightsIcon}
+                        label={item.highlights}
+                        size="medium"
+                        fill={false}
+                        iconposition="left"
+                      />
                     </div>
                   </div>
-                  <div>
-                    <RdsSelectList
-                      id="story"
-                      isSearchable
-                      onChange={() => {}}
-                      placeholder="Select option"
-                      selectItems={item.quantity}
-                      selectedValue={item.quantity[0].value}
-                    />
-                  </div>
-                  <div>
-                    <RdsIcon
-                      name="cancel"
-                      height="14px"
-                      width="14px"
-                      colorVariant="dark"
-                      fill={false}
-                      stroke={true}
-                    />
+                  <div className="d-flex">
+                    <div className="me-3 mx-md-3 ">
+                      <RdsSelectList
+                        id="story"
+                        isSearchable
+                        onChange={() => {}}
+                        placeholder="Select option"
+                        selectItems={item.quantity}
+                        selectedValue={item.quantity[0].value}
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <RdsIcon
+                        name="cancel"
+                        height="14px"
+                        width="14px"
+                        colorVariant="dark"
+                        fill={false}
+                        stroke={true}
+                      />
+                    </div>
                   </div>
                 </div>
                 <hr />

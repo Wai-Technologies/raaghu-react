@@ -43,7 +43,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
         <>
             <form>
                 <div className="custom-content-scroll">
-                    <div className="row mb-3 pt-4">
+                    <div className="row pt-4">
                         <div className="col-lg-6 col-md-6 form-group">
                             <RdsSelectList
                                 id="style"
