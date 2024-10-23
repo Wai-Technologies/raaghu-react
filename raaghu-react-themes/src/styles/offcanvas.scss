@@ -28,7 +28,11 @@
   height: 100vh;
   padding-bottom: 60px;
 }
-
+.addMemberOffCancvas .offcanvas-body {
+  flex-grow: unset;
+  height: 100vh;
+  padding-bottom: 20px;
+}
 #RoleOffcanvas .offcanvas-body {
   height: calc(100vh - 150px);
 }
