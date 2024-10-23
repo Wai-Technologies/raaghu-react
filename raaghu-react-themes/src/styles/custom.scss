@@ -3200,3 +3200,11 @@ $progresss-percentage: $text-xsmall;
         height: 100%;
     }
     // collapsible container css end
+
+    /* css for the small mobile view icons getting hide in menu directory */
+@media (max-width: 768px) {
+   #mobileviewmenusdirectory ol, ul
+    {
+        padding-left: 0.9rem !important;
+    }
+  }
