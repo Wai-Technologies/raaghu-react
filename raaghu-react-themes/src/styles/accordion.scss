@@ -147,7 +147,7 @@
 }
 
     .accordion-item {
-
+        margin-bottom: 0.35rem;
         .accordion-collapse {
             border-bottom-right-radius: 0;
         }
@@ -169,3 +169,12 @@
             }
         }
     }
+ // collapsible container css end
+ #accordionBasic .accordion-button:focus{
+    box-shadow: unset !important;
+}
+
+/* rds-accordion.css */
+#accordionBasic .accordion-item.collapsed {
+box-shadow: var(--bs-accordion-btn-focus-box-shadow) !important;
+}
