@@ -35,7 +35,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
                </div>
             </div>
          }
-         <div className={`container-collapse mb-4 mb-lg-0 d-flex flex-column bg-white border-0 overflow-hidden rounded-4 shadow visible ${isCollapsed ? 'collapsed-container' : ''}`}>
+         <div className={`container-collapse mb-4 mb-lg-0 d-flex flex-column bg-white border-0 overflow-hidden shadow visible ${isCollapsed ? 'collapsed-container' : ''}`}>
             <div className="content">
                {Array.isArray(props.menuItems) && props.menuItems.map((item, index) => (
                   <div className="menu-item-collapsible-container" key={index}>
