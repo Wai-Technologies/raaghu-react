@@ -4,7 +4,7 @@ import RdsIcon from "../rds-icon";
 
 export interface BreadcrumbProps {
   breadcrumbItems: any[];
-  text: string;
+  title: string;
   style?: "Pill Background" | "Square Background" | "Without Background";
   separator?: ">" | "/" | "→" | "»" | "|" | "-";
   level?: "Level 1" | "Level 2" | "Level 3" | "Level 4" | "Level 5";
@@ -95,7 +95,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                   onClick={(e) => e.preventDefault()}
                   aria-disabled="true"
                 >
-                  {props.text}
+                  {props.title}
                 </a>
               </li>
               {!isLastItem && <li className="breadcrumb-separator">{props.separator}</li>}

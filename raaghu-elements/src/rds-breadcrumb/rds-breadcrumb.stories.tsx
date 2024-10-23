@@ -90,7 +90,7 @@ const breadItems = [
 
 export const Default: Story = {
   args: {
-    text:"Home",
+    title:"Home",
     level: "Level 3",
     separator: "/",
     icon: "home",
@@ -102,7 +102,7 @@ export const Default: Story = {
 };
 export const WithoutBackground: Story = {
     args: {
-      text:"Home",
+      title:"Home",
       level: "Level 3",
       separator: "/",
       icon: "home",
@@ -114,7 +114,7 @@ export const WithoutBackground: Story = {
   };
   export const SquareBackground: Story = {
     args: {
-      text:"Home",
+      title:"Home",
       level: "Level 3",
       separator: "/",
       icon: "home",
