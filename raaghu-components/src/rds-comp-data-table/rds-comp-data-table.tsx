@@ -353,7 +353,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                       props.tableHeaders?.length > 0 &&
                       props.actions &&
                       props.actions?.length > 0 && (
-                        <th className="text-center fw-medium">
+                        <th className="text-center fw-medium actionWidth">
                           Actions
                         </th>
                       )}
@@ -411,7 +411,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                       props.tableHeaders?.length > 0 &&
                       props.actions &&
                       props.actions?.length > 0 && (
-                        <th className="text-center fw-medium">
+                        <th className="text-center fw-medium actionWidth">
                           Actions
                         </th>
                       )}
@@ -451,7 +451,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                             {actionPosition != true &&
                               totalActions &&
                               totalActions?.length > 1 && (
-                                <td className="align-middle bg-transparent text-center">
+                                <td className="align-middle bg-transparent text-center actionWidth">
 
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
