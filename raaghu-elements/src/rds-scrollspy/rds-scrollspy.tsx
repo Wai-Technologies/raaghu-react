@@ -37,8 +37,8 @@ const RdsScrollspy = (props: RdsScrollspyProps) => {
               <h4 className="contentHeader">{item.header}</h4>
               <p className="contentParagraph">{item.content}</p>
             </div>
-            <div className="d-flex justify-content-end align-items-end">
-              <a href="#scrollspy" target="_self" className="text-decoration-none">
+            <div className="d-flex justify-content-end align-items-end ">
+              <a href="#scrollspy" target="_self" className="text-decoration-none text-primary">
                 Go Top
               </a>
             </div>

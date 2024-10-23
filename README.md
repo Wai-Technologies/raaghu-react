@@ -234,7 +234,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </picture> -->
 </p>
 <p>
-  Thought the Ci/Cd pipelines the components are deployed to the wireframe design and form a page
+  Thought the CI/CD pipelines the components are deployed to the wireframe design and form a page
 </p>
 
 ## <a name='features'></a> Features
