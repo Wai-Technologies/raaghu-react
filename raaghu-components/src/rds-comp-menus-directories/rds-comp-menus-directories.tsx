@@ -122,7 +122,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                 </span>
             </div>
             {item.children?.length > 0 && expandedItems?.includes(item.data.id) && (
-                <ul className="pl-0">
+                <ul className="pl-0" id="mobileviewmenusdirectory">
                     <RdsCompMenuDirectory
                         items={item.children}
                         offId={props.offId}
