@@ -210,11 +210,10 @@ const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
               <RdsFileUploader
                 colorVariant="primary"
                 extensions="jpg, jpeg, png"
-                multiple={false}
                 placeholder=""
                 size="small"
                 label="Select New Image"
-                limit={1}
+                fileSizeLimitInMb={1}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
                 onFileArray={(files) =>
