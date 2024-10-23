@@ -361,12 +361,12 @@ $btn-success-text-invert:#FFFFFF;
       $txt-success-darker-default:#092A11;
       $txt-success-dark-default:#1A4D25;
       $txt-success-medium-default:#1F7630;
- 
- 
-   
-  
- 
- 
+
+
+
+
+$progress-bar-bg-primary:$bg-primary-dark-default;
+$progress-bar-bg-error:$bg-error-dark-default;
 
 
 $min-contrast-ratio: 4.5 !default;
@@ -604,6 +604,16 @@ $offcanvas-bottom-border-color: $border-color !default;
 $bg-connect: $white;
 
 $accordion-border-color: $neutral-40 !default;
+
+$progress-bar-bg-primary:$bg-primary-dark-default;
+$progress-bar-bg-error:$bg-error-dark-default;
+
+.progress-bar-bg-error{
+    background-color: $progress-bar-bg-error;
+}
+.progress-bar-bg-primary{
+    background-color: $progress-bar-bg-primary;
+}
 
 .accordion-bottomline {
 
@@ -2071,50 +2081,6 @@ $form-feedback-color: $gray-700;
             stroke: $icon-primary-outline-default;
         }
     }    
-}
-
-.alert-warning {
-    @include alert-variant(
-         $bg-warning-light-default, // background
-         $line-warning-medium-defaut,  // border
-                    // text color
-    );
-    border-left: 4px solid $input-warning-outline-default; // border
-
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $icon-tertiary-outline-default;
-
-        polyline.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        polygon.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        ellipse.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        path.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        line.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        rect.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        circle.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-    }
 }
 
 .alert-error {

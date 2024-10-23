@@ -20,6 +20,8 @@ export const DoughnutChart: Story = {
         height: 400,
         id: "myChart",
         width: 400,
+        titleText: "35 k",
+        subTitleText: "deioj",
         labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             maintainAspectRatio: false,
@@ -58,8 +60,7 @@ export const DoughnutChart: Story = {
             }
         ],
 
-        titleText: "35 k",
-        subTitleText: "deioj",
+       
     }
 } satisfies Story;
 
