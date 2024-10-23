@@ -52,6 +52,7 @@ export interface RdsCompDatatableProps {
   actionPosition?: "right" | "left";
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   totalRecords?: any;
+  actionColumnStyle?:  "show dots" | "show buttons directly";
 }
 const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [data, setData] = useState(props.tableData);
@@ -61,7 +62,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeDropdownId, setActiveDropdownId] = useState(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
-
+  const actionColumnStyle = props.actionColumnStyle || "show dots";
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -455,7 +456,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
 
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
-                                      <div className="btn-group dropstart">
+                                      {(actionColumnStyle==="show dots"  && <div className="btn-group dropstart">
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
@@ -520,6 +521,45 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           ))}
                                         </ul>
                                       </div>
+                                      )}
+                                      {( actionColumnStyle==="show buttons directly"  && <div className="mx-1">
+                                      
+                                          {totalActions?.map((action, actionIndex) => (
+                                            <button key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id} className="btn text-primary border-primary mx-2">
+                                              {action.modalId && (
+                                                <a
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target={`#${action?.modalId}`}
+                                                  aria-controls={action?.modalId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId && (
+                                                <a
+                                                  data-bs-toggle="offcanvas"
+                                                  data-bs-target={`#${action?.offId}`}
+                                                  aria-controls={action?.offId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId == undefined && action.modalId == undefined && (
+                                                <a
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                            </button>
+                                          ))}
+                                      </div>
+                                      )}
                                     </>
                                   ) : (
                                     <div className="d-flex justify-content-center align-items-center w-60px">
@@ -870,7 +910,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 <td className="align-middle text-center">
                                   {!tableDataRow?.isEndUserEditing ? (
                                     <>
-                                      <div className="btn-group dropstart">
+                                    {( actionColumnStyle==="show dots" &&<div className="btn-group dropstart">
                                         <button
                                           className="btn btn-sm btn-icon border-0 three-dot-btn"
                                           type="button"
@@ -933,7 +973,45 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             </li>
                                           ))}
                                         </ul>
-                                      </div>
+                                      </div>)}
+                                      {( actionColumnStyle==="show buttons directly"  && <div className="mx-1">
+                                      
+                                      {totalActions?.map((action, actionIndex) => (
+                                        <button key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id} className="btn text-primary border-primary mx-2">
+                                          {action.modalId && (
+                                            <a
+                                              data-bs-toggle="modal"
+                                              data-bs-target={`#${action?.modalId}`}
+                                              aria-controls={action?.modalId}
+                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                              className="dropdown-item"
+                                            >
+                                              {action.displayName}
+                                            </a>
+                                          )}
+                                          {action.offId && (
+                                            <a
+                                              data-bs-toggle="offcanvas"
+                                              data-bs-target={`#${action?.offId}`}
+                                              aria-controls={action?.offId}
+                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                              className="dropdown-item"
+                                            >
+                                              {action.displayName}
+                                            </a>
+                                          )}
+                                          {action.offId == undefined && action.modalId == undefined && (
+                                            <a
+                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                              className="dropdown-item"
+                                            >
+                                              {action.displayName}
+                                            </a>
+                                          )}
+                                        </button>
+                                      ))}
+                                  </div>
+                                  )}
                                     </>
                                   ) : (
                                     <div className="d-flex justify-content-center align-items-center w-60px">
