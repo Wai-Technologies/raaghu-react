@@ -112,7 +112,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                   <div className="row mb-3">
                      <div className="col-md-8">
                         <RdsLabel
-                           label="ConnectionStrings"
+                           label="Connection Strings"
                            required={true}
                         />
                         <div className="form-group mt-2">
