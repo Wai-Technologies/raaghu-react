@@ -410,6 +410,23 @@
     .navbar-expand-sm .navbar-toggler {
         display: none;
     }
+    .LeftSideNavList{
+        width: 30px;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+    
+        .form-control{
+            display:none;
+        }      
+    }
+    .LeftSideNavList:hover{
+        width:auto;
+        .form-control{
+            display:block;
+        }      
+    }
 }
 
 @media screen and (min-width:768px) {
@@ -417,3 +434,12 @@
         width: calc(100% - 0.6rem) !important;
     }
 }
+.right-nav{
+    display: flex;
+    justify-content: end;
+}
+.right-nav #sidebar{
+    width: 64px;
+}
+.left-space{ margin-left:0.8rem}
+.left-space-listing{ padding-left:0.8rem}

@@ -310,13 +310,14 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     return (
         <>
             <div
-                className={`${props.layout === "RightSideNav" ? "aside-right" : "aside"}`}
+                className={`${props.layout === "RightSideNav" ? "right-nav" : "aside"}`}
                 id="aside"
                 onMouseEnter={props.layout !== "RightSideNav" ? () => setIsShown(true) : undefined}
                 onMouseLeave={props.layout !== "RightSideNav" ? () => setIsShown(false) : undefined}
             >
 
                 {props.layout != "RightSideNav" && (
+                    <div className="aside-right">
                     <div
                         className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
                             props.toggleClass ? " show" : " hide"
@@ -334,6 +335,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 onClick={() => setIsLocked(!isLocked)}
                             ></RdsIcon>
                         </span>
+                    </div>
                     </div>
                 )}
                 
@@ -353,7 +355,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         )}
 
                         {props.layout === "RightSideNav" && props.showUserProfile && (
-                            <div className="align-items-align-items-start ps-3">
+                            <div className="align-items-align-items-start left-space">
                                 <RdsAvatar
                                     firstName="Wai"
                                     lastName="Technologies"
@@ -367,7 +369,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         )}
 
                         {props.layout === "LeftSideNavList" && !props.collapse && (
-                            <RdsSearch 
+                            <div className="LeftSideNavList"><RdsSearch 
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}
@@ -375,6 +377,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 iconPosition="right"
                                 size="small"
                             />
+                            </div>
                         )}
                         {props.layout === "LeftSideNavList" && props.collapse && (
                             <RdsIcon 
@@ -389,7 +392,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
                     </div>
                     {props.layout === "LeftSideNavList" && props.showUserProfile && (
-                        <ul className="align-items-end ps-3 pb-0">
+                        <ul className="align-items-end left-space-listing pb-0">
                             <RdsAvatar
                                 firstName="Wai"
                                 lastName="Technologies"
