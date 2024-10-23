@@ -283,7 +283,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           )}
         </div>
         <label
-          htmlFor="file"
+          htmlFor="file-input-side-icon"
           className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
@@ -317,8 +317,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               data-testid="rds-file-uploader-input"
               className={`col-md-12 input mulinput d-none`}
               type="file"
-              name="file"
-              id="file"
+              id="file-input-side-icon"
               accept={props.extensions}
               onChange={onchangehandler}
               multiple={true}
@@ -396,7 +395,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           )}
         </div>
         <label
-          htmlFor="file"
+          htmlFor="file-input-with-icon"
           className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
@@ -430,8 +429,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               data-testid="rds-file-uploader-input"
               className={`col-md-12 input mulinput d-none`}
               type="file"
-              name="file"
-              id="file"
+              id="file-input-with-icon"
               accept={props.extensions}
               onChange={onChangeHandlerForSingleSelection}
               multiple={false}
@@ -518,7 +516,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           )}
         </div>
         <label
-          htmlFor="file"
+          htmlFor="file-input-with-upload-button"
           className={`align-items-center multiUploader row mx-0 rounded-4 border-${
             props.colorVariant || "primary"
           } ${size}`}
@@ -552,8 +550,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               data-testid="rds-file-uploader-input"
               className={`col-md-12 input mulinput d-none`}
               type="file"
-              name="file"
-              id="file"
+              id="file-input-with-upload-button"
               accept={props.extensions}
               onChange={onchangehandler}
               multiple={true}
@@ -665,7 +662,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   data-testid="rds-file-uploader-input"
                   className={`col-md-12 input mulinput d-none text-${props.colorVariant}`}
                   type="file"
-                  name="file1"
                   id="file1"
                   accept={props.extensions}
                   onChange={onChangeHandlerForSingleSelection}
