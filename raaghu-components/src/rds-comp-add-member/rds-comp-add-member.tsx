@@ -82,7 +82,7 @@ const isRoleIdValid = (roleId: any) => {
   const isFormValid=isEmailValid(addMemberData?.email) && isRoleIdValid(addMemberData.roleId);
 
   return (
-    <div className="pt-md-0 pt-2">
+    <div className="pt-md-0 pt-2 addMemberOffCancvas">
       <RdsOffcanvas
         backDrop="static"
         canvasTitle="ADD NEW MEMBER"
@@ -110,7 +110,7 @@ const isRoleIdValid = (roleId: any) => {
         placement="end"
         scrolling={false}
       >
-        <div>
+        <div className="offcanvas-content d-flex flex-column h-100">
           <div className="offcanvas-intive-banner bg-danger bg-gradient bg-opacity-10">
             <div className="d-flex align-items-center gap-3 py-3 px-4">
               <div>
@@ -123,7 +123,7 @@ const isRoleIdValid = (roleId: any) => {
               </div>
             </div>
           </div>
-          <form className="text-start pt-4">
+          <form className="text-start pt-4 flex-grow-1">
             <div className="mb-2">
               <RdsInput
                 id=""
@@ -169,30 +169,30 @@ const isRoleIdValid = (roleId: any) => {
               </div>
             </div>
           </form>
-        </div>
-        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse mt-5 flex-xl-row flex-xxl-row d-flex gap-2">
-          <RdsButton
-            class="me-2"
-            tooltipTitle={""}
-            type={"button"}
-            label="CANCEL"
-            colorVariant="outline-primary"
-            size="small"
-            databsdismiss="offcanvas"
-            onClick={onClickCancel}
-          ></RdsButton>
-          <RdsButton
-            class="me-2"
-            label="SAVE"
-            showLoadingSpinner={true}
-            size="small"
-            colorVariant="primary"
-            tooltipTitle={""}
-            onClick={(e: any) => emitSaveData(e)}
-            type={"submit"}
-            isDisabled={!isFormValid}
-            databsdismiss="offcanvas"
-          ></RdsButton>
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse mt-5 flex-xl-row flex-xxl-row d-flex gap-2">
+            <RdsButton
+              class="me-2"
+              tooltipTitle={""}
+              type={"button"}
+              label="CANCEL"
+              colorVariant="outline-primary"
+              size="small"
+              databsdismiss="offcanvas"
+              onClick={onClickCancel}
+            ></RdsButton>
+            <RdsButton
+              class="me-2"
+              label="SAVE"
+              showLoadingSpinner={true}
+              size="small"
+              colorVariant="primary"
+              tooltipTitle={""}
+              onClick={(e: any) => emitSaveData(e)}
+              type={"submit"}
+              isDisabled={!isFormValid}
+              databsdismiss="offcanvas"
+            ></RdsButton>
+          </div>
         </div>
       </RdsOffcanvas>
     </div>
