@@ -39,7 +39,7 @@ $bg-primary-lighter-default:#FEF7FF;
     $bg-neutral-dark-default:#4C4C4C;
     $bg-neutral-medium-default:#CDCDCD;
     $bg-neutral-light-default:#E9E9E9;
-    $bg-neutral-lighter-default:#646464;
+    $bg-neutral-lighter-default:#ffffff;
 
     /*Error Background colors */
     $bg-error-darker-default:#410003;
@@ -370,6 +370,7 @@ $progress-bar-bg-error:$bg-error-dark-default;
 
 
 $min-contrast-ratio: 4.5 !default;
+$input-border-color: $input-neutral-outline-default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
 $body-bg: white;
 $input-bg: $body-bg !default;
@@ -377,12 +378,9 @@ $input-bg: $body-bg !default;
 $border-color: $gray-100;
 $accordion-border-color: #646464 ;
 
-
-$toast-btn-close-color: $gray-100 !default;
 $btn-close-width: 1em !default;
 $btn-close-color: $gray-100 !default;
-$btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>") !default;
-
+$btn-close-bg: url("data:image/svg+xml,<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M13 13L0.999969 1M13 1L0.999969 13' stroke='#7825E9' stroke-linecap='round' stroke-linejoin='round'/ ></svg > ") !default;
 // /*accordion color variables*/
 $accordion-bg: $white;
 $accordion-button-bg: $light;
@@ -1938,9 +1936,180 @@ $form-feedback-color: $gray-700;
 }
 
 @mixin toast-variant($background, $border, $color) {
+    background: $background;
     color: $color;
+    border:$border;
 }
+.toast-basic {
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
 
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-neutral-outline-default;
+
+        polyline.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        polygon.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        ellipse.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        path.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        line.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        rect.icon {
+            stroke: $input-neutral-outline-default;
+        }
+
+        circle.icon {
+            stroke: $input-neutral-outline-default;
+        }
+    }
+}
+.toast-info {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-neutral-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-neutral-outline-default !important;
+
+        polyline.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        polygon.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        ellipse.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        path.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        line.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        rect.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+
+        circle.icon {
+            stroke: $input-neutral-outline-default !important;
+        }
+    }
+}
+.toast-success {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-primary-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-primary-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-primary-outline-default !important;
+
+        polyline {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        polygon {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        ellipse {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        path {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        line {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        rect {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        circle {
+            stroke: $input-primary-outline-default !important;
+        }
+    }
+}
+.toast-error {
+    @include toast-variant(
+        $bg-neutral-lighter-default, // background
+        $input-error-outline-default, // border  
+        $txt-neutral-dark-default    // text color
+    );
+    border-left: 4px solid $input-error-outline-default; // border 
+    
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-error-outline-default !important;
+
+        polyline.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        polygon.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        ellipse.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        path.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        line.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        rect.icon {
+            stroke: $input-error-outline-default !important;
+        }
+
+        circle.icon {
+            stroke: $input-error-outline-default !important;
+        }
+    }
+}
 @each $state, $value in $theme-colors {
     $toast-background: shift-color($value, $toast-bg-scale);
     $toast-border: shift-color($value, $toast-border-scale);
@@ -2081,50 +2250,6 @@ $form-feedback-color: $gray-700;
             stroke: $icon-primary-outline-default;
         }
     }    
-}
-
-.alert-warning {
-    @include alert-variant(
-         $bg-warning-light-default, // background
-         $line-warning-medium-defaut,  // border
-                    // text color
-    );
-    border-left: 4px solid $input-warning-outline-default; // border
-
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $icon-tertiary-outline-default;
-
-        polyline.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        polygon.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        ellipse.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        path.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        line.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        rect.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-
-        circle.icon {
-            stroke: $icon-tertiary-outline-default;
-        }
-    }
 }
 
 .alert-error {
