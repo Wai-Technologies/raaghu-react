@@ -312,9 +312,11 @@
         }
 
         .sidenav-footer {
-            opacity: 0;
+            opacity: 1;
         }
-
+        .aside .toggle {
+            right: 1.25rem;
+        }
         #sidebar:hover .sidenav-footer {
             opacity: 0;
         }
@@ -323,8 +325,8 @@
             width: 0px;
             display: block;
             left: 0px;
-            max-width: 260px;
-            min-width: 260px;
+            max-width: 250px;
+            min-width: 250px;
         }
 
         #sidebar.toggle.show {
@@ -336,12 +338,24 @@
         #sidebar.toggle.hide {
             width: 250px;
             transition: all 0.55s ease-in-out;
-            left: -270px;
+           /*  left: -270px; */
         }
 
         .sidebar ul li a:checked ~ #sidebar {
             left: -280px;
         }
+        .aside-right{
+            .sidebar {
+                width:64px;
+               
+            }
+            #sidebar.hide{
+                width:64px;
+                left:auto;
+                right:0px
+            }
+        }
+       
     }
 
     .mobile-sidebar-collapse {
