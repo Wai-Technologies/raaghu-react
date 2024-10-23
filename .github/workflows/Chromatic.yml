@@ -36,4 +36,4 @@ jobs:
       - name: Run Chromatic
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }} # Use GitHub secrets to store your Chromatic token
-        run: npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+        run: npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-once-uploaded
