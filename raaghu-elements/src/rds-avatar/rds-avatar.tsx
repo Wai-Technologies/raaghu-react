@@ -5,7 +5,7 @@ import validator from "validator";
 import { colors } from "../../libs/types";
 
 export interface RdsAvatarProps {
-    avatars: RdsAvatarProps[];
+    avatars?: RdsAvatarProps[];
     profilePic?: string;
     withProfilePic?: boolean;
     firstName?: string;
@@ -13,7 +13,7 @@ export interface RdsAvatarProps {
     role?: string;
     colorVariant?: colors;
     titleAlign?: string;
-    size?: "small" | "large" | "medium";
+    size?: "smallest" | "small" | "large" | "medium" | "largest";
     verticallyAlligned?: boolean;
     roundedAvatar?: boolean;
     roundedPills?: boolean;
@@ -232,11 +232,9 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                             >
                         <div className="card-body">
                             <img
-                            src={withPP}
                             alt="Profile"
                             src={withPP}
                                 className={classes()}
-                                alt="profile-default"
                                 style={{padding:'2px'}}
                     
                             />
@@ -257,7 +255,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                         <div
                         className="card text-center border-0"
                             >
-                                {props.stackingAvatar && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
+                                {props.stackingAvatar && props.avatars && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
                         </div>
 
                         </>
