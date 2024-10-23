@@ -7,146 +7,455 @@
   <a href="https://raaghu.io" target="_blank">
     <p>
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-dark.png?raw=true">
-        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=true">
-        <img alt="Banner" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/banner-light.png?raw=trues"/>
+        <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/hero-banner-dark.png?raw=trues">
+        <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/hero-banner-light.png?raw=trues">
+        <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/hero-banner-light.png?raw=trues" width="1000"/>
       </picture>
     </p>
   </a>
 </p>
+
+
+
+</br>
+
+<div align="center">
+
+[![License](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
+![Design System Version](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
+[![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
+[![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
+[![Documentation](https://img.shields.io/badge/Docs-Online-red)](https://react.raaghu.ai/)
+
+[![Build Status](https://img.shields.io/badge/build-passing-purple)](https://github.com/Wai-Technologies/raaghu-react/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/commits/main)
+[![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
+
+
+
+</div>
+
+</br>
+</br>
+
   
 <h1 style="border-bottom:0;">Contents</h1>
 
-- [What is Raaghu?](#raaghu-intro)
-- [Why Raaghu?](#why)
-- [How Raaghu works?](#how)
-- [Getting Started with Raaghu](#started)
-- [Startup Templates](#templates)
-- [Build with](#build_with)
+- [What is Raaghu Design System?](#raaghu-intro)
+- [Why Choose Raaghu Design System??](#why)
+- [How Raaghu Design System Works?](#how)
+- [Features](#features)
+- [More about Raaghu Design System](#learn-more) 
+- [Raaghu Resources](#insights) 
+- [Getting Started with Raaghu](#started) 
 - [License](#license)
+- [Communities](#communities)
 - [How to Contribute](#contribute)
-- [WAi Technologies Contributors](#contributers)
+ 
 
 </br></br>
 
-## <a name='raaghu-intro'></a> What is Raaghu?
+## <a name='raaghu-intro'></a> What is Raaghu Design System?
 
 <p>
-<b>Raaghu</b> is an open source React based front-end design system leveraging micro front end capabilities that helps in building efficient, reliable and scalable front-end applications . Raaghu is built on top of raaghu elements as well as front end toolkit like <b>Bootstrap</b>, <b>storybook</b> offering highly customizable UI components and built in pages.
+  <b>The Raaghu Design System</b> is an AI-powered, component-driven development platform backed by a large, active community. We continuously enhance our platform by adding app shells, layouts, and component designs, which are transformed into coded components by AI Pundit and community members, enriching our component library. Each design component is seamlessly connected to code through Figma Code Connect, allowing designers and developers to achieve 3x faster front-end development. All components are rigorously tested using Chromatic to ensure quality and reliability.
+
 </p>
+</br>
+<div align="center">
 
-## <a name='why'></a> Why Raaghu?
+<p> Built on a Robust Technology Stack </p>
+</br>
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/bootstrap.svg" width="50" height="50" alt="Bootstrap"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</div>
+</br>
+<!-- <p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-dark.png?raw=true?">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-light.png?raw=true?">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-light.png?raw=true?" width="1000"/>
+  </picture>
+</p> -->
 
+<div align="center">
+  Design System offers a Figma design kit available on the Figma Community and provides well-tested UI components documented in Storybook.
+</div>
+
+</br>
+
+<div align="center">
+
+  <a href="https://www.figma.com/community/file/1425066439193737902/raaghu-design-system-open-source" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true">
+      <img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true" width="290" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/introduction--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true">
+      <img alt="Layouts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true" width="290" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br></br>
+
+## <a name='why'></a> Why Choose Raaghu Design System?
+
+<!-- <p> 
+  Raaghu seamlessly bridges the gap between design and development while maintaining a high level of standardization.
+
+</p>
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png">
-    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Features-new-light.png" width="1000"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/why-design-system-light.png" width="1000"/>
   </picture>
-</p>
+</p> -->
 
-## <a name='how'></a> How Raaghu works?
 
-</br></br></br>
+<div align="center">
 
-<p align="center">
-  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-illustration.png" alt="logo" width="600"/>
-</p>
-<br/>
-<br/>
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_dark.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true" width="400" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+
+
+## <a name='how'></a> How Raaghu Design System Works?
+
 <p>
-We create your wireframes or use the existing available wireframes. Based on your wireframe and theme design / branding, we apply the same CSS to elements, components and pages that we have. With the help of Component driven development and our micro front end architecture, we break your page design into components and enrich your library.
-
-These components come together to create the same wireframe design and form a page.We deploy these components through our Ci/Cd pipeline and make use of our micro front end architecture.
-
+The Raaghu Design System streamlines front-end development by combining an AI-powered component-driven approach with seamless design-to-code integration. Designers use the Figma design kit, available on the Figma Community, to create prototypes, which are automatically linked to code via Figma Code Connect. Raaghu’s AI Pundit converts these designs into fully functional, reusable components, documented in Storybook. Continuous updates from community contributors and rigorous testing with Chromatic ensure quality, enabling designers and developers to achieve up to 3x faster development.
 </p>
+</br></br>
+
+<p>
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000">
+<!-- 
+<div align="center">
+  <video width="600" controls>
+    <source src="https://raaghu.ai/assets/img/Revamp_website_images/Storybook-page.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div> -->
+
+
+  <!-- <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
+  </picture> -->
+</p>
+<p>
+  Thought the CI/CD pipelines the components are deployed to the wireframe design and form a page
+</p>
+
+## <a name='features'></a> Features
+</br>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
+    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?">
+    <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?" width="1000"/>
+  </picture>
+</p> 
+
+## <a name='learn-more'></a> More about Raaghu Design System
+<!-- <p>
+  Learn more about Raaghu Design System
+</p>  -->
+</br>
+
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
+      <img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
+      <img alt="Layouts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true">
+      <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true">
+      <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+</br>
+<div align="center">
+
+  <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
+      <img alt="Design Tokens" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" style="max-width:90%; margin: 0 20px;">
+    </picture>
+  </a>
+
+</div>
+
+
+
+<!-- Centered table with dark/light mode support for images -->
+<!-- <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
+  <tr>  
+    <td align="center" width="50%">
+      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true">
+          <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="400"/>
+        </picture>
+      </a>
+    </td> 
+    <td align="center" width="50%">
+      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true">
+          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Components_card.png?raw=true" width="400"/>
+        </picture>
+      </a>
+    </td>
+  </tr>
+</table> -->
+
+<!-- <table align="center" cellpadding="0" border="0" width="50%">
+  <tr> 
+    <td align="center" width="200px">
+      <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts_card_dark.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts_card_light.png?raw=true">
+          <img alt="Charts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/charts_card_light.png?raw=true" width="300"/>
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="200px">
+      <a href="https://react.raaghu.ai/?path=/docs/map-map--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps_dark.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps_light.png?raw=true">
+          <img alt="Map" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/maps_light.png?raw=true" width="300"/>
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="200px">
+      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_dark.png?raw=true">
+          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true">
+          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/components_light.png?raw=true" width="300"/>
+        </picture>
+      </a>
+    </td>
+  </tr>  
+</table> -->
+</br> 
+
+## <a name='insights'></a> Raaghu Resources
+</br> 
+<table width="100%">
+<thead>
+<tr>
+<th align="center" width="33%">Accelerate Your Frontend Development with raaghu!</th>
+<th align="center" width="33%">Supercharge Your React Projects with Raaghu </th>
+<th align="center" width="33%">Introduction to Raaghu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" width="33%">
+  <a href="https://youtu.be/LiZdckORQEg" target="_blank">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/trailer.gif" alt="Raaghu Trailer" width="240">
+  </a>
+</td>
+<td align="center" width="33%">
+  <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/why_raaghu.gif" alt="Why Raaghu" width="240">
+  </a>
+</td>
+<td align="center" width="33%">
+  <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_introduction.gif" alt="Raaghu Introduction" width="240">
+  </a>
+</td>
+</tr>
+</tbody>
+</table>
+</br> 
+<table width="100%">
+<thead>
+<tr>
+<th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
+<th align="center" width="33%">Building Web Apps with Raaghu Package</th>
+<th align="center" width="33%">Storybook - Backbone of Raaghu Design System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" width="33%">
+  <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/source_code.gif" alt="Raaghu Source Code" width="240">
+  </a>
+</td>
+<td align="center" style="width: 33%;">
+  <a href="https://youtu.be/kZDPn5CHkhg">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/packages.gif" alt="Raaghu Package" width="240">
+  </a>
+</td>
+<td align="center" width="33%">
+  <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Raaghu Storybook" width="240">
+  </a>
+</td>
+</tr>
+</tbody>
+</table>
+ </br> </br> 
 
 ## <a name='started'></a> Getting Started with Raaghu
 
-- [Setup raaghu](https://raaghu.io): For development
-- [Development Support](https://raaghu.io): Create a common Library, Component, Screen / MFE etc
-- [Storybook](https://storybookreact.raaghu.io/): Build bulletproof UI components faster
-- [Elements & Components on Gatsby](http://raaghu.io/): Preview of all raaghu elements, components & pages.
-- [Demo](https://anzdemoui.raaghu.io/): Dashboard Demo (Light & Dark theme)
-- [Figma](http://raaghu.io/): Preview & download Figma gesigns
-- [XD](http://raaghu.io/): Preview & download xd Designs
+- [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
+- [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
+- [Create new solution](): Guide to create new React Solution. 
+- [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
+- [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
+- [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs.
+- [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools.
+- [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust CLI.
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
  
  
-##  <a name='templates'></a> Startup Templates
-<p>
-A collection of open-source statrter templates, Free templates that are perfect starter layouts for your application. Create your solution based on free or premium startup templates. Either with an React Single-Page Application or Classic MVC & Microfrontend architecture.
-</p> 
-</br>
-<p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/templates-light.png" alt="logo" width="1200"/>
-  </picture> 
-</p>
- 
-</br>
- <a name='build_with'></a> Build with
-<p>
-Built on a robust tech stack and platform
-</p> 
-</br>
-
-<table align="center">
-  <tr>  
-  <td>
-    <a href="https://reactjs.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/react.svg" width="80" title="React"/>
-    </td>
-       <td>
-        <a href="https://getbootstrap.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/bootstrap.png" width="80" title="Bootstrap"/>
-    </td>
-     </td>
-       <td>
-        <a href="https://www.typescriptlang.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/logo_typescript.png" width="70" title="typescript"/>
-    </td>
-    <td>
-        <a href="https://storybook.js.org/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook.png" width="80" title="Storybook"/>
-    </td>
-      <td>
-        <a href="https://www.gatsbyjs.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/gatsby.png" width="80" title="Gatsby"/>
-    </td>
-  </tr>  
-  <tr>
-  <td>
-        <a href="https://vitejs.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/vite.png" width="80" title="Vite"/>
-    </td>
-        <td>
-        <a href="https://million.dev/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/millionjs.svg" width="80" title="Million"/>
-    </td>
-     <td>
-         <a href="https://www.adobe.com/in/products/xd.html?promoid=3NQZBBTZ&mv=other">
-         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/xd.png" width="80" title="Adobe XD"/>
-    </td>
-     <td>
-         <a href="https://www.figma.com/">
-         <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma.png" width="80" title="Figma"/>
-    </td>
-     <td>
-        <a href="https://visualstudio.microsoft.com/">
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/visual-studio.png" width="80" title="Visual Studio"/>
-    </td>
-  </tr>
-</table> 
- 
-</br></br>
-
 ## <a name='license'></a> License
 
-This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE) file for details.
+This project is licensed under the MIT License - see the [`LICENSE`](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE) file for details.
+
+
+## <a name='communities'></a> Communities 
+
+<div align="left">
+
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) 
+[![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
+[![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube&logoColor=white)](https://www.youtube.com/@wai-technologies)
+<!-- [![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
+[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) 
+[![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/)  -->
+
+</div>
 
 ## <a name='contribute'></a> How to Contribute 🤝
 
@@ -157,391 +466,3 @@ This project is licensed under the Apache License - see the [`LICENSE`](/LICENSE
     Let's build a great community and software together :relaxed:
 </p>
 </br>
-
-## <a name='contributers'></a> WAi Technologies Contributors ✨
-
-Thanks goes to these wonderful people and WAi Technologies.
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<table>
-  <tr>
-    <td>
-      <a href="https://github.com/omkarchoudhari">
-        <img src="https://avatars.githubusercontent.com/u/32321041?s=100&v=4" width="100" style="border-radius:50%" title="Omkar Choudhari"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/mohanbari">
-        <img src="https://avatars.githubusercontent.com/u/99885410?s=100v=4" width="100" title="Mohan Bari"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/kirtikulkarni1011">
-        <img src="https://avatars.githubusercontent.com/u/40684426?v=4" width="100" title="Kirti Kulkarni"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/kaushikgokhale">
-        <img src="https://avatars.githubusercontent.com/u/101329794?s=400&u=78582c9dc52f7f002cc24841acc7ec7fdeead52d&v=4" width="100" title="Kaushik Gokhale"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/alok-nakhate">
-        <img src="https://avatars.githubusercontent.com/u/99717383?s=100v=4" width="100" title="Alok Nakhate"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/Priyanka-Shinkar">
-        <img src="https://avatars.githubusercontent.com/u/99782840?s=100&v=4" width="100" title="Priyanka Shinkar"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/rahulp34">
-        <img src="https://avatars.githubusercontent.com/u/55730676?s=100v=4" width="100" title="Rahul Patil"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/Bhorga">
-        <img src="https://avatars.githubusercontent.com/u/102799341?v=4" width="100" title="Harshit Bhorga"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/pratheesh-Krishnan">
-        <img src="https://avatars.githubusercontent.com/u/99800378?s=100v=4" width="100" title="Pratheesh Krishnan"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/amolkulkarniwaiin">
-        <img src="https://avatars.githubusercontent.com/u/99239211?v=4" width="100" title="Amol Kulkarni"/>
-        <br />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/Niphy-Anto">
-        <img src="https://avatars.githubusercontent.com/u/99808648?s=100v=4" width="100" title="Niphy Anto"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/Ketan-Khalate">
-        <img src="https://avatars.githubusercontent.com/u/99807624?s=100v=4" width="100" title="Ketan Khalate"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/obaid-ur-rahman">
-        <img src="https://avatars.githubusercontent.com/u/100338565?s=100v=4" width="100" title="Obaid Rahman"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/swamirajanarse">
-        <img src="https://avatars.githubusercontent.com/u/97228584?s=100&v=4" width="100" title="Swamiraj Anarse"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/neeraj-bhakre">
-        <img src="https://avatars.githubusercontent.com/u/100110930?s=100v=4" width="110" title="Neeraj Bhakre"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/maithililondhewaiin">
-        <img src="https://avatars.githubusercontent.com/u/100565002?s=100&v=4" width="100" title="Maithili Londhe">
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/neeraj-bhakre">
-        <img src="https://avatars.githubusercontent.com/u/104414130?s=100&v=4" width="110" title="Vaishnavi Pardeshi"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/DevSwapnil22">
-        <img src="https://avatars.githubusercontent.com/u/100186754?v=4" width="100" title="Swapnil Ghormode"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/j-yogendra">
-        <img src="https://avatars.githubusercontent.com/u/99783626?v=4" width="100" title="yogendra jaiswal"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/aniketchandar-waiin">
-        <img src="https://avatars.githubusercontent.com/u/67675741?v=4" width="100" title="Aniket Chandar"/>
-        <br />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/rohit9096">
-        <img src="https://avatars.githubusercontent.com/u/88035057?s=100v=4" width="100" title="Rohit Kulkarni"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/suraj-khupse">
-        <img src="https://avatars.githubusercontent.com/u/99809670?v=4" width="100" title="Suraj Khupse"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/Prashant-waii">
-        <img src="https://avatars.githubusercontent.com/u/112158709?v=4" width="100" title="Prashant"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/shubham-waii">
-        <img src="https://avatars.githubusercontent.com/u/112168652?v=4" width="100" title="Shubham Sharma"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/Abhijeet-warade">
-        <img src="https://avatars.githubusercontent.com/u/109577508?v=4" width="100" title="Abhijeet warade"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/abhijeetjawale1">
-        <img src="https://avatars.githubusercontent.com/u/97285066?v=4" width="100" title="Abhijeet jawale"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/adilsayyad">
-        <img src="https://avatars.githubusercontent.com/u/100746642?v=4" width="100" title="Adil Sayyad"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/SIDDHARTHPAL223427">
-        <img src="https://avatars.githubusercontent.com/u/109146967?v=4" width="100" title="Siddharth Pal"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/AshleshaKawale">
-        <img src="https://avatars.githubusercontent.com/u/109782676?v=4" width="100" title="Ashhlesha Kawale"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/bbsahoowaiin">
-        <img src="https://avatars.githubusercontent.com/u/105644806?v=4" width="100" title="Bikram Sahoo"/>
-        <br />
-      </a>
-    </td>
-   </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/dhirajlaha">
-        <img src="https://avatars.githubusercontent.com/u/82803816?v=4" width="100" title= "Dhiraj Laha">
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/agaurav0019">
-        <img src="https://avatars.githubusercontent.com/u/109716529?v=4" width="100" title="Abhishek Gaurav"/>
-        <br />
-      </a>
-    </td>     
-    <td>
-      <a href="https://github.com/saniyasonkaria">
-        <img src="https://avatars.githubusercontent.com/u/109716234?v=4" width="100" title="Saniya Sonkaria"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/mayank-kumar-arun">
-        <img src="https://avatars.githubusercontent.com/u/109716282?v=4" width="100" title="Mayank Kumar Arun"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/yaminichandanawaiin">
-        <img src="https://avatars.githubusercontent.com/u/109151876?v=4" width="100" title="Yamini Chandana"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/anshuman-singh-wai">
-        <img src="https://avatars.githubusercontent.com/u/112934036?v=4" width="100" title="Anshuman Singh"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/developer4385">
-        <img src="https://avatars.githubusercontent.com/u/109150955?v=4" width="100" title="Vishal Singh"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/PravinCAher">
-        <img src="https://avatars.githubusercontent.com/u/99784764?v=4" width="100" title="prasad deshmukh"/>
-        <br />
-      </a>
-    </td>                                                                                               <td>
-      <a href="https://github.com/raghavnaphade">
-        <img src="https://avatars.githubusercontent.com/u/84921664?v=4" width="100" title="raghav naphade"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/RahulMoreWAi">
-        <img src="https://avatars.githubusercontent.com/u/99783494?v=4" width="100" title="Rahul More"/>
-        <br />
-      </a>
-    </td>                 
-  </tr>    
-  <tr>
-    <td>
-      <a href="https://github.com/bhagwatkhushwaha">
-        <img src="https://avatars.githubusercontent.com/u/54980601?v=4" width="100" title="bhagwat khushwaha"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/DeepenKakde">
-        <img src="https://avatars.githubusercontent.com/u/99784291?v=4" width="100" title="Deepen Kakde"/>
-        <br />
-      </a>
-    </td>     
-    <td>
-      <a href="https://github.com/ganesh-mokate-waiin">
-        <img src="https://avatars.githubusercontent.com/u/100756494?v=4" width="100" title="ganesh mokate"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/girisanket">
-        <img src="https://avatars.githubusercontent.com/u/106297759?v=4" width="100" title="Sanket Giri"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/jis248">
-        <img src="https://avatars.githubusercontent.com/u/84921389?v=4" width="100" title="jis248"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/kolatelaxman">
-        <img src="https://avatars.githubusercontent.com/u/100756200?v=4" width="100" title="kolate laxman"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/kravi97">
-        <img src="https://avatars.githubusercontent.com/u/109577685?v=4" width="100" title="kravi"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/krutikajoshiWaiin">
-        <img src="https://avatars.githubusercontent.com/u/100564860?v=4" width="100" title="krutika joshi"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/lijovargheses">
-        <img src="https://avatars.githubusercontent.com/u/99785224?v=4" width="100" title="Lijo Varghese"/>
-        <br />
-      </a>
-    </td> 
-    <td>
-      <a href="https://github.com/nitinsonawane123">
-        <img src="https://avatars.githubusercontent.com/u/97287679?v=4" width="100" title="nitin sonawane"/>
-        <br />
-      </a>
-    </td>
-  </tr> 
-  <tr>
-    <td>
-      <a href="https://github.com/palakchimaniya">
-        <img src="https://avatars.githubusercontent.com/u/89460181?v=4" width="100" title="palak chimaniya"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/pingroh">
-        <img src="https://avatars.githubusercontent.com/u/83004731?v=4" width="100" title="pingroh"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/poojagurav21">
-        <img src="https://avatars.githubusercontent.com/u/100746056?v=4" width="100" title="pooja gurav"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/poojakulkarniWai">
-        <img src="https://avatars.githubusercontent.com/u/107623732?v=4" width="100" title="pooja kulkarni"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/prakashmhaske">
-        <img src="https://avatars.githubusercontent.com/u/97657667?v=4" width="100" title="prakash mhaske"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/prasaddeshmukh-waiin">
-        <img src="https://avatars.githubusercontent.com/u/101566386?v=4" width="100" title="prasad deshmukh"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/vyankatesh21">
-        <img src="https://avatars.githubusercontent.com/u/109503161?v=4" width="100" title="vyankatesh"/>
-        <br />
-      </a>
-    </td>  
-    <td>
-      <a href="https://github.com/Sachin-Ghorpade">
-        <img src="https://avatars.githubusercontent.com/u/109578038?v=4" width="100" title="Sachin Ghorpade"/>
-        <br />
-      </a>
-    </td>        
-    <td>
-      <a href="https://github.com/shwetaholkar">
-        <img src="https://avatars.githubusercontent.com/u/100746624?v=4" width="100" title="Shweta Holkar"/>
-        <br />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/amarphule">
-        <img src="https://avatars.githubusercontent.com/u/35063838?v=4" width="100" title="Amardeep Phule"/>
-        <br />
-      </a>
-    </td>  
-  </tr>
-</table>
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!

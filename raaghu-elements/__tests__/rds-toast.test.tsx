@@ -20,10 +20,8 @@ describe("RdsToast", () => {
         borderColor: "danger",
         showHeader: true,
         iconName: "check",
-        iconColorvariant: "light",
-        iconHeight: "20px",
-        iconWidth: "20px",
-        iconFill: false,
+        state:"success",
+        layout:"padded"
     };
 
 
@@ -45,6 +43,8 @@ describe("RdsToast", () => {
             headerTitle: "Header",
             message: "Message",
             showHeader: true,
+            state:"success",
+            layout:"padded"
         };
         const { getByText } = render(<RdsToast {...props} />);
         expect(getByText(props.headerTitle)).toBeInTheDocument();
@@ -58,6 +58,8 @@ describe("RdsToast", () => {
                 headerTitle="Header Title"
                 message="This is a test message"
                 showHeader={true}
+                 state="basic"
+                layout="text"
             />
         );
         const toastContainer = getByRole("alert");
@@ -73,7 +75,8 @@ describe("RdsToast", () => {
             <RdsToast
                 colorVariant="success"
                 message="This is a test message"
-                showHeader={false} headerTitle={""} />
+                showHeader={false} headerTitle={""}  state="basic"
+                layout="text"/>
         );
         const toastContainer = getByRole("alert");
         const toastHeader = queryByText("Header Title");

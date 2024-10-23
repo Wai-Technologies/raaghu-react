@@ -19,20 +19,19 @@ const RdsCompChangePassword = (props: RdsCompChangePasswordProps) => {
     setInputReset(!inputReset);
   }, [props.reset]);
 
+ 
   const handleDataChanges = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
-    if (key === "newPasswordConfirm" && value !== formData.newPassword) {
-      // setPasswordMismatch(value !== formData.newPassword);
-      if (value) {
-        setErrorMessage(
-          () => "New password and confirm new password do not match"
-        );
+  
+    if (key === "newPassword" || key === "newPasswordConfirm") {
+      const newPassword = key === "newPassword" ? value : formData?.newPassword;
+      const confirmPassword = key === "newPasswordConfirm" ? value : formData?.newPasswordConfirm;
+  
+      if (confirmPassword !== newPassword) {
+        setErrorMessage("New password and confirm new password do not match");
       } else {
         setErrorMessage("");
       }
-    } else {
-      // setPasswordMismatch(false);
-      setErrorMessage("");
     }
   };
 

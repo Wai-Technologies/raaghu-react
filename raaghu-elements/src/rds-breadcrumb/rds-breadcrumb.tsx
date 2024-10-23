@@ -18,8 +18,8 @@ import RdsIcon from "../rds-icon";
 
 export interface BreadcrumbProps {
   breadcrumbItems: any[];
-  type?: "simple" | "background";
-  shape?: "round" | "square";
+  type?: "Simple" | "Background";
+  shape?: "Pill Background" | "Square Background";
   separator?: ">" | "/" | "→" | "»" | "|" | "-";
 }
 
@@ -42,17 +42,17 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
   const shapeClass = props.shape ? `breadcrumb-${props.shape}` : "";
   const noBgClass = props.shape ? `breadcrumb-${props.shape}-no-bg` : "";
   const roundedClass =
-    props.shape === "round"
-      ? "rounded-5"
-      : props.shape === "square"
-      ? "rounded-2"
+    props.shape === "Pill Background"
+      ? "rounded-5 px-2"
+      : props.shape === "Square Background"
+      ? "rounded-2 px-2"
       : "";
 
   return (
     <nav aria-label="breadcrumb">
       <ol
         className={`breadcrumb m-0 ${
-          props.type === "background" ? "breadcrumb-background" : ""
+          props.type === "Background" ? "breadcrumb-background" : ""
         }`}
       >
         {data.map((breadItem, index) => {
@@ -64,7 +64,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 className={`breadcrumb-item ${
                   breadItem.active ? "active" : ""
                 } ${isLastItem ? "text-primary" : ""} ${
-                  props.type === "background"
+                  props.type === "Background"
                     ? isLastItem
                       ? `${shapeClass} bg-primary-subtle`
                       : "bg-transparent"

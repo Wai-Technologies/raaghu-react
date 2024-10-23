@@ -112,14 +112,14 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 inputType="text"
                 label="Client URL"
                 name="name"
-                required={false}
+                required={true}
                 dataTestId="client-url"
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "clientUrl");
                 }}
                 value={clientData?.clientUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
-                validationMsg="Enter Valid URL Format"
+                validationMsg="Please Enter valid url (https or http)"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -129,14 +129,14 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                   inputType="text"
                   label="Logo URL"
                   name="name"
-                  required={false}
+                  required={true}
                   dataTestId="logo-url"
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "logoUrl");
                   }}
                   value={clientData?.logoUrl}
                   validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                  validationMsg="Enter Valid URL Format"
+                  validationMsg="Please Enter valid url (https or http)"
                 ></RdsInput>
               </div>
             </div>
@@ -148,14 +148,14 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 inputType="text"
                 label="CallBack URL"
                 name="name"
-                required={false}
+                required={true}
                 dataTestId="callback-url"
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "callbackUrl");
                 }}
                 value={clientData?.callbackUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                validationMsg="Enter Valid URL Format"
+                validationMsg="Please Enter valid url (https or http)"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6 mt-3">
@@ -164,14 +164,14 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 inputType="text"
                 label="Logout URL"
                 name="name"
-                required={false}
+                required={true}
                 dataTestId="logout-url"
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "logoutUrl");
                 }}
                 value={clientData?.logoutUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                validationMsg="Enter Valid URL Format"
+                validationMsg="Please Enter valid url (https or http)"
               ></RdsInput>
             </div>
           </div>
