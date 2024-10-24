@@ -12,8 +12,8 @@ export interface RdsCompAlertPopupProps {
     cancelButtonColor?: string;
     deleteButtonColor?: string;
 
-    onSuccess?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    onCancel?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onSuccess?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
+    onCancel?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
@@ -59,7 +59,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                         <RdsButton
                             onClick={props.onCancel}
                             class="px-2"
-                            data-bs-dismiss="modal" // Corrected from `databsdismiss` to `data-bs-dismiss`
+                            databsdismiss="modal"
                             aria-label="close"
                             label={CancelButtonLabel}
                             size="small" // Corrected from "'small'" to "small"
@@ -75,7 +75,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             size="small" // Corrected from "'small'" to "small"
                             tooltipTitle=""
                             colorVariant="danger"
-                            data-bs-dismiss="modal" // Corrected from `databsdismiss` to `data-bs-dismiss`
+                            databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
                         />
