@@ -3237,6 +3237,12 @@ $btn-border-radius: $border-radius-xs !default;
         height: 100%;
     }
     // collapsible container css end
+    .theme-dark div h6{
+        color: #dee2e6 !important;
+    }
+    .theme-dark div p{
+        color: #dee2e6 !important;
+    }
 .astric{
     color: $danger;
 }
