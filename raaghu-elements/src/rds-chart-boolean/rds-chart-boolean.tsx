@@ -61,7 +61,7 @@ const RdsBooleanChart = (props: RdsBooleanChartProps) => {
                 boolCanvas.destroy();
             };
         }
-    }, []);
+    }, [props]);
 
     return (
         <div>

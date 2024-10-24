@@ -38,7 +38,7 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
     const classes = () => {
         let classes: string = "form-check";
         if (props.isSwitch != true) {
-            classes = "form-check mb-1 d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block";
+            classes = "form-check mb-1 d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mt-2";
         } else {
             classes = "form-switch";
         }
