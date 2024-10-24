@@ -1,9 +1,11 @@
 // /*button custom properties*/
 .btn {
-  text-transform: uppercase;
+  text-transform: capitalize;
   min-width: 4.35rem;
   align-items: center !important;
+  padding: $btn-padding-x $btn-padding-y;
 }
+
 
 .btn-icon {
   min-width: auto;
