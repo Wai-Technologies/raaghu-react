@@ -59,7 +59,7 @@ export const Drop_Area_Top_Icon
         Drop_Area_Top_Icon: true,
         Drop_Area_Side_Icon: false,
         Drop_Area_With_Upload_Button : false,
-        Drop_Area_With_Icon: false,
+        multiple: false,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         validation: [
@@ -72,17 +72,16 @@ export const Drop_Area_Top_Icon
         hintText: "File size should be less than given file size limit",
     }
 } satisfies Story;
-Drop_Area_Top_Icon.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Top_Icon.parameters = { controls: { include: ['multiple','extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_Side_Icon
 : Story = {
     args: {
-        Drop_Area_Top_Icon: false,
         Drop_Area_Side_Icon: true,
-        Drop_Area_With_Upload_Button : false,
-        Drop_Area_With_Icon: false,
+        multiple: false,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
+        showThumbnail: false,
         validation: [
             { isError: false, hint: "File size exceeds the limit" }
         ],
@@ -93,14 +92,13 @@ export const Drop_Area_Side_Icon
         hintText: "File size should be less than given file size limit",
     }
 } satisfies Story;
-Drop_Area_Side_Icon.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Side_Icon.parameters = { controls: { include: ['multiple','showThumbnail', 'extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
 
 export const Drop_Area_With_Upload_Button
 : Story = {
     args: {
-        Drop_Area_Top_Icon: false,
-        Drop_Area_Side_Icon: false,
         Drop_Area_With_Upload_Button : true,
+        multiple: false,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         validation: [
@@ -113,25 +111,4 @@ export const Drop_Area_With_Upload_Button
         hintText: "File size should be less than given file size limit",
     }
 } satisfies Story;
-Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
-export const Drop_Area_With_Icon
-: Story = {
-    args: {
-        Drop_Area_Top_Icon: false,
-        Drop_Area_Side_Icon: false,
-        Drop_Area_With_Upload_Button : false,
-        Drop_Area_With_Icon: true,
-        extensions: "png, jpg, doc, pdf, ppt",
-        fileSizeLimitInMb: 5,
-        validation: [
-            { isError: false, hint: "File size exceeds the limit" }
-        ],
-        title: "Title",
-        isRequired: true,
-        showTitle: true,
-        showHint: true,
-        showIcon: true,
-        hintText: "File size should be less than given file size limit",
-    }
-} satisfies Story;
-Drop_Area_With_Icon.parameters = { controls: { include: ['colorVariant', 'extensions', 'fileSizeLimitInMb', 'size', 'title', 'isRequired', 'showTitle', 'showHint', 'showIcon','hintText'] } };
+Drop_Area_With_Upload_Button.parameters = { controls: { include: ['multiple','extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };

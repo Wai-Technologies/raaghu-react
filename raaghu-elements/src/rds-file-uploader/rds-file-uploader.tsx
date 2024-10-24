@@ -20,10 +20,11 @@ export interface RdsFileUploaderProps {
   isRequired?: boolean;
   showTitle?: boolean;
   showHint?: boolean;
-  showIcon?: boolean;
+  showThumbnail?: boolean;
   size?: "small" | "medium" | "large";
   colorVariant?: string;
   hintText?: string;
+  multiple?: boolean;
 }
 
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
@@ -209,8 +210,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 className="d-none"
                 type="file"
                 accept={props.extensions}
-                onChange={onchangehandler}
-                multiple={true}
+                onChange={props.multiple ? onchangehandler : onChangeHandlerForSingleSelection}
+                multiple={props.multiple}
                 required={props.isRequired ? true : false}
               />
             </div>
@@ -319,8 +320,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               type="file"
               id="file-input-side-icon"
               accept={props.extensions}
-              onChange={onchangehandler}
-              multiple={true}
+              onChange={props.multiple ? onchangehandler : onChangeHandlerForSingleSelection}
+              multiple={props.multiple}
               required={props.isRequired ? true : false}
             />
           </div>
@@ -339,119 +340,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           >
             <div className="d-flex gap-2 align-items-center">
             <span>
-              
-                  <RdsIcon
-                    name={"file"}
-                    height="16px"
-                    width="16px"
-                    stroke={true}
-                    fill={false}
-                  />
-              
-              </span>
-              <span>{file.name}</span>
-            </div>
-            <div className="closeIcon">
-              <span className="text-muted opacity-50">
-                {(file.size / 1048576).toFixed(2)} MB
-              </span>
-              <span className="iconbox ms-2" onClick={() => onDelete(index)}>
-                <RdsIcon
-                  colorVariant="danger"
-                  name={"delete"}
-                  height="16px"
-                  width="16px"
-                  stroke={true}
-                  fill={false}
-                />
-              </span>
-            </div>
-          </div>
-        ))}
-        {validation &&
-          validation.map((val: any, index: number) => (
-            <div key={index} className="">
-              <small
-                className={`${val.isError ? "showError" : "noError d-none"}`}
-              >
-                {val.isError && val.hint}
-              </small>
-            </div>
-          ))}
-      </div>
-      );
-    }
-    
- if (props.Drop_Area_With_Icon) {
-      return (
-        <div>
-        {/* Multiple file uploader with side icon */}
-        <div>
-          {props.showTitle && (
-            <label className={"form-label label-gray"}>
-              {props.title}
-              {props.isRequired && <span className="text-danger ml-1">*</span>}
-            </label>
-          )}
-        </div>
-        <label
-          htmlFor="file-input-with-icon"
-          className={`align-items-center multiUploader row mx-0 rounded-4 border-${
-            props.colorVariant || "primary"
-          } ${size}`}
-        >
-          <div
-            className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between ${
-              dragging ? "dragging" : ""
-            }`}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-          >
-            <div>
-              <div>
-                {t("Drag and Drop your files or") || ""}{" "}
-                              <span className='text-primary text-semibold'> Browse</span>
-              </div>
-                          <div className="fileFormat text-muted mt-2 text-semibold">{props.extensions} </div>
-            </div>
-            <span className="ms-2">
-              <RdsIcon
-                colorVariant={props.colorVariant}
-                height="20px"
-                isAnimate
-                name="upload_data"
-                stroke
-                width="20px"
-              />
-            </span>
-            <input
-              data-testid="rds-file-uploader-input"
-              className={`col-md-12 input mulinput d-none`}
-              type="file"
-              id="file-input-with-icon"
-              accept={props.extensions}
-              onChange={onChangeHandlerForSingleSelection}
-              multiple={false}
-                required={props.isRequired ? true : false}
-            />
-          </div>
-        </label>
-              {props.showHint && (
-                  <div className="d-flex justify-content-start text-muted mt-1">
-                      <small>{props.hintText}</small>
-                  </div>
-              )}
-
-        {/* Display file names */}
-        {selectedFiles.map((file, index) => (
-          <div
-            key={index}
-            className="d-flex justify-content-between p-3 mt-3 fileName border"
-          >
-            <div className="d-flex gap-2 align-items-center">
-            <span>
-                {props.Drop_Area_With_Icon && props.showIcon &&
+                { props.showThumbnail &&
                 file.type.startsWith('image/') ? (
                   <img
                     src={URL.createObjectURL(file)}
@@ -502,6 +391,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       </div>
       );
     }
+    
 
     if (props.Drop_Area_With_Upload_Button) {
       return (
@@ -552,8 +442,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               type="file"
               id="file-input-with-upload-button"
               accept={props.extensions}
-              onChange={onchangehandler}
-              multiple={true}
+              onChange={props.multiple ? onchangehandler : onChangeHandlerForSingleSelection}
+              multiple={props.multiple}
               required={props.isRequired ? true : false}
             />
           </div>
