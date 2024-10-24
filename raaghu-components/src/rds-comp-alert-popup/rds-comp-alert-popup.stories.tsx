@@ -24,7 +24,7 @@ export const Default: Story = (args : any) => (
             data-bs-toggle="modal"
             data-bs-target={`#${args.alertID}`}
         >
-            Alert popup
+            ALERT POPUP
         </button>
         <RdsCompAlertPopup {...args} />
     </>
