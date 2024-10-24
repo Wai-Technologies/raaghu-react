@@ -37,7 +37,7 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
 
   return (
     <>
-      <div>
+      <div className="payment-card-container">
         <div>
           <div>
             <RdsInput
@@ -105,22 +105,23 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
               />
             </div>
           </div>
-          <div className="mb-4">
-            <RdsButton
-              block
-              colorVariant="primary"
-              label="PAY NOW"
-              showLoadingSpinner
-              size="medium"
-              onClick={(e: any) => emitSaveData(e)}
-              isDisabled={
-                !cardData?.cardNumber ||
-                !cardData?.cardHolderName ||
-                !cardData?.expiryDate ||
-                !cardData?.cvv
-              }
-            />
-          </div>
+        </div>
+        
+        <div className="payment-footer">
+          <RdsButton
+            block
+            colorVariant="primary"
+            label="PAY NOW"
+            showLoadingSpinner
+            size="medium"
+            onClick={(e: any) => emitSaveData(e)}
+            isDisabled={
+              !cardData?.cardNumber ||
+              !cardData?.cardHolderName ||
+              !cardData?.expiryDate ||
+              !cardData?.cvv
+            }
+          />
         </div>
       </div>
     </>
