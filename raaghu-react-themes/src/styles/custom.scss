@@ -2977,45 +2977,53 @@ $btn-border-radius: $border-radius-xs !default;
   border-color: #343a40;
 }
 // collapsible container css start
- 
+
 .container-collapse {
-  width: 190px !important;
-  //overflow: hidden !important;
-  transition: width 0.5s ease !important;
-  //top: 0 !important;
-  //background-color: #ffffff !important;
-  //display: flex !important;
-  //flex-direction: column !important;
-  //box-shadow: 5px solid #ede1e1 !important;
-  //visibility: visible !important;
-  //border-radius: 5px !important;
-  border: 0px solid #ccc !important;
-  //box-shadow: var(--bs-box-shadow) !important;
-  .right {
-    right: 0 !important;
-    border: 1px solid #ccc !important;
-  }
-  .menu-item-collapsible-container {
-  padding: 10px 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  cursor: pointer !important;
-  i {
-    margin-right: 10px !important;
-  }
-}
+    width: 190px !important;
+    //overflow: hidden !important;
+    transition: width 0.5s ease !important;
+    //top: 0 !important;
+    //background-color: #ffffff !important;
+    //display: flex !important;
+    //flex-direction: column !important;
+    //box-shadow: 5px solid #ede1e1 !important;
+    //visibility: visible !important;
+    //border-radius: 5px !important;
+    border: 0px solid #ccc !important;
+    //box-shadow: var(--bs-box-shadow) !important;
+    .right {
+        right: 0 !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .menu-item-collapsible-container {
+        padding: 10px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        white-space: nowrap;
+
+        i {
+            margin-right: 10px !important;
+        }
+    }
 }
  
 // .container-collapse.right {
 //   right: 0 !important;
 //   border: 1px solid #ccc !important;
 // }
- 
+
 .container-collapse.collapsed-container {
-  width: 50px !important;
-  border-radius: 5px !important;
+    width: 50px !important;
+    border-radius: 5px !important;
+    padding: 0.625rem 0rem;
 }
- 
+.container-collapse {
+    width: 200px !important;
+    border-radius: 5px !important;
+    padding: 0.625rem 0rem;
+}
 // .chevron-position-left {
 //   justify-content: flex-start !important;
 //   align-items: center !important;
@@ -3036,7 +3044,7 @@ $btn-border-radius: $border-radius-xs !default;
   font-size: 1em !important;
   cursor: pointer !important;
   color: #fff !important;
-  padding-bottom: 6px !important;
+  padding-bottom: 4px !important;
 }
  
 // .menu-item-collapsible-container {
@@ -3052,9 +3060,9 @@ $btn-border-radius: $border-radius-xs !default;
  
 .collapsed-container{
   .menu-item-collapsible-container{
-    span {
+    /*span {
       padding-left: 2px !important;
-    }
+    }*/
     i {
       margin: 0 !important;
     }
@@ -3145,10 +3153,11 @@ $btn-border-radius: $border-radius-xs !default;
     //   border: 1px solid #ccc !important;
     // }
 
-    .container-collapse.collapsed-container {
-        width: 50px !important;
-        border-radius: 5px !important;
-    }
+.container-collapse.collapsed-container {
+    width: 50px !important;
+    border-radius: 5px !important;
+    padding: 0.625rem 0rem;
+}
     // .chevron-position-left {
     //   justify-content: flex-start !important;
     //   align-items: center !important;
@@ -3168,7 +3177,7 @@ $btn-border-radius: $border-radius-xs !default;
         font-size: 1em !important;
         cursor: pointer !important;
         color: #fff !important;
-        padding-bottom: 6px !important;
+        padding-bottom: 4px !important;
     }
     // .menu-item-collapsible-container {
     //   padding: 10px 0 !important;
@@ -3182,9 +3191,9 @@ $btn-border-radius: $border-radius-xs !default;
 
     .collapsed-container {
         .menu-item-collapsible-container {
-            span {
+            /*span {
                 padding-left: 2px !important;
-            }
+            }*/
 
             i {
                 margin: 0 !important;
@@ -3228,6 +3237,15 @@ $btn-border-radius: $border-radius-xs !default;
         height: 100%;
     }
     // collapsible container css end
+    .theme-dark div h6{
+        color: #dee2e6 !important;
+    }
+    .theme-dark div p{
+        color: #dee2e6 !important;
+    }
+.astric{
+    color: $danger;
+}
 
     /* css for the small mobile view icons getting hide in menu directory */
 @media (max-width: 768px) {
