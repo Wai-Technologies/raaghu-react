@@ -252,3 +252,16 @@
   border: 1px solid black;
   border-radius: 4px;
 }
+
+.payment-card-container {
+  position: relative;
+  padding-bottom: 60px; 
+}
+
+.payment-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 9px;
+}
