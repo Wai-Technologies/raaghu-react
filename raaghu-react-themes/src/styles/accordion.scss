@@ -69,7 +69,7 @@
     .accordion-button {
         font-size: $font-size-md;
         height: 2.20rem;
-        padding: 1.115rem 1.125rem;
+        padding: 1.100rem 1.125rem;
 
         &:not(.collapsed) {
             &::after {
@@ -147,7 +147,6 @@
 }
 
     .accordion-item {
-
         .accordion-collapse {
             border-bottom-right-radius: 0;
         }
@@ -169,3 +168,15 @@
             }
         }
     }
+ // collapsible container css end
+ #accordionBasic .accordion-button:focus{
+    box-shadow: unset !important;
+}
+
+/* rds-accordion.css */
+#accordionBasic .accordion-item.collapsed {
+box-shadow: var(--bs-accordion-btn-focus-box-shadow) !important;
+}
+#accordionBasic .accordion-md .accordion-button{
+    padding: 0.115rem 1.125rem;
+}
