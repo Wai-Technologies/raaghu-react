@@ -196,8 +196,8 @@ export const With_icon: Story = {
                 id: "1",
                 title: "Section 1 Title with Icon",
                 accordionContent: (
-                    <div>
-                        <h1>Hello</h1>
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
                     </div>
                 ),
             },
@@ -205,8 +205,8 @@ export const With_icon: Story = {
                 id: "2",
                 title: "Section 2 Title with Icon",
                 accordionContent: (
-                    <div>
-                        <h1>Hello2</h1>
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
                     </div>
                 ),
             },
@@ -214,8 +214,8 @@ export const With_icon: Story = {
                 id: "3",
                 title: "Section 3 Title with Icon",
                 accordionContent: (
-                    <div>
-                        <h1>Hello3</h1>
+                    <div className='border p-4'>
+                        <p>Replace with your content component </p>
                     </div>
                 ),
             },
