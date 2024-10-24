@@ -26,7 +26,7 @@ export const Feed: Story = {
                 date: "15 hours ago",
                 feedIcon: "person",
                 description:
-                    "This bag is of the quality expected for the price. The lining inside the bag seems like satin and it is very strong one It has huge space inside inside as the zipper can be opened in either side.",
+                    "This bag is of the quality expected for the price. The lining inside the bag seems like satin and it is very strong one It has huge space inside as the zipper can be opened in either side.",
                 reviews: "See all 123 reviews",
                 rating: 1,
                 fill: false,
