@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './time-picker.css';
 import RdsIcon from '../rds-icon/rds-icon';
 
-export interface RdsTimePickerPropsProps {
+export interface RdsTimePickerProps {
   style?: string;
   colorVariant?: string;
 }
 
-const RdsTimePicker = (props: RdsTimePickerPropsProps) => {
+const RdsTimePicker = (props: RdsTimePickerProps) => {
   const [showPicker, setShowPicker] = useState(false);
   const [hours, setHours] = useState(12);
   const [minutes, setMinutes] = useState(0);
