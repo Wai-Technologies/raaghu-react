@@ -49,7 +49,7 @@ const meta: Meta<typeof RdsAlert> = {
 export default meta;
 type Story = StoryObj<typeof RdsAlert>;
 
-export const SigleLineAlert: Story = {
+export const SingleLineAlert: Story = {
     args: {
         type: "info",
         alertheading: "Heading Title. ",
@@ -70,7 +70,7 @@ export const SigleLineAlert: Story = {
         okaybutton: true,        
     }
 };
-SigleLineAlert.parameters = { controls: { include: ["type", "alertheading", "alertmessage", "border", "size", "dismisable", "sticky", "position"] } };
+SingleLineAlert.parameters = { controls: { include: ["type", "alertheading", "alertmessage", "border", "size", "dismisable", "sticky", "position"] } };
 
 export const MultilineAlert: Story = {
     args: {
