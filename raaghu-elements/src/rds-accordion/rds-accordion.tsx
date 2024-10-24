@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode, useRef } from "react";
 import "./rds-accordion.css";
 import RdsIcon from "../rds-icon";
 
@@ -17,11 +17,11 @@ export interface RdsAccordionProps {
     iconHeight?: string;
     iconWidth?: string;
     size?: "small" | "medium" | "large";
-    border?:"border" | "bottomline" | "borderhide"
+    border?: "border" | "bottomline" | "borderhide";
     accordionType?: 'single' | 'multiple';
     accordionId?: string;
     items: AccordionItem[];
-
+    
     onclick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
@@ -32,16 +32,18 @@ const classes = (props: RdsAccordionProps) => {
         const size = 'accordion-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
         classes = ' ' + size;
     }
-     if (props.border) {
+    if (props.border) {
         const borderClass = `accordion-${props.border}`;
         classes += ' ' + borderClass;
     }
-   
+
     return classes;
 }
 
 const RdsAccordion = (props: RdsAccordionProps) => {
     const [openItemIds, setOpenItemIds] = useState<string[]>([]);
+    const [collapsedItemId, setCollapsedItemId] = useState<string | null>(null);
+    const accordionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const defaultOpenItems = props.items
@@ -58,7 +60,27 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                 ? openItemIds.filter(openId => openId !== id)
                 : [...openItemIds, id]);
         }
+
+        if (openItemIds.includes(id)) {
+            setCollapsedItemId(id);
+        } else {
+            setCollapsedItemId(null);
+        }
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (accordionRef.current && !accordionRef.current.contains(event.target as Node)) {
+            setCollapsedItemId(null);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     const iconClasses = () => {
         let iconSpan: string = '';
         if (props.icon) {
@@ -87,12 +109,13 @@ const RdsAccordion = (props: RdsAccordionProps) => {
     }, [openItemIds]);
 
     return (
-        <div id={`accordion${props.accordionId}`}>
+        <div id={`accordion${props.accordionId}`} ref={accordionRef}>
             <div className="accordion" id="accordionBasic">
                 {props.items.map((item) => {
                     const isOpen = openItemIds.includes(item.id);
+                    const isCollapsed = collapsedItemId === item.id;
                     return (
-                        <div className={"accordion-item" + classes(props)} key={item.id} >
+                        <div className={`accordion-item ${classes(props)} ${isCollapsed ? 'collapsed' : ''}`} key={item.id}>
                             <h2 className="accordion-header" id={`heading${item.id}`}>
                                 <button
                                     className={`accordion-button ${isOpen ? "" : "collapsed"}`}
@@ -101,14 +124,14 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                                     aria-controls={`collapse${item.id}`}
                                     onClick={() => toggleOpen(item.id)}
                                 >
-                                {props.icon && (
-                    <span className={iconClasses()}>
-                        <RdsIcon
-                            name={props.icon}
-                            fill={props.iconFill}
-                            stroke={props.iconStroke} />
-                    </span>
-                )}
+                                    {props.icon && (
+                                        <span className={iconClasses()}>
+                                            <RdsIcon
+                                                name={props.icon}
+                                                fill={props.iconFill}
+                                                stroke={props.iconStroke} />
+                                        </span>
+                                    )}
                                     {item.title}
                                 </button>
                             </h2>
