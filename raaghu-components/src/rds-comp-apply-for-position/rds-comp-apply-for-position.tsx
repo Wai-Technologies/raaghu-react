@@ -203,6 +203,7 @@ const isPeriodValid = (period: any) => {
                   extensions="png, jpg, doc, pdf, ppt"
                   fileSizeLimitInMb={5}
                   Drop_Area_Side_Icon
+                  multiple={true}
                   size="large"
                   validation={[
                     {

@@ -48,6 +48,7 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     extensions="png, jpg, doc, pdf, ppt"
                     fileSizeLimitInMb={5}
                     Drop_Area_Side_Icon
+                    multiple={true}
                     size="large"
                     key={uploaderKey}
                     validation={[
