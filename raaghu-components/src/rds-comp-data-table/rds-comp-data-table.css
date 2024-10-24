@@ -1,11 +1,26 @@
-@media (max-width: 767px) {
-
-    #sortTable thead th:first-child,
-    #sortTable tbody td:first-child {
+@media (max-width: 1023px) {
+     #sortTable thead th:first-child,
+     #sortTable tbody td:first-child {
         position: sticky;
         left: -1px;
+        background: #fff;
+        z-index: 3 !important;
         max-width: 190px;
     }
+    #sortTable {
+        .dropdown-adjusted.show {
+            z-index: 10;
+            transform: translate3d(46px, 0px, 0px) !important;
+        }
+    }
+}
+
+#sortTable thead th:first-child,
+#sortTable tbody td:first-child {
+    position: sticky;
+    left: 0px;
+    max-width: 190px;
+    z-index: 3;
 }
 
 .table>tbody {
