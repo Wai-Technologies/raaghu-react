@@ -82,7 +82,7 @@ const isFormValid=isNameValid(formData?.name);
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Enabled"
@@ -93,7 +93,7 @@ const isFormValid=isNameValid(formData?.name);
                                 dataTestId="enabled"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Required"
@@ -104,7 +104,7 @@ const isFormValid=isNameValid(formData?.name);
                                 dataTestId="required"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Emphasize"
@@ -115,7 +115,7 @@ const isFormValid=isNameValid(formData?.name);
                                 dataTestId="emphasize"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Show in Discovery Document"
