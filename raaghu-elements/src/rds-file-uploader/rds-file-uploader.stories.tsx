@@ -27,6 +27,9 @@ const meta: Meta = {
         hintText: {
             control: { type: "text" },
         },
+        multiple: {
+            control: { type: "boolean" },
+        }
     },
 } satisfies Meta<typeof RdsFileUploader>;
 
@@ -35,10 +38,6 @@ type Story = StoryObj<typeof RdsFileUploader>;
 
 export const Default: Story = {
     args: {
-        Drop_Area_Top_Icon: false,
-        Drop_Area_Side_Icon: false,
-        Drop_Area_With_Upload_Button : false,
-        Drop_Area_With_Icon: false,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         validation: [
@@ -57,9 +56,7 @@ export const Drop_Area_Top_Icon
 : Story = {
     args: {
         Drop_Area_Top_Icon: true,
-        Drop_Area_Side_Icon: false,
-        Drop_Area_With_Upload_Button : false,
-        multiple: false,
+        multiple: true,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         validation: [
@@ -78,7 +75,7 @@ export const Drop_Area_Side_Icon
 : Story = {
     args: {
         Drop_Area_Side_Icon: true,
-        multiple: false,
+        multiple: true,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         showThumbnail: false,
@@ -98,7 +95,7 @@ export const Drop_Area_With_Upload_Button
 : Story = {
     args: {
         Drop_Area_With_Upload_Button : true,
-        multiple: false,
+        multiple: true,
         extensions: "png, jpg, doc, pdf, ppt",
         fileSizeLimitInMb: 5,
         validation: [
@@ -111,4 +108,4 @@ export const Drop_Area_With_Upload_Button
         hintText: "File size should be less than given file size limit",
     }
 } satisfies Story;
-Drop_Area_With_Upload_Button.parameters = { controls: { include: ['multiple','extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
