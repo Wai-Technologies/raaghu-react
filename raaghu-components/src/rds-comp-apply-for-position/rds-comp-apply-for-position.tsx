@@ -201,8 +201,9 @@ const isPeriodValid = (period: any) => {
                   label="Upload Resume"
                   colorVariant="primary"
                   extensions="png, jpg, doc, pdf, ppt"
-                  limit={5}
-                  multiple
+                  fileSizeLimitInMb={5}
+                  Drop_Area_Side_Icon
+                  multiple={true}
                   size="large"
                   validation={[
                     {

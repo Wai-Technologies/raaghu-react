@@ -234,6 +234,21 @@ $input-font-weight: $font-weight-medium;
 $accordion-border-width: 0px;
 $accordion-body-padding-x:0.5rem;
 $accordion-body-padding-y:0.5rem;
+.text-semibold {
+    font-weight: $font-weight-semibold;
+}
+.multiUploader {
+    padding: $spacing-m $spacing-s;
+}
+.custom-file-button {
+    padding: $spacing-xxs $spacing-xs;
+    border-radius: $border-radius-xs $border-radius-nil $border-radius-nil $border-radius-xs;
+    font-size: $text-xsmall;
+}
+.chosenFileSpan {
+    padding: $spacing-xxs $spacing-xs;
+    border-radius: $border-radius-nil $border-radius-xs $border-radius-xs $border-radius-nil;
+}
 
 $progresss-percentage: $text-xsmall;
 $toast-border-width:0px;
@@ -568,7 +583,13 @@ $btn-border-radius: $border-radius-xs !default;
         height: 100%;
         padding: 0.50rem;
     }
-
+    .custom-content-scroll .custom-file-button{
+        font-size: 11px;
+        border-radius: 3px;
+    }
+    .custom-content-scroll .chosenFileSpan {
+        border-radius: 3px;
+    }
     .i {
         cursor: pointer;
     }

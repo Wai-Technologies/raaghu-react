@@ -374,7 +374,7 @@ $input-border-color: $input-neutral-outline-default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
 $body-bg: white;
 $input-bg: $body-bg !default;
-
+$bg-custom-file-button: $btn-primary-solid-default;
 $border-color: $gray-100;
 $accordion-border-color: #646464 ;
 
@@ -2781,7 +2781,7 @@ $form-feedback-color: $gray-700;
 }
 
 .text-muted {
-    color: $gray-500 !important;
+    color: $txt-neutral-medium-default !important;
 }
 
 .offcanvas-header {
@@ -3242,11 +3242,12 @@ textarea::-webkit-input-placeholder {
 }
 
 .custom-file-button {
-    background-color: $gray-200;
-    color: $gray-900;
-    border: 1px solid $gray-300;
+    background-color: $bg-custom-file-button;
+    color: $btn-primary-text-invert;
 }
-
+.upload-icon-color svg{
+    stroke: $txt-neutral-light-default;
+}
 // quill editor css
 
 .quill .ql-toolbar {
