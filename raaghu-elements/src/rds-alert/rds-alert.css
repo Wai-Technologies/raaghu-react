@@ -32,3 +32,7 @@
 .alert-left-border {
   border-left: 5px solid;   
 }
+
+.custom-alert-message{
+  margin-top: 7px;
+}

@@ -91,7 +91,7 @@ const RdsAlert = (props: RdsAlertProps) => {
             >
                 {props.displayType == "singleline" && (
                     <>
-                        <span className="wordbreak d-flex mb-sm-2 ">
+                        <span className="custom-alert-message wordbreak d-flex mb-sm-2">
                             {props.icon && (
                                 <RdsIcon
                                     name={props.icon || " "}
@@ -128,7 +128,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                                         size="small"
                                     />
                                 )}
-                                <div className="d-flex align-items-top justify-content-end gap-2 alert-close">
+                                <div className="d-flex align-items-top justify-content-end gap-2 mt-1 alert-close">
                                     {props.dismisable === true && (
                                         <RdsIcon
                                             colorVariant="primary"
@@ -148,28 +148,30 @@ const RdsAlert = (props: RdsAlertProps) => {
       
                 {props.displayType == "multiline" && (
                     <>
-                        <span className="wordbreak d-flex">
-                            {props.icon && (
-                                <RdsIcon
-                                    name={props.icon || " "}
-                                    fill={props.iconFill}
-                                    stroke={props.iconStroke}
-                                    height={props.iconHeight}
-                                    width={props.iconWidth}
-                                    colorVariant= {colorType}
-                                    classes="me-2"
-                                />
-                            )}
+                            <span className="custom-alert-message wordbreak d-flex">
+                                {props.icon && (
+                                    <div>
+                                        <RdsIcon
+                                            name={props.icon || " "}
+                                            fill={props.iconFill}
+                                            stroke={props.iconStroke}
+                                            height={props.iconHeight}
+                                            width={props.iconWidth}
+                                            colorVariant={colorType}
+                                            classes="me-2"
+                                        />
+                                        {props.linkbutton === true && (
+                                            <a className="text-decoration-underline d-block mt-4" href="#">
+                                                Link
+                                            </a>
+                                        )}
+                                    </div>
+                                )}
       
                             <div>
                                 {props.alertheading && <strong>{props.alertheading}</strong>}
                                 {props.alertmessage}
                                 <p>{props.description}</p>
-                                {props.linkbutton === true && (
-                                    <a className="text-decoration-underline" href="#">
-                                      Link
-                                    </a>
-                                )}
                             </div>
                         </span>
                         <span>
