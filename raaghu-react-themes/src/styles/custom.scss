@@ -3237,6 +3237,9 @@ $btn-border-radius: $border-radius-xs !default;
         height: 100%;
     }
     // collapsible container css end
+.astric{
+    color: $danger;
+}
 
     /* css for the small mobile view icons getting hide in menu directory */
 @media (max-width: 768px) {
