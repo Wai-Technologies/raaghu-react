@@ -8,6 +8,10 @@ const meta: Meta = {
         layout: "padded",
     },
     tags: ["autodocs"],
+    labelPosition: {
+        options: ["right", "left"],
+        control: { type: "select" },
+    },
     argTypes: {
         state: {
             options: ["Checkbox", "Indeterminate", "ErrorCheckbox"],
@@ -34,9 +38,10 @@ export const checkBox: Story = {
         isSwitch: false,
         withlabel: true,
         id: "id1",
+        labelPosition: "left",
         //errorMessage:"error Message",
         isInputGroup: false
     }
 } satisfies Story;
 
-checkBox.parameters = { controls: { include: ["type", "state", "label", "checked", "isDisabled", "isSwitch", "withlabel", "id", "isInputGroup"] } };
+checkBox.parameters = { controls: { include: ["type", "state", "label", "labelPosition", "checked", "isDisabled", "isSwitch", "withlabel", "id", "isInputGroup"] } };

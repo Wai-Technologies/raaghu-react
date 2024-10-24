@@ -18,7 +18,9 @@ export interface RdsCheckboxProps {
     dataTestId?: string;
     isInputGroup?: boolean;
     choiceId?: any;
+    labelPosition?: "left" | "right";
 }
+
 
 const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> = (
     props,
@@ -66,13 +68,24 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
     const checkedValue = props.choiceId && props.choiceId!.filter((item: any) => item == props.id);
     const checked = check || (checkedValue?.length !== undefined && checkedValue?.length !== 0) ? true : undefined;
 
+    const renderLabel = () => (
+        props.withlabel == false ? (
+            <></>
+        ) : (
+            <label className={`form-check-label me-2 ms-2 ${props.labelClass}`} htmlFor={`${props.id}${props.label}`}>
+                {props.label}
+            </label>
+        )
+    );
+
     return (
         <>
             {props.type === "Circular" && props.state != "Indeterminate" ? (
                 <> 
                     <Fragment>
                         <div>
-                            <div className={classes()}>
+                            <div className="rds-checkbox {classes()}">
+                                {props.labelPosition === "left" && renderLabel()}
                                 <input
                                     type="checkbox"
                                     className={
@@ -91,16 +104,8 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                                     ref={ref}
                                 />
 
-                                {props.withlabel == false ? (
-                                    <></>
-                                ) : (
-                                    <label
-                                        className={` form-check-label me-2 ms-2  ${props.labelClass} `}
-                                        htmlFor={`${props.id}${props.label}`}
-                                    >
-                                        {props.label}
-                                    </label>
-                                )}
+                                {props.labelPosition === "right" && renderLabel()}
+                               
 
                             </div>
                         </div>
@@ -110,7 +115,8 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                     <> 
                         <Fragment>
                             <div>
-                                <div className={classes()}>
+                                <div className="rds-checkbox {classes()}">
+                                    {props.labelPosition === "left" && renderLabel()}
                                     <span className= "form-check-input-type-circular-indeterminate">
                                         <input
                                             type="checkbox"
@@ -131,16 +137,7 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                                         />
                                     </span>
                                 
-                                    {props.withlabel == false ? (
-                                        <></>
-                                    ) : (
-                                        <label
-                                            className={` form-check-label me-2 ms-2  ${props.labelClass} `}
-                                            htmlFor={`${props.id}${props.label}`}
-                                        >
-                                            {props.label}
-                                        </label>
-                                    )}
+                                    {props.labelPosition === "right" && renderLabel()}
 
                                 </div>
                             </div>
@@ -150,7 +147,8 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                         <> 
                             <Fragment>
                                 <div>
-                                    <div className={classes()}>
+                                    <div className="rds-checkbox {classes()}">
+                                        {props.labelPosition === "left" && renderLabel()}
                                         <span className="form-check-input-type-square-indeterminate">
                                             <input
                                                 type="checkbox"
@@ -171,16 +169,7 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                                                 data-testid={props.dataTestId}
                                                 ref={ref}/>
                                         </span>                            
-                                        {props.withlabel == false ? (
-                                            <></>
-                                        ) : (
-                                            <label
-                                                className={` form-check-label me-2 ms-2  ${props.labelClass} `}
-                                                htmlFor={`${props.id}${props.label}`}
-                                            >
-                                                {props.label}
-                                            </label>
-                                        )}
+                                        {props.labelPosition === "right" && renderLabel()}
 
                                     </div>
                                 </div>
@@ -189,7 +178,8 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                         : (<> 
                             <Fragment>
                                 <div>
-                                    <div className={classes()}>
+                                    <div className="rds-checkbox {classes()}">
+                                        {props.labelPosition === "left" && renderLabel()}
                                         <input
                                             type="checkbox"
                                             className={
@@ -210,16 +200,7 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
                                             ref={ref}
                                         />
 
-                                        {props.withlabel == false ? (
-                                            <></>
-                                        ) : (
-                                            <label
-                                                className={` form-check-label me-2 ms-2  ${props.labelClass} `}
-                                                htmlFor={`${props.id}${props.label}`}
-                                            >
-                                                {props.label}
-                                            </label>
-                                        )}
+                                        {props.labelPosition === "right" && renderLabel()}
 
                                     </div>
                                 </div>
