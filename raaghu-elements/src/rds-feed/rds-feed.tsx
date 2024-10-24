@@ -31,59 +31,49 @@ export interface RdsFeedProps {
 
 const RdsFeed = (props: RdsFeedProps) => {
     return (
-        <div>
-            {
-                props.itemList.map((item: Item) => (
-
-                    <div className="border p-3">
-                        <div className="d-flex">
-                            <div>
-                                <RdsIcon
-                                    name={item.feedIcon}
-                                    width="50px"
-                                    height="50px"
-                                    fill={false}
-                                    isCursorPointer={true}
-                                ></RdsIcon>
-                            </div>
-                            <div className="flex-grow-1">
-                                <div className="pb-1 d-flex">
-                                    <span
-                                        className="text-left fw-bold">
-                                        {item.name}
-                                    </span>
-                                    <span
-                                        className=" ms-3">
-                                        {item.username}
-                                    </span>
-                                    <span
-                                        className=" ms-3">
-                                        {item.date}
-                                    </span>
-                                </div>
-                                <div className="pb-1 d-flex">
-
-                                    <RdsRating ></RdsRating>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="h-25">
-                                <label className="text-muted fst-italic " >
-                                    {item.description}
-                                </label>
-                            </div>
-                            <div className="d-flex">
-                                <div>
-                                    <RdsLikeDislike like={0} dislike={0}  ></RdsLikeDislike>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
-        </div >
+      <div>
+        {props.itemList.map((item: Item) => (
+          <div className="border p-3">
+            <div className="d-flex">
+              <div>
+                <RdsIcon
+                  name={item.feedIcon}
+                  width="50px"
+                  height="50px"
+                  fill={false}
+                  isCursorPointer={true}
+                ></RdsIcon>
+              </div>
+              <div className="flex-grow-1">
+                <div className="pb-1 d-flex flex-wrap gap-1">
+                  <span className="ms-3 text-left fw-bold col-12 col-sm-auto">
+                    {item.name}
+                  </span>
+                  <span className="ms-3 col-12 col-sm-auto">
+                    {item.username}
+                  </span>
+                  <span className="ms-3 col-12 col-sm-auto">{item.date}</span>
+                </div>
+              </div>
+            </div>
+            <div className="pb-1 d-flex">
+              <RdsRating></RdsRating>
+            </div>
+            <div>
+              <div className="h-25">
+                <label className="text-muted fst-italic ">
+                  {item.description}
+                </label>
+              </div>
+              <div className="d-flex">
+                <div>
+                  <RdsLikeDislike like={0} dislike={0}></RdsLikeDislike>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     );
 };
 

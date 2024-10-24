@@ -144,6 +144,12 @@
     }
 }
 
+.aside-right {
+    width: 62px;
+    position: absolute;
+    right: 0;
+}
+
 .sidebar.toggle {
     width: 245px !important;
 }
@@ -266,6 +272,9 @@
     .aside {
         width: 0px;
     }
+    .aside-right {
+        width: 0px;
+    }
 
     /*.aside{ 
     display: block;
@@ -303,9 +312,11 @@
         }
 
         .sidenav-footer {
-            opacity: 0;
+            opacity: 1;
         }
-
+        .aside .toggle {
+            right: 1.25rem;
+        }
         #sidebar:hover .sidenav-footer {
             opacity: 0;
         }
@@ -314,8 +325,8 @@
             width: 0px;
             display: block;
             left: 0px;
-            max-width: 260px;
-            min-width: 260px;
+            max-width: 250px;
+            min-width: 250px;
         }
 
         #sidebar.toggle.show {
@@ -327,12 +338,24 @@
         #sidebar.toggle.hide {
             width: 250px;
             transition: all 0.55s ease-in-out;
-            left: -270px;
+           /*  left: -270px; */
         }
 
         .sidebar ul li a:checked ~ #sidebar {
             left: -280px;
         }
+        .aside-right{
+            .sidebar {
+                width:64px;
+               
+            }
+            #sidebar.hide{
+                width:64px;
+                left:auto;
+                right:0px
+            }
+        }
+       
     }
 
     .mobile-sidebar-collapse {
@@ -387,6 +410,23 @@
     .navbar-expand-sm .navbar-toggler {
         display: none;
     }
+    .LeftSideNavList{
+        width: 30px;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+    
+        .form-control{
+            display:none;
+        }      
+    }
+    .LeftSideNavList:hover{
+        width:auto;
+        .form-control{
+            display:block;
+        }      
+    }
 }
 
 @media screen and (min-width:768px) {
@@ -394,3 +434,12 @@
         width: calc(100% - 0.6rem) !important;
     }
 }
+.right-nav{
+    display: flex;
+    justify-content: end;
+}
+.right-nav #sidebar{
+    width: 64px;
+}
+.left-space{ margin-left:0.8rem}
+.left-space-listing{ padding-left:0.8rem}

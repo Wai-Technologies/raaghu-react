@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompClaimType from "./rds-comp-claim-type";
 
 const meta: Meta = { 
     title: "Components/Claim Type",
     component: RdsCompClaimType,
     parameters: {
-        layout: 'padded',
+        layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompClaimType>;
