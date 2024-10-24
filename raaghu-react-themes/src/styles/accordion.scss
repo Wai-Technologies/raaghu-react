@@ -147,7 +147,6 @@
 }
 
     .accordion-item {
-        margin-bottom: 0.35rem;
         .accordion-collapse {
             border-bottom-right-radius: 0;
         }
@@ -177,4 +176,7 @@
 /* rds-accordion.css */
 #accordionBasic .accordion-item.collapsed {
 box-shadow: var(--bs-accordion-btn-focus-box-shadow) !important;
+}
+#accordionBasic .accordion-md .accordion-button{
+    padding: 0.115rem 1.125rem;
 }
