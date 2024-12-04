@@ -58,7 +58,6 @@ export const WithTime: Story = {
         type: "withTime",
         isMandatory : true,
         placeholderText: "Select Date",
-        layout: "default",
     }
 } satisfies Story;
-WithTime.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
+WithTime.parameters = { controls: { include: ['showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
