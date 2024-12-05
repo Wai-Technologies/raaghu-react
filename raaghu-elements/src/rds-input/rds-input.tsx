@@ -1,9 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./rds-input.css";
-import Tooltip from "../rds-tooltip/rds-tooltip";
-import { placements } from "../../libs/types";
 import RdsIcon from "../rds-icon";
-import { fontWeight } from "../../libs";
 import { useTranslation } from "react-i18next";
 
 export interface RdsInputProps {
@@ -22,8 +19,6 @@ export interface RdsInputProps {
   singleDigit?: boolean;
   ref?: any;
   labelPosition?: string;
-  tooltipPlacement?: placements;
-  tooltipTitle?: string;
   name?: string;
   label?: string;
   id?: string;
@@ -37,14 +32,16 @@ export interface RdsInputProps {
   customClasses?: string;
   formName?: string;
   reset?: boolean;
-  fontWeight?: fontWeight;
-  minLength?: any;
-  maxLength?: any;
-  minValue?: any;
-  maxValue?: any;
+  fontWeight?: string;
+  minLength?: number;
+  maxLength?: number;
+  minValue?: number;
+  maxValue?: number;
   showIcon?: boolean;
   HintText?: string;
   ShowHintText?: boolean;
+  tooltipPlacement?: "top" | "bottom" | "left" | "right";
+  tooltipTitle?: string;
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -60,104 +57,102 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
-      setIsTouch(false);
-    }, [props?.reset]);
-
-    useEffect(() => {
       setValue(props.value ?? "");
     }, [props.value]);
 
-    const handlerChange = (e: any) => {
-      const inputValue = e.target.value;
+    const formatCardNumber = (inputValue: string) => {
+      return inputValue.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+    };
+
+    const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let inputValue = e.target.value;
       setIsTouch(true);
       props.onChange && props.onChange(e);
-      if (e.target.value) {
-        setHasError(false);
-      } else {
-        setHasError(true);
+      setHasError(!inputValue);
+
+      if (props.inputType === "card number") {
+        inputValue = formatCardNumber(inputValue);
       }
-      if (props.validatonPattern !== undefined && e.target.value) {
+
+      if (props.inputType === "phone number") {
+        inputValue = inputValue.replace(/\D/g, ''); // Remove non-numeric characters
+      }
+
+      if (props.validatonPattern && inputValue) {
         const urlPattern = props.validatonPattern;
         setIsValid(urlPattern.test(inputValue));
       } else {
         setIsValid(true);
       }
-      const valueLength = e.target.value.length;
-      const value = e.target.value;
-      if (e.target.value) {
-        if (valueLength < props.minLength) {
+
+      const valueLength = inputValue.replace(/\s/g, '').length; // Exclude spaces from length
+
+      if (inputValue) {
+        if (valueLength < (props.minLength || 0)) {
           setErrorRegardingLengthOrValue(
             `This field must be a string or array type with a minimum length of ${props.minLength}.`
           );
+        } else if (valueLength > (props.maxLength || Infinity)) {
+          setErrorRegardingLengthOrValue(
+            `This field must be a string or array type with a maximum length of ${props.maxLength}.`
+          );
         } else {
-          if (valueLength > props.maxLength) {
-            setErrorRegardingLengthOrValue(
-              `This field must be a string or array type with a maximum length of ${props.maxLength}.`
-            );
-          } else {
-            setErrorRegardingLengthOrValue("");
-          }
+          setErrorRegardingLengthOrValue("");
         }
-        if (value < props.minValue) {
+
+        const numInputValue = Number(inputValue.replace(/\s/g, ''));
+
+        if (props.minValue !== undefined && numInputValue < props.minValue) {
           setErrorRegardingLengthOrValue(
             `Value should be greater than ${props.minValue}`
           );
+        } else if (props.maxValue !== undefined && numInputValue > props.maxValue) {
+          setErrorRegardingLengthOrValue(
+            `Value cannot be more than ${props.maxValue}`
+          );
         } else {
-          if (value > props.maxValue) {
-            setErrorRegardingLengthOrValue(
-              `Value cannot be more than ${props.maxValue}`
-            );
-          } else {
-            setErrorRegardingLengthOrValue("");
-          }
+          setErrorRegardingLengthOrValue("");
         }
       } else {
         setErrorRegardingLengthOrValue("");
       }
-      if (
-        props.inputType === "otp" &&
-        !/^\d*$/.test(e.target.value) &&
-        e.target.value !== ""
-      ) {
-        return;
-      }
-      setValue(e.target.value);
+
+      setValue(inputValue);
     };
 
     let size: "sm" | "lg" | undefined = undefined;
 
-    if (props.size == "small") {
+    if (props.size === "small") {
       size = "sm";
-    } else if (props.size == "large") {
+    } else if (props.size === "large") {
       size = "lg";
     }
-    const borderColorClass=
-    (props.state ==="active"?" inputOutlineActive ":"  ")+
-    (props.state ==="selected"?" inputOutlineSelected ":" ")+
-    (props.state ==="error"?" inputOutlineError ":"  ")+
-    (props.state==="default"?" inputOutline ":"  ")
-    ;
+
+    const borderColorClass =
+      (props.state === "active" ? " inputOutlineActive " : "  ") +
+      (props.state === "selected" ? " inputOutlineSelected " : " ") +
+      (props.state === "error" ? " inputOutlineError " : "  ") +
+      (props.state === "default" ? " inputOutline " : "  ");
 
     const inputClasses =
-      "form-control  mt-1 form-control-" +
+      "form-control mt-1 form-control-" +
       size +
       " flex-grow-1 " +
       props.customClasses +
       (props.state === "active" ? " inputActive" : "") +
-      (props.state === "selected" ? " inputSelected" : "")+
+      (props.state === "selected" ? " inputSelected" : "") +
       (props.state === "error" ? " inputError" : "") +
       (props.style === "Bottom Outline" ? borderColorClass : "") +
       (props.style === "Pill" ? " rounded-5" : " rounded ");
 
-
-
     const getClassNames = () => {
       let defaultClasses: string = "input-group mb-0";
-      if (props.labelPosition == "floating") {
+      if (props.labelPosition === "floating") {
         defaultClasses = "form-floating";
       }
       return defaultClasses;
     };
+
     const labelClass = () => {
       let labelPositionClass: string = "";
       if (props.labelPosition === "bottom") {
@@ -175,255 +170,110 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       }
       return labelPositionClass;
     };
+
     const fontWeight = "fw-" + props.fontWeight;
+
     const getPlaceholder = () => {
       switch (props.inputType) {
-        case 'phone number':
-          return 'Add Phone Number';
-        case 'card number':
-          return 'Add Card Number';
-          case 'otp':
-          return '';
-        case 'number':
-          return 'Enter Number';
-        case 'password':
-          return 'Enter Password';
-        case 'email':
-          return 'Enter Email';
-        case 'text':
-          return 'Enter Text';
+        case "phone number":
+          return "Add Phone Number";
+        case "card number":
+          return "Add Card Number";
+        case "otp":
+          return "";
+        case "number":
+          return "Enter Number";
+        case "password":
+          return "Enter Password";
+        case "email":
+          return "Enter Email";
+        case "text":
+          return "Enter Text";
         default:
-          return 'Enter value';
+          return "Enter value";
       }
     };
+
     return (
       <>
-        {/* test  */}
-        <div className={`${labelClass()} mt-2`}>
+        <div className={`${labelClass()} ${props.id === 'address-input' ? '' : 'mt-2'}`}>
           {props.showTitle && (
-           <label
-            htmlFor={props.id}
-            className={`text-capitalize mt-2 form-label ${fontWeight}`}
-          >
-            {props.label}
-            {(props.required || props.validatonPattern) && (
-              <span className="text-danger ms-1">*</span>
-            )}
-          </label>
+            <label
+              htmlFor={props.id}
+              className={`text-capitalize form-label ${fontWeight} ${props.id === 'address-input' ? 'mt-1' : 'mt-2'}`}
+            >
+              {props.label}
+              {(props.required || props.validatonPattern) && (
+                <span className="text-danger ms-1">*</span>
+              )}
+            </label>
           )}
-          {!props.tooltipTitle && (
-            <div className={getClassNames()}>
-              <input
-                type={
-                  props.inputType == "password"
-                    ? showPassword
-                      ? "text"
-                      : "password"
-                    : props.inputType === "otp"
-                    ? "tel"
-                    : props.inputType
-                }
-                maxLength={
-                  props.inputType === "otp" && props.singleDigit ? 1 : undefined
-                }
-                className={`${inputClasses} `}
-                id={props.id}
-                placeholder={getPlaceholder()}
-                form={props.formName}
-                required={props.required}
-                onFocus={props.onFocus}
-                onBlur={props.onBlur}
-                onKeyDown={props.onKeyDown}
-                value={value ?? ""}
-                onChange={handlerChange}
-                disabled={props.isDisabled || props.state === "disable"}
-                readOnly={props.readonly}
-                data-testid={props.dataTestId}
-                onClick={props.onClick}
-                key={props.id}
-                name="otp"
-                autoFocus={props.autoFocus && props.autoFocus[1] === 0}
-                ref={ref}
-              />
-              
-              {props.inputType === "password" && props.showIcon ? (
-        <RdsIcon
-          name={showPassword ? "eye" : "eye_slash"}
-          classes="password-toggle"
-          height="16px"
-          width="16px"
-          fill={false}
-          stroke={true}
-          opacity="0.5"
-          onClick={() => setShowPassword(!showPassword)}
-        />
-      ) : (
-        props.showIcon && (
-          <RdsIcon
-            name="information"
-            classes="password-toggle"
-            height="16px"
-            width="16px"
-            fill={false}
-            stroke={true}
-            opacity="0.5"
-          />
-        )
-      )}
-             
+          <div>
+            <input
+              type={
+                props.inputType === "password"
+                  ? showPassword
+                    ? "text"
+                    : "password"
+                  : props.inputType
+              }
+              minLength={props.minLength}
+              maxLength={props.maxLength}
+              className={inputClasses}
+              id={props.id}
+              placeholder={props.placeholder || getPlaceholder()}
+              required={props.required}
+              onFocus={props.onFocus}
+              onBlur={props.onBlur}
+              onKeyDown={props.onKeyDown}
+              value={value ?? ""}
+              onChange={handlerChange}
+              disabled={props.isDisabled}
+              readOnly={props.readonly}
+              data-testid={props.dataTestId}
+              onClick={props.onClick}
+              ref={ref}
+            />
+          </div>
+          {/* Error Messages */}
+          {hasError && isTouch && props.value === "" && (
+            <div className="form-control-feedback">
+              <span className="text-danger">
+                {props.label} {t("is required")}
+              </span>
             </div>
-          
-          )}
-            
-          {props.tooltipTitle && (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-              <div className={getClassNames()}>
-                <input
-                  type={
-                    props.inputType == "password"
-                      ? showPassword
-                        ? "text"
-                        : "password"
-                      : props.inputType
-                  }
-                  className={inputClasses}
-                  id={props.id}
-                  placeholder={props.placeholder}
-                  name={props.name}
-                  form={props.formName}
-                  required={props.required}
-                  onFocus={props.onFocus}
-                  onBlur={props.onBlur}
-                  onKeyDown={props.onKeyDown}
-                  value={value}
-                  onChange={handlerChange}
-                  disabled={props.isDisabled}
-                  readOnly={props.readonly}
-                  data-testid={props.dataTestId}
-                ></input>
-                
-                {props.labelPosition == "floating" && (
-                  <>
-                    {props.label && (
-                      <>
-                      {props.showTitle && (
-                        <label
-                          htmlFor={props.id}
-                          className={`form-label mt-2 text-capitalize ${fontWeight}`}
-                        >
-                          {" "}
-                          {props.label}
-                        </label>
-                        )}
-                      </>
-                    )}
-                  </>
-                )}
-                {props.inputType === "password" && props.showIcon ? (
-        <RdsIcon
-          name={showPassword ? "eye" : "eye_slash"}
-          classes="password-toggle"
-          height="16px"
-          width="16px"
-          fill={false}
-          stroke={true}
-          opacity="0.5"
-          onClick={() => setShowPassword(!showPassword)}
-        />
-      ) : (
-        props.showIcon && (
-          <RdsIcon
-            name="information"
-            classes="password-toggle"
-            height="16px"
-            width="16px"
-            fill={false}
-            stroke={true}
-            opacity="0.5"
-          />
-        )
-      )}
-   
-              </div>
-              
-            </Tooltip>
-
           )}
           <div className="row">
             <div className="col-6">
-{props.ShowHintText && (
+              {props.ShowHintText && (
                 <span className="hint-text">{props.HintText}</span>
-              )}</div>
-              <div className="col-6">
-          {props.required && !props.validationMsg && (
-            <div className="form-control-feedback">
-              {props.required && props.value == "" && hasError && isTouch && (
-                <span className="text-danger">
-                  {props.label} {t("is required") || ""}{" "}
-                </span>
               )}
             </div>
-          )}
-
-          {props.required && props.value !== "" && (
-            <div className="form-control-feedback">
-              {props.validationMsg &&
-                props.inputType === "password" &&
-                isTouch && (
-                  <span className="text-danger">{props.validationMsg}</span>
-                )}
-            </div>
-          )}
-          {props.required && props.value !== "" && (
-            <div className="form-control-feedback">
-              {props.validationMsg &&
-                props.inputType === "card number" &&
-                isTouch && (
-                  <span className="text-danger">{props.validationMsg}</span>
-                )}
-            </div>
-          )}
-          {props.required && props.value !== "" && (
-            <div className="form-control-feedback">
-              {props.validationMsg &&
-                props.inputType === "phone number" &&
-                isTouch && (
-                  <span className="text-danger">{props.validationMsg}</span>
-                )}
-            </div>
-          )}
-          {props.validatonPattern && (
-            <div className="form-control-feedback">
-              {props.value === "" && isTouch && props.required && (
-                <span className="text-danger">
-                  {" "}
-                  {props.label} {t("is required") || ""}{" "}
-                </span>
+            <div className="col-6">
+              {props.required && props.value !== "" && props.validationMsg && (
+                <div className="form-control-feedback">
+                  {props.inputType === "password" && isTouch && (
+                    <span className="text-danger">{props.validationMsg}</span>
+                  )}
+                </div>
               )}
-              {props.validatonPattern &&
-                props.validationMsg &&
-                isTouch &&
-                props.value !== "" &&
-                !isValid && (
-                  <span className="text-danger">{props.validationMsg}</span>
-                )}
+              {errorRegardingLengthOrValue && (
+                <div className="form-control-feedback">
+                  <span className="text-danger">
+                    {errorRegardingLengthOrValue}{" "}
+                  </span>
+                </div>
+              )}
             </div>
-          )}
-
-          {errorRegardingLengthOrValue && (
-            <div className="form-control-feedback">
-              <span className="text-danger">
-                {errorRegardingLengthOrValue}{" "}
-              </span>
-            </div>
-          )}</div>
           </div>
         </div>
       </>
     );
   }
 );
+
 RdsInput.defaultProps = {
   showTitle: true,
 };
+
 export default RdsInput;

@@ -1,8 +1,121 @@
-.form-label{
-    display: inline;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  /* Change to column layout for label and input */
+  /* Align items to the start */
+  gap: 0.5rem;
+  /* Space between label and input */
 }
 
+.form-label {
+  margin-bottom: 0.25rem;
+  /* Add a little space below the label */
+  white-space: nowrap;
+  /* Prevent wrapping if needed */
+  display: block;
+  /* Ensure label takes full width */
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  /* Change to column layout for label and input */
+  /* Align items to the start */
+  gap: 0.5rem;
+  /* Space between label and input */
+}
 
-.right{
-    
+.form-label {
+  margin-bottom: 0.25rem;
+  /* Add a little space below the label */
+  white-space: nowrap;
+  /* Prevent wrapping if needed */
+  display: block;
+  /* Ensure label takes full width */
+}
+
+.form-control {
+  flex-grow: 1;
+  /* Allow input to grow */
+  min-width: 0;
+  /* Prevent overflow */
+  border: 1px solid #ced4da;
+  /* Example border */
+  border-radius: 0.25rem;
+  /* Rounded corners */
+  padding: 0.375rem 0.75rem;
+  /* Padding */
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  /* Focus border color */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  /* Focus shadow */
+}
+
+/* Add your styles for input states, sizes, and layouts */
+.input-bottom-line {
+  border: none;
+  border-bottom: 2px solid #ced4da;
+  border-radius: 0;
+}
+
+.input-pill {
+  border-radius: 20px;
+}
+
+.input-active {
+  border-color: #80bdff;
+}
+
+.input-selected {
+  border-color: #66afe9;
+}
+
+.input-error {
+  border-color: #dc3545;
+}
+
+.input-disabled {
+  background-color: #e9ecef;
+}
+
+/* Spinner buttons for number inputs */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-with-button {
+  display: flex;
+  /* Flexbox to align the input and button */
+  align-items: center;
+  /* Center vertically */
+}
+
+.input-with-button .form-control {
+  flex-grow: 1;
+  /* Allow the input to grow */
+  border-radius: 0.25rem;
+  /* Match input rounding */
+}
+
+.btn-toggle-password {
+  background: transparent;
+  /* Make background transparent */
+  border: none;
+  /* Remove default button border */
+  cursor: pointer;
+  /* Change cursor to pointer */
+  padding: 0 0.5rem;
+  /* Padding for spacing */
+  color: #007bff;
+  /* Color for the button */
+  font-size: 1rem;
+  /* Match font size */
+}
+.btn-toggle-password:hover {
+  color: #0056b3;
+  /* Darker color on hover */
 }

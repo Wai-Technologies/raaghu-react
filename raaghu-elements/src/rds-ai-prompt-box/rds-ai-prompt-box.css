@@ -99,7 +99,6 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background-size: 16px 16px;
-  padding-right: 30px;
   font-size: 12px !important;
 }
 
@@ -369,4 +368,16 @@
         width:100%;
         right:0px;
     }
+}
+
+.generate-button{
+  border:0px;
+}
+.generate-button:focus{
+  outline: none;
+  border:0px;
+}
+.generate-button:active{
+  outline: none;
+  border:0px;
 }

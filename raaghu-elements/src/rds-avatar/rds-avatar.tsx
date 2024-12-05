@@ -252,7 +252,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             <div
               className={
                 `d-flex justify-content-center bg-light me-2 mb-2 align-items-center avatar rounded-circle ` +
-                classes()
+                classes() +
+                getBorderClasses(props.border)
               }
             >
               <span className="fw-bold ">
@@ -285,7 +286,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               <img
                 src={withPP}
                 className={
-                  `avatar-sm rounded-circle ` + classes() + getBorderClasses(props.border)
+                  `avatar rounded-circle ` + classes() + getBorderClasses(props.border)
                 }
                 alt="profile"
               />

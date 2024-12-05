@@ -577,13 +577,14 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       size="small"
                       onClose={(e) => uncheckHandler(e, item)}
                       showClose={true}
+                      textwithlabel={true}
                     />
                   ))}
                 </div>
               )}
 
               {/* chevron_down icon */}
-              {!props.isIconPlaceholder && props.multiSelect !== false && (
+              {!props.isIconPlaceholder && !props.multiSelect  && (
                 <span
                   className="ms-2"
                   onClick={(e) => {
