@@ -145,3 +145,14 @@ input[type="search"]::-webkit-search-decoration:hover,
 input[type="search"]::-webkit-search-cancel-button:hover { 
     cursor:pointer; 
 }
+.fixed-column {
+  position: sticky;
+  left: 0;
+  background: white;
+  z-index: 1;
+}
+
+.frozen-column {
+  pointer-events: none;
+  background: #f0f0f0;
+}

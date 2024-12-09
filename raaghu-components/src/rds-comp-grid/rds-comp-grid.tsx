@@ -17,6 +17,9 @@ export interface RdsCompGridCombinedProps {
     sortable?: boolean;
     datatype?: string;
     dataLength?: number;
+    hidden?: boolean;
+    fixed?: boolean;
+    frozen?: boolean;
   }[];
   tableData: {
     id: string | number;
@@ -39,6 +42,7 @@ export interface RdsCompGridCombinedProps {
   onActionSelection?: (rowData: any, actionId: any) => void;
   enablecheckboxselection?: boolean;
   onRowSelect?: (data: any) => void;
+  gridType?: string;
 }
 
 const DraggableColumnHeader: React.FC<{
@@ -214,8 +218,15 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   };
 
   const handleSearchChange = (key: string, value: string) => {
+    debugger
     setSearchTexts((prev) => ({ ...prev, [key]: value }));
+    const filteredData = props.tableData.filter((row) =>
+      row[key].toString().toLowerCase().includes(value.toLowerCase())
+    );
     setTotalData(filteredData);
+    if(props.gridType == "advance"){
+      setData(filteredData);
+    }
   };
 
   const [popupData, setPopupData] = useState<any[]>([]);
@@ -264,21 +275,27 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       } else {
         newFilters[popupColumnKey!].delete(value);
       }
+
+      const filteredData = props.tableData.filter((row) => {
+        return (
+          Object.entries(searchTexts).every(([key, value]) =>
+            row[key].toString().toLowerCase().includes(value.toLowerCase())
+          ) &&
+          Object.entries({ ...newFilters }).every(([key, values]) => {
+            if (values.size === 0) return true;
+            return values.has(row[key]);
+          })
+        );
+      });
+
+      setTotalData(filteredData);
+      if (props.gridType === "advance") {
+        setData(filteredData);
+      }
+
       return newFilters;
     });
   };
-
-  const filteredData = props.tableData.filter((row) => {
-    return (
-      Object.entries(searchTexts).every(([key, value]) =>
-        row[key].toString().toLowerCase().includes(value.toLowerCase())
-      ) &&
-      Object.entries(selectedFilters).every(([key, values]) => {
-        if (values.size === 0) return true;
-        return values.has(row[key]);
-      })
-    );
-  });
 
   const getSortedData = (
     data: any[],
@@ -307,6 +324,18 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       .slice(startingIndex, rowsPerPage * currentPage);
   };
 
+  const filteredData = props.tableData.filter((row) => {
+    return (
+      Object.entries(searchTexts).every(([key, value]) =>
+        row[key].toString().toLowerCase().includes(value.toLowerCase())
+      ) &&
+      Object.entries(selectedFilters).every(([key, values]) => {
+        if (values.size === 0) return true;
+        return values.has(row[key]);
+      })
+    );
+  });
+
   const sortedData = getSortedData(
     selectedFilters ? filteredData : totalData,
     sortConfig,
@@ -323,6 +352,9 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       direction = "desc";
     }
     setSortConfig({ key, direction });
+    if(props.gridType == "advance"){
+      setData(sortedData);
+    }
   };
 
   const [rowStatus, setRowStatus] = useState({
@@ -477,10 +509,48 @@ const Popup: React.FC<{
     </div>
   );
 };
+const DraggableRow: React.FC<{
+  row: any;
+  index: number;
+  moveRow: (fromIndex: number, toIndex: number) => void;
+  children: React.ReactNode;
+}> = ({ row, index, moveRow, children }) => {
+  const ref = useRef<HTMLTableRowElement>(null);
+  const [, drop] = useDrop({
+    accept: "ROW",
+    hover(item: { index: number }) {
+      if (item.index !== index) {
+        moveRow(item.index, index);
+        item.index = index;
+      }
+    },
+  });
+
+  const [{ isDragging }, drag] = useDrag({
+    type: "ROW",
+    item: { index },
+    collect: (monitor: DragSourceMonitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  drag(drop(ref));
 
   return (
+    <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      {children}
+    </tr>
+  );
+};
+const moveRow = (fromIndex: number, toIndex: number) => {
+  const updatedData = [...data];
+  const [removed] = updatedData.splice(fromIndex, 1);
+  updatedData.splice(toIndex, 0, removed);
+  setData(updatedData);
+};
+  return (
     <DndProvider backend={HTML5Backend}>
-      <div
+   {props.gridType != "advance" &&(   <div
         className={
           props.actionPosition == "left"
             ? "table-responsive"
@@ -726,8 +796,263 @@ const Popup: React.FC<{
             </tbody>
           </table>
         </div>
-      </div>
+      </div>)}
+      {props.gridType == "advance" &&(   <div
+        className={
+          props.actionPosition == "left"
+            ? "table-responsive"
+            : "table-responsive-none"
+        }
+      >
+        <div className="table-responsive-sm">
+          <table className={`table table-hover table-bordered`} id="grid">
+            <thead className="text-nowrap">
+              <tr className="align-top">
+                <th></th>
+                {actionPosition != true &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <th className="text-center fw-medium">Actions</th>
+                  )}
 
+                {props.enablecheckboxselection && (
+                  <th scope="col">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      name="allSelect"
+                      onChange={(e) => handleChange(e, -1)}
+                      checked={selectedRows.size === props.tableData.length}
+                    />
+                  </th>
+                )}
+
+                {columns.map((column, index) => (
+                  <DraggableColumnHeader
+                    key={column.key}
+                    column={{
+                      ...column,
+                      sortable: <></> // Replace undefined with an empty React element
+                    }}
+                    index={index}
+                    moveColumn={moveColumn}
+                    onSearchChange={handleSearchChange}
+                    onFilterClick={handleFilterClick}
+                    onSortClick={handleSortClick}
+                    sortConfig={sortConfig}
+                    allSearch={props.allSearch}
+                    allFilter={props.allFilter}
+                  />
+                ))}
+
+                {actionPosition &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <th className="text-center fw-medium">Actions</th>
+                  )}
+              </tr>
+            </thead>
+
+            <tbody>
+            {/* Render table rows using the reordered columns */}
+            {data.map((row, rowIndex) => (
+              <DraggableRow key={row.id} row={row} index={rowIndex} moveRow={moveRow}>
+               <td className="text-center fw-medium">
+               <RdsIcon
+            colorVariant="dark"
+            height="15px"
+            name="collapsable"
+            stroke
+            width="20px"
+          
+          /> </td>
+
+                {actionPosition != true&&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <td className="text-center fw-medium">
+                      <>
+                        <div className="btn-group dropstart">
+                          <button
+                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                            type="button"
+                            aria-expanded={activeDropdownId === row.id ? "true" : "false"}
+                            onClick={() => toggleDropdown(row.id)}
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="true"
+                            id="dropdownMenuButton"
+                            data-testid="action-btn"
+                          >
+                            <RdsIcon
+                              name={"three_dots"}
+                              height="14px"
+                              width="14px"
+                              stroke={false}
+                              fill={true}
+                              tooltip={true}
+                              tooltipTitle="More Actions"
+                              tooltipPlacement="top"
+                            />
+                          </button>
+                          <ul
+                            ref={dropdownRef}
+                            aria-labelledby="dropdownMenuButton"
+                            className={`dropdown-menu dropdown-adjusted ${activeDropdownId === row.id && isDropdownOpen ? "show" : ""}`}
+                          >
+                            {props.actions.map((action, actionIndex) => (
+                              <li key={"action-" + actionIndex + "-inside-tableRow" + row.id}>
+                                {action.modalId && (
+                                  <a
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#${action?.modalId}`}
+                                    aria-controls={action?.modalId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action )}
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId && (
+                                  <a
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target={`#${action?.offId}`}
+                                    aria-controls={action?.offId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId == undefined && action.modalId == undefined && (
+                                  <a
+                                  onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    </td>
+                  )}
+
+                {props.enablecheckboxselection && (
+                  <th scope="row" className="align-middle">
+                    <input
+                      type="checkbox"
+                      name={row ? rowIndex.toString() : ""}
+                      checked={selectedRows.has(rowIndex)}
+                      onChange={(e) => handleChange(e, rowIndex)}
+                      className="form-check-input"
+                      id="rowcheck{user.id}"
+                    />
+                  </th>
+                )}
+
+                {columns.map((column) => (
+                  <td
+                    className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"}`}
+                    key={column.key}
+                  >
+                    {column.datatype === "badge" ? (
+                      <RdsBadge
+                        colorVariant={row[column.key]?.badgeColorVariant || "success"}
+                        label={row[column.key]?.content || row[column.key]}
+                      />
+                    ) : (
+                      row[column.key]
+                    )}
+                  </td>
+                ))}
+
+                {actionPosition &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <td className="text-center fw-medium">
+                      <>
+                        <div className="btn-group dropstart">
+                          <button
+                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                            type="button"
+                            aria-expanded={activeDropdownId === row.id ? "true" : "false"}
+                            onClick={() => toggleDropdown(row.id)}
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="true"
+                            id="dropdownMenuButton"
+                            data-testid="action-btn"
+                          >
+                            <RdsIcon
+                              name={"three_dots"}
+                              height="14px"
+                              width="14px"
+                              stroke={false}
+                              fill={true}
+                              tooltip={true}
+                              tooltipTitle="More Actions"
+                              tooltipPlacement="top"
+                            />
+                          </button>
+                          <ul
+                            ref={dropdownRef}
+                            aria-labelledby="dropdownMenuButton"
+                            className={`dropdown-menu dropdown-adjusted ${activeDropdownId === row.id && isDropdownOpen ? "show" : ""}`}
+                          >
+                            {props.actions.map((action, actionIndex) => (
+                              <li key={"action-" + actionIndex + "-inside-tableRow" + row.id}>
+                                {action.modalId && (
+                                  <a
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#${action?.modalId}`}
+                                    aria-controls={action?.modalId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId && (
+                                  <a
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target={`#${action?.offId}`}
+                                    aria-controls={action?.offId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId == undefined && action.modalId == undefined && (
+                                  <a
+                                  onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    </td>
+                  )}
+              </DraggableRow>
+            ))}
+          </tbody>
+          </table>
+        </div>
+      </div>)}
       {popupVisible && (
         <Popup
           data={popupData}
