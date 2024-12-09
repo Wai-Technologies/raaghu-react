@@ -231,7 +231,7 @@ const RdsCompUserComments: React.FC<RdsCompUserCommentsProps> = ({
                         />
                     </span>
                 )}
-                <span className="w-100 d-flex input-box border p-1">
+                <span className="w-100 d-flex  p-1">
                     <span className="w-100">
                         <RdsInput
                             value={commentText}

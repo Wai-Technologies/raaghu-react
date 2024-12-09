@@ -15,7 +15,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         layout: {
-            options: ["default", "MonthPicker", "YearPicker", "MultiMonth"],
+            options: ["Default", "Month Picker", "Year Picker", "Multi Month"],
             control: { type: "select" },
         }, 
     },
@@ -32,7 +32,7 @@ export const Default: Story = {
         type: "default",
         isMandatory : true,
         placeholderText: "Select Date",
-        layout: "default",
+        layout: "Default",
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
@@ -45,7 +45,7 @@ export const Advanced: Story = {
         type: "advanced",
         isMandatory : true,
         placeholderText: "Select Date",
-        layout: "default",
+        layout: "Default",
     }
 } satisfies Story;
 Advanced.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
@@ -58,7 +58,6 @@ export const WithTime: Story = {
         type: "withTime",
         isMandatory : true,
         placeholderText: "Select Date",
-        layout: "default",
     }
 } satisfies Story;
-WithTime.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
+WithTime.parameters = { controls: { include: ['showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };

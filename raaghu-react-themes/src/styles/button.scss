@@ -90,23 +90,23 @@
   animation: spinner 0.8s linear infinite;
   display: inline-grid;
 }
-.btn-lg, .btn-group-lg> .btn {
-  padding:$spacing-xs $spacing-m;
-  border-radius: $border-radius-xs ;
-  line-height: 1.5rem ; 
-}
+// .btn-lg, .btn-group-lg> .btn {
+//   padding:$spacing-xs $spacing-m;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ; 
+// }
 
-.btn-md, .btn-group-md> .btn {
-  padding:$spacing-xs $spacing-s;
-  border-radius: $border-radius-xs ;
-  line-height: 1.5rem ;  
-}
-.btn-sm, .btn-group-sm> .btn {
-  padding:$spacing-xxs $spacing-xs;
-  border-radius: $border-radius-xs ;
-  line-height: 1.5rem ;
+// .btn-md, .btn-group-md> .btn {
+//   padding:$spacing-xs $spacing-s;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ;  
+// }
+// .btn-sm, .btn-group-sm> .btn {
+//   padding:$spacing-xxs $spacing-xs;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ;
 
-}
+// }
 
 /* .btn-lg.rounded-pill, .btn-sm.rounded-pill, .btn-md.rounded-pill{
   padding:unset;

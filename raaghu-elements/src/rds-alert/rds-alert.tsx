@@ -84,12 +84,12 @@ const RdsAlert = (props: RdsAlertProps) => {
             <div
                 className={
                     "alert alert-" + colorType +
-                  " justify-content-between align-items-center z-0 position-relative d-lg-flex d-md-flex d-sm-block px-3 " + classes()}
+                  " justify-content-between align-items-top z-0 position-relative d-lg-flex d-md-flex d-sm-block px-3 " + classes()}
                 role="alert"
             >
                 {props.displayType == "singleline" && (
                     <>
-                        <span className="custom-alert-message wordbreak d-flex align-items-center">
+                        <span className="custom-alert-message wordbreak d-flex align-items-top">
                             {props.icon && (
                                 <RdsIcon
                                     name={props.icon || " "}
@@ -113,8 +113,8 @@ const RdsAlert = (props: RdsAlertProps) => {
                             </div>
                         </span>
                   
-                        <span className="d-flex me-4">
-                            <div className="d-flex gap-2 alertBtns pe-2 ">
+                        <span className="d-flex me-3">
+                            <div className="d-flex gap-2 alertBtns pe-1 ">
                                 {props.showbutton === true && (
                                     <button type="button" className="text-primary border-0 bg-transparent"> Cancel </button>
                                 )}
@@ -123,10 +123,9 @@ const RdsAlert = (props: RdsAlertProps) => {
                                         colorVariant="primary"
                                         onClick={(e: any) => closeHandler(e)}
                                         label="Okay"
-                                        size="small"
                                     />
                                 )}
-                                <div className="d-flex align-items-top justify-content-end gap-2 alert-close pe-2">
+                               <div className={`d-flex align-items-center justify-content-end gap-2 alert-close alert-${props.size}`}>
                                     {props.dismisable === true && (
                                         <RdsIcon
                                             colorVariant="primary"
@@ -195,7 +194,6 @@ const RdsAlert = (props: RdsAlertProps) => {
                                         colorVariant="primary"
                                         onClick={(e: any) => closeHandler(e)}
                                         label="Okay"
-                                        size="small"
                                     />
                                 )}
                             </div>

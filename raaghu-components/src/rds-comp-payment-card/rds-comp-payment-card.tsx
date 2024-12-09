@@ -107,7 +107,7 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
           </div>
         </div>
         
-        <div className="button-footer">
+        <div className="button-footer p-3">
 
   
           <RdsButton

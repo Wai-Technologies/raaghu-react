@@ -3195,7 +3195,9 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
 
                         .react-datepicker__day:hover {
+                            box-shadow: inset 0 0 0 2px $primary;
                             background-color: $primary;
+                            color: $white;
                         }
 
                         .react-datepicker__current-month {
@@ -3209,10 +3211,27 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .react-datepicker__day--selected,
                         .react-datepicker__day--selected:hover {
+                            box-shadow: inset 0 0 0 2px $primary;
+                            background-color: transparent;
+                            color: $black;
+                        }
+
+                        .react-datepicker__day--keyboard-selected {
+                            background-color: transparent;
+                        }
+
+                        .react-datepicker__day--today{
                             background-color: $primary;
                             color: $white;
                         }
-
+                        
+                        .react-datepicker__day--in-selecting-range,
+                        .react-datepicker__day--in-range {
+                            box-shadow: inset 0 0 0 2px $primary;
+                            background-color: transparent;
+                            color: $black;
+                        }
+                        
                         .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
                             background-color: $primary;
                         }

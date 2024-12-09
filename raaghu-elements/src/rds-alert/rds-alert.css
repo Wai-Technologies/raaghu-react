@@ -45,6 +45,10 @@
   margin-top: 5px !important;
 }
 
+.alert-small {
+  margin-top: 3px !important;
+}
+
 /* Large screen (desktops, 1200px and above) */
 @media (min-width: 1200px) {
   #alertlinks {

@@ -3203,3 +3203,14 @@ hr {
     padding: 1rem;
     color:#fff;
 }
+.input-with-image {
+    background-color: #ffffff;
+}
+
+.input-wrapper {
+    .file-upload-label {
+        svg {
+            color: #000;
+        }
+    }
+}

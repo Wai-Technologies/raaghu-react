@@ -55,7 +55,7 @@ function RdsCompPollsQuestion(props: any) {
         <>
             <div className="container-fluid m-0 p-0">
                 <div className="row mt-3">
-                    <div className="col-md-12">
+                    <div className="col-md-12 mb-3">
                         <RdsInput
                             required={true}
                             label="Question"
@@ -108,12 +108,15 @@ function RdsCompPollsQuestion(props: any) {
                                 handlerChangeValues("widget", item.value)
                             }
                             placeholder="Select Widget"
+                            size="small"
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-2 mb-3">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"
+                            title="Start Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -122,6 +125,8 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleEndDate}
                             DatePickerLabel="End Date"
+                            title="End Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -130,6 +135,8 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleResultDatepickerData}
                             DatePickerLabel="Result Showing End Date"
+                            title="Result Showing End Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />

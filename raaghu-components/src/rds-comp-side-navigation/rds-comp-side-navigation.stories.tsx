@@ -26,6 +26,7 @@ export const Default: Story = (args: any) => (
 );
 
 Default.args = {
+    logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     sideNavItems: [
         {
             key: "0",
@@ -165,7 +166,7 @@ Default.args = {
         },
     ]
 };
-Default.parameters = { controls: { include: ['sideNavItems'] } };
+Default.parameters = { controls: { include: ['sideNavItems','logo'] } };
 
 
 

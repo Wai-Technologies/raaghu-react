@@ -48,6 +48,7 @@ export const Default: Story = {
         showTitle: true,
         showHint: true,
         hintText: "File size should be less than given file size limit",
+        preview: true, 
         
     }
 } satisfies Story;
@@ -87,10 +88,12 @@ export const Drop_Area_Side_Icon
         isRequired: true,
         showTitle: true,
         showHint: true,
+        preview: true, 
         hintText: "File size should be less than given file size limit",
+        hintPosition: "left"
     }
 } satisfies Story;
-Drop_Area_Side_Icon.parameters = { controls: { include: ['multiple','showThumbnail', 'extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Side_Icon.parameters = { controls: { include: ['multiple','showThumbnail', 'extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText','hintPosition'] } };
 
 export const Drop_Area_With_Upload_Button
 : Story = {

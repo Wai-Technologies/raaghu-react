@@ -22,6 +22,9 @@
 #application-shells.sidebar-item {
     font-weight: 600;
 }
+#storybook-explorer-tree .sidebar-item[aria-expanded="true"] {
+    font-weight: 600;
+}
 
 #introduction--page.sidebar-item {
     padding-left: 0px !important;

@@ -31,7 +31,7 @@ const RdsButton = (props: RdsButtonProps) => {
 
     const classesButton = () => {
         let defaultClass: string = " position-relative align-items-center ";
-        const sizeClass = "btn-" + (props.size === "small" ? "sm " : props.size === "medium" ? "md " : props.size === "large" ? "lg " : "md ");
+        const sizeClass = "btn-" + (props.size === "small" ? "sm " : props.size === "medium" ? "md " : props.size === "large" ? "lg " : " ");
         defaultClass = defaultClass + sizeClass;
 
         if (props.icon) {

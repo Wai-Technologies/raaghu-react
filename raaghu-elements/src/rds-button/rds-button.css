@@ -34,10 +34,6 @@
   font-size: small;
   padding-left: 0px !important;
 }
-.border-primary {
-  border: 2px solid #7e2eef !important;
-  font-weight: 500 !important;
-}
 
 .text-uppercase {
   text-transform: uppercase;
