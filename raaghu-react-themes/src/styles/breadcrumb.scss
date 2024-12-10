@@ -24,3 +24,27 @@
 /*breadcrumb custom properties*/
 
 $breadcrumb-divider: quote(">");
+
+.breadcrumb-background .breadcrumb-item {
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+.breadcrumb-background .breadcrumb-item.breadcrumb-round {
+  border-radius: 1.5rem;
+}
+.breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  margin: 0 0.55rem;
+}
+.background-filled {
+  background-color: #D4BBFF !important;
+  color: #6610f2 !important;
+}
+.theme-light .breadcrumb-item.active svg{
+  color: #7e2eef !important;
+}
+.breadcrumb-md-separator {
+    margin: 0 0.35rem;
+}

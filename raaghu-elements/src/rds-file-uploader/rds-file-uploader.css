@@ -1,4 +1,4 @@
-.input {
+/* .input {
   margin: none !important;
   cursor: pointer !important;
 }
@@ -7,24 +7,19 @@
   opacity: 0 !important;
   height: 64px;
 
-  /* position: absolute; */
+ 
 }
 
 .inputbox {
   position: absolute;
   top: 2px px;
-  /* padding-left: 0px !important;
-  padding-right: 0px !important; */
+  
 }
 
 .display {
   display: none !important;
 }
 
-/* .form-select-lg {
-  padding: 6px 12px !important;
-  border-radius: 0.5rem;
-} */
 
 .format {
   font-size: small;
@@ -88,7 +83,7 @@
 .iconbox {
   display: flex;
   cursor: pointer;
-  /* margin-right: 12px; */
+  
 }
 .cross {
   width: 26px;
@@ -115,7 +110,7 @@
   align-content: flex-end;
   flex-direction: column;
   flex-wrap: wrap;
-  /* align-items: stretch; */
+  
   justify-content: center;
   color: #7e2eef;
 }
@@ -123,9 +118,6 @@
   padding-left: 12px;
 }
 
-/* .disbox {
-  padding-top: 14px !important;
-} */
 
 .closeIcon {
   display: flex;
@@ -152,4 +144,4 @@
 }
 .hint-right {
     justify-content: right;
-}
+} */

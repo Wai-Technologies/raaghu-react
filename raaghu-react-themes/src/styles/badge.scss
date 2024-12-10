@@ -52,21 +52,17 @@
 // }
 
 .medium {
-
-  font-size: 1.05rem !important;
+  font-size: $font-size-md;
 }
 
 .small {
-
-  font-size: 0.85rem !important;
+  font-size: $font-size-sm;
 }
 
 .smaller {
-
   font-size: 0.65rem !important;
 }
 
 .smallest {
-
   font-size: 0.60rem !important;
 }

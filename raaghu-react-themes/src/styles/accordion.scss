@@ -29,8 +29,8 @@
 
 .accordion-lg {
     .accordion-icon{
-        width:16px;
-        height: 16px;
+        width: 1rem;
+        height: 1rem;
         margin-right: 1rem;
         display: grid;
     align-content: center;
@@ -43,7 +43,7 @@
     .accordion-button {
         font-size: $font-size-lg;
         height: 2.9rem;
-        padding: 1.4rem 1.5rem;
+        padding:$spacing-xs $spacing-m;
     }
 
     .accordion-button::after {
@@ -55,8 +55,8 @@
 
 .accordion-md {
     .accordion-icon{
-        width:14px;
-        height: 14px;
+        width: 1rem;
+        height: 1rem;
         margin-right: 1rem;
         display: grid;
     align-content: center;
@@ -69,7 +69,7 @@
     .accordion-button {
         font-size: $font-size-md;
         height: 2.20rem;
-        padding: 1.100rem 1.125rem;
+        padding:$spacing-xs $spacing-s;
 
         &:not(.collapsed) {
             &::after {
@@ -87,8 +87,8 @@
 
 .accordion-sm {
     .accordion-icon{
-        width:12px;
-        height: 12px;
+        width: 1rem;
+        height: 1rem;
         margin-right: 1rem;
         display: grid;
     align-content: center;
@@ -101,7 +101,7 @@
 
     .accordion-button {
         height: 1.4rem;
-        padding: 0.70rem 0.75rem;
+        padding:$spacing-xxs $spacing-xs;
         font-size: $font-size-sm;
 
         &:not(.collapsed) {

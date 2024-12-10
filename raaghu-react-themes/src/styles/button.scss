@@ -51,26 +51,26 @@
 }
 
 .btn-sm svg {
-  width: 10px !important;
-  height: 10px !important;
+  width: 0.5rem !important;
+  height: 0.5rem !important;
   stroke-width: 2.5;
 }
 
 .btn-outline-primary.btn-sm svg {
   stroke-width: 1;
-  width: 12px !important;
-  height: 12px !important;
+  width: 0.75rem !important;
+  height: 0.75rem !important;
 }
 
 .btn-md svg {
-  width: 12px !important;
-  height: 12px !important;
+  width: 0.75rem !important;
+  height: 0.75rem !important;
   stroke-width: 2.5;
 }
 
 .btn-lg svg {
-  width: 14px !important;
-  height: 14px !important;
+  width: 16px !important;
+  height: 16px !important;
   stroke-width: 2.5;
 }
 
@@ -90,24 +90,56 @@
   animation: spinner 0.8s linear infinite;
   display: inline-grid;
 }
-// .btn-lg, .btn-group-lg> .btn {
-//   padding:$spacing-xs $spacing-m;
-//   border-radius: $border-radius-xs ;
-//   line-height: 1.5rem ; 
-// }
+.btn-lg, .btn-group-lg> .btn {
+  padding:$spacing-xs $spacing-m;
+  border-radius: $border-radius-xs ;
+  line-height: 1.5rem ; 
+}
 
-// .btn-md, .btn-group-md> .btn {
-//   padding:$spacing-xs $spacing-s;
-//   border-radius: $border-radius-xs ;
-//   line-height: 1.5rem ;  
-// }
-// .btn-sm, .btn-group-sm> .btn {
-//   padding:$spacing-xxs $spacing-xs;
-//   border-radius: $border-radius-xs ;
-//   line-height: 1.5rem ;
+.btn-md, .btn-group-md> .btn {
+  padding:$spacing-xs $spacing-s;
+  border-radius: $border-radius-xs ;
+  line-height: 1.5rem ;  
+}
+.btn-sm, .btn-group-sm> .btn {
+  padding:$spacing-xxs $spacing-xs;
+  border-radius: $border-radius-xs ;
+  line-height: 1.5rem ;
 
-// }
+}
 
-/* .btn-lg.rounded-pill, .btn-sm.rounded-pill, .btn-md.rounded-pill{
-  padding:unset;
-} */
+
+.alignClass {
+  top: -1px;
+}
+
+.theme-dark .btn-light {
+  color: #2b2b2b;
+}
+
+.theme-dark .btn-light svg{
+  color: #2b2b2b;
+}
+.btn-link{  
+  /* color: #0969DA; */
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: small;
+  padding-left: 0px !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-unset {
+  text-transform: unset;
+}
