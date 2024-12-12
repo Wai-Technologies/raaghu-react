@@ -56,7 +56,7 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
     setDeveloperCountValue(0);
     if (props.paymentTenure && Array.isArray(props.paymentTenure) && props.paymentTenure.length > 0) {
       const defaultData = props.paymentTenure[0];
-      setActiveDiv(defaultData.id);
+      setActiveDiv(null);
       setSelectedRadioButton(defaultData.id.toString());
       setLicenseTenureName(defaultData.licenseTenureName);
       setDiscountPercentage(defaultData.discountPercentage);

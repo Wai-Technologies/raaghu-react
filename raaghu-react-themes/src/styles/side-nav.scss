@@ -421,8 +421,12 @@
             display:none;
         }      
     }
-    .LeftSideNavList:hover{
+    .LeftSideNavListCollapse{
         width:auto;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
         .form-control{
             display:block;
         }      

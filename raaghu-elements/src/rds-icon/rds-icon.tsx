@@ -268,13 +268,17 @@ const RdsIcon = (props: RdsIconProps) => {
                 />
               ) : (
                 <span
-                  className={className}
-                  onClick={props.onClick}
-                  dangerouslySetInnerHTML={{ __html: stringData }}
-                  role="img"
-                  id={props.id}
-                  data-testid={props.dataTestId}
-                ></span>
+                className={className}
+                onClick={props.onClick}
+                dangerouslySetInnerHTML={{ __html: stringData }}
+                role="img"
+                id={props.id}
+                data-testid={props.dataTestId}
+                data-bs-dismiss={props.databsdismiss}
+                data-bs-target={props.databstarget}
+                data-bs-toggle={props.databstoggle}
+                aria-controls={props.ariacontrols}
+              ></span>
               )}
             </Tooltip>
           ) : (

@@ -84,7 +84,7 @@ function RdsCompPollsQuestion(props: any) {
                             reset={inputReset}
                         ></RdsInput>
                     </div>
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                         <RdsInput
                             label="Name"
                             placeholder="Enter Name"
@@ -99,7 +99,7 @@ function RdsCompPollsQuestion(props: any) {
                         ></RdsInput>
                     </div>
 
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                         <RdsSelectList
                             id="cmwi"
                             label="Widget"
@@ -108,12 +108,15 @@ function RdsCompPollsQuestion(props: any) {
                                 handlerChangeValues("widget", item.value)
                             }
                             placeholder="Select Widget"
+                            size="small"
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-2">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"
+                            title="Start Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -122,6 +125,8 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleEndDate}
                             DatePickerLabel="End Date"
+                            title="End Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />
@@ -130,6 +135,8 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleResultDatepickerData}
                             DatePickerLabel="Result Showing End Date"
+                            title="Result Showing End Date"
+                            showTitle={true}
                             type="default"
                             isDropdownOpen={false}
                         />

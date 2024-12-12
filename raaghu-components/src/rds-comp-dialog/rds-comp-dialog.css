@@ -1,0 +1,64 @@
+.rds-comp-dialog {
+  /* Add your styles here */
+}
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+/* .dialog-container {
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Example for small size */
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+/* .dialog-content {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+} */
+.dialog-title {
+  margin: 16px 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* .dialog-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+} */
+/* .dialog-actions {
+  display: flex;
+  justify-content: end;
+  margin-top: 16px;
+
+} */
+.dialog-actions {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+
+.dialog-container.col-8 {
+  max-width: 300px; /* Specific for small dialogs */
+  margin: auto;
+}
+
+

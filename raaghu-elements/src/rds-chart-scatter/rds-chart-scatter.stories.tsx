@@ -4,7 +4,7 @@ import "./rds-chart-scatter.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Scatter Chart',
+    title: 'Elements/Charts/Scatter Chart',
     component: RdsScatterChart,
     parameters: {
         layout: 'padded',
@@ -20,8 +20,6 @@ type Story = StoryObj<typeof RdsScatterChart>;
 export const ScatterChart: Story = {
     args: {
         id: "Scatter Chart",
-        width: 300,
-        height: 300,
         dataSets: [
             {
                 type: "scatter",
@@ -71,8 +69,6 @@ export const ScatterChart: Story = {
 export const ScatterChartWithMultiAxis: Story = {
     args: {
         id: "Radar Chart",
-        width: 300,
-        height: 300,
         dataSets: [
             {
                 label: "Scatter Dataset 1",

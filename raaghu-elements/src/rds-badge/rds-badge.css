@@ -1,5 +1,20 @@
+#new-badges {
 .medium {
-    font-size: 1.05rem !important;
+    font-size: 1.0rem !important;
+}
+.large {
+    font-size: 1.15rem !important;
+}
+
+.icon-small svg {
+    width: 1.20rem !important;
+}
+
+.icon-medium svg{
+    width: 1.50rem !important;
+}
+.icon-large svg{
+    width: 1.80rem !important;
 }
 
 .small {
@@ -33,6 +48,10 @@
     height: 17px !important;
     width: 18px !important;
 }
+.large svg {
+    height: 20px !important;
+    width: 20px !important;
+}
 
 .text-with-icon{
     display: inline-flex;
@@ -44,7 +63,65 @@
 .border-icon{
     border: 1px solid;
 }
-
-.badge-outline{
-    border: 1px solid;
+.border-primary{
+    border: 1px solid #7e2eef !important;
+}
+.border-success{
+    border: 1px solid #24993A !important;
+}
+.border-danger{
+    border: 1px solid #E02D30 !important;
+}
+.border-warning{
+    border: 1px solid #EA6C0C !important;
+}
+.border-light{
+    border: 1px solid #f8f9fa !important;
+}
+.border-info{
+    border: 1px solid #3ef1e8 !important;
+}
+.border-secondary{
+    border: 1px solid #2539FF !important;
+}
+.border-dark{
+    border: 1px solid #7D7D7D !important;
+}
+.badge.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.theme-dark .badge-primary {
+    color: #ffffff;
+    background-color: #6525bf;
+}
+.theme-dark .badge-success {
+    color: #ffffff;
+    background-color: #24993A;
+}
+.theme-dark .badge-danger {
+    color: #ffffff;
+    background-color: #E02D30;
+}
+.theme-dark .badge-warning {
+    color: #ffffff;
+    background-color: #EA6C0C;
+}
+.theme-dark .badge-light {
+    color: #000000;
+    background-color: #f8f9fa;
+}
+.theme-dark .badge-info {
+    color: #ffffff;
+    background-color: #3ef1e8;
+}
+.theme-dark .badge-secondary {
+    color: #ffffff;
+    background-color: #2539FF;
+}
+.theme-dark .badge-dark {
+    color: #ffffff;
+    background-color: #7D7D7D;
+}
 }

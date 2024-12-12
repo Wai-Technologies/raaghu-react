@@ -25,7 +25,7 @@ describe("RdsSelectList", () => {
     const props: RdsSelectProps = {
         id:"hell",
         label: "Select an option",
-        selectItems: options,
+        selectItems: []
     };
 
     it("should render select list with label and options", () => {

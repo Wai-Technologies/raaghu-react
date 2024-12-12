@@ -21,17 +21,16 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [isMenuHover, setMenuHover] = useState(true);
     const [isMenuClick, setMenuClick] = useState(false);
     const [menuParentKey, setMenuParentKey] = useState("");
-    const [menuKey, setMenuKey] = useState("");
-    const [menuNodeKey, setMenuNodeKey] = useState("");
+    const [menuKey, setMenuKey] = useState(""); 
     const [isShowOne, setShowOne] = useState(false);
-    const [isShowTwo, setShowTwo] = useState(false);
-    const [isOnNavigate, setOnNavigate] = useState(false);
+    const [isShowTwo, setShowTwo] = useState(false);  
     const mainMenu = props.sideNavItems;
     const labelObj: any = {};
     const [hoveredItem, setHoveredItem] = useState("");
     const [menuToShow, filterMenus] = useState(mainMenu);
-    const [searchQuery, setSearchQuery] = useState("");
-
+    const [searchQuery, setSearchQuery] = useState("");   
+    const logo = props.logo ? props.logo : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
+    const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
     const addFilter = (value: string) => {
         setSearchQuery(value);
     
@@ -100,7 +99,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             if (mainMenu.length != 0) {
                 const item = mainMenu.map(copy).filter(function f(o: any) {
                     if (o.path && o.path.indexOf(location.pathname) != -1) {
-                        setMenuNodeKey(o.key);
                         return true;
                     }
                     if (o.children) {
@@ -110,23 +108,17 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 });
 
                 if (item?.length <= 0) {
-                    setMenuNodeKey("");
-                    setMenuParentKey("");
+                     setMenuParentKey("");
                     setMenuKey("");
                 } else {
                     if (item[0].children) {
                         if (item[0].children[0].children) {
                             setMenuParentKey(item[0].key);
                             setMenuKey(item[0].children[0].key);
-                            setMenuNodeKey(item[0].children[0].children[0].key);
-                        } else {
+                          } else {
                             setMenuKey(item[0].key);
-                            setMenuNodeKey(item[0].children[0].key);
-                        }
-                    } else {
-                        setMenuNodeKey(item[0].key);
+                          }
                     }
-                    setOnNavigate(true);
                 }
             }
         }
@@ -148,11 +140,20 @@ const RdsSideNav = (props: RdsSideNavProps) => {
         parent: any,
         level: number,
         isNavigate: boolean
-    ) => {
+    ) => {       
+       
+        if (!item.children) {
+            return;
+        }
+
+        setOpenMenus((prevOpenMenus) => ({
+            ...prevOpenMenus,
+            [item.key]: !prevOpenMenus[item.key], 
+        }));
+
         setMenuClick(true);
         if (isNavigate) {
-            setMenuNodeKey(item.key);
-            setShowOne(false);
+              setShowOne(false);
             if (window.innerWidth < 768) {
                 setcollapse(!collapse);
                 localStorage.setItem("isMenuCollapse", !collapse + "");
@@ -215,44 +216,22 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                     className="pe-xxl-0 pe-xl-0 pe-lg-0 pe-md-0 pe-0"
                     value={item.key + "_" + parent}
                     onClick={() => onMenuClick(item, parent, level, !item.children)}
+                   
                 >
                     <a
                         href={item.path}
                         onClick={(e) => handleLinkClick(e, item.path)}
                         className={
                             "align-items-center d-inline-flex text-decoration-none cursor-pointer" +
-                          (collapse
-                              ? level == 1
-                                  ? " ps-3 pe-2 "
-                                  : "pe-2 "
-                              : " ps-3 pe-1 ") +
-                          (item.children ? "child " : "") +
-                          (level == 2
-                              ? " ps-4 ms-xxl-2 ms-xl-2 ms-lg-2 ms-md-2 sidebar-childmenu "
-                              : level == 3
-                                  ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-5 ms-xxl-3 ms-xl-3 ms-lg-3 ms-md-3 sidebar-childmenu "
-                                  : "") + 
-                          (level == 2 && !collapse
-                              ? " ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-1 "
-                              : level == 3 && !collapse
-                                  ? " ps-xxl-5 ps-xl-5 ps-lg-5 ps-md-5 ps-1 "
-                                  : "") +
-                          (level == 2 && collapse
-                              ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 "
-                              : level == 3 && collapse
-                                  ? " ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 ps-0 "
-                                  : "") +
-                          ((item.key == menuKey ||
-                            item.key == menuParentKey ||
-                            item.key == menuNodeKey) &&
-                          isOnNavigate ? "active " : "") +
-                          (parent == menuKey? "d-block " : level != 1 && parent != menuParentKey? "d-none ": "")
+                            (collapse
+                                ? level === 1
+                                    ? " ps-3 pe-2 "
+                                    : "pe-2 "
+                                : " ps-3 pe-1 ") +
+                            (item.children ? "child " : "") +
+                            (openMenus[item.key] ? "active " : "")
                         }
-                        aria-expanded={
-                            item.key == menuKey || item.key == menuParentKey
-                                ? "true"
-                                : "false"
-                        }
+                        aria-expanded={openMenus[item.key] ? "true" : "false"}                       
                     >
                         <span>
                             {item.iconPath ? (
@@ -283,21 +262,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         </span>
                     </a>
                 </li>
-                {item.children && (
+                {item.children && openMenus[item.key] &&(
                     <ul
                         className={
                             (collapse
                                 ? "list-unstyled ps-2 dropdown-menu "
-                                : "list-unstyled") +
-                            (collapse && level >= 1 && item.key == menuKey
-                                ? isShowOne
-                                    ? "show "
-                                    : ""
-                                : collapse && level >= 1 && item.key == menuParentKey
-                                    ? isShowTwo
-                                        ? "show "
-                                        : ""
-                                    : "")
+                                : "list-unstyled")                           
                         }
                     >
                         {displayMenu(item.children, item.key, level + 1)}
@@ -323,8 +293,10 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                             props.toggleClass ? " show" : " hide"
                         } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
                     >
-                        <span className="collpase-button cursor-pointer d-flex lock-icon">
-                            <RdsIcon
+                        <span className="collpase-button cursor-pointer d-flex lock-icon"
+                            onMouseEnter={(e) => e.stopPropagation()}
+                            onMouseLeave={(e) => e.stopPropagation()}>
+                                <RdsIcon
                                 name={!isLocked ? "unlock" : "lock_nav"}
                                 height="21px"
                                 width="21px"
@@ -349,7 +321,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         {props.layout != "RightSideNav" && (
                             <>  
                                 <br></br>
-                                <img src={props.logo!= "" ? props.logo : ""} className="ps-2" alt={props.logo != ""? "Raaghu Side Navigation" : ""} 
+                                <img src={logo!= "" ? logo : ""} className="ps-2" alt={logo != ""? "Raaghu Side Navigation" : ""} 
                                     style={{ height:"30px" }}></img>
                             </>
                         )}
@@ -369,7 +341,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         )}
 
                         {props.layout === "LeftSideNavList" && !props.collapse && (
-                            <div className="LeftSideNavList"><RdsSearch 
+                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsSearch 
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}

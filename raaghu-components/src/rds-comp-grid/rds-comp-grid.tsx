@@ -127,10 +127,10 @@ const DraggableColumnHeader: React.FC<{
         className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
         ref={refheader}
       >
-        <div className="d-flex justify-content-between align-items-center full-width">
+        <div className="d-flex justify-content-start align-items-center full-width">
           <span>{column.displayName}</span>
           {column.sortable && (
-            <div className="cursor-pointer" onClick={handleSortIconClick}>
+            <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
               {sortConfig && sortConfig.key === column.key
                 ? sortConfig.direction === "asc"
                   ? "▲"
@@ -140,7 +140,7 @@ const DraggableColumnHeader: React.FC<{
           )}
 
           {(column.filter || allFilter) && (
-            <div>
+            <div className="cursor-pointer">
               <RdsIcon
                 colorVariant="dark"
                 height="10px"
@@ -452,25 +452,25 @@ const Popup: React.FC<{
   return (
     <div className="popup" style={{ top: position.top, left: position.left }}>
       <div className="popup-content">
-        <div className="d-flex justify-content-end">
-          <RdsIcon
+        <div className="d-flex justify-content-end ">
+         <span className="cursor-pointer"> <RdsIcon
             colorVariant="dark"
             height="10px"
             name="cancel"
             stroke
             width="10px"
             onClick={onClose}
-          />
+          /></span>
         </div>
         {data.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="cursor-pointer d-flex align-items-center ps-2">
             <input
               type="checkbox"
               id={`checkbox-${index}`}
               checked={selectedValues.has(item)}
               onChange={(e) => onFilterChange(item, e.target.checked)}
             />
-            <label htmlFor={`checkbox-${index}`}>{item}</label>
+            <label className="ms-2" htmlFor={`checkbox-${index}`}>{item}</label>
           </div>
         ))}
       </div>
@@ -739,14 +739,14 @@ const Popup: React.FC<{
       )}
 
       <div className="pagination-container gap-2">
-        <RdsIcon
+       <span className="cursor-pointer"> <RdsIcon
           colorVariant="primary"
           height="20px"
           name="refresh"
           stroke
           width="20px"
           onClick={resetGrid}
-        />
+        /></span>
 
         {props.pagination && (
           <RdsPagination

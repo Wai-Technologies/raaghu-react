@@ -2,7 +2,7 @@ import RdsRadarChart from "./rds-chart-radar";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Radar Chart',
+    title: 'Elements/Radar Chart',
     component: RdsRadarChart,
     parameters: {
         layout: 'padded',
@@ -19,8 +19,6 @@ type Story = StoryObj<typeof RdsRadarChart>;
 export const RadarChart: Story = {
     args: {
         id: "Radar Chart",
-        width: 300,
-        height: 300,
         labels: [
             "Jan",
             "Feb",

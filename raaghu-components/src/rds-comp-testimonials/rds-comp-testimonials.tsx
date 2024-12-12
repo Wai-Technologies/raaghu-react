@@ -71,7 +71,7 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
                         crossFade={true}
                         Indicators={true}
                         controls={true}
-                        carouselItems={props.carousalItem} IndicatorType="circle"></RdsCarousel>
+                        carouselItems={props.carousalItem} IndicatorType="Line"></RdsCarousel>
                 </div>
             )}
         </>

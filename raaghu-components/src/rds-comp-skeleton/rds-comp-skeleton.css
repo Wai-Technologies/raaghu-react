@@ -1,0 +1,55 @@
+.pagination-skeleton {
+  display: flex;
+  gap: 10px;
+}
+
+.dropdown-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dropdown-item-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.data-table-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.data-table-row-skeleton {
+  display: flex;
+  gap: 10px;
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-width {
+  flex: 1 1 calc(25% - 20px);
+  max-width: calc(25% - 20px); /* Ensure cards do not stretch beyond 25% */
+  box-sizing: border-box;
+}
+
+.card-skeleton {
+  border: 1px solid #e0e0e0;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.card-body-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}

@@ -109,7 +109,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                             name={"delete"}
                             height="16px"
                             width="20px"
-                            stroke={true}
+                            stroke={true}                           
                         ></RdsIcon>
                     </a>
                 </>

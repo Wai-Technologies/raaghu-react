@@ -27,7 +27,7 @@ export const cardDetail: Story = {
                 iconstroke: true,
                 iconColorVarient: "dark",
                 cardID: "1011",
-                cardName: "MasterCard",
+                cardName: "Mastercard",
                 cardExpiry: "11/2027",
                 cardNumber: 3596,
                 isDefault: false,

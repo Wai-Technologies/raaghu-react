@@ -61,3 +61,21 @@
   .page-item.roundeds a {
     border-radius: 50%;
   }
+  .pagination-sm a{
+    font-size: 12px !important;
+  }
+  .pagination-md a{
+    font-size: 14px !important;
+  }
+  .pagination-lg a{
+    font-size: 16px !important;
+  }
+  .pagination-sm span{
+    font-size: 12px !important;
+  }
+  .pagination-md span{
+    font-size: 14px !important;
+  }
+  .pagination-lg span{
+    font-size: 16px !important;
+  }

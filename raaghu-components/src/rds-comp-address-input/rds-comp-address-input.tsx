@@ -161,6 +161,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             inputType="text"
                             onChange={e => handlerInputChange(e.target.value, "zip")}
                             value={AddressData?.zip}
+                            id="address-input"
                         ></RdsInput>
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>

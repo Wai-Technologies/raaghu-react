@@ -144,7 +144,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     />
                                 </div>
 
-                                <div className="mb-3">
+                                <div>
                                     <RdsTextArea
                                         isRequired
                                         label="Message"

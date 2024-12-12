@@ -72,7 +72,7 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
         props.withlabel == false ? (
             <></>
         ) : (
-            <label className={`form-check-label me-2 ms-2 ${props.labelClass}`} htmlFor={`${props.id}${props.label}`}>
+            <label className={`form-check-label  ms-2 ${props.labelClass}`} htmlFor={`${props.id}${props.label}`}>
                 {props.label}
             </label>
         )

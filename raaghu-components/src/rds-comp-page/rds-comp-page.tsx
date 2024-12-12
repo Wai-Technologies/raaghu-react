@@ -75,7 +75,7 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                         </div>
                     </div>
                     <div className="col-md-12">
-                        <div className="form-group">
+                        <div className="form-group mt-2">
                             <RdsInput
                                 inputType="text"
                                 required={true}

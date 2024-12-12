@@ -1,7 +1,3 @@
-.alertBtns .btn {
-  text-transform: none !important;
-}
-
 .btn-sm svg {
   width: 10px !important;
   height: 10px !important;
@@ -34,8 +30,23 @@
 .btn-link{  
   /* color: #0969DA; */
   text-decoration: underline;
-  text-transform: capitalize;
   font-weight: bold;
   font-size: small;
   padding-left: 0px !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-unset {
+  text-transform: unset;
 }

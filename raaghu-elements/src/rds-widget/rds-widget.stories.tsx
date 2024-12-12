@@ -62,8 +62,6 @@ export const WidgetWithLineChart: Story = {
         children: (
             <RdsLineChart
                 id="linechart"
-                height={250}
-                width={650}
                 labels={["12am", "4am", "8am", "12pm", "4pm", "8pm"]}
                 options={{
                     radius: 0,
@@ -242,8 +240,6 @@ export const WidgetWithDoughnutChart: Story = {
                 <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
                 <RdsDoughnutChart
                     id="doughnutchart"
-                    height={200}
-                    width={255}
                     labels={["Total Sales - 60%", "Revenue - 25%", "Expenses - 15%"]}
                     options={{
                         cutoutPercentage: 40,
@@ -322,8 +318,6 @@ export const WidgetWithBarChart: Story = {
         children: (
             <RdsBarChart
                 id="barchart"
-                height={300}
-                width={300}
                 labels={[
                     "10k",
                     "20k",

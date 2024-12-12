@@ -56,7 +56,7 @@ describe("RdsBadge", () => {
     });
 
     it("applies the badgeType class to the badge when badgeType prop is provided", () => {
-        const badgeType = "rectangle";
+        const badgeType = "box";
         render(<RdsBadge {...defaultProps} badgeType={badgeType} />);
         const badge = screen.getByText(defaultProps.label);
         expect(badge).toHaveClass("badge badge-undefined rounded rectangle");

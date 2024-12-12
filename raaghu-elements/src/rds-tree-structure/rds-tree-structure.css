@@ -1,0 +1,63 @@
+.tree-node {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Add some space between rows */
+}
+
+.tree-node-children {
+  margin-left: 20px; /* Indent child nodes */
+}
+
+.nodehover:hover {
+  background-color: #EBDCFF !important;
+}
+
+.customborder {
+  border: 1px solid #7e2eef;
+  border-radius: 3px;
+}
+
+.tree-node-container {
+  position: relative;
+}
+
+.btngroup {
+  display: flex;
+  margin-left: 15px !important;
+}
+
+.btngroup-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+  .tree-node {
+    margin-left: -18px !important;
+  }
+  .btngroup {
+    display: none;
+  }
+
+  .btngroup-mobile {
+    display: flex;
+    margin-left: 4rem;
+  }
+}
+
+.theme-dark .filename {
+  color: #fffdfd !important;
+}
+.filename{
+  max-height: 22px;
+}
+.customborder {
+  transition: background-color 0.3s ease;
+}
+
+.customborder:hover {
+  background-color: #7e2eef; /* Change this to your desired hover background color */
+  color: #EBDCFF !important;
+}

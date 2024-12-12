@@ -1,9 +1,6 @@
-import { defaults } from 'jest-config';
 export { default as RdsCompAdminDashboard } from "./rds-comp-admin-dashboard";
 export { default as RdsCompAddressInput } from "./rds-comp-address-input";
 export { default as RdsCompApplyForPosition } from "./rds-comp-apply-for-position";
-import { default as RdsCompBenefit } from "./rds-comp-benefit";
-import { default as RdsCompSubscription } from "./rds-comp-subscription";
 export { default as RdsCompForgotPassword } from "./rds-comp-forgot-password";
 export { default as RdsCompLogin } from "./rds-comp-login";
 export { default as RdsCompOrganizationTree } from "./rds-comp-organization-tree";
@@ -114,3 +111,6 @@ export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
 export { default as RdsCompContribution } from "./rds-comp-contribution";
 
 export { default as RdsCompUserComments } from "./rds-comp-chat";
+export { default as RdsCompSkeleton } from "./rds-comp-skeleton";
+export { default as RdsCompDialog } from "./rds-comp-dialog";
+export { default as RdsCompTransferList } from "./rds-comp-transfer-list";

@@ -26,6 +26,7 @@ export const Default: Story = (args: any) => (
 );
 
 Default.args = {
+    logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     sideNavItems: [
         {
             key: "0",
@@ -36,8 +37,46 @@ Default.args = {
         {
             key: "1",
             label: "UI Components",
-            icon: "demo_ui",
-            path: "/demo-ui",
+            icon: "demo_ui",  
+            children: [
+                {
+                    key: "1-0",
+                    label: "Buttons",
+                    icon: "buttons",
+                },
+                {
+                    key: "1-1",
+                    label: "Form Elements",
+                    icon: "form_elements",
+                },
+                {
+                    key: "1-2",
+                    label: "Modals",
+                    icon: "modals",
+                },
+                {
+                    key: "1-3",
+                    label: "Tables",
+                    icon: "tables",
+                    children: [
+                        {
+                            key: "1-3-0",
+                            label: "Basic Table",
+                            icon: "basic_table",
+                        },
+                        {
+                            key: "1-3-1",
+                            label: "Data Table",
+                            icon: "data_table",
+                        },
+                    ],
+                },
+                {
+                    key: "1-4",
+                    label: "Typography",
+                    icon: "typography",
+                }
+            ],
         },
         {
             key: "2",
@@ -127,7 +166,7 @@ Default.args = {
         },
     ]
 };
-Default.parameters = { controls: { include: ['sideNavItems'] } };
+Default.parameters = { controls: { include: ['sideNavItems','logo'] } };
 
 
 

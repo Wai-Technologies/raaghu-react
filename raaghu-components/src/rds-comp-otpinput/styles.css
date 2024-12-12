@@ -40,3 +40,122 @@
     outline: none;
     border: 2px solid #7e2eef !important;
 }
+.center-text {
+  text-align: center;
+}
+
+.otp-input-default:focus, .otp-input-square:focus,
+.otp-input-circle:focus{
+  outline: none;
+  border: 2px solid #7e2eef !important;
+}
+
+.otp-verification-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 26rem;
+}
+
+.iconotpalert {
+  margin-bottom: 0px;
+  margin-top: 0.5rem;
+}
+
+#otpverification {
+  margin: 10px 0;
+}
+
+.otpdescription {
+  color: #555;
+  text-align: center;
+}
+
+.otp-inputs {
+  display: flex;
+  justify-content: center;
+}
+
+.otp-inputs input {
+  width: 40px;
+  margin: 0 5px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.otp-inputs input:focus {
+  border-color: #9c27b0;
+}
+
+.resend-text {
+  color: #555;
+  margin-top: 12px;
+}
+
+.resend-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.verify-button {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  .otp-verification-container {
+      width: 100%;
+  }
+
+  .otp-inputs input {
+      width: 30px;
+  }
+
+  .verify-button {
+      width: 100%;
+      padding: 10px;
+  }
+}
+
+/* Medium devices (tablets, 600px to 768px) */
+@media (min-width: 600px) and (max-width: 768px) {
+  .otp-verification-container {
+      width: 80%;
+      padding: 1.5rem;
+  }
+
+  .otp-inputs input {
+      width: 35px;
+  }
+
+  .verify-button {
+      width: 80%;
+      padding: 10px;
+  }
+}
+
+/* Large devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  .otp-verification-container {
+      width: 26rem;
+  }
+
+  .otp-inputs input {
+      width: 40px;
+  }
+
+  .verify-button {
+      width: auto;
+      padding: 10px 30px;
+  }
+}

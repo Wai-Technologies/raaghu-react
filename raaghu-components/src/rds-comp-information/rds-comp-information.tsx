@@ -30,7 +30,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
         <>
             <div>
                 <div className="row ">
-                    <div className="col-6 mb-3">
+                    <div className="col-6">
                         <RdsInput
                             label="Property Name"
                             required={true}
@@ -65,7 +65,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
 
                 <div className="row">
                     <div className="col-6">
-                        <label className="mb-2">Input Type</label>
+                        <label>Input Type</label>
                         <RdsDropdownList
                             data-testid="input-type"
                             borderDropdown={true}

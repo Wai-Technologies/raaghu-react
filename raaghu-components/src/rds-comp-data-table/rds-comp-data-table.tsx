@@ -16,6 +16,7 @@ import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
 export interface RdsCompDatatableProps {
   fontWeight?: string;
   enablecheckboxselection?: boolean;
+  enableRadioButtonselection?: boolean;
   illustration?: boolean;
   noDataTitle?: string;
   noDataheaderTitle?: string;
@@ -255,6 +256,14 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       props.onRowSelect !== undefined && props.onRowSelect(tempUser);
     }
   };
+  const handleRadioButtonChange = (e: any) => {
+    const { name, checked } = e.target;
+    const tempUser = data?.map((user) =>
+      user.id == name ? { ...user, selected: checked } : { ...user, selected: false }
+    );
+    setData(tempUser);
+    props.onRowSelect !== undefined && props.onRowSelect(tempUser);
+  }
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Simulate data loading for 2 seconds, replace this with your actual data loading logic
@@ -371,6 +380,11 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                           }
                           onChange={handleChange}
                         />
+                      </th>
+                    )}
+                      {props.enableRadioButtonselection && (
+                      <th scope="col">
+                       
                       </th>
                     )}
                     {props?.tableHeaders?.map((tableHeader, index) => (
@@ -694,6 +708,18 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 />
                               </th>
                             )}
+                            {props.enableRadioButtonselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="radio"
+                                  name={tableDataRow?.id}
+                                  onChange={handleRadioButtonChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
+                            )}
                             {props.tableHeaders?.map(
                               (tableHeader, tableHeaderIndex) => (
                                 <td
@@ -805,6 +831,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               role={
                                                 tableDataRow[tableHeader.key].info
                                               }
+                                              size="small"
                                             />
                                           </div>
                                         )}

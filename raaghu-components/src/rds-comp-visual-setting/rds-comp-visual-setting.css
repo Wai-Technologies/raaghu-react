@@ -5,7 +5,3 @@
 .theme-dark label{
     color:rgb(255, 255, 255) !important;
 }
-
-.theme-light svg {
-    fill: gray !important;
-}

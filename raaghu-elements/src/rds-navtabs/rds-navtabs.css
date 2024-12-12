@@ -35,3 +35,15 @@
     }
 }
 
+#features .nav-link.active {
+    background-color: #7e2eef !important;
+    color: white !important;
+}
+
+.nav-tabs.vertical-pointer {
+    width: unset !important;
+}
+
+.nav-tabs .nav-link {
+    text-align: start !important;
+}

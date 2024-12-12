@@ -21,16 +21,20 @@ export const Default: Story = {
       name: 'default', 
   widgetList: [
     {
-      option: "One"
+      option: "One",
+      value: "one"
     },
     {
-      option: "two"
+      option: "two",
+      value: "two"
     },
     {
-      option: "three"
+      option: "three",
+      value: "three"
     },
     {
-      option: "four"
+      option: "four",
+      value: "four"
     }
   ]
     }

@@ -24,16 +24,29 @@ export interface RdsNavtabsProps {
     layout?:string;
     style?:string;
     iconOnly?: boolean;
+    id?: string;
 }
 
 const RdsNavtabs = (props: RdsNavtabsProps) => {
     const [activeNavTabId, setActiveNavTabId] = useState(props.activeNavTabId);
+    const [navStyle, setNavStyle] = useState<string | undefined>(props.style);
+
+
     // const [activeTabKey, setActiveTabKey] = useState(
     //   props.navtabsItems?.[0]?.id || null
     // );
     useEffect(() => {
+        if (props.layout === 'Vertical') {
+            setNavStyle('Vertical -Alt Right Line');
+        } else if (props.layout === 'Horizontal') {
+            setNavStyle('Bottom Select');
+        }
+    }, [props.layout]);
+
+    useEffect(() => {
         props.activeNavtabOrder && props.activeNavtabOrder(activeNavTabId);
     }, [activeNavTabId]);
+
 
     useEffect(() => {
         setActiveNavTabId(props.activeNavTabId);
@@ -46,34 +59,10 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
       <div>
        <ul
   className={
-    "nav fit-content mobile-ul-tabs flex" +
-    (props.layout === "Vertical"
+    "nav fit-content mobile-ul-tabs flex nav-tabs" +
+    (props.layout === "horizontal"
       ? " col-12 d-flex d-lg-block d-xl-block d-xxl-block d-md-block"
-      : props.style === "pills"
-      ? " nav-pills"
-      : props.type === "tabs"
-      ? " flex-lg-row flex-md-row flex-xl-row flex-xxl-row justify-content-start nav-tabs pb-0 pb-lg-0 pb-md-0 pb-xl-0 pb-xxl-0"
-      : " nav-tabs") +
-    (props.fill ? " nav-fill" : "") +
-    (props.justified ? " nav-justified" : "")+
-    (props.iconOnly ? " nav-icon-only" : "")
-  }
->
-  {props.navtabsItems.map((navtabsItem) => (
-    <li
-      className="nav-item pt-xxl-1 pt-xl-1 py-0 cursor-pointer"
-      key={navtabsItem.id}
-    >
-      <a
-        className={
-          "nav-link px-0 pe-auto " +
-          (props.type === "tabs"
-            ? " rounded-0"
-            : props.layout === "Vertical"
-            ? " rounded-2"
-            : "") +
-          (navtabsItem.id === activeNavTabId
-            ? props.style === "Top Select"
+              : props.style === "Top Select"
               ? " top-select"
               : props.style === "Bottom Select"
               ? " bottom-select"
@@ -87,20 +76,87 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
               ? " nav-pills"
               : props.style === "Select Tabs"
               ? " select-tabs"
+              
+              : props.type === "tabs"
+              ? " text-primary"
+      : props.style === "pills"
+      ? " nav-pills"
+      : props.style === "tabs"
+      ? " flex-lg-row flex-md-row flex-xl-row flex-xxl-row justify-content-start nav-tabs pb-0 pb-lg-0 pb-md-0 pb-xl-0 pb-xxl-0"
+      : " nav-tabs") + 
+      (props.layout === "vertical"
+        ? " col-12 d-block"
+                
+                : props.style === "Vertical -Alt Right Line"
+                ? " vertical-alt-right-line"
+                : props.style === "Vertical -Alt Left Line"
+                ? " vertical-alt-left-line"
+                : props.style === "Vertical -Left Line"
+                ? " vertical-left-line"
+                : props.style === "Vertical -Right Line"
+                ? " vertical-right-line"
+                : props.style === "Vertical -Left Filled"
+                ? " vertical-leftFilled"
+                : props.style === "Vertical -Pointer"
+                ? " vertical-pointer"
+                : props.style === "Vertical -Flap"
+                ? " vertical-flap"
+                : props.type === "tabs"
+                ? " text-primary"
+        : props.style === "pills"
+        ? " nav-pills"
+        : props.style === "tabs"
+        ? " flex-lg-row flex-md-row flex-xl-row flex-xxl-row justify-content-start nav-tabs pb-0 pb-lg-0 pb-md-0 pb-xl-0 pb-xxl-0"
+        : " nav-tabs")
+      +
+    (props.fill ? " nav-fill" : "") +
+    (props.justified ? " nav-justified" : "")+
+    (props.iconOnly ? " nav-icon-only" : "")
+  }
+  id={props.id == "features" ? "features" :""}
+>
+  {props.navtabsItems.map((navtabsItem) => (
+    <li
+      className="nav-item py-0 cursor-pointer"
+      key={navtabsItem.id}
+    >
+      <a
+        className={
+          "nav-link px-0 pe-auto mt-2" +
+          (props.type === "tabs"
+            ? " rounded-0"
+            : props.layout === "Vertical"
+            ? " rounded-2"
+            : "") +
+          (navtabsItem.id === activeNavTabId
+            ? props.style === "Top Select"
+              ? " selected"
+              : props.style === "Bottom Select"
+              ? " selected"
+              : props.style === "Bottom Select Alt"
+              ? " selected"
+              : props.style === "Top Select Alt"
+              ? " selected"
+              : props.style === "Background Filled"
+              ? " selected"
+              : props.style === "Pill"
+              ? " selected"
+              : props.style === "Select Tabs"
+              ? " selected"
               : props.style === "Vertical -Alt Right Line"
-              ? " vertical-alt-right-line"
+              ? " selected"
               : props.style === "Vertical -Alt Left Line"
-              ? " vertical-alt-left-line"
+              ? " selected"
               : props.style === "Vertical -Left Line"
-              ? " vertical-left-line"
+              ? " selected"
               : props.style === "Vertical -Right Line"
-              ? " vertical-right-line"
+              ? " selected"
               : props.style === "Vertical -Left Filled"
-              ? " vertical-left-filled"
+              ? " selected"
               : props.style === "Vertical -Pointer"
-              ? " vertical-pointer"
+              ? " selected"
               : props.style === "Vertical -Flap"
-              ? " vertical-flap"
+              ? " selected"
               : props.type === "tabs"
               ? " border-bottom border-primary border-3 text-primary"
               : " active"
@@ -108,8 +164,8 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
           (navtabsItem.disabled
             ? " disabled"
             : props.layout === "Vertical"
-            ? " text-primary" // Primary color for vertical layout
-            : " text-black") // Black color for horizontal layout
+            ? " " // Primary color for vertical layout
+            : " ") // Black color for horizontal layout
         }
         aria-current="page"
         data-bs-target={navtabsItem.tablink}

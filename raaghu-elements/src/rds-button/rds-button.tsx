@@ -18,8 +18,7 @@ const RdsButton = (props: RdsButtonProps) => {
             }
         }
         if (props.showLoadingSpinner) {
-
-            setSpinnerClass(" spinner disabled ");
+            setSpinnerClass(" spinner");
             setTurnSpinnerOff(1);
 
             setTimeout(() => {
@@ -28,12 +27,11 @@ const RdsButton = (props: RdsButtonProps) => {
             }, 2000);
         }
         props.onClick != undefined && props.onClick(evt);
-
     };
 
     const classesButton = () => {
         let defaultClass: string = " position-relative align-items-center ";
-        const sizeClass = "btn-" + (props.size === "small" ? "sm " : props.size === "medium" ? "md " : props.size === "large" ? "lg " : "md ");
+        const sizeClass = "btn-" + (props.size === "small" ? "sm " : props.size === "medium" ? "md " : props.size === "large" ? "lg " : " ");
         defaultClass = defaultClass + sizeClass;
 
         if (props.icon) {
@@ -60,6 +58,9 @@ const RdsButton = (props: RdsButtonProps) => {
         if (props.class === " btn-link ") {
             defaultClass = defaultClass + " btn-link ";
         }
+        if(props.colorVariant === "light" && props.isBanerButton){
+            defaultClass = defaultClass + " text-primary border-primary";
+        }
         return defaultClass;
     };
 
@@ -77,7 +78,7 @@ const RdsButton = (props: RdsButtonProps) => {
     return (<Fragment>
         {props.tooltip ? (
             < Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-                <button className={`btn ` + `${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner}
+                <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
                     disabled={props.isDisabled}
                     type={btnType}
                     form={props.formName}
@@ -105,7 +106,7 @@ const RdsButton = (props: RdsButtonProps) => {
                 </button>
             </Tooltip>
         ) :
-            <button className={`btn ` + `${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner}
+        <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
                 disabled={props.isDisabled}
                 type={btnType}
                 form={props.formName}

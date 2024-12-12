@@ -187,7 +187,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     isSearchable={true}
                                     required={false}
                                     selectedValue={tenantInformationData?.editionId}
-                                    onChange={(e:any) => handleDataChanges(e, "editionId")}
+                                    onChange={(e:any) => handleDataChanges(e, "editionId")}                                  
                                 ></RdsSelectList>
                             </div>
                         </div>

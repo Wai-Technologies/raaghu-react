@@ -139,9 +139,11 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
       <div className="col-md-5 pe-4 border-end custom-content-scroll px-lg-3">
         <RdsNavtabs
           navtabsItems={navtabs}
-          //type="vertical"
-          fill={false}
+          layout="Vertical"
+                  fill={false}
+                  style="Vertical -Pointer"
           justified={false}
+          id="features"
           activeNavTabId={activeNavTabId}
           activeNavtabOrder={handleActiveNavtabVertical} type={"default"}        />
       </div>

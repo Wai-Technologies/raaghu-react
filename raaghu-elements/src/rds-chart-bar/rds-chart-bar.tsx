@@ -5,10 +5,7 @@ export interface RdsBarChartProps {
     labels: any[];
     options: any;
     dataSets: any[];
-    width?: number;
-    height?: number;
     id: any;
-    // isGradient: boolean;
 }
 
 const RdsBarChart = (props: RdsBarChartProps) => {
@@ -29,22 +26,15 @@ const RdsBarChart = (props: RdsBarChartProps) => {
                 options: props.options,
             });
 
-            barCanvas.canvas.style.height = `${props.height}px`;
-            barCanvas.canvas.style.width = `${props.width}px`;
-
-            // var gradient = ctx.createLinearGradient(0, 50, 0, 300);
-            // gradient.addColorStop(0, "rgba(54, 162, 235, 76%)");
-            // gradient.addColorStop(1, "rgba(54, 162, 235, 8%)");
-            // {props.isGradient ? (
-            // BarCanvas.data.datasets[0].backgroundColor = gradient
-            // ): null}
-
+            barCanvas.canvas.style.height = "60vh";
+            barCanvas.canvas.style.width = "100vh";
+        
             return () => {
                 barCanvas.destroy();
             };
         }
-    }, [props.height, props.width]);
-
+    }, []);
+    
     return (
         <div>
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />

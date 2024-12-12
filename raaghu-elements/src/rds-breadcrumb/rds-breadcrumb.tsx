@@ -6,12 +6,16 @@ export interface BreadcrumbProps {
   breadcrumbItems: any[];
   title?: string;
   style?: "Pill Background" | "Square Background" | "Without Background";
-  separator?: ">" | "/" | "→" | "»" | "|" | "-";
+  separator?: ">" | "/" | "→" | "»" | "|" | "-" | "+";
+  onBreadcrumbClick?: (id: number) => void;
+  topnavPlusIcon?: boolean;
   level?: "Level 1" | "Level 2" | "Level 3" | "Level 4" | "Level 5";
   icon?: string;
   showIcon?: boolean;
 }
-
+const handleIconClick = (icon: any) => {
+  console.log(`Icon ${icon} clicked`);
+};
 const RdsBreadcrumb = (props: BreadcrumbProps) => {
   const [data, setData] = useState(() => {
     const initialData = props.breadcrumbItems.map((item, index) => ({
@@ -36,6 +40,9 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
   const displayedItems = props.level ? data.slice(0, levelMap[props.level]) : data;
 
   const onClickHandler = (key: number) => {
+    if (props.onBreadcrumbClick) {
+      props.onBreadcrumbClick(key);
+    }
     setData(
       data.map((item) => ({
         ...item,
@@ -59,7 +66,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
   
       return (
         <nav aria-label="breadcrumb">
-          <ol className={`breadcrumb m-0 `}>
+          <ol className={`breadcrumb m-0  ${props.topnavPlusIcon ? "m-2": ""} `} >
             {displayedItems.map((breadItem, index) => {
               const isLastItem = index === displayedItems.length - 1;
               const isAnyOtherItemActive = displayedItems.some((item, idx) => item.active && idx !== index);
@@ -96,6 +103,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                       height={breadItem.iconHeight}
                       colorVariant={breadItem.active ? breadItem.iconColor : ""}
                       isCursorPointer={true}
+                      onClick={() => handleIconClick(breadItem.icon)}
                     />
                   </span>
                 )}
@@ -105,8 +113,20 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                   onClick={(e) => e.preventDefault()}
                   aria-disabled="true"
                 >
-                  {props.title}
+                  {props.title || breadItem.label}
                 </a>
+                {(props.topnavPlusIcon && <span className="ps-2">
+                <RdsIcon
+                      name="plus"
+                      fill={breadItem.iconFill}
+                      stroke={breadItem.iconstroke}
+                      width={breadItem.iconWidth}
+                      height={breadItem.iconHeight}
+                      colorVariant={breadItem.active ? breadItem.iconColor : ""}
+                      isCursorPointer={true}
+                      onClick={() => handleIconClick(breadItem.icon)}
+                    />
+                </span>)}
               </li>
               {!isLastItem && <li className="breadcrumb-separator">{props.separator}</li>}
             </React.Fragment>

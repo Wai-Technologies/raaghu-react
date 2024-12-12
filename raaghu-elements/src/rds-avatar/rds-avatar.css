@@ -201,11 +201,16 @@
 .avatar-container {
   display: flex;
   align-items: center;
+  margin-left: 1rem !important;
 }
-
+.avatar-container .avatar {
+  margin-left: -10px;
+}
+ #stackingavtarplusindicator {
+  margin-left: -10px;
+}
 .avatar {
   position: relative;
-  margin-right: -12px;
 }
 
 .plus-indicator {
@@ -288,12 +293,16 @@
 }
 .avatar-solid {
   border: 2px solid;
+  border-radius: 50%;
 }
 
 .avatar-dotted {
   border: 2px dotted;
+  border-radius: 50%;
 }
 
 .avatar-dashed{
   border: 2px dashed;
+  border-radius: 50%;
 }
+

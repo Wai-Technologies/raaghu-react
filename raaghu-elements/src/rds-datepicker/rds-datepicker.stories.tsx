@@ -10,10 +10,14 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        type: {
-            options: ["default", "advanced", "withTime"],
-            control: { type: "radio" },
-        },        
+        datepickerStyle: {
+            options: ["Dropdown", "Selector"],
+            control: { type: "select" },
+        },
+        layout: {
+            options: ["Default", "Month Picker", "Year Picker", "Multi Month"],
+            control: { type: "select" },
+        }, 
     },
 } satisfies Meta<typeof RdsDatepicker>;
 
@@ -22,27 +26,38 @@ type Story = StoryObj<typeof RdsDatepicker>;
 
 export const Default: Story = {
     args: {
-        DatePickerLabel: "Select Date",
+        title: "Date",
+        showTitle: true,
+        datepickerStyle: "Dropdown",
         type: "default",
-        isDisabled : false
+        isMandatory : true,
+        placeholderText: "Select Date",
+        layout: "Default",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['DatePickerLabel', 'type','isDisabled'] } };
+Default.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
 
 export const Advanced: Story = {
     args: {
-        DatePickerLabel: "Select Date",
+        title: "Date",
+        showTitle: true,
+        datepickerStyle: "Dropdown",
         type: "advanced",
-        isDisabled : false
+        isMandatory : true,
+        placeholderText: "Select Date",
+        layout: "Default",
     }
 } satisfies Story;
-Advanced.parameters = { controls: { include: ['DatePickerLabel', 'type','isDisabled'] } };
+Advanced.parameters = { controls: { include: ['layout', 'showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };
 
 export const WithTime: Story = {
     args: {
-        DatePickerLabel: "Select Date",
+        title: "Date",
+        showTitle: true,
+        datepickerStyle: "Dropdown",
         type: "withTime",
-        isDisabled : false
+        isMandatory : true,
+        placeholderText: "Select Date",
     }
 } satisfies Story;
-WithTime.parameters = { controls: { include: ['DatePickerLabel', 'type','isDisabled'] } };
+WithTime.parameters = { controls: { include: ['showTitle','title','isMandatory','placeholderText','datepickerStyle'] } };

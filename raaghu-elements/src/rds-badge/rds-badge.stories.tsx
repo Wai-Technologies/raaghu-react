@@ -15,27 +15,32 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ["small", "smaller", "smallest", "medium", "large"],
+      options: ["small","medium", "large"],
       control: { type: "select" },
     },
     badgeType: {
-      options: ["rectangle", "pill", "box"],
+      options: [ "pill", "box"],
       control: { type: "select" },
     },
     colorVariant: {
-      options: badge_colors,
+      options: [
+        "primary",
+        "success",
+        "danger",
+        "warning",
+        "light",
+        "info",
+        "secondary",
+        "dark",
+    ],
       control: { type: "select" },
     },
     layout: {
-      options: ["Icon only", "Icon+Text", "Text only", "Text+Icon"],
+      options: ["Text_only","Icon_only", "Icon+Text", "Text+Icon"],
       control: { type: "select" },
     },
     style: {
-      options: ["Primary", "Outline", "disabled", "transparent"],
-      control: { type: "select" },
-    },
-    state: {
-      options: ["Primary", "Secondary", "Tertiary", "Error", "Neutral"],
+      options: ["primary", "outline", "disabled", "transparent"],
       control: { type: "select" },
     },
     iconPosition: {
@@ -58,9 +63,9 @@ const Positioned = (args: any) => (
   <>
     <RdsButton
       type="button"
-      colorVariant="primary"
-      size="small"
-      label="Button"
+      colorVariant={args.colorVariant}
+      size={args.size}
+      label={args.buttonLabel}
     />
     <span className="position-fixed ms-2 translate-middle">
       <RdsBadge label={""} {...args}></RdsBadge>
@@ -70,13 +75,15 @@ const Positioned = (args: any) => (
 
 const PositionedIcon = (args: any) => (
   <>
+   <span className={`icon-${args.size}`}> 
     <RdsIcon
-      name="notification"
+      name={args.iconName}
       width="25px"
       height="25px"
       fill={false}
       stroke={true}
-    />
+      colorVariant={args.colorVariant}
+    /></span>
     <span className="position-absolute ms-2 translate-middle">
       <RdsBadge label={""} {...args}></RdsBadge>
     </span>
@@ -88,62 +95,68 @@ export const TextBadge: Story = {
     size: "small",
     label: "Badge",
     colorVariant: "primary",
-    badgeType: "rectangle",
-    layout: "Text Only",
-    style: "Primary",
-    state: "Primary"
+    badgeType: "box",
+    layout: "Text_only",
+    style: "primary",
+    isIconshow: true,
+    iconName: "notification",
+    iconPosition: "right",
   }
 } satisfies Story;
-TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'layout', 'style', 'state'] } };
+TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'layout', 'style'] } };
 
 export const WithLabel: Story = {
   args: {
-    size: "smaller",
+    size: "small",
     label: "99",
     colorVariant: "danger",
-    badgeType: "rectangle",
-    positioned: true,
+    badgeType: "box",
+    textwithlabel: true,
+    buttonLabel: "Button1",
+
   },
   render: Positioned
 } satisfies Story;
-WithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } };
+WithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType','buttonLabel'] } };
 
 export const WithIcon: Story = {
   args: {
-    size: "smallest",
+    size: "small",
     label: "9",
     colorVariant: "danger",
     badgeType: "pill",
-    positioned: true,
+    textwithlabel: true,
+    iconName: "notification",
   },
   render: PositionedIcon
 } satisfies Story;
-WithIcon.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned'] } };
+WithIcon.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName'] } };
 export const TextWithLabel: Story = {
   args: {
-    size: "smallest",
+    size: "small",
     label: "9",
     colorVariant: "danger",
     badgeType: "pill",
+    textwithlabel: true,
   },
-  // render: PositionedIcon
 } satisfies Story;
-TextWithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'positioned', 'borderColor'] } };
+TextWithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'borderColor'] } };
 export const BadgeWithIcon: Story = {
   args: {
     size: "small",
     colorVariant: "primary",
     badgeType: "pill",
-    isIconshow: true,
     iconName: "notification", // Name of the icon
+    layout: "Icon_only",
+    style: "primary",
+    label: "Badge",
   },
   render: (args) => (
     <RdsBadge {...args}>
-      <RdsIcon name={args.iconName} width="16px" height="16px" />
     </RdsBadge>
   ),
 };
-BadgeWithIcon.parameters = { controls: { include: ['size', 'colorVariant', 'badgeType', 'iconName', 'isIconshow'] } };
+BadgeWithIcon.parameters = { controls: { include: ['size', 'colorVariant', 'badgeType', 'iconName','layout','style'] } };
 
 export const BadgeWithIconAndText: Story = {
   args: {
@@ -152,7 +165,9 @@ export const BadgeWithIconAndText: Story = {
     colorVariant: "primary",
     badgeType: "pill",
     iconName: "notification", // Adjust based on your available icons
-    iconPosition: "left", // Control whether the icon is on the left or right
+    layout: "Icon+Text",
+    style: "primary",
+    
   },
   render: (args) => (
     <RdsBadge {...args}>
@@ -166,4 +181,29 @@ export const BadgeWithIconAndText: Story = {
     </RdsBadge>
   ),
 };
-BadgeWithIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName', 'iconPosition'] } };
+BadgeWithIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName', 'layout','style'] } };
+
+export const BadgeWithRightIconAndText: Story = {
+  args: {
+    size: "small",
+    label: "Badge",
+    colorVariant: "primary",
+    badgeType: "pill",
+    iconName: "notification", // Adjust based on your available icons
+    layout: "Text+Icon",
+    style: "primary",
+    
+  },
+  render: (args) => (
+    <RdsBadge {...args}>
+      {args.iconPosition === "left" && (
+        <RdsIcon name={args.iconName} width="16px" height="16px" classes="me-1" />
+      )}
+      {args.label}
+      {args.iconPosition === "right" && (
+        <RdsIcon name={args.iconName} width="16px" height="16px" classes="ms-1" />
+      )}
+    </RdsBadge>
+  ),
+};
+BadgeWithRightIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName','layout','style'] } };

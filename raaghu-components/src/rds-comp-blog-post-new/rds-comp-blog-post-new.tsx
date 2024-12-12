@@ -9,10 +9,11 @@ import {
 } from "../rds-elements";
 import { RdsFileUploader } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { content } from "html2canvas/dist/types/css/property-descriptors/content";
 
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
-  blogList: any;
+  blogList:{ option: any, value: any }[];
   isEdit: boolean;
   offId: string;
   onSaveHandler: (data: any) => void;
@@ -20,12 +21,34 @@ export interface RdsCompBlogPostNewProps {
 }
 
 const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
-  const [postData, setBlogPostData] = useState(props.blogPostData);
+  const [postData, setBlogPostData] = useState({
+    title: "",
+    slug: "",
+    description: "",
+    tags: "",
+    blogList: "",
+    concurrencyStamp: "",
+    file: [],
+    fileName: "",
+    blogId: "",
+    content : ""
+  });
   const [counter, setCounter] = useState(0);
   const [inputReset, setInputReset] = useState(false);
 
   useEffect(() => {
-    setBlogPostData(props.blogPostData);
+    setBlogPostData({
+      title: props.blogPostData?.title || "",
+      slug: props.blogPostData?.slug || "",
+      description: props.blogPostData?.description || "",
+      tags: props.blogPostData?.tags || "",
+      blogList: props.blogPostData?.blogList || "",
+      concurrencyStamp: props.blogPostData?.concurrencyStamp || "",
+      blogId: props.blogPostData?.blogId || "",
+      file: props.blogPostData?.file || [],
+      fileName: props.blogPostData?.fileName || "",
+      content: props.blogPostData?.content || "",
+    });
   }, [props.blogPostData]);
 
   useEffect(() => {
@@ -39,8 +62,9 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
     } else {
       setBlogPostData({ ...postData, [key]: val });
     }
+   
   };
-
+  
   function emitSaveData(event: any) {
     event.preventDefault();
     setBlogPostData((prevData: typeof postData) => {
@@ -51,8 +75,10 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
         content: "",
         tags: "",
         concurrencyStamp: "",
-        blogId: null,
+        blogList: "",
+        blogId: "",
         file: [],
+        fileName: "",
       };
       props.onSaveHandler && props.onSaveHandler(prevData);
       setInputReset(!inputReset);
@@ -107,13 +133,15 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsLabel label="Blog Id" />
               <RdsSelectList
                 id="Fea"
-                placeholder="Select List"
+                placeholder="Select Option"
                 selectItems={props.blogList}
+                isSearchable={true}
                 selectedValue={postData?.blogId}
+                key={`blogId-${postData?.blogId}`}
                 onChange={(item: any) => {
                   handlerBlogDataChange(item.value, "blogId");
                 }}
-                dataTestId="twofactList"
+                dataTestId="blog-id"
               ></RdsSelectList>
             </div>
             <div className="form-group">

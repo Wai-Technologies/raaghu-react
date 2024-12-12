@@ -33,7 +33,7 @@ export interface RdsAvatarProps {
   activityChain?: boolean;
   type?: string;
   iconName?: string;
-  border?: "solid" | "dotted" | "dashed" | "noBorder";
+  border?: "solid" | "dotted" | "dashed" | "NoBorder";
 }
 
 const RdsAvatar = (props: RdsAvatarProps) => {
@@ -73,15 +73,15 @@ const RdsAvatar = (props: RdsAvatarProps) => {
         "avatar-" +
         `${
           props.size === "smallest"
-            ? "smallest"
+            ? "smallest "
             : props.size === "small"
-            ? "sm"
+            ? "sm "
             : props.size === "medium"
-            ? "md"
+            ? "md "
             : props.size === "large"
-            ? "lg"
+            ? "lg "
             : props.size === "largest"
-            ? "largest"
+            ? "largest "
             : ""
         }`;
       classes += " " + size;
@@ -122,9 +122,10 @@ const RdsAvatar = (props: RdsAvatarProps) => {
         return " avatar-dotted rounded-5";
       case "dashed":
         return " avatar-dashed rounded-5";
-      case "noBorder":
-        return " ";
+      case "NoBorder":
+        return " none ";
     }
+    return " ";
   };
 
   // Function to get icon size based on the size prop
@@ -191,7 +192,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
       <div className="avatar-container">
         {visibleAvatars.map((avatar, index) => (
           <div key={index} className="avatar">
-            <img
+            <img id="stackingavtar"
               src={avatar.profilePic || defaultPP}
               className={classes() + getBorderClasses(props.border) +"rounded-3"}
               alt="profile-default"
@@ -199,7 +200,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
           </div>
         ))}
         {remainingCount > 0 && (
-          <div
+          <div id="stackingavtarplusindicator"
             className={`${
               props.size === "smallest"
                 ? "plus-indecator-smallest"
@@ -251,7 +252,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             <div
               className={
                 `d-flex justify-content-center bg-light me-2 mb-2 align-items-center avatar rounded-circle ` +
-                classes()
+                classes() +
+                getBorderClasses(props.border)
               }
             >
               <span className="fw-bold ">
@@ -273,7 +275,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
           <div className={`flex-grow-0 align-items-center ${Aligned}`}>
             <img
               src={defaultPP}
-              className={classes() + getBorderClasses(props.border) + "rounded-3"}
+              className={classes() + getBorderClasses(props.border) + " rounded-3"}
               alt="profile-default"
             />
           </div>
@@ -284,7 +286,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               <img
                 src={withPP}
                 className={
-                  `avatar-sm rounded-circle ` + classes() + getBorderClasses(props.border)
+                  `avatar rounded-circle ` + classes() + getBorderClasses(props.border)
                 }
                 alt="profile"
               />
@@ -576,7 +578,18 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             </div>)}
           </>
         )}
+         {stackingAvatar && (
+                        <>
+                        <div
+                        className="card text-center border-0 stacking-avatar"
+                            >
+                                {props.stackingAvatar && props.avatars && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
+                        </div>
+
+                        </>
+                    )}
       </div>
+      
     </Fragment>
   );
 };

@@ -4,6 +4,7 @@ import { Icons } from "../rds-icon/Icons";
 import { Flags } from "../rds-icon/flag-icons";
 import { colors, size } from "../../libs";
 import RdsIcon from "../rds-icon";
+import RdsButton from "../rds-button/rds-button";
 
 export interface RdsBadgeProps {
     iconStroke?: boolean;
@@ -12,8 +13,8 @@ export interface RdsBadgeProps {
     label: string;
     children?: ReactNode;
     size?: size;
-    colorVariant?: colors;
-    badgeType?: "rectangle" | "pill";
+    colorVariant?: string;
+    badgeType?: "box" | "pill";
     childrenSide?: "right" | "left";
     positioned?: boolean;
     showClose?: boolean;
@@ -32,7 +33,10 @@ export interface RdsBadgeProps {
     isIconBorder?: boolean;
     layout?: string;
     style?: string
-    state?: string
+    iconOnly?: boolean;
+    textwithlabel?: boolean;
+    textWithButton?: boolean;
+    buttonLabel?: string;
 }
 
 const RdsBadge = (props: RdsBadgeProps) => {
@@ -44,12 +48,12 @@ const RdsBadge = (props: RdsBadgeProps) => {
             const sizeClass = `${props.size === 'small' ? ' small ' :
                 props.size === 'smallest' ? 'smallest ' :
                     props.size === 'smaller' ? 'smaller ' :
-                        props.size === 'medium' ? 'medium ' : ''}`;
+                        props.size === 'medium' ? 'medium ' : 'large '}`;
             defaultClass = defaultClass + sizeClass;
         }
 
         if (props.badgeType) {
-            const badgeTypeClass = `${props.badgeType === 'rectangle' ? ' rounded rectangle' : props.badgeType === 'pill' ? 'rounded-pill' : ''}`;
+            const badgeTypeClass = `${ props.badgeType === 'pill' ? 'rounded-pill' : ''}`;
             defaultClass = defaultClass + badgeTypeClass;
         }
 
@@ -73,11 +77,32 @@ const RdsBadge = (props: RdsBadgeProps) => {
     const closeClick = () => {
         props.onClose && props.onClose(props.label);
     };
+    const getColorClass = () => {
+        if (props.style && props.colorVariant) {
+            if(props.style === "primary"){
+                return `badge-${(props.colorVariant || 'primary').toLowerCase()}`;
+            }
+            if(props.style === "outline"){
+                return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()}`;
+
+            }
+            if(props.style === "disabled"){
+                return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+            }
+            if(props.style === "transparent"){
+                return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent`;
+            }
+         
+        } 
+        return `badge-${(props.colorVariant || "primary").toLowerCase()}`;
+    };
 
     return (
         <>
-            <span className={`badge badge-` + (props.colorVariant) + ` ${props.isTextWithIcon ? 'text-with-icon' : ''} ${props.isIconBorder ? 'border-icon' : ''} ${props.isOutline ? 'badge-outline bg-transparent' : ''} ${classes()} `}>
-                {props.iconName && props.isIconshow === true && Icons.hasOwnProperty(props.iconName) && (
+            <span id="new-badges">
+             <span className={`badge ${getColorClass()} ${classes()} `} aria-disabled={props.style === "disabled"}>
+              
+                {(props.iconName  && props.layout=="Icon+Text" || props.layout=="Icon_only" ) && Icons.hasOwnProperty(props.iconName) && (
                     <RdsIcon
                         name={props.iconName}
                         fill={props.iconFill}
@@ -86,19 +111,9 @@ const RdsBadge = (props: RdsBadgeProps) => {
                         height={props.iconHeight}
                     />
                 )}
-                {props.iconName && props.iconPosition === 'left' && Icons.hasOwnProperty(props.iconName) && (
-                    <RdsIcon
-                        name={props.iconName}
-                        fill={props.iconFill}
-                        stroke={props.iconStroke}
-                        width={props.iconWidth}
-                        height={props.iconHeight}
-                    />
-                )}
+                {(props.layout =="Text_only" || props.layout == "Icon+Text" || props.layout== "Text+Icon" || props.textwithlabel) && (<span className="mb-0 p-1">{props.label}</span>)}
 
-                <span className="mb-0">{props.label}</span>
-
-                {props.iconName && props.iconPosition === 'right' && Icons.hasOwnProperty(props.iconName) && (
+                {(props.iconName  && props.layout=="Text+Icon") && Icons.hasOwnProperty(props.iconName) && (
                     <RdsIcon
                         name={props.iconName}
                         fill={props.iconFill}
@@ -113,6 +128,7 @@ const RdsBadge = (props: RdsBadgeProps) => {
                     </span>
                 )}
             </span>
+           </span>
         </>
     );
 };

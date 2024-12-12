@@ -93,7 +93,7 @@ function emitSaveData(event: any) {
 }
     return (
         <>
-            <div >
+            <div className="button-card-container" >
 
                 <form >
                     <div className="mt-1 mb-3">
@@ -138,6 +138,7 @@ function emitSaveData(event: any) {
                         />
                     </div>
 
+                    <div className="button-footer p-3">
                     <RdsButton
                         label="Send Message"
                         colorVariant='primary'
@@ -147,6 +148,7 @@ function emitSaveData(event: any) {
                         onClick={(e: any) => emitSaveData(e)}
                         type="submit"
                     />
+                    </div>
                 </form>
             </div>
         </>

@@ -56,7 +56,7 @@ type Story = StoryObj<typeof RdsAvatar>;
 export const Default: Story = {
     args: {
         size: "medium",
-        border:"noBorder"
+        border:"NoBorder"
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['size','border'] } };
@@ -70,7 +70,7 @@ export const withInitials: Story = {
         avtarWithName: false,
         nameOnBottom: false,
         stackingAvatar: false,
-        border:"noBorder",
+        border:"NoBorder",
         lastName: "Technologies",
         size: "medium",
     }
@@ -89,7 +89,7 @@ export const withIcon: Story = {
         nameOnBottom: false,
         stackingAvatar: false,
         //colorVariant: "primary",
-        border:"noBorder",
+        border:"NoBorder",
         iconName:"Home",
 
     }
@@ -108,12 +108,11 @@ export const withLabel: Story = {
         stackingAvatar: false,
         size: "medium",
         isTitle: true,
-        titleAlign: "horizontal",
         role: "Developer",
-        border:"noBorder"
+        border:"NoBorder"
     }
 } satisfies Story;
-withLabel.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'isTitle', 'titleAlign', 'role', 'border'] } };
+withLabel.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'isTitle', 'role', 'border'] } };
 
 
 withLabel.argTypes = colorVariantArgTypes;
@@ -129,15 +128,14 @@ export const withProfile: Story = {
         stackingAvatar: false,
         firstName: "Wai",
         lastName: "Technologies",
-        titleAlign: "horizontal",
         role: "Developer",
         //colorVariant: "primary",
-        border:"noBorder",
+        border:"NoBorder",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'withProfilePic', 'titleAlign', 'role','border', 'profilePic'] } };
+withProfile.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'withProfilePic', 'role','border', 'profilePic'] } };
 
 
 withProfile.argTypes = textAlignArgTypes;
@@ -151,14 +149,13 @@ export const Avatar_Only: Story = {
         activityChain : true,
         firstName: "Wai",
         lastName: "Technologies",
-        titleAlign: "horizontal",
         role: "Developer",
         colorVariant: "primary",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'profilePic','colorVariant', 'activeDotTop','activeDotBottom','activityChain'] } };
+Avatar_Only.parameters = { controls: { include: ['size', 'profilePic','colorVariant', 'activeDotTop','activeDotBottom','activityChain'] } };
 
 export const Avatar_With_Name: Story = {
     args: {
@@ -169,7 +166,6 @@ export const Avatar_With_Name: Story = {
         activityChain : true,
         firstName: "Wai",
         lastName: "Technologies",
-        titleAlign: "horizontal",
         role: "Developer",
         colorVariant: "primary",
         type: "image",
@@ -177,7 +173,7 @@ export const Avatar_With_Name: Story = {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain','type'] } };
+Avatar_With_Name.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain','type'] } };
 
 export const Name_On_Bottom: Story = {
     args: {
@@ -188,14 +184,13 @@ export const Name_On_Bottom: Story = {
         nameOnBottom: true,
         firstName: "Wai",
         lastName: "Technologies",
-        titleAlign: "horizontal",
         role: "Developer",
         colorVariant: "primary",
         profilePic:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     }
 } satisfies Story;
-Name_On_Bottom.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'titleAlign', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
+Name_On_Bottom.parameters = { controls: { include: ['size', 'firstName', 'lastName', 'role', 'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain'] } };
 
 const avatars = [
     // Example avatars data
@@ -209,10 +204,9 @@ export const Stacking_Avatar_Only: Story = {
     args: {
         size: "large",
         stackingAvatar: true,
-        titleAlign: "horizontal",
         maxVisibleAvatars: 3,
         avatars: avatars,
     }
 } satisfies Story;
-Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'titleAlign', 'maxVisibleAvatars'] } };
+Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'maxVisibleAvatars'] } };
 

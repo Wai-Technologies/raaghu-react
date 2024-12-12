@@ -92,7 +92,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
         return (
           <div className="card p-3 col-lg-4 col-sm-12 col-md-6" >
             <div className="d-flex align-items-center">
-              <div className="ms-3">
+              <div className="">
                 <h5 className="fw-bold mb-0">{item.name}</h5>
                 <small className="text-muted">
                   {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
@@ -151,7 +151,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
             return (
               <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
                 <div className="d-flex align-items-center">
-                  <div className="ms-3">
+                  <div className="">
                     <h5 className="fw-bold mb-0">{item.name}</h5>
                     <small className="text-muted">
                       {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
@@ -213,7 +213,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <div className="card p-3 col-lg-5 col-sm-12 col-md-6" style={{ height: '100%' }}>
                     <div>
                       <div className=" align-items-center">
-                        <div className="ms-3">
+                        <div className="">
                           <small className="text-muted">
                             <div className="d-flex align-items-center mt-2">
                               <RdsRating
@@ -274,13 +274,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               return (
                 <div className="card p-3 col-lg-6 col-md-6 col-sm-12" >
                   <div className="d-flex align-items-center">
-                    <div className="ms-3">
+                    <div className="">
                       <h5 className="fw-bold mb-0">{item.name}</h5>
                       <div className="text-muted text-lowercase">{item.username}</div>
                     </div>
                   </div>
                   <div className=" justify-content-between align-items-center mt-2">
-                    <RdsRating rating={item.rating} colorVariant="warning" size="medium" />
+                    <RdsRating rating={item.rating} style="outline" colorVariant="warning" size="medium" />
                     <small className="text-muted">
                       {item.date
                         ? new Date(item.date).toLocaleDateString('en-GB', {
