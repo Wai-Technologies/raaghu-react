@@ -7,7 +7,7 @@
   /* Space between label and input */
 }
 
-.form-label {
+#labelText .form-label {
   margin-bottom: 0.25rem;
   /* Add a little space below the label */
 /*   white-space: nowrap; */
@@ -105,4 +105,23 @@ input[type=number]::-webkit-outer-spin-button {
 .validation-position{
   position:absolute;
   right:0px;
+}
+#icontop, #iconfloating{
+  margin-top: 1rem !important;
+}
+#iconbottom{
+  margin-top: -1rem !important;
+}
+#iconright{
+  margin-right: 3.2rem !important;
+}
+#iconPassword, #iconPasswordfloating{
+  margin-top: 1rem !important;
+}
+#iconPasswordbottom{
+  margin-top: -1rem !important;
+}
+
+#iconPasswordright{
+  margin-right: 5rem !important;
 }

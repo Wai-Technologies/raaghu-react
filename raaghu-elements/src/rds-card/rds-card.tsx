@@ -174,9 +174,9 @@ const RdsCard = (props: RdsCardProps) => {
           >
             {props.showLinkButton === true && (
               <div>
-                <RdsButton class="btn-link" label={props.buttonLabel1 + " >"} />
+                <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
                 <br />
-                <RdsButton class="btn-link" label={props.buttonLabel2 + " >"} />
+                <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
               </div>
             )}
             {props.showLinkButton === false && (
@@ -285,9 +285,9 @@ const RdsCard = (props: RdsCardProps) => {
             >
               {props.showLinkButton === true && (
                 <div>
-                  <RdsButton class="btn-link" label={props.buttonLabel1 + " >"} />
+                  <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
                   <br />
-                  <RdsButton class="btn-link" label={props.buttonLabel2 + " >"} />
+                  <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
                 </div>
               )}
               {props.showLinkButton === false && (

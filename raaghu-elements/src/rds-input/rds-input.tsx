@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./rds-input.css";
 import RdsIcon from "../rds-icon";
+import Tooltip from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
 export interface RdsInputProps {
@@ -144,7 +145,6 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       size = "md";
     }
 
-
     const borderColorClass =
       (props.state === "active" ? " inputOutlineActive " : "  ") +
       (props.state === "selected" ? " inputOutlineSelected " : " ") +
@@ -155,7 +155,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       "form-control mt-1 form-control-" +
       size +
       " flex-grow-1 " +
-      (props.customClasses? props.customClasses:"") +
+      (props.customClasses ? props.customClasses : "") +
       (props.state === "active" ? " inputActive" : "") +
       (props.state === "selected" ? " inputSelected" : "") +
       (props.state === "error" ? " inputError" : "") +
@@ -216,6 +216,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         <div className={`${labelClass()} position-relative`}>
           {props.showTitle && (
             <label
+            id="labelText"
               htmlFor={props.id}
               className={`text-capitalize mt-2 form-label ${fontWeight}`}
             >
@@ -225,32 +226,62 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
               )}
             </label>
           )}
-          <div className="mb-3">
-            <input
-              type={
-                props.inputType === "password"
-                  ? showPassword
-                    ? "text"
-                    : "password"
-                  : props.inputType
-              }
-              minLength={props.minLength}
-              maxLength={props.maxLength}
-              className={inputClasses}
-              id={props.id}
-              placeholder={props.placeholder || getPlaceholder()}
-              required={props.required ?? false}
-              onFocus={props.onFocus}
-              onBlur={props.onBlur}
-              onKeyDown={props.onKeyDown}
-              value={value ?? ""}
-              onChange={handlerChange}
-              disabled={props.isDisabled}
-              readOnly={props.readonly}
-              data-testid={props.dataTestId}
-              onClick={props.onClick}
-              ref={ref}
-            />
+          <div className="mb-0 input-group">
+            {props.tooltipTitle ? (
+              <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+                <input
+                  type={
+                    props.inputType === "password"
+                      ? showPassword
+                        ? "text"
+                        : "password"
+                      : props.inputType
+                  }
+                  minLength={props.minLength}
+                  maxLength={props.maxLength}
+                  className={inputClasses}
+                  id={props.id}
+                  placeholder={props.placeholder || getPlaceholder()}
+                  required={props.required ?? false}
+                  onFocus={props.onFocus}
+                  onBlur={props.onBlur}
+                  onKeyDown={props.onKeyDown}
+                  value={value ?? ""}
+                  onChange={handlerChange}
+                  disabled={props.isDisabled}
+                  readOnly={props.readonly}
+                  data-testid={props.dataTestId}
+                  onClick={props.onClick}
+                  ref={ref}
+                />
+              </Tooltip>
+            ) : (
+              <input
+                type={
+                  props.inputType === "password"
+                    ? showPassword
+                      ? "text"
+                      : "password"
+                    : props.inputType
+                }
+                minLength={props.minLength}
+                maxLength={props.maxLength}
+                className={inputClasses}
+                id={props.id}
+                placeholder={props.placeholder || getPlaceholder()}
+                required={props.required ?? false}
+                onFocus={props.onFocus}
+                onBlur={props.onBlur}
+                onKeyDown={props.onKeyDown}
+                value={value ?? ""}
+                onChange={handlerChange}
+                disabled={props.isDisabled}
+                readOnly={props.readonly}
+                data-testid={props.dataTestId}
+                onClick={props.onClick}
+                ref={ref}
+              />
+            )}
             <div className="validation-position">
               <div className="col-12">
                 {props.required && value !== "" && props.validationMsg && !isValid && (
@@ -268,7 +299,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
               </div>
             </div>
             {hasError && isTouch && props.required && value === "" && (
-              <div className="form-control-feedback validation-position">
+              <div className="form-control-feedback validation-position mt-5">
                 <span className="text-danger">
                   {props.label} {t("is required")}
                 </span>
@@ -276,6 +307,32 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             )}
           </div>
           {/* Error Messages */}
+          {props.inputType === "password" && props.showIcon ? (
+            <RdsIcon
+              name={showPassword ? "eye" : "eye_slash"}
+              classes="password-toggle"
+              height="16px"
+              width="16px"
+              id={"iconPassword" + props.labelPosition}
+              fill={false}
+              stroke={true}
+              opacity="0.5"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          ) : (
+            props.showIcon && (
+              <RdsIcon
+                name="information"
+                classes="password-toggle"
+                height="16px"
+                width="16px"
+                id={"icon" + props.labelPosition}
+                fill={false}
+                stroke={true}
+                opacity="0.5"
+              />
+            )
+          )}
         </div>
       </>
     );

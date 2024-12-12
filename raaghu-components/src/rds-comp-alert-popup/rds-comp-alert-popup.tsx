@@ -55,10 +55,10 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                         />
                     </p>
                     <h4>
-                        <RdsLabel label={alertConfirmation} />
+                        <RdsLabel class="align-items-center  justify-content-center" label={alertConfirmation} />
                     </h4>
                     <span>
-                        <RdsLabel class="text-muted" label={messageAlert} />
+                        <RdsLabel class="text-muted align-items-center  justify-content-center" label={messageAlert} />
                     </span>
                     {props.children}
                   {type=="default" &&(  <div className="mt-4 pt-2 d-flex gap-3 justify-content-center">
