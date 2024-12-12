@@ -58,6 +58,24 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
     setCommentList(comments); // Set initial comments from props
   }, [comments]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const pickerElement = document.querySelector('.emoji-popup');
+      if (pickerElement && !pickerElement.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  
   const handleAddComment = () => {
     if (commentText.trim() === '') return;
 
