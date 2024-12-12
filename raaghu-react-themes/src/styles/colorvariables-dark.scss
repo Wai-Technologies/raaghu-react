@@ -344,9 +344,9 @@ $status-background-color: $gray-200 !default;
 $status-active-background-color: $gray-100 !default;
 
 // /*Member-activity Variables*/
-$high-rate-color: #9EFCB0;
+$high-rate-color: $success-200;
 $mid-rate-color: $danger-300;
-$low-rate-color: #EFAD07;
+$low-rate-color: $warning-300;
 
 // /*Pagination Variables*/
 $pagination-border-color: $gray-500;

@@ -544,17 +544,17 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
                             $enable-caret: true !default;
                             // scss-docs-end btn-variables
                             //subscription-card
-                            $subcription-bg-blue: #005fa4;
-                            $subcription-bg-purple: #660064;
-                            $subcription-bg-orangered: #f76161;
-                            $subcription-bg-orange: #f58220;
-                            $subcription-bg-green: #00a443;
+                            $subcription-bg-blue: $action-700;
+                            $subcription-bg-purple: $secondary-900;
+                            $subcription-bg-orangered: $danger-300;
+                            $subcription-bg-orange: $default-100;
+                            $subcription-bg-green: $success-600;
                             $body-wrapper-bg: $dark-900;
 
-                            $body-wrapper-bg: #f5f5fa;
-                            $table-hover-bg: #f5f5fa;
+                            $body-wrapper-bg: $light-150;
+                            $table-hover-bg: $light-150;
                             $topnav-link-color: $gray-800;
-                            $card-bg-color: #fff;
+                            $card-bg-color: $white;
                             //--bs-body-color: black;
                             $datepicker-bg: $white !default;
                             $datepicker-head: $white !default;
@@ -583,7 +583,7 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
                             // card title{
 
                             $card-title-color: $gray-900 !default;
-                            $placeholder-color: #bebebe;
+                            $placeholder-color: $gray-750;
 
                             $offcanvas-bottom-border-color: $border-color !default;
 
@@ -841,24 +841,24 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     .is-highlighted:not(.disabled):not(.selected) span,
                                     span.is-highlighted:not(.disabled):not(.selected) {
                                         background-color: #5c82e3;
-                                        color: #fff;
+                                        color: $white;
                                     }
 
                                     .custom-today-class {
                                         background-color: $primary;
-                                        // color: #fff;
+                                        // color: $white;
                                     }
                                 }
                             }
 
                             .months span.selected {
                                 background-color: #ed585f;
-                                color: #fff;
+                                color: $white;
                             }
 
                             .years span.selected {
                                 background-color: #ed585f;
-                                color: #fff;
+                                color: $white;
                             }
                         }
 
@@ -932,12 +932,12 @@ $form-switch-style-bg4: $btn-primary-solid-default;
 //   border-right-color: $sidbar-border-right-color;
 // }
 .aside {
-    background-color: #fff;
+    background-color: $white;
     border-right-color: $sidbar-border-right-color;
 }
 
                         .sidebar {
-                            background-color: #fff !important;
+                            background-color: $white !important;
                             border-right-color: $sidbar-border-right-color;
                         }
 
@@ -1502,9 +1502,9 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 background-color: $gray-200;
                             }
 
-                            .alert-col {
-                                background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
-                            }
+                            // .alert-col {
+                            //     background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
+                            // }
 
                             .file-close svg {
                                 color: $gray-500;
@@ -1724,12 +1724,12 @@ $form-switch-style-bg4: $btn-primary-solid-default;
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                                 height: 5px;
                             }
 
                             .active {
-                                border-color: #232933;
+                                border-color: $body-bg-dark;
                                 height: 5px;
                             }
                         }
@@ -3017,11 +3017,11 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                             }
 
     .active {
-        border-color: #232933;
+        border-color: $body-bg-dark;
     }
 }
 // /*input search properrties*/
@@ -3609,7 +3609,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
 
                         .css-1xc3v61-indicatorContainer:hover {
-                            color: #cccccc !important;
+                            color: $gray-300 !important;
                         }
 
                         #react-select-3-listbox {
@@ -3712,12 +3712,12 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
 
                         .border-end-custom {
-                            border-right: 2px solid #dee2e6;
+                            border-right: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
                         .border-start-custom {
-                            border-left: 2px solid #dee2e6;
+                            border-left: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
@@ -3726,7 +3726,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 }
 // /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: $gray-300;
     border-radius: 10px;
 }
 
