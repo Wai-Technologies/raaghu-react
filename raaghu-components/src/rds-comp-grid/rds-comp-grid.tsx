@@ -52,6 +52,9 @@ const DraggableColumnHeader: React.FC<{
     key: string;
     hasSearch?: boolean;
     filter?: boolean;
+    hidden?: boolean;
+    fixed?: boolean;
+    frozen?: boolean;
   };
   index: number;
   moveColumn: (fromIndex: number, toIndex: number) => void;
@@ -63,6 +66,7 @@ const DraggableColumnHeader: React.FC<{
   allFilter?: boolean;
   onSortClick?: (key: string) => void;
   sortConfig?: { key: string; direction: "asc" | "desc" } | null;
+  data: any[];
 }> = ({
   column,
   index,
@@ -75,16 +79,18 @@ const DraggableColumnHeader: React.FC<{
   allFilter,
   onSortClick,
   sortConfig,
+  data
 }) => {
   const refheader = useRef<HTMLTableHeaderCellElement>(null);
   const [resizeStop, setResizeStop] = useState(true);
   const [isResizing, setIsResizing] = useState(false);
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     type: "COLUMN",
     item: { index },
     collect: (monitor: DragSourceMonitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    canDrag: () => !isResizing, // Disable drag while resizing
   });
 
   const [, drop] = useDrop({
@@ -99,10 +105,11 @@ const DraggableColumnHeader: React.FC<{
     },
   });
 
-  if (!isResizing) {
-    // if resinging start the  desable drag drop
-    drag(drop(refheader));
-  }
+  useEffect(() => {
+    if (!isResizing) {
+      drag(drop(refheader));
+    }
+  }, [isResizing, drag, drop]);
 
   const handleSortIconClick = () => {
     if (onSortClick) {
@@ -116,75 +123,81 @@ const DraggableColumnHeader: React.FC<{
       onFilterClick(column.key, position);
     }
   };
+
   const handleResizeStop = (event: any, { size }: any) => {
     setResizeStop(true);
     setIsResizing(false);
   };
+
   const handleResizeStart = (event: any, { size }: any) => {
     setResizeStop(false);
     setIsResizing(true);
   };
 
+  const hasData = data.some(row => row[column.key] !== undefined && row[column.key] !== null);
+
+  if (column.hidden) {
+    return null; // Do not render hidden columns
+  }
+
   return (
-    <>
-      <th
-        className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
-        ref={refheader}
-      >
-        <div className="d-flex justify-content-start align-items-center full-width">
-          <span>{column.displayName}</span>
-          {column.sortable && (
-            <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
-              {sortConfig && sortConfig.key === column.key
-                ? sortConfig.direction === "asc"
-                  ? "▲"
-                  : "▼"
-                : "↕"}
-            </div>
-          )}
+    <th
+      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
+      ref={refheader}
+    >
+      <div className="d-flex justify-content-start align-items-center full-width">
+        <span>{column.displayName}</span>
+        {column.sortable && (
+          <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
+            {sortConfig && sortConfig.key === column.key
+              ? sortConfig.direction === "asc"
+                ? "▲"
+                : "▼"
+              : "↕"}
+          </div>
+        )}
 
-          {(column.filter || allFilter) && (
-            <div className="cursor-pointer">
-              <RdsIcon
-                colorVariant="dark"
-                height="10px"
-                name="filter"
-                stroke
-                width="20px"
-                onClick={handleFilterIconClick}
-              />
-            </div>
-          )}
-
-          <ResizableBox
-            width={10} // Initial width of the column header
-            height={20} // Height of the column header
-            axis="x"
-            resizeHandles={["e"]}
-            minConstraints={[50, Infinity]} // Minimum width the column can resize to
-            maxConstraints={[400, Infinity]} // Maximum width the column can resize to
-            onResizeStop={handleResizeStop}
-            onResizeStart={handleResizeStart}
-          ></ResizableBox>
-        </div>
-
-        <div className="d-flex justify-content-between align-items-center full-width">
-          {(column.hasSearch || allSearch) && (
-            <RdsSearch
-              labelPosition="top"
-              placeholder="Search"
-              size="small"
-              onChange={(e) =>
-                onSearchChange && onSearchChange(column.key, e.target.value)
-              }
+        {(column.filter || allFilter) && hasData && (
+          <div className="cursor-pointer">
+            <RdsIcon
+              colorVariant="dark"
+              height="10px"
+              name="filter"
+              stroke
+              width="20px"
+              onClick={handleFilterIconClick}
             />
-          )}
-        </div>
-      </th>
-    </>
+          </div>
+        )}
+
+        <ResizableBox
+          className="text-end"
+          width={10} // Initial width of the column header
+          height={20} // Height of the column header
+          axis="x"
+          resizeHandles={["e"]}
+          minConstraints={[50, Infinity]} // Minimum width the column can resize to
+          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
+          onResizeStop={handleResizeStop}
+          onResizeStart={handleResizeStart}
+        ></ResizableBox>
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center full-width">
+        {(column.hasSearch || allSearch) && (
+          <RdsSearch
+            labelPosition="top"
+            placeholder="Search"
+            size="small"
+            onChange={(e) =>
+              onSearchChange && onSearchChange(column.key, e.target.value)
+            }
+          />
+        )}
+      </div>
+    </th>
   );
 };
-
 const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
   const [columns, setColumns] = useState(props.tableHeaders);
@@ -209,6 +222,18 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [array, setArray] = useState<boolean[]>([]);
   const [data, setData] = useState(props.tableData);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
+  useEffect(() => {
+    if (props.gridType === "advance") {
+      const paginatedData = getSortedData(
+        selectedFilters ? filteredData : totalData,
+        sortConfig,
+        currentPage
+      );
+      setData(paginatedData);
+    } else {
+      setData(totalData);
+    }
+  }, [totalData, sortConfig, currentPage, rowsPerPage, props.gridType]);
 
   const moveColumn = (fromIndex: number, toIndex: number) => {
     const updatedColumns = [...columns];
@@ -216,9 +241,8 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
     updatedColumns.splice(toIndex, 0, removed);
     setColumns(updatedColumns);
   };
-
+  
   const handleSearchChange = (key: string, value: string) => {
-    debugger
     setSearchTexts((prev) => ({ ...prev, [key]: value }));
     const filteredData = props.tableData.filter((row) =>
       row[key].toString().toLowerCase().includes(value.toLowerCase())
@@ -362,21 +386,21 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
     endingRow: props.recordsPerPage,
   });
 
+  
   const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
     props.onPaginationHandler &&
       props.onPaginationHandler(currentPage, recordsPerPage);
-    if (totalRecords) {
-      setRowStatus({
-        startingRow: (currentPage - 1) * recordsPerPage, //0, //0-index
-        endingRow: recordsPerPage, //considering that 1st element has '0' index
-      });
-    } else {
-      setRowStatus({
-        startingRow: (currentPage - 1) * recordsPerPage, //0-index
-        endingRow: currentPage * recordsPerPage, //considering that 1st element has '0' index
-      });
-    }
     setCurrentPage(currentPage);
+    setRowsPerPage(recordsPerPage);
+
+    if (props.gridType === "advance") {
+      const paginatedData = getSortedData(
+        selectedFilters ? filteredData : totalData,
+        sortConfig,
+        currentPage
+      );
+      setData(paginatedData);
+    }
   };
 
   useEffect(() => {
@@ -596,6 +620,7 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                     sortConfig={sortConfig}
                     allSearch={props.allSearch}
                     allFilter={props.allFilter}
+                    data={data}
                   />
                 ))}
 
@@ -844,6 +869,7 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                     sortConfig={sortConfig}
                     allSearch={props.allSearch}
                     allFilter={props.allFilter}
+                    data={data}
                   />
                 ))}
 
@@ -857,7 +883,7 @@ const moveRow = (fromIndex: number, toIndex: number) => {
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className="cursor-pointer">
             {/* Render table rows using the reordered columns */}
             {data.map((row, rowIndex) => (
               <DraggableRow key={row.id} row={row} index={rowIndex} moveRow={moveRow}>
@@ -960,7 +986,7 @@ const moveRow = (fromIndex: number, toIndex: number) => {
 
                 {columns.map((column) => (
                   <td
-                    className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"}`}
+                  className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.fixed ? "fixed-column" : ""}`}
                     key={column.key}
                   >
                     {column.datatype === "badge" ? (

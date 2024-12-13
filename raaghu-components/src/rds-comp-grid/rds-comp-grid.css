@@ -148,11 +148,13 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 .fixed-column {
   position: sticky;
   left: 0;
-  background: white;
+  background-color: white;
   z-index: 1;
 }
 
 .frozen-column {
-  pointer-events: none;
-  background: #f0f0f0;
+  position: sticky;
+  right: 0;
+  background-color: white;
+  z-index: 1;
 }
