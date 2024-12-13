@@ -263,7 +263,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                     <>
                       <div
                         id="custominputoutput"
-                        className={`p-3 text-light rounded bg-white border`}
+                        className={`p-3 text-light rounded bg-white border position-relative`}
                       >
                         {entry.text && (
                           <div className="d-flex justify-content-between align-items-center mb-2">
@@ -324,48 +324,49 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                           <div className="mb-3">
                             <pre className="code-block">{preCode}</pre>
                           </div>
-                        )}
+                                        )}
+                                        <div className="hover-buttons">
+                                            <span className="hover-button">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isChecked}
+                                                    className={"form-check-input customcheckbox border-primary"}
+                                                    onChange={(e) => handleCheckboxChange(e.target.checked)}
+                                                />
+                                            </span>
+                                            <span className="hover-button" onClick={handleStarClick}>
+                                                <RdsIcon
+                                                    name="star"
+                                                    height="33px"
+                                                    width="24px"
+                                                    colorVariant="primary"
+                                                    fill={isStarred}
+                                                    stroke={!isStarred}
+                                                />
+                                            </span>
+                                            <span className="hover-button " onClick={handleLikeClick}>
+                                                <RdsIcon
+                                                    name="likeaiprompt"
+                                                    height="33px"
+                                                    width="24px"
+                                                    colorVariant="primary"
+                                                    fill={isLiked}
+                                                    stroke={!isLiked}
+                                                />
+                                            </span>
+                                            <span className="hover-button" onClick={handleDislikeClick}>
+                                                <RdsIcon
+                                                    name="dislikeaiprompt"
+                                                    height="33px"
+                                                    width="24px"
+                                                    colorVariant="primary"
+                                                    fill={isDisliked}
+                                                    stroke={!isDisliked}
+                                                />
+                                            </span>
+                                        </div>
                       </div>
-                      <div className="hover-buttons">
-                      <span className="hover-button">
-                        <input
-                            type="checkbox"
-                            checked={isChecked}
-                            className={"form-check-input customcheckbox border-primary"}
-                            onChange={(e) => handleCheckboxChange(e.target.checked)}
-                        />
-                        </span>
-                        <span className="hover-button" onClick={handleStarClick}>
-                            <RdsIcon
-                                name="star"
-                                height="33px"
-                                width="24px"
-                                colorVariant="primary"
-                                fill={isStarred}
-                                stroke={!isStarred}
-                            />
-                            </span>
-                            <span className="hover-button " onClick={ handleLikeClick}>
-                            <RdsIcon
-                                name="likeaiprompt"
-                                height="33px"
-                                width="24px"
-                                colorVariant="primary"
-                                fill={isLiked}
-                                stroke={!isLiked}
-                            />
-                            </span>
-                            <span className="hover-button" onClick={handleDislikeClick}>
-                            <RdsIcon
-                                name="dislikeaiprompt"
-                                height="33px"
-                                width="24px"
-                                colorVariant="primary"
-                                fill={isDisliked}
-                                stroke={!isDisliked}
-                            />
-                            </span>
-                      </div>
+                      
                     </>
                   )}
                 </div>
@@ -464,7 +465,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                               /><div className="image-preview-group">
                               {selectedImages.map((image, index) => (
                                   
-                <div key={index} className="image-preview">
+                <div key={index} className="image-preview me-2">
                   <img
                     src={image}
                     alt={`Selected ${index}`}

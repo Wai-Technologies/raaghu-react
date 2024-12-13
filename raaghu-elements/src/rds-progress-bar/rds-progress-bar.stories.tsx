@@ -70,17 +70,6 @@ export const Default: Story = {
     height: 4,
     displayLabel: true,
     displayPercentage: true,
-  },
-} satisfies Story;
-
-Default.parameters = {
-  controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'animation', 'height', 'displayLabel', 'displayPercentage'] },
-};
-
-export const MultiProgressBar: Story = {
-  args: {
-    role: "multiple",
-    height: 15,
     progressValues: [
       {
         progressWidth: 50,
@@ -101,6 +90,45 @@ export const MultiProgressBar: Story = {
         animation: true,
       },
     ],
+    State: "success",
+  },
+} satisfies Story;
+
+Default.parameters = {
+  controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'animation', 'height', 'displayLabel', 'displayPercentage'] },
+};
+
+export const MultiProgressBar: Story = {
+  args: {
+    role: "multiple",
+    height: 15,
+    colorVariant: "primary",
+    striped: true,
+    progressWidth: 40,
+    animation: false,
+    displayLabel: true,
+    displayPercentage: true,
+    progressValues: [
+      {
+        progressWidth: 50,
+        colorVariant: "success",
+        stripe: true,
+        animation: true,
+      },
+      {
+        progressWidth: 20,
+        colorVariant: "danger",
+        stripe: true,
+        animation: true,
+      },
+      {
+        progressWidth: 30,
+        colorVariant: "info",
+        stripe: true,
+        animation: true,
+      },
+    ],
+    State: "success",
   },
 } satisfies Story;
 
@@ -115,6 +143,26 @@ export const Circular: Story = {
     progressWidth: 40,
     height: 80,
     displayPercentage: true,
+    progressValues: [
+      {
+        progressWidth: 50,
+        colorVariant: "success",
+        stripe: true,
+        animation: true,
+      },
+      {
+        progressWidth: 20,
+        colorVariant: "danger",
+        stripe: true,
+        animation: true,
+      },
+      {
+        progressWidth: 30,
+        colorVariant: "info",
+        stripe: true,
+        animation: true,
+      },
+    ],
   },
   argTypes: {
     height: {
