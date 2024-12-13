@@ -70,7 +70,7 @@ const RdsToast = (props: RdsToastProps) => {
                     {props.showHeader && (
                         <div>
                             <div className="toast-header d-flex justify-content-between align-items-end pb-0">
-                                <div className="me-2">
+                            <div className={props.withIcon ? "me-2" : ""}>
                                     {props.withIcon && (
                                         <RdsIcon
                                             name={props.iconName}
@@ -136,7 +136,7 @@ const RdsToast = (props: RdsToastProps) => {
                         <div className="m-1 toastbody ">
                             <div className="d-flex justify-content-between     align-items-center  ">
                                 <div className="toast-body toastbody d-flex justify-content-between  align-items-end ">
-                                    <div className="me-2">
+                                <div className={props.withIcon ? "me-2" : ""}>
                                         {props.withIcon && (
                                             <RdsIcon
                                                 name={props.iconName}
