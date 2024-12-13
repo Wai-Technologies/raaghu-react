@@ -261,7 +261,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 ></RdsIcon>
                             </span>
                         </button>
-                        <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-1`}>
+                        <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-4`}>
                             <li className="daterange__dropdown-item dropdown-item px-2 pb-2 border-bottom">
                                 {" "}
                                 <strong>

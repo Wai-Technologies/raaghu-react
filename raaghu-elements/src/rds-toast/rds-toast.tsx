@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { colors } from "../../libs/types";
 import "./rds-toast.css";
 import RdsIcon from "../rds-icon/rds-icon";
+import { toaster_placements } from "../../libs/types/placement";
 
 export interface RdsToastProps {
     colorVariant?: colors;
@@ -18,6 +19,7 @@ export interface RdsToastProps {
     placeholder?: string;
     progressWidth?: number;
     filename?: string;
+    position?:toaster_placements;
 }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info"? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
@@ -40,9 +42,24 @@ const RdsToast = (props: RdsToastProps) => {
         };
     });
 
+    const classes = () => {
+        switch (props.position) {
+            case 'top left': return 'top-0 start-0';
+            case 'top center': return 'top-0 start-50 translate-middle-x';
+            case 'top right': return 'top-0 end-0';
+            case 'middle left': return 'top-50 start-0 translate-middle-y';
+            case 'middle center': return 'top-50 start-50 translate-middle';
+            case 'middle right': return 'top-50 end-0 translate-middle-y';
+            case 'bottom left': return 'bottom-0 start-0';
+            case 'bottom center': return 'bottom-0 start-50 translate-middle-x';
+            case 'bottom right': return 'bottom-0 end-0';
+            default: return '';
+        }
+    }; 
+
     return (
         <>
-            <div className="toast-container">
+            <div className={`toast-container position-fixed ${classes()}`}>
                 <div
                     role="alert"
                     aria-live="assertive"
