@@ -62,8 +62,8 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
-      minHeight: props.size === "small" ? "1.875rem" : props.size === "large" ? "3.125rem" : "2.5rem",
-      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+      minHeight: props.size === "small" ? "1.875rem" : props.size === "large" ? "3.125rem" : "1.875rem",
+      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.75rem",
       borderBottomWidth: props.style === "BottomLine" ? (props.borderBottomWidth || "2px") : undefined,
       borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined,
     }),
@@ -127,15 +127,16 @@ const RdsSelectList = (props: RdsSelectProps) => {
  
   return (
     <div className={`${props.classes} mt-2`}>
-      {showLabel && props.label && (
+      <div className="d-flex mb-1">{showLabel && props.label && (
         <label
           htmlFor={props.id}
-          className={`form-label ${props.isBold ? "fw-bold" : ""}`}
+          className={` ${props.isBold ? "fw-bold" : ""}`}
         >
           {props.label}
         </label>
       )}
       {props.required && <span className="text-danger ms-1">*</span>}
+      </div>
       <Select
         id={props.id}
         options={mappedSelectItems}

@@ -3,7 +3,7 @@ import RdsBarChart from "./rds-chart-bar";
 import "./rds-chart-bar.css";
 
 const meta: Meta = {
-    title: 'Charts/Bar Chart',
+    title: 'Elements/Charts/Bar Chart',
     component: RdsBarChart,
     parameters: {
         layout: 'padded',

@@ -68,6 +68,9 @@ export const Default: Story = {
         isSelected: false,
         selectIcon: "circle",
         profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
+        tooltip: true,
+        tooltipPlacement: "right",
+        tooltipTitle: "This is tooltip",
         listItems: [
             {
                 label: "Option 1",
@@ -106,6 +109,9 @@ export const WithSplit: Story = {
         isSelected: false,
         selectIcon: "circle",
         profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
+        tooltip: true,
+        tooltipPlacement: "right",
+        tooltipTitle: "This is tooltip",
         listItems: [
             {
                 label: "Option 1",
@@ -126,5 +132,66 @@ export const WithSplit: Story = {
     }
 }
 Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected','selectIcon','profileImage'] } };
+
+export const LinkButton: Story = {
+    args: {
+        id: "4",
+        displayType: 'dropdown',
+        colorVariant: "primary",
+        label: "Link Button",
+        layout: "Textonly",
+        buttonIcon: "plus",
+        iconFill: false,
+        iconStroke: true,
+        size: "medium",
+        darkDropdown: false,
+        disable: false,
+        isSelected: false,
+        selectIcon: "circle",
+        profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
+        tooltip: true,
+        tooltipPlacement: "right",
+        tooltipTitle: "This is tooltip",
+        listItems: [
+            {
+                label: "Option 1",
+                id: "1",
+                path: "",
+            },
+            {
+                label: "Option 2",
+                id: "2",
+                path: "",
+            },
+            {
+                label: "Option 3",
+                id: "3",
+                path: "",
+            },
+        ],
+    }
+} satisfies Story;
+
+Default.parameters = {
+    controls: {
+        include: [
+            'displayType',
+            'colorVariant',
+            'layout',
+            'iconFill',
+            'iconStroke',
+            'buttonIcon',
+            'size',
+            'label',
+            'disable',
+            'isSelected',
+            'selectIcon',
+            'profileImage',
+            'tooltip', 
+            'tooltipPlacement', 
+            'tooltipTitle', 
+        ]
+    }
+};
 
 

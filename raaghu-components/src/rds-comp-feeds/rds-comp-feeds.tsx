@@ -34,6 +34,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                     profilePic={item.imageUrl}
                                     withProfilePic={true}
                                     height="60px"
+                                    size="small"
                                 ></RdsAvatar>
                             </div>
                             <div className="ps-3 flex-grow-1">
@@ -77,6 +78,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                 profilePic={item.imageUrl}
                                 withProfilePic={true}
                                 height="60px"
+                                size="small"
                             ></RdsAvatar>
                         </div>
                         <div className="ps-md-3 flex-grow-1 userdetails">
@@ -89,7 +91,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                             width="20px"
                                             height="20px"
                                             fill={false}
-                                            stroke={true}
+                                            stroke={true}                                       
                                         ></RdsIcon>
                                     </div>
                                 )}

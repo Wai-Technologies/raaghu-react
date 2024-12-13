@@ -735,7 +735,6 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav">
               <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
-                  <div className="d-flex">    
         <div id="raaghuLogo" className="d-block m-2 ">
             {props.showLogo && (  <img
                     className="cursor-pointer sidenav-logo mx-4"
@@ -762,7 +761,6 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                                 </>
                             </div>
                         )}
-                </div>
                   </div>
            </div>
             <div

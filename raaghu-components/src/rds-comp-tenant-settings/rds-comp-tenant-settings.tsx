@@ -142,7 +142,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         required={true}
                                         label="Password"
                                         name="password"
-                                        id="password"
+                                        id={(errors.password && formData?.password)? "passwordfield":"password" }
                                         onBlur={() => setIsPasswordTouched(true)}
                                         onChange={(e) => {
                                           handleDataChanges(e.target.value, "password");
@@ -163,7 +163,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         required={true}
                                         label="Confirm Password"
                                         name="cpassword"
-                                        id="cpassword"
+                                        id={(errors.cpassword &&  formData?.cpassword)? "passwordfield":"cpassword" }
                                         onFocus={() => setIsConfirmPasswordFocused(true)}
                                         onBlur={() => setIsConfirmPasswordTouched(true)}
                                         onChange={(e) => {

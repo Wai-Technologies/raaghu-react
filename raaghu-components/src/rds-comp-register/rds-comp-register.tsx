@@ -180,6 +180,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
+                                required={true}
                             ></RdsInput>
                         </div>
 
@@ -199,6 +200,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                     /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/
                                   }
                                   validationMsg="Please Enter Valid Password length should be at least 8 characters(Alphanumeric)"
+                                  required={true}
                             ></RdsInput>
                         </div>
                         <div className="d-flex justify-content-between mt-3">

@@ -79,6 +79,7 @@ const RdsCounter = (props: RdsCounterProps) => {
                                 colorVariant={props.colorVariant}
                                 icon="minus"
                                 onClick={onMinusClick}
+                                size="medium"
                             />
                             <input
                                 type="number"
@@ -94,6 +95,7 @@ const RdsCounter = (props: RdsCounterProps) => {
                                 colorVariant={props.colorVariant}
                                 icon="plus"
                                 onClick={onPlusClick}
+                                size="medium"
                             />
                         </div>
                     </div>

@@ -73,10 +73,10 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
         <div className="row vh-100">
           <div className="align-items-center col-md-12 d-flex justify-content-center">
             <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-              <div className="mt-2">
+              <div className="mb-3">
                 {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
-                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                    className={` ${props.isDisabled ? " opacity-50 " : ""
                       } `}
                   >
                     {props.label}
@@ -130,10 +130,10 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           </div>
         </div>
       ) : (
-        <div className="mt-2">
+        <div className="mb-3">
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
-              className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+              className={` ${props.isDisabled ? " opacity-50 " : ""
                 } `}
             >
               {props.label}
@@ -176,6 +176,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
+          
         </div>
       )}
       {props.isRequired && (

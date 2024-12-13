@@ -38,15 +38,10 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                 <form>
                     <div className="custom-content-scroll">
                         <div className="row">
-                            <div className="col-md-12 ">
-                                <div className="form-group mb-3">
-                                    <RdsLabel
-                                        size="14px"
-                                        label="Role Name"
-                                        class="form-label"
-                                        required={true}
-                                    ></RdsLabel>
+                            <div className="col-md-12">
+                                <div className="form-group">  
                                     <RdsInput
+                                        label="Role Name"
                                         size="medium"
                                         inputType="text"
                                         isDisabled={false}
@@ -56,6 +51,7 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                                             handleDataChange(e.target.value, "displayName");
                                         }}
                                         placeholder="Enter Role Name"
+                                        required={true}
                                     ></RdsInput>
                                 </div>
                             </div>

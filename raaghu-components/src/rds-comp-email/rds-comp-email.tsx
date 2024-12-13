@@ -105,7 +105,7 @@ const isFormValid2 = isDisplayNameValid(formData?.defaultFromDisplayName) && isF
 const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& isTargetEmailValid(sendTestEmailData?.targetEmailAddress) && isSubjectValid(sendTestEmailData?.subject) ;
     const condition = !formData?.smtpUseDefaultCredentials ? <>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <div className="form-group">
                     <RdsInput
                         fontWeight={"normal"}
@@ -122,7 +122,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
             </div>
         </div>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <RdsInput
                     fontWeight={"normal"}
                     value={formData?.smtpUserName}
@@ -199,7 +199,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     </div>
 
                     <div className="row px-2">
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
@@ -214,7 +214,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <RdsInput
                                 fontWeight={"normal"}
                                 value={formData?.smtpPort}

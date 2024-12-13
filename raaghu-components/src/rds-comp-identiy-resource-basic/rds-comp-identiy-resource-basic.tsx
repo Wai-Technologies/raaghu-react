@@ -81,7 +81,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row">
                             <RdsTextArea
                                 label="Description"
                                 placeholder="Description"

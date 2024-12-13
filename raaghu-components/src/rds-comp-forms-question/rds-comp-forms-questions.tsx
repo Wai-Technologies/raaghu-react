@@ -234,7 +234,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 </span>
               </div>
               <div className="row">
-                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                   <RdsInput
                     label="Title"
                     placeholder="Title"
@@ -245,7 +245,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                     dataTestId="title"
                   ></RdsInput>
                 </div>
-                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                   <RdsTextArea
                     label="Description"
                     placeholder="Enter description"
@@ -257,7 +257,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 </div>
               </div>
               <div className="row pb-1">
-                <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mb-3 mt-2 pe-0">
+                <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mt-2 pe-0">
                   <RdsSelectList
                     id="questy"
                     label="Type"
@@ -274,7 +274,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                     element.choices &&
                     element?.choices?.map((elements: any, idx: number) => (
                       <>
-                        <div className="col-xxl-6 col-xl-7 col-lg-12 col-md-12 col-12 mb-3 mt-2 ">
+                        <div className="col-xxl-6 col-xl-7 col-lg-12 col-md-12 col-12 mt-2 ">
                           <div className="d-flex pt-1 ">
                             <div className="input-group d-flex">
                               <div
@@ -339,7 +339,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                         </div>
                       </>
                     ))}
-                  <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mb-3 pt-1 d-flex align-items-center ">
+                  <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 pt-1 d-flex align-items-center ">
                     <div className="align-items-center d-flex gap-3 input-group mt-2">
                       <div
                         className="input-group-text rounded-0"

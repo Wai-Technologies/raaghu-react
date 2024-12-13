@@ -1,15 +1,3 @@
-/* General container styles */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  width: 100%;
-  margin: auto;
-  font-size: 13px !important;
-  background-color: transparent;
-}
-
 /* Prefilled prompts row styling */
 .prefilled-prompts {
   font-size: 13px !important;
@@ -87,25 +75,6 @@
   margin-left: 0px;
   padding: 0px;
   margin-top:4px;
-}
-
-.dropdown-container {
-  position: relative;
-  width: 100%;
-}
-
-.dropdown {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-size: 16px 16px;
-  font-size: 12px !important;
-}
-
-.dropdown-menu.show {
-  display: block;
-  margin-left: -16px !important;
-  margin-top: 5px !important;
 }
 
 .file-upload-label {

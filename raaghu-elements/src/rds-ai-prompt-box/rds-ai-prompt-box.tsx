@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import "./rds-ai-prompt-box.css";
-import RdsDropdownList from "../rds-dropdown-list/rds-dropdown-list";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsAiPromptBoxProps {

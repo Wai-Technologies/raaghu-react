@@ -831,6 +831,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               role={
                                                 tableDataRow[tableHeader.key].info
                                               }
+                                              size="small"
                                             />
                                           </div>
                                         )}

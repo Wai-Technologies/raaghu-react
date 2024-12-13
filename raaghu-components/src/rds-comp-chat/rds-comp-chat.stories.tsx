@@ -4,7 +4,7 @@ import RdsCompUserComments from './rds-comp-chat';
 import { RdsColorPicker } from "../rds-elements";
 
 const meta: Meta<typeof RdsCompUserComments> = {
-    title: "Components/Chat",
+    title: "Components/Chatbot",
     component: RdsCompUserComments,
     parameters: {
         layout: 'padded',

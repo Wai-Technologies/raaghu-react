@@ -37,7 +37,7 @@ export const Counter: Story = {
         // counterValue: 0,
         min: 0,
         max: 50,
-        width: 110,
+        width: 135,
         colorVariant: "primary",
         position: "top",
         label: "Counter",

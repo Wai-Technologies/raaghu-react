@@ -77,7 +77,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
                 key={index}
                 customClasses={fieldClass}
                 inputType="otp"
-                maxLength={0}
+                maxLength={1}
                 value={digit}
                 singleDigit={true}
                 name="otp"
@@ -109,7 +109,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
                 key={index}
                 customClasses={fieldClass}
                 inputType="otp"
-                maxLength={0}
+                maxLength={1}
                 value={value}
                 singleDigit={true}
                 name="otp"
