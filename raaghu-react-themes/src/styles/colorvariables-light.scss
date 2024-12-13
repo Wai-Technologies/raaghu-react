@@ -1531,7 +1531,7 @@ $form-switch-style-bg4: $btn-primary-solid-default;
 
 .bg-gradient-primary {
     background: transparent linear-gradient(90deg, #56b2aa 0%, #0285c9 100%) 0% 0% no-repeat padding-box;
-}
+} 
 // /*top nav bar variables*/
 // /*sidebar color styles*/
 #sidebar {
@@ -3757,7 +3757,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
     div {
         background-color: $body-bg;
         border-radius: 4px;
-        color: #34384f;
+        color: $gray-900;
 
                                 div {
                                     /* Your custom styles for menu items */
