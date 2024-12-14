@@ -211,7 +211,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 onChange={(e: any) => handlerBlogDataChange(e, "content")}
               />
             </div>
-            <div className="form-group mb-5 mb-lg-0">
+            <div className="form-group mb-5 mb-lg-0 py-1">
               <RdsInput
                 inputType="text"
                 required={true}
