@@ -4096,7 +4096,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
                         .nav-tabs.vertical-leftFilled {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow:hidden;
 
                             li {
                                 background-color: $btn-primary-transparent-selected;
