@@ -236,7 +236,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
         <span className="w-100 d-flex input-box-chat p-1">
           <span className="w-100">
-            <RdsInput
+            <RdsInput showTitle={false}
               value={commentText}
               inputType="text"
               placeholder="Type comment..."
@@ -245,12 +245,12 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               showIcon={true}
             />
           </span>
-          <span className="d-flex align-items-center mx-2">
+          <span className="d-flex align-items-center mx-2 sendButton">
             <RdsIcon
               name="send_email"
               fill={false}
               stroke={true}
-              colorVariant="primary"
+              colorVariant="basic"
               isCursorPointer={true}
               onClick={handleAddComment}
             />
