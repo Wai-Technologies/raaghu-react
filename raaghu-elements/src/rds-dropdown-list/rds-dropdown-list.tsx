@@ -607,7 +607,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
         {/* DropdownList items */}
         <ul
-          className={`dropdown-menu ${expand ? "show" : "hide"}`}
+          className={`dropdown-menu ${expand ? "show" : "hide"} ${props.listItems?.length ? "marginForLanguage" : ""}`}
           id={props.id}
           aria-labelledby={props.id}
         >
