@@ -105,16 +105,17 @@ const RdsAlert = (props: RdsAlertProps) => {
                             <div>
                                 {props.title && <strong>{props.title}</strong>}
                                 <span className="ps-2"> {props.message} </span>
+
+                            </div>
+                        </span>
+
+                        <span className="d-flex me-3">
+                            <div className="d-flex gap-2 alertBtns pe-1 align-items-center">
                                 {props.showlink === true && (
                                     <a className=" text-decoration-underline ms-2" href="#">
                                         Link
                                     </a>
                                 )}
-                            </div>
-                        </span>
-
-                        <span className="d-flex me-3">
-                            <div className="d-flex gap-2 alertBtns pe-1 ">
                                 {props.showbutton === true && (
                                     <button type="button" className="text-primary border-0 bg-transparent"> Cancel </button>
                                 )}
