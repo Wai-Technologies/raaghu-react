@@ -213,7 +213,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   return (
     <>
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span

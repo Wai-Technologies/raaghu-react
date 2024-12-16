@@ -1496,11 +1496,10 @@ $toast-padding-y: $spacing-s;
     .verticalNodefile {
         position: absolute;
         left: -31px;
-        bottom: 0;
+        bottom: 10px;
         top: -26px;
         width: 0.1875rem;
-        height: 163%;
-        border-right: 1.5px dashed lightgray;
+        border-right: 1px dashed lightgray;
         z-index: 0;
     }
 
@@ -3664,3 +3663,6 @@ label.form-check-label.ms-2.undefined{
     font-weight: 600;
 }
 .input-with-image .form-controls:focus{ outline:none ;}
+.mysettingspage{
+    margin-top: 1rem !important;
+}

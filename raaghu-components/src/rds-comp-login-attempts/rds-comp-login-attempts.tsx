@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
-import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsPagination, RdsSelectList } from "../rds-elements";
+import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsLabel, RdsPagination, RdsSelectList } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
 
 export interface RdsCompLoginAttemptsProps {
@@ -79,6 +79,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
             <div className="row mb-3 d-flex justify-content-between">
 
                 <div className="col-md-4">
+                <RdsLabel label="Select Date Range"></RdsLabel>
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
@@ -88,7 +89,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                 </div>
                 <div className="col-md-4">
                     <div className="Select">
-                        <div>Result</div>
+                        <RdsLabel label="Result"></RdsLabel>
                         <RdsDropdownList
                             data-testid="Result"
                             placeholder="All"

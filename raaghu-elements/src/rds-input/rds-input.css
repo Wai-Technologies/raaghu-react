@@ -7,10 +7,10 @@
   /* Space between label and input */
 }
 
-#inputs .form-label {
+#labelText .form-label {
   margin-bottom: 0.25rem;
   /* Add a little space below the label */
-  white-space: nowrap;
+/*   white-space: nowrap; */
   /* Prevent wrapping if needed */
   display: block;
   /* Ensure label takes full width */
@@ -101,4 +101,27 @@ input[type=number]::-webkit-outer-spin-button {
 #inputs .btn-toggle-password:hover {
   color: #0056b3;
   /* Darker color on hover */
+}
+.validation-position{
+  position:absolute;
+  right:0px;
+}
+#icontop, #iconfloating{
+  margin-top: 1.2rem !important;
+}
+#iconbottom{
+  margin-top: -1rem !important;
+}
+#iconright{
+  margin-right: 3.2rem !important;
+}
+#iconPasswordtop, #iconPasswordfloating{
+  margin-top: 1.3rem !important;
+}
+#iconPasswordbottom{
+  margin-top: -1rem !important;
+}
+
+#iconPasswordright{
+  margin-right: 5rem !important;
 }

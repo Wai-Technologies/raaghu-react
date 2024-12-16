@@ -55,7 +55,7 @@ function RdsCompPollsQuestion(props: any) {
         <>
             <div className="container-fluid m-0 p-0">
                 <div className="row mt-3">
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             required={true}
                             label="Question"
@@ -84,7 +84,7 @@ function RdsCompPollsQuestion(props: any) {
                             reset={inputReset}
                         ></RdsInput>
                     </div>
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                         <RdsInput
                             label="Name"
                             placeholder="Enter Name"
@@ -99,7 +99,7 @@ function RdsCompPollsQuestion(props: any) {
                         ></RdsInput>
                     </div>
 
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                         <RdsSelectList
                             id="cmwi"
                             label="Widget"
@@ -111,7 +111,7 @@ function RdsCompPollsQuestion(props: any) {
                             size="small"
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-6 mt-2 mb-3">
+                    <div className="col-md-6 mt-2">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"

@@ -68,7 +68,7 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
   return (
     <form data-testid="password-form">
       <div className="custom-content-scroll">
-        <div className="row mt-4">
+        <div className="row">
           <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
             <RdsInput
               size="medium"

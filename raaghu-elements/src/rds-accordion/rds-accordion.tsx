@@ -90,24 +90,20 @@ const RdsAccordion = (props: RdsAccordionProps) => {
 
         return iconSpan;
     }
-    useEffect(() => {
-        openItemIds.forEach(id => {
-            const element = document.getElementById(`heading${id}`);
-            if (element) {
-                element.classList.add('accordion-active-bg');
-            }
-        });
 
-        return () => {
-            openItemIds.forEach(id => {
-                const element = document.getElementById(`heading${id}`);
-                if (element) {
+    useEffect(() => {
+        props.items.forEach(item => {
+            const element = document.getElementById(`heading${item.id}`);
+            if (element) {
+                if (openItemIds.includes(item.id)) {
+                    element.classList.add('accordion-active-bg');
+                } else {
                     element.classList.remove('accordion-active-bg');
                 }
-            });
-        };
-    }, [openItemIds]);
-
+            }
+        });
+    }, [openItemIds, props.items]);
+    
     return (
         <div id={`accordion${props.accordionId}`} ref={accordionRef}>
             <div className="accordion" id="accordionBasic">

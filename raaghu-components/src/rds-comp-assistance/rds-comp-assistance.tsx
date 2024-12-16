@@ -75,7 +75,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
       <form>
         <div className="custom-content-scroll">
         <div className="row">
-          <div className="col-md-6 form-group mb-2">
+          <div className="col-md-6 form-group">
             <RdsInput
               inputType="text"
               required={true}
@@ -89,7 +89,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             ></RdsInput>  
             
           </div>
-          <div className="col-md-6  mb-2">
+          <div className="col-md-6">
              <RdsInput
               label="Email"
               reset={inputReset}
@@ -104,7 +104,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
               validationMsg="Please enter a valid email address"
             ></RdsInput>
           </div>
-            <div className="col-md-6 form-group mb-2">
+            <div className="col-md-6 form-group">
               <RdsInput
                 inputType="text"
                 value={assistance.contactNumber}
@@ -135,7 +135,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
               />
 
             </div>
-          <div className="form-group mb-2">
+          <div className="form-group">
             <RdsTextArea
               rows={5}
               label={"Message"}

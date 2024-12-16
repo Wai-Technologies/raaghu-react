@@ -62,7 +62,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
       <form className="p-2 mt-1">
         <div className="custom-content-scroll">
           <div className="row">
-            <div className="col-lg-6 col-md-6 mt-3">
+            <div className="col-lg-6 col-md-6">
               <RdsInput
                 placeholder="Enter Client ID"
                 inputType="text"
@@ -76,7 +76,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 value={clientData?.clientId}
               ></RdsInput>
             </div>
-            <div className="col-lg-6 col-md-6 mt-3">
+            <div className="col-lg-6 col-md-6">
               <RdsInput
                 placeholder="Enter Client Name"
                 inputType="text"
@@ -92,7 +92,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
             </div>
           </div>
           <div className="row">
-            <div className="col-md-12 mt-3">
+            <div className="col-md-12">
               <RdsTextArea
                 label="Description"
                 placeholder="Enter Description"
@@ -105,8 +105,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               />
             </div>
           </div>
-          <div className="row mb-2">
-            <div className="col-lg-6 col-md-6 mt-3">
+          <div className="row">
+            <div className="col-lg-6 col-md-6">
               <RdsInput
                 placeholder="Enter Client URL"
                 inputType="text"
@@ -122,7 +122,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 validationMsg="Please Enter valid url (https or http)"
               ></RdsInput>
             </div>
-            <div className="col-lg-6 col-md-6 mt-3">
+            <div className="col-lg-6 col-md-6">
               <div>
                 <RdsInput
                   placeholder="Enter Logo URL"
@@ -141,8 +141,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               </div>
             </div>
           </div>
-          <div className="row mb-4">
-            <div className="col-lg-6 col-md-6 mt-3">
+          <div className="row">
+            <div className="col-lg-6 col-md-6">
               <RdsInput
                 placeholder="Enter CallBack URL"
                 inputType="text"
@@ -158,7 +158,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 validationMsg="Please Enter valid url (https or http)"
               ></RdsInput>
             </div>
-            <div className="col-lg-6 col-md-6 mt-3">
+            <div className="col-lg-6 col-md-6">
               <RdsInput
                 placeholder="Enter Logout URL"
                 inputType="text"
@@ -186,7 +186,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
             ></RdsCheckbox>
           </div>
         </div>
-        <div className="d-flex flex-column-reverse ps-4 ms-2 pe-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+        <div className="d-flex flex-column-reverse ps-4 ms-2 pe-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 pb-3">
           <RdsButton
             class="me-2"
             tooltipTitle={""}

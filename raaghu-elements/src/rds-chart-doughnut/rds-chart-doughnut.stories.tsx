@@ -2,7 +2,7 @@ import RdsDoughnutChart from "./rds-chart-doughnut";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Doughnut Chart',
+    title: 'Elements/Charts/Doughnut Chart',
     component: RdsDoughnutChart,
     parameters: {
         layout: 'padded',

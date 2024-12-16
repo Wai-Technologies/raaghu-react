@@ -447,3 +447,26 @@
 }
 .left-space{ margin-left:0.8rem}
 .left-space-listing{ padding-left:0.8rem}
+.theme-dark #sidenavbar-search{
+    border:unset !important;
+    background-color: #292b30 !important;
+}
+.theme-dark .LeftSideNavListCollapse {
+    border-left: unset !important
+}
+.theme-dark .LeftSideNavList {
+    border-left: unset !important;
+    border-top-left-radius: unset !important;
+    border-bottom-left-radius:unset !important;
+}
+.theme-dark .LeftSideNavList .input-group-text {
+    border-radius: 4px !important;
+}
+.LeftSideNavList .input-group-text{
+    border-top-left-radius: unset !important;
+    border-bottom-left-radius:unset !important;
+    border-radius: 5px !important;
+}
+#aside .shadow{
+    box-shadow: 0rem 0.1rem 0.6rem 0.3rem rgba(0, 0, 0, 0.1) !important;
+}

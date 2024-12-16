@@ -348,6 +348,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 onChange={(e) => addFilter(e.target.value)}
                                 iconPosition="right"
                                 size="small"
+                                id={`sidenavbar-search`}
                             />
                             </div>
                         )}

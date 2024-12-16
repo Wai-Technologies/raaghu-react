@@ -250,7 +250,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             size="medium"
@@ -273,7 +273,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           ></RdsInput>
                         </div>
                       </div>
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsSelectList
                           id="dis"
                           label="Version"
@@ -284,12 +284,12 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             handlerChangeGeneral(item.value, "version");
                           }}
                           key={`version-${accountGeneralData?.version}`}
-                          dataTestId="version-list"
+                          dataTestId="version-list"                         
                         ></RdsSelectList>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             name="sitekey"
@@ -309,7 +309,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           ></RdsInput>
                         </div>
                       </div>
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
                           name="siteSecret"
                           labelPosition="top"
@@ -325,7 +325,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             name="score"

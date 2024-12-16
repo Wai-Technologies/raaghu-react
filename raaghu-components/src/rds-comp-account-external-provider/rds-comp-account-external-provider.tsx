@@ -65,7 +65,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                ></RdsCheckbox>
                            </div>
                            <div className="row">
-                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.properties[0]?.value || ""}
@@ -77,7 +77,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                        ></RdsInput>
                                    </div>
                                </div>
-                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.secretProperties[0]?.value}

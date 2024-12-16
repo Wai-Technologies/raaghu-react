@@ -30,6 +30,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const datePickerRef = useRef<DatePicker | null>(null);
 
     const onRangeChange = (dates: [Date | null, Date | null]) => {
         if (props.customDate && typeof props.customDate === 'function') {
@@ -91,7 +92,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     xmlns="http://www.w3.org/2000/svg"
                     width="12"
                     height="12"
-                    fill="gray"
+                    fill="white"
                     className="bi bi-caret-right-fill "
                     viewBox="0 0 16 16"
                 >
@@ -217,8 +218,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                             showYearDropdown={props.datepickerStyle === "Dropdown"}
                             dropdownMode="select"
                             dayClassName={dayClassName} 
+                            ref={datePickerRef}
                         />
-                        <span className="input-group-text cursor-pointer" id="basic-addon2">
+                        <span className="input-group-text cursor-pointer" id="basic-addon2" onClick={() => datePickerRef.current && datePickerRef.current.setFocus()}>
                             <RdsIcon
                                 name="calendar"
                                 width="20px"
@@ -259,7 +261,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 ></RdsIcon>
                             </span>
                         </button>
-                        <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-1`}>
+                        <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-4`}>
                             <li className="daterange__dropdown-item dropdown-item px-2 pb-2 border-bottom">
                                 {" "}
                                 <strong>
@@ -311,6 +313,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 dropdownMode="select"
                                 showPreviousMonths
                                 monthsShown={props.layout === "Multi Month" ? 3 : 1}
+                                popperModifiers={[{ name: 'offset', options: { offset: [34, 0] }}]}
                                 dayClassName={dayClassName} 
                             />
                         </ul>

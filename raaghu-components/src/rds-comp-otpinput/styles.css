@@ -54,8 +54,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 48vh;
   width: 26rem;
 }
 
@@ -117,7 +115,6 @@
 @media (max-width: 600px) {
   .otp-verification-container {
       width: 100%;
-      height: auto;
   }
 
   .otp-inputs input {
@@ -134,7 +131,6 @@
 @media (min-width: 600px) and (max-width: 768px) {
   .otp-verification-container {
       width: 80%;
-      height: auto;
       padding: 1.5rem;
   }
 

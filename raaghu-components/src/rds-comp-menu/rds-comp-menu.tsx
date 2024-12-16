@@ -79,7 +79,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
         <>
             <div className="custom-content-scroll">
                 <div className="row">
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="URL"
                             value={data?.url}
@@ -89,6 +89,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             dataTestId="url"
                             validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
+                            required={true}
                         />
                     </div>
                     <div className="col-md-12 mb-3">
@@ -103,7 +104,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                         ></RdsSelectList>
                     </div>
                     <div className="col-md-12"></div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="Display Name"
                             value={data?.displayName}
@@ -112,10 +113,10 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             required={true}
                             onChange={(e) => handlerChangeInput(e, "displayName")}
                             dataTestId="display-name"
-                            reset={inputReset}
+                            reset={inputReset}                           
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsCheckbox
                             label="Active"
                             onChange={(e) => {
@@ -125,7 +126,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             dataTestId="active"
                         ></RdsCheckbox>
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="Icon"
                             value={data?.icon}
@@ -135,7 +136,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             dataTestId="enter-icon"
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="Target"
                             value={data?.target}
@@ -145,7 +146,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             dataTestId="target"
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="Element ID"
                             value={data?.elementId}
@@ -155,7 +156,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             dataTestId="enter-id"
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12">
                         <RdsInput
                             label="Css Class"
                             value={data?.cssClass}

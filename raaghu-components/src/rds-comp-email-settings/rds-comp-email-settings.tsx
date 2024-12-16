@@ -38,7 +38,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
         <>
         {props.displayType == "basic" && (
             <form>
-                <div className="form-group px-4 row mb-3">
+                <div className="form-group px-4 row">
                     <div className="col-sm-3 pt-2">
                         <RdsLabel label="Current Email" class="control-label"></RdsLabel>
                     </div>
@@ -56,7 +56,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                 </div>
 
-                <div className="form-group px-4 row mb-3">
+                <div className="form-group px-4 row">
                     <div className="col-sm-3 pt-2">
                         <RdsLabel label="New Email" class="control-label"></RdsLabel>
                     </div>

@@ -72,8 +72,10 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                             onChange={changeValue}
                             formName={formName}
                             size={props.size}
+                            showTitle={false}
                         ></RdsInput>
                     </div>
+                    <div className="mb-3">
                     <RdsButton
                         label={props.buttonLabel}
                         tooltipTitle={""}
@@ -89,7 +91,7 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                         formName={formName}
                         size={props.size}
 
-                    ></RdsButton>
+                    ></RdsButton></div>
                 </div>
                 {props.inputGroupLabel && props.labelPosition == "bottom" && (
                     <label className={inputGroupLabelClasses}>

@@ -4,7 +4,7 @@ import RdsMap from './rds-map';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
-  title: 'Map/Map',
+  title: 'Elements/Map/Map',
   component: RdsMap,
   parameters: {
     layout: 'padded',

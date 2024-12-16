@@ -63,7 +63,7 @@ export const Default: Story = {
     fontWeight: "normal",
   },
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'singleDigit', 'fontWeight'] } };
+Default.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'singleDigit', 'fontWeight'] } };
 
 export const Tooltip: Story = {
   args: {
@@ -84,7 +84,7 @@ export const Tooltip: Story = {
     showTitle: true,
   }
 } satisfies Story;
-Tooltip.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'tooltipPlacement', 'tooltipTitle', 'showIcon', 'fontWeight'] } };
+Tooltip.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'tooltipPlacement', 'tooltipTitle', 'showIcon', 'fontWeight'] } };
 
 export const Disabled: Story = {
   args: {
@@ -105,7 +105,7 @@ export const Disabled: Story = {
     fontWeight: "normal",
   },
 } satisfies Story;
-Disabled.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon', 'fontWeight'] } };
+Disabled.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'isDisabled', 'showIcon', 'fontWeight'] } };
 
 export const Readonly: Story = {
   args: {
@@ -126,7 +126,7 @@ export const Readonly: Story = {
     fontWeight: "normal",
   },
 } satisfies Story;
-Readonly.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon', 'fontWeight'] } };
+Readonly.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon', 'fontWeight'] } };
 
 export const Email: Story = {
   args: {
@@ -147,7 +147,7 @@ export const Email: Story = {
     fontWeight: "normal",
   },
 } satisfies Story;
-Email.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon', 'fontWeight'] } };
+Email.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'readonly', 'showIcon', 'fontWeight'] } };
 
 
 export const Password: Story = {
@@ -169,12 +169,14 @@ export const Password: Story = {
     fontWeight: "normal",
   },
 } satisfies Story;
-Password.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };
+Password.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };
 
 export const NumberInput: Story = {
   args: {
     size: "medium",
     inputType: "number",
+    state: "default",
+    style: "Default",
     placeholder: "Add Number",
     label: "Number",
     labelPosition: "top",
@@ -189,12 +191,14 @@ export const NumberInput: Story = {
   },
 } satisfies Story;
 
-NumberInput.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'minValue', 'maxValue', 'fontWeight'] } };
+NumberInput.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'minValue', 'maxValue', 'fontWeight'] } };
 
 export const CardNumber: Story = {
   args: {
     size: "medium",
     inputType: "card number",
+    state: "default",
+    style: "Default",
     placeholder: "xxxx xxxx xxxx xxxx",
     label: "Card Number",
     labelPosition: "top",
@@ -209,12 +213,14 @@ export const CardNumber: Story = {
   },
 } satisfies Story;
 
-CardNumber.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'minLength', 'maxLength', 'fontWeight'] } };
+CardNumber.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'minLength', 'maxLength', 'fontWeight'] } };
 
 export const PhoneNumber: Story = {
   args: {
     size: "medium",
     inputType: "phone number",
+    state: "default",
+    style: "Default",
     placeholder: "Add Phone Number",
     label: "Phone Number",
     labelPosition: "top",
@@ -227,4 +233,4 @@ export const PhoneNumber: Story = {
   },
 } satisfies Story;
 
-PhoneNumber.parameters = { controls: { include: ['size', 'inputType', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };
+PhoneNumber.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };
