@@ -211,6 +211,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       }
     };
 
+    const isNumberPlaceholder = getPlaceholder() === "Enter Number";
+
     return (
       <>
         <div className={` ${props.id == "passwordfield" ? "":"mb-2"} ${labelClass()} position-relative`}>
@@ -311,7 +313,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           {props.inputType === "password" && props.showIcon ? (
             <RdsIcon
               name={showPassword ? "eye" : "eye_slash"}
-              classes={"password-toggle mysettingspage"}
+              classes={`password-toggle mysettingspage ${isNumberPlaceholder ? "number-placeholder-style" : ""}`}
               height="16px"
               width="16px"
               id={"iconPassword" + props.labelPosition}
@@ -324,7 +326,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes="password-toggle"
+                classes={`password-toggle ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}

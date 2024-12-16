@@ -125,3 +125,6 @@ input[type=number]::-webkit-outer-spin-button {
 #iconPasswordright{
   margin-right: 5rem !important;
 }
+.number-placeholder-style {
+  right: 35px !important;
+}
