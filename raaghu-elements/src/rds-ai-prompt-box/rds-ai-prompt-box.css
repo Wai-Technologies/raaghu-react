@@ -125,13 +125,13 @@
 .remove-image-button {
   position: absolute;
   top: -5px;
-  right: -5px;
-  background: rgba(255, 255, 255, 0.8);
+  right: -3px;
+  /* background: rgba(255, 255, 255, 0.8); */
   border: none;
   border-radius: 50%;
   cursor: pointer;
   padding: 2px 5px;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .button-column {
