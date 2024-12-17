@@ -67,6 +67,10 @@ const DraggableColumnHeader: React.FC<{
   onSortClick?: (key: string) => void;
   sortConfig?: { key: string; direction: "asc" | "desc" } | null;
   data: any[];
+  onToggleFixed: (key: string) => void;
+  onToggleFrozen: (key: string) => void;
+  onToggleHidden: (key: string) => void;
+  gridType?: string|undefined;
 }> = ({
   column,
   index,
@@ -79,7 +83,11 @@ const DraggableColumnHeader: React.FC<{
   allFilter,
   onSortClick,
   sortConfig,
-  data
+  data,
+  onToggleFixed,
+  onToggleFrozen,
+  onToggleHidden,
+  gridType,
 }) => {
   const refheader = useRef<HTMLTableHeaderCellElement>(null);
   const [resizeStop, setResizeStop] = useState(true);
@@ -142,7 +150,7 @@ const DraggableColumnHeader: React.FC<{
 
   return (
     <th
-      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
+      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
       ref={refheader}
     >
       <div className="d-flex justify-content-start align-items-center full-width">
@@ -156,7 +164,45 @@ const DraggableColumnHeader: React.FC<{
               : "↕"}
           </div>
         )}
-
+        {gridType === "advance" && ( <>
+        <button onClick={() => onToggleFixed(column.key)} className="btn btn-sm btn-icon ms-1">
+          
+          <RdsIcon
+            name={column.fixed ? "fixed_unlock" : "fixed_lock"}
+            width="20px"
+            height="20px"
+            tooltip={true}
+            tooltipTitle="Toggle Fixed"
+            tooltipPlacement="bottom"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+          />
+        </button>
+        {/* <button onClick={() => onToggleFrozen(column.key)} className="btn btn-sm btn-icon ms-1">
+          <RdsIcon
+            name={"arrow_left"}
+            width="16px"
+            height="16px"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+          />
+        </button> */}
+        <button onClick={() => onToggleHidden(column.key)} className="btn btn-sm btn-icon ms-1">
+          <RdsIcon
+            name="eye_slash"
+            width="20px"
+            height="20px"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+            tooltip={true}
+            tooltipTitle="Hide Column"
+            tooltipPlacement="bottom"
+          />
+        </button>
+        </>)}
         {(column.filter || allFilter) && hasData && (
           <div className="cursor-pointer">
             <RdsIcon
@@ -572,6 +618,43 @@ const moveRow = (fromIndex: number, toIndex: number) => {
   updatedData.splice(toIndex, 0, removed);
   setData(updatedData);
 };
+const handleToggleFixed = (key: string) => {
+  setColumns((prevColumns) =>
+    prevColumns.map((col) =>
+      col.key === key ? { ...col, fixed: !col.fixed } : col
+    )
+  );
+};
+
+const handleToggleFrozen = (key: string) => {
+  setColumns((prevColumns) =>
+    prevColumns.map((col) =>
+      col.key === key ? { ...col, frozen: !col.frozen } : col
+    )
+  );
+};
+
+const handleToggleHidden = (key: string) => {
+  setColumns((prevColumns) =>
+    prevColumns.map((col) =>
+      col.key === key ? { ...col, hidden: !col.hidden } : col
+    )
+  );
+};
+
+const calculateLeftPositions = () => {
+  let left = 0;
+  return columns.map((column, index) => {
+    const newColumn = { ...column, left };
+    if (column.fixed) {
+      left += 100; // Assuming each column has a fixed width of 100px
+    }
+    return newColumn;
+  });
+};
+
+const updatedColumns = calculateLeftPositions();
+
   return (
     <DndProvider backend={HTML5Backend}>
    {props.gridType != "advance" &&(   <div
@@ -621,6 +704,9 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                     allSearch={props.allSearch}
                     allFilter={props.allFilter}
                     data={data}
+                    onToggleFixed={handleToggleFixed}
+                    onToggleFrozen={handleToggleFrozen}
+                    onToggleHidden={handleToggleHidden}
                   />
                 ))}
 
@@ -826,7 +912,7 @@ const moveRow = (fromIndex: number, toIndex: number) => {
         className={
           props.actionPosition == "left"
             ? "table-responsive"
-            : "table-responsive-none"
+            : ""
         }
       >
         <div className="table-responsive-sm">
@@ -854,12 +940,13 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                   </th>
                 )}
 
-                {columns.map((column, index) => (
+                {updatedColumns.map((column, index) => (
+                !column.hidden && (
                   <DraggableColumnHeader
                     key={column.key}
                     column={{
                       ...column,
-                      sortable: <></> // Replace undefined with an empty React element
+                      sortable: <></>, // Replace undefined with an empty React element
                     }}
                     index={index}
                     moveColumn={moveColumn}
@@ -870,8 +957,13 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                     allSearch={props.allSearch}
                     allFilter={props.allFilter}
                     data={data}
+                    onToggleFixed={handleToggleFixed}
+                    onToggleFrozen={handleToggleFrozen}
+                    onToggleHidden={handleToggleHidden}
+                    gridType={props.gridType}
                   />
-                ))}
+                )
+              ))}
 
                 {actionPosition &&
                   props.tableHeaders &&
@@ -984,20 +1076,27 @@ const moveRow = (fromIndex: number, toIndex: number) => {
                   </th>
                 )}
 
-                {columns.map((column) => (
-                  <td
-                  className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.fixed ? "fixed-column" : ""}`}
-                    key={column.key}
-                  >
-                    {column.datatype === "badge" ? (
-                      <RdsBadge
-                        colorVariant={row[column.key]?.badgeColorVariant || "success"}
-                        label={row[column.key]?.content || row[column.key]}
-                      />
-                    ) : (
-                      row[column.key]
-                    )}
-                  </td>
+          {updatedColumns.map((column, colIndex) => (
+                  !column.hidden && (
+                    <td
+                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+                      key={column.key}
+                      style={column.fixed ? { left: `${column.left}px` } : {}}
+                    >
+                      {column.datatype === "badge" ? (
+                        row[column.key] && typeof row[column.key] === 'object' ? (
+                          <RdsBadge
+                            colorVariant={row[column.key]?.badgeColorVariant || "success"}
+                            label={row[column.key]?.content || ""}
+                          />
+                        ) : (
+                          row[column.key] || ""
+                        )
+                      ) : (
+                        row[column.key]
+                      )}
+                    </td>
+                  )
                 ))}
 
                 {actionPosition &&

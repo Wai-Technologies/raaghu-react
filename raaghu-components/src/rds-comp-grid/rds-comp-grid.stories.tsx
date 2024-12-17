@@ -276,9 +276,9 @@ WithAction.parameters = { controls: { include: ['tableHeaders','tableData','pagi
 export const Advance: Story = {
   args: {
     tableHeaders: [
-      { key: 'name', label: 'Name', displayName: 'Name', wraptext: true, hidden: false, fixed: true, frozen: false },
-      { key: 'age', label: 'Age', displayName: 'Age', hidden: false, fixed: true, frozen: false },
-      { key: 'email', label: 'Email', displayName: 'Email', wraptext: true, hidden: false, fixed: false, frozen: false },
+      { key: 'name', label: 'Name', displayName: 'Name', wraptext: true, hidden: false, fixed: false, frozen: false },
+      { key: 'age', label: 'Age', displayName: 'Age', hidden: false, fixed: false, frozen: false },
+      { key: 'email', label: 'Email', displayName: 'Email', wraptext: true, hidden: false, fixed: true, frozen: false },
       { key: 'address', label: 'Address', displayName: 'Address', wraptext: true, hidden: false, fixed: false, frozen: false },
       { key: 'role', label: 'Role', displayName: 'Role', hidden: false, fixed: false, frozen: false },
       { key: 'country', label: 'Country', displayName: 'Country', hidden: false, fixed: false, frozen: false },
