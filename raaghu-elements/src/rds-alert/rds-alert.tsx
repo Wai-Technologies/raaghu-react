@@ -109,6 +109,8 @@ const RdsAlert = (props: RdsAlertProps) => {
                             </div>
                         </span>
 
+
+                        {/* moved Link (<a> tag) to same class as buttons for alignment.  */}
                         <span className="d-flex me-3">
                             <div className="d-flex gap-2 alertBtns pe-1 align-items-center">
                                 {props.showlink === true && (
