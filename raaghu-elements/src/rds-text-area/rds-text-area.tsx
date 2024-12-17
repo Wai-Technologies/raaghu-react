@@ -130,7 +130,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           </div>
         </div>
       ) : (
-        <div className="mb-3">
+        <div>
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
               className={` ${props.isDisabled ? " opacity-50 " : ""
@@ -190,7 +190,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
       )}
 
       {props.validatonPattern !== undefined && (
-        <div className="form-control-feedback mt-2">
+        <div className="form-control-feedback">
           {props.validatonPattern !== undefined &&
             props.validationMsg !== undefined &&
             isTouch &&
