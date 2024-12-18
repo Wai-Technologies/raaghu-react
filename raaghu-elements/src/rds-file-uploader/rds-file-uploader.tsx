@@ -670,13 +670,14 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   <span className="text-muted mx-2"> or </span>
                   <button
                     className={`btn btn-primary btn-sm`}
-                    onClick={() => document.getElementById("file")?.click()}
+                    onClick={() => { document.getElementById("file")?.click(); fileInputRef.current?.click(); }}
                   >
                     Upload Files
                   </button>
                 </div>
               </div>
               <input
+                ref={fileInputRef}
                 data-testid="rds-file-uploader-input"
                 className={`col-md-12 input mulinput d-none`}
                 type="file"
