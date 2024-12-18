@@ -39,7 +39,7 @@ $bg-primary-lighter-default:$primary-900;
     $bg-neutral-dark-default:$neutral-400;
     $bg-neutral-medium-default:$neutral-700;
     $bg-neutral-light-default:$neutral-800;
-    $bg-neutral-lighter-default:$primary-0;
+    $bg-neutral-lighter-default:$black;
 
     /*Error Background colors */
     $bg-error-darker-default:$error-600;
@@ -183,7 +183,8 @@ $bg-primary-lighter-default:$primary-900;
                  /*Neutral Link Colors*/
                  $line-neutral-dark-defaut:$neutral-700;
                  $line-neutral-medium-defaut:$neutral-300;
-                 $line-neutral-light-defaut:$neutral-100;    
+                 $line-neutral-light-defaut:$neutral-100;  
+                 $input-neutral-outline-default:$neutral-600;
 
                  /*Error Link Colors*/
                  $line-error-dark-defaut:$danger;
@@ -223,7 +224,7 @@ $bg-primary-lighter-default:$primary-900;
 
   /*Text Neutral color*/
   $txt-neutral-darker-default:$neutral-900;
-  $txt-neutral-dark-default:$neutral-800;
+  $txt-neutral-dark-default:$neutral-400;
   $txt-neutral-medium-default:$neutral-800;
   $txt-neutral-light-default:$neutral-400;
   $txt-neutral-lighter-default:$neutral-10;
@@ -1136,9 +1137,65 @@ svg {
     color: $toast-text-color;
 }
 
+@mixin toast-variant($background, $border, $color) {
+    background: $background;
+    color: $color;
+    border: $border;
+}
+
+.toast-basic {
+    .toast-header{
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
+        );
+    }
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-neutral-outline-default;
+
+                                polyline.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+                                polygon.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+                                ellipse.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+                                path.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+                                line.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+                                rect.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+
+        circle.icon {
+            stroke: $input-neutral-outline-default;
+        }
+    }
+}
+
+
 // .toast-close{
 //   color:$toast-btn-close-color;
 // }
+
 /*edition color variables*/
 .popover-header {
     background-color: $popover-header-bg-color;
