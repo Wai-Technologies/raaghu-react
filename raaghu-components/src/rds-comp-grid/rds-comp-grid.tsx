@@ -152,7 +152,7 @@ const DraggableColumnHeader: React.FC<{
     <th
       className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
       ref={refheader}
-      style={column.fixed ? { left: `${column.left}px` } : {}}
+      
     >
       <div className="d-flex justify-content-start align-items-center full-width">
         <span>{column.displayName}</span>
