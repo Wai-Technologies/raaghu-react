@@ -152,6 +152,7 @@ const DraggableColumnHeader: React.FC<{
     <th
       className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
       ref={refheader}
+      style={column.fixed ? { left: `${column.left}px` } : {}}
     >
       <div className="d-flex justify-content-start align-items-center full-width">
         <span>{column.displayName}</span>
@@ -635,18 +636,28 @@ const handleToggleFrozen = (key: string) => {
 };
 
 const handleToggleHidden = (key: string) => {
-  setColumns((prevColumns) =>
-    prevColumns.map((col) =>
+  setColumns((prevColumns) => {
+    const updatedColumns = prevColumns.map((col) =>
       col.key === key ? { ...col, hidden: !col.hidden } : col
-    )
-  );
+    );
+
+    // Recalculate left positions
+    let left = 0;
+    return updatedColumns.map((column) => {
+      const newColumn = { ...column, left };
+      if (column.fixed && !column.hidden) {
+        left += 100; // Assuming each column has a fixed width of 100px
+      }
+      return newColumn;
+    });
+  });
 };
 
 const calculateLeftPositions = () => {
   let left = 0;
   return columns.map((column, index) => {
     const newColumn = { ...column, left };
-    if (column.fixed) {
+    if (column.fixed && !column.hidden) {
       left += 100; // Assuming each column has a fixed width of 100px
     }
     return newColumn;

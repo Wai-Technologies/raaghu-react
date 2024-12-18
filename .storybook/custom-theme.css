@@ -73,6 +73,10 @@
     color: #f5efef !important;
 }
 
+.theme-dark .LeftSideNavListCollapse .border{
+    background: transparent !important;
+}
+
 .css-zqpgva[data-orientation="vertical"] {
     padding-right: 0px !important;
     padding-left: 8px !important;
