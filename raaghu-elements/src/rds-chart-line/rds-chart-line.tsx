@@ -27,7 +27,7 @@ const RdsLineChart = (props: Rdslineprops) => {
             });
             
             if(lineCanvas !== null) {
-                lineCanvas.canvas.style.height = "50vh";
+                lineCanvas.canvas.style.height = props.id === "linechart1" ? "7.1vh" : "35.4vh";
                 lineCanvas.canvas.style.width = "100vh";
             }
             return () => {
