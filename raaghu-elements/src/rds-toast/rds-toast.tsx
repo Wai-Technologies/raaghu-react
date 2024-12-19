@@ -20,12 +20,12 @@ export interface RdsToastProps {
     filename?: string;
 }
 const RdsToast = (props: RdsToastProps) => {
-    const statewiseColor = props.state === "info"? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
+    const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
     // const borderColor = props.borderColor ? "border-" + props.borderColor : "border";
     const borderColor = "border-left-" + statewiseColor;
-    
+
     // const iconColorColor = props.state === "info"? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "dark";
-    
+
     const [showState, setshowState] = useState("show");
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const RdsToast = (props: RdsToastProps) => {
                     role="alert"
                     aria-live="assertive"
                     aria-atomic="true"
-                    className={`toast fade ${props.layout != "chat" ?  "toast-comp": ""} ${props.state === "info" ? "toast-info" : props.state === "success"? "toast-success" : props.state === "error"? "toast-error" : "toast-basic"} ${showState} ${borderColor}`}
+                    className={`toast fade ${props.layout != "chat" ? "toast-comp" : ""} ${props.state === "info" ? "toast-info" : props.state === "success" ? "toast-success" : props.state === "error" ? "toast-error" : "toast-basic"} ${showState} ${borderColor}`}
                     id="toastId"
                 >
                     {props.showHeader && (
@@ -58,7 +58,7 @@ const RdsToast = (props: RdsToastProps) => {
                                         <RdsIcon
                                             name={props.iconName}
                                             stroke={true}
-                                            
+
                                         ></RdsIcon>
                                     )}
                                 </div>
@@ -80,16 +80,16 @@ const RdsToast = (props: RdsToastProps) => {
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex ml-4">
                                     <div className="progress w-100 ml-4" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
-                                        <div className="progress-bar btn-primary" role="progressbar" 
+                                        <div className="progress-bar btn-primary" role="progressbar"
                                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
-                                            aria-valuenow={props.progressWidth} 
-                                            aria-valuemin={0} 
+                                            aria-valuenow={props.progressWidth}
+                                            aria-valuemin={0}
                                             aria-valuemax={100}></div>
                                     </div>
                                     <label className="progress-label ml-4">{props.progressWidth}%</label>
                                 </div>
                                 <label className="filename">{props.filename}</label>
-                                <div className="d-flex toast-footer justify-content-end pb-1 pe-4">                                    
+                                <div className="d-flex toast-footer justify-content-end pb-1 pe-4">
                                     <button type="button" className="btn text-primary btn-sm">Cancel</button>
                                     <button type="button" className="btn btn-primary btn-sm">Go To Downloads</button>
                                 </div>
@@ -124,7 +124,7 @@ const RdsToast = (props: RdsToastProps) => {
                                             <RdsIcon
                                                 name={props.iconName}
                                                 stroke={true}
-                                                
+
                                             ></RdsIcon>
                                         )}
                                     </div>
@@ -135,16 +135,16 @@ const RdsToast = (props: RdsToastProps) => {
                                     data-bs-dismiss="toast"
                                     aria-label="Close"
                                     className="btn-close btn-primary text-primary"
-                                ></button>                                                                
+                                ></button>
                             </div>
 
                             <div className={`toast-footer pt-0 justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex ml-4">
                                     <div className="progress w-100" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
-                                        <div className="progress-bar btn-primary" role="progressbar" 
+                                        <div className="progress-bar btn-primary" role="progressbar"
                                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
-                                            aria-valuenow={props.progressWidth} 
-                                            aria-valuemin={0} 
+                                            aria-valuenow={props.progressWidth}
+                                            aria-valuemin={0}
                                             aria-valuemax={100}></div>
                                     </div>
                                     <label className="progress-label justify-content-end ml-3">{props.progressWidth}%</label>

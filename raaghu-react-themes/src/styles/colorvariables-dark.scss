@@ -1143,6 +1143,7 @@ svg {
     border: $border;
 }
 
+
 .toast-basic {
     .toast-header{
         @include toast-variant( $bg-neutral-lighter-default, // background
@@ -1154,39 +1155,187 @@ svg {
     $bg-neutral-lighter-default, // border
     $txt-neutral-dark-default // text color
     );
+    // border-left: 4px solid $input-primary-outline-default; // border
 
-                            svg {
-                                width: 22px;
-                                height: 22px;
-                                fill: none;
-                                stroke: $input-neutral-outline-default;
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $dark !important;
 
-                                polyline.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        polyline {
+            stroke: $dark !important;
+        }
 
-                                polygon.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        polygon {
+            stroke: $dark !important;
+        }
 
-                                ellipse.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        ellipse {
+            stroke: $dark !important;
+        }
 
-                                path.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        path {
+            stroke: $dark !important;
+        }
 
-                                line.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        line {
+            stroke: $dark !important;
+        }
 
-                                rect.icon {
-                                    stroke: $input-neutral-outline-default;
-                                }
+        rect {
+            stroke: $dark !important;
+        }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
+        circle {
+            stroke: $dark !important;
+        }
+    }
+}
+
+.toast-success {
+    .toast-header{
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
+        );
+    }
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    border-left: 4px solid $input-primary-outline-default; // border
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $input-primary-outline-default !important;
+
+        polyline {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        polygon {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        ellipse {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        path {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        line {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        rect {
+            stroke: $input-primary-outline-default !important;
+        }
+
+        circle {
+            stroke: $input-primary-outline-default !important;
+        }
+    }
+}
+
+.toast-info {
+    .toast-header{
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
+        );
+    }
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    border-left: 4px solid $dark; // border
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $dark !important;
+
+        polyline {
+            stroke: $dark !important;
+        }
+
+        polygon {
+            stroke: $dark !important;
+        }
+
+        ellipse {
+            stroke: $dark !important;
+        }
+
+        path {
+            stroke: $dark !important;
+        }
+
+        line {
+            stroke: $dark !important;
+        }
+
+        rect {
+            stroke: $dark !important;
+        }
+
+        circle {
+            stroke: $dark !important;
+        }
+    }
+}
+
+.toast-error {
+    .toast-header{
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
+        );
+    }
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    border-left: 4px solid $danger; // border
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: $danger !important;
+
+        polyline {
+            stroke: $danger !important;
+        }
+
+        polygon {
+            stroke: $danger !important;
+        }
+
+        ellipse {
+            stroke: $danger !important;
+        }
+
+        path {
+            stroke: $danger !important;
+        }
+
+        line {
+            stroke: $danger !important;
+        }
+
+        rect {
+            stroke: $danger !important;
+        }
+
+        circle {
+            stroke: $danger !important;
         }
     }
 }
