@@ -38,25 +38,25 @@ const meta: Meta = {
         },
         style: {
             options: [
-                "Default"   ,
-                "Outlined"  ,
-                "Filled"    
+                "Default",
+                "Outlined",
+                "Filled"
             ],
             control: { type: "select" },
         },
         state: {
             options: [
-                "Default"   ,
-                "Hovered"  ,
+                "Default",
+                "Hovered",
                 "Selected",
-                "Disabled"    
+                "Disabled"
             ],
             control: { type: "select" },
         },
         titlePosition: {
             options: [
-                "left"   ,
-                "right"  ,
+                "left",
+                "right",
                 "bottom",
             ],
             control: { type: "select" },
@@ -71,7 +71,7 @@ type Story = StoryObj<typeof RdsCard>;
 export const Default: Story = {
     args: {
         colorVariant: "primary",
-        borderColor: "",
+        borderColor: "success",
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         titlePosition: "bottom",
@@ -79,29 +79,30 @@ export const Default: Story = {
             `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel1: "Link Button",
         buttonLabel2: "Link Button",
-        showFooter: true,  
+        showFooter: true,
+        isBordered: true,
         showLinkButton: true,
         showTitle: true,
-        showSubTitle: true,  
-        iconName  : "users"  ,
-        isDisabled : false,
-        iconShow : true,
+        showSubTitle: true,
+        iconName: "users",
+        isDisabled: false,
+        iconShow: true,
         // isBordered :false,
         // isFilled :false  
-        style:"Default",
-        state:"Default"
+        style: "Default",
+        state: "Default"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle','iconName',"isDisabled","iconShow" ,"style","state"] } };
+Default.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'iconName', "isDisabled", "iconShow", "style", "state"] } };
 
 export const CardWithImage: Story = {
-    args: { 
+    args: {
         colorVariant: "primary",
         cardTitle: "Card title",
         cardSubTitle: "Card Sub title",
         titlePosition: "bottom",
         cardText:
-        `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel1: "Link Button",
         buttonLabel2: "Link Button",
         showFooter: true,
@@ -111,27 +112,27 @@ export const CardWithImage: Story = {
         isImage: true,
         imageUrl: "https://picsum.photos/seed/picsum/1200/600",
         borderColor: "",
-        iconName  : "users" ,
-        isDisabled : false,
-       
+        iconName: "users",
+        isDisabled: false,
+
         // isBordered :false,
         // isFilled :false    
-        style:"Default",
-         state:"Default"
+        style: "Default",
+        state: "Default"
     }
 } satisfies Story;
-CardWithImage.parameters = { controls: { include: ['colorVariant', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle', 'isImage', 'imageUrl', 'borderColor','iconName',"isDisabled" ,"style","state"] } };
+CardWithImage.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'isImage', 'imageUrl', 'borderColor', 'iconName', "isDisabled", "style", "state"] } };
 
 export const Avatar: Story = {
     args: {
         colorVariant: "primary",
         cardTitle: "Card title",
-        cardSubTitle: "Card Sub title",        
+        cardSubTitle: "Card Sub title",
         titlePosition: "bottom",
         cardText:
             `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
-            buttonLabel1: "Link Button",
-            buttonLabel2: "Link Button",
+        buttonLabel1: "Link Button",
+        buttonLabel2: "Link Button",
         showFooter: true,
         showLinkButton: true,
         showTitle: true,
@@ -142,16 +143,16 @@ export const Avatar: Story = {
         isAvatar: true,
         centerAlign: false,
         borderColor: "",
-        iconName  : "users" ,
-        isDisabled : false,
-        
+        iconName: "users",
+        isDisabled: false,
+
         // isBordered :false,
         // isFilled :false  
-        style:"Default",
-        state:"Default"  
+        style: "Default",
+        state: "Default"
     }
 } satisfies Story;
-Avatar.parameters = { controls: { include: ['colorVariant', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor','iconName',"isDisabled" ,"style","state"] } };
+Avatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor', 'iconName', "isDisabled", "style", "state"] } };
 
 export const WithCenteredAvatar: Story = {
     args: {
@@ -160,7 +161,7 @@ export const WithCenteredAvatar: Story = {
         cardSubTitle: "Card Sub title",
         titlePosition: "bottom",
         cardText:
-        `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
+            `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel1: "Link Button",
         buttonLabel2: "Link Button",
         showFooter: true,
@@ -173,16 +174,16 @@ export const WithCenteredAvatar: Story = {
         isAvatar: true,
         centerAlign: true,
         borderColor: "",
-        iconName  : "users"  ,
-        isDisabled : false,
-        
+        iconName: "users",
+        isDisabled: false,
+
         // isBordered :false,
         // isFilled :false
-        style:"Default"  ,
- state:"Default"
+        style: "Default",
+        state: "Default"
     }
 } satisfies Story;
-WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor', 'iconName',"isDisabled","style","state"] } };
+WithCenteredAvatar.parameters = { controls: { include: ['colorVariant', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'isImage', 'imageUrl', 'src', 'isAvatar', 'centerAlign', 'borderColor', 'iconName', "isDisabled", "style", "state"] } };
 
 // export const Disabled: Story = {
 //     args: {
@@ -212,20 +213,20 @@ export const Bordered: Story = {
             `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
         buttonLabel1: "Link Button",
         buttonLabel2: "Link Button",
-        showFooter: true, 
-        showLinkButton: true,   
+        showFooter: true,
+        showLinkButton: true,
         showTitle: true,
         showSubTitle: true,
-        iconName  : "users"  ,
-         isBordered :true ,
-        isDisabled : false,
-        iconShow : true,
+        iconName: "users",
+        isBordered: true,
+        isDisabled: false,
+        iconShow: true,
         // isFilled :false  
-        style:"Outlined",
-         state:"Default"
+        style: "Outlined",
+        state: "Default"
     }
 } satisfies Story;
-Bordered.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle','iconName',"isDisabled" ,"iconShow" ,"style","state"] } };
+Bordered.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'iconName', "isDisabled", "iconShow", "style", "state", 'isBordered'] } };
 
 export const Filled: Story = {
     args: {
@@ -241,18 +242,18 @@ export const Filled: Story = {
         showFooter: true,
         showLinkButton: true,
         showTitle: true,
-        showSubTitle: true,    
-        iconName  : "users",   
-         isFilled :true ,
-        isDisabled : false,
-        iconShow : true,
+        showSubTitle: true,
+        iconName: "users",
+        isFilled: true,
+        isDisabled: false,
+        iconShow: true,
         // isBordered :false,
-       style:"Filled",
-        state:"Default"
-        
+        style: "Filled",
+        state: "Default"
+
     }
 } satisfies Story;
-Filled.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle','titlePosition', 'cardText', 'buttonLabel1','buttonLabel2', 'showFooter','showLinkButton','showTitle','showSubTitle','iconName',"isDisabled" ,"iconShow","style","state"] } };
+Filled.parameters = { controls: { include: ['colorVariant', 'borderColor', 'cardTitle', 'titlePosition', 'cardText', 'buttonLabel1', 'buttonLabel2', 'showFooter', 'showLinkButton', 'showTitle', 'showSubTitle', 'iconName', "isDisabled", "iconShow", "style", "state"] } };
 
 export const WithIconLabel: Story = {
     args: {
@@ -262,42 +263,41 @@ export const WithIconLabel: Story = {
         borderColor: "dark",
         buttonLabel1: "Link Button",
         buttonLabel2: "Link Button",
-        footerLabelText:"Value Saved:$220",       
+        footerLabelText: "Value Saved:$220",
         iconName: "calendar",
         iconShow: true,
-        showFooter: true,  
+        showFooter: true,
         showLinkButton: false,
         showTitle: false,
         showSubTitle: false,
         showCalender: true,
-        isDisabled : false,
+        isDisabled: false,
         showFooterButton: true,
-        showFooterLabel:true,
-        style:"Default",
-        state:"Default",
+        showFooterLabel: true,
+        style: "Default",
+        state: "Default",
     }
 } satisfies Story;
 WithIconLabel.parameters = {
     controls: {
-      include: [
-        'title',
-        'subTitle',
-        'iconName',
-        'colorVariant',
-        'borderColor',
-        'buttonLabel1',
-       'buttonLabel2',
-        'footerLabelText',
-        'showCalender',
-        'showFooter',
-        'showLinkButton',
-        'showFooterButton',
-        'showFooterLabel',
-        'iconShow',
-        'isDisabled',
-        'style',
-        'state',
-      ],
+        include: [
+            'title',
+            'subTitle',
+            'iconName',
+            'colorVariant',
+            'borderColor',
+            'buttonLabel1',
+            'buttonLabel2',
+            'footerLabelText',
+            'showCalender',
+            'showFooter',
+            'showLinkButton',
+            'showFooterButton',
+            'showFooterLabel',
+            'iconShow',
+            'isDisabled',
+            'style',
+            'state',
+        ],
     },
-  };
- 
+};

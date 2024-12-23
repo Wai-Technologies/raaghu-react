@@ -9,35 +9,35 @@ import RdsLabel from "../rds-label";
 
 
 export interface RdsCardProps {
-    buttonLabel1?: string;
-    buttonLabel2?: string;
-    colorVariant?: colors;
-    cardTitle?: string;
-    cardSubTitle?: string;
-    cardText?: string;
-    showFooter?: boolean;
-    showTitle?: boolean;
-    showSubTitle?: boolean;
-    isImage?: boolean;
-    imageUrl?: string;
-    src?: string;
-    style?:string;
-    state?: string;
-    centerAlign?: boolean;
-    isAvatar?: boolean;
-    borderColor?: colors;
-    isDisabled ? : boolean
-    iconName ? : string ;
-    isBordered ? : boolean ;
-    isFilled ? : boolean ;
-   iconShow ? : boolean;
-  titlePosition ? : string;
-  showCalender ? : boolean;
-  showLinkButton ? : boolean;
-  title ? : string;
-  showFooterLabel ? : boolean;
-  footerLabelText ? : string;
-  showFooterButton ? : boolean;
+  buttonLabel1?: string;
+  buttonLabel2?: string;
+  colorVariant?: colors;
+  cardTitle?: string;
+  cardSubTitle?: string;
+  cardText?: string;
+  showFooter?: boolean;
+  showTitle?: boolean;
+  showSubTitle?: boolean;
+  isImage?: boolean;
+  imageUrl?: string;
+  src?: string;
+  style?: string;
+  state?: string;
+  centerAlign?: boolean;
+  isAvatar?: boolean;
+  borderColor?: colors;
+  isDisabled?: boolean;
+  iconName?: string;
+  isBordered?: boolean;
+  isFilled?: boolean;
+  iconShow?: boolean;
+  titlePosition?: string;
+  showCalender?: boolean;
+  showLinkButton?: boolean;
+  title?: string;
+  showFooterLabel?: boolean;
+  footerLabelText?: string;
+  showFooterButton?: boolean;
   subTitle?: string;
 }
 
@@ -55,9 +55,8 @@ const RdsCard = (props: RdsCardProps) => {
       )}
       {props.showSubTitle && (
         <h6
-          className={`${
-            props.state === "Selected" ? `text-color-${props.colorVariant}` : ""
-          }`}
+          className={`${props.state === "Selected" ? `text-color-${props.colorVariant}` : ""
+            }`}
         >
           {props.cardSubTitle}
         </h6>
@@ -68,16 +67,13 @@ const RdsCard = (props: RdsCardProps) => {
   return (
     <Fragment>
       <div
-        className={`card ${
-          props.isDisabled || props.state === "Disabled"
-            ? "card-disabled"
-            : ""
-        } 
-         ${
-           props.style === "Outlined" ? `card-bordered ${borderColor}` : ""
-         } ${props.style === "Filled" ? "card-filled" : ""} ${
-          props.state === "Hovered" ? "card-hovered" : ""
-        } ${props.state === "Selected" ? "card-selected" : ""}`}
+        className={`card ${props.isDisabled || props.state === "Disabled"
+          ? "card-disabled"
+          : ""
+          } 
+         ${(props.style === "Outlined" || props.style === "Default") && props.state === "Default" ? `card-bordered ${borderColor}` : ""
+          } ${props.style === "Filled" ? "card-filled" : ""} ${props.state === "Hovered" ? "card-hovered" : ""
+          } ${props.state === "Selected" ? "card-selected" : ""} ${props.borderColor === "primary" ? "card-default" : ""} `}
       >
         <div className="headerClass">
           {props.isImage === true ? (
@@ -112,7 +108,7 @@ const RdsCard = (props: RdsCardProps) => {
                           withProfilePic={true}
                           roundedAvatar={true}
                           profilePic={props.src}
-                           size="small"
+                          size="small"
                         ></RdsAvatar>
                       </div>
                     </div>
@@ -140,148 +136,34 @@ const RdsCard = (props: RdsCardProps) => {
         {props.showTitle === false && props.showSubTitle === false && props.showCalender === true && (
           <div className="headerClass mt-3 ms-3">
             <div className="d-flex align-items-center">
-            {props.iconShow && (
-              <RdsIcon
-                colorVariant={props.colorVariant}
-                height="20px"
-                isCursorPointer
-                name={props.iconName}
-                stroke
-                width="20px"
-              />
-            )}
+              {props.iconShow && (
+                <RdsIcon
+                  colorVariant={props.colorVariant}
+                  height="20px"
+                  isCursorPointer
+                  name={props.iconName}
+                  stroke
+                  width="20px"
+                />
+              )}
               <h6 className="ms-2 mb-0">
                 <label className="text-muted">{props.title}</label>
               </h6>
             </div>
             <span className="mt-1 fs-4 mb-2">
-              <RdsLabel label={props.subTitle } fontWeight="bold" />
+              <RdsLabel label={props.subTitle} fontWeight="bold" />
             </span>
           </div>
         )}
         {props.showTitle === false && props.showSubTitle === false ? (
           props.showFooter === true && (
             <div
-            className={`card-footer ${
-              props.style === "Filled" ? "card-filled" : ""
-            } ${
-              props.isDisabled || props.state === "Disabled"
-                ? "card-disabled"
-                : ""
-            } ${props.state === "Hovered" ? "card-hovered" : ""} ${
-              props.state === "Selected" ? "card-selected" : ""
-            }`}
-          >
-            {props.showLinkButton === true && (
-              <div>
-                <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
-                <br />
-                <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
-              </div>
-            )}
-            {props.showLinkButton === false && (
-              <div
-                className="d-flex justify-content-between align-items-center"                
-              >
-                {props.showFooterLabel === true && (
-                <label className={` fs-4 fw-medium text-${props.colorVariant}`}  >{props.footerLabelText}</label>
-                )}
-                {props.showFooterButton === true && (
-                <div>
-                  <RdsButton
-                    label={props.buttonLabel1}
-                    colorVariant={props.colorVariant}
-                  ></RdsButton>
-                </div>
-                )}
-              </div>
-            )}
-          </div>
-          )
-        ) : (
-          <div>
-          <div className="card-body">
-            {props.titlePosition === "bottom" && (
-              <>
-                {props.iconShow && (
-                  <RdsIcon
-                    colorVariant={props.colorVariant}
-                    height="20px"
-                    isCursorPointer
-                    name={props.iconName}
-                    stroke
-                    width="20px"
-                  />
-                )}
-                <br />
-                {renderTitleAndSubtitle()}
-              </>
-            )}
-            {props.titlePosition === "left" && (
-              <div className="d-flex align-items-center">
-                <div className="d-flex flex-column">
-                  {renderTitleAndSubtitle()}
-                </div>
-                {props.iconShow && (
-                  <RdsIcon
-                    colorVariant={props.colorVariant}
-                    height="20px"
-                    isCursorPointer
-                    name={props.iconName}
-                    stroke
-                    width="20px"
-                    classes="ms-2"
-                  />
-                )}
-              </div>
-            )}
-            {props.titlePosition === "right" && (
-              <div className="d-flex align-items-center">
-                {props.iconShow && (
-                  <RdsIcon
-                    colorVariant={props.colorVariant}
-                    height="20px"
-                    isCursorPointer
-                    name={props.iconName}
-                    stroke
-                    width="20px"
-                    classes="me-2"
-                  />
-                )}
-                <div className="d-flex flex-column">
-                  {renderTitleAndSubtitle()}
-                </div>
-              </div>
-            )}
-            {props.titlePosition === undefined && (
-              <>
-                {props.iconShow && (
-                  <RdsIcon
-                    colorVariant={props.colorVariant}
-                    height="20px"
-                    isCursorPointer
-                    name={props.iconName}
-                    stroke
-                    width="20px"
-                  />
-                )}
-                {renderTitleAndSubtitle()}
-              </>
-            )}
-            <br />
-            <p>{props.cardText}</p>
-          </div>
-          {props.showFooter === true && (
-            <div
-              className={`card-footer ${
-                props.style === "Filled" ? "card-filled" : ""
-              } ${
-                props.isDisabled || props.state === "Disabled"
+              className={`card-footer ${props.style === "Filled" ? "card-filled" : ""
+                } ${props.isDisabled || props.state === "Disabled"
                   ? "card-disabled"
                   : ""
-              } ${props.state === "Hovered" ? "card-hovered" : ""} ${
-                props.state === "Selected" ? "card-selected" : ""
-              }`}
+                } ${props.state === "Hovered" ? "card-hovered" : ""} ${props.state === "Selected" ? "card-selected" : ""
+                }`}
             >
               {props.showLinkButton === true && (
                 <div>
@@ -293,24 +175,132 @@ const RdsCard = (props: RdsCardProps) => {
               {props.showLinkButton === false && (
                 <div
                   className="d-flex justify-content-between align-items-center"
-                  
                 >
                   {props.showFooterLabel === true && (
-                  <label className={` fs-4 fw-medium text-${props.colorVariant}`}  >{props.footerLabelText}</label>
+                    <label className={` fs-4 fw-medium text-${props.colorVariant}`}  >{props.footerLabelText}</label>
                   )}
                   {props.showFooterButton === true && (
-                  <div>
-                    <RdsButton
-                      label={props.buttonLabel1}
-                      colorVariant={props.colorVariant}
-                    ></RdsButton>
-                  </div>
+                    <div>
+                      <RdsButton
+                        label={props.buttonLabel1}
+                        colorVariant={props.colorVariant}
+                      ></RdsButton>
+                    </div>
                   )}
                 </div>
               )}
             </div>
-          )}
-       </div> )}
+          )
+        ) : (
+          <div>
+            <div className="card-body pb-0 ">
+              {props.titlePosition === "bottom" && (
+                <>
+                  {props.iconShow && (
+                    <RdsIcon
+                      colorVariant={props.colorVariant}
+                      height="20px"
+                      isCursorPointer
+                      name={props.iconName}
+                      stroke
+                      width="20px"
+                    />
+                  )}
+                  <br />
+                  {renderTitleAndSubtitle()}
+                </>
+              )}
+              {props.titlePosition === "left" && (
+                <div className="d-flex align-items-center">
+                  <div className="d-flex flex-column">
+                    {renderTitleAndSubtitle()}
+                  </div>
+                  {props.iconShow && (
+                    <RdsIcon
+                      colorVariant={props.colorVariant}
+                      height="20px"
+                      isCursorPointer
+                      name={props.iconName}
+                      stroke
+                      width="20px"
+                      classes="ms-2"
+                    />
+                  )}
+                </div>
+              )}
+              {props.titlePosition === "right" && (
+                <div className="d-flex align-items-center">
+                  {props.iconShow && (
+                    <RdsIcon
+                      colorVariant={props.colorVariant}
+                      height="20px"
+                      isCursorPointer
+                      name={props.iconName}
+                      stroke
+                      width="20px"
+                      classes="me-2"
+                    />
+                  )}
+                  <div className="d-flex flex-column">
+                    {renderTitleAndSubtitle()}
+                  </div>
+                </div>
+              )}
+              {props.titlePosition === undefined && (
+                <>
+                  {props.iconShow && (
+                    <RdsIcon
+                      colorVariant={props.colorVariant}
+                      height="20px"
+                      isCursorPointer
+                      name={props.iconName}
+                      stroke
+                      width="20px"
+                    />
+                  )}
+                  {renderTitleAndSubtitle()}
+                </>
+              )}
+              <br />
+              <p>{props.cardText}</p>
+            </div>
+            {props.showFooter === true && (
+              <div
+                className={`card-footer pt-0 ${props.style === "Filled" ? "card-filled" : ""
+                  } ${props.isDisabled || props.state === "Disabled"
+                    ? "card-disabled"
+                    : ""
+                  } ${props.state === "Hovered" ? "card-hovered" : ""} ${props.state === "Selected" ? "card-selected" : ""
+                  }`}
+              >
+                {props.showLinkButton === true && (
+                  <div>
+                    {/* <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
+                    <br /> */}
+                    <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
+                  </div>
+                )}
+                {props.showLinkButton === false && (
+                  <div
+                    className="d-flex justify-content-between align-items-center"
+
+                  >
+                    {props.showFooterLabel === true && (
+                      <label className={` fs-4 fw-medium text-${props.colorVariant}`}  >{props.footerLabelText}</label>
+                    )}
+                    {props.showFooterButton === true && (
+                      <div>
+                        <RdsButton
+                          label={props.buttonLabel1}
+                          colorVariant={props.colorVariant}
+                        ></RdsButton>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>)}
       </div>
     </Fragment>
   );
