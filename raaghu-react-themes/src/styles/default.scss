@@ -327,7 +327,7 @@ html[theme="dark"] {
 }
 
 @import "./custom.scss";
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./responsive.scss";
 @import "./accordion.scss";
 @import "./alert.scss";
