@@ -58,6 +58,7 @@
 // export default preview;
 
 
+
 import { Preview } from "@storybook/react";
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -70,6 +71,15 @@ import { action } from '@storybook/addon-actions'; // Import the correct action 
 const applyTheme = (theme) => {
   document.body.classList.remove('theme-light', 'theme-dark');
   document.body.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
+};
+
+// Helper function to toggle outlines on the preview
+const toggleOutlines = (enabled) => {
+  if (enabled) {
+    document.body.style.outline = '2px dashed red';
+  } else {
+    document.body.style.outline = 'none';
+  }
 };
 
 // Storybook configuration
@@ -93,6 +103,7 @@ const preview: Preview = {
   },
   globals: {
     theme: 'light', // Default theme
+    outlineEnabled: false, // Default state for outline toggle
   },
   globalTypes: {
     theme: {
@@ -122,14 +133,18 @@ const preview: Preview = {
   },
 };
 
-// Decorator to apply the theme dynamically
-const withTheme = (Story: React.FC, context: any) => {
+// Decorator to apply the theme and outline toggle dynamically
+const withThemeAndOutlines = (Story: React.FC, context: any) => {
   const selectedTheme = context.globals.theme; // Get the current selected theme
+  const outlineEnabled = context.globals.outlineEnabled; // Get the current outline toggle state
+
   applyTheme(selectedTheme); // Apply the selected theme
+  toggleOutlines(outlineEnabled); // Apply or remove outlines
+
   return <Story />;
 };
 
-// Export decorators to wrap stories with the theme change
-export const decorators = [withTheme];
+// Export decorators to wrap stories with the theme and outline changes
+export const decorators = [withThemeAndOutlines];
 
 export default preview;
