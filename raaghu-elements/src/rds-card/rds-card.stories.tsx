@@ -85,6 +85,7 @@ export const Default: Story = {
         showTitle: true,
         showSubTitle: true,
         iconName: "users",
+        rightIcon: "chevron_right",
         isDisabled: false,
         iconShow: true,
         // isBordered :false,
@@ -113,8 +114,8 @@ export const CardWithImage: Story = {
         imageUrl: "https://picsum.photos/seed/picsum/1200/600",
         borderColor: "",
         iconName: "users",
+        rightIcon: "chevron_right",
         isDisabled: false,
-
         // isBordered :false,
         // isFilled :false    
         style: "Default",
@@ -144,6 +145,7 @@ export const Avatar: Story = {
         centerAlign: false,
         borderColor: "",
         iconName: "users",
+        rightIcon: "chevron_right",
         isDisabled: false,
 
         // isBordered :false,
@@ -175,6 +177,7 @@ export const WithCenteredAvatar: Story = {
         centerAlign: true,
         borderColor: "",
         iconName: "users",
+        rightIcon: "chevron_right",
         isDisabled: false,
 
         // isBordered :false,
@@ -218,6 +221,7 @@ export const Bordered: Story = {
         showTitle: true,
         showSubTitle: true,
         iconName: "users",
+        rightIcon: "chevron_right",
         isBordered: true,
         isDisabled: false,
         iconShow: true,
@@ -244,6 +248,7 @@ export const Filled: Story = {
         showTitle: true,
         showSubTitle: true,
         iconName: "users",
+        rightIcon: "chevron_right",
         isFilled: true,
         isDisabled: false,
         iconShow: true,

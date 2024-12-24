@@ -8,9 +8,11 @@ import RdsIcon from "../rds-icon";
 import RdsLabel from "../rds-label";
 
 
+
 export interface RdsCardProps {
   buttonLabel1?: string;
   buttonLabel2?: string;
+  rightIcon?: string;
   colorVariant?: colors;
   cardTitle?: string;
   cardSubTitle?: string;
@@ -45,6 +47,7 @@ const RdsCard = (props: RdsCardProps) => {
   const btnColor = "btn btn-md btn-" + (props.colorVariant || "primary");
   const isCenter = props.centerAlign || false;
   const borderColor = `border border-${props.borderColor}`;
+  const WeightedBorder = `leftWeightedBorder`;
 
   const renderTitleAndSubtitle = () => (
     <>
@@ -71,10 +74,16 @@ const RdsCard = (props: RdsCardProps) => {
           ? "card-disabled"
           : ""
           } 
-         ${(props.style === "Outlined" || props.style === "Default") && props.state === "Default" ? `card-bordered ${borderColor}` : ""
+            
           } ${props.style === "Filled" ? "card-filled" : ""} ${props.state === "Hovered" ? "card-hovered" : ""
-          } ${props.state === "Selected" ? "card-selected" : ""} ${props.borderColor === "primary" ? "card-default" : ""} `}
+          } ${props.state === "Selected" ? "card-selected" : ""}
+            ${props.state === "Default" ? `border-left-${props.borderColor}` : ""} 
+            ${props.style === "Outlined" ? `card-bordered-${props.borderColor}` : ""}
+          `}
       >
+
+        {/* ${(props.style === "Outlined" || props.style === "Default") && props.state === "Default" ? `card-bordered ${borderColor}` : "" */}
+
         <div className="headerClass">
           {props.isImage === true ? (
             <div className="position-relative">
@@ -170,6 +179,7 @@ const RdsCard = (props: RdsCardProps) => {
                   <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
                   <br />
                   <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
+
                 </div>
               )}
               {props.showLinkButton === false && (
@@ -185,6 +195,8 @@ const RdsCard = (props: RdsCardProps) => {
                         label={props.buttonLabel1}
                         colorVariant={props.colorVariant}
                       ></RdsButton>
+                      {/* <RdsIcon colorVariant={props.colorVariant} height="12px" isCursorPointer name={props.rightIcon} stroke-width="12px" /> */}
+
                     </div>
                   )}
                 </div>
@@ -275,9 +287,10 @@ const RdsCard = (props: RdsCardProps) => {
               >
                 {props.showLinkButton === true && (
                   <div>
-                    {/* <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
-                    <br /> */}
-                    <RdsButton class=" btn-link " label={props.buttonLabel2 + " >"} />
+                    {/* <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} /> */}
+                    <br />
+                    <RdsButton class=" btn-link " label={props.buttonLabel2} />
+                    <RdsIcon colorVariant={props.colorVariant} height="12px" isCursorPointer name={props.rightIcon} stroke-width="12px" />
                   </div>
                 )}
                 {props.showLinkButton === false && (
@@ -307,3 +320,4 @@ const RdsCard = (props: RdsCardProps) => {
 };
 
 export default RdsCard;
+

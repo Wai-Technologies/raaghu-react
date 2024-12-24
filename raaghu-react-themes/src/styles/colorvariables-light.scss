@@ -1569,8 +1569,82 @@ $theme-colors: (
                             // }
                         }
 
-                        .card-primary {
-                            border-left: 4px solid red;
+                        @mixin card-border-left($borderWidth, $borderLeftWidth) {
+                            border: $borderWidth;
+                            border-left: $borderLeftWidth;
+                        }
+
+                        .border-left-primary {
+                            @include card-border-left(0, 4px solid $primary)
+                        }
+
+                        .border-left-secondary {
+                            @include card-border-left(0, 4px solid $secondary)
+                        }
+
+                        .border-left-success {
+                            @include card-border-left(0, 4px solid $success)
+                        }
+
+                        .border-left-info {
+                            @include card-border-left(0, 4px solid $info)
+                        }
+
+                        .border-left-warning {
+                            @include card-border-left(0, 4px solid $warning)
+                        }
+
+                        .border-left-danger {
+                            @include card-border-left(0, 4px solid $danger)
+                        }
+
+                        .border-left-dark {
+                            @include card-border-left(0, 4px solid $dark)
+                        }
+
+                        .border-left-light {
+                            @include card-border-left(0, 4px solid $light)
+                        }
+
+
+                        // For Border weighted left border
+                        @mixin card-border($borderWidth, $borderLeftWidth, $borderColor) {
+                            border-top: $borderWidth solid $borderColor;
+                            border-bottom: $borderWidth solid $borderColor;
+                            border-right: $borderWidth solid $borderColor;
+                            border-left: $borderLeftWidth solid $borderColor;
+                        }
+
+                        .card-bordered-primary {
+                            @include card-border(1px, 4px, $primary);
+                        }
+
+                        .card-bordered-secondary {
+                            @include card-border(1px, 4px, $secondary);
+                        }
+
+                        .card-bordered-success {
+                            @include card-border(1px, 4px, $success);
+                        }
+
+                        .card-bordered-info {
+                            @include card-border(1px, 4px, $info);
+                        }
+
+                        .card-bordered-warning {
+                            @include card-border(1px, 4px, $warning);
+                        }
+
+                        .card-bordered-danger {
+                            @include card-border(1px, 4px, $danger);
+                        }
+
+                        .card-bordered-dark {
+                            @include card-border(1px, 4px, $dark);
+                        }
+
+                        .card-bordered-light {
+                            @include card-border(1px, 4px, $light);
                         }
 
                         .bg-gradient-primary {
