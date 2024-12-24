@@ -583,3 +583,9 @@ form .form-group .select-options,
     flex-direction: row !important;
 }
 }
+
+@media (max-width: 767px) {
+  .sidenav-footer .collpase-button {
+      background-image: none !important;
+  }
+}
