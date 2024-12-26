@@ -28,9 +28,9 @@ const config: StorybookConfig = {
     }
 
     .sidebar-header::after {
-        content: 'Version 1.2.3';
+        content: 'v1.2.3';
         position: absolute;
-        top: 100%;
+        top: 75%;
         left: 74px;
         font-size: 14px;
         color: #5C6870;
