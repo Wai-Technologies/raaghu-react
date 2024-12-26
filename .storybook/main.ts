@@ -19,6 +19,27 @@ const config: StorybookConfig = {
     "@storybook/addon-mdx-gfm",
     "@chromatic-com/storybook",   
   ],
+  managerHead: (headHtmlContent) => {
+    const style = `
+    <style>
+    .sidebar-header {
+        margin-bottom: 36px;
+        position: relative;
+    }
+
+    .sidebar-header::after {
+        content: 'Version 1.2.3';
+        position: absolute;
+        top: 100%;
+        left: 74px;
+        font-size: 14px;
+        color: #5C6870;
+        font-weight: bold;
+    }
+    </style>
+    `;
+    return `${headHtmlContent}\n${style}`;
+},
   core: {
     builder: '@storybook/builder-vite', // 👈 The builder enabled here.
   },
