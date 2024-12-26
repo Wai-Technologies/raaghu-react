@@ -37,87 +37,78 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
     return (
         <>
         {props.displayType == "basic" && (
-            <form>
-                <div className="form-group px-4 row">
-                    <div className="col-sm-3 pt-2">
-                        <RdsLabel label="Current Email" class="control-label"></RdsLabel>
-                    </div>
-                    <div className="col-sm-9">
-                        <RdsInput
-                            placeholder="Enter Current Email"
-                            customClasses="form-control"
-                            inputType="email"
-                            onChange={(e) => {
-                                handleDataChanges(e.target.value, "currentEmail");
-                            }}
-                            value={formData?.currentEmail}
-                            dataTestId="current-email"
-                        ></RdsInput>
-                    </div>
+        <form>
+        <div className="form-group px-4 row align-items-center">
+            <div className="col-12 col-sm-4 col-md-3 pt-2 text-sm-end">
+                <RdsLabel label="Current Email" class="control-label"></RdsLabel>
+            </div>
+            <div className="col-12 col-sm-8 col-md-9">
+                <RdsInput
+                    placeholder="Enter Current Email"
+                    customClasses="form-control"
+                    inputType="email"
+                    onChange={(e) => handleDataChanges(e.target.value, "currentEmail")}
+                    value={formData?.currentEmail}
+                    dataTestId="current-email"
+                ></RdsInput>
+            </div>
+        </div>
+    
+        <div className="form-group px-4 row align-items-center">
+            <div className="col-12 col-sm-4 col-md-3 pt-2 text-sm-end">
+                <RdsLabel label="New Email" class="control-label"></RdsLabel>
+            </div>
+            <div className="col-12 col-sm-8 col-md-9">
+                <RdsInput
+                    placeholder="Enter New Email"
+                    customClasses="form-control"
+                    inputType="email"
+                    onChange={(e) => handleDataChanges(e.target.value, "newEmail")}
+                    value={formData?.newEmail}
+                    dataTestId="new-email"
+                ></RdsInput>
+            </div>
+        </div>
+    
+        <div className="form-group px-4 row align-items-center mb-5">
+            <div className="col-12 col-sm-4 col-md-3 pt-2 text-sm-end">
+                <RdsLabel label="Confirm New Email" class="control-label"></RdsLabel>
+            </div>
+            <div className="col-12 col-sm-8 col-md-9">
+                <RdsInput
+                    placeholder="Confirm New Email"
+                    customClasses="form-control"
+                    inputType="email"
+                    onChange={(e) => handleDataChanges(e.target.value, "confirmEmail")}
+                    value={formData?.confirmEmail}
+                    dataTestId="confirm-email"
+                ></RdsInput>
+                <div className="form-control-feedback">
+                    {errorMessage && <span className="text-danger">{errorMessage}</span>}
                 </div>
-
-                <div className="form-group px-4 row">
-                    <div className="col-sm-3 pt-2">
-                        <RdsLabel label="New Email" class="control-label"></RdsLabel>
-                    </div>
-                    <div className="col-sm-9">
-                        <RdsInput
-                            placeholder="Enter New Email"
-                            customClasses="form-control"
-                            inputType="email"
-                            onChange={(e) => {
-                                handleDataChanges(e.target.value, "newEmail");
-                            }}
-                            value={formData?.newEmail}
-                            dataTestId="new-email"
-                        ></RdsInput>
-                    </div>
-                </div>
-
-                <div className="form-group px-4 row mb-5">
-                    <div className="col-sm-3 pt-2">
-                        <RdsLabel
-                            label="Confirm New Email"
-                            class="control-label"
-                        ></RdsLabel>
-                    </div>
-                    <div className="col-sm-9">
-                        <RdsInput
-                            placeholder="Confirm New Email"
-                            customClasses="form-control"
-                            inputType="email"
-                            onChange={(e) => {
-                                handleDataChanges(e.target.value, "confirmEmail");
-                            }}
-                            value={formData?.confirmEmail}
-                            dataTestId="confirm-email"
-                        ></RdsInput>
-                        <div className="form-control-feedback">
-                            {errorMessage && (<span className="text-danger">{errorMessage}</span>)}
-                        </div>
-                    </div>
-                </div>
-
-                <hr></hr>
-                <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
-                    <RdsButton
-                        type="button"
-                        colorVariant="primary"
-                        label="Cancel"
-                        isOutline={true}
-                        size="small"
-                        dataTestId="cancel"
-                    ></RdsButton>
-                    <RdsButton
-                        type="submit"
-                        colorVariant="primary"
-                        label="Save"
-                        size="small"
-                        dataTestId="submit"
-                        onClick={(e: any) => emitSaveData(e)}
-                    ></RdsButton>
-                </div>
-            </form>
+            </div>
+        </div>
+    
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+            <RdsButton
+                type="button"
+                colorVariant="primary"
+                label="Cancel"
+                isOutline={true}
+                size="small"
+                dataTestId="cancel"
+            ></RdsButton>
+            <RdsButton
+                type="submit"
+                colorVariant="primary"
+                label="Save"
+                size="small"
+                dataTestId="submit"
+                onClick={(e) => emitSaveData(e)}
+            ></RdsButton>
+        </div>
+    </form>
+    
         )}
 
         {props.displayType === "advanced" && (
