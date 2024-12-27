@@ -58,7 +58,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     >
                         {props.progressValues && props.progressValues?.map((progressValue) => (
                             <div
-                                className={`progress-bar progress-bar-bg-${progressValue.colorVariant}` +
+                                className={`progress-bar bg-${progressValue.colorVariant}` +
                                     (progressValue.stripe ? " progress-bar progress-bar-striped" : "") +
                                     (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "")}
                                 role="progressbar"
