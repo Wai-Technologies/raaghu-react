@@ -10,7 +10,8 @@ interface Comment {
     date: string;
     comment: string;
     image?: string; // Optional image field for comments with images
-    addedTime?: number; // Track when the comment was added
+    addedTime?: any; // Track when the comment was added
+    CommentId? : number;
 }
 
 interface RdsCompUserCommentsProps {
@@ -19,7 +20,10 @@ interface RdsCompUserCommentsProps {
         firstName: string;
         lastName: string;
         profilePic: string;
+        userId:any;
     };
+    handleAddComment: (comment: Comment) => void; // Callback to handle new comment
+    handleDeleteComment?:(comment: number) => void;
     allowDelete?: boolean; // Optional prop to control delete functionality
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
@@ -72,6 +76,9 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
 
     setCommentList([...commentList, newComment]);
     setCommentText(''); // Clear input after adding the comment
+    if (props.handleAddComment) {
+      props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,8 +109,17 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
 
   const handleDeleteComment = (index: number) => {
     if (allowDelete) {
+      // Get the id of the comment to be deleted
+      const commentToDelete = commentList[index]; // Assuming commentList is an array of objects with an 'id' property
+      const commentId = commentToDelete?.CommentId;
+      // Filter out the comment at the specified index
       const updatedComments = commentList.filter((_, i) => i !== index);
       setCommentList(updatedComments);
+       // Ensure the callback is defined before invoking
+       if (props.handleDeleteComment && commentId) {
+        // Pass the commentId instead of the placeholder string
+        props.handleDeleteComment(commentId);
+       }
     }
   };
 
@@ -156,7 +172,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               </div>
 
               {showDeleteIcon && isCurrentUser && (
-                <span className="d-flex align-items-top me-1 d-none">
+                <span className="d-flex align-items-top me-2 mt-2 d-none">
                   <RdsIcon
                     name="delete"
                     fill={false}
