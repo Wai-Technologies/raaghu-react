@@ -18,7 +18,7 @@ const meta: Meta = {
       control: { type: "select" },
     },
     state: {
-      options: ["default","active", "selected","error","disable"],
+      options: ["default","active", "selected","error","disabled"],
       control: { type: "select" },
     },
     style: {
