@@ -220,7 +220,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             <label
             id="labelText"
               htmlFor={props.id}
-              className={`text-capitalize mt-2 ${fontWeight}`}
+              className={`text-capitalize ${fontWeight} ${props.id === 'address-input' ? '' : 'mt-2'}`}
             >
               {props.label}
               {(props.required || props.validatonPattern) && (
