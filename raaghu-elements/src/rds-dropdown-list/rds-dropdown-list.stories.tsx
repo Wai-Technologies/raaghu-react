@@ -10,6 +10,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsDropdownList>;
 
@@ -18,6 +22,7 @@ type Story = StoryObj<typeof RdsDropdownList>;
 
 export const Default: Story = {
     args: {
+        size: "medium", // Add default size
         placeholder: "Filter",
         borderDropdown: true,
         isPlaceholder: true,
@@ -68,10 +73,11 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems', 'reset'] } };
+Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems', 'reset', 'size'] } };
 
 export const WithMultiSelect: Story = {
     args: {
+        size: "medium", // Add size parameter
         reset: false,
         placeholder: "Filter",
         multiSelect: true,
@@ -122,7 +128,7 @@ export const WithMultiSelect: Story = {
         ],
     },
 }
-WithMultiSelect.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'listItems', 'reset'] } };
+WithMultiSelect.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'multiSelect', 'listItems', 'reset', 'size'] } };
 
 export const WithIcons: Story = {
     args: {
@@ -182,5 +188,5 @@ export const WithIcons: Story = {
         ],        
     }
 }
-WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems'] } };
+WithIcons.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'isPlaceholder', 'listItems', 'size'] } };
 

@@ -62,6 +62,14 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const block = props.block == false ? props.block : true;
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
+  const size =
+  props.size === "large"
+    ? "xl"
+    : props.size === "small"
+    ? "sm"
+    :props.size === "medium"
+    ? "md"
+    : "md"; // Default
   const clickedOnDropDown = () => {
     setExpend(!expand);
     const dropdownMenu = document.getElementById(
