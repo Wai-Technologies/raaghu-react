@@ -98,7 +98,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"curPass"}
 			                dataTestId="current-password"
                             showIcon= {true}
-                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}//^[a-zA-Z0-9]{8,}$
                             validationMsg="Password must be alphanumeric and at least 8 characters long"
                         ></RdsInput>                       
                     </div>
@@ -116,7 +116,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"newPass"}
                             showIcon= {true}
 			                dataTestId="new-password"
-                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}//^[a-zA-Z0-9]{8,}$
                             validationMsg="Password must be alphanumeric and at least 8 characters long"
                         ></RdsInput>                       
                     </div>
@@ -134,7 +134,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"curNewPass"}
                             showIcon= {true}
 			                dataTestId="confirm-password"
-                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}//^[a-zA-Z0-9]{8,}$
                             validationMsg={error3}
                         ></RdsInput>                     
                     </div>
