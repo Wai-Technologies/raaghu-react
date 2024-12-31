@@ -10,7 +10,7 @@ $theme-colors: (
     "dark": $dark ) !default;
 $min-contrast-ratio: 4.5 !default;
 $input-focus-border-color: tint-color($primary, 50%) !default;
-$body-bg: white;
+$body-bg: $body-bg;
 $input-bg: $body-bg !default;
 
 $border-color: $gray-100;
@@ -116,7 +116,7 @@ $pagination-item-bg-active: $gray-800;
 $dropdown-border-bottom: $gray-400 !default;
 $dropdown-bg-color: $gray-100 !default;
 $dropdown-border-bottom-hover: $gray-100;
-$dropdown-border-color: #e9ecf7 !default;
+$dropdown-border-color: $dropdown-border-color !default;
 
 // /*file uploader color variables*/
 $file-color: $primary;
@@ -193,17 +193,17 @@ $btn-active-border-tint-amount: 10% !default;
 $enable-caret: true !default;
 // scss-docs-end btn-variables
 //subscription-card
-$subcription-bg-blue: #005fa4;
-$subcription-bg-purple: #660064;
-$subcription-bg-orangered: #f76161;
-$subcription-bg-orange: #f58220;
-$subcription-bg-green: #00a443;
+$subcription-bg-blue: $action-700;
+$subcription-bg-purple: $secondary-900;
+$subcription-bg-orangered: $danger-300;
+$subcription-bg-orange: $default-100;
+$subcription-bg-green: $subcription-bg-green;
 $body-wrapper-bg: $dark-900;
 
-$body-wrapper-bg: #f5f5fa;
-$table-hover-bg: #f5f5fa;
+$body-wrapper-bg: $light-150;
+$table-hover-bg: $light-150;
 $topnav-link-color: $gray-800;
-$card-bg-color: #fff;
+$card-bg-color: $white;
 //--bs-body-color: black;
 $datepicker-bg: $white !default;
 $datepicker-head: $white !default;
@@ -232,7 +232,7 @@ $datatable-bgColor: $white !default;
 // card title{
 
 $card-title-color: $gray-900 !default;
-$placeholder-color: #bebebe;
+$placeholder-color: $gray-750;
 
 $offcanvas-bottom-border-color: $border-color !default;
 
@@ -321,7 +321,7 @@ $bg-connect: $white;
 }
 
 .navbar {
-    background-color: white;
+    background-color: $body-bg;
 }
 
 .bs-datepicker-head {
@@ -370,33 +370,33 @@ $bg-connect: $white;
 
     table {
         th {
-            color: #999999;
+            color: $table-th-color;
         }
 
         td {
-            color: #212529;
+            color: $table-td-color;
 
             .is-highlighted:not(.disabled):not(.selected) span,
             span.is-highlighted:not(.disabled):not(.selected) {
-                background-color: #5c82e3;
-                color: #fff;
+                background-color: $datepicker-body-table-border-color;
+                color: $white;
             }
 
             .custom-today-class {
                 background-color: $primary;
-                // color: #fff;
+                // color: $white;
             }
         }
     }
 
     .months span.selected {
-        background-color: #ed585f;
-        color: #fff;
+        background-color: $months-span-selected;
+        color: $white;
     }
 
     .years span.selected {
-        background-color: #ed585f;
-        color: #fff;
+        background-color: $months-span-selected;
+        color: $white;
     }
 }
 
@@ -849,7 +849,7 @@ a {
 
     .nav-link:hover:after {
         width: 100%;
-        border-bottom: 3px solid #c0c0ff;
+        border-bottom: 3px solid $nav-link-border-bottom-hover-after;
     }
 
     .nav-link {
@@ -1224,7 +1224,7 @@ a {
             ul {
                 li {
                     a {
-                        color: #e6e6e6;
+                        color: $ul-li-a;
                         border-left-color: transparent;
                     }
                 }
@@ -1255,11 +1255,11 @@ a {
 
 .carousel-indicators {
     [data-bs-target] {
-        background-color: #232933;
+        background-color: $body-bg-dark;
     }
 
     .active {
-        border-color: #232933;
+        border-color: $body-bg-dark;
     }
 }
 
@@ -1629,26 +1629,26 @@ $form-feedback-color: $gray-700;
 }
 
 html #sidebar ul li a.active small {
-    color: #212529;
+    color: $table-td-color;
 }
 
 .theam-cards .selected {
-    background: #dde4f7;
+    background: $theam-cards-selected;
 }
 
 .rds-fileuploader label.file-upload>div {
-    color: #9bacbc;
+    color: $file-uploader-border-color;
 }
 
 .rds-fileuploader label.file-upload:active,
 .rds-fileuploader label.file-upload:hover {
-    background: #d7dfe8;
+    background: $-rds-fileuploader-label;
 }
 
 .rds-fileuploader label.file-upload {
-    border-color: #9bacbc;
-    background: #eaeff5;
-    color: #3d4d60;
+    border-color: $file-uploader-border-color;
+    background: $-rds-fileuploader-background;
+    color: $-rds-fileuploader-color;
 }
 
 .bd-links .child::after {
@@ -1912,11 +1912,11 @@ html #sidebar ul li a.active small {
 
 .carousel-indicators {
     [data-bs-target] {
-        background-color: #232933;
+        background-color: $body-bg-dark;
     }
 
     .active {
-        border-color: #232933;
+        border-color: $body-bg-dark;
     }
 }
 
@@ -2126,26 +2126,26 @@ $form-feedback-color: $gray-700;
 }
 
 html #sidebar ul li a.active small {
-    color: #212529;
+    color: $table-td-color;
 }
 
 .theam-cards .selected {
-    background: #dde4f7;
+    background: $theam-cards-selected;
 }
 
 .rds-fileuploader label.file-upload>div {
-    color: #9bacbc;
+    color: $file-uploader-border-color;
 }
 
 .rds-fileuploader label.file-upload:active,
 .rds-fileuploader label.file-upload:hover {
-    background: #d7dfe8;
+    background: $-rds-fileuploader-label;
 }
 
 .rds-fileuploader label.file-upload {
-    border-color: #9bacbc;
-    background: #eaeff5;
-    color: #3d4d60;
+    border-color: $file-uploader-border-color;
+    background: $-rds-fileuploader-background;
+    color: $-rds-fileuploader-color;
 }
 
 .bd-links .child::after {
@@ -2352,8 +2352,8 @@ html #sidebar ul li a.active small {
 
 .datepicker__input {
     width: fit-content !important;
-    background-color: white;
-    border: 2px solid lightgrey;
+    background-color: $body-bg;
+    border: 2px solid $datepicker-input-border;
 }
 
 .icon-box {
@@ -2485,7 +2485,7 @@ input::placeholder {
 }
 
 .css-1xc3v61-indicatorContainer:hover {
-    color: #cccccc !important;
+    color: $css-1xc3v61-indicatorContainer-hover !important;
 }
 
 #react-select-3-listbox {
@@ -2587,12 +2587,12 @@ hr {
 }
 
 .border-end-custom {
-    border-right: 2px solid #dee2e6;
+    border-right: 2px solid $gray-300;
     min-height: 16px;
 }
 
 .border-start-custom {
-    border-left: 2px solid #dee2e6;
+    border-left: 2px solid $gray-300;
     min-height: 16px;
 }
 
