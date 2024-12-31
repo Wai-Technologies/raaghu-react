@@ -142,10 +142,10 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
         setTenantInformationData({
             ...tenantInformationData,
             name: "",
-            editionId: null, 
+            editions: "", 
             adminEmailAddress: "",
             adminPassword: "",
-            activationState: null, 
+            activationState: "", 
             connectionStrings: { default: "" },
             isModuleSpecificDb: false,
             radioItemList : []
@@ -184,10 +184,11 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     label="Edition"
                                     placeholder="Select Edition"
                                     selectItems={props.editions}
+                                    key={`edition-${tenantInformationData?.editions}`}
                                     isSearchable={true}
                                     required={false}
-                                    selectedValue={tenantInformationData?.editionId}
-                                    onChange={(e:any) => handleDataChanges(e, "editionId")}                                  
+                                    selectedValue={tenantInformationData?.editions}
+                                    onChange={(item: any) => {handleDataChanges(item.value,"editions"); }}                                  
                                 ></RdsSelectList>
                             </div>
                         </div>
@@ -239,7 +240,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                         <div className="row mb-3">
                             <div className="col-md-8">
                                 <RdsLabel
-                                    label="ConnectionStrings"
+                                    label="Connection Strings"
                                     required={true}
                                 />
                                 <div className="form-group mt-2">
@@ -294,6 +295,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     label="Activation State"
                                     placeholder="Select Activation State"
                                     selectItems={activationStateList}
+                                    key={`activationstate-${tenantInformationData?.activationState}`}
                                     selectedValue={tenantInformationData?.activationState}
                                     onChange={(e: any) => handleDataChanges(e.value, "activationState")}
                                     required={true}
