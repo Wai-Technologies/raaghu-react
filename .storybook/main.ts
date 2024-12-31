@@ -29,14 +29,14 @@ const config: StorybookConfig = {
 
       .version-container {
         font-weight: bold;
-        position: relative;
+        position: fixed;
         font-size: 14px;
         color: #5C6870;
         font-weight: bold;
         /* margin-top: 80px; */
         /* margin-right: 1000px; */
-        top: 20px;
-        right: 163px;
+        top: 50px;
+        left: 100px;
 
     }
     </style>
