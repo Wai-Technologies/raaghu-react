@@ -22,8 +22,8 @@ type Story = StoryObj<typeof RdsDropdownList>;
 
 export const Default: Story = {
     args: {
-        size: "medium", // Add default size
         placeholder: "Filter",
+        size:"medium",
         borderDropdown: true,
         isPlaceholder: true,
         listItems: [
@@ -77,9 +77,9 @@ Default.parameters = { controls: { include: ['placeholder', 'borderDropdown', 'i
 
 export const WithMultiSelect: Story = {
     args: {
-        size: "medium", // Add size parameter
         reset: false,
         placeholder: "Filter",
+        size:"medium",
         multiSelect: true,
         borderDropdown: true,
         listItems: [
@@ -135,6 +135,7 @@ export const WithIcons: Story = {
         borderDropdown: true,
         isPlaceholder: true,
         placeholder: "Filter",
+        size:"medium",
         listItems: [
             {
                 label: "EN(US)",

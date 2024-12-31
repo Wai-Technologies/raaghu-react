@@ -4,6 +4,7 @@ import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
+import "../../../raaghu-react-themes/src/styles/dropdown.scss"
 export interface RdsDropdownListProps {
   id?: string;
   reset?: boolean;
@@ -62,14 +63,6 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const block = props.block == false ? props.block : true;
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
-  const size =
-  props.size === "large"
-    ? "xl"
-    : props.size === "small"
-    ? "sm"
-    :props.size === "medium"
-    ? "md"
-    : "md"; // Default
   const clickedOnDropDown = () => {
     setExpend(!expand);
     const dropdownMenu = document.getElementById(
@@ -201,7 +194,15 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const handleMouseLeaveicon = () => {
     setIsHovered(false);
   };
-  const fieldSize =  props.size === 'medium' ? 'md ' : props.size === 'large' ? 'lg':props.size;
+  const fieldSize =
+  props.size === "small"
+    ? "form-control-sm"
+    : props.size === "medium"
+    ? "form-control-md"
+    : props.size === "large"
+    ? "form-control-lg"
+    : ""; // Default size if not provided
+
   const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
   useEffect(() => {
     setIsTouch(false);
