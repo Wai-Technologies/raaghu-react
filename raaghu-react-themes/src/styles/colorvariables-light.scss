@@ -14,349 +14,349 @@ $theme-colors: (
                                 ) !default;
 
                             /*Primary background colors*/
-                            $bg-primary-darker-default: #19003e;
-                            $bg-primary-dark-default: #7825e9;
-                            $bg-primary-medium-default: #d4bbff;
-                            $bg-primary-light-default: #ebdcff;
-                            $bg-primary-lighter-default: #fef7ff;
+                            $bg-primary-darker-default: $primary-10;
+                            $bg-primary-dark-default: $primary-40;
+                            $bg-primary-medium-default: $primary-80;
+                            $bg-primary-light-default: $primary-90;
+                            $bg-primary-lighter-default: $primary-99;
 
                             /*Secondary background colors*/
-                            $bg-secondary-darker-default: #111755;
-                            $bg-secondary-dark-default: #2534e9;
-                            $bg-secondary-medium-default: #93b8ff;
-                            $bg-secondary-light-default: #bcd5ff;
-                            $bg-secondary-lighter-default: #ebf3ff;
+                            $bg-secondary-darker-default: $secondary-10;
+                            $bg-secondary-dark-default: $secondary-40;
+                            $bg-secondary-medium-default: $secondary-80;
+                            $bg-secondary-light-default: $secondary-90;
+                            $bg-secondary-lighter-default: $secondary-99;
 
                             /*Tertiary background colors*/
-                            $bg-tertiary-darker-default: #530054;
-                            $bg-tertiary-dark-default: #b30fbc;
-                            $bg-tertiary-medium-default: #f8a4ff;
-                            $bg-tertiary-light-default: #f9ccff;
-                            $bg-tertiary-lighter-default: #fef3ff;
+                            $bg-tertiary-darker-default: $tertiary-10;
+                            $bg-tertiary-dark-default: $tertiary-40;
+                            $bg-tertiary-medium-default: $tertiary-80;
+                            $bg-tertiary-light-default: $tertiary-90;
+                            $bg-tertiary-lighter-default: $tertiary-99;
 
                             /*Neutral Background colors */
-                            $bg-neutral-darker-default: #202020;
-                            $bg-neutral-dark-default: #4c4c4c;
-                            $bg-neutral-medium-default: #cdcdcd;
-                            $bg-neutral-light-default: #e9e9e9;
-                            $bg-neutral-lighter-default: #ffffff;
+                            $bg-neutral-darker-default: $neutral-10;
+                            $bg-neutral-dark-default: $neutral-30;
+                            $bg-neutral-medium-default: $neutral-80;
+                            $bg-neutral-light-default: $neutral-90;
+                            $bg-neutral-lighter-default: $light-0;
 
                             /*Error Background colors */
-                            $bg-error-darker-default: #410003;
-                            $bg-error-dark-default: #bd0d1d;
-                            $bg-error-medium-default: #ffb3ad;
-                            $bg-error-light-default: #ffdad6;
-                            $bg-error-lighter-default: #fff8f7;
+                            $bg-error-darker-default: $error-10;
+                            $bg-error-dark-default: $error-40;
+                            $bg-error-medium-default: $error-80;
+                            $bg-error-light-default: $error-90;
+                            $bg-error-lighter-default: $error-99;
 
                             /*Warning Background colors */
-                            $bg-warning-darker-default: #431907;
-                            $bg-warning-dark-default: #c2510c;
-                            $bg-warning-medium-default: #fdc674;
-                            $bg-warning-light-default: #cdcdcd;
-                            $bg-warning-lighter-default: #fff9ed;
+                            $bg-warning-darker-default: $warning-10;
+                            $bg-warning-dark-default: $warning-40;
+                            $bg-warning-medium-default: $warning-80;
+                            $bg-warning-light-default: $neutral-80;
+                            $bg-warning-lighter-default: $warning-99;
 
                             /*Success Background colors */
-                            $bg-success-darker-default: #092a11;
-                            $bg-success-dark-default: #1f7630;
-                            $bg-success-medium-default: #90e5a0;
+                            $bg-success-darker-default: $success-100;
+                            $bg-success-dark-default: $success-400;
+                            $bg-success-medium-default: $success-800;
 
                             /*Primary icons colors*/
-                            $icon-primary-outline-default: #7825e9;
-                            $icon-primary-outline-hover: #4f00a6;
-                            $icon-primary-outline-selected: #340071;
-                            $icon-primary-outline-disabled: #d4bbff;
-                            $icon-primary-outline-invert: #ffffff;
+                            $icon-primary-outline-default: $primary-40;
+                            $icon-primary-outline-hover: $primary-30;
+                            $icon-primary-outline-selected: $primary-20;
+                            $icon-primary-outline-disabled: $primary-80;
+                            $icon-primary-outline-invert: $light-0;
 
                             /*Secondary icons colors*/
-                            $icon-secondary-outline-default: #2534e9;
-                            $icon-secondary-outline-hover: #1827bb;
-                            $icon-secondary-outline-selected: #1d2b92;
-                            $icon-secondary-outline-disabled: #93b8ff;
-                            $icon-secondary-outline-invert: #ffffff;
+                            $icon-secondary-outline-default: $secondary-40;
+                            $icon-secondary-outline-hover: $secondary-30;
+                            $icon-secondary-outline-selected: $secondary-20;
+                            $icon-secondary-outline-disabled: $secondary-80;
+                            $icon-secondary-outline-invert: $light-0;
 
                             /*Tertiary icons colors*/
-                            $icon-tertiary-outline-default: #b30fbc;
-                            $icon-tertiary-outline-hover: #940f99;
-                            $icon-tertiary-outline-selected: #7b127d;
-                            $icon-tertiary-outline-disabled: #f8a4ff;
-                            $icon-tertiary-outline-invert: #ffffff;
+                            $icon-tertiary-outline-default: $tertiary-40;
+                            $icon-tertiary-outline-hover: $tertiary-30;
+                            $icon-tertiary-outline-selected: $tertiary-20;
+                            $icon-tertiary-outline-disabled: $tertiary-80;
+                            $icon-tertiary-outline-invert: $light-0;
 
                             /*Neutral icons colors*/
-                            $icon-neutral-outline-default: #646464;
-                            $icon-neutral-outline-hover: #4c4c4c;
-                            $icon-neutral-outline-selected: #353535;
-                            $icon-neutral-outline-disabled: #cdcdcd;
-                            $icon-neutral-outline-invert: #ffffff;
+                            $icon-neutral-outline-default: $neutral-40;
+                            $icon-neutral-outline-hover: $neutral-30;
+                            $icon-neutral-outline-selected: $neutral-20;
+                            $icon-neutral-outline-disabled: $neutral-80;
+                            $icon-neutral-outline-invert: $light-0;
 
                             /*Error icons colors*/
-                            $icon-error-outline-default: #bd0d1d;
-                            $icon-error-outline-hover: #930011;
-                            $icon-error-outline-selected: #680009;
-                            $icon-error-outline-disabled: #ffb3ad;
-                            $icon-error-outline-invert: #ffffff;
+                            $icon-error-outline-default: $error-40;
+                            $icon-error-outline-hover: $error-30;
+                            $icon-error-outline-selected: $error-20;
+                            $icon-error-outline-disabled: $error-80;
+                            $icon-error-outline-invert: $light-0;
 
                             /*Warning icons colors*/
-                            $icon-warning-outline-default: #c2510c;
-                            $icon-warning-outline-hover: #9a4012;
-                            $icon-warning-outline-selected: #7c3712;
-                            $icon-warning-outline-disabled: #fdc674;
-                            $icon-warning-outline-invert: #ffffff;
+                            $icon-warning-outline-default: $warning-40;
+                            $icon-warning-outline-hover: $warning-30;
+                            $icon-warning-outline-selected: $warning-20;
+                            $icon-warning-outline-disabled: $warning-80;
+                            $icon-warning-outline-invert: $light-0;
 
                             /*Success icons colors*/
-                            $icon-success-outline-default: #1f7630;
-                            $icon-success-outline-hover: #1d5e2a;
-                            $icon-success-outline-selected: #1a4d25;
+                            $icon-success-outline-default: $success-400;
+                            $icon-success-outline-hover: $success-300;
+                            $icon-success-outline-selected: $success-200;
 
                             /*Primary Input colors*/
-                            $input-primary-solid-default: #7825e9;
-                            $input-primary-solid-hover: #4f00a6;
-                            $input-primary-solid-disabled: #d4bbff;
-                            $input-primary-outline-default: #7825e9;
-                            $input-primary-outline-hover: #4f00a6;
-                            $input-primary-outline-disabled: #d4bbff;
+                            $input-primary-solid-default: $primary-40;
+                            $input-primary-solid-hover: $primary-30;
+                            $input-primary-solid-disabled: $primary-80;
+                            $input-primary-outline-default: $primary-40;
+                            $input-primary-outline-hover: $primary-30;
+                            $input-primary-outline-disabled: $primary-80;
 
                             /*Secondary Input colors*/
-                            $input-secondary-solid-default: #2534e9;
-                            $input-secondary-solid-hover: #1827bb;
-                            $input-secondary-solid-disabled: #93b8ff;
-                            $input-secondary-outline-default: #2534e9;
-                            $input-secondary-outline-hover: #1827bb;
-                            $input-secondary-outline-disabled: #93b8ff;
+                            $input-secondary-solid-default: $secondary-40;
+                            $input-secondary-solid-hover: $secondary-30;
+                            $input-secondary-solid-disabled: $secondary-80;
+                            $input-secondary-outline-default: $secondary-40;
+                            $input-secondary-outline-hover: $secondary-30;
+                            $input-secondary-outline-disabled: $secondary-80;
 
                             /*Tertiary Input colors*/
-                            $input-tertiary-solid-default: #b30fbc;
-                            $input-tertiary-solid-hover: #940f99;
-                            $input-tertiary-solid-disabled: #f8a4ff;
-                            $input-tertiary-outline-default: #b30fbc;
-                            $input-tertiary-outline-hover: #940f99;
-                            $input-tertiary-outline-disabled: #f8a4ff;
+                            $input-tertiary-solid-default: $tertiary-40;
+                            $input-tertiary-solid-hover: $tertiary-30;
+                            $input-tertiary-solid-disabled: $tertiary-80;
+                            $input-tertiary-outline-default: $tertiary-40;
+                            $input-tertiary-outline-hover: $tertiary-30;
+                            $input-tertiary-outline-disabled: $tertiary-80;
 
                             /*Neutral Input colors*/
-                            $input-neutral-solid-default: #646464;
-                            $input-neutral-solid-hover: #4c4c4c;
-                            $input-neutral-solid-disabled: #cdcdcd;
-                            $input-neutral-outline-default: #646464;
-                            $input-neutral-outline-hover: #4c4c4c;
-                            $input-neutral-outline-disabled: #cdcdcd;
+                            $input-neutral-solid-default: $neutral-40;
+                            $input-neutral-solid-hover: $neutral-30;
+                            $input-neutral-solid-disabled: $neutral-80;
+                            $input-neutral-outline-default: $neutral-40;
+                            $input-neutral-outline-hover: $neutral-30;
+                            $input-neutral-outline-disabled: $neutral-80;
 
                             /*Error Input colors*/
-                            $input-error-solid-default: #bd0d1d;
-                            $input-error-solid-hover: #930011;
-                            $input-error-solid-disabled: #ffb3ad;
-                            $input-error-outline-default: #bd0d1d;
-                            $input-error-outline-hover: #930011;
-                            $input-error-outline-disabled: #ffb3ad;
+                            $input-error-solid-default: $error-40;
+                            $input-error-solid-hover: $error-30;
+                            $input-error-solid-disabled: $error-80;
+                            $input-error-outline-default: $error-40;
+                            $input-error-outline-hover: $error-30;
+                            $input-error-outline-disabled: $error-80;
 
                             /*Warning Input colors*/
-                            $input-warning-solid-default: #c2510c;
-                            $input-warning-solid-hover: #9a4012;
-                            $input-warning-solid-disabled: #fdc674;
-                            $input-warning-outline-default: #c2510c;
-                            $input-warning-outline-hover: #9a4012;
-                            $input-warning-outline-disabled: #fdc674;
+                            $input-warning-solid-default: $warning-40;
+                            $input-warning-solid-hover: $warning-30;
+                            $input-warning-solid-disabled: $warning-80;
+                            $input-warning-outline-default: $warning-40;
+                            $input-warning-outline-hover: $warning-30;
+                            $input-warning-outline-disabled: $warning-80;
 
                             /*Successs Input colors*/
-                            $input-warning-solid-default: #1f7630;
-                            $input-warning-solid-hover: #1d5e2a;
-                            $input-warning-solid-disabled: #90e5a0;
-                            $input-warning-outline-default: #1f7630;
-                            $input-warning-outline-hover: #1d5e2a;
-                            $input-warning-outline-disabled: #90e5a0;
+                            $input-warning-solid-default: $success-400;
+                            $input-warning-solid-hover: $success-300;
+                            $input-warning-solid-disabled: $success-800;
+                            $input-warning-outline-default: $success-400;
+                            $input-warning-outline-hover: $success-300;
+                            $input-warning-outline-disabled: $success-800;
 
                             /*Primary Link Colors*/
-                            $line-primary-dark-defaut: #7e2eef;
-                            $line-primary-medium-defaut: #be98ff;
-                            $line-primary-light-defaut: #ebdcff;
+                            $line-primary-dark-defaut: $primary;
+                            $line-primary-medium-defaut: $primary-70;
+                            $line-primary-light-defaut: $primary-90;
 
                             /*Secondary Link Colors*/
-                            $line-secondary-dark-defaut: #2539ff;
-                            $line-secondary-medium-defaut: #698fff;
-                            $line-secondary-light-defaut: #bcd5ff;
+                            $line-secondary-dark-defaut: $secondary;
+                            $line-secondary-medium-defaut: $secondary-70;
+                            $line-secondary-light-defaut: $secondary-90;
 
                             /*Teritary Link Colors*/
-                            $line-tertiary-dark-defaut: #da25e9;
-                            $line-tertiary-medium-defaut: #f56eff;
-                            $line-tertiary-light-defaut: #f9ccff;
+                            $line-tertiary-dark-defaut: $tertiary;
+                            $line-tertiary-medium-defaut: $tertiary-70;
+                            $line-tertiary-light-defaut: $tertiary-90;
 
                             /*Neutral Link Colors*/
-                            $line-neutral-dark-defaut: #4c4c4c;
-                            $line-neutral-medium-defaut: #b1b1b1;
-                            $line-neutral-light-defaut: #e9e9e9;
+                            $line-neutral-dark-defaut: $neutral-30;
+                            $line-neutral-medium-defaut: $neutral-70;
+                            $line-neutral-light-defaut: $neutral-90;
 
                             /*Error Link Colors*/
-                            $line-error-dark-defaut: #e02d30;
-                            $line-error-medium-defaut: #ff8980;
-                            $line-error-light-defaut: #ffdad6;
+                            $line-error-dark-defaut: $danger;
+                            $line-error-medium-defaut: $error-70;
+                            $line-error-light-defaut: $error-90;
 
                             /*Warning Link Colors*/
-                            $line-warning-dark-defaut: #ea6c0c;
-                            $line-warning-medium-defaut: #fba33c;
-                            $line-warning-light-defaut: #fed99b;
+                            $line-warning-dark-defaut: $warning;
+                            $line-warning-medium-defaut: $warning-70;
+                            $line-warning-light-defaut: $warning-90;
 
                             /*Success Link Colors*/
-                            $line-success-dark-defaut: #24993a;
-                            $line-success-medium-defaut: #58d06e;
-                            $line-success-light-defaut: #c1f1c9;
+                            $line-success-dark-defaut: $success;
+                            $line-success-medium-defaut: $success-700;
+                            $line-success-light-defaut: $line-success-light-default;
 
                             /*Buton color*/
-                            $btn-primary-solid-default: #7825e9;
-                            $btn-primary-solid-hover: #4f00a6;
-                            $btn-primary-solid-selected: #340071;
-                            $btn-primary-solid-disabled: #d4bbff;
-                            $btn-primary-outline-default: #7825e9;
-                            $btn-primary-outline-hover: #4f00a6;
-                            $btn-primary-outline-selected: #340071;
-                            $btn-primary-outline-disabled: #d4bbff;
-                            $btn-primary-transparent-default: #ffffff;
-                            $btn-primary-transparent-hover: #ebdcff;
-                            $btn-primary-transparent-selected: #d4bbff;
-                            $btn-primary-transparent-disabled: #ebdcff;
-                            $btn-primary-text-default: #7825e9;
-                            $btn-primary-text-disabled: #a875ff;
-                            $btn-primary-text-invert: #ffffff;
+                            $btn-primary-solid-default: $primary-40;
+                            $btn-primary-solid-hover: $primary-30;
+                            $btn-primary-solid-selected: $primary-20;
+                            $btn-primary-solid-disabled: $primary-80;
+                            $btn-primary-outline-default: $primary-40;
+                            $btn-primary-outline-hover: $primary-30;
+                            $btn-primary-outline-selected: $primary-20;
+                            $btn-primary-outline-disabled: $primary-80;
+                            $btn-primary-transparent-default: $light-0;
+                            $btn-primary-transparent-hover: $primary-90;
+                            $btn-primary-transparent-selected: $primary-80;
+                            $btn-primary-transparent-disabled: $primary-90;
+                            $btn-primary-text-default: $primary-40;
+                            $btn-primary-text-disabled: $primary-60;
+                            $btn-primary-text-invert: $light-0;
 
-                            $btn-secondary-solid-default: #2534e9;
-                            $btn-secondary-solid-hover: #1827bb;
-                            $btn-secondary-solid-selected: #1d2b92;
-                            $btn-secondary-solid-disabled: #93b8ff;
-                            $btn-secondary-outline-default: #2534e9;
-                            $btn-secondary-outline-hover: #1827bb;
-                            $btn-secondary-outline-selected: #1d2b92;
-                            $btn-secondary-outline-disabled: #93b8ff;
-                            $btn-secondary-transparent-default: #ffffff;
-                            $btn-secondary-transparent-hover: #ebdcff;
-                            $btn-secondary-transparent-selected: #d4bbff;
-                            $btn-secondary-transparent-disabled: #ebdcff;
-                            $btn-secondary-text-default: #7825e9;
-                            $btn-secondary-text-disabled: #a875ff;
-                            $btn-secondary-text-invert: #ffffff;
+                            $btn-secondary-solid-default: $secondary-40;
+                            $btn-secondary-solid-hover: $secondary-30;
+                            $btn-secondary-solid-selected: $secondary-20;
+                            $btn-secondary-solid-disabled: $secondary-80;
+                            $btn-secondary-outline-default: $secondary-40;
+                            $btn-secondary-outline-hover: $secondary-30;
+                            $btn-secondary-outline-selected: $secondary-20;
+                            $btn-secondary-outline-disabled: $secondary-80;
+                            $btn-secondary-transparent-default: $light-0;
+                            $btn-secondary-transparent-hover: $primary-90;
+                            $btn-secondary-transparent-selected: $primary-80;
+                            $btn-secondary-transparent-disabled: $primary-90;
+                            $btn-secondary-text-default: $primary-40;
+                            $btn-secondary-text-disabled: $primary-60;
+                            $btn-secondary-text-invert: $light-0;
 
-                            $btn-tertiary-solid-default: #b30fbc;
-                            $btn-tertiary-solid-hover: #940f99;
-                            $btn-tertiary-solid-selected: #7b127d;
-                            $btn-tertiary-solid-disabled: #f8a4ff;
-                            $btn-tertiary-outline-default: #b30fbc;
-                            $btn-tertiary-outline-hover: #940f99;
-                            $btn-tertiary-outline-selected: #7b127d;
-                            $btn-tertiary-outline-disabled: #f8a4ff;
-                            $btn-tertiary-transparent-default: #ffffff;
-                            $btn-tertiary-transparent-hover: #f9ccff;
-                            $btn-tertiary-transparent-selected: #f8a4ff;
-                            $btn-tertiary-transparent-disabled: #f9ccff;
-                            $btn-tertiary-text-default: #b30fbc;
-                            $btn-tertiary-text-disabled: #eb37fe;
-                            $btn-tertiary-text-invert: #ffffff;
+                            $btn-tertiary-solid-default: $tertiary-40;
+                            $btn-tertiary-solid-hover: $tertiary-30;
+                            $btn-tertiary-solid-selected: $tertiary-20;
+                            $btn-tertiary-solid-disabled: $tertiary-80;
+                            $btn-tertiary-outline-default: $tertiary-40;
+                            $btn-tertiary-outline-hover: $tertiary-30;
+                            $btn-tertiary-outline-selected: $tertiary-20;
+                            $btn-tertiary-outline-disabled: $tertiary-80;
+                            $btn-tertiary-transparent-default: $light-0;
+                            $btn-tertiary-transparent-hover: $tertiary-90;
+                            $btn-tertiary-transparent-selected: $tertiary-80;
+                            $btn-tertiary-transparent-disabled: $tertiary-90;
+                            $btn-tertiary-text-default: $tertiary-40;
+                            $btn-tertiary-text-disabled: $tertiary-60;
+                            $btn-tertiary-text-invert: $light-0;
 
-                            $btn-neutral-solid-default: #646464;
-                            $btn-neutral-solid-hover: #4c4c4c;
-                            $btn-neutral-solid-selected: #353535;
-                            $btn-neutral-solid-disabled: #cdcdcd;
-                            $btn-neutral-outline-default: #646464;
-                            $btn-neutral-outline-hover: #4c4c4c;
-                            $btn-neutral-outline-selected: #4c4c4c;
-                            $btn-neutral-outline-disabled: #cdcdcd;
-                            $btn-neutral-transparent-default: #ffffff;
-                            $btn-neutral-transparent-hover: #e9e9e9;
-                            $btn-neutral-transparent-selected: #cdcdcd;
-                            $btn-neutral-transparent-disabled: #e9e9e9;
-                            $btn-neutral-text-default: #646464;
-                            $btn-neutral-text-disabled: #969696;
-                            $btn-neutral-text-invert: #ffffff;
+                            $btn-neutral-solid-default: $neutral-40;
+                            $btn-neutral-solid-hover: $neutral-30;
+                            $btn-neutral-solid-selected: $neutral-20;
+                            $btn-neutral-solid-disabled: $neutral-80;
+                            $btn-neutral-outline-default: $neutral-40;
+                            $btn-neutral-outline-hover: $neutral-30;
+                            $btn-neutral-outline-selected: $neutral-30;
+                            $btn-neutral-outline-disabled: $neutral-80;
+                            $btn-neutral-transparent-default: $light-0;
+                            $btn-neutral-transparent-hover: $neutral-90;
+                            $btn-neutral-transparent-selected: $neutral-80;
+                            $btn-neutral-transparent-disabled: $neutral-90;
+                            $btn-neutral-text-default: $neutral-40;
+                            $btn-neutral-text-disabled: $neutral-60;
+                            $btn-neutral-text-invert: $light-0;
 
-                            $btn-error-solid-default: #bd0d1d;
-                            $btn-error-solid-hover: #930011;
-                            $btn-error-solid-selected: #7c3712;
-                            $btn-error-solid-disabled: #ffb3ad;
-                            $btn-error-outline-default: #bd0d1d;
-                            $btn-error-outline-hover: #930011;
-                            $btn-error-outline-selected: #7c3712;
-                            $btn-error-outline-disabled: #ffb3ad;
-                            $btn-error-transparent-default: #ffffff;
-                            $btn-error-transparent-hover: #ffdad6;
-                            $btn-error-transparent-selected: #ffb3ad;
-                            $btn-error-transparent-disabled: #ffdad6;
-                            $btn-error-text-default: #bd0d1d;
-                            $btn-error-text-disabled: #ff544f;
-                            $btn-error-text-invert: #ffffff;
+                            $btn-error-solid-default: $error-40;
+                            $btn-error-solid-hover: $error-30;
+                            $btn-error-solid-selected: $warning-20;
+                            $btn-error-solid-disabled: $error-80;
+                            $btn-error-outline-default: $error-40;
+                            $btn-error-outline-hover: $error-30;
+                            $btn-error-outline-selected: $warning-20;
+                            $btn-error-outline-disabled: $error-80;
+                            $btn-error-transparent-default: $light-0;
+                            $btn-error-transparent-hover: $error-90;
+                            $btn-error-transparent-selected: $error-80;
+                            $btn-error-transparent-disabled: $error-90;
+                            $btn-error-text-default: $error-40;
+                            $btn-error-text-disabled: $error-60;
+                            $btn-error-text-invert: $light-0;
 
-                            $btn-warning-solid-default: #c2510c;
-                            $btn-warning-solid-hover: #9a4012;
-                            $btn-warning-solid-selected: #7c3712;
-                            $btn-warning-solid-disabled: #fdc674;
-                            $btn-warning-outline-default: #c2510c;
-                            $btn-warning-outline-hover: #9a4012;
-                            $btn-warning-outline-selected: #7c3712;
-                            $btn-warning-outline-disabled: #fdc674;
-                            $btn-warning-transparent-default: #ffffff;
-                            $btn-warning-transparent-hover: #fed99b;
-                            $btn-warning-transparent-selected: #fdc674;
-                            $btn-warning-transparent-disabled: #fed99b;
-                            $btn-warning-text-default: #c2510c;
-                            $btn-warning-text-disabled: #f98816;
-                            $btn-warning-text-invert: #ffffff;
+                            $btn-warning-solid-default: $warning-40;
+                            $btn-warning-solid-hover: $warning-30;
+                            $btn-warning-solid-selected: $warning-20;
+                            $btn-warning-solid-disabled: $warning-80;
+                            $btn-warning-outline-default: $warning-40;
+                            $btn-warning-outline-hover: $warning-30;
+                            $btn-warning-outline-selected: $warning-20;
+                            $btn-warning-outline-disabled: $warning-80;
+                            $btn-warning-transparent-default: $light-0;
+                            $btn-warning-transparent-hover: $warning-90;
+                            $btn-warning-transparent-selected: $warning-80;
+                            $btn-warning-transparent-disabled: $warning-90;
+                            $btn-warning-text-default: $warning-40;
+                            $btn-warning-text-disabled: $warning-60;
+                            $btn-warning-text-invert: $light-0;
 
-                            $btn-success-solid-default: #1f7630;
-                            $btn-success-solid-hover: #1d5e2a;
-                            $btn-success-solid-selected: #1a4d25;
-                            $btn-success-solid-disabled: #90e5a0;
-                            $btn-success-outline-default: #1f7630;
-                            $btn-success-outline-hover: #1d5e2a;
-                            $btn-success-outline-selected: #1a4d25;
-                            $btn-success-outline-disabled: #90e5a0;
-                            $btn-success-transparent-default: #ffffff;
-                            $btn-success-transparent-hover: #c1f1c9;
-                            $btn-success-transparent-selected: #90e5a0;
-                            $btn-success-transparent-disabled: #c1f1c9;
-                            $btn-success-text-default: #1f7630;
-                            $btn-success-text-disabled: #31b64a;
-                            $btn-success-text-invert: #ffffff;
+                            $btn-success-solid-default: $success-400;
+                            $btn-success-solid-hover: $success-300;
+                            $btn-success-solid-selected: $success-200;
+                            $btn-success-solid-disabled: $success-800;
+                            $btn-success-outline-default: $success-400;
+                            $btn-success-outline-hover: $success-300;
+                            $btn-success-outline-selected: $success-200;
+                            $btn-success-outline-disabled: $success-800;
+                            $btn-success-transparent-default: $light-0;
+                            $btn-success-transparent-hover: $line-success-light-default;
+                            $btn-success-transparent-selected: $success-800;
+                            $btn-success-transparent-disabled: $line-success-light-default;
+                            $btn-success-text-default: $success-400;
+                            $btn-success-text-disabled: $success-600;
+                            $btn-success-text-invert: $light-0;
 
                             /*Text Primary color*/
-                            $txt-primary-darker-default: #19003e;
-                            $txt-primary-dark-default: #340071;
-                            $txt-primary-medium-default: #7825e9;
-                            $txt-primary-light-default: #a875ff;
-                            $txt-primary-lighter-default: #fef7ff;
+                            $txt-primary-darker-default: $primary-10;
+                            $txt-primary-dark-default: $primary-20;
+                            $txt-primary-medium-default: $primary-40;
+                            $txt-primary-light-default: $primary-60;
+                            $txt-primary-lighter-default: $primary-99;
 
                             /*Text Secondary color*/
-                            $txt-secondary-darker-default: #111755;
-                            $txt-secondary-dark-default: #1d2b92;
-                            $txt-secondary-medium-default: #2534e9;
-                            $txt-secondary-light-default: #4666ff;
-                            $txt-secondary-lighter-default: #ebf3ff;
+                            $txt-secondary-darker-default: $secondary-10;
+                            $txt-secondary-dark-default: $secondary-20;
+                            $txt-secondary-medium-default: $secondary-40;
+                            $txt-secondary-light-default: $secondary-60;
+                            $txt-secondary-lighter-default: $secondary-99;
 
                             /*Text Tertiary color*/
-                            $txt-tertiary-darker-default: #530054;
-                            $txt-tertiary-dark-default: #7b127d;
-                            $txt-tertiary-medium-default: #b30fbc;
-                            $txt-tertiary-light-default: #eb37fe;
-                            $txt-tertiary-lighter-default: #fef3ff;
+                            $txt-tertiary-darker-default: $tertiary-10;
+                            $txt-tertiary-dark-default: $tertiary-20;
+                            $txt-tertiary-medium-default: $tertiary-40;
+                            $txt-tertiary-light-default: $tertiary-60;
+                            $txt-tertiary-lighter-default: $tertiary-99;
 
                             /*Text Neutral color*/
-                            $txt-neutral-darker-default: #202020;
-                            $txt-neutral-dark-default: #353535;
-                            $txt-neutral-medium-default: #353535;
-                            $txt-neutral-light-default: #969696;
-                            $txt-neutral-lighter-default: #fcfcfc;
+                            $txt-neutral-darker-default: $neutral-10;
+                            $txt-neutral-dark-default: $neutral-20;
+                            $txt-neutral-medium-default: $neutral-20;
+                            $txt-neutral-light-default: $neutral-60;
+                            $txt-neutral-lighter-default: $neutral-99;
 
                             /*Text Error color*/
-                            $txt-error-darker-default: #410003;
-                            $txt-error-dark-default: #680009;
-                            $txt-error-medium-default: #bd0d1d;
-                            $txt-error-light-default: #ff544f;
-                            $txt-error-lighter-default: #fff8f7;
+                            $txt-error-darker-default: $error-10;
+                            $txt-error-dark-default: $error-20;
+                            $txt-error-medium-default: $error-40;
+                            $txt-error-light-default: $error-60;
+                            $txt-error-lighter-default: $error-99;
 
                             /*Text Warning color*/
-                            $txt-warning-darker-default: #431907;
-                            $txt-warning-dark-default: #7c3712;
-                            $txt-warning-medium-default: #c2510c;
-                            $txt-warning-light-default: #f98816;
-                            $txt-warning-lighter-default: #fff9ed;
+                            $txt-warning-darker-default: $warning-10;
+                            $txt-warning-dark-default: $warning-20;
+                            $txt-warning-medium-default: $warning-40;
+                            $txt-warning-light-default: $warning-60;
+                            $txt-warning-lighter-default: $warning-99;
 
                             /*Text Success color*/
-                            $txt-success-darker-default: #092a11;
-                            $txt-success-dark-default: #1a4d25;
-                            $txt-success-medium-default: #1f7630;
+                            $txt-success-darker-default: $success-100;
+                            $txt-success-dark-default: $success-200;
+                            $txt-success-medium-default: $success-400;
 
                             $progress-bar-bg-primary: $bg-primary-dark-default;
                             $progress-bar-bg-error: $bg-error-dark-default;
@@ -364,11 +364,11 @@ $theme-colors: (
                             $min-contrast-ratio: 4.5 !default;
                             $input-border-color: $input-neutral-outline-default;
                             $input-focus-border-color: tint-color($primary, 50%) !default;
-                            $body-bg: white;
+                            $body-bg: $body-bg;
                             $input-bg: $body-bg !default;
                             $bg-custom-file-button: $btn-primary-solid-default;
                             $border-color: $gray-100;
-                            $accordion-border-color: #646464;
+                            $accordion-border-color: $neutral-40;
 
                             $btn-close-width: 1em !default;
                             $btn-close-color: $gray-100 !default;
@@ -471,7 +471,7 @@ $theme-colors: (
                             $dropdown-border-bottom: $gray-400 !default;
                             $dropdown-bg-color: $gray-100 !default;
                             $dropdown-border-bottom-hover: $gray-100;
-                            $dropdown-border-color: #e9ecf7 !default;
+                            $dropdown-border-color: $dropdown-border-color !default;
 
                             // /*file uploader color variables*/
                             $file-color: $primary;
@@ -548,17 +548,17 @@ $theme-colors: (
                             $enable-caret: true !default;
                             // scss-docs-end btn-variables
                             //subscription-card
-                            $subcription-bg-blue: #005fa4;
-                            $subcription-bg-purple: #660064;
-                            $subcription-bg-orangered: #f76161;
-                            $subcription-bg-orange: #f58220;
-                            $subcription-bg-green: #00a443;
+                            $subcription-bg-blue: $action-700;
+                            $subcription-bg-purple: $secondary-900;
+                            $subcription-bg-orangered: $danger-300;
+                            $subcription-bg-orange: $default-100;
+                            $subcription-bg-green: $subcription-bg-green;
                             $body-wrapper-bg: $dark-900;
 
-                            $body-wrapper-bg: #f5f5fa;
-                            $table-hover-bg: #f5f5fa;
+                            $body-wrapper-bg: $light-150;
+                            $table-hover-bg: $light-150;
                             $topnav-link-color: $gray-800;
-                            $card-bg-color: #fff;
+                            $card-bg-color: $white;
                             //--bs-body-color: black;
                             $datepicker-bg: $white !default;
                             $datepicker-head: $white !default;
@@ -587,7 +587,7 @@ $theme-colors: (
                             // card title{
 
                             $card-title-color: $gray-900 !default;
-                            $placeholder-color: #bebebe;
+                            $placeholder-color: $gray-750;
 
                             $offcanvas-bottom-border-color: $border-color !default;
 
@@ -798,7 +798,7 @@ $theme-colors: (
                         }
 
                         .navbar {
-                            background-color: white;
+                            background-color: $body-bg;
                         }
 
                         .bs-datepicker-head {
@@ -847,33 +847,33 @@ $theme-colors: (
 
                             table {
                                 th {
-                                    color: #999999;
+                                    color: $table-th-color;
                                 }
 
                                 td {
-                                    color: #212529;
+                                    color: $table-td-color;
 
                                     .is-highlighted:not(.disabled):not(.selected) span,
                                     span.is-highlighted:not(.disabled):not(.selected) {
-                                        background-color: #5c82e3;
-                                        color: #fff;
+                                        background-color: $datepicker-body-table-border-color;
+                                        color: $white;
                                     }
 
                                     .custom-today-class {
                                         background-color: $primary;
-                                        // color: #fff;
+                                        // color: $white;
                                     }
                                 }
                             }
 
                             .months span.selected {
-                                background-color: #ed585f;
-                                color: #fff;
+                                background-color: $months-span-selected;
+                                color: $white;
                             }
 
                             .years span.selected {
-                                background-color: #ed585f;
-                                color: #fff;
+                                background-color: $months-span-selected;
+                                color: $white;
                             }
                         }
 
@@ -948,12 +948,12 @@ $theme-colors: (
                         //   border-right-color: $sidbar-border-right-color;
                         // }
                         .aside {
-                            background-color: #fff;
+                            background-color: $white;
                             border-right-color: $sidbar-border-right-color;
                         }
 
                         .sidebar {
-                            background-color: #fff !important;
+                            background-color: $white !important;
                             border-right-color: $sidbar-border-right-color;
                         }
 
@@ -1374,7 +1374,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-bottom: 3px solid #c0c0ff;
+                                border-bottom: 3px solid $nav-link-border-bottom-hover-after;
                             }
 
                             .nav-link {
@@ -1750,7 +1750,7 @@ $theme-colors: (
                                     ul {
                                         li {
                                             a {
-                                                color: #e6e6e6;
+                                                color: $ul-li-a;
                                                 border-left-color: transparent;
                                             }
                                         }
@@ -1776,12 +1776,12 @@ $theme-colors: (
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                                 height: 5px;
                             }
 
                             .active {
-                                border-color: #232933;
+                                border-color: $body-bg-dark;
                                 height: 5px;
                             }
                         }
@@ -2860,26 +2860,26 @@ $theme-colors: (
                         }
 
                         html #sidebar ul li a.active small {
-                            color: #212529;
+                            color: $table-td-color;
                         }
 
                         .theam-cards .selected {
-                            background: #dde4f7;
+                            background: $theam-cards-selected;
                         }
 
                         .rds-fileuploader label.file-upload>div {
-                            color: #9bacbc;
+                            color: $file-uploader-border-color;
                         }
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
-                            background: #d7dfe8;
+                            background: $-rds-fileuploader-label;
                         }
 
                         .rds-fileuploader label.file-upload {
-                            border-color: #9bacbc;
-                            background: #eaeff5;
-                            color: #3d4d60;
+                            border-color: $file-uploader-border-color;
+                            background: $-rds-fileuploader-background;
+                            color: $-rds-fileuploader-color;
                         }
 
                         .bd-links .child::after {
@@ -3142,11 +3142,11 @@ $theme-colors: (
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                             }
 
                             .active {
-                                border-color: #232933;
+                                border-color: $body-bg-dark;
                             }
                         }
 
@@ -3380,26 +3380,26 @@ $theme-colors: (
                         }
 
                         html #sidebar ul li a.active small {
-                            color: #212529;
+                            color: $table-td-color;
                         }
 
                         .theam-cards .selected {
-                            background: #dde4f7;
+                            background: $theam-cards-selected;
                         }
 
                         .rds-fileuploader label.file-upload>div {
-                            color: #9bacbc;
+                            color: $file-uploader-border-color;
                         }
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
-                            background: #d7dfe8;
+                            background: $-rds-fileuploader-label;
                         }
 
                         .rds-fileuploader label.file-upload {
-                            border-color: #9bacbc;
-                            background: #eaeff5;
-                            color: #3d4d60;
+                            border-color: $file-uploader-border-color;
+                            background: $-rds-fileuploader-background;
+                            color: $-rds-fileuploader-color;
                         }
 
                         .bd-links .child::after {
@@ -3606,8 +3606,8 @@ $theme-colors: (
 
                         .datepicker__input {
                             width: fit-content !important;
-                            background-color: white;
-                            border: 2px solid lightgrey;
+                            background-color: $body-bg;
+                            border: 2px solid $datepicker-input-border;
                         }
 
                         .icon-box {
@@ -3747,7 +3747,7 @@ $theme-colors: (
                         }
 
                         .css-1xc3v61-indicatorContainer:hover {
-                            color: #cccccc !important;
+                            color: $css-1xc3v61-indicatorContainer-hover !important;
                         }
 
                         #react-select-3-listbox {
@@ -3852,12 +3852,12 @@ $theme-colors: (
                         }
 
                         .border-end-custom {
-                            border-right: 2px solid #dee2e6;
+                            border-right: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
                         .border-start-custom {
-                            border-left: 2px solid #dee2e6;
+                            border-left: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
@@ -3867,7 +3867,7 @@ $theme-colors: (
 
                         // /* Handle */
                         ::-webkit-scrollbar-thumb {
-                            background: #ccc;
+                            background: $css-1xc3v61-indicatorContainer-hover;
                             border-radius: 10px;
                         }
 
@@ -3900,7 +3900,7 @@ $theme-colors: (
                             div {
                                 background-color: $body-bg;
                                 border-radius: 4px;
-                                color: #34384f;
+                                color: $gray-900;
 
                                 div {
                                     /* Your custom styles for menu items */
@@ -4016,7 +4016,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-top: 2px solid #c0c0ff;
+                                border-top: 2px solid $nav-link-border-bottom-hover-after;
                             }
                         }
 
@@ -4064,7 +4064,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-top: 2px solid #c0c0ff;
+                                border-top: 2px solid $nav-link-border-bottom-hover-after;
                             }
                         }
 

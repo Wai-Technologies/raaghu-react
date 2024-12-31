@@ -15,7 +15,7 @@ $dark:$neuytal;
 $danger:$error;
 */
 $primary: #7e2eef;
-$secondary: $primary-90;
+$secondary: #6c757d;
 $tertiary: #DA25E9;
 $neutral: #7D7D7D;
 $error: #E02D30;
@@ -237,7 +237,7 @@ $error: #E02D30;
 $warning: #EA6C0C;
 $success: #24993A;
 
-/* Missing Colors */
+/* Missing Colors for darkvariables */
 $line-success-light-default: #C1F1C9;
 $progress-bg: #33383e;
 $high-rate-color: #9EFCB0;
@@ -254,6 +254,17 @@ $container-collapse-box-shadow: #ede1e1;
 $container-collapse-right: #ccc;
 $collapse-button-for-container-background: #3089D1;
 
+/* Missing colors for lightvariables */
+$dropdown-border-color: #e9ecf7;
+$table-th-color: #999999;
+$table-td-color: #212529;
+$months-span-selected: #ed585f;
+$ul-li-a: #e6e6e6;
+// $sidebar-ul-li-a-active-small: #212529;
+$theam-cards-selected: #dde4f7;
+$-rds-fileuploader-label: #d7dfe8;
+$-rds-fileuploader-background: #eaeff5;
+$-rds-fileuploader-color: #3d4d60;
 
 // /*Chart color variables*/
 :root {
