@@ -33,12 +33,28 @@ const config: StorybookConfig = {
         font-size: 14px;
         color: #5C6870;
         font-weight: bold;
-        /* margin-top: 80px; */
-        /* margin-right: 1000px; */
         top: 50px;
-        left: 100px;
+        left: 98px;
+      }
 
-    }
+      // /* Responsive styles for mobile */
+      // @media (max-width: 600px) {
+      //   .version-container {
+      //     position: fixed;
+      //     font-size: 12px;
+      //     top: 60px;
+      //     left: 100px;
+      //   }
+      // }
+
+      // @media (max-width: 480px) {
+      //   .version-container {
+      //     position: fixed;
+      //     // font-size: 10px;
+      //     // top: 70px;
+      //     // left: 100px;
+      //   }
+      // }
     </style>
     `;
 
