@@ -1,43 +1,46 @@
+@use "sass:meta";
+@use "sass:math";
+@use "sass:color";
+@use "./default.scss" as *;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 $path: "../../fonts/Poppins-Regular.ttf";
-
-
+/*
 @if import-exists($path) {
     $path: "../../fonts/";
 }
 
 @else {
     $path: "../../fonts/";
-}
-
+}*/
+$path: "../../fonts/";
 @if $path !="" {
     @font-face {
         font-family: "Poppins";
-        src: local("Poppins"), url($path + "Poppins-Regular.ttf") format("truetype");
+        src: local("Poppins"), url(#{$path} + "Poppins-Regular.ttf") format("truetype");
         font-weight: normal;
     }
 
     @font-face {
         font-family: "Poppins-SemiBold";
-        src: local("Poppins-SemiBold"), url($path + "Poppins-SemiBold.ttf") format("truetype");
+        src: local("Poppins-SemiBold"), url(#{$path} + "Poppins-SemiBold.ttf") format("truetype");
         font-weight: bold;
     }
 
     @font-face {
         font-family: "Poppins-Bold";
-        src: local("Poppins-Bold"), url($path + "Poppins-Bold.ttf") format("truetype");
+        src: local("Poppins-Bold"), url(#{$path} + "Poppins-Bold.ttf") format("truetype");
         font-weight: bolder;
     }
 
     @font-face {
         font-family: "Poppins-Light";
-        src: local("Poppins-Light"), url($path + "Poppins-Light.ttf") format("truetype");
+        src: local("Poppins-Light"), url(#{$path} + "Poppins-Light.ttf") format("truetype");
         font-weight: lighter;
     }
 
     @font-face {
         font-family: "Poppins-Medium";
-        src: local("Poppins-Medium"), url($path + "Poppins-Medium.ttf") format("truetype");
+        src: local("Poppins-Medium"), url(#{$path} + "Poppins-Medium.ttf") format("truetype");
         font-weight: normal;
     }
 }
@@ -47,7 +50,7 @@ $path: "../../fonts/Poppins-Regular.ttf";
     --bs-font-monospace: "Fira Code", monospace;
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-datepicker-zindex: 1046;
-    --bs-nav-pills-link-active-bg: $primary-100;
+    --bs-nav-pills-link-active-bg: #{default.$primary-100};
 }
 
 /*$h1-font-size: 4.5rem;
@@ -1630,7 +1633,7 @@ $toast-padding-y: $spacing-s;
     }
 
     @function posOrNeg() {
-        @return random() * 10 - 4;
+        @return math.random() * 10 - 4;
     }
 
     $total: 80;
@@ -1651,14 +1654,14 @@ $toast-padding-y: $spacing-s;
     }
 
     @for $i from 1 through $total {
-        $color: hsl(random(250), 100%, 50%);
+        $color: hsl(math.random(250), 100%, 50%);
 
         .c2:nth-child(#{$i}) {
             animation: anim#{$i} 10.1s infinite;
             animation-delay: $i;
             background: $color;
-            /*  background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
-            box-shadow: 0 0 15px 2px lighten($color, 15%);
+            /*  background: radial-gradient(circle at top left, color.adjust($color, $lightness: 15%), $color); */
+            box-shadow: 0 0 15px 2px color.adjust($color, $lightness: 15%);
             border: 1px solid $color;
             border-radius: 2px;
         }
@@ -1667,8 +1670,8 @@ $toast-padding-y: $spacing-s;
             animation: anim#{$i} 50.1s infinite;
             animation-delay: $i;
             background: $color;
-            /*   background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
-            box-shadow: 0 0 15px 2px lighten($color, 15%);
+            /*   background: radial-gradient(circle at top left, color.adjust($color, $lightness: 15%), $color); */
+            box-shadow: 0 0 15px 2px color.adjust($color, $lightness: 15%);
             border: 1px solid $color;
             border-radius: 2px;
         }
@@ -1691,7 +1694,7 @@ $toast-padding-y: $spacing-s;
             }
 
             100% {
-                transform: translate3d(random(30) + vw, random(100) + vh, 0);
+                transform: translate3d(math.random(30) + vw, math.random(100) + vh, 0);
                 opacity: 0;
             }
         }

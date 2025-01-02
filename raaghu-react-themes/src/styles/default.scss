@@ -1,12 +1,55 @@
+//@forward "./custom";
+@use "../../node_modules/bootstrap/scss/bootstrap";
+@use "./responsive";
+@use "./accordion";
+@use "./alert";
+@use "./avatar";
+@use "./badge";
+@use "./breadcrumb";
+@use "./button";
+@use "./card";
+@use "./carousel";
+@use "./checkbox";
+@use "./counter";
+@use "./dropdown";
+@use "./file-uploader";
+@use "./input";
+@use "./list-group";
+@use "./nav-tab";
+@use "./offcanvas";
+@use "./pagination";
+@use "./radio-button";
+@use "./scrollspy";
+@use "./selectlist";
+@use "./search-input";
+@use "./side-nav";
+@use "./table";
+@use "./tags";
+@use "./textarea";
+@use "./colorvariables";
+@use "./toast";
+@use "./cookieconsent";
+@use "./calender";
+@use "./quillEditor";
+@use "./toggle";
+@use "./color-switcher";
+@use "./datePicker";
+@use "./doublerange";
+@use "./range";
+@use "./rating";
+@use "./stepper";
+@use "./chats";
+@use "./landingpage";
+@use "./shellLayout";
+@use "./tabGroup";
+@use "./loaders";
+@use "./progress";
+@use "./label";
+
 $theme: "default" !default;
-
-
-
 $info: #3ef1e8;
-
 $danger: #E02D30;
 $dark: #7D7D7D;
-
 $body-bg: white;
 $body-bg-dark: #232933;
 $black: #000 !default;
@@ -326,50 +369,3 @@ html[theme="dark"] {
   }
 }
 
-@import "./custom.scss";
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "./responsive.scss";
-@import "./accordion.scss";
-@import "./alert.scss";
-@import "./avatar.scss";
-@import "./badge.scss";
-@import "./breadcrumb.scss";
-@import "./button.scss";
-@import "./card.scss";
-@import "./carousel.scss";
-@import "./checkbox.scss";
-@import "./counter.scss";
-@import "./dropdown.scss";
-@import "./file-uploader.scss";
-@import "./input.scss";
-@import "./list-group.scss";
-@import "./nav-tab.scss";
-@import "./offcanvas.scss";
-@import "./pagination.scss";
-@import "./radio-button.scss";
-@import "./scrollspy.scss";
-@import "./selectlist.scss";
-@import "./search-input.scss";
-@import "./side-nav.scss";
-@import "./table.scss";
-@import "./tags.scss";
-@import "./textarea.scss";
-@import "./colorvariables.scss";
-@import "./toast.scss";
-@import "./cookieconsent.scss";
-@import "./calender.scss";
-@import "./quillEditor.scss";
-@import "./toggle.scss";
-@import "./color-switcher.scss";
-@import "./datePicker.scss";
-@import "./doublerange.scss";
-@import "./range.scss";
-@import "./rating.scss";
-@import "./stepper.scss";
-@import "./chats.scss";
-@import "./landingpage.scss";
-@import "./shellLayout.scss";
-@import "./tabGroup.scss";
-@import "./loaders.scss";
-@import "./progress.scss";
-@import "./label.scss";
