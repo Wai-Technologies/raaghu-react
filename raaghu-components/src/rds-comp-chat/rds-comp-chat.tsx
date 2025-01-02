@@ -217,27 +217,29 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </span>
         )}
         <span className="w-100 d-flex input-box-chat p-1">
-          <span className="w-100">
-            <RdsInput showTitle={false}
-              value={commentText}
-              inputType="text"
-              placeholder="Type comment..."
-              name="comment"
-              onChange={(e) => setCommentText(e.target.value)}
-              showIcon={true}
-            />
-          </span>
-          <span className="d-flex align-items-center sendButton mx-2">
-            <RdsIcon
-              name="send_email"
-              fill={false}
-              stroke={true}
-              colorVariant="basic"
-              isCursorPointer={true}
-              onClick={handleAddComment}
-            />
-          </span>
-        </span>
+    <span className="w-100 position-relative" id="password-icon">
+    <RdsInput 
+      showTitle={false}
+      value={commentText}
+      inputType="text"
+      placeholder="Type comment..."
+      name="comment"
+      onChange={(e) => setCommentText(e.target.value)}
+      showIcon={true} 
+    />
+    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
+      <RdsIcon
+        name="send_email"
+        fill={false}
+        stroke={true}
+        colorVariant="primary"
+        isCursorPointer={true}
+        onClick={handleAddComment}  
+      />
+    </span>
+  </span>
+  </span>
+
       </div>
     </div>
   );
