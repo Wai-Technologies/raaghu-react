@@ -150,10 +150,10 @@ const DraggableColumnHeader: React.FC<{
 
   return (
     <th
-      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+     
       ref={refheader}
     >
-      <div className="d-flex justify-content-start align-items-center full-width">
+      <div  className={`text-nowrap d-flex justify-content-start align-items-center full-width ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}> 
         <span>{column.displayName}</span>
         {column.sortable && (
           <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
