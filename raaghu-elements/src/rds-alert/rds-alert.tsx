@@ -22,7 +22,7 @@ export interface RdsAlertProps {
     showlink?: boolean;
     showbutton?: boolean;
     title?: string;
-    displayType?: "singleline" | "multiline";
+    displayType?: "singleline" | "multiline" | "rgba" | "hsl";
     description?: string;
 }
 

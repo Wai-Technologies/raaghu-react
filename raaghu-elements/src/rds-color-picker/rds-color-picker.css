@@ -1,11 +1,14 @@
 .colorPick {
-    border: 1px solid #fff !important;
-    padding: 0rem !important;
-    width: 30px !important;
-    height: 30px !important;
+  border: 1px solid #fff !important;
+  padding: 0rem !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
-.theme-dark .form-control, .theme-dark .form-control:focus, .theme-dark .select-container, .theme-dark .select-container:focus {
-    background-color: #dee2e6;
-    color: #dee2e6;
+.theme-dark .form-control,
+.theme-dark .form-control:focus,
+.theme-dark .select-container,
+.theme-dark .select-container:focus {
+  background-color: #dee2e6;
+  color: #dee2e6;
 }
