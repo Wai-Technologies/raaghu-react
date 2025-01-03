@@ -3952,6 +3952,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             }
                             .nav-link:hover{
                                 border-radius: $border-radius-xxl;
+                                color: $black;
                             }
                             .selected {
                                 border-radius: $border-radius-xxl;
@@ -3962,7 +3963,6 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .nav-tabs.select-tabs {
                             border-bottom: 0px;
-                            border-radius: $border-radius-xxl;
                             color: $txt-neutral-medium-default;
                             width: fit-content;
                             overflow-x:hidden;
