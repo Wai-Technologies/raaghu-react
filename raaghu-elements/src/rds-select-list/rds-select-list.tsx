@@ -10,6 +10,7 @@ export interface RdsSelectProps {
   showLabel?: boolean;
   isBold?: boolean;
   isMultiple?: boolean;
+  color?: "primary" | "secondary" | "success" | "warning" | "danger" | string;
   selectItems: {
     label?: string;
     option?: string;
@@ -31,17 +32,17 @@ export interface RdsSelectProps {
   borderBottomWidth?: string;
   customClasses?: string;
 }
- 
+
 const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
   const showLabel = props.showLabel || true;
- 
+
   useEffect(() => {
     setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
- 
+
   const handleSelectChange = (items: any) => {
     if (!props.isMultiple) {
       if (props.onChange) {
@@ -62,20 +63,63 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
-      minHeight: props.size === "small" ? "1.875rem" : props.size === "large" ? "3.125rem" : "1.875rem",
-      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.75rem",
-      borderBottomWidth: props.style === "BottomLine" ? (props.borderBottomWidth || "2px") : undefined,
+      minHeight:
+        props.size === "small"
+          ? "1.875rem"
+          : props.size === "large"
+          ? "3.125rem"
+          : "1.875rem",
+      fontSize:
+        props.size === "small"
+          ? "0.75rem"
+          : props.size === "large"
+          ? "1.125rem"
+          : "0.75rem",
+      borderBottomWidth:
+        props.style === "BottomLine" ? props.borderBottomWidth || "2px" : undefined,
       borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined,
+      borderColor:
+        props.color === "primary"
+          ? "blue"
+          : props.color === "danger"
+          ? "red"
+          : props.color === "success"
+          ? "green"
+          : provided.borderColor,
     }),
     menu: (provided: any) => ({
       ...provided,
-      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+      fontSize:
+        props.size === "small"
+          ? "0.75rem"
+          : props.size === "large"
+          ? "1.125rem"
+          : "0.875rem",
     }),
-    option: (provided: any) => ({
+    option: (provided: any, state: any) => ({
       ...provided,
-      fontSize: props.size === "small" ? "0.75rem" : props.size === "large" ? "1.125rem" : "0.875rem",
+      fontSize:
+        props.size === "small"
+          ? "0.75rem"
+          : props.size === "large"
+          ? "1.125rem"
+          : "0.875rem",
+      backgroundColor:
+        state.isSelected
+          ? props.color === "primary"
+            ? "blue"
+            : props.color === "danger"
+            ? "red"
+            : props.color === "success"
+            ? "green"
+            : provided.backgroundColor
+          : state.isFocused
+          ? "lightgray"
+          : undefined,
+      color: state.isSelected ? "white" : provided.color,
     }),
   };
+  
  
   // Determine if the items have 'option' or 'label' and map accordingly
   const mappedSelectItems = props.selectItems?.map((item) => ({
@@ -100,7 +144,21 @@ const RdsSelectList = (props: RdsSelectProps) => {
     const imgUrl = optionProps.data.imgUrl || defaultImgUrl;
  
     return (
-      <div id="select-background-color">
+      <div
+        id="select-background-color"
+        style={{
+          backgroundColor:
+            optionProps.isFocused || optionProps.isSelected
+              ? props.color === "primary"
+                ? "#d0e7ff"
+                : props.color === "danger"
+                ? "#ffd6d6"
+                : props.color === "success"
+                ? "#d6ffd6"
+                : undefined
+              : undefined,
+        }}
+      >
         <components.Option {...optionProps}>
           {optionProps.selectProps.isMulti && (
             <input
@@ -127,15 +185,16 @@ const RdsSelectList = (props: RdsSelectProps) => {
  
   return (
     <div className={`${props.classes} mt-2`}>
-      <div className="d-flex mb-1">{showLabel && props.label && (
-        <label
-          htmlFor={props.id}
-          className={` ${props.isBold ? "fw-bold" : ""}`}
-        >
-          {props.label}
-        </label>
-      )}
-      {props.required && <span className="text-danger ms-1">*</span>}
+      <div className="d-flex mb-1">
+        {showLabel && props.label && (
+          <label
+            htmlFor={props.id}
+            className={` ${props.isBold ? "fw-bold" : ""}`}
+          >
+            {props.label}
+          </label>
+        )}
+        {props.required && <span className="text-danger ms-1">*</span>}
       </div>
       <Select
         id={props.id}
@@ -161,6 +220,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
       )}
     </div>
   );
-};
+}
  
 export default RdsSelectList;
