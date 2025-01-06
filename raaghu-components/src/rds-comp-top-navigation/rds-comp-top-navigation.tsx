@@ -693,7 +693,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             >
 
             {( props.ecommerce3   && <div
-                    className={`position-relative   col text-center d-flex align-items-center language  px-md-3} `}
+                    className={`position-relative   col text-center d-flex align-items-center language  px-md-3 pr-2} `}
                 >
                  { props.ecommerce3 && props.socialMediaIcons?.map((icon:any) => (
                 <img
@@ -720,7 +720,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
                   <div>
                       {breacrumItem?.length > 0 && (
-                          <div className={` ${props.ecommerce3 ? "ps-4" : ""}`}>
+                          <div className={` mr-3 ${props.ecommerce3 ? "ps-4" : ""}`}>
                               <>
                                   <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
@@ -849,7 +849,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ps-3">
           <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
@@ -924,7 +924,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ps-3">
              {props.showLogo && ( <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -998,7 +998,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ps-3">
              {props.showLogo && ( <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -1073,7 +1073,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ps-3">
              {props.showLogo && ( <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -1170,7 +1170,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo ps-3"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1263,7 +1263,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo ps-3"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1358,7 +1358,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo ps-3"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1450,7 +1450,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ps-3">
           <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
@@ -1539,7 +1539,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo ps-3"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1988,12 +1988,12 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </button>
 
           <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
-            <div className="d-flex">
+            <div className="d-flex ps-3">
                 <>
                  {(!props.product1  && <div>
                     {props.showLogo && (
                       <img
-                        className="cursor-pointer pe-4"
+                        className="cursor-pointer ps-3"
                         width={140}
                         src={brandLogo}
                         alt="raaghu-logo"
