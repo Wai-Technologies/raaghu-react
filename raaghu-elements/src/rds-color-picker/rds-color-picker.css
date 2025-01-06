@@ -12,3 +12,10 @@
   background-color: #dee2e6;
   color: #dee2e6;
 }
+.swatches {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+}

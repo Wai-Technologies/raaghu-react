@@ -112,13 +112,13 @@ import React, { useState, Fragment, useEffect } from "react";
 import "./rds-color-picker.css";
 
 export interface RdsColorPickerProps {
-    value: string;
+    value?: string;
     isDisabled?: boolean;
-    label: string;
+    label?: string;
 }
 
 const RdsColorPicker = (props: RdsColorPickerProps) => {
-    const Value = props.value;
+    const Value = props.value || "#e1e1e1";
 
     let [Color, setColor] = useState(Value);
 
@@ -173,28 +173,23 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                 </div> */}
 
                 {/* Color Swatcher Section */}
-                <div className="mt-2">
-                    <label className="text-center">Choose from color swatches</label>
+                <div className="mt-2 text-start ">
+                    <label>Choose from color swatches</label>
                     <div className="d-flex mt-2">
                         {colorSwatches.map((color, index) => (
-                            <div
+                            <div className="swatches"
                                 key={index}
                                 onClick={() => handleSwatchClick(color)}
                                 style={{
                                     backgroundColor: color,
-                                    width: "30px",
-                                    height: "30px",
-                                    borderRadius: "50%",
-                                    cursor: "pointer",
-                                    marginRight: "10px",
                                 }}
                             ></div>
                         ))}
                     </div>
                 </div>
 
-                <div className=" align-items-center border col-md-3 col-xl-2 col-6 d-flex mt-4 p-2" >
-                    <span className="me-3">
+                <div className="align-items-center col-md-3 col-xl-2 col-6 d-flex mt-3" >
+                    <span className="me-3 border d-flex align-items-center p-1">
                         <input
                             type="color"
                             className="form-control form-control-color colorPick"
@@ -205,8 +200,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                             title="Choose your color"
                             data-testId="colorPicker"
                         />
+                        <span className="ms-2 pe-2" >{Color}</span>
                     </span>
-                    <span>{Color}</span>
 
                 </div>
             </div>
