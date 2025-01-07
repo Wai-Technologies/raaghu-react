@@ -1879,9 +1879,9 @@ $form-switch-style-bg4: $btn-primary-solid-default;
         }
     }
 
-    .tag-#{$state} {
-        @include tag-variant($tag-background, $tag-border, $tag-color);
-    }
+    // .tag-#{$state} {
+    //     @include tag-variant($tag-background, $tag-border, $tag-color);
+    // }
 }
 // /*buttons variabes*/
 .form-control {
