@@ -7,8 +7,8 @@ export interface RdsCarouselProps {
     Indicators: boolean;
     crossFade?: boolean;
     controls?: boolean;
+    IndicatorType?: string;
     carouselItems: any[];
-    IndicatorType:string;
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
@@ -44,7 +44,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
           Role == "style2" ||
           Role == "style3" ||
           Role == "style4") && (
-          <div className="col-lg-8 col-sm-12">
+          <div className="col-sm-12">
             <div
               id="carouselExampleCaptions"
               className={
@@ -127,7 +127,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
         )}
 
         {Role == "advanced" && (
-          <div className="col-lg-8 col-sm-12">
+          <div className="col-sm-12">
             <div
               id="carouselExampleCaptions"
               className={

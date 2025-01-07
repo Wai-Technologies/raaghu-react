@@ -23,9 +23,9 @@ export const Default: Story = {
     args: {
         style: "Style 1",
         layout: "Switch + label",
-        isChecked: true,
-        isDisabled: false
+        isChecked:true,
+        isDisabled:false
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["style", "layout", "isChecked", "isDisabled"] } };
+Default.parameters = { controls: { include: [ "style", "layout", "isChecked", "isDisabled"] } };

@@ -120,7 +120,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                         ></RdsInput>
                     </div>
 
-                    <div className="col-md-2 mt-xxl-1 mt-xl-2 mt-lg-1 mt-md-1 ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3">
+                    <div className="col-md-2 mt-xxl-1 mt-xl-2 mt-lg-2 mt-md-2 ps-xxl-1 ps-xl-2 ps-lg-2 ps-md-1 pt-xxl-4 pt-xl-4 pt-lg-4 pt-md-4 mt-2">
                         <RdsButton
                             type={"button"}
                             label=""

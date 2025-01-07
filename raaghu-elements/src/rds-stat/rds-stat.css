@@ -24,3 +24,11 @@ div.grow:hover {
 .border2 {
   border-radius: 50% !important;
 }
+.h-300px {
+  height: 300px !important;
+  border-width: 30px !important;
+}
+
+.w-300px {
+  width: 300px !important;
+}

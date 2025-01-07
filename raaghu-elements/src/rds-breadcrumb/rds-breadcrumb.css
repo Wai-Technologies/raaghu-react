@@ -11,3 +11,13 @@
   align-items: center;
   margin: 0 0.55rem;
 }
+.background-filled {
+  background-color: #D4BBFF !important;
+  color: #6610f2 !important;
+}
+.theme-light .breadcrumb-item.active svg{
+  color: #7e2eef !important;
+}
+.breadcrumb-md-separator {
+    margin: 0 0.35rem;
+}

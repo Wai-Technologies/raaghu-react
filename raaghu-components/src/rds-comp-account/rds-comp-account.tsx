@@ -121,13 +121,13 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
       <form>
         <div className="custom-content-scroll">
           <div className="row pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3 pt-0 ">
-            <div className="col-xxl-3 col-xl-3 col-lg-3 col-12 d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0  pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
+            <div className="col-xxl-3 col-xl-3 col-lg-3  d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0  pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
               <RdsNavtabs
                 navtabsItems={navtabsItems}
                 layout="Vertical"
                 fill={false}
                 type="tabs"
-                style="Select Tabs"
+                style="Vertical -Pointer"
                 justified={false}
                 activeNavTabId={activeNavTabId}
                 activeNavtabOrder={(activeNavTabId) => {
@@ -250,7 +250,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             size="medium"
@@ -273,7 +273,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           ></RdsInput>
                         </div>
                       </div>
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsSelectList
                           id="dis"
                           label="Version"
@@ -284,12 +284,12 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             handlerChangeGeneral(item.value, "version");
                           }}
                           key={`version-${accountGeneralData?.version}`}
-                          dataTestId="version-list"
+                          dataTestId="version-list"                         
                         ></RdsSelectList>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             name="sitekey"
@@ -309,7 +309,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           ></RdsInput>
                         </div>
                       </div>
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
                           name="siteSecret"
                           labelPosition="top"
@@ -325,7 +325,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-3">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
                             name="score"
@@ -348,7 +348,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
             </div>
           </div>
         </div>
-        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
           <RdsButton
             label="Save"
             type="submit"

@@ -27,6 +27,7 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
             case "large":
                 return { width: "45px", height: "45px" };
             case "custom":
+                return { width: props.width, height: props.height };
             default:
                 return { width: props.width, height: props.height };
         }
@@ -50,14 +51,12 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
     };
 
     return (
-        <div className="col-2">
-            <div className={props.showLabel ? labelClass() : "d-flex align-items-center"}>
+            <div className={props.showLabel ? labelClass() : "d-flex align-items-center"} style={{width:'10rem'}}>
                 {props.showLabel && (
                     <label className="text-capitalize form-label my-2">{props.label}</label>
                 )}
                 <div className={classes} style={{ width, height }} />
             </div>
-        </div>
     );
 };
 

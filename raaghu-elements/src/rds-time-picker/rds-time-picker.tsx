@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import './time-picker.css';
+import React, { useEffect, useState } from 'react';
+import './rds-time-picker.css';
 import RdsIcon from '../rds-icon/rds-icon';
 
 export interface RdsTimePickerProps {
   style?: string;
   colorVariant?: string;
+  state?: string;
 }
 
 const RdsTimePicker = (props: RdsTimePickerProps) => {
@@ -18,6 +19,20 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
     setShowPicker(!showPicker);
   };
 
+  useEffect(() => {
+    if (props.state === 'expanded') {
+      setShowPicker(true);
+      setTime('');
+    } else if (props.state === 'selected') {
+      setShowPicker(false);
+      setTime('12:00 AM');
+    }
+    else {
+      setShowPicker(false);
+      setTime('');
+
+    }
+  }, [props.state]);
   const handleSetTime = () => {
     setTime(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`);
     setShowPicker(false);

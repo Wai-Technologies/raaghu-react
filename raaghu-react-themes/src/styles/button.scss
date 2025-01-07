@@ -2,7 +2,7 @@
 .btn {
   text-transform: capitalize;
   min-width: 4.35rem;
-  padding: $btn-padding-x $btn-padding-y;
+  align-items: center !important;
 }
 
 
@@ -45,8 +45,8 @@
 
 .btn-sm,
 .btn-group-sm>.btn {
-  height: 1.5rem;
-  line-height: 0rem;
+
+  line-height: 1.2rem;
   position: relative;
 }
 
@@ -90,8 +90,24 @@
   animation: spinner 0.8s linear infinite;
   display: inline-grid;
 }
-.btn-sm, .btn-group-sm > .btn {
-  padding-top: 0rem !important;
-  padding-bottom: 0rem !important;
-  border-radius: 3px !important;
-}
+// .btn-lg, .btn-group-lg> .btn {
+//   padding:$spacing-xs $spacing-m;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ; 
+// }
+
+// .btn-md, .btn-group-md> .btn {
+//   padding:$spacing-xs $spacing-s;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ;  
+// }
+// .btn-sm, .btn-group-sm> .btn {
+//   padding:$spacing-xxs $spacing-xs;
+//   border-radius: $border-radius-xs ;
+//   line-height: 1.5rem ;
+
+// }
+
+/* .btn-lg.rounded-pill, .btn-sm.rounded-pill, .btn-md.rounded-pill{
+  padding:unset;
+} */

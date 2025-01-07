@@ -12,6 +12,7 @@ export interface RdsProgressBarProps {
     displayLabel?: boolean;
     displayPercentage?: boolean;
     width?: string;
+    State?: string;
 }
 
 const RdsProgressBar = (props: RdsProgressBarProps) => {
@@ -57,7 +58,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     >
                         {props.progressValues && props.progressValues?.map((progressValue) => (
                             <div
-                                className={`progress-bar progress-bar-bg-${progressValue.colorVariant}` +
+                                className={`progress-bar bg-${progressValue.colorVariant}` +
                                     (progressValue.stripe ? " progress-bar progress-bar-striped" : "") +
                                     (progressValue.animation ? " progress-bar-striped progress-bar-animated" : "")}
                                 role="progressbar"
@@ -72,6 +73,32 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                     </div>
                 </>
             )}
+
+            {props.role === "Circular" && (
+                <>
+                    <div
+                        className="progress-circle-container"
+                        style={{
+                            width: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
+                            height: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
+                            "--progress-value": props.progressWidth
+                        } as React.CSSProperties}
+                    >
+                        <div className={`progress-circle circular-progress-${props.State}`} data-color={props.State}>
+                            <div className="progress-circle-inner">
+                                {props.displayPercentage && (
+                                    <span className="progress-percentage">
+                                        {props.progressWidth}%
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+
+
+            
         </>
     );
 };

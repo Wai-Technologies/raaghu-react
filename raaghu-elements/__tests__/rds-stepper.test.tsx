@@ -10,7 +10,8 @@ jest.mock('react-lottie-player', () => ({
 
 describe("RdsStepper", () => {
     const defaultProps: RdsStepperProps = {
-        stepperType: "simple"
+        stepperType: "simple",
+        detail: 'Step 1'
     };
 
     it("renders the component with default props", () => {

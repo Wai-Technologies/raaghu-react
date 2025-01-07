@@ -66,7 +66,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                     <p className="card-text fs-5">{item.duration}</p>
                                     <div className="d-flex justify-content-center">
                                         <div className="mt-4 mb-4 text-start">
-                                            {item.features.map((feature: any, index: number) => {
+                                            {item.features?.map((feature: any, index: number) => {
                                                 return (
                                                     <div key={index} className="d-flex" >
                                                         <div className="me-2">

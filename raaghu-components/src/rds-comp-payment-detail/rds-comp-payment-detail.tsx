@@ -159,7 +159,7 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           </div>
         </div>
         </div>
-        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
           <RdsButton
             label="Cancel"
             colorVariant="primary"

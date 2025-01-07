@@ -1,3 +1,8 @@
+.nav-tabs.nav-icon-only{
+  .nav-link {
+    min-width: 50px;
+  }
+}
 // /*tabs custom properties*/
 .rds-tab-2.nav-tabs {
   .nav-link.active {
@@ -21,13 +26,6 @@
     border: 2px solid #f2f2f2;
     border-top: 1px solid;
   }
-}
-
-.nav-pills {
-    border-radius: 20px !important;
-    background-color: #9747FF !important;
-    color: #fff !important;
-    
 }
 
 .nav-tabs .nav-link i {
@@ -58,86 +56,6 @@
 .nav-tabs .nav-item {
   outline: none;
 }
-.bottom-select {
-  border-bottom: 3px solid $primary !important;
-}
-.bottom-select-alt {
-  border-bottom: 3px solid $primary !important;
-  background-color: #D4BBFF !important;
-  border-top-left-radius: 6px !important;
-  border-top-right-radius: 6px !important;
-}
-.top-select {
-  border-top: 3px solid $primary !important;
-}
-.top-select-alt{
-  border-top: 3px solid $primary !important;
-  background-color: #D4BBFF !important;
-  border-bottom-left-radius: 6px !important;
-  border-bottom-right-radius: 6px !important;
-}
-.background-filled{
-background-color: #D4BBFF !important;
-color: #fff !important;
-}
-.select-tabs {
-  background-color: #9747FF !important;
-  color: #fff !important;
-    border-radius: 6px !important;
-}
-
-.vertical-alt-left-line{
-  border-left: 2px solid $primary;
-}
-.vertical-alt-right-line{
-  border-right: 2px solid $primary;
-}
-.vertical-left-line{
-  border-left: 1px solid $neutral;
-}
-.vertical-right-line{
-  border-right: 1px solid $neutral;
-}
-.vertical-left-filled{
-  border-left: 1px solid $primary;
-  background-color: #D4BBFF;
-}
-.vertical-pointer {
-  display: inline-block;
-  background-color: #8b4bd7 !important; /* Purple color */
-  color: white !important;
-  padding: 10px 20px;
-  border-radius: 10px 0 0 10px; /* Rounded left corners only */
-  position: relative; /* Needed for the triangle positioning */
-  font-family: Arial, sans-serif; /* Adjust the font as necessary */
-  font-size: 16px; /* Adjust for readability */
-}
-
-.vertical-pointer::before {
-  content: "";
-  position: absolute;
-  left: -10px; /* Position the pointer to the left of the tab */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 40px;
-  background-color: #8b4bd7; /* Same color as the tab */
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.vertical-pointer::after {
-  content: "";
-  position: absolute;
-  right: -20px; /* Position triangle to the right */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 20px solid #8b4bd7; /* Create the triangle */
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-}
 
 .vertical-pointer .close-icon {
   position: absolute;
@@ -152,35 +70,7 @@ color: #fff !important;
   margin-right: 50px; /* Create space for the close icon */
 }
 
-.vertical-flap {
-  display: inline-block;
-  background-color: #8b4bd7 !important; /* Purple color */
-  color: white !important;
-  padding: 10px 20px;
-  border-radius: 0 0px 0px 0 !important; /* Rounded only on the right corners */
-  position: relative; /* Needed for the triangle positioning */
-  font-family: Arial, sans-serif; /* Adjust the font as necessary */
-  font-size: 16px; /* Adjust for readability */
-  height: 40px; /* Fixed height to match the image */
-}
 
-.vertical-flap::after {
-  content: "";
-  position: absolute;
-  right: -20px; /* Position triangle to the right */
-  top: 0;
-  width: 0;
-  height: 0;
-  border-left: 20px solid #8b4bd7; /* Creates the right triangle */
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-}
-
-.vertical-flap .tab-text {
-  display: inline-block;
-  margin-right: 30px; /* Space for the close icon */
-  line-height: 40px; /* Vertically center the text */
-}
 
 .vertical-flap .close-icon {
   position: absolute;

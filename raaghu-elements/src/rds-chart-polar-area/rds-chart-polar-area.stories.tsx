@@ -3,7 +3,7 @@ import "./rds-chart-polar-area.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Polar Area Chart',
+    title: 'Elements/Charts/Polar Area Chart',
     component: RdsPolarAreaChart,
     parameters: {
         layout: 'padded',
@@ -19,8 +19,7 @@ type Story = StoryObj<typeof RdsPolarAreaChart>;
 export const PolarAreaChart: Story = {
     args: {
         id: "Polar Area chart",
-        width: 300,
-        height: 300,
+        radius: 300,
         dataSets: [
             {
                 label: "Dataset 1",

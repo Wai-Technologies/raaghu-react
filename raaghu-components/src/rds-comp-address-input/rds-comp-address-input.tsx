@@ -92,7 +92,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="country" className="form-label">
+                        <label htmlFor="country">
                             Country
                         </label>
                         <div className="form-group">
@@ -113,7 +113,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="state" className="form-label">
+                        <label htmlFor="state">
                             State
                         </label>
                         <div className="form-group">
@@ -133,7 +133,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                         </div>
                     </div>
                     <div className="col-md-6 ">
-                        <label htmlFor="state" className="form-label">
+                        <label htmlFor="state">
                             City
                         </label>
                         <div className="form-group">
@@ -161,6 +161,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             inputType="text"
                             onChange={e => handlerInputChange(e.target.value, "zip")}
                             value={AddressData?.zip}
+                            id="address-input"
                         ></RdsInput>
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>

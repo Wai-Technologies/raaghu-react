@@ -123,3 +123,9 @@
     margin-bottom: 10px;
   }
 }
+#scrollspy .nav-pills{
+  background-color: unset !important;
+}
+#scrollspy p{
+ color: black !important;
+}

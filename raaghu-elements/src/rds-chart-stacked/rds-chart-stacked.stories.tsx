@@ -3,7 +3,7 @@ import RdsStackedChart from "./rds-chart-stacked";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Stacked Chart',
+    title: 'Elements/Charts/Stacked Chart',
     component: RdsStackedChart,
     parameters: {
         layout: 'padded',
@@ -20,8 +20,6 @@ type Story = StoryObj<typeof RdsStackedChart>;
 export const StackedChart: Story = {
     args: {
         id: "Stacked Chart",
-        width: 300,
-        height: 300,
         labels: [
             "Jan",
             "Feb",

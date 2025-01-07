@@ -68,7 +68,7 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
   return (
     <form data-testid="password-form">
       <div className="custom-content-scroll">
-        <div className="row mt-4">
+        <div className="row">
           <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
             <RdsInput
               size="medium"
@@ -135,7 +135,7 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
           </div>
         </div>
       </div>
-      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
         <RdsButton
           class="me-2"
           tooltipTitle={""}

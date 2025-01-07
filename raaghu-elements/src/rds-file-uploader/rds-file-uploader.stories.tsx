@@ -48,6 +48,8 @@ export const Default: Story = {
         showTitle: true,
         showHint: true,
         hintText: "File size should be less than given file size limit",
+        preview: true, 
+        
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
@@ -86,10 +88,12 @@ export const Drop_Area_Side_Icon
         isRequired: true,
         showTitle: true,
         showHint: true,
+        preview: true, 
         hintText: "File size should be less than given file size limit",
+        hintPosition: "left"
     }
 } satisfies Story;
-Drop_Area_Side_Icon.parameters = { controls: { include: ['multiple','showThumbnail', 'extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+Drop_Area_Side_Icon.parameters = { controls: { include: ['multiple','showThumbnail', 'extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText','hintPosition'] } };
 
 export const Drop_Area_With_Upload_Button
 : Story = {
@@ -109,3 +113,20 @@ export const Drop_Area_With_Upload_Button
     }
 } satisfies Story;
 Drop_Area_With_Upload_Button.parameters = { controls: { include: ['extensions', 'fileSizeLimitInMb', 'title', 'isRequired', 'showTitle', 'showHint', 'hintText'] } };
+
+
+export const Drop_Area_With_Icon
+: Story = {
+    args: {
+        Drop_Area_With_Icon: true,
+        extensions: "jpg, png, gif",
+        fileSizeLimitInMb: 5,
+        validation: [
+            { isError: false, hint: "File size exceeds the limit" }
+        ],
+        iconName:"edit",
+        profilePic:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
+} satisfies Story;
+Drop_Area_With_Icon.parameters = { controls: { include: ['profilePic', 'iconName', 'extensions', 'fileSizeLimitInMb'] } };

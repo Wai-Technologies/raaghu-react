@@ -3,7 +3,7 @@ import RdsBarChart from "./rds-chart-bar";
 import "./rds-chart-bar.css";
 
 const meta: Meta = {
-    title: 'Charts/Bar Chart',
+    title: 'Elements/Charts/Bar Chart',
     component: RdsBarChart,
     parameters: {
         layout: 'padded',
@@ -21,8 +21,6 @@ type Story = StoryObj<typeof RdsBarChart>;
 export const HorizontalBarChart: Story = {
     args: {
         id: 1,
-        height: 300,
-        width: 300,
         dataSets: [
             {
                 label: "Dataset 1",
@@ -87,8 +85,6 @@ export const HorizontalBarChart: Story = {
 export const VerticalBarChart: Story = {
     args: {
         id: 1,
-        height: 300,
-        width: 300,
         dataSets: [
             {
                 label: "Dataset 1",
@@ -128,8 +124,6 @@ export const VerticalBarChart: Story = {
 export const StackedBarChart: Story = {
     args: {
         id: 1,
-        height: 300,
-        width: 300,
         dataSets: [
             {
                 label: "Dataset 1",
@@ -175,8 +169,6 @@ export const StackedBarChart: Story = {
 export const PerformanceStackedBarChart: Story = {
     args: {
         id: 1,
-        height: 300,
-        width: 300,
         dataSets: [
             {
                 label: "Productive",
@@ -238,8 +230,6 @@ export const PerformanceStackedBarChart: Story = {
 export const BarChartWithBorderRadius: Story = {
     args: {
         id: 1,
-        height: 300,
-        width: 300,
         dataSets: [
             {
                 label: "Fully Radius",

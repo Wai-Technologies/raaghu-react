@@ -33,7 +33,7 @@ const RdsScrollspy = (props: RdsScrollspyProps) => {
       <div>
         {props.data.map((item) => (
           <div id={`scrollspyHeading${item.id}`} className="scrossSpyItem" key={item.id}>
-            <div>
+            <div id="scrollspy">
               <h4 className="contentHeader">{item.header}</h4>
               <p className="contentParagraph">{item.content}</p>
             </div>

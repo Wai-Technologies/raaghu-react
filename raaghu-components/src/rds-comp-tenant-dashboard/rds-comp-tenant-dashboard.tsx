@@ -12,8 +12,8 @@ const RdsCompTenantDashboard = () => {
 
     return (
         <div className="dark dashboard bg-grey p-4">
-        <div className="row">
-            <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
+            <div className="row">
+                <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
                     <RdsWidget
                         headerTitle={"Monthly Summary"}
                         isRefreshRequired={true}
@@ -22,8 +22,6 @@ const RdsCompTenantDashboard = () => {
                     >
                         <RdsLineChart
                             id="linechart"
-                            height={250}
-                            width={458}
                             labels={[
                                 "Jan",
                                 "Feb",
@@ -215,13 +213,11 @@ const RdsCompTenantDashboard = () => {
                     </RdsWidget>
                 </div>
                 <div className="col-xl-3 col-lg-6 col-md-12">
-                <RdsWidget
+                    <RdsWidget
                         headerTitle="License">
                         <RdsBigNumber bigNumber="10"></RdsBigNumber>
                         <RdsRadarChart
                             id="newRadar"
-                            height={250}
-                            width={270}
                             labels={["Jan", "Feb", "Mar", "Apr", "May", "June", "July"]}
                             options={{
                                 animation : false,
@@ -358,7 +354,7 @@ const RdsCompTenantDashboard = () => {
                     </RdsWidget>
                 </div>
                 <div className="col-xl-3 col-lg-6 col-md-12">
-                <RdsWidget
+                    <RdsWidget
                         headerTitle="Profit Share"
                         isRefreshRequired={true}
                         iconName="refresh"
@@ -371,8 +367,6 @@ const RdsCompTenantDashboard = () => {
                                 <RdsDoughnutChart
                                     id="doughnutchart"
 
-                                    height={200}
-                                    width={120}
                                     labels={['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%']}
 
 
@@ -482,7 +476,7 @@ const RdsCompTenantDashboard = () => {
                     <div className="row">
                         <div className="col-md-6">
                             <div>
-                            <RdsWidget
+                                <RdsWidget
                                     headerTitle="Call Overview"
                                     isRefreshRequired={false}
 
@@ -494,8 +488,7 @@ const RdsCompTenantDashboard = () => {
                                                 <RdsBooleanChart
                                                     centerIconName="headset"
                                                     id="Boolean1"
-                                                    height={100}
-                                                    width={100}
+                                                    
                                                     labels={[
                                                         "Total Calls Connected",
                                                         "Total Clients Called",
@@ -574,8 +567,6 @@ const RdsCompTenantDashboard = () => {
                                                 <RdsBooleanChart
                                                     centerIconName="users"
                                                     id="Boolean2"
-                                                    height={100}
-                                                    width={100}
                                                     labels={[
                                                         "Total Client calls connected",
                                                         "Total Client calls disconnected",
@@ -653,7 +644,7 @@ const RdsCompTenantDashboard = () => {
                                 </RdsWidget>
                             </div>
                             <div>
-                            <RdsWidget
+                                <RdsWidget
                                     headerTitle="Maximum Profit"
                                     isRefreshRequired={false}
 
@@ -664,10 +655,6 @@ const RdsCompTenantDashboard = () => {
                                     <RdsLineChart
 
                                         id="linechart1"
-
-                                        height={50}
-
-                                        width={250}
 
                                         labels={["12am", "4am", "8am", "12pm", "4pm", "8pm"]}
 
@@ -1032,8 +1019,6 @@ const RdsCompTenantDashboard = () => {
                                 <div>
                                     <RdsBarChart
                                         id="barchart"
-                                        height={400}
-                                        width={300}
                                         labels={[
                                             "10k",
                                             "20k",

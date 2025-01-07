@@ -14,9 +14,10 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/preset-scss",
-    "@chromatic-com/storybook",
-    //"@storybook/addon-toolbars"
-    "storybook-addon-themes",  
+   // "@storybook/addon-toolbars",
+    // "@storybook/addon-themes",
+    "@storybook/addon-mdx-gfm",
+    "@chromatic-com/storybook",   
   ],
   core: {
     builder: '@storybook/builder-vite', // 👈 The builder enabled here.

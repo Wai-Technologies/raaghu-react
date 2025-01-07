@@ -105,7 +105,7 @@ const isFormValid2 = isDisplayNameValid(formData?.defaultFromDisplayName) && isF
 const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& isTargetEmailValid(sendTestEmailData?.targetEmailAddress) && isSubjectValid(sendTestEmailData?.subject) ;
     const condition = !formData?.smtpUseDefaultCredentials ? <>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <div className="form-group">
                     <RdsInput
                         fontWeight={"normal"}
@@ -122,7 +122,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
             </div>
         </div>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <RdsInput
                     fontWeight={"normal"}
                     value={formData?.smtpUserName}
@@ -135,7 +135,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     dataTestId="user-name"
                 ></RdsInput>
             </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 pb-3">
                 <RdsInput
                     fontWeight={"normal"}
                     value={formData?.smtpPassword}
@@ -199,7 +199,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     </div>
 
                     <div className="row px-2">
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
@@ -214,7 +214,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <RdsInput
                                 fontWeight={"normal"}
                                 value={formData?.smtpPort}
@@ -247,7 +247,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     {condition}
                 </form>
             </div>
-            <div className="d-flex flex-column-reverse ps-4 ms-2 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 ms-2 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <div>
                     <RdsButton
                         label="Save"

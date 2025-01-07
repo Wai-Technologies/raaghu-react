@@ -144,3 +144,12 @@
 .fileFormat{
   font-size: 12px !important;
 }
+.custom-file-button-rounded{
+  border-radius: 50%;
+}
+.hint-left{
+    justify-content:left;
+}
+.hint-right {
+    justify-content: right;
+}

@@ -52,8 +52,14 @@
     }
     tr{
         &:hover{
-            z-index: 0;
+            z-index: 10;
             position: relative;
         }
     }
 }
+/* Default styles for action buttons */
+#action_column .btn {
+    padding: 0.3rem !important;
+  }
+  
+  

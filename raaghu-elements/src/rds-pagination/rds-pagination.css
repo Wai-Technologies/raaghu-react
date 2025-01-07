@@ -45,7 +45,7 @@
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
     color: #343a40;
-   /* // border-color: #007bff; */
+    font-weight:700;
   }
   
   .page-item.disabled a {
@@ -54,10 +54,27 @@
   }
   
   .page-item a:hover {
-    background-color: #e9ecef; /* Customize as needed */
+    background-color: #ced4da; /* Customize as needed */
   }
   
   .page-item.roundeds a {
     border-radius: 50%;
   }
-  
+  .pagination-sm a{
+    font-size: 12px !important;
+  }
+  .pagination-md a{
+    font-size: 14px !important;
+  }
+  .pagination-lg a{
+    font-size: 16px !important;
+  }
+  .pagination-sm span{
+    font-size: 12px !important;
+  }
+  .pagination-md span{
+    font-size: 14px !important;
+  }
+  .pagination-lg span{
+    font-size: 16px !important;
+  }

@@ -50,12 +50,11 @@ const isFormValid = isFullnameValid(formData?.fullname) && isEmailValid(formData
 const emailhandleChange = (value: any, key: string) => {
     setFormData({ ...formData, [key]: value });
     if (value.trim() === "") {
-        setErrorForEmail("");
-    }
-    else if (!isEmailValid(value)) {
-        setErrorForEmail("Email ID is invalid");
+        setErrorForEmail("Email ID is required"); 
+    } else if (!isEmailValid(value)) {
+        setErrorForEmail("Email ID is invalid"); 
     } else {
-        setErrorForEmail("");
+        setErrorForEmail(""); 
     }
     
 }
@@ -94,7 +93,7 @@ function emitSaveData(event: any) {
 }
     return (
         <>
-            <div >
+            <div className="button-card-container" >
 
                 <form >
                     <div className="mt-1 mb-3">
@@ -129,16 +128,17 @@ function emitSaveData(event: any) {
                     <div className=" mb-4">
                         <RdsTextArea
                             label='Message'
+                            reset={inputReset}
                             placeholder='Message'
                             isRequired={true}
                             onChange= {(e) =>{messagehandleChange(e.target.value , "message");}}
-
                             rows={3}
                             value={formData?.message}
                             dataTestId="message"
                         />
                     </div>
 
+                    <div className="button-footer p-3">
                     <RdsButton
                         label="Send Message"
                         colorVariant='primary'
@@ -148,6 +148,7 @@ function emitSaveData(event: any) {
                         onClick={(e: any) => emitSaveData(e)}
                         type="submit"
                     />
+                    </div>
                 </form>
             </div>
         </>

@@ -1,0 +1,351 @@
+/* Prefilled prompts row styling */
+.prefilled-prompts {
+  font-size: 13px !important;
+
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.prompt-button {
+  flex: 1 1 auto;
+  margin: 4px; /* Adjust this value as needed */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+/* Main content area */
+.main-content {
+  width: 100%;
+}
+
+/* Sidebar styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-button {
+  width: 43px;
+  height: 44px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+/* Input box styling */
+.input-box {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #333333;
+  height: 97px;
+  width: inherit;
+  padding-right: 40px; /* Adjust padding to make space for the icon */
+  box-sizing: border-box; /* Ensure padding is included in the height */
+  display: flex;
+  align-items: flex-start; /* Align text to the top */
+  justify-content: flex-start; /* Align text to the top */
+  line-height: 1.5; /* Adjust line height as needed */
+  resize: none; 
+}
+
+
+
+/* Generate button styling */
+.generate-button {
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 10rem;
+  font-size: 12px !important;
+  height: 45px;
+}
+
+/* Dropdown styling */
+.input-column {
+  margin-left: 0px;
+  padding: 0px;
+  margin-top:4px;
+}
+
+.file-upload-label {
+  position: absolute;
+  top: 25%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:inherit;
+  margin-right:8px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-image {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px; /* Add gap between images */
+    justify-content: flex-end; /* Align images to the right */
+    border: 1px solid #000;
+    border-radius: var(--bs-border-radius);
+}
+    .input-with-image .form-controls {
+        border: none;
+        width: calc(100% - 2rem);
+        padding-right:2rem;
+    }
+
+.selected-image {
+    max-width: 50px;
+    max-height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.remove-image-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px 5px;
+  font-size: 12px;
+}
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  margin:4px;
+  margin-right:0px;
+  /* width: 100%; */
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form-controls {
+  display: block !important;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid;
+  border-radius: var(--bs-border-radius);
+}
+
+/* Chat history styling */
+.chat-history {
+  width: 100%;
+  padding: 20px;
+  background-color: transparent;
+  border:1px solid #8000ff;;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  height: 450px;
+  overflow-y: auto;
+}
+
+.chat-entry {
+  margin-bottom: 10px;
+}
+
+.chat-entry #custominputoutput {
+  color: #333333 !important;
+  max-width:80%;
+  display: inline-block;
+  word-wrap: break-word; /* Allows long words to be broken and wrap to the next line */
+  word-break: break-word; /* Ensures that the text breaks within words if necessary */
+  white-space: normal; /* Allows text to wrap to the next line */
+}
+.chat-entry.input {
+  text-align: right;
+}
+.custombg{
+  background-color: #D4BBFF !important;
+}
+.chat-entry.output {
+  text-align: left;
+}
+
+.chat-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chat-image {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 4px;
+}
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.align-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chat-image {
+  margin: 0 5px; /* Optional: Add some spacing between images */
+}
+.output-container {
+  position: relative;
+}
+
+.pundit-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.output-content {
+  margin-left: 4rem; /* Adjust this value based on the width of the image */
+  padding-top: 1rem; /* Adjust this value based on the height of the image */
+}
+.toggle-container {
+  display: flex;
+  border: 2px solid #8000ff;
+  border-radius: 7px;
+  overflow: hidden;
+  width: 200px;
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 7px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.selected {
+  background-color: #8000ff;
+  color: white;
+}
+
+.unselected {
+  background-color: white;
+  color: #8000ff;
+}
+.code-block {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap; /* Ensure the code wraps within the container */
+  font-family: monospace;
+}
+.output-content {
+  position: relative;
+}
+
+.hover-buttons {
+  position: absolute;
+  top: 0rem;
+  right: -3rem;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.output-content:hover .hover-buttons {
+  display: flex;
+}
+
+.hover-button {
+  /* background-color: #007bff; */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.customcheckbox{
+  width: 26px !important;
+  height: 29px;
+}
+.layout-1 {
+  display: block;
+}
+
+.layout-2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.layout-2 .chat-image,
+.layout-2 .code-block {
+  flex: 1 1 50%;
+}
+
+.layout-4 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.layout-4 .chat-image,
+.layout-4 .code-block {
+  flex: 1 1 25%;
+}
+.image-preview {
+    position: relative;
+    align-items: center;   
+}
+
+.image-preview-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    right:40px; 
+    margin-top:1rem;
+}
+@media (max-width: 480px) {
+    .image-preview-group {
+        width:100%;
+        right:0px;
+    }
+}
+
+.generate-button{
+  border:0px;
+}
+.generate-button:focus{
+  outline: none;
+  border:0px;
+}
+.generate-button:active{
+  outline: none;
+  border:0px;
+}

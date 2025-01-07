@@ -16,6 +16,7 @@ import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
 export interface RdsCompDatatableProps {
   fontWeight?: string;
   enablecheckboxselection?: boolean;
+  enableRadioButtonselection?: boolean;
   illustration?: boolean;
   noDataTitle?: string;
   noDataheaderTitle?: string;
@@ -255,6 +256,14 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       props.onRowSelect !== undefined && props.onRowSelect(tempUser);
     }
   };
+  const handleRadioButtonChange = (e: any) => {
+    const { name, checked } = e.target;
+    const tempUser = data?.map((user) =>
+      user.id == name ? { ...user, selected: checked } : { ...user, selected: false }
+    );
+    setData(tempUser);
+    props.onRowSelect !== undefined && props.onRowSelect(tempUser);
+  }
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Simulate data loading for 2 seconds, replace this with your actual data loading logic
@@ -371,6 +380,11 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                           }
                           onChange={handleChange}
                         />
+                      </th>
+                    )}
+                      {props.enableRadioButtonselection && (
+                      <th scope="col">
+                       
                       </th>
                     )}
                     {props?.tableHeaders?.map((tableHeader, index) => (
@@ -522,10 +536,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         </ul>
                                       </div>
                                       )}
-                                      {( actionColumnStyle==="show buttons directly"  && <div className="mx-1">
-                                      
+                                         {actionColumnStyle === "show buttons directly" && (
+                                        <div className="d-flex flex-wrap align-items-center justify-content-center mx-1" id="action_column">
                                           {totalActions?.map((action, actionIndex) => (
-                                            <button key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id} className="btn text-primary border-primary mx-2">
+                                            <button
+                                              key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}
+                                              className="btn btn-outline-primary mx-2 my-1"
+                                            >
                                               {action.modalId && (
                                                 <a
                                                   data-bs-toggle="modal"
@@ -558,7 +575,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               )}
                                             </button>
                                           ))}
-                                      </div>
+                                        </div>
                                       )}
                                     </>
                                   ) : (
@@ -691,6 +708,18 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 />
                               </th>
                             )}
+                            {props.enableRadioButtonselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="radio"
+                                  name={tableDataRow?.id}
+                                  onChange={handleRadioButtonChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
+                            )}
                             {props.tableHeaders?.map(
                               (tableHeader, tableHeaderIndex) => (
                                 <td
@@ -772,13 +801,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         <RdsBadge
                                           colorVariant={
                                             tableDataRow[tableHeader.key]
-                                              .badgeColorVariant
+                                              ?.badgeColorVariant
                                               ? tableDataRow[tableHeader.key]
                                                 .badgeColorVariant
                                               : "success"
                                           }
                                           label={
-                                            tableDataRow[tableHeader.key].content
+                                            tableDataRow[tableHeader.key]?.content
                                               ? tableDataRow[tableHeader.key]
                                                 .content
                                               : tableDataRow[tableHeader.key]
@@ -802,6 +831,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               role={
                                                 tableDataRow[tableHeader.key].info
                                               }
+                                              size="small"
                                             />
                                           </div>
                                         )}
@@ -974,44 +1004,49 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           ))}
                                         </ul>
                                       </div>)}
-                                      {( actionColumnStyle==="show buttons directly"  && <div className="mx-1">
-                                      
-                                      {totalActions?.map((action, actionIndex) => (
-                                        <button key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id} className="btn text-primary border-primary mx-2">
-                                          {action.modalId && (
-                                            <a
-                                              data-bs-toggle="modal"
-                                              data-bs-target={`#${action?.modalId}`}
-                                              aria-controls={action?.modalId}
-                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                              className="dropdown-item"
+                                      <div>
+                                      {actionColumnStyle === "show buttons directly" && (
+                                        <div className="d-flex align-items-center justify-content-center mx-1"  id="action_column">
+                                          {totalActions?.map((action, actionIndex) => (
+                                            <button
+                                              key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}
+                                              className="btn btn-outline-primary mx-1 my-1"
                                             >
-                                              {action.displayName}
-                                            </a>
-                                          )}
-                                          {action.offId && (
-                                            <a
-                                              data-bs-toggle="offcanvas"
-                                              data-bs-target={`#${action?.offId}`}
-                                              aria-controls={action?.offId}
-                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                              className="dropdown-item"
-                                            >
-                                              {action.displayName}
-                                            </a>
-                                          )}
-                                          {action.offId == undefined && action.modalId == undefined && (
-                                            <a
-                                              onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                              className="dropdown-item"
-                                            >
-                                              {action.displayName}
-                                            </a>
-                                          )}
-                                        </button>
-                                      ))}
-                                  </div>
-                                  )}
+                                              {action.modalId && (
+                                                <a
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target={`#${action?.modalId}`}
+                                                  aria-controls={action?.modalId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId && (
+                                                <a
+                                                  data-bs-toggle="offcanvas"
+                                                  data-bs-target={`#${action?.offId}`}
+                                                  aria-controls={action?.offId}
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                              {action.offId == undefined && action.modalId == undefined && (
+                                                <a
+                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
+                                                  className="dropdown-item"
+                                                >
+                                                  {action.displayName}
+                                                </a>
+                                              )}
+                                            </button>
+                                          ))}
+                                        </div>
+                                      )}
+                                    </div>
                                     </>
                                   ) : (
                                     <div className="d-flex justify-content-center align-items-center w-60px">

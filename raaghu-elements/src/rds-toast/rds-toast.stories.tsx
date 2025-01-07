@@ -11,7 +11,21 @@ const meta: Meta = {
     tags: ["autodocs"],
     argTypes: {
         state: {
-            options: ["basic", "info", "success", "error"], control: {type: "select"},}
+            options: ["basic", "info", "success", "error"], control: {type: "select"},},
+        position: {
+            options: [
+              "top left", 
+              "top center", 
+              "top right", 
+              "middle left", 
+              "middle center", 
+              "middle right", 
+              "bottom left",
+              "bottom center",
+              "bottom right",
+            ],
+            control: { type: "select" },
+        }
     },
 } satisfies Meta<typeof RdsToast>;
 
@@ -31,11 +45,11 @@ export const Default: Story = {
         withIcon: true,
         iconName: "circle",
         borderColor: "primary",
-        layout : "text"
-
+        layout : "text",
+        position:"top left"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName"] } };
+Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName","position"] } };
 
 export const toastWithDownload: Story = {
     args: {

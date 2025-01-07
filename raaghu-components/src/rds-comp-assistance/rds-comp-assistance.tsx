@@ -75,7 +75,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
       <form>
         <div className="custom-content-scroll">
         <div className="row">
-          <div className="col-md-6 form-group mb-2">
+          <div className="col-md-6 form-group">
             <RdsInput
               inputType="text"
               required={true}
@@ -89,7 +89,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             ></RdsInput>  
             
           </div>
-          <div className="col-md-6  mb-2">
+          <div className="col-md-6">
              <RdsInput
               label="Email"
               reset={inputReset}
@@ -104,7 +104,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
               validationMsg="Please enter a valid email address"
             ></RdsInput>
           </div>
-            <div className="col-md-6 form-group mb-2">
+            <div className="col-md-6 form-group">
               <RdsInput
                 inputType="text"
                 value={assistance.contactNumber}
@@ -135,7 +135,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
               />
 
             </div>
-          <div className="form-group mb-2">
+          <div className="form-group">
             <RdsTextArea
               rows={5}
               label={"Message"}
@@ -149,7 +149,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             ></RdsTextArea>
           </div>
           </div>
-          <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+          <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
             <RdsButton
               class="me-2"
               tooltipTitle={""}

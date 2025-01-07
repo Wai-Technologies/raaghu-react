@@ -98,8 +98,9 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"curPass"}
 			                dataTestId="current-password"
                             showIcon= {true}
-                        ></RdsInput>
-                        {error1 && <span className="text-danger">{error1}</span>}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validationMsg="Password must be alphanumeric and at least 8 characters long"
+                        ></RdsInput>                       
                     </div>
                     <div className=" fw-normal mb-3">
                         <RdsInput
@@ -115,8 +116,9 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"newPass"}
                             showIcon= {true}
 			                dataTestId="new-password"
-                        ></RdsInput>
-                        {error2 && <span className="text-danger">{error2}</span>}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validationMsg="Password must be alphanumeric and at least 8 characters long"
+                        ></RdsInput>                       
                     </div>
                     <div className=" fw-normal mb-3">
                         <RdsInput
@@ -132,8 +134,9 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             name={"curNewPass"}
                             showIcon= {true}
 			                dataTestId="confirm-password"
-                        ></RdsInput>
-                        {error3 && <span className="text-danger">{error3}</span>}
+                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            validationMsg={error3}
+                        ></RdsInput>                     
                     </div>
                     <div>
                         <h5 className="fw-bolder">Where you are logged in,</h5>
@@ -142,7 +145,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                         </p>
                     </div>
                     </div>
-                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
                            <RdsButton
                                 label="Cancel"
                                 colorVariant="primary"

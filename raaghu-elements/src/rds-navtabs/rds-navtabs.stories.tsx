@@ -37,6 +37,7 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
+
     },
 } satisfies Meta<typeof RdsNavtabs>;
 
@@ -52,93 +53,86 @@ export const Default: Story = {
             { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
-        ]
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems'] } };
-
-
-export const Pills: Story = {
-    args: {
-        navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        style: "Pill",
-       
-        fill: false,
+        style: "BottomSelect",
         justified: false,
-        layout:"Horizontal"
+        layout: "Horizontal"
     }
 } satisfies Story;
-Pills.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
 
-export const Tabs: Story = {
-    args: {
-        navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
-        ],
-        type: "tabs",
-        fill: false,
-        justified: false,
-        layout:"Horizontal"
 
-    }
-} satisfies Story;
-Tabs.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+//export const Pills: Story = {
+//    args: {
+//        navtabsItems: [
+//            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
+//            { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
+//            { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
+//            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+//        ],
+//        style: "Pill",  
+//        justified: false,
+//        layout:"Horizontal"
+//    }
+//} satisfies Story;
+//Pills.parameters = { controls: { include: ['navtabsItems', 'justified','layout','style'] } };
 
-export const Vertical: Story = {
-    args: {
-        navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
-        ],
-        type: "default",
-        fill: false,
-        justified: false,
-        layout:"Vertical"
-    }
-} satisfies Story;
-Vertical.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+//export const Tabs: Story = {
+//    args: {
+//        navtabsItems: [
+//            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
+//            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
+//            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
+//            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+//        ],
+//        justified: false,
+//        layout:"Horizontal"
 
-export const Fill: Story = {
-    args: {
-        navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
-        ],
-        type: "default",
-        fill: true,
-        justified: false,
-        layout:"Horizontal"
-    }
-} satisfies Story;
-Fill.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+//    }
+//} satisfies Story;
+//Tabs.parameters = { controls: { include: ['navtabsItems', 'justified','layout','style'] } };
 
-export const Justified: Story = {
-    args: {
-        navtabsItems: [
-            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
-            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
-            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
-            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
-        ],
-        type: "default",
-        fill: false,
-        justified: true,
-        layout:"Horizontal"
-    }
-} satisfies Story;
-Justified.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+//export const Vertical: Story = {
+//    args: {
+//        navtabsItems: [
+//            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
+//            { label: "Link", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
+//            { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
+//            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+//        ],
+//        justified: false,
+//        layout:"Vertical"
+//    }
+//} satisfies Story;
+//Vertical.parameters = { controls: { include: ['navtabsItems', 'justified','layout','style'] } };
+
+//export const Fill: Story = {
+//    args: {
+//        navtabsItems: [
+//            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
+//            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
+//            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
+//            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+//        ],
+//        justified: false,
+//        layout:"Horizontal"
+//    }
+//} satisfies Story;
+//Fill.parameters = { controls: { include: ['navtabsItems', 'justified','layout','style'] } };
+
+//export const Justified: Story = {
+//    args: {
+//        navtabsItems: [
+//            { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
+//            { label: "Home", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home" },
+//            { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
+//            { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
+//        ],
+//        justified: true,
+//        layout:"Horizontal"
+//    }
+//} satisfies Story;
+//Justified.parameters = { controls: { include: ['navtabsItems', 'justified','layout','style'] } };
 
 export const WithIcon: Story = {
     args: {
@@ -148,13 +142,27 @@ export const WithIcon: Story = {
             { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about", icon: "profile_picture" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled", icon: "eye_slash" },
         ],
-        type: "default",
-        fill: false,
+       
         justified: false,
         layout:"Horizontal"
     }
 } satisfies Story;
-WithIcon.parameters = { controls: { include: ['navtabsItems', 'type', 'fill', 'justified','layout','style'] } };
+WithIcon.parameters = { controls: { include: ['navtabsItems', 'justified','style'] } };
+
+export const IconOnly: Story = {
+    args: {
+        navtabsItems: [
+            { label: "", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active", icon: "administration" },
+            { label: "", tablink: "#nav-profile", ariacontrols: "nav-profile", id: "home", icon: "home" },
+            { label: "", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about", icon: "profile_picture" },
+            { label: "", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled", icon: "eye_slash" },
+        ],       
+        justified: false,
+        layout:"Horizontal",
+        iconOnly: true
+    }
+} satisfies Story;
+IconOnly.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
 
 
 

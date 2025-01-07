@@ -1,0 +1,23 @@
+.custom-select__multi-value {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-width: 0;
+    background-color: #e5d5fc !important;
+    border-color: #d8c0fa !important;
+    color: #6525bf !important;
+    border-radius: 2px;
+    margin: 2px;
+    box-sizing: border-box;
+}
+
+.custom-select__multi-value__remove:hover {
+    background-color: #d8c0fa !important;
+    color: #6525bf !important;
+}
+
+#select-background-color .css-1miq03v-option{
+    background-color: unset !important;
+    color: black !important;
+}

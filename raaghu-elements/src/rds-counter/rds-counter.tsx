@@ -71,7 +71,7 @@ const RdsCounter = (props: RdsCounterProps) => {
     return (
         <Fragment>
             <div className="row">
-                <div className="position-relative ps-3 ms-0">
+                <div className="position-relative">
                     <div className={classes()}>
                         <label>{props.label}</label>
                         <div className={inputClasses()} style={{ width: props.width }}>
@@ -79,6 +79,7 @@ const RdsCounter = (props: RdsCounterProps) => {
                                 colorVariant={props.colorVariant}
                                 icon="minus"
                                 onClick={onMinusClick}
+                                size="medium"
                             />
                             <input
                                 type="number"
@@ -94,6 +95,7 @@ const RdsCounter = (props: RdsCounterProps) => {
                                 colorVariant={props.colorVariant}
                                 icon="plus"
                                 onClick={onPlusClick}
+                                size="medium"
                             />
                         </div>
                     </div>

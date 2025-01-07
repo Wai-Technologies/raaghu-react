@@ -37,7 +37,7 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
 
   return (
     <>
-      <div className="payment-card-container">
+      <div className="button-card-container">
         <div>
           <div>
             <RdsInput
@@ -107,7 +107,9 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
           </div>
         </div>
         
-        <div className="payment-footer">
+        <div className="button-footer p-3">
+
+  
           <RdsButton
             block
             colorVariant="primary"

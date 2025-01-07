@@ -1,0 +1,735 @@
+import { Meta } from "@storybook/blocks";
+import Code from "./assets/code-brackets.svg";
+import colors from "./assets/colors.svg";
+import image from "./assets/how.png";
+import demo from "./assets/Demo.gif";
+import bannerImage from './assets/storybook-hero-Banner.png';
+import dasboardImage from './assets/dashboard.png';
+import reactImage from './assets/react.svg';
+import tsImage from './assets/ts.svg';
+import viteImage from './assets/vite.svg';
+import millionJsImage from './assets/million.svg';
+import bootstrapImage from './assets/bootstrap.svg';
+import storybookImage from './assets/storybook.svg';
+import fastGif from './assets/point-to-point.gif';
+import fastWebGif from './assets/web-dashboard.gif';
+import consistenceGif from './assets/Notes.gif';
+import scalableGif from './assets/layer-stack.gif';
+import flexibleGif from './assets/point-to-point.gif';
+import maintainableGif from './assets/Settings.gif';
+import pixelPerfectGif from './assets/web-designing.gif';
+import appShellImage from './assets/app-shell-learn-more.svg';
+import layoutsImage from './assets/layouts-learn-more.svg';
+import componentsImage from './assets/components-learn-more.svg';
+import elementsImage from './assets/elements-learn-more.svg';
+import chartsImage from './assets/charts-learn-more.svg';
+import mapsImage from './assets/maps-learn-more.svg';
+import expandImage from './assets/expand.png';
+
+<Meta title="Introduction" />
+
+<style>
+  {`
+    .demo{
+       width:600px;
+        height:auto;
+        margin-left:100px;
+        margin-bottom:20px;
+    }
+    .containerContent{
+      margin-top:20px;
+      line-height:28px;
+      font-size:14px;
+      margin-bottom:25px;
+      text-align: center;
+    }
+      .how{
+        width:600px;
+        height:400px;
+        margin-left:100px;
+      }
+      .subheading {
+        --mediumdark: '#999999';
+        font-weight: 900;
+        font-size: 13px;
+        color: #999;
+        letter-spacing: 6px;
+        line-height: 24px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        margin-top: 40px;
+      }
+
+      .link-list {
+        margin-top:20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        row-gap: 10px;
+      }
+
+      @media (min-width: 620px) {
+        .link-list {
+          row-gap: 20px;
+          column-gap: 20px;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media all and (-ms-high-contrast:none) {
+      .link-list {
+          display: -ms-grid;
+          -ms-grid-columns: 1fr 1fr;
+          -ms-grid-rows: 1fr 1fr;
+        }
+      }
+
+      .link-item {
+        display: block;
+        padding: 20px 30px 20px 15px;
+        border: 1px solid #00000010;
+        border-radius: 5px;
+        transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
+        color: #333333;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .link-item:hover {
+        border-color: #1EA7FD50;
+        transform: translate3d(0, -3px, 0);
+        box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+      }
+
+      .link-item:active {
+        border-color: #1EA7FD;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .link-item strong {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .link-item img {
+        height: 40px;
+        width: 40px;
+        margin-right: 15px;
+        flex: none;
+      }
+
+      .link-item span {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .tip {
+        display: inline-block;
+        border-radius: 1em;
+        font-size: 11px;
+        line-height: 12px;
+        font-weight: 700;
+        background: #E7FDD8;
+        color: #66BF3C;
+        padding: 4px 12px;
+        margin-right: 10px;
+        vertical-align: top;
+      }
+
+      .tip-wrapper {
+        font-size: 13px;
+        line-height: 20px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      .tip-wrapper code {
+        font-size: 12px;
+        display: inline-block;
+      }
+
+      .toolsUsedSection {
+         background-color:#EBF8FF;      
+         padding:40px 40px;
+         margin-bottom: 40px;
+         text-align: center;
+         border-radius: 0px 60px;
+     }
+     
+
+     .hoverContent img {
+          height:73px;
+          width:82px;
+      }
+
+       .seamlessUICard {    
+        display:flex;
+        background-color:#FADA9A;
+        border-radius: 10px 10px 0px 0px;
+      }
+    
+      .seamlessUIContent {
+        background-color: #FAFAFA;
+        padding: 1.5rem;
+        margin: 0;
+        border-radius: 0px 0px 10px 10px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      .chartUIContent{
+        background-color: #FAFAFA;
+        padding: 1.5rem;
+        margin: 0;
+        border-radius: 0px 0px 10px 10px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      .chartsLayout {
+        display: flex;
+        background-color: #99D5F5;
+        border-radius: 10px 10px 0px 0px;
+        padding: 10px;
+        justify-content: center;
+      }
+      
+
+      .seamlessUiLayout{
+        display: flex;
+        background-color: #FADA9A;
+        border-radius: 10px 10px 0px 0px;
+        padding: 10px;
+        justify-content: center;
+      }
+      .cardLayout svg {
+          width: 45px;
+      }
+      .learnMoreSection {
+        background-color: #F1F1F1;
+        padding: 30px 30px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      
+     
+      .pe-5 {
+        padding-right: 3rem !important;
+      }
+      .seamlessUICard{
+            height: 40%;
+            position: relative;
+      }
+      .c-card-title{       
+        font-size: 1.2rem;
+        font-weight: 900;
+        margin-left: 10px;
+      }
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: 900;
+      }
+     
+      .seamlessUIContent{
+        position:relative;
+        z-index: 1;
+      }
+
+      .footerClass{
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(6, 16%);
+        grid-gap: 10px;
+      }
+
+      .learnMoreSection:hover{
+        background-color:#99D5F5;
+      }
+
+      .c-svg svg,
+      .c-svg path {
+        fill:#ffffff;
+        stroke:#ffffff;
+      }
+
+      .featureImage {
+        height:100px;
+        width: 100px;
+      }
+
+
+
+      .row {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: calc(var(--bs-gutter-y)* -1);
+        margin-right: calc(var(--bs-gutter-x)* -.5);
+        margin-left: calc(var(--bs-gutter-x)* -.5);
+      }
+      .col-12 {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .align-items-center {
+          align-items: center !important;
+      }
+
+      .justify-content-between {
+          justify-content: space-between !important;
+      }
+      .d-flex {
+          display: flex !important;
+      }
+      
+      .tech-brands {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        min-width: 100%;
+        max-width: fit-content;
+      }
+
+
+      .tech-brands img {
+          object-fit: contain;
+          max-width: 100%;
+          width: 4em;
+          aspect-ratio: 1 / 1;
+      }
+      .tech-brands img {
+          object-fit: contain;
+          max-width: 100%;
+          width: 4em;
+          aspect-ratio: 1 / 1;
+          margin: 1.5%;
+      }
+      .featureCards {
+          display: grid;
+          grid-template-columns: repeat(3, 33%);
+          grid-gap: 16px;
+      }
+
+      .home-page .container {
+          padding-left: 4%;
+          padding-right: 4%;
+      }
+      .text-center {
+          text-align: center !important;
+      }
+      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+          width: 100%;
+          padding-right: var(--bs-gutter-x, .75rem);
+          padding-left: var(--bs-gutter-x, .75rem);
+          margin-right: auto;
+          margin-left: auto;
+      }
+      .cardLayout {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-direction: row;
+      }
+
+
+      @media only screen and (max-width: 768px) {
+        .home-page .container {
+              padding-left: 6%;
+              padding-right: 6%;
+          }
+          
+          .container {
+              max-width: 515px;
+          }
+          .cardLayout {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-direction: column;
+          }
+          .footerClass {
+            display: grid;
+            grid-template-columns: repeat(2, 49%);
+            grid-gap: 14px;
+          }
+          .featureCards {
+            display: grid;
+            grid-template-columns: repeat(2, 49%);
+            grid-gap: 16px;
+          }
+      }
+      @media only screen and (max-width: 480px) {
+
+          .container {
+              max-width: 515px;
+          }
+          .home-page .container {
+              padding-left: 6%;
+              padding-right: 6%;
+          }
+          .tech-brands img {
+              width: 2.8rem;
+          }
+          .toolsUsedSection {
+            padding: 5% 0;
+            display: flex;
+            flex-flow: column;
+        }
+        .tech-brands img {
+            object-fit: contain;
+            max-width: 100%;
+            width: 3em;
+            aspect-ratio: 1 / 1;
+            margin: 1.5%;
+        }
+        .footerClass {
+          display: grid;
+          grid-template-columns: repeat(2, 49%);
+          grid-gap: 14px;
+        }
+        .cardLayout {
+          display: flex;
+          justify-content: space-between;
+          gap: 1.5rem;
+          flex-direction: column;
+        }
+        .featureCards {
+            display: grid;
+            grid-template-columns: repeat(1, 100%)!important;
+            grid-gap: 16px;
+        }
+        .cardLayout svg {
+            width: 36px;
+        }
+      }
+      @media (max-width: 821px) {
+        .featureCards {
+            display: grid;
+            grid-template-columns: repeat(3, 33%) ;
+            grid-gap: 16px;
+        }
+     }
+       @media (max-width: 991.98px) {
+        .featureCards {
+            display: grid;
+            grid-template-columns: repeat(2, 49%);
+            grid-gap: 16px;
+        }
+        .footerClass {
+          margin-top: 40px;
+          display: grid;
+          grid-template-columns: repeat(2, 49%);
+          grid-gap: 10px;
+      }
+      }
+      @media (min-width: 1199.98px) and (max-width : 1920px) { 
+        div#storybook-docs {
+       
+        }
+      }
+       @media (min-width: 1921px) { 
+        div#storybook-docs {
+          
+        }
+        .featureCards {
+          display: grid;
+          grid-template-columns: repeat(3, 33%);
+          grid-gap: 16px;
+        }
+      }
+      .css-1q7pov5, .sidebar-container {
+        width: 15%!important;
+        zoom: 1.5!important;
+      }
+      .css-sqdry3 {
+        width: 85%;
+      }
+  `}
+</style>
+
+<img className="bannerSection" src={bannerImage} alt="flow" />
+
+<div className="containerContent">
+  <p>Raaghu Design System is an React based micro front-end design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook
+  features to develop highly customizable UI application shells, layouts, elemets and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
+</div>
+
+<div style={{textAlign:"center"}}>
+  Through the storybook you can visualize and navigate around the features of
+  the Raaghu Design System. Snippets for the elements allow you to test and design your UI
+  faster and efficiently.
+</div>
+
+<div className="toolsUsedSection">
+  <h3 style={{marginBottom: "1.5rem"}}><strong>Built Using</strong></h3>
+
+  <div className="row tech-brands">
+    <div className="col-12 col-lg-6 ">
+      <div className="align-item-center d-flex justify-content-between">
+        <img src={reactImage} alt="React" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
+
+        <img src={viteImage} alt="Vite" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
+
+        <img className="tsImage" src={tsImage} alt="Typescript" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1" />
+
+        <img src={millionJsImage} alt="Millionjs" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
+
+        <img src={bootstrapImage} alt="bootstrap icon" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style={{ textAlign: "center"}} className="">
+  ### <div className="title"> Why Raaghu Design System?</div>
+
+  Raaghu Design System bridges the gaps between design and development while maintaining a great degree of standardization.
+
+  <div style={{ display: "flex",justifyContent: "space-between", gap: "1.5rem"}} className="cardLayout">
+    <div style={{border: "0",}}>
+      <div className="seamlessUiLayout">
+        <div className="align-items-center d-flex justify-content-center">
+          <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_257_2624)">
+              <path d="M100.166 29.215V20.8679H95.575C95.0358 18.2536 93.9974 15.7679 92.5158 13.5474L95.7878 10.2753L89.8781 4.37391L86.606 7.65016C84.389 6.17084 81.9078 5.1322 79.298 4.59093V0L70.9509 0V4.59093C68.3391 5.1312 65.8549 6.16834 63.6346 7.64599L60.3667 4.37808L54.4611 10.2837L57.729 13.5516C56.249 15.7708 55.2115 18.2551 54.6739 20.8679H50.083V29.215H54.6739C55.2123 31.8289 56.2495 34.3144 57.729 36.5355L54.4611 39.8076L60.3667 45.7048L63.6346 42.4327C65.8537 43.9135 68.3382 44.9523 70.9509 45.492V50.0829H79.298V45.492C81.9111 44.9528 84.3952 43.9144 86.6143 42.4327L89.8864 45.7007L95.7837 39.795L92.5116 36.5271C93.9945 34.31 95.0349 31.8271 95.575 29.215H100.166ZM75.1245 33.3886C73.4734 33.3886 71.8599 32.899 70.4872 31.9819C69.1145 31.0647 68.0444 29.761 67.4125 28.2358C66.7811 26.7105 66.6158 25.0322 66.9376 23.413C67.2598 21.7938 68.0548 20.3065 69.2222 19.1391C70.3895 17.9718 71.877 17.1768 73.4959 16.8547C75.1153 16.5326 76.7935 16.6979 78.3189 17.3297C79.8439 17.9615 81.1478 19.0313 82.0647 20.404C82.9821 21.7767 83.4716 23.3906 83.4716 25.0415C83.4716 27.2552 82.5922 29.3784 81.0267 30.9438C79.4612 32.5092 77.3381 33.3886 75.1245 33.3886Z" fill="#FAFAFA" />
+
+              <path d="M79.2978 84.6275V54.2564L48.9267 54.2564C48.2025 52.988 47.1562 51.9338 45.8933 51.2005C44.6304 50.4676 43.1959 50.0811 41.7356 50.0811C40.2752 50.0811 38.8409 50.4676 37.578 51.2005C36.315 51.9338 35.2685 52.988 34.5445 54.2564H12.5206L12.5206 32.2324C13.7708 31.505 14.8106 30.4652 15.5381 29.2149H37.562V20.8678H15.5381C14.9007 19.7608 14.017 18.8154 12.9556 18.1049C11.8941 17.3943 10.6834 16.9376 9.41709 16.7701C8.15078 16.6026 6.86294 16.7289 5.65327 17.1391C4.4436 17.5494 3.3446 18.2325 2.4414 19.1358C1.53819 20.039 0.855009 21.138 0.44478 22.3476C0.0345488 23.5573 -0.0917248 24.8452 0.0757404 26.1115C0.243205 27.3778 0.699914 28.5885 1.41049 29.65C2.12107 30.7114 3.06644 31.595 4.17339 32.2324L4.17339 84.6275C3.06644 85.2648 2.12107 86.1483 1.41049 87.2101C0.699914 88.2714 0.243205 89.4822 0.0757404 90.7485C-0.0917248 92.0147 0.0345488 93.3027 0.44478 94.5122C0.855009 95.7221 1.53819 96.821 2.4414 97.7242C3.3446 98.6273 4.4436 99.3106 5.65327 99.7208C6.86294 100.131 8.15078 100.257 9.41709 100.09C10.6834 99.9224 11.8941 99.4654 12.9556 98.7551C14.017 98.0443 14.9007 97.099 15.5381 95.9921H67.9331C68.5704 97.099 69.454 98.0443 70.5157 98.7551C71.5771 99.4654 72.7878 99.9224 74.0541 100.09C75.3204 100.257 76.6083 100.131 77.8178 99.7208C79.0277 99.3106 80.1266 98.6273 81.0298 97.7242C81.933 96.821 82.6162 95.7221 83.0264 94.5122C83.4367 93.3027 83.5627 92.0147 83.3954 90.7485C83.228 89.4822 82.771 88.2714 82.0607 87.2101C81.3499 86.1483 80.4046 85.2648 79.2978 84.6275ZM37.562 87.645H15.5381C14.8088 86.3963 13.7694 85.3566 12.5206 84.6275L12.5206 62.6035H34.5445C35.2719 63.8539 36.3117 64.8936 37.562 65.621L37.562 87.645ZM67.9331 87.645H45.9092L45.9092 65.621C47.1596 64.8936 48.1992 63.8539 48.9267 62.6035L70.9506 62.6035V84.6275C69.6994 85.3537 68.6593 86.3938 67.9331 87.645Z" fill="#FAFAFA" />
+            </g>
+
+            <defs>
+              <clipPath id="clip0_257_2624">
+                <rect width="100.166" height="100.166" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <span className="c-card-title">Seamless UI</span>
+        </div>
+      </div>
+
+      <div className="seamlessUIContent">
+        Raaghu Design System contains ready to use templates for a new or built React Application. Fully customizable with the help of
+        our Adobe XD and Figma design kits.
+      </div>
+    </div>
+
+    <div style={{border: "0"}}>
+      <div className="chartsLayout">
+        <div className="align-items-center d-flex justify-content-center">
+          <svg width="120" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_257_2639)">
+              <path d="M86.2046 70.9538C88.8094 66.4415 90.5398 61.4784 91.305 56.3248L99.5606 57.5769C98.6367 63.7601 96.5567 69.714 93.4294 75.1275L86.2046 70.9538ZM70.9538 86.2005C75.4702 83.5917 79.4592 80.1618 82.7154 76.0875L89.239 81.3005C85.3306 86.1861 80.5448 90.2994 75.1275 93.4294L70.9538 86.2005ZM50.085 91.8225C55.3013 91.7977 60.4678 90.8072 65.3234 88.9009L68.3744 96.6682C62.548 98.96 56.3459 100.147 50.085 100.17V91.8225ZM29.2371 86.2005C33.7494 88.806 38.7124 90.5377 43.8661 91.305L42.614 99.5606C36.4233 98.6405 30.4618 96.5604 25.0425 93.4294L29.2371 86.2005ZM13.9654 70.9538C16.5801 75.4612 20.0109 79.4426 24.0825 82.6945L18.8737 89.2181C13.9888 85.316 9.87417 80.5376 6.74061 75.1275L13.9654 70.9538ZM8.3475 50.085C8.36988 55.3001 9.36055 60.4658 11.2691 65.3192L3.4976 68.3744C1.20912 62.5471 0.0231264 56.3455 0 50.085H8.3475ZM13.9654 29.2371C11.3606 33.7494 9.63024 38.7125 8.86505 43.8661L0.609367 42.614C1.53074 36.4236 3.61081 30.4623 6.74061 25.0425L13.9654 29.2371ZM29.2371 13.9695C24.7207 16.5783 20.7317 20.0081 17.4755 24.0825L10.9519 18.8695C14.8541 13.9859 19.6326 9.87269 25.0425 6.74061L29.2371 13.9695ZM50.085 8.3475C44.8687 8.37226 39.7022 9.36284 34.8466 11.2691L31.7956 3.49343C37.6226 1.2045 43.8246 0.0198563 50.085 0V8.3475ZM70.9538 13.9695C66.4351 11.3616 61.4648 9.62977 56.3039 8.86505L57.556 0.609367C63.7467 1.52947 69.7082 3.60962 75.1275 6.74061L70.9538 13.9695ZM86.2046 29.2371C83.592 24.7222 80.1611 20.7336 76.0875 17.4755L81.2963 10.9519C86.1812 14.854 90.2958 19.6324 93.4294 25.0425L86.2046 29.2371ZM91.8225 50.085C91.8001 44.8699 90.8094 39.7042 88.9009 34.8508L96.6724 31.7956C98.9609 37.6229 100.147 43.8245 100.17 50.085H91.8225Z" fill="#FAFAFA" />
+
+              <path d="M25.043 50.085C25.043 56.7267 27.6814 63.0964 32.3777 67.7927C37.0741 72.4891 43.4438 75.1275 50.0855 75.1275C56.7272 75.1275 63.0968 72.4891 67.7932 67.7927C72.4896 63.0964 75.128 56.7267 75.128 50.085C75.128 43.4433 72.4896 37.0737 67.7932 32.3773C63.0968 27.6809 56.7272 25.0425 50.0855 25.0425C43.4438 25.0425 37.0741 27.6809 32.3777 32.3773C27.6814 37.0737 25.043 43.4433 25.043 50.085Z" stroke="#FAFAFA" strokeWidth="6" strokeLinejoin="round" />
+
+              <path d="M50.085 25.0425V50.085H75.1275" stroke="#FAFAFA" strokeWidth="6" strokeLinejoin="round" />
+            </g>
+
+            <defs>
+              <clipPath id="clip0_257_2639">
+                <rect width="100.17" height="100.17" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <span className="c-card-title">Charts, Layouts and Grids</span>
+        </div>
+      </div>
+
+      <div className="chartUIContent">
+        With more than 60+ react based elements, components , pages and charts , Raaghu offers a wide array catering to the needs for your UI components.
+      </div>
+    </div>
+  </div>
+
+  <div style={{marginTop: "60px" }}>
+    ### <div className="title">How Raaghu Design System Works?</div>
+
+    Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
+
+    <img className="dasboardImage" src={dasboardImage} alt="flow" />
+
+    Thought the CI/CD pipelines the components are deployed to the wireframe design and form a page
+  </div>
+</div>
+
+<div style={{textAlign:"center", marginTop: "60px", marginBottom: "40px"}}>
+  ### Features
+
+  <div className="featureCards">
+    <div>
+      <div>
+        <img className="featureImage" src={fastWebGif} alt="fastGif" />
+      </div>
+
+      <div>
+        <strong>Fast</strong>
+      </div>
+
+      <div>
+        Achieve up to 3X acceleration with front end development through modular creation and component composition.
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <img className="featureImage" src={consistenceGif} alt="consistenceGif" />
+      </div>
+
+      <div>
+        <strong>Consistent</strong>
+      </div>
+
+      <div>
+        Get a consistent unified experience via smooth integration, code maintenance and consistency in user interface.
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <img className="featureImage" src={scalableGif} alt="scalableGif" />
+      </div>
+
+      <div>
+        <strong>Scalable</strong>
+      </div>
+
+      <div>
+        Provides better scalability as each codebase is much simpler to build, test and maintain due to clarity of work allocation.
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <img className="featureImage" src={maintainableGif} alt="maintainableGif" />
+      </div>
+
+      <div>
+        <strong>Maintainable</strong>
+      </div>
+
+      <div>
+        Replace, Rewrite & update components easily even when maintaining large applications. Components allow for easier user testing.
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <img className="featureImage" src={flexibleGif} alt="flexibleGif" />
+      </div>
+
+      <div>
+        <strong>Flexible</strong>
+      </div>
+
+      <div>
+        Components are inherently independent of the tech stack allowing multiple components and features to be deployed rapidly.
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <img className="featureImage" src={pixelPerfectGif} alt="pixelPerfectGif" />
+      </div>
+
+      <div>
+        <strong>Pixel-perfect</strong>
+      </div>
+
+      <div>
+        Designed with pixel perfect precision and accessibility in mind, with multiple well designed and scalable User Interfaces.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style={{textAlign:"center", marginTop: "60px"}}>
+  ### <div className="title"> Learn more about Raaghu Design System</div>
+</div>
+
+<div className="footerClass">
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/application-shells--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="appShellImage" src={appShellImage} alt="appShellImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>App Shell</strong>
+    </div>
+  </a>
+
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/layouts--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="layoutsImage" src={layoutsImage} alt="layoutsImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>Layouts</strong>
+    </div>
+  </a>
+
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/components-account--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="componentsImage" src={componentsImage} alt="componentsImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>Components</strong>
+    </div>
+  </a>
+
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="elementsImage" src={elementsImage} alt="elementsImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>Elements</strong>
+    </div>
+  </a>
+
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="chartsImage" src={chartsImage} alt="chartsImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>Charts</strong>
+    </div>
+  </a>
+
+  <a className="learnMoreSection" href="https://react.raaghu.ai/?path=/docs/map-map--docs" style={{color:"#000000"}}>
+    <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
+      <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
+    </div>
+
+    <div>
+      <img className="mapsImage" src={mapsImage} alt="mapsImage" />
+    </div>
+
+    <div style={{marginTop: "0.5rem"}}>
+      <strong>Map</strong>
+    </div>
+  </a>
+</div>

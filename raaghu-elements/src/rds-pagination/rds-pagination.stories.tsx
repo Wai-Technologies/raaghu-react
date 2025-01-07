@@ -29,6 +29,10 @@ const meta: Meta = {
             options: ["small", "medium", "large"],
             control: { type: "radio" },
         },
+        style: {
+            options : ["Style1", "Style2", "Style3", "Style4", "Style5", "Style6", "Style7", "Style8", "Style9", "Style10","Style11"],
+            control: { type: "select" },
+        }
     },
 } satisfies Meta<typeof RdsPagination>;
 
@@ -52,7 +56,13 @@ export const Advanced: Story = {
         totalRecords: 10,
         recordsPerPage: 3,
         size: "small",
-        alignmentType: "start"
+        alignmentType: "start",
+        style: "Style1",
+        showFirst: true,
+        showLast:true,
+        showManualInput:true,
+        showDropdown:true,
+        showLegend:true,
     }
 } satisfies Story;
-Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
+Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType','style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };

@@ -88,7 +88,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             reset={inputReset}
                         />
                     </div>
-                    <div className="col-md-6 mb-md-0 mb-3  pt-2">
+                    <div className="col-md-6 mb-md-0 pt-2 ">
                         <RdsSelectList
                             id="idenval"
                             label="Value Type"
@@ -114,7 +114,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             reset={inputReset}
                         />
                     </div>
-                    <div className="col-md-12 mb-3 pt-2">
+                    <div className="col-md-12 pt-2">
                         <RdsTextArea
                             label="Description"
                             placeholder="Enter Description"
@@ -126,7 +126,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                         />
                     </div>
 
-                    <div className="col-md-12">
+                    <div className="col-md-12 pb-3">
                         <RdsCheckbox
                             label="Required"
                             onChange= {(e) =>{handleSelectChange(e.target.checked , "required");}}
@@ -136,7 +136,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"

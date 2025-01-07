@@ -15,6 +15,14 @@ export interface RdsPaginationProps {
   count?: number;
   onPreviousClickHandler?: () => void;
   onNextClickHandler?: () => void;
+  style?: string;
+  showFirst?: boolean;
+  showLast?: boolean;
+  showManualInput?: boolean;
+  showDropdown?: boolean;
+  showLegend?: boolean;
+
+
 }
 
 const RdsPagination = (props: RdsPaginationProps) => {
@@ -84,6 +92,14 @@ const RdsPagination = (props: RdsPaginationProps) => {
     setCurrentPage(current - 1);
   };
 
+  const onFirstClick = () => {
+    setCurrentPage(1);
+  };
+
+  const onLastClick = () => {
+    setCurrentPage(int);
+  };
+
   const closeDropdown = () => {
     setIsDropdownOpen(false);
     setDropdownIcon("chevron_down");
@@ -116,6 +132,13 @@ const RdsPagination = (props: RdsPaginationProps) => {
     closeDropdown();
   };
 
+  const handleGotoPage = (page: string) => {
+    const pageNumber = parseInt(page, 10);
+    if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= int) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   useEffect(() => {
     setTotalRecords(props.totalRecords);
   }, [props.totalRecords]);
@@ -136,6 +159,16 @@ const RdsPagination = (props: RdsPaginationProps) => {
   const size = ' pagination-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
   const align = " pagination justify-content-" + `${props.alignmentType || "start"}`;
 
+  const getLinkStyles = () => {
+    if (props.style === 'Style1') {
+        return {};
+    }
+     else {
+        return {
+            backgroundColor: 'unset',
+        };
+    }
+};
   return (
     <>
       <div data-testid="page-link">
@@ -185,12 +218,12 @@ const RdsPagination = (props: RdsPaginationProps) => {
           </nav>
         )}
 
-        {paginType === "advanced" && (
-          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align}`}>
-            <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align}`}>
+        {paginType === "advanced" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
+          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
+            <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
               <li className={`m-1 page-item chevron cursor-pointer ${currentPage === 1 ? "disabled" : ""}`}>
-                <a onClick={() => onPrevious(currentPage)}>
+              {( props.style != "Style4" &&  <a onClick={() => onPrevious(currentPage)}>
                   {totalRecords > recordsPerPage && (
                     <RdsIcon
                       name="chevron_left"
@@ -201,16 +234,40 @@ const RdsPagination = (props: RdsPaginationProps) => {
                       colorVariant="primary"
                     />
                   )}
+                  
+                </a>)}
+                {totalRecords > recordsPerPage && props.style === "Style4" && (
+                    <button className={`btn btn-primary pagination-prev ms-2 btn-${props.size} `} onClick={() => onPrevious(currentPage)}> <span>Prev</span></button>
+                  )}
+              </li>
+            {(
+              props.showFirst && props.style != "Style4" && (
+                <li className={`me-3 page-item chevron cursor-pointer}`}>
+                <a onClick={() => onFirstClick()}>
+                  {totalRecords > recordsPerPage && (
+                    <RdsIcon
+                      name="chevron_left_pagination"
+                      width="20px"
+                      height="20px"
+                      fill={false}
+                      stroke={true}
+                      colorVariant="primary"
+                    />
+                  )}
                 </a>
               </li>
+              )
+            )}
+              
 
               {/* Displayed Pages */}
               {previous.map((number, index) => (
                 <li
                   key={number}
-                  className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
+                  className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active" : "") : ""} ${(props.style =='Style3' && number === currentPage) ? 'pagination-border-bottom-custom' : ''}`}
+                 
                 >
-                  <a onClick={() => typeof number === 'number' && onPage(number)}>
+                  <a onClick={() => typeof number === 'number' && onPage(number)}  style={getLinkStyles()}>
                     {number}
                   </a>
                 </li>
@@ -220,7 +277,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               {continued.map((number, index) => (
                 <li
                   key={number}
-                  className={`m-1 page-item ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""}`}
+                  className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? (number === currentPage ? "active" : "") : ""} text-${props.style =='Style1' ? '' : 'primary'}`}
                 >
                   <a onClick={() => typeof number === 'number' && onPage(number)}>
                     {number}
@@ -230,8 +287,8 @@ const RdsPagination = (props: RdsPaginationProps) => {
 
               {/* Next Page Button */}
               <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
-                <a onClick={() => onNext(currentPage)}>
-                  {totalRecords > recordsPerPage && (
+            {(  props.style !== "Style4" &&  <a onClick={() => onNext(currentPage)}>
+                  {totalRecords > recordsPerPage &&  (
                     <RdsIcon
                       name="chevron_right"
                       width="15px"
@@ -241,24 +298,46 @@ const RdsPagination = (props: RdsPaginationProps) => {
                       colorVariant="primary"
                     />
                   )}
+                </a>)}
+                {totalRecords > recordsPerPage && props.style === "Style4" && (
+                    <button className={`btn btn-primary pagination-next ms-2 me-2 btn-${props.size}`} onClick={() => onNext(currentPage)}><span>Next</span></button>
+                  )}
+              </li>
+              {(
+              props.showLast && props.style !== "Style4" &&(
+                <li className={`me-3 page-item chevron cursor-pointer}`}>
+                <a onClick={() => onLastClick()}>
+                  {totalRecords > recordsPerPage && (
+                    <RdsIcon
+                      name="chevron_right_pagination"
+                      width="20px"
+                      height="20px"
+                      fill={false}
+                      stroke={true}
+                      colorVariant="primary"
+                    />
+                  )}
                 </a>
               </li>
+              )
+            )}
             </ul>
 
             {/* Dropdown for Records Per Page */}
-            <div className="dropdown custom-navigation">
+            {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={`dropdown custom-navigation  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
               <button
-                className="btn customWidthForBtn btn-outline border-primary"
+                className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark border-primary' : 'customWidthForBtn'}`}
                 id="paginationBtnId"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded={isDropdownOpen}
                 onClick={toggleDropdown}
                 ref={dropdownButtonRef}
+                style={{height:props.size === 'small' ? '2.2rem' : props.size === 'large' ? '2.6rem' : '2.3rem'}}
               >
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between customrecordpagedropdown">
                   {selectedRecordsPerPage}
-                  <span className="mt-0" onClick={toggleDropdown}>
+                  <span className="mt-0 toggledropdown" onClick={toggleDropdown}>
                     <div style={{ pointerEvents: "none" }}>
                       <RdsIcon name={dropdownIcon} fill={false} stroke={true} height="12px" width="12px" />
                     </div>
@@ -277,9 +356,88 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 ))}
               </ul>
             </div>
+            )}
+             {(
+              props.showLegend && (
+                <li className={` ms-3 page-item chevron cursor-pointer}`}>
+                  {totalRecords > recordsPerPage && (
+                    <span>{currentPage} of {int} items</span>
+                  )}
+              </li>
+              )
+            )}
+
+        {(
+              props.showManualInput && (
+                <li className={` page-item cursor-pointer}`}>
+                  {totalRecords > recordsPerPage && (
+                    <div className="d-flex"> <span className="m-2">Go to</span>
+                      <input type="text"  className={`form-control btn-outline border-primary gotopageinput   ${(props.style=="Style3"||props.style=="Style7")?"bg-white text-dark":""}`} onChange={(e) => handleGotoPage(e.target.value)} /> 
+                      <span className="m-2">Page</span> </div>
+                  )}
+              </li>
+              )
+            )}
           </nav>
         )}
-
+        {paginType === "advanced" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
+          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align} ` }>
+          <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
+            {/* Previous Page Button */}
+            <li className={`m-1 page-item chevron cursor-pointer  ${currentPage === 1 ? "disabled" : ""}`}>
+            <button onClick={() => onPrevious(currentPage)} className={`btn btn-primary ms-2 me-2 btn-${props.size} ${(props.style =="Style8" ||props.style =="Style9"|| props.style=="Style10" || props.style=="Style11")?"custom-border-radius-left":""}`}>
+                {totalRecords > recordsPerPage && (
+                  <RdsIcon
+                    name="chevron_left"
+                    width="20px"
+                    height="20px"
+                    fill={false}
+                    stroke={true}
+                    colorVariant="light"
+                  />
+                )}
+                
+              </button>
+            </li>
+            {(
+              props.showLegend && (props.style==='Style6' || props.style==='Style8' ) && (
+                <li className={` ms-3 page-item chevron cursor-pointer}`}>
+                  {totalRecords > recordsPerPage && (
+                    <span style={{fontWeight:'600'}}>{currentPage} of {int} </span>
+                  )}
+              </li>
+              )
+            )}
+                { props.style=='Style9' && (<div className="d-flex">
+                {previous.map((number, index) => (
+                <li
+                  key={number}
+                  className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active" : "") : ""} ${(props.style =='Style3' && number === currentPage) ? 'pagination-border-bottom-custom' : ''}`}
+                 
+                >
+                  <a onClick={() => typeof number === 'number' && onPage(number)}  style={getLinkStyles()}>
+                    {number}
+                  </a>
+                </li>
+              ))}
+                </div>)}
+            {/* Next Page Button */}
+            <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
+              {totalRecords > recordsPerPage &&  (
+                 <> <button className={`btn btn-primary pagination-next ms-2 me-2 btn-${props.size} ${props.style == "Style5" || props.style == "Style11" ?"ps-3 pe-4":''} ${(props.style =="Style8" ||props.style =="Style9" || props.style=="Style10" || props.style=="Style11")?"custom-border-radius-right":""}`} onClick={() => onNext(currentPage)}> <span className="ps-2 pe-1">
+                  <RdsIcon
+                 name="chevron_right"
+                 width="20px"
+                 height="20px"
+                 fill={false}
+                 stroke={true}
+                 colorVariant="light"
+               /></span>  {(props.style == "Style5" || props.style == "Style11" )&&(<span>Next</span>)}</button>
+               </> )}
+            </li>
+          </ul>
+        </nav>
+        )}
 
         {paginType === "onPagerPagination" && (
           <div className="d-flex pagination">

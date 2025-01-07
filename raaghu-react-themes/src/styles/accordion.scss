@@ -180,3 +180,6 @@ box-shadow: var(--bs-accordion-btn-focus-box-shadow) !important;
 #accordionBasic .accordion-md .accordion-button{
     padding: 0.115rem 1.125rem;
 }
+.theme-dark .accordion-button::after{
+    background-image: escape-svg($accordion-button-icon-white) !important;
+}

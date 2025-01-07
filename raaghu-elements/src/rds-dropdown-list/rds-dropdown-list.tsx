@@ -213,7 +213,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   return (
     <>
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span
@@ -577,13 +577,14 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       size="small"
                       onClose={(e) => uncheckHandler(e, item)}
                       showClose={true}
+                      textwithlabel={true}
                     />
                   ))}
                 </div>
               )}
 
               {/* chevron_down icon */}
-              {!props.isIconPlaceholder && props.multiSelect !== false && (
+              {!props.isIconPlaceholder && !props.multiSelect  && (
                 <span
                   className="ms-2"
                   onClick={(e) => {

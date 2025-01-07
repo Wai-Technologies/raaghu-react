@@ -83,3 +83,45 @@
 .customWidthClass .pagination-item {
   padding: 2px 0 2px 10px !important
 }
+#paginationBtnId {
+  height: 2.4rem !important;
+}
+.customrecordpagedropdown{
+  margin-top: -4px !important;
+  padding-left: 6px !important;
+}
+.customrecordpagedropdown .toggledropdown{
+  padding-right: -3px !important;
+}
+.gotopageinput{
+  width: 4.4rem !important;
+}
+.customcurrentpageitem{
+  font-weight: 600 !important;
+}
+.pagination-border-bottom-custom{
+  border-bottom: 1px solid #000000 !important;
+  
+}
+.custom-border-radius-left{
+  border-top-left-radius: 1.25rem !important;
+  border-bottom-left-radius: 1.25rem !important;
+}
+.custom-border-radius-right{
+  border-top-right-radius: 1.25rem !important;
+  border-bottom-right-radius: 1.25rem !important;
+}
+@media (max-width: 576px) {
+  .gotopageinput {
+    margin: 10px;
+    height: 36px;
+    width: 3rem !important;
+  }
+}
+@media (min-width: 577px) and (max-width: 835px) {
+  .gotopageinput {
+    margin: 10px;
+    height: 40px;
+    width: 4.4rem !important;
+  }
+}

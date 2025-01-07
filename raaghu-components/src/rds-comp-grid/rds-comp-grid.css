@@ -49,6 +49,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 0.5rem;
 }
 
 .popup-content button {
@@ -136,3 +137,25 @@
   opacity: 1;
   cursor: move;
 }
+
+.sorting-alignment{
+  padding-left: 10px !important;
+}
+input[type="search"]::-webkit-search-decoration:hover,
+input[type="search"]::-webkit-search-cancel-button:hover { 
+    cursor:pointer; 
+}
+.fixed-column {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+.frozen-column {
+  position: sticky;
+  right: 0;
+  background-color: white;
+  z-index: 1;
+}
+

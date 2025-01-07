@@ -75,7 +75,7 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                         </div>
                     </div>
                     <div className="col-md-12">
-                        <div className="form-group">
+                        <div className="form-group mt-2">
                             <RdsInput
                                 inputType="text"
                                 required={true}
@@ -159,7 +159,7 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                 </div>
             </div>
 
-            <div className="footer-buttons pb-3 d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2">
+            <div className="footer-buttons pb-3 d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2 p-4">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"

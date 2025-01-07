@@ -3,7 +3,7 @@ import "./rds-chart-boolean.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Boolean Chart',
+    title: 'Elements/Charts/Boolean Chart',
     component: RdsBooleanChart,
     parameters: {
         layout: 'padded',
@@ -24,8 +24,6 @@ export const BooleanChart: Story = {
     args: {
         id: "BooleanId",
         centerIconName: "users",
-        height: 100,
-        width: 100,
         dataSets: [
             {
                 label: "Dataset 1",

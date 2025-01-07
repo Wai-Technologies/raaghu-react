@@ -36,3 +36,10 @@ export const Circle: Story = {
     otpSize: 4,
   }
 } satisfies Story;
+export const Advance: Story = {
+  args: {
+    fieldStyle: 'Advance',
+    otpSize: 6,
+    iconUrl : 'otpvalidation'
+  }
+} satisfies Story;

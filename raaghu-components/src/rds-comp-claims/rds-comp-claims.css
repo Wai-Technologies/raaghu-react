@@ -1,0 +1,3 @@
+#sortTable thead th:first-child, #sortTable tbody td:first-child {
+    z-index: unset !important;
+}

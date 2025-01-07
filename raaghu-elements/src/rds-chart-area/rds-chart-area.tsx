@@ -6,8 +6,6 @@ export interface lineprops {
     labels: any[],
     options: any,
     dataSets: any[],
-    height?: number,
-    width?: number,
     id: string,
     isGradient: boolean,
 }
@@ -34,8 +32,7 @@ const RdsAreaChart = (props: lineprops) => {
                             backgroundColor: dataset.backgroundColor,
                         };
                     } else {
-                        const { backgroundColor, ...rest } = dataset;
-                        return rest;
+                        return dataset;
                     }
                 })
             },
@@ -44,19 +41,16 @@ const RdsAreaChart = (props: lineprops) => {
 
         chartRef.current = AreaCanvas;
 
-        if (props.height) {
-            AreaCanvas.canvas.style.height = props.height + "px";
-        }
-        if (props.width) {
-            AreaCanvas.canvas.style.width = props.width + "px";
-        }
+        AreaCanvas.canvas.style.height ="50vh";
+        AreaCanvas.canvas.style.width = "100vh";
 
+        
         return () => {
             if (chartRef.current) {
                 chartRef.current.destroy();
             }
         };
-    }, [props.labels, props.dataSets, props.options, props.height, props.width, props.isGradient]);
+    }, [props.labels, props.dataSets, props.options, props.isGradient]);
 
     return (
         <div>

@@ -6,8 +6,6 @@ export interface RdsRadarProps {
   labels: any[];
   options: any;
   dataSets: any[];
-  height?: number;
-  width?: number;
   id: string;
 }
 
@@ -36,8 +34,8 @@ const RdsRadarChart = (props: RdsRadarProps) => {
     });
 
     if (radarCanvas != null) {
-      radarCanvas.canvas.style.height = props.height + "px";
-      radarCanvas.canvas.style.width = props.width + "px";
+      radarCanvas.canvas.style.height = "50vh";
+      radarCanvas.canvas.style.width = "50vh";
       chartInstanceRef.current = radarCanvas; // Store the chart instance
     }
   }, [props]);

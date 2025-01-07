@@ -1,10 +1,12 @@
 .avatar-smallest{
   width: 1.5rem;
   height: 1.5rem;
+  font-size: 9px;
 }
 .avatar-sm {
     width: 2rem;
     height: 2rem;
+    font-size: 11px;
   }
   
   .avatar-md {
@@ -15,10 +17,13 @@
   .avatar-lg {
     width: 3rem;
     height: 3rem;
+    font-size: 18px;
   }
   .avatar-largest{
     width: 4rem;
     height: 4rem;
+    font-size: 21px;
+
   }
   .theme-dark .avatar-initials {
     color: #A8A8A8;
@@ -196,11 +201,16 @@
 .avatar-container {
   display: flex;
   align-items: center;
+  margin-left: 1rem !important;
 }
-
+.avatar-container .avatar {
+  margin-left: -10px;
+}
+ #stackingavtarplusindicator {
+  margin-left: -10px;
+}
 .avatar {
   position: relative;
-  margin-right: -12px;
 }
 
 .plus-indicator {
@@ -281,3 +291,18 @@
   font-weight: bold;
   z-index: 1;
 }
+.avatar-solid {
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.avatar-dotted {
+  border: 2px dotted;
+  border-radius: 50%;
+}
+
+.avatar-dashed{
+  border: 2px dashed;
+  border-radius: 50%;
+}
+

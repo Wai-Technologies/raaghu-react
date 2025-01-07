@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { BrowserRouter } from "react-router-dom";
 import RdsSideNav from "./rds-side-nav";
 import { Meta, StoryObj } from "@storybook/react";
@@ -27,48 +27,48 @@ SideNavigation.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     sideNavItems: [
         {
-            id: "0",
+            key: "0",
             label: "Home",
             icon: "home",
             path: "/dashboard",
         },
         {
-            id: "1",
+            key: "1",
             label: "Dashboard",
             icon: "dashboard",
         },
         {
-            id: "2",
+            key: "2",
             label: "Saas",
             icon: "tenant",
             path: "",
         },
         {
-            id: "3",
+            key: "3",
             label: "Administration",
             icon: "administration",
             path:"",
         },
         {
-            id: "4",
+            key: "4",
             label: "File Management",
             icon: "folder",
             path: "",
         },
         {
-            id: "5",
+            key: "5",
             label: "Forms",
             icon: "forms",
             path: "",
         },
         {
-            id: "5",
+            key: "5",
             label: "Payments",
             icon: "payment",
             path: "",
         },
         {
-            id: "6",
+            key: "6",
             label: "CMS",
             icon: "cms",
             path: "",
@@ -91,30 +91,30 @@ SideNavigationWithList.args = {
     showUserProfile:true,
     sideNavItems: [
         {
-            id: "0",
+            key: "0",
             label: "Dashboard",
             icon: "home",
             path: "/dashboard",
         },
         {
-            id: "1",
+            key: "1",
             label: "Tenant",
             icon: "tenant",
             path: "",
         },
         {
-            id: "2",
+            key: "2",
             label: "Administration",
             icon: "administration",
             children: [
                 {
-                    id: "2-0",
+                    key: "2-0",
                     label: "Role",
                     icon: "roles",
                     path: ""
                 },
                 {
-                    id: "2-1",
+                    key: "2-1",
                     label: "Users",
                     icon: "users",
                     path: "",
@@ -122,10 +122,21 @@ SideNavigationWithList.args = {
             ],
         },
         {
-            id: "3",
+            key: "3",
             label: "DEMO Components",
             icon: "demo_ui",
-            path: "",
+            children: [
+                {
+                    key: "3-0",
+                    label: "Button",
+                    icon: "button",
+                },
+                {
+                    key: "3-1",
+                    label: "Input",
+                    icon: "input",
+                }
+            ],
         },
     ],
     layout : "LeftSideNavList",
@@ -144,19 +155,19 @@ SideNavigationRight.args = {
     showUserProfile:true,
     sideNavItems: [
         {
-            id: "0",
+            key: "0",
             label: "Chat",
             icon: "chat",
             path: "",
         },
         {
-            id: "1",
+            key: "1",
             label: "Language",
             icon: "language",
             path: "",
         },
         {
-            id: "2",
+            key: "2",
             label: "Mode",
             icon: "sun",
             path: "",

@@ -28,7 +28,7 @@ const meta: Meta = {
                         "medium",
                         "large"
                 ],
-                control: { type: "radio" },
+                control: { type: "select" },
             },
             textalign:{
                 options:[
@@ -36,7 +36,7 @@ const meta: Meta = {
                         "middle",
                         "right"
                 ],
-                control: { type: "radio" },
+                control: { type: "select" },
             }
     },
 } satisfies Meta<typeof RdsDivider>;
@@ -47,6 +47,7 @@ type Story = StoryObj<typeof RdsDivider>;
 export const Default: Story = {
     args: {
         icon: "information",
+        iconShow: true,
         iconFill: false,
         iconStroke: true,
         iconHeight: "20px",
@@ -60,4 +61,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['icon','colorVariant', 'size', 'textalign','withdashed','dividerMessage'] } };
+Default.parameters = { controls: { include: ['icon','iconShow','colorVariant', 'size', 'textalign','withdashed','dividerMessage'] } };

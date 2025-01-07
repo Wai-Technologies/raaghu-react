@@ -15,3 +15,12 @@
     border-bottom: 0;
     border-left: 0.3em solid transparent;
 }
+.btn-sm {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-radius: 3px !important;
+}
+.dropdown-toggle::after {
+    float: right;
+    margin: 0px 6px;
+}

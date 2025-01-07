@@ -23,6 +23,7 @@ type Story = StoryObj<typeof RdsCompDatatable>;
 export const List_View: Story = {
     args: {
                 enablecheckboxselection: false,
+                enableRadioButtonselection: false,
                 actionPosition: "right",
                 tableHeaders: [
                     {
@@ -73,7 +74,7 @@ export const List_View: Story = {
                 recordsPerPage: 10,
     }
 } satisfies Story;
-List_View .parameters = { controls: { include: ['enablecheckboxselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+List_View .parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 
 export const List_View_Avatar: Story = {
     args : {
@@ -122,12 +123,13 @@ export const List_View_Avatar: Story = {
             recordsPerPageSelectListOption: false,
 }
 } satisfies Story;
-List_View_Avatar.parameters = { controls: { include: ['enablecheckboxselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+List_View_Avatar.parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 
 
 export const Action_Column_On_Left_Side: Story = {
     args: {
         enablecheckboxselection: false,
+        enableRadioButtonselection: false,
         tableHeaders: [
             {
                 displayName: "Edition Name",
@@ -183,7 +185,7 @@ export const Action_Column_On_Left_Side: Story = {
     }
 } satisfies Story;
 
-Action_Column_On_Left_Side.parameters = { controls: { include: ['enablecheckboxselection','actionColumnStyle','actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+Action_Column_On_Left_Side.parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection','actionColumnStyle','actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 
 
 export const Without_Pagination: Story = {
@@ -249,11 +251,12 @@ export const Without_Pagination: Story = {
 
 } satisfies Story;
 
-Without_Pagination.parameters = { controls: { include: ['enablecheckboxselection','actionColumnStyle', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+Without_Pagination.parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection','actionColumnStyle', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 
 export const Show_Action_Button: Story = {
     args: {
         enablecheckboxselection: false,
+        enableRadioButtonselection: false,
         tableHeaders: [
             {
                 displayName: "Edition Name",
@@ -309,5 +312,5 @@ export const Show_Action_Button: Story = {
     }
 } satisfies Story;
 
-Show_Action_Button.parameters = { controls: { include: ['enablecheckboxselection' ,'actionColumnStyle','actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+Show_Action_Button.parameters = { controls: { include: ['enablecheckboxselection' ,'enableRadioButtonselection','actionColumnStyle','actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
 

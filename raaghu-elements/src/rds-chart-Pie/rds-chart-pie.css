@@ -7,7 +7,7 @@
 }
 
 /* Default canvas styles */
-canvas {
+.chart-container canvas {
     width: 100% !important;  /* Make canvas fill container */
     height: auto !important; /* Allow height to adjust based on width */
 }
@@ -19,7 +19,7 @@ canvas {
         margin-bottom: 15px; /* Adjust margin for small mobile */
     }
 
-    canvas {
+    .chart-container canvas {
         height: 400px !important; /* Ensure canvas has fixed height */
     }
 }
@@ -30,7 +30,7 @@ canvas {
         margin-bottom: 20px; /* Provide some margin */
     }
 
-    canvas {
+    .chart-container canvas {
         height: 360px !important; /* Ensure canvas has fixed height */
     }
 }
@@ -41,7 +41,7 @@ canvas {
         margin-bottom: 20px; /* Provide some margin */
     }
 
-    canvas {
+    .chart-container canvas {
         height: 480px !important; /* Ensure canvas has fixed height */
     }
 }
@@ -52,7 +52,7 @@ canvas {
         margin-bottom: 20px; /* Consistent margin */
     }
 
-    canvas {
+    .chart-container canvas {
         height: 550px !important; /* Ensure canvas has fixed height */
     }
 }

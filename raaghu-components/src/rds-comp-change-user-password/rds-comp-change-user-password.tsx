@@ -142,7 +142,7 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
           </div>
         </div>
       </div>
-      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
         <RdsButton
           label="Save"
           colorVariant="primary"
