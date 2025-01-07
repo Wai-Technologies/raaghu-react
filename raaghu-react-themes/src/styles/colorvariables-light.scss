@@ -5,7 +5,7 @@ $theme-colors: ( $primary: #7e2eef, $secondary: #2539FF, $tertiary: #DA25E9, $ne
 "light": $light, "dark": $dark ) !default;
 
 /*Primary background colors*/
-$bg-primary-darker-default: #19003E;
+$bg-primary-darker-default: $primary-10;
 $bg-primary-dark-default: #7825E9;
 $bg-primary-medium-default: #D4BBFF;
 $bg-primary-light-default: #EBDCFF;
@@ -305,7 +305,7 @@ $btn-success-text-disabled: #31B64A;
 $btn-success-text-invert: #FFFFFF;
 
 /*Text Primary color*/
-$txt-primary-darker-default: #19003E;
+$txt-primary-darker-default: $primary-10;
 $txt-primary-dark-default: #340071;
 $txt-primary-medium-default: #7825E9;
 $txt-primary-light-default: #A875FF;
