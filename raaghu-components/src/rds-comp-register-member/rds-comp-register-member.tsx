@@ -158,7 +158,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               required={true}
               label="Password"
               name="password"
-              id="password"
+              id={(errors.password && registerMemberData?.password)? "passwordfield":"password" }
               onBlur={() => setIsPasswordTouched(true)}
               onChange={(e: any) =>
                 handleRegisterMemberDataChanges(e.target.value, "password")

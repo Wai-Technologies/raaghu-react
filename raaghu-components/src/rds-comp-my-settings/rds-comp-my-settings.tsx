@@ -164,6 +164,7 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
               value={formData?.curPass}
               showIcon={true}
               onBlur={() => handleBlur("curPass")}
+              id={(touched.curPass && errors.curPass)? "passwordfield":"" }
             />
             {touched.curPass && errors.curPass && <div className="form-control-feedback"><span className="text-danger">{errors.curPass}</span></div>}
           </div>
@@ -179,6 +180,7 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
               value={formData?.newPass}
               showIcon={true}
               onBlur={() => handleBlur("newPass")}
+              id={(touched.newPass && errors.newPass)? "passwordfield":"" }
             />
             {touched.newPass && errors.newPass && <div className="form-control-feedback"><span className="text-danger">{errors.newPass}</span></div>}
           </div>
@@ -194,6 +196,7 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
               value={formData?.curNewPass}
               showIcon={true}
               onBlur={() => handleBlur("curNewPass")}
+              id={(touched.curNewPass && errors.curNewPass)? "passwordfield":"" }
             />
             {touched.curNewPass && errors.curNewPass && <div className="form-control-feedback"><span className="text-danger">{errors.curNewPass}</span></div>}
           </div>

@@ -127,10 +127,10 @@ const RdsSelectList = (props: RdsSelectProps) => {
  
   return (
     <div className={`${props.classes} mt-2`}>
-      <div className="d-flex">{showLabel && props.label && (
+      <div className="d-flex mb-1">{showLabel && props.label && (
         <label
           htmlFor={props.id}
-          className={`form-label ${props.isBold ? "fw-bold" : ""}`}
+          className={` ${props.isBold ? "fw-bold" : ""}`}
         >
           {props.label}
         </label>

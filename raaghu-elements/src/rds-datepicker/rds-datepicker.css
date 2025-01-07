@@ -25,3 +25,12 @@
 .react-datepicker__day--outside-month:hover {
   background-color: transparent !important;
 }
+
+.react-datepicker__today-button {
+  border-bottom-right-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+
+.react-datepicker__navigation {
+  top: 8px;
+}

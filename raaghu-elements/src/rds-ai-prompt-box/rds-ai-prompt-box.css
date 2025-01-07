@@ -272,9 +272,8 @@
 
 .hover-buttons {
   position: absolute;
-  top: 22%;
-  right: 295px;
-  transform: translateY(-50%);
+  top: 0rem;
+  right: -3rem;
   display: none;
   flex-direction: column;
   gap: 10px;

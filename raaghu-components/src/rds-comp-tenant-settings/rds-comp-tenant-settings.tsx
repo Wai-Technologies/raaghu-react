@@ -98,7 +98,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                     <div className="custom-content-scroll">
                     {props.showEditData && (
                         <div className="row">
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Use Host Database"
@@ -112,7 +112,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                     )}
                     {!hostDatabaseChecked && (
                         <div className="row">
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         required={true}
@@ -134,7 +134,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                     )}
                     {!isRandomPasswordChecked && (
                         <div className="row">
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
@@ -142,7 +142,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         required={true}
                                         label="Password"
                                         name="password"
-                                        id="password"
+                                        id={(errors.password && formData?.password)? "passwordfield":"password" }
                                         onBlur={() => setIsPasswordTouched(true)}
                                         onChange={(e) => {
                                           handleDataChanges(e.target.value, "password");
@@ -155,7 +155,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                     {errors.password && formData?.password &&  <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
                                 </div>
                             </div>
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
@@ -163,7 +163,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         required={true}
                                         label="Confirm Password"
                                         name="cpassword"
-                                        id="cpassword"
+                                        id={(errors.cpassword &&  formData?.cpassword)? "passwordfield":"cpassword" }
                                         onFocus={() => setIsConfirmPasswordFocused(true)}
                                         onBlur={() => setIsConfirmPasswordTouched(true)}
                                         onChange={(e) => {
@@ -181,7 +181,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                     )}
                     <div className="row">
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Set Random Password"
@@ -195,7 +195,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             </div>
                         )}
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Should Change Password On Next Login"
@@ -209,7 +209,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             </div>
                         )}
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Send Activation Password"
@@ -222,7 +222,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                 </div>
                             </div>
                         )}
-                        <div className="col-md-12 sm-p-0">
+                        <div className="col-md-12">
                             <div className="form-group mb-3">
                                 <RdsCheckbox label="Activate"
                                  dataTestId="activate"

@@ -76,7 +76,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               <div className="mb-3">
                 {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
-                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                    className={` ${props.isDisabled ? " opacity-50 " : ""
                       } `}
                   >
                     {props.label}
@@ -133,7 +133,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
         <div className="mb-3">
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
-              className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+              className={` ${props.isDisabled ? " opacity-50 " : ""
                 } `}
             >
               {props.label}

@@ -218,7 +218,7 @@ const isPeriodValid = (period: any) => {
               </div>
             </div>
 
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-sm-12 mt-3">
               <RdsTextArea
                 label="Cover Letter"
                 placeholder="Cover Letter.."
