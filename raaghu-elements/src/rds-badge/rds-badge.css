@@ -159,3 +159,33 @@
     color: #1f7630;
   }
 }
+
+/* Icon color for storybook dark mode */
+
+.theme-dark #new-badges .badge-primary svg {
+  stroke: #7825e9 !important;
+}
+
+.theme-dark #new-badges .badge-secondary svg {
+  stroke: #2534e9 !important;
+}
+
+.theme-dark #new-badges .badge-tertiary svg {
+  stroke: #b30fbc !important;
+}
+
+.theme-dark #new-badges .badge-danger svg {
+  stroke: #bd0d1d !important;
+}
+
+.theme-dark #new-badges .badge-light svg {
+  stroke: #646464 !important;
+}
+
+.theme-dark #new-badges .badge-warning svg {
+  stroke: #c2510c !important;
+}
+
+.theme-dark #new-badges .badge-success svg {
+  stroke: #1f7630 !important;
+}

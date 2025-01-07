@@ -103,6 +103,7 @@ const RdsBadge = (props: RdsBadgeProps) => {
                 <span className={`badge ${getColorClass()} ${classes()} `} aria-disabled={props.style === "disabled"}>
 
                     {(props.iconName && props.layout == "Icon+Text" || props.layout == "Icon_only") && Icons.hasOwnProperty(props.iconName) && (
+
                         <RdsIcon
                             name={props.iconName}
                             fill={props.iconFill}
