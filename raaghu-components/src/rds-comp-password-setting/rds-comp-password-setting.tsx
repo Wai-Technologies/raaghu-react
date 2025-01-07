@@ -90,7 +90,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                               handleDataChanges(e.target.value, "curPass");
                             }}
                             value={formData?.curPass}
-                            // name={"curPass"}
+                            name={"curPass"}
 			                dataTestId="current-password"
                             showIcon= {true}
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
