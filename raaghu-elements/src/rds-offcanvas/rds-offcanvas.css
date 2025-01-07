@@ -1,12 +1,26 @@
-.offcanvas-header{
-    background-color: primary;
+.offcanvas-header {
+  background-color: primary;
 }
-@media (max-width: 767px){
-    #profileOffCanvas{
-        width: 375px !important;
-    }
+@media (max-width: 767px) {
+  #profileOffCanvas {
+    width: 375px !important;
+  }
 }
-.offcanvas_btn{
-    cursor: pointer;
-    width: fit-content;
+.offcanvas_btn {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.offcanvas .offcanvas-header .close {
+  cursor: pointer;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  border-radius: 5px;
+}
+
+.offcanvas .offcanvas-header .close:hover {
+  background: aliceblue;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
 }
