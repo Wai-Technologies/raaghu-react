@@ -22,8 +22,8 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        type: {
-            options: ["default", "side", "bottom"],
+        position: {
+            options: ["top", "bottom", "left", "right"],
             control: { type: "radio" },
         },
     },
@@ -32,41 +32,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCounter>;
 
-export const Default: Story = {
+export const Counter: Story = {
     args: {
-        counterValue: 0,
+        // counterValue: 0,
         min: 0,
         max: 50,
         width: 135,
         colorVariant: "primary",
-        type: "default", // Default button placement
+        position: "top",
         label: "Counter",
-    },
-};
-Default.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label'] } };
-
-export const Side: Story = {
-    args: {
-        counterValue: 0,
-        min: 0,
-        max: 50,
-        width: 135,
-        colorVariant: "secondary",
-        type: "side", // Buttons placed side by side
-        label: "Counter",
-    },
-};
-Side.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label'] } };
-
-export const Bottom: Story = {
-    args: {
-        counterValue: 0,
-        min: 0,
-        max: 50,
-        width: 135,
-        colorVariant: "success",
-        type: "bottom", // Buttons placed below the counter
-        label: "Counter",
-    },
-};
-Bottom.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label'] } };
+    }
+} satisfies Story;
+Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };
