@@ -29,27 +29,27 @@ const config: StorybookConfig = {
 
       .version-container {
         font-weight: bold;
-        position: fixed;
+        position: absolute;
         font-size: 14px;
         color: #5C6870;
         font-weight: bold;
-        top: 50px;
-        left: 98px;
+        top: 34px;
+        left: 74px;
       }
 
-      // /* Responsive styles for mobile */
-      // @media (max-width: 600px) {
-      //   .version-container {
-      //     position: fixed;
-      //     font-size: 12px;
-      //     top: 60px;
-      //     left: 100px;
-      //   }
-      // }
+      /* Responsive styles for mobile */
+      @media (max-width: 737px) {
+        .version-container {
+          position: absolute;
+          font-size: 12px;
+          top: 34px;
+          left: 73px;
+        }
+      }
 
       // @media (max-width: 480px) {
       //   .version-container {
-      //     position: fixed;
+      //     position: absolute;
       //     // font-size: 10px;
       //     // top: 70px;
       //     // left: 100px;
@@ -110,21 +110,51 @@ const config: StorybookConfig = {
         }
       }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const sidebarHeader = document.querySelector('.sidebar-header');
-          if (sidebarHeader) {
-            const versionContainer = document.createElement('div');
-            versionContainer.className = 'version-container';
-            versionContainer.textContent = '...'; // Default content
-            sidebarHeader.appendChild(versionContainer);
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebarHeaderSelector = '.sidebar-header';
 
-            fetchGitHubReleases();
-          } else {
-            console.warn('Sidebar header not found');
-          }
-        }, 1000);
-      });
+  let apiCallCount = 0; // To track how many times the API has been called
+  const maxApiCalls = 25; // Limit the number of API calls to 10
+
+  // Function to add or refresh the version container
+  function ensureVersionContainerExists() {
+    const sidebarHeader = document.querySelector(sidebarHeaderSelector);
+
+    if (sidebarHeader) {
+      let versionContainer = sidebarHeader.querySelector('.version-container');
+      if (!versionContainer) {
+        // If version-container is not found, create and append it
+        versionContainer = document.createElement('div');
+        versionContainer.className = 'version-container';
+        versionContainer.textContent = '...'; // Placeholder text
+        sidebarHeader.appendChild(versionContainer);
+        console.log('Version container added!');
+      }
+
+      // Check if the API call limit is reached
+      if (apiCallCount < maxApiCalls) {
+        fetchGitHubReleases();
+        apiCallCount++; // Increment the API call count
+      } else {
+        console.log('API call limit reached. No more API calls.');
+      }
+    } else {
+      console.warn('Sidebar header not found.');
+    }
+  }
+
+  // Periodically check and re-render the version container
+  const refreshInterval = 2000; // Refresh every 2 seconds
+  setInterval(() => {
+    ensureVersionContainerExists();
+  }, refreshInterval);
+
+  // Initial rendering after a short delay
+  setTimeout(() => {
+    ensureVersionContainerExists();
+  }, 1000);
+});
+
     </script>
     `;
 
