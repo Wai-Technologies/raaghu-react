@@ -16,7 +16,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         color: {
-            options: ["primary", "success", "danger", "warning"],
+            options: ["primary", "success", "danger","none"],
             control: { type: "select" },
         },
     },
@@ -94,7 +94,7 @@ export const Multiple: Story = {
         required: false,
         isSearchable: true,
         isBold: false,
-        color: "success",  // Default color set to success
+        color: "primary",  // Default color set to success
     }
 }
 Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'color', 'onChange'] } };
@@ -158,7 +158,7 @@ export const WithIcon: Story = {
         required: false,
         isSearchable: true,
         isBold: false,
-        color: "danger",  // Default color set to danger
+        color: "primary",  // Default color set to danger
     }
 }
 WithIcon.parameters = { controls: { include: ['id', 'label', 'style', 'size', 'placeholder', 'selectItems', 'isDisabled', 'showHint', 'showLabel', 'required', 'isSearchable', 'isBold', 'defaultImgUrl', 'color'] } };

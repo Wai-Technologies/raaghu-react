@@ -10,7 +10,7 @@ export interface RdsSelectProps {
   showLabel?: boolean;
   isBold?: boolean;
   isMultiple?: boolean;
-  color?: "primary" | "secondary" | "success" | "warning" | "danger" | string;
+  color?: "primary" | "secondary" | "success" | "danger" | "none" |string;
   selectItems: {
     label?: string;
     option?: string;
@@ -38,6 +38,8 @@ const RdsSelectList = (props: RdsSelectProps) => {
     props.isMultiple ? [] : null
   );
   const showLabel = props.showLabel || true;
+
+  // const [menuOpen, setMenuOpen] = useState(true);
 
   useEffect(() => {
     setSelectedValue(props.selectedValue);
@@ -80,7 +82,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
       borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined,
       borderColor:
         props.color === "primary"
-          ? "blue"
+          ? "#b38de9"
           : props.color === "danger"
           ? "red"
           : props.color === "success"
@@ -107,7 +109,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
       backgroundColor:
         state.isSelected
           ? props.color === "primary"
-            ? "blue"
+            ? "#b38de9"
             : props.color === "danger"
             ? "red"
             : props.color === "success"
@@ -150,7 +152,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
           backgroundColor:
             optionProps.isFocused || optionProps.isSelected
               ? props.color === "primary"
-                ? "#d0e7ff"
+                ? "#b38de9"
                 : props.color === "danger"
                 ? "#ffd6d6"
                 : props.color === "success"
@@ -212,6 +214,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         aria-label="select example"
         data-testid={props.dataTestId}
         styles={customStyles}
+        // menuIsOpen={menuOpen}
       />
       {props.showHint && (
         <p className="my-1 text-black-50">
