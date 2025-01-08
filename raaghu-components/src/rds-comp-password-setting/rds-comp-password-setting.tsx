@@ -35,7 +35,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     !isNewPassValid(value) ? setNewPassError("Password must be alphanumeric and at least 8 characters long") : setNewPassError("");
                     break;
                 case "curNewPass":
-                    !isCurNewPassValid(value) ? setCurNewPassError("Password mismatch found") : setCurNewPassError("");
+                    !isCurNewPassValid(value) ? setCurNewPassError("New Password and Confirm New Password do not match. Please try again.") : setCurNewPassError("");
                     break;
                 default:
                     break;
