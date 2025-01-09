@@ -12,6 +12,9 @@ export interface RdsCounterProps {
   type?: "Default" | "Side-by-side" | "Bottom";
   colorVariant?: colors;
   onCounterChange?: (newValue: number) => void;
+  showLabel?: boolean;
+  isDisabled?: boolean;
+  showTitle?: boolean;
 }
 
 const RdsCounter = (props: RdsCounterProps) => {
@@ -21,7 +24,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const onMinusClick = () => {
-    if (counterValue > props.min) {
+    if (counterValue > props.min && !props.isDisabled) {
       const newValue = counterValue - 1;
       setCounterValue(newValue);
       props.onCounterChange?.(newValue);
@@ -30,7 +33,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   };
 
   const onPlusClick = () => {
-    if (counterValue < props.max) {
+    if (counterValue < props.max && !props.isDisabled) {
       const newValue = counterValue + 1;
       setCounterValue(newValue);
       props.onCounterChange?.(newValue);
@@ -39,6 +42,8 @@ const RdsCounter = (props: RdsCounterProps) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.isDisabled) return;
+
     const newValue = e.target.value === "" ? 0 : Number(e.target.value);
     if (!isNaN(newValue) && newValue >= props.min && newValue <= props.max) {
       setCounterValue(newValue);
@@ -47,107 +52,158 @@ const RdsCounter = (props: RdsCounterProps) => {
     setIsEditing(true);
   };
 
-  const renderDefaultLayout = () => (
-    <div style={{ width: props.width }}>
-      <label>{props.label}</label>
-      {/* Add padding to the outer border */}
-      <div className="border border-gray rounded p-1">
-        <div className="d-flex align-items-center gap-0">
-          {/* Adjust button width */}
-          <RdsButton
-            colorVariant={props.colorVariant}
-            icon="minus"
-            onClick={onMinusClick}
-            size="medium"
-            // style={{ width: '60px' }} // Set a fixed width for the minus button
-          />
-          <input
-            type="number"
-            className="form-control text-center border-0"
-            style={{ boxShadow: 'none' }} // Remove input shadow
-            value={isEditing && counterValue === 0 ? "" : counterValue}
-            onChange={handleInputChange}
-            min={props.min}
-            max={props.max}
-            onFocus={() => setIsEditing(true)}
-            onBlur={() => setIsEditing(false)}
-          />
-          <RdsButton
-            colorVariant={props.colorVariant}
-            icon="plus"
-            onClick={onPlusClick}
-            size="medium"
-            // style={{ width: '300px' }} // Set a fixed width for the plus button
-          />
+  const renderDefaultLayout = () => {
+    const dynamicWidth =
+      props.width && props.width > 100 ? `${props.width}px` : "100px";
+  
+    return (
+      <div style={{ width: dynamicWidth }}>
+        {props.showLabel && <label>{props.label}</label>}
+        <div
+          className={`border ${props.isDisabled ? "border-gray" : "border-gray"} rounded p-1`}
+          style={{ backgroundColor: props.isDisabled ? "#f5f5f5" : "white" }}
+        >
+          <div className="d-flex align-items-center gap-0">
+            <RdsButton
+              colorVariant={props.colorVariant}
+              icon="minus"
+              onClick={onMinusClick}
+              size="medium"
+              isDisabled={props.isDisabled}
+            />
+            <input
+              type="number"
+              className="form-control text-center border-0"
+              style={{
+                boxShadow: "none",
+                backgroundColor: props.isDisabled ? "#e0e0e0" : "white",
+                color: props.isDisabled ? "#a9a9a9" : "black",
+              }}
+              value={isEditing && counterValue === 0 ? "" : counterValue}
+              onChange={handleInputChange}
+              min={props.min}
+              max={props.max}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              disabled={props.isDisabled}
+            />
+            <RdsButton
+              colorVariant={props.colorVariant}
+              icon="plus"
+              onClick={onPlusClick}
+              size="medium"
+              isDisabled={props.isDisabled}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
   
+  const renderSideLayout = () => {
+    const dynamicWidth =
+      props.width && props.width > 100 ? `${props.width}px` : "100px";
   
-
-  const renderSideLayout = () => (
-    <div style={{ width: props.width }}>
-      <label>{props.label}</label>
-      <div className="border border-gray rounded p-1">
-      <div className="d-flex align-items-center gap-1">
-      <input
-          type="number"
-          className="form-control text-center border-0"
-          style={{ boxShadow: 'none' }} // Remove input shadow
-          value={isEditing && counterValue === 0 ? "" : counterValue}
-          onChange={handleInputChange}
-          min={props.min}
-          max={props.max}
-          onFocus={() => setIsEditing(true)}
-          onBlur={() => setIsEditing(false)}
-        />
-        <RdsButton colorVariant={props.colorVariant} icon="minus" onClick={onMinusClick} size="medium" />
-        <RdsButton colorVariant={props.colorVariant} icon="plus" onClick={onPlusClick} size="medium" />
-      </div>
-      </div>
-    </div>
-  );
-
-  const renderBottomLayout = () => (
-    <div style={{ width: props.width }}>
-      <label>{props.label}</label>
-      <div className="border border-gray rounded p-1">
-      <div className="d-flex flex-column align-items-center gap-2">
-        <input
-          type="number"
-          className="form-control text-center border-0"
-          value={isEditing && counterValue === 0 ? "" : counterValue}
-          onChange={handleInputChange}
-          min={props.min}
-          max={props.max}
-          onFocus={() => setIsEditing(true)}
-          onBlur={() => setIsEditing(false)}
-        />
-<div
-  className="d-flex gap-1 wele"
-  style={{ "--dynamic-width": `${props.width}px` } as React.CSSProperties}
->
-  <RdsButton
-    colorVariant={props.colorVariant}
-    icon="minus"
-    onClick={onMinusClick}
-    size="medium"
-  />
-  <RdsButton
-    colorVariant={props.colorVariant}
-    icon="plus"
-    onClick={onPlusClick}
-    size="medium"
-  />
-</div>
-
-
+    return (
+      <div style={{ width: dynamicWidth }}>
+        {props.showLabel && <label>{props.label}</label>}
+        <div
+          className={`border ${props.isDisabled ? "border-gray" : "border-gray"} rounded p-1`}
+          style={{ backgroundColor: props.isDisabled ? "#f5f5f5" : "white" }}
+        >
+          <div className="d-flex align-items-center gap-1">
+            <input
+              type="number"
+              className="form-control text-center border-0"
+              style={{
+                boxShadow: "none",
+                backgroundColor: props.isDisabled ? "#e0e0e0" : "white",
+                color: props.isDisabled ? "#a9a9a9" : "black",
+              }}
+              value={isEditing && counterValue === 0 ? "" : counterValue}
+              onChange={handleInputChange}
+              min={props.min}
+              max={props.max}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              disabled={props.isDisabled}
+            />
+            <RdsButton
+              colorVariant={props.colorVariant}
+              icon="minus"
+              onClick={onMinusClick}
+              size="medium"
+              isDisabled={props.isDisabled}
+            />
+            <RdsButton
+              colorVariant={props.colorVariant}
+              icon="plus"
+              onClick={onPlusClick}
+              size="medium"
+              isDisabled={props.isDisabled}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
-
+    );
+  };
+  
+  const renderBottomLayout = () => {
+    const dynamicWidth =
+      props.width && props.width > 100 ? `${props.width}px` : "100px";
+  
+    return (
+      <div style={{ width: dynamicWidth }}>
+        {props.showLabel && <label>{props.label}</label>}
+        <div
+          className={`border ${props.isDisabled ? "border-gray" : "border-gray"} rounded p-1`}
+          style={{ backgroundColor: props.isDisabled ? "#f5f5f5" : "white" }}
+        >
+          <div className="d-flex flex-column align-items-center gap-2">
+            <input
+              type="number"
+              className="form-control text-center border-0"
+              value={isEditing && counterValue === 0 ? "" : counterValue}
+              onChange={handleInputChange}
+              min={props.min}
+              max={props.max}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              disabled={props.isDisabled}
+              style={{
+                backgroundColor: props.isDisabled ? "#e0e0e0" : "white",
+                color: props.isDisabled ? "#a9a9a9" : "black",
+              }}
+            />
+            <div
+              className="wele"
+              style={{
+                width: "var(--dynamic-width-1, 100%)", // Default dynamic width fallback to 100%
+                display: "flex",
+                gap: "4px",
+              }}
+            >
+              <RdsButton
+                colorVariant={props.colorVariant}
+                icon="minus"
+                onClick={onMinusClick}
+                size="medium"
+                isDisabled={props.isDisabled}
+              />
+              <RdsButton
+                colorVariant={props.colorVariant}
+                icon="plus"
+                onClick={onPlusClick}
+                size="medium"
+                isDisabled={props.isDisabled}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <div className="rds-counter">
       {props.type === "Default" && renderDefaultLayout()}
@@ -155,9 +211,11 @@ const RdsCounter = (props: RdsCounterProps) => {
       {props.type === "Bottom" && renderBottomLayout()}
     </div>
   );
+  
 };
 
 export default RdsCounter;
+
 
 
 // import React, { Fragment, useState } from "react";

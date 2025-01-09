@@ -26,14 +26,29 @@ const meta: Meta = {
             options: ["Default", "Side-by-side", "Bottom"],
             control: { type: "radio" },
         },
-        // position: {
-        //     options: ["top", "bottom", "left", "right"],
-        //     control: { type: "radio" },
-        // },
+        showLabel:{
+            control: { type: "boolean" }
+        },
+        isDisabled: {  // Added this field for controlling the disabled state
+            control: { type: "boolean" },
+        },
+        label: {
+            control: { type: "text" },
+        },
+        min: {
+            control: { type: "number" },
+        },
+        max: {
+            control: { type: "number" },
+        },
+        width: {
+            control: { type: "number" },
+        },
     },
 } satisfies Meta<typeof RdsCounter>;
 
 export default meta;
+
 type Story = StoryObj<typeof RdsCounter>;
 
 export const Counter: Story = {
@@ -45,9 +60,13 @@ export const Counter: Story = {
         colorVariant: "primary",
         type: "Default", // Default button placement
         label: "Counter",
+        isDisabled: false, // Default disabled state to false
+        showLabel:true,
+        showTitle:true,
     },
 };
-Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label'] } };
+
+Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel'] } };
 
 // import RdsCounter from "./rds-counter";
 // import { Meta, StoryObj } from "@storybook/react";

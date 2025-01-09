@@ -34,7 +34,7 @@ input[type="number"] {
 
 .wele {
   width: var(--dynamic-width-1, 100%); /* Fallback to 100% if --dynamic-width is not set */
-  display: flex;
+  display: flex;  
   gap: 10px;
 }
 
