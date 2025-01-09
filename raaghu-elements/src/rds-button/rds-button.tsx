@@ -58,12 +58,11 @@ const RdsButton = (props: RdsButtonProps) => {
         if (props.class === " btn-link ") {
             defaultClass = defaultClass + " btn-link ";
         }
-        if(props.colorVariant === "light" && props.isBanerButton){
+        if (props.colorVariant === "light" && props.isBanerButton) {
             defaultClass = defaultClass + " text-primary border-primary";
         }
         return defaultClass;
     };
-
 
     const iconClasses = () => {
         let iconSpan: string = "";
@@ -106,7 +105,7 @@ const RdsButton = (props: RdsButtonProps) => {
                 </button>
             </Tooltip>
         ) :
-        <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
+            <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
                 disabled={props.isDisabled}
                 type={btnType}
                 form={props.formName}
