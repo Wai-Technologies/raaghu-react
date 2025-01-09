@@ -9,7 +9,7 @@ export interface RdsCounterProps {
   min: number;
   max: number;
   width: number;
-  type?: "Default" | "Side-by-side" | "Bottom";
+  type?: "Default" | "Side" | "Bottom";
   colorVariant?: colors;
   onCounterChange?: (newValue: number) => void;
   showLabel?: boolean;
@@ -207,7 +207,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   return (
     <div className="rds-counter">
       {props.type === "Default" && renderDefaultLayout()}
-      {props.type === "Side-by-side" && renderSideLayout()}
+      {props.type === "Side" && renderSideLayout()}
       {props.type === "Bottom" && renderBottomLayout()}
     </div>
   );

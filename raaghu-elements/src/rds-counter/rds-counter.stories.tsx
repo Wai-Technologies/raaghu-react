@@ -23,7 +23,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         type: {
-            options: ["Default", "Side-by-side", "Bottom"],
+            options: ["Default", "Side", "Bottom"],
             control: { type: "radio" },
         },
         showLabel:{
@@ -51,7 +51,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCounter>;
 
-export const Counter: Story = {
+export const Default: Story = {
     args: {
         counterValue: 0,
         min: 0,
@@ -66,7 +66,43 @@ export const Counter: Story = {
     },
 };
 
-Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel'] } };
+Default.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel'] } };
+
+
+export const Side: Story = {
+    args: {
+        counterValue: 0,
+        min: 0,
+        max: 50,
+        width: 400,
+        colorVariant: "primary",
+        type: "Side", // Default button placement
+        label: "Counter",
+        isDisabled: false, // Default disabled state to false
+        showLabel:true,
+        showTitle:true,
+    },
+};
+
+Side.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel'] } };
+
+
+export const Bottom: Story = {
+    args: {
+        counterValue: 0,
+        min: 0,
+        max: 50,
+        width: 400,
+        colorVariant: "primary",
+        type: "Bottom", // Default button placement
+        label: "Counter",
+        isDisabled: false, // Default disabled state to false
+        showLabel:true,
+        showTitle:true,
+    },
+};
+
+Bottom.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel'] } };
 
 // import RdsCounter from "./rds-counter";
 // import { Meta, StoryObj } from "@storybook/react";
