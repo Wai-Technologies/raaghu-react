@@ -9,7 +9,7 @@ export interface RdsCounterProps {
   min: number;
   max: number;
   width: number;
-  type?: "default" | "side" | "bottom";
+  type?: "Default" | "Side-by-side" | "Bottom";
   colorVariant?: colors;
   onCounterChange?: (newValue: number) => void;
 }
@@ -52,7 +52,7 @@ const RdsCounter = (props: RdsCounterProps) => {
       <label>{props.label}</label>
       {/* Add padding to the outer border */}
       <div className="border border-gray rounded p-1">
-        <div className="d-flex align-items-center gap-1">
+        <div className="d-flex align-items-center gap-0">
           {/* Adjust button width */}
           <RdsButton
             colorVariant={props.colorVariant}
@@ -77,7 +77,7 @@ const RdsCounter = (props: RdsCounterProps) => {
             icon="plus"
             onClick={onPlusClick}
             size="medium"
-            style={{ width: '60px' }} // Set a fixed width for the plus button
+            // style={{ width: '300px' }} // Set a fixed width for the plus button
           />
         </div>
       </div>
@@ -150,9 +150,9 @@ const RdsCounter = (props: RdsCounterProps) => {
 
   return (
     <div className="rds-counter">
-      {props.type === "default" && renderDefaultLayout()}
-      {props.type === "side" && renderSideLayout()}
-      {props.type === "bottom" && renderBottomLayout()}
+      {props.type === "Default" && renderDefaultLayout()}
+      {props.type === "Side-by-side" && renderSideLayout()}
+      {props.type === "Bottom" && renderBottomLayout()}
     </div>
   );
 };

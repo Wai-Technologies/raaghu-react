@@ -23,7 +23,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         type: {
-            options: ["default", "side", "bottom"],
+            options: ["Default", "Side-by-side", "Bottom"],
             control: { type: "radio" },
         },
         // position: {
@@ -43,7 +43,7 @@ export const Counter: Story = {
         max: 50,
         width: 400,
         colorVariant: "primary",
-        type: "default", // Default button placement
+        type: "Default", // Default button placement
         label: "Counter",
     },
 };
