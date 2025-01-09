@@ -31,3 +31,14 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
     -moz-appearance: textfield; /* For Firefox */
 }
+
+.wele {
+  width: var(--dynamic-width-1, 100%); /* Fallback to 100% if --dynamic-width is not set */
+  display: flex;
+  gap: 10px;
+}
+
+.wele button {
+  flex: 1; /* Ensures buttons fill the available space equally */
+}
+
