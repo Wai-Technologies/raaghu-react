@@ -17,6 +17,9 @@ export interface RdsCompGridCombinedProps {
     sortable?: boolean;
     datatype?: string;
     dataLength?: number;
+    hidden?: boolean;
+    fixed?: boolean;
+    frozen?: boolean;
   }[];
   tableData: {
     id: string | number;
@@ -39,6 +42,7 @@ export interface RdsCompGridCombinedProps {
   onActionSelection?: (rowData: any, actionId: any) => void;
   enablecheckboxselection?: boolean;
   onRowSelect?: (data: any) => void;
+  gridType?: string;
 }
 
 const DraggableColumnHeader: React.FC<{
@@ -48,6 +52,9 @@ const DraggableColumnHeader: React.FC<{
     key: string;
     hasSearch?: boolean;
     filter?: boolean;
+    hidden?: boolean;
+    fixed?: boolean;
+    frozen?: boolean;
   };
   index: number;
   moveColumn: (fromIndex: number, toIndex: number) => void;
@@ -59,6 +66,11 @@ const DraggableColumnHeader: React.FC<{
   allFilter?: boolean;
   onSortClick?: (key: string) => void;
   sortConfig?: { key: string; direction: "asc" | "desc" } | null;
+  data: any[];
+  onToggleFixed: (key: string) => void;
+  onToggleFrozen: (key: string) => void;
+  onToggleHidden: (key: string) => void;
+  gridType?: string|undefined;
 }> = ({
   column,
   index,
@@ -71,16 +83,22 @@ const DraggableColumnHeader: React.FC<{
   allFilter,
   onSortClick,
   sortConfig,
+  data,
+  onToggleFixed,
+  onToggleFrozen,
+  onToggleHidden,
+  gridType,
 }) => {
   const refheader = useRef<HTMLTableHeaderCellElement>(null);
   const [resizeStop, setResizeStop] = useState(true);
   const [isResizing, setIsResizing] = useState(false);
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     type: "COLUMN",
     item: { index },
     collect: (monitor: DragSourceMonitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    canDrag: () => !isResizing, // Disable drag while resizing
   });
 
   const [, drop] = useDrop({
@@ -95,10 +113,11 @@ const DraggableColumnHeader: React.FC<{
     },
   });
 
-  if (!isResizing) {
-    // if resinging start the  desable drag drop
-    drag(drop(refheader));
-  }
+  useEffect(() => {
+    if (!isResizing) {
+      drag(drop(refheader));
+    }
+  }, [isResizing, drag, drop]);
 
   const handleSortIconClick = () => {
     if (onSortClick) {
@@ -112,75 +131,120 @@ const DraggableColumnHeader: React.FC<{
       onFilterClick(column.key, position);
     }
   };
+
   const handleResizeStop = (event: any, { size }: any) => {
     setResizeStop(true);
     setIsResizing(false);
   };
+
   const handleResizeStart = (event: any, { size }: any) => {
     setResizeStop(false);
     setIsResizing(true);
   };
 
+  const hasData = data.some(row => row[column.key] !== undefined && row[column.key] !== null);
+
+  if (column.hidden) {
+    return null; // Do not render hidden columns
+  }
+
   return (
-    <>
-      <th
-        className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'}`}
-        ref={refheader}
-      >
-        <div className="d-flex justify-content-start align-items-center full-width">
-          <span>{column.displayName}</span>
-          {column.sortable && (
-            <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
-              {sortConfig && sortConfig.key === column.key
-                ? sortConfig.direction === "asc"
-                  ? "▲"
-                  : "▼"
-                : "↕"}
-            </div>
-          )}
-
-          {(column.filter || allFilter) && (
-            <div className="cursor-pointer">
-              <RdsIcon
-                colorVariant="dark"
-                height="10px"
-                name="filter"
-                stroke
-                width="20px"
-                onClick={handleFilterIconClick}
-              />
-            </div>
-          )}
-
-          <ResizableBox
-            width={10} // Initial width of the column header
-            height={20} // Height of the column header
-            axis="x"
-            resizeHandles={["e"]}
-            minConstraints={[50, Infinity]} // Minimum width the column can resize to
-            maxConstraints={[400, Infinity]} // Maximum width the column can resize to
-            onResizeStop={handleResizeStop}
-            onResizeStart={handleResizeStart}
-          ></ResizableBox>
-        </div>
-
-        <div className="d-flex justify-content-between align-items-center full-width">
-          {(column.hasSearch || allSearch) && (
-            <RdsSearch
-              labelPosition="top"
-              placeholder="Search"
-              size="small"
-              onChange={(e) =>
-                onSearchChange && onSearchChange(column.key, e.target.value)
-              }
+    <th
+      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+      ref={refheader}
+      
+    >
+      <div className="d-flex justify-content-start align-items-center full-width">
+        <span>{column.displayName}</span>
+        {column.sortable && (
+          <div className="cursor-pointer sorting-alignment" onClick={handleSortIconClick}>
+            {sortConfig && sortConfig.key === column.key
+              ? sortConfig.direction === "asc"
+                ? "▲"
+                : "▼"
+              : "↕"}
+          </div>
+        )}
+        {gridType === "advance" && ( <>
+        <button onClick={() => onToggleFixed(column.key)} className="btn btn-sm btn-icon ms-1">
+          
+          <RdsIcon
+            name={column.fixed ? "fixed_unlock" : "fixed_lock"}
+            width="20px"
+            height="20px"
+            tooltip={true}
+            tooltipTitle="Toggle Fixed"
+            tooltipPlacement="bottom"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+          />
+        </button>
+        {/* <button onClick={() => onToggleFrozen(column.key)} className="btn btn-sm btn-icon ms-1">
+          <RdsIcon
+            name={"arrow_left"}
+            width="16px"
+            height="16px"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+          />
+        </button> */}
+        <button onClick={() => onToggleHidden(column.key)} className="btn btn-sm btn-icon ms-1">
+          <RdsIcon
+            name="eye_slash"
+            width="20px"
+            height="20px"
+            fill={false}
+            stroke={true}
+            opacity="0.7"
+            tooltip={true}
+            tooltipTitle="Hide Column"
+            tooltipPlacement="bottom"
+          />
+        </button>
+        </>)}
+        {(column.filter || allFilter) && hasData && (
+          <div className="cursor-pointer">
+            <RdsIcon
+              colorVariant="dark"
+              height="10px"
+              name="filter"
+              stroke
+              width="20px"
+              onClick={handleFilterIconClick}
             />
-          )}
-        </div>
-      </th>
-    </>
+          </div>
+        )}
+
+        <ResizableBox
+          className="text-end"
+          width={10} // Initial width of the column header
+          height={20} // Height of the column header
+          axis="x"
+          resizeHandles={["e"]}
+          minConstraints={[50, Infinity]} // Minimum width the column can resize to
+          maxConstraints={[400, Infinity]} // Maximum width the column can resize to
+          onResizeStop={handleResizeStop}
+          onResizeStart={handleResizeStart}
+        ></ResizableBox>
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center full-width">
+        {(column.hasSearch || allSearch) && (
+          <RdsSearch
+            labelPosition="top"
+            placeholder="Search"
+            size="small"
+            onChange={(e) =>
+              onSearchChange && onSearchChange(column.key, e.target.value)
+            }
+          />
+        )}
+      </div>
+    </th>
   );
 };
-
 const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
   const [columns, setColumns] = useState(props.tableHeaders);
@@ -205,6 +269,18 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [array, setArray] = useState<boolean[]>([]);
   const [data, setData] = useState(props.tableData);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
+  useEffect(() => {
+    if (props.gridType === "advance") {
+      const paginatedData = getSortedData(
+        selectedFilters ? filteredData : totalData,
+        sortConfig,
+        currentPage
+      );
+      setData(paginatedData);
+    } else {
+      setData(totalData);
+    }
+  }, [totalData, sortConfig, currentPage, rowsPerPage, props.gridType]);
 
   const moveColumn = (fromIndex: number, toIndex: number) => {
     const updatedColumns = [...columns];
@@ -212,10 +288,16 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
     updatedColumns.splice(toIndex, 0, removed);
     setColumns(updatedColumns);
   };
-
+  
   const handleSearchChange = (key: string, value: string) => {
     setSearchTexts((prev) => ({ ...prev, [key]: value }));
+    const filteredData = props.tableData.filter((row) =>
+      row[key].toString().toLowerCase().includes(value.toLowerCase())
+    );
     setTotalData(filteredData);
+    if(props.gridType == "advance"){
+      setData(filteredData);
+    }
   };
 
   const [popupData, setPopupData] = useState<any[]>([]);
@@ -264,21 +346,27 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       } else {
         newFilters[popupColumnKey!].delete(value);
       }
+
+      const filteredData = props.tableData.filter((row) => {
+        return (
+          Object.entries(searchTexts).every(([key, value]) =>
+            row[key].toString().toLowerCase().includes(value.toLowerCase())
+          ) &&
+          Object.entries({ ...newFilters }).every(([key, values]) => {
+            if (values.size === 0) return true;
+            return values.has(row[key]);
+          })
+        );
+      });
+
+      setTotalData(filteredData);
+      if (props.gridType === "advance") {
+        setData(filteredData);
+      }
+
       return newFilters;
     });
   };
-
-  const filteredData = props.tableData.filter((row) => {
-    return (
-      Object.entries(searchTexts).every(([key, value]) =>
-        row[key].toString().toLowerCase().includes(value.toLowerCase())
-      ) &&
-      Object.entries(selectedFilters).every(([key, values]) => {
-        if (values.size === 0) return true;
-        return values.has(row[key]);
-      })
-    );
-  });
 
   const getSortedData = (
     data: any[],
@@ -307,6 +395,18 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       .slice(startingIndex, rowsPerPage * currentPage);
   };
 
+  const filteredData = props.tableData.filter((row) => {
+    return (
+      Object.entries(searchTexts).every(([key, value]) =>
+        row[key].toString().toLowerCase().includes(value.toLowerCase())
+      ) &&
+      Object.entries(selectedFilters).every(([key, values]) => {
+        if (values.size === 0) return true;
+        return values.has(row[key]);
+      })
+    );
+  });
+
   const sortedData = getSortedData(
     selectedFilters ? filteredData : totalData,
     sortConfig,
@@ -323,6 +423,9 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
       direction = "desc";
     }
     setSortConfig({ key, direction });
+    if(props.gridType == "advance"){
+      setData(sortedData);
+    }
   };
 
   const [rowStatus, setRowStatus] = useState({
@@ -330,21 +433,21 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
     endingRow: props.recordsPerPage,
   });
 
+  
   const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
     props.onPaginationHandler &&
       props.onPaginationHandler(currentPage, recordsPerPage);
-    if (totalRecords) {
-      setRowStatus({
-        startingRow: (currentPage - 1) * recordsPerPage, //0, //0-index
-        endingRow: recordsPerPage, //considering that 1st element has '0' index
-      });
-    } else {
-      setRowStatus({
-        startingRow: (currentPage - 1) * recordsPerPage, //0-index
-        endingRow: currentPage * recordsPerPage, //considering that 1st element has '0' index
-      });
-    }
     setCurrentPage(currentPage);
+    setRowsPerPage(recordsPerPage);
+
+    if (props.gridType === "advance") {
+      const paginatedData = getSortedData(
+        selectedFilters ? filteredData : totalData,
+        sortConfig,
+        currentPage
+      );
+      setData(paginatedData);
+    }
   };
 
   useEffect(() => {
@@ -477,10 +580,95 @@ const Popup: React.FC<{
     </div>
   );
 };
+const DraggableRow: React.FC<{
+  row: any;
+  index: number;
+  moveRow: (fromIndex: number, toIndex: number) => void;
+  children: React.ReactNode;
+}> = ({ row, index, moveRow, children }) => {
+  const ref = useRef<HTMLTableRowElement>(null);
+  const [, drop] = useDrop({
+    accept: "ROW",
+    hover(item: { index: number }) {
+      if (item.index !== index) {
+        moveRow(item.index, index);
+        item.index = index;
+      }
+    },
+  });
+
+  const [{ isDragging }, drag] = useDrag({
+    type: "ROW",
+    item: { index },
+    collect: (monitor: DragSourceMonitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  drag(drop(ref));
+
+  return (
+    <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      {children}
+    </tr>
+  );
+};
+const moveRow = (fromIndex: number, toIndex: number) => {
+  const updatedData = [...data];
+  const [removed] = updatedData.splice(fromIndex, 1);
+  updatedData.splice(toIndex, 0, removed);
+  setData(updatedData);
+};
+const handleToggleFixed = (key: string) => {
+  setColumns((prevColumns) =>
+    prevColumns.map((col) =>
+      col.key === key ? { ...col, fixed: !col.fixed } : col
+    )
+  );
+};
+
+const handleToggleFrozen = (key: string) => {
+  setColumns((prevColumns) =>
+    prevColumns.map((col) =>
+      col.key === key ? { ...col, frozen: !col.frozen } : col
+    )
+  );
+};
+
+const handleToggleHidden = (key: string) => {
+  setColumns((prevColumns) => {
+    const updatedColumns = prevColumns.map((col) =>
+      col.key === key ? { ...col, hidden: !col.hidden } : col
+    );
+
+    // Recalculate left positions
+    let left = 0;
+    return updatedColumns.map((column) => {
+      const newColumn = { ...column, left };
+      if (column.fixed && !column.hidden) {
+        left += 100; // Assuming each column has a fixed width of 100px
+      }
+      return newColumn;
+    });
+  });
+};
+
+const calculateLeftPositions = () => {
+  let left = 0;
+  return columns.map((column, index) => {
+    const newColumn = { ...column, left };
+    if (column.fixed && !column.hidden) {
+      left += 100; // Assuming each column has a fixed width of 100px
+    }
+    return newColumn;
+  });
+};
+
+const updatedColumns = calculateLeftPositions();
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div
+   {props.gridType != "advance" &&(   <div
         className={
           props.actionPosition == "left"
             ? "table-responsive"
@@ -526,6 +714,10 @@ const Popup: React.FC<{
                     sortConfig={sortConfig}
                     allSearch={props.allSearch}
                     allFilter={props.allFilter}
+                    data={data}
+                    onToggleFixed={handleToggleFixed}
+                    onToggleFrozen={handleToggleFrozen}
+                    onToggleHidden={handleToggleHidden}
                   />
                 ))}
 
@@ -726,8 +918,277 @@ const Popup: React.FC<{
             </tbody>
           </table>
         </div>
-      </div>
+      </div>)}
+      {props.gridType == "advance" &&(   <div
+        className={
+          props.actionPosition == "left"
+            ? "table-responsive"
+            : ""
+        }
+      >
+        <div className="table-responsive-sm">
+          <table className={`table table-hover table-bordered`} id="grid">
+            <thead className="text-nowrap">
+              <tr className="align-top">
+                <th></th>
+                {actionPosition != true &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <th className="text-center fw-medium">Actions</th>
+                  )}
 
+                {props.enablecheckboxselection && (
+                  <th scope="col">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      name="allSelect"
+                      onChange={(e) => handleChange(e, -1)}
+                      checked={selectedRows.size === props.tableData.length}
+                    />
+                  </th>
+                )}
+
+                {updatedColumns.map((column, index) => (
+                !column.hidden && (
+                  <DraggableColumnHeader
+                    key={column.key}
+                    column={{
+                      ...column,
+                      sortable: <></>, // Replace undefined with an empty React element
+                    }}
+                    index={index}
+                    moveColumn={moveColumn}
+                    onSearchChange={handleSearchChange}
+                    onFilterClick={handleFilterClick}
+                    onSortClick={handleSortClick}
+                    sortConfig={sortConfig}
+                    allSearch={props.allSearch}
+                    allFilter={props.allFilter}
+                    data={data}
+                    onToggleFixed={handleToggleFixed}
+                    onToggleFrozen={handleToggleFrozen}
+                    onToggleHidden={handleToggleHidden}
+                    gridType={props.gridType}
+                  />
+                )
+              ))}
+
+                {actionPosition &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <th className="text-center fw-medium">Actions</th>
+                  )}
+              </tr>
+            </thead>
+
+            <tbody className="cursor-pointer">
+            {/* Render table rows using the reordered columns */}
+            {data.map((row, rowIndex) => (
+              <DraggableRow key={row.id} row={row} index={rowIndex} moveRow={moveRow}>
+               <td className="text-center fw-medium">
+               <RdsIcon
+            colorVariant="dark"
+            height="15px"
+            name="collapsable"
+            stroke
+            width="20px"
+          
+          /> </td>
+
+                {actionPosition != true&&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <td className="text-center fw-medium">
+                      <>
+                        <div className="btn-group dropstart">
+                          <button
+                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                            type="button"
+                            aria-expanded={activeDropdownId === row.id ? "true" : "false"}
+                            onClick={() => toggleDropdown(row.id)}
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="true"
+                            id="dropdownMenuButton"
+                            data-testid="action-btn"
+                          >
+                            <RdsIcon
+                              name={"three_dots"}
+                              height="14px"
+                              width="14px"
+                              stroke={false}
+                              fill={true}
+                              tooltip={true}
+                              tooltipTitle="More Actions"
+                              tooltipPlacement="top"
+                            />
+                          </button>
+                          <ul
+                            ref={dropdownRef}
+                            aria-labelledby="dropdownMenuButton"
+                            className={`dropdown-menu dropdown-adjusted ${activeDropdownId === row.id && isDropdownOpen ? "show" : ""}`}
+                          >
+                            {props.actions.map((action, actionIndex) => (
+                              <li key={"action-" + actionIndex + "-inside-tableRow" + row.id}>
+                                {action.modalId && (
+                                  <a
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#${action?.modalId}`}
+                                    aria-controls={action?.modalId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action )}
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId && (
+                                  <a
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target={`#${action?.offId}`}
+                                    aria-controls={action?.offId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId == undefined && action.modalId == undefined && (
+                                  <a
+                                  onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    </td>
+                  )}
+
+                {props.enablecheckboxselection && (
+                  <th scope="row" className="align-middle">
+                    <input
+                      type="checkbox"
+                      name={row ? rowIndex.toString() : ""}
+                      checked={selectedRows.has(rowIndex)}
+                      onChange={(e) => handleChange(e, rowIndex)}
+                      className="form-check-input"
+                      id="rowcheck{user.id}"
+                    />
+                  </th>
+                )}
+
+          {updatedColumns.map((column, colIndex) => (
+                  !column.hidden && (
+                    <td
+                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+                      key={column.key}
+                      style={column.fixed ? { left: `${column.left}px` } : {}}
+                    >
+                      {column.datatype === "badge" ? (
+                        row[column.key] && typeof row[column.key] === 'object' ? (
+                          <RdsBadge
+                            colorVariant={row[column.key]?.badgeColorVariant || "success"}
+                            label={row[column.key]?.content || ""}
+                          />
+                        ) : (
+                          row[column.key] || ""
+                        )
+                      ) : (
+                        row[column.key]
+                      )}
+                    </td>
+                  )
+                ))}
+
+                {actionPosition &&
+                  props.tableHeaders &&
+                  props.tableHeaders?.length > 0 &&
+                  props.actions &&
+                  props.actions?.length > 0 && (
+                    <td className="text-center fw-medium">
+                      <>
+                        <div className="btn-group dropstart">
+                          <button
+                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                            type="button"
+                            aria-expanded={activeDropdownId === row.id ? "true" : "false"}
+                            onClick={() => toggleDropdown(row.id)}
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="true"
+                            id="dropdownMenuButton"
+                            data-testid="action-btn"
+                          >
+                            <RdsIcon
+                              name={"three_dots"}
+                              height="14px"
+                              width="14px"
+                              stroke={false}
+                              fill={true}
+                              tooltip={true}
+                              tooltipTitle="More Actions"
+                              tooltipPlacement="top"
+                            />
+                          </button>
+                          <ul
+                            ref={dropdownRef}
+                            aria-labelledby="dropdownMenuButton"
+                            className={`dropdown-menu dropdown-adjusted ${activeDropdownId === row.id && isDropdownOpen ? "show" : ""}`}
+                          >
+                            {props.actions.map((action, actionIndex) => (
+                              <li key={"action-" + actionIndex + "-inside-tableRow" + row.id}>
+                                {action.modalId && (
+                                  <a
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#${action?.modalId}`}
+                                    aria-controls={action?.modalId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId && (
+                                  <a
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target={`#${action?.offId}`}
+                                    aria-controls={action?.offId}
+                                    onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                                {action.offId == undefined && action.modalId == undefined && (
+                                  <a
+                                  onClick={(e) => actionOnClickHandler( e, row, Number(row.id), action ) }
+                                    className="dropdown-item"
+                                  >
+                                    {action.displayName}
+                                  </a>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    </td>
+                  )}
+              </DraggableRow>
+            ))}
+          </tbody>
+          </table>
+        </div>
+      </div>)}
       {popupVisible && (
         <Popup
           data={popupData}
