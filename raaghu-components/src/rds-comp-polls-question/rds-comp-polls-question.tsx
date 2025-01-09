@@ -111,7 +111,7 @@ function RdsCompPollsQuestion(props: any) {
                             size="small"
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-6 mt-2">
+                    <div className="col-md-6 mt-1">
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"
