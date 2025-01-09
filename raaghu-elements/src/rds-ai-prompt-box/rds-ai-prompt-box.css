@@ -165,6 +165,7 @@
 .chat-history {
   width: 100%;
   padding: 20px;
+  padding-bottom: 160px;
   background-color: transparent;
   border:1px solid #8000ff;;
   border-radius: 4px;
