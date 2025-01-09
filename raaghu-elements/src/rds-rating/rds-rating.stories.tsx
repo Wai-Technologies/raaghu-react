@@ -48,7 +48,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsRating>;
 
-export const Rating: Story = {
+export const RatingWithCount: Story = {
     args: {
         rating: 3,
         colorVariant: "primary",
@@ -59,7 +59,7 @@ export const Rating: Story = {
         dataTestId: "rating-test"
     }
 } satisfies Story;
-Rating.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
+RatingWithCount.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
 
 export const Slider: Story = {
     args: {
