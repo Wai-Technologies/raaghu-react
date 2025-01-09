@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarHeaderSelector = '.sidebar-header';
 
   let apiCallCount = 0; // To track how many times the API has been called
-  const maxApiCalls = 25; // Limit the number of API calls to 10
+  const maxApiCalls = 50; // Limit the number of API calls to 10
 
   // Function to add or refresh the version container
   function ensureVersionContainerExists() {
