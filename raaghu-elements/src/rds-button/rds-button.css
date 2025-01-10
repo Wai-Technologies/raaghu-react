@@ -24,10 +24,10 @@
   color: #2b2b2b;
 }
 
-.theme-dark .btn-light svg{
+.theme-dark .btn-light svg {
   color: #2b2b2b;
 }
-.btn-link{  
+.btn-link {
   /* color: #0969DA; */
   text-decoration: underline;
   font-weight: bold;
@@ -49,4 +49,42 @@
 
 .text-unset {
   text-transform: unset;
+}
+
+/* button background and button text color as per Figma  */
+
+.btn.btn-primary {
+  background: #d4bbff;
+  color: #7825e9;
+  border: none;
+}
+.btn.btn-secondary {
+  background: #93b8ff;
+  color: #2534e9;
+  border: none;
+}
+.btn.btn-tertiary {
+  background: #f8a4ff;
+  color: #b30fbc;
+  border: none;
+}
+.btn.btn-error {
+  background: #ffb3ad;
+  color: #bd0d1d;
+  border: none;
+}
+.btn.btn-neutral {
+  background: #cdcdcd;
+  color: #646464;
+  border: none;
+}
+.btn.btn-warning {
+  background: #fdc674;
+  color: #c2510c;
+  border: none;
+}
+.btn.btn-success {
+  background: #90e5a0;
+  color: #1f7630;
+  border: none;
 }

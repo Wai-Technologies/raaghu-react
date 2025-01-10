@@ -3,251 +3,251 @@ $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
     "tertiary": $tertiary,
-    "neutral": $neutral, 
+    "neutral": $neutral,
     "error":$error,
     "warning": $warning,
     "success": $success,
 
-/*     "info": $info,
+    /*     "info": $info,
     "danger": $danger, */
     "light": $light,
     "dark": $dark ) !default;
 
-    /*Primary background colors*/
-$bg-primary-darker-default:$primary-200;
-$bg-primary-dark-default:$primary-400;
-$bg-primary-medium-default:$primary-600;
-$bg-primary-light-default:$primary-800;
-$bg-primary-lighter-default:$primary-900;
+/*Primary background colors*/
+$bg-primary-darker-default: $primary-200;
+$bg-primary-dark-default: $primary-400;
+$bg-primary-medium-default: $primary-600;
+$bg-primary-light-default: $primary-800;
+$bg-primary-lighter-default: $primary-900;
 
-    /*Secondary background colors*/
-    $bg-secondary-darker-default:$secondary-600;
-    $bg-secondary-dark-default:$secondary-400;
-    $bg-secondary-medium-default:$secondary-200;
-    $bg-secondary-light-default:$neutral-800;
-    $bg-secondary-lighter-default:$secondary-10;
+/*Secondary background colors*/
+$bg-secondary-darker-default: $secondary-600;
+$bg-secondary-dark-default: $secondary-400;
+$bg-secondary-medium-default: $secondary-200;
+$bg-secondary-light-default: $neutral-800;
+$bg-secondary-lighter-default: $secondary-10;
 
-    /*Tertiary background colors*/
-    $bg-tertiary-darker-default:$tertiary-200;
-    $bg-tertiary-dark-default:$tertiary-400;
-    $bg-tertiary-medium-default:$tertiary-600;
-    $bg-tertiary-light-default:$tertiary-800;
-    $bg-tertiary-lighter-default:$tertiary-900;
+/*Tertiary background colors*/
+$bg-tertiary-darker-default: $tertiary-200;
+$bg-tertiary-dark-default: $tertiary-400;
+$bg-tertiary-medium-default: $tertiary-600;
+$bg-tertiary-light-default: $tertiary-800;
+$bg-tertiary-lighter-default: $tertiary-900;
 
-    /*Neutral Background colors */
-    $bg-neutral-darker-default:$neutral-200;
-    $bg-neutral-dark-default:$neutral-400;
-    $bg-neutral-medium-default:$neutral-700;
-    $bg-neutral-light-default:$neutral-800;
-    $bg-neutral-lighter-default:$black;
+/*Neutral Background colors */
+$bg-neutral-darker-default: $neutral-200;
+$bg-neutral-dark-default: $neutral-400;
+$bg-neutral-medium-default: $neutral-700;
+$bg-neutral-light-default: $neutral-800;
+$bg-neutral-lighter-default: $black;
 
-    /*Error Background colors */
-    $bg-error-darker-default:$error-600;
-    $bg-error-dark-default:$error-400;
-    $bg-error-medium-default:$error-200;
-    $bg-error-light-default:$error-50;
-    $bg-error-lighter-default:$error-10;
+/*Error Background colors */
+$bg-error-darker-default: $error-600;
+$bg-error-dark-default: $error-400;
+$bg-error-medium-default: $error-200;
+$bg-error-light-default: $error-50;
+$bg-error-lighter-default: $error-10;
 
-     /*Warning Background colors */
-     $bg-warning-darker-default:$warning-200;
-     $bg-warning-dark-default:$warning-400;
-     $bg-warning-medium-default:$warning-600;
-     $bg-warning-light-default:$warning-800;
-     $bg-warning-lighter-default:$warning-900;
+/*Warning Background colors */
+$bg-warning-darker-default: $warning-200;
+$bg-warning-dark-default: $warning-400;
+$bg-warning-medium-default: $warning-600;
+$bg-warning-light-default: $warning-800;
+$bg-warning-lighter-default: $warning-900;
 
-      /*Success Background colors */
-      $bg-success-darker-default:$success-800;
-      $bg-success-dark-default:$success-600;
-      $bg-success-medium-default:$success-400;
+/*Success Background colors */
+$bg-success-darker-default: $success-800;
+$bg-success-dark-default: $success-600;
+$bg-success-medium-default: $success-400;
 
-      /*Primary icons colors*/
-      $icon-primary-outline-default:$primary-600;
-      $icon-primary-outline-hover:$primary-900;
-      $icon-primary-outline-selected:$primary-200;
-      $icon-primary-outline-disabled:$primary-800;
-      $icon-primary-outline-invert:$light-0;
+/*Primary icons colors*/
+$icon-primary-outline-default: $primary-600;
+$icon-primary-outline-hover: $primary-900;
+$icon-primary-outline-selected: $primary-200;
+$icon-primary-outline-disabled: $primary-800;
+$icon-primary-outline-invert: $light-0;
 
-      /*Secondary icons colors*/
-      $icon-secondary-outline-default:$secondary-200;
-      $icon-secondary-outline-hover:$secondary-10;
-      $icon-secondary-outline-selected:$secondary-600;
-      $icon-secondary-outline-disabled:$secondary-50;
-      $icon-secondary-outline-invert:$light-0;
+/*Secondary icons colors*/
+$icon-secondary-outline-default: $secondary-200;
+$icon-secondary-outline-hover: $secondary-10;
+$icon-secondary-outline-selected: $secondary-600;
+$icon-secondary-outline-disabled: $secondary-50;
+$icon-secondary-outline-invert: $light-0;
 
-      /*Tertiary icons colors*/
-      $icon-tertiary-outline-default:$tertiary-600;
-      $icon-tertiary-outline-hover:$tertiary-900;
-      $icon-tertiary-outline-selected:$tertiary-200;
-      $icon-tertiary-outline-disabled:$tertiary-800;
-      $icon-tertiary-outline-invert:$light-0;
+/*Tertiary icons colors*/
+$icon-tertiary-outline-default: $tertiary-600;
+$icon-tertiary-outline-hover: $tertiary-900;
+$icon-tertiary-outline-selected: $tertiary-200;
+$icon-tertiary-outline-disabled: $tertiary-800;
+$icon-tertiary-outline-invert: $light-0;
 
-       /*Neutral icons colors*/
-       $icon-neutral-outline-default:$neutral-600;
-       $icon-neutral-outline-hover:$neutral-900;
-       $icon-neutral-outline-selected:$neutral-200;
-       $icon-neutral-outline-disabled:$neutral-800;
-       $icon-neutral-outline-invert:$light-0;
+/*Neutral icons colors*/
+$icon-neutral-outline-default: $neutral-600;
+$icon-neutral-outline-hover: $neutral-900;
+$icon-neutral-outline-selected: $neutral-200;
+$icon-neutral-outline-disabled: $neutral-800;
+$icon-neutral-outline-invert: $light-0;
 
-       /*Error icons colors*/
-       $icon-error-outline-default:$error-200;
-       $icon-error-outline-hover:$neutral-400;
-       $icon-error-outline-selected:$error-600;
-       $icon-error-outline-disabled:$error-50;
-       $icon-error-outline-invert:$light-0;
+/*Error icons colors*/
+$icon-error-outline-default: $error-200;
+$icon-error-outline-hover: $neutral-400;
+$icon-error-outline-selected: $error-600;
+$icon-error-outline-disabled: $error-50;
+$icon-error-outline-invert: $light-0;
 
-       /*Warning icons colors*/
-       $icon-warning-outline-default:$warning-600;
-       $icon-warning-outline-hover:$warning-900;
-       $icon-warning-outline-selected:$warning-200;
-       $icon-warning-outline-disabled:$warning-800;
-       $icon-warning-outline-invert:$light-0;
+/*Warning icons colors*/
+$icon-warning-outline-default: $warning-600;
+$icon-warning-outline-hover: $warning-900;
+$icon-warning-outline-selected: $warning-200;
+$icon-warning-outline-disabled: $warning-800;
+$icon-warning-outline-invert: $light-0;
 
-        /*Success icons colors*/
-        $icon-success-outline-default:$success-400;
-        $icon-success-outline-hover:$success-100;
-        $icon-success-outline-selected:$success-800;
-
-
-        /*Primary Input colors*/
-        $input-primary-solid-default:$primary-600;
-        $input-primary-solid-hover:$primary-400;
-        $input-primary-solid-disabled:$neutral-800;
-        $input-primary-outline-default:$primary-600;
-        $input-primary-outline-hover:$primary-400;
-        $input-primary-outline-disabled:$neutral-800;
-
-          /*Secondary Input colors*/
-          $input-secondary-solid-default:$secondary-200;
-          $input-secondary-solid-hover:$secondary-400;
-          $input-secondary-solid-disabled:$secondary-50;
-          $input-secondary-outline-default:$secondary-200;
-          $input-secondary-outline-hover:$secondary-400;
-          $input-secondary-outline-disabled:$secondary-50;
-
-           /*Tertiary Input colors*/
-           $input-tertiary-solid-default:$tertiary-600;
-           $input-tertiary-solid-hover:$tertiary-400;
-           $input-tertiary-solid-disabled:$tertiary-800;
-           $input-tertiary-outline-default:$tertiary-600;
-           $input-tertiary-outline-hover:$tertiary-400;
-           $input-tertiary-outline-disabled:$tertiary-800;
-
-            /*Neutral Input colors*/
-            $input-tertiary-solid-default:$neutral-600;
-            $input-tertiary-solid-hover:$neutral-400;
-            $input-tertiary-solid-disabled:$neutral-800;
-            $input-tertiary-outline-default:$neutral-600;
-            $input-tertiary-outline-hover:$neutral-400;
-            $input-tertiary-outline-disabled:$neutral-800;
-
-             /*Error Input colors*/
-             $input-error-solid-default:$error-200;
-             $input-error-solid-hover:$error-100;
-             $input-error-solid-disabled:$error-600;
-             $input-error-outline-default:$error-200;
-             $input-error-outline-hover:$error-100;
-             $input-error-outline-disabled:$error-600;
-
-             /*Warning Input colors*/
-             $input-warning-solid-default:$warning-600;
-             $input-warning-solid-hover:$warning-700;
-             $input-warning-solid-disabled:$warning-200;
-             $input-warning-outline-default:$warning-600;
-             $input-warning-outline-hover:$warning-700;
-             $input-warning-outline-disabled:$warning-200;
-
-              /*Successs Input colors*/
-              $input-warning-solid-default:$success-400;
-              $input-warning-solid-hover:$success-300; 
-              $input-warning-solid-disabled:$success-800;
-              $input-warning-outline-default:$success-400;
-              $input-warning-outline-hover:$success-300;
-              $input-warning-outline-disabled:$success-800;
-  
-
-              /*Primary Link Colors*/
-              $line-primary-dark-defaut:$primary;
-              $line-primary-medium-defaut:$primary-300;
-              $line-primary-light-defaut:$primary-100;
-
-                 /*Secondary Link Colors*/
-                 $line-secondary-dark-defaut:$secondary;
-                 $line-secondary-medium-defaut:$secondary-500;
-                 $line-secondary-light-defaut:$secondary-700;
-
-                 /*Teritary Link Colors*/
-                 $line-tertiary-dark-defaut:$tertiary;
-                 $line-tertiary-medium-defaut:$tertiary-300;
-                 $line-tertiary-light-defaut:$tertiary-100;
-
-                 /*Neutral Link Colors*/
-                 $line-neutral-dark-defaut:$neutral-700;
-                 $line-neutral-medium-defaut:$neutral-300;
-                 $line-neutral-light-defaut:$neutral-100;  
-                 $input-neutral-outline-default:$neutral-600;
-
-                 /*Error Link Colors*/
-                 $line-error-dark-defaut:$danger;
-                 $line-error-medium-defaut:$error-500;
-                 $line-error-light-defaut:$error-700;
-
-                 /*Warning Link Colors*/
-                 $line-warning-dark-defaut:$warning;
-                 $line-warning-medium-defaut:$warning-300;
-                 $line-warning-light-defaut:$warning-100;
-
-                  /*Success Link Colors*/
-                  $line-success-dark-defaut:$success;
-                  $line-success-medium-defaut:$success-700;
-                  $line-success-light-defaut:$success-100;
-
-                  /*Text Primary color*/
-                 $txt-primary-darker-default:$primary-900;
-                 $txt-primary-dark-default:$primary-800;
-                 $txt-primary-medium-default:$primary-600;
-                 $txt-primary-light-default:$primary-400;
-                 $txt-primary-lighter-default:$primary-10;
-
-                  /*Text Secondary color*/
-                  $txt-secondary-darker-default:$secondary-10;
-                  $txt-secondary-dark-default:$secondary-50;
-                  $txt-secondary-medium-default:$secondary-200;
-                  $txt-secondary-light-default:$secondary-400;
-                  $txt-secondary-lighter-default:$secondary-900;
-
- /*Text Tertiary color*/
- $txt-tertiary-darker-default:$tertiary-900;
- $txt-tertiary-dark-default:$tertiary-800;
- $txt-tertiary-medium-default:$tertiary-600;
- $txt-tertiary-light-default:$tertiary-400;
- $txt-tertiary-lighter-default:$tertiary-10;  
-
-  /*Text Neutral color*/
-  $txt-neutral-darker-default:$neutral-900;
-  $txt-neutral-dark-default:$neutral-400;
-  $txt-neutral-medium-default:$neutral-800;
-  $txt-neutral-light-default:$neutral-400;
-  $txt-neutral-lighter-default:$neutral-10;
+/*Success icons colors*/
+$icon-success-outline-default: $success-400;
+$icon-success-outline-hover: $success-100;
+$icon-success-outline-selected: $success-800;
 
 
-   /*Text Error color*/
-   $txt-error-darker-default:$error-10;
-   $txt-error-dark-default:$error-50;
-   $txt-error-medium-default:$error-200;
-   $txt-error-light-default:$error-400;
-   $txt-error-lighter-default:$error-900;
+/*Primary Input colors*/
+$input-primary-solid-default: $primary-600;
+$input-primary-solid-hover: $primary-400;
+$input-primary-solid-disabled: $neutral-800;
+$input-primary-outline-default: $primary-600;
+$input-primary-outline-hover: $primary-400;
+$input-primary-outline-disabled: $neutral-800;
 
-      /*Text Warning color*/
-      $txt-warning-darker-default:$warning-900;
-      $txt-warning-dark-default:$warning-800;
-      $txt-warning-medium-default:$warning-600;
-      $txt-warning-light-default:$warning-400;
-      $txt-warning-lighter-default:$warning-10;
+/*Secondary Input colors*/
+$input-secondary-solid-default: $secondary-200;
+$input-secondary-solid-hover: $secondary-400;
+$input-secondary-solid-disabled: $secondary-50;
+$input-secondary-outline-default: $secondary-200;
+$input-secondary-outline-hover: $secondary-400;
+$input-secondary-outline-disabled: $secondary-50;
 
-      /*Text Success color*/
-      $txt-success-darker-default:$success-100;
-      $txt-success-dark-default:$success-200;
-      $txt-success-medium-default:$success-400;
+/*Tertiary Input colors*/
+$input-tertiary-solid-default: $tertiary-600;
+$input-tertiary-solid-hover: $tertiary-400;
+$input-tertiary-solid-disabled: $tertiary-800;
+$input-tertiary-outline-default: $tertiary-600;
+$input-tertiary-outline-hover: $tertiary-400;
+$input-tertiary-outline-disabled: $tertiary-800;
+
+/*Neutral Input colors*/
+$input-tertiary-solid-default: $neutral-600;
+$input-tertiary-solid-hover: $neutral-400;
+$input-tertiary-solid-disabled: $neutral-800;
+$input-tertiary-outline-default: $neutral-600;
+$input-tertiary-outline-hover: $neutral-400;
+$input-tertiary-outline-disabled: $neutral-800;
+
+/*Error Input colors*/
+$input-error-solid-default: $error-200;
+$input-error-solid-hover: $error-100;
+$input-error-solid-disabled: $error-600;
+$input-error-outline-default: $error-200;
+$input-error-outline-hover: $error-100;
+$input-error-outline-disabled: $error-600;
+
+/*Warning Input colors*/
+$input-warning-solid-default: $warning-600;
+$input-warning-solid-hover: $warning-700;
+$input-warning-solid-disabled: $warning-200;
+$input-warning-outline-default: $warning-600;
+$input-warning-outline-hover: $warning-700;
+$input-warning-outline-disabled: $warning-200;
+
+/*Successs Input colors*/
+$input-warning-solid-default: $success-400;
+$input-warning-solid-hover: $success-300;
+$input-warning-solid-disabled: $success-800;
+$input-warning-outline-default: $success-400;
+$input-warning-outline-hover: $success-300;
+$input-warning-outline-disabled: $success-800;
+
+
+/*Primary Link Colors*/
+$line-primary-dark-defaut: $primary;
+$line-primary-medium-defaut: $primary-300;
+$line-primary-light-defaut: $primary-100;
+
+/*Secondary Link Colors*/
+$line-secondary-dark-defaut: $secondary;
+$line-secondary-medium-defaut: $secondary-500;
+$line-secondary-light-defaut: $secondary-700;
+
+/*Teritary Link Colors*/
+$line-tertiary-dark-defaut: $tertiary;
+$line-tertiary-medium-defaut: $tertiary-300;
+$line-tertiary-light-defaut: $tertiary-100;
+
+/*Neutral Link Colors*/
+$line-neutral-dark-defaut: $neutral-700;
+$line-neutral-medium-defaut: $neutral-300;
+$line-neutral-light-defaut: $neutral-100;
+$input-neutral-outline-default: $neutral-600;
+
+/*Error Link Colors*/
+$line-error-dark-defaut: $danger;
+$line-error-medium-defaut: $error-500;
+$line-error-light-defaut: $error-700;
+
+/*Warning Link Colors*/
+$line-warning-dark-defaut: $warning;
+$line-warning-medium-defaut: $warning-300;
+$line-warning-light-defaut: $warning-100;
+
+/*Success Link Colors*/
+$line-success-dark-defaut: $success;
+$line-success-medium-defaut: $success-700;
+$line-success-light-defaut: $success-100;
+
+/*Text Primary color*/
+$txt-primary-darker-default: $primary-900;
+$txt-primary-dark-default: $primary-800;
+$txt-primary-medium-default: $primary-600;
+$txt-primary-light-default: $primary-400;
+$txt-primary-lighter-default: $primary-10;
+
+/*Text Secondary color*/
+$txt-secondary-darker-default: $secondary-10;
+$txt-secondary-dark-default: $secondary-50;
+$txt-secondary-medium-default: $secondary-200;
+$txt-secondary-light-default: $secondary-400;
+$txt-secondary-lighter-default: $secondary-900;
+
+/*Text Tertiary color*/
+$txt-tertiary-darker-default: $tertiary-900;
+$txt-tertiary-dark-default: $tertiary-800;
+$txt-tertiary-medium-default: $tertiary-600;
+$txt-tertiary-light-default: $tertiary-400;
+$txt-tertiary-lighter-default: $tertiary-10;
+
+/*Text Neutral color*/
+$txt-neutral-darker-default: $neutral-900;
+$txt-neutral-dark-default: $neutral-400;
+$txt-neutral-medium-default: $neutral-800;
+$txt-neutral-light-default: $neutral-400;
+$txt-neutral-lighter-default: $neutral-10;
+
+
+/*Text Error color*/
+$txt-error-darker-default: $error-10;
+$txt-error-dark-default: $error-50;
+$txt-error-medium-default: $error-200;
+$txt-error-light-default: $error-400;
+$txt-error-lighter-default: $error-900;
+
+/*Text Warning color*/
+$txt-warning-darker-default: $warning-900;
+$txt-warning-dark-default: $warning-800;
+$txt-warning-medium-default: $warning-600;
+$txt-warning-light-default: $warning-400;
+$txt-warning-lighter-default: $warning-10;
+
+/*Text Success color*/
+$txt-success-darker-default: $success-100;
+$txt-success-dark-default: $success-200;
+$txt-success-medium-default: $success-400;
 $min-contrast-ratio: 4.5 !default;
 
 $secondary: $gray-600 !default;
@@ -477,7 +477,7 @@ $card-dashboard-bg-color: $dark-600 !default;
 $card-dashboard-border-color: $dark-0;
 
 $offcanvasbg: $dark-400 !default;
-$offcanvascolor:$gray-650;
+$offcanvascolor: $gray-650;
 $textareaplaceholdercolor :$gray-650;
 
 $modal-bg-color: $dark-400 !default;
@@ -1210,15 +1210,16 @@ svg {
 
 
 .toast-basic {
-    .toast-header{
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $bg-neutral-lighter-default, // border
-        $txt-neutral-dark-default // text color
+    .toast-header {
+        @include toast-variant($bg-neutral-lighter-default, // background
+            $bg-neutral-lighter-default, // border
+            $txt-neutral-dark-default // text color
         );
     }
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
+
+    @include toast-variant($bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
     );
     // border-left: 4px solid $input-primary-outline-default; // border
 
@@ -1259,15 +1260,16 @@ svg {
 }
 
 .toast-success {
-    .toast-header{
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $bg-neutral-lighter-default, // border
-        $txt-neutral-dark-default // text color
+    .toast-header {
+        @include toast-variant($bg-neutral-lighter-default, // background
+            $bg-neutral-lighter-default, // border
+            $txt-neutral-dark-default // text color
         );
     }
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
+
+    @include toast-variant($bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
     );
     border-left: 4px solid $input-primary-outline-default; // border
 
@@ -1308,15 +1310,16 @@ svg {
 }
 
 .toast-info {
-    .toast-header{
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $bg-neutral-lighter-default, // border
-        $txt-neutral-dark-default // text color
+    .toast-header {
+        @include toast-variant($bg-neutral-lighter-default, // background
+            $bg-neutral-lighter-default, // border
+            $txt-neutral-dark-default // text color
         );
     }
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
+
+    @include toast-variant($bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
     );
     border-left: 4px solid $dark; // border
 
@@ -1357,15 +1360,16 @@ svg {
 }
 
 .toast-error {
-    .toast-header{
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $bg-neutral-lighter-default, // border
-        $txt-neutral-dark-default // text color
+    .toast-header {
+        @include toast-variant($bg-neutral-lighter-default, // background
+            $bg-neutral-lighter-default, // border
+            $txt-neutral-dark-default // text color
         );
     }
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
+
+    @include toast-variant($bg-neutral-lighter-default, // background
+        $bg-neutral-lighter-default, // border
+        $txt-neutral-dark-default // text color
     );
     border-left: 4px solid $danger; // border
 
@@ -2709,11 +2713,11 @@ $form-feedback-color: $gray-200;
 
 .offcanvas {
     background-color: $offcanvasbg;
-    color:$offcanvascolor;
+    color: $offcanvascolor;
 }
 
 textarea::placeholder {
-    color: $textareaplaceholdercolor;  
+    color: $textareaplaceholdercolor;
 }
 
 .form-select {
@@ -3550,11 +3554,11 @@ hr {
 .select-value,
 .select-placeholder {
     // color: var(--bs-body-color);
-     color:white;
+    color: white;
 }
 
 // collapsible container css start
- .container-collapse {
+.container-collapse {
     width: 190px;
     overflow: hidden !important;
     transition: width 0.3s ease !important;
@@ -3566,30 +3570,32 @@ hr {
     flex-direction: column !important;
     box-shadow: 5px solid #ede1e1 !important;
     visibility: visible !important;
-  }
-   
-  .container-collapse.right {
+}
+
+.container-collapse.right {
     right: 0 !important;
     border: 1px solid #ccc !important;
-  }
-   
-  .container-collapse.collapsed-container {
+}
+
+.container-collapse.collapsed-container {
     width: 50px !important;
     border-radius: 3% !important;
-  }
-   
-  .chevron-position-left {
+}
+
+.chevron-position-left {
     justify-content: flex-start !important;
-    align-items: center !important; /* Align items vertically */
-  }
-  .chevron-position-right
-  {
+    align-items: center !important;
+    /* Align items vertically */
+}
+
+.chevron-position-right {
     display: flex !important;
     justify-content: flex-end !important;
-    align-items: center !important; /* Align items vertically */
-  }
-   
-  .collapse-button-for-container {
+    align-items: center !important;
+    /* Align items vertically */
+}
+
+.collapse-button-for-container {
     border: none !important;
     background: #3089D1 !important;
     border-radius: 50% !important;
@@ -3597,52 +3603,59 @@ hr {
     cursor: pointer !important;
     color: $white !important;
     padding-bottom: 5px !important;
-  }
-   
-  .menu-item-collapsible-container {
+}
+
+.menu-item-collapsible-container {
     padding: 10px 0 !important;
     display: flex !important;
     align-items: center !important;
     cursor: pointer !important;
-  }
-   
-  .menu-item-collapsible-container i {
+}
+
+.menu-item-collapsible-container i {
     margin-right: 10px !important;
-  }
-   
-   
-  .collapsed-container .menu-item-collapsible-container i {
+}
+
+
+.collapsed-container .menu-item-collapsible-container i {
     margin: 0 !important;
-  }
-  .leftChevronPosition {
-    position: relative ;
-    top: 5px ;
-    left: 9px ;
-  }
-  .rightChevronPosition {
-    top: 5px ;
-    left: -10px ;
-    position: relative ;
-  }
-  .wrapperContainer {
+}
+
+.leftChevronPosition {
+    position: relative;
+    top: 5px;
+    left: 9px;
+}
+
+.rightChevronPosition {
+    top: 5px;
+    left: -10px;
+    position: relative;
+}
+
+.wrapperContainer {
     position: relative;
     display: flex;
     // align-items: center;
-  }
-   
-  .wrapperContainer.right {
-    justify-content: flex-end;
-  }
-   
-  .wrapperContainer.left {
-    justify-content: flex-start;
-  }
-  // collapsible container css end
-.bg-layer {
-    background-color: rgba($primary-0,0.7); 
-    padding: 1rem;
-    color:$white;
 }
+
+.wrapperContainer.right {
+    justify-content: flex-end;
+}
+
+.wrapperContainer.left {
+    justify-content: flex-start;
+}
+
+// collapsible container css end
+.bg-layer {
+    background-color: rgba($primary-0, 0.7);
+    padding: 1rem;
+    <<<<<<< HEAD color: #fff;
+    =======color: $white;
+    >>>>>>>development
+}
+
 .input-with-image {
     background-color: $light-0;
 }
