@@ -197,3 +197,36 @@
 .text-color-light {
   color: #f8f9fa !important;
 }
+
+.theme-dark .border-left-primary {
+  border: 0;
+  border-left: 4px solid #7e2eef;
+}
+.theme-dark .border-left-secondary {
+  border: 0;
+  border-left: 4px solid #2539ff;
+}
+.theme-dark .border-left-success {
+  border: 0;
+  border-left: 4px solid #24993a;
+}
+.theme-dark .border-left-info {
+  border: 0;
+  border-left: 4px solid #3ef1e8;
+}
+.theme-dark .border-left-warning {
+  border: 0;
+  border-left: 4px solid #ea6c0c;
+}
+.theme-dark .border-left-danger {
+  border: 0;
+  border-left: 4px solid #e02d30;
+}
+.theme-dark .border-left-dark {
+  border: 0;
+  border-left: 4px solid #7d7d7d;
+}
+.theme-dark .border-left-light {
+  border: 0;
+  border-left: 4px solid #f8f9fa;
+}
