@@ -77,7 +77,7 @@ const RdsCard = (props: RdsCardProps) => {
             
           } ${props.style === "Filled" ? "card-filled" : ""} ${props.state === "Hovered" ? "card-hovered" : ""
           } ${props.state === "Selected" ? "card-selected" : ""}
-            ${props.state === "Default" ? `border-left-${props.borderColor}` : ""} 
+            ${props.state === "Default" ? `border-left-${props.borderColor} shadow ` : ""} 
             ${props.style === "Outlined" ? `card-bordered-${props.borderColor}` : ""}
           `}
       >
