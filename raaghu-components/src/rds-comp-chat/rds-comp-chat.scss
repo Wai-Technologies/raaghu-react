@@ -157,10 +157,12 @@
     margin-top: 8px;   // Optional: Add spacing above the image
     object-fit: cover; // Ensures the image doesn't distort and covers the box
 }
-.epr-icn-search{
+
+.epr-icn-search {
   display: none;
-  }
-  .sendButton{
+}
+
+.sendButton {
     margin-bottom: 8px !important;
     border: 1px solid #ccc !important;
     padding: 6px 9px !important;
@@ -168,4 +170,4 @@
     margin-top: -7px !important;
     background-color: blueviolet !important;
     color: white !important;
-  }
+}

@@ -95,7 +95,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
         <div className="custom-content-scroll">
           <h4>Shipping Address</h4>
           <div className="row mt-3">
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6">
               <div className="form-group">
                 <RdsInput
                   label="First Name"
@@ -112,7 +112,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 ></RdsInput>
               </div>
             </div>
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
                   label="Last Name"
@@ -132,7 +132,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row">
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
                   label="Company"
@@ -149,7 +149,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 ></RdsInput>
               </div>
             </div>
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
                   label="Phone"
@@ -186,7 +186,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row">
-          <div className="col-md-12 sm-p-0">
+          <div className="col-md-12 ">
             <div className="form-group">
               <RdsInput
                 label="Address"
@@ -206,7 +206,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row">
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6">
               <div className="form-group">
                 <RdsInput
                   label="City"
@@ -223,7 +223,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 ></RdsInput>
               </div>
             </div>
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6 ">
               <div className="form-group">
                 <RdsSelectList
                   id="seleCon"
@@ -241,7 +241,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           </div>
 
           <div className="row">
-            <div className="col-md-6 sm-p-0">
+            <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
                   label="State/Province"
@@ -258,7 +258,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                 ></RdsInput>
               </div>
             </div>
-            <div className="col-md-6 sm-p-0 pb-3">
+            <div className="col-md-6  pb-3">
               <div className="form-group">
                 <RdsInput
                   label="Postal Code"

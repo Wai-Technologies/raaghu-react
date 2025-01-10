@@ -40,22 +40,21 @@
     justify-content: center;
     z-index: 0;
     font-size: small;
-    color: #ceced0 !important;
   }
   
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
-    color: #666667;
+    color: #343a40;
     font-weight:700;
   }
   
   .page-item.disabled a {
-    color: #7a7a7b;
+    color: #6c757d;
     cursor: not-allowed;
   }
   
   .page-item a:hover {
-    background-color: #a5a6a7; /* Customize as needed */
+    background-color: #ced4da; /* Customize as needed */
   }
   
   .page-item.roundeds a {
