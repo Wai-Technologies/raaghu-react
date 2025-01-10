@@ -43,6 +43,7 @@ export interface RdsInputProps {
   ShowHintText?: boolean;
   tooltipPlacement?: "top" | "bottom" | "left" | "right";
   tooltipTitle?: string;
+  isValidConfirmPass?: boolean;
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -60,6 +61,11 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     useEffect(() => {
       setValue(props.value ?? "");
     }, [props.value]);
+
+    useEffect(() => { 
+      if(props?.name == "curNewPass")
+      props.isValidConfirmPass ? setIsValid(true) : setIsValid(false);
+    });
 
     const formatCardNumber = (inputValue: string) => {
       inputValue = inputValue.replace(/\D/g, '');
