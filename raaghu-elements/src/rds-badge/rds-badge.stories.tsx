@@ -15,28 +15,28 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     size: {
-      options: ["small","medium", "large"],
+      options: ["small", "medium", "large"],
       control: { type: "select" },
     },
     badgeType: {
-      options: [ "pill", "box"],
+      options: ["pill", "box"],
       control: { type: "select" },
     },
     colorVariant: {
       options: [
         "primary",
-        "success",
+        "secondary",
+        "tertiary",
         "danger",
         "warning",
         "light",
-        "info",
-        "secondary",
-        "dark",
-    ],
+        // "info",
+        "success",
+      ],
       control: { type: "select" },
     },
     layout: {
-      options: ["Text_only","Icon_only", "Icon+Text", "Text+Icon"],
+      options: ["Text_only", "Icon_only", "Icon+Text", "Text+Icon"],
       control: { type: "select" },
     },
     style: {
@@ -75,15 +75,15 @@ const Positioned = (args: any) => (
 
 const PositionedIcon = (args: any) => (
   <>
-   <span className={`icon-${args.size}`}> 
-    <RdsIcon
-      name={args.iconName}
-      width="25px"
-      height="25px"
-      fill={false}
-      stroke={true}
-      colorVariant={args.colorVariant}
-    /></span>
+    <span className={`icon-${args.size}`}>
+      <RdsIcon
+        name={args.iconName}
+        width="25px"
+        height="25px"
+        fill={false}
+        stroke={true}
+        colorVariant={args.colorVariant}
+      /></span>
     <span className="position-absolute ms-2 translate-middle">
       <RdsBadge label={""} {...args}></RdsBadge>
     </span>
@@ -117,7 +117,7 @@ export const WithLabel: Story = {
   },
   render: Positioned
 } satisfies Story;
-WithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType','buttonLabel'] } };
+WithLabel.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'buttonLabel'] } };
 
 export const WithIcon: Story = {
   args: {
@@ -156,7 +156,7 @@ export const BadgeWithIcon: Story = {
     </RdsBadge>
   ),
 };
-BadgeWithIcon.parameters = { controls: { include: ['size', 'colorVariant', 'badgeType', 'iconName','layout','style'] } };
+BadgeWithIcon.parameters = { controls: { include: ['size', 'colorVariant', 'badgeType', 'iconName', 'layout', 'style'] } };
 
 export const BadgeWithIconAndText: Story = {
   args: {
@@ -167,7 +167,7 @@ export const BadgeWithIconAndText: Story = {
     iconName: "notification", // Adjust based on your available icons
     layout: "Icon+Text",
     style: "primary",
-    
+
   },
   render: (args) => (
     <RdsBadge {...args}>
@@ -181,7 +181,7 @@ export const BadgeWithIconAndText: Story = {
     </RdsBadge>
   ),
 };
-BadgeWithIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName', 'layout','style'] } };
+BadgeWithIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName', 'layout', 'style'] } };
 
 export const BadgeWithRightIconAndText: Story = {
   args: {
@@ -192,7 +192,7 @@ export const BadgeWithRightIconAndText: Story = {
     iconName: "notification", // Adjust based on your available icons
     layout: "Text+Icon",
     style: "primary",
-    
+
   },
   render: (args) => (
     <RdsBadge {...args}>
@@ -206,4 +206,4 @@ export const BadgeWithRightIconAndText: Story = {
     </RdsBadge>
   ),
 };
-BadgeWithRightIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName','layout','style'] } };
+BadgeWithRightIconAndText.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'iconName', 'layout', 'style'] } };

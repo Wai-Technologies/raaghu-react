@@ -166,7 +166,7 @@ export const Password: Story = {
     required: true,
     readonly: false,
     showIcon: true,
-    fontWeight: "normal",
+    fontWeight: "normal"
   },
 } satisfies Story;
 Password.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };
