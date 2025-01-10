@@ -58,6 +58,24 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
     setCommentList(comments); // Set initial comments from props
   }, [comments]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const pickerElement = document.querySelector('.emoji-popup');
+      if (pickerElement && !pickerElement.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  
   const handleAddComment = () => {
     if (commentText.trim() === '') return;
 
@@ -190,7 +208,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </div>
         )}
         {isFilepload && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
             <input
               id="fileUpload"
@@ -203,7 +221,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
 
         {isEmojiPicker && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsIcon
               name="smileys"
               fill={false}
