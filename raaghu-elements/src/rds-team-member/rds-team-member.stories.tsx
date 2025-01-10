@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTeamMember>;
 
-export const TeamMember: Story = {
+export const MemberProfileCard: Story = {
     args: {
         teamItem: [
             {
@@ -30,4 +30,4 @@ export const TeamMember: Story = {
         ]
     }
 } satisfies Story;
-TeamMember.parameters = { controls: { include: ['teamItem'] } };
+MemberProfileCard.parameters = { controls: { include: ['teamItem'] } };

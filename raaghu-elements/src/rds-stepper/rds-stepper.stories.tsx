@@ -137,7 +137,7 @@ Block.parameters = {
     }
 };
 
-export const Stepper: Story = {
+export const NumberStepper: Story = {
     args: {
         role: "Stepper",
         steps: 5,
@@ -154,7 +154,7 @@ export const Stepper: Story = {
     },
 } satisfies Story;
 
-Stepper.parameters = {
+NumberStepper.parameters = {
     controls: {
         include: ['state', 'steps', 'variant', 'Icon', 'StepIconName']
     }
