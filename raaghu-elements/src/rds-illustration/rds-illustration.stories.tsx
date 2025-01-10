@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof RdsIllustration>;
 
 
-export const EmptyState: Story = {
+export const EmptyDataView: Story = {
     args: {
         label: "Currently you don't have any data",
         subLabel: "Click on the button above to add data",
@@ -27,5 +27,5 @@ export const EmptyState: Story = {
         iconPath: "/assets/lottie-files/outlined/dual-color/illustration-light.json",
     }
 } satisfies Story;
-EmptyState.parameters = { controls: { include: ['label', 'subLabel', 'iconHeight', 'iconWidth', 'iconPath'] } };
+EmptyDataView.parameters = { controls: { include: ['label', 'subLabel', 'iconHeight', 'iconWidth', 'iconPath'] } };
 
