@@ -208,7 +208,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </div>
         )}
         {isFilepload && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
             <input
               id="fileUpload"
@@ -221,7 +221,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
 
         {isEmojiPicker && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsIcon
               name="smileys"
               fill={false}
