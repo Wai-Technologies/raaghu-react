@@ -32,7 +32,7 @@ export const OptionCheckbox: Story = {
     args: {
         type: "Square",
         state: "Checkbox",
-        label: "default checkbox",
+        label: "Default Checkbox",
         checked: false,
         isDisabled: false,
         isSwitch: false,
