@@ -34,7 +34,7 @@ export default meta;
 type Story = StoryObj<typeof RdsFabMenu>;
 
 
-export const FabMenu: Story = {
+export const CollapsibleMenu: Story = {
     args: {
         colorVariant: "primary",
         listItems: [
@@ -46,4 +46,4 @@ export const FabMenu: Story = {
         ]
     }
 } satisfies Story;
-FabMenu.parameters = { controls: { include: ['colorVariant', 'listItems'] } };
+CollapsibleMenu.parameters = { controls: { include: ['colorVariant', 'listItems'] } };

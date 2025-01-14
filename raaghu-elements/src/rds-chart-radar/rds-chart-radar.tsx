@@ -34,8 +34,8 @@ const RdsRadarChart = (props: RdsRadarProps) => {
     });
 
     if (radarCanvas != null) {
-      radarCanvas.canvas.style.height = "50vh";
-      radarCanvas.canvas.style.width = "50vh";
+      radarCanvas.canvas.style.height = "250px";
+      radarCanvas.canvas.style.width = "270px";
       chartInstanceRef.current = radarCanvas; // Store the chart instance
     }
   }, [props]);
