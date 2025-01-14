@@ -98,8 +98,10 @@ height: 20px;
 }
 
 .dropdown-menu.show {
-  display: block;
-  transform: translate3d(0px, 120px, 0px);
+  position: absolute; 
+  inset: 0px auto auto 0px; 
+  margin: 0px; 
+  transform: translate3d(0px, 36.5px, 0px);
 }
 
 button#dropdownMenuButton {
