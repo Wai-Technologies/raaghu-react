@@ -190,7 +190,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
       )}
 
       {props.validatonPattern !== undefined && (
-        <div className="form-control-feedback mb-3">
+        <div className="form-control-feedback">
           {props.validatonPattern !== undefined &&
             props.validationMsg !== undefined &&
             isTouch &&
