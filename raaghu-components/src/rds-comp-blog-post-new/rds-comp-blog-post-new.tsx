@@ -111,6 +111,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
         <form>
           <div className="custom-content-scroll">
             <div className="form-group mb-3">
+            <RdsLabel label="Cover Image" />
               <RdsFileUploader
                 key={counter}
                 colorVariant="dark"
