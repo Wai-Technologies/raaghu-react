@@ -26,8 +26,18 @@ const RdsBarChart = (props: RdsBarChartProps) => {
                 options: props.options,
             });
 
-            barCanvas.canvas.style.height = props.id === "barchart1" ? "57vh" : "42.5vh";
-            barCanvas.canvas.style.width = "100vh";
+            if (barCanvas !== null) {
+                if (props.id === "barchart1") {
+                    barCanvas.canvas.style.height = "57vh";
+                    barCanvas.canvas.style.width = "100vh";
+                } else if (props.id === "histogram") {
+                    barCanvas.canvas.style.height = "50px";
+                    barCanvas.canvas.style.width = "50px";
+                } else {
+                    barCanvas.canvas.style.height = "42.5vh";
+                    barCanvas.canvas.style.width = "100vh";
+                }
+            }
         
             return () => {
                 barCanvas.destroy();

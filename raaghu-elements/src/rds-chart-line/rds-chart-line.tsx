@@ -26,9 +26,17 @@ const RdsLineChart = (props: Rdslineprops) => {
                 options: props.options,
             });
             
-            if(lineCanvas !== null) {
-                lineCanvas.canvas.style.height = props.id === "linechart1" ? "7.1vh" : "35.4vh";
-                lineCanvas.canvas.style.width = "100vh";
+            if (lineCanvas !== null) {
+                if (props.id === "linechart1") {
+                    lineCanvas.canvas.style.height = "7.1vh";
+                    lineCanvas.canvas.style.width = "100vh";
+                } else if (props.id === "linechart2") {
+                    lineCanvas.canvas.style.height = "50px";
+                    lineCanvas.canvas.style.width = "50px";
+                } else {
+                    lineCanvas.canvas.style.height = "35.4vh";
+                    lineCanvas.canvas.style.width = "100vh";
+                }
             }
             return () => {
                 lineCanvas.destroy();
