@@ -1058,7 +1058,7 @@ const updatedColumns = calculateLeftPositions();
                   props.tableHeaders?.length > 0 &&
                   props.actions &&
                   props.actions?.length > 0 && (
-                    <th className="text-center fw-medium">Actions</th>
+                    <th className="text-center fw-medium header-padding">Actions</th>
                   )}
 
                 {props.enablecheckboxselection && (
@@ -1106,7 +1106,7 @@ const updatedColumns = calculateLeftPositions();
                   props.tableHeaders?.length > 0 &&
                   props.actions &&
                   props.actions?.length > 0 && (
-                    <th className="text-center fw-medium">Actions</th>
+                    <th className="text-center fw-medium header-padding" style={{paddingTop: '20px'}}>Actions</th>
                   )}
               </tr>
             </thead>
