@@ -447,6 +447,16 @@
 }
 .left-space{ margin-left:0.8rem}
 .left-space-listing{ padding-left:0.8rem}
+
+
+.theme-dark{
+    .LeftSideNavListCollapse,
+    .LeftSideNavList {
+        .border{
+            background: transparent !important;
+        }
+    }
+}
 .theme-dark #sidenavbar-search{
     border:unset !important;
     background-color: #292b30 !important;

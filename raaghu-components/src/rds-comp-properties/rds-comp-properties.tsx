@@ -158,7 +158,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                             dataTestId="value"
                         ></RdsInput>
                     </div>
-                    <div className="col-2 mb-5 mt-4 align-self-end">
+                    <div className="col-2 mb-5 mt-4 align-self-end pt-2">
                         <RdsButton
                             label="Add"                        
                             colorVariant="primary"
@@ -218,7 +218,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                         dataTestId="value"
                     ></RdsInput>
                 </div>
-                <div className="col-md-2   align-items-end d-flex">                    
+                <div className="col-md-2   align-items-end d-flex mb-2">                    
                     <RdsButton 
                         label="Add"                                              
                         colorVariant="primary"
