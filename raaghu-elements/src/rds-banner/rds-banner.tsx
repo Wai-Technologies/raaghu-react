@@ -8,8 +8,7 @@ export interface RdsBannerProps {
   bannerText?: string;
   sticky?: boolean;
   position?: "top" | "bottom";
-  colorVariant?:
-    | "primary"
+  colorVariant?: "primary"
     | "secondary"
     | "success"
     | "danger"

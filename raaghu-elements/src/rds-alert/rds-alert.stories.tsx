@@ -11,12 +11,12 @@ const meta: Meta<typeof RdsAlert> = {
                 "info",
                 "success",
                 "warning",
-                "error"            
+                "error"
             ],
             control: { type: "select" },
         },
-        border:{
-            options:[
+        border: {
+            options: [
                 "none",
                 "single",
                 "left border"
@@ -42,7 +42,7 @@ const meta: Meta<typeof RdsAlert> = {
         displayType: {
             options: ["singleline", "multiline"],
             control: { type: "select" },
-        },        
+        },
     },
 };
 
@@ -55,7 +55,7 @@ export const SingleLineAlert: Story = {
         icon: "information",
         title: "Heading Title. ",
         message: "This is the description of the message bar.",
-        border:"none",
+        border: "none",
         size: "small",
         dismisable: true,
         iconFill: false,
@@ -66,7 +66,7 @@ export const SingleLineAlert: Story = {
         position: "top",
         displayType: "singleline",
         showlink: true,
-        showbutton: true,        
+        showbutton: true,
     }
 };
 SingleLineAlert.parameters = { controls: { include: ["type", "icon", "title", "message", "border", "size", "dismisable", "sticky", "position", "showlink", "showbutton"] } };
@@ -78,7 +78,7 @@ export const MultilineAlert: Story = {
         title: "Heading Title. ",
         message: "This is the description of the message bar.",
         description: "This is the description which should not exceed 100 character limit.",
-        border:"none",
+        border: "none",
         iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
@@ -87,8 +87,8 @@ export const MultilineAlert: Story = {
         sticky: false,
         position: "top",
         showlink: true,
-        showbutton: true,        
+        showbutton: true,
         displayType: "multiline",
     }
 };
-MultilineAlert.parameters = { controls: { include: ["type", "icon", "title", "message", "description", "border",  "size", "dismisable", "sticky", "position", "showlink", "showbutton"] } };
+MultilineAlert.parameters = { controls: { include: ["type", "icon", "title", "message", "description", "border", "size", "dismisable", "sticky", "position", "showlink", "showbutton"] } };
