@@ -267,7 +267,7 @@ const DraggableColumnHeader: React.FC<{
             <div className="list-popup" ref={popupRef} >
               <ul className="list-popup-ul">
                 {pinOptions.map((option, index) => (
-                  <li key={index}>
+                  <li className="pb-2" key={index}>
                     <label className="list-popup-li">
                       <input
                         type="checkbox"
@@ -795,7 +795,7 @@ const updatedColumns = calculateLeftPositions();
         }
       >
         <div className="table-responsive-sm">
-          <table className={`table table-hover table-bordered`} id="grid">
+          <table className={`table table-hover table-bordered grid-table`} id="grid">
             <thead className="text-nowrap">
               <tr className="align-top">
                 {actionPosition != true &&
@@ -1049,7 +1049,7 @@ const updatedColumns = calculateLeftPositions();
         }
       >
         <div className="table-responsive-sm">
-          <table className={`table table-hover table-bordered`} id="grid">
+          <table className={`table table-hover table-bordered grid-table`} id="grid">
             <thead className="text-nowrap">
               <tr className="align-top">
                 <th></th>
