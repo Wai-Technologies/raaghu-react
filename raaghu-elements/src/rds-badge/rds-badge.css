@@ -1,127 +1,191 @@
 #new-badges {
-.medium {
-    font-size: 1.0rem !important;
-}
-.large {
+  .medium {
+    font-size: 1rem !important;
+  }
+  .large {
     font-size: 1.15rem !important;
-}
+  }
 
-.icon-small svg {
-    width: 1.20rem !important;
-}
+  .icon-small svg {
+    width: 1.2rem !important;
+  }
 
-.icon-medium svg{
-    width: 1.50rem !important;
-}
-.icon-large svg{
-    width: 1.80rem !important;
-}
+  .icon-medium svg {
+    width: 1.5rem !important;
+  }
+  .icon-large svg {
+    width: 1.8rem !important;
+  }
 
-.small {
+  .small {
     font-size: 0.85rem !important;
-}
+  }
 
-.smaller {
+  .smaller {
     font-size: 0.65rem !important;
-}
+  }
 
-.smallest {
-    font-size: 0.60rem !important;
-}
+  .smallest {
+    font-size: 0.6rem !important;
+  }
 
-.smaller svg{
+  .smaller svg {
     height: 14px !important;
     width: 13px !important;
-}
+  }
 
-.smallest svg{
+  .smallest svg {
     height: 12px !important;
     width: 12px !important;
-}
+  }
 
-.small svg{
+  .small svg {
     height: 16px !important;
     width: 16px !important;
-}
+  }
 
-.medium svg{
+  .medium svg {
     height: 17px !important;
     width: 18px !important;
-}
-.large svg {
+  }
+  .large svg {
     height: 20px !important;
     width: 20px !important;
-}
+  }
 
-.text-with-icon{
+  .text-with-icon {
     display: inline-flex;
     gap: 0.3rem;
     align-items: center;
     border: 1px solid;
-}
+  }
 
-.border-icon{
+  .border-icon {
     border: 1px solid;
-}
-.border-primary{
+  }
+  .border-primary {
     border: 1px solid #7e2eef !important;
-}
-.border-success{
-    border: 1px solid #24993A !important;
-}
-.border-danger{
-    border: 1px solid #E02D30 !important;
-}
-.border-warning{
-    border: 1px solid #EA6C0C !important;
-}
-.border-light{
+  }
+  .border-success {
+    border: 1px solid #24993a !important;
+  }
+  .border-danger {
+    border: 1px solid #e02d30 !important;
+  }
+  .border-warning {
+    border: 1px solid #ea6c0c !important;
+  }
+  .border-light {
     border: 1px solid #f8f9fa !important;
-}
-.border-info{
+  }
+  .border-info {
     border: 1px solid #3ef1e8 !important;
-}
-.border-secondary{
-    border: 1px solid #2539FF !important;
-}
-.border-dark{
-    border: 1px solid #7D7D7D !important;
-}
-.badge.disabled {
+  }
+  .border-secondary {
+    border: 1px solid #2539ff !important;
+  }
+  .border-tertiary {
+    border: 1px solid #f8a4ff !important;
+  }
+  .text-tertiary {
+    color: #f8a4ff;
+  }
+
+  .badge.disabled {
     opacity: 0.65;
     pointer-events: none;
     cursor: not-allowed;
-}
-.theme-dark .badge-primary {
+  }
+  .theme-dark .badge-primary {
     color: #ffffff;
     background-color: #6525bf;
-}
-.theme-dark .badge-success {
+  }
+  .theme-dark .badge-success {
     color: #ffffff;
-    background-color: #24993A;
-}
-.theme-dark .badge-danger {
+    background-color: #24993a;
+  }
+  .theme-dark .badge-danger {
     color: #ffffff;
-    background-color: #E02D30;
-}
-.theme-dark .badge-warning {
+    background-color: #e02d30;
+  }
+  .theme-dark .badge-warning {
     color: #ffffff;
-    background-color: #EA6C0C;
-}
-.theme-dark .badge-light {
+    background-color: #ea6c0c;
+  }
+  .theme-dark .badge-light {
     color: #000000;
     background-color: #f8f9fa;
-}
-.theme-dark .badge-info {
+  }
+  .theme-dark .badge-info {
     color: #ffffff;
     background-color: #3ef1e8;
-}
-.theme-dark .badge-secondary {
+  }
+  .theme-dark .badge-secondary {
     color: #ffffff;
-    background-color: #2539FF;
-}
-.theme-dark .badge-dark {
+    background-color: #2539ff;
+  }
+  .theme-dark .badge-tertiary {
     color: #ffffff;
-    background-color: #7D7D7D;
+    background-color: #7d7d7d;
+  }
+
+  /* primary background and text colors */
+  .badge-primary {
+    background-color: #d4bbff;
+    color: #7825e9;
+  }
+  .badge-secondary {
+    background-color: #93b8ff;
+    color: #2534e9;
+  }
+  .badge-tertiary {
+    background-color: #f8a4ff;
+    color: #b30fbc;
+  }
+  .badge-danger {
+    background-color: #ffb3ad;
+    color: #bd0d1d;
+  }
+  .badge-light {
+    background-color: #cdcdcd;
+    color: #646464;
+  }
+  .badge-warning {
+    background-color: #fdc674;
+    color: #c2510c;
+  }
+  .badge-success {
+    background-color: #90e5a0;
+    color: #1f7630;
+  }
 }
+
+/* Icon color for storybook dark mode */
+
+.theme-dark #new-badges .badge-primary svg {
+  stroke: #7825e9 !important;
+}
+
+.theme-dark #new-badges .badge-secondary svg {
+  stroke: #2534e9 !important;
+}
+
+.theme-dark #new-badges .badge-tertiary svg {
+  stroke: #b30fbc !important;
+}
+
+.theme-dark #new-badges .badge-danger svg {
+  stroke: #bd0d1d !important;
+}
+
+.theme-dark #new-badges .badge-light svg {
+  stroke: #646464 !important;
+}
+
+.theme-dark #new-badges .badge-warning svg {
+  stroke: #c2510c !important;
+}
+
+.theme-dark #new-badges .badge-success svg {
+  stroke: #1f7630 !important;
 }

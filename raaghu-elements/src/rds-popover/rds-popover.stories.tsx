@@ -20,10 +20,10 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPopover>;
 
-export const Popover: Story = {
+export const PopoverWithDirection: Story = {
     args: {
         popoverPosition: "top",
         children: <p>Popover</p>,
     }
 } satisfies Story;
-Popover.parameters = { controls: { include: ['popoverPosition', 'children'] } };
+PopoverWithDirection.parameters = { controls: { include: ['popoverPosition', 'children'] } };

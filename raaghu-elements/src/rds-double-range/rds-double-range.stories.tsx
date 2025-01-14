@@ -19,13 +19,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDoubleRange>;
 
-export const DoubleRange: Story = {
+export const RangeSlider: Story = {
     args: {
         max: 100,
         min: 0,
         doubleRangeType: "default"
     }
 } satisfies Story;
-DoubleRange.parameters = { controls: { include: ['max', 'min', 'doubleRangeType'] } };
+RangeSlider.parameters = { controls: { include: ['max', 'min', 'doubleRangeType'] } };
 
 
