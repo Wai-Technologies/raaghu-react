@@ -1033,6 +1033,19 @@ table thead .header.d-flex {
     position: relative;
 }
 
+.grid-table{
+    thead{
+        th{
+            .btn-sm{
+                svg{
+                    width: 16px !important;
+                    height: 16px !important;
+                }
+            }
+        }
+    }
+}
+
 // /* Sidenav */
 // .sidenav-footer {
 //   position: fixed;

@@ -30,6 +30,31 @@
     transform: rotate(360deg);
   }
 }
+.list-popup {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.list-popup-ul {
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.list-popup-li {
+  display: flex;
+  cursor: pointer;
+}
+
+.header-padding {
+  padding-top: 20px;
+}
 
 .popup {
   position: absolute;
@@ -38,7 +63,7 @@
   padding: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  max-height: 200px;
+  max-height: 200px; 
   /* Maximum height before showing a scrollbar */
   overflow-y: auto;
   /* Show vertical scrollbar if needed */
