@@ -49,7 +49,7 @@ export interface RdsCompDatatableProps {
   recordsPerPageSelectListOption?: boolean;
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
-  onRowClick?: (rowId: any) => void; // Add this line
+  onRowClick?: (rowId: any) => void; 
   tableStyle?: any;
   alignmentType?: any;
   actionPosition?: "right" | "left";
