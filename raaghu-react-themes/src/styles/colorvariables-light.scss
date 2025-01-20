@@ -1,373 +1,381 @@
 //background-color: white;
-$theme-colors: ( $primary: #7e2eef, $secondary: #2539FF, $tertiary: #DA25E9, $neutral: #7D7D7D, $error: #E02D30, $warning: #EA6C0C, $success: #24993A,
-/*     "info": $info,
+$theme-colors: (
+    $primary: $primary,
+        $secondary: $secondary,
+            $tertiary: $tertiary,
+                $neutral: #7D7D7D,
+                    $error: $danger,
+                        $warning: $warning,
+                            $success: $success,
+                                /*     "info": $info,
     "danger": $danger, */
-"light": $light, "dark": $dark ) !default;
+                                "light": $light,
+                                "dark": $dark ) !default;
 
-/*Primary background colors*/
-$bg-primary-darker-default: #19003E;
-$bg-primary-dark-default: #7825E9;
-$bg-primary-medium-default: #D4BBFF;
-$bg-primary-light-default: #EBDCFF;
-$bg-primary-lighter-default: #FEF7FF;
+                            /*Primary background colors*/
+                            $bg-primary-darker-default: $primary-900;
+                            $bg-primary-dark-default: $primary-600;
+                            $bg-primary-medium-default: $primary-200;
+                            $bg-primary-light-default: $primary-100;
+                            $bg-primary-lighter-default: $primary-10;
 
-/*Secondary background colors*/
-$bg-secondary-darker-default: #111755;
-$bg-secondary-dark-default: #2534E9;
-$bg-secondary-medium-default: #93B8FF;
-$bg-secondary-light-default: #BCD5FF;
-$bg-secondary-lighter-default: #EBF3FF;
+                            /*Secondary background colors*/
+                            $bg-secondary-darker-default: $secondary-10;
+                            $bg-secondary-dark-default: $secondary-200;
+                            $bg-secondary-medium-default: $secondary-600;
+                            $bg-secondary-light-default: $secondary-700;
+                            $bg-secondary-lighter-default: $secondary-900;
 
-/*Tertiary background colors*/
-$bg-tertiary-darker-default: #530054;
-$bg-tertiary-dark-default: #B30FBC;
-$bg-tertiary-medium-default: #F8A4FF;
-$bg-tertiary-light-default: #F9CCFF;
-$bg-tertiary-lighter-default: #FEF3FF;
+                            /*Tertiary background colors*/
+                            $bg-tertiary-darker-default: $tertiary-900;
+                            $bg-tertiary-dark-default: $tertiary-600;
+                            $bg-tertiary-medium-default: $tertiary-200;
+                            $bg-tertiary-light-default: $tertiary-100;
+                            $bg-tertiary-lighter-default: $tertiary-10;
 
-/*Neutral Background colors */
-$bg-neutral-darker-default: #202020;
-$bg-neutral-dark-default: #4C4C4C;
-$bg-neutral-medium-default: #CDCDCD;
-$bg-neutral-light-default: #E9E9E9;
-$bg-neutral-lighter-default: #ffffff;
+                            /*Neutral Background colors */
+                            $bg-neutral-darker-default: $neutral-900;
+                            $bg-neutral-dark-default: $neutral-700;
+                            $bg-neutral-medium-default: $neutral-200;
+                            $bg-neutral-light-default: $neutral-100;
+                            $bg-neutral-lighter-default: $light-0;
 
-/*Error Background colors */
-$bg-error-darker-default: #410003;
-$bg-error-dark-default: #BD0D1D;
-$bg-error-medium-default: #FFB3AD;
-$bg-error-light-default: #FFDAD6;
-$bg-error-lighter-default: #FFF8F7;
+                            /*Error Background colors */
+                            $bg-error-darker-default: $error-10;
+                            $bg-error-dark-default: $error-200;
+                            $bg-error-medium-default: $error-600;
+                            $bg-error-light-default: $error-700;
+                            $bg-error-lighter-default: $error-900;
 
-/*Warning Background colors */
-$bg-warning-darker-default: #431907;
-$bg-warning-dark-default: #C2510C;
-$bg-warning-medium-default: #FDC674;
-$bg-warning-light-default: #CDCDCD;
-$bg-warning-lighter-default: #FFF9ED;
+                            /*Warning Background colors */
+                            $bg-warning-darker-default: $warning-900;
+                            $bg-warning-dark-default: $warning-600;
+                            $bg-warning-medium-default: $warning-200;
+                            $bg-warning-light-default: $neutral-200;
+                            $bg-warning-lighter-default: $warning-10;
 
-/*Success Background colors */
-$bg-success-darker-default: #092A11;
-$bg-success-dark-default: #1F7630;
-$bg-success-medium-default: #90E5A0;
+                            /*Success Background colors */
+                            $bg-success-darker-default: $success-100;
+                            $bg-success-dark-default: $success-400;
+                            $bg-success-medium-default: $success-800;
 
-/*Primary icons colors*/
-$icon-primary-outline-default: #7825E9;
-$icon-primary-outline-hover: #4F00A6;
-$icon-primary-outline-selected: #340071;
-$icon-primary-outline-disabled: #D4BBFF;
-$icon-primary-outline-invert: #FFFFFF;
+                            /*Primary icons colors*/
+                            $icon-primary-outline-default: $primary-600;
+                            $icon-primary-outline-hover: $primary-700;
+                            $icon-primary-outline-selected: $primary-800;
+                            $icon-primary-outline-disabled: $primary-200;
+                            $icon-primary-outline-invert: $light-0;
 
-/*Secondary icons colors*/
-$icon-secondary-outline-default: #2534E9;
-$icon-secondary-outline-hover: #1827BB;
-$icon-secondary-outline-selected: #1D2B92;
-$icon-secondary-outline-disabled: #93B8FF;
-$icon-secondary-outline-invert: #FFFFFF;
+                            /*Secondary icons colors*/
+                            $icon-secondary-outline-default: $secondary-200;
+                            $icon-secondary-outline-hover: $secondary-100;
+                            $icon-secondary-outline-selected: $secondary-50;
+                            $icon-secondary-outline-disabled: $secondary-600;
+                            $icon-secondary-outline-invert: $light-0;
 
-/*Tertiary icons colors*/
-$icon-tertiary-outline-default: #B30FBC;
-$icon-tertiary-outline-hover: #940F99;
-$icon-tertiary-outline-selected: #7B127D;
-$icon-tertiary-outline-disabled: #F8A4FF;
-$icon-tertiary-outline-invert: #FFFFFF;
+                            /*Tertiary icons colors*/
+                            $icon-tertiary-outline-default: $tertiary-600;
+                            $icon-tertiary-outline-hover: $tertiary-700;
+                            $icon-tertiary-outline-selected: $tertiary-800;
+                            $icon-tertiary-outline-disabled: $tertiary-200;
+                            $icon-tertiary-outline-invert: $light-0;
 
-/*Neutral icons colors*/
-$icon-neutral-outline-default: #646464;
-$icon-neutral-outline-hover: #4C4C4C;
-$icon-neutral-outline-selected: #353535;
-$icon-neutral-outline-disabled: #CDCDCD;
-$icon-neutral-outline-invert: #FFFFFF;
+                            /*Neutral icons colors*/
+                            $icon-neutral-outline-default: $neutral-600;
+                            $icon-neutral-outline-hover: $neutral-700;
+                            $icon-neutral-outline-selected: $neutral-800;
+                            $icon-neutral-outline-disabled: $neutral-200;
+                            $icon-neutral-outline-invert: $light-0;
 
-/*Error icons colors*/
-$icon-error-outline-default: #BD0D1D;
-$icon-error-outline-hover: #930011;
-$icon-error-outline-selected: #680009;
-$icon-error-outline-disabled: #FFB3AD;
-$icon-error-outline-invert: #FFFFFF;
+                            /*Error icons colors*/
+                            $icon-error-outline-default: $error-200;
+                            $icon-error-outline-hover: $error-100;
+                            $icon-error-outline-selected: $error-50;
+                            $icon-error-outline-disabled: $error-600;
+                            $icon-error-outline-invert: $light-0;
 
-/*Warning icons colors*/
-$icon-warning-outline-default: #C2510C;
-$icon-warning-outline-hover: #9A4012;
-$icon-warning-outline-selected: #7C3712;
-$icon-warning-outline-disabled: #FDC674;
-$icon-warning-outline-invert: #FFFFFF;
+                            /*Warning icons colors*/
+                            $icon-warning-outline-default: $warning-600;
+                            $icon-warning-outline-hover: $warning-700;
+                            $icon-warning-outline-selected: $warning-800;
+                            $icon-warning-outline-disabled: $warning-200;
+                            $icon-warning-outline-invert: $light-0;
 
-/*Success icons colors*/
-$icon-success-outline-default: #1F7630;
-$icon-success-outline-hover: #1D5E2A;
-$icon-success-outline-selected: #1A4D25;
-
-
-/*Primary Input colors*/
-$input-primary-solid-default: #7825E9;
-$input-primary-solid-hover: #4F00A6;
-$input-primary-solid-disabled: #D4BBFF;
-$input-primary-outline-default: #7825E9;
-$input-primary-outline-hover: #4F00A6;
-$input-primary-outline-disabled: #D4BBFF;
-
-/*Secondary Input colors*/
-$input-secondary-solid-default: #2534E9;
-$input-secondary-solid-hover: #1827BB;
-$input-secondary-solid-disabled: #93B8FF;
-$input-secondary-outline-default: #2534E9;
-$input-secondary-outline-hover: #1827BB;
-$input-secondary-outline-disabled: #93B8FF;
-
-/*Tertiary Input colors*/
-$input-tertiary-solid-default: #B30FBC;
-$input-tertiary-solid-hover: #940F99;
-$input-tertiary-solid-disabled: #F8A4FF;
-$input-tertiary-outline-default: #B30FBC;
-$input-tertiary-outline-hover: #940F99;
-$input-tertiary-outline-disabled: #F8A4FF;
-
-/*Neutral Input colors*/
-$input-neutral-solid-default: #646464;
-$input-neutral-solid-hover: #4C4C4C;
-$input-neutral-solid-disabled: #CDCDCD;
-$input-neutral-outline-default: #646464;
-$input-neutral-outline-hover: #4C4C4C;
-$input-neutral-outline-disabled: #CDCDCD;
-
-/*Error Input colors*/
-$input-error-solid-default: #BD0D1D;
-$input-error-solid-hover: #930011;
-$input-error-solid-disabled: #FFB3AD;
-$input-error-outline-default: #BD0D1D;
-$input-error-outline-hover: #930011;
-$input-error-outline-disabled: #FFB3AD;
-
-/*Warning Input colors*/
-$input-warning-solid-default: #C2510C;
-$input-warning-solid-hover: #9A4012;
-$input-warning-solid-disabled: #FDC674;
-$input-warning-outline-default: #C2510C;
-$input-warning-outline-hover: #9A4012;
-$input-warning-outline-disabled: #FDC674;
-
-/*Successs Input colors*/
-$input-warning-solid-default: #1F7630;
-$input-warning-solid-hover: #1D5E2A;
-$input-warning-solid-disabled: #90E5A0;
-$input-warning-outline-default: #1F7630;
-$input-warning-outline-hover: #1D5E2A;
-$input-warning-outline-disabled: #90E5A0;
+                            /*Success icons colors*/
+                            $icon-success-outline-default: $success-400;
+                            $icon-success-outline-hover: $success-300;
+                            $icon-success-outline-selected: $success-200;
 
 
-/*Primary Link Colors*/
-$line-primary-dark-defaut: #7E2EEF;
-$line-primary-medium-defaut: #BE98FF;
-$line-primary-light-defaut: #EBDCFF;
+                            /*Primary Input colors*/
+                            $input-primary-solid-default: $primary-600;
+                            $input-primary-solid-hover: $primary-700;
+                            $input-primary-solid-disabled: $primary-200;
+                            $input-primary-outline-default: $primary-600;
+                            $input-primary-outline-hover: $primary-700;
+                            $input-primary-outline-disabled: $primary-200;
 
-/*Secondary Link Colors*/
-$line-secondary-dark-defaut: #2539FF;
-$line-secondary-medium-defaut: #698FFF;
-$line-secondary-light-defaut: #BCD5FF;
+                            /*Secondary Input colors*/
+                            $input-secondary-solid-default: $secondary-200;
+                            $input-secondary-solid-hover: $secondary-100;
+                            $input-secondary-solid-disabled: $secondary-600;
+                            $input-secondary-outline-default: $secondary-200;
+                            $input-secondary-outline-hover: $secondary-100;
+                            $input-secondary-outline-disabled: $secondary-600;
 
-/*Teritary Link Colors*/
-$line-tertiary-dark-defaut: #DA25E9;
-$line-tertiary-medium-defaut: #F56EFF;
-$line-tertiary-light-defaut: #F9CCFF;
+                            /*Tertiary Input colors*/
+                            $input-tertiary-solid-default: $tertiary-600;
+                            $input-tertiary-solid-hover: $tertiary-700;
+                            $input-tertiary-solid-disabled: $tertiary-200;
+                            $input-tertiary-outline-default: $tertiary-600;
+                            $input-tertiary-outline-hover: $tertiary-700;
+                            $input-tertiary-outline-disabled: $tertiary-200;
 
-/*Neutral Link Colors*/
-$line-neutral-dark-defaut: #4C4C4C;
-$line-neutral-medium-defaut: #B1B1B1;
-$line-neutral-light-defaut: #E9E9E9;
+                            /*Neutral Input colors*/
+                            $input-neutral-solid-default: $neutral-600;
+                            $input-neutral-solid-hover: $neutral-700;
+                            $input-neutral-solid-disabled: $neutral-200;
+                            $input-neutral-outline-default: $neutral-600;
+                            $input-neutral-outline-hover: $neutral-700;
+                            $input-neutral-outline-disabled: $neutral-200;
 
-/*Error Link Colors*/
-$line-error-dark-defaut: #E02D30;
-$line-error-medium-defaut: #FF8980;
-$line-error-light-defaut: #FFDAD6;
+                            /*Error Input colors*/
+                            $input-error-solid-default: $error-200;
+                            $input-error-solid-hover: $error-100;
+                            $input-error-solid-disabled: $error-600;
+                            $input-error-outline-default: $error-200;
+                            $input-error-outline-hover: $error-100;
+                            $input-error-outline-disabled: $error-600;
 
-/*Warning Link Colors*/
-$line-warning-dark-defaut: #EA6C0C;
-$line-warning-medium-defaut: #FBA33C;
-$line-warning-light-defaut: #FED99B;
+                            /*Warning Input colors*/
+                            $input-warning-solid-default: $warning-600;
+                            $input-warning-solid-hover: $warning-700;
+                            $input-warning-solid-disabled: $warning-200;
+                            $input-warning-outline-default: $warning-600;
+                            $input-warning-outline-hover: $warning-700;
+                            $input-warning-outline-disabled: $warning-200;
 
-/*Success Link Colors*/
-$line-success-dark-defaut: #24993A;
-$line-success-medium-defaut: #58D06E;
-$line-success-light-defaut: #C1F1C9;
-
-/*Buton color*/
-$btn-primary-solid-default: #7825E9;
-$btn-primary-solid-hover: #4F00A6;
-$btn-primary-solid-selected: #340071;
-$btn-primary-solid-disabled: #D4BBFF;
-$btn-primary-outline-default: #7825E9;
-$btn-primary-outline-hover: #4F00A6;
-$btn-primary-outline-selected: #340071;
-$btn-primary-outline-disabled: #D4BBFF;
-$btn-primary-transparent-default: #ffffff;
-$btn-primary-transparent-hover: #EBDCFF;
-$btn-primary-transparent-selected: #D4BBFF;
-$btn-primary-transparent-disabled: #EBDCFF;
-$btn-primary-text-default: #7825E9;
-$btn-primary-text-disabled: #A875FF;
-$btn-primary-text-invert: #FFFFFF;
-
-$btn-secondary-solid-default: #2534E9;
-$btn-secondary-solid-hover: #1827BB;
-$btn-secondary-solid-selected: #1D2B92;
-$btn-secondary-solid-disabled: #93B8FF;
-$btn-secondary-outline-default: #2534E9;
-$btn-secondary-outline-hover: #1827BB;
-$btn-secondary-outline-selected: #1D2B92;
-$btn-secondary-outline-disabled: #93B8FF;
-$btn-secondary-transparent-default: #ffffff;
-$btn-secondary-transparent-hover: #EBDCFF;
-$btn-secondary-transparent-selected: #D4BBFF;
-$btn-secondary-transparent-disabled: #EBDCFF;
-$btn-secondary-text-default: #7825E9;
-$btn-secondary-text-disabled: #A875FF;
-$btn-secondary-text-invert: #FFFFFF;
-
-$btn-tertiary-solid-default: #B30FBC;
-$btn-tertiary-solid-hover: #940F99;
-$btn-tertiary-solid-selected: #7B127D;
-$btn-tertiary-solid-disabled: #F8A4FF;
-$btn-tertiary-outline-default: #B30FBC;
-$btn-tertiary-outline-hover: #940F99;
-$btn-tertiary-outline-selected: #7B127D;
-$btn-tertiary-outline-disabled: #F8A4FF;
-$btn-tertiary-transparent-default: #ffffff;
-$btn-tertiary-transparent-hover: #F9CCFF;
-$btn-tertiary-transparent-selected: #F8A4FF;
-$btn-tertiary-transparent-disabled: #F9CCFF;
-$btn-tertiary-text-default: #B30FBC;
-$btn-tertiary-text-disabled: #EB37FE;
-$btn-tertiary-text-invert: #FFFFFF;
-
-$btn-neutral-solid-default: #646464;
-$btn-neutral-solid-hover: #4C4C4C;
-$btn-neutral-solid-selected: #353535;
-$btn-neutral-solid-disabled: #CDCDCD;
-$btn-neutral-outline-default: #646464;
-$btn-neutral-outline-hover: #4C4C4C;
-$btn-neutral-outline-selected: #4C4C4C;
-$btn-neutral-outline-disabled: #CDCDCD;
-$btn-neutral-transparent-default: #ffffff;
-$btn-neutral-transparent-hover: #E9E9E9;
-$btn-neutral-transparent-selected: #CDCDCD;
-$btn-neutral-transparent-disabled: #E9E9E9;
-$btn-neutral-text-default: #646464;
-$btn-neutral-text-disabled: #969696;
-$btn-neutral-text-invert: #FFFFFF;
-
-$btn-error-solid-default: #BD0D1D;
-$btn-error-solid-hover: #930011;
-$btn-error-solid-selected: #7C3712;
-$btn-error-solid-disabled: #FFB3AD;
-$btn-error-outline-default: #BD0D1D;
-$btn-error-outline-hover: #930011;
-$btn-error-outline-selected: #7C3712;
-$btn-error-outline-disabled: #FFB3AD;
-$btn-error-transparent-default: #ffffff;
-$btn-error-transparent-hover: #FFDAD6;
-$btn-error-transparent-selected: #FFB3AD;
-$btn-error-transparent-disabled: #FFDAD6;
-$btn-error-text-default: #BD0D1D;
-$btn-error-text-disabled: #FF544F;
-$btn-error-text-invert: #FFFFFF;
-
-$btn-warning-solid-default: #C2510C;
-$btn-warning-solid-hover: #9A4012;
-$btn-warning-solid-selected: #7C3712;
-$btn-warning-solid-disabled: #FDC674;
-$btn-warning-outline-default: #C2510C;
-$btn-warning-outline-hover: #9A4012;
-$btn-warning-outline-selected: #7C3712;
-$btn-warning-outline-disabled: #FDC674;
-$btn-warning-transparent-default: #ffffff;
-$btn-warning-transparent-hover: #FED99B;
-$btn-warning-transparent-selected: #FDC674;
-$btn-warning-transparent-disabled: #FED99B;
-$btn-warning-text-default: #C2510C;
-$btn-warning-text-disabled: #F98816;
-$btn-warning-text-invert: #FFFFFF;
-
-$btn-success-solid-default: #1F7630;
-$btn-success-solid-hover: #1D5E2A;
-$btn-success-solid-selected: #1A4D25;
-$btn-success-solid-disabled: #90E5A0;
-$btn-success-outline-default: #1F7630;
-$btn-success-outline-hover: #1D5E2A;
-$btn-success-outline-selected: #1A4D25;
-$btn-success-outline-disabled: #90E5A0;
-$btn-success-transparent-default: #ffffff;
-$btn-success-transparent-hover: #C1F1C9;
-$btn-success-transparent-selected: #90E5A0;
-$btn-success-transparent-disabled: #C1F1C9;
-$btn-success-text-default: #1F7630;
-$btn-success-text-disabled: #31B64A;
-$btn-success-text-invert: #FFFFFF;
-
-/*Text Primary color*/
-$txt-primary-darker-default: #19003E;
-$txt-primary-dark-default: #340071;
-$txt-primary-medium-default: #7825E9;
-$txt-primary-light-default: #A875FF;
-$txt-primary-lighter-default: #FEF7FF;
-
-/*Text Secondary color*/
-$txt-secondary-darker-default: #111755;
-$txt-secondary-dark-default: #1D2B92;
-$txt-secondary-medium-default: #2534E9;
-$txt-secondary-light-default: #4666FF;
-$txt-secondary-lighter-default: #EBF3FF;
+                            /*Successs Input colors*/
+                            $input-warning-solid-default: $success-400;
+                            $input-warning-solid-hover: $success-300;
+                            $input-warning-solid-disabled: $success-800;
+                            $input-warning-outline-default: $success-400;
+                            $input-warning-outline-hover: $success-300;
+                            $input-warning-outline-disabled: $success-800;
 
 
-/*Text Tertiary color*/
-$txt-tertiary-darker-default: #530054;
-$txt-tertiary-dark-default: #7B127D;
-$txt-tertiary-medium-default: #B30FBC;
-$txt-tertiary-light-default: #EB37FE;
-$txt-tertiary-lighter-default: #FEF3FF;
+                            /*Primary Link Colors*/
+                            $line-primary-dark-defaut: $primary;
+                            $line-primary-medium-defaut: $primary-300;
+                            $line-primary-light-defaut: $primary-100;
 
-/*Text Neutral color*/
-$txt-neutral-darker-default: #202020;
-$txt-neutral-dark-default: #353535;
-$txt-neutral-medium-default: #353535;
-$txt-neutral-light-default: #969696;
-$txt-neutral-lighter-default: #FCFCFC;
+                            /*Secondary Link Colors*/
+                            $line-secondary-dark-defaut: $secondary;
+                            $line-secondary-medium-defaut: $secondary-500;
+                            $line-secondary-light-defaut: $secondary-700;
+
+                            /*Teritary Link Colors*/
+                            $line-tertiary-dark-defaut: $tertiary;
+                            $line-tertiary-medium-defaut: $tertiary-300;
+                            $line-tertiary-light-defaut: $tertiary-100;
+
+                            /*Neutral Link Colors*/
+                            $line-neutral-dark-defaut: $neutral-700;
+                            $line-neutral-medium-defaut: $neutral-300;
+                            $line-neutral-light-defaut: $neutral-100;
+
+                            /*Error Link Colors*/
+                            $line-error-dark-defaut: $danger;
+                            $line-error-medium-defaut: $error-500;
+                            $line-error-light-defaut: $error-700;
+
+                            /*Warning Link Colors*/
+                            $line-warning-dark-defaut: $warning;
+                            $line-warning-medium-defaut: $warning-300;
+                            $line-warning-light-defaut: $warning-100;
+
+                            /*Success Link Colors*/
+                            $line-success-dark-defaut: $success;
+                            $line-success-medium-defaut: $success-700;
+                            $line-success-light-defaut: $success-100;
+
+                            /*Buton color*/
+                            $btn-primary-solid-default: $primary-600;
+                            $btn-primary-solid-hover: $primary-700;
+                            $btn-primary-solid-selected: $primary-800;
+                            $btn-primary-solid-disabled: $primary-200;
+                            $btn-primary-outline-default: $primary-600;
+                            $btn-primary-outline-hover: $primary-700;
+                            $btn-primary-outline-selected: $primary-800;
+                            $btn-primary-outline-disabled: $primary-200;
+                            $btn-primary-transparent-default: $light-0;
+                            $btn-primary-transparent-hover: $primary-100;
+                            $btn-primary-transparent-selected: $primary-200;
+                            $btn-primary-transparent-disabled: $primary-100;
+                            $btn-primary-text-default: $primary-600;
+                            $btn-primary-text-disabled: $primary-400;
+                            $btn-primary-text-invert: $light-0;
+
+                            $btn-secondary-solid-default: $secondary-200;
+                            $btn-secondary-solid-hover: $secondary-100;
+                            $btn-secondary-solid-selected: $secondary-50;
+                            $btn-secondary-solid-disabled: $secondary-600;
+                            $btn-secondary-outline-default: $secondary-200;
+                            $btn-secondary-outline-hover: $secondary-100;
+                            $btn-secondary-outline-selected: $secondary-50;
+                            $btn-secondary-outline-disabled: $secondary-600;
+                            $btn-secondary-transparent-default: $light-0;
+                            $btn-secondary-transparent-hover: $primary-100;
+                            $btn-secondary-transparent-selected: $primary-200;
+                            $btn-secondary-transparent-disabled: $primary-100;
+                            $btn-secondary-text-default: $primary-600;
+                            $btn-secondary-text-disabled: $primary-400;
+                            $btn-secondary-text-invert: $light-0;
+
+                            $btn-tertiary-solid-default: $tertiary-600;
+                            $btn-tertiary-solid-hover: $tertiary-700;
+                            $btn-tertiary-solid-selected: $tertiary-800;
+                            $btn-tertiary-solid-disabled: $tertiary-200;
+                            $btn-tertiary-outline-default: $tertiary-600;
+                            $btn-tertiary-outline-hover: $tertiary-700;
+                            $btn-tertiary-outline-selected: $tertiary-800;
+                            $btn-tertiary-outline-disabled: $tertiary-200;
+                            $btn-tertiary-transparent-default: $light-0;
+                            $btn-tertiary-transparent-hover: $tertiary-100;
+                            $btn-tertiary-transparent-selected: $tertiary-200;
+                            $btn-tertiary-transparent-disabled: $tertiary-100;
+                            $btn-tertiary-text-default: $tertiary-600;
+                            $btn-tertiary-text-disabled: $tertiary-400;
+                            $btn-tertiary-text-invert: $light-0;
+
+                            $btn-neutral-solid-default: $neutral-600;
+                            $btn-neutral-solid-hover: $neutral-700;
+                            $btn-neutral-solid-selected: $neutral-800;
+                            $btn-neutral-solid-disabled: $neutral-200;
+                            $btn-neutral-outline-default: $neutral-600;
+                            $btn-neutral-outline-hover: $neutral-700;
+                            $btn-neutral-outline-selected: $neutral-700;
+                            $btn-neutral-outline-disabled: $neutral-200;
+                            $btn-neutral-transparent-default: $light-0;
+                            $btn-neutral-transparent-hover: $neutral-100;
+                            $btn-neutral-transparent-selected: $neutral-200;
+                            $btn-neutral-transparent-disabled: $neutral-100;
+                            $btn-neutral-text-default: $neutral-600;
+                            $btn-neutral-text-disabled: $neutral-400;
+                            $btn-neutral-text-invert: $light-0;
+
+                            $btn-error-solid-default: $error-200;
+                            $btn-error-solid-hover: $error-100;
+                            $btn-error-solid-selected: $warning-800;
+                            $btn-error-solid-disabled: $error-600;
+                            $btn-error-outline-default: $error-200;
+                            $btn-error-outline-hover: $error-100;
+                            $btn-error-outline-selected: $warning-800;
+                            $btn-error-outline-disabled: $error-600;
+                            $btn-error-transparent-default: $light-0;
+                            $btn-error-transparent-hover: $error-700;
+                            $btn-error-transparent-selected: $error-600;
+                            $btn-error-transparent-disabled: $error-700;
+                            $btn-error-text-default: $error-200;
+                            $btn-error-text-disabled: $error-400;
+                            $btn-error-text-invert: $light-0;
+
+                            $btn-warning-solid-default: $warning-600;
+                            $btn-warning-solid-hover: $warning-700;
+                            $btn-warning-solid-selected: $warning-800;
+                            $btn-warning-solid-disabled: $warning-200;
+                            $btn-warning-outline-default: $warning-600;
+                            $btn-warning-outline-hover: $warning-700;
+                            $btn-warning-outline-selected: $warning-800;
+                            $btn-warning-outline-disabled: $warning-200;
+                            $btn-warning-transparent-default: $light-0;
+                            $btn-warning-transparent-hover: $warning-100;
+                            $btn-warning-transparent-selected: $warning-200;
+                            $btn-warning-transparent-disabled: $warning-100;
+                            $btn-warning-text-default: $warning-600;
+                            $btn-warning-text-disabled: $warning-400;
+                            $btn-warning-text-invert: $light-0;
+
+                            $btn-success-solid-default: $success-400;
+                            $btn-success-solid-hover: $success-300;
+                            $btn-success-solid-selected: $success-200;
+                            $btn-success-solid-disabled: $success-800;
+                            $btn-success-outline-default: $success-400;
+                            $btn-success-outline-hover: $success-300;
+                            $btn-success-outline-selected: $success-200;
+                            $btn-success-outline-disabled: $success-800;
+                            $btn-success-transparent-default: $light-0;
+                            $btn-success-transparent-hover: $success-100;
+                            $btn-success-transparent-selected: $success-800;
+                            $btn-success-transparent-disabled: $success-100;
+                            $btn-success-text-default: $success-400;
+                            $btn-success-text-disabled: $success-600;
+                            $btn-success-text-invert: $light-0;
+
+                            /*Text Primary color*/
+                            $txt-primary-darker-default: $primary-900;
+                            $txt-primary-dark-default: $primary-800;
+                            $txt-primary-medium-default: $primary-600;
+                            $txt-primary-light-default: $primary-400;
+                            $txt-primary-lighter-default: $primary-10;
+
+                            /*Text Secondary color*/
+                            $txt-secondary-darker-default: $secondary-10;
+                            $txt-secondary-dark-default: $secondary-50;
+                            $txt-secondary-medium-default: $secondary-200;
+                            $txt-secondary-light-default: $secondary-400;
+                            $txt-secondary-lighter-default: $secondary-900;
 
 
-/*Text Error color*/
-$txt-error-darker-default: #410003;
-$txt-error-dark-default: #680009;
-$txt-error-medium-default: #BD0D1D;
-$txt-error-light-default: #FF544F;
-$txt-error-lighter-default: #FFF8F7;
+                            /*Text Tertiary color*/
+                            $txt-tertiary-darker-default: $tertiary-900;
+                            $txt-tertiary-dark-default: $tertiary-800;
+                            $txt-tertiary-medium-default: $tertiary-600;
+                            $txt-tertiary-light-default: $tertiary-400;
+                            $txt-tertiary-lighter-default: $tertiary-10;
 
-/*Text Warning color*/
-$txt-warning-darker-default: #431907;
-$txt-warning-dark-default: #7C3712;
-$txt-warning-medium-default: #C2510C;
-$txt-warning-light-default: #F98816;
-$txt-warning-lighter-default: #FFF9ED;
-
-/*Text Success color*/
-$txt-success-darker-default: #092A11;
-$txt-success-dark-default: #1A4D25;
-$txt-success-medium-default: #1F7630;
+                            /*Text Neutral color*/
+                            $txt-neutral-darker-default: $neutral-900;
+                            $txt-neutral-dark-default: $neutral-800;
+                            $txt-neutral-medium-default: $neutral-800;
+                            $txt-neutral-light-default: $neutral-400;
+                            $txt-neutral-lighter-default: $neutral-10;
 
 
+                            /*Text Error color*/
+                            $txt-error-darker-default: $error-10;
+                            $txt-error-dark-default: $error-50;
+                            $txt-error-medium-default: $error-200;
+                            $txt-error-light-default: $error-400;
+                            $txt-error-lighter-default: $error-900;
+
+                            /*Text Warning color*/
+                            $txt-warning-darker-default: $warning-900;
+                            $txt-warning-dark-default: $warning-800;
+                            $txt-warning-medium-default: $warning-600;
+                            $txt-warning-light-default: $warning-400;
+                            $txt-warning-lighter-default: $warning-10;
+
+                            /*Text Success color*/
+                            $txt-success-darker-default: $success-100;
+                            $txt-success-dark-default: $success-200;
+                            $txt-success-medium-default: $success-400;
 
 
-$progress-bar-bg-primary: $bg-primary-dark-default;
-$progress-bar-bg-error: $bg-error-dark-default;
 
 
-$min-contrast-ratio: 4.5 !default;
-$input-border-color: $input-neutral-outline-default;
-$input-focus-border-color: tint-color($primary, 50%) !default;
-$body-bg: white;
-$input-bg: $body-bg !default;
-$bg-custom-file-button: $btn-primary-solid-default;
-$border-color: $gray-100;
-$accordion-border-color: #646464;
+                            $progress-bar-bg-primary: $bg-primary-dark-default;
+                            $progress-bar-bg-error: $bg-error-dark-default;
+
+
+                            $min-contrast-ratio: 4.5 !default;
+                            $input-border-color: $input-neutral-outline-default;
+                            $input-focus-border-color: tint-color($primary, 50%) !default;
+                            $body-bg: white;
+                            $input-bg: $body-bg !default;
+                            $bg-custom-file-button: $btn-primary-solid-default;
+                            $border-color: $gray-100;
+                            $accordion-border-color: $neutral-600;
 
                             $btn-close-width: 1em !default;
                             $btn-close-color: $gray-100 !default;
@@ -530,7 +538,10 @@ $accordion-border-color: #646464;
                             // $offcanvas-border-color: red !default;
                             $modal-bg-color: $body-bg !default;
 
-$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+                            $btn-transition: color 0.15s ease-in-out,
+                                background-color 0.15s ease-in-out,
+                                border-color 0.15s ease-in-out,
+                                box-shadow 0.15s ease-in-out !default;
 
                             $btn-hover-bg-shade-amount: 15% !default;
                             $btn-hover-bg-tint-amount: 15% !default;
@@ -544,17 +555,17 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
                             $enable-caret: true !default;
                             // scss-docs-end btn-variables
                             //subscription-card
-                            $subcription-bg-blue: #005fa4;
-                            $subcription-bg-purple: #660064;
-                            $subcription-bg-orangered: #f76161;
-                            $subcription-bg-orange: #f58220;
-                            $subcription-bg-green: #00a443;
+                            $subcription-bg-blue: $action-700;
+                            $subcription-bg-purple: $secondary-900;
+                            $subcription-bg-orangered: $danger-300;
+                            $subcription-bg-orange: $default-100;
+                            $subcription-bg-green: $success-600;
                             $body-wrapper-bg: $dark-900;
 
-                            $body-wrapper-bg: #f5f5fa;
-                            $table-hover-bg: #f5f5fa;
+                            $body-wrapper-bg: $light-150;
+                            $table-hover-bg: $light-150;
                             $topnav-link-color: $gray-800;
-                            $card-bg-color: #fff;
+                            $card-bg-color: $white;
                             //--bs-body-color: black;
                             $datepicker-bg: $white !default;
                             $datepicker-head: $white !default;
@@ -583,7 +594,7 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
                             // card title{
 
                             $card-title-color: $gray-900 !default;
-                            $placeholder-color: #bebebe;
+                            $placeholder-color: $gray-750;
 
                             $offcanvas-bottom-border-color: $border-color !default;
 
@@ -591,101 +602,109 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
 
                             $accordion-border-color: $neutral-40 !default;
 
-$progress-bar-bg-primary: $bg-primary-dark-default;
-$progress-bar-bg-error: $bg-error-dark-default;
+                            $progress-bar-bg-primary: $bg-primary-dark-default;
+                            $progress-bar-bg-error: $bg-error-dark-default;
 
-$form-switch-style-bg3-disabled: $btn-neutral-transparent-hover;
-$form-switch-style-bg4-disabled: $btn-primary-solid-disabled;
+                            $form-switch-style-bg3-disabled: $btn-neutral-transparent-hover;
+                            $form-switch-style-bg4-disabled: $btn-primary-solid-disabled;
 
-$form-switch-style2-bg1-disabled: $btn-neutral-transparent-hover;
-$form-switch-style2-bg2-disabled: $btn-primary-solid-disabled;
+                            $form-switch-style2-bg1-disabled: $btn-neutral-transparent-hover;
+                            $form-switch-style2-bg2-disabled: $btn-primary-solid-disabled;
 
-$form-switch-style-bg3: $btn-neutral-transparent-default;
-$form-switch-style-bg4: $btn-primary-solid-default;
+                            $form-switch-style-bg3: $btn-neutral-transparent-default;
+                            $form-switch-style-bg4: $btn-primary-solid-default;
 
-.form-switch.style-1, .form-switch.style-5 {
-    .form-check-input {
-        background-color: $form-switch-style-bg3;
-    }
+                            .form-switch.style-1,
+                            .form-switch.style-5 {
+                                .form-check-input {
+                                    background-color: $form-switch-style-bg3;
+                                }
 
-    .form-check-input:checked {
-        background-color: $form-switch-style-bg4;
-    }
-}
+                                .form-check-input:checked {
+                                    background-color: $form-switch-style-bg4;
+                                }
+                            }
 
-.form-switch.style-1.disabled, .form-switch.style-5.disabled {
-    .form-check-input {
-        background-color: $form-switch-style-bg3-disabled;
-    }
+                            .form-switch.style-1.disabled,
+                            .form-switch.style-5.disabled {
+                                .form-check-input {
+                                    background-color: $form-switch-style-bg3-disabled;
+                                }
 
-    .form-check-input:checked {
-        background-color: $form-switch-style-bg4-disabled;
-    }
-}
+                                .form-check-input:checked {
+                                    background-color: $form-switch-style-bg4-disabled;
+                                }
+                            }
 
-.form-switch.style-3, .form-switch.style-6 {
-    .form-check-input {
-        background-color: $form-switch-style2-bg1-disabled;
-    }
+                            .form-switch.style-3,
+                            .form-switch.style-6 {
+                                .form-check-input {
+                                    background-color: $form-switch-style2-bg1-disabled;
+                                }
 
-    .form-check-input:checked {
-        background-color: $form-switch-style-bg4;
-    }
-}
+                                .form-check-input:checked {
+                                    background-color: $form-switch-style-bg4;
+                                }
+                            }
 
-.form-switch.style-3.disabled, .form-switch.style-6.disabled {
-    .form-check-input {
-        background-color: $form-switch-style2-bg1-disabled;
-    }
+                            .form-switch.style-3.disabled,
+                            .form-switch.style-6.disabled {
+                                .form-check-input {
+                                    background-color: $form-switch-style2-bg1-disabled;
+                                }
 
-    .form-check-input:checked {
-        background-color: $form-switch-style2-bg2-disabled;
-    }
-}
+                                .form-check-input:checked {
+                                    background-color: $form-switch-style2-bg2-disabled;
+                                }
+                            }
 
-.form-switch.style-2, .form-switch.style-4 {
-    .form-check-input {
-        background-color: transparent;
-        border-color: transparent;
-    }
+                            .form-switch.style-2,
+                            .form-switch.style-4 {
+                                .form-check-input {
+                                    background-color: transparent;
+                                    border-color: transparent;
+                                }
 
-    .input-custom {
-        background-color: $form-switch-style2-bg1-disabled;
-    }
+                                .input-custom {
+                                    background-color: $form-switch-style2-bg1-disabled;
+                                }
 
-    .input-custom.checked {
-        background-color: $form-switch-style-bg4;
-    }
-}
+                                .input-custom.checked {
+                                    background-color: $form-switch-style-bg4;
+                                }
+                            }
 
-.form-switch.style-2.disabled, .form-switch.style-4.disabled {
-    .input-custom {
-        background-color: $form-switch-style2-bg1-disabled;
-    }
+                            .form-switch.style-2.disabled,
+                            .form-switch.style-4.disabled {
+                                .input-custom {
+                                    background-color: $form-switch-style2-bg1-disabled;
+                                }
 
-    .input-custom.checked {
-        background-color: $form-switch-style2-bg2-disabled;
-    }
-}
+                                .input-custom.checked {
+                                    background-color: $form-switch-style2-bg2-disabled;
+                                }
+                            }
 
-.style-5 .off, .style-6 .off {
-    color: $txt-neutral-dark-default;
-}
+                            .style-5 .off,
+                            .style-6 .off {
+                                color: $txt-neutral-dark-default;
+                            }
 
-.style-5 .on, .style-6 .on {
-    color: $txt-primary-lighter-default;
-}
+                            .style-5 .on,
+                            .style-6 .on {
+                                color: $txt-primary-lighter-default;
+                            }
 
                             $progress-bar-bg-primary: $bg-primary-dark-default;
                             $progress-bar-bg-error: $bg-error-dark-default;
 
-.progress-bar-bg-error {
-    background-color: $progress-bar-bg-error;
-}
+                            .progress-bar-bg-error {
+                                background-color: $progress-bar-bg-error;
+                            }
 
-.progress-bar-bg-primary {
-    background-color: $progress-bar-bg-primary;
-}
+                            .progress-bar-bg-primary {
+                                background-color: $progress-bar-bg-primary;
+                            }
 
                             .accordion-bottomline {
 
@@ -696,9 +715,9 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 }
                             }
 
-.accordion-border {
-    border: 1px solid $accordion-border-color;
-}
+                            .accordion-border {
+                                border: 1px solid $accordion-border-color;
+                            }
 
                             .lf-player-container {
                                 filter: grayscale(1
@@ -841,24 +860,24 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     .is-highlighted:not(.disabled):not(.selected) span,
                                     span.is-highlighted:not(.disabled):not(.selected) {
                                         background-color: #5c82e3;
-                                        color: #fff;
+                                        color: $white;
                                     }
 
                                     .custom-today-class {
                                         background-color: $primary;
-                                        // color: #fff;
+                                        // color: $white;
                                     }
                                 }
                             }
 
                             .months span.selected {
                                 background-color: #ed585f;
-                                color: #fff;
+                                color: $white;
                             }
 
                             .years span.selected {
                                 background-color: #ed585f;
-                                color: #fff;
+                                color: $white;
                             }
                         }
 
@@ -912,32 +931,33 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-.table-hover>tbody>tr:hover>* {
-    background-color: $light-150;
-    --bs-table-bg-state: var(--bs-gray-100);
-}
+                        .table-hover>tbody>tr:hover>* {
+                            background-color: $light-150;
+                            --bs-table-bg-state: var(--bs-gray-100);
+                        }
 
                         .form-group.has-search {
                             .form-control {
                                 background-color: $gray-200;
 
-        :focus {
-            background-color: $light;
-            border-color: $primary;
-        }
-    }
-}
-// .aside {
-//   background-color: $body-wrapper-bg;
-//   border-right-color: $sidbar-border-right-color;
-// }
-.aside {
-    background-color: #fff;
-    border-right-color: $sidbar-border-right-color;
-}
+                                :focus {
+                                    background-color: $light;
+                                    border-color: $primary;
+                                }
+                            }
+                        }
+
+                        // .aside {
+                        //   background-color: $body-wrapper-bg;
+                        //   border-right-color: $sidbar-border-right-color;
+                        // }
+                        .aside {
+                            background-color: $white;
+                            border-right-color: $sidbar-border-right-color;
+                        }
 
                         .sidebar {
-                            background-color: #fff !important;
+                            background-color: $white !important;
                             border-right-color: $sidbar-border-right-color;
                         }
 
@@ -971,12 +991,13 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             background-color: $secondary;
                         }
 
-.FileNode-items:hover .FileNode_dot {
-    background-color: $primary;
-}
-// #sidebar {
-//   background-color: $body-wrapper-bg;
-// }
+                        .FileNode-items:hover .FileNode_dot {
+                            background-color: $primary;
+                        }
+
+                        // #sidebar {
+                        //   background-color: $body-wrapper-bg;
+                        // }
 
                         .upload-icon {
                             background-color: $white;
@@ -990,30 +1011,31 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             background-color: $body-wrapper-bg;
                         }
 
-.accordion-header {
-    background: $accordion-bg;
-    border-color: $primary;
-}
+                        .accordion-header {
+                            background: $accordion-bg;
+                            border-color: $primary;
+                        }
 
-.accordion-active-bg {
-    background-color: var(--bs-accordion-active-bg);
-}
+                        .accordion-active-bg {
+                            background-color: var(--bs-accordion-active-bg);
+                        }
 
                         .outline {
                             .accordion-button {
                                 border-right-color: $primary;
                             }
 
-    .accordion-header {
-        background: $primary;
-        //border-color:$primary;
-    }
-}
-// /*avatar color variables*/
-@mixin avatar-variant($background, $border, $color) {
-    @include gradient-bg($background);
-    border-color: $border;
-}
+                            .accordion-header {
+                                background: $primary;
+                                //border-color:$primary;
+                            }
+                        }
+
+                        // /*avatar color variables*/
+                        @mixin avatar-variant($background, $border, $color) {
+                            @include gradient-bg($background);
+                            border-color: $border;
+                        }
 
                         @each $state, $value in $theme-colors {
                             $avatar-background: shift-color($value, $avatar-bg-scale);
@@ -1024,60 +1046,63 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 $avatar-color: mix($value, color-contrast($avatar-background), abs($avatar-color-scale));
                             }
 
-    .avatar-#{$state} {
-        @include avatar-variant($avatar-background, $avatar-border, $avatar-color);
-    }
-}
-// /*modal*/
-.text-color {
-    color: $delete-modal-text;
-}
-// /*badge color variables*/
-.badge {
-    padding: $badge-padding-y $badge-padding-x;
-    @include font-size($badge-font-size);
-}
+                            .avatar-#{$state} {
+                                @include avatar-variant($avatar-background, $avatar-border, $avatar-color);
+                            }
+                        }
 
-@mixin badge-variant($background, $border, $color) {
-    @include gradient-bg($background);
-    border-color: $border;
-    color: $color;
-}
+                        // /*modal*/
+                        .text-color {
+                            color: $delete-modal-text;
+                        }
 
-.badge-error {
-    @include badge-variant( $btn-error-solid-default, // background
-    $btn-error-solid-default, $btn-error-text-invert // border        // text color
-    );
-}
+                        // /*badge color variables*/
+                        .badge {
+                            padding: $badge-padding-y $badge-padding-x;
+                            @include font-size($badge-font-size);
+                        }
 
-.badge-neutral {
-    @include badge-variant( $btn-neutral-solid-default, // background
-    $btn-neutral-solid-default, // border
-    $btn-neutral-text-invert // text color
-    );
-}
+                        @mixin badge-variant($background, $border, $color) {
+                            @include gradient-bg($background);
+                            border-color: $border;
+                            color: $color;
+                        }
 
-.badge-tertiary {
-    @include badge-variant( $btn-tertiary-solid-default, // background
-    $btn-tertiary-solid-default, // border
-    $btn-tertiary-text-invert // text color
-    );
-}
+                        .badge-error {
+                            @include badge-variant($btn-error-solid-default, // background
+                                $btn-error-solid-default, $btn-error-text-invert // border        // text color
+                            );
+                        }
 
-@each $state, $value in $theme-colors {
-    $badge-background: shift-color($value, $badge-bg-scale);
-    $badge-border: shift-color($value, $badge-border-scale);
-    $badge-color: shift-color($value, $badge-color-scale);
+                        .badge-neutral {
+                            @include badge-variant($btn-neutral-solid-default, // background
+                                $btn-neutral-solid-default, // border
+                                $btn-neutral-text-invert // text color
+                            );
+                        }
+
+                        .badge-tertiary {
+                            @include badge-variant($btn-tertiary-solid-default, // background
+                                $btn-tertiary-solid-default, // border
+                                $btn-tertiary-text-invert // text color
+                            );
+                        }
+
+                        @each $state, $value in $theme-colors {
+                            $badge-background: shift-color($value, $badge-bg-scale);
+                            $badge-border: shift-color($value, $badge-border-scale);
+                            $badge-color: shift-color($value, $badge-color-scale);
 
                             @if (contrast-ratio($badge-background, $badge-color) < $min-contrast-ratio) {
                                 $badge-color: mix($value, color-contrast($badge-background), abs($badge-color-scale));
                             }
 
-    .badge-#{$state} {
-        @include badge-variant($badge-background, $badge-border, $badge-color);
-    }
-}
-// /*counter color variables*/
+                            .badge-#{$state} {
+                                @include badge-variant($badge-background, $badge-border, $badge-color);
+                            }
+                        }
+
+                        // /*counter color variables*/
 
                         @mixin counter-variant($background, $border, $color) {
                             @include gradient-bg($background);
@@ -1094,16 +1119,17 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 $counter-color: mix($value, color-contrast($counter-background), abs($counter-color-scale));
                             }
 
-    .counter-#{$state} {
-        @include counter-variant($counter-background, $counter-border, $counter-color);
-    }
-}
-// /*breadcrumb color variables*/
-.withDivider {
-    .breadcrumb-item {
-        &::before {
-            color: $breadcrumb-divider-color;
-        }
+                            .counter-#{$state} {
+                                @include counter-variant($counter-background, $counter-border, $counter-color);
+                            }
+                        }
+
+                        // /*breadcrumb color variables*/
+                        .withDivider {
+                            .breadcrumb-item {
+                                &::before {
+                                    color: $breadcrumb-divider-color;
+                                }
 
                                 &.active {
                                     color: $breadcrumb-active-color;
@@ -1111,19 +1137,20 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-.breadcrumb-item {
-    + .breadcrumb-item {
-        &::before {
-            color: $breadcrumb-divider-color;
-        }
-    }
-}
-// /*table color variables*/
-.table-hover {
-    > tbody > tr > td {
-        color: $gray-500;
-    }
-}
+                        .breadcrumb-item {
+                            +.breadcrumb-item {
+                                &::before {
+                                    color: $breadcrumb-divider-color;
+                                }
+                            }
+                        }
+
+                        // /*table color variables*/
+                        .table-hover {
+                            >tbody>tr>td {
+                                color: $gray-500;
+                            }
+                        }
 
                         .table {
                             border-color: $table-border-color;
@@ -1141,8 +1168,8 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 }
                             }
 
-    > thead {
-        background-color: $table-header-bg;
+                            >thead {
+                                background-color: $table-header-bg;
 
                                 tr {
                                     th {
@@ -1162,19 +1189,21 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-.table-bordered {
-    > :not(caption) > * {
-        border-width: $table-border-width 0;
-        // stylelint-disable-next-line selector-max-universal
-        > * {
-            border-width: 0 0;
-        }
-    }
-}
-// /*edition color variables*/
-.edition-grid {
-    .edition {
-        background: $edition-background-color;
+                        .table-bordered {
+                            > :not(caption)>* {
+                                border-width: $table-border-width 0;
+
+                                // stylelint-disable-next-line selector-max-universal
+                                >* {
+                                    border-width: 0 0;
+                                }
+                            }
+                        }
+
+                        // /*edition color variables*/
+                        .edition-grid {
+                            .edition {
+                                background: $edition-background-color;
 
                                 &.Standard {
                                     background-color: $standard-background-color;
@@ -1197,27 +1226,29 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                         .status {
                             background-color: $status-background-color;
 
-    &.Active {
-        background-color: $status-active-background-color;
-    }
-}
-// /*Member-activity*/
-.HighRate {
-    color: $high-rate-color;
-}
+                            &.Active {
+                                background-color: $status-active-background-color;
+                            }
+                        }
+
+                        // /*Member-activity*/
+                        .HighRate {
+                            color: $high-rate-color;
+                        }
 
                         .MidRate {
                             color: $mid-rate-color;
                         }
 
-.LowRate {
-    color: $low-rate-color;
-}
-// /* Pagination Styles */
-.pagination.rounded {
-    .page-link {
-        color: $page-link-color;
-        background-color: $pagination-bg-color;
+                        .LowRate {
+                            color: $low-rate-color;
+                        }
+
+                        // /* Pagination Styles */
+                        .pagination.rounded {
+                            .page-link {
+                                color: $page-link-color;
+                                background-color: $pagination-bg-color;
 
                                 &:hover {
                                     color: $page-link-bg-hover;
@@ -1231,21 +1262,22 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-.pagination {
-    .page-item {
-        border-color: $white;
-        // &:nth-child(-n + 2) .page-link {
-        //   background: $pagination-item-bg;
-        //   color: $pagination-item-color;
-        // }
-        // &:nth-last-child(-n + 2) .page-link {
-        //   background:  $pagination-bg-color;
-        //   color: $pagination-item-color;
-        // }
-        &:nth-child(-n + 1) .page-link {
-            border-color: $white;
-        }
-    }
+                        .pagination {
+                            .page-item {
+                                border-color: $white;
+
+                                // &:nth-child(-n + 2) .page-link {
+                                //   background: $pagination-item-bg;
+                                //   color: $pagination-item-color;
+                                // }
+                                // &:nth-last-child(-n + 2) .page-link {
+                                //   background:  $pagination-bg-color;
+                                //   color: $pagination-item-color;
+                                // }
+                                &:nth-child(-n + 1) .page-link {
+                                    border-color: $white;
+                                }
+                            }
 
                             .page-link {
                                 color: $pagination-item-color;
@@ -1258,12 +1290,13 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 }
                             }
 
-    .active .page-link {
-        color: $white;
-        background-color: $primary;
-    }
-}
-// /*Dropdown*/
+                            .active .page-link {
+                                color: $white;
+                                background-color: $primary;
+                            }
+                        }
+
+                        // /*Dropdown*/
 
                         .dropdown-item {
                             border-bottom-color: $dropdown-border-bottom;
@@ -1273,28 +1306,31 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 border-bottom-color: $dropdown-border-bottom-hover;
                             }
 
-    &:active {
-        background-color: var(--bs-dropdown-link-hover-bg);
-        color: var(--bs-dropdown-link-hover-color);
-    }
-}
-// /* list-group color variables*/
-.list-group-item {
-    &.active {
-        color: $list-group-active-color;
+                            &:active {
+                                background-color: var(--bs-dropdown-link-hover-bg);
+                                color: var(--bs-dropdown-link-hover-color);
+                            }
+                        }
 
-        :hover {
-            color: $list-group-active-color;
-        }
-    }
-}
-// /*toast*/
-.toast-text {
-    color: $toast-text-color;
-}
-// .toast-close{
-//   color:$toast-btn-close-color;
-// }
+                        // /* list-group color variables*/
+                        .list-group-item {
+                            &.active {
+                                color: $list-group-active-color;
+
+                                :hover {
+                                    color: $list-group-active-color;
+                                }
+                            }
+                        }
+
+                        // /*toast*/
+                        .toast-text {
+                            color: $toast-text-color;
+                        }
+
+                        // .toast-close{
+                        //   color:$toast-btn-close-color;
+                        // }
 
                         a {
                             text-decoration: none;
@@ -1302,15 +1338,16 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             // color: $gray-800;
                         }
 
-.routerLinkActive-name {
-    text-decoration: none;
-    color: $primary;
-}
-// /*Tabs color variables*/
-.nav-tabs {
-    .nav-link:hover {
-        //border-bottom: 3px solid #c0c0ff;
-    }
+                        .routerLinkActive-name {
+                            text-decoration: none;
+                            color: $primary;
+                        }
+
+                        // /*Tabs color variables*/
+                        .nav-tabs {
+                            .nav-link:hover {
+                                //border-bottom: 3px solid #c0c0ff;
+                            }
 
                             .nav-link:after {
                                 content: "";
@@ -1376,14 +1413,15 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             // border-bottom: 3px solid $primary-150 !important;
                         }
 
-.nav-tabs a.nav-link:focus {
-    background-color: $light-150;
-    // border-bottom: 3px solid $primary-150 !important;
-}
-// .dropdown-item:hover,
-// .dropdown-item:focus {
-//     background-color: $light-150 !important;
-// }
+                        .nav-tabs a.nav-link:focus {
+                            background-color: $light-150;
+                            // border-bottom: 3px solid $primary-150 !important;
+                        }
+
+                        // .dropdown-item:hover,
+                        // .dropdown-item:focus {
+                        //     background-color: $light-150 !important;
+                        // }
 
                         .nav.nav-pill {
                             .nav-link.active {
@@ -1480,18 +1518,19 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                             stroke: $primary;
                                         }
 
-                circle.icon {
-                    stroke: $primary;
-                }
-            }
-        }
-    }
-}
-// /* File style */
-.files {
-    color: $file-color;
-    background: $file-background-color;
-    border-color: $file-border-color;
+                                        circle.icon {
+                                            stroke: $primary;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // /* File style */
+                        .files {
+                            color: $file-color;
+                            background: $file-background-color;
+                            border-color: $file-border-color;
 
                             :hover {
                                 background: $gray-200;
@@ -1502,9 +1541,9 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 background-color: $gray-200;
                             }
 
-                            .alert-col {
-                                background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
-                            }
+                            // .alert-col {
+                            //     background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
+                            // }
 
                             .file-close svg {
                                 color: $gray-500;
@@ -1515,11 +1554,12 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             color: $danger;
                         }
 
-.alert-un {
-    background-color: $gray-100;
-    border-color: $gray-500;
-}
-// /*card color styles*/
+                        .alert-un {
+                            background-color: $gray-100;
+                            border-color: $gray-500;
+                        }
+
+                        // /*card color styles*/
 
                         .card {
                             background-color: $card-bg-color;
@@ -1529,14 +1569,15 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             // }
                         }
 
-.bg-gradient-primary {
-    background: transparent linear-gradient(90deg, #56b2aa 0%, #0285c9 100%) 0% 0% no-repeat padding-box;
-}
-// /*top nav bar variables*/
-// /*sidebar color styles*/
-#sidebar {
-    ul {
-        //background: $nav-ul-bg-color;
+                        .bg-gradient-primary {
+                            background: transparent linear-gradient(90deg, #56b2aa 0%, #0285c9 100%) 0% 0% no-repeat padding-box;
+                        }
+
+                        // /*top nav bar variables*/
+                        // /*sidebar color styles*/
+                        #sidebar {
+                            ul {
+                                //background: $nav-ul-bg-color;
 
                                 li {
                                     border-top-color: $nav-li-border;
@@ -1716,29 +1757,31 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-#sidebar {
-    background-color: $light;
-    border-right-color: $sidbar-border-right-color;
-}
-// /*carousel style*/
+                        #sidebar {
+                            background-color: $light;
+                            border-right-color: $sidbar-border-right-color;
+                        }
+
+                        // /*carousel style*/
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                                 height: 5px;
                             }
 
                             .active {
-                                border-color: #232933;
+                                border-color: $body-bg-dark;
                                 height: 5px;
                             }
                         }
 
-.carousel-dark .carousel-control-prev-icon,
-.carousel-dark .carousel-control-next-icon {
-    filter: invert(1) grayscale(100);
-}
-// /*input search properrties*/
+                        .carousel-dark .carousel-control-prev-icon,
+                        .carousel-dark .carousel-control-next-icon {
+                            filter: invert(1) grayscale(100);
+                        }
+
+                        // /*input search properrties*/
 
                         $form-group-bg-color: $gray-200;
                         $form-group-color: $dark;
@@ -1758,15 +1801,16 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 }
                             }
 
-    .form-control-feedback {
-        color: $form-feedback-color;
-    }
-}
-// /*datatable color variables */
-@mixin table-variant($state, $background, $border, $color) {
-    color: shade-color($color, 20%);
-    @include gradient-bg($background);
-    border-color: $border;
+                            .form-control-feedback {
+                                color: $form-feedback-color;
+                            }
+                        }
+
+                        // /*datatable color variables */
+                        @mixin table-variant($state, $background, $border, $color) {
+                            color: shade-color($color, 20%);
+                            @include gradient-bg($background);
+                            border-color: $border;
 
                             .table-#{$state} {
                                 $table-header-bg: mix($color, $background);
@@ -1778,14 +1822,14 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             //   background-color: inherit;
                             // }
 
-    > thead {
-        background-color: var(--bs-table-bg);
-    }
+                            >thead {
+                                background-color: var(--bs-table-bg);
+                            }
 
-    > tbody {
-        background-color: $white;
-    }
-}
+                            >tbody {
+                                background-color: $white;
+                            }
+                        }
 
                         .HighRate {
                             color: $high-rate-color;
@@ -1822,146 +1866,147 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 border-right: $check-verticle-border-color;
                             }
 
-    .horizontal-dotted-line {
-        border-right: $check-horizotal-border-color;
-    }
-}
+                            .horizontal-dotted-line {
+                                border-right: $check-horizotal-border-color;
+                            }
+                        }
 
-.btn-tertiary {
-    @include button-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
-    );
-    background-color: $btn-tertiary-solid-default;
-    color: $txt-neutral-light-default; // text color
-    border: $btn-tertiary-solid-default; // border
+                        .btn-tertiary {
+                            @include button-variant($bg-neutral-lighter-default, // background
+                                $bg-neutral-lighter-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            background-color: $btn-tertiary-solid-default;
+                            color: $txt-neutral-light-default; // text color
+                            border: $btn-tertiary-solid-default; // border
 
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $input-neutral-outline-default;
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-neutral-outline-default;
 
-        polyline.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polyline.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        polygon.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polygon.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        ellipse.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                ellipse.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        path.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                path.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        line.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                line.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        rect.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                rect.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+                            }
+                        }
 
-.btn-neutral {
-    @include button-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
-    );
-    background-color: $btn-neutral-solid-default;
-    color: $txt-neutral-light-default; // text color
-    border: $btn-neutral-solid-default; // border
+                        .btn-neutral {
+                            @include button-variant($bg-neutral-lighter-default, // background
+                                $bg-neutral-lighter-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            background-color: $btn-neutral-solid-default;
+                            color: $txt-neutral-light-default; // text color
+                            border: $btn-neutral-solid-default; // border
 
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $input-neutral-outline-default;
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-neutral-outline-default;
 
-        polyline.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polyline.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        polygon.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polygon.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        ellipse.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                ellipse.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        path.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                path.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        line.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                line.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        rect.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                rect.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+                            }
+                        }
 
-@each $color, $value in $theme-colors {
-    .btn-outline-#{$color} {
-        @include button-outline-variant($value);
+                        @each $color, $value in $theme-colors {
+                            .btn-outline-#{$color} {
+                                @include button-outline-variant($value);
 
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: $color;
+                                svg {
+                                    width: 22px;
+                                    height: 22px;
+                                    fill: none;
+                                    stroke: $color;
 
-            polygon.icon {
-                stroke: $color;
-            }
+                                    polygon.icon {
+                                        stroke: $color;
+                                    }
 
-            polyline.icon {
-                stroke: $color;
-            }
+                                    polyline.icon {
+                                        stroke: $color;
+                                    }
 
-            ellipse.icon {
-                stroke: $color;
-            }
+                                    ellipse.icon {
+                                        stroke: $color;
+                                    }
 
-            path.icon {
-                stroke: $color;
-            }
+                                    path.icon {
+                                        stroke: $color;
+                                    }
 
-            line.icon {
-                stroke: $color;
-            }
+                                    line.icon {
+                                        stroke: $color;
+                                    }
 
-            rect.icon {
-                stroke: $color;
-            }
+                                    rect.icon {
+                                        stroke: $color;
+                                    }
 
-            circle.icon {
-                stroke: $color;
-            }
-        }
-    }
-}
-// /*tags color variables*/
-@mixin tag-variant($background, $border, $color) {
-    border-color: $border;
-    color: $color;
-}
+                                    circle.icon {
+                                        stroke: $color;
+                                    }
+                                }
+                            }
+                        }
+
+                        // /*tags color variables*/
+                        @mixin tag-variant($background, $border, $color) {
+                            border-color: $border;
+                            color: $color;
+                        }
 
                         @each $state, $value in $theme-colors {
                             $tag-background: shift-color($value, $tag-bg-scale);
@@ -1972,16 +2017,17 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                 $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
                             }
 
-    .tag-#{$state} {
-        @include tag-variant($tag-background, $tag-border, $tag-color);
-    }
-}
-// /*buttons variabes*/
-.form-control {
-    &:focus {
-        border-color: $input-focus-border-color;
-    }
-}
+                            .tag-#{$state} {
+                                @include tag-variant($tag-background, $tag-border, $tag-color);
+                            }
+                        }
+
+                        // /*buttons variabes*/
+                        .form-control {
+                            &:focus {
+                                border-color: $input-focus-border-color;
+                            }
+                        }
 
                         .form-select {
                             &:focus {
@@ -2001,13 +2047,14 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             border-bottom-color: $offcanvas-bottom-border-color;
                         }
 
-.offcanvas-title {
-    color: $offcanvas-title-color;
-}
-//subscription-page
-.subcription-bg-blue {
-    background-color: $subcription-bg-blue;
-}
+                        .offcanvas-title {
+                            color: $offcanvas-title-color;
+                        }
+
+                        //subscription-page
+                        .subcription-bg-blue {
+                            background-color: $subcription-bg-blue;
+                        }
 
                         .subcription-bg-purple {
                             background-color: $subcription-bg-purple;
@@ -2025,8 +2072,7 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             background-color: $subcription-bg-orange;
                         }
 
-@mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {
-}
+                        @mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {}
 
                         @each $color, $value in $theme-colors {
                             .btn-#{$color} {
@@ -2074,95 +2120,95 @@ $form-switch-style-bg4: $btn-primary-solid-default;
   color: $primary;*/
                         }
 
-.btn-tertiary {
-    @include button-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
-    );
-    background-color: $btn-tertiary-solid-default;
-    color: $txt-neutral-light-default; // text color
-    border: $btn-tertiary-solid-default; // border
+                        .btn-tertiary {
+                            @include button-variant($bg-neutral-lighter-default, // background
+                                $bg-neutral-lighter-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            background-color: $btn-tertiary-solid-default;
+                            color: $txt-neutral-light-default; // text color
+                            border: $btn-tertiary-solid-default; // border
 
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $input-neutral-outline-default;
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-neutral-outline-default;
 
-        polyline.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polyline.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        polygon.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polygon.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        ellipse.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                ellipse.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        path.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                path.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        line.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                line.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        rect.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                rect.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+                            }
+                        }
 
-.btn-neutral {
-    @include button-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
-    );
-    background-color: $btn-neutral-solid-default;
-    color: $txt-neutral-light-default; // text color
-    border: $btn-neutral-solid-default; // border
+                        .btn-neutral {
+                            @include button-variant($bg-neutral-lighter-default, // background
+                                $bg-neutral-lighter-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            background-color: $btn-neutral-solid-default;
+                            color: $txt-neutral-light-default; // text color
+                            border: $btn-neutral-solid-default; // border
 
-    svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: $input-neutral-outline-default;
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-neutral-outline-default;
 
-        polyline.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polyline.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        polygon.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                polygon.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        ellipse.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                ellipse.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        path.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                path.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        line.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                line.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        rect.icon {
-            stroke: $input-neutral-outline-default;
-        }
+                                rect.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+                            }
+                        }
 
                         @each $color, $value in $theme-colors {
                             .btn-outline-#{$color} {
@@ -2205,17 +2251,17 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             }
                         }
 
-@mixin toast-variant($background, $border, $color) {
-    background: $background;
-    color: $color;
-    border: $border;
-}
+                        @mixin toast-variant($background, $border, $color) {
+                            background: $background;
+                            color: $color;
+                            border: $border;
+                        }
 
-.toast-basic {
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $bg-neutral-lighter-default, // border
-    $txt-neutral-dark-default // text color
-    );
+                        .toast-basic {
+                            @include toast-variant($bg-neutral-lighter-default, // background
+                                $bg-neutral-lighter-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
 
                             svg {
                                 width: 22px;
@@ -2247,211 +2293,212 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     stroke: $input-neutral-outline-default;
                                 }
 
-        circle.icon {
-            stroke: $input-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $input-neutral-outline-default;
+                                }
+                            }
+                        }
 
-.toast-info {
-    @include toast-variant( $bg-neutral-lighter-default, // background
-    $input-neutral-outline-default, // border
-    $txt-neutral-dark-default // text color
-    );
-    border-left: 4px solid $input-neutral-outline-default; // border
-}
+                        .toast-info {
+                            @include toast-variant($bg-neutral-lighter-default, // background
+                                $input-neutral-outline-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            border-left: 4px solid $input-neutral-outline-default; // border
+                        }
 
-@mixin icon-variant($color) {
-    color: $color;
-}
+                        @mixin icon-variant($color) {
+                            color: $color;
+                        }
 
-@each $state, $value in $theme-colors {
-    $icon-color: shift-color($value, $icon-color-scale);
+                        @each $state, $value in $theme-colors {
+                            $icon-color: shift-color($value, $icon-color-scale);
 
-    .icon {
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: $input-neutral-outline-default !important;
+                            .icon {
+                                svg {
+                                    width: 22px;
+                                    height: 22px;
+                                    fill: none;
+                                    stroke: $input-neutral-outline-default !important;
 
-            polyline.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    polyline.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            polygon.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    polygon.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            ellipse.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    ellipse.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            path.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    path.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            line.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    line.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            rect.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
+                                    rect.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
 
-            circle.icon {
-                stroke: $input-neutral-outline-default !important;
-            }
-        }
-    }
-    }
-    .toast-success {
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $input-primary-outline-default, // border
-        $txt-neutral-dark-default // text color
-        );
-        border-left: 4px solid $input-primary-outline-default; // border
+                                    circle.icon {
+                                        stroke: $input-neutral-outline-default !important;
+                                    }
+                                }
+                            }
+                        }
 
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: $input-primary-outline-default !important;
+                        .toast-success {
+                            @include toast-variant($bg-neutral-lighter-default, // background
+                                $input-primary-outline-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            border-left: 4px solid $input-primary-outline-default; // border
 
-            polyline {
-                stroke: $input-primary-outline-default !important;
-            }
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-primary-outline-default !important;
 
-            polygon {
-                stroke: $input-primary-outline-default !important;
-            }
+                                polyline {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-            ellipse {
-                stroke: $input-primary-outline-default !important;
-            }
+                                polygon {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-            path {
-                stroke: $input-primary-outline-default !important;
-            }
+                                ellipse {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-            line {
-                stroke: $input-primary-outline-default !important;
-            }
+                                path {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-            rect {
-                stroke: $input-primary-outline-default !important;
-            }
+                                line {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-            circle {
-                stroke: $input-primary-outline-default !important;
-            }
-        }
-    }
+                                rect {
+                                    stroke: $input-primary-outline-default !important;
+                                }
 
-    .toast-error {
-        @include toast-variant( $bg-neutral-lighter-default, // background
-        $input-error-outline-default, // border
-        $txt-neutral-dark-default // text color
-        );
-        border-left: 4px solid $input-error-outline-default; // border
+                                circle {
+                                    stroke: $input-primary-outline-default !important;
+                                }
+                            }
+                        }
 
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: $input-error-outline-default !important;
+                        .toast-error {
+                            @include toast-variant($bg-neutral-lighter-default, // background
+                                $input-error-outline-default, // border
+                                $txt-neutral-dark-default // text color
+                            );
+                            border-left: 4px solid $input-error-outline-default; // border
 
-            polyline.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                            svg {
+                                width: 22px;
+                                height: 22px;
+                                fill: none;
+                                stroke: $input-error-outline-default !important;
 
-            polygon.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                                polyline.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-            ellipse.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                                polygon.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-            path.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                                ellipse.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-            line.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                                path.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-            rect.icon {
-                stroke: $input-error-outline-default !important;
-            }
+                                line.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-            circle.icon {
-                stroke: $input-error-outline-default !important;
-            }
-        }
-    }
+                                rect.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
 
-    @each $state, $value in $theme-colors {
-        $toast-background: shift-color($value, $toast-bg-scale);
-        $toast-border: shift-color($value, $toast-border-scale);
-        $toast-color: shift-color($value, $toast-color-scale);
+                                circle.icon {
+                                    stroke: $input-error-outline-default !important;
+                                }
+                            }
+                        }
 
-        @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
-            $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
-        }
+                        @each $state, $value in $theme-colors {
+                            $toast-background: shift-color($value, $toast-bg-scale);
+                            $toast-border: shift-color($value, $toast-border-scale);
+                            $toast-color: shift-color($value, $toast-color-scale);
 
-        @each $color, $value in $theme-colors {
-            .toast-#{$color} {
-                svg {
-                    width: 22px;
-                    height: 22px;
-                    fill: none;
-                    stroke: $toast-color;
+                            @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
+                                $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
+                            }
 
-                    polyline.icon {
-                        stroke: $toast-color;
-                    }
+                            @each $color, $value in $theme-colors {
+                                .toast-#{$color} {
+                                    svg {
+                                        width: 22px;
+                                        height: 22px;
+                                        fill: none;
+                                        stroke: $toast-color;
 
-                    polygon.icon {
-                        stroke: $toast-color;
-                    }
+                                        polyline.icon {
+                                            stroke: $toast-color;
+                                        }
 
-                    ellipse.icon {
-                        stroke: $toast-color;
-                    }
+                                        polygon.icon {
+                                            stroke: $toast-color;
+                                        }
 
-                    path.icon {
-                        stroke: $toast-color;
-                    }
+                                        ellipse.icon {
+                                            stroke: $toast-color;
+                                        }
 
-                    line.icon {
-                        stroke: $toast-color;
-                    }
+                                        path.icon {
+                                            stroke: $toast-color;
+                                        }
 
-                    rect.icon {
-                        stroke: $toast-color;
-                    }
+                                        line.icon {
+                                            stroke: $toast-color;
+                                        }
 
-                    circle.icon {
-                        stroke: $toast-color;
-                    }
-                }
-            }
-        }
-    }
+                                        rect.icon {
+                                            stroke: $toast-color;
+                                        }
+
+                                        circle.icon {
+                                            stroke: $toast-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
 
-@mixin alert-variant($background, $border) {
-    background-color: $background;
-    border-color: $border;
-}
+                        @mixin alert-variant($background, $border) {
+                            background-color: $background;
+                            border-color: $border;
+                        }
 
-.alert-info {
-    @include alert-variant( $bg-neutral-lighter-default, // background
-    $line-neutral-medium-defaut, // border
-    // text color
-    );
-    border-left: 4px solid $input-neutral-outline-default; // border
+                        .alert-info {
+                            @include alert-variant($bg-neutral-lighter-default, // background
+                                $line-neutral-medium-defaut, // border
+                                // text color
+                            );
+                            border-left: 4px solid $input-neutral-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2483,18 +2530,18 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     stroke: $icon-neutral-outline-default;
                                 }
 
-        circle.icon {
-            stroke: $icon-neutral-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $icon-neutral-outline-default;
+                                }
+                            }
+                        }
 
-.alert-success {
-    @include alert-variant( $bg-primary-light-default, // background
-    $line-primary-medium-defaut, // border
-    // text color
-    );
-    border-left: 4px solid $input-primary-outline-default; // border
+                        .alert-success {
+                            @include alert-variant($bg-primary-light-default, // background
+                                $line-primary-medium-defaut, // border
+                                // text color
+                            );
+                            border-left: 4px solid $input-primary-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2526,18 +2573,18 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     stroke: $icon-primary-outline-default;
                                 }
 
-        circle.icon {
-            stroke: $icon-primary-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $icon-primary-outline-default;
+                                }
+                            }
+                        }
 
-.alert-error {
-    @include alert-variant( $bg-error-light-default, // background
-    $line-error-medium-defaut, // border
-    // text color
-    );
-    border-left: 4px solid $input-error-outline-default; // border
+                        .alert-error {
+                            @include alert-variant($bg-error-light-default, // background
+                                $line-error-medium-defaut, // border
+                                // text color
+                            );
+                            border-left: 4px solid $input-error-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2569,26 +2616,26 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                     stroke: $icon-error-outline-default;
                                 }
 
-        circle.icon {
-            stroke: $icon-error-outline-default;
-        }
-    }
-}
+                                circle.icon {
+                                    stroke: $icon-error-outline-default;
+                                }
+                            }
+                        }
 
                         @each $state, $value in $theme-colors {
                             $alert-background: shift-color($value, $alert-bg-scale);
                             $alert-border: shift-color($value, $alert-border-scale);
 
-    .alert-#{$state} {
-        @include alert-variant($alert-background, $alert-border);
-    }
+                            .alert-#{$state} {
+                                @include alert-variant($alert-background, $alert-border);
+                            }
 
-    .alert {
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: $btn-primary-text-default;
+                            .alert {
+                                svg {
+                                    width: 22px;
+                                    height: 22px;
+                                    fill: none;
+                                    stroke: $btn-primary-text-default;
 
                                     polyline.icon {
                                         stroke: $btn-primary-text-default;
@@ -2614,13 +2661,14 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                                         stroke: $btn-primary-text-default;
                                     }
 
-            circle.icon {
-                stroke: $btn-primary-text-default;
-            }
-        }
-    }
-}
-// progress color variables
+                                    circle.icon {
+                                        stroke: $btn-primary-text-default;
+                                    }
+                                }
+                            }
+                        }
+
+                        // progress color variables
 
                         @mixin progress-variant($background, $border-radius: 0, $color) {
                             background: $background;
@@ -2628,9 +2676,9 @@ $form-switch-style-bg4: $btn-primary-solid-default;
                             color: $color;
                         }
 
-$success-progress-color: conic-gradient( $bg-primary-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
+                        $success-progress-color: conic-gradient($bg-primary-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%));
 
-$error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
+                        $error-progress-color: conic-gradient($bg-error-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%));
 
                         .circular-progress-success {
                             @include progress-variant($success-progress-color, 96px, $txt-neutral-dark-default);
@@ -2640,9 +2688,9 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             @include progress-variant($error-progress-color, 96px, $txt-neutral-dark-default);
                         }
 
-.bg-default {
-    @include progress-variant($bg-neutral-light-default, 96px, $txt-neutral-dark-default);
-}
+                        .bg-default {
+                            @include progress-variant($bg-neutral-light-default, 96px, $txt-neutral-dark-default);
+                        }
 
                         .bg-inprogress {
                             @include progress-variant($bg-primary-medium-default, 96px, $txt-neutral-lighter-default);
@@ -2656,25 +2704,25 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             @include progress-variant($bg-error-dark-default, 96px, $txt-neutral-lighter-default);
                         }
 
-.outline-default {
-    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-    border: 2px solid $bg-neutral-light-default;
-}
+                        .outline-default {
+                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+                            border: 2px solid $bg-neutral-light-default;
+                        }
 
-.outline-completed {
-    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-    border: 2px solid $bg-primary-dark-default;
-}
+                        .outline-completed {
+                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+                            border: 2px solid $bg-primary-dark-default;
+                        }
 
-.outline-inprogress {
-    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-    border: 2px solid $bg-primary-medium-default;
-}
+                        .outline-inprogress {
+                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+                            border: 2px solid $bg-primary-medium-default;
+                        }
 
-.outline-error {
-    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-    border: 2px solid $bg-error-dark-default;
-}
+                        .outline-error {
+                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+                            border: 2px solid $bg-error-dark-default;
+                        }
 
                         .stepper-container {
                             display: flex;
@@ -2696,9 +2744,10 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             position: relative;
                         }
 
-.block_step, .step-icon {
-    font-size: 0.75rem;
-}
+                        .block_step,
+                        .step-icon {
+                            font-size: 0.75rem;
+                        }
 
 
                         .step-icon {
@@ -2744,9 +2793,9 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background: #dde4f7;
                         }
 
-.rds-fileuploader label.file-upload > div {
-    color: #9bacbc;
-}
+                        .rds-fileuploader label.file-upload>div {
+                            color: #9bacbc;
+                        }
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
@@ -2843,12 +2892,13 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background-color: $white;
                         }
 
-.form-select {
-    background-color: $form-select-bg1;
-    border-color: $form-select-border-color1;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-}
-/*#sidebar.toggle-sidebar-menu {
+                        .form-select {
+                            background-color: $form-select-bg1;
+                            border-color: $form-select-border-color1;
+                            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+                        }
+
+                        /*#sidebar.toggle-sidebar-menu {
     ul {
         li {
             border-top-color: $nav-li-border;
@@ -3009,22 +3059,24 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
     }
 }*/
 
-#sidebar {
-    background-color: $light;
-    border-right-color: $sidbar-border-right-color;
-}
-// /*carousel style*/
+                        #sidebar {
+                            background-color: $light;
+                            border-right-color: $sidbar-border-right-color;
+                        }
+
+                        // /*carousel style*/
 
                         .carousel-indicators {
                             [data-bs-target] {
-                                background-color: #232933;
+                                background-color: $body-bg-dark;
                             }
 
-    .active {
-        border-color: #232933;
-    }
-}
-// /*input search properrties*/
+                            .active {
+                                border-color: $body-bg-dark;
+                            }
+                        }
+
+                        // /*input search properrties*/
 
                         $form-group-bg-color: $gray-200;
                         $form-group-color: $dark;
@@ -3044,39 +3096,40 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 }
                             }
 
-    .form-control-feedback {
-        color: $form-feedback-color;
-    }
-}
-// /*datatable color variables */
-@mixin table-variant($state, $background, $border, $color) {
-    color: shade-color($color, 20%);
-    @include gradient-bg($background);
-    border-color: $border;
+                            .form-control-feedback {
+                                color: $form-feedback-color;
+                            }
+                        }
+
+                        // /*datatable color variables */
+                        @mixin table-variant($state, $background, $border, $color) {
+                            color: shade-color($color, 20%);
+                            @include gradient-bg($background);
+                            border-color: $border;
 
                             .table-#{$state} {
                                 $table-header-bg: mix($color, $background);
                             }
                         }
 
-.table {
-    > :not(caption) > * > * {
-        background-color: inherit;
-    }
+                        .table {
+                            > :not(caption)>*>* {
+                                background-color: inherit;
+                            }
 
-    > thead {
-        background-color: var(--bs-table-bg);
-    }
+                            >thead {
+                                background-color: var(--bs-table-bg);
+                            }
 
-    > tbody {
-        background-color: $white;
-    }
-}
+                            >tbody {
+                                background-color: $white;
+                            }
+                        }
 
-.table-border > :not(caption) > * > * {
-    border-width: 0 1px;
-    border-bottom-width: 1px;
-}
+                        .table-border> :not(caption)>*>* {
+                            border-width: 0 1px;
+                            border-bottom-width: 1px;
+                        }
 
                         .HighRate {
                             color: $high-rate-color;
@@ -3113,15 +3166,16 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 border-right: $check-verticle-border-color;
                             }
 
-    .horizontal-dotted-line {
-        border-right: $check-horizotal-border-color;
-    }
-}
-// /*tags color variables*/
-@mixin tag-variant($background, $border, $color) {
-    border-color: $border;
-    color: $color;
-}
+                            .horizontal-dotted-line {
+                                border-right: $check-horizotal-border-color;
+                            }
+                        }
+
+                        // /*tags color variables*/
+                        @mixin tag-variant($background, $border, $color) {
+                            border-color: $border;
+                            color: $color;
+                        }
 
                         @each $state, $value in $theme-colors {
                             $tag-background: shift-color($value, $tag-bg-scale);
@@ -3132,11 +3186,12 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
                             }
 
-    .tag-#{$state} {
-        @include tag-variant($tag-background, $tag-border, $tag-color);
-    }
-}
-// /*buttons variabes*/
+                            .tag-#{$state} {
+                                @include tag-variant($tag-background, $tag-border, $tag-color);
+                            }
+                        }
+
+                        // /*buttons variabes*/
 
                         .btn-danger {
                             color: $white;
@@ -3158,13 +3213,14 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             color: $txt-neutral-medium-default !important;
                         }
 
-.offcanvas-header {
-    border-bottom-color: $offcanvas-bottom-border-color;
-}
-//subscription-page
-.subcription-bg-blue {
-    background-color: $subcription-bg-blue;
-}
+                        .offcanvas-header {
+                            border-bottom-color: $offcanvas-bottom-border-color;
+                        }
+
+                        //subscription-page
+                        .subcription-bg-blue {
+                            background-color: $subcription-bg-blue;
+                        }
 
                         .subcription-bg-purple {
                             background-color: $subcription-bg-purple;
@@ -3220,18 +3276,18 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background-color: transparent;
                         }
 
-                        .react-datepicker__day--today{
+                        .react-datepicker__day--today {
                             background-color: $primary;
                             color: $white;
                         }
-                        
+
                         .react-datepicker__day--in-selecting-range,
                         .react-datepicker__day--in-range {
                             box-shadow: inset 0 0 0 2px $primary;
                             background-color: transparent;
                             color: $black;
                         }
-                        
+
                         .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
                             background-color: $primary;
                         }
@@ -3252,9 +3308,9 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background: #dde4f7;
                         }
 
-.rds-fileuploader label.file-upload > div {
-    color: #9bacbc;
-}
+                        .rds-fileuploader label.file-upload>div {
+                            color: #9bacbc;
+                        }
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
@@ -3345,12 +3401,13 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background-color: $white;
                         }
 
-.form-select {
-    background-color: $form-select-bg1;
-    border-color: $form-select-border-color1;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-}
-/*#sidebar.toggle-sidebar-menu {
+                        .form-select {
+                            background-color: $form-select-bg1;
+                            border-color: $form-select-border-color1;
+                            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+                        }
+
+                        /*#sidebar.toggle-sidebar-menu {
     ul {
         ul.dropdown-menu {
             // border: 1px solid $gray-300;
@@ -3437,10 +3494,10 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             }
                         }
 
-.table-hover > tbody > tr:hover > * {
-    transition: background-color 2s ease-out 10ms;
-    background-color: $light-150;
-}
+                        .table-hover>tbody>tr:hover>* {
+                            transition: background-color 2s ease-out 10ms;
+                            background-color: $light-150;
+                        }
 
                         .navbar-toggler-icon {
                             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
@@ -3460,9 +3517,9 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             color: $primary;
                         }
 
-.breadcrumb-item.active a {
-    color: $primary;
-}
+                        .breadcrumb-item.active a {
+                            color: $primary;
+                        }
 
                         .scrolltotop {
                             background-color: $white;
@@ -3532,19 +3589,20 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 background-color: transparent;
                             }
 
-    .right-side-menu {
-        background-color: $light;
-    }
-}
-// commentted class for further use
-// .dropdown-toggle::after {
-//     background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
-//     border: 0px;
-//     width: 11px;
-//     height: 11px;
-//     margin-bottom: 5px;
-//     margin-top: 5px;
-// }
+                            .right-side-menu {
+                                background-color: $light;
+                            }
+                        }
+
+                        // commentted class for further use
+                        // .dropdown-toggle::after {
+                        //     background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+                        //     border: 0px;
+                        //     width: 11px;
+                        //     height: 11px;
+                        //     margin-bottom: 5px;
+                        //     margin-top: 5px;
+                        // }
 
                         .form-select {
                             .placeholder {
@@ -3586,13 +3644,14 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             background-color: $light-250;
                         }
 
-.fileName {
-    background-color: $light-850;
-}
-// react select list new element css
-.css-t3ipsp-control {
-    border-color: $primary-150 !important;
-}
+                        .fileName {
+                            background-color: $light-850;
+                        }
+
+                        // react select list new element css
+                        .css-t3ipsp-control {
+                            border-color: $primary-150 !important;
+                        }
 
                         .css-t3ipsp-control:hover {
                             border-color: $primary-150 !important;
@@ -3609,7 +3668,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
 
                         .css-1xc3v61-indicatorContainer:hover {
-                            color: #cccccc !important;
+                            color: $gray-300 !important;
                         }
 
                         #react-select-3-listbox {
@@ -3617,10 +3676,11 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             color: $black;
                         }
 
-#react-select-3-listbox li:hover {
-    background-color: $light-150 !important;
-}
-// basic file uploder
+                        #react-select-3-listbox li:hover {
+                            background-color: $light-150 !important;
+                        }
+
+                        // basic file uploder
 
                         .chosenFileSpan {
                             background-color: $white;
@@ -3628,15 +3688,16 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             border: 1px solid $gray-300;
                         }
 
-.custom-file-button {
-    background-color: $bg-custom-file-button;
-    color: $btn-primary-text-invert;
-}
+                        .custom-file-button {
+                            background-color: $bg-custom-file-button;
+                            color: $btn-primary-text-invert;
+                        }
 
-.upload-icon-color svg {
-    stroke: $txt-neutral-light-default;
-}
-// quill editor css
+                        .upload-icon-color svg {
+                            stroke: $txt-neutral-light-default;
+                        }
+
+                        // quill editor css
 
                         .quill .ql-toolbar {
                             background-color: $gray-200;
@@ -3712,23 +3773,24 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         }
 
                         .border-end-custom {
-                            border-right: 2px solid #dee2e6;
+                            border-right: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
                         .border-start-custom {
-                            border-left: 2px solid #dee2e6;
+                            border-left: 2px solid $gray-300;
                             min-height: 16px;
                         }
 
-.lottie-filter-0 .lf-player-container {
-    filter: grayscale(0);
-}
-// /* Handle */
-::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-}
+                        .lottie-filter-0 .lf-player-container {
+                            filter: grayscale(0);
+                        }
+
+                        // /* Handle */
+                        ::-webkit-scrollbar-thumb {
+                            background: $gray-300;
+                            border-radius: 10px;
+                        }
 
                         .customWidthClass li:hover {
                             background-color: $primary;
@@ -3739,45 +3801,48 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             color: $gray-900;
                         }
 
-.custom-navigation .customWidthForBtn {
-    border-color: $primary-400 !important;
-    min-width: 4.4rem !important;
-}
+                        .custom-navigation .customWidthForBtn {
+                            border-color: $primary-400 !important;
+                            min-width: 4.4rem !important;
+                        }
 
-.customWidthClass {
-    border-color: $primary-400 !important;
-}
-/* Target the dropdown menu */
-.rds-select__menu,
-.css-1nmdiq5-menu {
-    /* Your custom styles for the dropdown menu */
-    background-color: $body-bg;
-    /* Add more styles as needed */
-    /* Target individual menu items */
-    div {
-        background-color: $body-bg;
-        border-radius: 4px;
-        color: #34384f;
+                        .customWidthClass {
+                            border-color: $primary-400 !important;
+                        }
+
+                        /* Target the dropdown menu */
+                        .rds-select__menu,
+                        .css-1nmdiq5-menu {
+                            /* Your custom styles for the dropdown menu */
+                            background-color: $body-bg;
+
+                            /* Add more styles as needed */
+                            /* Target individual menu items */
+                            div {
+                                background-color: $body-bg;
+                                border-radius: 4px;
+                                color: $gray-900;
 
                                 div {
                                     /* Your custom styles for menu items */
 
-            background-color: $body-bg;
-            color: var(--bs-dropdown-link-hover-color);
-            /* Add more styles as needed */
-            /* Hover state styles */
-            &:hover {
-                background-color: $light-150;
-                /* Example background color on hover */
-                color: var(--bs-dropdown-link-hover-color);
-                /* Example text color on hover */
-                cursor: pointer;
-                /* Change cursor on hover */
-                /* Add more hover state styles as needed */
-            }
-        }
-    }
-}
+                                    background-color: $body-bg;
+                                    color: var(--bs-dropdown-link-hover-color);
+
+                                    /* Add more styles as needed */
+                                    /* Hover state styles */
+                                    &:hover {
+                                        background-color: $light-150;
+                                        /* Example background color on hover */
+                                        color: var(--bs-dropdown-link-hover-color);
+                                        /* Example text color on hover */
+                                        cursor: pointer;
+                                        /* Change cursor on hover */
+                                        /* Add more hover state styles as needed */
+                                    }
+                                }
+                            }
+                        }
 
                         .profile-tabs:hover {
                             .lf-player-container {
@@ -3833,7 +3898,8 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .nav-tabs.bottom-select {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
                                 border-bottom: 1px solid $line-neutral-light-defaut !important;
                             }
@@ -3846,7 +3912,8 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         .nav-tabs.top-select {
                             border-bottom: 0px;
                             border-top: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
                                 border-top: 1px solid $line-neutral-light-defaut !important;
                             }
@@ -3877,7 +3944,8 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .nav-tabs.bottom-select-alt {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
                                 border-bottom: 1px solid $line-neutral-light-defaut !important;
                                 color: $txt-neutral-medium-default;
@@ -3891,7 +3959,8 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                         .nav-tabs.top-select-alt {
                             border-bottom: 0px;
                             border-top: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
                                 border-top: 1px solid $line-neutral-light-defaut !important;
                                 color: $txt-neutral-medium-default;
@@ -3925,7 +3994,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             border-bottom: 0px;
                             background-color: transparent;
                             color: $txt-neutral-medium-default;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
 
                             li {
                                 background-color: transparent;
@@ -3944,16 +4013,18 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             border-radius: $border-radius-xxl;
                             background-color: $bg-primary-lighter-default;
                             color: $txt-neutral-medium-default;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
 
                             li {
                                 background-color: transparent;
                                 color: $txt-neutral-medium-default;
                             }
-                            .nav-link:hover{
+
+                            .nav-link:hover {
                                 border-radius: $border-radius-xxl;
                                 color: $black;
                             }
+
                             .selected {
                                 border-radius: $border-radius-xxl;
                                 background-color: $primary;
@@ -3965,7 +4036,7 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             border-bottom: 0px;
                             color: $txt-neutral-medium-default;
                             width: fit-content;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
 
                             li {
                                 background-color: $bg-primary-lighter-default;
@@ -3980,95 +4051,102 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
 
                         .nav-tabs.vertical-alt-right-line {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
 
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
-                              
+
                             }
 
                             .selected {
                                 color: $primary;
-                                border-right:2px solid $primary;
+                                border-right: 2px solid $primary;
                                 border-radius: 0px;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                right:0px;
-                                transition:height 0.5s ease, border-color 0.5s ease;
+                                bottom: unset;
+                                right: 0px;
+                                transition: height 0.5s ease, border-color 0.5s ease;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-right:2px solid $primary;
+                                border-right: 2px solid $primary;
                             }
                         }
 
-.nav-tabs.vertical-alt-left-line {
-    border-bottom: 0px;
-    overflow-x: hidden;
-
-    li {
-        background-color: $bg-primary-lighter-default;
-        color: $txt-neutral-medium-default;
-    }
-
-    .selected {
-        color: $primary;
-        border-left: 2px solid $primary;
-        border-radius: 0px;
-        color: $txt-neutral-medium-default;
-    }
-
-    .nav-link:after {
-        border-bottom: 0px;
-        bottom: unset;
-        left: 0px;
-        transition: height 0.5s ease, border-color 0.5s ease;
-        top: 0px;
-        position: absolute;
-    }
-
-    .nav-link:hover:after {
-        height: 100%;
-        border-left: 2px solid $primary;
-    }
-}
-                        .nav-tabs.vertical-right-line {
+                        .nav-tabs.vertical-alt-left-line {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
-                              
+                            }
+
+                            .selected {
+                                color: $primary;
+                                border-left: 2px solid $primary;
+                                border-radius: 0px;
+                                color: $txt-neutral-medium-default;
+                            }
+
+                            .nav-link:after {
+                                border-bottom: 0px;
+                                bottom: unset;
+                                left: 0px;
+                                transition: height 0.5s ease, border-color 0.5s ease;
+                                top: 0px;
+                                position: absolute;
+                            }
+
+                            .nav-link:hover:after {
+                                height: 100%;
+                                border-left: 2px solid $primary;
+                            }
+                        }
+
+                        .nav-tabs.vertical-right-line {
+                            border-bottom: 0px;
+                            overflow-x: hidden;
+
+                            li {
+                                background-color: $bg-primary-lighter-default;
+                                color: $txt-neutral-medium-default;
+
                             }
 
                             .selected {
                                 background-color: $btn-primary-transparent-selected;
                                 color: $primary;
-                                border-right:2px solid $primary;
+                                border-right: 2px solid $primary;
                                 border-radius: 0px;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                right:0px;
-                                transition:height 0.5s ease, border-color 0.5s ease;
+                                bottom: unset;
+                                right: 0px;
+                                transition: height 0.5s ease, border-color 0.5s ease;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-right:2px solid $primary;
+                                border-right: 2px solid $primary;
                             }
                         }
 
                         .nav-tabs.vertical-left-line {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             li {
 
                                 background-color: $bg-primary-lighter-default;
@@ -4079,24 +4157,27 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 border-radius: 0px;
                                 background-color: $btn-primary-transparent-selected;
                                 color: $primary;
-                                border-left:2px solid $primary;
+                                border-left: 2px solid $primary;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                left:0px;
-                                transition:height 0.5s ease, border-color 0.5s ease;
+                                bottom: unset;
+                                left: 0px;
+                                transition: height 0.5s ease, border-color 0.5s ease;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-left:2px solid $primary;
+                                border-left: 2px solid $primary;
                             }
                         }
+
                         .nav-tabs.vertical-leftFilled {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow:hidden;
 
                             li {
                                 background-color: $btn-primary-transparent-selected;
@@ -4108,29 +4189,32 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 color: $white;
                                 border-radius: 0px;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                left:0px;
-                                transition:none;
+                                bottom: unset;
+                                left: 0px;
+                                transition: none;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-left:none;
+                                border-left: none;
                             }
                         }
+
                         .nav-tabs.vertical-pointer {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
 
                             .selected {
                                 background-color: $primary;
                                 color: $white;
                                 border-radius: 0px;
                             }
-                            
+
                             .selected::before {
                                 content: "";
                                 position: absolute;
@@ -4143,33 +4227,37 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 border-left: none;
                                 transform: translate(calc(100% + 5px), -50%);
                             }
-                           
+
                             .selected:hover {
                                 background-color: $btn-primary-transparent-selected;
                                 color: $txt-neutral-medium-default;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                left:0px;
-                                transition:none;
+                                bottom: unset;
+                                left: 0px;
+                                transition: none;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-left:none;
+                                border-left: none;
                             }
                         }
+
                         .nav-tabs.vertical-flap {
                             border-bottom: 0px;
-                            overflow-x:hidden;
+                            overflow-x: hidden;
+
                             .selected {
                                 background-color: $primary;
                                 color: $white;
-                                border-radius:0px;
+                                border-radius: 0px;
                             }
-                            
+
                             .selected::before {
                                 content: "";
                                 position: absolute;
@@ -4182,41 +4270,47 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                                 border-left: none;
                                 transform: translate(calc(100% + 5px), -50%);
                             }
-                           
+
                             .selected:hover {
                                 background-color: $btn-primary-transparent-selected;
                                 color: $txt-neutral-medium-default;
                             }
-                            .nav-link:after{
+
+                            .nav-link:after {
                                 border-bottom: 0px;
-                                bottom:unset;
-                                left:0px;
-                                transition:none;
+                                bottom: unset;
+                                left: 0px;
+                                transition: none;
                                 top: 0px;
-                                position: absolute; 
+                                position: absolute;
                             }
-                            .nav-link:hover:after{
+
+                            .nav-link:hover:after {
                                 height: 100%;
-                                border-left:none;
+                                border-left: none;
                             }
                         }
 
 
-.form-check-input-type-square-indeterminate {
-    border-color: $primary;
-}
+                        .form-check-input-type-square-indeterminate {
+                            border-color: $primary;
+                        }
 
-.form-check-input-type-circular-indeterminate {
-    border-color: $primary;
-}
+                        .form-check-input-type-circular-indeterminate {
+                            border-color: $primary;
+                        }
 
-.avatar-solid, .avatar-dotted, .avatar-dashed {
-    border-color: $input-neutral-outline-default;
-}
-.form-check-input-type-circular-indeterminate{
-    border-color:$primary;
-}
-.bg-layer {
-    background-color: rgb(255 255 255 / 57%);
-    padding: 1rem;
-}
+                        .avatar-solid,
+                        .avatar-dotted,
+                        .avatar-dashed {
+                            border-color: $input-neutral-outline-default;
+                        }
+
+                        .form-check-input-type-circular-indeterminate {
+                            border-color: $primary;
+                        }
+
+                        .bg-layer {
+                            background-color: rgb(255 255 255 / 57%);
+                            padding: 1rem;
+                        }
