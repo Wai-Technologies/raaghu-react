@@ -1018,7 +1018,7 @@ const RdsCompTenantDashboard = () => {
                             >
                                 <div>
                                     <RdsBarChart
-                                        id="barchart"
+                                        id="barchart1"
                                         labels={[
                                             "10k",
                                             "20k",

@@ -58,6 +58,24 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
     setCommentList(comments); // Set initial comments from props
   }, [comments]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const pickerElement = document.querySelector('.emoji-popup');
+      if (pickerElement && !pickerElement.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  
   const handleAddComment = () => {
     if (commentText.trim() === '') return;
 
@@ -182,7 +200,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       })}
 
 
-      <div className="comment-input mt-4">
+      <div className="comment-input mt-3">
         {/* Emoji Picker */}
         {showEmojiPicker && (
           <div className="emoji-popup">
@@ -190,7 +208,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </div>
         )}
         {isFilepload && (
-          <span className="me-2">
+          <span className="me-2 mb-3">
             <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
             <input
               id="fileUpload"
@@ -203,7 +221,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
 
         {isEmojiPicker && (
-          <span className="me-2">
+          <span className="me-2 mb-3">
             <RdsIcon
               name="smileys"
               fill={false}
@@ -218,7 +236,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
         <span className="w-100 d-flex input-box-chat p-1">
           <span className="w-100">
-            <RdsInput
+            <RdsInput showTitle={false}
               value={commentText}
               inputType="text"
               placeholder="Type comment..."
@@ -227,12 +245,12 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               showIcon={true}
             />
           </span>
-          <span className="d-flex align-items-center mx-2">
+          <span className="d-flex align-items-center sendButton mx-2">
             <RdsIcon
               name="send_email"
               fill={false}
               stroke={true}
-              colorVariant="primary"
+              colorVariant="basic"
               isCursorPointer={true}
               onClick={handleAddComment}
             />

@@ -40,7 +40,6 @@
     justify-content: center;
     z-index: 0;
     font-size: small;
-    color: #747373 !important;
   }
   
   .page-item.active a {
@@ -55,7 +54,7 @@
   }
   
   .page-item a:hover {
-    background-color: #a5a6a7; /* Customize as needed */
+    background-color: #ced4da; /* Customize as needed */
   }
   
   .page-item.roundeds a {
