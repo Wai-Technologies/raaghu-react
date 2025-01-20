@@ -31,6 +31,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [searchQuery, setSearchQuery] = useState("");   
     const logo = props.logo ? props.logo : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
+    const [activeItem, setActiveItem] = useState<string | null>(null);
     const addFilter = (value: string) => {
         setSearchQuery(value);
     
@@ -143,13 +144,25 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     ) => {       
        
         if (!item.children) {
+            setActiveItem(item.key);
+            setOpenMenus((prevOpenMenus) => {
+                const newOpenMenus = { ...prevOpenMenus };
+                Object.keys(newOpenMenus).forEach(key => {
+                    if (key !== parent) {
+                        newOpenMenus[key] = false;
+                    }
+                });
+                return newOpenMenus;
+            });
             return;
         }
 
-        setOpenMenus((prevOpenMenus) => ({
-            ...prevOpenMenus,
-            [item.key]: !prevOpenMenus[item.key], 
-        }));
+        setOpenMenus((prevOpenMenus) => {
+            const newOpenMenus = { [item.key]: !prevOpenMenus[item.key] };
+            return newOpenMenus;
+        });
+
+        setActiveItem(item.key);
 
         setMenuClick(true);
         if (isNavigate) {
@@ -229,7 +242,8 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                     : "pe-2 "
                                 : " ps-3 pe-1 ") +
                             (item.children ? "child " : "") +
-                            (openMenus[item.key] ? "active " : "")
+                            (openMenus[item.key] ? "active " : "") +
+                            (activeItem === item.key ? " active" : "")
                         }
                         aria-expanded={openMenus[item.key] ? "true" : "false"}                       
                     >

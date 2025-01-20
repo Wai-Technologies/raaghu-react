@@ -55,8 +55,8 @@ const RdsDoughnutChart = (props: RdsDoughnutprops) => {
             });
 
             if (doughnutCanvas !== null) {
-                doughnutCanvas.canvas.style.width = "50vh";
-                doughnutCanvas.canvas.style.height = "50vh";
+                doughnutCanvas.canvas.style.width = "32vh";
+                doughnutCanvas.canvas.style.height = "28.3vh";
             }
 
             return () => {
