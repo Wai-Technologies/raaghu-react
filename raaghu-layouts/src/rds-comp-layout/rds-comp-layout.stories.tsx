@@ -31,6 +31,9 @@ export const Basic: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Gridify: Story = {
@@ -51,6 +54,9 @@ export const Gridify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Spotlight: Story = {
@@ -74,6 +80,9 @@ export const Spotlight: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Matrix: Story = {
@@ -99,6 +108,9 @@ export const Matrix: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Splitz: Story = {
@@ -115,6 +127,9 @@ export const Splitz: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Snapshots: Story = {
@@ -164,6 +179,9 @@ export const Snapshots: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Sections: Story = {
@@ -206,6 +224,9 @@ export const Sections: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Boxify: Story = {
@@ -235,6 +256,9 @@ export const Boxify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Stacks: Story = {
@@ -259,6 +283,9 @@ export const Stacks: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 
@@ -289,6 +316,9 @@ export const Nexus: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Mosaic: Story = {
@@ -332,6 +362,9 @@ export const Mosaic: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Collage: Story = {
@@ -361,6 +394,9 @@ export const Collage: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Pinboard: Story = {
@@ -387,6 +423,9 @@ export const Pinboard: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Cardify: Story = {
@@ -424,6 +463,9 @@ export const Cardify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Board: Story = {
@@ -449,6 +491,9 @@ export const Board: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
  
 export const Highlight: Story = {
@@ -472,4 +517,7 @@ export const Highlight: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;

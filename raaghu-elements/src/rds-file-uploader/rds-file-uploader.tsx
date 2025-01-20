@@ -833,12 +833,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <div className={`align-items-center d-flex mt-1 flex-row`}>
               <label
                 htmlFor="file1"
-                className={`border-end-0 align-items-center custom-file-button ${sizeClass}`}
+                className={`border-end-0 align-items-center custom-file-button upload-btn ${sizeClass}`}
               >
                 Choose File
               </label>
               <span
-                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder ${sizeClass}`}
+                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass}`}
               >
                 {selectedFiles.length > 0
                   ? selectedFiles[0].name
