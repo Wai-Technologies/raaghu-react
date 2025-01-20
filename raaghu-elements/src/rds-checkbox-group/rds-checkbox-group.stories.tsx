@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckboxGroup>;
 
 
-export const CheckboxGroup: Story = {
+export const MultiOptionCheckbox: Story = {
     args: {
         state: "Checkbox",
         isSwitch: false,
@@ -50,4 +50,4 @@ export const CheckboxGroup: Story = {
         errorMessage: "Error Message",
     }
 }
-CheckboxGroup.parameters = { controls: { include: ['state', 'label', 'isInline', 'isDisabled', 'isSwitch', 'itemList', 'errorMessage'] } };
+MultiOptionCheckbox.parameters = { controls: { include: ['state', 'label', 'isInline', 'isDisabled', 'isSwitch', 'itemList', 'errorMessage'] } };

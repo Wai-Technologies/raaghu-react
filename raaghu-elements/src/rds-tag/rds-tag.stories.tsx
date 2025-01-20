@@ -37,7 +37,7 @@ export default meta;
 type Story = StoryObj<typeof RdsTag>;
 
 
-export const Tag :Story={
+export const MultiTagInput :Story={
     args:{
         tagType:"square" ,
         role:"basic",
@@ -54,4 +54,4 @@ export const Tag :Story={
     }
 } satisfies Story;
 
-Tag.parameters = { controls: { include: ["tagType","role","colorVariant","fillClose","tagArray"] } };
+MultiTagInput.parameters = { controls: { include: ["tagType","role","colorVariant","fillClose","tagArray"] } };
