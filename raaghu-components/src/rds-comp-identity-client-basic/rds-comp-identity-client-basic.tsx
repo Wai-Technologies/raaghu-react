@@ -92,7 +92,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
             </div>
           </div>
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 mt-2">
               <RdsTextArea
                 label="Description"
                 placeholder="Enter Description"
@@ -175,7 +175,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               ></RdsInput>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-2">
             <RdsCheckbox
               label="Required Consent"
               dataTestId="consent"
