@@ -56,24 +56,25 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
     <div
       className={`dialog-container ${getSizeClass()} `}
       style={getDialogStyle()}>
-      <div className="d-flex ">
-        {props.ShowTitle && props.Title && (
-          <h2 className="dialog-title mt-1">{props.Title}</h2>
-        )}
-        {props.ShowDissmiss && (
-          <span className="text-end col mt-0">
-            <RdsIcon
-              name="close"
-              fill={false}
-              stroke={true}
-              colorVariant={props.ColorVariant}
-              isCursorPointer={true}
-              width="18px"
-              height="18px"
-            />
-          </span>
-        )}
-      </div>
+    <div className="d-flex justify-content-between align-items-center">
+  {props.ShowTitle && props.Title && (
+    <h2 className="dialog-title mt-1">{props.Title}</h2>
+  )}
+  {props.ShowDissmiss && (
+    <span className="ms-auto mt-0">
+      <RdsIcon
+        name="close"
+        fill={false}
+        stroke={true}
+        colorVariant={props.ColorVariant}
+        isCursorPointer={true}
+        width="18px"
+        height="18px"
+      />
+    </span>
+  )}
+</div>
+
       {props.ContentPosition?.toLowerCase() === "bottom" ? (
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (

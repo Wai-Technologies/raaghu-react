@@ -58,6 +58,24 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
     setCommentList(comments); // Set initial comments from props
   }, [comments]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const pickerElement = document.querySelector('.emoji-popup');
+      if (pickerElement && !pickerElement.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  
   const handleAddComment = () => {
     if (commentText.trim() === '') return;
 
@@ -190,7 +208,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </div>
         )}
         {isFilepload && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
             <input
               id="fileUpload"
@@ -203,7 +221,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
 
         {isEmojiPicker && (
-          <span className="me-2 mb-2">
+          <span className="me-2 mb-3">
             <RdsIcon
               name="smileys"
               fill={false}
@@ -217,27 +235,29 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </span>
         )}
         <span className="w-100 d-flex input-box-chat p-1">
-          <span className="w-100">
-            <RdsInput showTitle={false}
-              value={commentText}
-              inputType="text"
-              placeholder="Type comment..."
-              name="comment"
-              onChange={(e) => setCommentText(e.target.value)}
-              showIcon={true}
-            />
-          </span>
-          <span className="d-flex align-items-center sendButton mx-2">
-            <RdsIcon
-              name="send_email"
-              fill={false}
-              stroke={true}
-              colorVariant="basic"
-              isCursorPointer={true}
-              onClick={handleAddComment}
-            />
-          </span>
-        </span>
+    <span className="w-100 position-relative" id="password-icon">
+    <RdsInput 
+      showTitle={false}
+      value={commentText}
+      inputType="text"
+      placeholder="Type comment..."
+      name="comment"
+      onChange={(e) => setCommentText(e.target.value)}
+      showIcon={true} 
+    />
+    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
+      <RdsIcon
+        name="send_email"
+        fill={false}
+        stroke={true}
+        colorVariant="primary"
+        isCursorPointer={true}
+        onClick={handleAddComment}  
+      />
+    </span>
+  </span>
+  </span>
+
       </div>
     </div>
   );

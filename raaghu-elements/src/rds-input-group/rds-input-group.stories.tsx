@@ -33,7 +33,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsInputGroup>;
 
-export const InputGroup: Story = {
+export const TextInputWithButton: Story = {
     args: {
         buttonLabel: "BUTTON",
         colorVariant: "primary",
@@ -45,4 +45,4 @@ export const InputGroup: Story = {
         icon: ""
     }
 } satisfies Story;
-InputGroup.parameters = { controls: { include: ['buttonLabel', 'colorVariant', 'placeholder', 'size', 'outline', 'inputGroupLabel', 'labelPosition', 'icon'] } };
+TextInputWithButton.parameters = { controls: { include: ['buttonLabel', 'colorVariant', 'placeholder', 'size', 'outline', 'inputGroupLabel', 'labelPosition', 'icon'] } };
