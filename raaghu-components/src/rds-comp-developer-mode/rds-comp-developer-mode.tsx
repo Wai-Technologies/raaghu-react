@@ -378,7 +378,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            selectedValue={modeData.grantType} 
                            key={`grantType-${modeData.grantType}`} 
                            onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
-                        ></RdsSelectList>
+                           color="primary"
+                           ></RdsSelectList>
                         </div>
                      </div>
                   </div>

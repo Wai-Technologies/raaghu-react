@@ -33,7 +33,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
         <>
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
-                    <label className="mb-2">Type</label>
+                    <label>Type</label>
                     <RdsDropdownList
                         borderDropdown={true}
                         isPlaceholder
@@ -178,7 +178,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         } */}
                 </div>
                 <div className="mb-3">
-                    <label className="mb-2">Consent Type</label>
+                    <label>Consent Type</label>
                     <RdsDropdownList
                         borderDropdown={true}
                         isPlaceholder
