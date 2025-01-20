@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsIcon>;
 
-export const Icon: Story = {
+export const UserIcon: Story = {
     args: {
         name: "users",
         width: "20px",
@@ -31,7 +31,7 @@ export const Icon: Story = {
         isCursorPointer: true,
     }
 } satisfies Story;
-Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
+UserIcon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
 
 export const Tooltip: Story = {
     args: {

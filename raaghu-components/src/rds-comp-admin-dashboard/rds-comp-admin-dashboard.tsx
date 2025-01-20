@@ -1444,6 +1444,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         headerTitle="Member Activity"
                         isRefreshRequired={true}  >
                         <div className="table-responsive">
+                            <div className="tableheigthMemberActivity">
                             <RdsTable
                                 headerDatas={[
                                     {
@@ -1716,6 +1717,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     },
                                 ]}
                             ></RdsTable>
+                            </div>
                         </div>
 
                     </RdsWidget>

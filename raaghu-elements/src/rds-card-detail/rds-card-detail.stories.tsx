@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCardDetail>;
 
-export const cardDetail: Story = {
+export const cardDetailManager: Story = {
     args: {
         cardDatas: [
             {

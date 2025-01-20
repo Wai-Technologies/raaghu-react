@@ -138,7 +138,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             validationMsg="Enter valid url"
                         ></RdsInput>
                     </div>
-                    <div className="fw-normal mb-4">
+                    <div className="fw-normal mb-2">
                         <RdsTextArea
                             label="Webhook Event"
                             reset={inputReset}
@@ -154,16 +154,12 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         />
                     </div>
 
-                     <div className="fw-normal row mb-3 mt-2 align-items-center">              
+                     <div className="fw-normal row mb-3 align-items-center">              
                         {/* <label className="mb-2" id="webhookEndpoint">Additional Webhook Headers</label> */}
-                        <RdsLabel
-                           label="Additional Webhook Headers"
-                           id="webhookEndpoint"
-                           required={true}
-                        />
                         <div className="col-12 col-md-5 mb-3">
                             <RdsInput
                                 placeholder="Header key"
+                                label="Additional Webhook Headers"
                                 reset={inputReset}
                                 inputType="text"
                                 name={"headerKey"}
@@ -175,7 +171,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="header-key"
                             ></RdsInput>
                         </div>
-                        <div className="col-12 col-md-5 mb-3">
+                        <div className="col-12 col-md-5 mb-2">
                             <RdsInput
                                 placeholder="Header Value"
                                 reset={inputReset}
@@ -189,7 +185,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="header-value"
                             ></RdsInput>
                         </div>
-                        <div className="col-12 col-md-2 mb-3 mt-1 d-flex justify-content-center justify-content-md-end">
+                        <div className="col-12 col-md-2 mb-2 mt-3 d-flex justify-content-center justify-content-md-end">
                             <RdsButton
                                 label="Add"
                                 onClick={additionalHeaderHandleSubmit}
