@@ -583,3 +583,10 @@ form .form-group .select-options,
     flex-direction: row !important;
 }
 }
+
+@media (max-width: 768px) {
+  .dropdown-menu-list {
+      max-width: 98% !important;
+      left: 5px; 
+  }
+}
