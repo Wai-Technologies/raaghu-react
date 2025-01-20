@@ -11,18 +11,19 @@ const meta: Meta = {
     tags: ["autodocs"],
     argTypes: {
         state: {
-            options: ["basic", "info", "success", "error"], control: {type: "select"},},
+            options: ["basic", "info", "success", "error"], control: { type: "select" },
+        },
         position: {
             options: [
-              "top left", 
-              "top center", 
-              "top right", 
-              "middle left", 
-              "middle center", 
-              "middle right", 
-              "bottom left",
-              "bottom center",
-              "bottom right",
+                "top left",
+                "top center",
+                "top right",
+                "middle left",
+                "middle center",
+                "middle right",
+                "bottom left",
+                "bottom center",
+                "bottom right",
             ],
             control: { type: "select" },
         }
@@ -39,17 +40,17 @@ export const Default: Story = {
         headerTitle: "Toast Headline",
         message: "This is a big sample placeholder text.",
         delay: 5000,
-        autohide: false,    
+        autohide: false,
         colorVariant: "light",
         showHeader: true,
         withIcon: true,
         iconName: "circle",
         borderColor: "primary",
-        layout : "text",
-        position:"top left"
+        layout: "text",
+        position: "top left"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName","position"] } };
+Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "position"] } };
 
 export const toastWithDownload: Story = {
     args: {
@@ -57,18 +58,18 @@ export const toastWithDownload: Story = {
         headerTitle: "Toast Headline",
         message: "This is a help text",
         delay: 5000,
-        autohide: false,    
+        autohide: false,
         colorVariant: "light",
         showHeader: true,
         withIcon: true,
         iconName: "circle",
         borderColor: "primary",
-        layout : "download",
+        layout: "download",
         progressWidth: 40,
         filename: "Filename.txt"
     }
 } satisfies Story;
-toastWithDownload.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "progressWidth", "filename"] } };
+toastWithDownload.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "progressWidth", "filename"] } };
 
 export const toastWithChat: Story = {
     args: {
@@ -76,31 +77,31 @@ export const toastWithChat: Story = {
         headerTitle: "Toast Headline",
         message: "This is a help text",
         delay: 5000,
-        autohide: false,    
+        autohide: false,
         colorVariant: "light",
         showHeader: true,
         withIcon: true,
         iconName: "circle",
         borderColor: "primary",
-        layout : "chat",
+        layout: "chat",
         placeholder: "Placeholder Text"
     }
 } satisfies Story;
-toastWithChat.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "placeholder"] } };
+toastWithChat.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "placeholder"] } };
 
 export const toastWithRequest: Story = {
     args: {
-                state: "basic",
+        state: "basic",
         headerTitle: "Toast Headline",
         message: "This is a big sample placeholder text.",
         delay: 5000,
-        autohide: false,    
+        autohide: false,
         colorVariant: "light",
         showHeader: true,
         withIcon: true,
         iconName: "circle",
         borderColor: "primary",
-        layout : "request",
+        layout: "request",
 
     }
 } satisfies Story;
