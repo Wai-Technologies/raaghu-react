@@ -48,7 +48,7 @@ const RdsCompDynamicEntityProperty = (
         <div className="custom-content-scroll">
           <div className="tab-content px-2 navsm-p-0">
             <div className="form-group mb-3">
-              <label className="mb-2">Entity</label>
+              <label className="mt-2">Entity</label>
               <RdsDropdownList
                 placeholder="Select Entity"
                 isPlaceholder={true}
@@ -60,7 +60,7 @@ const RdsCompDynamicEntityProperty = (
               />
             </div>
             <div className="form-group mb-3">
-              <label className="mb-2">Parameter</label>
+              <label className="mt-2">Parameter</label>
               <RdsDropdownList
                 placeholder="Select Parameter"
                 borderDropdown={true}
@@ -72,7 +72,7 @@ const RdsCompDynamicEntityProperty = (
             </div>
           </div>
         </div>
-        <div className="d-flex ms-lg-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+        <div className="d-flex ms-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-3">
           <RdsButton
             label="Cancel"
             colorVariant="primary"          

@@ -3,7 +3,7 @@ import React from 'react';
         import RdsAiPromptBox from './rds-ai-prompt-box';
 
         const meta: Meta = {
-        title: 'Elements/Ai Prompt Box',
+        title: 'Elements/AI Prompt Box',
         component: RdsAiPromptBox,
         parameters: {
                 layout: 'padded',
