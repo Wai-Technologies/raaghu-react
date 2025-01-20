@@ -106,4 +106,3 @@ const RdsCounter = (props: RdsCounterProps) => {
 };
 
 export default RdsCounter;
-

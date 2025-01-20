@@ -20,12 +20,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-export const tooltip: Story = {
+export const DirectionalTooltip: Story = {
     args: {
         text: "This is tooltip",
         place: "right",
         children: <button className="btn btn-primary" >Button</button>
     }
 } satisfies Story;
-tooltip.parameters = { controls: { include: ['text', 'place', 'children'] } };
+DirectionalTooltip.parameters = { controls: { include: ['text', 'place', 'children'] } };
 
