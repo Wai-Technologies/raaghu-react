@@ -130,7 +130,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           </div>
         </div>
       ) : (
-        <div className="mb-1">
+        <div className="">
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
               className={` ${props.isDisabled ? " opacity-50 " : ""

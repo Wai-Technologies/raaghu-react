@@ -15,7 +15,10 @@ const meta: Meta = {
             options: ["default", "BottomLine"],
             control: { type: "select" },
         },
- 
+        color: {
+            options: ["primary", "success", "danger","none"],
+            control: { type: "select" },
+        },
     },
     parameters: {
         layout: 'padded',
@@ -51,17 +54,16 @@ export const Default: Story = {
                 option: "four",
                 value: "four"
             }
-
-
         ],
         isDisabled: false,
         selectedValue: "",
         required: false,
         isSearchable: true,
         isBold: false,
+        color: "primary",  // Default color set to primary
     }
 }
-Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'onChange'] } };
+Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'color', 'onChange'] } };
 
 export const Multiple: Story = {
     args: {
@@ -87,25 +89,25 @@ export const Multiple: Story = {
                 option: "four",
                 value: "four"
             }
-
         ],
         isDisabled: false,
         required: false,
         isSearchable: true,
-        isBold: false
+        isBold: false,
+        color: "primary",  // Default color set to success
     }
 }
-Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'onChange'] } };
+Multiple.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'required', 'isSearchable', 'isBold', 'color', 'onChange'] } };
 
 export const WithIcon: Story = {
     args: {
         id: "story",
         showLabel: true,
-        label: "Lable",
+        label: "Label",
         size: "medium",
         style: "default",
         isMultiple: true,
-        defaultImgUrl:"https://www.svgrepo.com/show/497407/profile-circle.svg",
+        defaultImgUrl: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         placeholder: "placeholder",      
         selectItems: [
             {
@@ -155,7 +157,8 @@ export const WithIcon: Story = {
         showHint: false,
         required: false,
         isSearchable: true,
-        isBold: false
+        isBold: false,
+        color: "primary",  // Default color set to danger
     }
 }
-WithIcon.parameters = { controls: { include: ['id','label','style','size', 'placeholder', 'selectItems', 'isDisabled','showHint','showLabel', 'required', 'isSearchable', 'isBold','defaultImgUrl'] } };
+WithIcon.parameters = { controls: { include: ['id', 'label', 'style', 'size', 'placeholder', 'selectItems', 'isDisabled', 'showHint', 'showLabel', 'required', 'isSearchable', 'isBold', 'defaultImgUrl', 'color'] } };

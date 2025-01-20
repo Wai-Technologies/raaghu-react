@@ -65,10 +65,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-      - name: Purge CDN
-        run: 
-          az cdn endpoint purge -n storybookreact --profile-name storybookreact-cdn-profile --content-paths "/*" --resource-group Raaghu-MFE-Demo-WebApp --no-wait
-
       - name: Azure service principal logout
         run: |
           az logout
@@ -141,10 +137,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-      - name: Purge CDN
-        run: 
-          az cdn endpoint purge -n storybook-dev-react --profile-name storybook-dev-react-cdn-profile --content-paths "/*" --resource-group Raaghu-MFE-Demo-WebApp --no-wait
-
       - name: Azure service principal logout
         run: |
           az logout

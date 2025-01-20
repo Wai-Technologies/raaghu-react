@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsOffcanvas>;
 
-export const Offcanvas: Story = {
+export const CustomSlideOutOffcanvas: Story = {
   args: {
     offId: "canvasExample",
     canvasTitle: "Offcanvas Title",
@@ -65,6 +65,6 @@ export const Offcanvas: Story = {
     ),
   },
 } satisfies Story;
-Offcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
+CustomSlideOutOffcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
 
 
