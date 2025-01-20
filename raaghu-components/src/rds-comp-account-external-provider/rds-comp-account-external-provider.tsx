@@ -64,7 +64,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                    dataTestId="google"
                                ></RdsCheckbox>
                            </div>
-                           <div className="row">
+                           <div className="row mb-3">
                                <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
