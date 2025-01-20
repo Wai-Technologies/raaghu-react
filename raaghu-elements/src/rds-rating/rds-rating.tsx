@@ -160,16 +160,22 @@ const RdsRating = (props: RdsRatingProps) => {
   return (
     <>
       {!props.defaultSlider && (
-        <div className={`starrating align-items-center d-flex gap-2 ${sizeClass}`}>
-          {!props.outline && !props.filled && !props.defaultSlider && (
-            <span className="fs-5 me-2 mt-2">{rating}</span>
-          )}
-          {renderStars()}
-          {!props.outline && !props.filled && !props.defaultSlider && (
-            <span className="fs-6 mt-1"> See all {props.noOfReviews} review </span>
-          )}
-        </div>
-      )}
+  <div className={`starrating align-items-center d-flex gap-2 ${sizeClass}`}>
+    {!props.outline && !props.filled && !props.defaultSlider && (
+      // Added a fixed width to prevent shifting
+      <span className="fs-5 me-2 mt-1 " style={{ minWidth: '11px', textAlign: 'right' }}>
+        {rating}
+      </span>
+    )}
+    {renderStars()}
+    {!props.outline && !props.filled && !props.defaultSlider && (
+      <span className="fs-6 mt-1">
+        See all {props.noOfReviews} review
+      </span>
+    )}
+  </div>
+)}
+
 
       {props.defaultSlider && (
         <div className={`${props.size === "small" ? "slidercontainersm" : props.size === "large" ? "slidercontainerlg" : "slidercontainermd"
