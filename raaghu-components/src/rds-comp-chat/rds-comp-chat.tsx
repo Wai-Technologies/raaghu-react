@@ -20,7 +20,7 @@ interface RdsCompUserCommentsProps {
         firstName: string;
         lastName: string;
         profilePic: string;
-        userId:any;
+        userId?:any;
     };
     handleAddComment: (comment: Comment) => void; // Callback to handle new comment
     handleDeleteComment?:(comment: number) => void;
@@ -108,19 +108,18 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   };
 
   const handleDeleteComment = (index: number) => {
-    if (allowDelete) {
-      // Get the id of the comment to be deleted
-      const commentToDelete = commentList[index]; // Assuming commentList is an array of objects with an 'id' property
-      const commentId = commentToDelete?.CommentId;
-      // Filter out the comment at the specified index
-      const updatedComments = commentList.filter((_, i) => i !== index);
-      setCommentList(updatedComments);
-       // Ensure the callback is defined before invoking
-       if (props.handleDeleteComment && commentId) {
-        // Pass the commentId instead of the placeholder string
-        props.handleDeleteComment(commentId);
-       }
-    }
+  if (!allowDelete) return;
+
+  // Get the comment to be deleted
+  const commentToDelete = commentList[index];
+  const commentId = commentToDelete?.CommentId;
+
+  if (!commentId) return;
+
+  // Update the comments list
+  setCommentList((prevList) => prevList.filter((_, i) => i !== index));
+
+  props.handleDeleteComment?.(commentId);
   };
 
   const formatDate = (date: Date, dateFormat: string) => {
