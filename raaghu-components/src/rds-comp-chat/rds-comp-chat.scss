@@ -139,7 +139,7 @@
 }
 .input-box-chat{
   input {
-    margin-top: 2px !important;
+    margin-top: -7px !important;
   }
 }
 .emoji-popup {
@@ -158,10 +158,10 @@
     object-fit: cover; // Ensures the image doesn't distort and covers the box
 }
 
-.epr-icn-search{
+.epr-icn-search {
   display: none;
-  }
+}
 
-  .input-box-chat .position-relative input {
-    padding-right: 70px !important;
+.input-box-chat .position-relative input {
+  padding-right: 70px !important;
 }
