@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import "./rds-navtabs.css";
 import RdsIcon from "../rds-icon";
+import RdsBadge from "../rds-badge"; // Ensure you import the RdsBadge component
 
 export interface RdsNavtabsProps {
     children?: ReactNode;
@@ -12,6 +13,8 @@ export interface RdsNavtabsProps {
         subText?: string;
         disabled?: boolean;
         id: any;        
+        count?: number; // Ensure count is part of the navtabsItems interface
+        colorVariant?: string; // Include colorVariant for RdsBadge   
     }[];
     type: "default"  | "tabs";
     fill?: boolean;
@@ -184,6 +187,17 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
         )}
         {!props.iconOnly && (
     <span className="fw-medium px-3">{navtabsItem.label}</span>
+)}
+{navtabsItem.count && navtabsItem.count > 0 && (
+    <span>
+        <RdsBadge
+            badgeType="pill"
+            colorVariant={navtabsItem.colorVariant || "default"} // Fallback colorVariant
+            label={navtabsItem.count.toString()} // Ensure label is a string
+            size="small"
+            className=""
+        />
+    </span>
 )}
       </a>
     </li>
