@@ -82,7 +82,7 @@ const isFormValid=isNameValid(formData?.name);
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="row mb-1">
+                        <div className="row mb-1 mt-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Enabled"
