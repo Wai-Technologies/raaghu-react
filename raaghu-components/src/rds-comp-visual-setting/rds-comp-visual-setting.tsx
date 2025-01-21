@@ -60,6 +60,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
         props.navtabItems.filter((tabs) => tabs.themeId == activeTheme)[0]
             .navtabs[0].id
     );
+    const [resetSelectList, setResetSelectList] = useState(false);
 
     const onSetActiveTheme = (themeId: any) => {
         setActiveTheme(themeId);
@@ -76,6 +77,8 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
     const onSaveVisualSettings = () => {
         props.onSaveVisualSettingsData != undefined &&
         props.onSaveVisualSettingsData(vsItem);
+        setResetSelectList(true);
+        setTimeout(() => setResetSelectList(false), 0);
     };
 
     const onCheckboxCheck = (e: any) => {
@@ -224,9 +227,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     id="asideSkin"
                                                     label="Skin"
                                                     placeholder={
-                                                        vsItem.filter(
-                                                            (item: any) => item.themeId === activeTheme
-                                                        )[0]?.menu?.asideSkin || "Select Aside Skin"
+                                                         "Select Aside Skin"
                                                     }
                                                     selectItems={props.listskin.map((skin: any) => ({
                                                         option: skin.displayText,
@@ -241,6 +242,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             },
                                                         })
                                                     }
+                                                    reset={resetSelectList}
                                                 />
                                             </div>
                                         )}
@@ -297,9 +299,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     id="submenuToggle"
                                                     label="Submenu Toggle"
                                                     placeholder={
-                                                        vsItem.filter(
-                                                            (item: any) => item.themeId === activeTheme
-                                                        )[0]?.menu?.submenuToggle || "Select Submenu"
+                                                        "Select Submenu"
                                                     }
                                                     selectItems={props.listSubmenu.map(
                                                         (submenu: any) => ({
@@ -316,6 +316,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             },
                                                         })
                                                     }
+                                                    reset={resetSelectList}
                                                 />
                                                 <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                                     <RdsButton
