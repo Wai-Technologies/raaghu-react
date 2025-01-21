@@ -10,7 +10,8 @@ interface Comment {
     date: string;
     comment: string;
     image?: string; // Optional image field for comments with images
-    addedTime?: number; // Track when the comment was added
+    addedTime?: any; // Track when the comment was added
+    CommentId? : number;
 }
 
 interface RdsCompUserCommentsProps {
@@ -19,7 +20,10 @@ interface RdsCompUserCommentsProps {
         firstName: string;
         lastName: string;
         profilePic: string;
+        userId?:any;
     };
+    handleAddComment: (comment: Comment) => void; // Callback to handle new comment
+    handleDeleteComment?:(comment: number) => void;
     allowDelete?: boolean; // Optional prop to control delete functionality
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
@@ -90,6 +94,9 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
 
     setCommentList([...commentList, newComment]);
     setCommentText(''); // Clear input after adding the comment
+    if (props.handleAddComment) {
+      props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,10 +126,18 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   };
 
   const handleDeleteComment = (index: number) => {
-    if (allowDelete) {
-      const updatedComments = commentList.filter((_, i) => i !== index);
-      setCommentList(updatedComments);
-    }
+  if (!allowDelete) return;
+
+  // Get the comment to be deleted
+  const commentToDelete = commentList[index];
+  const commentId = commentToDelete?.CommentId;
+
+  if (!commentId) return;
+
+  // Update the comments list
+  setCommentList((prevList) => prevList.filter((_, i) => i !== index));
+
+  props.handleDeleteComment?.(commentId);
   };
 
   const formatDate = (date: Date, dateFormat: string) => {
@@ -174,7 +189,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               </div>
 
               {showDeleteIcon && isCurrentUser && (
-                <span className="d-flex align-items-top me-1 d-none">
+                <span className="d-flex align-items-top me-2 mt-2 d-none">
                   <RdsIcon
                     name="delete"
                     fill={false}
@@ -235,27 +250,29 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </span>
         )}
         <span className="w-100 d-flex input-box-chat p-1">
-          <span className="w-100">
-            <RdsInput showTitle={false}
-              value={commentText}
-              inputType="text"
-              placeholder="Type comment..."
-              name="comment"
-              onChange={(e) => setCommentText(e.target.value)}
-              showIcon={true}
-            />
-          </span>
-          <span className="d-flex align-items-center sendButton mx-2">
-            <RdsIcon
-              name="send_email"
-              fill={false}
-              stroke={true}
-              colorVariant="basic"
-              isCursorPointer={true}
-              onClick={handleAddComment}
-            />
-          </span>
-        </span>
+    <span className="w-100 position-relative" id="password-icon">
+    <RdsInput 
+      showTitle={false}
+      value={commentText}
+      inputType="text"
+      placeholder="Type comment..."
+      name="comment"
+      onChange={(e) => setCommentText(e.target.value)}
+      showIcon={true} 
+    />
+    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
+      <RdsIcon
+        name="send_email"
+        fill={false}
+        stroke={true}
+        colorVariant="primary"
+        isCursorPointer={true}
+        onClick={handleAddComment}  
+      />
+    </span>
+  </span>
+  </span>
+
       </div>
     </div>
   );

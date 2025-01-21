@@ -6,3 +6,17 @@
   width: 1em;
   margin-left: -1em;
 }
+
+.theme-dark .text-theme-change {
+  color: #A8A8A8 !important;
+}
+
+.theme-dark .custom-select__control.css-17pj0yt-control,
+.theme-dark .custom-select__control.custom-select__control--is-focused.custom-select__control--menu-is-open.css-meqmo6-control,
+.theme-dark .custom-select__menu-list.css-qr46ko ,
+.theme-dark .custom-select__control.custom-select__control--is-focused.css-meqmo6-control{
+  background-color: #343a40 !important;
+  color: #ffffff !important;
+  border: none;
+}
+
