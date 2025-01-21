@@ -1980,14 +1980,14 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </div>
 
           <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0 "
+            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
             type="button"
             onClick={props.onClickHamburger}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="d-flex align-items-center mt-5 mt-md-0 d-md-block ">
+          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
             <div className="d-flex">
                 <>
                  {(!props.product1  && <div>
@@ -2005,7 +2005,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   </div>)}
                 </>
               {(props.product1 || props.product2 || props.product3)&& breacrumItem?.length > 0 && (
-                            <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-md-block d-none">
+                            <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
                   <>
                     <RdsBreadcrumb
                       breadcrumbItems={breacrumItem}
@@ -2321,7 +2321,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             }
        
             {(props.product1 || props.product2 || props.product3) && breacrumItem?.length > 0 && (
-                <div className="mob-description d-flex align-items-center mt-3 mt-md-0 d-xxl-none d-xl-none d-lg-none d-md-none">
+                <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
                     <>
                         <RdsBreadcrumb
                             breadcrumbItems={breacrumItem}
