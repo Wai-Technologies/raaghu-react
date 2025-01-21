@@ -21,4 +21,7 @@ export const Default: Story = {
         
       }
   },
+  // argTypes: {
+  //   assistanceData: { table: { disable: true } }, // Hide 'children' from the controls
+  // },
 } satisfies Story;

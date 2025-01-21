@@ -43,6 +43,7 @@ export interface RdsInputProps {
   ShowHintText?: boolean;
   tooltipPlacement?: "top" | "bottom" | "left" | "right";
   tooltipTitle?: string;
+  isValidConfirmPass?: boolean;
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -60,6 +61,11 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     useEffect(() => {
       setValue(props.value ?? "");
     }, [props.value]);
+
+    useEffect(() => { 
+      if(props?.name == "curNewPass")
+      props.isValidConfirmPass ? setIsValid(true) : setIsValid(false);
+    });
 
     const formatCardNumber = (inputValue: string) => {
       inputValue = inputValue.replace(/\D/g, '');
@@ -149,7 +155,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       (props.state === "active" ? " inputOutlineActive " : "  ") +
       (props.state === "selected" ? " inputOutlineSelected " : " ") +
       (props.state === "error" ? " inputOutlineError " : "  ") +
-      (props.state === "default" ? " inputOutline " : "  ");
+      (props.state === "default" ? " inputOutline " : "  ") +
+      (props.state === "disabled" ? " inputDisabled" : " ");
 
     const inputClasses =
       "form-control mt-1 form-control-" +
@@ -160,7 +167,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       (props.state === "selected" ? " inputSelected" : "") +
       (props.state === "error" ? " inputError" : "") +
       (props.style === "Bottom Outline" ? borderColorClass : "") +
-      (props.style === "Pill" ? " rounded-5" : " rounded ");
+      (props.style === "Pill" ? " rounded-5" : " rounded ") +
+      (props.state === "disabled" ? " inputDisabled" : " ");
 
     const getClassNames = () => {
       let defaultClasses: string = "input-group mb-0";
@@ -211,6 +219,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       }
     };
 
+    const isNumberPlaceholder = getPlaceholder() === "Enter Number";
+
     return (
       <>
         <div className={` ${props.id == "passwordfield" ? "":"mb-2"} ${labelClass()} position-relative`}>
@@ -218,7 +228,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             <label
             id="labelText"
               htmlFor={props.id}
-              className={`text-capitalize mt-2 ${fontWeight}`}
+              className={`text-capitalize ${fontWeight} ${props.id === 'address-input' ? '' : 'mt-2'}`}
             >
               {props.label}
               {(props.required || props.validatonPattern) && (
@@ -311,7 +321,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           {props.inputType === "password" && props.showIcon ? (
             <RdsIcon
               name={showPassword ? "eye" : "eye_slash"}
-              classes={"password-toggle mysettingspage"}
+              classes="password-toggle mysettingspage"
               height="16px"
               width="16px"
               id={"iconPassword" + props.labelPosition}
@@ -324,7 +334,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes="password-toggle"
+                classes={`password-toggle ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}
