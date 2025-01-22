@@ -44,7 +44,7 @@ export interface RdsCompDatatableProps {
   }[];
   tableData: any[];
   pagination: boolean;
-  isClickable:boolean;
+  isClickable?:boolean;
   recordsPerPage?: number;
   recordsPerPageSelectListOption?: boolean;
   onActionSelection?: (rowData: any, actionId: any) => void;
