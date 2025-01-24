@@ -139,7 +139,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
                             dataTestId="option"
                         ></RdsInput>
                     </div>
-                    <div className="col-md-1 mb-3">
+                    <div className="col-md-1 mb-2">
                         <RdsButton
                             colorVariant="primary"
                             icon="plus"

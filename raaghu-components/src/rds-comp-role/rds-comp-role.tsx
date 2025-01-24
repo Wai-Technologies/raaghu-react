@@ -56,7 +56,7 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="form-group ms-1">
+                                <div className="form-group">
                                     <RdsCheckbox
                                         label="Default"
                                         checked={roleData?.isDefault}
@@ -64,7 +64,7 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                                             handleDataChange(e.target.checked, "isDefault");
                                         }}
                                     ></RdsCheckbox>
-                                    <div className="fw-normal opacity-50">
+                                    <div className="fw-normal opacity-50 mt-1">
                                         <RdsLabel
                                             label="Assign to new users by default"
                                             size="14px"

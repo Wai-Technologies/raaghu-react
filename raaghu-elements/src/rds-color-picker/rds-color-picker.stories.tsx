@@ -16,13 +16,13 @@ export default meta;
 type Story = StoryObj<typeof RdsColorPicker>;
 
 
-export const ColorPicker: Story = {
+export const CustomColorPicker: Story = {
     args: {
         value: "#e1e1e1",
         isDisabled: false,
         label: "Color-Picker"
     }
 } satisfies Story;
-ColorPicker.parameters = { controls: { include: ['value', 'label', 'isDisabled'] } };
+CustomColorPicker.parameters = { controls: { include: ['value', 'label', 'isDisabled'] } };
 
 
