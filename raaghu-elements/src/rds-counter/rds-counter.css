@@ -32,13 +32,13 @@ input[type="number"] {
     -moz-appearance: textfield; /* For Firefox */
 }
 
-.wele {
+.width_element {
   width: var(--dynamic-width-1, 100%); /* Fallback to 100% if --dynamic-width is not set */
   display: flex;  
   gap: 10px;
 }
 
-.wele button {
+.width_element button {
   flex: 1; /* Ensures buttons fill the available space equally */
 }
 

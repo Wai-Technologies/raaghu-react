@@ -105,16 +105,17 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
             ))}
           <div className="pt-3">
             <div className="mb-4">
-              <p className="fs-6 text-secondary-para mb-0">3 developers already included, you can add additional users here</p>
+              <p className="fs-6 text-secondary-para mb-3">3 developers already included, you can add additional users here</p>
               <RdsCounter
                 key={developerCountValue} 
-                colorVariant="outline-primary"
+                colorVariant="primary"
                 counterValue={developerCountValue}
-                label=""
+                label="hello"
                 max={50}
                 min={0}
+                type="Default"
                 position="top"
-                width={110}
+                width={250}
                 onCounterChange={(value: number) => {
                   setDeveloperCountValue(value);
                   if (props.developerCount !== undefined) {
