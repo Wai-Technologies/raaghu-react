@@ -82,24 +82,24 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
 
   return (
     <div className="time-picker-container">
-      <div className="time-input-container">
+      <div className="time-input-container" onClick={togglePicker}>
         <input
-          type="text"
-          className={`time-input border-${props.colorVariant}`}
-          value={time}
-          readOnly
-          placeholder='12:00 AM'
+        type="text"
+        className={`time-input border-${props.colorVariant}`}
+        value={time}
+        readOnly
+        placeholder="12:00 AM"
         />
-       <span  className="time-icon"   onClick={togglePicker}>
-       <RdsIcon
-          name="clock"
-          height="16px"
-          width="16px"
-          colorVariant={`${props.colorVariant}`}
-         
+        <span className="time-icon">
+        <RdsIcon
+        name="clock"
+        height="16px"
+        width="16px"
+        colorVariant={`${props.colorVariant}`}
         />
-       </span>
-      </div>
+        </span>
+    </div>
+
       {showPicker && (
         <div className={`time-picker ${props.style === 'compact'? "time-picker-compact" :"time-picker" } border-${props.colorVariant }`}>
         <div className="row d-flex align-items-center justify-content-between">
