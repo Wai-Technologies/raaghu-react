@@ -112,7 +112,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                 dataTestId="contact-number"
               ></RdsInput>
             </div>
-            <div className=" mt-2 mb-4 d-flex">
+            <div className=" mt-2 mb-5 py-2 d-flex">
               <RdsCheckbox
                 id="flexCheckDefault"
                 label={`${"I have read the terms and conditions and agree to the sale of my personal information to the highest bidder."}`}
@@ -123,7 +123,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
               <span className="astric"> *</span>
             </div>
             
-            <div className="mt-3 d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-3">
+            <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-3">
               <RdsButton
                 label="Continue"
                 colorVariant="primary"

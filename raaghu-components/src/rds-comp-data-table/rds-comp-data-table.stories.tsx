@@ -72,9 +72,10 @@ export const List_View: Story = {
                 ],
                 pagination: true,
                 recordsPerPage: 10,
+                isClickable: true
     }
 } satisfies Story;
-List_View .parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption'] } };
+List_View .parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'] } };
 
 export const List_View_Avatar: Story = {
     args : {
