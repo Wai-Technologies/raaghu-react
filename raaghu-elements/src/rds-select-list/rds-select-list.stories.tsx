@@ -108,7 +108,7 @@ export const WithIcon: Story = {
         style: "default",
         isMultiple: true,
         defaultImgUrl: "https://www.svgrepo.com/show/497407/profile-circle.svg",
-        placeholder: "placeholder",      
+        placeholder: "Select label",      
         selectItems: [
             {
                 option: "Riya Sharma",
