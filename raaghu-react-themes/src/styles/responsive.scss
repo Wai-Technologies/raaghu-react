@@ -286,7 +286,7 @@
   }
 
   .mobile-ul-tabs {
-    overflow-x: scroll;
+    overflow-x: hidden;
     display: flex;
     white-space: nowrap;
     align-items: normal;
@@ -582,4 +582,16 @@ form .form-group .select-options,
   .flex-xl-row {
     flex-direction: row !important;
 }
+}
+
+@media (max-width: 767px) {
+  .sidenav-footer .collpase-button {
+      background-image: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .dropdown-menu-list {
+      max-width: 98% !important;
+      left: 5px; 
+  }
 }

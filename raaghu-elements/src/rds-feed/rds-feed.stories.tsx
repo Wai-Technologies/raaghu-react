@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsFeed>;
 
-export const Feed: Story = {
+export const ReviewFeed: Story = {
     args: {
         itemList: [
             {
@@ -38,6 +38,6 @@ export const Feed: Story = {
         ],
     }
 } satisfies Story;
-Feed.parameters = { controls: { include: ['itemList'] } };
+ReviewFeed.parameters = { controls: { include: ['itemList'] } };
 
 
