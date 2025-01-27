@@ -99,6 +99,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             dataTestId="value-type"
                             required={true}
                             key={`valueType-${formData?.valueType}`}
+                            color="primary"
                         ></RdsSelectList>
 
                     </div>

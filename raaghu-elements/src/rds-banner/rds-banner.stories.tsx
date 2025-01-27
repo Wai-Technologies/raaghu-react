@@ -45,7 +45,7 @@ export const Banner: Story = {
 } satisfies Story;
 Banner.parameters = { controls: { include: ['textAlign', 'bannerText', 'sticky', 'position', 'colorVariant', 'icon', 'iconHeight', 'iconWidth', 'iconStroke', 'iconFill'] } };
 
-export const Raaghu: Story = {
+export const ActionableBanner: Story = {
     args: {
         colorVariant: "light",
         headingText: "Discover",
@@ -66,5 +66,5 @@ export const Raaghu: Story = {
      
     }
 } satisfies Story;
-Raaghu.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
+ActionableBanner.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
 

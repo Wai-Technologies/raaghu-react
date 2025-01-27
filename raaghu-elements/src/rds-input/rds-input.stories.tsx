@@ -18,7 +18,7 @@ const meta: Meta = {
       control: { type: "select" },
     },
     state: {
-      options: ["default","active", "selected","error","disable"],
+      options: ["default","active", "selected","error","disabled"],
       control: { type: "select" },
     },
     style: {
@@ -166,7 +166,7 @@ export const Password: Story = {
     required: true,
     readonly: false,
     showIcon: true,
-    fontWeight: "normal",
+    fontWeight: "normal"
   },
 } satisfies Story;
 Password.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'labelPosition', 'id', 'value', 'required', 'showIcon', 'readonly', 'fontWeight'] } };

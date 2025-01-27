@@ -43,6 +43,32 @@
   border: 1px solid;
 }
 
+/* SCSS for custom dropdown sizes */
+.form-control-lg {
+  height: calc(1.5em + 1rem + 2px); // Larger height
+  padding: 0.55rem 0.5rem; // Larger padding
+  font-size: 1.25rem; // Larger font
+  line-height: 1.5;
+  border-radius: 0.4rem; // Rounded corners
+}
+
+.form-control-md {
+  height: calc(1.5em + 0.75rem + 2px); // Medium height
+  padding: 0.415rem 0.375rem; // Medium padding
+  font-size: 1rem; // Default font
+  line-height: 1.5;
+  border-radius: 0.4rem; // Default border radius
+}
+
+.form-control-sm {
+  height: calc(1.5em + 0.5rem + 2px); // Smaller height
+  padding: 0.30rem 0.25rem; // Smaller padding
+  font-size: 0.875rem; // Smaller font
+  line-height: 1.5;
+  border-radius: 0.4rem; // Less rounded corners
+}
+
+
 .form-select[size]:not([size="1"]) {
   padding-right: 1.25rem;
   background-position: right 0.15rem center;
@@ -97,10 +123,12 @@ height: 20px;
   top:30px!important;
 }
 
-// .dropdown-menu.show {
-//   display: block;
-//   transform: translate3d(-60px, -4px, 0px);
-// }
+.dropdown-menu.show {
+  position: absolute; 
+  inset: 0px auto auto 0px; 
+  margin: 0px; 
+  transform: translate3d(0px, 36.5px, 0px);
+}
 
 button#dropdownMenuButton {
   width: 30px!important;

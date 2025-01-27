@@ -199,7 +199,7 @@ export const sparkLine: Story = {
         chartWidth: 50,
         children: (
             <RdsLineChart
-                id="linechart"
+                id="linechart2"
                 labels={["Jan", "Feb", "Mar", "Apr"]}
                 options={{
                     radius: 0,
