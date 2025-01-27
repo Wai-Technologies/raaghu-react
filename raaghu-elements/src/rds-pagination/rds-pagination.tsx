@@ -36,9 +36,16 @@ const RdsPagination = (props: RdsPaginationProps) => {
   const dropdownButtonRef = useRef(null);
   const maxRecordsPerPage = Math.floor(totalRecords / 2);
   const values = [];
-  for (let i = 10; i <= maxRecordsPerPage; i += 10) {
-    values.push(i);
-  }  
+  
+  if (totalRecords < 8) {
+    for (let i = 1; i < totalRecords; i++) {
+      values.push(i);
+    }
+  } else {
+    for (let i = Math.floor(maxRecordsPerPage / 4); i <= maxRecordsPerPage && values.length < 4; i += Math.floor(maxRecordsPerPage / 4)) {
+      values.push(i);
+    }
+  }
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownIcon, setDropdownIcon] = useState("chevron_down");
 
