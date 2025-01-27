@@ -34,7 +34,11 @@ const RdsPagination = (props: RdsPaginationProps) => {
 
   const paginType = props.paginationType || "default";
   const dropdownButtonRef = useRef(null);
-  const values = [10, 25, 50, 100];
+  const maxRecordsPerPage = Math.floor(totalRecords / 2);
+  const values = [];
+  for (let i = 10; i <= maxRecordsPerPage; i += 10) {
+    values.push(i);
+  }  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownIcon, setDropdownIcon] = useState("chevron_down");
 
@@ -222,6 +226,25 @@ const RdsPagination = (props: RdsPaginationProps) => {
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
             <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
+
+              {(
+              props.showFirst && props.style != "Style4" && (
+                <li className={`me-3 page-item chevron cursor-pointer}`}>
+                <a onClick={() => onFirstClick()}>
+                  {totalRecords > recordsPerPage && (
+                    <RdsIcon
+                      name="chevron_left_pagination"
+                      width="20px"
+                      height="20px"
+                      fill={false}
+                      stroke={true}
+                      colorVariant="primary"
+                    />
+                  )}
+                </a>
+              </li>
+              )
+            )}
               <li className={`m-1 page-item chevron cursor-pointer ${currentPage === 1 ? "disabled" : ""}`}>
               {( props.style != "Style4" &&  <a onClick={() => onPrevious(currentPage)}>
                   {totalRecords > recordsPerPage && (
@@ -240,24 +263,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                     <button className={`btn btn-primary pagination-prev ms-2 btn-${props.size} `} onClick={() => onPrevious(currentPage)}> <span>Prev</span></button>
                   )}
               </li>
-            {(
-              props.showFirst && props.style != "Style4" && (
-                <li className={`me-3 page-item chevron cursor-pointer}`}>
-                <a onClick={() => onFirstClick()}>
-                  {totalRecords > recordsPerPage && (
-                    <RdsIcon
-                      name="chevron_left_pagination"
-                      width="20px"
-                      height="20px"
-                      fill={false}
-                      stroke={true}
-                      colorVariant="primary"
-                    />
-                  )}
-                </a>
-              </li>
-              )
-            )}
+            
               
 
               {/* Displayed Pages */}
@@ -367,7 +373,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               )
             )}
 
-        {(
+        {(     
               props.showManualInput && (
                 <li className={` page-item cursor-pointer}`}>
                   {totalRecords > recordsPerPage && (
