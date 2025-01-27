@@ -87,7 +87,7 @@ export const Side: Story = {
         isDisabled: false, // Default disabled state to false
         showLabel:true,
         showTitle:true,
-        position:"top",
+        // position:"top",
     },
 };
 
@@ -112,52 +112,3 @@ export const Bottom: Story = {
 };
 
 Bottom.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel','position'] } };
-
-
-
-// import RdsCounter from "./rds-counter";
-// import { Meta, StoryObj } from "@storybook/react";
-
-// const meta: Meta = {
-//     title: 'Elements/Counter',
-//     component: RdsCounter,
-//     parameters: {
-//         layout: 'padded',
-//     },
-//     tags: ['autodocs'],
-//     argTypes: {
-//         colorVariant: {
-//             options: [
-//                 "primary",
-//                 "secondary",
-//                 "success",
-//                 "info",
-//                 "warning",
-//                 "danger",
-//                 "dark",
-//                 "light",
-//             ],
-//             control: { type: "select" },
-//         },
-//         position: {
-//             options: ["top", "bottom", "left", "right"],
-//             control: { type: "radio" },
-//         },
-//     },
-// } satisfies Meta<typeof RdsCounter>;
-
-// export default meta;
-
-// type Story = StoryObj<typeof RdsCounter>;
-// export const NumericCounter: Story = {    
-//     args: {
-//         // counterValue: 0,
-//         min: 0,
-//         max: 50,
-//         width: 135,
-//         colorVariant: "primary",
-//         position: "top",
-//         label: "Counter",
-//     }
-// } satisfies Story;
-// NumericCounter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };

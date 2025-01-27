@@ -135,6 +135,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                                 min={0}
                                 max={50}
                                 width={125}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
@@ -147,6 +148,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                                 min={0}
                                 max={50}
                                 width={125}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
                             />

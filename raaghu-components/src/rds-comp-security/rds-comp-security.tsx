@@ -45,6 +45,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                             min={0}
                             max={50}
                             width={125}
+                            type="Default"
                             colorVariant="primary"
                         />
                     </div>
@@ -63,6 +64,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                         min={0}
                         max={50}
                         width={125}
+                        type="Default"
                         colorVariant="primary"
                     />
                 </div>
