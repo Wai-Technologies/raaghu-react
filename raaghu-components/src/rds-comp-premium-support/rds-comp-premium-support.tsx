@@ -161,7 +161,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
 
                             </form>
                         </div>
-                        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row d-flex gap-2">
+                        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row d-flex gap-2 pt-4">
                             <RdsButton
                                 class="me-2"
                                 tooltipTitle={""}
