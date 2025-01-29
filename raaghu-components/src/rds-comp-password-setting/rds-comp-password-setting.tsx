@@ -53,8 +53,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     }
 
     const isNewPassValid = (newPass: any) => {
-        const abc = newPass && newPass.length >= 8;
-        return abc;
+        return newPass && newPass.length >= 8;
     };
 
     const isCurNewPassValid = (curNewPass: any) => {
