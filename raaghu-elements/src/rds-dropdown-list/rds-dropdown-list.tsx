@@ -220,6 +220,24 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
 
+  const calculateVisibleItems = () => {
+    const dropdownWidth = dropdownRef.current?.offsetWidth || 0;
+    let totalWidth = 0;
+    let visibleItems = [];
+    for (let item of checkedCategoryList) {
+      const itemWidth = item.label.length * 10; // Approximate width calculation
+      if (totalWidth + itemWidth < dropdownWidth - 50) { // 50px for "+2" indicator
+        totalWidth += itemWidth;
+        visibleItems.push(item);
+      } else {
+        break;
+      }
+    }
+    return visibleItems;
+  };
+  const visibleItems = calculateVisibleItems();
+  const remainingCount = checkedCategoryList.length - visibleItems.length;
+
   return (
     <>
       <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
@@ -577,18 +595,30 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               {/* multiselected dropdown's badge */}
               {props.multiSelect && checkedCategoryList.length != 0 && (
                 <div>
-                  {checkedCategoryList.map((item: any) => (
-                    <RdsBadge
-                      className="me-1 mt-1"
-                      key={item.id}
-                      label={item.label}
-                      colorVariant="primary"
-                      size="small"
-                      onClose={(e) => uncheckHandler(e, item)}
-                      showClose={true}
-                      textwithlabel={true}
-                    />
-                  ))}
+                 
+                   {visibleItems.map((item, index) => (
+                         <RdsBadge
+                         className="me-1 mt-1"
+                         key={item.id}
+                         label={item.label}
+                         colorVariant="primary"
+                         size="small"
+                         onClose={(e) => uncheckHandler(e, item)}
+                         showClose={true}
+                         textwithlabel={true}
+                       />
+                      ))}
+                        {remainingCount > 0 && (
+                        <RdsBadge
+                        className="me-1 mt-1"
+                        label={"+"+ remainingCount.toString()}
+                        colorVariant="primary"
+                        size="small"
+                        textwithlabel={true}
+                        style="pill"
+                      />
+                      )}
+ 
                 </div>
               )}
 
