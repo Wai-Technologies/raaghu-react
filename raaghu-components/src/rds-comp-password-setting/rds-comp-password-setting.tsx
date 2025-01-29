@@ -10,8 +10,10 @@ export interface RdsCompPasswordSettingProps {
 const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     const [formData, setFormData] = useState(props.passwordSettingData);
     const [inputReset, setInputReset] = useState(props.reset);
+    const [curPass, setCurPass] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [newConfirmPassoword, setNewConfirmPassoword] =useState("");
+    const [isValidConfirmNewPass, setIsValidConfirmNewPass] = useState(true);
     const [isValidConfirmPass, setIsValidConfirmPass] = useState(true);
     const [curPassError, setCurPassError] = useState("");
     const [newPassError, setNewPassError] = useState("");
@@ -32,7 +34,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     !isCurPassValid(value) ? setCurPassError("Password must be alphanumeric and at least 8 characters long") : setCurPassError("");
                     break;
                 case "newPass":
-                    !isNewPassValid(value) ? setNewPassError("Password must be alphanumeric and at least 8 characters long") : setNewPassError("");
+                    isCurrNewPassDifferent(value) ? setNewPassError("Current Password and New Password cannot be same") : (!isNewPassValid(value) ? setNewPassError("Password must be alphanumeric and at least 8 characters long") : setNewPassError(""));
                     break;
                 case "curNewPass":
                     !isCurNewPassValid(value) ? setCurNewPassError("New Password and Confirm New Password do not match. Please try again.") : setCurNewPassError("");
@@ -46,13 +48,22 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
         return curPass && curPass.length >= 8;
     };
 
+    const isCurrNewPassDifferent = (newPass: any) => {
+        return newPass === formData?.curPass ;
+    }
+
     const isNewPassValid = (newPass: any) => {
-        return newPass && newPass.length >= 8;
+        const abc = newPass && newPass.length >= 8;
+        return abc;
     };
 
     const isCurNewPassValid = (curNewPass: any) => {
         return curNewPass && curNewPass === formData.newPass && curNewPass.length >= 8;
     };
+
+    useEffect(() => {
+        (newPassword && newPassword !== curPass && newPassword.length >= 8) ? setIsValidConfirmNewPass(true) : setIsValidConfirmNewPass(false);
+    },[newPassword]);
 
     useEffect(() => {
         (newConfirmPassoword && newConfirmPassoword === newPassword && newConfirmPassoword.length >= 8) ? setIsValidConfirmPass(true) : setIsValidConfirmPass(false);
@@ -61,7 +72,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     const isFormValid =
         isCurNewPassValid(formData?.curNewPass) &&
         isCurPassValid(formData?.curPass) &&
-        isNewPassValid(formData?.newPass);
+        isNewPassValid(formData?.newPass) && isCurNewPassValid(formData?.curNewPass) && isValidConfirmNewPass && isValidConfirmPass;
     
         const emitSaveData = (event: any) => {
             event.preventDefault();
@@ -87,6 +98,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             placeholder="Current password"
                             inputType="password"
                             onChange={(e) => {
+                              setCurPass(e.target.value);
                               handleDataChanges(e.target.value, "curPass");
                             }}
                             value={formData?.curPass}
@@ -113,6 +125,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             showIcon= {true}
 			                dataTestId="new-password"
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
+                            isValidConfirmPass={isValidConfirmNewPass}
                             validationMsg={newPassError}
                         ></RdsInput>                       
                     </div>
