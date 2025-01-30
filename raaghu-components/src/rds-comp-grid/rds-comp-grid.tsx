@@ -196,7 +196,7 @@ const DraggableColumnHeader: React.FC<{
 
   return (
     <th
-      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-auto" : ""} ${column.frozen ? "frozen-auto" : ""}`}
       ref={refheader}
       
     >
@@ -1215,7 +1215,7 @@ const updatedColumns = calculateLeftPositions();
           {updatedColumns.map((column, colIndex) => (
                   !column.hidden && (
                     <td
-                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.frozen ? "frozen-column" : ""}`}
+                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.frozen ? "frozen-auto" : ""}`}
                       key={column.key}
                       style={column.fixed ? { left: `${column.left}px` } : {}}
                     >
