@@ -103,7 +103,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
                   max={50}
                   min={0}
                   type="Default"
-                  width={250}
+                  width={200}
                   onCounterChange={(e: number) => handleDevSeatDataChanges(e, "developerSeatsCounter")}
                 />
               </div>

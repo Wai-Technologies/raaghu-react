@@ -114,7 +114,7 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
                 max={50}
                 min={0}
                 type="Default"
-                width={150}
+                width={220}
                 onCounterChange={(value: number) => {
                   setDeveloperCountValue(value);
                   if (props.developerCount !== undefined) {

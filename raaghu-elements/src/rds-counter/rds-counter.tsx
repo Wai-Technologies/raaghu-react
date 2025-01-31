@@ -68,7 +68,7 @@ const RdsCounter = (props: RdsCounterProps) => {
       case "bottom":
         return "d-flex flex-column-reverse gap-1"; // Label below, no vertical centering
       default:
-        return "d-flex flex-column gap-3"; // Default to side-by-side, no vertical centering
+        return "d-flex flex-column gap-3"; // Default to above, no vertical centering
     }
   };
   
@@ -114,24 +114,24 @@ const RdsCounter = (props: RdsCounterProps) => {
             />
             {/* Input Field */}
             <input
-  type="number"
-  className="form-control text-center border-0"
-  style={{
-    width: dynamicWidth, // Add dynamicWidth for input width
-    boxShadow: "none",
-    backgroundColor: props.isDisabled
-      ? DISABLED_INPUT_COLOR
-      : ENABLED_BACKGROUND_COLOR,
-    color: props.isDisabled ? DISABLED_TEXT_COLOR : ENABLED_TEXT_COLOR,
-  }}
-  value={isEditing && counterValue === 0 ? "" : counterValue}
-  onChange={handleInputChange}
-  min={props.min}
-  max={props.max}
-  onFocus={() => setIsEditing(true)}
-  onBlur={() => setIsEditing(false)}
-  disabled={props.isDisabled}
-/>
+              type="number"
+              className="form-control text-center border-0"
+              style={{
+                width: dynamicWidth, // Add dynamicWidth for input width
+                boxShadow: "none",
+                backgroundColor: props.isDisabled
+                  ? DISABLED_INPUT_COLOR
+                  : ENABLED_BACKGROUND_COLOR,
+                color: props.isDisabled ? DISABLED_TEXT_COLOR : ENABLED_TEXT_COLOR,
+              }}
+              value={isEditing && counterValue === 0 ? "" : counterValue}
+              onChange={handleInputChange}
+              min={props.min}
+              max={props.max}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              disabled={props.isDisabled}
+            />
 
             {/* Plus Button */}
             <RdsButton
@@ -219,7 +219,10 @@ const RdsCounter = (props: RdsCounterProps) => {
       props.width && props.width > 100 ? `${props.width}px` : "100px";
 
     return (
-      <div style={{ width: dynamicWidth }}>
+      <div
+        className={classes()}
+        style={{ width: dynamicWidth }}
+      >
         {props.showLabel && <label
             className={`fw-medium ${
               props.isDisabled ? "text-muted" : "text-primary"
@@ -278,7 +281,7 @@ const RdsCounter = (props: RdsCounterProps) => {
             </div>
           </div>
         </div>
-      </div>
+    </div>
     );
   };
 

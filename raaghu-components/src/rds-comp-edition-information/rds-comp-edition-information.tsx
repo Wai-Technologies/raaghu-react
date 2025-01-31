@@ -127,27 +127,27 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 px-2 my-3 ">
+                        <div className="col-md-6 px-3 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
                                 label="Trial Period"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
                                 type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 px-2 my-3">
+                        <div className=" col-md-6 px-3 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
                                 label="Expiry Notification Interval"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
                                 type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
