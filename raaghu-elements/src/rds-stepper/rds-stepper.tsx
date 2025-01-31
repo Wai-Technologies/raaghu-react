@@ -11,6 +11,19 @@ interface StepperDetail {
         subtitle: string;
     };
 }
+
+interface RdsStepperAdvanceListProps {
+    headerContain: string;
+    type?: any;
+    isDisabled: boolean;
+    checkedValue: any;
+    checkBoxLabel: string;
+    checkBoxId: string;
+    checkBoxWithLabel: boolean;
+    showDetails: boolean;
+    detailsContain: string;
+  }
+
 export interface RdsStepperProps {
     detail: any;
     stepperType?: string;
@@ -45,6 +58,11 @@ export interface RdsStepperProps {
         iconStroke: boolean;
         iconFill: boolean;
     }[];
+    stepperSectionClass?: string;
+    headerClass?: string;
+    checkBoxClass?: string;
+    showDetailsClass?: string;
+    advanceList?: RdsStepperAdvanceListProps[];
 }
 
 const RdsStepper = (props: RdsStepperProps) => {
@@ -359,6 +377,16 @@ const RdsStepper = (props: RdsStepperProps) => {
                     </div>
 
                 </>
+            )}
+
+            {props.stepperType == "advance" && (
+            <>
+            {props.advanceList?.map((e) => <div className={props.stepperSectionClass}>
+            <span className={props.headerClass}>{e.headerContain}</span>
+            <span className={props.checkBoxClass}><RdsCheckbox type={e.type} isDisabled={e.isDisabled} checked={e.checkedValue}label={e.checkBoxLabel} id={e.checkBoxId} withlabel={e.checkBoxWithLabel}/></span>
+            {e.showDetails && <div className={props.showDetailsClass}>{e.detailsContain}</div>}
+            </div>)}
+            </>
             )}
 
         </>
