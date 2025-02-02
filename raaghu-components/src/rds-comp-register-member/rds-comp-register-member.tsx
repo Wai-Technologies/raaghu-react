@@ -98,7 +98,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
             />
           </div>
 
-          <div className="form-group mb-2 pb-1">
+          <div className="form-group">
             <RdsInput
               fontWeight={"normal"}
               placeholder="Email"
