@@ -98,7 +98,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
             />
           </div>
 
-          <div className="form-group mb-2 pb-1">
+          <div className="form-group">
             <RdsInput
               fontWeight={"normal"}
               placeholder="Email"
@@ -174,7 +174,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
             )}
           </div>
 
-          <div className="pb-4">
+          <div className="pb-4 pt-2">
             <RdsCheckbox
               id="id1"
               label="I Accept Terms Of Service"

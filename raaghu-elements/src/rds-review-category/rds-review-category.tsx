@@ -26,7 +26,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
             {props.item && props.display_type === "Basic" && (
                 <div className="RdsReviewCategory__basic">
                     <div className="row sm-d-flex">
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             <div className="d-flex justify-content-start align-items-start flex-column gap-5 sm-gap-0">
                                 <div>
                                     <RdsLabel
@@ -52,7 +52,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 </div>}
                             </div>
                         </div>
-                        {props.item.rating && <div className="col-md-3">
+                        {props.item.rating && <div className="col-md-4">
                             <div className="mb-3">
                                 <RdsRating
                                     rating={props.item.rating}

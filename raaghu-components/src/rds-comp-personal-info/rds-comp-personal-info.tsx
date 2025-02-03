@@ -145,7 +145,7 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
                             ></RdsInput>
-                            <span className="mt-4 d-block nowrap ms-2">
+                            <span className="mt-4 d-block nowrap ms-2 pt-2">
                                 <RdsButton
                                     label="Verify Email"
                                     colorVariant="primary"

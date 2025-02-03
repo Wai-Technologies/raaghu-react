@@ -117,7 +117,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 cancelButtonName="CANCEL"
                             >
                                 <div className="text-start  mb-4 border-bottom">
-                                    <div className="form-check form-switch text-start ps-2 mb-4">
+                                    <div className="form-check form-switch text-start ps-0 mb-4">
                                         <RdsCheckbox label={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                             }`}
                                             checked={checked} isSwitch={checked}

@@ -32,7 +32,8 @@ export const ReviewFeed: Story = {
                 fill: false,
                 stroke: false,
                 profilePic: "profile-pic-url",
-                withNoOfReviews: false
+                withNoOfReviews: false,
+                size: "medium", // Added size parameter for the avatar
             }
         ],
     }
