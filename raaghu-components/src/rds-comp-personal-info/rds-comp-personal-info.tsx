@@ -155,6 +155,7 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                                     onClick={(e) => emailHandler(e, isEmailClicked)}
                                     isDisabled={!isEmailValid(formData?.email)}
                                     dataTestId="verify-email"
+                                    id="btn-verify-email"
                                 />
                             </span>
                         </div>
