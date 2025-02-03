@@ -10,7 +10,8 @@ interface Comment {
     date: string;
     comment: string;
     image?: string; // Optional image field for comments with images
-    addedTime?: number; // Track when the comment was added
+    addedTime?: any; // Track when the comment was added
+    CommentId? : number;
 }
 
 interface RdsCompUserCommentsProps {
@@ -19,7 +20,10 @@ interface RdsCompUserCommentsProps {
         firstName: string;
         lastName: string;
         profilePic: string;
+        userId?:any;
     };
+    handleAddComment: (comment: Comment) => void; // Callback to handle new comment
+    handleDeleteComment?:(comment: number) => void;
     allowDelete?: boolean; // Optional prop to control delete functionality
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
@@ -90,6 +94,9 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
 
     setCommentList([...commentList, newComment]);
     setCommentText(''); // Clear input after adding the comment
+    if (props.handleAddComment) {
+      props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,10 +126,18 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   };
 
   const handleDeleteComment = (index: number) => {
-    if (allowDelete) {
-      const updatedComments = commentList.filter((_, i) => i !== index);
-      setCommentList(updatedComments);
-    }
+  if (!allowDelete) return;
+
+  // Get the comment to be deleted
+  const commentToDelete = commentList[index];
+  const commentId = commentToDelete?.CommentId;
+
+  if (!commentId) return;
+
+  // Update the comments list
+  setCommentList((prevList) => prevList.filter((_, i) => i !== index));
+
+  props.handleDeleteComment?.(commentId);
   };
 
   const formatDate = (date: Date, dateFormat: string) => {
@@ -174,7 +189,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               </div>
 
               {showDeleteIcon && isCurrentUser && (
-                <span className="d-flex align-items-top me-1 d-none">
+                <span className="d-flex align-items-top me-2 mt-2 d-none">
                   <RdsIcon
                     name="delete"
                     fill={false}
