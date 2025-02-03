@@ -130,10 +130,11 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 }
               />
             </div>
-            <div className="form-group mb-3">
-              <RdsLabel label="Blog Id" />
+            <div className="form-group mb-2">
+
               <RdsSelectList
                 id="Fea"
+                label="Blog Id"
                 placeholder="Select Option"
                 selectItems={props.blogList}
                 isSearchable={true}
