@@ -221,20 +221,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   }, [checkedCategoryList]);
 
   const calculateVisibleItems = () => {
-    const dropdownWidth = dropdownRef.current?.offsetWidth || 0;
-    let totalWidth = 0;
-    let visibleItems = [];
-    for (let item of checkedCategoryList) {
-      const itemWidth = item.label.length * 10; // Approximate width calculation
-      if (totalWidth + itemWidth < dropdownWidth - 50) { // 50px for "+2" indicator
-        totalWidth += itemWidth;
-        visibleItems.push(item);
-      } else {
-        break;
-      }
-    }
-    return visibleItems;
+    return checkedCategoryList.slice(0, 2); // Always take the first two items
   };
+  
   const visibleItems = calculateVisibleItems();
   const remainingCount = checkedCategoryList.length - visibleItems.length;
 
@@ -596,7 +585,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               {props.multiSelect && checkedCategoryList.length != 0 && (
                 <div>
                  
-                   {visibleItems.map((item, index) => (
+                   {visibleItems.map((item:any) => (
                          <RdsBadge
                          className="me-1 mt-1"
                          key={item.id}
