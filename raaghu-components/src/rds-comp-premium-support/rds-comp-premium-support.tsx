@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea, RdsTextEditor } from "../rds-elements";
 import "./rds-comp-premium-support.css";
 
 export interface RdsCompPremiumSupportProps {
@@ -145,18 +145,13 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 </div>
 
                                 <div>
-                                    <RdsTextArea
-                                        isRequired
-                                        label="Message"
-                                        labelPosition="top"
-                                        placeholder="Enter your extra message about your invoice"
-                                        rows={3}
-                                        reset={inputReset}
-                                        value={premiumSupportData?.message}
-                                        onChange={(e: any) => {
-                                            handlePremiumSupportDataChanges(e.target.value, "message");
-                                        }}
-                                    />
+                                        <RdsTextEditor
+                                          State="Default"
+                                          id=""
+                                          label="Message"
+                                          required
+                                          placeholder="Enter your extra message about your invoice"
+                                        />
                                 </div>
 
                             </form>
