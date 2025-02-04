@@ -75,7 +75,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
 
             {props.item && props.display_type === "ReviewType_1" && (
                 <div className="RdsReviewCategory__review-type-1">
-                    <div className="row sm-d-flex">
+                    <div className="justify-content-between row sm-d-flex">
                         <div className="col-md-3">
                             <div className="avatar">
                                 <RdsAvatar
@@ -105,7 +105,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 />
                             </div>}
                         </div>
-                        <div className="col-md-8 pe-5">
+                        <div className="col-md-8 ">
                             <RdsLabel
                                 label={props.item.reviewTitle}
                                 multiline={true}
