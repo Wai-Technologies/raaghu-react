@@ -130,6 +130,10 @@ height: 20px;
   transform: translate3d(0px, 36.5px, 0px);
 }
 
+#fab-list .dropdown-menu.show {
+  inset: 15px auto auto 15px !important; 
+}
+
 button#dropdownMenuButton {
   width: 30px!important;
   padding: 6px 0px;

@@ -31,6 +31,7 @@ export interface RdsSelectProps {
   defaultImgUrl?: string;
   borderBottomWidth?: string;
   customClasses?: string;
+  reset?: boolean;
 }
 
 const BORDER_COLORS = {
@@ -53,11 +54,19 @@ const TEXT_COLORS = {
   default: undefined, // Default/fallback text color
 };
 
-
 const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
+  const [reset, setIsReset] = useState<any>(
+    false
+   );
+  useEffect(() => {
+    if (props.reset) {
+      setIsReset(true);
+    }
+  }, [props.reset]);
+ 
   const showLabel = props.showLabel || true;
 
   // const [menuOpen, setMenuOpen] = useState(true);
@@ -67,6 +76,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
   }, [props.selectedValue]);
 
   const handleSelectChange = (items: any) => {
+    setIsReset(false);
     if (!props.isMultiple) {
       if (props.onChange) {
         props.onChange(items);
@@ -225,7 +235,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         hideSelectedOptions={false}
         components={props.isMultiple ? { Option } : undefined}
         onChange={handleSelectChange}
-        value={selectedItem}
+        value={reset == true ? null : selectedItem}
         placeholder={props.placeholder}
         isSearchable={props.isSearchable}
         isDisabled={props.isDisabled}
