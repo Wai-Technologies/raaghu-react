@@ -127,7 +127,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                   {radioItemList.length !== 0 && radioItemList[1].checked && (
                      <>
                         <div className="row">
-                           <div className="col-md-12 ">
+                           <div className="col-md-12 mb-3">
                               <div className="form-group">
                                  <RdsTextArea
                                     label="Database URL"
@@ -136,7 +136,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                                     rows={2}
                                     value={connectionStrings?.default}
                                     dataTestId="data"
-                                    validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                              
+                                    validatonPattern={/^(ftp|http|https):\/\/[a-zA-Z\d-]+\.[\s\S]+$/}                              
                                     validationMsg="Please Enter valid url (https or http)"
                                  />
                               </div>
