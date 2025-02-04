@@ -3,7 +3,7 @@ import {
     RdsCheckbox,
     RdsInput,
     RdsSelectList,
-    RdsDatePicker
+    RdsDatepicker
 } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 
@@ -112,7 +112,7 @@ function RdsCompPollsQuestion(props: any) {
                         ></RdsSelectList>
                     </div>
                     <div className="col-md-6 mt-1">
-                        <RdsDatePicker
+                        <RdsDatepicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"
                             title="Start Date"
@@ -122,7 +122,7 @@ function RdsCompPollsQuestion(props: any) {
                         />
                     </div>
                     <div className="col-md-6">
-                        <RdsDatePicker
+                        <RdsDatepicker
                             onDatePicker={handleEndDate}
                             DatePickerLabel="End Date"
                             title="End Date"
@@ -132,7 +132,7 @@ function RdsCompPollsQuestion(props: any) {
                         />
                     </div>
                     <div className="col-md-6">
-                        <RdsDatePicker
+                        <RdsDatepicker
                             onDatePicker={handleResultDatepickerData}
                             DatePickerLabel="Result Showing End Date"
                             title="Result Showing End Date"

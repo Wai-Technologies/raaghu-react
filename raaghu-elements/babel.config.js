@@ -8,5 +8,5 @@ module.exports = {
         },
     },
     plugins: ["@babel/plugin-syntax-jsx"],
-    compact : true
+    compact : false
 };

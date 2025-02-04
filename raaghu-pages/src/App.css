@@ -40,3 +40,46 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Set full height for the page
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+} */
+
+/* Container for the entire app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 10  0px; /* Full viewport height */
+}
+
+/* Top navigation bar */
+.top-navigation {
+  width: 100%;
+  position: fixed; /* Fixes the navigation at the top */
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 1000; /* Ensures it's above other elements */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Main content should be centered */
+.main-content {
+  flex-grow: 1; /* Takes up remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers vertically */
+  align-items: center; /* Centers horizontally */
+  padding: 20px;
+  margin-top: 80px; /* Adjust this based on your navigation height */
+}
+
+/* Button container */
+#btn-1 {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}

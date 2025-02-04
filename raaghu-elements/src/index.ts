@@ -11,7 +11,7 @@ export { default as RdsAddressDetail } from "./rds-address-detail";
 export { default as RdsBreadcrumb } from "./rds-breadcrumb";
 export { default as RdsSelectList } from "./rds-select-list";
 export { default as RdsDropdown } from "./rds-dropdown";
-export { default as RdsDatePicker } from "./rds-datepicker";
+export { default as RdsDatepicker } from "./rds-datepicker";
 export { default as RdsCounter } from "./rds-counter";
 export { default as RdsCard } from "./rds-card";
 export { default as RdsRange } from "./rds-range";
