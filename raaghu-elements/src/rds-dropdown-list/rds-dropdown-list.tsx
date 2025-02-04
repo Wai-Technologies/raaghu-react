@@ -220,6 +220,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
 
+  const calculateVisibleItems = () => {
+    return checkedCategoryList.slice(0, 2); // Always take the first two items
+  };
+  
+  const visibleItems = calculateVisibleItems();
+  const remainingCount = checkedCategoryList.length - visibleItems.length;
+
   return (
     <>
       <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
@@ -577,18 +584,30 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               {/* multiselected dropdown's badge */}
               {props.multiSelect && checkedCategoryList.length != 0 && (
                 <div>
-                  {checkedCategoryList.map((item: any) => (
-                    <RdsBadge
-                      className="me-1 mt-1"
-                      key={item.id}
-                      label={item.label}
-                      colorVariant="primary"
-                      size="small"
-                      onClose={(e) => uncheckHandler(e, item)}
-                      showClose={true}
-                      textwithlabel={true}
-                    />
-                  ))}
+                 
+                   {visibleItems.map((item:any) => (
+                         <RdsBadge
+                         className="me-1 mt-1"
+                         key={item.id}
+                         label={item.label}
+                         colorVariant="primary"
+                         size="small"
+                         onClose={(e) => uncheckHandler(e, item)}
+                         showClose={true}
+                         textwithlabel={true}
+                       />
+                      ))}
+                        {remainingCount > 0 && (
+                        <RdsBadge
+                        className="me-1 mt-1"
+                        label={"+"+ remainingCount.toString()}
+                        colorVariant="primary"
+                        size="small"
+                        textwithlabel={true}
+                        style="pill"
+                      />
+                      )}
+ 
                 </div>
               )}
 
