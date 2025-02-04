@@ -137,8 +137,17 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
     };
 
     const isValidDatabaseURL = (url: string) => {
-        const pattern = /^(?:[a-zA-Z]+):\/\/(?:[^\s:@]+(?::[^\s:@]*)?@)?(?:[a-zA-Z0-9.-]+)(?::\d+)?(?:\/[^\s]*)?$/;
-        return pattern.test(url);
+        const pattern = /^(?:[a-zA-Z][a-zA-Z\d+\-.]*):\/\/(?:[^\s:@]+(?::[^\s:@]*)?@)?(?:[a-zA-Z\d\-._~%!$&'()*+,;=]+|\[[a-fA-F\d:]+\])(?::\d+)?(?:\/[^\s]*)?$/;
+        const domainWithTLDPattern = /^[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)+$/; 
+        try {
+            const urlObject = new URL(url); 
+            return (
+                pattern.test(url) &&
+                domainWithTLDPattern.test(urlObject.hostname) 
+            );
+        } catch (e) {
+            return false; 
+        }
     };
     
     function handleDatabaseURL(value: string) {
@@ -146,14 +155,20 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
             ...prevData,
             connectionStrings: {
                 ...(prevData?.connectionStrings ?? { default: "" }),
-                default: value
+                default: value,
             },
         }));
     
-        if (!isValidDatabaseURL(value)) {
+        if (!value.trim()) {
             setError((prevError) => ({
                 ...prevError,
-                databaseURL: "Enter a valid database URL"
+                databaseURL: "Database URL cannot be empty",
+            }));
+        } else if (!isValidDatabaseURL(value)) {
+            setError((prevError) => ({
+                ...prevError,
+                databaseURL:
+                    "Please enter a valid database URL",
             }));
         } else {
             setError((prevError) => ({ ...prevError, databaseURL: null })); 
