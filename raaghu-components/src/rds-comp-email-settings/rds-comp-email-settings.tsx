@@ -117,7 +117,29 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
-            </form>
+            </div>
+        </div>
+    
+        <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+            <RdsButton
+                type="button"
+                colorVariant="primary"
+                label="Cancel"
+                isOutline={true}
+                size="small"
+                dataTestId="cancel"
+            ></RdsButton>
+            <RdsButton
+                type="submit"
+                colorVariant="primary"
+                label="Save"
+                size="small"
+                dataTestId="submit"
+                onClick={(e) => emitSaveData(e)}
+            ></RdsButton>
+        </div>
+    </form>
+    
         )}
 
         {props.displayType === "advanced" && (
