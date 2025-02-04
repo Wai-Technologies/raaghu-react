@@ -137,7 +137,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                                     value={connectionStrings?.default}
                                     dataTestId="data"
                                     validatonPattern={/^(ftp|http|https):\/\/[a-zA-Z\d-]+\.[\s\S]+$/}                              
-                                    validationMsg="Please Enter valid database url"
+                                    validationMsg="Please enter valid database url"
                                  />
                               </div>
                            </div>
