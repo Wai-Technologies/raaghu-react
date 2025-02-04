@@ -595,3 +595,11 @@ form .form-group .select-options,
   font-size: 12px; 
 }
 }
+
+@media (max-width: 768px) {
+.customClassUL {
+  position: fixed !important;
+  margin-top: 17px !important;
+  transform: translate(126px, 37px);
+}
+}
