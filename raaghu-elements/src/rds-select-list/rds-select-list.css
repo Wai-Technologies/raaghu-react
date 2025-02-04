@@ -62,6 +62,12 @@
     border-color: #6525bf !important;
 
 }
-.css-ebdihk-option{
+.css-ebdihx-option{
+    background-color: rgba(224, 224, 224, 0.4) !important;
+}
+.css-2raz0e-option:active{
+    background-color: #b38de9 !important;
+}
+.css-ebdihx-option:active{
     background-color: white !important;
 }
