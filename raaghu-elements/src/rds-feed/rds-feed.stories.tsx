@@ -10,6 +10,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        size: {
+            options: ['small', 'medium', 'large'],
+            control: { type: 'radio' }
+          },
     },
 } satisfies Meta<typeof RdsFeed>;
 
@@ -18,6 +22,7 @@ type Story = StoryObj<typeof RdsFeed>;
 
 export const ReviewFeed: Story = {
     args: {
+        size: "medium", // Added size parameter for the avatar
         itemList: [
             {
                 id: "1",
@@ -33,11 +38,11 @@ export const ReviewFeed: Story = {
                 stroke: false,
                 profilePic: "profile-pic-url",
                 withNoOfReviews: false,
-                size: "medium", // Added size parameter for the avatar
+               
             }
         ],
     }
 } satisfies Story;
-ReviewFeed.parameters = { controls: { include: ['itemList'] } };
+ReviewFeed.parameters = { controls: { include: ['itemList' , 'size'] } };
 
 
