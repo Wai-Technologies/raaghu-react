@@ -96,7 +96,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
     return (
         <>
-            <div className="py-4">
+            <div className="">
                 <form>
                     <div className="row px-2">
                         <div className="col-md-6 my-3">
@@ -127,7 +127,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 px-2 my-3 ">
+                        <div className="col-md-6  my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
@@ -139,7 +139,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 px-2 my-3">
+                        <div className=" col-md-6 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
@@ -172,7 +172,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
 
                         <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
                     </div>}
-                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}

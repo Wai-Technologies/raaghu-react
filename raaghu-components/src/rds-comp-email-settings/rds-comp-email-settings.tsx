@@ -38,7 +38,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
         <>
         {props.displayType == "basic" && (
             <form>
-                <div className="form-group px-4 row">
+                <div className="align-items-end form-group ps-3 row">
                     <div className="col-sm-3 pt-2">
                         <RdsLabel label="Current Email" class="control-label"></RdsLabel>
                     </div>
@@ -56,7 +56,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                 </div>
 
-                <div className="form-group px-4 row">
+                <div className="align-items-end form-group ps-3 row">
                     <div className="col-sm-3 pt-2">
                         <RdsLabel label="New Email" class="control-label"></RdsLabel>
                     </div>
@@ -74,7 +74,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     </div>
                 </div>
 
-                <div className="form-group px-4 row mb-5">
+                <div className="align-items-end form-group mb-5 ps-3 row">
                     <div className="col-sm-3 pt-2">
                         <RdsLabel
                             label="Confirm New Email"
