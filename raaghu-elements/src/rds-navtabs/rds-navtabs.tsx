@@ -125,7 +125,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
     >
       <a
         className={
-          "nav-link px-0 pe-auto mt-2" +
+          "nav-link pe-auto mt-2" +
           (props.type === "tabs"
             ? " rounded-0"
             : props.layout === "Vertical"

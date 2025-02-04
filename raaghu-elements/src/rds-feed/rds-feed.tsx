@@ -4,7 +4,6 @@ import RdsLikeDislike from "../rds-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-feed.styled.css";
 
-
 export interface Item {
     id: React.Key | null | undefined;
     profilePic: string | undefined;
@@ -22,15 +21,16 @@ export interface Item {
     rating?: 0 | 1 | 2 | 3 | 4 | 5;
     fill?: boolean;
     stroke?: boolean;
-    size?: "small" | "medium" | "large"; // Added size parameter
+    size?: "small" | "medium" | "large"; // Optional per item
 }
-export interface RdsFeedProps {
-    itemList: Item[];
 
+export interface RdsFeedProps {
+    size: "small" | "medium" | "large"; // Global size for the feed
+    itemList: Item[];
 }
 
 const RdsFeed = (props: RdsFeedProps) => {
-    const getSizeDimensions = (size: "small" | "medium" | "large" = "medium") => {
+    const getSizeDimensions = (size: "small" | "medium" | "large") => {
         switch (size) {
             case "small":
                 return { width: "30px", height: "30px" };
@@ -44,7 +44,9 @@ const RdsFeed = (props: RdsFeedProps) => {
     return (
         <div>
             {props.itemList.map((item: Item) => {
-                const { width, height } = getSizeDimensions(item.size);
+                // Use item size if provided, otherwise fallback to global size
+                const { width, height } = getSizeDimensions(item.size || props.size);
+
                 return (
                     <div key={item.id} className="border p-3">
                         <div className="d-flex">
@@ -74,7 +76,7 @@ const RdsFeed = (props: RdsFeedProps) => {
                         </div>
                         <div>
                             <div className="h-25">
-                                <label className="text-muted fst-italic ">
+                                <label className="text-muted fst-italic">
                                     {item.description}
                                 </label>
                             </div>
@@ -92,4 +94,3 @@ const RdsFeed = (props: RdsFeedProps) => {
 };
 
 export default RdsFeed;
-

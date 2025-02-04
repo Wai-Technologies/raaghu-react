@@ -4022,6 +4022,7 @@ $theme-colors: (
 
                             .nav-link:hover {
                                 border-radius: $border-radius-xxl;
+                                color: $black;
                             }
 
                             .selected {
@@ -4033,7 +4034,6 @@ $theme-colors: (
 
                         .nav-tabs.select-tabs {
                             border-bottom: 0px;
-                            border-radius: $border-radius-xxl;
                             color: $txt-neutral-medium-default;
                             width: fit-content;
                             overflow-x: hidden;

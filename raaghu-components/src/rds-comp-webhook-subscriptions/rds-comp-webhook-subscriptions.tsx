@@ -27,19 +27,28 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
     });
 
     //****************endPoint********************
-    const isEndpointValid = (endpoint: any) => {
+    const isEndpointValid = (endpoint: string) => {
+        const urlPattern = new RegExp(
+            "^(https?:\\/\\/)" + // protocol
+            "((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|" + // domain name
+            "localhost|" + // localhost
+            "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" + // OR ipv4
+            "\\[?[a-fA-F\\d:]+\\]?)" + // OR ipv6
+            "(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*" + // port and path
+            "(\\?[;&a-zA-Z\\d%_.~+=-]*)?" + // query string
+            "(\\#[-a-zA-Z\\d_]*)?$", 
+            "i"
+        );
+    
         if (!endpoint || endpoint.length === 0) {
             return "empty";
-        } else if (
-            !/^(ftp|http|https):\/\/[^ "]+$/.test(
-                endpoint
-            )
-        ) {
+        } else if (!urlPattern.test(endpoint)) {
             return "notValid";
         }
-
+    
         return "valid";
     };
+    
     const isEventValid = (event: any) => {
         if (!event || event.length === 0) {
             return false;
@@ -122,21 +131,20 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                 <form>
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
-                        <RdsInput
-                            label="Webhook Endpoint"
-                            reset={inputReset}
-                            required={true}
-                            placeholder="https://example.com/postreceive"
-                            inputType="url"
-                            onChange={(e) => {
-                              handleDataChanges(e.target.value, "endpoint");
-                            }}
-                            value={user?.endpoint}
-                            name={"endpoint"}
-                            dataTestId="webhook-endpoint"
-                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                            validationMsg="Enter valid url"
-                        ></RdsInput>
+                    <RdsInput
+                    label="Webhook Endpoint"
+                    reset={inputReset}
+                    required={true}
+                    placeholder="https://example.com/postreceive"
+                    inputType="url"
+                    onChange={(e) => handleDataChanges(e.target.value, "endpoint")}
+                    value={user?.endpoint}
+                    name="endpoint"
+                    dataTestId="webhook-endpoint"
+                    validatonPattern={/^(https?:\/\/)((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[?[a-fA-F\d:]+\]?)(:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(#[-a-zA-Z\d_]*)?$/i}
+                    validationMsg="Enter a valid Webhook URL"
+                    />
+
                     </div>
                     <div className="fw-normal mb-2">
                         <RdsTextArea

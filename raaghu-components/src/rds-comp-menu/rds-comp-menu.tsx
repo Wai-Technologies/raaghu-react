@@ -92,7 +92,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             required={true}
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12 mb-2">
                         <RdsSelectList
                             id="selpa"
                             label="Page"
@@ -103,12 +103,11 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             onChange={(item: any) => handlePageId(item.value)}
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-12"></div>
                     <div className="col-md-12">
                         <RdsInput
                             label="Display Name"
                             value={data?.displayName}
-                            placeholder={("Enter Display Name") || ""}
+                            placeholder={("Enter Display Name")}
                             name="displayName"
                             required={true}
                             onChange={(e) => handlerChangeInput(e, "displayName")}
@@ -116,7 +115,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             reset={inputReset}                           
                         />
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 pt-1">
                         <RdsCheckbox
                             label="Active"
                             onChange={(e) => {
@@ -130,7 +129,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                         <RdsInput
                             label="Icon"
                             value={data?.icon}
-                            placeholder={("Enter Icon") || ""}
+                            placeholder={("Enter Icon")}
                             name="icon"
                             onChange={(e) => handlerChangeInput(e, "icon")}
                             dataTestId="enter-icon"
