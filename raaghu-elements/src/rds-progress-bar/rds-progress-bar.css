@@ -1,0 +1,5 @@
+.theme-light .circular-progress-primary {
+    background: conic-gradient(#7825e9 calc(var(--progress-value)* 1%), #E9E9E9 calc(var(--progress-value)* 1%));
+    border-radius: 96px;
+    color: #353535;
+}
