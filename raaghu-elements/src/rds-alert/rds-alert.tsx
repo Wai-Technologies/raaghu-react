@@ -11,7 +11,7 @@ export interface RdsAlertProps {
   iconStroke?: boolean;
   iconHeight?: string;
   iconWidth?: string;
-  linkUrl: string;
+  linkUrl?: string;
   message?: string;
   border?: "none" | "single" | "left border";
   delay?: number;

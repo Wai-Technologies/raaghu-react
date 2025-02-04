@@ -3,7 +3,7 @@ import RdsIcon from "../rds-icon";
 import "./rds-app-detail.css";
 
 export interface RdsAppDetailProps {
-  linkUrl: string;
+  linkUrl?: string;
   iconPosition?: "left" | "center" | "right";
   showUpperBorder?: boolean;
   appDetailsItem: {
@@ -11,7 +11,7 @@ export interface RdsAppDetailProps {
     subtitle: string;
     icon: string;
     route: string;
-    selected: boolean;
+    selected?: boolean;
     iconHeight: string;
     iconWidth: string;
     iconFill: boolean;
