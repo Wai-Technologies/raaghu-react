@@ -24,6 +24,7 @@ export const Default: Story = {
   args: {
     iconPosition: "left",
     showUpperBorder: true,
+    linkUrl: "https://example.com",
     appDetailsItem: {
       title: "Zapier",
       subtitle: "Build custom automation and integration with app",
