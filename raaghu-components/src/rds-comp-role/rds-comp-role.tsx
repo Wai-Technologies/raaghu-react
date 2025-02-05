@@ -38,7 +38,7 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                 <form>
                     <div className="custom-content-scroll">
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 mb-2">
                                 <div className="form-group">  
                                     <RdsInput
                                         label="Role Name"

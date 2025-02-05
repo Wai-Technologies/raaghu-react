@@ -84,7 +84,7 @@ const RdsBanner = (props: RdsBannerProps) => {
       style={{ backgroundImage: `url(${bannerImage})`,
               backgroundRepeat:"no-repeat",
               backgroundSize:"cover" }}>
-        <div className="content">
+        <div className="content bg-layer bg-dark">
           <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
           <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
 

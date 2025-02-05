@@ -60,7 +60,14 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
         props.navtabItems.filter((tabs) => tabs.themeId == activeTheme)[0]
             .navtabs[0].id
     );
-
+    const [resetSelectList, setResetSelectList] = useState(false);
+    const [fixedAsideChecked, setfixedAsideChecked] = useState(false);
+    const [allowAsideMinimizing, setallowAsideMinimizing] = useState(false);
+    const [defaultMinimisedAside, setdefaultMinimisedAside] = useState(false);
+    const [expandMenuWhenHovered, setexpandMenuWhenHovered] = useState(false);
+    const [fixedSubHeader, setfixedSubHeader] = useState(false);
+    const [fixedFooter, setfixedFooter] = useState(false);
+    
     const onSetActiveTheme = (themeId: any) => {
         setActiveTheme(themeId);
         setSelectedSkin(themeId.toLowerCase()); // set the selected skin based on the themeId
@@ -76,9 +83,30 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
     const onSaveVisualSettings = () => {
         props.onSaveVisualSettingsData != undefined &&
         props.onSaveVisualSettingsData(vsItem);
+        setResetSelectList(true);
+        setfixedAsideChecked(false);
+        setallowAsideMinimizing(false);
+        setdefaultMinimisedAside(false);
+        setexpandMenuWhenHovered(false);
+        setfixedSubHeader(false);
+        setfixedFooter(false);
+        setTimeout(() => setResetSelectList(false), 0);
     };
 
-    const onCheckboxCheck = (e: any) => {
+    const onCheckboxCheck = (e: any, propertyName?: string) => {
+        const propertySetters: Record<string, (value: any) => void> = {
+            fixedAside: setfixedAsideChecked,
+            allowAsideMinimizing: setallowAsideMinimizing,
+            defaultMinimizedAside: setdefaultMinimisedAside,
+            expandMenuHovered: setexpandMenuWhenHovered,
+            fixedSubHeader: setfixedSubHeader,
+            fixedFooter: setfixedFooter,
+        };
+    
+        if (propertyName && propertySetters[propertyName]) {
+            propertySetters[propertyName](e);
+        }
+    
         dispatch({
             type: "CHECKBOX",
             theme: activeTheme,
@@ -187,13 +215,11 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                         aria-labelledby="nav-subheader"
                                     >
                                         <RdsCheckbox
-                                            onChange={onCheckboxCheck}
+                                           onChange={()=>onCheckboxCheck(!fixedSubHeader,"fixedSubHeader")}
                                             label="Fixed SubHeader"
                                             name="fixedSubHeader"
                                             checked={
-                                                vsItem.filter(
-                                                    (item: any) => item.themeId == activeTheme
-                                                )[0]?.subHeader?.fixedSubHeader
+                                                fixedSubHeader
                                             }
                                         />
 
@@ -224,9 +250,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     id="asideSkin"
                                                     label="Skin"
                                                     placeholder={
-                                                        vsItem.filter(
-                                                            (item: any) => item.themeId === activeTheme
-                                                        )[0]?.menu?.asideSkin || "Select Aside Skin"
+                                                         "Select Aside Skin"
                                                     }
                                                     selectItems={props.listskin.map((skin: any) => ({
                                                         option: skin.displayText,
@@ -241,52 +265,45 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             },
                                                         })
                                                     }
+                                                    reset={resetSelectList}
                                                 />
                                             </div>
                                         )}
 
                                         <div className="form-group mb-3">
                                             <RdsCheckbox
-                                                onChange={onCheckboxCheck}
+                                                onChange={()=>onCheckboxCheck(!fixedAsideChecked,"fixedAside")}
                                                 label="Fixed Aside"
                                                 name="fixedAside"
                                                 checked={
-                                                    vsItem.filter(
-                                                        (item: any) => item.themeId == activeTheme
-                                                    )[0]?.menu?.fixedAside
+                                                    fixedAsideChecked
                                                 }
                                             />
 
                                             <RdsCheckbox
-                                                onChange={onCheckboxCheck}
+                                                onChange={()=>onCheckboxCheck(!allowAsideMinimizing,"allowAsideMinimizing")}
                                                 label="Allow Aside Minimizing"
                                                 name="allowAsideMinimizing"
                                                 checked={
-                                                    vsItem.filter(
-                                                        (item: any) => item.themeId == activeTheme
-                                                    )[0]?.menu?.allowAsideMinimizing
+                                                    allowAsideMinimizing
                                                 }
                                             />
 
                                             <RdsCheckbox
-                                                onChange={onCheckboxCheck}
+                                                onChange={()=>onCheckboxCheck(!defaultMinimisedAside,"defaultMinimizedAside")}
                                                 name="defaultMinimizedAside"
                                                 label="Default Minimised Aside"
                                                 checked={
-                                                    vsItem.filter(
-                                                        (item: any) => item.themeId == activeTheme
-                                                    )[0]?.menu?.defaultMinimizedAside
+                                                    defaultMinimisedAside
                                                 }
                                             />
 
                                             <RdsCheckbox
-                                                onChange={onCheckboxCheck}
+                                                onChange={()=>onCheckboxCheck(!expandMenuWhenHovered,"expandMenuHovered")}
                                                 label="Expand Menu when Hovered"
                                                 name="hoverableAside"
                                                 checked={
-                                                    vsItem.filter(
-                                                        (item: any) => item.themeId == activeTheme
-                                                    )[0]?.menu?.hoverableAside
+                                                    expandMenuWhenHovered
                                                 }
                                             />
                                         </div>
@@ -297,9 +314,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                     id="submenuToggle"
                                                     label="Submenu Toggle"
                                                     placeholder={
-                                                        vsItem.filter(
-                                                            (item: any) => item.themeId === activeTheme
-                                                        )[0]?.menu?.submenuToggle || "Select Submenu"
+                                                        "Select Submenu"
                                                     }
                                                     selectItems={props.listSubmenu.map(
                                                         (submenu: any) => ({
@@ -316,6 +331,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             },
                                                         })
                                                     }
+                                                    reset={resetSelectList}
                                                 />
                                                 <div className="d-flex flex-column-reverse px-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
                                                     <RdsButton
@@ -342,12 +358,11 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                     >
                                         <div className="pt-4"> 
                                             <RdsCheckbox
+                                                onChange={()=>onCheckboxCheck(!fixedFooter,"fixedFooter")}
                                                 label="Fixed Footer"
                                                 name="fixedFooter"
                                                 checked={
-                                                    vsItem.filter(
-                                                        (item: any) => item.themeId == activeTheme
-                                                    )[0]?.footer?.fixedFooter
+                                                    fixedFooter
                                                 }
                                             />
                                         </div>
