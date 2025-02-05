@@ -99,6 +99,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                                 setSelectedData({ ...selectedData, claimType: item });
                             }}
                             dataTestId="select"
+                            color="primary"
                         ></RdsSelectList>
                     </div>
 

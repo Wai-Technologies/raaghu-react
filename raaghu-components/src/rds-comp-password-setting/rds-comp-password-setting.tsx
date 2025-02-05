@@ -10,13 +10,18 @@ export interface RdsCompPasswordSettingProps {
 const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     const [formData, setFormData] = useState(props.passwordSettingData);
     const [inputReset, setInputReset] = useState(props.reset);
-    const [error1, setError1] = useState("");
-    const [error2, setError2] = useState("");
-    const [error3, setError3] = useState("");
+    const [curPass, setCurPass] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [newConfirmPassoword, setNewConfirmPassoword] =useState("");
+    const [isValidConfirmNewPass, setIsValidConfirmNewPass] = useState(true);
+    const [isValidConfirmPass, setIsValidConfirmPass] = useState(true);
+    const [curPassError, setCurPassError] = useState("");
+    const [newPassError, setNewPassError] = useState("");
+    const [curNewPassError, setCurNewPassError] = useState("");
     
     useEffect(() => {
         setFormData(props.passwordSettingData);
-      }, [props.passwordSettingData]);
+    }, [props.passwordSettingData]);
 
     useEffect(() => {
         setInputReset(props.reset);
@@ -26,25 +31,13 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
         setFormData({ ...formData, [key]: value });
         switch (key) {
                 case "curPass":
-                    if (!isCurPassValid(value)) {
-                        setError1("Current Password is invalid");
-                    } else {
-                        setError1("");
-                    }
+                    !isCurPassValid(value) ? setCurPassError("Password must be alphanumeric and at least 8 characters long") : setCurPassError("");
                     break;
                 case "newPass":
-                    if (!isNewPassValid(value)) {
-                        setError2("New password is invalid");
-                    } else {
-                        setError2("");
-                    }
+                    isCurrNewPassDifferent(value) ? setNewPassError("Current Password and New Password cannot be same") : (!isNewPassValid(value) ? setNewPassError("Password must be alphanumeric and at least 8 characters long") : setNewPassError(""));
                     break;
                 case "curNewPass":
-                    if (!isCurNewPassValid(value)) {
-                        setError3("Password mismatch found");
-                    } else {
-                        setError3("");
-                    }
+                    !isCurNewPassValid(value) ? setCurNewPassError("New Password and Confirm New Password do not match. Please try again.") : setCurNewPassError("");
                     break;
                 default:
                     break;
@@ -52,21 +45,33 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
     };
 
     const isCurPassValid = (curPass: any) => {
-        return curPass && curPass.length > 8;
+        return curPass && curPass.length >= 8;
     };
 
+    const isCurrNewPassDifferent = (newPass: any) => {
+        return newPass === formData?.curPass ;
+    }
+
     const isNewPassValid = (newPass: any) => {
-        return newPass && newPass.length > 8;
+        return newPass && newPass.length >= 8;
     };
 
     const isCurNewPassValid = (curNewPass: any) => {
-        return curNewPass && curNewPass === formData.newPass && curNewPass.length > 8;
+        return curNewPass && curNewPass === formData.newPass && curNewPass.length >= 8;
     };
+
+    useEffect(() => {
+        (newPassword && newPassword !== curPass && newPassword.length >= 8) ? setIsValidConfirmNewPass(true) : setIsValidConfirmNewPass(false);
+    },[newPassword]);
+
+    useEffect(() => {
+        (newConfirmPassoword && newConfirmPassoword === newPassword && newConfirmPassoword.length >= 8) ? setIsValidConfirmPass(true) : setIsValidConfirmPass(false);
+    },[newConfirmPassoword, newPassword]);
 
     const isFormValid =
         isCurNewPassValid(formData?.curNewPass) &&
         isCurPassValid(formData?.curPass) &&
-        isNewPassValid(formData?.newPass);
+        isNewPassValid(formData?.newPass) && isCurNewPassValid(formData?.curNewPass) && isValidConfirmNewPass && isValidConfirmPass;
     
         const emitSaveData = (event: any) => {
             event.preventDefault();
@@ -92,6 +97,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             placeholder="Current password"
                             inputType="password"
                             onChange={(e) => {
+                              setCurPass(e.target.value);
                               handleDataChanges(e.target.value, "curPass");
                             }}
                             value={formData?.curPass}
@@ -99,7 +105,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
 			                dataTestId="current-password"
                             showIcon= {true}
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
-                            validationMsg="Password must be alphanumeric and at least 8 characters long"
+                            validationMsg={curPassError}
                         ></RdsInput>                       
                     </div>
                     <div className=" fw-normal mb-3">
@@ -110,6 +116,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             placeholder="New password"
                             inputType="password"
                             onChange={(e) => {
+                              setNewPassword(e.target.value);
                               handleDataChanges(e.target.value, "newPass");
                             }}
                             value={formData?.newPass}
@@ -117,7 +124,8 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             showIcon= {true}
 			                dataTestId="new-password"
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
-                            validationMsg="Password must be alphanumeric and at least 8 characters long"
+                            isValidConfirmPass={isValidConfirmNewPass}
+                            validationMsg={newPassError}
                         ></RdsInput>                       
                     </div>
                     <div className=" fw-normal mb-3">
@@ -128,14 +136,15 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                             placeholder="Confirm new password"
                             inputType="password"
                             onChange={(e) => {
+                              setNewConfirmPassoword(e.target.value);
                               handleDataChanges(e.target.value, "curNewPass");
                             }}
                             value={formData?.curNewPass}
                             name={"curNewPass"}
                             showIcon= {true}
 			                dataTestId="confirm-password"
-                            validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
-                            validationMsg={error3}
+                            validationMsg={curNewPassError}
+                            isValidConfirmPass={isValidConfirmPass}
                         ></RdsInput>                     
                     </div>
                     <div>

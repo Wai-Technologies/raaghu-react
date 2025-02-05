@@ -31,7 +31,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSearch>;
 
-export const Search: Story = {
+export const ClearableSearchWithIcon: Story = {
     args: {
         label: 'Search',
         labelPosition: 'top',
@@ -40,6 +40,6 @@ export const Search: Story = {
         iconPosition: "left",
     }
 } satisfies Story;
-Search.parameters = { controls: { include: ['label', 'labelPosition', 'placeholder', 'size', 'iconPosition'] } };
+ClearableSearchWithIcon.parameters = { controls: { include: ['label', 'labelPosition', 'placeholder', 'size', 'iconPosition'] } };
 
 

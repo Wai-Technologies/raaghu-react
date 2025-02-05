@@ -139,7 +139,7 @@
 }
 .input-box-chat{
   input {
-    margin-top: 2px !important;
+    margin-top: -7px !important;
   }
 }
 .emoji-popup {
@@ -158,15 +158,10 @@
     object-fit: cover; // Ensures the image doesn't distort and covers the box
 }
 
-.epr-icn-search{
+.epr-icn-search {
   display: none;
-  }
-  .sendButton{
-    margin-bottom: 8px !important;
-    border: 1px solid #ccc !important;
-    padding: 3px 9px !important;
-    border-radius: 3px !important;
-    margin-top: 2px !important;
-    background-color: blueviolet !important;
-    color: white !important;
-  }
+}
+
+.input-box-chat .position-relative input {
+  padding-right: 70px !important;
+}

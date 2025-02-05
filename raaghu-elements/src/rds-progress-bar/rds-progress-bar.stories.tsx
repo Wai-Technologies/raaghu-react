@@ -16,11 +16,6 @@ const meta: Meta = {
       control: { type: "select" },
       description: 'The color variant of the progress bar.',
     },
-    State: {
-      options: ['success', 'error'],
-      control: { type: "select" },
-      description: 'The state of the progress bar.',
-    },
     role: {
       options: ['single', 'multiple', 'Circular'],
       control: { type: "select" },
@@ -90,7 +85,6 @@ export const Default: Story = {
         animation: true,
       },
     ],
-    State: "success",
   },
 } satisfies Story;
 
@@ -128,7 +122,6 @@ export const MultiProgressBar: Story = {
         animation: true,
       },
     ],
-    State: "success",
   },
 } satisfies Story;
 
@@ -139,7 +132,7 @@ MultiProgressBar.parameters = {
 export const Circular: Story = {
   args: {
     role: "Circular",
-    State: "success",
+    colorVariant: "primary",
     progressWidth: 40,
     height: 80,
     displayPercentage: true,
@@ -179,5 +172,5 @@ export const Circular: Story = {
 } satisfies Story;
 
 Circular.parameters = {
-  controls: { include: ['role', 'State', 'progressWidth', 'height', 'displayPercentage'] },
+  controls: { include: ['role', 'colorVariant', 'progressWidth', 'height', 'displayPercentage'] },
 };
