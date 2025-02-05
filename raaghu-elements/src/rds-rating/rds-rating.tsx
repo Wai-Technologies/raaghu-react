@@ -160,7 +160,7 @@ const RdsRating = (props: RdsRatingProps) => {
   return (
     <>
       {!props.defaultSlider && (
-        <div className={`align-items-center d-flex d-lg-flex d-md-block fs-5 gap-2 starrating ${sizeClass}`}>
+        <div className={`align-items-center d-flex d-lg-flex fs-5 gap-2 starrating ${sizeClass}`}>
           {!props.outline && !props.filled && !props.defaultSlider && (
             <div className="rating-container">
              <span className="fs-5 me-2 mt-2 rating-number">{rating}</span>
