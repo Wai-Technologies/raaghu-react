@@ -38,6 +38,7 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                     colorVariant={customClasses.includes('btn-dark') || customClasses.includes('btn-primary') || customClasses.includes('btn-danger') ? 'light' : 'dark'}
                 ></RdsIcon>
             </button>
+            <div id="fab-list">
             <div className={"dropdown-menu dropdown-menu-list fab-dropdown border-0 shadow mb-1" + (isMenuOpen ? " show" : "")} role="menu">
                 {props.listItems.map((listItem) => (
                     <a key={listItem.key} role="link" className="dropdown-item fab-dropdown-item d-flex py-3" onClick={listItem.onClick}>
@@ -45,6 +46,7 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                         <span className="ms-3">{listItem.value}</span>
                     </a>
                 ))}
+            </div>
             </div>
         </>
     );

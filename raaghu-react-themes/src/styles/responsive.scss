@@ -590,8 +590,16 @@ form .form-group .select-options,
   }
 }
 @media (max-width: 768px) {
-  .dropdown-menu-list {
-      max-width: 98% !important;
-      left: 5px; 
-  }
+.fab-dropdown-item span {
+  word-wrap: break-word;
+  font-size: 12px; 
+}
+}
+
+@media (max-width: 768px) {
+.customClassUL {
+  position: fixed !important;
+  margin-top: 17px !important;
+  transform: translate(126px, 37px);
+}
 }
