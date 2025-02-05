@@ -137,7 +137,7 @@ Block.parameters = {
     }
 };
 
-export const Stepper: Story = {
+export const NumberStepper: Story = {
     args: {
         role: "Stepper",
         steps: 5,
@@ -154,8 +154,24 @@ export const Stepper: Story = {
     },
 } satisfies Story;
 
-Stepper.parameters = {
+NumberStepper.parameters = {
     controls: {
         include: ['state', 'steps', 'variant', 'Icon', 'StepIconName']
     }
 };
+
+export const advanceStepper: Story = {
+    args: {
+        stepperType: "advance",
+        stepperSectionClass: "m-3",
+        headerClass: "fs-9 lh-base fw-semibold",
+        checkBoxClass: "float-end", 
+        showDetailsClass: "fs-9 fw-normal lh-sm mt-3", 
+        advanceList: [{headerContain: 'Header 1', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '1', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 1'},
+                    {headerContain: 'Header 2', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '2', checkBoxWithLabel: false, showDetails: true, detailsContain: 'Details of header 2'},
+                    {headerContain: 'Header 3', type: "Circular", isDisabled: true, checkedValue: false, checkBoxLabel: '', checkBoxId: '3', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 3'}
+                ]
+    },
+} satisfies Story;
+
+advanceStepper.parameters = { controls: { include: ['stepperType', 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };

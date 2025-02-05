@@ -58,6 +58,9 @@ const DraggableColumnHeader: React.FC<{
   };
   index: number;
   moveColumn: (fromIndex: number, toIndex: number) => void;
+  onLeftPin: (key: string) => void;
+  onRightPin: (key: string) => void;
+  onNoPin: (key: string) => void;
   hasSearch?: boolean;
   filter?: boolean;
   onSearchChange?: (key: string, value: string) => void;
@@ -75,6 +78,9 @@ const DraggableColumnHeader: React.FC<{
   column,
   index,
   moveColumn,
+  onLeftPin,
+  onRightPin,
+  onNoPin,
   hasSearch,
   filter,
   onSearchChange,
@@ -92,6 +98,10 @@ const DraggableColumnHeader: React.FC<{
   const refheader = useRef<HTMLTableHeaderCellElement>(null);
   const [resizeStop, setResizeStop] = useState(true);
   const [isResizing, setIsResizing] = useState(false);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('No Pin');
+  const pinOptions = ['No Pin', 'Pin Left', 'Pin Right'];
+  const popupRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag, preview] = useDrag({
     type: "COLUMN",
     item: { index },
@@ -142,6 +152,42 @@ const DraggableColumnHeader: React.FC<{
     setIsResizing(true);
   };
 
+  const togglePopup = () => {
+    setIsPopUpOpen(!isPopUpOpen);
+  };
+
+  const popUpOptionClick = (value : string) => {
+    setSelectedOption(value);
+    if(value == 'Pin Left'){
+      onLeftPin(column.key);
+    }
+    else if(value == 'Pin Right'){
+      onRightPin(column.key);
+    }
+    else if(value == 'No Pin'){
+      onNoPin(column.key);
+    }
+    setIsPopUpOpen(!isPopUpOpen);
+  }
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      setIsPopUpOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isPopUpOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPopUpOpen]);
+
   const hasData = data.some(row => row[column.key] !== undefined && row[column.key] !== null);
 
   if (column.hidden) {
@@ -150,7 +196,7 @@ const DraggableColumnHeader: React.FC<{
 
   return (
     <th
-      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+      className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-auto" : ""} ${column.frozen ? "frozen-auto" : ""}`}
       ref={refheader}
       
     >
@@ -203,6 +249,41 @@ const DraggableColumnHeader: React.FC<{
             tooltipPlacement="bottom"
           />
         </button>
+        <div>
+          <button onClick={togglePopup} className="btn btn-sm btn-icon ms-1">
+            <RdsIcon
+              name="three_dots"
+              width="20px"
+              height="20px"
+              fill={false}
+              stroke={true}
+              opacity="0.7"
+              tooltip={true}
+              tooltipTitle="Hide Column"
+              tooltipPlacement="bottom"
+            />
+          </button>
+          {isPopUpOpen && (
+            <div className="list-popup" ref={popupRef} >
+              <ul className="list-popup-ul">
+                {pinOptions.map((option, index) => (
+                  <li className="pb-2" key={index}>
+                    <label className="list-popup-li">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={selectedOption === option}
+                        onChange={() => popUpOptionClick(option)}
+                        style={{ marginRight: '10px' }}
+                      />
+                      <span>{option}</span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
         </>)}
         {(column.filter || allFilter) && hasData && (
           <div className="cursor-pointer">
@@ -248,6 +329,7 @@ const DraggableColumnHeader: React.FC<{
 const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const [searchTexts, setSearchTexts] = useState<{ [key: string]: string }>({});
   const [columns, setColumns] = useState(props.tableHeaders);
+  const [fixedcolumns, setFixedColumns] = useState(props.tableHeaders);
   const [totalData, setTotalData] = useState(props.tableData);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(
@@ -268,6 +350,8 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
   const dropdownRef = useRef<HTMLUListElement>(null);
   const [array, setArray] = useState<boolean[]>([]);
   const [data, setData] = useState(props.tableData);
+  const [leftPinColumn, setLeftPinColumn] = useState<string[]>([]);
+  const [rightPinColumn, setRightPinColumn] = useState<string[]>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
   useEffect(() => {
     if (props.gridType === "advance") {
@@ -288,7 +372,42 @@ const RdsCompGrid = ( props: RdsCompGridCombinedProps ) => {
     updatedColumns.splice(toIndex, 0, removed);
     setColumns(updatedColumns);
   };
-  
+
+  const onLeftPin = (key: string) => {
+    if(!leftPinColumn.includes(key)){ 
+      const currentKeyIndex = columns.findIndex(item => item['key'] == key);
+      moveColumn(currentKeyIndex, leftPinColumn.length);
+      setRightPinColumn(rightPinColumn.filter(element => element !== key));
+      setLeftPinColumn([...leftPinColumn, key]);
+    }
+  }
+
+  const onRightPin = (key: string) => {
+    if(!rightPinColumn.includes(key)){ 
+      const currentKeyIndex = columns.findIndex(item => item['key'] == key);
+      moveColumn(currentKeyIndex, columns.length - 1);
+      setLeftPinColumn(leftPinColumn.filter(element => element !== key));
+      setRightPinColumn([...rightPinColumn, key]);
+    }
+  }
+
+  const onNoPin = (key: string) => {
+    if(leftPinColumn.includes(key)){
+    const currentKeyIndex = columns.findIndex(item => item['key'] == key);
+    const InitialKeyIndex = fixedcolumns.findIndex(item => item['key'] == key);
+    moveColumn(currentKeyIndex, (leftPinColumn.length -1) + (InitialKeyIndex));
+    setLeftPinColumn(leftPinColumn.filter(element => element !== key));
+    setRightPinColumn(rightPinColumn.filter(element => element !== key));
+    }
+    else if(rightPinColumn.includes(key)) {
+    const currentKeyIndex = columns.findIndex(item => item['key'] == key);
+    const InitialKeyIndex = fixedcolumns.findIndex(item => item['key'] == key);
+    moveColumn(currentKeyIndex, (leftPinColumn.length) + (InitialKeyIndex));
+    setLeftPinColumn(leftPinColumn.filter(element => element !== key));
+    setRightPinColumn(rightPinColumn.filter(element => element !== key));
+    }
+  }
+
   const handleSearchChange = (key: string, value: string) => {
     setSearchTexts((prev) => ({ ...prev, [key]: value }));
     const filteredData = props.tableData.filter((row) =>
@@ -676,7 +795,7 @@ const updatedColumns = calculateLeftPositions();
         }
       >
         <div className="table-responsive-sm">
-          <table className={`table table-hover table-bordered`} id="grid">
+          <table className={`table table-hover table-bordered grid-table`} id="grid">
             <thead className="text-nowrap">
               <tr className="align-top">
                 {actionPosition != true &&
@@ -708,6 +827,9 @@ const updatedColumns = calculateLeftPositions();
                     }}
                     index={index}
                     moveColumn={moveColumn}
+                    onLeftPin={onLeftPin}
+                    onRightPin={onRightPin}
+                    onNoPin={onNoPin} 
                     onSearchChange={handleSearchChange}
                     onFilterClick={handleFilterClick}
                     onSortClick={handleSortClick}
@@ -927,7 +1049,7 @@ const updatedColumns = calculateLeftPositions();
         }
       >
         <div className="table-responsive-sm">
-          <table className={`table table-hover table-bordered`} id="grid">
+          <table className={`table table-hover table-bordered grid-table`} id="grid">
             <thead className="text-nowrap">
               <tr className="align-top">
                 <th></th>
@@ -936,7 +1058,7 @@ const updatedColumns = calculateLeftPositions();
                   props.tableHeaders?.length > 0 &&
                   props.actions &&
                   props.actions?.length > 0 && (
-                    <th className="text-center fw-medium">Actions</th>
+                    <th className="text-center fw-medium header-padding">Actions</th>
                   )}
 
                 {props.enablecheckboxselection && (
@@ -961,6 +1083,9 @@ const updatedColumns = calculateLeftPositions();
                     }}
                     index={index}
                     moveColumn={moveColumn}
+                    onLeftPin={onLeftPin}
+                    onRightPin={onRightPin}
+                    onNoPin={onNoPin}
                     onSearchChange={handleSearchChange}
                     onFilterClick={handleFilterClick}
                     onSortClick={handleSortClick}
@@ -981,7 +1106,7 @@ const updatedColumns = calculateLeftPositions();
                   props.tableHeaders?.length > 0 &&
                   props.actions &&
                   props.actions?.length > 0 && (
-                    <th className="text-center fw-medium">Actions</th>
+                    <th className="text-center fw-medium header-padding" style={{paddingTop: '20px'}}>Actions</th>
                   )}
               </tr>
             </thead>
@@ -1090,7 +1215,7 @@ const updatedColumns = calculateLeftPositions();
           {updatedColumns.map((column, colIndex) => (
                   !column.hidden && (
                     <td
-                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.fixed ? "fixed-column" : ""} ${column.frozen ? "frozen-column" : ""}`}
+                      className={`px-2 align-middle fw-medium ${column.wraptext ? "wrap-text" : "text-nowrap"} ${column.frozen ? "frozen-auto" : ""}`}
                       key={column.key}
                       style={column.fixed ? { left: `${column.left}px` } : {}}
                     >

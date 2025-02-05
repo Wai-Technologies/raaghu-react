@@ -17,7 +17,57 @@
     color: #6525bf !important;
 }
 
-#select-background-color .css-1miq03v-option{
+#select-background-color .css-1miq03v-option {
     background-color: unset !important;
-    color: black !important;
+    border-color: #6525bf !important;
+}
+
+.css-1vu6crs-control,
+.css-zhfn5b-control {
+    box-shadow: none !important;
+    border-color: #6525bf !important;
+}
+
+.css-1odcjzj-control{
+    box-shadow: none !important;
+}
+
+.css-1odcjzj-control:hover{
+    border-color: #6525bf !important;
+}
+
+.css-meqmo6-control{
+    box-shadow: none !important;
+
+}
+.css-meqmo6-control:hover{
+    border-color: #6525bf !important;
+}
+
+.css-lofsuq-control{
+    box-shadow: none !important;
+}
+
+.css-lofsuq-control:hover{
+    border-color: #6525bf !important;
+}
+.css-3o0vwh-control{
+    border-color:  rgb(207, 204, 204, 0.5) !important;
+}
+
+.css-17pj0yt-control{
+    box-shadow: none !important;
+}
+.css-17pj0yt-control:hover{
+    border-color: #6525bf !important;
+
+}
+.css-ebdihx-option{
+    background-color: rgba(224, 224, 224, 0.4) !important;
+}
+.css-2raz0e-option:active{
+    background-color: #b38de9 !important;
+}
+.css-ebdihx-option:active{
+    background-color: white !important;
 }

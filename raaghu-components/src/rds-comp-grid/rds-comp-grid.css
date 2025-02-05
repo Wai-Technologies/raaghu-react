@@ -1,7 +1,6 @@
 @media (max-width: 767px) {
-
   #grid thead th:first-child,
-  #grid tbody td:first-child{
+  #grid tbody td:first-child {
     position: sticky;
     left: -1px;
     max-width: 190px;
@@ -9,7 +8,7 @@
   }
 }
 
-.table>tbody {
+.table > tbody {
   vertical-align: middle !important;
 }
 
@@ -31,6 +30,31 @@
     transform: rotate(360deg);
   }
 }
+.list-popup {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.list-popup-ul {
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.list-popup-li {
+  display: flex;
+  cursor: pointer;
+}
+
+.header-padding {
+  padding-top: 20px;
+}
 
 .popup {
   position: absolute;
@@ -39,7 +63,7 @@
   padding: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  max-height: 200px;
+  max-height: 200px; 
   /* Maximum height before showing a scrollbar */
   overflow-y: auto;
   /* Show vertical scrollbar if needed */
@@ -85,14 +109,13 @@
   user-select: none;
 }
 
-
 .sort-asc::after {
-  content: '↑';
+  content: "↑";
   margin-left: 5px;
 }
 
 .sort-desc::after {
-  content: '↓';
+  content: "↓";
   margin-left: 5px;
 }
 
@@ -118,10 +141,10 @@
   transform: rotate(0deg) !important;
     right: auto !important;
 } */
-.react-resizable-handle{
-  background-image: url('') !important;
+.react-resizable-handle {
+  background-image: url("") !important;
   transform: rotate(0deg) !important;
-    right: auto !important;
+  right: auto !important;
 }
 
 .full-width {
@@ -138,12 +161,12 @@
   cursor: move;
 }
 
-.sorting-alignment{
+.sorting-alignment {
   padding-left: 10px !important;
 }
 input[type="search"]::-webkit-search-decoration:hover,
-input[type="search"]::-webkit-search-cancel-button:hover { 
-    cursor:pointer; 
+input[type="search"]::-webkit-search-cancel-button:hover {
+  cursor: pointer;
 }
 .fixed-column {
   position: sticky;
@@ -158,4 +181,3 @@ input[type="search"]::-webkit-search-cancel-button:hover {
   background-color: white;
   z-index: 1;
 }
-

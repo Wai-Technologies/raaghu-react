@@ -43,6 +43,7 @@ export interface RdsInputProps {
   ShowHintText?: boolean;
   tooltipPlacement?: "top" | "bottom" | "left" | "right";
   tooltipTitle?: string;
+  isValidConfirmPass?: boolean;
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -60,6 +61,11 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     useEffect(() => {
       setValue(props.value ?? "");
     }, [props.value]);
+
+    useEffect(() => { 
+      if(props?.name == "curNewPass" || props?.name == "newPass")
+      props.isValidConfirmPass ? setIsValid(true) : setIsValid(false);
+    });
 
     const formatCardNumber = (inputValue: string) => {
       inputValue = inputValue.replace(/\D/g, '');
@@ -213,6 +219,8 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       }
     };
 
+    const isNumberPlaceholder = getPlaceholder() === "Enter Number";
+
     return (
       <>
         <div className={` ${props.id == "passwordfield" ? "":"mb-2"} ${labelClass()} position-relative`}>
@@ -313,7 +321,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           {props.inputType === "password" && props.showIcon ? (
             <RdsIcon
               name={showPassword ? "eye" : "eye_slash"}
-              classes={"password-toggle mysettingspage"}
+              classes="password-toggle mysettingspage"
               height="16px"
               width="16px"
               id={"iconPassword" + props.labelPosition}
@@ -326,7 +334,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes="password-toggle"
+                classes={`password-toggle ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}

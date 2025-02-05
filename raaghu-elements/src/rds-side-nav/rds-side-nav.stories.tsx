@@ -17,13 +17,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSideNav>;
 
-export const SideNavigation: Story = (args: any) => (
+export const CustomNavigationSidebar: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-SideNavigation.args = {
+CustomNavigationSidebar.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     sideNavItems: [
         {
@@ -77,16 +77,16 @@ SideNavigation.args = {
     layout : "LeftSideNav",
     showUserProfile:false,
 };
-SideNavigation.parameters = { controls: { include: ["logo", "sideNavItems"] } };
+CustomNavigationSidebar.parameters = { controls: { include: ["logo", "sideNavItems"] } };
 
 
-export const SideNavigationWithList: Story = (args: any) => (
+export const CustomNavigationSidebarWithList: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-SideNavigationWithList.args = {
+CustomNavigationSidebarWithList.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     showUserProfile:true,
     sideNavItems: [
@@ -141,17 +141,17 @@ SideNavigationWithList.args = {
     ],
     layout : "LeftSideNavList",
 };
-SideNavigationWithList.parameters = { controls: { include: ["logo", "showUserProfile", "sideNavItems"] } };
+CustomNavigationSidebarWithList.parameters = { controls: { include: ["logo", "showUserProfile", "sideNavItems"] } };
 
 
 
-export const SideNavigationRight: Story = (args: any) => (
+export const CustomNavigationSidebarRight: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} />
     </BrowserRouter>
 );
 
-SideNavigationRight.args = {
+CustomNavigationSidebarRight.args = {
     showUserProfile:true,
     sideNavItems: [
         {
@@ -177,4 +177,4 @@ SideNavigationRight.args = {
     logo:"",
     collapse: false,
 };
-SideNavigationRight.parameters = { controls: { include: ["showUserProfile", "sideNavItems"] } };
+CustomNavigationSidebarRight.parameters = { controls: { include: ["showUserProfile", "sideNavItems"] } };
