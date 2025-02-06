@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
     RdsInput,
@@ -96,7 +97,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
     return (
         <>
-            <div className="">
+            <div className="py-4">
                 <form>
                     <div className="row px-2">
                         <div className="col-md-6 my-3">
@@ -127,26 +128,28 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 my-3 ">
+                        <div className="col-md-6 px-3 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
                                 label="Trial Period"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 my-3">
+                        <div className=" col-md-6 px-3 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
                                 label="Expiry Notification Interval"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
                             />
@@ -172,7 +175,7 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
 
                         <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
                     </div>}
-                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 ps-4 px-4">
+                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}

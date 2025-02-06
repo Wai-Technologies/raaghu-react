@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCounter, RdsRadioButton, RdsPlandiscount } from "../rds-elements";
 
@@ -105,16 +106,16 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
             ))}
           <div className="pt-3">
             <div className="mb-4">
-              <p className="fs-6 text-secondary-para mb-0">3 developers already included, you can add additional users here</p>
+              <p className="fs-6 text-secondary-para mb-3">3 developers already included, you can add additional users here</p>
               <RdsCounter
                 key={developerCountValue} 
-                colorVariant="outline-primary"
+                colorVariant="primary"
                 counterValue={developerCountValue}
-                label=""
+                label="hello"
                 max={50}
                 min={0}
-                position="top"
-                width={110}
+                type="Default"
+                width={220}
                 onCounterChange={(value: number) => {
                   setDeveloperCountValue(value);
                   if (props.developerCount !== undefined) {

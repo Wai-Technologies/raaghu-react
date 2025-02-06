@@ -44,7 +44,8 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                             label=""
                             min={0}
                             max={50}
-                            width={125}
+                            width={180}
+                            type="Default"
                             colorVariant="primary"
                         />
                     </div>
@@ -62,7 +63,8 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                         label="Maximum Numaber Of failed Login Attempt Count Befire Locking The Account"
                         min={0}
                         max={50}
-                        width={125}
+                        width={180}
+                        type="Default"
                         colorVariant="primary"
                     />
                 </div>

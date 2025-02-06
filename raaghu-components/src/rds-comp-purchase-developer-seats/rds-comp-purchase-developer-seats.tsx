@@ -92,18 +92,18 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
 
             <form className="text-start pt-4">
               <div className="pb-1">
-                <h5 className="fs-5 fw-medium">Select Developer Seats</h5>
+                <h5 className="fs-5 fw-medium mb-3">Select Developer Seats</h5>
               </div>
               <div className="mb-2">
                 <RdsCounter
                   key={developerSeatsCounter}
-                  colorVariant="outline-primary"
+                  colorVariant="primary"
                   counterValue={developerSeatsCounter}
                   label=""
                   max={50}
                   min={0}
-                  position="right"
-                  width={110}
+                  type="Default"
+                  width={200}
                   onCounterChange={(e: number) => handleDevSeatDataChanges(e, "developerSeatsCounter")}
                 />
               </div>
