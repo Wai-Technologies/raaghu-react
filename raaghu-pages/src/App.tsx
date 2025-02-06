@@ -1,10 +1,7 @@
 
 import './App.css';
-// import { RdsButton, RdsDatePicker } from "@waiin/raaghu-react"
 import { RdsButton, RdsDatepicker, RdsInput,RdsCard, RdsCarousel } from "../../raaghu-elements/src";
 import { RdsCompTopNavigation } from "../../raaghu-components/src";
-// import '../node_modules/@waiin/raaghu-react/dist/style.css'
-
 
 function App() {
   return (
@@ -13,7 +10,7 @@ function App() {
 <div className="app-container">
     <div className="rectangle-2"></div>
     <div className="rectangle-3"></div>
-        <div className="top-navigation">
+      <div className="top-navigation">
         <RdsCompTopNavigation
           brandLogo="https://picsum.photos/seed/picsum/1200/600"
           brandName="Raaghu"
@@ -125,21 +122,20 @@ function App() {
         </div>
 
       {/* <h1>Welcome  Raaghu UI in Vite</h1> */}
-      <div id="btn-1">
-      <RdsDatepicker showTitle title="Select Date" type="default" isDropdownOpen/>
-
+      <div id="btn-1" style={{ position: 'absolute', top: '305px', left: '901px', width: '250px' }}>
+          <RdsDatepicker showTitle title="Select Date" type="default" isDropdownOpen />
       </div>
+
+
       <div className='btn-2'>
         <RdsButton colorVariant="primary" label="Get 50% Discount" size="large" />
       </div>
-      <div className='btn-3'>
-        <RdsButton colorVariant="primary" label="Submit" size="large" />
-      </div>
+      <div className='btn-3'><RdsButton colorVariant="primary" label="Submit" size="large" />
+    </div>
 
       <div className='card-1'>
       <RdsCard
           borderColor=""
-          cardText="Some quick example text to build on the card title and make up the bulk of the card's content."
           cardTitle="Card title"
           cardSubTitle='Card subtitle'
           showTitle

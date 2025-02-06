@@ -77,12 +77,12 @@ html, body {
 }
 
 /* Adjust button container */
-#btn-1 {
+/* #btn-1 {
   position: absolute;
   top: 305px;
   left: 901px;
   width: 250px;
-}
+} */
 
 .btn-2 {
   position: absolute;
@@ -127,7 +127,7 @@ html, body {
 .card-1{
   position: absolute;
   height: 10px;
-  width: 22%;
+  width: 400px;
   top: 556px;
   left: 40px;
 }
