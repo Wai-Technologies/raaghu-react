@@ -2090,7 +2090,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             </div>
 
             <div
-              className={`position-relative px-2 px-md-3 ${
+              className={`position-relative px-2 px-md-4 ${
                 !props.ShowProfileSection && "border-start-custom"
               }  border-end-custom col text-center d-flex align-items-center language`}
             >
@@ -2128,7 +2128,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               ))}
               
             {( (!props.product2 && !props.product3 && !props.product4 && !props.entertainment1)&&<>
-            <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
+            <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
                 placement="end"
