@@ -12,6 +12,7 @@ export interface BreadcrumbProps {
   level?: "Level 1" | "Level 2" | "Level 3" | "Level 4" | "Level 5";
   icon?: string;
   showIcon?: boolean;
+  state?: "Default"| "Hover"| "Selected";
 }
 const handleIconClick = (icon: any) => {
   console.log(`Icon ${icon} clicked`);
@@ -71,19 +72,18 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
               const isLastItem = index === displayedItems.length - 1;
               const isAnyOtherItemActive = displayedItems.some((item, idx) => item.active && idx !== index);
       
-              const itemClassNames = `breadcrumb-item ${
-                breadItem.active && !isLastItem ? `active ${styleClass} `: ""
-              } ${
-                isLastItem && !isAnyOtherItemActive ?   `active ${styleClass} ` : ""
-              } ${
-                !isLastItem && breadItem.active && props.style !== "Without Background" ? "" : ""
-              } ${
-                breadItem.active ? styleClass : ""
-              } ${
-                isLastItem && isAnyOtherItemActive ? roundedClass : roundedClass
-              } ${
-                props.style === "Without Background" ? "ms-2 me-2" : ""
-              }`;
+              const isHovered = hoveredItem === breadItem.id;
+ 
+              const itemClassNames = `breadcrumb-item 
+              ${breadItem.active ? `active ${styleClass}` : ""}
+              ${isHovered && props.state === "Hover" ? "breadcrumb-hover" : ""}
+              ${breadItem.active && props.state === "Selected" ? "breadcrumb-selected" : ""}
+              ${!breadItem.active && !isHovered ? "breadcrumb-default" : ""}
+              ${isLastItem && props.style === "Pill Background" && props.state !== "Hover" && props.state !== "Selected" ? "breadcrumb-pill background-filled" : ""}
+              ${isLastItem && props.style === "Square Background" && props.state !== "Hover" && props.state !== "Selected" ? "breadcrumb-square background-filled" : ""}
+              ${isLastItem && props.style === "Without Background" ? "breadcrumb-no-background ms-2 me-2" : ""}
+              ${isLastItem && isAnyOtherItemActive ? roundedClass : roundedClass}
+            `;
               
           return (
             <React.Fragment key={breadItem.id}>
