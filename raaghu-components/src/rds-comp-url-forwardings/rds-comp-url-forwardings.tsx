@@ -16,20 +16,6 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
         setFormData(props.urlForwardingData || { source: '', target: '' });
     }, [props.urlForwardingData]);
  
-    // Requird msg is not showing
-    
-    // function handleSource(data: any) {
-    //     const updatedFormData = { ...formData, source: data };
-    //     setFormData(updatedFormData);
-    //     props.emitUrlForwardingData(updatedFormData);
-    // }
-
-    // function handleTarget(data: any) {
-    //     const updatedFormData = { ...formData, target: data };
-    //     setFormData(updatedFormData);
-    //     props.emitUrlForwardingData(updatedFormData);
-    // }
-
     return (
         <>
             <div className="tab-content">
@@ -40,7 +26,6 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         placeholder="Enter Source"
                         required={true}
                         value={formData.source}
-                        //onChange={(e: any) => { handleSource(e.target.value); }} //Requird msg is not showing
                         onChange={(e: any) => {(e.target.value);}}
                         dataTestId="source"
                         isDisabled={props.isEdit || false}
@@ -55,7 +40,6 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         label="Target"
                         placeholder="Enter Target"
                         required={true}
-                        //onChange={(e: any) => { handleTarget(e.target.value); }} //Requird msg is not showing
                         onChange={(e: any) => {(e.target.value);}}
                         value={formData.target}
                         dataTestId="target"
