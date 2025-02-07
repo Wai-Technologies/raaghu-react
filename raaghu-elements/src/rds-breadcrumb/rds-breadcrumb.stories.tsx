@@ -11,7 +11,7 @@ const meta: Meta = {
     argTypes: {
       style: {
         control: 'select',
-        options: ['Pill Background', 'Square Background', 'Without Background'], // Updated to include new style options
+        options: ['Pill Background', 'Without Background', 'Square Background'], // Updated to include new style options
       },
       separator: {
         control: {
@@ -23,6 +23,13 @@ const meta: Meta = {
         control: {
           type: 'select',
           options: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'], // Add level options
+        },
+      },
+
+      state: {
+        control: {
+          type: 'select',
+          options: ['Default', 'Hover', 'Selected'],
         },
       },
     },
@@ -93,6 +100,7 @@ export const Default: Story = {
   args: {
     title:"Home",
     level: "Level 3",
+    state: "Default",
     separator: "/",
     icon: "home",
     showIcon: true,
@@ -101,28 +109,4 @@ export const Default: Story = {
 
   },
 };
-export const WithoutBackground: Story = {
-    args: {
-      title:"Home",
-      level: "Level 3",
-      separator: "/",
-      icon: "home",
-      showIcon: true,
-      style: "Without Background", // Set default style
-      breadcrumbItems: breadItems,
-  
-    },
-  };
-  export const SquareBackground: Story = {
-    args: {
-      title:"Home",
-      level: "Level 3",
-      separator: "/",
-      icon: "home",
-      showIcon: true,
-      style: "Square Background", // Set default style
-      breadcrumbItems: breadItems,
-  
-    },
-  };
 
