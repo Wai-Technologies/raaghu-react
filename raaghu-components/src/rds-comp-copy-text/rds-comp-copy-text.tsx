@@ -28,7 +28,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
   return (<>
     <div>
-      <div className="px-md-5 px-2">
+      <div className="px-2">
         <div className="row align-items-end">
           <div className="col-md-12">
             <h5 className="mb-3">COPY TEXT</h5>
