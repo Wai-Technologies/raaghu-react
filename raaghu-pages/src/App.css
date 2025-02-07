@@ -40,7 +40,7 @@
 .read-the-docs {
   color: #888;
 }
-/* Ensure the entire webpage is constrained to 1024x1440 pixels and adjusts accordingly */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -49,7 +49,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* Optional: Background color */
+  background-color: #f0f0f0;
 }
 
 .app-container {
@@ -60,7 +60,6 @@ html, body {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  position: relative; /* Ensure children use this as reference */
-  padding-top: 60px; /* Push content below the navigation */
+  position: relative;
+  padding-top: 60px;
 }
-
