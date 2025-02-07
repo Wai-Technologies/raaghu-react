@@ -10,9 +10,8 @@ interface RdsCompPollsOptionProps {
 
 const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
     const [tableData, setTableData] = useState<any>([]);
-    const [optionData, setoptionData] = useState<any>({
-        option: "",
-    });
+    const [optionData, setOptionData] = useState<{ option: string }>({ option: "" });
+    const [error, setError] = useState<string>("");
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -21,8 +20,13 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         }
     }, [props.optionsData]);
 
-    function optionChange(value: any) {
-        setoptionData({ ...optionData, option: value });
+    function optionChange(value: string) {
+        setOptionData({ option: value });
+        if (value.trim() === "") {
+            setError("Option cannot be empty");
+        } else {
+            setError("");
+        }
     }
 
     const tableHeaders = [
@@ -54,24 +58,28 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
 
 
     const onActionHandler = (rowData: any, actionId: any) => {
-        if (actionId == "editPolls") {
+        if (actionId === "editPolls") {
             setAreWeEditing(true);
             setDataId(rowData.id);
-            const editData = tableData.find((element: any) => element.id == rowData.id);
-            setoptionData({ ...optionData, option: editData.text });
+            const editData = tableData.find((element: any) => element.id === rowData.id);
+            if (editData) {
+                setOptionData({ option: editData.text });
+            }
         } else if (actionId === "deletePolls") {
-            const tempTableData1: any[] = [];
-            tableData?.map((res: any) => {
-                if (res.id != rowData.id) {
-                    tempTableData1.push(res);
-                }
-            });
+            const tempTableData1 = tableData.filter((res: any) => res.id !== rowData.id);
             setTableData(tempTableData1);
             setUpdateTable(!updateTable);
         }
     };
+    
 
     function handleAddItem(event: any) {
+        if (optionData.option.trim() === "") {
+            setError("Option cannot be empty");
+            return;
+        }
+        
+        setError("");
         event.preventDefault();
         if (areWeEditing) {
             setAreWeEditing(false);
@@ -105,7 +113,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
             tempTableData3.push(newTempData);
             setTableData(tempTableData3);
         }
-        setoptionData({ option: "" });
+        setOptionData({ option: "" });
         setUpdateTable(!updateTable);
     }
 
@@ -128,18 +136,19 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
             <div className="container-fluid m-0 p-0">
                 <div className="align-items-end row mt-3">
                     <div className="col-md-11">
-                        <RdsInput
-                            label="Options"
-                            placeholder="Enter Option"
-                            inputType="text"
-                            onChange={(e: any) => {
-                                optionChange(e.target.value);
-                            }}
-                            value={optionData.option}
-                            dataTestId="option"
-                        ></RdsInput>
+                    <RdsInput
+                    label="Options"
+                    placeholder="Enter Option"
+                    inputType="text"
+                    id="passwordfield"
+                    onChange={(e: any) => {
+                    optionChange(e.target.value);
+                    }}
+                    value={optionData.option}
+                    dataTestId="option"
+                    />       
                     </div>
-                    <div className="col-md-1 mb-2">
+                    <div className="col-md-1">
                         <RdsButton
                             colorVariant="primary"
                             icon="plus"
@@ -152,9 +161,13 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
                             onClick={handleAddItem}
                             tooltipTitle={""}
                             type="button"
-                            dataTestId="add"
+                            dataTestId="add"                 
                         />
                     </div>
+                    {error && ( <div className="form-control-feedback option-message">
+                                <span className="text-danger">{error}</span>
+                               </div>
+                             )}
                 </div>
                 <div className="mt-3">
                     <RdsCompDatatable
