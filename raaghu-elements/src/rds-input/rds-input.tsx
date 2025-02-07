@@ -63,7 +63,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     }, [props.value]);
 
     useEffect(() => { 
-      if(props?.name == "curNewPass")
+      if(props?.name == "curNewPass" || props?.name == "newPass")
       props.isValidConfirmPass ? setIsValid(true) : setIsValid(false);
     });
 
