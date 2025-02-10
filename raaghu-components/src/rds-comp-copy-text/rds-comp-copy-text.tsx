@@ -28,7 +28,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
   return (<>
     <div>
-      <div className="px-2">
+      <div className="px-md-5 px-2">
         <div className="row align-items-end">
           <div className="col-md-12">
             <h5 className="mb-3">COPY TEXT</h5>
@@ -40,7 +40,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       fontWeight=""
                       label="Download the CLI tool"
                     />
-                  <div className="card rounded-1 mt-2">
+                  <div className="card rounded mt-2">
                     <div className="card-body py-2 d-flex align-items-center justify-content-between clipboard">
                       <div>
                         <p ref={textToCopyRef1} className="text-install mb-0">dotnet tool install -g Waiin.Raaghu.Cli</p>
@@ -69,7 +69,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       fontWeight=""
                       label="Update the CLI tool to the latest version"
                     />
-                  <div className="card rounded-1 mt-2">
+                  <div className="card rounded mt-2">
                     <div className="card-body py-2 d-flex align-items-center justify-content-between clipboard">
                       <div>
                         <p ref={textToCopyRef2} className="text-to-copy mb-0">dotnet tool update -g Waiin.Raaghu.Cli</p>
@@ -98,7 +98,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       fontWeight=""
                       label="Create a new solution "
                     />
-                  <div className="card rounded-1 mt-2">
+                  <div className="card rounded mt-2">
                     <div className="card-body py-2 d-flex align-items-center justify-content-between clipboard">
                       <div>
                         <p ref={textToCopyRef5} className="text-to-copy mb-0">{`raaghu new <solution-name> [options]`}</p>
