@@ -44,7 +44,7 @@ const RdsToast = (props: RdsToastProps) => {
 
     const classes = () => {
         switch (props.position) {
-            case 'top left': return 'top-0 start-0';
+            case 'top left': return '';
             case 'top center': return 'top-0 start-50 translate-middle-x';
             case 'top right': return 'top-0 end-0';
             case 'middle left': return 'top-50 start-0 translate-middle-y';
@@ -91,7 +91,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     className="btn-close btn-primary text-primary"
                                 ></button>
                             </div>
-                            <div className="toast-body">{props.message}</div>
+                            <div className="toast-body text-body">{props.message}</div>
 
 
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
