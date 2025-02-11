@@ -358,7 +358,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     fill={false}
                   />
                 </span>
-                <span>{file.name}</span>
+                <span>
+                  <a href={URL.createObjectURL(file)} download={file.name}>
+                      {file.name}
+                  </a>
+                </span>
               </div>
               <div className="closeIcon">
                 <span className="text-muted opacity-50">
@@ -474,7 +478,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                       />
                     )}
                   </span>
-                  <span>{filename}</span>
+                  <span>               
+                     <a href={URL.createObjectURL(selectedFiles[i])} download={filename}>
+                        {filename}
+                     </a>
+                  </span>
                 </div>
                 <div className="closeIcon d-flex align-items-center">
                   <span className="text-muted opacity-50">
@@ -717,7 +725,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     fill={false}
                   />
                 </span>
-                <span>{file.name}</span>
+                <span>
+                <a href={URL.createObjectURL(file)} download={file.name}>
+                      {file.name}
+                  </a>
+                </span>
               </div>
               <div className="closeIcon">
                 <span className="text-muted opacity-50">
