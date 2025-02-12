@@ -183,7 +183,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
   return (
     <>
       <div data-testid="page-link">
-        {paginType === "default" && (
+        {/* {paginType === "default" && (
           <nav aria-label="Page navigation example">
             <ul className={"pagination align-items-center mb-0" + `${size}` + `${align}`}>
               <li className={"page-item cursor-pointer " + `${currentPage === 1 ? "disabled d-none" : " "}`}>
@@ -227,9 +227,9 @@ const RdsPagination = (props: RdsPaginationProps) => {
               </li>
             </ul>
           </nav>
-        )}
+        )} */}
 
-        {paginType === "advanced" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
+        {paginType === "default" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
             <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
@@ -393,7 +393,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             )}
           </nav>
         )}
-        {paginType === "advanced" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
+        {paginType === "default" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align} ` }>
           <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
             {/* Previous Page Button */}
