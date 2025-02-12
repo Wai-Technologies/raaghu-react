@@ -30,8 +30,8 @@ export interface RdsCardProps {
     iconName ? : string ;
     isBordered ? : boolean ;
     isFilled ? : boolean ;
-   iconShow ? : boolean;
-  titlePosition ? : string;
+    showIcon ? : boolean;
+    layout ? : string;
   showCalender ? : boolean;
   showLinkButton ? : boolean;
   title ? : string;
@@ -39,6 +39,9 @@ export interface RdsCardProps {
   footerLabelText ? : string;
   showFooterButton ? : boolean;
   subTitle?: string;
+  showIndicator?: boolean;
+  Type?: string;
+  showTitleAndSubText?: boolean;
 }
 
 const RdsCard = (props: RdsCardProps) => {
@@ -140,7 +143,7 @@ const RdsCard = (props: RdsCardProps) => {
         {props.showTitle === false && props.showSubTitle === false && props.showCalender === true && (
           <div className="headerClass mt-3 ms-3">
             <div className="d-flex align-items-center">
-            {props.iconShow && (
+            {props.showIcon && (
               <RdsIcon
                 colorVariant={props.colorVariant}
                 height="20px"
@@ -201,9 +204,9 @@ const RdsCard = (props: RdsCardProps) => {
         ) : (
           <div>
           <div className="card-body">
-            {props.titlePosition === "bottom" && (
+            {props.layout === "Vertical" && (
               <>
-                {props.iconShow && (
+                {props.showIcon && (
                   <RdsIcon
                     colorVariant={props.colorVariant}
                     height="20px"
@@ -217,12 +220,12 @@ const RdsCard = (props: RdsCardProps) => {
                 {renderTitleAndSubtitle()}
               </>
             )}
-            {props.titlePosition === "left" && (
+            {/* {props.layout === "left" && (
               <div className="d-flex align-items-center">
                 <div className="d-flex flex-column">
                   {renderTitleAndSubtitle()}
                 </div>
-                {props.iconShow && (
+                {props.showIcon && (
                   <RdsIcon
                     colorVariant={props.colorVariant}
                     height="20px"
@@ -234,10 +237,10 @@ const RdsCard = (props: RdsCardProps) => {
                   />
                 )}
               </div>
-            )}
-            {props.titlePosition === "right" && (
+            )} */}
+            {props.layout === "Horizontal" && (
               <div className="d-flex align-items-center">
-                {props.iconShow && (
+                {props.showIcon && (
                   <RdsIcon
                     colorVariant={props.colorVariant}
                     height="20px"
@@ -253,9 +256,9 @@ const RdsCard = (props: RdsCardProps) => {
                 </div>
               </div>
             )}
-            {props.titlePosition === undefined && (
+            {props.layout === undefined && (
               <>
-                {props.iconShow && (
+                {props.showIcon && (
                   <RdsIcon
                     colorVariant={props.colorVariant}
                     height="20px"
