@@ -20,18 +20,23 @@ export interface RdsTextEditorProps {
     theme?: string;
     value?: string;
     label?: string;
-    required?: boolean;
+    ismandatory?: boolean;
     labelClass?: string;
     State?:string;
+    ShowTitle?: boolean;
 }
  
 const RdsTextEditor = (props: RdsTextEditorProps) => {
-    const [value, setValue] = useState(props.value || "");
+    const [value, setValue] = useState(props.ShowTitle ? "Enter Description" : props.value || "");
     const [isTouch, setIsTouch] = useState(false);
  
     useEffect(() => {
-        setValue(props.value || "");
-    }, [props.value]);
+        if (props.ShowTitle && (!props.value || props.value.trim() === "")) {
+            setValue("Enter Description");
+        } else {
+            setValue(props.value || "");
+        }
+    }, [props.value, props.ShowTitle]);
  
     const handleChange = (value: string, delta: any, source: any, editor: any) => {
         setValue(value);
@@ -59,24 +64,24 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
  
     return (
         <>
-            <RdsLabel label={props.label} required={props.required} class={"mb-2" + props.labelClass}></RdsLabel>
+            <RdsLabel label={props.label} required={props.ismandatory} class={"mb-2 " + props.labelClass}></RdsLabel>
             <ReactQuill
-                theme="snow"
-                bounds={props.bounds}
-                children={props.children}
-                className={`${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
-                defaultValue={props.defaultValue}
-                value={value}
-                formats={props.formats}
-                id={props.id}
-                modules={modules}
-                onChange={handleChange}
-                placeholder={props.placeholder}
-                preserveWhitespace={props.preserveWhitespace}
-                readOnly={props.readOnly}
-                tabIndex={props.tabIndex}
+            theme="snow"
+            bounds={props.bounds}
+            children={props.children}
+            className={`${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
+            defaultValue={props.defaultValue}
+            value={value}  
+            formats={props.formats}
+            id={props.id}
+            modules={modules}
+            onChange={handleChange}
+            placeholder={props.placeholder}
+            preserveWhitespace={props.preserveWhitespace}
+            readOnly={props.readOnly}
+            tabIndex={props.tabIndex}
             />
-            {props.required && (!value || value.trim() === "" || value==="<p><br></p>") && isTouch && (
+            {props.ismandatory && (!value || value.trim() === "" || value === "<p><br></p>") && isTouch && (
                 <div className="form-control-feedback">
                     <span className="text-danger">
                         {props.label} is required
@@ -84,8 +89,8 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
                 </div>
             )}
         </>
- 
     );
+    
 };
  
 export default RdsTextEditor;
