@@ -12,7 +12,11 @@ const meta: Meta = {
         layout: {
             options: ["Switch + label", "label + Switch", "Top label + Switch", "Bottom label + Switch"],
             control: { type: "select" },
-        }
+        },
+        state: {
+            options: ["On", "Off", "Disabled On", "Disabled Off"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsToggle>;
 
@@ -23,9 +27,10 @@ export const Default: Story = {
     args: {
         style: "Style 1",
         layout: "Switch + label",
-        isChecked:true,
-        isDisabled:false
+        state:"On",
+        showLabel:true,
+        label:"Label"
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: [ "style", "layout", "isChecked", "isDisabled"] } };
+Default.parameters = { controls: { include: [ "style", "layout", "state", "showLabel", "label"] } };

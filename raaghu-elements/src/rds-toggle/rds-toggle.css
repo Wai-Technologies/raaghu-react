@@ -1,5 +1,5 @@
 .form-check-input-style3 {
-       width: 2em !important;
+    width: 2em !important;
     margin-left: -2.5em !important;
     background-image: var(--bs-form-switch-bg) !important;
     background-position: left center !important;
@@ -30,12 +30,12 @@
 }
 .style-5 .on {
     position: absolute;
-    left: 1.3rem;
+    left: 1.2rem;
     line-height: 1.3rem;
 }
 .style-6 .on {
     position: absolute;
-    left: 1.3rem;
+    left: 1.2rem;
     line-height: 1.3rem;
 }
 .style-5 .off.left, .style-6 .off.left {
@@ -46,4 +46,10 @@
 }
 .position-relative{
     position:relative;
+}
+.style-1 .style-5 .off{
+    background-color:#E9E9E9;
+}
+.theme-light .form-switch.style-1 .form-check-input, .theme-light .form-switch.style-5 .form-check-input {
+    background-color: #E9E9E9;
 }
