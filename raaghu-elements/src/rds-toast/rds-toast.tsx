@@ -44,7 +44,7 @@ const RdsToast = (props: RdsToastProps) => {
 
     const classes = () => {
         switch (props.position) {
-            case 'top left': return 'top-0 start-0';
+            case 'top left': return '';
             case 'top center': return 'top-0 start-50 translate-middle-x';
             case 'top right': return 'top-0 end-0';
             case 'middle left': return 'top-50 start-0 translate-middle-y';
@@ -91,11 +91,11 @@ const RdsToast = (props: RdsToastProps) => {
                                     className="btn-close btn-primary text-primary"
                                 ></button>
                             </div>
-                            <div className="toast-body">{props.message}</div>
+                            <div className="toast-body text-body">{props.message}</div>
 
 
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
-                                <div className="d-flex ml-4">
+                                <div className="d-flex text-body ml-4">
                                     <div className="progress w-100 ml-4" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
                                         <div className="progress-bar btn-primary" role="progressbar"
                                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
@@ -105,7 +105,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     </div>
                                     <label className="progress-label ml-4">{props.progressWidth}%</label>
                                 </div>
-                                <label className="filename">{props.filename}</label>
+                                <label className="filename text-body">{props.filename}</label>
                                 <div className="d-flex toast-footer justify-content-end pb-1 pe-4">
                                     <button type="button" className="btn text-primary btn-sm">Cancel</button>
                                     <button type="button" className="btn btn-primary btn-sm">Go To Downloads</button>
