@@ -25,20 +25,20 @@ const RdsPopover = (props: RdsPopoverProps) => {
                     colorVariant="primary"
                     isOutline={true}
                     size="small"
-                    label="Popover"
+                    label="Popover Button"
                     onClick={toggleDisplay}
                 />
-                <div
-                    className={`popoverCard ${props.popoverPosition == "top"
-                        ? "popoverTop popoverCardTop"
-                        : props.popoverPosition == "bottom"
-                            ? "popoverBottom popoverCardBottom"
-                            : props.popoverPosition == "right"
-                                ? "popoverRight popoverCardRight"
-                                : props.popoverPosition == "left"
-                                    ? "popoverLeft popoverCardLeft"
-                                    : ""
-                        }`}
+                <div className={`popoverCard ${props.popoverPosition}`}
+                    // className={`popoverCard ${props.popoverPosition == "top"
+                    //     ? "popoverTop popoverCardTop"
+                    //     : props.popoverPosition == "bottom"
+                    //         ? "popoverBottom popoverCardBottom"
+                    //         : props.popoverPosition == "right"
+                    //             ? "popoverRight popoverCardRight"
+                    //             : props.popoverPosition == "left"
+                    //                 ? "popoverLeft popoverCardLeft"
+                    //                 : ""
+                    //     }`}
                     style={{ display: displayType, padding: "5px" }}
                 >
                     <span>{props.children}</span>
