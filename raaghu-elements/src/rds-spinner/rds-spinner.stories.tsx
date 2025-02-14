@@ -23,11 +23,11 @@ const meta: Meta = {
             control: { type: "select" },
         },
         size: {
-            options: ["small", "medium","large", "custom"],
+            options: ["Default", "Small", "Large",],
             control: { type: "select" },
         },
-        labelPosition: {
-            options: ["top", "bottom", "right", "left"],
+        layout: {
+            options: ["Label on bottom", "Spinner + Label", "Label + Spinner", "Label on top"],
             control: { type: "select" },
         },
         spinnerType: {
@@ -51,16 +51,16 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSpinner>;
 
-export const Border: Story = {
+export const Default: Story = {
     args: {
-        spinnerType: 'grow',
-        label:"Loading...",
+        layout: "Spinner + Label",
+        size: 'Small',
+        showLabel: true,
+        labelText:"Loading...",
+        spinnerType: 'border',
         colorVariant: 'primary',
-        size: 'medium',
         width: '50px',
         height: '50px',
-        showLabel: true,
-        labelPosition: "right",
     },
 } satisfies Story;
-Border.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'width', 'height', 'showLabel', 'labelPosition'] } };
+Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'width', 'height', 'showLabel', 'layout',"labelText"] } };

@@ -8,43 +8,43 @@ export interface RdsSpinnerProps {
     borderWidth?: string;
     height?: string;
     showLabel?: boolean;
-    label?: string;
-    size?: "small" | "large" | "medium" | "custom";
-    labelPosition?: "top" | "bottom" | "left" | "right";
+    labelText?: string;
+    size?: "Default" | "Small" | "Large";
+    layout?: "Label on bottom" | "Spinner + Label" | "Label + Spinner" | "Label on top";
 }
 
 const RdsSpinner = (props: RdsSpinnerProps) => {
     const spinnerClass = props.spinnerType === "grow" ? "spinner-grow" : "spinner-border";
     const colorClass = props.colorVariant ? `text-${props.colorVariant}` : "";
-    const sizeClass = props.size !== "custom" ? `${spinnerClass}-${props.size}` : "";
+    // const sizeClass = props.size !== "custom" ? `${spinnerClass}-${props.size}` : "";
 
     const getSizeDimensions = () => {
         switch (props.size) {
-            case "small":
-                return { width: "15px", height: "15px" };
-            case "medium":
+            case "Default":
                 return { width: "30px", height: "30px" };
-            case "large":
+            case "Small":
+                return { width: "15px", height: "15px" };
+            case "Large":
                 return { width: "45px", height: "45px" };
-            case "custom":
-                return { width: props.width, height: props.height };
+            // case "custom":
+            //     return { width: props.width, height: props.height };
             default:
                 return { width: props.width, height: props.height };
         }
     };
 
     const { width, height } = getSizeDimensions();
-    const classes = `${spinnerClass} ${colorClass} ${sizeClass}`.trim();
-
+    // const classes = `${spinnerClass} ${colorClass} ${sizeClass}`.trim();
+    const classes = `${spinnerClass} ${colorClass}`.trim();
     const labelClass = () => {
-        switch (props.labelPosition) {
-            case "bottom":
+        switch (props.layout) {
+            case "Label on bottom":
                 return "d-flex flex-column-reverse align-items-center";
-            case "left":
+            case "Label + Spinner":
                 return "d-flex align-items-center gap-2";
-            case "right":
+            case "Spinner + Label":
                 return "d-flex align-items-center gap-2 flex-row-reverse";
-            case "top":
+            case "Label on top":
             default:
                 return "d-flex flex-column align-items-center";
         }
@@ -53,7 +53,7 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
     return (
             <div className={props.showLabel ? labelClass() : "d-flex align-items-center"} style={{width:'10rem'}}>
                 {props.showLabel && (
-                    <label className="text-capitalize form-label my-2">{props.label}</label>
+                    <label className="text-capitalize form-label my-2">{props.labelText}</label>
                 )}
                 <div className={classes} style={{ width, height }} />
             </div>
