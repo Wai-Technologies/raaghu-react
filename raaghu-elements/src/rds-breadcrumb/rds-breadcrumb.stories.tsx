@@ -102,7 +102,7 @@ export const Default: Story = {
     level: "Level 3",
     state: "Default",
     separator: "/",
-    icon: "home",
+    icon: "new_home",
     showIcon: true,
     style: "Pill Background", // Set default style
     breadcrumbItems: breadItems,
