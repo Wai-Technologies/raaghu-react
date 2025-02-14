@@ -14,44 +14,63 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
     switch (props.style) {
       case "style1":
         return (
-          <div className="card col-lg-4 col-sm-12 col-md-6" >
-            <div className="card-body">
-              <div className="d-flex justify-content-center mb-3">
-                <RdsAvatar
-                  profilePic={item.imageUrl}
-                  withProfilePic={true}
-                  size="large"
-                />
+          <div className="row">
+            <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
+              <div className="card h-100 d-flex flex-column align-items-center">
+                <div className="card-body text-center">
+                  <div className="d-flex justify-content-center mb-3">
+                    <RdsAvatar
+                      profilePic={item.imageUrl}
+                      withProfilePic={true}
+                      size="large"
+                    />
+                  </div>
+                  <h5 className="card-title">{item.name}</h5>
+                  <h6 className="text-muted">{item.username}</h6>
+                  <div className="my-2 d-flex justify-content-center">
+                  <RdsRating
+                   colorVariant="primary"
+                   dataTestId="rating-test"
+                   filled
+                   rating={item.rating}
+                   size="medium"
+                   style="filled"
+                   type="star"
+                   />
+                  </div>
+                  <p className="card-text">{item.description}</p>
+                </div>
               </div>
-              <h5 className="card-title text-center">{item.name}</h5>
-              <div className="my-2 d-flex justify-content-center">
-                <RdsRating
-                  rating={item.rating}
-                  colorVariant="warning"
-                  size="medium"
-                />
-              </div>
-              <p className="card-text text-center">{item.description}</p>
             </div>
           </div>
         );
 
       case "style2":
         return (
-          <div className="card col-lg-4 col-sm-12 col-md-6" >
-            <div className="card-body">
-              <h5 className="card-title text-center">{item.name}</h5>
-              <div className="my-2 d-flex justify-content-center">
-                <RdsRating
-                  rating={item.rating}
-                  colorVariant="warning"
-                  size="medium"
-                />
+          <div className="row">
+            <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
+              <div className="card h-100">
+                <div className="card-body text-center d-flex flex-column">
+                  <h5 className="card-title">{item.name}</h5>
+                  <h6 className="text-muted">{item.username}</h6>
+                  <div className="my-2 d-flex justify-content-center">
+                  <RdsRating
+                   colorVariant="primary"
+                   dataTestId="rating-test"
+                   filled
+                   rating={item.rating}
+                   size="medium"
+                   style="filled"
+                   type="star"
+                   />
+                   </div>
+                  <p className="card-text">{item.description}</p>
+                </div>
               </div>
-              <p className="card-text text-center">{item.description}</p>
             </div>
           </div>
         );
+        
 
       case "style3":
         return (
@@ -78,11 +97,15 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
             <p className="mt-3">{item.description}</p>
 
             <div className="d-flex align-items-center mt-2">
-              <RdsRating
-                rating={item.rating}
-                colorVariant="warning"
-                size="medium"
-              />
+            <RdsRating
+             colorVariant="primary"
+             dataTestId="rating-test"
+             filled
+             rating={4.5}
+             size="medium"
+             style="filled"
+             type="star"
+            />
             </div>
           </div>
 
@@ -107,11 +130,15 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
             <p className="mt-3">{item.description}</p>
 
             <div className="d-flex align-items-center mt-2">
-              <RdsRating
-                rating={item.rating}
-                colorVariant="warning"
-                size="medium"
-              />
+            <RdsRating
+             colorVariant="primary"
+             dataTestId="rating-test"
+             filled
+             rating={4.5}
+             size="medium"
+             style="filled"
+             type="star"
+            />
             </div>
           </div>
         );
@@ -138,12 +165,16 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 </div>
               </div>
               <div className="d-flex align-items-center mt-2">
-                <RdsRating
-                  rating={item.rating}
-                  colorVariant="warning"
-                  size="medium"
-                />
-              </div>
+            <RdsRating
+             colorVariant="primary"
+             dataTestId="rating-test"
+             filled
+             rating={4.5}
+             size="medium"
+             style="filled"
+             type="star"
+            />
+            </div>
               <p className="mt-3">{item.description}</p>
             </div>
           );
@@ -163,19 +194,24 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   </div>
                 </div>
                 <div className="d-flex align-items-center mt-2">
-                  <RdsRating
-                    rating={item.rating}
-                    colorVariant="warning"
-                    size="medium"
-                  />
-                </div>
+            <RdsRating
+             colorVariant="primary"
+             dataTestId="rating-test"
+             filled
+             rating={4.5}
+             size="medium"
+             style="filled"
+             type="star"
+            />
+            </div>
                 <p className="mt-3">{item.description}</p>
               </div>
             );
             case "style7":
               return (
-                <div className="card p-3 col-lg-5 col-sm-12 col-md-6" >
-                  <div className=" justify-content-between align-items-center">
+                <div className="card p-3 col-lg-5 col-sm-12 col-md-6">
+                  {/* Image, Name, and Rating in the Same Line */}
+                  <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center">
                       <img
                         src={item.imageUrl}
@@ -196,18 +232,28 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                         </small>
                       </div>
                     </div>
-                    <div className="d-flex align-items-center">
-                      <RdsRating rating={item.rating} colorVariant="primary" size="medium" />
-                    </div>
+                    {/* Rating at the End of the Line */}
+                    <RdsRating
+                      colorVariant="primary"
+                      dataTestId="rating-test"
+                      filled
+                      rating={4.5}
+                      size="medium"
+                      style="filled"
+                      type="star"
+                    />
                   </div>
-              
+            
+                  {/* Description Below */}
                   <p className="mt-3">{item.description}</p>
-              
+            
+                  {/* Like/Dislike Section */}
                   <div className="d-flex align-items-center justify-content-start my-3">
-                    <RdsLikeDislike dislike={10} like={35} />
+                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
               );
+
               case "style8":
                 return (
                   <div className="card p-3 col-lg-5 col-sm-12 col-md-6" style={{ height: '100%' }}>
@@ -215,13 +261,17 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <div className=" align-items-center">
                         <div className="">
                           <small className="text-muted">
-                            <div className="d-flex align-items-center mt-2">
-                              <RdsRating
-                                rating={item.rating}
-                                colorVariant="warning"
-                                size="medium"
-                              />
-                            </div>
+                          <div className="d-flex align-items-center mt-2">
+                           <RdsRating
+                           colorVariant="primary"
+                           dataTestId="rating-test"
+                           filled
+                           rating={4.5}
+                           size="medium"
+                           style="filled"
+                           type="star"
+                           />
+                           </div>
                             {item.date
                               ? new Date(item.date).toLocaleDateString('en-GB', {
                                   day: '2-digit',
@@ -235,7 +285,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <p className="mt-3">{item.description}</p>
                     </div>
                     <div className="d-flex justify-content-end">
-                      <h6 className="fw-bold mb-0 text-end">{item.name}</h6>
+                      <h6 className="mb-0 text-end">{item.name}</h6>
                     </div>
                   </div>
                 );
@@ -254,20 +304,35 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <div className="text-muted text-lowercase">{item.username}</div>
                     </div>
                   </div>
-                  <div className=" justify-content-between align-items-center mt-2">
-                    <RdsRating rating={item.rating} colorVariant="warning" size="medium" />
-                    <small className="text-muted">
-                      {item.date
-                        ? new Date(item.date).toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric',
-                          })
-                        : 'Date not available'}
-                    </small>
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                   <div className="d-flex align-items-center">
+                   <RdsRating
+                   colorVariant="primary"
+                   dataTestId="rating-test"
+                   filled
+                   rating={4.5}
+                   size="medium"
+                   style="filled"
+                   type="star"
+                   />
+                   </div>
+
+                  <small className="text-muted">
+                  {item.date
+                  ? new Date(item.date).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                  })
+                  : 'Date not available'}
+                  </small>
                   </div>
               
                   <p className="mt-3">{item.description}</p>
+
+                  <div className="d-flex align-items-center justify-content-start my-3">
+                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
+                  </div>
                 </div>
               ); 
               case "style10": 
@@ -279,23 +344,89 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <div className="text-muted text-lowercase">{item.username}</div>
                     </div>
                   </div>
-                  <div className=" justify-content-between align-items-center mt-2">
-                    <RdsRating rating={item.rating} style="outline" colorVariant="warning" size="medium" />
-                    <small className="text-muted">
-                      {item.date
-                        ? new Date(item.date).toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric',
-                          })
-                        : 'Date not available'}
-                    </small>
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                   <div className="d-flex align-items-center">
+                   <RdsRating
+                   colorVariant="primary"
+                   dataTestId="rating-test"
+                   filled
+                   rating={4.5}
+                   size="medium"
+                   style="filled"
+                   type="star"
+                   />
+                   </div>
+
+                  <small className="text-muted">
+                  {item.date
+                  ? new Date(item.date).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                  })
+                  : 'Date not available'}
+                  </small>
                   </div>
               
                   <p className="mt-3">{item.description}</p>
+                  <div className="d-flex align-items-center justify-content-start my-3">
+                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
+                  </div>
                 </div>
               );
-              
+              case "style11": 
+              return (
+                <div className="card col-lg-3 col-sm-12 col-md-6">
+                  <div className="card-body">
+                    <div className="d-flex justify-content-center mb-3">
+                      <RdsAvatar
+                        profilePic={item.imageUrl}
+                        withProfilePic={true}
+                        size="large"
+                      />
+                    </div>
+                    <h5 className="card-title text-center">{item.name}</h5>
+                    <h6 className="text-center text-muted">{item.username}</h6>
+                    <div className="my-2 d-flex justify-content-center align-items-center">
+                      <RdsRating
+                        colorVariant="primary"
+                        dataTestId="rating-test"
+                        filled
+                        totalStars={1}  
+                        size="medium"
+                        style="filled"
+                        type="star"
+                        rating={4.75} 
+                      />
+                      <span className="fw-bold mt-1">{item.reviews}</span>
+                    </div>
+                    <p className="card-text text-center">{item.description}</p>
+                  </div>
+                </div>
+              );
+              case "style12":
+          return (
+          <div className="card col-lg-3 col-sm-12 col-md-6" >
+            <div className="card-body">
+              <h5 className="card-title text-center">{item.name}</h5>
+              <h6 className="text-center text-muted">{item.username}</h6>
+              <div className="my-2 d-flex justify-content-center align-items-center">
+                      <RdsRating
+                        colorVariant="primary"
+                        dataTestId="rating-test"
+                        filled
+                        totalStars={1}  
+                        size="medium"
+                        style="filled"
+                        type="star"
+                        rating={4.75} 
+                      />
+                      <span className="fw-bold mt-1">{item.reviews}</span>
+                    </div>
+              <p className="card-text text-center">{item.description}</p>
+            </div>
+          </div>
+        );   
       default:
         return null;
     }

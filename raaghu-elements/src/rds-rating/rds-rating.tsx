@@ -24,11 +24,12 @@ export interface RdsRatingProps {
   defaultSlider?: boolean;
   style?: string;
   level?: "left" | "mid" | "right";
+  totalStars?: number;
 }
 
 const RdsRating = (props: RdsRatingProps) => {
   const [rating, setRating] = useState(props.rating || 0);
-  const totalStars = 5;
+  const totalStars = props.totalStars || 5;
   const [value, setValue] = useState(0);
 
   useEffect(() => {
