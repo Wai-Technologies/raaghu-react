@@ -1,42 +1,38 @@
 import React, { useState } from "react";
-import './rds-truncate-text.css';
+import "./rds-truncate-text.css";
+import Tooltip from "../rds-tooltip"; // Ensure the correct import path
 
-// Export the RdsTruncateTextProps interface
 export interface RdsTruncateTextProps {
-        text: string;             // Text to display
-        maxLength: number;        // Maximum number of characters before truncation
-        state: 'default' | 'hover'; // Control the state (default or hover)
+  text: string; // Full text
+  maxLength: number; // Maximum characters before truncation
+  state: "default" | "hover"; // Control behavior (default or hover)
 }
 
-const TruncatedText = ({ text, maxLength, state }: RdsTruncateTextProps) => {
-        const [isHovered, setIsHovered] = useState(false);
+const TruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-        const handleMouseEnter = () => {
-                if (state === 'hover') {
-                        setIsHovered(true);
-                }
-        };
+  const handleMouseEnter = () => {
+    if (state === "hover") setIsHovered(true);
+  };
 
-        const handleMouseLeave = () => {
-                if (state === 'hover') {
-                        setIsHovered(false);
-                }
-        };
+  const handleMouseLeave = () => {
+    if (state === "hover") setIsHovered(false);
+  };
 
-        // Conditionally truncate the text based on the state
-        const displayText = (state === 'hover' && isHovered) || state === 'default'
-                ? text
-                : `${text.slice(0, maxLength)}...`;
+  // If state is "default", show full text
+  const displayText = state === "default" ? text : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 
-        return (
-                <div
-                        className="rds-truncate-text"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                >
-                        <p>{displayText}</p>
-                </div>
-        );
+  return (
+    <div className="rds-truncate-text" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {state === "hover" && isHovered && text.length > maxLength ? (
+        <Tooltip place="bottom" text={text}>
+          <span>{displayText}</span>
+        </Tooltip>
+      ) : (
+        <span>{displayText}</span>
+      )}
+    </div>
+  );
 };
 
 export default TruncatedText;

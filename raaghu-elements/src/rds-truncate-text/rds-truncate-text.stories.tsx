@@ -10,6 +10,11 @@ const meta: Meta = {
   },
   tags: ['autodocs'],
   argTypes: {
+    state: {
+      options: ['default', 'hover'],
+      control: { type: 'radio' },
+      description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
+    },
     text: {
       control: 'text',
       description: 'The content of the text that will be truncated or displayed fully based on the component state.',
@@ -17,11 +22,6 @@ const meta: Meta = {
     maxLength: {
       control: 'number',
       description: 'The maximum number of characters to display before truncating the text.',
-    },
-    state: {
-      options: ['default', 'hover'],
-      control: { type: 'radio' },
-      description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
     },
   },
 } satisfies Meta<RdsTruncateTextProps>;
@@ -31,12 +31,12 @@ type Story = StoryObj<typeof TruncatedText>;
 
 export const Default: Story = {
   args: {
+    state: 'hover',
     text: 'This is a sample text.',
     maxLength: 16,
-    state: 'hover',  // The state can be 'default' or 'hover'
   },
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['text', 'maxLength', 'state'] },
+  controls: { include: ['state', 'text', 'maxLength'] },
 };
