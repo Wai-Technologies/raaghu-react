@@ -21,10 +21,6 @@ export interface RdsDropdownListProps {
   isPlaceholder?: boolean;
   isIconPlaceholder?: boolean;
   borderDropdown?: boolean;
-  tooltip?: boolean;
-  tooltipPlacement?: placements;
-  tooltipTitle?: string;
-  
   size?: string;
   listItems: {
     label: string;
@@ -107,7 +103,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   //  updating the selected language accordingly
 
-  const [selectedOption, setSelectedOption] = useState<number>(-1);
+  const [selectedOption, setSelectedOption] = useState<number>(0);
 
   // using handlerLIstItem to change the language
 
@@ -311,7 +307,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               <div className="d-flex align-items-center">
                 {showIcon && (
                   <RdsIcon
-                    name={props.listItems[selectedOption]?.iconPath ? "" : props.icon}
+                    name={props.icon}
                     width="16px"
                     height="16px"
                     fill={false}
