@@ -7,43 +7,191 @@ export interface RdsCarouselProps {
     Indicators: boolean;
     crossFade?: boolean;
     controls?: boolean;
-    IndicatorType?: string;
+    Type?: string;
     carouselItems: any[];
+    style?: any;
+    state?: any;
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
-    const Role = `${props.hasOwnProperty("role") ? props.role : "advanced"}`;
+    const style = `${props.hasOwnProperty("style") ? props.style : "Default"}`;
     const Fade = props.crossFade || false;
     let roleClass = "";
     let indicatorClass="";
-    switch (Role) {
-      case "style1":
+    switch (style) {
+      case "With Title":
         roleClass = "carousel-slide";
         indicatorClass="carousel-indicators-bottom";
         break;
-      case "style2":
+      case "Full Width Image":
         roleClass = "carousel-fade";
         indicatorClass="carousel-indicators-bottom";
         break;
-      case "style3":
-        roleClass = "carousel-flip";
-        indicatorClass="carousel-indicators-bottom";
-        break;
-      case "style4":
-        roleClass = "carousel-rotate";
-        indicatorClass="carousel-indicators-onImage";
-        break;
+      // case "style3":
+      //   roleClass = "carousel-flip";
+      //   indicatorClass="carousel-indicators-bottom";
+      //   break;
+      // case "style4":
+      //   roleClass = "carousel-rotate";
+      //   indicatorClass="carousel-indicators-onImage";
+      //   break;
       default:
         roleClass = "carousel-fade";
         indicatorClass="carousel-indicators-onImage";
     }
+    const activeState = parseInt(props.state) || 1; // Default to first item
+
     return (
       <Fragment>
-        {(
-          Role == "style1" ||
-          Role == "style2" ||
-          Role == "style3" ||
-          Role == "style4") && (
+        {style == "Default" && (
+          <div className="col-sm-12">
+          <div
+            id="carouselExampleCaptions"
+            className={`carousel slide ${roleClass}`}
+            data-bs-ride="carousel"
+          >
+            {props.Indicators === true && (
+              <div
+                className={`carousel-indicators ${indicatorClass} px-5 ${
+                  props.Type === "Circle"
+                    ? "carousel-indicators-Circle"
+                    : props.Type === "Line"
+                    ? "carousel-indicators-line"
+                    : ""
+                }`}
+              >
+                {props.carouselItems.map((carouselItem) => (
+                  <button
+                    key={carouselItem.id}
+                    tabIndex={0}
+                    type="button"
+                    data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide-to={carouselItem.id - 1}
+                    className={carouselItem.id === activeState ? "active" : ""}
+                    aria-current={carouselItem.id === activeState}
+                    aria-label={`Slide ${carouselItem.id}`}
+                  ></button>
+                ))}
+              </div>
+            )}
+            <div className="carousel-inner">
+              {props.carouselItems.map((carouselItem) => (
+                <div
+                  key={carouselItem.id}
+                  className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
+                  <div className="card text-center">
+                    <img
+                      src={carouselItem.imgUrl}
+                      className="card-img-top w-100"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {props.controls === true && (
+              <>
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="prev"
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="next"
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+        )}
+        {style == "With Title" && (
+        <div className="col-sm-12">
+          <div
+            id="carouselExampleCaptions"
+            className={`carousel slide ${roleClass}`}
+            data-bs-ride="carousel"
+          >
+            {props.Indicators === true && (
+              <div
+                className={`carousel-indicators ${indicatorClass} px-5 ${
+                  props.Type === "Circle"
+                    ? "carousel-indicators-Circle"
+                    : props.Type === "Line"
+                    ? "carousel-indicators-line"
+                    : ""
+                }`}
+              >
+                {props.carouselItems.map((carouselItem) => (
+                  <button
+                    key={carouselItem.id}
+                    tabIndex={0}
+                    type="button"
+                    data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide-to={carouselItem.id - 1}
+                    className={carouselItem.id === activeState ? "active" : ""}
+                    aria-current={carouselItem.id === activeState}
+                    aria-label={`Slide ${carouselItem.id}`}
+                  ></button>
+                ))}
+              </div>
+            )}
+            <div className="carousel-inner">
+              {props.carouselItems.map((carouselItem) => (
+                <div
+                  key={carouselItem.id}
+                  className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
+
+                                <div className="card-body">
+                      <h5 className="card-title">{carouselItem.name}</h5>
+                      <p className="card-text">{carouselItem.subTitle}</p>
+                    </div>
+                  <div className="card text-center">
+                    <img
+                      src={carouselItem.imgUrl}
+                      className="card-img-top w-100"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {props.controls === true && (
+              <>
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="prev"
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="next"
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+        )}
+
+        {(style == "Full Width Image") && (
           <div className="col-sm-12">
             <div
               id="carouselExampleCaptions"
@@ -57,9 +205,9 @@ const RdsCarousel = (props: RdsCarouselProps) => {
               {props.Indicators === true && (
                 <div
                   className={`carousel-indicators ${indicatorClass} px-5 ${
-                    props.IndicatorType === "Circle"
+                    props.Type === "Circle"
                       ? "carousel-indicators-Circle"
-                      : props.IndicatorType === "Line"
+                      : props.Type === "Line"
                       ? "carousel-indicators-line"
                       : ""
                   }`}
@@ -71,9 +219,9 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                       type="button"
                       data-bs-target="#carouselExampleCaptions"
                       data-bs-slide-to={carouselItem.id - 1}
-                      className={carouselItem.id == 1 ? "active" : ""}
-                      aria-current={carouselItem.id == 1 ? true : false}
-                      aria-label="Slide"
+                      className={carouselItem.id === activeState ? "active" : ""}
+                      aria-current={carouselItem.id === activeState}
+                      aria-label={`Slide ${carouselItem.id}`}
                     ></button>
                   ))}
                 </div>
@@ -82,10 +230,8 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 {props.carouselItems.map((carouselItem) => (
                   <div
                     key={carouselItem.id}
-                    className={`carousel-item ${
-                      carouselItem.id == 1 ? "active" : ""
-                    } ${roleClass}`}
-                  >
+                    className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
+
                     <img
                       src={props.carouselItems[carouselItem.id - 1].imgUrl}
                       className="d-block w-100"
@@ -126,118 +272,6 @@ const RdsCarousel = (props: RdsCarouselProps) => {
           </div>
         )}
 
-        {Role == "advanced" && (
-          <div className="col-sm-12">
-            <div
-              id="carouselExampleCaptions"
-              className={
-                Fade === true
-                  ? "carousel slide carousel-fade carousel-dark "
-                  : "carousel slide carousel-dark "
-              }
-              data-bs-ride="slide"
-            >
-              {props.Indicators === true && (
-                <div
-                  className={`carousel-indicators px-5 ${
-                    props.IndicatorType === "Circle"
-                      ? "carousel-indicators-Circle"
-                      : props.IndicatorType === "Line"
-                      ? "carousel-indicators-line"
-                      : ""
-                  }`}
-                >
-                  {props.carouselItems.map((carouselItem) => (
-                    <button
-                      key={carouselItem.id}
-                      tabIndex={0}
-                      type="button"
-                      data-bs-target="#carouselExampleCaptions"
-                      data-bs-slide-to={carouselItem.id - 1}
-                      className={carouselItem.id == 1 ? "active" : ""}
-                      aria-current={carouselItem.id == 1 ? true : false}
-                      aria-label="Slide"
-                    ></button>
-                  ))}
-                </div>
-              )}
-              <div className="carousel-inner">
-                {props.carouselItems.map((carouselItem) => (
-                  <div
-                    key={carouselItem.id}
-                    className={`carousel-item ${
-                      carouselItem.id == 1 ? "active" : ""
-                    }`}
-                  >
-                    <div className="content text-center">
-                      <span>
-                        <RdsIcon
-                          name="quote"
-                          height="20px"
-                          width="20px"
-                          fill={false}
-                          stroke={true}
-                        ></RdsIcon>
-                        <img
-                          src={props.carouselItems[carouselItem.id - 1].imgUrl}
-                          width="100"
-                          height="100"
-                          className="justify-self-center rounded-circle m-2"
-                          alt="..."
-                        />
-                        <RdsIcon
-                          name="quote_right"
-                          height="20px"
-                          width="20px"
-                          fill={false}
-                          stroke={true}
-                        ></RdsIcon>
-                      </span>
-                      <br />
-                      <h1>{props.carouselItems[carouselItem.id - 1].name}</h1>
-                      <h6>
-                        {props.carouselItems[carouselItem.id - 1].roleName}{" "}
-                      </h6>
-                      <br />
-                      <p className="subtitle">
-                        {props.carouselItems[carouselItem.id - 1].subTitle}
-                      </p>
-                      <br />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {props.controls === true && (
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#carouselExampleCaptions"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon  "
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-              )}
-              {props.controls === true && (
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-bs-target="#carouselExampleCaptions"
-                  data-bs-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon "
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-              )}
-            </div>
-          </div>
-        )}
       </Fragment>
     );
 };
