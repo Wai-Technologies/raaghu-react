@@ -32,68 +32,80 @@ const meta: Meta = {
             control: { type: "select" },
         },
         style: {
-            options: [ "filled", "outline"],
+            options: ["default", "filled", "outline"],
             control: { type: "select" },
         },
-        level: {
-            options: ["left", "mid", "right"],
-            control: { type: "select" },
-        },
+        
         rating: {
-            control: { type: "number", min: 0, max: 5, step: 0.5 },
-        }
+            options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, "left", "mid", "right"],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsRating>;
 
 export default meta;
 type Story = StoryObj<typeof RdsRating>;
 
-export const RatingWithCount: Story = {
-    args: {
-        rating: 3,
-        colorVariant: "primary",
-        noOfReviews: 123,
-        size: "small",
-        seeAllOption: true,
-        onSeeAll: () => console.log("See all clicked"),
-        dataTestId: "rating-test"
-    }
-} satisfies Story;
-RatingWithCount.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
-
-export const Slider: Story = {
+export const Default: Story = {
     args: {
         colorVariant: "primary",
-        defaultSlider: true,
-        size: "small",
-        dataTestId: "rating-test",
-        level: "mid"
-    }
-} satisfies Story;
-Slider.parameters = { controls: { include: ['colorVariant', 'level', 'size'] } };
-
-export const Outline: Story = {
-    args: {
-        colorVariant: "primary",
-        size: "small",
-        outline: true,
-        dataTestId: "rating-test",
         type: "star",
-        style: "outline",
-        rating: 0.5
-    }
-} satisfies Story;
-Outline.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };
-
-export const Filled: Story = {
-    args: {
-        colorVariant: "primary",
-        filled: true,
-        size: "small",
-        dataTestId: "rating-test",
-        type: "star",
+        rating: 4.5,
         style: "filled",
-        rating: 3
+        //size: "medium",
+        //dataTestId: "rating-test"
     }
 } satisfies Story;
-Filled.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };
+Default.parameters = { controls: { include: [ 'type', 'rating', 'style'] } };
+
+// whatever code is commented in this file is needed in further reference - enhancement as per the figma design
+
+// export const RatingWithCount: Story = {
+//     args: {
+//         rating: 3,
+//         colorVariant: "primary",
+//         noOfReviews: 123,
+//         size: "small",
+//         seeAllOption: true,
+//         onSeeAll: () => console.log("See all clicked"),
+//         dataTestId: "rating-test"
+//     }
+// } satisfies Story;
+// RatingWithCount.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
+
+// export const Slider: Story = {
+//     args: {
+//         colorVariant: "primary",
+//         defaultSlider: true,
+//         size: "small",
+//         dataTestId: "rating-test",
+//         level: "mid"
+//     }
+// } satisfies Story;
+// Slider.parameters = { controls: { include: ['colorVariant', 'level', 'size'] } };
+
+// export const Outline: Story = {
+//     args: {
+//         colorVariant: "primary",
+//         size: "small",
+//         outline: true,
+//         dataTestId: "rating-test",
+//         type: "star",
+//         style: "outline",
+//         rating: 0.5
+//     }
+// } satisfies Story;
+// Outline.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };
+
+// export const Filled: Story = {
+//     args: {
+//         colorVariant: "primary",
+//         filled: true,
+//         size: "small",
+//         dataTestId: "rating-test",
+//         type: "star",
+//         style: "filled",
+//         rating: 3
+//     }
+// } satisfies Story;
+// Filled.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };

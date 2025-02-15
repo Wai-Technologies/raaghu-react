@@ -3,7 +3,7 @@ import "./rds-rating.css";
 import RdsIcon from "../rds-icon";
 
 export interface RdsRatingProps {
-  rating?: number;
+  rating?: any;
   colorVariant?:
     | "primary"
     | "success"
@@ -15,20 +15,21 @@ export interface RdsRatingProps {
     | "dark";
   noOfReviews?: number;
   size?: string;
-  type?: string;
+  type?: "star" | "slider";
   seeAllOption?: boolean;
   onSeeAll?: () => void;
   dataTestId?: string;
   outline?: boolean;
   filled?: boolean;
   defaultSlider?: boolean;
-  style?: string;
+  style?: "default" | "filled" | "outline";
   level?: "left" | "mid" | "right";
+  totalStars?: number;
 }
 
 const RdsRating = (props: RdsRatingProps) => {
   const [rating, setRating] = useState(props.rating || 0);
-  const totalStars = 5;
+  const totalStars = props.totalStars || 5;
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -36,14 +37,14 @@ const RdsRating = (props: RdsRatingProps) => {
   }, [props.rating]);
 
   useEffect(() => {
-    if (props.level === "left") {
+    if (props.rating === "left") {
       setValue(0);
-    } else if (props.level === "mid") {
+    } else if (props.rating === "mid") {
       setValue(1);
-    } else if (props.level === "right") {
+    } else if (props.rating === "right") {
       setValue(2);
     }
-  }, [props.level]);
+  }, [props.rating]);
 
   const handleRating = (rate: number) => {
     setRating(rate);
@@ -106,20 +107,20 @@ const RdsRating = (props: RdsRatingProps) => {
 
     return background;
   };
- 
+
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= totalStars; i++) {
       if (i <= rating) {
         stars.push(
           <RdsIcon
-          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          fill={true}
-          stroke={false}
-          name="star"
-          colorVariant="review"
-
+            key={i}
+            height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            fill={true}
+            stroke={false}
+            name="star"
+            colorVariant="review"
             classes={`me-2 star filled text-${props.colorVariant}`}
             onClick={() => handleRating(i)}
           />
@@ -127,13 +128,13 @@ const RdsRating = (props: RdsRatingProps) => {
       } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
         stars.push(
           <RdsIcon
-          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          fill={true}
-          stroke={false}
-          colorVariant="review"
-
-            name={props.style ==="outline" ? "starhalf_outline" : "starhalf"}
+            key={i}
+            height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            fill={true}
+            stroke={false}
+            colorVariant="review"
+            name={props.style === "outline" ? "starhalf_outline" : "starhalf"}
             classes={`me-2 star filled text-${props.colorVariant}`}
             onClick={() => handleRating(i)}
           />
@@ -141,12 +142,13 @@ const RdsRating = (props: RdsRatingProps) => {
       } else {
         stars.push(
           <RdsIcon
-          height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
-          fill={false}
-          stroke={false}
-          colorVariant="review"
-            name={props.style ==="outline" ? "starempty_outline" : "starempty"}
+            key={i}
+            height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
+            fill={false}
+            stroke={false}
+            colorVariant="review"
+            name={props.style === "outline" ? "starempty_outline" : "starempty"}
             classes={`me-2 star empty ${props.colorVariant}`}
             onClick={() => handleRating(i)}
           />
@@ -156,26 +158,16 @@ const RdsRating = (props: RdsRatingProps) => {
     return stars;
   };
 
-
   return (
     <>
-      {!props.defaultSlider && (
-        <div className={`align-items-center d-flex d-lg-flex fs-5 gap-1 starrating ${sizeClass}`}>
-          {!props.outline && !props.filled && !props.defaultSlider && (
-            <div className="rating-container">
-             <span className="fs-5 me-2 mt-2 rating-number">{rating}</span>
-            </div>
-          )}
+      {props.type === "star" && props.style !== "default" && (
+        <div className={`align-items-center d-flex d-lg-flex fs-5 gap-2 starrating ${sizeClass}`}>
           {renderStars()}
-          {!props.outline && !props.filled && !props.defaultSlider && (
-            <span className="fs-6 mt-1"> See all {props.noOfReviews} review </span>
-          )}
         </div>
       )}
 
-      {props.defaultSlider && (
-        <div className={`${props.size === "small" ? "slidercontainersm" : props.size === "large" ? "slidercontainerlg" : "slidercontainermd"
-              }`}>
+      {(props.type === "slider" || props.style === "default") && (
+        <div className={`${props.size === "small" ? "slidercontainersm" : props.size === "large" ? "slidercontainerlg" : "slidercontainermd"}`}>
           <input
             type="range"
             min="0"
