@@ -93,6 +93,10 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       setToggle("show");
     }
   };
+  
+  useEffect(() => {
+    setShowIcon(props.showIcon || false);
+  }, [props.showIcon]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
