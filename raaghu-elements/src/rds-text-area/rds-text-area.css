@@ -1,2 +1,15 @@
 
- 
+/* .active-textarea {
+    border: 1px solid #7825E9 !important;
+  }
+  .selected-textarea
+  {
+    border: 1px solid #34384f !important;
+  }
+  .error-textarea
+  {
+    border : 1px solid #BD0D1D !important;
+  } */
+.bottom-outline {
+    border-bottom: 2px solid #ced4da;
+  }
