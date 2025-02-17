@@ -6,20 +6,22 @@ import { toaster_placements } from "../../libs/types/placement";
 
 export interface RdsToastProps {
     colorVariant?: colors;
-    withIcon?: boolean;
-    headerTitle?: string;
-    message: string;
+    headerText?: string;
+    subText: string;
     delay?: number;
     autohide?: boolean;
     borderColor?: string;
     showHeader?: boolean;
-    iconName?: string;
-    layout: string;
-    state: string;
+    layout: "text" | "download" | "chat" | "request";
+    state: "basic" | "info" | "success" | "error";
     placeholder?: string;
     progressWidth?: number;
     filename?: string;
     position?: toaster_placements;
+    showSubText?: boolean;
+    showDismiss?: boolean;
+    showLeading: boolean;
+    leadingIcon: "circle" | "plus";
 }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
@@ -70,10 +72,10 @@ const RdsToast = (props: RdsToastProps) => {
                     {props.showHeader && (
                         <div>
                             <div className="toast-header d-flex justify-content-between align-items-end pb-0">
-                            <div className={props.withIcon ? "me-2" : ""}>
-                                    {props.withIcon && (
+                            <div className={props.showLeading ? "me-2" : ""}>
+                                    {props.showLeading && (
                                         <RdsIcon
-                                            name={props.iconName}
+                                            name={props.leadingIcon}
                                             stroke={true}
 
                                         ></RdsIcon>
@@ -82,16 +84,18 @@ const RdsToast = (props: RdsToastProps) => {
 
                                 <strong className="me-auto text-dark">
                                     {" "}
-                                    {props.headerTitle}{" "}
+                                    {props.headerText}{" "}
                                 </strong>
-                                <button
-                                    type="button"
-                                    data-bs-dismiss="toast"
-                                    aria-label="Close"
-                                    className="btn-close btn-primary text-primary"
-                                ></button>
+                                {props.showDismiss && 
+                                    <button
+                                        type="button"
+                                        data-bs-dismiss="toast"
+                                        aria-label="Close"
+                                        className="btn-close btn-primary text-primary"
+                                    ></button>
+                                }
                             </div>
-                            <div className="toast-body text-body">{props.message}</div>
+                            <div className="toast-body text-body">{props.showSubText && props.subText}</div>
 
 
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
@@ -136,23 +140,25 @@ const RdsToast = (props: RdsToastProps) => {
                         <div className="m-1 toastbody ">
                             <div className="d-flex justify-content-between     align-items-center  ">
                                 <div className="toast-body toastbody d-flex justify-content-between  align-items-end ">
-                                <div className={props.withIcon ? "me-2" : ""}>
-                                        {props.withIcon && (
+                                <div className={props.showLeading ? "me-2" : ""}>
+                                        {props.showLeading && (
                                             <RdsIcon
-                                                name={props.iconName}
+                                                name={props.leadingIcon}
                                                 stroke={true}
 
                                             ></RdsIcon>
                                         )}
                                     </div>
-                                    {props.message}
+                                    {props.showSubText && props.subText}
                                 </div>
-                                <button
-                                    type="button"
-                                    data-bs-dismiss="toast"
-                                    aria-label="Close"
-                                    className="btn-close btn-primary text-primary"
-                                ></button>
+                                {props.showDismiss && 
+                                    <button
+                                        type="button"
+                                        data-bs-dismiss="toast"
+                                        aria-label="Close"
+                                        className="btn-close btn-primary text-primary"
+                                    ></button>
+                               }
                             </div>
 
                             <div className={`toast-footer pt-0 justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
