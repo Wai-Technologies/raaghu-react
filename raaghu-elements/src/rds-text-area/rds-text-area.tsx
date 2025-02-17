@@ -4,6 +4,7 @@ import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 
 export interface RdsTextAreaProps {
+  isMandatory?: boolean;
   rows?: number;
   readonly?: boolean;
   label?: string;

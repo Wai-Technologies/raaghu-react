@@ -4,6 +4,7 @@ import "./rds-illustration.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsIllustrationProps {
+    mode?: "dark-nra" | "light-nra" | "dark-ncs" | "light-ncs";
     label?: string;
     subLabel?: string;
     colorVariant?: colors;
