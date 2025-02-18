@@ -17,11 +17,11 @@ const meta: Meta<typeof RdsAlert> = {
     position: {
       options: ["top", "bottom"],
       control: { type: "radio" },
-      if: { arg: "sticky" },
+      //if: { arg: "sticky" },
     },
     linkUrl: {
       control: {type: "text"},
-      if: { arg: "showlink"},
+      //if: { arg: "showlink"},
     },
     showprimarybutton: {
       if: { arg: "showbutton"},
@@ -142,4 +142,3 @@ Default.parameters = {
     ],
   },
 };
-
