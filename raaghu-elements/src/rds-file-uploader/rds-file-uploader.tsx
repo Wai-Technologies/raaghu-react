@@ -7,7 +7,15 @@ import { size } from "../../libs";
 import file from "react-player/file";
 
 export interface RdsFileUploaderProps {
+  state?: "Default" | "Selected";
+  style?:
+    | "Basic"
+    | "Drop_Area_Top_Icon"
+    | "Drop_Area_Side_Icon"
+    | "Drop_Area_With_Upload_Button"
+    | "Drop_Area_With_Icon";
   Drop_Area_Top_Icon?: boolean;
+  placeholderImage?: string;
   Drop_Area_Side_Icon?: boolean;
   Drop_Area_With_Upload_Button?: boolean;
   Drop_Area_With_Icon?: boolean;
@@ -43,6 +51,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(
     "No file chosen"
   );
+
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [previewSrcs, setPreviewSrcs] = useState<string[]>([]);
   const { t } = useTranslation();
@@ -64,8 +73,20 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       ? "form-control-lg"
       : "";
 
-  //const withIcon = props.iconName ? true : false;
+  const [label, setLabel] = useState<string>("No file chosen");
+  const [image, setImage] = useState<string>("dummy-image.jpg");
 
+  useEffect(() => {
+    if (props.state === "Selected" && props.selectedFile) {
+      setSelectedFileName(props.selectedFile.name);
+      setPreviewSrc(URL.createObjectURL(props.selectedFile));
+      setImage("dummy-image.jpg");
+    } else if (props.state === "Selected") {
+      setImage("dummy-image.jpg");
+      setPreviewSrc("https://via.placeholder.com/150");
+      setImage("dummy-image.jpg");
+    }
+  }, [props.selectedFile, props.state, props.placeholderImage]);
   useEffect(() => {
     if (props.selectedFile) {
       setSelectedFileName(props.selectedFile.name);
@@ -127,15 +148,23 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
 
       if (props.multiple) {
         setFileArray((prevFiles) => [...prevFiles, ...selectedFiles]);
-        setFileName((prevNames) => [...prevNames, ...selectedFiles.map(file => file.name)]);
-        setFileSize((prevSizes) => [...prevSizes, ...selectedFiles.map(file => file.size)]);
+        setFileName((prevNames) => [
+          ...prevNames,
+          ...selectedFiles.map((file) => file.name),
+        ]);
+        setFileSize((prevSizes) => [
+          ...prevSizes,
+          ...selectedFiles.map((file) => file.size),
+        ]);
         setSelectedFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-        const newPreviewSrcs = selectedFiles.map(file => URL.createObjectURL(file));
+        const newPreviewSrcs = selectedFiles.map((file) =>
+          URL.createObjectURL(file)
+        );
         setPreviewSrcs((prevSrcs) => [...prevSrcs, ...newPreviewSrcs]);
       } else {
         setFileArray(selectedFiles);
-        setFileName(selectedFiles.map(file => file.name));
-        setFileSize(selectedFiles.map(file => file.size));
+        setFileName(selectedFiles.map((file) => file.name));
+        setFileSize(selectedFiles.map((file) => file.size));
         setSelectedFiles(selectedFiles);
         setPreviewSrcs([URL.createObjectURL(selectedFiles[0])]);
       }
@@ -181,8 +210,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
 
       newFiles.push(file);
     });
-
-   
 
     setValidation(newValidation);
 
@@ -242,7 +269,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
 
     if (newFiles.length > 0) {
       const reader = new FileReader();
-      
+
       reader.readAsDataURL(newFiles[0]);
     }
 
@@ -281,18 +308,18 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     setSelectedFiles(files as File[]);
     if (files.length > 0) {
       const reader = new FileReader();
-      
+
       reader.readAsDataURL(files[0] as Blob);
     }
   };
 
   const renderFileUploader = () => {
-    if (props.Drop_Area_Top_Icon) {
+    if (props.style === "Drop_Area_Top_Icon") {
       return (
         <div>
           {props.showTitle && (
             <label className={"form-label label-gray"}>
-              {props.title}
+              {props.title || label}
               {props.isRequired && <span className="text-danger ml-1">*</span>}
             </label>
           )}
@@ -323,15 +350,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               </div>
               <input
                 id="file-input"
+                ref={fileInputRef}
                 data-testid="rds-file-uploader-input"
                 className="d-none"
                 type="file"
                 accept={props.extensions}
-                onChange={
-                  props.multiple
-                    ? onchangehandler
-                    : onChangeHandlerForSingleSelection
-                }
+                onChange={onchangehandler}
                 multiple={props.multiple}
                 required={props.isRequired ? true : false}
               />
@@ -360,7 +384,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 </span>
                 <span>
                   <a href={URL.createObjectURL(file)} download={file.name}>
-                      {file.name}
+                    {file.name}
                   </a>
                 </span>
               </div>
@@ -394,8 +418,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         </div>
       );
     }
-
-    if (props.Drop_Area_Side_Icon) {
+    if (props.style == "Drop_Area_Side_Icon") {
       return (
         <>
           <div>
@@ -403,16 +426,22 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               {props.showTitle && (
                 <label className={"form-label label-gray"}>
                   {props.title || props.label}
-                  {props.isRequired && <span className="text-danger ml-1">*</span>}
+                  {props.isRequired && (
+                    <span className="text-danger ml-1">*</span>
+                  )}
                 </label>
               )}
             </div>
             <label
               htmlFor="file"
-              className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"}`}
+              className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${
+                props.colorVariant || "primary"
+              }`}
             >
               <div
-                className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between cursor-pointer ${dragging ? "dragging" : ""}`}
+                className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between cursor-pointer ${
+                  dragging ? "dragging" : ""
+                }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -449,7 +478,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               </div>
             </label>
             {props.showHint && (
-              <div className={`d-flex text-muted mt-1 hint-${props.hintPosition}`}>
+              <div
+                className={`d-flex text-muted mt-1 hint-${props.hintPosition}`}
+              >
                 <small>{props.hintText}</small>
               </div>
             )}
@@ -460,7 +491,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               >
                 <div className="d-flex gap-2 align-items-center">
                   <span>
-                    {props.showThumbnail && selectedFiles[i]?.type.startsWith("image/") ? (
+                    {props.showThumbnail &&
+                    selectedFiles[i]?.type.startsWith("image/") ? (
                       <img
                         src={previewSrcs[i]}
                         alt={filename}
@@ -478,10 +510,13 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                       />
                     )}
                   </span>
-                  <span>               
-                     <a href={URL.createObjectURL(selectedFiles[i])} download={filename}>
-                        {filename}
-                     </a>
+                  <span>
+                    <a
+                      href={URL.createObjectURL(selectedFiles[i])}
+                      download={filename}
+                    >
+                      {filename}
+                    </a>
                   </span>
                 </div>
                 <div className="closeIcon d-flex align-items-center">
@@ -506,7 +541,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             )}
           </div>
         </>
-       
       );
       //   return (
       //     <div>
@@ -633,7 +667,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //  );
     }
 
-    if (props.Drop_Area_With_Upload_Button) {
+    if (props.style == "Drop_Area_With_Upload_Button") {
       return (
         <div>
           {/* Multiple file uploader with side icon */}
@@ -678,7 +712,10 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   <span className="text-muted mx-2"> or </span>
                   <button
                     className={`btn btn-primary btn-sm`}
-                    onClick={() => { document.getElementById("file")?.click(); fileInputRef.current?.click(); }}
+                    onClick={() => {
+                      document.getElementById("file")?.click();
+                      fileInputRef.current?.click();
+                    }}
                   >
                     Upload Files
                   </button>
@@ -726,8 +763,8 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   />
                 </span>
                 <span>
-                <a href={URL.createObjectURL(file)} download={file.name}>
-                      {file.name}
+                  <a href={URL.createObjectURL(file)} download={file.name}>
+                    {file.name}
                   </a>
                 </span>
               </div>
@@ -762,72 +799,75 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       );
     }
 
-    if (props.Drop_Area_With_Icon) {
-       return (
-           <div className="">
-               <div>
-                   {props.showTitle && (
-                       <label className={"form-label label-gray"}>
-                           {props.title}
-                           {props.isRequired && <span className="text-danger ml-1">*</span>}
-                       </label>
-                   )}
-               </div>
-               <div>
-                   <form>
-                       <div className={`align-items-center d-flex mt-1 flex-row`}>
-                           <label
-                               htmlFor="drop-area-with-icon"
-                               className={`border-end-0 align-items-center custom-file-button-rounded cursor-pointer ${sizeClass}`}
-                           >
+    if (props.style == "Drop_Area_With_Icon") {
+      return (
+        <div className="">
+          <div>
+            {props.showTitle && (
+              <label className={"form-label label-gray"}>
+                {props.title}
+                {props.isRequired && (
+                  <span className="text-danger ml-1">*</span>
+                )}
+              </label>
+            )}
+          </div>
+          <div>
+            <form>
+              <div className={`align-items-center d-flex mt-1 flex-row`}>
+                <label
+                  htmlFor="drop-area-with-icon"
+                  className={`border-end-0 align-items-center custom-file-button-rounded cursor-pointer ${sizeClass}`}
+                >
+                  {props.profilePic ? (
+                    <RdsAvatar
+                      profilePic={props.profilePic} // Ensure avatarImage is a string
+                      size="largest"
+                      border="dashed"
+                      withProfilePic={true}
+                    />
+                  ) : (
+                    <RdsAvatar
+                      iconName={props.iconName}
+                      size="largest"
+                      border="dashed"
+                    />
+                  )}
+                </label>
 
-                               {props.profilePic ? (
-                                   <RdsAvatar
-                                       profilePic={props.profilePic} // Ensure avatarImage is a string
-                                       size="largest"
-                                       border="dashed" withProfilePic={true}
-                                   />
-                               ) : (
-                                   <RdsAvatar
-                                       iconName={props.iconName}
-                                       size="largest"
-                                       border="dashed"
-                                   />
-                               )}
-                           </label>
-
-                           <input
-                               ref={fileInputRef}
-                               data-testid="rds-file-uploader-input"
-                               className={`col-md-12 input mulinput d-none text-${props.colorVariant}`}
-                               type="file"
-                               id="drop-area-with-icon"
-                               accept={props.extensions}
-                               onChange={onChangeHandlerForSingleSelection}
-                               multiple={false}
-                               required={props.isRequired ? true : false}
-                           />
-                       </div>
-                       <div className="d-flex justify-content-between">
-                           <div>
-                               {" "}
-                               {validation &&
-                                   validation.map((val: any, index: number) => (
-                                       <div key={index} className="">
-                                           <small
-                                               className={`${val.isError ? "showError" : "noError d-none"
-                                                   }`}
-                                           >
-                                               {val.isError && val.hint}
-                                           </small>
-                                       </div>
-                                   ))}
-                           </div>
-                       </div>
-                   </form>
-               </div>
-           </div>
-       );
+                <input
+                  ref={fileInputRef}
+                  data-testid="rds-file-uploader-input"
+                  className={`col-md-12 input mulinput d-none text-${props.colorVariant}`}
+                  type="file"
+                  id="drop-area-with-icon"
+                  accept={props.extensions}
+                  onChange={onChangeHandlerForSingleSelection}
+                  multiple={false}
+                  required={props.isRequired ? true : false}
+                />
+              </div>
+              <div className="d-flex justify-content-between">
+                <div>
+                  {" "}
+                  {validation &&
+                    validation.map((val: any, index: number) => (
+                      <div key={index} className="">
+                        <small
+                          className={`${
+                            val.isError ? "showError" : "noError d-none"
+                          }`}
+                        >
+                          {val.isError && val.hint}
+                        </small>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
     }
 
     return (
@@ -852,9 +892,18 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               <span
                 className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass}`}
               >
-                {selectedFiles.length > 0
-                  ? selectedFiles[0].name
-                  : "No file chosen"}
+                {props.state === "Default" && (
+                  <>
+                    {selectedFiles.length > 0
+                      ? selectedFiles[0].name
+                      : "No file chosen"}{" "}
+                  </>
+                )}
+                {props.state === "Selected" && (
+                  <>
+                    {selectedFiles.length > 0 ? selectedFiles[0].name : image}{" "}
+                  </>
+                )}
                 {selectedFiles.length > 0 && (
                   <span
                     className="iconbox ms-2"
@@ -915,4 +964,3 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
 };
 
 export default RdsFileUploader;
-
