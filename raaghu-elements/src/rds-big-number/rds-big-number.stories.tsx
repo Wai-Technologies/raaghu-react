@@ -8,8 +8,8 @@ import { Meta, StoryObj } from "@storybook/react";
 const textAlignArgTypes = {
     textAlign: {
         options: ["text-start", "text-center", "text-end"],
-        control: { type: "select" },
-    },
+        control: { type: "select"},
+    } as const,
 };
 
 const meta: Meta = {
@@ -93,6 +93,7 @@ export const delta: Story = {
                     width="15px"
                     height="15px"
                     colorVariant="primary"
+                    isCursorPointer={true}
                 />
                 <label className="ps-2 text-primary fs-5">75%</label>
             </>
@@ -198,7 +199,7 @@ export const sparkLine: Story = {
         chartWidth: 50,
         children: (
             <RdsLineChart
-                id="linechart"
+                id="linechart2"
                 labels={["Jan", "Feb", "Mar", "Apr"]}
                 options={{
                     radius: 0,
@@ -274,6 +275,7 @@ export const icon: Story = {
                 width="50px"
                 height="50px"
                 colorVariant="primary"
+                isCursorPointer={true}
             />
         ),
     },

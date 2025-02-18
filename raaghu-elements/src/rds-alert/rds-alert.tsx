@@ -1,89 +1,243 @@
 import React, { useState, useEffect } from "react";
-// import { colors, size } from "../../libs/types";
 import RdsIcon from "../rds-icon";
 import "./rds-alert.css";
+import RdsButton from "../rds-button";
+
 export interface RdsAlertProps {
-    dismisable?: boolean;
-    alertmessage: string;
-    colorVariant: string;
-    delay?: number;
-    icon?: string;
-    iconFill?: boolean;
-    iconStroke?: boolean;
-    iconHeight?: string;
-    iconWidth?: string;
-    position?: "top" | "bottom";
-    onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
-    reset?: boolean;
-    sticky?: boolean;
-    size?: string;
+  type: "info" | "success" | "warning" | "error";
+  dismisable?: boolean;
+  icon?: string;
+  iconFill?: boolean;
+  iconStroke?: boolean;
+  iconHeight?: string;
+  iconWidth?: string;
+  linkUrl?: string;
+  message?: string;
+  border?: "none" | "single" | "left border";
+  delay?: number;
+  position?: "top" | "bottom";
+  onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
+  reset?: boolean;
+  sticky?: boolean;
+  size?: string;
+  showlink?: boolean;
+  showbutton?: boolean;
+  title?: string;
+  displayType?: "singleline" | "multiline";
+  description?: string;
 }
 
 const RdsAlert = (props: RdsAlertProps) => {
-    const [clicked, setClicked] = useState(false);
-    const delay = props.delay;
-    const handler = props.hasOwnProperty("delay");
+  const [clicked, setClicked] = useState(false);
+  const delay = props.delay;
+  const handler = "delay" in props;
 
-    useEffect(() => {
-        if (handler == true) {
-            setTimeout(() => {
-                setClicked(true);
-            }, delay);
-        }
-    });
-    useEffect(() => {
-        setClicked(false);
-    }, [props.reset]);
-    const closeHandler = (e: any) => {
-        props.onDismiss && props.onDismiss(e);
+  useEffect(() => {
+    if (handler) {
+      setTimeout(() => {
         setClicked(true);
-    };
-
-    const delayClass = `${clicked == true ? " d-none " : "w-100 "}`;
-
-    const classes = () => {
-
-        let defaultClass: string = '';
-        if (props.dismisable) {
-            defaultClass = " alert-dismissible ";
-        }
-
-        if (props.sticky) {
-            const position = `${props.position === 'top' ? ' position-absolute top-0 start-0 fullWidth z-index' : ' position-absolute bottom-0 start-0 fullWidth z-index'}`;
-            defaultClass = defaultClass + defaultClass + position;
-        }
-
-        const sizeClass = `${props.size === 'small' ? ' alert-sm' : props.size === 'large' ? ' alert-lg' : ' alert-md'}`;
-        defaultClass = defaultClass + sizeClass;
-        return defaultClass;
+      }, delay);
     }
-    return (
-            <div className={"alert alert-" + (props.colorVariant) +" d-flex justify-content-between align-items-center z-0 " + classes() +  ` ${delayClass}`} role="alert">
-                <span className="wordbreak d-flex align-items-center">
-                    {props.hasOwnProperty("icon") && (
-                        <RdsIcon
-                            name={props.icon || " "}
-                            fill={props.iconFill}
-                            stroke={props.iconStroke}
-                            height={props.iconHeight}
-                            width={props.iconWidth}
-                            colorVariant={props.colorVariant}
-                            classes="me-2"
-                        />
-                    )}
-                    {props.alertmessage}
-                </span>
-                {props.dismisable === true && (
-                    <button
-                        type="button"
-                        className="btn-close ms-2"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"
-                        onClick={(e: any) => closeHandler(e)}
-                    ></button>
-                )}
+  }, [handler, delay]);
+
+  useEffect(() => {
+    setClicked(false);
+  }, [props.reset]);
+
+  const closeHandler = (e: any) => {
+    props.onDismiss && props.onDismiss(e);
+    setClicked(true);
+  };
+
+  const delayClass = clicked ? "d-none" : "w-100";
+  const colorType =
+    props.type === "success"
+      ? "primary"
+      : props.type === "warning"
+      ? "warning"
+      : props.type === "error"
+      ? "danger"
+      : "neutral";
+
+  const classes = () => {
+    let defaultClass = "";
+    if (props.dismisable) {
+      defaultClass = "alert-dismissible";
+    }
+
+    if (props.sticky) {
+      const position =
+        props.position === "top"
+          ? "position-absolute top-0 start-0 fullWidth z-index"
+          : "position-absolute bottom-0 start-0 fullWidth z-index";
+      defaultClass += ` ${position}`;
+    }
+
+    if (props.border === "none") {
+      defaultClass += " shadow";
+    }
+
+    if (props.border === "single") {
+      defaultClass += ` border-${props.type === "info" ? "dark" : colorType}`;
+    }
+
+    if (props.border === "left border") {
+      defaultClass += ` border-${
+        props.type === "info" ? "dark" : colorType
+      } alert-left-border ${colorType}`;
+    }
+
+    const sizeClass =
+      props.size === "small"
+        ? "alert-sm"
+        : props.size === "large"
+        ? "alert-lg"
+        : "alert-md";
+    defaultClass += ` ${sizeClass}`;
+    return defaultClass;
+  };
+
+  return (
+    <div
+      className={`alert alert-${colorType} justify-content-between align-items-top z-0 position-relative d-lg-flex d-md-flex d-sm-block px-3 ${classes()} ${delayClass}`}
+      role="alert"
+    >
+      {props.displayType === "singleline" && (
+        <>
+          <span className="custom-alert-message wordbreak d-flex align-items-top">
+            {props.icon && (
+              <RdsIcon
+                name={props.icon || " "}
+                fill={props.iconFill}
+                stroke={props.iconStroke}
+                height={props.iconHeight}
+                width={props.iconWidth}
+                colorVariant="{colorType}"
+                classes="me-2"
+              />
+            )}
+            <div>
+              {props.title && <strong>{props.title}</strong>}
+              <span className="ps-2"> {props.message} </span>
             </div>
-    );
+          </span>
+          <span className="d-flex me-3">
+            <div className="d-flex gap-2 alertBtns pe-1 align-items-center">
+              {props.showlink && (
+                <a
+                  className="text-decoration-underline ms-2 cursor-pointer"
+                  href={props.linkUrl}
+                >
+                  Link
+                </a>
+              )}
+              {props.showbutton && (
+                <button
+                  type="button"
+                  className={`border-0 bg-transparent ${
+                    props.type === "error" ? "text-danger" : "text-primary"
+                  }`}
+                  onClick={(e: any) => closeHandler(e)}
+                >
+                  Cancel
+                </button>
+              )}
+              {props.showbutton && (
+                <RdsButton
+                  colorVariant={props.type === "error" ? "danger" : "primary"}
+                  onClick={(e: any) => closeHandler(e)}
+                  label="Okay"
+                />
+              )}
+              <div
+                className={`d-flex align-items-center justify-content-end gap-2 alert-close alert-${props.size}`}
+              >
+                {props.dismisable && (
+                  <RdsIcon
+                    colorVariant="primary"
+                    name="close"
+                    stroke={true}
+                    height="12px"
+                    width="12px"
+                    onClick={(e: any) => closeHandler(e)}
+                    isCursorPointer={true}
+                  />
+                )}
+              </div>
+            </div>
+          </span>
+        </>
+      )}
+
+      {props.displayType === "multiline" && (
+        <>
+          <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
+            {props.icon && (
+              <div className="align-items-center" id="rdicon">
+                <RdsIcon
+                  name={props.icon || " "}
+                  fill={props.iconFill}
+                  stroke={props.iconStroke}
+                  height={props.iconHeight}
+                  width={props.iconWidth}
+                  colorVariant={colorType}
+                  classes="me-2 pt-3 "
+                />
+              </div>
+            )}
+            <div className="flex-grow-1">
+              {props.title && <strong>{props.title}</strong>}
+              {props.message}
+              <p>{props.description}</p>
+              {props.showlink && (
+                <a
+                  className="text-decoration-underline mt-4 mt-md-6 cursor-pointer"
+                  href={props.linkUrl}
+                  id="alertlinks"
+                >
+                  Link
+                </a>
+              )}
+            </div>
+          </span>
+          <span>
+            <div className="d-flex align-items-top justify-content-end gap-2 alert-close pe-2">
+              {props.dismisable && (
+                <RdsIcon
+                  colorVariant="primary"
+                  name="close"
+                  stroke={true}
+                  height="12px"
+                  width="12px"
+                  onClick={(e: any) => closeHandler(e)}
+                  isCursorPointer={true}
+                />
+              )}
+            </div>
+            <div className="d-flex align-items-flex-end mt-5 gap-2 alertBtns">
+              {props.showbutton && (
+                <button
+                  className={`border-0 bg-transparent ${
+                    props.type === "error" ? "text-danger" : "text-primary"
+                  }`}
+                  onClick={(e: any) => closeHandler(e)}
+                >
+                  Cancel
+                </button>
+              )}
+              {props.showbutton && (
+                <RdsButton
+                  colorVariant={props.type === "error" ? "danger" : "primary"}
+                  onClick={(e: any) => closeHandler(e)}
+                  label="Okay"
+                />
+              )}
+            </div>
+          </span>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default RdsAlert;

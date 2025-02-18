@@ -39,7 +39,25 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
     const onClickHandler = () => {
         setPage((prev) => !prev);
     };
-
+    const isTenancyNameValid = (tenancyName: any) => {
+        if (!tenancyName || tenancyName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isUserNameValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isPasswordValid = (password: any) => {
+        if (!password || password.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid = isTenancyNameValid(userData?.tenancyName) && isUserNameValid(userData?.userName) && isPasswordValid(userData?.password);
     return (
         <>
             <div className="row px-0">
@@ -70,7 +88,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="text"
                                         label="Tenancy Name"
-                                        placeholder="Tenancy Name"
+                                        placeholder="Enter Tenancy Name"
                                         required={true}
                                         size="medium"
                                         name="tenancyName"
@@ -86,7 +104,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="text"
                                         label="User Name"
-                                        placeholder="User Name"
+                                        placeholder="Enter User Name"
                                         required={true}
                                         size="medium"
                                         name="userName"
@@ -102,7 +120,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                     <RdsInput
                                         inputType="password"
                                         label="Password"
-                                        placeholder="Password"
+                                        placeholder="Enter Password"
                                         required={true}
                                         size="medium"
                                         name="password"
@@ -139,6 +157,7 @@ const RdsCompLinkedAccount = (props: RdsLinkedAccountProps) => {
                                         size="small"
                                         dataTestId="submit"
                                         onClick={(e: any) => emitSaveData(e)}
+                                        isDisabled={!isFormValid}
                                     ></RdsButton>
                             </div>
                             

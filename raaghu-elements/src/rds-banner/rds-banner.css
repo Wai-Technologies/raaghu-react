@@ -1,0 +1,28 @@
+#news-banner .challenge-banner {
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+}
+#news-banner .buttons {
+  display: flex;
+  gap: 10px;
+}
+/* Tablet (between 600px and 1200px) */
+@media (min-width: 600px) and (max-width: 1199px) {
+  #news-banner .challenge-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Small screen (mobile devices, below 600px) */
+@media (max-width: 599px) {
+  #news-banner .challenge-banner {
+    text-align: center;
+  }
+  #news-banner .buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+

@@ -26,14 +26,29 @@ const meta: Meta = {
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
-          },
+        },
+        type: {
+            options: ["star", "slider"],
+            control: { type: "select" },
+        },
+        style: {
+            options: [ "filled", "outline"],
+            control: { type: "select" },
+        },
+        level: {
+            options: ["left", "mid", "right"],
+            control: { type: "select" },
+        },
+        rating: {
+            control: { type: "number", min: 0, max: 5, step: 0.5 },
+        }
     },
 } satisfies Meta<typeof RdsRating>;
 
 export default meta;
 type Story = StoryObj<typeof RdsRating>;
 
-export const Rating: Story = {
+export const RatingWithCount: Story = {
     args: {
         rating: 3,
         colorVariant: "primary",
@@ -44,5 +59,41 @@ export const Rating: Story = {
         dataTestId: "rating-test"
     }
 } satisfies Story;
-Rating.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
+RatingWithCount.parameters = { controls: { include: ['rating', 'colorVariant', 'noOfReviews', 'size'] } };
 
+export const Slider: Story = {
+    args: {
+        colorVariant: "primary",
+        defaultSlider: true,
+        size: "small",
+        dataTestId: "rating-test",
+        level: "mid"
+    }
+} satisfies Story;
+Slider.parameters = { controls: { include: ['colorVariant', 'level', 'size'] } };
+
+export const Outline: Story = {
+    args: {
+        colorVariant: "primary",
+        size: "small",
+        outline: true,
+        dataTestId: "rating-test",
+        type: "star",
+        style: "outline",
+        rating: 0.5
+    }
+} satisfies Story;
+Outline.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };
+
+export const Filled: Story = {
+    args: {
+        colorVariant: "primary",
+        filled: true,
+        size: "small",
+        dataTestId: "rating-test",
+        type: "star",
+        style: "filled",
+        rating: 3
+    }
+} satisfies Story;
+Filled.parameters = { controls: { include: ['colorVariant', 'rating', 'size', 'style'] } };

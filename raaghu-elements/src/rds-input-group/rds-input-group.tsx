@@ -25,8 +25,8 @@ export interface RdsInputGroupProps {
 const RdsInputGroup = (props: RdsInputGroupProps) => {
     const [value, setValue] = useState("");
     const inputGroupDivClasses =
-        "d-flex align-items-end input-group input-group-" +
-        (props.size === "small" ? "sm" : props.size === "large" ? "lg" : "md");
+    "d-flex align-items-end input-group input-group-" +
+    (props.size === "small" ? "sm" : "md");
     const inputGroupLabelClasses =
         props.size === "small"
             ? "fs-small-size"
@@ -72,8 +72,10 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                             onChange={changeValue}
                             formName={formName}
                             size={props.size}
+                            showTitle={false}
                         ></RdsInput>
                     </div>
+                    <div className="mb-2">
                     <RdsButton
                         label={props.buttonLabel}
                         tooltipTitle={""}
@@ -89,7 +91,7 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                         formName={formName}
                         size={props.size}
 
-                    ></RdsButton>
+                    ></RdsButton></div>
                 </div>
                 {props.inputGroupLabel && props.labelPosition == "bottom" && (
                     <label className={inputGroupLabelClasses}>

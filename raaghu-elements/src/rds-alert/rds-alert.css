@@ -1,30 +1,96 @@
 .fullWidth {
-    width: 100%;
+  width: 100%;
 }
 
 .alert-sm {
-  padding:0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .alert-md {
-  padding:0.375rem 0.75rem;
-} 
+  padding: 0.375rem 0.75rem;
+}
 
 .alert-lg {
   padding: 0.5rem 1rem;
 }
 
 .alert-dismissible {
-    padding-right: 1rem;
+  padding-right: 1rem;
 }
 
-.alert-dismissible .btn-close{
-    position: relative;
-    right: 0;
-    z-index: 2;
-    padding: 0rem;
+.alert-dismissible .btn-close {
+  position: relative;
+  right: 0;
+  z-index: 2;
+  padding: 0rem;
 }
 
-.z-index{
+.z-index {
   z-index: 1;
+}
+
+.alert-left-border {
+  border-left: 5px solid;
+}
+
+.custom-alert-message {
+  margin-top: 7px;
+}
+
+.alert-large {
+  margin-top: 7px !important;
+}
+
+.alert-medium {
+  margin-top: 5px !important;
+}
+
+.alert-small {
+  margin-top: 3px !important;
+}
+
+/* Large screen (desktops, 1200px and above) */
+@media (min-width: 1200px) {
+  #alertlinks {
+    margin-left: -28px;
+    margin-top: -17px !important;
+  }
+  #rdicon {
+    margin-top: -31px;
+  }
+}
+
+/* Tablet (between 600px and 1200px) */
+@media (min-width: 600px) and (max-width: 1199px) {
+  #alertlinks {
+    margin-left: -31px;
+    margin-top: -17px !important;
+  }
+  #rdicon {
+    margin-top: -31px;
+  }
+}
+
+/* Small screen (mobile devices, below 600px) */
+@media (max-width: 599px) {
+  #alertlinks {
+    margin-left: 0;
+    margin-top: 0 !important;
+    display: block;
+    text-align: left;
+  }
+  .custom-alert-message {
+    flex-direction: column;
+  }
+  .custom-alert-message > div {
+    order: 2;
+  }
+  #alertlinks {
+    order: 3;
+    margin-top: -14px !important;
+  }
+  #rdicon {
+    margin-top: 0;
+    order: 1;
+  }
 }

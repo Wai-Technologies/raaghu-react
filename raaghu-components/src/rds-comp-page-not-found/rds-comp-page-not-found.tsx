@@ -19,16 +19,16 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
         <>
             <div className="row">
                 <div
-                    className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 text-center p-4 d-grid vh-100">
+                    className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 text-center p-4 d-flex justify-content-center align-items-center vh-100">
                 
-                    <div className="mt-mb-custom">
+                    <div className="mt-mb-custom text-center">
                         <h1 className="pb-1">
                             <b>
                                 <RdsLabel label="Page not found"></RdsLabel>
                             </b>
                         </h1>
                         <RdsLabel
-                            label="Sorry, we couldn't find the page you are looking for."
+                            label="Sorry, we couldn't find the page you were looking for."
                             class="text-muted fw-medium mb-3" 
                         ></RdsLabel>
                         <p className="mb-0 pt-4">

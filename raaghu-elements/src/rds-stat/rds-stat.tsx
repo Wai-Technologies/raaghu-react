@@ -31,6 +31,7 @@ const RdsStat = (props: RdsStatProps) => {
                     //stroke={item.iconStroke}
                     height={item.iconHeight}
                     width={item.iconWidth}
+                    isCursorPointer={true}
                   />
                 </div>
                 <h1 className={"fw-bold mt-4 text-center " + `${textColr}`}>
@@ -48,7 +49,7 @@ const RdsStat = (props: RdsStatProps) => {
       )}
 
       {props.displayType === "advanced" && (
-        <div className="card h-300px w-300px border2">
+        <div className="card advancestat border2">
           {props.items.map((item: any) => (
             <div
               className="card-body align-items-center card-body d-flex justify-content-center stathover "

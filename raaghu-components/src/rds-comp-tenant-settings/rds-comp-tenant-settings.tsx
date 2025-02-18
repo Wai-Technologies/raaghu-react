@@ -72,7 +72,25 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
         useState(false);
     const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] =
         useState(false);
-
+        const isConnectionStringValid = (dcstring: string) => {
+            if (!dcstring || dcstring.length === 0) {
+                return false;
+            }
+            return true;
+        }
+        const isPasswordValid = (password: string) => {
+            if (!password || password.length === 0 || errors.password) {
+                return false;
+            }
+            return true;
+        }
+        const isConfirmPasswordValid = (cpassword: string) => {
+            if (!cpassword || cpassword.length === 0 || errors.cpassword) {
+                return false;
+            }
+            return true;
+        }
+const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid(formData?.password) && isConfirmPasswordValid(formData?.cpassword);
     return (
         <div>
             <div className="tab-content py-4">
@@ -80,7 +98,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                     <div className="custom-content-scroll">
                     {props.showEditData && (
                         <div className="row">
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Use Host Database"
@@ -94,7 +112,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                     )}
                     {!hostDatabaseChecked && (
                         <div className="row">
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         required={true}
@@ -116,15 +134,15 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                     )}
                     {!isRandomPasswordChecked && (
                         <div className="row">
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
-                                        placeholder="Password"
+                                        placeholder="Enter Password"
                                         required={true}
                                         label="Password"
                                         name="password"
-                                        id="password"
+                                        id={(errors.password && formData?.password)? "passwordfield":"password" }
                                         onBlur={() => setIsPasswordTouched(true)}
                                         onChange={(e) => {
                                           handleDataChanges(e.target.value, "password");
@@ -134,18 +152,18 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         showIcon= {true}
                                         reset={inputReset}
                                     ></RdsInput>
-                                    {errors.password && <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
+                                    {errors.password && formData?.password &&  <div className="form-control-feedback"><span className="text-danger">{errors.password}</span></div>}
                                 </div>
                             </div>
-                            <div className="col-md-6 sm-p-0">
+                            <div className="col-md-6">
                                 <div className="form-group mb-3">
                                     <RdsInput
                                         inputType="password"
-                                        placeholder="Confirm Password"
+                                        placeholder="Enter Confirm Password"
                                         required={true}
                                         label="Confirm Password"
                                         name="cpassword"
-                                        id="cpassword"
+                                        id={(errors.cpassword &&  formData?.cpassword)? "passwordfield":"cpassword" }
                                         onFocus={() => setIsConfirmPasswordFocused(true)}
                                         onBlur={() => setIsConfirmPasswordTouched(true)}
                                         onChange={(e) => {
@@ -156,14 +174,14 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                         showIcon= {true}
                                         reset={inputReset}
                                     ></RdsInput>
-                                    {errors.cpassword && <div className="form-control-feedback"><span className="text-danger">{errors.cpassword}</span></div>}
+                                    {errors.cpassword &&  formData?.cpassword && <div className="form-control-feedback"><span className="text-danger">{errors.cpassword}</span></div>}
                                 </div>
                             </div>
                         </div>
                     )}
                     <div className="row">
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Set Random Password"
@@ -177,7 +195,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                             </div>
                         )}
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Should Change Password On Next Login"
@@ -191,7 +209,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                             </div>
                         )}
                         {props.showEditData && (
-                            <div className="col-md-12 sm-p-0">
+                            <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
                                         label="Send Activation Password"
@@ -204,7 +222,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                                 </div>
                             </div>
                         )}
-                        <div className="col-md-12 sm-p-0">
+                        <div className="col-md-12">
                             <div className="form-group mb-3">
                                 <RdsCheckbox label="Activate"
                                  dataTestId="activate"
@@ -217,7 +235,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                         </div>
                     </div>
                     </div>
-                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                         <RdsButton
                             tooltipTitle={""}
                             type={"button"}
@@ -238,6 +256,7 @@ const RdsCompTenantSettings = (props: RdsCompTenantSettingsProps) => {
                             databsdismiss="offcanvas"
                             dataTestId="save"
                             onClick={(e: any) => emitSaveData(e)}
+                            isDisabled={!isFormValid}
                         ></RdsButton>
                     </div>
                 </form>

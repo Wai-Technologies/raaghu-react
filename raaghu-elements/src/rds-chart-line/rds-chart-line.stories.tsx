@@ -3,7 +3,7 @@ import * as Chart from "chart.js";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Line Chart',
+    title: 'Elements/Charts/Line Chart',
     component: RdsLineChart,
     parameters: {
         layout: 'padded',
@@ -18,9 +18,7 @@ type Story = StoryObj<typeof RdsLineChart>;
 
 
 export const LineChart: Story = {
-    args: {
-        height: 250,
-        width: 650,
+    args: {        
         labels: ["January", "February", "March", "April", "May", "Jun", "July"],
         options: {
             pointStyle: "star",
@@ -55,7 +53,7 @@ export const LineChart: Story = {
                 },
                 title: {
                     display: true,
-                    text: "Area Chart with boundries"
+                    text: "Line Chart with boundries"
                 }
             },
             interaction: {

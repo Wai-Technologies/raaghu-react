@@ -32,7 +32,7 @@ type Story = StoryObj<typeof RdsBanner>;
 export const Banner: Story = {
     args: {
         textAlign: "start",
-        bannerText: "Big news! We are excited to announce a brand new product.",
+        bannerText: "Big news ! We are excited to announce a brand new product.",
         sticky: false,
         position: "top",
         colorVariant: "info",
@@ -44,4 +44,27 @@ export const Banner: Story = {
     }
 } satisfies Story;
 Banner.parameters = { controls: { include: ['textAlign', 'bannerText', 'sticky', 'position', 'colorVariant', 'icon', 'iconHeight', 'iconWidth', 'iconStroke', 'iconFill'] } };
+
+export const ActionableBanner: Story = {
+    args: {
+        colorVariant: "light",
+        headingText: "Discover",
+        titleText: "15 days challenge",
+        subTitleText: " We will deliver an MVP in a record time of 15 days",
+        imageUrl: "../../../stories/assets/raaghubannerimage.png",
+        firstButtonText: "Learn More",
+        secondButtonText: "Contact Us",
+        firstButtonIcon: "learn_more",
+        secondButtonIcon: "phone",
+        showFirstButton: true,
+        showSecondButton: true,
+        raaghuBanner: true,
+        showHyperlink: true,
+        hyperlink: "https://www.raaghu.com",
+        hyperlinkText: "Learn More",
+        hyperlinkIcon: "learn_more"
+     
+    }
+} satisfies Story;
+ActionableBanner.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
 

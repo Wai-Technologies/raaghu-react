@@ -23,12 +23,12 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
     };
     return (
         <>
-            <div className="d-flex justify-content-center text-center  my-4">
+            <div className="justify-content-center text-center my-4 col">
                 {props.subscriptionData.map((item: any) => {
                     const bg = "bg-" + item.colorVariant || "primary";
                     const border = "border-" + item.colorVariant || "primary";
                     return (
-                        <div className="px-2 position-relative mb-3" data-testid="subscription-card">
+                        <div className="px-2 position-relative mb-3 mx-2" data-testid="subscription-card" style={{ width: width }}>
                             {item.recommended ? (
                                 <>
                                     {" "}
@@ -41,6 +41,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                                 stroke={true}
                                                 width="10px"
                                                 height="10px"
+                                                isCursorPointer={true}
                                             />
                                         </span>
                                     </div>
@@ -59,14 +60,15 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                         stroke={true}
                                         width="92px"
                                         height="100px"
+                                        isCursorPointer={true}
                                     />
                                     <h2 className="card-title p-2 pb-0">{item.price}</h2>
                                     <p className="card-text fs-5">{item.duration}</p>
                                     <div className="d-flex justify-content-center">
                                         <div className="mt-4 mb-4 text-start">
-                                            {item.features.map((feature: any, index: number) => {
+                                            {item.features?.map((feature: any, index: number) => {
                                                 return (
-                                                    <div key={index} className="d-flex " >
+                                                    <div key={index} className="d-flex" >
                                                         <div className="me-2">
                                                             <RdsIcon
                                                                 name={getIcon(feature)}
@@ -75,6 +77,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                                                 colorVariant="dark"
                                                                 width="16px"
                                                                 height="16px"
+                                                                isCursorPointer={true}
                                                             />
                                                         </div>
                                                         <div> {feature.title} </div>

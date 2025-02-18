@@ -1,0 +1,80 @@
+// collapsible container css start
+
+.container-collapse {
+    width: 190px !important;
+    transition: width 0.5s ease !important;
+
+    .right {
+        right: 0 !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .menu-item-collapsible-container {
+        padding: 10px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        white-space: nowrap;
+
+        i {
+            margin-right: 10px !important;
+        }
+    }
+}
+ 
+.container-collapse.collapsed-container {
+    width: 50px !important;
+    border-radius: 5px !important;
+}
+ 
+.collapse-button-for-container {
+    border: none !important;
+    background: #3089D1 !important;
+    border-radius: 50% !important;
+    font-size: 1em !important;
+    cursor: pointer !important;
+    color: #fff !important;
+    padding-bottom: 4px !important;
+}
+ 
+.collapsed-container {
+    .menu-item-collapsible-container {
+        overflow-x: hidden !important;
+        /*span {
+            padding-left: 2px !important;
+        }*/
+        i {
+            margin: 0 !important;
+        }
+    }
+}
+
+.leftChevronPosition {
+    position: relative !important;
+    top: 5px !important;
+    left: 9px !important;
+}
+ 
+.rightChevronPosition {
+    top: 5px !important;
+    left: -10px !important;
+    position: relative !important;
+}
+ 
+.wrapperContainer {
+    position: relative !important;
+    display: flex !important;
+}
+ 
+.wrapperContainer.right {
+    height: 100%;
+    min-height: 517px;
+    max-height: 100%;
+}
+ 
+.wrapperContainer.left {
+    justify-content: flex-start !important;
+    height: 100%;
+}
+
+// collapsible container css end

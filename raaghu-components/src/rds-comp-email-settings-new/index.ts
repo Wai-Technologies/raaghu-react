@@ -1,1 +1,0 @@
-export { default } from "./rds-comp-email-settings-new";

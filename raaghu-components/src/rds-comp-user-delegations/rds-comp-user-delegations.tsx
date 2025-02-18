@@ -16,16 +16,17 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
     const [page, setPage] = useState(false);
     const onClickHandler = () => {
         setPage((prev) => !prev);
-    };
-
-    const DatePicker = (start: any, end: any) => {
+    }; 
+    
+    const DatePicker = (dates : any) => {
+        const [start, end] = dates;
         setUserData({ ...userData, startdate: start, enddate: end });
     };
 
     const selecthandler = (e: any) => {
         setUserData({ ...userData, username: e.target.value });
     };
-    const { t } = useTranslation();
+    const { t } = useTranslation(); 
     return (
         <>
             {!page && (
@@ -82,7 +83,7 @@ const RdsUserDelegations = (props: RdsUserDelegationsProps) => {
                                 size="small"
                                 onClick={onClickHandler}
                             ></RdsButton>
-                        <div>
+                        <div className="d-flex flex-column-reverse">
                             <RdsButton
                                 type="submit"
                                 isOutline={false}

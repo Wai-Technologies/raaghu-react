@@ -1,0 +1,38 @@
+
+
+/* Small mobile view (up to 480px) */
+@media (max-width: 480px) {
+    /*.d-flex {
+        flex-direction: column;
+        align-items: center;
+    }*/
+
+    .d-flex .justify-content-between {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/* Large mobile view (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+   /* .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }*/
+
+    .d-flex .justify-content-between {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .d-flex h4 {
+        text-align: left;
+        flex: 1;
+    }
+
+   /* .d-flex  {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }*/
+}

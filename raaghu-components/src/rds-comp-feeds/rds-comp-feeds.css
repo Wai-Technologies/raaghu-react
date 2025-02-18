@@ -1,0 +1,23 @@
+.theme-dark svg {
+    color: unset !important;
+}
+
+  @media (max-width: 480px) {
+    #feed_cards{
+        font-size: 13px !important;
+    }
+    .fs-6{
+        font-size: 13px !important;
+    }
+    #avtar_card{
+        margin-top: 0px !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1279px) {
+    #avtar_card{
+        margin-top: -35px !important;
+      }
+  }
+   
+  

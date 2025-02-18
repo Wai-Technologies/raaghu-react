@@ -44,7 +44,32 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
             phoneNumber: "",
         });
     }
-
+    const isAdminValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isNameValid = (name: any) => {
+        if (!name || name.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isSurnameValid = (surname: any) => {
+        if (!surname || surname.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        } else return true;
+    };
+const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name) && isSurnameValid(formData?.surname) && isEmailValid(formData?.email);
     return (
         <form>
             <div className="custom-content-scroll">
@@ -57,7 +82,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Username"
+                            placeholder="Enter Username"
                             value={formData?.userName}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "userName");
@@ -75,7 +100,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Name"
+                            placeholder="Enter Name"
                             value={formData?.name}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "name");
@@ -92,7 +117,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Surname"
+                            placeholder="Enter Surname"
                             value={formData?.surname}
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "surname");
@@ -101,26 +126,26 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             dataTestId="surname"
                         ></RdsInput>
                     </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <div className="d-flex personal-info-wid">
                             <RdsInput
                                 size="medium"
                                 reset={inputReset}
                                 label="Email"
-                                inputType="text"
+                                inputType="email"
                                 isDisabled={false}
                                 readonly={false}
-                                placeholder="Email"
+                                placeholder="Enter Email"
                                 value={formData?.email}
                                 onChange={(e) => {
                                     handleDataChanges(e.target.value, "email");
                                 }}
-                                required={false}
+                                required={true}
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
                             ></RdsInput>
-                            <span className="mt-4 d-block nowrap ms-2">
+                            <span className="align-content-center mt-4 d-block nowrap ms-2">
                                 <RdsButton
                                     label="Verify Email"
                                     colorVariant="primary"
@@ -128,12 +153,14 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                                     block={false}
                                     type="submit"
                                     onClick={(e) => emailHandler(e, isEmailClicked)}
+                                    isDisabled={!isEmailValid(formData?.email)}
                                     dataTestId="verify-email"
+                                    id="btn-verify-email"
                                 />
                             </span>
                         </div>
                     </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <RdsInput
                             size="medium"
                             reset={inputReset}
@@ -141,18 +168,35 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
-                            placeholder="Phone Number"
-                            value={formData?.phoneNumber}
-                            onChange={(e) => {
+                            placeholder="Enter Phone Number"
+                            value={formData?.phoneNumber}                            onChange={(e) => {
                                 handleDataChanges(e.target.value, "phoneNumber");
                             }}
+                            onKeyDown={(e) => {
+                                const inputElement = e.target as HTMLInputElement;
+                                const currentLength = inputElement.value.length;
+                                const isPlusEntered = inputElement.value.startsWith('+');
+                                const maxLength = isPlusEntered ? 13 : 10;
+                               
+                                const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                const isNumberOrPlus = /[0-9+]/.test(e.key);
+                       
+                                if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                       
+                                if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                    e.preventDefault();
+                                }
+                            }}
+
                             required={false}
                             dataTestId="phone-number"
                         ></RdsInput>
                     </div>
                 </div>
             </div>
-            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <RdsButton
                     label="Cancel"
                     colorVariant="primary"
@@ -169,6 +213,7 @@ const RdsCompPersonalInfo = (props: RdsCompPersonalInfoProps) => {
                     type="submit"
                     size="small"
                     dataTestId="save"
+                    isDisabled={!isFormValid}
                     onClick={(e: any) => emitSaveData(e)}
                 />
             </div>

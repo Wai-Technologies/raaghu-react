@@ -80,7 +80,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     }}
                                     dataTestId="required-length"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Required Length</small>
+                                {/* <small className="text-secondary-50">Required Length</small> */}
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 ">
@@ -97,7 +97,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "requiredUniqueChars")}
                                     dataTestId="required-special-char"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Required Unique Chars</small>
+                                {/* <small className="text-secondary-50">Required Unique Chars</small> */}
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireNonAlphanumeric")}
                                 dataTestId="required-non-alpha-num-char"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require NonAlphanumeric</small>
+                            {/* <small className="text-secondary-50">Require NonAlphanumeric</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -120,7 +120,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireUppercase")}
                                 dataTestId="required-upper-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Uppercase</small>
+                            {/* <small className="text-secondary-50">Require Uppercase</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -131,7 +131,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireLowercase")}
                                 dataTestId="required-lower-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Lowercase</small>
+                            {/* <small className="text-secondary-50">Require Lowercase</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -142,7 +142,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireDigit")}
                                 dataTestId="required-numbers"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Digit</small>
+                            {/* <small className="text-secondary-50">Require Digit</small> */}
                         </div>
                     </div>
                     {/*Password renewing settings */}
@@ -157,7 +157,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "forceUsersToPeriodicallyChangePassword")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Force Users To Periodically ChangePassword</small>
+                            {/* <small className="text-secondary-50">Force Users To Periodically ChangePassword</small> */}
                         </div>
                     </div>
                     <div className="row mb-3">
@@ -177,7 +177,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     }}
                                     dataTestId="password-change-period-days"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Password Change Period Days</small>
+                                {/* <small className="text-secondary-50">Password Change Period Days</small> */}
                             </div>
                         </div>
                     </div>
@@ -193,7 +193,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "allowedForNewUsers")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Allowed For New Users</small>
+                            {/* <small className="text-secondary-50">Allowed For New Users</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -211,7 +211,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "lockoutDuration")}
                                     dataTestId="lockout-duration"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Allowed For New Users</small>
+                                {/* <small className="text-secondary-50">Allowed For New Users</small> */}
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -228,7 +228,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "maxFailedAccessAttempts")}
                                     dataTestId="max-failed-attempts"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Max Failed Access Attempts</small>
+                                {/* <small className="text-secondary-50">Max Failed Access Attempts</small> */}
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedEmail")}
                                 dataTestId="required-confirmed-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Confirmed Email</small>
+                            {/* <small className="text-secondary-50">Require Confirmed Email</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -256,7 +256,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "enablePhoneNumberConfirmation")}
                                 dataTestId="allow-user-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Enable Phone Number Confirmation</small>
+                            {/* <small className="text-secondary-50">Enable Phone Number Confirmation</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -267,7 +267,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedPhoneNumber")}
                                 dataTestId="required-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Confirmed Phone Number</small>
+                            {/* <small className="text-secondary-50">Require Confirmed Phone Number</small> */}
                         </div>
                     </div>
                     {/* User Settings */}
@@ -282,7 +282,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isEmailUpdateEnabled")}
                                 dataTestId="allow-user-change-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Is Email Update Enabled</small>
+                            {/* <small className="text-secondary-50">Is Email Update Enabled</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -293,11 +293,11 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isUserNameUpdateEnabled")}
                                 dataTestId="allow-user-change-username"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Enable Phone Number Confirmation</small>
+                            {/* <small className="text-secondary-50">Enable Phone Number Confirmation</small> */}
                         </div>
                     </div>
                     </div>
-                    <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <RdsButton
                     label="Save"
                     type="submit"

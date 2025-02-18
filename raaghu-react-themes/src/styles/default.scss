@@ -1,18 +1,30 @@
 $theme: "default" !default;
 
-$primary: #7e2eef;
-$secondary: #c7c7c7;
-$success: #30CC4D;
+
+
 $info: #3ef1e8;
-$warning: #EFAD07;
-$danger: #E30707;
-$dark: #363636;
-$light: #f8f9fa;
+
+$danger: #E02D30;
+$dark: #7D7D7D;
+
 $body-bg: white;
 $body-bg-dark: #232933;
 $black: #000 !default;
 $white: #fff !default;
-$light-gray:#CED4DA !default;
+
+/*
+$dark:$neuytal;
+$danger:$error;
+*/
+$primary: #7e2eef;
+$secondary: #2539FF;
+$tertiary: #DA25E9;
+$neutral: #7D7D7D;
+$error: #E02D30;
+$warning: #EA6C0C;
+$success: #24993A;
+
+$light-gray: #CED4DA !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -25,16 +37,18 @@ $gray-750: #BEBEBE !default;
 $gray-800: #343a40 !default;
 $gray-900: #34384f !default;
 // /*Variables*/ /*Success - Green*/
-$success-0: #deffe4;
-$success-100: #befeca;
-$success-200: #9efcb0;
-$success-300: #61f780;
-$success-400: #2eef59;
-$success-500: #07e33f;
-$success-600: #00d33e;
-$success-700: #00a443;
-$success-800: #00863f;
-$success-900: #006636;
+
+$success-0: #000;
+$success-100: #092A11;
+$success-200: #1A4D25;
+$success-300: #1D5E2A;
+$success-400: #1F7630;
+$success-500: #24993A;
+$success-600: #31B64A;
+$success-700: #58D06E;
+$success-800: #90E5A0;
+$success-900: #DFF9E3;
+/* $success-95 */
 // /*Danger - Red*/
 $danger-0: #ffdede;
 $danger-100: #febebe;
@@ -72,17 +86,19 @@ $blue-100: #444e73;
 // /*Primary - Purple*/
 $primary-0: #ecdeff;
 $primary-100: #d8befe;
-$primary-150:#bf97f7;
+$primary-150: #bf97f7;
 $primary-170: #DBC9FF;
 $primary-200: #c59efc;
 $primary-300: #a061f7;
 $primary-400: #7e2eef;
-$primary-450:#3D2E5C;
+$primary-450: #3D2E5C;
 $primary-500: #6307e3;
 $primary-600: #5800d3;
 $primary-700: #4400a4;
 $primary-800: #380086;
 $primary-900: #2b0066;
+
+
 // /*Secondary - Pink*/
 $secondary-0: #ff7afd;
 $secondary-100: #fe65fb;
@@ -99,7 +115,7 @@ $light-0: #ffffff;
 $light-100: #fafbfe;
 $light-150: #F5F5FA;
 $light-200: #f5f7fe;
-$light-250:#F9F7FC;
+$light-250: #F9F7FC;
 $light-300: #eaeefc;
 $light-400: #e0e5f8;
 $light-500: #d6dcf3;
@@ -118,13 +134,123 @@ $dark-300: #222327;
 $dark-400: #1c1d20;
 $dark-500: #18191b;
 $dark-600: #161618;
-$dark-650:#16181F;
+$dark-650: #16181F;
 $dark-700: #151516;
 $dark-750: #797A7A;
 $dark-800: #151515;
 $dark-900: #141414;
 $dark-950: #3D344F;
 $default-100: #f58220;
+
+/* new color variables added here*/
+
+$primary-0: #000000;
+$primary-10: #FEF7FF;
+$primary-50: #F7EDFF;
+$primary-100: #EBDCFF;
+$primary-200: #D4BBFF;
+$primary-300: #BE98FF;
+$primary-400: #A875FF;
+$primary-500: #7E2EEF;
+$primary-600: #7825E9;
+$primary-700: #4F00A6;
+$primary-800: #340071;
+$primary-900: #19003E;
+$black: #000000;
+
+$secondary-0: #000000;
+$secondary-10: #111755;
+$secondary-50: #1D2B92;
+$secondary-100: #1827BB;
+$secondary-200: #2534E9;
+$secondary-300: #2539FF;
+$secondary-400: #4666FF;
+$secondary-500: #698FFF;
+$secondary-600: #93B8FF;
+$secondary-700: #BCD5FF;
+$secondary-800: #DAEAFF;
+$secondary-900: #EBF3FF;
+$black: #000000;
+
+$tertiary-0: #000000;
+$tertiary-10: #FEF3FF;
+$tertiary-50: #FCE6FF;
+$tertiary-100: #F9CCFF;
+$tertiary-200: #F8A4FF;
+$tertiary-300: #F56EFF;
+$tertiary-400: #EB37FE;
+$tertiary-500: #DA25E9;
+$tertiary-600: #B30FBC;
+$tertiary-700: #940F99;
+$tertiary-800: #7B127D;
+$tertiary-900: #530054;
+$black: #000000;
+
+$neutral-0: #fff;
+$neutral-10: #FCFCFC;
+$neutral-50: #F5F7FA;
+$neutral-100: #E9E9E9;
+$neutral-200: #CDCDCD;
+$neutral-300: #B1B1B1;
+$neutral-400: #969696;
+$neutral-500: #7D7D7D;
+$neutral-600: #646464;
+$neutral-700: #4C4C4C;
+$neutral-800: #353535;
+$neutral-900: #202020;
+$black: #000000;
+
+$error-0: #ffffff;
+$error-10: #410003;
+$error-50: #680009;
+$error-100: #930011;
+$error-200: #BD0D1D;
+$error-300: #E02D30;
+$error-400: #FF544F;
+$error-500: #FF8980;
+$error-600: #FFB3AD;
+$error-700: #FFDAD6;
+$error-800: #FFEDEB;
+$error-900: #FFF8F7;
+$black: #000000;
+
+
+$warning-0: #000000;
+$warning-10: #FFF9ED;
+$warning-50: #FFF1D5;
+$warning-100: #FED99B;
+$warning-200: #FDC674;
+$warning-300: #FBA33C;
+$warning-400: #F98816;
+$warning-500: #EA6C0C;
+$warning-600: #C2510C;
+$warning-700: #9A4012;
+$warning-800: #7C3712;
+$warning-900: #431907;
+$black: #000000;
+
+$white: #FFFFFF;
+$success-10: #F1FCF2;
+$success-50: #DFF9E3;
+$success-100: #C1F1C9;
+$success-200: #90E5A0;
+$success-300: #58D06E;
+$success-400: #31B64A;
+$success-500: #24993A;
+$success-600: #1F7630;
+$success-700: #1D5E2A;
+$success-800: #1A4D25;
+$success-900: #092A11;
+$black: #000000;
+/* new color vaiables ended here*/
+
+$primary: #7e2eef;
+$secondary: #2539FF;
+$tertiary: #DA25E9;
+$neutral: #7D7D7D;
+$error: #645555;
+$warning: #EA6C0C;
+$success: #24993A;
 
 // /*Chart color variables*/
 :root {
@@ -258,3 +384,5 @@ html[theme="dark"] {
 @import "./shellLayout.scss";
 @import "./tabGroup.scss";
 @import "./loaders.scss";
+@import "./progress.scss";
+@import "./label.scss";

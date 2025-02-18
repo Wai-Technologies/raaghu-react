@@ -19,3 +19,58 @@
   background-color: #dc3545 !important;
   border-color: #dc3545 !important;
 }
+
+
+
+.form-check-input-type-circular{
+  border-radius: 50% !important;
+}
+
+.form-check-input-type-circular-indeterminate{
+  border-radius: 50% !important;
+  padding: 2px 2px 2px 2px;
+  border:2px solid;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+
+  .form-check-input-intermediate:checked[type=checkbox] {
+    background-image: none !important;
+    width: 14px;
+    height: 14px;
+    margin-top: 0px;
+  }
+
+  .form-check-input-intermediate{
+    margin-top: 0px;
+  }
+}
+
+.form-check-input-type-square-indeterminate{
+  padding: 2px 2px 2px 2px;
+  border:2px solid;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+
+  .form-check-input-intermediate:checked[type=checkbox] {
+    background-image: none !important;
+    width: 14px;
+    height: 14px;  
+    margin-top: 0px;
+  } 
+
+  .form-check-input-intermediate{
+    margin-top: 0px;
+  }
+}
+
+.form-check .form-check-input.form-check-input-intermediate{
+  float: none;
+  margin-left: 0px;
+}

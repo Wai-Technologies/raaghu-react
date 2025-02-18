@@ -1,3 +1,8 @@
+.nav-tabs.nav-icon-only{
+  .nav-link {
+    min-width: 50px;
+  }
+}
 // /*tabs custom properties*/
 .rds-tab-2.nav-tabs {
   .nav-link.active {
@@ -20,13 +25,6 @@
   .nav-link.active {
     border: 2px solid #f2f2f2;
     border-top: 1px solid;
-  }
-}
-
-.nav-pills {
-  .nav-link.active {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
   }
 }
 
@@ -57,4 +55,37 @@
 
 .nav-tabs .nav-item {
   outline: none;
+}
+
+.vertical-pointer .close-icon {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vertical-pointer .tab-text {
+  margin-right: 50px; /* Create space for the close icon */
+}
+
+
+
+.vertical-flap .close-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vertical-flap .plus-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+ 
 }

@@ -81,6 +81,7 @@ const RdsBigNumber = (props: RdsBigNumberProps) => {
                   stroke={props.iconStroke}
                   height={props.iconHeight}
                   width={props.iconWidth}
+                  isCursorPointer={true}
                 ></RdsIcon>
                 {props.subTitle}
               </h6>

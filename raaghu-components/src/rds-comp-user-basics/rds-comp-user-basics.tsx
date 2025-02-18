@@ -41,7 +41,44 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
             shouldChangePasswordOnNextLogin: false
         });
     }
-
+    const isFirstNameValid = (firstName: any) => {
+        if (!firstName || firstName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isLastNameValid = (lastName: any) => {
+        if (!lastName || lastName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isEmailValid = (email: any) => {
+        if (!email || email.length === 0) {
+            return false;
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        } else return true;
+    };
+    const isPasswordValid = (password: any) => {
+        if (!password || password.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isUsernameValid = (userName: any) => {
+        if (!userName || userName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPhoneNumberValid = (phoneNumber: any) => {
+        if (!phoneNumber || phoneNumber.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(userData?.lastName )&& isEmailValid(userData?.email) && isPasswordValid(userData?.password) && isUsernameValid(userData?.userName) && isPhoneNumberValid(userData?.phoneNumber);
     return (
         <>
             <form className="pt-3">
@@ -82,7 +119,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                             <div className="">
                                 <RdsInput
                                     value={userData?.email}
-                                    placeholder="Enter Email"
+                                    placeholder="Enter Email Address"
                                     inputType="email"
                                     label="Email Address"
                                     name="email"
@@ -137,7 +174,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                             <div>
                                 <RdsInput
                                     value={userData?.phoneNumber}
-                                    placeholder="Enter Phone"
+                                    placeholder="Enter Phone Number"
                                     inputType="text"
                                     label="Phone Number"
                                     name="phone"
@@ -145,6 +182,25 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "phoneNumber");
                                     }}
+
+                                    onKeyDown={(e) => {
+                                        const inputElement = e.target as HTMLInputElement;
+                                        const currentLength = inputElement.value.length;
+                                        const isPlusEntered = inputElement.value.startsWith('+');
+                                        const maxLength = isPlusEntered ? 13 : 10;
+                                        
+                                        const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                        const isNumberOrPlus = /[0-9+]/.test(e.key);
+                                
+                                        if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                
+                                        if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+
                                     reset={inputReset}
                                 ></RdsInput>
                             </div>
@@ -201,7 +257,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div className="d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                     <RdsButton
                         class="me-2"
                         tooltipTitle={""}
@@ -222,6 +278,7 @@ const RdsCompUserBasics = (props: RdsCompUserBasicsProps) => {
                         databsdismiss="offcanvas"
                         dataTestId="save"
                         onClick={(e: any) => emitSaveData(e)}
+                        isDisabled={!isFormValid}
                     ></RdsButton>
                 </div>
             </form >

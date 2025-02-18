@@ -1,0 +1,6 @@
+#sortTable thead th:first-child, #sortTable tbody td:first-child {
+    z-index: unset !important;
+}
+.css-ebdihk-option{
+    background-color: white !important;
+}

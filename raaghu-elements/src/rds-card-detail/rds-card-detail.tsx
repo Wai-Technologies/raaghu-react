@@ -42,6 +42,7 @@ const RdsCardDetail = (props: RdsCardDetailProps) => {
                         //  fill={data.iconFill}
                         stroke={data.iconstroke}
                         colorVariant={data.iconColorVarient}
+                        isCursorPointer={true}
                       />
                       <div className="ms-1">
                         <div className="ms-2 fs-6">

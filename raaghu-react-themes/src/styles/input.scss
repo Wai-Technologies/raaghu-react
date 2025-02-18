@@ -22,7 +22,7 @@ input::-webkit-input-placeholder {
 }
 
 .form-control-feedback {
-  min-height: 13px;
+  // min-height: 13px;
   text-align: end;
   font-size: $font-size-sm;
 }
@@ -37,11 +37,11 @@ input::-webkit-input-placeholder {
   font-size: $font-size-sm;
 }
 
-.form-control-feedback {
-  min-height: 13px;
-  text-align: end;
-  font-size: $font-size-sm;
-}
+// .form-control-feedback {
+//   min-height: 13px;
+//   text-align: end;
+//   font-size: $font-size-sm;
+// }
 
 .password-toggle {
   position: absolute !important;

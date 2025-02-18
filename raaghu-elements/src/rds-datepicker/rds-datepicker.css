@@ -2,3 +2,35 @@
   padding-top: 0.16rem !important;
   padding-bottom: 0.16rem !important;
 }
+.date-picker-disable {
+  opacity: 0.6; /* Make the card look faded */
+  pointer-events: none; /* Prevent any interactions */
+  cursor: not-allowed; /* Show a 'not allowed' cursor */
+  background-color: #EBEBE4 !important;
+}
+
+.dropdown .btn {
+  text-align: center;
+}
+.isdisabled {
+  background-color: #e9ecef !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+.react-datepicker__day--outside-month {
+  color: #6c757d !important;
+}
+
+.react-datepicker__day--outside-month:hover {
+  background-color: transparent !important;
+}
+
+.react-datepicker__today-button {
+  border-bottom-right-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+
+.react-datepicker__navigation {
+  top: 8px;
+}

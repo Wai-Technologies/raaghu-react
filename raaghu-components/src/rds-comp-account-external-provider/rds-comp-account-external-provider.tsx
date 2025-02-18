@@ -64,8 +64,8 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                    dataTestId="google"
                                ></RdsCheckbox>
                            </div>
-                           <div className="row">
-                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                           <div className="row mb-3">
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.properties[0]?.value || ""}
@@ -77,7 +77,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                        ></RdsInput>
                                    </div>
                                </div>
-                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mb-3">
+                               <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.secretProperties[0]?.value}
@@ -96,7 +96,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                    </div>
                     )))}
                 </div>
-                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-5">
                     <RdsButton
                         label="Save"
                         type="submit"

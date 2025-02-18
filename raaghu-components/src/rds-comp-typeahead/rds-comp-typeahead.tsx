@@ -57,8 +57,10 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                             selectedValue={tempSelectedValue}
                             selectItems={selectItems}
                             label={props.label}
-                            placeholder="Select Categories"
-                            onChange={(item: any) => handleListChange(item.value)}></RdsSelectList>
+                            placeholder="Select Authors"
+                            key={`selectItem-${tempSelectedValue}`}
+                            onChange={(item: any) => handleListChange(item.value)}>
+                        </RdsSelectList>
                     </div>
                     <div className="col-lg-1 col-md-1 col-sm-12 mt-2">
                         <RdsButton
@@ -97,6 +99,7 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                                                     stroke={true}
                                                     colorVariant="danger"
                                                     onClick={() => { onDeleteIconClick(item.value); }}
+                                                    isCursorPointer={true}
                                                 />
                                             </td>
                                         </tr>

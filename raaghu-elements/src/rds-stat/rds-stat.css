@@ -3,15 +3,17 @@
   transition-timing-function: ease-in-out !important;
 }
 
-.h-300px {
-  height: 300px !important;
+
+.app-shell-layout {
+  height: 77vh;
+  border-width: 5%;
+}
+
+.advancestat{
+  height: 285px !important;
   border-width: 30px !important;
+  width: 285px !important;
 }
-
-.w-300px {
-  width: 300px !important;
-}
-
 div.grow {
   transition: all 0.2s ease-in-out;
   transform: translate(0px, 0px);
@@ -21,4 +23,12 @@ div.grow:hover {
 }
 .border2 {
   border-radius: 50% !important;
+}
+.h-300px {
+  height: 300px !important;
+  border-width: 30px !important;
+}
+
+.w-300px {
+  width: 300px !important;
 }

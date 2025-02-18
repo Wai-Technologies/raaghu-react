@@ -39,7 +39,13 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
             showInDiscovery: false,
         });
     }
-
+    const isNameValid = (name: any) => {
+        if (!name || name.length === 0) {
+            return false;
+        }
+        return true;
+    };
+const isFormValid=isNameValid(formData?.name);
     return (
         <>
             <div>
@@ -76,7 +82,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-2 mt-1">
                             <RdsCheckbox
                                 id="0"
                                 label="Enabled"
@@ -87,7 +93,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 dataTestId="enabled"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
                                 label="Required"
@@ -98,7 +104,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 dataTestId="required"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
                                 label="Emphasize"
@@ -109,7 +115,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                                 dataTestId="emphasize"
                             ></RdsCheckbox>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
                                 label="Show in Discovery Document"
@@ -121,7 +127,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                             ></RdsCheckbox>
                         </div>
                     </div>
-                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -141,6 +147,7 @@ const RdsCompScopeBasicResource = (props: RdsCompScopeBasicResourceProps) => {
                             databsdismiss="offcanvas"
                             onClick={(e: any) => emitSaveData(e)}
                             dataTestId="save"
+                            isDisabled={!isFormValid}
                         ></RdsButton>
                     </div>
                 </form>

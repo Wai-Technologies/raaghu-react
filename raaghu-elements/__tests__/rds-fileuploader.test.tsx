@@ -16,7 +16,7 @@ jest.mock('react-lottie-player', () => ({
     it("should call the onFileArray callback function when a file is uploaded", () => {
         const props = {
             placeholder: "Select a file",
-            size: "small",
+            size: "small" as "small" | "medium" | "large",
             colorVariant: "primary",
             multiple: true,
             extensions: "jpg,jpeg,png",

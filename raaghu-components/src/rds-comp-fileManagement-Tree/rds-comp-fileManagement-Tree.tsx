@@ -121,7 +121,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                             <div className="FileNode_dot" >
                                 <div className="NodeHorizontal" ></div>
                             </div>
-                            <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex cursor-pointer file-tree">
+                            <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex cursor-pointer file-tree d-flex d-sm-flex d-inline-flex">
                                 <RdsLabel
                                     class="ps-1 pe-1 cursor-pointer"
                                     label={prop.item.name}

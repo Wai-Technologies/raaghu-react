@@ -1,5 +1,6 @@
 import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
+import './rds-comp-blog-post.css';
 
 interface RdsCompBlogPostProps {
   tableHeaders: {
@@ -27,8 +28,8 @@ interface RdsCompBlogPostProps {
   recordsPerPage?: number;
 }
 const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
-  return (
-    <RdsCompDatatable
+    return (
+        <div className="bloglist"><RdsCompDatatable
       actionPosition="right"
       tableHeaders={props.tableHeaders}
       actions={props.actions}
@@ -38,7 +39,7 @@ const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
       tableData={props.tableData!}
       pagination={props.pagination!}
       recordsPerPage={props.recordsPerPage}
-    ></RdsCompDatatable>
+    ></RdsCompDatatable></div>
   );
 };
 export default RdsCompBlogPost;

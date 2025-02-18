@@ -24,7 +24,7 @@ const RdsIconLabel = (props: RdsIconLabelProps) => {
 
 
     const inputClass = () => {
-        let positionClass: string = 'd-flex gap-2';
+        let positionClass: string = 'd-flexLabelIcon gap-2';
         if (props.iconposition === 'left') {
             positionClass = 'd-flex gap-2';
         }
@@ -43,6 +43,7 @@ const RdsIconLabel = (props: RdsIconLabelProps) => {
                     fill={props.fill}
                     stroke={true}
                     colorVariant={props.colorVariant}
+                    isCursorPointer={true}
                 />
                 <RdsLabel label={props.label} size={classes()} class={"align-items-center " + classes()} />
             </div>

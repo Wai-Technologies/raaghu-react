@@ -6,8 +6,7 @@ export interface RdsPieProps {
   labels: any[];
   options: any;
   dataSets: any[];
-  height?: number;
-  width?: number;
+  radius: number; 
   id: string;
 }
 
@@ -29,20 +28,19 @@ const RdsPieChart = (props: RdsPieProps) => {
         labels: props.labels,
         datasets: props.dataSets,
       },
-      options: props.options,
+      options: {
+        ...props.options,
+        radius: props.radius, 
+      },
     });
 
-    if (pieCanvas != null) {
-      pieCanvas.canvas.style.height = props.height + "px";
-      pieCanvas.canvas.style.width = props.width + "px";
-    }
   }, [props]);
 
-    return (
-        <div className="chart-container">
-            <canvas id={props.id} ref={canvasRef} />
-        </div>
-    );
+  return (
+    <div className="chart-container">
+      <canvas id={props.id} ref={canvasRef} />
+    </div>
+  );
 };
 
 export default RdsPieChart;

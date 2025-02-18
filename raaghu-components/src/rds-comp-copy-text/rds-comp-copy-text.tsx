@@ -53,6 +53,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                             name="clipboard"
                             stroke
                             width="17px"
+                            isCursorPointer={true}
                           />
                         )}
                       </div>
@@ -81,6 +82,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                             name="clipboard"
                             stroke
                             width="17px"
+                            isCursorPointer={true}
                           />
                         )}
                       </div>
@@ -109,6 +111,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                             name="clipboard"
                             stroke
                             width="17px"
+                            isCursorPointer={true}
                           />
                         )}
                       </div>

@@ -17,6 +17,10 @@ export interface RdsCompEditionProps {
     editionName: any;
     reset?: boolean;
     onSaveHandler?: (data: any) => void;
+    planList: any[];
+    accountTwoFactorSettings: any;
+    planListLabel?: string;
+    displayType: "basic" | "advanced";
 }
 const RdsCompEdition = (props: RdsCompEditionProps) => {
     const offCanvasHandler = () => { };
@@ -24,6 +28,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
     const [activeNavTabId, setActiveNavTabId] = useState("0");
     const [showTenantSettings, setShowTenantSettings] = useState(false);
     const [inputReset, setInputReset] = useState(false);
+    const [twoFactorData, settwoFactorData] = useState(props.accountTwoFactorSettings);
     
     useEffect(() => {
         setFormData(props.editionName);
@@ -42,6 +47,19 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
         { label: "Features", tablink: "#nav-profile", id: 1 },
     ];
 
+    const handlerChangeTwoFact = (value: any, key: string) => {
+        settwoFactorData({ ...twoFactorData, [key]: value });
+    };
+
+    useEffect(() => {
+        settwoFactorData(props.accountTwoFactorSettings);
+    }, [props.accountTwoFactorSettings]);
+
+    useEffect(() => {
+        setInputReset(!inputReset);
+    }, [props.reset]);
+    
+
     function emitSaveData(event: any) {
         event.preventDefault();
         props.onSaveHandler && props.onSaveHandler(FormData);
@@ -53,12 +71,14 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
     }
 
     return (
+        <>
+        {props.displayType == "basic" && (
         <div className="col-md-3 navsm mb-3 featureList ng-star-inserted">
             <div className="card border-undefined">
                 <div className="headerClass">
                     <div className="p-3">
                         <div className="text-center mt-3">
-                            <label className="fs-4 fw-bold">
+                            <label className="fs-4 fw-bold text-muted">
                                 {props.EditionItems.EditionName}
                             </label>
                             <p className="fw-medium text-muted pt-2">
@@ -148,6 +168,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                 <div className="form-group mb-3">                                              
                                                     <RdsSelectList
                                                        id="selePla"
+                                                       classes="text-theme-change"
                                                        label="Select Plan"
                                                        onChange={(e: any) => handleChangeform(e.target.checked, "selePlan")}                                                       
                                                        selectItems={[]}
@@ -208,6 +229,49 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 </div>
             </div>
         </div>
+        )}
+        {props.displayType == "advanced" && (
+            <form >
+            <div className="row mt-2">
+                <div className="col-md-6 mb-3">
+                    <div className="form-group">
+                    <RdsInput
+                        required={true}
+                        inputType="text"
+                        label={"Edition Name"}
+                        placeholder="Edition Name"
+                        name="editionName"
+                        value={FormData?.editionName}
+                        onChange={(e: any) =>
+                          handleChangeform(e.target.value, "editionName")
+                        }
+                        id="editionName"
+                        reset={inputReset}
+                ></RdsInput>
+                    </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                    <div className="form-group">
+                        <RdsSelectList
+                            id="planLis"
+                            label={props.planListLabel}
+                            isDisabled={false}
+                            isMultiple={false}
+                            selectItems={props.planList}
+                            selectedValue={twoFactorData?.planList}
+                            onChange={(item: any) => {
+                                handlerChangeTwoFact(item.value, "planList");
+                            }}
+
+                            dataTestId="plan-list"
+                            required={true}
+                        />
+                    </div>
+                </div>
+            </div>
+        </form>
+        )}
+        </>
     );
 };
 

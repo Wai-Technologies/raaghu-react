@@ -38,6 +38,13 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
             showInDiscovery: false,
         });
     }
+    const isNameValid = (name: any) => {
+        if (!name || name.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isFormValid=isNameValid(identityBasicData?.name);
     return (
         <>
             <div>
@@ -74,7 +81,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row">
                             <RdsTextArea
                                 label="Description"
                                 placeholder="Description"
@@ -130,7 +137,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             ></RdsCheckbox>
                         </div>
                     </div>
-                    <div className="d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -151,6 +158,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             databsdismiss="offcanvas"
                             dataTestId="save"
                             onClick={(e: any) => emitSaveData(e)}
+                            isDisabled={!isFormValid}
                         ></RdsButton>
                     </div>
                 </form>

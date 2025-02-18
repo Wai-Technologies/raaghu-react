@@ -38,3 +38,29 @@
     display: block;
     transition: all 0.5s;
 }
+
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    left: -100%; /* Adjust this value to position the tooltip on the left */
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+.tooltip-wrapper:hover .custom-tooltip {
+    visibility: visible;
+}

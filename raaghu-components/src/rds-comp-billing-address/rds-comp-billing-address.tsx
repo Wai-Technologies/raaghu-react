@@ -106,6 +106,55 @@ function emitSaveData(event: any) {
     //     // Postal code need not be ,numeric-only' in some countries
     // };
     const { t } = useTranslation();
+    const isFirstNameValid = (firstName: any) => {
+        if (!firstName || firstName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isLastNameValid = (lastName: any) => {
+        if (!lastName || lastName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPhoneValid = (phone: any) => {
+        if (!phone || phone.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isAddressValid = (address: any) => {
+        if (!address || address.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isCityValid = (city: any) => {
+        if (!city || city.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isCountryValid = (country: any) => {
+        if (!country || country.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isStateValid = (state: any) => {
+        if (!state || state.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isPostalCodeValid = (postalCode: any) => {
+        if (!postalCode || postalCode.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isFormValid=isFirstNameValid(formData?.firstName) && isLastNameValid(formData?.lastName) && isPhoneValid(formData?.phone) && isAddressValid(formData?.address) && isCityValid(formData?.city) && isCountryValid(formData?.countryList) && isStateValid(formData?.indianStateList) && isPostalCodeValid(formData?.pin);
     return (
         <>
             <div className="contact-information">
@@ -113,7 +162,7 @@ function emitSaveData(event: any) {
                 <form id="billingAddressForm">
                 <div className="custom-content-scroll">
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="First Name"
                                 size="medium"
@@ -133,7 +182,7 @@ function emitSaveData(event: any) {
                                 </div>
                             )}
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Last Name"
                                 size="medium"
@@ -155,7 +204,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Company"
                                 size="medium"
@@ -167,7 +216,7 @@ function emitSaveData(event: any) {
                                 onChange={(e) => { handleChange(e.target.value,"company"); }}
                             />
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Phone"
                                 size="medium"
@@ -180,6 +229,23 @@ function emitSaveData(event: any) {
                                 // onBlur={(e) => phoneValidationHandler(e.target.value)}
                                 dataTestId="phone"
                                 reset={inputReset}
+                                onKeyDown={(e) => {
+                                    const inputElement = e.target as HTMLInputElement;
+                                        const currentLength = inputElement.value.length;
+                                        const isPlusEntered = inputElement.value.startsWith('+');
+                                        const maxLength = isPlusEntered ? 13 : 10;
+                                       
+                                        const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'];
+                                        const isNumberOrPlus = /[0-9+]/.test(e.key);
+                               
+                                        if (!isNumberOrPlus && !allowedKeys.includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                               
+                                        if ((/[0-9]/.test(e.key) || e.key === '+') && (currentLength >= maxLength || (e.key === '+' && currentLength > 0))) {
+                                            e.preventDefault();
+                                        }
+                                    }}
                             />
                             {phoneErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -189,10 +255,10 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12">
                             <RdsInput
                                 label="Address"
-                                placeholder="Address"
+                                placeholder="Enter Address"
                                 size="medium"
                                 name="address"
                                 id="txtAddress"
@@ -211,7 +277,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="City"
                                 size="medium"
@@ -237,10 +303,11 @@ function emitSaveData(event: any) {
                                 label="Country"
                                 placeholder="Select Country"
                                 selectItems={props.countryList}
+                                 key={`country-${formData?.countryList}`} 
                                 selectedValue={formData?.countryList}
                                 dataTestId="select-country"
                                 onChange={(item: any) => { handleChange(item.value,"countryList"); }}
-                                required
+                                required  
                             />
                             {countryErrorMessage != "" && (
                                 <div className="form-control-feedback">
@@ -255,8 +322,9 @@ function emitSaveData(event: any) {
                                 id="seleSta"
                                 label="State/Province"
                                 placeholder="Select State/Province"
-                                selectItems={props.IndianStateList}
-                                selectedValue={formData?.indianStateList}
+                                selectItems={props.IndianStateList}   
+                                key={`state-${formData?.indianStateList}`}                            
+                                selectedValue={formData?.indianStateList}                              
                                 dataTestId="select-state"
                                 onChange={(item: any) => { handleChange(item.value,"indianStateList"); }}
                                 required
@@ -267,9 +335,9 @@ function emitSaveData(event: any) {
                                         {stateProvinceErrorMessage}
                                     </span>
                                 </div>
-                            )}
+                            )} 
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Postal Code"
                                 name="postalCode"
@@ -290,7 +358,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                        <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -310,7 +378,7 @@ function emitSaveData(event: any) {
                             type={"submit"}
                             onClick={(e: any) => emitSaveData(e)}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
+                            isDisabled={!isFormValid}
                             dataTestId="save"
                         ></RdsButton>
                 </div>

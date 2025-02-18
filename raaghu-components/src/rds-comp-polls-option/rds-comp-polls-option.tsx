@@ -127,7 +127,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         <>
             <div className="container-fluid m-0 p-0">
                 <div className="align-items-end row mt-3">
-                    <div className="col-md-11 mb-3">
+                    <div className="col-md-11">
                         <RdsInput
                             label="Options"
                             placeholder="Enter Option"
@@ -139,7 +139,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
                             dataTestId="option"
                         ></RdsInput>
                     </div>
-                    <div className="col-md-1 mb-3">
+                    <div className="col-md-1 mb-2">
                         <RdsButton
                             colorVariant="primary"
                             icon="plus"

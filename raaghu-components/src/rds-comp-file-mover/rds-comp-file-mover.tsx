@@ -1,5 +1,3 @@
-
-
 import { RdsIcon } from "../rds-elements";
 import React, { useState } from "react";
 
@@ -8,14 +6,14 @@ export interface FileItem {
     name: string;
     hasChildren?: boolean;
     children?: FileItem[];
+    iconName?: string;
+    iconFill?: boolean;
 }
 
 export interface RdsCompFileMoverProps {
     items: any;
     path: any;
     selectedItemId?: string;
-
-
 }
 
 export const RdsCompFileMover = ({
@@ -54,10 +52,10 @@ export const RdsCompFileMover = ({
                         </span>
                     )}
                     <RdsIcon
-                        name="folder"
+                        name={item.iconName}
                         height="15px"
                         width="15px"
-                        fill={false}
+                        fill={item.iconFill}
                         stroke={true}
                         colorVariant={selectedItemId === item.id ? "primary" : undefined}
                         onClick={handleClick(item.id, item.name)}
@@ -84,5 +82,4 @@ export const RdsCompFileMover = ({
 
     return <>{renderFileItems(items)}</>;
 };
-
 export default RdsCompFileMover;

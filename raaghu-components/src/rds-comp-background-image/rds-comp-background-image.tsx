@@ -30,10 +30,10 @@ const RdsCompBackgroundImage: React.FC<RdsCompBackgroundImageProps> = (props) =>
         <>
             <div
                 role="img"
-                className={`w-100 d-flex justify-content-center align-items-center text-white bg-img ${showImage ? 'show-image' : 'hide-image'}`}
+                className={`w-100 d-flex justify-content-center align-items-center bg-img ${showImage ? 'show-image' : 'hide-image'}`}
                 style={{ backgroundImage: getImageUrl(), height: ImgHeight, backgroundSize: props.backgroundSize, backgroundRepeat: props.backgroundRepeat }}
             >
-                <div className="text-center w-50 sm-w-100 px-2">
+                <div className="text-center w-50 sm-w-100 px-2 bg-layer">
                     <div className="pb-3">
                         {props.title && <label className="fs-1">{props.title} </label>}
                     </div>
@@ -42,8 +42,7 @@ const RdsCompBackgroundImage: React.FC<RdsCompBackgroundImageProps> = (props) =>
                     {props.btnLabel && <div className="mt-4" >
                         <button className="btn btn-primary" onClick={toggleImage}>{showImage ? 'Hide Image' : props.btnLabel}</button>
                     </div>}
-                </div>
-            </div>
+                </div></div>
         </>
     );
 };

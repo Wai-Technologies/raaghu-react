@@ -11,7 +11,7 @@ jest.mock('react-lottie-player', () => ({
 describe("RdsAlert", () => {
     it("renders alert message", () => {
         const alertMessage = "Test alert message";
-        render(<RdsAlert alertmessage={alertMessage} colorVariant={""} />);
+        render(<RdsAlert message={alertMessage} type={"info"} />);
         const messageElement = screen.getByText(alertMessage);
         expect(messageElement).toBeInTheDocument();
     });
@@ -20,10 +20,8 @@ describe("RdsAlert", () => {
         const icon = "check-circle";
         render(
             <RdsAlert
-                alertmessage="Test alert message"
-                icon={icon}
-                colorVariant={""}
-            />
+                message="Test alert message"
+                icon={icon} type={"info"}            />
         );
         const iconElement = screen.getByRole("img");
         expect(iconElement).toBeInTheDocument();

@@ -1,0 +1,170 @@
+.time-picker-container {
+  position: relative;
+  width: 250px;
+}
+
+
+
+.time-picker {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 250px;
+  border: 1px solid #9C27B0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  text-align: center;
+  z-index: 10;
+}
+
+.time-picker .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.time-picker .time-controls-row-compact {
+  padding-right: 19px !important;
+  padding-left: 7px;
+}
+
+.time-picker .time-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.time-picker .time-controls .arrow {
+  cursor: pointer;
+  font-size: 18px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.time-picker .time-controls input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-size: 16px;
+  margin: 22px 0;
+  margin-top: 22px;
+  margin-right: 0px;
+  margin-bottom: 22px;
+  margin-left: 0px;
+  background: transparent;
+  outline: none;
+}
+
+.time-picker .time-controls select {
+  font-size: 16px;
+  padding: 5px;
+  margin: 5px 0;
+}
+.time-picker .time-controls .number{
+  margin-left: 13px !important;
+
+}
+.time-picker .buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.time-picker button {
+  border: none;
+  background: #9C27B0;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px !important;
+}
+
+.time-picker button.cancel {
+  background: transparent;
+  color: #9C27B0;
+  margin-right: 5px;
+}
+
+.now-button {
+  color: #9C27B0;
+  font-size: 14px;
+  cursor: pointer;
+  /* font-weight: bold; */
+  display: inline-block;
+  text-align: right;
+  width: auto;
+}
+
+.custom-time-picker {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.time-display {
+  width: 45%;
+  margin-right: 10px; /* Adjust the spacing as needed */
+  font-weight: 500;
+}
+.time-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.time-input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 30px; /* Add padding to the right to make space for the icon */
+  border: 1px solid #9C27B0;
+  border-radius: 5px;
+  text-align: left; /* Align text to the left */
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.time-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.time-input::placeholder {
+  font-size: 13px; /* Adjust the size as needed */
+}
+.time-picker-compact {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 370px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  text-align: center;
+  z-index: 10;
+}
+.time-picker .time-controls .numberCompact {
+  margin-left: 13px !important;
+  padding: 4px !important;
+  width: 108px;
+  font-size: 14px;
+  height: 38px;
+  border-radius: 4px !important;
+}
+.time-display-compact{
+  width: 26%;
+  margin-left: -4px;
+}
+.time-picker .buttons-compact {
+  display: flex;
+  margin-top: 10px;
+  justify-content: end !important;
+}

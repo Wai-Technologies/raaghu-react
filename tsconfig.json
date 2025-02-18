@@ -8,18 +8,21 @@
     "jsx": "react",
     "module": "esnext",
     "declaration": true,
-    "declarationDir": "dist", // Change the declaration directory to 'dist'
+   // "declarationDir": "dist",
+     "declarationDir": "dist/types", // Change the declaration directory to 'dist'
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "resolveJsonModule": true,
     "typeRoots": ["./dist/index.d.ts", "node_modules/@types"]
   },
   "exclude": [
+     "dist",
     "./node_modules/**/*",
     "src/**/*.test.tsx"
   ]

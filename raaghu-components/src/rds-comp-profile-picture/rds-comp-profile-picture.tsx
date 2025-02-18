@@ -210,11 +210,10 @@ const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
               <RdsFileUploader
                 colorVariant="primary"
                 extensions="jpg, jpeg, png"
-                multiple={false}
                 placeholder=""
                 size="small"
                 label="Select New Image"
-                limit={1}
+                fileSizeLimitInMb={1}
                 validation={validation}
                 getFileUploaderInfo={(data: any) => profileImage(data)}
                 onFileArray={(files) =>
@@ -226,7 +225,7 @@ const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
         )}
       </div>
       </div>
-      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+      <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
         <RdsButton
             label="Save Changes"
             colorVariant="primary"

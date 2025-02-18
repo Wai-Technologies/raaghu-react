@@ -1,0 +1,26 @@
+.custom_margin_class {
+    margin-right: 0.5rem !important; 
+    margin-bottom: 0.5rem !important; 
+}
+
+@media (max-width: 575.98px) {
+    .product-container {
+        width: 100% !important;
+    }
+    .product-img {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 12px !important;
+    }
+}
+ 
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .product-container {
+        width: 286px !important;
+    }
+    .product-img {
+        width: 286px !important;
+        height: 380px !important;
+        border-radius: 12px !important;
+    }
+}

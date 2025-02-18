@@ -42,7 +42,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
             <div className="secrets">
                 <div className="custom-content-scroll">
                     <div className="row mt-3">
-                        <div className="col-md-4 mb-3 form-group">
+                        <div className="col-md-4 form-group">
                             <RdsInput
                                 label="Type"
                                 inputType="text"
@@ -58,7 +58,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-                        <div className="col-md-4 mb-3 form-group">
+                        <div className="col-md-4 form-group">
                             <RdsInput
                                 label="Value"
                                 inputType="text"
@@ -73,7 +73,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 dataTestId="value"
                             ></RdsInput>
                         </div>
-                        <div className="col-md-4 mb-3 form-group">
+                        <div className="col-md-4 form-group">
                             <RdsInput
                                 label="Expiration"
                                 inputType="text"
@@ -90,7 +90,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="mb-3 form-group">
+                    <div className="form-group">
                         <RdsInput
                             label="Description"
                             inputType="text"
@@ -106,7 +106,7 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                             reset={inputReset}
                         ></RdsInput>
                     </div>
-                    <div className="mt-3 mb-3">
+                    <div className="mt-3">
                         <RdsButton
                             size="small"
                             colorVariant="primary"
@@ -116,9 +116,9 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         ></RdsButton>
                     </div>
                 </div>
-                <div className="d-flex flex-column-reverse ps-3 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
-                    <div className="d-flex">
-                        <div className="m-2">
+                <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4" >
+                   
+                        
                             <RdsButton
                                 size="small"
                                 isOutline={true}
@@ -128,8 +128,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 type="button"
                                 dataTestId="cancel"
                             ></RdsButton>
-                        </div>
-                        <div className="m-2">
+                       
+                        
                             <RdsButton
                                 size="small"
                                 isOutline={false}
@@ -139,9 +139,10 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                                 type="button"
                                 dataTestId="create"
                                 onClick={(e: any) => emitSaveData(e)}
+                                isDisabled={!data?.type || !data.val || !data.expiration || !data.description}
                             ></RdsButton>
-                        </div>
-                    </div>
+                        
+                    
                 </div>
             </div>
         </>

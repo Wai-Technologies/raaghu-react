@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Charts/Area Chart',
+    title: 'Elements/Charts/Area Chart',
     component: RdsAreaChart,
     parameters: {
         layout: 'padded',
@@ -21,8 +21,6 @@ type Story = StoryObj<typeof RdsAreaChart>;
 export const AreaChart: Story = {
     args: {
         id: "area chart",
-        width: 300,
-        height: 300,
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         options: {
             radius: 0,
@@ -144,7 +142,5 @@ export const AreaChart: Story = {
             }
         ],
         isGradient: true,
-        // chartWidth: 600,
-        // chartStyle: "light",
     }
-}
+};

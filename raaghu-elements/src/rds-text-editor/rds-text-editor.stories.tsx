@@ -10,16 +10,29 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        State: {
+            options: [
+                "Default"   ,
+                "Active"  ,
+                "Selected",
+                "Disabled" ,
+                "Error"   
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsTextEditor>;
 
 export default meta;
 type Story = StoryObj<typeof RdsTextEditor>;
 
-export const TextEditor: Story = {
+export const Default: Story = {
     args: {
         id: "",
-        value: "<p>Hello!</p>"
+        value: "<p>Hello!</p>",
+        label:"Label",
+        required: true,
+        State: "Default"
     }
 } satisfies Story;
-TextEditor.parameters = { controls: { include: ['id', 'value'] } };
+Default.parameters = { controls: { include: ['id','label', 'value','State','required','required'] } };

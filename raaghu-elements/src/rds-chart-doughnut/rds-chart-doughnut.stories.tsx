@@ -2,7 +2,7 @@ import RdsDoughnutChart from "./rds-chart-doughnut";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Doughnut Chart',
+    title: 'Elements/Charts/Doughnut Chart',
     component: RdsDoughnutChart,
     parameters: {
         layout: 'padded',
@@ -17,9 +17,9 @@ type Story = StoryObj<typeof RdsDoughnutChart>;
 
 export const DoughnutChart: Story = {
     args: {
-        height: 400,
         id: "myChart",
-        width: 400,
+        titleText: "35 k",
+        subTitleText: "deioj",
         labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             maintainAspectRatio: false,
@@ -44,12 +44,13 @@ export const DoughnutChart: Story = {
         dataSets: [
             {
                 label: "Dataset 1",
-                data: [20, 10, 30, 40],
+                data: [20, 10, 20, 40, 10],
                 backgroundColor: [
                     "#ff6384",
                     "#ff9f40",
                     "#ffcd56",
-                    "#4bc0c0"
+                    "#4bc0c0",
+                    "#0000FF"
                 ],
                 borderColor: [
                     "#fff",
@@ -57,17 +58,13 @@ export const DoughnutChart: Story = {
             }
         ],
 
-        titleText: "35 k",
-        subTitleText: "deioj",
+       
     }
 } satisfies Story;
 
 export const advanced: Story = {
     args: {
         id: "doughnutchart",
-
-        height: 200,
-        width: 120,
         labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
         options: {
             animationEnabled: true,

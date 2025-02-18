@@ -1,15 +1,18 @@
-import React from "react";
 import RdsToggle from "./rds-toggle";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Toggle',
+    title: "Elements/Toggle",
     component: RdsToggle,
     parameters: {
-        layout: 'padded',
+        layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
+        layout: {
+            options: ["Switch + label", "label + Switch", "Top label + Switch", "Bottom label + Switch"],
+            control: { type: "select" },
+        }
     },
 } satisfies Meta<typeof RdsToggle>;
 
@@ -18,10 +21,11 @@ type Story = StoryObj<typeof RdsToggle>;
 
 export const Default: Story = {
     args: {
-        iconOnUncheck: "sun",
-        iconOnCheck: "moon",
-        small: false
+        style: "Style 1",
+        layout: "Switch + label",
+        isChecked:true,
+        isDisabled:false
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['iconOnUncheck', 'iconOnCheck', 'small'] } };
+Default.parameters = { controls: { include: [ "style", "layout", "isChecked", "isDisabled"] } };

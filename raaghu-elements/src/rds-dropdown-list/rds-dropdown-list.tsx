@@ -4,6 +4,7 @@ import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
+import "../../../raaghu-react-themes/src/styles/dropdown.scss"
 export interface RdsDropdownListProps {
   id?: string;
   reset?: boolean;
@@ -150,7 +151,6 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
 
   const offset = `${props.xOffset || ""}  ${props.yOffset || ""}`;
   const checkHandler = (e: any, item: any) => {
-    debugger;
     let newTempData: any;
 
     newTempData = {
@@ -194,7 +194,15 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const handleMouseLeaveicon = () => {
     setIsHovered(false);
   };
-  const fieldSize =  props.size === 'medium' ? 'md ' : props.size === 'large' ? 'lg':props.size;
+  const fieldSize =
+  props.size === "small"
+    ? "form-control-sm"
+    : props.size === "medium"
+    ? "form-control-md"
+    : props.size === "large"
+    ? "form-control-lg"
+    : ""; // Default size if not provided
+
   const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
   useEffect(() => {
     setIsTouch(false);
@@ -212,9 +220,16 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
 
+  const calculateVisibleItems = () => {
+    return checkedCategoryList.slice(0, 2); // Always take the first two items
+  };
+  
+  const visibleItems = calculateVisibleItems();
+  const remainingCount = checkedCategoryList.length - visibleItems.length;
+
   return (
     <>
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""}`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
         {props.tooltip ? (
           <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
             <span
@@ -384,7 +399,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   <div>
                     {checkedCategoryList.map((item: any) => (
                       <RdsBadge
-                        className="me-1 "
+                        className="me-1 mt-1"
                         key={item.id}
                         label={item.label}
                         colorVariant="primary"
@@ -569,22 +584,35 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               {/* multiselected dropdown's badge */}
               {props.multiSelect && checkedCategoryList.length != 0 && (
                 <div>
-                  {checkedCategoryList.map((item: any) => (
-                    <RdsBadge
-                      className="me-1 "
-                      key={item.id}
-                      label={item.label}
-                      colorVariant="primary"
-                      size="small"
-                      onClose={(e) => uncheckHandler(e, item)}
-                      showClose={true}
-                    />
-                  ))}
+                 
+                   {visibleItems.map((item:any) => (
+                         <RdsBadge
+                         className="me-1 mt-1"
+                         key={item.id}
+                         label={item.label}
+                         colorVariant="primary"
+                         size="small"
+                         onClose={(e) => uncheckHandler(e, item)}
+                         showClose={true}
+                         textwithlabel={true}
+                       />
+                      ))}
+                        {remainingCount > 0 && (
+                        <RdsBadge
+                        className="me-1 mt-1"
+                        label={"+"+ remainingCount.toString()}
+                        colorVariant="primary"
+                        size="small"
+                        textwithlabel={true}
+                        style="pill"
+                      />
+                      )}
+ 
                 </div>
               )}
 
               {/* chevron_down icon */}
-              {!props.isIconPlaceholder && props.multiSelect !== false && (
+              {!props.isIconPlaceholder && !props.multiSelect  && (
                 <span
                   className="ms-2"
                   onClick={(e) => {

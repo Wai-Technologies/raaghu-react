@@ -77,7 +77,6 @@ rds-file-uploader .alert {
 }
 .multiUploader{
   border: 2px dashed ;
-  padding: 10px 0px;
 }
 .fileName{
   border-radius: 4px;
@@ -92,16 +91,12 @@ rds-file-uploader .alert {
 .chosenFileSpan{
   display: flex;
   width: 100%;
-  border-radius:  0px 4px 4px 0px;
 }
 
 .custom-file-button {
   display: flex;
   justify-content: center;
-  padding: 10px 20px;
   width: 105px;
   cursor: pointer;
-  border-radius:  4px 0px 0px 4px;
-  font-size: 12px;
   line-height: 21px;
 }

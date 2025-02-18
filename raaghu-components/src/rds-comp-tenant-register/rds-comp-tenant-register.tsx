@@ -152,7 +152,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         </div>
 
                         <div className="row text-start">
-                            <div className="col-md-6">
+                            <div className="col-md-6 mt-2">
                                 <RdsLabel label="Country" required={true} />
                                 <RdsDropdownList
                                     key={countryList.length}
@@ -177,7 +177,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                             </div>
                         </div>
 
-                        <div className="pb-4">
+                        <div className="pb-4 mt-2 pt-2 text-start">
                             <RdsCheckbox
                                 id="id1"
                                 label="I Accept Terms Of Service"
@@ -224,6 +224,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltip={true}
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
+                                    isCursorPointer={true}
                                 ></RdsIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
                                 <RdsIcon
@@ -236,6 +237,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltip={true}
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
+                                    isCursorPointer={true}
                                 ></RdsIcon>
                             </span>
                         </div>

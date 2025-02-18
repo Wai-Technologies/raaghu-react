@@ -33,6 +33,7 @@ const mockProps: RdsCarouselProps = {
             subTitle: "Subtitle 3",
         },
     ],
+    IndicatorType: ""
 };
 
 describe("RdsCarousel", () => {

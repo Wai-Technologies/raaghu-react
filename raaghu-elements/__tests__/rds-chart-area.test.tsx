@@ -25,13 +25,13 @@ describe("RdsToggle", () => {
     });
 
     it("renders the component", () => {
-        const { container } = render(<RdsToggle {...defaultProps} />);
+        const { container } = render(<RdsToggle style={"Style 1"} layout={"Switch + label"} isChecked={false} isDisabled={false} {...defaultProps} />);
         expect(container.firstChild).toMatchSnapshot();
     });
 
     it("calls onChangeHandler function when checkbox is clicked", () => {
         const { getByRole } = render(
-            <RdsToggle {...defaultProps} onClick={mockOnClick} />
+            <RdsToggle style={"Style 1"} layout={"Switch + label"} isChecked={false} isDisabled={false} {...defaultProps} onClick={mockOnClick} />
         );
         fireEvent.click(getByRole("checkbox"));
         expect(mockOnClick).toHaveBeenCalledTimes(1);

@@ -18,14 +18,14 @@ export default meta;
 type Story = StoryObj<typeof RdsTestimonial>;
 
 
-export const Testimonial: Story = {
+export const CustomizableTestimonialItem: Story = {
     args: {
         testimonialItems: [
             {
                 img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
                 title: "SAM SMITH",
                 subtitle: "PRODUCT MANAGER",
-                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                description: "Nulla metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
                 icon: "quote_right",
                 iconHeight: "18px",
                 iconWidth: "18px",
@@ -37,7 +37,7 @@ export const Testimonial: Story = {
                 img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
                 title: "King John",
                 subtitle: "PRODUCT MANAGER",
-                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                description: "Nulla metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
                 icon: "quote_right",
                 iconHeight: "18px",
                 iconWidth: "18px",
@@ -49,7 +49,7 @@ export const Testimonial: Story = {
                 img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
                 title: "King John",
                 subtitle: "PRODUCT MANAGER",
-                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                description: "Nulla metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
                 icon: "quote_right",
                 iconHeight: "18px",
                 iconWidth: "18px",
@@ -60,7 +60,7 @@ export const Testimonial: Story = {
                 img: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
                 title: "King John",
                 subtitle: "PRODUCT MANAGER",
-                description: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
+                description: "Nulla metus ullamcorper vel tincidunt set euismod nibh quisque volutpat",
                 icon: "quote_right",
                 iconHeight: "18px",
                 iconWidth: "18px",
@@ -70,5 +70,5 @@ export const Testimonial: Story = {
         ]
     }
 } satisfies Story;
-Testimonial.parameters = { controls: { include: ['testimonialItems'] } };
+CustomizableTestimonialItem.parameters = { controls: { include: ['testimonialItems'] } };
 

@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+.comments-container {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    color: #202020;
+    font-family: "Nunito", sans-serif;
+}
+
+.comment-box {
+  margin: 10px 0;
+  align-items: flex-start;
+}
+
+/* Current User Comments */
+.current-user {
+  justify-content: flex-start; /* Align current user comments to the left */
+}
+
+.current-user .comment-content {
+    background-color: #D6D6D6;
+    border-radius: 8px;
+    border-bottom-right-radius:0px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #202020;/* Ensures comment content comes after the profile picture */
+}
+
+.current-user .profile-initials,
+.current-user .profile-pic {
+  margin-left: 0.3rem; /* Space between profile and comment for current user */
+  margin-right: 0px;
+}
+
+/* Other User Comments */
+.other-user {
+   
+  justify-content: flex-end; /* Align other user comments to the right */
+  flex-direction: row-reverse; /* Reverse order to put profile picture on the right */
+}
+.content-custom-color{
+    background-color: #C3DCF4 !important;
+    color: #353535 !important; 
+}
+
+.other-user .comment-content {
+    background-color: #7825E9;    
+    color: #FEF7FF;
+    border-radius: 8px;
+    border-bottom-left-radius:0px;
+    padding: 8px 12px;
+    font-size:14px;
+    order: 1; /* Ensures comment content comes before the profile picture */
+    display:flex;
+    justify-content:end;
+}
+
+.other-user .profile-initials {
+  margin-right: 0.3rem; /* Space between comment and profile for other users */
+  margin-left:0px;
+}
+
+/* Profile Image & Initials */
+.profile-initials, .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin: 0 10px; /* Space between image and comment */
+}
+.profile-initials{
+    margin-right:0px;
+}
+.profile-pic {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Ensures the image is rounded */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+}
+
+.initials {
+  width: 40px; /* Same size as profile picture */
+  height: 40px; /* Same size as profile picture */
+  border-radius: 50%; /* Ensure initials div is also rounded */
+  background-color: lightgray; /* Background color for initials */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%; /* Ensure comments don't take too much space */
+}
+
+.comment-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Footer for Name & Date */
+.comment-footer {
+  margin-top: 5px;
+  font-size: 0.75em;
+}
+
+.comment-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width:100%;
+}
+
+.comment-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Delete Button Styling */
+.delete-button {
+  background: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+.username {
+    color: #646464;
+}
+.text-muted {
+    color: #969696;
+}
+.input-box-chat{
+  input {
+    margin-top: -7px !important;
+  }
+}
+.emoji-popup {
+  position: absolute;
+  bottom: 60px; /* Adjust depending on the input field */
+  left: 10px; /* Adjust for alignment */
+  z-index: 1000; /* Ensure it appears on top */
+}
+.comment-image {
+    max-width: 100px;  // Adjust to fit within your layout
+    max-height: 100px; // Adjust the max height as needed
+    width: auto;       // Maintain aspect ratio
+    height: auto;      // Maintain aspect ratio
+    border-radius: 8px; // Optional: Add some rounding for a cleaner look
+    margin-top: 8px;   // Optional: Add spacing above the image
+    object-fit: cover; // Ensures the image doesn't distort and covers the box
+}
+
+.epr-icn-search {
+  display: none;
+}
+
+.input-box-chat .position-relative input {
+  padding-right: 70px !important;
+}

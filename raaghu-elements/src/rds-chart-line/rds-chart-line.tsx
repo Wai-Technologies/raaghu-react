@@ -5,9 +5,7 @@ import "./rds-chart-line.css";
 export interface Rdslineprops {
     labels: any[];
     options: any;
-    dataSets: any[];
-    height?: number;
-    width?: number;
+    dataSets: any[];    
     id: string;
 }
 
@@ -27,14 +25,24 @@ const RdsLineChart = (props: Rdslineprops) => {
                 },
                 options: props.options,
             });
-            lineCanvas.canvas.style.height = props.height + "px";
-            lineCanvas.canvas.style.width = props.width + "px";
-
+            
+            if (lineCanvas !== null) {
+                if (props.id === "linechart1") {
+                    lineCanvas.canvas.style.height = "7.1vh";
+                    lineCanvas.canvas.style.width = "100vh";
+                } else if (props.id === "linechart2") {
+                    lineCanvas.canvas.style.height = "50px";
+                    lineCanvas.canvas.style.width = "50px";
+                } else {
+                    lineCanvas.canvas.style.height = "35.4vh";
+                    lineCanvas.canvas.style.width = "100vh";
+                }
+            }
             return () => {
                 lineCanvas.destroy();
             };
         }
-    }, [props.height, props.width]);
+    }, []);
 
     return (
         <div>

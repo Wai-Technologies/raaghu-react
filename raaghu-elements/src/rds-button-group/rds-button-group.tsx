@@ -14,7 +14,7 @@ export interface RdsButtonGroupProps {
     onButtonClick?: (event: React.MouseEvent<HTMLButtonElement>, id?: any) => void;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
 }
-
+ 
 const RdsButtonGroup = (props: RdsButtonGroupProps) => {
     const size =
         props.size == "small"
@@ -22,18 +22,18 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
             : props.size == "large"
                 ? "btn-group-lg"
                 : "";
-
+ 
     const outlineColorVariant = `${props.isOutline === true
             ? "btn btn-outline-" + props.colorVariant
             : "btn btn-" + props.colorVariant
         }`;
-
-
+ 
+ 
     return (
         <>
             {props.role != "button" && (
                 <div
-                    className={`${props.vertical == true ? "btn-group-vertical" : "btn-group"
+                    className={`${props.vertical == true ? "btn-group-vertical" : "btn-group member-count"
                         } ${size}`}
                     role="group"
                     aria-label="Basic button toggle button group"
@@ -62,14 +62,14 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
                     ))}
                 </div>
             )}
-
+ 
             {props.role == "button" && (
                 <div
                     className={`${props.vertical == true ? "btn-group-vertical" : "btn-group"
                         } ${size}`}
                     role="group"
                     aria-label="Basic outlined example"
-
+ 
                 >
                     {props.buttonGroupItems.map((buttonGroupItem, idx) => (
                         <button type="button" className={outlineColorVariant + buttonGroupItem.icon && buttonGroupItem.label === "" || null ? ' btn-icon ' + outlineColorVariant : outlineColorVariant}
@@ -92,23 +92,23 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
                                 // isAnimate={false}
                                 />
                             </span>
-
+ 
                         </button>
-
-
+ 
+ 
                     ))}
                 </div>
             )}
-
-
-
+ 
+ 
+ 
         </>
     );
 };
-
+ 
 export default RdsButtonGroup;
-
-
+ 
+ 
 <div className="btn-group" role="group" aria-label="Basic outlined example">
     <button type="button" className="btn btn-outline-primary">
         Left

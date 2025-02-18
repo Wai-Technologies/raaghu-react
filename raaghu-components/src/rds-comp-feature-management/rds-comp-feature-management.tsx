@@ -67,14 +67,13 @@ const handlerSubmit = (e: any) => {
           <div className="col-xxl-3 col-xl-5 col-lg-5 col-12 d-xxl-block d-xl-block d-lg-block pb-4 border-end pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
             <RdsNavtabs
               navtabsItems={navtabsItems}
-              type="vertical"
+              // type="vertical"
               fill={false}
               justified={false}
               activeNavTabId={activeNavTabId}
               activeNavtabOrder={(activeNavTabId) => {
                 setActiveNavTabId(activeNavTabId);
-              }}
-            />
+              } } type={"default"}            />
           </div>
 
           <div className="col-xxl-9 col-xl-7 col-lg-7 col-12 pb-4 ps-xxl-4 ps-xl-4 ps-lg-4 ps-md-4 ps-0">
@@ -100,7 +99,7 @@ const handlerSubmit = (e: any) => {
                       inputType="number"
                       isDisabled={false}
                       readonly={false}
-                      placeholder={("Enter Length") || ''}
+                      placeholder="Enter Length"
                       value={payloads[1]?.value}
                       onChange={(e: any) => handlerChanges(e.target.value, featureManagementData[0].features[1].name)}
                       fontWeight="normal"
@@ -188,7 +187,7 @@ const handlerSubmit = (e: any) => {
                       inputType="text"
                       isDisabled={false}
                       readonly={false}
-                      placeholder={("Enter Length") || ''}
+                      placeholder="Enter Length"
                       value={payloads[7]?.value}
                       onChange={(e: any) => handlerChanges(e.target.value, featureManagementData[3].features[1].name)}
                       dataTestId="max-user-count"
@@ -252,7 +251,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "7" && featureManagementData[7].displayName === ("CmsKit.Feature:CmsKitProGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={("CmsKit.Feature:CmsKitProGroup") || ""}></RdsLabel>
+                  <RdsLabel label="CmsKit.Feature:CmsKitProGroup"></RdsLabel>
                 </div>
                 {featureManagementData[7].features.map((item: any, index: any) =>
                 (

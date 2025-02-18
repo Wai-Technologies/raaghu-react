@@ -11,7 +11,7 @@ const RdsCompCookiesSection = (props: RdsCompCookiesSectionProps) => {
 
     return (
         <div>
-            <div className="shadow position-relative alert cookies">
+            <div className="shadow position-relative alert cookies w-100">
                 <div className="position-absolute position-close">
                     <button
                         type="button"

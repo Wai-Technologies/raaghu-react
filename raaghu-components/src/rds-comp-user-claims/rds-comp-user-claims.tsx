@@ -31,6 +31,19 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
         value: ""
     });
     }
+    const isTypeValid=(type: string)=>{
+        if (!type || type.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isValueValid=(value: string)=>{
+        if (!value || value.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isFormValid=isTypeValid(formData?.type) && isValueValid(formData?.value);
     return (
         <>
             <div className="tab-content">
@@ -44,7 +57,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
-                                    placeholder="Type"
+                                    placeholder="Enter Type"
                                     size="medium"
                                     dataTestId="type"
                                     onChange={(e) => {
@@ -61,7 +74,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
-                                    placeholder="Value"
+                                    placeholder="Enter Value"
                                     size="medium"
                                     dataTestId="value"
                                     onChange={(e) => {
@@ -73,7 +86,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                         </div>
                     </div>
                     </div>
-                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <RdsButton
                     type="button"
                     label="Cancel"
@@ -90,6 +103,7 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                     size="small"
                     dataTestId="next"
                     onClick={(e: any) => emitSaveData(e)}
+                    isDisabled={!isFormValid}
                 ></RdsButton>
             </div>
                 </form>

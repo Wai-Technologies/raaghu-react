@@ -3,7 +3,7 @@ import RdsCompSummaryDetails from "./rds-comp-summary-details";
 
 
 const meta: Meta = {
-  title: "Components/Summary Deatils",
+  title: "Components/Summary Details",
   component: RdsCompSummaryDetails,
   parameters: {
     layout: 'padded',

@@ -19,8 +19,7 @@ const RdsPopover = (props: RdsPopoverProps) => {
 
     return (
         <>
-
-            <div data-testid="popover-card" className="popoverContainer">
+            <div data-testid="popover-card" className="popoverContainer my-5">
                 <RdsButton
                     type="button"
                     colorVariant="primary"
@@ -40,7 +39,7 @@ const RdsPopover = (props: RdsPopoverProps) => {
                                     ? "popoverLeft popoverCardLeft"
                                     : ""
                         }`}
-                    style={{ display: displayType, padding: "10px" }}
+                    style={{ display: displayType, padding: "5px" }}
                 >
                     <span>{props.children}</span>
                 </div>

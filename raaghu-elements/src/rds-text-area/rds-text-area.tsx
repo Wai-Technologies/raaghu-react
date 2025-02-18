@@ -57,7 +57,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
     props.onChange && props.onChange(e);
   };
   const getClassNames = () => {
-    let defaultClasses: string = "mb-0 mt-1";
+    let defaultClasses: string = "mb-0 ";
     if (props.isFloatingInputLabel === true) {
       defaultClasses = "form-floating";
     }
@@ -68,14 +68,15 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
 
   return (
     <>
+      
       {props.tooltip ? (
         <div className="row vh-100">
           <div className="align-items-center col-md-12 d-flex justify-content-center">
             <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-              <div>
+              <div className="mb-3">
                 {labelPosition === "top" && !props.isFloatingInputLabel && (
                   <label
-                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+                    className={` ${props.isDisabled ? " opacity-50 " : ""
                       } `}
                   >
                     {props.label}
@@ -84,9 +85,9 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                     )}
                   </label>
                 )}
-                <div className={getClassNames()}>
+                <div className={`${getClassNames()} `}>
                   <textarea
-                    className="form-control"
+                    className="form-control "
                     disabled={props.isDisabled}
                     rows={props.rows}
                     readOnly={props.readonly}
@@ -117,7 +118,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
                   )}
                 </div>
                 {labelPosition === "bottom" && (
-                  <label className="form-label mt-1">
+                  <label className="form-label mt-2">
                     {props.label}
                     {props.isRequired && (
                       <span className="text-danger fs-6"> *</span>
@@ -129,17 +130,17 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="">
           {labelPosition === "top" && !props.isFloatingInputLabel && (
             <label
-              className={` form-label ${props.isDisabled ? " opacity-50 " : ""
+              className={` ${props.isDisabled ? " opacity-50 " : ""
                 } `}
             >
               {props.label}
               {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
-          <div className={getClassNames()}>
+          <div className={`${getClassNames()} `}>
             <textarea
               className="form-control mt-1"
               disabled={props.isDisabled}
@@ -175,6 +176,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
               {props.isRequired && <span className="text-danger fs-6"> *</span>}
             </label>
           )}
+          
         </div>
       )}
       {props.isRequired && (
@@ -188,7 +190,7 @@ const RdsTextArea = (props: RdsTextAreaProps) => {
       )}
 
       {props.validatonPattern !== undefined && (
-        <div className="form-control-feedback mt-2">
+        <div className="form-control-feedback">
           {props.validatonPattern !== undefined &&
             props.validationMsg !== undefined &&
             isTouch &&

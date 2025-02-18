@@ -9,7 +9,11 @@
 }
 
 .alert-sm {
-  padding:0.25rem 0.5rem;
+  // padding:0.25rem 0.5rem;
+  padding-top:$spacing-xs;
+  padding-bottom:$spacing-xs;
+  padding-right:$spacing-s;
+  padding-left:$spacing-s;
 }
 
 .alert-md {
@@ -35,3 +39,12 @@
   z-index: 1;
 }
 
+.alert-left-border {
+  border-left: 5px solid; 
+}
+
+.alert-close{
+  position: absolute;
+  top: 0.5rem;
+  right: 0.7rem;
+}

@@ -45,6 +45,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant={props.colorVariant}
+                                    isCursorPointer={false}
 
                                 />
                             </a>
@@ -64,6 +65,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                             fill={false}
                             stroke={true}
                             colorVariant="light"
+                            isCursorPointer={false}
                         />
                     </button>
                     <div className={"mt-2 " + `${textColor}`}>
@@ -84,6 +86,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant={props.colorVariant}
+                                    isCursorPointer={false}
                                 />
                             </a>
                         </div>
@@ -118,6 +121,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant={props.colorVariant}
+                                    isCursorPointer={false}
                                 />
                             </a>
                         </div>
@@ -150,6 +154,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                         fill={false}
                                         stroke={true}
                                         colorVariant={props.colorVariant}
+                                        isCursorPointer={false}
                                     />
                                 </a>
                             </div>
@@ -176,6 +181,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                 fill={false}
                                 stroke={true}
                                 colorVariant="light"
+                                isCursorPointer={false}
                             />
                         </button>
                         <div className={"mt-2 " + `${textColor}`}>
@@ -196,6 +202,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                         fill={false}
                                         stroke={true}
                                         colorVariant={props.colorVariant}
+                                        isCursorPointer={false}
                                     />
                                 </a>
                             </div>
@@ -220,6 +227,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                     fill={false}
                                     stroke={true}
                                     colorVariant="light"
+                                    isCursorPointer={false}
                                 />
                             </button>
                         </div>
@@ -241,6 +249,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                             fill={false}
                                             stroke={true}
                                             colorVariant={props.colorVariant}
+                                            isCursorPointer={false}
                                         />
                                     </a>
                                 </div>

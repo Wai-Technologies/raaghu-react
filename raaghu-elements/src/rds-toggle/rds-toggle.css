@@ -1,0 +1,49 @@
+.form-check-input-style3 {
+       width: 2em !important;
+    margin-left: -2.5em !important;
+    background-image: var(--bs-form-switch-bg) !important;
+    background-position: left center !important;
+    transition: background-position 0.15s ease-in-out !important;
+  }
+.form-switch.style-5, .form-switch.style-6, .form-switch.style-2, .form-switch.style-3, .form-switch.style-4 {
+    padding-left: 0px;
+}
+    .form-switch.style-5 .form-check-label, .form-switch.style-6 .form-check-label {
+        margin-left: 0.2rem;
+    }
+.style-2 .form-check-input, .style-3 .form-check-input, .style-4 .form-check-input {
+    margin-left: 0px;
+}
+.style-5 .form-check-input, .style-6 .form-check-input {
+    width: 2.3rem;
+    margin-left: 0px;
+}
+.style-5 .off {
+    position: absolute;
+    left: 2.1rem;
+    line-height: 1.3rem;
+}
+.style-6 .off {
+    position: absolute;
+    left: 2.1rem;
+    line-height: 1.3rem;
+}
+.style-5 .on {
+    position: absolute;
+    left: 1.3rem;
+    line-height: 1.3rem;
+}
+.style-6 .on {
+    position: absolute;
+    left: 1.3rem;
+    line-height: 1.3rem;
+}
+.style-5 .off.left, .style-6 .off.left {
+    left: -1.1rem;
+}
+.style-5 .on.left, .style-6 .on.left {
+    left: -2.1rem;
+}
+.position-relative{
+    position:relative;
+}

@@ -3,6 +3,7 @@ import { RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import RdsCompDatatable from "../rds-comp-data-table";
 import RdsCompSubscription from "../rds-comp-subscription";
+import './rds-comp-billing.css';
 
 export interface RdsCompBillingProp {
     subscriptionData: any[];
@@ -22,11 +23,11 @@ const RdsCompBilling = (props: RdsCompBillingProp) => {
                 </div>
 
                 <div className="mt-3">
-                    <div className="d-flex justify-content-between">
-                        <div>
+                    <div className="row align-items-center">
+                        <div className="col">
                             <h4>Billing History</h4>
                         </div>
-                        <div>
+                        <div className="col-auto">
                             <RdsButton
                                 label="Download All"
                                 colorVariant="primary"

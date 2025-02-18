@@ -134,5 +134,33 @@
 }
 
 .small-placeholder {
-  font-size: 12px; 
+  font-size: 13px; 
+}
+.deleteOptionCss{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.fileFormat{
+  font-size: 12px !important;
+}
+.custom-file-button-rounded{
+  border-radius: 50%;
+}
+.hint-left{
+    justify-content:left;
+}
+.hint-right {
+    justify-content: right;
+}
+
+@media (max-width: 480px) {
+  .upload-btn {
+    padding: 4px 8px; 
+    font-size: 10px !important; 
+  }
+
+  .file-name {
+    font-size: 13px !important; 
+  }
 }

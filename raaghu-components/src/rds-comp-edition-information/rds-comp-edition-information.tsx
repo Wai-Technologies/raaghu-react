@@ -81,10 +81,22 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
         }));
         setRadioItemList(updatedRadioItems);
     }
-
+    const isEditionNameValid = (editionName: any) => {
+        if (!editionName || editionName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isAnnualPriceValid = (annualPrice: any) => {
+        if (!annualPrice || annualPrice.length === 0) {
+            return false;
+        }
+        return true;
+    }
+const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
     return (
         <>
-            <div className="py-4">
+            <div className="">
                 <form>
                     <div className="row px-2">
                         <div className="col-md-6 my-3">
@@ -115,7 +127,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 px-2 my-3 ">
+                        <div className="col-md-6 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
@@ -127,7 +139,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 px-2 my-3">
+                        <div className=" col-md-6 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
@@ -160,7 +172,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 
                         <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
                     </div>}
-                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
+                    <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 ps-4 px-4">
                         <RdsButton
                             class="me-2"
                             tooltipTitle={""}
@@ -179,7 +191,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                             tooltipTitle={""}
                             type={"submit"}
                             databsdismiss="offcanvas"
-                            isDisabled={false}
+                            isDisabled={!isFormValid}
                             dataTestId="save"
                             onClick={(e: any) => emitSaveData(e)}
                         ></RdsButton>

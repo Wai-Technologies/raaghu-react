@@ -40,7 +40,19 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
             validateIssuerName: false
         });
     }
-
+    const isClientIdValid = (clientId: any) => {
+        if (!clientId || clientId.length === 0) {
+            return false;
+        }
+        return true;
+    };
+    const isAuthorityValid = (authority: any) => {
+        if (!authority || authority.length === 0) {
+            return false;
+        }
+        return true;
+    };
+const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.authority) ;
     return (
         <div className="pt-3">
             <form>
@@ -58,7 +70,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     ></RdsCheckbox>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={oauth?.clientId}
@@ -73,7 +85,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="389"
                             customClasses="form-control"
@@ -87,7 +99,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={oauth?.authority}
@@ -102,7 +114,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="Scope"
                             customClasses="form-control"
@@ -143,7 +155,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                     </div>
                 </div>
                 </div>
-                <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+                <div  className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                     <RdsButton
                         label="Save"
                         type="submit"
@@ -151,6 +163,7 @@ const RdsCompIdentityOauthManagement = (props: RdsCompIdentityOauthManagementPro
                         size="small"
                         dataTestId="save"
                         onClick={(e: any) => emitSaveData(e)}
+                        isDisabled={!isFormValid}
                     ></RdsButton>
                 </div>
              

@@ -68,9 +68,44 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
 
     }
 
+    const isDisplayNameValid = (displayName: any) => {
+        if (!displayName || displayName.length === 0) {
+            return false;
+        }
+        return true;
+    }
+    const isFromAddressValid = (fromAddress: any) => {
+        if (!fromAddress || fromAddress.length === 0) {
+            return false;
+          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(fromAddress)) {
+            return false;
+          } else return true;
+    }
+const isSenderEmailValid = (senderEmailAddress: any) => {
+    if (!senderEmailAddress || senderEmailAddress.length === 0) {
+        return false;
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(senderEmailAddress)) {
+        return false;
+      } else return true;
+}
+const isTargetEmailValid = (targetEmailAddress: any) => {
+    if (!targetEmailAddress || targetEmailAddress.length === 0) {
+        return false;
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(targetEmailAddress)) {
+        return false;
+      } else return true;
+}
+const isSubjectValid = (subject: any) => {
+    if (!subject || subject.length === 0) {
+        return false;
+    }
+    return true;
+}
+const isFormValid2 = isDisplayNameValid(formData?.defaultFromDisplayName) && isFromAddressValid(formData?.defaultFromAddress);
+const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& isTargetEmailValid(sendTestEmailData?.targetEmailAddress) && isSubjectValid(sendTestEmailData?.subject) ;
     const condition = !formData?.smtpUseDefaultCredentials ? <>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <div className="form-group">
                     <RdsInput
                         fontWeight={"normal"}
@@ -87,7 +122,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
             </div>
         </div>
         <div className="row px-2">
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <RdsInput
                     fontWeight={"normal"}
                     value={formData?.smtpUserName}
@@ -100,7 +135,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     dataTestId="user-name"
                 ></RdsInput>
             </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 pb-3">
                 <RdsInput
                     fontWeight={"normal"}
                     value={formData?.smtpPassword}
@@ -164,7 +199,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     </div>
 
                     <div className="row px-2">
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
@@ -179,7 +214,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                 ></RdsInput>
                             </div>
                         </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <RdsInput
                                 fontWeight={"normal"}
                                 value={formData?.smtpPort}
@@ -212,7 +247,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                     {condition}
                 </form>
             </div>
-            <div className="d-flex flex-column-reverse ps-4 ms-2 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3">
+            <div className="d-flex flex-column-reverse ps-4 ms-2 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
                 <div>
                     <RdsButton
                         label="Save"
@@ -220,6 +255,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                         colorVariant="primary"
                         size="small"
                         dataTestId="save"
+                        isDisabled={!isFormValid2}
                         onClick={(e: any) => emitSaveData(e)}
                     ></RdsButton>
                 </div>
@@ -331,6 +367,7 @@ const RdsCompEmail = (props: RdsCompEmailProps) => {
                                         colorVariant="primary"
                                         class="me-2"
                                         onClick={(e: any) => emitSubmitSendTestMail(e)}
+                                        isDisabled={!isFormValid}
                                     ></RdsButton>
                                 </div>
                             </div>

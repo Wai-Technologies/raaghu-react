@@ -24,7 +24,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const [inputReset, setInputReset] = useState(props.reset);
     const [selectedData, setSelectedData] = useState<any>({
         id: 0,
-        claimType: "",
+        claimType: null,
         claimValue: "",
         roleId: props.id,
         valueTypeAsString: "",
@@ -32,6 +32,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
     const { tableHeaders = [] } = props;
     const [tableData, setTableData] = useState<any>(Array.isArray(props.claimsTable) ? props.claimsTable : []);
     const [uniqueIdCounter, setUniqueIdCounter] = useState(0);
+    const [dropdownKey, setDropdownKey] = useState(0);
 
     const handleAddItem = () => {
         const newTempData = {
@@ -52,12 +53,12 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
 
         setSelectedData({
             id: 0,
-            claimType:"",
+            claimType:null,
             claimValue: "",
             roleId: props.id,
             valueTypeAsString: "",
         });
-    
+        setDropdownKey((prevKey) => prevKey + 1);
         setInputReset(true);
     };
 
@@ -88,6 +89,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 <div className="row">
                     <div className="col-md-5 mb-3">
                         <RdsSelectList
+                            key={dropdownKey}
                             id="claim"                            
                             label="Claim Types"
                             placeholder="Select Claim Type"
@@ -97,6 +99,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                                 setSelectedData({ ...selectedData, claimType: item });
                             }}
                             dataTestId="select"
+                            color="primary"
                         ></RdsSelectList>
                     </div>
 
@@ -118,7 +121,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                         ></RdsInput>
                     </div>
 
-                    <div className="col-md-2 mt-xxl-1 mt-xl-2 mt-lg-1 mt-md-1 ps-xxl-1 ps-xl-1 ps-lg-1 ps-md-1 pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3">
+                    <div className="col-md-2 mt-xxl-1 mt-xl-2 mt-lg-2 mt-md-2 ps-xxl-1 ps-xl-2 ps-lg-2 ps-md-1 pt-xxl-4 pt-xl-4 pt-lg-4 pt-md-4 mt-2">
                         <RdsButton
                             type={"button"}
                             label=""

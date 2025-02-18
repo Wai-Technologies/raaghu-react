@@ -134,6 +134,22 @@
     }
 }
 
+.aside {
+    width: 62px;
+}
+
+.aside{
+    .toggle{
+        right: -200px;
+    }
+}
+
+.aside-right {
+    width: 62px;
+    position: absolute;
+    right: 0;
+}
+
 .sidebar.toggle {
     width: 245px !important;
 }
@@ -161,15 +177,24 @@
 }
 
 .sidenav-footer {
-    position: absolute;
-    top: 40px;
-    z-index: 99;
-    right: -10px;
-    opacity: 0;
-    transition: all 0.2s ease-in-out;
-    background-color: $white;
-    width: 20px;
-    height: 20px;
+    position: absolute; /* Keep as absolute */
+    top: 20px; /* Adjust if necessary */
+    z-index: 980;
+    right: -13px; /* Adjust this value */
+    transition: all 0.55s ease-in-out;
+    width: 23px;
+    height: 23px;
+}
+
+
+.lock-icon{
+    svg{
+        path{
+            &:first-child{
+                stroke-width: 0;
+            }
+        }
+    }
 }
 
 #sidebar:hover .sidenav-footer {
@@ -180,10 +205,10 @@
     width: 245px !important;
 }
 
-.toggle-sidebar-menu .collpase-button svg {
-    transform: rotate(180deg);
-    transition: all 1s ease-in-out;
-}
+// .toggle-sidebar-menu .collpase-button svg {
+//     transform: rotate(180deg);
+//     transition: all 1s ease-in-out;
+// }
 
 .sidenav-logo {
     position: absolute;
@@ -247,6 +272,9 @@
     .aside {
         width: 0px;
     }
+    .aside-right {
+        width: 0px;
+    }
 
     /*.aside{ 
     display: block;
@@ -284,9 +312,11 @@
         }
 
         .sidenav-footer {
-            opacity: 0;
+            opacity: 1;
         }
-
+        .aside .toggle {
+            right: 1.25rem;
+        }
         #sidebar:hover .sidenav-footer {
             opacity: 0;
         }
@@ -295,8 +325,8 @@
             width: 0px;
             display: block;
             left: 0px;
-            max-width: 260px;
-            min-width: 260px;
+            max-width: 250px;
+            min-width: 250px;
         }
 
         #sidebar.toggle.show {
@@ -308,12 +338,24 @@
         #sidebar.toggle.hide {
             width: 250px;
             transition: all 0.55s ease-in-out;
-            left: -270px;
+           /*  left: -270px; */
         }
 
         .sidebar ul li a:checked ~ #sidebar {
             left: -280px;
         }
+        .aside-right{
+            .sidebar {
+                width:64px;
+               
+            }
+            #sidebar.hide{
+                width:64px;
+                left:auto;
+                right:0px
+            }
+        }
+       
     }
 
     .mobile-sidebar-collapse {
@@ -368,10 +410,73 @@
     .navbar-expand-sm .navbar-toggler {
         display: none;
     }
+    .LeftSideNavList{
+        width: 30px;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+    
+        .form-control{
+            display:none;
+        }      
+    }
+    .LeftSideNavListCollapse{
+        width:auto;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+        .form-control{
+            display:block;
+        }      
+    }
 }
 
 @media screen and (min-width:768px) {
     .sidebar-childmenu {
         width: calc(100% - 0.6rem) !important;
     }
+}
+.right-nav{
+    display: flex;
+    justify-content: end;
+}
+.right-nav #sidebar{
+    width: 64px;
+}
+.left-space{ margin-left:0.8rem}
+.left-space-listing{ padding-left:0.8rem}
+
+
+.theme-dark{
+    .LeftSideNavListCollapse,
+    .LeftSideNavList {
+        .border{
+            background: transparent !important;
+        }
+    }
+}
+.theme-dark #sidenavbar-search{
+    border:unset !important;
+    background-color: #292b30 !important;
+}
+.theme-dark .LeftSideNavListCollapse {
+    border-left: unset !important
+}
+.theme-dark .LeftSideNavList {
+    border-left: unset !important;
+    border-top-left-radius: unset !important;
+    border-bottom-left-radius:unset !important;
+}
+.theme-dark .LeftSideNavList .input-group-text {
+    border-radius: 4px !important;
+}
+.LeftSideNavList .input-group-text{
+    border-top-left-radius: unset !important;
+    border-bottom-left-radius:unset !important;
+    border-radius: 5px !important;
+}
+#aside .shadow{
+    box-shadow: 0rem 0.1rem 0.6rem 0.3rem rgba(0, 0, 0, 0.1) !important;
 }
