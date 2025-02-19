@@ -80,6 +80,7 @@ export interface RdsCompTopNavigationProps {
   icons?: any;
   navButtons?: any;
   top_nav_logo?: string;
+  style?: any;
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
