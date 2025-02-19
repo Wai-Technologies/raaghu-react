@@ -1,18 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, ReactNode, useState } from "react";
 import { colors } from "../../libs/types";
 import RdsAvatar from "../rds-avatar";
-
 import "./rds-card.css";
 import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
 import RdsLabel from "../rds-label";
-import RdsMap from "../rds-map";
-import RdsAreaChart from "../rds-chart-area";
 import RdsBadge from "../rds-badge";
-import RdsDoughnutChart from "../rds-chart-doughnut";
 import RdsTag from "../rds-tag";
-
-
+import RdsInput from "../rds-input";
+import RdsBigNumber from "../rds-big-number";
 export interface RdsCardProps {
   buttonLabel1?: string;
   buttonLabel2?: string;
@@ -32,7 +28,7 @@ export interface RdsCardProps {
   centerAlign?: boolean;
   isAvatar?: boolean;
   borderColor?: colors;
-  isDisabled?: boolean
+  isDisabled?: boolean;
   iconName?: string;
   isBordered?: boolean;
   isFilled?: boolean;
@@ -46,22 +42,31 @@ export interface RdsCardProps {
   showFooterButton?: boolean;
   subTitle?: string;
   showIndicator?: boolean;
-  type?: "Card With Image" | "Card With Ring Chart" | "Card With Map" | "Card With Graph" | "Example-Badges" | "Card With Button" | "Card With Link Button" | "Example-Avatar" | "Example-Tags";
+  type?: "Card With Image" | "Card With Ring Chart" | "Card With Map" | "Card With Graph" | "Example-Badges" | "Card With Button" | "Card With Link Button" | "Example-Avatar" | "Example-Tags" |"Card With Boolean Chart" | "Card With Line Chart" | "Card With DataTable" | "Card With Chart" | "Card With Table";
   showTitleAndSubText?: boolean;
-  mapList?: any;
-  labels?: any;
-  options?: any;
-  dataSets?: any;
-  labelsForArea?: any;
-  optionsForArea?: any;
-  dataSetsForArea?: any;
+  initialFirstName?: string;
+  initialLastName?: string;
+  role?: string;
+  profilePic?: string;
+  onEditClick?: () => void;
+  onSavedClick?: () => void;
+  isEditing?: boolean;
+  children?: ReactNode;
+  showCardText?: boolean;
 }
 
 const RdsCard = (props: RdsCardProps) => {
   const btnColor = "btn btn-md btn-" + (props.colorVariant || "primary");
   const isCenter = props.centerAlign || false;
   const borderColor = `border border-${props.borderColor}`;
-
+  const [isEditing, setIsEditing] = useState(props.isEditing || false);
+  const [cardTitle, setCardTitle] = useState(props.cardTitle);
+  const [cardSubTitle, setCardSubTitle] = useState(props.cardSubTitle);
+  const [firstName, setFirstName] = useState(props.initialFirstName || "John");
+  const [lastName, setLastName] = useState(props.initialLastName || "Doe");
+  const [role, setRole] = useState(props.role || "Developer");
+  const [profilePic, setProfilePic] = useState(props.profilePic || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU");
+  const [showEdit, setShowEdit] = useState(false);
   // Define left border styling when showIndicator is true
   const indicatorClass = props.showIndicator
     ? `border-start border-${props.colorVariant || "primary"}`
@@ -73,18 +78,39 @@ const RdsCard = (props: RdsCardProps) => {
     return (
       <>
         {props.showTitle && (
-          <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
+          <h5 className={`${isCenter ? "" : "mt-3"}`}>{cardTitle}</h5>
         )}
         {props.showSubTitle && (
           <h6
             className={`${props.state === "Selected" ? `text-color-${props.colorVariant}` : ""
               }`}
           >
-            {props.cardSubTitle}
+            {cardSubTitle}
           </h6>
         )}
       </>
     );
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setShowEdit(true);
+    if(props.onEditClick) {
+      props.onEditClick();
+    }
+  };
+
+  const handleSaveClick = () => {
+    setCardTitle(cardTitle);
+    setCardSubTitle(cardSubTitle);
+    setFirstName(firstName);
+    setLastName(lastName);
+    setRole(role);
+    setIsEditing(false);
+    setShowEdit(false);
+    if (props.onSavedClick) {
+      props.onSavedClick();
+    }
   };
 
   return (
@@ -218,58 +244,55 @@ const RdsCard = (props: RdsCardProps) => {
         ) : (
           <div>
             <div className="card-body">
-              {props.layout === "Vertical" && (
-                <>
-                  {props.showIcon && (
-                    <RdsIcon
-                      colorVariant={props.colorVariant}
-                      height="20px"
-                      isCursorPointer
-                      name={props.iconName}
-                      stroke
-                      width="20px"
-                    />
-                  )}
-                  <br />
-                  {renderTitleAndSubtitle()}
-                </>
-              )}
-              {/* {props.layout === "left" && (
-              <div className="d-flex align-items-center">
-                <div className="d-flex flex-column">
-                  {renderTitleAndSubtitle()}
-                </div>
-                {props.showIcon && (
-                  <RdsIcon
-                    colorVariant={props.colorVariant}
-                    height="20px"
-                    isCursorPointer
-                    name={props.iconName}
-                    stroke
-                    width="20px"
-                    classes="ms-2"
-                  />
-                )}
-              </div>
-            )} */}
-              {props.layout === "Horizontal" && (
-                <div className="d-flex align-items-center">
-                  {props.showIcon && (
-                    <RdsIcon
-                      colorVariant={props.colorVariant}
-                      height="20px"
-                      isCursorPointer
-                      name={props.iconName}
-                      stroke
-                      width="20px"
-                      classes="me-2"
-                    />
-                  )}
-                  <div className="d-flex flex-column">
-                    {renderTitleAndSubtitle()}
+                <div className="row">
+                  <div className="col-md-10">
+                    {props.layout === "Vertical" && (
+                      <>
+                        {props.showIcon && (
+                          <RdsIcon
+                            colorVariant={props.colorVariant}
+                            height="20px"
+                            isCursorPointer
+                            name={props.iconName}
+                            stroke
+                            width="20px"
+                          />
+                        )}
+                        <br />
+                        {renderTitleAndSubtitle()}
+                      </>
+                    )}
+                    {props.layout === "Horizontal" && (
+                      <div className="d-flex align-items-center">
+                        {props.showIcon && (
+                          <RdsIcon
+                            colorVariant={props.colorVariant}
+                            height="20px"
+                            isCursorPointer
+                            name={props.iconName}
+                            stroke
+                            width="20px"
+                            classes="me-2"
+                          />
+                        )}
+                        <div className="d-flex flex-column">
+                          {renderTitleAndSubtitle()}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="col-md-2 justify-content-end align-items-end text-end mt-3">
+                    {props.type === "Example-Avatar" && props.isEditing && (
+                      <RdsIcon
+                        name="pencil"
+                        height="20px"
+                        width="20px"
+                        colorVariant="primary"
+                        onClick={handleEditClick}
+                      />
+                    )}
                   </div>
                 </div>
-              )}
               {props.layout === undefined && (
                 <>
                   {props.showIcon && (
@@ -287,11 +310,7 @@ const RdsCard = (props: RdsCardProps) => {
               )}
               <br />
               {props.type === "Card With Image" && props.imageUrl && <img src={props.imageUrl} className="card-img-top" alt="Card Image" />}
-              {props.type === "Card With Ring Chart" && ( 
-                <RdsDoughnutChart labels={props.labels} options={props.options} dataSets={props.dataSets} id={""} />
-              )}
-              {props.type === "Card With Map" && <RdsMap mapList={props.mapList} color="#A478E6" />}
-              {props.type ==="Card With Graph" && <RdsAreaChart labels={props.labelsForArea} options={props.optionsForArea} dataSets={props.dataSetsForArea} id={""} isGradient={false} />}
+              {props.children}
               {props.type === "Example-Badges" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                   <RdsBadge
@@ -328,16 +347,50 @@ const RdsCard = (props: RdsCardProps) => {
                       activityChain
                       avtarWithName
                       colorVariant="primary"
-                      firstName="John"
-                      lastName="Doe"
-                      profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
-                      role="Developer"
+                      firstName={firstName}
+                      lastName={lastName}
+                      profilePic={profilePic}
+                      role={role}
                       size="large"
                       type="image"
                     />
                 </div>
               )}
-              {(props.type !== "Card With Map" && props.type !== "Card With Graph" && props.type !== "Example-Badges" && props.type !=="Card With Ring Chart" && props.type !== "Example-Avatar" ) && (
+              {props.type === "Example-Avatar" && showEdit &&(
+                <div>
+                  <RdsInput
+                    value={cardTitle}
+                    onChange={(e) => setCardTitle(e.target.value)}
+                    placeholder="Card Title"
+                  />
+                  <RdsInput
+                    value={cardSubTitle}
+                    onChange={(e) => setCardSubTitle(e.target.value)}
+                    placeholder="Card Subtitle"
+                  />
+                  <RdsInput
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First Name"
+                  />
+                  <RdsInput
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                  />
+                  <RdsInput
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    placeholder="Role"
+                  />
+                  <RdsButton
+                    label="Save"
+                    colorVariant="primary"
+                    onClick={handleSaveClick}
+                  />
+                </div>
+              )}
+              {props.showCardText && (
                 <p>{props.cardText}</p>
               )}
             </div>
