@@ -2,3 +2,27 @@
     height: 77vh;
     border-width: 5%;
   }
+
+  li[value="d_"].pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0{
+    margin-top: 13rem;
+  }
+
+  .aside{
+    margin-left:1rem !important;
+  }
+
+
+.DEmo img[alt="Raaghu Side Navigation"] {
+    display: none;
+}
+
+.double-nav img[alt="Raaghu Side Navigation"] {
+  display: none;
+}
+.relaxing-nav img[alt="Raaghu Side Navigation"] {
+  display: none;
+}
+
+.pt-3{
+padding-top: 0rem !important;
+}
