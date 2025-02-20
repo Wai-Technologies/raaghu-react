@@ -15,6 +15,10 @@ const meta: Meta = {
             options: ["custom logo", "raaghu logo"],
             control: { type: "select" },
         },
+        style: {
+            options: ["ABP"],
+            control: {type: "select"},
+        }
         
     },
 } satisfies Meta<typeof RdsCompTopNavigation>;
