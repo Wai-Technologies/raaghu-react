@@ -6,8 +6,6 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 import { RdsDropdown, RdsIcon, RdsInput, RdsSearch, RdsSideNav } from "../../../raaghu-elements/src";
-import RdsCompTopNavigationWithSearch from "../../../raaghu-components/src/rds-comp-top-navigation-with-search";
-import { icon } from "../../../raaghu-elements/src/rds-big-number/rds-big-number.stories";
 
 const meta: Meta = {
   title: "Application Shells",
@@ -430,9 +428,74 @@ export const Header: Story = {
           </div>
         </div>
 
-        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-layout">
-          <h2 className="fw-bolder">Add Layout Here</h2>
+        <div className=" align-items-center  d-flex justify-content-center m-3 app-shell-layout">
+          {/* <h2 className="fw-bolder">Add Layout Here</h2> */}
         </div>
+      </>
+    ),
+  },
+} satisfies Story;
+
+export const Default: Story = {
+  args: {
+    displayType: "Default",
+    children: (
+      <>
+        <RdsCompAppShellItem title={""}>
+          <div className="d-flex flex-column vh-50">
+            <BrowserRouter>
+              <div className="d-flex flex-row">
+                <RdsCompSideNavigation
+                  sideNavItems={[
+                    { icon: "home", key: "0", label: "Home", path: "/home" },
+                    { icon: "dashboard_new", key: "1", label: "Dashboard", path: "/dashboard" },
+                    { icon: "saas", key: "2", label: "Saas", path: "/saas" },
+                    { icon: "administration", key: "3", label: "Administration", path: "/administration" },
+                    { icon: "file_management", key: "4", label: "File Management", path: "/file_management" },
+                    { icon: "forms", key: "5", label: "Forms", path: "/forms" },
+                    { icon: "payment", key: "6", label: "Payment", path: "/payment" },
+                    { icon: "cms", key: "7", label: "CMS", path: "/cms" },
+                  ]}
+                />
+                <div className="w-100">
+                  <RdsCompTopNavigation
+                    brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                    brandName="Raaghu Design System"
+                    languageItems={[
+                      { icon: "us", iconHeight: "20px", iconWidth: "20px", label: "EN(US)", val: "en" },
+                      { icon: "in", iconHeight: "20px", iconWidth: "20px", label: "English(IND)", val: "en" },
+                      { icon: "us", iconHeight: "20px", iconWidth: "20px", label: "French", val: "fr" },
+                    ]}
+                    logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+                    navbarSubTitle="Statistics and reports"
+                    navbarTitle="Dashboard"
+                    notifications={[
+                      { selected: false, state: 1, status: "success", time: "a month ago", title: "Tenant added", urlTitle: "hello", userNotificationId: 0 },
+                      { selected: false, state: 1, status: "error", time: "a month ago", title: "Tenant deleted", urlTitle: "hello", userNotificationId: 1 },
+                      { selected: false, state: 1, status: "warn", time: "a month ago", title: "Tenant added warn", urlTitle: "hello", userNotificationId: 2 },
+                      { selected: false, state: 1, status: "info", time: "a month ago", title: "Tenant deleted info", urlTitle: "hello", userNotificationId: 3 },
+                    ]}
+                    profileTitle="Jane Doe"
+                    profileEmail="jane.doe@raaghu.io"
+                    profileName="Jane Doe"
+                    profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+                    themeItems={[
+                      { icon: "sun", iconHeight: "20px", iconWidth: "20px", label: "Light", val: "light" },
+                      { icon: "moon", iconHeight: "20px", iconWidth: "20px", label: "Dark", val: "dark" },
+                    ]}
+                    toggleItems={[]}
+                    elementList={[]}
+                    componentsList={[]}
+                    languageLabel={""}
+                    themeLabel={""}
+                    onForgotPassword={() => { throw new Error("Function not implemented."); }}
+                    onProfileLinkTopNav={() => { throw new Error("Function not implemented."); }}
+                  />
+                </div>
+              </div>
+            </BrowserRouter>
+          </div>
+        </RdsCompAppShellItem>
       </>
     ),
   },
@@ -507,107 +570,57 @@ export const Relaxing: Story = {
                       {
                         icon: "home",
                         key: "0",
+                        label: "Home",
+                        path: "/home",
+                      },
+                      {
+                        icon: "dashboard_new",
+                        key: "1",
                         label: "Dashboard",
                         path: "/dashboard",
                       },
                       {
-                        icon: "demo_ui",
-                        key: "1",
-                        label: "UI Components",
-                        path: "/demo-ui",
-                      },
-                      {
-                        icon: "icons",
+                        icon: "saas",
                         key: "2",
-                        label: "Icons",
-                        path: "/icons",
+                        label: "Saas",
+                        path: "/saas",
                       },
                       {
-                        children: [
-                          {
-                            icon: "tenant",
-                            key: "3-0",
-                            label: "Tenants",
-                            path: "/tenant",
-                          },
-                          {
-                            icon: "editions",
-                            key: "3-1",
-                            label: "Editions",
-                            path: "/edition",
-                          },
-                          {
-                            children: [
-                              {
-                                icon: "organization",
-                                key: "3-2-0",
-                                label: "Organization Units",
-                                path: "/organization-unit",
-                              },
-                              {
-                                icon: "roles",
-                                key: "3-2-1",
-                                label: "Roles",
-                                path: "/role",
-                              },
-                              {
-                                icon: "users",
-                                key: "3-2-2",
-                                label: "Users",
-                                path: "/user",
-                              },
-                              {
-                                icon: "languages",
-                                key: "3-2-3",
-                                label: "Language",
-                                path: "/language",
-                              },
-                              {
-                                icon: "audit_logs",
-                                key: "3-2-4",
-                                label: "Audit Logs",
-                                path: "/audit-logs",
-                              },
-                              {
-                                icon: "webhook_subscription",
-                                key: "3-2-5",
-                                label: "Webhook Subscriptions",
-                                path: "/webhook-subscription",
-                              },
-                              {
-                                icon: "maintenance",
-                                key: "3-2-6",
-                                label: "Maintenance",
-                                path: "/maintainance",
-                              },
-                              {
-                                icon: "visual_settings",
-                                key: "3-2-7",
-                                label: "Visual Settings",
-                                path: "/visual-setting",
-                              },
-                              {
-                                icon: "setting",
-                                key: "3-2-8",
-                                label: "Settings",
-                                path: "/settings",
-                              },
-                            ],
-                            icon: "administration",
-                            key: "3-2",
-                            label: "Administration",
-                          },
-                        ],
-                        icon: "pages",
+                        icon: "administration",
                         key: "3",
-                        label: "Pages",
+                        label: "Administration",
+                        path: "/administration",
+                      },
+                      {
+                        icon: "file_management",
+                        key: "4",
+                        label: "File Management",
+                        path: "/file_management",
+                      },
+                      {
+                        icon: "forms",
+                        key: "5",
+                        label: "Forms",
+                        path: "/forms",
+                      },
+                      {
+                        icon: "payment",
+                        key: "6",
+                        label: "Payment",
+                        path: "/payment",
+                      },
+                      {
+                        icon: "cms",
+                        key: "7",
+                        label: "CMS",
+                        path: "/cms",
                       },
                     ]}
                   />
                 </BrowserRouter>
               </div>
-              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 app-shell-layout m-3">
-                <h2 className="fw-bolder">Add Layout Here</h2>
+              <div className="align-items-center  d-flex justify-content-center w-100 app-shell-layout m-3">
+                {/* <h2 className="fw-bolder">Add Layout Here</h2> */}
               </div>
             </div>
           </div>
@@ -678,7 +691,8 @@ export const TopNavBar: Story = {
                   iconWidth: '15px',
                   iconstroke: true,
                   id: 3,
-                  label: 'Administration'
+                  label: 'Administration',
+                  route: '#'
                 },
                 {
                   active: false,
@@ -690,7 +704,8 @@ export const TopNavBar: Story = {
                   iconWidth: '14px',
                   iconstroke: true,
                   id: 4,
-                  label: 'File Management'
+                  label: 'File Management',
+                  route: '#'
                 },
                 {
                   active: false,
@@ -702,7 +717,8 @@ export const TopNavBar: Story = {
                   iconWidth: '14px',
                   iconstroke: true,
                   id: 5,
-                  label: 'Forms'
+                  label: 'Forms',
+                  route: '#'
                 },
                 {
                   active: false,
@@ -714,7 +730,8 @@ export const TopNavBar: Story = {
                   iconWidth: '14px',
                   iconstroke: true,
                   id: 6,
-                  label: 'Payment'
+                  label: 'Payment',
+                  route: '#'
                 },
                 {
                   active: false,
@@ -726,7 +743,8 @@ export const TopNavBar: Story = {
                   iconWidth: '14px',
                   iconstroke: true,
                   id: 7,
-                  label: 'CMS'
+                  label: 'CMS',
+                  route: '#'
                 }
               ]}
               firstName="John"
@@ -792,8 +810,8 @@ export const TopNavBar: Story = {
                 <BrowserRouter>            
                 </BrowserRouter>
               </div>
-              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 app-shell-layout m-3">
-                <h2 className="fw-bolder">Add Layout Here</h2>
+              <div className="align-items-center d-flex justify-content-center w-100 app-shell-layout m-3">
+                {/* <h2 className="fw-bolder">Add Layout Here</h2> */}
               </div>
             </div>
           </div>
@@ -867,8 +885,8 @@ export const SideNav: Story = {
                   />
                 </BrowserRouter>
               </div>
-              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 app-shell-layout m-3">
-                <h2 className="fw-bolder">Add Layout Here</h2>
+              <div className="align-items-center  d-flex justify-content-center w-100 app-shell-layout m-3">
+                {/* <h2 className="fw-bolder">Add Layout Here</h2> */}
               </div>
               <BrowserRouter>
                 <RdsSideNav
@@ -1025,7 +1043,7 @@ export const DoubleNav: Story = {
           </div>
 
           <div className="row">
-              <div className="d-flex double-nav pt-2">
+              <div className="d-flex  pt-2">
                 <RdsSideNav
                   layout="RightSideNav"
                   sideNavItems={[
@@ -1040,6 +1058,7 @@ export const DoubleNav: Story = {
                   ]}
                 />
 
+                <div className="double-nav">
                 <RdsCompSideNavigation
                   sideNavItems={[
                     { icon: "blogs", key: "0", label: "Blogs", path: "/dashboard" },
@@ -1053,6 +1072,7 @@ export const DoubleNav: Story = {
                   ]}
                 />
               </div>
+              </div>
           </div>
         </RdsCompAppShellItem>
       </>
@@ -1060,3 +1080,171 @@ export const DoubleNav: Story = {
   },
 } satisfies Story;
 
+export const One_Three_One: Story = {
+  args: {
+    displayType: "DEmo",
+    children: (
+      <>
+        <RdsCompAppShellItem title={""}>
+          <div className="row">
+          <RdsCompTopNavigation
+              brandLogo="assets/Raaghu-logo-mfe-black.png"
+              brandName="Raaghu"
+              languageItems={[
+                {
+                  icon: 'us',
+                  iconHeight: '20px',
+                  iconWidth: '20px',
+                  label: 'EN(US)',
+                  val: 'en'
+                },
+                {
+                  icon: 'in',
+                  iconHeight: '20px',
+                  iconWidth: '20px',
+                  label: 'English(IND)',
+                  val: 'en'
+                },
+                {
+                  icon: 'us',
+                  iconHeight: '20px',
+                  iconWidth: '20px',
+                  label: 'French',
+                  val: 'fr'
+                }
+              ]}
+              logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+              navbarSubTitle="Statistics and reports"
+              notifications={[
+                {
+                  selected: false,
+                  state: 1,
+                  status: 'success',
+                  time: 'a month ago',
+                  title: 'Tenant added',
+                  urlTitle: 'hello',
+                  userNotificationId: 0
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: 'error',
+                  time: 'a month ago',
+                  title: 'Tenant deleted',
+                  urlTitle: 'hello',
+                  userNotificationId: 1
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: 'warn',
+                  time: 'a month ago',
+                  title: 'Tenant added  warn',
+                  urlTitle: 'hello',
+                  userNotificationId: 2
+                },
+                {
+                  selected: false,
+                  state: 1,
+                  status: 'info',
+                  time: 'a month ago',
+                  title: 'Tenant deleted info',
+                  urlTitle: 'hello',
+                  userNotificationId: 3
+                }
+              ]}
+              profileEmail="john.doe@raaghu.io"
+              profileName="John Doe"
+              profileTitle="John Doe"
+              role="Admin"
+              showLogo
+              themeItems={[
+                {
+                  icon: 'sun',
+                  iconHeight: '20px',
+                  iconWidth: '20px',
+                  label: 'Light',
+                  val: 'light'
+                },
+                {
+                  icon: 'moon',
+                  iconHeight: '20px',
+                  iconWidth: '20px',
+                  label: 'Dark',
+                  val: 'dark'
+                }
+              ]}
+              top_nav_logo="raaghu logo" toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+                throw new Error("Function not implemented.");
+              } } onProfileLinkTopNav={function (id: string, navigateTo?: string, label?: string): void {
+                throw new Error("Function not implemented.");
+              } }/>
+          </div>
+          <div className="row">
+            <div className="d-flex DEmo">
+              <div>
+                <BrowserRouter>
+                  <RdsCompSideNavigation
+                     sideNavItems={[
+                      {
+                        icon: "home",
+                        key: "0",
+                        label: "Home",
+                        path: "/home",
+                      },
+                      {
+                        icon: "dashboard_new",
+                        key: "1",
+                        label: "Dashboard",
+                        path: "/dashboard",
+                      },
+                      {
+                        icon: "saas",
+                        key: "2",
+                        label: "Saas",
+                        path: "/saas",
+                      },
+                      {
+                        icon: "administration",
+                        key: "3",
+                        label: "Administration",
+                        path: "/administration",
+                      },
+                      {
+                        icon: "file_management",
+                        key: "4",
+                        label: "File Management",
+                        path: "/file_management",
+                      },
+                      {
+                        icon: "forms",
+                        key: "5",
+                        label: "Forms",
+                        path: "/forms",
+                      },
+                      {
+                        icon: "payment",
+                        key: "6",
+                        label: "Payment",
+                        path: "/payment",
+                      },
+                      {
+                        icon: "cms",
+                        key: "7",
+                        label: "CMS",
+                        path: "/cms",
+                      },
+                    ]}
+                  />
+                </BrowserRouter>
+              </div>
+              <div className="align-items-center  d-flex justify-content-center w-100 app-shell-layout m-3">
+                {/* <h2 className="fw-bolder">Add Layout Here</h2> */}
+              </div>
+            </div>
+          </div>
+        </RdsCompAppShellItem>
+      </>
+    ),
+  },
+} satisfies Story;
