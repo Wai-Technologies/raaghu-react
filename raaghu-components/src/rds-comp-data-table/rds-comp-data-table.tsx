@@ -8,6 +8,7 @@ import {
   RdsIllustration,
   RdsAvatar,
   RdsTooltip,
+  RdsProgressBar,
 } from "../rds-elements";
 import "./rds-comp-data-table.css";
 import { useTranslation } from "react-i18next";
@@ -817,7 +818,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                   </div>
                                 </td>
                               )}
-                            {props.isSwap && (
+                            {props.isSwap &&  (
                               <th>
                                 <RdsIcon
                                   name="six_dots_vertical"
@@ -853,6 +854,20 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 />
                               </th>
                             )}
+                            <th>
+                              <RdsBadge
+                                badgeType="box"
+                                colorVariant="primary"
+                                iconName="notification"
+                                iconPosition="right"
+                                isIconshow
+                                label="Badge"
+                                layout="Text_only"
+                                size="small"
+                                style="primary"
+                              />
+                            </th>
+
                             {props.tableHeaders?.map(
                               (tableHeader, tableHeaderIndex) => (
                                 <td
@@ -1051,28 +1066,23 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                           />
                                         </div>
                                       )}
+
+                                      
                                       {tableHeader.datatype ===
                                         "progressbar" && (
-                                        <div>
-                                          <div className="progress">
-                                            <div
-                                              className="progress-bar"
-                                              role="progressbar"
-                                              style={{
-                                                width: `${
-                                                  tableDataRow[tableHeader.key]
-                                                }%`,
-                                              }}
-                                              aria-valuenow={
-                                                tableDataRow[tableHeader.key]
-                                              }
-                                              aria-valuemin={0}
-                                              aria-valuemax={100}
-                                            >
-                                              {tableDataRow[tableHeader.key]}%
-                                            </div>
-                                          </div>
-                                          <span>
+                                          <div>
+                                          <RdsProgressBar
+                                          colorVariant="primary"
+                                        
+                                          height={4}
+                                          progressValues={[
+
+                                          ]}
+                                          progressWidth={70}
+                                          role="single"
+                                          striped
+                                        />
+                                        <span>
                                             {tableDataRow[tableHeader.key]}
                                           </span>
                                         </div>
@@ -1098,7 +1108,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         )}
                                       {tableHeader.datatype ===
                                         "iconAvatarTitle" && (
-                                        <div className="d-flex justify-content-evenly align-items-center">
+                                        <div className=" ms-2 justify-content-evenly align-items-center">
                                           <div className="col-1">
                                             <RdsIcon
                                               colorVariant="danger"

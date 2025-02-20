@@ -27,6 +27,7 @@ export const Datatable: Story = {
         enablecheckboxselection: true,
         actionPosition: "left",
         tableHeaders: [
+            
             // {
             //     displayName: "check",
             //     key: "check",
@@ -50,8 +51,8 @@ export const Datatable: Story = {
             // },
             
             // {
-            //     displayName: "Text",
-            //     key: "text",
+            //     displayName: "badge",
+            //     key: "dagas",
             //     datatype: "text",
             //     dataLength: 50,
             //     required: false
