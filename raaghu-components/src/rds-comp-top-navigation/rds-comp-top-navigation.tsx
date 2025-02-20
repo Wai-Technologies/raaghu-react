@@ -80,6 +80,7 @@ export interface RdsCompTopNavigationProps {
   icons?: any;
   navButtons?: any;
   top_nav_logo?: string;
+  style?: any;
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -611,9 +612,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -1584,9 +1585,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={languageItems}
                 showIcon={false}
                 onClick={onClickHandler}
-                tooltip={true}
-                tooltipTitle={"Select Language"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Language"}
+                // tooltipPlacement="bottom"
                 isCode={true}
               ></RdsDropdownList>
               <div className="d-block d-none fs-8 text-center">Language</div>
@@ -1617,9 +1618,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Theme"}
+                // tooltipPlacement="bottom"
               />
               <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
@@ -1774,9 +1775,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Theme"}
+                // tooltipPlacement="bottom"
               />
               <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
@@ -1842,9 +1843,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -1965,6 +1966,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       
     }
     return (
+      <>
+      {props.style === "ABP" && (
       <div>
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
           <div
@@ -2037,9 +2040,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Theme"}
+                // tooltipPlacement="bottom"
               />
               <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
@@ -2104,9 +2107,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={languageItems}
                 showIcon={false}
                 onClick={onClickHandler}
-                tooltip={true}
-                tooltipTitle={"Select Language"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Language"}
+                // tooltipPlacement="bottom"
                 isCode={true}
               ></RdsDropdownList>
               <div className="d-block d-none fs-8 text-center">Language</div>
@@ -2234,9 +2237,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -2332,6 +2335,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 </div>
             )}
       </div>
+    )}
+    </>
     );
   };
 
