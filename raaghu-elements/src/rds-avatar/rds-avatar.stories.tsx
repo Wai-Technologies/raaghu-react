@@ -36,7 +36,7 @@ const meta: Meta = {
         },
         size: {
             options: ["smallest","small", "medium", "large","largest"],
-            control: { type: "radio" },
+            control: { type: "select" },
         },
         type: {
             options: ["image", "initials","icon"],
@@ -45,14 +45,50 @@ const meta: Meta = {
         border: {
             options:["NoBorder","solid","dashed","dotted"],
             control: { type: "select" }
-        }
+        },
+        style: {
+            options:["withname", "nameonbottom", "stacking"],
+            control: { type: "select" }
+        },
     },
 } satisfies Meta<typeof RdsAvatar>;
 
 export default meta;
 type Story = StoryObj<typeof RdsAvatar>;
+const avatars = [
+    // Example avatars data
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',  },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+];
+export const Default: Story = {
+    args: {
+        size: "medium",
+        type: "image",
+        //avtarWithName: true,
+        //isTitle: true,
+        style: "withname",
+        activityChain : false,
+        activeDotTop: false,
+        activeDotBottom: false,
+        showName: false,
+        showDesignation: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        role: "Developer",
+        colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        maxVisibleAvatars: 3,
+        avatars: avatars, 
+    }
+} satisfies Story;
 
+Default.parameters = { controls: { include: ['size', 'showName', 'showDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain','type'] } };
 
+/*
 export const Default: Story = {
     args: {
         size: "medium",
@@ -103,7 +139,7 @@ export const withLabel: Story = {
         firstName: "Wai",
         lastName: "Technologies",
         avtarOnly: false,
-        avtarWithName: false,
+        //avtarWithName: false,
         nameOnBottom: false,
         stackingAvatar: false,
         size: "medium",
@@ -123,7 +159,7 @@ export const withProfile: Story = {
         size: "small",
         withProfilePic: true,
         avtarOnly: false,
-        avtarWithName: false,
+        //avtarWithName: false,
         nameOnBottom: false,
         stackingAvatar: false,
         firstName: "Wai",
@@ -208,5 +244,5 @@ export const Stacking_Avatar_Only: Story = {
         avatars: avatars,
     }
 } satisfies Story;
-Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'maxVisibleAvatars'] } };
+Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'maxVisibleAvatars'] } };*/
 
