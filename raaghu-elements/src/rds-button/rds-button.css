@@ -54,10 +54,11 @@
 /* button background and button text color as per Figma  */
 
 .btn.btn-primary {
-  background: #d4bbff;
-  color: #7825e9;
+  background: #7825e9;
+  color: #ffffff;
   border: none;
 }
+
 .btn.btn-secondary {
   background: #93b8ff;
   color: #2534e9;
@@ -88,3 +89,83 @@
   color: #1f7630;
   border: none;
 }
+
+.btn.hover {
+  background: #7825e9;
+  color: #ffffff;
+  border: none;
+}
+
+.btn.hover:hover {
+  background-color: #4f00a6; 
+  color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
+}
+.btn.selected {
+  background-color:#340071;
+  color: #ffffff;
+}
+
+.btn.btn-outline-primary {
+  background: #ffffff;
+  color: #7825e9;
+  border: 1px solid #7825e9; 
+}
+.btn.btn-outline-primary:active {
+  background-color: #ebdcff; 
+  color: #7825e9; 
+  border-color: #7825e9; 
+}
+
+.btn.outline-hover {
+  background: #ffffff;
+  color: #7825e9;
+  border-color: #7825e9;
+}
+
+.btn.outline-hover:hover {
+  background-color: #ebdcff; 
+  color: #7825e9;
+  border: 1px solid #7825e9;
+  transition: background-color 0.3s ease-in-out;
+}
+.btn.outline-selected {
+  background-color:#d4bbff;
+  color: #6525bf;
+  border-color: #340071;
+}
+.btn.btn-transparent-primary {
+  background: #ffffff;
+  color: #7825e9;
+}
+.btn.btn-outline-primary:active {
+  color: #340071; 
+  border-color: #340071;
+}
+
+.btn.transparent-hover {
+  color: #7825e9;
+}
+
+.btn.transparent-hover:hover {
+  /*background-color: #4f00a6;*/
+  color: #340071;
+  transition: background-color 0.3s ease-in-out;
+}
+.btn.transparent-selected {
+  /*background-color:#4525ab; */
+  color: #2d1750;
+}
+.btn.disabled {
+  opacity: 0.6; 
+  cursor: not-allowed; 
+  pointer-events: none; 
+}
+.btn.transparent-disabled {
+  opacity: 0.6; 
+  border: none;
+  cursor: not-allowed; 
+  pointer-events: none; 
+}
+
+

@@ -1,31 +1,36 @@
-import * as React from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RdsCompTopNavigation from "../../raaghu-components/src/rds-comp-top-navigation";
+import RdsAlert from "../../raaghu-elements/src/rds-alert";
+
+export * from "../../raaghu-elements/src/index";
+export * from "../../raaghu-components/src/index";
 
 function App() {
+
+
+  const navbarItems = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Contact", href: "/contact" }
+  ];
+
   return (
     <>
-      <div className="mb-2">
-        <a href="https://raaghu.io" target="_blank">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" className="logo" alt="Raaghu Logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React Logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite Logo" />
-        </a>
-      </div>
-      <h1 className="mb-4 fw-bolder">Raaghu with React + Vite</h1>
-      <div className="">
-        <p>
-          Start creating pages by using Application Shells, Layouts, Component, Elements, Charts and more.
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Raaghu, Vite and React Logos to learn more
-      </p>
+      <Router>
+        <RdsCompTopNavigation navItems={{ title: "Raaghu", size: "medium", navbarItems: navbarItems, activeColor: '#7825E9' }} />
+
+        <div className="ps-5">
+          <RdsAlert border="none" description="This is the description of the message bar." dismisable icon="information" displayType="singleline" iconHeight="20px" iconStroke iconWidth="20px" linkUrl="https://example.com" position="top" showDescription showIcon showTitle showbutton showlink showprimarybutton showsecondarybutton size="small" title="Heading Title." type="info" />
+        </div>
+
+        <Routes>
+          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/about" element={<h1>about</h1>} />
+          <Route path="/services" element={<h1>services</h1>} />
+          <Route path="/contact" element={<h1>contact</h1>} />
+        </Routes>
+      </Router>
     </>
   )
 }
