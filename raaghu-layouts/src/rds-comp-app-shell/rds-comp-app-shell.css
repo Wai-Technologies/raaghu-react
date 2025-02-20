@@ -1,27 +1,21 @@
-.app-shell-layout {
-  height: 77vh;
-  border-width: 5%;
+.Default {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Optional, to hide any content that exceeds the viewport */
+  display: flex;
 }
 
-li[value="d_"].pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0 {
-  margin-top: 13rem;
+
+.Default #sidebar{
+  height: 100vh !important;
 }
 
-.aside {
-  margin-left: 1rem !important;
+.Default .sidebar-layout{
+  width: fit-content;
 }
-.double-nav img[alt="Raaghu Side Navigation"] {
-  display: none;
-}
-.relaxing-nav img[alt="Raaghu Side Navigation"] {
-  display: none;
-}
-.DEmo img[alt="Raaghu Side Navigation"] {
-  display: none;
-}
-.pt-3 {
-  padding-top: 0rem !important;
-}
-.double-nav .list-unstyled.pb-5.pd-md-0.mb-5.mb-md-0.pt-3.mb-auto {
-  transform: translateY(-1.1rem) !important;
+
+.Default .topnav-layout{
+  width: 100%;
 }

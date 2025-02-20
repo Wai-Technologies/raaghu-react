@@ -3,6 +3,7 @@ import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
 import RdsSearch from "../rds-search";
+import { useNavigate } from "react-router-dom";
 
 export interface RdsSideNavProps {
   sideNavItems: any;
@@ -31,7 +32,8 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [searchQuery, setSearchQuery] = useState("");   
     const logo = props.logo ? props.logo : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
-    const [activeItem, setActiveItem] = useState<string | null>(null);
+    const [activeItem,  setActiveItem] = useState<string | null>(null);
+    const navigatepage = useNavigate();
 
     const addFilter = (value: string) => {
         setSearchQuery(value);
@@ -151,6 +153,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
         setActiveItem(item.key);
 
+        debugger
         setMenuClick(true);
         if (isNavigate) {
               setShowOne(false);
@@ -193,8 +196,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
         path: string
     ): void {
         event.preventDefault();
-        console.log("path", path);
-        window.history.pushState(null, "", path);
+        navigatepage(path);
     }
 
     const displayMenu = (items: any, parent: any, level: number) => {
