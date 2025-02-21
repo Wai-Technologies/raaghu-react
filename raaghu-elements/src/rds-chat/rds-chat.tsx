@@ -138,6 +138,9 @@ const RdsChat = (props: RdsChatProps) => {
                 };
 
                 setCommentList([...commentList, newComment]);
+                if (props.handleAddComment) {
+                    props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+                }
             };
             reader.readAsDataURL(file);
         }
@@ -227,6 +230,9 @@ const RdsChat = (props: RdsChatProps) => {
         };
 
         setCommentList([...commentList, newComment]);
+        if (props.handleAddComment) {
+            props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+        }
         setShowVideoRecorder(false);
         setRecordedChunks([]);
         stopRecording(); // Ensure the video stream is stopped
