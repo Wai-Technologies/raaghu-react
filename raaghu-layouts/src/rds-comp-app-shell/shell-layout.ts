@@ -5,6 +5,8 @@ import { DisplayType } from "./rds-comp-app-shell";
 
 const DefaultCss = `Default`;
 
+const DefaultMobileCss = `DefaultMobile`
+
 export class CssItems {
     mainContent: string = "";
     sideNav: string = "";
