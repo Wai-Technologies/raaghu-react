@@ -4,14 +4,14 @@ import "./rds-slider.scss";
 
 export interface RdsSliderProps {
   colorVariant?:
-    | "primary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "light"
-    | "info"
-    | "secondary"
-    | "dark";
+  | "primary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "light"
+  | "info"
+  | "secondary"
+  | "dark";
   size?: "small" | "medium" | "large";
   type?: "One Way" | "Two Way";
   leftLabel?: string;
@@ -36,6 +36,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   onChange, // Callback to handle value changes
 }) => {
   const [value, setValue] = useState(propValue);
+  const [rangeValues, setRangeValues] = useState<[number, number]>([0, 100]);
 
   useEffect(() => {
     // Sync state with prop value (if exists)
@@ -76,18 +77,18 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     colorVariant === "primary"
       ? "#7e2eef"
       : colorVariant === "success"
-      ? "#24993A"
-      : colorVariant === "danger"
-      ? "#E02D30"
-      : colorVariant === "warning"
-      ? "#EA6C0C"
-      : colorVariant === "light"
-      ? "#f8f9fa"
-      : colorVariant === "info"
-      ? "#3ef1e8"
-      : colorVariant === "secondary"
-      ? "#2539FF"
-      : "#343a40";
+        ? "#24993A"
+        : colorVariant === "danger"
+          ? "#E02D30"
+          : colorVariant === "warning"
+            ? "#EA6C0C"
+            : colorVariant === "light"
+              ? "#f8f9fa"
+              : colorVariant === "info"
+                ? "#3ef1e8"
+                : colorVariant === "secondary"
+                  ? "#2539FF"
+                  : "#343a40";
 
   const lighterColor = lightenColor(primaryColor, 25);
 
@@ -97,51 +98,141 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       : `linear-gradient(90deg, ${lighterColor} 0%, ${primaryColor} ${value}%, ${lighterColor} 100%)`;
   };
 
+  const handleChangeSlider = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const value = Number(e.target.value);
+    setRangeValues((prev) => {
+      let [min, max] = prev;
+
+      if (index === 0) {
+        // Ensure min value doesn't exceed max
+        min = Math.min(value, max - 5);
+      } else {
+        // Ensure max value doesn't go below min
+        max = Math.max(value, min + 5);
+      }
+      return [min, max];
+    });
+  };
+
   return (
-    <div
-      className={`slider-container ${
-        size === "small"
-          ? "slidercontainersm"
-          : size === "large"
-          ? "slidercontainerlg"
-          : "slidercontainermd"
-      }`}
-    >
-      {showLabels && (
-        <label className="slider-title text-left align-self-start">
-          Slider
-        </label>
-      )}
-      <div className="slider-wrapper mt-4">
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={value}
-          onChange={handleChange}
-          style={{
-            background: getBackgroundStyle(),
-            "--thumb-color": primaryColor,
-          } as React.CSSProperties}
-          className="slider rounded"
-        />
-        {style === "show tooltip" && (
-          <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
-           <Tooltip
-            place="top"
-            text="100">
-            <button className="btn btn-primary">
-                {value}
-            </button>
-            </Tooltip>
+    <>
+      {type === "One Way" && (
+        <div
+          className={`slider-container ${size === "small"
+              ? "slidercontainersm"
+              : size === "large"
+                ? "slidercontainerlg"
+                : "slidercontainermd"
+            }`}
+        >
+          {showLabels && (
+            <label className="slider-title text-left align-self-start">
+              Slider
+            </label>
+          )}
+          <div className="slider-wrapper mt-4">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={value}
+              onChange={handleChange}
+              style={{
+                background: getBackgroundStyle(),
+                "--thumb-color": primaryColor,
+              } as React.CSSProperties}
+              className="slider rounded"
+            />
+            {style === "show tooltip" && (
+              <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
+                <Tooltip
+                  style="Middle Top Arrow"
+                  label="100">
+                  <button className="btn btn-primary">
+                    {value}
+                  </button>
+                </Tooltip>
+              </div>
+            )}
+            <div className="d-flex justify-content-between mt-2">
+              <span className="left-label">{leftLabel}</span>
+              <span className="right-label">{rightLabel}</span>
+            </div>
           </div>
-        )}
-        <div className="d-flex justify-content-between">
-          <span className="left-label">{leftLabel}</span>
-          <span className="right-label">{rightLabel}</span>
         </div>
-      </div>
-    </div>
+      )}
+
+      {type === "Two Way" && (
+
+        <div className={`slider-container ${size === "small"
+            ? "slidercontainersm"
+            : size === "large"
+              ? "slidercontainerlg"
+              : "slidercontainermd"
+          }`}>
+          {showLabels && (
+            <label className="slider-title text-left align-self-start">
+              Slider
+            </label>
+          )}
+          <div className="slider-wrapper relative mt-4 w-56 h-8">
+            {/* Slider Track */}
+            <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-1 bg-gray-300 rounded-md"></div>
+
+            {/* Highlighted Range Track */}
+            <div
+              className="absolute top-1/2 transform -translate-y-1/2 h-1 bg-blue-500 rounded-md"
+              style={{
+                left: `${(rangeValues[0] / 100) * 100}%`,
+                width: `${((rangeValues[1] - rangeValues[0]) / 100) * 100}%`,
+              }}
+            ></div>
+
+            {/* Slider Inputs */}
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={rangeValues[0]}
+              onChange={(e) => handleChangeSlider(e, 0)}
+              className=" inputSlider slider rounded absolute w-full bg-transparent appearance-none pointer-events-none"
+              style={{
+               
+                "--thumb-color": primaryColor, zIndex:1
+              } as React.CSSProperties}
+            />
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={rangeValues[1]}
+              onChange={(e) => handleChangeSlider(e, 1)}
+              className=" inputSlider slider rounded absolute w-full appearance-none bg-transparent pointer-events-none"
+              style={{
+                background: getBackgroundStyle(),
+                "--thumb-color": primaryColor,
+              } as React.CSSProperties}
+            />
+             {style === "show tooltip" && (
+              <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
+                <Tooltip
+                  style="Middle Top Arrow"
+                  label="100">
+                  <button className="btn btn-primary">
+                    {value}
+                  </button>
+                </Tooltip>
+              </div>
+            )}
+          </div>
+          <div className="d-flex justify-content-between mt-2">
+            <span className="left-label">{leftLabel}</span>
+            <span className="justify-content-center"> {rangeValues[0]} - {rangeValues[1]}</span>
+            <span className="right-label">{rightLabel}</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

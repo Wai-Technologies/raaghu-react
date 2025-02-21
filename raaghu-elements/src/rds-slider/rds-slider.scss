@@ -24,7 +24,7 @@
     width: 100%;
     height: 5px;
     outline: none;
-    opacity: 0.7;
+    opacity: 1 !important;
     transition: opacity 0.2s;
   }
    
@@ -89,3 +89,35 @@
     font-size: 12px;
     white-space: nowrap;
   }
+
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    // background: transparent;
+    pointer-events: all;
+    position: absolute;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    // background: transparent;
+    border-radius: 3px;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    margin-top: -5px;
+    pointer-events: all;
+  }
+  .inputSlider {
+    height: 5px !important;
+}
+  
