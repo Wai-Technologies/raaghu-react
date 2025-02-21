@@ -389,7 +389,165 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                           Actions
                         </th>
                       )}
-                    {props.isSwap && <th></th>}
+
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                       <div>    
+                          {props.enablecheckboxselection && (
+                            <th scope="col">
+                              <label className="fw-medium">Text</label>
+                              <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                       </div>
+
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {/* {props.isSwap && <th></th>}
                     {props.enablecheckboxselection && (
                       <th scope="col">
                         <input
@@ -459,7 +617,21 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                         <th className="text-center fw-medium actionWidth">
                           Actions
                         </th>
-                      )}
+                      )} */}
+                      {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -830,30 +1002,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 />
                               </th>
                             )}
-                            {props.enablecheckboxselection && (
-                              <th scope="row" className="align-middle">
-                                <input
-                                  type="checkbox"
-                                  name={tableDataRow?.id}
-                                  onChange={handleChange}
-                                  checked={tableDataRow?.selected}
-                                  className="form-check-input"
-                                  id="rowcheck{user.id}"
-                                />
-                              </th>
-                            )}
-                            {props.enableRadioButtonselection && (
-                              <th scope="row" className="align-middle">
-                                <input
-                                  type="radio"
-                                  name={tableDataRow?.id}
-                                  onChange={handleRadioButtonChange}
-                                  checked={tableDataRow?.selected}
-                                  className="form-check-input"
-                                  id="rowcheck{user.id}"
-                                />
-                              </th>
-                            )}
+                            
                             <th>
                               <RdsBadge
                                 badgeType="box"
@@ -868,6 +1017,30 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                               />
                             </th>
 
+                            {props.enableRadioButtonselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="radio"
+                                  name={tableDataRow?.id}
+                                  onChange={handleRadioButtonChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input border-dark"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
+                            )}
+                            {props.enablecheckboxselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="checkbox"
+                                  name={tableDataRow?.id}
+                                  onChange={handleChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input border-dark"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
+                            )}
                             {props.tableHeaders?.map(
                               (tableHeader, tableHeaderIndex) => (
                                 <td
@@ -1070,13 +1243,11 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                       
                                       {tableHeader.datatype ===
                                         "progressbar" && (
-                                          <div>
+                                          <>
                                           <RdsProgressBar
                                           colorVariant="primary"
-                                        
                                           height={4}
                                           progressValues={[
-
                                           ]}
                                           progressWidth={70}
                                           role="single"
@@ -1085,7 +1256,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         <span>
                                             {tableDataRow[tableHeader.key]}
                                           </span>
-                                        </div>
+                                        </>
                                       )}
                                       {tableHeader.datatype === "button" &&
                                         tableHeader.key === "delete" && (
