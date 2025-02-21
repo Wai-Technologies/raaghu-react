@@ -1,34 +1,57 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RdsCompTopNavigation from "../../raaghu-components/src/rds-comp-top-navigation";
-import RdsAlert from "../../raaghu-elements/src/rds-alert";
+import RdsCompAppShell from '../../raaghu-layouts/src/rds-comp-app-shell';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { DisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
 
 export * from "../../raaghu-elements/src/index";
 export * from "../../raaghu-components/src/index";
+export * from "../../raaghu-layouts/src/index";
 
 function App() {
-
-
-  const navbarItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Contact", href: "/contact" }
-  ];
-
   return (
     <>
       <Router>
-        <RdsCompTopNavigation navItems={{ title: "Raaghu", size: "medium", navbarItems: navbarItems, activeColor: '#7825E9' }} />
-
-        <div className="ps-5">
-          <RdsAlert border="none" description="This is the description of the message bar." dismisable icon="information" displayType="singleline" iconHeight="20px" iconStroke iconWidth="20px" linkUrl="https://example.com" position="top" showDescription showIcon showTitle showbutton showlink showprimarybutton showsecondarybutton size="small" title="Heading Title." type="info" />
-        </div>
-
         <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
-          <Route path="/about" element={<h1>about</h1>} />
-          <Route path="/services" element={<h1>services</h1>} />
-          <Route path="/contact" element={<h1>contact</h1>} />
+          <Route path="/" element={<RdsCompAppShell displayType={DisplayType.Default} />}>
+            <Route index element={<h1>Home </h1>} /> {/* Default page */}
+            <Route path="dashboard" element={<div className="container mt-4">
+              {/* Row 1 */}
+              <div className="row">
+                <div className="col-lg-8">
+                  <div className="card p-3 h-100">Daily Summary</div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="row">
+                    <div className="col-12 mb-3">
+                      <div className="card p-3 h-100">Sales</div>
+                    </div>
+                    <div className="col-12">
+                      <div className="card p-3 h-100">Profit Share</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="row mt-3">
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Call Overview</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Daily Sales Growth</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Maximum Profit</div>
+                </div>
+              </div>
+
+              {/* Row 3 */}
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="card p-3 h-100">Member Activity</div>
+                </div>
+              </div>
+            </div>} />
+          </Route>
         </Routes>
       </Router>
     </>
