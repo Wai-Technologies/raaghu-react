@@ -153,7 +153,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
         setActiveItem(item.key);
 
-        debugger
         setMenuClick(true);
         if (isNavigate) {
               setShowOne(false);
