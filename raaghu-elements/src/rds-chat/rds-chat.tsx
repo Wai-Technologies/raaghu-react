@@ -8,7 +8,7 @@ import RdsAvatar from '../rds-avatar';
 import Picker from 'emoji-picker-react';
 import './rds-chat.css';
 
-interface Comment {
+export interface Comment {
     firstName: string;
     lastName: string;
     comment: string;
@@ -16,7 +16,7 @@ interface Comment {
     video?: string;
 }
 
-interface UserData {
+export interface UserData {
     firstName: string;
     lastName: string;
     activeDotButton: boolean;
