@@ -161,7 +161,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 }, [props.breadcrumItem]);
 
   const [profilePic, setProfilePic] = useState(props.profilePic||
-    "./assets/profile-picture-circle.svg"
+    "/assets/profile-picture-circle.svg"
   );
   useEffect(() => {
     if (props.profilePic) {
