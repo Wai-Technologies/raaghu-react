@@ -58,9 +58,8 @@
 
 .emoji-popup {
     position: absolute;
-    bottom: 60px;
-    left: 10px;
     z-index: 1000;
+    visibility: hidden;
 }
 
 .input-chat-send {

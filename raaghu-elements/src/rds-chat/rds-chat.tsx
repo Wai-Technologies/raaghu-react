@@ -60,6 +60,8 @@ const RdsChat = (props: RdsChatProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
+    const emojiButtonRef = useRef<HTMLSpanElement>(null);
+    const emojiPickerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsChatScreenEnabled(props.isChatScreenEnabled);
@@ -67,7 +69,7 @@ const RdsChat = (props: RdsChatProps) => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            const pickerElement = document.querySelector('.emoji-popup');
+            const pickerElement = emojiPickerRef.current;
             if (pickerElement && !pickerElement.contains(event.target as Node)) {
                 setShowEmojiPicker(false);
             }
@@ -80,6 +82,15 @@ const RdsChat = (props: RdsChatProps) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+    }, [showEmojiPicker]);
+
+    useEffect(() => {
+        if (showEmojiPicker && emojiButtonRef.current && emojiPickerRef.current) {
+            const buttonRect = emojiButtonRef.current.getBoundingClientRect();
+            emojiPickerRef.current.style.bottom = `${window.innerHeight - buttonRect.top + 10}px`;
+            emojiPickerRef.current.style.left = `${buttonRect.left}px`;
+            emojiPickerRef.current.style.visibility = 'visible'; // Show the emoji picker after positioning
+        }
     }, [showEmojiPicker]);
 
     const onEmojiClick = (emojiObject: any, event: any) => {
@@ -306,7 +317,7 @@ const RdsChat = (props: RdsChatProps) => {
                 </div>
                 <div className='chat-window-footer'>
                     {showEmojiPicker && (
-                        <div className="emoji-popup">
+                        <div className="emoji-popup" ref={emojiPickerRef}>
                             <Picker onEmojiClick={onEmojiClick} />
                         </div>
                     )}
@@ -354,7 +365,7 @@ const RdsChat = (props: RdsChatProps) => {
                             onChange={handleImageUpload}
                         />
                     </span>
-                    <span className="me-2 mb-3 mt-2">
+                    <span className="me-2 mb-3 mt-2" ref={emojiButtonRef}>
                         <RdsIcon
                             name="smileys"
                             fill={false}
