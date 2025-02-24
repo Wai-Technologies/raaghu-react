@@ -3,9 +3,9 @@ import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating, RdsReviewCategory } from
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 
 export interface RdsCompReviewsProps {
-  itemList: Item[];
-  style?: string;
-  variantType?: "Default" | "with-summary-chart" | "multi-column";
+  itemList: Item[]; // List of items to be displayed
+  style?: string; // Style of the component
+  variantType?: "Default" | "with-summary-chart" | "multi-column"; // Variant type of the component
 }
 
 const RdsCompReviews = (props: RdsCompReviewsProps) => {
