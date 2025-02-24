@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+//import "react-quill/dist/quill.snow.css";
 import RdsLabel from "../rds-label";
+import "../../../raaghu-react-themes/src/styles/quillEditor.scss";
+//import "./rds-text-editor.css";
  
 export interface RdsTextEditorProps {
-    bounds?: string | HTMLElement;
-    children?: React.ReactElement<any>;
-    className?: string;
-    defaultValue?: any;
-    formats?: string[];
-    id?: string;
-    modules?: any;
+    bounds?: string | HTMLElement; //Bounds for the editor.
+    children?: React.ReactElement<any>; //Children elements to be rendered inside the editor.
+    className?: string; //Class name for the editor.
+    defaultValue?: any; //Default value for the editor.
+    formats?: string[]; //Array of formats to be supported by the editor.
+    id?: string; //Id for the editor.
+    modules?: any; //Modules configuration for the editor.
     onChange?(value: string, delta: any, source: any, editor: any): any;
-    placeholder?: string;
-    preserveWhitespace?: boolean;
-    readOnly?: boolean;
-    style?: React.CSSProperties;
-    tabIndex?: number;
-    theme?: string;
-    value?: string;
-    label?: string;
-    ismandatory?: boolean;
-    labelClass?: string;
-    State?:string;
-    ShowTitle?: boolean;
+    placeholder?: string; //Placeholder for the editor.
+    preserveWhitespace?: boolean; //Preserve whitespace in the editor.
+    readOnly?: boolean; //Read only mode for the editor.
+    style?: React.CSSProperties; //Style for the editor.
+    tabIndex?: number; //Tab index for the editor.
+    theme?: string; //Theme for the editor.
+    value?: string; //Value for the editor.
+    label?: string; //Label for the editor.
+    ismandatory?: boolean; //Determines whether the label is mandatory.
+    labelClass?: string; //Class for the label.
+    State?:string; //State of the editor.
+    ShowTitle?: boolean; //Determines whether to show the title.
 }
  
 const RdsTextEditor = (props: RdsTextEditorProps) => {
