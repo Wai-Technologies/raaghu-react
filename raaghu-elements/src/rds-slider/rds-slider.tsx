@@ -227,7 +227,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
           </div>
           <div className="d-flex justify-content-between mt-2">
             <span className="left-label">{leftLabel}</span>
-            <span className="justify-content-center"> {rangeValues[0]} - {rangeValues[1]}</span>
+            {/* <span className="justify-content-center"> {rangeValues[0]} - {rangeValues[1]}</span> */}
             <span className="right-label">{rightLabel}</span>
           </div>
         </div>
