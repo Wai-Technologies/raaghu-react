@@ -200,3 +200,6 @@ text-decoration: none !important;
 .text-color-light{
   color:#f8f9fa !important;
  }
+ .border-start {
+  border-left:  4px solid !important;
+}
