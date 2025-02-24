@@ -1018,7 +1018,7 @@ CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showTi
 export const CardWithChart: Story = {
   args: {
     ...commonArgs,
-    type: "Card With DataTable",
+    type: "Card With Chart",
     children :( 
       <RdsWidget
       headerTitle={"Maximum Profit"}
@@ -1380,7 +1380,7 @@ CardWithChart.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const CardWithTable : Story = {
   args: {
     ...commonArgs,
-    type: "Card With DataTable",
+    type: "Card With Table",
     children :(
 <RdsWidget
                         headerTitle={"To do List"}
