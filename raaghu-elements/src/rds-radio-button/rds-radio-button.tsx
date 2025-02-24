@@ -11,16 +11,16 @@ export interface RdsRadioButtonProps {
   itemList: any[] | undefined;
   value: string; 
   displayType?: string;
-  label?: string;
+  label?: string; // Use this prop to provide a custom label
   id?: number;
   dataTestId?: string;
   //state?: "radio" | "errorRadio";
-  state?: "Default" | "Hover" | "Disabled";
+  state?: "Default" | "Hover" | "Disabled"; // Use this prop to provide a state
   errorMessage?: string;
   onlyChecked?: boolean;
   checkedId?: string;
   customClass?: string;
-  layout?: "Icon" | "Icon with Label" | "Icon with bottom Label";
+  layout?: "Icon" | "Icon with Label" | "Icon with bottom Label"; // Use this prop to provide a layout
   selected?: boolean;
   text?: string;
 }
