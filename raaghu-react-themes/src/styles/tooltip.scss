@@ -1,0 +1,48 @@
+
+.tooltip-left-top {
+  inset: 0px auto auto 12px !important;
+}
+
+.tooltip-left-top .tooltip-arrow {
+  transform: translate3d(40.8px, 0px, 0px) !important;
+  display: block !important;
+  position: absolute !important;
+  left: -32px !important;
+}
+
+.tooltip-right-top {
+  inset: 0px auto auto -12px !important;
+}
+
+.tooltip-right-top .tooltip-arrow {
+  transform: translate3d(40.8px, 0px, 0px) !important;
+  position: absolute !important;
+  display: block !important;
+  left: 32px !important;
+}
+
+.tooltip-left-bottom {
+  inset: auto auto 0px 12px !important;
+}
+
+.tooltip-left-bottom .tooltip-arrow {
+  transform: translate3d(40.8px, 0px, 0px) !important;
+  display: block !important;
+  position: absolute !important;
+  left: -32px !important;
+}
+
+.tooltip-right-bottom {
+  inset: auto auto 0px -12px !important;
+}
+
+.tooltip-right-bottom .tooltip-arrow {
+  transform: translate3d(40.8px, 0px, 0px) !important;
+  display: block !important;
+  position: absolute !important;
+  left: 32px !important;
+}
+
+.tooltip-no-arrow .tooltip-arrow {
+  display: none;
+}
