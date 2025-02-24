@@ -1,16 +1,30 @@
 import React from "react";
 import "./rds-spinner.css";
+import { colors } from "../../libs";
+
+export enum SpinnerSize {
+    Default = "Default",
+    Small = "Small",
+    Large = "Large",
+}
+
+export enum SpinnerLayout {
+    LabelOnBottom = "Label on bottom",
+    LabelAndSpinner = "Label + Spinner",
+    SpinnerAndLabel = "Spinner + Label",
+    LabelOnTop = "Label on top",
+}
 
 export interface RdsSpinnerProps {
-    spinnerType?: string;
-    colorVariant?: string;
-    width?: string;
-    borderWidth?: string;
-    height?: string;
-    showLabel?: boolean;
-    labelText?: string;
-    size?: "Default" | "Small" | "Large";
-    layout?: "Label on bottom" | "Spinner + Label" | "Label + Spinner" | "Label on top";
+    spinnerType?: string; //Spinner type: border or grow
+    colorVariant?: colors; //Color variant
+    width?: string; //Width of the spinner
+    borderWidth?: string; //Border width of the spinner
+    height?: string; //Height of the spinner
+    showLabel?: boolean; //Show label
+    labelText?: string; //Label text
+    size?: SpinnerSize; //Size of the spinner
+    layout?: SpinnerLayout; //Layout of the spinner
 }
 
 const RdsSpinner = (props: RdsSpinnerProps) => {
@@ -20,14 +34,12 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
 
     const getSizeDimensions = () => {
         switch (props.size) {
-            case "Default":
+            case SpinnerSize.Default:
                 return { width: "30px", height: "30px" };
-            case "Small":
+            case SpinnerSize.Small:
                 return { width: "15px", height: "15px" };
-            case "Large":
+            case SpinnerSize.Large:
                 return { width: "45px", height: "45px" };
-            // case "custom":
-            //     return { width: props.width, height: props.height };
             default:
                 return { width: props.width, height: props.height };
         }
@@ -38,13 +50,13 @@ const RdsSpinner = (props: RdsSpinnerProps) => {
     const classes = `${spinnerClass} ${colorClass}`.trim();
     const labelClass = () => {
         switch (props.layout) {
-            case "Label on bottom":
+            case SpinnerLayout.LabelOnBottom:
                 return "d-flex flex-column-reverse align-items-center";
-            case "Label + Spinner":
+            case SpinnerLayout.LabelAndSpinner:
                 return "d-flex align-items-center gap-2";
-            case "Spinner + Label":
+            case SpinnerLayout.SpinnerAndLabel:
                 return "d-flex align-items-center gap-2 flex-row-reverse";
-            case "Label on top":
+            case SpinnerLayout.LabelOnTop:
             default:
                 return "d-flex flex-column align-items-center";
         }

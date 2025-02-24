@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import RdsSpinner from "./rds-spinner";
+import RdsSpinner, { SpinnerLayout, SpinnerSize } from "./rds-spinner";
 
 const meta: Meta = {
     title: 'Elements/Spinner',
@@ -53,8 +53,8 @@ type Story = StoryObj<typeof RdsSpinner>;
 
 export const Default: Story = {
     args: {
-        layout: "Spinner + Label",
-        size: 'Small',
+        layout: SpinnerLayout.LabelAndSpinner,
+        size: SpinnerSize.Small,
         showLabel: true,
         labelText:"Loading...",
         spinnerType: 'border',

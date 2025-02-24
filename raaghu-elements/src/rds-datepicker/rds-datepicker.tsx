@@ -5,16 +5,33 @@ import RdsIcon from "../rds-icon";
 import "./rds-datepicker.css";
 import RdsButton from "../rds-button";
 
+export enum DatePickerStyleType {
+    Dropdown = "Dropdown",
+    Selector = "Selector"
+}
+
+export enum DatePickerLayout {
+    Default = "Default",
+    MonthPicker = "Month Picker",
+    YearPicker = "Year Picker",
+    MultiMonth = "Multi Month"
+}
+
+export enum DatePickerState {
+    Default = "Default",
+    Expanded = "Expanded",
+    Selected = "Selected"
+}
 export interface RdsDatepickerProps {
-    selectedDate?: any;
-    dateForEdit?: any;
-    title?: string;
-    showTitle?: boolean;
-    onDatePicker?: any;
-    datePickerStyleType?: "Dropdown" | "Selector";
-    state?: "Default" | "Expanded" | "Selected"
-    layout?: "Default" | "Month Picker" | "Year Picker" | "Multi Month";
-    customDate?: any;
+    selectedDate?: (date: Date | null) => void; // Selected Date
+    dateForEdit?: string; // Date for Edit
+    title?: string; // Title
+    showTitle?: boolean; // Show or hide Title
+    onDatePicker?: (date: Date | [Date | null, Date | null]) => void; // On Date Picker
+    datePickerStyleType?: DatePickerStyleType; // Date Picker Style Type
+    state?: DatePickerState; // Date Picker State"
+    layout?: DatePickerLayout; // Date Picker Layout
+    customDate?: (dates: [Date | null, Date | null]) => void;
     isDropdownOpen: boolean;
     isDisabled?: boolean;
     isMandatory?: boolean;
@@ -56,7 +73,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     const handlerDateChange = (date: Date | null) => {
         setStartDate(date);
         props.selectedDate && props.selectedDate(date);
-        props.onDatePicker && props.onDatePicker(startDate);
+        props.onDatePicker && startDate && props.onDatePicker(startDate);
     };
 
     const handlerDateTimeChange = (date: any) => {
@@ -161,7 +178,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
 
     useEffect(() => {
         if (props.dateForEdit) {
-            setStartDate(props.dateForEdit);
+            setStartDate(new Date(props.dateForEdit));
         }
     }, [props.dateForEdit]);
 
@@ -210,7 +227,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
             )}
             {showState && 
             <>
-            {props.state === "Default" && (
+            {props.state === DatePickerState.Default && (
                 <div className="input-group input-group-datePicker mb-3">
                     {/* <div className="input-group-append datepicker__icon-box">
                             <span className="input-group-text cursor-pointer" id="basic-addon2">
@@ -254,7 +271,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     </span>
                 </div>
             )}
-            {props.state === "Expanded" && (
+            {props.state === DatePickerState.Expanded && (
                 // <div className="dropdown border rounded justify-content-between text-start d-block datepicker mt-1">
                 //     <button
                 //         className="bg-transparent border-0 d-flex py-18 ps-2 w-100 justify-content-between"
@@ -376,7 +393,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     </span>
                 </div>
             )}
-            {props.state === "Selected" && (
+            {props.state === DatePickerState.Selected && (
                 <div className="input-group input-group-datePicker mb-3 mt-1">
                     <DatePicker
                         selected={startDate || null}

@@ -1,4 +1,4 @@
-import RdsDatepicker, { RdsDatepickerProps } from "./rds-datepicker";
+import RdsDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsDatepickerProps } from "./rds-datepicker";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -38,15 +38,15 @@ type Story = StoryObj<typeof RdsDatepicker>;
 
 export const Default: Story = {
     args: {
-        state: "Default",
+        state: DatePickerState.Default,
         type: "Custom",
         showTitle: true,
         title: "Date",
         isMandatory : true,
         placeholderText: "Select Date",
         changeIcon: "calendar",
-        datePickerStyleType: "Selector",
-        layout: "Default",
+        datePickerStyleType: DatePickerStyleType.Selector,
+        layout: DatePickerLayout.Default,
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
