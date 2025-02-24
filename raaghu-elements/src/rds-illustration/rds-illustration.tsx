@@ -4,14 +4,14 @@ import "./rds-illustration.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsIllustrationProps {
-    mode?: string;
-    label?: string;
-    subLabel?: string;
-    colorVariant?: colors;
-    iconHeight?: string;
-    iconWidth?: string;
-    iconPath?: string;
-    isContinueAnimate?: boolean;
+    mode?: string; // Mode of the illustration, e.g., "Dark NRA" or "Light NRA"
+    label?: string; // Main label text to display
+    subLabel?: string; // Sub label text to display
+    colorVariant?: colors; // Color variant for the illustration
+    iconHeight?: string; // Height of the icon
+    iconWidth?: string; // Width of the icon
+    iconPath?: string; // Path to the icon file
+    isContinueAnimate?: boolean; // Whether the icon should continue animating
 }
 
 const RdsIllustration = (props: RdsIllustrationProps) => {
