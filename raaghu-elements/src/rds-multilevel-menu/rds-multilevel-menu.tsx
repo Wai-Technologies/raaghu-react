@@ -3,9 +3,9 @@ import "./rds-multilevel-menu.css";
 import RdsIcon from "../rds-icon";
 
 export interface RdsMultilevelMenu {
-  size?: "default" | "large";
-  type?: "selectable" | "expandable";
-  state?: "default" | "hover" | "selected";
+  size?: "default" | "large"; // size of the menu
+  type?: "selectable" | "expandable"; // type of the menu
+  state?: "default" | "hover" | "selected"; // state of the menu
 }
 
 const defaultItems = [
