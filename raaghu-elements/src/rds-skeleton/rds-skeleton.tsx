@@ -2,11 +2,11 @@ import React from "react";
 import "./rds-skeleton.css";
 
 interface RdsSkeletonProps {
-  shape?: "rectangle" | "circle";
-  isAnimated?: boolean;
-  width?: string;
-  height?: string;
-  state?: 1 | 2 | 3; 
+  shape?: "rectangle" | "circle"; // shape of the skeleton
+  isAnimated?: boolean; // Determines whether the skeleton has an animation effect.
+  width?: string; // width of the skeleton
+  height?: string; // height of the skeleton
+  state?: 1 | 2 | 3; // state of the skeleton
 }
 
 const RdsSkeleton = (props: RdsSkeletonProps) => {
