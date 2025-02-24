@@ -4,20 +4,20 @@ import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.css';
 
 export interface RdsCompContributionProps {
-  showMonthLabels?: boolean; 
-  weekNames?: string[];
-  monthNames?: string[];
-  panelColors?: string[];
-  values: { [date: string]: number };
-  until: string;
-  dateFormat?: string;
-  weekLabelAttributes: any | undefined;
-  monthLabelAttributes: any | undefined;
-  panelAttributes: any | undefined;
-  monthLabelHeight: number;
-  weekLabelWidth: number;
-  panelSize?: number;
-  panelMargin?: number;
+  showMonthLabels?: boolean;  // Set this to true to show month labels 
+  weekNames?: string[]; // Set this to an array of 7 strings to show week labels
+  monthNames?: string[]; // Set this to an array of 12 strings to show month labels
+  panelColors?: string[]; // Set this to an array of colors to use for the panels
+  values: { [date: string]: number }; // Set this to an object with date strings as keys and numbers as values
+  until: string; // Set this to the last date to show in the calendar
+  dateFormat?: string; // Set this to the format of the date strings in the values object
+  weekLabelAttributes: any | undefined; // Set this to an object with attributes to apply to the week labels
+  monthLabelAttributes: any | undefined; // Set this to an object with attributes to apply to the month labels
+  panelAttributes: any | undefined; // Set this to an object with attributes to apply to the panels
+  monthLabelHeight: number; // Set this to the height of the month labels
+  weekLabelWidth: number; // Set this to the width of the week labels
+  panelSize?: number; // Set this to the size of the panels
+  panelMargin?: number; // Set this to the margin between the panels
 }
 
 export interface State {
