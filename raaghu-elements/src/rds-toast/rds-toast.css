@@ -13,3 +13,13 @@
 /* .theme-dark .btn-close {
   filter: unset;
 } */
+ 
+.toast {
+  border-top :none !important;
+  border-bottom :none !important;
+  border-right :none !important;
+}
+
+.toast-header {
+  border-bottom: none !important;
+}

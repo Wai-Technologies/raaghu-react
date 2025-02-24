@@ -5,23 +5,23 @@ import RdsIcon from "../rds-icon/rds-icon";
 import { toaster_placements } from "../../libs/types/placement";
 
 export interface RdsToastProps {
-    colorVariant?: colors;
-    headerText?: string;
-    subText: string;
-    delay?: number;
-    autohide?: boolean;
-    borderColor?: string;
-    showHeader?: boolean;
-    layout: "text" | "download" | "chat" | "request";
-    state: "basic" | "info" | "success" | "error";
-    placeholder?: string;
-    progressWidth?: number;
-    filename?: string;
-    position?: toaster_placements;
-    showSubText?: boolean;
-    showDismiss?: boolean;
-    showLeading: boolean;
-    leadingIcon: "circle" | "plus";
+    colorVariant?: colors; // color varient of Toast
+    headerText?: string; // Header text of Toast
+    subText: string; // Subtext of Toast
+    delay?: number; // Delay Time of Toast
+    autohide?: boolean; // Autohide of Toast
+    borderColor?: string; // Border color of Toast
+    showHeader?: boolean; // Show/Hide Header of Toast
+    layout: "text" | "download" | "chat" | "request"; // Layout Types of Toast
+    state: "basic" | "info" | "success" | "error"; // state of Toast
+    placeholder?: string; // Placeholder text of Toast
+    progressWidth?: number; // Progress Bar width of Toast
+    filename?: string; // Filename of Toast
+    position?: toaster_placements; // Position of Toast
+    showSubText?: boolean; // Show/Hide Subtext of Toast
+    showDismiss?: boolean; // Show/Hide Dismiss button of Toast
+    showLeading: boolean; // Show/Hide Leading Icon of Toast
+    leadingIcon: "circle" | "plus"; // Leading Icon of Toast
 }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
@@ -77,7 +77,9 @@ const RdsToast = (props: RdsToastProps) => {
                                         <RdsIcon
                                             name={props.leadingIcon}
                                             stroke={true}
-
+                                            height="20px"
+                                            isCursorPointer
+                                            width="20px"
                                         ></RdsIcon>
                                     )}
                                 </div>
@@ -98,7 +100,7 @@ const RdsToast = (props: RdsToastProps) => {
                             <div className="toast-body text-body">{props.showSubText && props.subText}</div>
 
 
-                            <div className={`toast-footer justify-content-end align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
+                            <div className={`toast-footer justify-content-end p-2 align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex text-body ml-4">
                                     <div className="progress w-100 ml-4" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
                                         <div className="progress-bar btn-primary" role="progressbar"
