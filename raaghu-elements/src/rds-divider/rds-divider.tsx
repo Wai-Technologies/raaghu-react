@@ -13,12 +13,13 @@ export interface RdsDividerProps {
   size?: string;
   textalign?: string;
   withdashed?: boolean;
-  iconShow: boolean;
+  iconShow?: boolean;
+  layout?: string;
 }
 
 const RdsDivider = (props: RdsDividerProps) => {
 
-  return (
+  return ( props.layout==="horizontal" ? (
     <div className={`separator ${props.colorVariant} border-${props.size} divider ${props.textalign} separator-${props.withdashed ? "dashed" : "solid"} `}>
       {props.iconShow && props.hasOwnProperty("icon") && (
       <RdsIcon
@@ -32,6 +33,9 @@ const RdsDivider = (props: RdsDividerProps) => {
       />
       )}
       {<span className={`text-${props.colorVariant}`}>{props.dividerMessage}</span>}
+    </div>
+  ) : 
+  <div className={`vseparator ${props.colorVariant} border-${props.size} vseparator-${props.withdashed ? "dashed" : "solid"} `}>
     </div>
   );
 };
