@@ -242,7 +242,6 @@ const RdsChat = (props: RdsChatProps) => {
         setShowVideoRecorder(false);
         stopRecording(); // Ensure the video stream is stopped
     };
-
     return (
         <div className='chat-container'>
             {isChatScreenEnabled &&
@@ -265,7 +264,7 @@ const RdsChat = (props: RdsChatProps) => {
                         })}
                     </div>
                 </div>}
-            <div className='chat-window'>
+            <div className={`chat-window ${!isChatScreenEnabled ? 'full-width' : ''}`}>
                 <div className='chat-window-header'>
                     <div className='chat-window-header-title'>
                         <RdsAvatar activeDotBottom={currentUser.activeDotBottom} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size="large" type="image" />
