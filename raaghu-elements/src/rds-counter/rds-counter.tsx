@@ -4,22 +4,22 @@ import RdsButton from "../rds-button/rds-button";
 import "./rds-counter.css";
 
 export interface RdsCounterProps {
-  counterValue: number;
-  label?: string;
-  min: number;
-  max: number;
-  width: number;
-  layout?: "Right Side" | "Side to Side" | "Bottom"; 
-  colorVariant?: colors;
-  position?: placements;
-  onCounterChange?: (newValue: number) => void;
-  showLabel?: boolean;
-  isDisabled?: boolean;
-  showTitle?: boolean;
-  state?: "Default" | "Selected" | "Disabled";
-  isMandatory?: boolean; 
-  placeholder?: string; 
-  titleText?: string; 
+  counterValue: number; // Value of the counter
+  label?: string; // Label for the counter
+  min: number; // Minimum value for the counter
+  max: number; // Maximum value for the counter
+  width: number; // Width of the counter
+  layout?: "Right Side" | "Side to Side" | "Bottom"; // Layout of the counter
+  colorVariant?: colors; // Color variant of the counter
+  position?: placements; // Position of the counter
+  onCounterChange?: (newValue: number) => void; // Callback function to get the new value of the counter
+  showLabel?: boolean; // Show label for the counter
+  isDisabled?: boolean; // Disable the counter
+  showTitle?: boolean; // Show title for the counter
+  state?: "Default" | "Selected" | "Disabled"; // State of the counter
+  isMandatory?: boolean;  // Is the counter mandatory
+  placeholder?: string;  // Placeholder for the counter
+  titleText?: string; // Title text for the counter
 }
 
 // Define color variables
