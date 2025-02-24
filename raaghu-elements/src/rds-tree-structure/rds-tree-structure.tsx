@@ -7,14 +7,15 @@ export interface RdsTreeStructureProps {
   showChewron?: boolean;
   showCheckbox?: boolean;
   showFolder?: boolean;
-  showFileIcon?: boolean;
+  showFile?: boolean;
   showCollapsed?: boolean;
   state?: "default" | "hover" | "selected";
-  folderType?: "circle" | "folder";
+  type?: "circle" | "folder";
   showActions?: boolean;
   treeData?: any;
-  fileLanguage?: string;
+  Language?: string;
   iconName?: string;
+  text?: string; 
   onSelectNode?: (item: any) => void;
   onDeleteNode?: (id: any) => void;
   onNodeEdit?: (data: any) => void;
@@ -22,6 +23,7 @@ export interface RdsTreeStructureProps {
   onCreateSubUnit?: (node: any) => void;
   onMoveNode?: (id: any) => void;
 }
+
 const fileTypeIcons = {
   CSS: "cssicon",
   Cplus: "cppicon",
@@ -46,10 +48,12 @@ const fileTypeIcons = {
   XML: "xmlicon",
   YML: "ymlicon",
 };
+
 const getFileIcon = (fileType: keyof typeof fileTypeIcons) => {
   const fileTypes = fileTypeIcons[fileType] || fileTypeIcons.Default;
   return fileTypeIcons[fileType] || fileTypeIcons.Default;
 };
+
 const TreeNode = ({
   node,
   level,
@@ -108,6 +112,7 @@ const TreeNode = ({
     e.stopPropagation();
     setHoveredNodeId(null);
   };
+
   const handlerButtonGroupClick = (e: any, id: any, node: any) => {
     if (id == 'plus') {
         e.stopPropagation();
@@ -125,21 +130,20 @@ const TreeNode = ({
       e.stopPropagation();
         props.onDeleteNode && props.onDeleteNode(node.data.id);
     }
-}
+  };
+
   return (
-    <div
-      className="tree-node-container"
-     
-    >
+    <div className="tree-node-container">
       <div
         className={`tree-node p-1 cursor-pointer ${props.state === "hover" ? "nodehover" : ""}`}
         style={{ marginLeft: level * 20 }}
-     
-       
       >
-        <div className="d-flex align-items-center p-3 filename"    onMouseEnter={(e)=> handleMouseEnter(e)}
-        onMouseLeave={(e)=>handleMouseLeave(e)}
-        onClick={handleClick}>
+        <div
+          className="d-flex align-items-center p-3 filename"
+          onMouseEnter={(e) => handleMouseEnter(e)}
+          onMouseLeave={(e) => handleMouseLeave(e)}
+          onClick={handleClick}
+        >
           {(node.children && level < maxLevel && props.showChewron) && (
             <span
               className="me-2 cursor-pointer"
@@ -166,7 +170,7 @@ const TreeNode = ({
           )}
           {props.showFolder && (
             <span style={{ color: "#FFA500", marginRight: 5 }}>
-              {props.folderType === "circle" ? (
+              {props.type === "circle" ? (
                 <span
                   style={{
                     display: "inline-block",
@@ -187,81 +191,85 @@ const TreeNode = ({
               )}
             </span>
           )}
-          {props.showFileIcon && <span style={{ color: "#0066cc" }}> <RdsIcon
-              height="18px"
-              width="18px"
-              name={getFileIcon(props.fileLanguage as keyof typeof fileTypeIcons || "Default")}
-              fill={false}
-              stroke={false}
-            /></span>}
-          <span style={{ marginLeft: 5 }}>{node.name}</span>
+          {props.showFile && (
+            <span style={{ color: "#0066cc" }}>
+              <RdsIcon
+                height="18px"
+                width="18px"
+                name={getFileIcon(props.Language as keyof typeof fileTypeIcons || "Default")}
+                fill={false}
+                stroke={false}
+              />
+            </span>
+          )}
+          <span style={{ marginLeft: 5 }}>{props.text || node.name}</span> {/* Display the text or node name */}
           {(isHovered && props.showActions) && (
-           <div className="ms-auto d-flex btngroup" onClick={(e) => e.stopPropagation()}>
-           <small
-             className="customborder p-2"
-             onMouseEnter={() => handleIconMouseEnter("plus")}
-             onMouseLeave={handleIconMouseLeave}
-           >
-             <RdsIcon
-               height="16px"
-               width="16px"
-               name="plus"
-               fill={false}
-               stroke={true}
-               colorVariant={getIconClass("plus") === "light" ? "light" : "primary"} // Apply the color conditionally
-               classes={`p-1`} // Apply the class conditionally
-               onClick={(e) => handlerButtonGroupClick(e, "plus", { data: node })}
-             />
-           </small>
-           <small
-             className="customborder p-2"
-             onMouseEnter={() => handleIconMouseEnter("pencil")}
-             onMouseLeave={handleIconMouseLeave}
-           >
-             <RdsIcon
-               height="16px"
-               width="16px"
-               name="pencil"
-               fill={false}
-               stroke={true}
-               colorVariant={getIconClass("pencil") === "light" ? "light" : "primary"} // Apply the color conditionally
-               classes={`p-1`} // Apply the class conditionally
-               onClick={(e) => handlerButtonGroupClick(e, "edit", { data: node })}
-             />
-           </small>
-           <small
-             className="customborder p-2"
-             onMouseEnter={() => handleIconMouseEnter("move")}
-             onMouseLeave={handleIconMouseLeave}
-           >
-             <RdsIcon
-               height="16px"
-               width="16px"
-               name="move"
-               fill={false}
-               stroke={true}
-               colorVariant={getIconClass("move") === "light" ? "light" : "primary"} // Apply the color conditionally
-               classes={`p-1`} // Apply the class conditionally
-               onClick={(e) => handlerButtonGroupClick(e, "move", { data: node })}
-             />
-           </small>
-           <small
-             className="customborder p-2"
-             onMouseEnter={() => handleIconMouseEnter("delete")}
-             onMouseLeave={handleIconMouseLeave}
-           >
-             <RdsIcon
-               height="16px"
-               width="16px"
-               name="delete"
-               fill={false}
-               stroke={true}
-               colorVariant={getIconClass("delete") === "light" ? "light" : "primary"} // Apply the color conditionally
-               classes={`p-1`} // Apply the class conditionally
-               onClick={(e) => handlerButtonGroupClick(e, "delete", { data: node })}
-             />
-           </small>
-         </div>
+            <div className="ms-auto d-flex btngroup" onClick={(e) => e.stopPropagation()}>
+              <small
+                className="customborder p-2"
+                onMouseEnter={() => handleIconMouseEnter("plus")}
+                onMouseLeave={handleIconMouseLeave}
+              >
+                <RdsIcon
+                  height="16px"
+                  width="16px"
+                  name="plus"
+                  fill={false}
+                  stroke={true}
+                  colorVariant={getIconClass("plus") === "light" ? "light" : "primary"}
+                  classes={`p-1`}
+                  onClick={(e) => handlerButtonGroupClick(e, "plus", { data: node })}
+                />
+              </small>
+              <small
+                className="customborder p-2"
+                onMouseEnter={() => handleIconMouseEnter("pencil")}
+                onMouseLeave={handleIconMouseLeave}
+              >
+                <RdsIcon
+                  height="16px"
+                  width="16px"
+                  name="pencil"
+                  fill={false}
+                  stroke={true}
+                  colorVariant={getIconClass("pencil") === "light" ? "light" : "primary"}
+                  classes={`p-1`}
+                  onClick={(e) => handlerButtonGroupClick(e, "edit", { data: node })}
+                />
+              </small>
+              <small
+                className="customborder p-2"
+                onMouseEnter={() => handleIconMouseEnter("move")}
+                onMouseLeave={handleIconMouseLeave}
+              >
+                <RdsIcon
+                  height="16px"
+                  width="16px"
+                  name="move"
+                  fill={false}
+                  stroke={true}
+                  colorVariant={getIconClass("move") === "light" ? "light" : "primary"}
+                  classes={`p-1`}
+                  onClick={(e) => handlerButtonGroupClick(e, "move", { data: node })}
+                />
+              </small>
+              <small
+                className="customborder p-2"
+                onMouseEnter={() => handleIconMouseEnter("delete")}
+                onMouseLeave={handleIconMouseLeave}
+              >
+                <RdsIcon
+                  height="16px"
+                  width="16px"
+                  name="delete"
+                  fill={false}
+                  stroke={true}
+                  colorVariant={getIconClass("delete") === "light" ? "light" : "primary"}
+                  classes={`p-1`}
+                  onClick={(e) => handlerButtonGroupClick(e, "delete", { data: node })}
+                />
+              </small>
+            </div>
           )}
         </div>
       </div>
