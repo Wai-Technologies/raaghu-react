@@ -2,12 +2,12 @@ import React from "react";
 import ReactPlayer from "react-player";
 
 export interface RdsVideoPlayerProps {
-    width: string;
-    height: string;
-    autoplay: boolean;
-    muted: boolean;
-    videoLink: string;
-    type?: "Default" | "YouTube" | "Vimeo";
+    width: string; // Width of the video player
+    height: string; // Height of the video player
+    autoplay: boolean; // Autoplay the video
+    muted: boolean; // Mute the video
+    videoLink: string; // Link to the video
+    type?: "Default" | "YouTube" | "Vimeo"; // Type of video source
 }
 
 const RdsVideoPlayer = ({ width, height, autoplay, muted, videoLink, type }: RdsVideoPlayerProps) => {
