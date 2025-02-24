@@ -1,6 +1,6 @@
 import RdsCompAppShell from '../../raaghu-layouts/src/rds-comp-app-shell';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
+import { DisplayType, RdsButton, RdsOffcanvas } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
 
 export * from "../../raaghu-elements/src/index";
 export * from "../../raaghu-components/src/index";
@@ -17,7 +17,15 @@ function App() {
               {/* Row 1 */}
               <div className="row">
                 <div className="col-lg-8">
-                  <div className="card p-3 h-100">Daily Summary</div>
+                  <div className="card p-3 h-100">
+                  <RdsOffcanvas
+                      backDrop="static"
+                      canvasTitle="Offcanvas Title"
+                      offId="canvasExample"
+                      offcanvasbutton={<RdsButton aria-controls="canvasExample" colorVariant="primary" data-bs-target="#canvasExample" data-bs-toggle="offcanvas" label="Button" size="medium" type="button" />}
+                      offcanvaswidth={650}
+                      placement="end" scrolling={false}/>
+                  </div>
                 </div>
                 <div className="col-lg-4">
                   <div className="row">
