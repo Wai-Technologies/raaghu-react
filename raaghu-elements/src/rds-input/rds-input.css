@@ -130,7 +130,41 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .inputDisabled {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5bb; 
   cursor: not-allowed; 
   opacity: 0.6; 
+}
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
+}
+
+.inputOutlineSelected {
+  border-bottom: solid 2px #7D7D7D !important;
+}
+
+.inputOutline {
+  border-bottom: solid 1px #7D7D7D !important;
+}
+.inputActive {
+  border-color: #7e2eef !important;
+}
+
+.inputSelected {
+  border: solid 1px #7D7D7D !important;
+}
+
+.inputError {
+  border-color: #E02D30 !important;
+}
+
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
 }

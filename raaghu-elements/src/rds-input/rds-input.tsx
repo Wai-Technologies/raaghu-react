@@ -5,46 +5,46 @@ import Tooltip from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
 export interface RdsInputProps {
-  size?: "small" | "large" | "medium" | string;
-  isDisabled?: boolean;
-  readonly?: boolean;
-  value?: string;
-  inputType?: string;
-  state?: string;
-  style?: string;
-  showTitle?: boolean;
-  validatonPattern?: RegExp;
-  validationMsg?: string;
-  placeholder?: string;
-  autoFocus?: [boolean, number];
-  singleDigit?: boolean;
-  ref?: any;
-  labelPosition?: string;
-  name?: string;
-  label?: boolean;
-  id?: string;
-  required?: boolean;
-  dataTestId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => any;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any;
-  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  customClasses?: string;
-  formName?: string;
-  reset?: boolean;
-  fontWeight?: string;
-  minLength?: number;
-  maxLength?: number;
-  minValue?: number;
-  maxValue?: number;
-  showIcon?: boolean;
-  HintText?: string;
-  ShowHintText?: boolean;
-  tooltipPlacement?: "top" | "bottom" | "left" | "right";
-  tooltipTitle?: string;
-  isValidConfirmPass?: boolean;
-  className?: string; 
+  size?: "small" | "large" | "medium" | string; // Size of the input field
+  isDisabled?: boolean; // Whether the input field is disabled
+  readonly?: boolean; // Whether the input field is read-only
+  value?: string; // Value of the input field
+  inputType?: string; // Type of the input field (e.g., text, password, number)
+  state?: string; // State of the input field (e.g., default, active, selected, error, disabled)
+  style?: string; // Style of the input field (e.g., Default, Bottom Outline, Pill)
+  showTitle?: boolean; // Whether to show the title/label of the input field
+  validatonPattern?: RegExp; // Regular expression pattern for validation
+  validationMsg?: string; // Validation message to display
+  placeholder?: string; // Placeholder text for the input field
+  autoFocus?: [boolean, number]; // Whether to auto-focus the input field and the delay in milliseconds
+  singleDigit?: boolean; // Whether the input field is for single digit input
+  ref?: any; // Reference to the input field
+  labelPosition?: string; // Position of the label (e.g., top, bottom, floating, right, left)
+  name?: string; // Name attribute of the input field
+  label?: boolean; // Whether to show the label
+  id?: string; // ID attribute of the input field
+  required?: boolean; // Whether the input field is required
+  dataTestId?: string; // Data test ID for testing purposes
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any; // Change event handler
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => any; // Focus event handler
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any; // Blur event handler
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void; // Click event handler
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>; // Key down event handler
+  customClasses?: string; // Custom CSS classes for the input field
+  formName?: string; // Name of the form the input field belongs to
+  reset?: boolean; // Whether to reset the input field
+  fontWeight?: string; // Font weight of the input field text
+  minLength?: number; // Minimum length of the input field value
+  maxLength?: number; // Maximum length of the input field value
+  minValue?: number; // Minimum value for the input field (for numeric inputs)
+  maxValue?: number; // Maximum value for the input field (for numeric inputs)
+  showIcon?: boolean; // Whether to show an icon in the input field
+  HintText?: string; // Hint text to display below the input field
+  ShowHintText?: boolean; // Whether to show the hint text
+  tooltipPlacement?: "top" | "bottom" | "left" | "right"; // Placement of the tooltip
+  tooltipTitle?: string; // Title of the tooltip
+  isValidConfirmPass?: boolean; // Whether the confirm password is valid
+  className?: string; // Additional CSS classes for the input field
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -346,7 +346,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         {hasError && isTouch && props.required && value === "" && (
           <div className="form-control-feedback validation-position">
             <span className="text-danger">
-              {props.label} {t("is required")}
+              {props.label} {t("")}
             </span>
           </div>
         )}
