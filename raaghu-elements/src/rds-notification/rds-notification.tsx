@@ -5,12 +5,12 @@ import RdsButton from "../rds-button";
 import "./rds-notification.css";
 
 export interface RdsNotificationProps {
-    notifications: any[];
-    layout?: "vertical" | "horizontal";
-    style?: "default" | "avatar" | "icon" | "image";
-    type?: "error" | "info" | "success" | "warning";
-    onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void;
-    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void;
+    notifications: any[]; // Array of notifications
+    layout?: "vertical" | "horizontal"; // Layout of the notification
+    style?: "default" | "avatar" | "icon" | "image"; // Style of the notification
+    type?: "error" | "info" | "success" | "warning"; // Type of the notification
+    onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
+    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 
 const RdsNotification = ({
