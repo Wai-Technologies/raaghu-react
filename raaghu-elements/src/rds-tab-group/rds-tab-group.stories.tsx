@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsTabGroup from "./rds-tab-group";
+import RdsTabGroup, { TabLayout } from "./rds-tab-group";
 
 const meta: Meta =  {
   title: "Elements/Tab",
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof RdsTabGroup>;
 export const Default : Story = {
 args :{
   level: 3,
-  layout: "Horizontal",
+  layout: TabLayout.Horizontal,
   style: "",
   iconName: "user",
   iconSelect: "plus",

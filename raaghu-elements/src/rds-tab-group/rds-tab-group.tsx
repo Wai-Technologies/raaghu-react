@@ -8,13 +8,17 @@ export interface TabItem {
   children?: TabItem[]; // Nested tabs
 }
 
+export enum TabLayout {
+  Horizontal = "Horizontal",
+  Vertical = "Vertical",
+}
 export interface RdsTabGroupProps {
   level?: number; //tab level
-  layout?: "Horizontal" | "Vertical"; // Layout type
+  layout?: TabLayout; // Layout type
   style?: string; // Tab style
   iconName?: string; //tab right icon
   iconSelect?: string; //tab left icon
-  icon?: string;
+  icon?: string; //tab icon
 }
 
 // Mapping style prop to CSS classes
@@ -57,24 +61,24 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
   const renderTabs = (tabs: TabItem[], level = 0) => {
     return (
       <div
-        style={{ marginLeft: props.layout === "Vertical" ? level * 20 : 0 }}
+        style={{ marginLeft: props.layout === TabLayout.Vertical ? level * 20 : 0 }}
         // className={`tab-level ${props.style ? styleClassesForHorizontal[props.style] : ""}`}
-        className={`tab-level ${props.layout === "Vertical" ? (props.style ? styleClassesForVertical[props.style] : "") : (props.style ? styleClassesForHorizontal[props.style] : "")}`}
+        className={`tab-level ${props.layout === TabLayout.Vertical ? (props.style ? styleClassesForVertical[props.style] : "") : (props.style ? styleClassesForHorizontal[props.style] : "")}`}
       >
         {tabs.map((item, index) => (
-          <div key={index} className={props.layout === "Horizontal" ? "d-inline-block" : ""}>
+          <div key={index} className={props.layout === TabLayout.Horizontal ? "d-inline-block" : ""}>
             <div
               className={`tab cursor-pointer px-3 py-2 ${activeTabs.includes(item.label) ? "active" : ""}`}
               onClick={() => onClickTab(item.label)}
             >
-              {props.layout === "Vertical" && (
+              {props.layout === TabLayout.Vertical && (
                 <p className="mb-0 d-flex align-items-center">
                   <RdsIcon name={props.iconSelect} height="13px" width="13px" classes="mx-1" />
                   <RdsLabel label={item.label} />
                   <RdsIcon name={props.icon} height="11px" width="11px" classes="mx-2" />
                 </p>
               )}
-              {props.layout === "Horizontal" && (
+              {props.layout === TabLayout.Horizontal && (
                 <p className="mb-0 d-flex align-items-center">
                   <RdsIcon name={props.iconName} height="13px" width="13px" classes="mx-1"/>
                   <RdsLabel label={item.label} />
@@ -91,16 +95,16 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
 
   return (
     <>
-      {props.layout === "Horizontal" && (
+      {props.layout === TabLayout.Horizontal && (
         <div
-          className={`d-flex ${props.layout === "Horizontal" ? "flex-row" : ""}`}
+          className={`d-flex ${props.layout === TabLayout.Horizontal ? "flex-row" : ""}`}
         >
           {renderTabs(tabList)}
         </div>
       )}
-      {props.layout === "Vertical" && (
+      {props.layout === TabLayout.Vertical  && (
         <div
-          className={`d-flex ${props.layout === "Vertical" ? "flex-column" : ""}VerticalWidth`}
+          className={`d-flex ${props.layout === TabLayout.Vertical  ? "flex-column" : ""}VerticalWidth`}
         >
           {renderTabs(tabList)}
         </div>
