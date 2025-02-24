@@ -2,32 +2,45 @@ import React, { useEffect, useState } from "react";
 import "./rds-text-area.css";
 import { placements } from "../../libs";
 
+export enum  TextareaStyle {
+  Default = "Default",
+  BottomOutline = "Bottom Outline",
+  Pill = "Pill"
+}
+export enum TextareaState {
+  Default = "Default",
+  Active = "Active",
+  Selected = "Selected",
+  Disabled = "Disabled",
+  Error = "Error"
+}
+
 export interface RdsTextAreaProps {
-  rows?: number;
-  readonly?: boolean;
-  label?: string;
-  placeholder: string;
-  value?: string;
-  isDisabled?: boolean;
-  isMandatory?: boolean;
-  id?: string;
-  dataTestId?: string;
-  isFloatingInputLabel?: boolean;
-  tooltip?: boolean;
-  tooltipPlacement?: placements;
-  tooltipTitle?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  labelPosition?: "top" | "bottom";
-  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
-  reset?: boolean;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  validationPattern?: RegExp;
-  validationMsg?: string;
-  isMultiUrl?: boolean;
-  state?: "Default" | "Active" | "Selected" | "Disabled" | "Error";
-  style?: "Default" | "Bottom Outline" | "Pill";
-  showTitle?: boolean;
-  customClasses?: string;
+  rows?: number; //rows of text area
+  readonly?: boolean; //readonly text area
+  label?: string; //label of text area
+  placeholder: string; //placeholder of text area
+  value?: string; //value of text area
+  isDisabled?: boolean; //disabled text area
+  isMandatory?: boolean; //mandatory text area
+  id?: string; //id of text area
+  dataTestId?: string; //data test id of text area
+  isFloatingInputLabel?: boolean; //floating label of text area
+  tooltip?: boolean; //tooltip of text area
+  tooltipPlacement?: placements; //tooltip placement of text area
+  tooltipTitle?: string; //tooltip title of text area
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void; //on change event of text area
+  labelPosition?: "top" | "bottom"; //label position of text area
+  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void; //on click event of text area
+  reset?: boolean; //reset text area
+  onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void; //on key down event of text area
+  validationPattern?: RegExp; //validation pattern of text area
+  validationMsg?: string; //validation message of text area 
+  isMultiUrl?: boolean; //is multi url of text area
+  state?: TextareaState; //state of text area
+  style?: TextareaStyle;  //style of text area
+  showTitle?: boolean; //show title of text area
+  customClasses?: string; //custom classes of text area
 }
 
 const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
@@ -58,13 +71,13 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
 
   const getStateClass = () => {
     switch (props.state) {
-      case "Active":
+      case TextareaState.Active:
         return " inputActive";
-      case "Selected":
+      case TextareaState.Selected:
         return " inputSelected";
-      case "Error":
+      case TextareaState.Error:
         return " inputError";
-      case "Disabled":
+      case TextareaState.Disabled:
         return " inputDisabled";
       default:
         return " inputOutline";
@@ -73,9 +86,9 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
 
   const getStyleClass = () => {
     switch (props.style) {
-      case "Pill":
+      case TextareaStyle.Pill:
         return "rounded-4";
-      case "Bottom Outline":
+      case TextareaStyle.BottomOutline:
         return "bottom-outline";
       default:
         return "rounded";
@@ -96,7 +109,7 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
           className={`form-control mt-1 ${getStateClass()} ${getStyleClass()} ${
             props.customClasses || ""
           }`}
-          disabled={props.isDisabled || props.state === "Disabled"}
+          disabled={props.isDisabled || props.state === TextareaState.Disabled}
           rows={props.rows}
           readOnly={props.readonly}
           placeholder={props.placeholder}

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsTextArea from "./rds-text-area";
+import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
 import { Meta, StoryObj } from "@storybook/react";
 
 //whatever code is commented below is required for the future reference
@@ -38,8 +38,8 @@ type Story = StoryObj<typeof RdsTextArea>;
 
 export const Default: Story = {
     args: {
-        state: "Default",
-        style: "Default",
+        state: TextareaState.Default,
+        style: TextareaStyle.Default,
         showTitle: true,
         rows: 5,
         placeholder: "This is text area...",
