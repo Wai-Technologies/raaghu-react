@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./rds-button.css";
 import { RdsButtonProps } from "./rds-button.types";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip from "../rds-tooltip/rds-tooltip"; 
 import RdsIcon from "../rds-icon";
 
 const RdsButton = (props: RdsButtonProps) => {
@@ -9,13 +9,26 @@ const RdsButton = (props: RdsButtonProps) => {
     const [spinner, setSpinnerClass] = useState("");
     const btnType = props.type === "submit" ? "submit" : "button";
     const [turnSpinnerOff, setTurnSpinnerOff] = useState<any>(0);
-
+    const [isSelected, setIsSelected] = useState(false);
+    useEffect(() => {
+        if (props.state !== "selected") {
+            setIsSelected(false);
+        }
+    }, [props.state]);
+    //The if statement below will make the style disabled if other component calls button and gives isDisabled as argument
+    if(props.isDisabled){
+        props.style==="disabled";
+    };
     const buttonClick = (evt: any) => {
         const allBackdrops = document.querySelectorAll(".offcanvas-backdrop");
         if (allBackdrops.length > 1) {
             for (let i = 0; i < allBackdrops.length - 1; i++) {
                 allBackdrops[i].remove();
             }
+        }
+        // below if statement added to toggle the setIsSelected 
+        if (props.state === "selected") {
+            setIsSelected((prev) => !prev); 
         }
         if (props.showLoadingSpinner) {
             setSpinnerClass(" spinner");
@@ -25,6 +38,7 @@ const RdsButton = (props: RdsButtonProps) => {
                 setSpinnerClass("");
                 setTurnSpinnerOff(0);
             }, 2000);
+            `btn-${(props.colorVariant || "primary:selected").toLowerCase()} selected `;
         }
         props.onClick != undefined && props.onClick(evt);
     };
@@ -39,7 +53,7 @@ const RdsButton = (props: RdsButtonProps) => {
             defaultClass = defaultClass + buttonIconClass;
         }
 
-        if (props.isFabIcon) {
+        if(props.isFabIcon) {
             const roundedClass = " btn-icon rounded-pill ";
             defaultClass = defaultClass + roundedClass;
         }
@@ -52,8 +66,10 @@ const RdsButton = (props: RdsButtonProps) => {
             const iconLabelClass = defaultClass.replace("btn-icon", "");
             defaultClass = iconLabelClass;
         }
-        if (props.isRoundedButton) {
+        if (props.shape==="pill") {
             defaultClass = defaultClass + " rounded-pill ";
+        }else{
+            defaultClass;
         }
         if (props.class === " btn-link ") {
             defaultClass = defaultClass + " btn-link ";
@@ -61,6 +77,33 @@ const RdsButton = (props: RdsButtonProps) => {
         if (props.colorVariant === "light" && props.isBanerButton) {
             defaultClass = defaultClass + " text-primary border-primary";
         }
+        if(props.style === "filled"){
+            if (props.state === "hover") {
+                defaultClass += `btn hover `; 
+            } else if (props.state === "disabled") {
+                defaultClass += `btn disabled`; 
+            } else if (isSelected&&props.state==="selected") {
+                defaultClass += ` btn selected `;
+            }
+            else{
+                defaultClass;
+            }
+        }
+        else if(props.style === "outline"){
+            defaultClass += `btn ${
+                props.state === "hover" ? "outline-hover " :
+                props.state === "disabled" ? "disabled outline-selected" :
+                isSelected ? "outline-selected" : "btn-outline-primary"
+            }`;
+        }
+        else if(props.style === "transparent") {
+            defaultClass += `btn ${
+                props.state === "hover" ? "transparent-hover " :
+                props.state === "disabled" ? "disabled btn-transparent-primary" :
+                isSelected ? "transparent-selected" : "btn-transparent-primary"
+            }`;
+        }
+
         return defaultClass;
     };
 
@@ -75,9 +118,23 @@ const RdsButton = (props: RdsButtonProps) => {
     };
 
     return (<Fragment>
-        {props.tooltip ? (
+        {  
+           props.tooltip && props.label === "" ? (
             < Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-                <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
+                <button className={`btn ${
+                props.style === "outline" && props.state === "default"
+                  ? `btn-outline-${props.colorVariant}`
+                  : props.style === "outline"? `btn-outline-${props.state}`
+                  : props.style === "transparent" && props.state === "default"
+                  ? `transparent-${props.colorVariant}`
+                  : props.style === "transparent" && props.state === "selected"
+                  ? "btn tselected"
+                  : props.style === "transparent" 
+                  ? `transparent-${props.state}`
+                  : `btn-${props.colorVariant}`
+              } ${classesButton()} ${spinner} ${
+                props.textCase ? `text-${props.textCase}` : ""
+              }`}
                     disabled={props.isDisabled}
                     type={btnType}
                     form={props.formName}
@@ -105,7 +162,20 @@ const RdsButton = (props: RdsButtonProps) => {
                 </button>
             </Tooltip>
         ) :
-            <button className={`btn ${props.isOutline ? "btn-outline-" + props.colorVariant : "btn-" + props.colorVariant}` + classesButton() + spinner + (props.textCase ? ` text-${props.textCase}` : "")}
+            <button className={`btn ${
+                props.style === "outline" && props.state === "default"
+                  ? `btn-outline-${props.colorVariant}`
+                  : props.style === "outline"? `btn-outline-${props.state}`
+                  : props.style === "transparent" && props.state === "default"
+                  ? `transparent-${props.colorVariant}`
+                  : props.style === "transparent" && props.state === "selected"
+                  ? "btn tselected"
+                  : props.style === "transparent" 
+                  ? `transparent-${props.state}`
+                  : `btn-${props.colorVariant}`
+              } ${classesButton()} ${spinner} ${
+                props.textCase ? `text-${props.textCase}` : ""
+              }`}
                 disabled={props.isDisabled}
                 type={btnType}
                 form={props.formName}
