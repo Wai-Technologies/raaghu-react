@@ -7,47 +7,47 @@ import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 
 export interface RdsDropdownListProps {
-  id?: string;
-  reset?: boolean;
-  labelIcon?: string;
-  labelIconWidth?: string;
-  labelIconHeight?: string;
-  icon?: string;
-  iconFill?: boolean;
-  iconWidth?: string;
-  iconStroke?: boolean;
-  iconHeight?: string;
-  placeholder?: string;
-  isPlaceholder?: boolean;
-  isIconPlaceholder?: boolean;
-  borderDropdown?: boolean;
-  size?: string;
+  id?: string; // Id of the dropdown
+  reset?: boolean; // To reset the dropdown
+  labelIcon?: string; // Icon for the label
+  labelIconWidth?: string; // Width of the icon for the label
+  labelIconHeight?: string; // Height of the icon for the label
+  icon?: string; // Icon for the dropdown
+  iconFill?: boolean; // To fill the icon
+  iconWidth?: string; // Width of the icon
+  iconStroke?: boolean; // To stroke the icon
+  iconHeight?: string; // Height of the icon
+  placeholder?: string; // Placeholder for the dropdown
+  isPlaceholder?: boolean; // To show placeholder
+  isIconPlaceholder?: boolean; // To show icon placeholder
+  borderDropdown?: boolean; // To show border in dropdown
+  size?: string; // Size of the dropdown
   listItems: {
-    label: string;
-    val: string;
-    icon?: string;
-    iconWidth?: string;
-    iconHeight?: string;
-    iconPath?: string;
-  }[];
+    label: string; // Label of the dropdown
+    val: string; // Value of the dropdown
+    icon?: string; // Icon of the dropdown
+    iconWidth?: string; // Width of the icon
+    iconHeight?: string; // Height of the icon
+    iconPath?: string; // Path of the icon
+  }[]; // List of items in the dropdown
 
-  multiSelect?: boolean;
-  xOffset?: string;
-  yOffset?: string;
-  iconPath?: string;
-  onClick?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
-  selectedItems?: (selectedItems: any) => void;
-  selectedIndex?: (selectedindex: number) => void;
-  showIcon?: boolean;
-  isCode?: boolean;
-  block?: boolean;
-  state?: "Default" | "Expanded" | "Selected" | "Disabled";
-  style?: "Default" | "Bottom Line";
-  showTitle?: boolean;
-  title?: string;
-  isMandatory?: boolean;
-  showHint?: boolean;
-  hint?: string;
+  multiSelect?: boolean; // To enable multiselect dropdown
+  xOffset?: string; // X offset of the dropdown
+  yOffset?: string; // Y offset of the dropdown
+  iconPath?: string;  // To show icon in dropdown
+  onClick?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void; // To get the selected item
+  selectedItems?: (selectedItems: any) => void; // To get the selected items
+  selectedIndex?: (selectedindex: number) => void; // To get the index of the selected item
+  showIcon?: boolean; // To show icon in dropdown
+  isCode?: boolean; // To show code in dropdown
+  block?: boolean; // To show dropdown in block
+  state?: "Default" | "Expanded" | "Selected" | "Disabled"; // To set the state of the dropdown
+  style?: "Default" | "Bottom Line"; // To show bottom line in dropdown
+  showTitle?: boolean; // show/hide title of the dropdown
+  title?: string; // Title of the dropdown
+  isMandatory?: boolean; // To show required field
+  showHint?: boolean; // To show hint in dropdown
+  hint?: string; // Hint text
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {

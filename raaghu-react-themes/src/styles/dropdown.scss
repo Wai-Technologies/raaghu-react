@@ -69,8 +69,8 @@
 }
 
 .bottom-line {
-  border-bottom: 2px solid gray;
-  border-radius: 0;
+  border-bottom: 2px solid gray !important;
+  border-radius: 0 !important;
 }
 
 .form-select[size]:not([size="1"]) {
