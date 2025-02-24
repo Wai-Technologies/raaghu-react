@@ -11,7 +11,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         style: {
-            options: ["No Arrow", "Middle Top Arrow", "Middle Bottom Arrow", "Left Arrow", "Left Top Arrow", "Left bottom Arrow", "Right Arrow", "Right Top Arrow", "Right bottom Arrow"],
+            options: ["No Arrow", "Middle Top Arrow", "Middle Bottom Arrow", "Left Arrow", "Left Top Arrow", "Left Bottom Arrow", "Right Arrow", "Right Top Arrow", "Right Bottom Arrow"],
             control: { type: "select" },
         },
     },
