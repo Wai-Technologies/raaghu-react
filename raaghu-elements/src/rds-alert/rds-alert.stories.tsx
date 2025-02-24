@@ -17,7 +17,17 @@ const meta: Meta<typeof RdsAlert> = {
     position: {
       options: ["top", "bottom"],
       control: { type: "radio" },
-      if: { arg: "sticky" },
+      //if: { arg: "sticky" },
+    },
+    linkUrl: {
+      control: {type: "text"},
+      //if: { arg: "showlink"},
+    },
+    showprimarybutton: {
+      if: { arg: "showbutton"},
+    },
+    showsecondarybutton: {
+      if: { arg: "showbutton"},
     },
     size: {
       options: ["small", "medium", "large"],
@@ -33,7 +43,7 @@ const meta: Meta<typeof RdsAlert> = {
 export default meta;
 type Story = StoryObj<typeof RdsAlert>;
 
-export const SingleLineAlert: Story = {
+/*export const SingleLineAlert: Story = {
   args: {
     type: "info",
     icon: "information",
@@ -50,7 +60,7 @@ export const SingleLineAlert: Story = {
     iconWidth: "20px",
     sticky: false,
     position: "top",
-    displayType: "singleline",
+    multiline: false,
     showlink: true,
     showbutton: true,
   },
@@ -71,41 +81,48 @@ SingleLineAlert.parameters = {
       "showbutton",
       "linkUrl",
       "delay",
+      "multiline",
     ],
   },
-};
+};*/
 
-export const MultilineAlert: Story = {
+export const Default: Story = {
   args: {
     type: "info",
-    icon: "information",
-    title: "Heading Title. ",
-    message: "This is the description of the message bar.",
-    description:
-      "This is the description which should not exceed 100 character limit.",
     border: "none",
+    multiline: false,
+    icon: "information",
+    showTitle: true,
+    title: "Heading Title.",
+    description: "This is the description of the message bar.",
+    //description: "This is the description which should not exceed 100 character limit.",
+    //border: "none",
     iconStroke: true,
     iconHeight: "20px",
     iconWidth: "20px",
-    size: "small",
+    size: "medium",
+    showlink: true,
+    showbutton:true,
+    showprimarybutton: true,
+    showsecondarybutton: true,
     dismisable: true,
-    linkUrl: "https://example.com",
+    showDescription: true,
+    showIcon: true,
     iconFill: false,
     delay: 5000,
     sticky: false,
     position: "top",
-    showlink: true,
-    showbutton: true,
-    displayType: "multiline",
+    linkUrl: "https://example.com",
   },
 };
-MultilineAlert.parameters = {
+Default.parameters = {
   controls: {
     include: [
       "type",
       "icon",
+      "showTitle",
       "title",
-      "message",
+      //"message",
       "description",
       "border",
       "size",
@@ -114,9 +131,14 @@ MultilineAlert.parameters = {
       "position",
       "showlink",
       "showbutton",
-      "linkUrl",
-      "iconFill",
-      "delay",
+      "showprimarybutton",
+      "showsecondarybutton",
+      "showDescription",
+      "showIcon",
+      //"linkUrl",
+      //"iconFill",
+      //"delay",
+      "multiline",
     ],
   },
 };
