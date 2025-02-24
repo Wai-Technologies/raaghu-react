@@ -200,4 +200,6 @@
     display: flex;
     flex-direction: row;
   }
-  
+  .theme-dark div p {
+    color: #999999f2 !important;
+}
