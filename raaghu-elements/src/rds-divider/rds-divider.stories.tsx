@@ -26,7 +26,7 @@ const meta: Meta = {
                 options:[
                         "small",
                         "medium",
-                        "large"
+                        "large",
                 ],
                 control: { type: "select" },
             },
@@ -34,10 +34,18 @@ const meta: Meta = {
                 options:[
                         "left",
                         "middle",
-                        "right"
+                        "right",
                 ],
                 control: { type: "select" },
-            }
+            },
+            layout:{
+                options:[
+                        "horizontal",
+                        "vertical",
+                ],
+                control: { type: "select" },
+            },
+
     },
 } satisfies Meta<typeof RdsDivider>;
 
@@ -57,8 +65,8 @@ export const Default: Story = {
         size: "medium",
         textalign: "middle",
         withdashed: false,
-
+        layout: "horizontal",
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['icon','iconShow','colorVariant', 'size', 'textalign','withdashed','dividerMessage'] } };
+Default.parameters = { controls: { include: ['icon','iconShow','colorVariant', 'size', 'textalign','withdashed','dividerMessage','layout'] } };
