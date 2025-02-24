@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./rds-multilevel-menu.css";
 import RdsIcon from "../rds-icon";
+import "../../../raaghu-react-themes/src/styles/multilevel-menu.scss";
 
 export interface RdsMultilevelMenu {
   size?: "default" | "large"; // size of the menu
@@ -90,7 +90,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenu) => {
           return (
             <div key={item.id}>
               <li
-                className={`cursor-pointer d-flex justify-content-between align-items-center p-2 position-relative bg-white 
+                className={`cursor-pointer d-flex justify-content-between align-items-center p-2 position-relative 
           ${isHovered ? "menu-hover" : ""}
           ${isSelected ? "menu-selected" : ""}`}
                 style={{ transition: "background-color 0.2s" }}
@@ -137,7 +137,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenu) => {
                       return (
                         <div key={child.id}>
                           <li
-                            className={`cursor-pointer d-flex justify-content-between align-items-center p-2 bg-white 
+                            className={`cursor-pointer d-flex justify-content-between align-items-center p-2
                       ${isChildHovered ? "menu-hover" : ""}
                       ${isChildSelected ? "menu-selected" : ""}`}
                             style={{ transition: "background-color 0.2s" }}
