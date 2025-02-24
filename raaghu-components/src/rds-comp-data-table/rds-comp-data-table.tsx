@@ -44,10 +44,12 @@ export interface RdsCompDatatableProps {
   }[];
   tableData: any[];
   pagination: boolean;
+  isClickable?:boolean;
   recordsPerPage?: number;
   recordsPerPageSelectListOption?: boolean;
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
+  onRowClick?: (rowId: any) => void; 
   tableStyle?: any;
   alignmentType?: any;
   actionPosition?: "right" | "left";
@@ -301,6 +303,10 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const toggleDropdown = (id: any) => {
     setIsDropdownOpen(id === activeDropdownId ? !isDropdownOpen : true);
     setActiveDropdownId(id);
+  };
+
+  const handleRowClick = (rowId: any) => {
+   props.onRowClick && props.onRowClick(rowId); 
   };
 
   return (
@@ -736,6 +742,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 >
                                   {!tableDataRow.isEndUserEditing ? (
                                     <div>
+                                     {tableHeader.datatype === "text" && tableHeaderIndex === 0 && props.isClickable ? (
+                                      <a href="#"
+                                      onClick={() => handleRowClick(tableDataRow.id)}>
+                                        {tableDataRow[tableHeader.key]}
+                                      </a>
+                                    ) : (
+                                      <>
                                       {tableHeader.datatype === "text" && (
                                         <>
                                           {tableHeader.key.includes("time") ||
@@ -777,6 +790,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         </>
                                       )}
 
+                                      </>
+                                    )}                                                                  
                                       {tableHeader.datatype === "date" && (
                                         <>
                                           <span className="d-flex text-truncate">
@@ -831,6 +846,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               role={
                                                 tableDataRow[tableHeader.key].info
                                               }
+                                              size="small"
                                             />
                                           </div>
                                         )}

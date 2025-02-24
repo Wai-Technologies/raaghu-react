@@ -60,22 +60,22 @@
 // };
 
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompCardDetailList from "./rds-comp-card-detail-list";
+import RdsCompBankCardDetailList from "./rds-comp-bank-card-detail-list";
 
 
 const meta: Meta = { 
-    title: "Components/Detail List",
-    component: RdsCompCardDetailList,
+    title: "Components/Bank Card Detail List",
+    component: RdsCompBankCardDetailList,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompCardDetailList>;
+} satisfies Meta<typeof RdsCompBankCardDetailList>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompCardDetailList>;
+type Story = StoryObj<typeof RdsCompBankCardDetailList>;
 
 export const Default: Story = {
     args: {
@@ -91,7 +91,7 @@ export const Default: Story = {
                     iconstroke: true,
                     iconColorVarient: "dark",
                     cardID: "1011",
-                    cardName: "MasterCard",
+                    cardName: "Mastercard",
                     cardExpiry: "11/2027",
                     cardNumber: 3596,
                     isDefault: false,
@@ -104,7 +104,7 @@ export const Default: Story = {
                     iconstroke: true,
                     iconColorVarient: "dark",
                     cardID: "1011",
-                    cardName: "MasterCard",
+                    cardName: "Mastercard",
                     cardExpiry: "11/2027",
                     cardNumber: 3596,
                     isDefault: false,
@@ -117,7 +117,7 @@ export const Default: Story = {
                     iconstroke: true,
                     iconColorVarient: "dark",
                     cardID: "1011",
-                    cardName: "MasterCard",
+                    cardName: "Mastercard",
                     cardExpiry: "11/2027",
                     cardNumber: 3596,
                     isDefault: false,

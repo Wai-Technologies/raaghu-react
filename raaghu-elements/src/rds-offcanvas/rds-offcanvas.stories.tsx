@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsOffcanvas>;
 
-export const Offcanvas: Story = {
+export const CustomSlideOutOffcanvas: Story = {
   args: {
     offId: "canvasExample",
     canvasTitle: "Offcanvas Title",
@@ -31,24 +31,50 @@ export const Offcanvas: Story = {
     offcanvaswidth: 650,
     children: (
       <>
-        <h4 className="p-3">
+      <div className="d-flex flex-column h-100">
+        <h5 className="p-3">
           Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing
           elit.
-        </h4>
-        {/* <div className="col-4 m-4">
+        </h5>
+        <div className="d-flex justify-content-start mt-auto p-3 offcanvas-margin">
+        <div className="me-2">
           <RdsButton
-            label="Close "
+            label="RESTORE TO DEFAULT"
+            isOutline={true}
+            colorVariant="primary"
+            block={false}
+            tooltipTitle={""}
+            type="button"
+            size="medium"
+          />
+        </div>
+        <div className="me-2">
+          <RdsButton
+            label="CANCEL"
+            colorVariant="primary"
+            isOutline={true}
+            block={false}
+            tooltipTitle={""}
+            type="button"
+            size="medium"
+          />
+        </div>
+        <div className="me-2">
+          <RdsButton
+            label="SAVE"
             colorVariant="primary"
             block={false}
             tooltipTitle={""}
             type="submit"
-            size="small"
+            size="medium"
             data-bs-dismiss="offcanvas"
             databstoggle="offcanvas"
             databstarget="#canvasExample"
             ariacontrols="canvasExample"
           />
-        </div> */}
+        </div>
+        </div>
+      </div>
       </>
     ),
     offcanvasbutton: (
@@ -65,6 +91,6 @@ export const Offcanvas: Story = {
     ),
   },
 } satisfies Story;
-Offcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
+CustomSlideOutOffcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
 
 

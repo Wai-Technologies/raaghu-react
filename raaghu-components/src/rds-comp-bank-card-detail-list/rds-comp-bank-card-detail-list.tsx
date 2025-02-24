@@ -1,14 +1,14 @@
 import React from "react";
 import { RdsBankCardDetail } from "../rds-elements";
-import "./rds-comp-card-detail-list.css";
+import "./rds-comp-bank-card-detail-list.css";
 
-export interface RdsCompCardDetailListProps {
+export interface RdsCompBankCardDetailListProps {
     cardDatas: any[];
     isSelectable?: boolean;
     isEditable?: boolean;
 }
 
-const RdsCompCardDetailList = (props: RdsCompCardDetailListProps) => {
+const RdsCompBankCardDetailList = (props: RdsCompBankCardDetailListProps) => {
     return (
         <>
             <div className="m-1 p-1 ">
@@ -21,4 +21,4 @@ const RdsCompCardDetailList = (props: RdsCompCardDetailListProps) => {
         </>
     );
 };
-export default RdsCompCardDetailList;
+export default RdsCompBankCardDetailList;

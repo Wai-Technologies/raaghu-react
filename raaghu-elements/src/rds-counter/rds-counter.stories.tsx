@@ -30,17 +30,17 @@ const meta: Meta = {
 } satisfies Meta<typeof RdsCounter>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCounter>;
 
-export const Counter: Story = {
+type Story = StoryObj<typeof RdsCounter>;
+export const NumericCounter: Story = {    
     args: {
         // counterValue: 0,
         min: 0,
         max: 50,
-        width: 110,
+        width: 135,
         colorVariant: "primary",
         position: "top",
         label: "Counter",
     }
 } satisfies Story;
-Counter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };
+NumericCounter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };

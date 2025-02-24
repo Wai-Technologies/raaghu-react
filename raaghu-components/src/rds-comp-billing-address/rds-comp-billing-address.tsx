@@ -162,7 +162,7 @@ function emitSaveData(event: any) {
                 <form id="billingAddressForm">
                 <div className="custom-content-scroll">
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="First Name"
                                 size="medium"
@@ -182,7 +182,7 @@ function emitSaveData(event: any) {
                                 </div>
                             )}
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Last Name"
                                 size="medium"
@@ -204,7 +204,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Company"
                                 size="medium"
@@ -216,7 +216,7 @@ function emitSaveData(event: any) {
                                 onChange={(e) => { handleChange(e.target.value,"company"); }}
                             />
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Phone"
                                 size="medium"
@@ -255,7 +255,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12">
                             <RdsInput
                                 label="Address"
                                 placeholder="Enter Address"
@@ -277,7 +277,7 @@ function emitSaveData(event: any) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="City"
                                 size="medium"
@@ -337,7 +337,7 @@ function emitSaveData(event: any) {
                                 </div>
                             )} 
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 label="Postal Code"
                                 name="postalCode"

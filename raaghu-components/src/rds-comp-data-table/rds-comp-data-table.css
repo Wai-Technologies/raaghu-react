@@ -52,7 +52,7 @@
     }
     tr{
         &:hover{
-            z-index: 0;
+            z-index: 10;
             position: relative;
         }
     }

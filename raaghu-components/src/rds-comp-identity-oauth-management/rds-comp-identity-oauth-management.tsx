@@ -70,7 +70,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     ></RdsCheckbox>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={oauth?.clientId}
@@ -85,7 +85,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="389"
                             customClasses="form-control"
@@ -99,7 +99,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={oauth?.authority}
@@ -114,7 +114,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="Scope"
                             customClasses="form-control"

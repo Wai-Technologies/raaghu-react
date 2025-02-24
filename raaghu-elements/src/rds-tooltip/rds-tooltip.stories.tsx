@@ -10,9 +10,9 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        place: {
-            options: ["top", "bottom", "right", "left"],
-            control: { type: "radio" },
+        style: {
+            options: ["No Arrow", "Middle Top Arrow", "Middle Bottom Arrow", "Left Arrow", "Left Top Arrow", "Left bottom Arrow", "Right Arrow", "Right Top Arrow", "Right bottom Arrow"],
+            control: { type: "select" },
         },
     },
 } satisfies Meta<typeof Tooltip>;
@@ -20,12 +20,11 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-export const tooltip: Story = {
+export const Default: Story = {
     args: {
-        text: "This is tooltip",
-        place: "right",
-        children: <button className="btn btn-primary" >Button</button>
+        label: "This is tooltip",
+        style: "Right Arrow",
+        children: <button className="btn btn-primary">Button</button>
     }
 } satisfies Story;
-tooltip.parameters = { controls: { include: ['text', 'place', 'children'] } };
-
+Default.parameters = { controls: { include: ['label', 'style'] } };

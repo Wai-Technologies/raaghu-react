@@ -4,7 +4,7 @@ import "./rds-chart-scatter.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Charts/Scatter Chart',
+    title: 'Elements/Charts/Scatter Chart',
     component: RdsScatterChart,
     parameters: {
         layout: 'padded',

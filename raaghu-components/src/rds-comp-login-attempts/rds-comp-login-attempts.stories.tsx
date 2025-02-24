@@ -33,7 +33,7 @@ export const Default: Story = {
             { value: "LockedOut", displayText: "Locked Out" },
             {
                 value: "UserPhoneNumberIsNotConfirmed",
-                displayText: "User PhoneNumber IsNot Confirmed",
+                displayText: "User Phone Number IsNot Confirmed",
             },
         ],    
         tableHeaders: [

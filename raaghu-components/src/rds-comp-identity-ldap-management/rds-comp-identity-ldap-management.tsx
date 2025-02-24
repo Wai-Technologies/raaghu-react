@@ -57,7 +57,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     ></RdsCheckbox>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={ldap?.ldapServerHost}
@@ -70,7 +70,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="389"
                             customClasses="form-control"
@@ -86,7 +86,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={ldap?.ldapBaseDc}
@@ -100,7 +100,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
 
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             placeholder="Enter Domain"
                             customClasses="form-control"
@@ -115,7 +115,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="offset-xxl-4 offset-xl-4 offset-lg-4"></div>
                 </div>
                 <div className="row">
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
                                 value={ldap?.ldapUserName}
@@ -129,7 +129,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
 
                         </div>
                     </div>
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 mb-3">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
                             value={ldap?.ldapPassword}
                             name="ldapPassword"

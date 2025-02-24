@@ -78,7 +78,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 <div className="headerClass">
                     <div className="p-3">
                         <div className="text-center mt-3">
-                            <label className="fs-4 fw-bold">
+                            <label className="fs-4 fw-bold text-muted">
                                 {props.EditionItems.EditionName}
                             </label>
                             <p className="fw-medium text-muted pt-2">
@@ -168,6 +168,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                 <div className="form-group mb-3">                                              
                                                     <RdsSelectList
                                                        id="selePla"
+                                                       classes="text-theme-change"
                                                        label="Select Plan"
                                                        onChange={(e: any) => handleChangeform(e.target.checked, "selePlan")}                                                       
                                                        selectItems={[]}

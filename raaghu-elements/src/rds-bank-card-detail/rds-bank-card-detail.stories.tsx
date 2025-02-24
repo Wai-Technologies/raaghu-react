@@ -15,7 +15,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBankCardDetail>;
 
-export const BankCardDetail: Story = {
+export const BankCardDetailManager: Story = {
     args: {
         isSelectable: true,
         isEditable: true,
@@ -28,7 +28,7 @@ export const BankCardDetail: Story = {
                 iconstroke: true,
                 iconColorVarient: "dark",
                 cardID: "1011",
-                cardName: "MasterCard",
+                cardName: "Mastercard",
                 cardExpiry: "11/2027",
                 cardNumber: 3596,
                 isDefault: false,
@@ -36,5 +36,5 @@ export const BankCardDetail: Story = {
         ],
     }
 } satisfies Story;
-BankCardDetail.parameters = { controls: { include: ['isSelectable', 'isEditable', 'cardDatas'] } };
+BankCardDetailManager.parameters = { controls: { include: ['isSelectable', 'isEditable', 'cardDatas'] } };
 

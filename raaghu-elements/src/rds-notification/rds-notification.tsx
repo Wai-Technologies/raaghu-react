@@ -183,7 +183,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
                         <hr className="m-0" />
                     </div>
                 ))}
-                <div className="d-flex justify-content-end m-4 ">
+                <div className="d-flex justify-content-end m-2">
                     <RdsButton
                         colorVariant="primary"
                         label="Mark As Read"

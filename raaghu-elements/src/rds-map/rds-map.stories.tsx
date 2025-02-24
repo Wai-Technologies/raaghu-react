@@ -4,7 +4,7 @@ import RdsMap from './rds-map';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
-  title: 'Map/Map',
+  title: 'Elements/Map/Map',
   component: RdsMap,
   parameters: {
     layout: 'padded',
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof RdsMap>;
 
 
 
-export const Map: Story = {
+export const WorldMapWithCounter: Story = {
   args: {
     title: 'Map ',
     color: '#A478E6',
