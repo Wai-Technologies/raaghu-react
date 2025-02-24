@@ -10,17 +10,7 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        role: {
-            options: [
-                "advanced",
-                "style1",
-                "style2",
-                "style3",
-                "style4"
-            ],
-            control: { type: "select" },
-        },
-        Type: {
+        type: {
             options: [
                 "Circle",
                 "Line",
@@ -49,7 +39,7 @@ export const Default: Story = {
     args: {
         style: "Default",
         state: "1",
-        Type: "Circle",
+        type: "Circle",
         Indicators: true,
         // crossFade: true,
         controls: true,
@@ -67,22 +57,22 @@ export const Default: Story = {
                 name: "king John",
                 subTitle: "this is the caption section were u can add the caption for the image"
             },
-            {
-                id: 3,
-                imgUrl: "https://th.bing.com/th/id/OIP.KioAfqTsUpUyfSk3pq_87QHaD2?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-                name: "John Doe",
-                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
-            },
-            {
-                id: 4,
-                imgUrl: "https://th.bing.com/th/id/OIP.KXcvPkuLGgnaS38MRGnQZQHaDw?w=285&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-                name: "User",
-                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
-            }
+            // {
+            //     id: 3,
+            //     imgUrl: "https://th.bing.com/th/id/OIP.KioAfqTsUpUyfSk3pq_87QHaD2?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            //     name: "John Doe",
+            //     subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
+            // },
+            // {
+            //     id: 4,
+            //     imgUrl: "https://th.bing.com/th/id/OIP.KXcvPkuLGgnaS38MRGnQZQHaDw?w=285&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            //     name: "User",
+            //     subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
+            // }
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['style','state','Indicators','Type', 'controls'] } };
+Default.parameters = { controls: { include: ['style','state','Indicators','type', 'controls'] } };
 
 // export const Style1: Story = {
 //     args: {

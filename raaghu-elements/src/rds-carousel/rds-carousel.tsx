@@ -1,16 +1,22 @@
 import React, { Fragment } from "react";
 import "./rds-carousel.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import "../../../raaghu-react-themes/src/styles/carousel.scss"
+
+export interface CarouselItem { // Carousel Item
+    id: number;
+    imgUrl: string;
+    name?: string;
+    subTitle?: string;
+}
 
 export interface RdsCarouselProps {
-    role?: string;
-    Indicators: boolean;
-    crossFade?: boolean;
-    controls?: boolean;
-    Type?: string;
-    carouselItems: any[];
-    style?: any;
-    state?: any;
+    Indicators: boolean; // show or hide indicators
+    crossFade?: boolean; // crossfade effect
+    controls?: boolean; // show or hide controls
+    type?: "Circle" | "Line"; // type of indicators
+    carouselItems: CarouselItem[]; // array of carousel items
+    style?: string;  // style of carousel
+    state?: string; // active state of carousel
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
@@ -27,19 +33,11 @@ const RdsCarousel = (props: RdsCarouselProps) => {
         roleClass = "carousel-fade";
         indicatorClass="carousel-indicators-bottom";
         break;
-      // case "style3":
-      //   roleClass = "carousel-flip";
-      //   indicatorClass="carousel-indicators-bottom";
-      //   break;
-      // case "style4":
-      //   roleClass = "carousel-rotate";
-      //   indicatorClass="carousel-indicators-onImage";
-      //   break;
       default:
         roleClass = "carousel-fade";
         indicatorClass="carousel-indicators-onImage";
     }
-    const activeState = parseInt(props.state) || 1; // Default to first item
+    const activeState = parseInt(props.state || '1'); // Default to first item
 
     return (
       <Fragment>
@@ -53,9 +51,9 @@ const RdsCarousel = (props: RdsCarouselProps) => {
             {props.Indicators === true && (
               <div
                 className={`carousel-indicators ${indicatorClass} px-5 ${
-                  props.Type === "Circle"
+                  props.type === "Circle"
                     ? "carousel-indicators-Circle"
-                    : props.Type === "Line"
+                    : props.type === "Line"
                     ? "carousel-indicators-line"
                     : ""
                 }`}
@@ -79,7 +77,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 <div
                   key={carouselItem.id}
                   className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
-                  <div className="card text-center">
+                  <div className="card text-center imageheight">
                     <img
                       src={carouselItem.imgUrl}
                       className="card-img-top w-100"
@@ -124,9 +122,9 @@ const RdsCarousel = (props: RdsCarouselProps) => {
             {props.Indicators === true && (
               <div
                 className={`carousel-indicators ${indicatorClass} px-5 ${
-                  props.Type === "Circle"
+                  props.type === "Circle"
                     ? "carousel-indicators-Circle"
-                    : props.Type === "Line"
+                    : props.type === "Line"
                     ? "carousel-indicators-line"
                     : ""
                 }`}
@@ -155,7 +153,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                       <h5 className="card-title">{carouselItem.name}</h5>
                       <p className="card-text">{carouselItem.subTitle}</p>
                     </div>
-                  <div className="card text-center">
+                  <div className="card text-center imageheight">
                     <img
                       src={carouselItem.imgUrl}
                       className="card-img-top w-100"
@@ -205,9 +203,9 @@ const RdsCarousel = (props: RdsCarouselProps) => {
               {props.Indicators === true && (
                 <div
                   className={`carousel-indicators ${indicatorClass} px-5 ${
-                    props.Type === "Circle"
+                    props.type === "Circle"
                       ? "carousel-indicators-Circle"
-                      : props.Type === "Line"
+                      : props.type === "Line"
                       ? "carousel-indicators-line"
                       : ""
                   }`}
@@ -230,7 +228,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 {props.carouselItems.map((carouselItem) => (
                   <div
                     key={carouselItem.id}
-                    className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
+                    className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}imageheight`}>
 
                     <img
                       src={props.carouselItems[carouselItem.id - 1].imgUrl}
