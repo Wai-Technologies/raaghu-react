@@ -11,5 +11,8 @@
     border : 1px solid #BD0D1D !important;
   } */
 .bottom-outline {
-    border-bottom: 2px solid #ced4da;
+    border-bottom: 2px solid !important ;
   }
+  .inputError {
+    border-color: #E02D30 !important;
+}
