@@ -13,11 +13,15 @@ const meta: Meta = {
             options: ["right", "left"],
             control: { type: "select" },
         },
-        state: {
-            options: ["Checkbox", "Indeterminate", "ErrorCheckbox"],
+        status: {
+            options: ["checked", "unchecked", "indeterminate"],
             control: { type: "select" },
         },
-        type: {
+        state: {
+            options: ["Default", "Disabled", "Hover"],
+            control: { type: "select" },
+        },
+        style: {
             options: ["Square", "Circular"],
             control: { type: "select" },
         }
@@ -28,20 +32,21 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckbox>;
 
 
-export const OptionCheckbox: Story = {
+export const Default: Story = {
     args: {
-        type: "Square",
-        state: "Checkbox",
-        label: "Default Checkbox",
-        checked: false,
-        isDisabled: false,
-        isSwitch: false,
-        withlabel: true,
-        id: "id1",
+        status: "checked",
+        style: "Square",
+        state: "Default",
+        showtext: true,
+        labeltext: "Label",
+        checked: true,
         labelPosition: "right",
+        //isDisabled: false,
+        //isSwitch: false,
+        //id: "id1",
         //errorMessage:"error Message",
-        isInputGroup: false
+        //isInputGroup: false
     }
 } satisfies Story;
 
-OptionCheckbox.parameters = { controls: { include: ["type", "state", "label", "labelPosition", "checked", "isDisabled", "isSwitch", "withlabel", "id", "isInputGroup"] } };
+Default.parameters = { controls: { include: [ "status", "style", "state", "showtext", "labeltext",   /* "checked", "isSwitch", "isDisabled", "id", "labelPosition", "isInputGroup"*/] } };

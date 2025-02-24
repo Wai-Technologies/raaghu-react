@@ -98,15 +98,39 @@ const breadItems = [
 
 export const Default: Story = {
   args: {
-    title:"Home",
+    style: "Pill Background", 
     level: "Level 3",
     state: "Default",
-    separator: "/",
-    icon: "home",
     showIcon: true,
-    style: "Pill Background", // Set default style
+    icon: "home",
+    title:"Home",
+    separator: "/",
     breadcrumbItems: breadItems,
 
   },
 };
+// export const WithoutBackground: Story = {
+//     args: {
+//       title:"Home",
+//       level: "Level 3",
+//       separator: "/",
+//       icon: "home",
+//       showIcon: true,
+//       style: "Without Background", // Set default style
+//       breadcrumbItems: breadItems,
+  
+//     },
+//   };
+//   export const SquareBackground: Story = {
+//     args: {
+//       title:"Home",
+//       level: "Level 3",
+//       separator: "/",
+//       icon: "home",
+//       showIcon: true,
+//       style: "Square Background", // Set default style
+//       breadcrumbItems: breadItems,
+  
+//     },
+//   };
 

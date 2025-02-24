@@ -4,6 +4,7 @@ import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.css';
 
 export interface RdsCompContributionProps {
+  showMonthLabels?: boolean; 
   weekNames?: string[];
   monthNames?: string[];
   panelColors?: string[];
@@ -32,6 +33,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
   const weekLabelWidth = props.weekLabelWidth;
   const panelSize = props.panelSize;
   const panelMargin = props.panelMargin;
+  const showMonth = props.showMonthLabels;
 
   const getPanelPosition = (row: number, col: number) => {
     const bounds = (panelSize ?? 0) + (panelMargin ?? 0);
@@ -72,63 +74,63 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     setColumns(Math.min(visibleWeeks, maxWidth));
   };
 
-    // TODO: More sophisticated typing
-    if (props.panelColors == undefined || props.weekNames == undefined || props.monthNames == undefined) {
-      return;
-    }
-    
-    const contributions = makeCalendarData(props.values, props.until, columns);
-    const innerDom: React.ReactElement[] = [];
+  if (props.panelColors == undefined || props.weekNames == undefined || props.monthNames == undefined) {
+    return;
+  }
+  
+  const contributions = makeCalendarData(props.values, props.until, columns);
+  const innerDom: React.ReactElement[] = [];
 
-    // panels
-    for (let i = 0; i < columns; i++) {
-      for (let j = 0; j < 7; j++) {
-        const contribution = contributions[i][j];
-        if (contribution === null) continue;
-        const pos = getPanelPosition(i, j);
-        const numOfColors = props.panelColors?.length ?? 0;
-        const color =
-          contribution.value >= numOfColors
-            ? props.panelColors?.[numOfColors - 1]
-            : props.panelColors?.[contribution.value];
-        const dom = (
-          <rect
-            key={ 'panel_key_' + i + '_' + j }
-            x={ pos.x }
-            y={ pos.y }
-            width={ panelSize }
-            height={ panelSize }
-            fill={ color }
-            { ...props.panelAttributes }
-          />
-        );
-        innerDom.push(dom);
-      }
-    }
-
-    // week texts
-    for (let i = 0; i < (props.weekNames ?? []).length; i++) {
-      const textBasePos = getPanelPosition(0, i);
+  // panels
+  for (let i = 0; i < columns; i++) {
+    for (let j = 0; j < 7; j++) {
+      const contribution = contributions[i][j];
+      if (contribution === null) continue;
+      const pos = getPanelPosition(i, j);
+      const numOfColors = props.panelColors?.length ?? 0;
+      const color =
+        contribution.value >= numOfColors
+          ? props.panelColors?.[numOfColors - 1]
+          : props.panelColors?.[contribution.value];
       const dom = (
-        <text
-          key={ 'week_key_' + i }
-          style={ {
-            fontSize: 9,
-            alignmentBaseline: 'central',
-            fill: '#AAA',
-          } }
-          x={ textBasePos.x - (panelSize ?? 0) / 2 - 2 }
-          y={ textBasePos.y + (panelSize ?? 0) / 2 }
-          textAnchor={ 'middle' }
-          { ...props.weekLabelAttributes }
-        >
-          { props.weekNames?.[i] ?? '' }
-        </text>
+        <rect
+          key={ 'panel_key_' + i + '_' + j }
+          x={ pos.x }
+          y={ pos.y }
+          width={ panelSize }
+          height={ panelSize }
+          fill={ color }
+          { ...props.panelAttributes }
+        />
       );
       innerDom.push(dom);
     }
+  }
 
-    // month texts
+  // week texts
+  // for (let i = 0; i < (props.weekNames ?? []).length; i++) {
+  //   const textBasePos = getPanelPosition(0, i);
+  //   const dom = (
+  //     <text
+  //       key={ 'week_key_' + i }
+  //       style={ {
+  //         fontSize: 9,
+  //         alignmentBaseline: 'central',
+  //         fill: '#AAA',
+  //       } }
+  //       x={ textBasePos.x - (panelSize ?? 0) / 2 - 2 }
+  //       y={ textBasePos.y + (panelSize ?? 0) / 2 }
+  //       textAnchor={ 'middle' }
+  //       { ...props.weekLabelAttributes }
+  //     >
+  //       { props.weekNames?.[i] ?? '' }
+  //     </text>
+  //   );
+  //   innerDom.push(dom);
+  // }
+
+  // month texts
+  if (showMonth) {
     let prevMonth = -1;
     for (let i = 0; i < columns; i++) {
       const c = contributions[i][0];
@@ -156,20 +158,20 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
         );
       }
       prevMonth = c.month;
+      }
     }
-
-    return (
-      <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
-        { ({ measureRef }: any) => (
-          <div ref={ measureRef } className="full-width">
-            <svg
-              className='contribution-svg contribution-font'>
-              { innerDom }
-            </svg>
-          </div>
-        ) }
-      </Measure>
-    );
-  }
+  return (
+    <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
+      { ({ measureRef }: any) => (
+        <div ref={ measureRef } className="full-width">
+          <svg
+            className='contribution-svg contribution-font'>
+            { innerDom }
+          </svg>
+        </div>
+      ) }
+    </Measure>
+  );
+}
 
 export default RdsCompContribution;
