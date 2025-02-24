@@ -33,6 +33,7 @@ export interface RdsBadgeProps {
     isIconBorder?: boolean;
     layout?: string;
     style?: string;
+    state?: string;
     iconOnly?: boolean;
     textwithlabel?: boolean;
     textWithButton?: boolean;
@@ -78,19 +79,36 @@ const RdsBadge = (props: RdsBadgeProps) => {
         props.onClose && props.onClose(props.label);
     };
     const getColorClass = () => {
-        if (props.style && props.colorVariant) {
-            if (props.style === "primary") {
-                return `badge-${(props.colorVariant || 'primary').toLowerCase()}`;
-            }
-            if (props.style === "outline") {
-                return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()}`;
+        if (props.style && props.colorVariant && props.state) {
+            if (props.state === "default") {
+                if (props.style === "primary") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()}`;
+                }
+                if (props.style === "outline") {
+                    return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()}`;
 
+                }
+                /*if (props.style === "disabled") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+                }*/
+                if (props.style === "transparent") {
+                    return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent`;
+                }
             }
-            if (props.style === "disabled") {
-                return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
-            }
-            if (props.style === "transparent") {
-                return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent`;
+            if (props.state === "disabled") {
+                if (props.style === "primary") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled` ;
+                }
+                if (props.style === "outline") {
+                    return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+
+                }
+                /*if (props.style === "disabled") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+                }*/
+                if (props.style === "transparent") {
+                    return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent disabled`;
+                }
             }
 
         }
