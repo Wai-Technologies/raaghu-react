@@ -3,8 +3,8 @@ import "./rds-rating.css";
 import RdsIcon from "../rds-icon";
 
 export interface RdsRatingProps {
-  rating?: any;
-  colorVariant?:
+  rating?: any; //The rating value
+  colorVariant?: 
     | "primary"
     | "success"
     | "danger"
@@ -12,19 +12,19 @@ export interface RdsRatingProps {
     | "light"
     | "info"
     | "secondary"
-    | "dark";
-  noOfReviews?: number;
-  size?: string;
-  type?: "star" | "slider";
-  seeAllOption?: boolean;
-  onSeeAll?: () => void;
-  dataTestId?: string;
-  outline?: boolean;
-  filled?: boolean;
-  defaultSlider?: boolean;
-  style?: "default" | "filled" | "outline";
-  level?: "left" | "mid" | "right";
-  totalStars?: number;
+    | "dark"; //The color variant of the rating
+  noOfReviews?: number; //The number of reviews
+  size?: string; //The size of the rating
+  type?: "star" | "slider"; //The type of the rating
+  seeAllOption?: boolean; //Option to see all reviews.
+  onSeeAll?: () => void; //Callback function for the "See All" option.
+  dataTestId?: string; //The data-testid attribute
+  outline?: boolean; //The outline style of the rating
+  filled?: boolean; //The filled style of the rating
+  defaultSlider?: boolean; //Determines whether the slider is the default slider.
+  style?: "default" | "filled" | "outline"; //The style of the rating
+  level?: "left" | "mid" | "right"; //The level of the rating
+  totalStars?: number; //The total number of stars
 }
 
 const RdsRating = (props: RdsRatingProps) => {
