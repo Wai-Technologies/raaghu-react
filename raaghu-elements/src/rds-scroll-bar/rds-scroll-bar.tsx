@@ -3,9 +3,9 @@ import "./rds-scroll-bar.scss";
 import RdsIcon from "../rds-icon";
 
 export interface RdsScrollBarProps {
-  type?: "Mac" | "Simple";
-  position?: "Start" | "Middle" | "End";
-  showScrollButton?: boolean;
+  type?: "Mac" | "Simple"; // Scroll bar type
+  position?: "Start" | "Middle" | "End"; // Scroll position
+  showScrollButton?: boolean; // Show scroll buttons only for Mac type
 }
 
 const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
