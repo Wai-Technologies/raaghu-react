@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import "./rds-toggle.css";
+import "../../../raaghu-react-themes/src/styles/toggle.scss";
 
 export interface RdsToggleProps {
     onClick?: React.MouseEventHandler<HTMLInputElement>;
