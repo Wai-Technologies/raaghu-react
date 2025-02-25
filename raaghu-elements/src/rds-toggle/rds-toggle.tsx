@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import "../../../raaghu-react-themes/src/styles/toggle.scss";
 
 export interface RdsToggleProps {
-    onClick?: React.MouseEventHandler<HTMLInputElement>;
-    checked: boolean;
-    style?: "Style 1" | "Style 2" | "Style 3" | "Style 4" | "Style 5" | "Style 6" ;
-    layout?: "Switch + label" | "label + Switch" | "Top label + Switch" | "Bottom label + Switch";
-    state?: "On" | "Off" | "Disabled On" | "Disabled Off";
-    showLabel?: boolean;
-    label?: string;
+    onClick?: React.MouseEventHandler<HTMLInputElement>; // Click event for the toggle
+    checked: boolean; // Checked/Unchecked state for the toggle
+    style?: "Style 1" | "Style 2" | "Style 3" | "Style 4" | "Style 5" | "Style 6" ; // Different styles for the toggle
+    layout?: "Switch + label" | "label + Switch" | "Top label + Switch" | "Bottom label + Switch"; // Different layouts for the toggle
+    state?: "On" | "Off" | "Disabled On" | "Disabled Off"; // Different states for the toggle
+    showLabel?: boolean; // Show/Hide label for the toggle
+    label?: string; // Label for the toggle
 }
 
 const RdsToggle = (props: RdsToggleProps) => {
