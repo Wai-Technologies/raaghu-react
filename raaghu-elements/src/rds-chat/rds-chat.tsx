@@ -99,7 +99,6 @@ const RdsChat = (props: RdsChatProps) => {
     };
 
     const onUserSelect = (index: any) => {
-        console.log('NK user data', userData);
         if (index >= 0 && index < userData.length) {
             setCurrentUser(userData[index]);
             setCommentList(userData[index].comments || []); // Load the comments for the selected user
