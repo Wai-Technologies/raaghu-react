@@ -1,50 +1,49 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./rds-file-uploader.css";
+//import "./rds-file-uploader.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import RdsAvatar from "../rds-avatar";
 import { useTranslation } from "react-i18next";
-import { size } from "../../libs";
-import file from "react-player/file";
+import "../../../raaghu-react-themes/src/styles/file-uploader.scss";
 
 export interface RdsFileUploaderProps {
-  state?: "Default" | "Selected";
+  state?: "Default" | "Selected"; // State of the file uploader
   style?:
     | "Basic"
     | "Drop_Area_Top_Icon"
     | "Drop_Area_Side_Icon"
     | "Drop_Area_With_Upload_Button"
-    | "Drop_Area_With_Icon";
-  Drop_Area_Top_Icon?: boolean;
-  placeholderImage?: string;
-  Drop_Area_Side_Icon?: boolean;
-  Drop_Area_With_Upload_Button?: boolean;
-  Drop_Area_With_Icon?: boolean;
-  placeholder?: string;
-  size?: "small" | "medium" | "large";
-  fileSizeLimitInMb?: number;
-  colorVariant?: string;
-  multiple?: boolean;
-  extensions: string;
-  limit?: number;
-  label: string;
-  onFileArray?: (files: any[]) => void;
-  getFileUploaderInfo?: any;
-  validation?: any[];
-  title?: string;
-  isRequired?: boolean;
-  showTitle?: boolean;
-  showHint?: boolean;
-  showThumbnail?: boolean;
-  hintText?: string;
-  profilePic?: string;
-  iconName?: string;
-  hintPosition?: "right" | "left";
-  onDeleteFile?: (id: any) => void;
-  ref?: any;
-  onChangeFileUpload?: (data: any) => void;
-  selectedFile?: File | null;
-  fileUrl?: string;
-  preview?: boolean;
+    | "Drop_Area_With_Icon"; // Style of the file uploader
+  Drop_Area_Top_Icon?: boolean; // Flag for Drop Area with Top Icon style
+  placeholderImage?: string; // Placeholder image URL
+  Drop_Area_Side_Icon?: boolean; // Flag for Drop Area with Side Icon style
+  Drop_Area_With_Upload_Button?: boolean; // Flag for Drop Area with Upload Button style
+  Drop_Area_With_Icon?: boolean; // Flag for Drop Area with Icon style
+  placeholder?: string; // Placeholder text
+  size?: "small" | "medium" | "large"; // Size of the file uploader
+  fileSizeLimitInMb?: number; // File size limit in MB
+  colorVariant?: string; // Color variant for styling
+  multiple?: boolean; // Allow multiple file selection
+  extensions: string; // Allowed file extensions
+  limit?: number; // File size limit
+  label: string; // Label for the file uploader
+  onFileArray?: (files: any[]) => void; // Callback for file array changes
+  getFileUploaderInfo?: any; // Callback for getting file uploader info
+  validation?: any[]; // Validation rules
+  title?: string; // Title of the file uploader
+  isRequired?: boolean; // Flag for required field
+  showTitle?: boolean; // Flag to show title
+  showHint?: boolean; // Flag to show hint
+  showThumbnail?: boolean; // Flag to show thumbnail
+  hintText?: string; // Hint text
+  profilePic?: string; // Profile picture URL
+  iconName?: string; // Icon name
+  hintPosition?: "right" | "left"; // Position of the hint
+  onDeleteFile?: (id: any) => void; // Callback for file deletion
+  ref?: any; // Reference to the file input
+  onChangeFileUpload?: (data: any) => void; // Callback for file upload changes
+  selectedFile?: File | null; // Selected file
+  fileUrl?: string; // File URL
+  preview?: boolean; // Flag to show preview
 }
 
 const RdsFileUploader = (props: RdsFileUploaderProps) => {
@@ -711,7 +710,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   {t("Drag and Drop your files") || ""}{" "}
                   <span className="text-muted mx-2"> or </span>
                   <button
-                    className={`btn btn-primary btn-sm`}
+                    className={`btn btn-primary`}
                     onClick={() => {
                       document.getElementById("file")?.click();
                       fileInputRef.current?.click();
@@ -890,7 +889,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 Choose File
               </label>
               <span
-                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass}`}
+                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass} d-flex align-items-center`}
               >
                 {props.state === "Default" && (
                   <>
@@ -906,7 +905,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 )}
                 {selectedFiles.length > 0 && (
                   <span
-                    className="iconbox ms-2"
+                    className="ms-auto iconbox"
                     onClick={() => onDeleteHandlerForSingleSelection()}
                   >
                     <RdsIcon
