@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import "./rds-comp-top-navigation.css";
 
 export interface RdsCompTopNavigationProps {
-  ShowProfileSection?: boolean;
+  ShowProfileSection?: boolean; // Determines whether to show the profile section.
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
   onChatClickHandler?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
@@ -12,25 +13,25 @@ export interface RdsCompTopNavigationProps {
     event: React.MouseEvent<HTMLLIElement>,
     val: string
   ) => void;
-  notifications?: any[];
-  languageItems?: any[];
-  themeItems: any[];
-  toggleItems: any[];
-  elementList: any[];
-  componentsList: any[];
-  navbarTitle?: string;
-  brandName?: string;
-  brandLogo?: string;
-  profileTitle?: any;
-  profileName?: string;
-  profileEmail?: string;
-  logo?: string;
-  languageLabel: string;
-  languageIcon?: string;
-  width?: string;
-  themeLabel: string;
-  breadcrumItem?: any;
-  profilePic?: any;
+  notifications?: any[]; // Array of notifications to display.
+  languageItems?: any[]; // Array of language items to display.
+  themeItems: any[]; // Array of theme items to display.
+  toggleItems: any[]; // Array of toggle items to display.
+  elementList: any[]; // Array of elements to display.
+  componentsList: any[]; // Array of components to display.
+  navbarTitle?: string; // Title to display in the navbar.
+  brandName?: string; // Brand name to display in the navbar.
+  brandLogo?: string; // Brand logo to display in the navbar.
+  profileTitle?: any; // Profile title to display in the navbar.
+  profileName?: string; // Profile name to display in the navbar.
+  profileEmail?: string; // Profile email to display in the navbar.
+  logo?: string; // Logo to display in the navbar.
+  languageLabel: string; // Label for the language dropdown.
+  languageIcon?: string; // Icon for the language dropdown.
+  width?: string; // Width of the navbar.
+  themeLabel: string; // Label for the theme dropdown.
+  breadcrumItem?: any; // Breadcrum item to display in the navbar.
+  profilePic?: any; // Profile picture to display in the navbar.
   onLogout?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   onElementSelect?: (selectedElement: any) => void;
   isImpersonation?: any;
@@ -42,45 +43,45 @@ export interface RdsCompTopNavigationProps {
     label?: string
   ) => void;
   chatsHandler?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-  tenantName?: any;
+  tenantName?: any; // Tenant name to display in the navbar.
   mobileViewLogoClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickHamburger?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-  isLandingPage?: boolean;
-  isChatPermission?: any;
-  showUserName?: boolean;
-  navbarSubTitle?: any;
-  showLogo?: boolean;
-  raaghuPortal?: boolean;
-  ecommerce1?: boolean;
-  navtabItems?: any;
-  colorVariant?: string;
-  firstName?: string;
-  lastName?: string;
-  role?: string;
-  showSearch?: boolean;
-  ecommerce2?: boolean;
-  ecommerce3?: boolean;
-  ecommerce4?: boolean;
-  product1?: boolean;
+  isLandingPage?: boolean; // Determines whether the page is a landing page.
+  isChatPermission?: any; // Determines whether the user has chat permission.
+  showUserName?: boolean; // Determines whether to show the user name.
+  navbarSubTitle?: any; // Subtitle to display in the navbar.
+  showLogo?: boolean; // Determines whether to show the logo.
+  raaghuPortal?: boolean; // Determines whether the portal is a Raaghu portal.
+  ecommerce1?: boolean; // Determines whether the portal is an ecommerce portal.
+  navtabItems?: any; // Array of navtab items to display.
+  colorVariant?: string; // Color variant to display in the navbar.
+  firstName?: string; // First name to display in the navbar.
+  lastName?: string; // Last name to display in the navbar.
+  role?: string; // Role to display in the navbar.
+  showSearch?: boolean; // Determines whether to show the search bar.
+  ecommerce2?: boolean; // Determines whether the portal is an ecommerce portal.
+  ecommerce3?: boolean; 
+  ecommerce4?: boolean; 
+  product1?: boolean; // Determines whether the portal is a product portal.
   product2?: boolean;
   product3?: boolean;
   product4?: boolean;
-  entertainment1?: boolean;
+  entertainment1?: boolean;  // Determines whether the portal is an entertainment portal.
   entertainment2?: boolean;
   entertainment3?: boolean;
   entertainment4?: boolean;
-  professional1?: boolean;
+  professional1?: boolean; // Determines whether the portal is a professional portal.
   professional2?: boolean;
   professional3?: boolean;
   professional4?: boolean;
   professional5?: boolean;
-  appshell3?: boolean;
-  listItems?: any;
-  socialMediaIcons?: any;
-  icons?: any;
-  navButtons?: any;
-  top_nav_logo?: string;
-  style?: any;
+  appshell3?: boolean; // Determines whether the portal is an appshell portal.
+  listItems?: any; // Array of list items to display.
+  socialMediaIcons?: any; // Array of social media icons to display.
+  icons?: any; // Array of icons to display.
+  navButtons?: any; // Array of nav buttons to display.
+  top_nav_logo?: string; // Top navigation logo to display.
+  style?: any; // Style to display in the navbar.
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
