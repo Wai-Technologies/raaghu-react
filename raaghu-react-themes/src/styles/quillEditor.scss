@@ -41,7 +41,7 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-    color: $primary;
+    color: #7e2eef;
 }
 
 .ql-snow.ql-toolbar button:hover .ql-fill,
@@ -72,7 +72,7 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
-    fill: $primary;
+    fill: #7e2eef;
 }
 .ql-snow.ql-toolbar button:hover .ql-stroke,
 .ql-snow .ql-toolbar button:hover .ql-stroke,
@@ -102,42 +102,42 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
-    stroke: $primary;
+    stroke: #7e2eef;
 }
-.theme-light .quill.editor-error{
+ .quill.editor-error{
     .ql-toolbar.ql-snow {
-        border: 1px solid $danger;
+        border: 1px solid #E02D30;
         border-bottom: none;
         border-top-right-radius: 4px !important;
         border-top-left-radius: 4px !important;
     }
     .ql-container.ql-snow {
-        border: 1px solid $danger;
+        border: 1px solid #E02D30;
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
     }
 }
-.theme-light .quill.editor-selected{
+ .quill.editor-selected{
     .ql-toolbar.ql-snow {
-        border: 1px solid $dark;
+        border: 1px solid #7D7D7D;
         border-bottom: none;
         border-top-right-radius: 4px !important;
         border-top-left-radius: 4px !important;
     }
     .ql-container.ql-snow {
-        border: 1px solid $dark;
+        border: 1px solid #7D7D7D;
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
     }
 }
-.theme-light .quill.editor-disabled{
+ .quill.editor-disabled{
     .ql-toolbar.ql-snow {
          opacity: 0.6; /* Make the card look faded */
         pointer-events: none; /* Prevent any interactions */
         cursor: not-allowed; /* Show a 'not allowed' cursor */
-        background-color: $gray-200 !important;
+        background-color: #e9ecef;
         border-bottom: none;
         border-top-right-radius: 4px !important;
         border-top-left-radius: 4px !important;
@@ -146,27 +146,27 @@
          opacity: 0.6; /* Make the card look faded */
         pointer-events: none; /* Prevent any interactions */
         cursor: not-allowed; /* Show a 'not allowed' cursor */
-        background-color: $gray-200 !important;
+        background-color: #e9ecef;
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
     }
 }
-.theme-light .quill.editor-active{
+ .quill.editor-active{
     .ql-toolbar.ql-snow {
-        border: 1px solid $primary;
+        border: 1px solid #7e2eef;
         border-bottom: none;
         border-top-right-radius: 4px !important;
         border-top-left-radius: 4px !important;
     }
     .ql-container.ql-snow {
-        border: 1px solid $primary;
+        border: 1px solid #7e2eef;
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
     }
 }
-.theme-light .quill{
+ .quill{
     .ql-toolbar.ql-snow {
         border-bottom: none;
         border-top-right-radius: 4px !important;
@@ -176,5 +176,9 @@
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
+    }
+
+     .ql-toolbar {
+        background-color: #e9ecef !important;
     }
 }
