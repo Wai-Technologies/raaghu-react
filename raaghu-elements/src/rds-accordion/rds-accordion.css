@@ -1,0 +1,65 @@
+/* Default state - faded text */
+.accordion-button {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+/* Hover state for accordion button */
+
+
+.accordion-hover .accordion-button:hover {
+    background-color: #e5d5fc;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.accordion-hover .accordion-button:not(.collapsed):hover {
+    background-color: #e5d5fc; /* Same hover background */
+    color: rgba(0, 0, 0, 0.8); /* Darker text */
+}
+
+.accordion-selected .accordion-button {
+    background-color: #ffffff; /* Change this to your desired selected color */
+
+}
+
+
+.hover-content-wrapper {
+    background-color: transparent; /* Adjust the background color as needed */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Apply the hover effect to both the header and body */
+.hover-content-wrapper:hover,
+.hover-content-wrapper:hover .accordion-button,
+.hover-content-wrapper:hover .accordion-body {
+    background-color: #e5d5fc !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.accordion-content {
+    background-color: white !important;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Selected/open state */
+.accordion-selected.open {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background-color: transparent;
+}
+.default .accordion-button:not(.collapsed) {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent; /* Maintain faded text color when expanded in default state */
+}
+.default .accordion-button.collapse {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent; /* Maintain faded text color */
+}
+
+/* Remove focus shadow */
+.accordion-selected:focus {
+    box-shadow: none;
+}
+
+/* Hover effect for accordion content wrapper ONLY when border is 'borderhide' */

@@ -13,12 +13,33 @@ const meta: Meta = {
     argTypes: {
         size: {
             options: ["small", "medium", "large"],
-            control: { type: "radio" },
+            control: { type: "select" },
         },
         border:{
             options:["border","bottomline","borderhide"],
-            control:{type:"radio"}
-        }
+            control:{type: "select"}
+        },
+        state: {
+            options: ["default", "hover", "selected"],
+            control: { type: "select" },
+        },
+        accordionType: {
+            options: ["single", "multiple"],
+            control: { type: "select" },
+        },
+        layout: {
+            options: ["default", "expanded"],
+            control: { type: "select" },
+        },
+        icon: {
+            if: { arg: "withIcon"},
+        },
+        iconFill: {
+            if: { arg: "withIcon"},
+        },
+        iconStroke: {
+            if: { arg: "withIcon"},
+        },
     },
 } satisfies Meta<typeof RdsAccordion>;
 
@@ -28,9 +49,15 @@ type Story = StoryObj<typeof RdsAccordion>;
 export const Default: Story = {
     args: {
         accordionId: "1",
-        accordionType: "single",
-        size: "medium",
-        border:"border",
+        accordionType: "multiple",
+        size: "small",
+        state: "default",
+        border:"bottomline",
+        layout: "expanded",
+        withIcon: true,
+        icon: "plus",
+        iconFill: false,
+        iconStroke: true,
         items: [
             {
                 id: "1",
@@ -61,9 +88,9 @@ export const Default: Story = {
             },
         ],
     },
-    parameters: { controls: { include: ['size', 'accordionId', 'items', 'border'] } }
+    parameters: { controls: { include: ['size', 'accordionId', 'accordionType' , 'state', 'layout', 'items', 'border', 'withIcon', 'icon', /*'iconFill', 'iconStroke'*/] } },
 } satisfies Story;
-
+/*
 export const flush: Story = {
     args: {
         accordionId: "1",
@@ -223,3 +250,4 @@ export const With_icon: Story = {
     }
 };
 With_icon.parameters = { controls: { include: ['size', 'icon', 'accordionId', 'items','border'] } };
+*/
