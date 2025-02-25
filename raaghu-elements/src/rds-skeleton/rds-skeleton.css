@@ -1,6 +1,8 @@
 .rds-skeleton {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
+  background: #e0e0e0;
 }
 
 .rds-skeleton.circle {
@@ -35,5 +37,35 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+.rds-skeleton.state-1,
+.state-1 {
+  background: linear-gradient(90deg, #f3f3f3 0%, #ececec 100%);
+}
+
+.rds-skeleton.state-2,
+.state-2 {
+  background: #ffffff;
+}
+
+.rds-skeleton.state-3,
+.state-3 {
+  background: linear-gradient(90deg, #d9d9d9 0%, #e6e6e6 100%);
+}
+
+.is-animated {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
   }
 }
