@@ -244,26 +244,33 @@
 
 
 .form-switch.style-2 .input-custom.checked, .form-switch.style-4 .input-custom.checked {
-  background-color: #7825E9 !important;
+  background-color: #7825E9;
 }
-.style-2 .form-check-input, .style-3 .form-check-input, .style-4 .form-check-input {
-  margin-left: 0px !important;
+.form-switch.style-2 .input-custom, .form-switch.style-4 .input-custom {
+  background-color: #E9E9E9;
+}
+.form-switch.style-2 .input-custom {
+  z-index: 0;
+  width: 1.5rem;
+  height: 0.5rem;
+  display: block;
+  position: absolute;
+  margin-top: 0.35rem;
+  border-radius: 2rem;
+}
+.form-switch.style-2 .form-check-input, .form-switch.style-4 .form-check-input {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.form-switch.style-2 .form-check-input:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23D4BBFF'/%3e%3c/svg%3e");
+  background-size: auto;
+  border: 0px;
+  border-radius: 0.125rem;
+  background-position: 0.6rem;
 }
 .form-switch.style-2 .form-check-input {
   z-index: 1 !important;
   position: relative !important;
-}
-.form-switch.style-2 .form-check-input:checked {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23D4BBFF'/%3e%3c/svg%3e") !important;
-  background-size: auto !important;
-  border: 0px !important;
-  border-radius: 0.125rem !important;
-  background-position: 0.6rem !important;
-}
-.form-switch.style-2 .form-check-input, .form-switch.style-4 .form-check-input {
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-.input-custom {
-  background-color: #7825E9 !important;
 }
