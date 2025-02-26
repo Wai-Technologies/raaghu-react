@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import RdsScrollBar from "./rds-scroll-bar";
+import RdsScrollBar, { ScrollBarType, ScrollPosition } from "./rds-scroll-bar";
  
  
 export default {
@@ -29,8 +29,8 @@ export default {
 
     export const Default = Template.bind({});
     Default.args = {
-      type: "Mac",
-      position: "Start",
+      type: ScrollBarType.Mac, 
+      position: ScrollPosition.Start, 
       showScrollButton: true,
     };
    Default.parameters = { controls: { include: ['type', 'position', 'showScrollButton'] } };
