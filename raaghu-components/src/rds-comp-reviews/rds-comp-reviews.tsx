@@ -2,10 +2,16 @@ import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 
+export enum VariantType {
+  Default = "Default",
+  WithSummaryChart = "with-summary-chart",
+  MultiColumn = "multi-column",
+}
+
 export interface RdsCompReviewsProps {
   itemList: Item[]; // List of items to be displayed
   style?: string; // Style of the component
-  variantType?: "Default" | "with-summary-chart" | "multi-column"; // Variant type of the component
+  variantType?: VariantType; // Variant type of the component
 }
 
 const RdsCompReviews = (props: RdsCompReviewsProps) => {

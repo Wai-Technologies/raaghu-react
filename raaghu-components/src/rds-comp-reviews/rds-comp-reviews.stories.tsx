@@ -1,7 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompReviews from "./rds-comp-reviews";
-
+import RdsCompReviews, { VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 
     title: "Components/Reviews",
@@ -23,7 +22,7 @@ type Story = StoryObj<typeof RdsCompReviews>;
 
 export const Default: Story = {
     args: {
-        variantType: "Default",
+        variantType: VariantType.Default,
         style: "style1",
         itemList: [
             {
