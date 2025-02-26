@@ -1,5 +1,5 @@
 import React from "react";
-import RdsRating from "./rds-rating";
+import RdsRating, { ColorVariant, RatingStyle, RatingType } from "./rds-rating";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -48,10 +48,10 @@ type Story = StoryObj<typeof RdsRating>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
-        type: "star",
+        colorVariant: ColorVariant.Primary, 
+        type: RatingType.Star,
         rating: 4.5,
-        style: "filled",
+        style: RatingStyle.Filled,
         //size: "medium",
         //dataTestId: "rating-test"
     }
