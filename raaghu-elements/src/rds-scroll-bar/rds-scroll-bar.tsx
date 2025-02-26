@@ -2,11 +2,22 @@ import React, { useEffect, useRef } from "react";
 import "./rds-scroll-bar.scss";
 import RdsIcon from "../rds-icon";
 
+export enum ScrollBarType {
+  Mac = "Mac",
+  Simple = "Simple",
+}
+
+export enum ScrollPosition {
+  Start = "Start",
+  Middle = "Middle",
+  End = "End",
+}
 export interface RdsScrollBarProps {
-  type?: "Mac" | "Simple"; // Scroll bar type
-  position?: "Start" | "Middle" | "End"; // Scroll position
+  type?: ScrollBarType; // Scroll bar type
+  position?: ScrollPosition; // Scroll position
   showScrollButton?: boolean; // Show scroll buttons only for Mac type
 }
+
 
 const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
   type = "Mac",
