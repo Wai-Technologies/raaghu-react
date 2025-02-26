@@ -2,6 +2,28 @@ import React, { useState, useEffect, forwardRef, ForwardRefRenderFunction, Fragm
 //import "./rds-checkbox.css";
 import "../../../raaghu-react-themes/src/styles/checkbox.scss";
 
+export enum CheckboxStyle {
+    Square = "Square",
+    Circular = "Circular"
+}
+
+export enum CheckboxStatus {
+    Checked = "checked",
+    Unchecked = "unchecked",
+    Indeterminate = "indeterminate"
+}
+
+export enum CheckboxState {
+    Default = "Default",
+    Disabled = "Disabled",
+    Hover = "Hover"
+}
+
+export enum LabelPosition {
+    Left = "left",
+    Right = "right"
+}
+
 export interface RdsCheckboxProps {
     labeltext?: string; // Label text for the checkbox
     labelClass?: string; // Additional classes for the label
@@ -12,15 +34,16 @@ export interface RdsCheckboxProps {
     showtext?: boolean; // Show text for the checkbox
     name?: string; // Name attribute for the checkbox input.
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-    style?: "Square" | "Circular"; // Style of the checkbox
-    status?: "checked" | "unchecked" | "indeterminate"; // Status of the checkbox
-    state?: "Default" | "Disabled" | "Hover"; // State of the checkbox
+    style?: CheckboxStyle; // Style of the checkbox (Square or Circular)
+    status?: CheckboxStatus; // Status of the checkbox (Checked, Unchecked, Indeterminate)
+    state?: CheckboxState; // State of the checkbox (Default, Disabled, Hover)
     id?: string; // Id for the checkbox
     dataTestId?: string; // Data test id for the checkbox
     isInputGroup?: boolean; // Input group checkbox
     choiceId?: any; // Choice id for the checkbox
-    labelPosition?: "left" | "right"; // Label position for the checkbox
+    labelPosition?: LabelPosition; // Label position (left or right)
 }
+
 
 const RdsCheckbox = (props: RdsCheckboxProps) => {
   
