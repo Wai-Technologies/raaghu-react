@@ -2,15 +2,33 @@ import React, { useState, useEffect } from "react";
 import "./rds-tree-structure.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
+export enum TreeLevel {
+  Level1 = "level1",
+  Level2 = "level2",
+  Level3 = "level3",
+  Level4 = "level4",
+}
+
+export enum NodeState {
+  Default = "default",
+  Hover = "hover",
+  Selected = "selected",
+}
+
+export enum IconType {
+  Circle = "circle",
+  Folder = "folder",
+}
+
 export interface RdsTreeStructureProps {
-  level?: "level1" | "level2" | "level3" | "level4"; //Level of the tree structure.
+  level?: TreeLevel; //Level of the tree structure.
   showChewron?: boolean; //Show chevron icon for expandable nodes.
   showCheckbox?: boolean; // Show checkboxes next to the nodes.
   showFolder?: boolean; //Show folder icons for folder nodes.
   showFile?: boolean; //Show file icons for file nodes.
   showCollapsed?: boolean; //Initially collapsed or expanded tree.
-  state?: "default" | "hover" | "selected"; //State of the node
-  type?: "circle" | "folder"; //Type of icon for folder nodes
+  state?: NodeState; //State of the node
+  type?: IconType; //Type of icon for folder nodes
   showActions?: boolean; //Show action buttons (add, edit, delete) for nodes.
   treeData?: any; //Data for the tree structure.
   Language?: string; //Language for file icons.
