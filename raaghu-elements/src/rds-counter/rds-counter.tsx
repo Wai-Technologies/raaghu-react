@@ -3,24 +3,37 @@ import { colors, placements } from "../../libs/types";
 import RdsButton from "../rds-button/rds-button";
 import "./rds-counter.css";
 
+export enum LayoutOptions {
+  RightSide = "Right Side",
+  SideToSide = "Side to Side",
+  Bottom = "Bottom",
+}
+
+export enum CounterState {
+  Default = "Default",
+  Selected = "Selected",
+  Disabled = "Disabled",
+}
+
 export interface RdsCounterProps {
   counterValue: number; // Value of the counter
   label?: string; // Label for the counter
   min: number; // Minimum value for the counter
   max: number; // Maximum value for the counter
   width: number; // Width of the counter
-  layout?: "Right Side" | "Side to Side" | "Bottom"; // Layout of the counter
+  layout?: LayoutOptions; // Layout of the counter
   colorVariant?: colors; // Color variant of the counter
   position?: placements; // Position of the counter
   onCounterChange?: (newValue: number) => void; // Callback function to get the new value of the counter
   showLabel?: boolean; // Show label for the counter
   isDisabled?: boolean; // Disable the counter
   showTitle?: boolean; // Show title for the counter
-  state?: "Default" | "Selected" | "Disabled"; // State of the counter
-  isMandatory?: boolean;  // Is the counter mandatory
-  placeholder?: string;  // Placeholder for the counter
+  state?: CounterState; // State of the counter
+  isMandatory?: boolean; // Is the counter mandatory
+  placeholder?: string; // Placeholder for the counter
   titleText?: string; // Title text for the counter
 }
+
 
 // Define color variables
 const DISABLED_BACKGROUND_COLOR = "#f5f5f5";
