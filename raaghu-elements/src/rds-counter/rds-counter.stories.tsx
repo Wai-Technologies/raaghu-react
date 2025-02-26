@@ -1,4 +1,4 @@
-import RdsCounter from "./rds-counter";
+import RdsCounter, { CounterState, LayoutOptions } from "./rds-counter";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -60,8 +60,8 @@ export const Default: Story = {
         max: 50,
         width: 280,
         colorVariant: "primary",
-        layout: "Side to Side", 
-        state: "Default",
+        layout: LayoutOptions.SideToSide, 
+        state: CounterState.Default,
         showTitle:true,
         titleText: "Label",
         isMandatory: false,
