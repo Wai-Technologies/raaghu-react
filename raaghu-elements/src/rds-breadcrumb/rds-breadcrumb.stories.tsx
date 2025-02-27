@@ -1,4 +1,4 @@
-import RdsBreadcrumb from "./rds-breadcrumb";
+import RdsBreadcrumb, { BreadcrumbLevel, BreadcrumbSeparator, BreadcrumbState, BreadcrumbStyle } from "./rds-breadcrumb";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -14,23 +14,16 @@ const meta: Meta = {
         options: ['Pill Background', 'Without Background', 'Square Background'], // Updated to include new style options
       },
       separator: {
-        control: {
-          type: 'select',
-          options: ['>', '/', '→', '»', '|', '-'], 
-        },
+        control: 'select',
+        options: ['>', '/', '→', '»', '|', '-'],
       },
       level: {
-        control: {
-          type: 'select',
-          options: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'], // Add level options
-        },
+        control: 'select',
+        options: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'], // Add level options
       },
-
       state: {
-        control: {
-          type: 'select',
-          options: ['Default', 'Hover', 'Selected'],
-        },
+        control: 'select',
+        options: ['Default', 'Hover', 'Selected'],
       },
     },
   } satisfies Meta<typeof RdsBreadcrumb>;
@@ -98,13 +91,13 @@ const breadItems = [
 
 export const Default: Story = {
   args: {
-    style: "Pill Background", 
-    level: "Level 3",
-    state: "Default",
+    style: BreadcrumbStyle.PillBackground, 
+    level: BreadcrumbLevel.Level3,
+    state: BreadcrumbState.Default,
     showIcon: true,
     icon: "home",
     title:"Home",
-    separator: "/",
+    separator: BreadcrumbSeparator.Slash,
     breadcrumbItems: breadItems,
 
   },

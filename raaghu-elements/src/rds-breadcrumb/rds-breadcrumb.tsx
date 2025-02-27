@@ -2,21 +2,51 @@ import React, { useEffect, useState } from "react";
 import "./rds-breadcrumb.css";
 import RdsIcon from "../rds-icon";
 
+export enum BreadcrumbStyle {
+  PillBackground = "Pill Background",
+  SquareBackground = "Square Background",
+  WithoutBackground = "Without Background",
+}
+
+export enum BreadcrumbSeparator {
+  GreaterThan = ">",
+  Slash = "/",
+  Arrow = "→",
+  DoubleArrow = "»",
+  Pipe = "|",
+  Dash = "-",
+  Plus = "+",
+}
+
+export enum BreadcrumbLevel {
+  Level1 = "Level 1",
+  Level2 = "Level 2",
+  Level3 = "Level 3",
+  Level4 = "Level 4",
+  Level5 = "Level 5",
+}
+
+export enum BreadcrumbState {
+  Default = "Default",
+  Hover = "Hover",
+  Selected = "Selected",
+}
+
+
 export interface BreadcrumbProps {
   breadcrumbItems: any[];
   title?: string;
-  style?: "Pill Background" | "Square Background" | "Without Background";
-  separator?: ">" | "/" | "→" | "»" | "|" | "-" | "+";
+  style?: BreadcrumbStyle;
+  separator?: BreadcrumbSeparator;
   onBreadcrumbClick?: (id: number) => void;
   topnavPlusIcon?: boolean;
-  level?: "Level 1" | "Level 2" | "Level 3" | "Level 4" | "Level 5";
+  level?: BreadcrumbLevel;
   icon?: string;
   showIcon?: boolean;
-  state?: "Default" | "Hover" | "Selected";
+  state?: BreadcrumbState;
 }
 
 const handleIconClick = (icon: any) => {
-  console.log(`Icon ${icon} clicked`);
 };
 
 const RdsBreadcrumb = (props: BreadcrumbProps) => {
