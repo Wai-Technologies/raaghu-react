@@ -5,6 +5,27 @@ import validator from "validator";
 import { colors } from "../../libs/types";
 import RdsIcon from "../rds-icon/rds-icon";
 
+export enum AvatarSize {
+  smallest = "smallest",
+  small = "small",
+  medium = "medium",
+  large = "large",
+  largest = "largest"
+}
+
+export enum AvatarBorder {
+  solid = "solid",
+  dotted = "dotted",
+  dashed = "dashed",
+  NoBorder = "NoBorder"
+}
+
+export enum AvatarStyle {
+  withname = "withname",
+  nameonbottom = "nameonbottom",
+  stacking = "stacking"
+}
+
 export interface RdsAvatarProps {
   avatars?: RdsAvatarProps[];
   profilePic?: string;
@@ -14,7 +35,7 @@ export interface RdsAvatarProps {
   role?: string;
   colorVariant?: colors;
   titleAlign?: string;
-  size?: "smallest" | "small" | "large" | "medium" | "largest";
+  size?: AvatarSize;
   verticallyAlligned?: boolean;
   roundedAvatar?: boolean;
   roundedPills?: boolean;
@@ -33,9 +54,9 @@ export interface RdsAvatarProps {
   activityChain?: boolean;
   type?: string;
   iconName?: string;
-  border?: "solid" | "dotted" | "dashed" | "NoBorder";
+  border?: AvatarBorder;
   showName?: boolean;
-  style?: "withname"| "nameonbottom" | "stacking";
+  style?: AvatarStyle;
   showDesignation?: boolean;
 }
 

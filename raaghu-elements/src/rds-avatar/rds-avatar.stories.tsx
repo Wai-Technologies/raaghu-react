@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsAvatar from "./rds-avatar";
+import RdsAvatar, { AvatarSize, AvatarStyle, AvatarBorder} from "./rds-avatar";
 
 const colorVariantArgTypes = {
 
@@ -65,11 +65,11 @@ const avatars = [
 ];
 export const Default: Story = {
     args: {
-        size: "medium",
+        size: AvatarSize.medium,
         type: "image",
         //avtarWithName: true,
         //isTitle: true,
-        style: "withname",
+        style: AvatarStyle.withname,
         activityChain : false,
         activeDotTop: false,
         activeDotBottom: false,
