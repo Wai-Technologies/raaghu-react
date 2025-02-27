@@ -78,3 +78,7 @@
   .pagination-lg span{
     font-size: 16px !important;
   }
+
+  input.border-primary.btn-outline.form-control.gotopageinput {
+    width: 4.4rem !important;
+}
