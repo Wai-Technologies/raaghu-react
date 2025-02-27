@@ -1405,8 +1405,6 @@ export interface RdsCompGridCombinedProps{
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
   onRowClick?: (rowId: any) => void;
-  tableStyle?: any;
-  alignmentType?: any;
   actionPosition?: "right" | "left";
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   totalRecords?: any;
