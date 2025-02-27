@@ -101,6 +101,8 @@ export const Default: Story = {
     style: "Pill Background", 
     level: "Level 3",
     state: "Default",
+    separator: "/",
+    icon: "new_home",
     showIcon: true,
     icon: "home",
     title:"Home",
