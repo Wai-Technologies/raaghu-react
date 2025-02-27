@@ -30,8 +30,8 @@ const config: StorybookConfig = {
       .version-container {
         font-weight: bold;
         position: absolute;
-        font-size: 14px;
-        color: #5C6870;
+        font-size: 12px;
+        color:rgb(197, 204, 209);
         font-weight: bold;
         top: 34px;
         left: 74px;
@@ -41,7 +41,7 @@ const config: StorybookConfig = {
       @media (max-width: 737px) {
         .version-container {
           position: absolute;
-          font-size: 12px;
+          font-size: 11px;
           top: 34px;
           left: 73px;
         }
