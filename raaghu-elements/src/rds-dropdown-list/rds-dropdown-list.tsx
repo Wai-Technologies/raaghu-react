@@ -6,6 +6,24 @@ import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 
+export enum DropdownSize {
+  Default = "Default",
+  Small = "Small",
+  Large = "Large",
+}
+
+export enum DropdownState {
+  Default = "Default",
+  Expanded = "Expanded",
+  Selected = "Selected",
+  Disabled = "Disabled",
+}
+
+export enum DropdownStyle {
+  Default = "Default",
+  BottomLine = "Bottom Line",
+}
+
 export interface RdsDropdownListProps {
   
   id?: string; // Id of the dropdown
@@ -22,7 +40,7 @@ export interface RdsDropdownListProps {
   isPlaceholder?: boolean; // To show placeholder
   isIconPlaceholder?: boolean; // To show icon placeholder
   borderDropdown?: boolean; // To show border in dropdown
-  size?: string; // Size of the dropdown
+  size?: DropdownSize; // Size of the dropdown
   listItems: {
     label: string; // Label of the dropdown
     val: string; // Value of the dropdown
@@ -42,8 +60,8 @@ export interface RdsDropdownListProps {
   showIcon?: boolean; // To show icon in dropdown
   isCode?: boolean; // To show code in dropdown
   block?: boolean; // To show dropdown in block
-  state?: "Default" | "Expanded" | "Selected" | "Disabled"; // To set the state of the dropdown
-  style?: "Default" | "Bottom Line"; // To show bottom line in dropdown
+  state?: DropdownState; // To set the state of the dropdown
+  style?: DropdownStyle; // To show bottom line in dropdown
   showTitle?: boolean; // show/hide title of the dropdown
   title?: string; // Title of the dropdown
   isMandatory?: boolean; // To show required field
