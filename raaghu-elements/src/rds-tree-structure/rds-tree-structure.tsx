@@ -2,26 +2,44 @@ import React, { useState, useEffect } from "react";
 import "./rds-tree-structure.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
+export enum TreeLevel {
+  Level1 = "level1",
+  Level2 = "level2",
+  Level3 = "level3",
+  Level4 = "level4",
+}
+
+export enum NodeState {
+  Default = "default",
+  Hover = "hover",
+  Selected = "selected",
+}
+
+export enum IconType {
+  Circle = "circle",
+  Folder = "folder",
+}
+
 export interface RdsTreeStructureProps {
-  level?: "level1" | "level2" | "level3" | "level4";
-  showChewron?: boolean;
-  showCheckbox?: boolean;
-  showFolder?: boolean;
-  showFile?: boolean;
-  showCollapsed?: boolean;
-  state?: "default" | "hover" | "selected";
-  type?: "circle" | "folder";
-  showActions?: boolean;
-  treeData?: any;
-  Language?: string;
-  iconName?: string;
-  text?: string; 
-  onSelectNode?: (item: any) => void;
-  onDeleteNode?: (id: any) => void;
-  onNodeEdit?: (data: any) => void;
-  onCreateNode?: (node: any) => void;
-  onCreateSubUnit?: (node: any) => void;
-  onMoveNode?: (id: any) => void;
+  level?: TreeLevel; //Level of the tree structure.
+  showChewron?: boolean; //Show chevron icon for expandable nodes.
+  showCheckbox?: boolean; // Show checkboxes next to the nodes.
+  showFolder?: boolean; //Show folder icons for folder nodes.
+  showFile?: boolean; //Show file icons for file nodes.
+  showCollapsed?: boolean; //Initially collapsed or expanded tree.
+  state?: NodeState; //State of the node
+  type?: IconType; //Type of icon for folder nodes
+  showActions?: boolean; //Show action buttons (add, edit, delete) for nodes.
+  treeData?: any; //Data for the tree structure.
+  Language?: string; //Language for file icons.
+  iconName?: string; // Name of the icon to display.
+  text?: string; // Text to display for the node.
+  onSelectNode?: (item: any) => void; //Callback when a node is selected.
+  onDeleteNode?: (id: any) => void; //Callback when a node is deleted.
+  onNodeEdit?: (data: any) => void; //Callback when a node is edited.
+  onCreateNode?: (node: any) => void; //Callback when a new node is created.
+  onCreateSubUnit?: (node: any) => void; //Callback when a new sub-unit is created.
+  onMoveNode?: (id: any) => void; //Callback when a node is moved.
 }
 
 const fileTypeIcons = {
@@ -204,7 +222,7 @@ const TreeNode = ({
           )}
           <span style={{ marginLeft: 5 }}>{props.text || node.name}</span> {/* Display the text or node name */}
           {(isHovered && props.showActions) && (
-            <div className="ms-auto d-flex btngroup" onClick={(e) => e.stopPropagation()}>
+            <div className="d-flex btngroup" onClick={(e) => e.stopPropagation()}>
               <small
                 className="customborder p-2"
                 onMouseEnter={() => handleIconMouseEnter("plus")}
