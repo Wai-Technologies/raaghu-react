@@ -4,20 +4,40 @@ import RdsIcon from "../rds-icon/rds-icon";
 import RdsButton from "../rds-button";
 import "./rds-notification.css";
 
+export enum NotificationLayout {
+    Vertical = "vertical",
+    Horizontal = "horizontal"
+}
+
+export enum NotificationStyle {
+    Default = "default",
+    Avatar = "avatar",
+    Icon = "icon",
+    Image = "image"
+}
+
+export enum NotificationType {
+    Error = "error",
+    Info = "info",
+    Success = "success",
+    Warning = "warning"
+}
+
 export interface RdsNotificationProps {
     notifications: any[]; // Array of notifications
-    layout?: "vertical" | "horizontal"; // Layout of the notification
-    style?: "default" | "avatar" | "icon" | "image"; // Style of the notification
-    type?: "error" | "info" | "success" | "warning"; // Type of the notification
+    layout?: NotificationLayout; // Layout of the notification
+    style?: NotificationStyle; // Style of the notification
+    type?: NotificationType; // Type of the notification
     onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
     onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 
+
 const RdsNotification = ({
     notifications,
-    layout = "vertical",
-    style = "default",
-    type = "info",
+    layout = NotificationLayout.Vertical,
+    style = NotificationStyle.Default,
+    type = NotificationType.Info,
     onDismiss,
     onAccept
 }: RdsNotificationProps) => {
