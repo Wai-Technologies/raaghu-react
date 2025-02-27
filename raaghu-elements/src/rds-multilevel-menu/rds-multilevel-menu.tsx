@@ -2,10 +2,26 @@ import React, { useState } from "react";
 import RdsIcon from "../rds-icon";
 import "../../../raaghu-react-themes/src/styles/multilevel-menu.scss";
 
-export interface RdsMultilevelMenu {
-  size?: "default" | "large"; // size of the menu
-  type?: "selectable" | "expandable"; // type of the menu
-  state?: "default" | "hover" | "selected"; // state of the menu
+export enum MenuSize {
+  Default = "default",
+  Large = "large",
+}
+
+export enum MenuType {
+  Selectable = "selectable",
+  Expandable = "expandable",
+}
+
+export enum MenuState {
+  Default = "default",
+  Hover = "hover",
+  Selected = "selected",
+}
+
+export interface RdsMultilevelMenuProps {
+  size?: MenuSize; // size of the menu
+  type?: MenuType; // type of the menu
+  state?: MenuState; // state of the menu
 }
 
 const defaultItems = [
@@ -49,8 +65,7 @@ const largeItem = [
   { id: "8", label: "Option", shortcut: "shortcut" },
 ];
 
-
-const RdsMultilevelMenu = (props: RdsMultilevelMenu) => {
+const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
   const { type, size = "default", state = "default" } = props;
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({});
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);

@@ -1,4 +1,4 @@
-import RdsMultilevelMenu from "./rds-multilevel-menu";
+import RdsMultilevelMenu, {MenuSize, MenuType, MenuState } from "./rds-multilevel-menu";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -29,9 +29,9 @@ type Story = StoryObj<typeof RdsMultilevelMenu>;
 
 export const Default: Story = {
     args: {
-        type: "expandable",
-        state: "default",
-        size: "default",
+        type: MenuType.Expandable,
+        state: MenuState.Default,
+        size: MenuSize.Default,
     }
 } satisfies Story;
 
