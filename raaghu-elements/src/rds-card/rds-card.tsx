@@ -8,51 +8,65 @@ import RdsLabel from "../rds-label";
 import RdsBadge from "../rds-badge";
 import RdsTag from "../rds-tag";
 import RdsInput from "../rds-input";
-import RdsBigNumber from "../rds-big-number";
+
+export enum CardTypes {  //types of cards
+  CardWithImage = "Card With Image",
+  CardWithRingChart = "Card With Ring Chart",
+  CardWithMap = "Card With Map",
+  CardWithGraph = "Card With Graph",
+  ExampleBadges = "Example-Badges",
+  CardWithButton = "Card With Button",
+  CardWithLinkButton = "Card With Link Button",
+  ExampleAvatar = "Example-Avatar",
+  ExampleTags = "Example-Tags",
+  CardWithBooleanChart = "Card With Boolean Chart",
+  CardWithLineChart = "Card With Line Chart",
+  CardWithDataTable = "Card With DataTable",
+  CardWithChart = "Card With Chart",
+  CardWithTable = "Card With Table"
+}
 export interface RdsCardProps {
-  buttonLabel1?: string;
-  buttonLabel2?: string;
-  buttonLabel3?: string;
-  colorVariant?: colors;
-  cardTitle?: string;
-  cardSubTitle?: string;
-  cardText?: string;
-  showFooter?: boolean;
-  showTitle?: boolean;
-  showSubTitle?: boolean;
-  isImage?: boolean;
-  imageUrl?: string;
-  src?: string;
-  style?: string;
-  state?: string;
-  centerAlign?: boolean;
-  isAvatar?: boolean;
-  borderColor?: colors;
-  isDisabled?: boolean;
-  iconName?: string;
-  isBordered?: boolean;
-  isFilled?: boolean;
-  showIcon?: boolean;
-  layout?: "Vertical" | "Horizontal";
-  showCalender?: boolean;
-  showLinkButton?: boolean;
-  title?: string;
-  showFooterLabel?: boolean;
-  footerLabelText?: string;
-  showFooterButton?: boolean;
-  subTitle?: string;
-  showIndicator?: boolean;
-  type?: "Card With Image" | "Card With Ring Chart" | "Card With Map" | "Card With Graph" | "Example-Badges" | "Card With Button" | "Card With Link Button" | "Example-Avatar" | "Example-Tags" |"Card With Boolean Chart" | "Card With Line Chart" | "Card With DataTable" | "Card With Chart" | "Card With Table";
-  showTitleAndSubText?: boolean;
-  initialFirstName?: string;
-  initialLastName?: string;
-  role?: string;
-  profilePic?: string;
-  onEditClick?: () => void;
-  onSavedClick?: () => void;
-  isEditing?: boolean;
-  children?: ReactNode;
-  showCardText?: boolean;
+  buttonLabel1?: string; //for link button
+  buttonLabel2?: string; //for cancel button
+  buttonLabel3?: string; //for save button
+  colorVariant?: colors; //for apply colors
+  cardTitle?: string; //title of card
+  cardSubTitle?: string; //subtitle of card
+  cardText?: string; //text of card
+  showFooter?: boolean; //show or hide footer
+  showTitle?: boolean; //show or hide title
+  showSubTitle?: boolean; //show or hide subtitle
+  isImage?: boolean; //show or hide image
+  imageUrl?: string; //image url
+  src?: string; //source of image and profile picture
+  style?: string; //style of card
+  state?: string; //state of card
+  centerAlign?: boolean; //center align image
+  isAvatar?: boolean; //show or hide avatar
+  borderColor?: colors; //border color of card
+  isDisabled?: boolean; //disable card
+  iconName?: string; //icon name
+  isBordered?: boolean; //show or hide card border
+  isFilled?: boolean; //show or hide card fill
+  showIcon?: boolean; //show or hide icon
+  layout?: "Vertical" | "Horizontal"; //layout of card
+  showCalender?: boolean; //show or hide calender
+  showLinkButton?: boolean; //show or hide link button
+  showFooterLabel?: boolean; //show or hide footer label
+  footerLabelText?: string; //footer label text
+  showFooterButton?: boolean; //show or hide footer button
+  showIndicator?: boolean; //show or hide indicator
+  type ?: CardTypes; //types of cards
+  showTitleAndSubText?: boolean; //show title and subtitle
+  initialFirstName?: string; //initial first name for avatar card type - example avtar
+  initialLastName?: string; //initial last name for avatar card type - example avtar
+  role?: string; //role for avatar card type - example avtar
+  profilePic?: string; //profile picture for avatar card type - example avtar
+  onEditClick?: () => void; //edit click event
+  onSavedClick?: () => void; //save click event
+  isEditing?: boolean; //edit card title and subtitle card type - example avtar
+  children?: ReactNode; //children of card 
+  showCardText?: boolean; //show or hide card text
 }
 
 const RdsCard = (props: RdsCardProps) => {
@@ -67,6 +81,7 @@ const RdsCard = (props: RdsCardProps) => {
   const [role, setRole] = useState(props.role || "Developer");
   const [profilePic, setProfilePic] = useState(props.profilePic || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU");
   const [showEdit, setShowEdit] = useState(false);
+
   // Define left border styling when showIndicator is true
   const indicatorClass = props.showIndicator
     ? `border-start border-${props.colorVariant || "primary"}`
@@ -197,11 +212,11 @@ const RdsCard = (props: RdsCardProps) => {
                 />
               )}
               <h6 className="ms-2 mb-0">
-                <label className="text-muted">{props.title}</label>
+                <label className="text-muted">{props.cardTitle}</label>
               </h6>
             </div>
             <span className="mt-1 fs-4 mb-2">
-              <RdsLabel label={props.subTitle} fontWeight="bold" />
+              <RdsLabel label={props.cardSubTitle} fontWeight="bold" />
             </span>
           </div>
         )}
