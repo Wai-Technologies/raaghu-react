@@ -1,1 +1,48 @@
 
+.imageheight
+{
+    max-height: 500px;
+}
+.carousel-indicators [data-bs-target] {
+    border-radius: 50% !important;
+    height:30px !important ;
+  .active {
+    border: 2px solid !important;
+  }
+}
+.carousel-indicators-Circle [data-bs-target] {
+    width:9px !important;
+    height: 9px !important;
+    border: 0px !important;
+    border-radius: 8px !important;
+  
+  }
+  
+  .carousel-indicators-line [data-bs-target] {
+    width:30px ;
+    height: 5px !important;
+    border: 0px !important;
+    border-radius: 4px !important;
+  }
+  .carousel-indicators .active {
+    border: 0px !important;
+  }
+  
+  .carousel-indicators {
+    height: 0.375rem !important;
+    width: unset !important;
+  }
+  
+  .carousel-indicators-bottom{
+    bottom: -31px !important;
+    padding-bottom: 10px;
+  }
+  .carousel-indicators-onImage{
+    bottom: 0px !important;
+  }
+
+
+  .theme-light .carousel-indicators-line [data-bs-target] 
+  {
+      height: 5px !important;
+}
