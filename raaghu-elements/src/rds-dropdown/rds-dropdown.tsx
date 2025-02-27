@@ -149,6 +149,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       style={props.style === 'transparent' ? { backgroundColor: 'transparent', border: 'none' } : {}}
     >
       {renderContent()}
+      <span className="ms-2">
       {props.showChevron && (
         <RdsIcon
           name={show ? "chevron_up" : "chevron_down"}
@@ -159,6 +160,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
           colorVariant="light"
         />
       )}
+      </span>
     </button>
   );
 

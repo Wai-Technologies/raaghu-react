@@ -104,25 +104,25 @@
   margin-left: 8px !important
 }
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border: 1px solid #007bff;
+  background-color: #7825E9!important;
+  color: #fff!important;
+  border: 1px solid #7825E9!important;
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  color: #fff;
-  border: 1px solid #6c757d;
+  background-color: #d2d0d0!important;
+  color: #7825E9!important;
+  border: 1px solid #7825E9!important;
 }
 
 .btn-outline {
-  background-color: transparent;
-  color: #007bff;
-  border: 1px solid #007bff;
+  background-color: transparent!important;
+  color: #7825E9!important;
+  border: 1px solid #7825E9!important;
 }
 
 .btn-transparent {
-  background-color: transparent;
-  color: #007bff;
-  border: none;
+  background-color: transparent!important;
+  color: #7825E9!important;
+  border: none!important;
 }
