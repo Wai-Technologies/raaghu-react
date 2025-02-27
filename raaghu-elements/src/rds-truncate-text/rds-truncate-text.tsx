@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./rds-truncate-text.css";
-import Tooltip from "../rds-tooltip"; // Ensure the correct import path
+import Tooltip from "../rds-tooltip"; 
+
+export enum TruncateTextState {
+  Default = "default",
+  Hover = "hover",
+}
 
 export interface RdsTruncateTextProps {
   text: string; // Full text
   maxLength: number; // Maximum characters before truncation
-  state: "default" | "hover"; // Control behavior (default or hover)
+  state: TruncateTextState; // Control behavior (default or hover)
 }
 
 const TruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state }) => {

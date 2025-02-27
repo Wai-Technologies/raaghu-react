@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import TruncatedText, { RdsTruncateTextProps } from './rds-truncate-text';
+import TruncatedText, { RdsTruncateTextProps, TruncateTextState } from './rds-truncate-text';
 
 const meta: Meta = {
   title: 'Elements/Truncated Text',
@@ -12,7 +12,7 @@ const meta: Meta = {
   argTypes: {
     state: {
       options: ['default', 'hover'],
-      control: { type: 'radio' },
+      control: { type: 'select' },
       description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
     },
     text: {
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof TruncatedText>;
 
 export const Default: Story = {
   args: {
-    state: 'hover',
+    state: TruncateTextState.Hover,
     text: 'This is a sample text.',
     maxLength: 16,
   },
