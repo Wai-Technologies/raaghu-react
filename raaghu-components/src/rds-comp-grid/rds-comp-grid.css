@@ -1,14 +1,29 @@
-@media (max-width: 767px) {
-  #grid thead th:first-child,
-  #grid tbody td:first-child {
-    position: sticky;
-    left: -1px;
-    max-width: 190px;
-    background-color: white;
-  }
+@media (max-width: 1023px) {
+  #sortTable thead th:first-child,
+  #sortTable tbody td:first-child {
+     position: sticky;
+     left: -1px;
+     background: #fff;
+     z-index: 3 !important;
+     max-width: 190px;
+ }
+ #sortTable {
+     .dropdown-adjusted.show {
+         z-index: 10;
+         transform: translate3d(46px, 0px, 0px) !important;
+     }
+ }
 }
 
-.table > tbody {
+#sortTable thead th:first-child,
+#sortTable tbody td:first-child {
+ position: sticky;
+ left: 0px;
+ max-width: 190px;
+ z-index: 3;
+}
+
+.table>tbody {
   vertical-align: middle !important;
 }
 
@@ -23,161 +38,32 @@
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
 
   100% {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
-.list-popup {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  border-radius: 5px;
-  overflow-y: auto;
+
+#sortTable{
+  .dropdown-adjusted.show{
+      z-index: 2;
+  }
+  tr{
+      &:hover{
+          z-index: 10;
+          position: relative;
+      }
+  }
+}
+/* Default styles for action buttons */
+#action_column .btn {
+  padding: 0.3rem !important;
 }
 
-.list-popup-ul {
-  list-style-type: none;
-  padding: 10px;
-  margin-bottom: 0px;
-}
-
-.list-popup-li {
-  display: flex;
-  cursor: pointer;
-}
-
-.header-padding {
-  padding-top: 20px;
-}
-
-.popup {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 2px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  max-height: 200px; 
-  /* Maximum height before showing a scrollbar */
-  overflow-y: auto;
-  /* Show vertical scrollbar if needed */
-}
-
-.popup-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0.5rem;
-}
-
-.popup-content button {
-  align-self: flex-end;
-}
-
-.checkbox-input {
-  margin-right: 100px;
-  /* Adjust the value as needed */
-}
-
-.theme-dark .popup-content .resizable .react-resizable-handle {
-  background-color: #333;
-  /* Dark background for dark theme */
-  color: white;
-  /* Ensure text is readable on dark background */
-  border: #333;
-  /* Dark background for dark theme */
-}
-
-.resizable {
-  position: relative;
-  display: inline-block;
-}
-
-.resizer {
-  width: 5px;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: col-resize;
-  user-select: none;
-}
-
-.sort-asc::after {
-  content: "↑";
-  margin-left: 5px;
-}
-
-.sort-desc::after {
-  content: "↓";
-  margin-left: 5px;
-}
-
-.wrap-text {
-  white-space: normal;
-  word-wrap: break-word;
-}
-
-.text-nowrap {
-  white-space: nowrap;
-}
-
-.pagination-container {
-  display: flex;
-  align-items: center;
-  /* Adjust vertical alignment as needed */
-  justify-content: flex-end;
-  /* Adjust spacing or alignment as needed */
-}
-
-/* .react-resizable-handle{
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand-vertical" viewBox="0 0 16 16"%3E%3Cpath d="M8 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"%2F%3E%3C%2Fsvg%3E') !important;
-  transform: rotate(0deg) !important;
-    right: auto !important;
-} */
-.react-resizable-handle {
-  background-image: url("") !important;
-  transform: rotate(0deg) !important;
-  right: auto !important;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.dragging {
-  opacity: 0.5;
-  cursor: move;
-}
-
-.not-dragging {
-  opacity: 1;
-  cursor: move;
-}
-
-.sorting-alignment {
-  padding-left: 10px !important;
-}
-input[type="search"]::-webkit-search-decoration:hover,
-input[type="search"]::-webkit-search-cancel-button:hover {
-  cursor: pointer;
-}
-.fixed-column {
-  position: sticky;
-  left: 0;
-  background-color: white;
-  z-index: 1;
-}
-
-.frozen-column {
-  position: sticky;
-  right: 0;
-  background-color: white;
-  z-index: 1;
+.badge-primary {
+  background-color: #d4bbff;
+  color: #7825e9;
+  margin-left: 8px;
 }
