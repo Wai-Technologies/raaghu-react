@@ -3,9 +3,22 @@ import "./rds-offcanvas.css";
 import RdsIcon from "../rds-icon";
 import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button";
+export enum RdsOffcanvasPlacement {
+  Start = "start",
+  End = "end",
+  Top = "top",
+  Bottom = "bottom"
+}
+
+export enum RdsOffcanvasBackDrop {
+  Static = "static",
+  True = "true",
+  False = "false"
+}
+
 export interface RdsOffcanvasProps {
-  placement: "start" | "end" | "top" | "bottom";
-  backDrop: "static" | true | false;
+  placement: RdsOffcanvasPlacement;
+  backDrop: RdsOffcanvasBackDrop;
   scrolling: boolean;
   preventEscapeKey?: boolean;
   offId: string;

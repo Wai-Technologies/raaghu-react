@@ -1,5 +1,5 @@
 import React from "react";
-import RdsOffcanvas from "./rds-offcanvas";
+import RdsOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-offcanvas";
 import RdsButton from "../rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -26,8 +26,8 @@ export const CustomSlideOutOffcanvas: Story = {
     offId: "canvasExample",
     canvasTitle: "Offcanvas Title",
     scrolling: false,
-    placement: "end",
-    backDrop: "static",
+    placement: RdsOffcanvasPlacement.End, // Use enum value
+    backDrop: RdsOffcanvasBackDrop.Static, // Use enum value
     offcanvaswidth: 650,
     offcanvasbutton: (
       <RdsButton
