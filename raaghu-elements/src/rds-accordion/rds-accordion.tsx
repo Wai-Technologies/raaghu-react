@@ -9,6 +9,34 @@ export interface AccordionItem {
     defaultOpen?: boolean;
 }
 
+export enum AccordionSize {
+    small = "small",
+    medium = "medium",
+    large = "large"
+}
+
+export enum AccordionBorder {
+    border = "border",
+    bottomline = "bottomline",
+    borderhide = "borderhide"
+}
+
+export enum AccordionType {
+    single = "single",
+    multiple = "multiple"
+}
+
+export enum AccordionLayout {
+    default = "default",
+    expanded = "expanded"
+}
+
+export enum AccordionState {
+    default = "default",
+    hover = "hover",
+    selected = "selected"
+}
+
 export interface RdsAccordionProps {
     withIcon?: boolean;
     icon?: string;
@@ -16,14 +44,14 @@ export interface RdsAccordionProps {
     iconStroke?: boolean;
     iconHeight?: string;
     iconWidth?: string;
-    size?: "small" | "medium" | "large";
-    border?: "border" | "bottomline" | "borderhide";
-    accordionType?: 'single' | 'multiple';
-    layout?: "default" | "expanded"; // NEW: Layout Prop
+    size?: AccordionSize;
+    border?: AccordionBorder;
+    accordionType?: AccordionType;
+    layout?: AccordionLayout; // NEW: Layout Prop
     accordionId?: string;
     items: AccordionItem[];
     //defaultopen?: boolean;
-    state?: "default" | "hover" | "selected";
+    state?: AccordionState;
     onclick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 

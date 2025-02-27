@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsAccordion from './rds-accordion';
+import RdsAccordion, { AccordionBorder, AccordionLayout, AccordionSize, AccordionState, AccordionType } from './rds-accordion';
 
 const meta: Meta = {
     title: 'Elements/Accordion',
@@ -49,11 +49,11 @@ type Story = StoryObj<typeof RdsAccordion>;
 export const Default: Story = {
     args: {
         accordionId: "1",
-        accordionType: "multiple",
-        size: "small",
-        state: "default",
-        border:"bottomline",
-        layout: "expanded",
+        accordionType: AccordionType.multiple,
+        size: AccordionSize.small,
+        state: AccordionState.default,
+        border: AccordionBorder.bottomline,
+        layout: AccordionLayout.default,
         withIcon: true,
         icon: "plus",
         iconFill: false,
