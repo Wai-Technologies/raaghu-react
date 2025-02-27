@@ -18,29 +18,89 @@
   position: relative;
 }
 
-.popoverTop {
+.popoverCard.no-arrow {
+  /* styles for no arrow */
+}
+
+.popoverCard.top-left {
   position: absolute;
   top: -74px;
   left: -13px;
 }
 
-.popoverRight {
+.popoverCard.top-centre {
   position: absolute;
-  margin-left: 9px;
-  top: -66%;
+  top: -74px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.popoverLeft {
+.popoverCard.top-right {
+  position: absolute;
+  top: -74px;
+  right: -13px;
+}
+
+.popoverCard.bottom-left {
+  position: absolute;
+  top: 100%;
+  left: -13px;
+  margin-top: 10px;
+}
+
+.popoverCard.bottom-centre {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+}
+
+.popoverCard.bottom-right {
+  position: absolute;
+  top: 100%;
+  right: -13px;
+  margin-top: 10px;
+}
+
+.popoverCard.left-top {
   position: absolute;
   left: -114px;
   top: -71%;
 }
 
-.popoverBottom {
+.popoverCard.left-centre {
   position: absolute;
-  top: 100%;
-  margin-top: 10px;
-  left: -14%;
+  left: -114px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.popoverCard.left-bottom {
+  position: absolute;
+  left: -114px;
+  bottom: -71%;
+}
+
+.popoverCard.right-top {
+  position: absolute;
+  margin-left: 9px;
+  top: -66%;
+}
+
+.popoverCard.right-centre {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-left: 9px;
+  transform: translateY(-50%);
+}
+
+.popoverCard.right-bottom {
+  position: absolute;
+  left: 100%;
+  margin-left: 9px;
+  bottom: -66%;
 }
 
 .popoverCardTop::after {
@@ -103,50 +163,119 @@
   background: white;
 }
 
-
-/* .sb-show-main.sb-main-centered {
-    min-width: 490px !important;
-} */
-.popover-container {
-  position: relative;
-  display: inline-block;
-}
-
-.popover-trigger {
-  cursor: pointer;
-  margin: 12px !important;
-  align-items: center !important;
-}
-
-.popover-content {
+/* New styles for arrows */
+.popoverCard.top-left::after,
+.popoverCard.top-centre::after,
+.popoverCard.top-right::after {
+  display: block;
+  content: "";
   position: absolute;
-  z-index: 1000;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #b1b1b1;
+  border-top: 0;
+  border-left: 0;
+  width: 10px;
+  height: 10px;
+  bottom: -6px;
+  transform: rotate(45deg);
+  background: white;
 }
 
-.popover-top {
-  bottom: 100%;
+.popoverCard.top-left::after {
+  left: 10%;
+}
+
+.popoverCard.top-centre::after {
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(45deg);
 }
 
-.popover-bottom {
-  top: 100%;
+.popoverCard.top-right::after {
+  right: 10%;
+}
+
+.popoverCard.bottom-left::after,
+.popoverCard.bottom-centre::after,
+.popoverCard.bottom-right::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-bottom: 0;
+  border-right: 0;
+  width: 10px;
+  height: 10px;
+  top: -6px;
+  transform: rotate(45deg);
+  background: white;
+}
+
+.popoverCard.bottom-left::after {
+  left: 10%;
+}
+
+.popoverCard.bottom-centre::after {
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(45deg);
 }
 
-.popover-left {
-  top: 50%;
-  right: 100%;
-  transform: translateY(-50%);
+.popoverCard.bottom-right::after {
+  right: 10%;
 }
 
-.popover-right {
+.popoverCard.left-top::after,
+.popoverCard.left-centre::after,
+.popoverCard.left-bottom::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-left: 0;
+  border-bottom: 0;
+  width: 10px;
+  height: 10px;
+  right: -6px;
+  transform: rotate(45deg);
+  background: white;
+}
+
+.popoverCard.left-top::after {
+  top: 10%;
+}
+
+.popoverCard.left-centre::after {
   top: 50%;
-  left: 100%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.popoverCard.left-bottom::after {
+  bottom: 10%;
+}
+
+.popoverCard.right-top::after,
+.popoverCard.right-centre::after,
+.popoverCard.right-bottom::after {
+  display: block;
+  content: "";
+  position: absolute;
+  border: 1px solid #b1b1b1;
+  border-right: 0;
+  border-top: 0;
+  width: 10px;
+  height: 10px;
+  left: -6px;
+  transform: rotate(45deg);
+  background: white;
+}
+
+.popoverCard.right-top::after {
+  top: 10%;
+}
+
+.popoverCard.right-centre::after {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.popoverCard.right-bottom::after {
+  bottom: 10%;
 }
