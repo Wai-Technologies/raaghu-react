@@ -2,50 +2,53 @@ import React, { ReactNode, useState } from "react";
 import "./rds-popover.css";
 import RdsButton from "../rds-button";
 export interface RdsPopoverProps {
-    children: ReactNode;
-    popoverPosition: string;
+  children: ReactNode; // The content to be displayed in the popover
+  popoverPosition: string; // The position of the popover
 }
 
 const RdsPopover = (props: RdsPopoverProps) => {
-    const [displayType, setDisplaytype] = useState("none");
+  const [displayType, setDisplaytype] = useState("none");
 
-    function toggleDisplay() {
-        if (displayType === "none") {
-            setDisplaytype("inline-block");
-        } else if (displayType === "inline-block") {
-            setDisplaytype("none");
-        }
+  function toggleDisplay() {
+    if (displayType === "none") {
+      setDisplaytype("inline-block");
+    } else if (displayType === "inline-block") {
+      setDisplaytype("none");
     }
+  }
 
-    return (
-        <>
-            <div data-testid="popover-card" className="popoverContainer my-5">
-                <RdsButton
-                    type="button"
-                    colorVariant="primary"
-                    isOutline={true}
-                    size="small"
-                    label="Popover"
-                    onClick={toggleDisplay}
-                />
-                <div
-                    className={`popoverCard ${props.popoverPosition == "top"
-                        ? "popoverTop popoverCardTop"
-                        : props.popoverPosition == "bottom"
-                            ? "popoverBottom popoverCardBottom"
-                            : props.popoverPosition == "right"
-                                ? "popoverRight popoverCardRight"
-                                : props.popoverPosition == "left"
-                                    ? "popoverLeft popoverCardLeft"
-                                    : ""
-                        }`}
-                    style={{ display: displayType, padding: "5px" }}
-                >
-                    <span>{props.children}</span>
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="col-auto">
+        <div data-testid="popover-card" className="popoverContainer my-5">
+          <RdsButton
+            type="button"
+            colorVariant="primary"
+            isOutline={true}
+            size="small"
+            label="Popover Button"
+            onClick={toggleDisplay}
+          />
+          <div
+            className={`popoverCard ${props.popoverPosition}`}
+            // className={`popoverCard ${props.popoverPosition == "top"
+            //     ? "popoverTop popoverCardTop"
+            //     : props.popoverPosition == "bottom"
+            //         ? "popoverBottom popoverCardBottom"
+            //         : props.popoverPosition == "right"
+            //             ? "popoverRight popoverCardRight"
+            //             : props.popoverPosition == "left"
+            //                 ? "popoverLeft popoverCardLeft"
+            //                 : ""
+            //     }`}
+            style={{ display: displayType, padding: "5px" }}
+          >
+            <span>{props.children}</span>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default RdsPopover;
