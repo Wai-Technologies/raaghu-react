@@ -1,4 +1,4 @@
-import RdsToggle from "./rds-toggle";
+import RdsToggle, {ToggleStyle, ToggleLayout, ToggleState} from "./rds-toggle";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -9,8 +9,12 @@ const meta: Meta = {
     },
     tags: ["autodocs"],
     argTypes: {
+        style: {
+            options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6"],
+            control: { type: "select" },
+        },
         layout: {
-            options: ["Switch + label", "label + Switch", "Top label + Switch", "Bottom label + Switch"],
+            options: ["Switch + Label", "Label + Switch", "Top Label + Switch", "Bottom Label + Switch"],
             control: { type: "select" },
         },
         state: {
@@ -25,9 +29,9 @@ type Story = StoryObj<typeof RdsToggle>;
 
 export const Default: Story = {
     args: {
-        style: "Style 1",
-        layout: "Switch + label",
-        state:"On",
+        style: ToggleStyle.Style1,
+        layout: ToggleLayout.SwitchLabel,
+        state:ToggleState.On,
         showLabel:true,
         label:"Label"
     }
