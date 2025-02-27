@@ -371,3 +371,7 @@
   border-radius: 0.125rem;
   background-position: -0.1rem;
 }
+
+.theme-dark .form-switch.style-2 .form-check-input:checked[type=checkbox], .theme-dark .form-switch.style-4 .form-check-input:checked[type=checkbox] {
+  background-color: transparent !important;
+}
