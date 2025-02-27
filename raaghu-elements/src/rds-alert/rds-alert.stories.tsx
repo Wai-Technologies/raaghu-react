@@ -1,4 +1,5 @@
-import RdsAlert from "./rds-alert";
+import { Alert } from "bootstrap";
+import RdsAlert, { AlertBorder, AlertPosition, AlertType } from "./rds-alert";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof RdsAlert> = {
@@ -88,8 +89,8 @@ SingleLineAlert.parameters = {
 
 export const Default: Story = {
   args: {
-    type: "info",
-    border: "none",
+    type: AlertType.info,
+    border: AlertBorder.none,
     multiline: false,
     icon: "information",
     showTitle: true,
@@ -111,7 +112,7 @@ export const Default: Story = {
     iconFill: false,
     delay: 5000,
     sticky: false,
-    position: "top",
+    position: AlertPosition.top,
     linkUrl: "https://example.com",
   },
 };
