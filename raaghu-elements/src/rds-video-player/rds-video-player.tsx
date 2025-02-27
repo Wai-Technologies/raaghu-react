@@ -20,14 +20,16 @@ const RdsVideoPlayer = ({ width, height, autoplay, muted, videoLink, type }: Rds
     }
 
     return (
-        <div>
+        <div className="video-player-wrapper">
             <ReactPlayer
                 url={formattedLink}
                 width={width}
                 height={height}
                 playing={autoplay}
                 muted={muted}
+                className="react-player"
                 controls={true}
+                style={{ maxWidth: "100%" }}
             />
         </div>
     );
