@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import RdsTreeStructure, { RdsTreeStructureProps } from './rds-tree-structure';
+import RdsTreeStructure, { IconType, NodeState, RdsTreeStructureProps, TreeLevel } from './rds-tree-structure';
 
 const meta: Meta = {
   title: 'Elements/Tree Structure',
@@ -76,8 +76,8 @@ type Story = StoryObj<typeof RdsTreeStructure>;
 
 export const Default: Story = {
   args: {
-    level: "level4",
-    state: "default",
+    level: TreeLevel.Level4,  // Use enum instead of string
+    state: NodeState.Default, // Use enum instead of string
     showChewron: true,
     showCheckbox: true,
     showFolder: true,
@@ -85,7 +85,7 @@ export const Default: Story = {
     text: "Name", 
     showActions: true,
     showCollapsed: false,
-    type: "folder",
+    type: IconType.Folder,  // Use enum instead of string
     Language: "CSS",
     treeData: [
       {
