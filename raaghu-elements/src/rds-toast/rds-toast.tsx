@@ -4,25 +4,56 @@ import "./rds-toast.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import { toaster_placements } from "../../libs/types/placement";
 
-export interface RdsToastProps {
-    colorVariant?: colors; // color varient of Toast
+export enum ToastLayout {
+    Text = "text",
+    Download = "download",
+    Chat = "chat",
+    Request = "request",
+  }
+  
+  export enum ToastState {
+    Basic = "basic",
+    Info = "info",
+    Success = "success",
+    Error = "error",
+  }
+  
+  export enum ToastLeadingIcon {
+    Circle = "circle",
+    Plus = "plus",
+  }
+  
+  export enum ToastPosition {
+    TopLeft = "topLeft",
+    TopCenter = "topCenter",
+    TopRight = "topRight",
+    MiddleLeft = "middleLeft",
+    MiddleCenter = "middleCenter",
+    MiddleRight = "middleRight",
+    BottomLeft = "bottomLeft",
+    BottomCenter = "bottomCenter",
+    BottomRight = "bottomRight",
+  }  
+
+  export interface RdsToastProps {
+    colorVariant?: colors; // color variant of Toast
     headerText?: string; // Header text of Toast
     subText: string; // Subtext of Toast
     delay?: number; // Delay Time of Toast
     autohide?: boolean; // Autohide of Toast
     borderColor?: string; // Border color of Toast
     showHeader?: boolean; // Show/Hide Header of Toast
-    layout: "text" | "download" | "chat" | "request"; // Layout Types of Toast
-    state: "basic" | "info" | "success" | "error"; // state of Toast
+    layout: ToastLayout; // Layout Types of Toast
+    state: ToastState; // state of Toast
     placeholder?: string; // Placeholder text of Toast
     progressWidth?: number; // Progress Bar width of Toast
     filename?: string; // Filename of Toast
-    position?: toaster_placements; // Position of Toast
+    position?: ToastPosition; // Position of Toast
     showSubText?: boolean; // Show/Hide Subtext of Toast
     showDismiss?: boolean; // Show/Hide Dismiss button of Toast
     showLeading: boolean; // Show/Hide Leading Icon of Toast
-    leadingIcon: "circle" | "plus"; // Leading Icon of Toast
-}
+    leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
+  }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
     // const borderColor = props.borderColor ? "border-" + props.borderColor : "border";
@@ -46,15 +77,15 @@ const RdsToast = (props: RdsToastProps) => {
 
     const classes = () => {
         switch (props.position) {
-            case 'top left': return '';
-            case 'top center': return 'top-0 start-50 translate-middle-x';
-            case 'top right': return 'top-0 end-0';
-            case 'middle left': return 'top-50 start-0 translate-middle-y';
-            case 'middle center': return 'top-50 start-50 translate-middle';
-            case 'middle right': return 'top-50 end-0 translate-middle-y';
-            case 'bottom left': return 'bottom-0 start-0';
-            case 'bottom center': return 'bottom-0 start-50 translate-middle-x';
-            case 'bottom right': return 'bottom-0 end-0';
+            case 'topLeft': return '';
+            case 'topCenter': return 'top-0 start-50 translate-middle-x';
+            case 'topRight': return 'top-0 end-0';
+            case 'middleLeft': return 'top-50 start-0 translate-middle-y';
+            case 'middleCenter': return 'top-50 start-50 translate-middle';
+            case 'middleRight': return 'top-50 end-0 translate-middle-y';
+            case 'bottomLeft': return 'bottom-0 start-0';
+            case 'bottomCenter': return 'bottom-0 start-50 translate-middle-x';
+            case 'bottomRight': return 'bottom-0 end-0';
             default: return '';
         }
     };

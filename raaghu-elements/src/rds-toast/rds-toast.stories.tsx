@@ -1,4 +1,4 @@
-import RdsToast from "./rds-toast";
+import RdsToast, {ToastLayout, ToastState, ToastPosition, ToastLeadingIcon} from "./rds-toast";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -21,15 +21,15 @@ const meta: Meta = {
         },
         position: {
             options: [
-                "top left",
-                "top center",
-                "top right",
-                "middle left",
-                "middle center",
-                "middle right",
-                "bottom left",
-                "bottom center",
-                "bottom right",
+                "topLeft",
+                "topCenter",
+                "topRight",
+                "middleLeft",
+                "middleCenter",
+                "middleRight",
+                "bottomLeft",
+                "bottomCenter",
+                "bottomRight",
             ],
             control: { type: "select" },
         }
@@ -41,17 +41,17 @@ type Story = StoryObj<typeof RdsToast>;
 
 export const Default: Story = {
     args: {
-        state: "basic",
+        state: ToastState.Basic,
         headerText: "Toast Headline",
         showSubText: true,
         subText: "This is a big sample placeholder text.",
         colorVariant: "light",
         showHeader: true,
         showLeading: true,
-        leadingIcon: "circle",
+        leadingIcon: ToastLeadingIcon.Circle,
         borderColor: "primary",
-        layout: "text",
-        position: "top left",
+        layout: ToastLayout.Text,
+        position: ToastPosition.TopLeft,
         progressWidth: 40,
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
