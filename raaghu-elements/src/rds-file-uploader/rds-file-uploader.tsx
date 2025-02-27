@@ -5,21 +5,41 @@ import RdsAvatar from "../rds-avatar";
 import { useTranslation } from "react-i18next";
 import "../../../raaghu-react-themes/src/styles/file-uploader.scss";
 
+
+export enum FileUploaderState {
+  Default = "Default",
+  Selected = "Selected",
+}
+
+export enum FileUploaderStyle {
+  Basic = "Basic",
+  DropAreaTopIcon = "Drop_Area_Top_Icon",
+  DropAreaSideIcon = "Drop_Area_Side_Icon",
+  DropAreaWithUploadButton = "Drop_Area_With_Upload_Button",
+  DropAreaWithIcon = "Drop_Area_With_Icon",
+}
+
+export enum HintPosition {
+  Right = "right",
+  Left = "left",
+}
+export enum Size {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
+
 export interface RdsFileUploaderProps {
-  state?: "Default" | "Selected"; // State of the file uploader
-  style?:
-    | "Basic"
-    | "Drop_Area_Top_Icon"
-    | "Drop_Area_Side_Icon"
-    | "Drop_Area_With_Upload_Button"
-    | "Drop_Area_With_Icon"; // Style of the file uploader
+  state?: FileUploaderState; // State of the file uploader
+  style?: FileUploaderStyle; // Style of the file uploader
   Drop_Area_Top_Icon?: boolean; // Flag for Drop Area with Top Icon style
   placeholderImage?: string; // Placeholder image URL
   Drop_Area_Side_Icon?: boolean; // Flag for Drop Area with Side Icon style
   Drop_Area_With_Upload_Button?: boolean; // Flag for Drop Area with Upload Button style
   Drop_Area_With_Icon?: boolean; // Flag for Drop Area with Icon style
   placeholder?: string; // Placeholder text
-  size?: "small" | "medium" | "large"; // Size of the file uploader
+  size?: string; // Size of the file uploader
   fileSizeLimitInMb?: number; // File size limit in MB
   colorVariant?: string; // Color variant for styling
   multiple?: boolean; // Allow multiple file selection
@@ -37,7 +57,7 @@ export interface RdsFileUploaderProps {
   hintText?: string; // Hint text
   profilePic?: string; // Profile picture URL
   iconName?: string; // Icon name
-  hintPosition?: "right" | "left"; // Position of the hint
+  hintPosition?: HintPosition; // Position of the hint
   onDeleteFile?: (id: any) => void; // Callback for file deletion
   ref?: any; // Reference to the file input
   onChangeFileUpload?: (data: any) => void; // Callback for file upload changes

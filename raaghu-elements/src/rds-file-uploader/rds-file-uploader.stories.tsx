@@ -1,4 +1,4 @@
-import RdsFileUploader from "./rds-file-uploader";
+import RdsFileUploader, { FileUploaderState, FileUploaderStyle } from "./rds-file-uploader";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -51,8 +51,8 @@ type Story = StoryObj<typeof RdsFileUploader>;
 
 export const Default: Story = {
   args: {
-    state: "Default",
-    style: "Basic",
+    state: FileUploaderState.Default,
+    style: FileUploaderStyle.Basic,
     extensions: "png, jpg, doc, pdf, ppt",
     fileSizeLimitInMb: 5,
     title: "Title",
