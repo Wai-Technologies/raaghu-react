@@ -1,4 +1,4 @@
-import RdsCheckbox from "./rds-checkbox";
+import RdsCheckbox, { CheckboxState, CheckboxStatus, CheckboxStyle, LabelPosition } from "./rds-checkbox";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -34,13 +34,13 @@ type Story = StoryObj<typeof RdsCheckbox>;
 
 export const Default: Story = {
     args: {
-        status: "checked",
-        style: "Square",
-        state: "Default",
+        status: CheckboxStatus.Checked,   
+        style: CheckboxStyle.Square,     
+        state: CheckboxState.Default,   
         showtext: true,
         labeltext: "Label",
         checked: true,
-        labelPosition: "right",
+        labelPosition: LabelPosition.Right
         //isDisabled: false,
         //isSwitch: false,
         //id: "id1",
