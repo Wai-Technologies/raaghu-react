@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsRadioButton from "./rds-radio-button";
+import RdsRadioButton, { RdsRadioButtonLayout, RdsRadioButtonState } from "./rds-radio-button";
 
 const meta: Meta = {
     title: "Elements/Radio Button",
@@ -46,8 +46,8 @@ type Story = StoryObj<typeof RdsRadioButton>;
 export const Default: Story = {
     args: {
         displayType: "Default",
-        layout: "Icon",
-        state: "Default",
+        layout: RdsRadioButtonLayout.Icon, // Use the enum here
+        state: RdsRadioButtonState.Default, // Use the enum here
         selected: false,
         text: "This is a default radio button",
         itemList: [

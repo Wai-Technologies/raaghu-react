@@ -2,6 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./rds-radio-button.css";
 import { useTranslation } from "react-i18next";
 
+
+export enum RdsRadioButtonState {
+  Default = "Default",
+  Hover = "Hover",
+  Disabled = "Disabled",
+}
+
+export enum RdsRadioButtonLayout {
+  Icon = "Icon",
+  IconWithLabel = "Icon with Label",
+  IconWithBottomLabel = "Icon with bottom Label",
+}
 export interface RdsRadioButtonProps {
   switch?: boolean;
   inline?: boolean;
@@ -11,19 +23,19 @@ export interface RdsRadioButtonProps {
   itemList: any[] | undefined;
   value: string; 
   displayType?: string;
-  label?: string; // Use this prop to provide a custom label
+  label?: string;
   id?: number;
   dataTestId?: string;
-  //state?: "radio" | "errorRadio";
-  state?: "Default" | "Hover" | "Disabled"; // Use this prop to provide a state
+  state?: RdsRadioButtonState;
   errorMessage?: string;
   onlyChecked?: boolean;
   checkedId?: string;
   customClass?: string;
-  layout?: "Icon" | "Icon with Label" | "Icon with bottom Label"; // Use this prop to provide a layout
+  layout?: RdsRadioButtonLayout;
   selected?: boolean;
   text?: string;
 }
+
 
 const RdsRadioButton = (props: RdsRadioButtonProps) => {
   const { t } = useTranslation();
