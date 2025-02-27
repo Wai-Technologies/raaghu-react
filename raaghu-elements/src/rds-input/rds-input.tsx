@@ -4,8 +4,29 @@ import RdsIcon from "../rds-icon";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
+export enum InputSize {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
+export enum TooltipPlacement {
+  Top = "top",
+  Bottom = "bottom",
+  Left = "left",
+  Right = "right",
+}
+
+export enum LabelPosition {
+  Top = "top",
+  Bottom = "bottom",
+  Floating = "floating",
+  Right = "right",
+  Left = "left",
+}
+
 export interface RdsInputProps {
-  size?: "small" | "large" | "medium" | string; // Size of the input field
+  size?: InputSize; // Size of the input field
   isDisabled?: boolean; // Whether the input field is disabled
   readonly?: boolean; // Whether the input field is read-only
   value?: string; // Value of the input field
@@ -19,7 +40,7 @@ export interface RdsInputProps {
   autoFocus?: [boolean, number]; // Whether to auto-focus the input field and the delay in milliseconds
   singleDigit?: boolean; // Whether the input field is for single digit input
   ref?: any; // Reference to the input field
-  labelPosition?: string; // Position of the label (e.g., top, bottom, floating, right, left)
+  labelPosition?: LabelPosition; // Position of the label (e.g., top, bottom, floating, right, left)
   name?: string; // Name attribute of the input field
   label?: boolean; // Whether to show the label
   id?: string; // ID attribute of the input field
@@ -41,7 +62,7 @@ export interface RdsInputProps {
   showIcon?: boolean; // Whether to show an icon in the input field
   HintText?: string; // Hint text to display below the input field
   ShowHintText?: boolean; // Whether to show the hint text
-  tooltipPlacement?: "top" | "bottom" | "left" | "right"; // Placement of the tooltip
+  tooltipPlacement?: TooltipPlacement; // Placement of the tooltip
   tooltipTitle?: string; // Title of the tooltip
   isValidConfirmPass?: boolean; // Whether the confirm password is valid
   className?: string; // Additional CSS classes for the input field
@@ -144,9 +165,9 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     let size: "sm" | "lg" | "md";
 
-    if (props.size === "small") {
+    if (props.size === InputSize.Small) {
       size = "sm";
-    } else if (props.size === "large") {
+    } else if (props.size === InputSize.Large) {
       size = "lg";
     } else {
       size = "md";
@@ -173,7 +194,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     const getClassNames = () => {
       let defaultClasses: string = "input-group mb-0";
-      if (props.labelPosition === "floating") {
+      if (props.labelPosition === LabelPosition.Floating) {
         defaultClasses = "form-floating";
       }
       return defaultClasses;
@@ -181,17 +202,17 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     const labelClass = () => {
       let labelPositionClass: string = "";
-      if (props.labelPosition === "bottom") {
+      if (props.labelPosition === LabelPosition.Bottom) {
         labelPositionClass = " d-flex flex-column-reverse";
       }
-      if (props.labelPosition === "left") {
+      if (props.labelPosition === LabelPosition.Left) {
         labelPositionClass = " d-flex align-items-center gap-2";
       }
-      if (props.labelPosition === "right") {
+      if (props.labelPosition === LabelPosition.Right) {
         labelPositionClass =
           " d-flex align-items-center gap-2 flex-row-reverse";
       }
-      if (props.labelPosition === "floating") {
+      if (props.labelPosition === LabelPosition.Floating) {
         labelPositionClass = "";
       }
       return labelPositionClass;

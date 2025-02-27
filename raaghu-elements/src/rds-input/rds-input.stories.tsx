@@ -1,5 +1,5 @@
 import React from "react";
-import RdsInput from "./rds-input";
+import RdsInput, { InputSize, LabelPosition } from "./rds-input";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -54,14 +54,14 @@ const placeholderMapping: { [key: string]: string } = {
 
 export const Default: Story = {
   args: {
-    size: "medium",
+    size: InputSize.Medium,
     inputType: "text",
     state: "default",
     style: "Default",
     placeholder: placeholderMapping["text"],
     label: true,
     showTitle: true,
-    labelPosition: "top",
+    labelPosition: LabelPosition.Top,
     HintText: "Hint Text",
     ShowHintText: true,
     id: "default-input",
@@ -88,6 +88,7 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'required', 'showIcon', 'HintText', 'ShowHintText',/* 'singleDigit', 'value','fontWeight','id''labelPosition', */] } };// export const Tooltip: Story = {
+
 //   args: {
 //     size: "medium",
 //     inputType: "text",
