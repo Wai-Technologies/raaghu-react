@@ -1,6 +1,6 @@
 import RdsCompAppShell from '../../raaghu-layouts/src/rds-comp-app-shell';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DisplayType, RdsAlert, RdsProgressBar } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
+import { DisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
 
 export * from "../../raaghu-elements/src/index";
 export * from "../../raaghu-components/src/index";
