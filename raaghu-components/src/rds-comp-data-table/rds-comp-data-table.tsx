@@ -1245,14 +1245,12 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         "progressbar" && (
                                           <>
                                           <RdsProgressBar
-                                          colorVariant="primary"
-                                          height={4}
-                                          progressValues={[
-                                          ]}
-                                          progressWidth={70}
-                                          role="single"
-                                          striped
-                                        />
+                                            colorVariant="primary"
+                                            height={4}
+                                            progressValues={[]}
+                                            progressWidth={70}
+                                            role="single"
+                                            striped steps={0} completedSteps={0}                                        />
                                         <span>
                                             {tableDataRow[tableHeader.key]}
                                           </span>

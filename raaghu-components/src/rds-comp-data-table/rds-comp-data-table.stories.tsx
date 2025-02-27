@@ -154,7 +154,7 @@ export const Datatable: Story = {
     }
 } satisfies Story;
 
-Datatable.parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'] } };
+Datatable.parameters = { controls: { include: [/*'enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'*/] } };
 
 //     args: {
 //                 enablecheckboxselection: false,
