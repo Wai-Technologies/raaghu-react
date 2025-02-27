@@ -2,6 +2,8 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import RdsCompDialog from "./rds-comp-dialog";
 
+//Whatever code is commented in this file is needed in fututre reference - enhancement as per figma design
+
 const meta: Meta = {
   title: "Components/Dialog",
   component: RdsCompDialog,
@@ -45,12 +47,12 @@ export const Default: Story = {
   args: {
     Size: "Large",
     Style: "Default",
-    ColorVariant: "primary",
     ShowDissmiss: true,
     ShowPrimary: true,
     ShowSecondary: true,
-    Title: "Delete Account",
     ShowTitle: true,
+    Title: "Delete Account",
+    ColorVariant: "primary",
     Content: "Deleting this data will remove your account and you will no longer login to the application! Are you sure you want to proceed?",
     Icon: "users", 
     ContentPosition: "Bottom",
@@ -61,15 +63,15 @@ Default.parameters = {
     include: [
       "Size",
       "Style",
-      "ColorVariant",
+      // "ColorVariant",
       "Title",
-      "Content",
+      // "Content",
       "ShowTitle",
       "ShowDissmiss",
       "ShowPrimary",
       "ShowSecondary",
-        "Icon",
-        "ContentPosition",
+        // "Icon",
+        // "ContentPosition",
     ],
   },
 };
