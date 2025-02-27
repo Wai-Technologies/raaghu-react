@@ -1,0 +1,205 @@
+
+
+/* Bottom Select */
+.bottom-select {
+    /* display: flex; */
+    border-bottom: 1px solid #E9E9E9; 
+  }
+  
+  .bottom-select .tab {
+    border-bottom: none; /* Remove individual tab borders */
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 15px;
+  }
+
+/* Top Select */
+.top-select {
+    /* display: flex; */
+    border-top: 1px solid #E9E9E9; 
+  }
+  
+  .top-select .tab {
+    border-top: none; /* Remove individual tab borders */
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 15px;
+  }
+
+/* Bottom Select Alt */
+.bottom-select-alt {
+ /* display: flex; */
+  border-bottom: 3px dashed #E9E9E9;
+}
+.bottom-select-alt .tab
+{
+    border-bottom: none; /* Remove individual tab borders */
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 15px;
+}
+
+/* Top Select Alt */
+.top-select-alt {
+    /* display: flex; */
+    border-top: 3px dashed #E9E9E9; 
+  }
+  
+  .top-select-alt .tab {
+    border-top: none; /* Remove individual tab borders */
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 15px;
+  }
+
+/* Background Filled */
+.background-filled {
+  /* display: flex; */
+}
+.background-filled .tab {
+    transition: background-color 0.3s ease-in-out;
+    color: #000;
+}
+.background-filled .tab.active {
+  background-color: #FEF7FF;
+  color: #000;
+}
+
+/* Pill Style */
+.pill-style {
+  /* display: flex; */
+  background-color: #FEF7FF;
+  border-radius: 50px;
+
+}
+.pill-style .tab {
+  border-radius: 50px;
+  padding: 6px 20px;
+}
+
+/* Select Tabs */
+.select-tabs {
+  /* display: flex; */
+  gap: 0; /* Remove space between tabs */
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.select-tabs .tab {
+  border: none;
+  margin: 0;
+  padding: 10px 15px;
+  flex-grow: 1;
+  text-align: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.select-tabs .tab.active {
+  background-color: #9747FF; /* Active tab background */
+  color: white;
+  border: 2px solid #9747FF;
+  position: relative;
+  z-index: 2; /* Ensure active tab appears above others */
+}
+
+/* Ensure tabs touch each other with no gap */
+.select-tabs .tab + .tab {
+  margin-left: -2px; /* Overlap slightly to remove gap */
+}
+
+
+/* ********************************************************************************************************************************** */
+
+
+/* Vertical Styles */
+.vertical-alt-right-line .tab {
+  border-right: 2px dashed #E9E9E9;
+}
+.vertical-alt-left-line .tab {
+  border-left: 2px dashed #E9E9E9;
+}
+.vertical-left-line .tab {
+  border-left: 3px solid #E9E9E9;
+}
+.vertical-right-line .tab {
+  border-right: 3px solid #E9E9E9;
+}
+.vertical-left-filled .tab {
+  background-color: #D4BBFF;
+  color: black;
+}
+/* Vertical Pointer Tab */
+.vertical-pointer .tab {
+  position: relative;
+  background-color: #9747FF; /* Adjust color as needed */
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vertical-pointer .tab::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -9px; /* Move arrow to the right */
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #9747FF; /* Adjust color to match tab */
+  transform: translateY(-50%);
+}
+
+/* Active State */
+.vertical-pointer .tab.active {
+  background-color: #9747FF;
+}
+
+.vertical-pointer .tab.active::after {
+  border-left-color: #9747FF; /* Change arrow color on active tab */
+}
+
+.vertical-flap .tab {
+    position: relative;
+    margin-bottom: 5px;
+    background-color: #9747FF; /* Purple background */
+    color: white; /* White text */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .vertical-flap .tab::after {
+    content: "";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 18px 0 18px 16px;
+    border-color: transparent transparent transparent #9747FF;
+  }
+  
+  .VerticalWidth {
+    width: 200px;
+  }
+
+  .vertical-tab {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .horizontal-tab {
+    display: flex;
+    flex-direction: row;
+  }
+  .theme-dark div p {
+    color: #7B7A7A !important;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCard from "./rds-card";
+import RdsCard, { CardTypes } from "./rds-card";
 import { Meta, StoryObj } from "@storybook/react";
 import RdsMap from "../rds-map";
 import RdsDoughnutChart from "../rds-chart-doughnut";
@@ -85,7 +85,7 @@ const commonArgs = {
 export const CardWithButton: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Button",
+    type: CardTypes.CardWithButton,
   },
 };
 CardWithButton.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -93,7 +93,7 @@ CardWithButton.parameters = { controls: { include: ['state', 'style', 'showTitle
 export const CardWithLinkButton: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Link Button",
+    type: CardTypes.CardWithLinkButton,
   },
 };
 CardWithLinkButton.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -101,7 +101,7 @@ CardWithLinkButton.parameters = { controls: { include: ['state', 'style', 'showT
 export const CardWithImage: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Image",
+    type: CardTypes.CardWithImage,
   },
 };
 CardWithImage.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -109,7 +109,7 @@ CardWithImage.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const CardWithRingChart: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Ring Chart",
+    type: CardTypes.CardWithRingChart,
     children: (
       <RdsWidget
       headerTitle={"Profit Share"}
@@ -232,7 +232,7 @@ CardWithRingChart.parameters = { controls: { include: ['state', 'style', 'showTi
 export const CardWithMap: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Map",
+    type: CardTypes.CardWithMap,
     children: (
       <RdsWidget
       headerTitle={"Sales"}
@@ -263,22 +263,6 @@ export const CardWithMap: Story = {
               color="#A478E6"></RdsMap>
       </div>
   </RdsWidget>
-
-      // <RdsMap
-      //   mapList={[
-      //     { country: "cn", value: 1389618778 }, // china
-      //     { country: "in", value: 1311559204 }, // india
-      //     { country: "us", value: 331883986 }, // united states
-      //     { country: "id", value: 264935824 }, // indonesia
-      //     { country: "pk", value: 210797836 }, // pakistan
-      //     { country: "br", value: 210301591 }, // brazil
-      //     { country: "ng", value: 208679114 }, // nigeria
-      //     { country: "bd", value: 161062905 }, // bangladesh
-      //     { country: "ru", value: 141944641 }, // russia
-      //     { country: "mx", value: 127318112 }, // mexico
-      //   ]}
-      //   color="#A478E6"
-      // />
     ),
   },
 };
@@ -287,7 +271,7 @@ CardWithMap.parameters = { controls: { include: ['state', 'style', 'showTitle', 
 export const CardWithGraph: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Graph",
+    type: CardTypes.CardWithGraph,
     children: (
       <RdsAreaChart
         labels={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
@@ -405,7 +389,7 @@ CardWithGraph.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const CardWithBooleanChart: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Boolean Chart",
+    type: CardTypes.CardWithBooleanChart,
     children: (
       <><div className="d-flex align-items-center">
         <div className="">
@@ -569,7 +553,7 @@ CardWithBooleanChart.parameters = { controls: { include: ['state', 'style', 'sho
 export const ExampleBadges: Story = {
   args: {
     ...commonArgs,
-    type: "Example-Badges",
+    type: CardTypes.ExampleBadges,
   },
 };
 ExampleBadges.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -577,7 +561,7 @@ ExampleBadges.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const ExampleTags: Story = {
   args: {
     ...commonArgs,
-    type: "Example-Tags",
+    type: CardTypes.ExampleTags,
   },
 };
 ExampleTags.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -585,7 +569,7 @@ ExampleTags.parameters = { controls: { include: ['state', 'style', 'showTitle', 
 export const ExampleAvatar: Story = {
   args: {
     ...commonArgs,
-    type: "Example-Avatar",
+    type: CardTypes.ExampleAvatar,
   },
 };
 ExampleAvatar.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
@@ -593,7 +577,7 @@ ExampleAvatar.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const CardWithLineChart: Story = {
   args: {
     ...commonArgs,
-    type: "Card With Boolean Chart",
+    type: CardTypes.CardWithBooleanChart,
     children: (
       <RdsWidget
                                 headerTitle={"Daily Sales Growth"}
@@ -727,7 +711,7 @@ CardWithLineChart.parameters = { controls: { include: ['state', 'style', 'showTi
 export const CardWithDataTable: Story = {
   args: {
     ...commonArgs,
-    type: "Card With DataTable",
+    type: CardTypes.CardWithTable,
     children :(
       <RdsWidget
                         headerTitle={"Member Activity"}
@@ -1018,7 +1002,7 @@ CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showTi
 export const CardWithChart: Story = {
   args: {
     ...commonArgs,
-    type: "Card With DataTable",
+    type: CardTypes.CardWithTable,
     children :( 
       <RdsWidget
       headerTitle={"Maximum Profit"}
@@ -1380,7 +1364,7 @@ CardWithChart.parameters = { controls: { include: ['state', 'style', 'showTitle'
 export const CardWithTable : Story = {
   args: {
     ...commonArgs,
-    type: "Card With DataTable",
+    type: CardTypes.CardWithTable,
     children :(
 <RdsWidget
                         headerTitle={"To do List"}
@@ -1436,8 +1420,7 @@ export const CardWithTable : Story = {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small >Due in two days</small>
                                             </div>
@@ -1475,8 +1458,7 @@ export const CardWithTable : Story = {
                                                         colorVariant={"danger"}
                                                         progressWidth={20}
                                                         role={"single"}
-                                                        width={"245px"}
-                                                    ></RdsProgressBar>
+                                                        width={"245px"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small>Due in two days</small>
                                             </>
@@ -1515,8 +1497,7 @@ export const CardWithTable : Story = {
                                                         displayPercentage={false}
                                                         colorVariant={"success"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1551,8 +1532,7 @@ export const CardWithTable : Story = {
                                                         displayPercentage={false}
                                                         colorVariant={"warning"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1589,8 +1569,7 @@ export const CardWithTable : Story = {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
