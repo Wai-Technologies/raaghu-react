@@ -90,7 +90,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       case 'small- sm':
         return '';
       case 'medium':
-        return 'btn-md px-4';
+        return 'btn-md ';
       case 'large':
         return 'btn-lg';
       default:
