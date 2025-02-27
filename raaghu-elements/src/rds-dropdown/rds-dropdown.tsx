@@ -149,17 +149,17 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       style={props.style === 'transparent' ? { backgroundColor: 'transparent', border: 'none' } : {}}
     >
       {renderContent()}
-      <span className="ms-2">
-      {props.showChevron && (
-        <RdsIcon
-          name={show ? "chevron_up" : "chevron_down"}
-          height="8px"
-          width="12px"
-          fill={props.iconFill}
-          stroke={props.iconStroke}
-          colorVariant="light"
-        />
-      )}
+      <span className={`ms-2 chevron-icon ${show ? 'chevron-up' : 'chevron-down'}`}> 
+        {props.showChevron && (
+          <RdsIcon
+            name={show ? "chevron_up" : "chevron_down"}
+            height="8px"
+            width="12px"
+            fill={props.iconFill}
+            stroke={props.iconStroke}
+            colorVariant={props.style === 'primary' ? 'white' : props.colorVariant} // Apply white color to chevron for primary style
+          />
+        )}
       </span>
     </button>
   );
