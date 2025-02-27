@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import RdsNotification from "./rds-notification";
+import RdsNotification, { NotificationLayout, NotificationStyle, NotificationType } from "./rds-notification";
 
 const meta: Meta = {
     title: "Elements/Notification",
@@ -31,9 +31,9 @@ type Story = StoryObj<typeof RdsNotification>;
 
 export const Default: Story = {
     args: {
-        layout: "vertical",
-        style: "default",
-        type: "info",
+        layout: NotificationLayout.Vertical,
+        style: NotificationStyle.Default,
+        type: NotificationType.Info,
         notifications: [
             {
                 status: "success",
