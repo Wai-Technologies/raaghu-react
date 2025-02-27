@@ -1,32 +1,55 @@
-import React, { useState, useEffect, forwardRef, ForwardRefRenderFunction, Fragment } from "react";
-import "./rds-checkbox.css";
+import React, { useState, useEffect, forwardRef, ForwardRefRenderFunction, Fragment, useRef } from "react";
+//import "./rds-checkbox.css";
+import "../../../raaghu-react-themes/src/styles/checkbox.scss";
 
-export interface RdsCheckboxProps {
-    labeltext: string;
-    labelClass?: string;
-    checked?: any;
-    isDisabled?: boolean;
-    classes?: string;
-    isSwitch?: boolean;
-    showtext?: boolean;
-    name?: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-    style?: "Square" | "Circular";
-    status?: "checked" | "unchecked" | "indeterminate";
-    state?: "Default" | "Disabled" | "Hover";
-    id?: string;
-    dataTestId?: string;
-    isInputGroup?: boolean;
-    choiceId?: any;
-    labelPosition?: "left" | "right";
+export enum CheckboxStyle {
+    Square = "Square",
+    Circular = "Circular"
 }
 
-const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> = (
-    props,
-    ref
-) => {
+export enum CheckboxStatus {
+    Checked = "checked",
+    Unchecked = "unchecked",
+    Indeterminate = "indeterminate"
+}
+
+export enum CheckboxState {
+    Default = "Default",
+    Disabled = "Disabled",
+    Hover = "Hover"
+}
+
+export enum LabelPosition {
+    Left = "left",
+    Right = "right"
+}
+
+export interface RdsCheckboxProps {
+    labeltext?: string; // Label text for the checkbox
+    labelClass?: string; // Additional classes for the label
+    checked?: any; // Checked state of the checkbox
+    isDisabled?: boolean; // Disabled state of the checkbox
+    classes?: string; // Additional classes for the checkbox
+    isSwitch?: boolean; // Switch style checkbox
+    showtext?: boolean; // Show text for the checkbox
+    name?: string; // Name attribute for the checkbox input.
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
+    style?: CheckboxStyle; // Style of the checkbox (Square or Circular)
+    status?: CheckboxStatus; // Status of the checkbox (Checked, Unchecked, Indeterminate)
+    state?: CheckboxState; // State of the checkbox (Default, Disabled, Hover)
+    id?: string; // Id for the checkbox
+    dataTestId?: string; // Data test id for the checkbox
+    isInputGroup?: boolean; // Input group checkbox
+    choiceId?: any; // Choice id for the checkbox
+    labelPosition?: LabelPosition; // Label position (left or right)
+}
+
+
+const RdsCheckbox = (props: RdsCheckboxProps) => {
+  
     const [check, setCheck] = useState(props.checked);
     const [labelChecked, setLabelChecked] = useState(props.checked);
+    const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         setCheck(props.checked);
@@ -179,4 +202,4 @@ const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> 
     );
 };
 
-export default forwardRef(RdsCheckbox);
+export default RdsCheckbox;
