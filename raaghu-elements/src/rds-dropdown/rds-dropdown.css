@@ -103,6 +103,12 @@
 .chevron-icon {
   margin-left: 8px !important
 }
+
+.dropdown {
+  border: 2px solid;
+  border-radius: 4px;
+  border-color: #7825E9;
+}
 .btn-primary {
   background-color: #7825E9!important;
   color: #fff!important;
@@ -110,13 +116,13 @@
 }
 
 .btn-secondary {
-  background-color: #d2d0d0!important;
+  background-color: #FFFFFF!important;
   color: #7825E9!important;
   border: 1px solid #7825E9!important;
 }
 
 .btn-outline {
-  background-color: #faf4f4!important;
+  background-color:transparent!important;
   color: #7825E9!important;
   border: 1px solid #7825E9!important;
 }
