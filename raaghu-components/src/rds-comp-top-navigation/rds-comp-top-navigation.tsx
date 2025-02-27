@@ -1991,7 +1991,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
+          <div className="d-flex align-items-center mt-md-0 d-xxl-block d-xl-block d-lg-block">
             <div className="d-flex">
                 <>
                  {(!props.product1  && <div>
@@ -2023,7 +2023,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </div>
           <div
             className={
-              "d-flex align-items-center justify-content-between right-side-menu"
+              "d-flex px-2 align-items-center justify-content-between right-side-menu"
             }
           >
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
