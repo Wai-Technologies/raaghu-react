@@ -17,40 +17,7 @@ function App() {
               {/* Row 1 */}
               <div className="row">
                 <div className="col-lg-8">
-                  <div className="card p-3 h-100">
-                    
-                  <RdsProgressBar
-  colorVariant="primary"
-  completedSteps={0}
-  displayPercentage
-  height={4}
-  progressValues={[
-    {
-      animation: true,
-      colorVariant: 'success',
-      progressWidth: 50,
-      stripe: true
-    },
-    {
-      animation: true,
-      colorVariant: 'danger',
-      progressWidth: 20,
-      stripe: true
-    },
-    {
-      animation: true,
-      colorVariant: 'info',
-      progressWidth: 30,
-      stripe: true
-    }
-  ]}
-  progressWidth={40}
-  role="dash"
-  stepperVariant="filled"
-  steps={5}
-  striped
-/>
-                  </div>
+                  <div className="card p-3 h-100">Daily Summary</div>
                 </div>
                 <div className="col-lg-4">
                   <div className="row">
