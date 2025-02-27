@@ -2,11 +2,29 @@ import { Tooltip as BsTooltip } from "bootstrap";
 import React, { useEffect, useRef, forwardRef, ReactNode } from "react";
 import "./../../../raaghu-react-themes/src/styles/tooltip.scss";
 
+export enum TooltipStyle {
+  NoArrow = "NoArrow",
+  MiddleBottomArrow = "MiddleBottomArrow",
+  MiddleTopArrow = "MiddleTopArrow",
+  LeftArrow = "LeftArrow",
+  RightArrow = "RightArrow",
+  LeftTopArrow = "LeftTopArrow",
+  RightTopArrow = "RightTopArrow",
+  LeftBottomArrow = "LeftBottomArrow",
+  RightBottomArrow = "RightBottomArrow",
+}
+
+export enum TooltipTrigger {
+  Hover = "hover",
+  Click = "click",
+  Focus = "focus",
+  Manual = "manual",
+}
 interface TooltipProps {
   children: ReactNode;  // Child element
   label?: string;  // Tooltip label
-  style?: "No Arrow" | "Middle Bottom Arrow" | "Middle Top Arrow" | "Left Arrow" | "Right Arrow" | "Left Top Arrow" | "Right Top Arrow" | "Left bottom Arrow" | "Right bottom Arrow"; // Position of Tooltip
-  trigger?: "hover" | "click" | "focus" | "manual"; // Trigger event
+  style?: TooltipStyle; // Position of Tooltip
+  trigger?: TooltipTrigger; // Trigger event
 }
 
 const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, ref) => {
@@ -18,21 +36,21 @@ const Tooltip = forwardRef<HTMLElement, TooltipProps>((props, ref) => {
     const options = {
       title: props.label,
       placement: 
-        props.style === "Left Top Arrow" || props.style === "Right Top Arrow" ? "bottom" :
-        props.style === "Left bottom Arrow" || props.style === "Right bottom Arrow" ? "top" :
-        props.style === "Middle Bottom Arrow" ? "top" :
-        props.style === "Middle Top Arrow" ? "bottom" :
-        props.style === "Left Arrow" ? "right" :
-        props.style === "Right Arrow" ? "left" :
-        props.style === "No Arrow" ? "auto" :
+        props.style === "LeftTopArrow" || props.style === "RightTopArrow" ? "bottom" :
+        props.style === "LeftBottomArrow" || props.style === "RightBottomArrow" ? "top" :
+        props.style === "MiddleBottomArrow" ? "top" :
+        props.style === "MiddleTopArrow" ? "bottom" :
+        props.style === "LeftArrow" ? "right" :
+        props.style === "RightArrow" ? "left" :
+        props.style === "NoArrow" ? "auto" :
         props.style,
       trigger: props.trigger || "hover",
       customClass: 
-        props.style === "Left Top Arrow" ? "tooltip-left-top" :
-        props.style === "Right Top Arrow" ? "tooltip-right-top" :
-        props.style === "Left bottom Arrow" ? "tooltip-left-bottom" :
-        props.style === "Right bottom Arrow" ? "tooltip-right-bottom" :
-        props.style === "No Arrow" ? "tooltip-no-arrow" :
+        props.style === "LeftTopArrow" ? "tooltip-left-top" :
+        props.style === "RightTopArrow" ? "tooltip-right-top" :
+        props.style === "LeftBottomArrow" ? "tooltip-left-bottom" :
+        props.style === "RightBottomArrow" ? "tooltip-right-bottom" :
+        props.style === "NoArrow" ? "tooltip-no-arrow" :
         "",
     };
 
