@@ -28,7 +28,7 @@ export interface RdsCompTopNavigationProps {
   logo?: string; // Logo to display in the navbar.
   languageLabel: string; // Label for the language dropdown.
   languageIcon?: string; // Icon for the language dropdown.
-  width?: string; // Width of the navbar.
+  width?: string;  // Width of the navbar.
   themeLabel: string; // Label for the theme dropdown.
   breadcrumItem?: any; // Breadcrum item to display in the navbar.
   profilePic?: any; // Profile picture to display in the navbar.
@@ -60,13 +60,13 @@ export interface RdsCompTopNavigationProps {
   role?: string; // Role to display in the navbar.
   showSearch?: boolean; // Determines whether to show the search bar.
   ecommerce2?: boolean; // Determines whether the portal is an ecommerce portal.
-  ecommerce3?: boolean; 
-  ecommerce4?: boolean; 
+  ecommerce3?: boolean;
+  ecommerce4?: boolean;
   product1?: boolean; // Determines whether the portal is a product portal.
   product2?: boolean;
   product3?: boolean;
   product4?: boolean;
-  entertainment1?: boolean;  // Determines whether the portal is an entertainment portal.
+  entertainment1?: boolean; // Determines whether the portal is an entertainment portal.
   entertainment2?: boolean;
   entertainment3?: boolean;
   entertainment4?: boolean;
@@ -324,7 +324,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
   };
 
   const renderTopbar = () => {
-    if (props.raaghuPortal) {
+    if (props.style === "RaaghuPortal") {
       return (
         <div>
           <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -473,7 +473,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         </div>
       );
     }
-    if (props.ecommerce1) {
+    if (props.style === "Ecommerce_1") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between shadow">
@@ -547,7 +547,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce2) {
+    if (props.style === "Ecommerce_2") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -646,7 +646,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce3) {
+    if (props.style === "Ecommerce_3") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -733,7 +733,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce4) {
+    if (props.style === "Ecommerce_4") {
       return (
         <div  id="topnav">
               <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -847,7 +847,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if(props.entertainment1){
+    if (props.style === "Entertainment_1") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -922,7 +922,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment2){
+    if (props.style === "Entertainment_2") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -996,7 +996,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment3){
+    if (props.style === "Entertainment_3") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1071,7 +1071,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment4){
+    if (props.style === "Entertainment_4") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1161,7 +1161,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional1){
+    if (props.style === "Professional_1") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1254,7 +1254,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional2){
+    if (props.style === "Professional_2") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1349,7 +1349,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional3){
+    if (props.style === "Professional_3") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1448,7 +1448,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional4){
+    if (props.style === "Professional_4") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1530,7 +1530,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional5){
+    if (props.style === "Professional_5") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1714,7 +1714,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.appshell3){
+    if (props.style === "App_Shell_3") {
       return (
         <div>
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -1968,7 +1968,14 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     }
     return (
       <>
-      {props.style === "ABP" && (
+      
+      {(props.style === "Default" || 
+        props.style === "ABP" || 
+        props.style === "Product_1" || 
+        props.style === "Product_2" || 
+        props.style === "Product_3" || 
+        props.style === "Product_4") && (
+
       <div>
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
           <div
