@@ -2,8 +2,8 @@
 
 .files {
   height: 5rem;
-  border: $filesuploader-border-width dashed;
-  border-radius: $filesuploader-border-radius;
+  border: 1px dashed;
+  border-radius: 0.25rem;
 
   :focus {
     border: 3px solid;
@@ -73,7 +73,7 @@ rds-file-uploader .alert {
 }
 
 .showError{
-  color:$danger;
+  color:#ef2e2e;
 }
 .multiUploader{
   border: 2px dashed ;
@@ -94,9 +94,43 @@ rds-file-uploader .alert {
 }
 
 .custom-file-button {
-  display: flex;
-  justify-content: center;
-  width: 105px;
-  cursor: pointer;
-  line-height: 21px;
+  display: flex !important;
+  justify-content: center !important;
+  width: 105px !important;
+  cursor: pointer !important;
+  line-height: 21px !important;
+}
+.chosenFileSpan {
+  background-color: #FFFFFF;
+  color: #6C757D;
+  border: 1px solid #dee2e6;
+}
+.custom-file-button {
+  background-color: #7825E9;
+  color: #ffffff;
+}
+
+.custom-file-button {
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0.25rem 0rem 0rem 0.25rem !important;
+  font-size: 0.75rem !important;
+}
+.chosenFileSpan {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+.btn {
+  text-transform: capitalize !important;
+  min-width: 4.35rem;
+  align-items: center !important;
+}
+@media (max-width: 480px) {
+  .upload-btn {
+    padding: 4px 8px; 
+    font-size: 10px !important; 
+  }
+
+  .file-name {
+    font-size: 13px !important; 
+  }
 }
