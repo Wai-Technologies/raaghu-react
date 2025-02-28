@@ -419,7 +419,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
-            className={`dropdown-menu ${expand ? "show" : "hide"}`}
+            className={`dropdown-menu ${expand ? "show" : "hide"} ${props.size === "Default" ? "mt-2" : props.size === "Large" ? "mt-3" : ""}`}
             id={props.id}
             aria-labelledby={props.id}
           >
