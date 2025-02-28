@@ -1,5 +1,5 @@
 import React from "react";
-import Tooltip from "./rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "./rds-tooltip";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -11,7 +11,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
         style: {
-            options: ["No Arrow", "Middle Top Arrow", "Middle Bottom Arrow", "Left Arrow", "Left Top Arrow", "Left bottom Arrow", "Right Arrow", "Right Top Arrow", "Right bottom Arrow"],
+            options: ["NoArrow", "MiddleTopArrow", "MiddleBottomArrow", "LeftArrow", "LeftTopArrow", "LeftBottomArrow", "RightArrow", "RightTopArrow", "RightBottomArrow"],
             control: { type: "select" },
         },
     },
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof Tooltip>;
 export const Default: Story = {
     args: {
         label: "This is tooltip",
-        style: "Right Arrow",
+        style: TooltipStyle.RightArrow,
         children: <button className="btn btn-primary">Button</button>
     }
 } satisfies Story;
