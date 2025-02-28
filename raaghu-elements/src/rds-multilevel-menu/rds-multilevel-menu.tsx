@@ -97,7 +97,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
 
   return (
     <div className="row">
-      <ul className="shadow col-4 m-2 p-2 bg-white rounded" style={{ listStyleType: "none", padding: 0, minWidth: "200px" }}>
+      <ul className="shadow col-4 m-2 p-2 rounded" style={{ listStyleType: "none", padding: 0, minWidth: "200px" }}>
         {itemsList.map((item) => {
           const isHovered = hoveredItem === item.id;
           const isSelected = selectedItem === item.id;
@@ -135,7 +135,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                 {/* Submenu */}
                 {expandedItems[item.id] && item.children && (
                   <ul
-                    className="shadow bg-white rounded position-absolute"
+                    className="shadow rounded position-absolute"
                     style={{
                       listStyleType: "none",
                       padding: "10px",
@@ -143,7 +143,6 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                       left: "105%",
                       minWidth: "100%",
                       boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
-                      border: "1px solid #ddd",
                     }}
                   >
                     {item.children.map((child) => {
