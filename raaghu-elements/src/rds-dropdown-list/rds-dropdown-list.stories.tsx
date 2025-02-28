@@ -43,7 +43,7 @@ export const Default: Story = {
         showHint: true,
         hint: "Hint Text",
         multiSelect: false,
-        icon:"info",
+        icon:"dropdown_icon",
         iconWidth: "1px",
         iconHeight: "1px",
         listItems: [

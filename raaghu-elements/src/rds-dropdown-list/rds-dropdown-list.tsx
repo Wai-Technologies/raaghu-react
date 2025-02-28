@@ -227,10 +227,15 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       : props.size === "Large"
       ? "form-control-lng"
       : ""; // Default size if not provided
-
-  const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
-  const bottomLine = props.style === "Bottom Line" ? "bottom-line" : "";
-
+  
+  const border = props.state === "Disabled" ? "form-control " + fieldSize : props.borderDropdown ? "form-control border-primary " + fieldSize : "border-0";
+  const bottomLine = props.style === "Bottom Line" 
+    ? props.state === "Disabled" 
+      ? "bottom-line-disabled" 
+      : "bottom-line-primary" 
+    : "";
+  const defaultDisabled = props.style === "Default" && props.state === "Disabled" ? "default-disabled" : "";
+  
   useEffect(() => {
     setIsTouch(false);
     setCheckedCategoryList([]);
@@ -240,26 +245,26 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       props.selectedIndex != undefined &&
       props.selectedIndex(selectedOption);
   }, [selectedOption]);
-
+  
   useEffect(() => {
     props.multiSelect &&
       props.selectedItems != undefined &&
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
-
+  
   const calculateVisibleItems = () => {
     return checkedCategoryList.slice(0, 2); // Always take the first two items
   };
-
+  
   const visibleItems = calculateVisibleItems();
   const remainingCount = checkedCategoryList.length - visibleItems.length;
-
+  
   useEffect(() => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
   }, [props.state]);
-
+  
   return (
     <>
       {props.showTitle && props.title && (
@@ -268,9 +273,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.isMandatory && <span className="text-danger"> *</span>}
         </label>
       )}
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: '8px' }}>
         <span
-          className={`gap-2 ${offset} ${border} ${bottomLine} ${props.state === "Disabled" ? "disabled" : ""}`}
+          className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${props.state === "Disabled" ? "disabled" : ""}`}
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -324,7 +329,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   ))}
               </div>
             )}
-
+  
             {/* single select dropdown placeholder */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
@@ -342,7 +347,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 </span>
               </div>
             )}
-
+  
             {/* multiselected dropdown placeholder */}
             {props.state !== "Selected" && checkedCategoryList.length == 0 &&
               props.multiSelect &&
@@ -389,9 +394,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 )}
               </div>
             )}
-
+  
             {/* chevron_down icon */}
-            {props.state !== "Selected" && !props.isIconPlaceholder && !props.multiSelect && (
+            {props.state !== "Selected" && !props.isIconPlaceholder && (
               <span
                 className="ms-2"
                 onClick={(e) => {
@@ -410,7 +415,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             )}
           </div>
         </span>
-
+  
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
@@ -460,7 +465,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-
+  
                   {language.iconPath && (
                     <div>
                       <RdsIcon
@@ -474,7 +479,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-
+  
                   <span className="ms-1">
                     <div data-name={language.val}>{language.label} </div>
                   </span>
@@ -484,7 +489,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           </ul>
         )}
       </div>
-
+  
       {props.showHint && (
         <p className="my-1 text-black-50">
           <small>{props.hint}</small>
