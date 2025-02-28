@@ -1,5 +1,5 @@
 import React from "react";
-import RdsDropdownList from "./rds-dropdown-list";
+import RdsDropdownList, {DropdownSize, DropdownState, DropdownStyle} from "./rds-dropdown-list";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -31,19 +31,19 @@ type Story = StoryObj<typeof RdsDropdownList>;
 export const Default: Story = {
     args: {
         placeholder: "Filter",
-        size:"Default",
+        size:DropdownSize.Default,
         borderDropdown: true,
         isPlaceholder: true,
         showIcon: true,
-        state: "Default",
-        style: "Default",
+        state: DropdownState.Default,
+        style: DropdownStyle.Default,
         showTitle: true,
         title: "Label",
         isMandatory: false,
         showHint: true,
         hint: "Hint Text",
         multiSelect: false,
-        icon:"info",
+        icon:"dropdown_icon",
         iconWidth: "1px",
         iconHeight: "1px",
         listItems: [
