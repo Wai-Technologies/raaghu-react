@@ -124,3 +124,13 @@ rds-file-uploader .alert {
   min-width: 4.35rem;
   align-items: center !important;
 }
+@media (max-width: 480px) {
+  .upload-btn {
+    padding: 4px 8px; 
+    font-size: 10px !important; 
+  }
+
+  .file-name {
+    font-size: 13px !important; 
+  }
+}

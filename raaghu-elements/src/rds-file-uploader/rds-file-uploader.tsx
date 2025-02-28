@@ -4,6 +4,7 @@ import RdsIcon from "../rds-icon/rds-icon";
 import RdsAvatar from "../rds-avatar";
 import { useTranslation } from "react-i18next";
 import "../../../raaghu-react-themes/src/styles/file-uploader.scss";
+import { AvatarBorder, AvatarSize } from "../rds-avatar/rds-avatar";
 
 
 export enum FileUploaderState {
@@ -393,13 +394,23 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             >
               <div className="d-flex gap-2 align-items-center">
                 <span>
-                  <RdsIcon
-                    name={"file"}
-                    height="16px"
-                    width="16px"
-                    stroke={true}
-                    fill={false}
-                  />
+                  {props.showThumbnail && file.type.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      height="40px"
+                      width="40px"
+                      className="file-thumbnail"
+                    />
+                  ) : (
+                    <RdsIcon
+                      name={"file"}
+                      height="16px"
+                      width="16px"
+                      stroke={true}
+                      fill={false}
+                    />
+                  )}
                 </span>
                 <span>
                   <a href={URL.createObjectURL(file)} download={file.name}>
@@ -764,7 +775,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               <small>{props.hintText}</small>
             </div>
           )}
-
+    
           {/* Display file names */}
           {selectedFiles.map((file, index) => (
             <div
@@ -773,13 +784,23 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             >
               <div className="d-flex gap-2 align-items-center">
                 <span>
-                  <RdsIcon
-                    name={"file"}
-                    height="16px"
-                    width="16px"
-                    stroke={true}
-                    fill={false}
-                  />
+                  {props.showThumbnail && file.type.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      height="40px"
+                      width="40px"
+                      className="file-thumbnail"
+                    />
+                  ) : (
+                    <RdsIcon
+                      name={"file"}
+                      height="16px"
+                      width="16px"
+                      stroke={true}
+                      fill={false}
+                    />
+                  )}
                 </span>
                 <span>
                   <a href={URL.createObjectURL(file)} download={file.name}>
@@ -841,15 +862,15 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   {props.profilePic ? (
                     <RdsAvatar
                       profilePic={props.profilePic} // Ensure avatarImage is a string
-                      size="largest"
-                      border="dashed"
+                      size={AvatarSize.large}
+                      border={AvatarBorder.dashed}
                       withProfilePic={true}
                     />
                   ) : (
                     <RdsAvatar
                       iconName={props.iconName}
-                      size="largest"
-                      border="dashed"
+                      size={AvatarSize.large}
+                      border={AvatarBorder.dashed}
                     />
                   )}
                 </label>
@@ -862,7 +883,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   id="drop-area-with-icon"
                   accept={props.extensions}
                   onChange={onChangeHandlerForSingleSelection}
-                  multiple={false}
+                  multiple={true}
                   required={props.isRequired ? true : false}
                 />
               </div>
@@ -947,7 +968,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 id="file1"
                 accept={props.extensions}
                 onChange={onChangeHandlerForSingleSelection}
-                multiple={false}
+                multiple={true}
                 required={props.isRequired ? true : false}
               />
             </div>
