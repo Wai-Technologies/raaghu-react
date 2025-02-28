@@ -46,3 +46,24 @@
 .tooltip-no-arrow .tooltip-arrow {
   display: none;
 }
+
+.theme-dark .tooltip-inner {
+  background-color: #e9ecef;
+  color:black
+}
+
+.theme-dark .bs-tooltip-bottom .tooltip-arrow::before, .theme-dark .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+  border-bottom-color: #e9ecef;
+}
+
+.theme-dark .bs-tooltip-top .tooltip-arrow::before, .theme-dark .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+  border-top-color: #e9ecef;
+}
+
+.theme-dark .bs-tooltip-start .tooltip-arrow::before, .theme-dark .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+  border-left-color: #e9ecef;
+}
+
+.theme-dark .bs-tooltip-end .tooltip-arrow::before, .theme-dark .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+  border-right-color: #e9ecef;
+}
