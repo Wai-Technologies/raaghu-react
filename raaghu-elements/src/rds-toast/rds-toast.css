@@ -34,3 +34,13 @@
 .theme-dark .toast-error {
   background: #000000;
 }
+
+.toast {
+  border-top :none !important;
+  border-bottom :none !important;
+  border-right :none !important;
+}
+
+.toast-header {
+  border-bottom: none !important;
+}
