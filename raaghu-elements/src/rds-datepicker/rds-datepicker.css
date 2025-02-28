@@ -17,3 +17,20 @@
   opacity: 1 !important;
   pointer-events: none !important;
 }
+
+.react-datepicker__day--outside-month {
+  color: #6c757d !important;
+}
+
+.react-datepicker__day--outside-month:hover {
+  background-color: transparent !important;
+}
+
+.react-datepicker__today-button {
+  border-bottom-right-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+
+.react-datepicker__navigation {
+  top: 8px;
+}

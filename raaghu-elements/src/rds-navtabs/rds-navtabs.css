@@ -44,6 +44,12 @@
     width: unset !important;
 }
 
-.nav-tabs .nav-link {
+.nav-tabs.navtabs-icon-align{
+    .nav-link {
+        text-align: center !important;
+    }
+  }
+
+#features.nav-tabs .nav-link {
     text-align: start !important;
 }

@@ -1,4 +1,4 @@
-.input-group {
+#inputs .input-group {
   display: flex;
   flex-direction: column;
   /* Change to column layout for label and input */
@@ -7,33 +7,16 @@
   /* Space between label and input */
 }
 
-.form-label {
+#labelText .form-label {
   margin-bottom: 0.25rem;
   /* Add a little space below the label */
-  white-space: nowrap;
-  /* Prevent wrapping if needed */
-  display: block;
-  /* Ensure label takes full width */
-}
-.input-group {
-  display: flex;
-  flex-direction: column;
-  /* Change to column layout for label and input */
-  /* Align items to the start */
-  gap: 0.5rem;
-  /* Space between label and input */
-}
-
-.form-label {
-  margin-bottom: 0.25rem;
-  /* Add a little space below the label */
-  white-space: nowrap;
+/*   white-space: nowrap; */
   /* Prevent wrapping if needed */
   display: block;
   /* Ensure label takes full width */
 }
 
-.form-control {
+#inputs .form-control {
   flex-grow: 1;
   /* Allow input to grow */
   min-width: 0;
@@ -46,7 +29,7 @@
   /* Padding */
 }
 
-.form-control:focus {
+#inputs .form-control:focus {
   border-color: #80bdff;
   /* Focus border color */
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -54,54 +37,54 @@
 }
 
 /* Add your styles for input states, sizes, and layouts */
-.input-bottom-line {
+#inputs .input-bottom-line {
   border: none;
   border-bottom: 2px solid #ced4da;
   border-radius: 0;
 }
 
-.input-pill {
+#inputs .input-pill {
   border-radius: 20px;
 }
 
-.input-active {
+#inputs .input-active {
   border-color: #80bdff;
 }
 
-.input-selected {
+#inputs .input-selected {
   border-color: #66afe9;
 }
 
-.input-error {
+#inputs .input-error {
   border-color: #dc3545;
 }
 
-.input-disabled {
+#inputs .input-disabled {
   background-color: #e9ecef;
 }
 
 /* Spinner buttons for number inputs */
-input[type=number]::-webkit-inner-spin-button,
+#inputs input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.input-with-button {
+#inputs .input-with-button {
   display: flex;
   /* Flexbox to align the input and button */
   align-items: center;
   /* Center vertically */
 }
 
-.input-with-button .form-control {
+#inputs .input-with-button .form-control {
   flex-grow: 1;
   /* Allow the input to grow */
   border-radius: 0.25rem;
   /* Match input rounding */
 }
 
-.btn-toggle-password {
+#inputs .btn-toggle-password {
   background: transparent;
   /* Make background transparent */
   border: none;
@@ -115,7 +98,73 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1rem;
   /* Match font size */
 }
-.btn-toggle-password:hover {
+#inputs .btn-toggle-password:hover {
   color: #0056b3;
   /* Darker color on hover */
+}
+.validation-position{
+  position:absolute;
+  right:0px;
+}
+ #iconfloating{
+  margin-top: 1rem !important;
+}
+#iconbottom{
+  margin-top: -1rem !important;
+}
+#iconright{
+  margin-right: 3.2rem !important;
+}
+#iconPasswordtop, #iconPasswordfloating{
+  margin-top: 1rem !important;
+}
+#iconPasswordbottom{
+  margin-top: -1rem !important;
+}
+
+#iconPasswordright{
+  margin-right: 5rem !important;
+}
+.number-placeholder-style {
+  right: 35px !important;
+}
+
+.inputDisabled {
+  background-color: #f5f5f5bb; 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
+}
+
+.inputOutlineSelected {
+  border-bottom: solid 2px #7D7D7D !important;
+}
+
+.inputOutline {
+  border-bottom: solid 1px #7D7D7D !important;
+}
+.inputActive {
+  border-color: #7e2eef !important;
+}
+
+.inputSelected {
+  border: solid 1px #7D7D7D !important;
+}
+
+.inputError {
+  border-color: #E02D30 !important;
+}
+
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
 }

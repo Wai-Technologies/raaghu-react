@@ -77,7 +77,7 @@ useEffect(() => {
                     required={true}
                     label="Password"
                     name="password"
-                    id="password"
+                    id={(errors.password && passwordField?.password)? "passwordfield":"password" }
                     onBlur={() => setIsPasswordTouched(true)}
                     onChange={(e) => {
                       handleDataChanges(e.target.value, "password");

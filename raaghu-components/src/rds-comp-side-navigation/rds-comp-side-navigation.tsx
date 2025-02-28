@@ -5,10 +5,11 @@ export interface RdsCompSideNavigationProps {
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   toggleClass?: any;
   collapse?: any;
+  logo?: string;
 }
 
 const RdsCompSideNavigation = (props: RdsCompSideNavigationProps) => {
-  return <RdsSideNav sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
+  return <RdsSideNav  logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
 };
 
 export default RdsCompSideNavigation;

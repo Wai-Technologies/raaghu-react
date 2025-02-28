@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Charts/Area Chart',
+    title: 'Elements/Charts/Area Chart',
     component: RdsAreaChart,
     parameters: {
         layout: 'padded',

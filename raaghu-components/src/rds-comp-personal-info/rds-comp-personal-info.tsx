@@ -126,13 +126,13 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                             dataTestId="surname"
                         ></RdsInput>
                     </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <div className="d-flex personal-info-wid">
                             <RdsInput
                                 size="medium"
                                 reset={inputReset}
                                 label="Email"
-                                inputType="text"
+                                inputType="email"
                                 isDisabled={false}
                                 readonly={false}
                                 placeholder="Enter Email"
@@ -140,12 +140,12 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                                 onChange={(e) => {
                                     handleDataChanges(e.target.value, "email");
                                 }}
-                                required={false}
+                                required={true}
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
                             ></RdsInput>
-                            <span className="mt-4 d-block nowrap ms-2">
+                            <span className="align-content-center mt-4 d-block nowrap ms-2">
                                 <RdsButton
                                     label="Verify Email"
                                     colorVariant="primary"
@@ -155,11 +155,12 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                                     onClick={(e) => emailHandler(e, isEmailClicked)}
                                     isDisabled={!isEmailValid(formData?.email)}
                                     dataTestId="verify-email"
+                                    id="btn-verify-email"
                                 />
                             </span>
                         </div>
                     </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3 mb-3">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <RdsInput
                             size="medium"
                             reset={inputReset}
@@ -168,8 +169,7 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                             isDisabled={false}
                             readonly={false}
                             placeholder="Enter Phone Number"
-                            value={formData?.phoneNumber}
-                            onChange={(e) => {
+                            value={formData?.phoneNumber}                            onChange={(e) => {
                                 handleDataChanges(e.target.value, "phoneNumber");
                             }}
                             onKeyDown={(e) => {

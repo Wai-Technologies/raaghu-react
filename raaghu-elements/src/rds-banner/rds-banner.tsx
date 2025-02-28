@@ -8,8 +8,7 @@ export interface RdsBannerProps {
   bannerText?: string;
   sticky?: boolean;
   position?: "top" | "bottom";
-  colorVariant?:
-    | "primary"
+  colorVariant?: "primary"
     | "secondary"
     | "success"
     | "danger"
@@ -85,7 +84,7 @@ const RdsBanner = (props: RdsBannerProps) => {
       style={{ backgroundImage: `url(${bannerImage})`,
               backgroundRepeat:"no-repeat",
               backgroundSize:"cover" }}>
-        <div className="content">
+        <div className="content bg-layer bg-dark">
           <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
           <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
 

@@ -121,7 +121,7 @@
   flex: 1;
   padding: 8px;
   border-radius: 4px;
-  border: 0px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 /* Delete Button Styling */
@@ -137,15 +137,10 @@
 .text-muted {
     color: #969696;
 }
-.input-box{
-    box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.08);
-
-    input
-{
-    border: 0px;
-    margin-top: 0px !important;
-    padding: 2px;
-}
+.input-box-chat{
+  input {
+    margin-top: -7px !important;
+  }
 }
 .emoji-popup {
   position: absolute;
@@ -161,4 +156,12 @@
     border-radius: 8px; // Optional: Add some rounding for a cleaner look
     margin-top: 8px;   // Optional: Add spacing above the image
     object-fit: cover; // Ensures the image doesn't distort and covers the box
+}
+
+.epr-icn-search {
+  display: none;
+}
+
+.input-box-chat .position-relative input {
+  padding-right: 70px !important;
 }

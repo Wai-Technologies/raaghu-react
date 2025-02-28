@@ -1,5 +1,5 @@
 import React from "react";
-import RdsOffcanvas from "./rds-offcanvas";
+import RdsOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-offcanvas";
 import RdsButton from "../rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -21,36 +21,14 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsOffcanvas>;
 
-export const Offcanvas: Story = {
+export const CustomSlideOutOffcanvas: Story = {
   args: {
     offId: "canvasExample",
     canvasTitle: "Offcanvas Title",
     scrolling: false,
-    placement: "end",
-    backDrop: "static",
+    placement: RdsOffcanvasPlacement.End, // Use enum value
+    backDrop: RdsOffcanvasBackDrop.Static, // Use enum value
     offcanvaswidth: 650,
-    children: (
-      <>
-        <h4 className="p-3">
-          Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing
-          elit.
-        </h4>
-        {/* <div className="col-4 m-4">
-          <RdsButton
-            label="Close "
-            colorVariant="primary"
-            block={false}
-            tooltipTitle={""}
-            type="submit"
-            size="small"
-            data-bs-dismiss="offcanvas"
-            databstoggle="offcanvas"
-            databstarget="#canvasExample"
-            ariacontrols="canvasExample"
-          />
-        </div> */}
-      </>
-    ),
     offcanvasbutton: (
       <RdsButton
         label="Button"
@@ -65,6 +43,6 @@ export const Offcanvas: Story = {
     ),
   },
 } satisfies Story;
-Offcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
+CustomSlideOutOffcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
 
 

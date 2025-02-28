@@ -286,7 +286,7 @@
   }
 
   .mobile-ul-tabs {
-    overflow-x: scroll;
+    overflow-x: hidden;
     display: flex;
     white-space: nowrap;
     align-items: normal;
@@ -581,5 +581,25 @@ form .form-group .select-options,
 @media (min-width: 768px) and (max-width: 991.98px) {
   .flex-xl-row {
     flex-direction: row !important;
+}
+}
+
+@media (max-width: 767px) {
+  .sidenav-footer .collpase-button {
+      background-image: none !important;
+  }
+}
+@media (max-width: 768px) {
+.fab-dropdown-item span {
+  word-wrap: break-word;
+  font-size: 12px; 
+}
+}
+
+@media (max-width: 768px) {
+.customClassUL {
+  position: fixed !important;
+  margin-top: 17px !important;
+  transform: translate(126px, 37px);
 }
 }

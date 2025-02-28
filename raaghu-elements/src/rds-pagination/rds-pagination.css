@@ -45,8 +45,7 @@
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
     color: #343a40;
-    font-weight: 700;
-   /* // border-color: #007bff; */
+    font-weight:700;
   }
   
   .page-item.disabled a {
@@ -55,7 +54,7 @@
   }
   
   .page-item a:hover {
-    background-color: #e9ecef; /* Customize as needed */
+    background-color: #ced4da; /* Customize as needed */
   }
   
   .page-item.roundeds a {
@@ -79,3 +78,7 @@
   .pagination-lg span{
     font-size: 16px !important;
   }
+
+  input.border-primary.btn-outline.form-control.gotopageinput {
+    width: 4.4rem !important;
+}

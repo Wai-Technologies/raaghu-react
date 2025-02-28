@@ -1,204 +1,144 @@
 import React, { useEffect, useState } from "react";
 import "./rds-text-area.css";
-import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 
-export interface RdsTextAreaProps {
-  rows?: number;
-  readonly?: boolean;
-  label?: string;
-  placeholder: string;
-  value?: any;
-  isDisabled?: boolean;
-  isRequired?: boolean;
-  id?: string;
-  dataTestId?: string;
-  isFloatingInputLabel?: boolean;
-  tooltip?: boolean;
-  tooltipPlacement?: placements;
-  tooltipTitle?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  labelPosition?: string;
-  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
-  reset?: boolean;
-  onKeyDown?: any;
-  validatonPattern?: RegExp;
-  validationMsg?: string;
-  isMultiUrl?: boolean;
+export enum  TextareaStyle {
+  Default = "Default",
+  BottomOutline = "Bottom Outline",
+  Pill = "Pill"
+}
+export enum TextareaState {
+  Default = "Default",
+  Active = "Active",
+  Selected = "Selected",
+  Disabled = "Disabled",
+  Error = "Error"
 }
 
-const RdsTextArea = (props: RdsTextAreaProps) => {
-  const [hasError, setHasError] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
-  const [isValid, setIsValid] = useState<boolean>(true);
+export interface RdsTextAreaProps {
+  rows?: number; //rows of text area
+  readonly?: boolean; //readonly text area
+  label?: string; //label of text area
+  placeholder: string; //placeholder of text area
+  value?: string; //value of text area
+  isDisabled?: boolean; //disabled text area
+  isMandatory?: boolean; //mandatory text area
+  id?: string; //id of text area
+  dataTestId?: string; //data test id of text area
+  isFloatingInputLabel?: boolean; //floating label of text area
+  tooltip?: boolean; //tooltip of text area
+  tooltipPlacement?: placements; //tooltip placement of text area
+  tooltipTitle?: string; //tooltip title of text area
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void; //on change event of text area
+  labelPosition?: "top" | "bottom"; //label position of text area
+  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void; //on click event of text area
+  reset?: boolean; //reset text area
+  onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void; //on key down event of text area
+  validationPattern?: RegExp; //validation pattern of text area
+  validationMsg?: string; //validation message of text area 
+  isMultiUrl?: boolean; //is multi url of text area
+  state?: TextareaState; //state of text area
+  style?: TextareaStyle;  //style of text area
+  showTitle?: boolean; //show title of text area
+  customClasses?: string; //custom classes of text area
+}
+
+const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
-    setIsTouch(false);
-  }, [props?.reset]);
+    if (props.reset) setIsValid(true);
+  }, [props.reset]);
 
-  const handlerChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
-    setIsTouch(true);
 
-    if (e.target.value) {
-      setHasError(true);
-    }
-    if (props.validatonPattern !== undefined) {
-      const urlPattern = props.validatonPattern;
-      let urlValid;
-      if (props.isMultiUrl) {
-        const lines = inputValue.split("\n");
-        urlValid = lines.every((url: string) => urlPattern.test(url));
-      } else {
-        urlValid = urlPattern.test(inputValue);
-      }
+    if (props.validationPattern) {
+      const urlPattern = props.validationPattern;
+      const urlValid = props.isMultiUrl
+        ? inputValue.split("\n").every((url) => urlPattern.test(url))
+        : urlPattern.test(inputValue);
+
       setIsValid(urlValid);
     }
-    props.onChange && props.onChange(e);
+
+    props.onChange?.(e);
   };
+
   const getClassNames = () => {
-    let defaultClasses: string = "mb-0 ";
-    if (props.isFloatingInputLabel === true) {
-      defaultClasses = "form-floating";
-    }
-    return defaultClasses;
+    return props.isFloatingInputLabel ? "form-floating" : "mb-0";
   };
 
-  const labelPosition = props.labelPosition || "top";
+  const getStateClass = () => {
+    switch (props.state) {
+      case TextareaState.Active:
+        return " inputActive";
+      case TextareaState.Selected:
+        return " inputSelected";
+      case TextareaState.Error:
+        return " inputError";
+      case TextareaState.Disabled:
+        return " inputDisabled";
+      default:
+        return " inputOutline";
+    }
+  };
 
+  const getStyleClass = () => {
+    switch (props.style) {
+      case TextareaStyle.Pill:
+        return "rounded-4";
+      case TextareaStyle.BottomOutline:
+        return "bottom-outline";
+      default:
+        return "rounded";
+    }
+    // return props.style === "Pill" ? " rounded-5" : " rounded";
+
+  };
   return (
-    <>
-      
-      {props.tooltip ? (
-        <div className="row vh-100">
-          <div className="align-items-center col-md-12 d-flex justify-content-center">
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
-              <div className="mt-2">
-                {labelPosition === "top" && !props.isFloatingInputLabel && (
-                  <label
-                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
-                      } `}
-                  >
-                    {props.label}
-                    {props.isRequired && (
-                      <span className="text-danger fs-6"> *</span>
-                    )}
-                  </label>
-                )}
-                <div className={`${getClassNames()} `}>
-                  <textarea
-                    className="form-control "
-                    disabled={props.isDisabled}
-                    rows={props.rows}
-                    readOnly={props.readonly}
-                    placeholder={props.placeholder}
-                    onClick={props.onClick}
-                    onKeyDown={props.onKeyDown}
-                    id={props.id}
-                    required={props.isRequired}
-                    value={props.value}
-                    onChange={handlerChange}
-                  ></textarea>
-                  {props.isFloatingInputLabel === true && props.label && (
-                    <>
-                      {props.label && (
-                        <label
-                          htmlFor={props.id}
-                          className={` form-label ${props.isDisabled ? " opacity-50 " : ""
-                            } `}
-                        >
-                          {props.label}
-                        </label>
-                      )}
-
-                      {props.isRequired && (
-                        <span className="text-danger ms-1">*</span>
-                      )}
-                    </>
-                  )}
-                </div>
-                {labelPosition === "bottom" && (
-                  <label className="form-label mt-2">
-                    {props.label}
-                    {props.isRequired && (
-                      <span className="text-danger fs-6"> *</span>
-                    )}
-                  </label>
-                )}
-              </div>
-            </Tooltip>
-          </div>
-        </div>
-      ) : (
-        <div className="mt-2">
-          {labelPosition === "top" && !props.isFloatingInputLabel && (
-            <label
-              className={` form-label ${props.isDisabled ? " opacity-50 " : ""
-                } `}
-            >
-              {props.label}
-              {props.isRequired && <span className="text-danger fs-6"> *</span>}
-            </label>
-          )}
-          <div className={`${getClassNames()} `}>
-            <textarea
-              className="form-control mt-1"
-              disabled={props.isDisabled}
-              rows={props.rows}
-              readOnly={props.readonly}
-              placeholder={props.placeholder}
-              onClick={props.onClick}
-              onKeyDown={props.onKeyDown}
-              id={props.id}
-              required={props.isRequired}
-              value={props.value}
-              onChange={handlerChange}
-            ></textarea>
-            {props.isFloatingInputLabel && props.label && (
-              <>
-                {props.label && (
-                  <label
-                    htmlFor={props.id}
-                    className={` form-label ${props.isDisabled ? " opacity-50 " : ""
-                      } `}
-                  >
-                    {props.label}
-                  </label>
-                )}
-
-                {props.isRequired && <span className="text-danger ms-1">*</span>}
-              </>
-            )}
-          </div>
-          {labelPosition === "bottom" && (
-            <label className="form-label mt-1">
-              {props.label}
-              {props.isRequired && <span className="text-danger fs-6"> *</span>}
-            </label>
-          )}
-        </div>
+    <div className="">
+      {props.showTitle && (
+        <label className={props.isDisabled ? " opacity-50 " : ""}>
+          {props.label}
+          {props.isMandatory && <span className="text-danger fs-6"> *</span>}
+        </label>
       )}
-      {props.isRequired && (
-        <div className="form-control-feedback">
-          {props.isRequired && props.value == "" && hasError && isTouch && (
-            <span className="text-danger">
-              {props.label} {("is required") || ""}
-            </span>
-          )}
-        </div>
+      <div className={`${getClassNames()} `}>
+        <textarea
+          className={`form-control mt-1 ${getStateClass()} ${getStyleClass()} ${
+            props.customClasses || ""
+          }`}
+          disabled={props.isDisabled || props.state === TextareaState.Disabled}
+          rows={props.rows}
+          readOnly={props.readonly}
+          placeholder={props.placeholder}
+          onClick={props.onClick}
+          onKeyDown={props.onKeyDown}
+          id={props.id}
+          required={props.isMandatory}
+          value={props.value}
+          onChange={handleChange}
+        />
+        {props.isFloatingInputLabel && props.label && (
+          <label
+            htmlFor={props.id}
+            className={` form-label ${props.isDisabled ? " opacity-50 " : ""}`}
+          >
+            {props.label}
+          </label>
+        )}
+      </div>
+      {props.labelPosition === "bottom" && (
+        <label className="form-label mt-1">
+          {props.label}
+          {props.isMandatory && <span className="text-danger fs-6"> *</span>}
+        </label>
       )}
-
-      {props.validatonPattern !== undefined && (
-        <div className="form-control-feedback mt-2">
-          {props.validatonPattern !== undefined &&
-            props.validationMsg !== undefined &&
-            isTouch &&
-            isValid == false && (
-              <span className="text-danger">{props.validationMsg} </span>
-            )}
-        </div>
+      {!isValid && props.validationMsg && (
+        <div className="text-danger">{props.validationMsg}</div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -358,7 +358,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     fill={false}
                   />
                 </span>
-                <span>{file.name}</span>
+                <span>
+                  <a href={URL.createObjectURL(file)} download={file.name}>
+                      {file.name}
+                  </a>
+                </span>
               </div>
               <div className="closeIcon">
                 <span className="text-muted opacity-50">
@@ -394,167 +398,115 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
     if (props.Drop_Area_Side_Icon) {
       return (
         <>
-           {props.multiple === false ? (
-   <div>
-     <div>
-       <label className={"form-label label-gray"}>{props.label}</label>
-     </div>
-     <div>
-       <form>
-         <label htmlFor="file1" className={`align-items-center d-flex`}>
-           <span className={`custom-file-button p-1 border-end-0`}>Choose File</span>
-           <span className={`chosenFileSpan p-1 ps-3`}>{selectedFileName}</span>
-           <input
-             data-testid="rds-file-uploader-input"
-             className={`col-md-12 input mulinput d-none text-${props.colorVariant} ${sizeClass}`}
-             type="file"
-             name="file1"
-             id="file1"
-             accept={props.extensions}
-             onChange={onchangehandler}
-           />
-         </label>
-         {props.preview && previewSrc && (
-           <div  className="d-flex justify-content-between p-3 mt-3 fileName">
-             <div className="d-flex gap-2 align-items-center">
-               {props.extensions.includes("png") || props.extensions.includes("jpg") ? (
-                 <img src={previewSrc} alt="File preview" style={{ width: "40px", height: "40px", marginRight: "10px" }} />
-               ) : (
-                 <a href={previewSrc} target="_blank" rel="noopener noreferrer">View File</a>
-               )}
-             </div>
-             <div className="iconbox gap-2 p-2 d-flex align-items-center" onClick={() => onDelete(0)}>
-               {/* <span className="text-muted opacity-50 ">
-                 {fileArray[0] ? (fileArray[0].size / 1048576).toFixed(2) : 0} MB
-               </span> */}
-               <RdsIcon
-                 colorVariant="secondary"
-                 name="delete"
-                 height="16px"
-                 width="16px"
-                 stroke={true}
-                 fill={false}
-               />
-             </div>
-           </div>
-         )}
-         {validationMessage && <div className="text-danger">{validationMessage}</div>} 
-       </form>
-     </div>
-   </div>
- ) : (
-             <div>
-                 <div>
-                     {props.showTitle && (
-                         <label className={"form-label label-gray"}>
-                             {props.title}
-                             {props.isRequired && (
-                                 <span className="text-danger ml-1">*</span>
-                             )}
-                         </label>
-                     )}
-                 </div>
-                 <label
-                     htmlFor="file"
-                     className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"
-                         }`}
-                 >
-                     <div
-                         className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between cursor-pointer ${dragging ? "dragging" : ""
-                             }`}
-                         onDragOver={handleDragOver}
-                         onDragLeave={handleDragLeave}
-                         onDrop={handleDrop}
-                     >
-                         <div>
-                             <div className={`text-${props.colorVariant}`}>
-                                 {t("Drag and Drop your files or") || ""}{" "}
-                                 <span className="text-primary text-semibold"> Browse</span>
-                             </div>
-                             <div className="fileFormat text-muted mt-2 text-semibold">
-                                 {props.extensions}{" "}
-                             </div>
-                         </div>
-                         <span className="ms-2">
-                             <RdsIcon
-                                 colorVariant={props.colorVariant}
-                                 height="20px"
-                                 isAnimate
-                                 name="upload_data"
-                                 stroke
-                                 width="20px"
-                             />
-                         </span>
-                         <input
-                             data-testid="rds-file-uploader-input"
-                             className={`col-md-12 input mulinput d-none ${sizeClass}`}
-                             type="file"
-                             name="file"
-                             id="file"
-                             accept={props.extensions}
-                             onChange={onchangehandler}
-                             multiple
-                         />
-                     </div>
-                 </label>
-                 {props.showHint && (
-                     <div
-                         className={`d-flex text-muted mt-1 hint-${props.hintPosition}`}
-                     >
-                         <small>{props.hintText}</small>
-                     </div>
-                 )}
-                 {fileName.map((filename, i) => (
-                     <div
-                         key={i}
-                         className="d-flex justify-content-between p-3 mt-3 fileName"
-                     >
-                         <div className="d-flex gap-2 align-items-center">
-                             <span>
-                             {props.showThumbnail && selectedFiles[i].type.startsWith("image/") ? (
-                                     <img
-                                     src={previewSrcs[i]}
-                                         alt={filename}
-                                         height="40px"
-                                         width="40px"
-                                         className="file-thumbnail"
-                                     />
-                                 ) : (
-                                     <RdsIcon
-                                         name={"file"}
-                                         height="16px"
-                                         width="16px"
-                                         stroke={true}
-                                         fill={false}
-                                     />
-                                 )}
-                             </span>
-                             <span>{filename}</span>
-                         </div>
-                         <div className="closeIcon d-flex align-items-center">
-                             <span className="text-muted opacity-50">
-                                 {(fileSize[i] / 1048576).toFixed(2)} MB
-                             </span>
-                             <span className="iconbox ms-2" onClick={() => onDelete(i)}>
-                                 <RdsIcon
-                                     colorVariant="secondary"
-                                     name={"close_circle"}
-                                     height="16px"
-                                     width="16px"
-                                     stroke={true}
-                                     fill={false}
-                                 />
-                             </span>
-                         </div>
-                     </div>
-                 ))}
-                 {validationMessage && (
-                     <div className="text-danger">{validationMessage}</div>
-                 )}{" "}
-                 {/* Validation message display */}
-             </div>
- )}
+          <div>
+            <div>
+              {props.showTitle && (
+                <label className={"form-label label-gray"}>
+                  {props.title || props.label}
+                  {props.isRequired && <span className="text-danger ml-1">*</span>}
+                </label>
+              )}
+            </div>
+            <label
+              htmlFor="file"
+              className={`align-items-center multiUploader row mx-0 py-4 px-4 rounded-4 border-${props.colorVariant || "primary"}`}
+            >
+              <div
+                className={`col-md-12 col-lg-12 col-12 d-flex align-items-center justify-content-between cursor-pointer ${dragging ? "dragging" : ""}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <div>
+                  <div className={`text-${props.colorVariant}`}>
+                    {t("Drag and Drop your files or") || ""}{" "}
+                    <span className="text-primary text-semibold"> Browse</span>
+                  </div>
+                  <div className="fileFormat text-muted mt-2 text-semibold">
+                    {props.extensions}{" "}
+                  </div>
+                </div>
+                <span className="ms-2">
+                  <RdsIcon
+                    colorVariant={props.colorVariant}
+                    height="20px"
+                    isAnimate
+                    name="upload_data"
+                    stroke
+                    width="20px"
+                  />
+                </span>
+                <input
+                  data-testid="rds-file-uploader-input"
+                  className={`col-md-12 input mulinput d-none ${sizeClass}`}
+                  type="file"
+                  name="file"
+                  id="file"
+                  accept={props.extensions}
+                  onChange={onchangehandler}
+                  multiple={props.multiple}
+                />
+              </div>
+            </label>
+            {props.showHint && (
+              <div className={`d-flex text-muted mt-1 hint-${props.hintPosition}`}>
+                <small>{props.hintText}</small>
+              </div>
+            )}
+            {fileName.map((filename, i) => (
+              <div
+                key={i}
+                className="d-flex justify-content-between p-3 mt-3 fileName"
+              >
+                <div className="d-flex gap-2 align-items-center">
+                  <span>
+                    {props.showThumbnail && selectedFiles[i]?.type.startsWith("image/") ? (
+                      <img
+                        src={previewSrcs[i]}
+                        alt={filename}
+                        height="40px"
+                        width="40px"
+                        className="file-thumbnail"
+                      />
+                    ) : (
+                      <RdsIcon
+                        name={"file"}
+                        height="16px"
+                        width="16px"
+                        stroke={true}
+                        fill={false}
+                      />
+                    )}
+                  </span>
+                  <span>               
+                     <a href={URL.createObjectURL(selectedFiles[i])} download={filename}>
+                        {filename}
+                     </a>
+                  </span>
+                </div>
+                <div className="closeIcon d-flex align-items-center">
+                  <span className="text-muted opacity-50">
+                    {(fileSize[i] / 1048576).toFixed(2)} MB
+                  </span>
+                  <span className="iconbox ms-2" onClick={() => onDelete(i)}>
+                    <RdsIcon
+                      colorVariant="secondary"
+                      name={"close_circle"}
+                      height="16px"
+                      width="16px"
+                      stroke={true}
+                      fill={false}
+                    />
+                  </span>
+                </div>
+              </div>
+            ))}
+            {validationMessage && (
+              <div className="text-danger">{validationMessage}</div>
+            )}
+          </div>
         </>
+       
       );
       //   return (
       //     <div>
@@ -726,13 +678,14 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   <span className="text-muted mx-2"> or </span>
                   <button
                     className={`btn btn-primary btn-sm`}
-                    onClick={() => document.getElementById("file")?.click()}
+                    onClick={() => { document.getElementById("file")?.click(); fileInputRef.current?.click(); }}
                   >
                     Upload Files
                   </button>
                 </div>
               </div>
               <input
+                ref={fileInputRef}
                 data-testid="rds-file-uploader-input"
                 className={`col-md-12 input mulinput d-none`}
                 type="file"
@@ -772,7 +725,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     fill={false}
                   />
                 </span>
-                <span>{file.name}</span>
+                <span>
+                <a href={URL.createObjectURL(file)} download={file.name}>
+                      {file.name}
+                  </a>
+                </span>
               </div>
               <div className="closeIcon">
                 <span className="text-muted opacity-50">
@@ -888,12 +845,12 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             <div className={`align-items-center d-flex mt-1 flex-row`}>
               <label
                 htmlFor="file1"
-                className={`border-end-0 align-items-center custom-file-button ${sizeClass}`}
+                className={`border-end-0 align-items-center custom-file-button upload-btn ${sizeClass}`}
               >
                 Choose File
               </label>
               <span
-                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder ${sizeClass}`}
+                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass}`}
               >
                 {selectedFiles.length > 0
                   ? selectedFiles[0].name

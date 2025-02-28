@@ -3,17 +3,17 @@ import "./rds-comp-dialog.css";
 import { RdsButton, RdsIcon } from "../rds-elements";
 
 interface RdsCompDialogProps {
-  Size?: string;
-  Style?: string;
-  ShowDissmiss?: boolean;
-  ShowPrimary?: boolean;
-  ShowSecondary?: boolean;
-  Title?: string;
-  ShowTitle?: boolean;
-  Content?: string;
-  Icon?: string;
-  ColorVariant?: string;
-  ContentPosition?: string;
+  Size?: string; //Size of the dialog
+  Style?: string; //Style of the dialog
+  ShowDissmiss?: boolean; //Show or hide dismiss button
+  ShowPrimary?: boolean; //Show or hide primary button
+  ShowSecondary?: boolean; //Show or hide secondary button
+  Title?: string; //Title of the dialog
+  ShowTitle?: boolean; //Show or hide title
+  Content?: string; //Content of the dialog
+  Icon?: string; //Icon of the dialog
+  ColorVariant?: string; //Color variant of the dialog
+  ContentPosition?: string; //Position of the content
 }
 
 const RdsCompDialog = (props: RdsCompDialogProps) => {
@@ -56,24 +56,25 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
     <div
       className={`dialog-container ${getSizeClass()} `}
       style={getDialogStyle()}>
-      <div className="d-flex ">
-        {props.ShowTitle && props.Title && (
-          <h2 className="dialog-title mt-1">{props.Title}</h2>
-        )}
-        {props.ShowDissmiss && (
-          <span className="text-end col mt-0">
-            <RdsIcon
-              name="close"
-              fill={false}
-              stroke={true}
-              colorVariant={props.ColorVariant}
-              isCursorPointer={true}
-              width="18px"
-              height="18px"
-            />
-          </span>
-        )}
-      </div>
+    <div className="d-flex justify-content-between align-items-center">
+  {props.ShowTitle && props.Title && (
+    <h2 className="dialog-title mt-1">{props.Title}</h2>
+  )}
+  {props.ShowDissmiss && (
+    <span className="ms-auto mt-0">
+      <RdsIcon
+        name="close"
+        fill={false}
+        stroke={true}
+        colorVariant={props.ColorVariant}
+        isCursorPointer={true}
+        width="18px"
+        height="18px"
+      />
+    </span>
+  )}
+</div>
+
       {props.ContentPosition?.toLowerCase() === "bottom" ? (
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (
