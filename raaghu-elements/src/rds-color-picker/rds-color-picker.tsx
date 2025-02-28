@@ -4,42 +4,41 @@ import {
   ChromePicker,
   SketchPicker,
   SwatchesPicker,
-  TwitterPicker,
   HuePicker,
   AlphaPicker,
-  MaterialPicker,
 } from "react-color";
 import RdsButton from "../rds-button";
+import { use } from "i18next";
+import { t } from "i18next";
 
 export enum ColorPickerType {
-    Default = "Default",
-    Button = "Button",
-    ButtonExpanded = "Button-Expanded",
-  }
-  
-  export enum PickerType {
-    Grid = "Grid",
-    Spectrum = "Spectrum",
-  }
-  
-  export enum ColorMode {
-    HEX = "HEX",
-    RGB = "RGB",
-    HSB = "HSB",
-    HSL = "HSL",
-  }
-  
-  export interface RdsColorPickerProps {
-    value: string;
-    isDisabled?: boolean;
-    label: string;
-    type: ColorPickerType;
-    showSwatches?: boolean;
-    pickerType?: PickerType;
-    showTabs?: boolean;
-    colorMode?: ColorMode;
-  }
-  
+  Default = "Default",
+  Button = "Button",
+  ButtonExpanded = "Button-Expanded",
+}
+
+export enum PickerType {
+  Grid = "Grid",
+  Spectrum = "Spectrum",
+}
+
+export enum ColorMode {
+  HEX = "HEX",
+  RGB = "RGB",
+  HSB = "HSB",
+  HSL = "HSL",
+}
+
+export interface RdsColorPickerProps {
+  value: string;
+  isDisabled?: boolean;
+  label: string;
+  type: ColorPickerType;
+  showSwatches?: boolean;
+  pickerType?: PickerType;
+  showTabs?: boolean;
+  colorMode?: ColorMode;
+}
 
 const RdsColorPicker = (props: RdsColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode } =
@@ -50,13 +49,19 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   });
   const [Color, setColor] = useState(value);
   const [hex, setHex] = useState("#fff");
-  const [showPicker, setShowPicker] = useState(
-    type === "Default" || type === "Button-Expanded"
-  );
+  const [showPicker, setShowPicker] = useState(true);
   const [selectedTab, setSelectedTab] = useState(
     showSwatches ? "Spectrum" : pickerType || "Grid"
   );
   const [selectedColorMode, setSelectedColorMode] = useState(colorMode || "HEX");
+useEffect(() => {
+  if (type === "Button") {
+    setShowPicker(false);
+  }
+  else {
+    setShowPicker(true);
+  }
+},[type]);
 
   useEffect(() => {
     setColor(value);
@@ -165,10 +170,6 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   return (
     <Fragment>
       <div className="m-2">
-        {/* <div>
-          <label>{label}</label>
-        </div> */}
-
         {type === "Button" && (
           <RdsButton
             badgeLayout="Text_only"
@@ -189,6 +190,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
             onClick={handleButtonClick}
           />
         )}
+
         {type === "Button-Expanded" && (
           <RdsButton
             badgeLayout="Text_only"
@@ -209,7 +211,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
             onClick={handleButtonClick}
           />
         )}
-        {(showPicker || type === "Button-Expanded") && (
+
+        {(showPicker && (type === "Button-Expanded" || type === "Default"|| type === "Button")) && (
           <div className="color-picker-container">
             {showTabs && (
               <div className="tabs">
@@ -314,10 +317,6 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
 };
 
 export default RdsColorPicker;
-
-
-
-
 
 
 

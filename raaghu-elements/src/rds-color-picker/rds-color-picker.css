@@ -71,9 +71,11 @@
   }
   
   .color-mode-dropdown {
-    padding: 5px;
+    padding: 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-left: 4px;
+
   }
   
   .color-display-container {
@@ -86,19 +88,20 @@
   
   
   .color-display-input1 {
-    padding: 5px;
+    padding: 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 110px;
+    width: 98px;
   }
 
   .color-display-input2 {
-    padding: 5px;
+    padding: 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 41px;
+    width: 46px;
+    margin-right: 4px;
   }
   
 
