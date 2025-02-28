@@ -104,11 +104,11 @@
   margin-left: 8px !important
 }
 
-.dropdown {
+/* .dropdown {
   border: 2px solid;
   border-radius: 6px;
   border-color: #7825E9;
-}
+} */
 .btn-primary {
   background-color: #7825E9!important;
   color: #fff!important;
@@ -131,4 +131,13 @@
   background-color: transparent!important;
   color: #7825E9!important;
   border: none!important;
+}
+
+.rectangle {
+  border: 2px solid #7825E9 !important;
+  border-radius: 6px;
+}
+.pill{
+  border:2px solid #7825E9;
+  border-radius: 25px;
 }
