@@ -14,9 +14,30 @@
   position: absolute;
   top: -5px;
 }
+
 .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
   opacity: 1;
 }
+
 .form-check-input:disabled{
   opacity: 1;
+}
+
+.stepper-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.step {
+  padding: 5px;
+  margin: 0 12px;
+  border-radius: 96px;
+}
+
+.theme-dark .bg-default {
+  background: #E9E9E9;
+  border-radius: 96px;
+  color: #353535;
 }
