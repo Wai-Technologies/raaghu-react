@@ -167,7 +167,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
   return (
     <>
       {props.displayType === 'dropdown' && (
-        <div className={`dropdown ${(props.style === 'secondary' || props.style === 'outline') ? 'rectangle' : ''}  ${(props.shape === 'pill' || props.style === 'outline' ) ? 'pill' : ''} `  }>
+        <div className={`dropdown ${(props.style === 'secondary' || props.style === 'outline') ? 'rectangle' : ''}  ${(props.shape === 'pill') ? 'pill' : ''} `  }>
           {props.tooltip ? (
             <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
               {renderButton()}
