@@ -1,10 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import RdsIcon from "../rds-icon";
 import "./rds-alert.css";
 import RdsButton from "../rds-button";
 
+// Define Enums for type, border, position, and displayType
+export enum AlertType {
+  info = "info",
+  success = "success",
+  warning = "warning",
+  error = "error",
+}
+
+export enum AlertBorder {
+  none = "none",
+  single = "single",
+  left_border = "left border",
+}
+
+export enum AlertPosition {
+  top = "top",
+  bottom = "bottom",
+}
+
+export enum AlertDisplayType {
+  singleline = "singleline",
+  multiline = "multiline",
+}
+
 export interface RdsAlertProps {
-  type: "info" | "success" | "warning" | "error";
+  type: AlertType; // Use enum instead of string literal
   dismisable?: boolean;
   icon?: string;
   iconFill?: boolean;
@@ -15,9 +39,9 @@ export interface RdsAlertProps {
   linkUrl?: string;
   description?: string;
   showDescription?: boolean;
-  border?: "none" | "single" | "left border";
+  border?: AlertBorder; // Use enum for border
   delay?: number;
-  position?: "top" | "bottom";
+  position?: AlertPosition; // Use enum for position
   onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
   reset?: boolean;
   sticky?: boolean;
@@ -28,15 +52,17 @@ export interface RdsAlertProps {
   showsecondarybutton?: boolean;
   showTitle?: boolean;
   title?: string;
-  displayType?: "singleline" | "multiline";
-  multiline?:boolean;
+  displayType?: AlertDisplayType; // Use enum for displayType
+  multiline?: boolean;
   message?: string;
 }
+
 
 const RdsAlert = (props: RdsAlertProps) => {
   const [clicked, setClicked] = useState(false);
   const delay = props.delay; 
   const handler = "delay" in props; 
+  const { multiline = false } = props;  // Destructure `multiline` here
 
   useEffect(() => {
     if (handler) {
@@ -108,7 +134,8 @@ const RdsAlert = (props: RdsAlertProps) => {
       className={`alert alert-${colorType} justify-content-between align-items-top z-0 position-relative d-lg-flex d-md-flex d-sm-block px-3 ${classes()} ${delayClass}`}
       role="alert"
     >
-      {props.multiline === false && (
+      {/* Render single-line alert */}
+      {!multiline && (
         <>
           <span className="custom-alert-message wordbreak d-flex align-items-top">
             {props.icon && props.showIcon && (
@@ -118,13 +145,15 @@ const RdsAlert = (props: RdsAlertProps) => {
                 stroke={props.iconStroke}
                 height={props.iconHeight}
                 width={props.iconWidth}
-                colorVariant="{colorType}"
+                colorVariant={colorType}
                 classes="me-2"
               />
             )}
             <div>
               {props.title && props.showTitle && <strong>{props.title}</strong>}
-              {props.description&&props.showDescription && <span className="ps-2"> {props.description} </span>}
+              {props.description && props.showDescription && (
+                <span className="ps-2"> {props.description} </span>
+              )}
             </div>
           </span>
           <span className="d-flex me-3">
@@ -175,7 +204,8 @@ const RdsAlert = (props: RdsAlertProps) => {
         </>
       )}
 
-      {props.multiline === true && (
+      {/* Render multi-line alert */}
+      {multiline && (
         <>
           <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
             {props.icon && props.showIcon && (
@@ -193,8 +223,10 @@ const RdsAlert = (props: RdsAlertProps) => {
             )}
             <div className="flex-grow-1">
               {props.title && props.showTitle && <strong>{props.title}</strong>}
-              
-              {props.description && props.showDescription && <p>{props.description}</p>}
+
+              {props.description && props.showDescription && (
+                <p>{props.description}</p>
+              )}
               {props.showlink && (
                 <a
                   className="text-decoration-underline mt-4 mt-md-6 cursor-pointer"

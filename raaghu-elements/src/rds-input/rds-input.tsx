@@ -4,46 +4,68 @@ import RdsIcon from "../rds-icon";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
+export enum InputSize {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
+export enum TooltipPlacement {
+  Top = "top",
+  Bottom = "bottom",
+  Left = "left",
+  Right = "right",
+}
+
+export enum LabelPosition {
+  Top = "top",
+  Bottom = "bottom",
+  Floating = "floating",
+  Right = "right",
+  Left = "left",
+}
+
 export interface RdsInputProps {
-  size?: "small" | "large" | "medium" | string;
-  isDisabled?: boolean;
-  readonly?: boolean;
-  value?: string;
-  inputType?: string;
-  state?: string;
-  style?: string;
-  showTitle?: boolean;
-  validatonPattern?: RegExp;
-  validationMsg?: string;
-  placeholder?: string;
-  autoFocus?: [boolean, number];
-  singleDigit?: boolean;
-  ref?: any;
-  labelPosition?: string;
-  name?: string;
-  label?: string;
-  id?: string;
-  required?: boolean;
-  dataTestId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => any;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any;
-  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  customClasses?: string;
-  formName?: string;
-  reset?: boolean;
-  fontWeight?: string;
-  minLength?: number;
-  maxLength?: number;
-  minValue?: number;
-  maxValue?: number;
-  showIcon?: boolean;
-  HintText?: string;
-  ShowHintText?: boolean;
-  tooltipPlacement?: "top" | "bottom" | "left" | "right";
-  tooltipTitle?: string;
-  isValidConfirmPass?: boolean;
+  size?: InputSize; // Size of the input field
+  isDisabled?: boolean; // Whether the input field is disabled
+  readonly?: boolean; // Whether the input field is read-only
+  value?: string; // Value of the input field
+  inputType?: string; // Type of the input field (e.g., text, password, number)
+  state?: string; // State of the input field (e.g., default, active, selected, error, disabled)
+  style?: string; // Style of the input field (e.g., Default, Bottom Outline, Pill)
+  showTitle?: boolean; // Whether to show the title/label of the input field
+  validatonPattern?: RegExp; // Regular expression pattern for validation
+  validationMsg?: string; // Validation message to display
+  placeholder?: string; // Placeholder text for the input field
+  autoFocus?: [boolean, number]; // Whether to auto-focus the input field and the delay in milliseconds
+  singleDigit?: boolean; // Whether the input field is for single digit input
+  ref?: any; // Reference to the input field
+  labelPosition?: LabelPosition; // Position of the label (e.g., top, bottom, floating, right, left)
+  name?: string; // Name attribute of the input field
+  label?: boolean; // Whether to show the label
+  id?: string; // ID attribute of the input field
+  required?: boolean; // Whether the input field is required
+  dataTestId?: string; // Data test ID for testing purposes
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any; // Change event handler
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => any; // Focus event handler
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => any; // Blur event handler
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void; // Click event handler
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>; // Key down event handler
+  customClasses?: string; // Custom CSS classes for the input field
+  formName?: string; // Name of the form the input field belongs to
+  reset?: boolean; // Whether to reset the input field
+  fontWeight?: string; // Font weight of the input field text
+  minLength?: number; // Minimum length of the input field value
+  maxLength?: number; // Maximum length of the input field value
+  minValue?: number; // Minimum value for the input field (for numeric inputs)
+  maxValue?: number; // Maximum value for the input field (for numeric inputs)
+  showIcon?: boolean; // Whether to show an icon in the input field
+  HintText?: string; // Hint text to display below the input field
+  ShowHintText?: boolean; // Whether to show the hint text
+  tooltipPlacement?: TooltipPlacement; // Placement of the tooltip
+  tooltipTitle?: string; // Title of the tooltip
+  isValidConfirmPass?: boolean; // Whether the confirm password is valid
+  className?: string; // Additional CSS classes for the input field
 }
 
 const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
@@ -143,15 +165,15 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     let size: "sm" | "lg" | "md";
 
-    if (props.size === "small") {
+    if (props.size === InputSize.Small) {
       size = "sm";
-    } else if (props.size === "large") {
+    } else if (props.size === InputSize.Large) {
       size = "lg";
     } else {
       size = "md";
     }
 
-    const borderColorClass =
+    const borderColorClass = 
       (props.state === "active" ? " inputOutlineActive " : "  ") +
       (props.state === "selected" ? " inputOutlineSelected " : " ") +
       (props.state === "error" ? " inputOutlineError " : "  ") +
@@ -172,7 +194,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     const getClassNames = () => {
       let defaultClasses: string = "input-group mb-0";
-      if (props.labelPosition === "floating") {
+      if (props.labelPosition === LabelPosition.Floating) {
         defaultClasses = "form-floating";
       }
       return defaultClasses;
@@ -180,17 +202,17 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
     const labelClass = () => {
       let labelPositionClass: string = "";
-      if (props.labelPosition === "bottom") {
+      if (props.labelPosition === LabelPosition.Bottom) {
         labelPositionClass = " d-flex flex-column-reverse";
       }
-      if (props.labelPosition === "left") {
+      if (props.labelPosition === LabelPosition.Left) {
         labelPositionClass = " d-flex align-items-center gap-2";
       }
-      if (props.labelPosition === "right") {
+      if (props.labelPosition === LabelPosition.Right) {
         labelPositionClass =
           " d-flex align-items-center gap-2 flex-row-reverse";
       }
-      if (props.labelPosition === "floating") {
+      if (props.labelPosition === LabelPosition.Floating) {
         labelPositionClass = "";
       }
       return labelPositionClass;
@@ -224,32 +246,24 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
     return (
       <>
         <div className={` ${props.id == "passwordfield" ? "":"mb-2"} ${labelClass()} position-relative`}>
-          {props.showTitle && (
-            <label
-            id="labelText"
-              htmlFor={props.id}
-              className={`text-capitalize ${fontWeight} ${props.id === 'address-input' ? '' : 'mt-2'}`}
-            >
-              {props.label}
-              {(props.required || props.validatonPattern) && (
-                <span className="text-danger ms-1">*</span>
-              )}
-            </label>
-          )}
+        {props.showTitle && (
+    <label
+        id="labelText"
+        htmlFor={props.id}
+        className={`text-capitalize ${fontWeight} ${props.id === 'address-input' ? '' : 'mt-2'}`}
+    >
+        {props.label ? 'label' : ''}
+        {(props.required || props.validatonPattern) && (
+            <span className="text-danger ms-1">*</span>
+        )}
+    </label>
+)}
           <div className="mb-0 input-group">
             {props.tooltipTitle ? (
               <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
                 <input
-                  type={
-                    props.inputType === "password"
-                      ? showPassword
-                        ? "text"
-                        : "password"
-                      : props.inputType
-                  }
-                  minLength={props.minLength}
-                  maxLength={props.maxLength}
-                  className={inputClasses}
+            type={props.inputType === "password" && !showPassword ? "password" : props.inputType}
+            className={`${inputClasses} ${borderColorClass}`}
                   id={props.id}
                   placeholder={props.placeholder || getPlaceholder()}
                   required={props.required ?? false}
@@ -266,31 +280,31 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
                 />
               </Tooltip>
             ) : (
-              <input
-                type={
-                  props.inputType === "password"
-                    ? showPassword
-                      ? "text"
-                      : "password"
-                    : props.inputType
-                }
-                minLength={props.minLength}
-                maxLength={props.maxLength}
-                className={inputClasses}
-                id={props.id}
+          <input
+                  type={
+                    props.inputType === "password"
+                      ? showPassword
+                        ? "text"
+                        : "password"
+                      : props.inputType
+                  }
+                  minLength={props.minLength}
+                  maxLength={props.maxLength}
+                  className={inputClasses}
+            id={props.id}
                 placeholder={props.placeholder || getPlaceholder()}
-                required={props.required ?? false}
-                onFocus={props.onFocus}
-                onBlur={props.onBlur}
+            required={props.required ?? false}
+            onFocus={props.onFocus}
+            onBlur={props.onBlur}
                 onKeyDown={props.onKeyDown}
-                value={value ?? ""}
-                onChange={handlerChange}
-                disabled={props.isDisabled}
-                readOnly={props.readonly}
-                data-testid={props.dataTestId}
-                onClick={props.onClick}
-                ref={ref}
-              />
+            value={value ?? ""}
+            onChange={handlerChange}
+            disabled={props.isDisabled}
+            readOnly={props.readonly}
+            data-testid={props.dataTestId}
+            onClick={props.onClick}
+            ref={ref}
+          />
             )}
           
           </div>
@@ -321,7 +335,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           {props.inputType === "password" && props.showIcon ? (
             <RdsIcon
               name={showPassword ? "eye" : "eye_slash"}
-              classes="password-toggle mysettingspage"
+              classes="password-toggle mysettingspage "
               height="16px"
               width="16px"
               id={"iconPassword" + props.labelPosition}
@@ -334,7 +348,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes={`password-toggle ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
+                classes={`password-toggle mt-3 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}
@@ -345,6 +359,18 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             )
           )}
         </div>
+        {props.ShowHintText && props.HintText && (
+          <div className={`d-flex justify-content-start text-muted`}>
+            {props.HintText}
+          </div>
+        )}
+        {hasError && isTouch && props.required && value === "" && (
+          <div className="form-control-feedback validation-position">
+            <span className="text-danger">
+              {props.label} {t("")}
+            </span>
+          </div>
+        )}
       </>
     );
   }
