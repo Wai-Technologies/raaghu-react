@@ -24,7 +24,7 @@ type Story = StoryObj<typeof RdsCompTopNavigation>;
 
 export const Default: Story = {
     args: {
-        navbarTitle: "Dashboard",
+        navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
@@ -121,7 +121,7 @@ export const Default: Story = {
 Default.parameters = { controls: { include: ['navbarTitle','top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role'] } };
 export const ABP: Story = {
     args: {
-        navbarTitle: "Dashboard",
+        navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
