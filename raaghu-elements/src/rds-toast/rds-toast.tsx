@@ -9,6 +9,7 @@ export enum ToastLayout {
     Download = "download",
     Chat = "chat",
     Request = "request",
+    Padded = "Padded",
   }
   
   export enum ToastState {

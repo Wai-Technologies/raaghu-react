@@ -241,9 +241,9 @@ const RdsCompTopNavigationWithSearch = (
                             listItems={languageItems}
                             showIcon={false}
                             onClick={onClickHandler}
-                            tooltip={true}
-                            tooltipTitle={"Select Language"}
-                            tooltipPlacement="bottom"
+                            // tooltip={true}
+                            // tooltipTitle={"Select Language"}
+                            // tooltipPlacement="bottom"
                             isCode={true}
 
                         ></RdsDropdownList>

@@ -10,6 +10,7 @@ import {
   RdsTooltip,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
@@ -202,7 +203,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-6 mb-3 d-flex justify-content-xxl-end justify-content-xl-end justify-content-lg-end justify-content-md-end justify-content-start">
                   <div className="d-flex pe-2">
                     <div className="fw-normal mb-0 d-flex">
-                      <RdsTooltip text="Required" place="top">
+                      <RdsTooltip label="Required" style={TooltipStyle.MiddleBottomArrow}>
                         <RdsCheckbox
                           checked={element.isRequired}
                           id="id1"
@@ -217,7 +218,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                       </RdsTooltip>
                     </div>
                   </div>
-                  <RdsTooltip text="Delete" place="top">
+                  <RdsTooltip label="Delete" style={TooltipStyle.MiddleBottomArrow}>
                     <RdsIcon
                       width="17px"
                       height="17px"

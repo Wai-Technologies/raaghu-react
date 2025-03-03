@@ -1367,6 +1367,7 @@ import {
 import "./rds-comp-grid.css";
 import { useTranslation } from "react-i18next";
 import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompGridCombinedProps{
   fontWeight?: string;
@@ -2556,7 +2557,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                           null && (
                                           <RdsTooltip
                                             label={tableDataRow[tableHeader.key]}
-                                            style="Middle Top Arrow"
+                                            style={TooltipStyle.MiddleBottomArrow}
                                           >
                                             <span className="d-inline-block">
                                               {tableDataRow[

@@ -159,7 +159,7 @@
 }
 
 .dropdown-menu.show {
-    transform: translate3d(0px, -180px, 0px) !important;
+    transform: translate3d(0px, -180px, 0px)
 }
 
 /* Media queries for responsiveness */

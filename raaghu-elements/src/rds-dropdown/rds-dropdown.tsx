@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RdsIcon from "../rds-icon";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
  
 export interface RdsDropdownProps {
     colorVariant: string;
@@ -103,7 +103,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       {props.displayType === 'dropdown' && (
         <div className="dropdown">
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               {renderButton()}
             </Tooltip>
           ) : (
@@ -146,7 +146,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       {props.displayType === 'split' && (
         <div className="btn-group">
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               <button type="button" className={buttonClass} disabled={props.disable}>
                 {renderContent()}
               </button>

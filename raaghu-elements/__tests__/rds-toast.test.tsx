@@ -1,29 +1,31 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import RdsToast, { RdsToastProps } from "../src/rds-toast/rds-toast";
+import { render, screen } from "@testing-library/react";
+import RdsToast, { RdsToastProps, ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "../src/rds-toast/rds-toast";
 
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
     default: jest.fn(),
-  }));
-  
+}));
+
 describe("RdsToast", () => {
     const props: RdsToastProps = {
-        colorVariant: "primary",
-        withIcon: true,
-        headerTitle: "Header Title",
-        message: "Toast message",
-        delay: 3000,
-        autohide: true,
-        borderColor: "danger",
+        state: ToastState.Basic,
+        headerText: "Toast Headline",
+        showSubText: true,
+        subText: "This is a big sample placeholder text.",
+        colorVariant: "light",
         showHeader: true,
-        iconName: "check",
-        state:"success",
-        layout:"padded"
+        showLeading: true,
+        leadingIcon: ToastLeadingIcon.Circle,
+        borderColor: "primary",
+        layout: ToastLayout.Text,
+        position: ToastPosition.TopLeft,
+        progressWidth: 40,
+        filename: "Filename.txt",
+        placeholder: "Placeholder Text",
+        showDismiss: true,
     };
-
 
     it("renders the component without icon", () => {
     /*  render(<RdsToast {...props} withIcon={false} />);
@@ -31,36 +33,36 @@ describe("RdsToast", () => {
      expect(screen.getByText(props.headerTitle)).toBeInTheDocument();
      expect(screen.getByText(props.message)).toBeInTheDocument();
      expect(screen.queryByTestId('rds-icon')).toBeNull(); */
-        render(<RdsToast {...props} withIcon={false} />);
+        render(<RdsToast {...props} showLeading={false} />);
         expect(screen.getByRole("alert")).toBeInTheDocument();
-        expect(screen.getByText(props.headerTitle!)).toBeInTheDocument(); //using non-null assertion operator
-        expect(screen.getByText(props.message!)).toBeInTheDocument(); //using non-null assertion operator
+        expect(screen.getByText(props.headerText!)).toBeInTheDocument(); //using non-null assertion operator
+        expect(screen.getByText(props.subText!)).toBeInTheDocument(); //using non-null assertion operator
         expect(screen.queryByTestId("rds-icon")).toBeNull();
     });
 
     it("renders with header and message", () => {
-        const props = {
-            headerTitle: "Header",
-            message: "Message",
+        const testProps: RdsToastProps = {
+            ...props,
+            headerText: "Header",
+            subText: "Message",
             showHeader: true,
-            state:"success",
-            layout:"padded"
+            state: ToastState.Success,
+            layout: ToastLayout.Padded,
         };
-        const { getByText } = render(<RdsToast {...props} />);
-        expect(getByText(props.headerTitle)).toBeInTheDocument();
-        expect(getByText(props.message)).toBeInTheDocument();
+        const { getByText } = render(<RdsToast {...testProps} />);
+        expect(getByText(testProps.headerText!)).toBeInTheDocument();
+        expect(getByText(testProps.subText!)).toBeInTheDocument();
     });
 
     test("renders toast header and message correctly", () => {
         const { getByRole, getByText } = render(
             <RdsToast
                 colorVariant="success"
-                headerTitle="Header Title"
-                message="This is a test message"
+                headerText="Header Title"
+                subText="This is a test message"
                 showHeader={true}
-                 state="basic"
-                layout="text"
-            />
+                state={ToastState.Basic}
+                layout={ToastLayout.Text} showLeading={false} leadingIcon={ToastLeadingIcon.Circle}            />
         );
         const toastContainer = getByRole("alert");
         const toastHeader = getByText("Header Title");
@@ -74,9 +76,10 @@ describe("RdsToast", () => {
         const { getByRole, getByText, queryByText } = render(
             <RdsToast
                 colorVariant="success"
-                message="This is a test message"
-                showHeader={false} headerTitle={""}  state="basic"
-                layout="text"/>
+                subText="This is a test message"
+                showHeader={false}
+                state={ToastState.Basic}
+                layout={ToastLayout.Text} showLeading={false} leadingIcon={ToastLeadingIcon.Circle}            />
         );
         const toastContainer = getByRole("alert");
         const toastHeader = queryByText("Header Title");
@@ -85,8 +88,4 @@ describe("RdsToast", () => {
         expect(toastHeader).toBeNull();
         expect(toastMessage).toBeInTheDocument();
     });
-
 });
-
-
-
