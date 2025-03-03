@@ -1,5 +1,5 @@
 import React from "react";
-import RdsDropdown from "./rds-dropdown";
+import RdsDropdown, { DisplayType, Layout, Shape, State, Style, TooltipPlacement } from "./rds-dropdown";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -83,11 +83,11 @@ export const Default: Story = {
         id: "1",
         state: "default",
         size: "medium",
-        layout: "Textonly",
-        states: "default",
-        displayType: 'dropdown',
-        style: "primary", 
-        shape: "rectangle", 
+        layout: Layout.TextOnly,
+        states: State.Default,
+        displayType: DisplayType.Dropdown,
+        style: Style.Primary, 
+        shape: Shape.Rectangle, 
         colorVariant: "primary",
         label: "Button",
         buttonIcon: "plus",
@@ -99,7 +99,7 @@ export const Default: Story = {
         selectIcon: "circle",
         profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         tooltip: true,
-        tooltipPlacement: "right",
+        tooltipPlacement:TooltipPlacement.Right,
         tooltipTitle: "This is tooltip",
         showChevron: true, // Added showChevron prop
         listItems: [

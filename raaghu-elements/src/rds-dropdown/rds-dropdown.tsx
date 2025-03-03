@@ -3,32 +3,67 @@ import RdsIcon from "../rds-icon";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import './rds-dropdown.css';
 
+export enum DisplayType {
+  Dropdown = 'dropdown',
+  Split = 'split'
+}
+
+export enum Shape {
+  Rectangle = 'rectangle',
+  Pill = 'pill'
+}
+
+export enum Style {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Outline = 'outline',
+  Transparent = 'transparent'
+}
+
+export enum Layout {
+  TextOnly = 'Textonly',
+  IconBefore = 'IconBefore',
+  OnlyIcon = 'onlyIcon'
+}
+
+export enum State {
+  Default = 'default',
+  Hover = 'hover',
+  Disabled = 'disabled',
+  Selected = 'selected'
+}
+
+export enum TooltipPlacement {
+  Right = 'right',
+  Left = 'left',
+  Top = 'top',
+  Bottom = 'bottom'
+}
 export interface RdsDropdownProps {
   colorVariant: string;
   size: string;
   darkDropdown: boolean;
   label: string;
-  displayType?: 'dropdown' | 'split';
+  displayType?: DisplayType;
   listItems: any[];
   id: string;
   buttonIcon?: string;
   showChevron?: boolean;
   iconFill?: boolean;
-  shape?: 'rectangle' | 'pill';
-  style?: 'primary' | 'secondary' | 'outline' | 'transparent';
+  shape?: Shape;
+  style?: Style;
   iconStroke?: boolean;
   disable?: boolean;
-  layout?: 'Textonly' | 'IconBefore' | 'onlyIcon';
+  layout?: Layout;
   isSelected?: boolean;
   selectIcon?: string;
   profileImage?: string;
-  states?: 'default' | 'hover' | 'disabled' | 'selected';
+  states?: State;
   tooltip?: boolean;
-  tooltipPlacement?: 'right' | 'left' | 'top' | 'bottom';
+  tooltipPlacement?: TooltipPlacement;
   tooltipTitle?: string;
   state?: string;
 }
-
 const RdsDropdown = (props: RdsDropdownProps) => {
   const [show, setShow] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -87,10 +122,10 @@ const RdsDropdown = (props: RdsDropdownProps) => {
 
   const getSizeClass = () => {
     switch (props.size) {
-      case 'small- sm':
-        return '';
+      case 'small':
+        return 'btn-sm';
       case 'medium':
-        return 'btn-md ';
+        return 'btn-md';
       case 'large':
         return 'btn-lg';
       default:
@@ -187,7 +222,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
                   />
                 )}
                 {props.profileImage && (
-                  <img src={props.profileImage} className="me-1" alt="" height={20} width={20} />
+                  <img src={props.profileImage} className="me-1 text-bg-light" alt="" height={20} width={20} />
                 )}
                 {props.selectIcon && (
                   <RdsIcon
