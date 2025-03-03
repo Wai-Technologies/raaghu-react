@@ -13,7 +13,7 @@ const textAlignArgTypes = {
 };
 
 const meta: Meta = {
-    title: 'Elements/Big Number',
+    title: 'Components/Big Number',
     component: RdsBigNumber,
     parameters: {
         layout: 'padded',

@@ -2,7 +2,7 @@ import RdsCheckboxParentChild from "./rds-checkbox-parent-child";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Checkbox Parent Child',
+    title: 'Components/Checkbox Parent Child',
     component: RdsCheckboxParentChild,
     parameters: {
         layout: 'padded',

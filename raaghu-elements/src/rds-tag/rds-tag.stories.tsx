@@ -2,7 +2,7 @@ import RdsTag from "./rds-tag";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Tag',
+    title: 'Components/Tag',
     component: RdsTag,
     parameters: { 
         layout: 'padded',

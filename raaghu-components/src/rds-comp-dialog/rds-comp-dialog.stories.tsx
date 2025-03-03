@@ -5,7 +5,7 @@ import RdsCompDialog from "./rds-comp-dialog";
 //Whatever code is commented in this file is needed in fututre reference - enhancement as per figma design
 
 const meta: Meta = {
-  title: "Components/Dialog",
+  title: "Elements/Dialog",
   component: RdsCompDialog,
   parameters: {
     layout: "padded",
