@@ -1,6 +1,7 @@
 import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
+import { ColorVariant, RatingStyle, RatingType } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 
 export enum VariantType {
   Default = "Default",
@@ -35,13 +36,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <h6 className="text-muted">{item.username}</h6>
                   <div className="my-2 d-flex justify-content-center">
                   <RdsRating
-                   colorVariant="primary"
+                   colorVariant={ColorVariant.Primary}
                    dataTestId="rating-test"
                    filled
                    rating={item.rating}
                    size="medium"
-                   style="filled"
-                   type="star"
+                   style={RatingStyle.Filled}
+                   type={RatingType.Star}
                    />
                   </div>
                   <p className="card-text">{item.description}</p>
@@ -61,13 +62,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <h6 className="text-muted">{item.username}</h6>
                   <div className="my-2 d-flex justify-content-center">
                   <RdsRating
-                   colorVariant="primary"
-                   dataTestId="rating-test"
+                   colorVariant={ColorVariant.Primary}
+                    dataTestId="rating-test"
                    filled
                    rating={item.rating}
                    size="medium"
-                   style="filled"
-                   type="star"
+                   style={RatingStyle.Filled}
+                   type={RatingType.Star}
                    />
                    </div>
                   <p className="card-text">{item.description}</p>
@@ -104,13 +105,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
             <div className="d-flex align-items-center mt-2">
             <RdsRating
-             colorVariant="primary"
+             colorVariant={ColorVariant.Primary}
              dataTestId="rating-test"
              filled
              rating={4.5}
              size="medium"
-             style="filled"
-             type="star"
+             style={RatingStyle.Filled}
+             type={RatingType.Star}
             />
             </div>
           </div>
@@ -137,13 +138,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
             <div className="d-flex align-items-center mt-2">
             <RdsRating
-             colorVariant="primary"
+             colorVariant={ColorVariant.Primary}
              dataTestId="rating-test"
              filled
              rating={4.5}
              size="medium"
-             style="filled"
-             type="star"
+             style={RatingStyle.Filled}
+            type={RatingType.Star}
             />
             </div>
           </div>
@@ -172,13 +173,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               </div>
               <div className="d-flex align-items-center mt-2">
             <RdsRating
-             colorVariant="primary"
+             colorVariant={ColorVariant.Primary}
              dataTestId="rating-test"
              filled
              rating={4.5}
              size="medium"
-             style="filled"
-             type="star"
+             style={RatingStyle.Filled}
+             type={RatingType.Star}
             />
             </div>
               <p className="mt-3">{item.description}</p>
@@ -201,13 +202,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 </div>
                 <div className="d-flex align-items-center mt-2">
             <RdsRating
-             colorVariant="primary"
+             colorVariant={ColorVariant.Primary}
              dataTestId="rating-test"
              filled
              rating={4.5}
              size="medium"
-             style="filled"
-             type="star"
+             style={RatingStyle.Filled}
+             type={RatingType.Star}
             />
             </div>
                 <p className="mt-3">{item.description}</p>
@@ -240,13 +241,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                     </div>
                     {/* Rating at the End of the Line */}
                     <RdsRating
-                      colorVariant="primary"
+                      colorVariant={ColorVariant.Primary}
                       dataTestId="rating-test"
                       filled
                       rating={4.5}
                       size="medium"
-                      style="filled"
-                      type="star"
+                      style={RatingStyle.Filled}
+                      type={RatingType.Star} 
                     />
                   </div>
             
@@ -269,13 +270,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                           <small className="text-muted">
                           <div className="d-flex align-items-center mt-2">
                            <RdsRating
-                           colorVariant="primary"
+                           colorVariant={ColorVariant.Primary}
                            dataTestId="rating-test"
                            filled
                            rating={4.5}
                            size="medium"
-                           style="filled"
-                           type="star"
+                           style={RatingStyle.Filled}
+                           type={RatingType.Star}
                            />
                            </div>
                             {item.date
@@ -313,13 +314,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <div className="d-flex justify-content-between align-items-center mt-2">
                    <div className="d-flex align-items-center">
                    <RdsRating
-                   colorVariant="primary"
+                   colorVariant={ColorVariant.Primary}
                    dataTestId="rating-test"
                    filled
                    rating={4.5}
                    size="medium"
-                   style="filled"
-                   type="star"
+                   style={RatingStyle.Filled}
+                   type={RatingType.Star}
                    />
                    </div>
 
@@ -353,13 +354,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <div className="d-flex justify-content-between align-items-center mt-2">
                    <div className="d-flex align-items-center">
                    <RdsRating
-                   colorVariant="primary"
+                   colorVariant={ColorVariant.Primary}
                    dataTestId="rating-test"
                    filled
                    rating={4.5}
                    size="medium"
-                   style="filled"
-                   type="star"
+                   style={RatingStyle.Filled}
+                   type={RatingType.Star}
                    />
                    </div>
 
@@ -395,13 +396,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                     <h6 className="text-center text-muted">{item.username}</h6>
                     <div className="my-2 d-flex justify-content-center align-items-center">
                       <RdsRating
-                        colorVariant="primary"
+                        colorVariant={ColorVariant.Primary}
                         dataTestId="rating-test"
                         filled
                         totalStars={1}  
                         size="medium"
-                        style="filled"
-                        type="star"
+                        style={RatingStyle.Filled}
+                        type={RatingType.Star}
                         rating={4.75} 
                       />
                       <span className="fw-bold mt-1">{item.reviews}</span>
@@ -418,13 +419,13 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               <h6 className="text-center text-muted">{item.username}</h6>
               <div className="my-2 d-flex justify-content-center align-items-center">
                       <RdsRating
-                        colorVariant="primary"
+                        colorVariant={ColorVariant.Primary}
                         dataTestId="rating-test"
                         filled
                         totalStars={1}  
                         size="medium"
-                        style="filled"
-                        type="star"
+                        style={RatingStyle.Filled}
+                        type={RatingType.Star}
                         rating={4.75} 
                       />
                       <span className="fw-bold mt-1">{item.reviews}</span>

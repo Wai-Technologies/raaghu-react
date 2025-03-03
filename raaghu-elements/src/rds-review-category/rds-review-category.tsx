@@ -4,6 +4,7 @@ import RdsLabel from "../rds-label";
 import RdsLikeDislike from "../rds-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-review-category.css";
+import { ColorVariant } from "../rds-rating/rds-rating";
 export interface Item {
     name: string;
     date?: Date;
@@ -94,7 +95,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             {props.item.rating && <div className="rating">
                                 <RdsRating
                                     rating={props.item.rating}
-                                    colorVariant="warning"
+                                    colorVariant={ColorVariant.Warning}
                                     size="small"
                                 />
                             </div>}
@@ -140,7 +141,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 {props.item.rating && <div className="rating">
                                     <RdsRating
                                         rating={props.item.rating}
-                                        colorVariant="warning"
+                                        colorVariant={ColorVariant.Warning}
                                         size="small"
                                     />
                                 </div>}

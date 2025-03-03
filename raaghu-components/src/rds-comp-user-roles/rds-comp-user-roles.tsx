@@ -23,7 +23,7 @@ const RdsCompUserRoles = (props: RdsCompUserRolesProps) => {
                         <div className="pt-3">
                             <RdsCheckbox
                                 key={e.name}
-                                label={(e.name)}
+                                labeltext={(e.name)}
                                 onChange={(event) => {
                                     isRoleChecked(index, event.target.checked);
                                 }}

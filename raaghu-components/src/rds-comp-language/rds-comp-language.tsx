@@ -146,7 +146,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                             </div>
                             <div className="form-group pt-3"> 
                                 <RdsCheckbox
-                                    label="Is Enabled"
+                                    labeltext="Is Enabled"
                                     checked={isEnabled}
                                     onChange={checkboxHandler}
                                 ></RdsCheckbox>
