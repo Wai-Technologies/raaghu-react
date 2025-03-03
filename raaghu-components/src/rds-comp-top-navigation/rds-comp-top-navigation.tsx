@@ -3,6 +3,7 @@ import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -537,7 +538,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -826,7 +827,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -986,7 +987,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1061,7 +1062,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1151,7 +1152,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -2308,7 +2309,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
