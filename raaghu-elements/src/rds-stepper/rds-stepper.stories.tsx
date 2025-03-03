@@ -11,7 +11,7 @@ export interface StepIconName {
 }
 
 const meta: Meta = {
-    title: 'Elements/Stepper',
+    title: 'Components/Stepper',
     component: RdsStepper,
     parameters: {
         layout: 'padded',

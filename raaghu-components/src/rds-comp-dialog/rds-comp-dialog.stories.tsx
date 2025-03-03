@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsCompDialog from "./rds-comp-dialog";
 
 const meta: Meta = {
-  title: "Components/Dialog",
+  title: "Elements/Dialog",
   component: RdsCompDialog,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompGrid from "./rds-comp-grid";
 
 const meta: Meta = { 
-    title: "Components/Grid",
+    title: "Elements/Grid",
     component: RdsCompGrid,
     parameters: {
         layout: 'padded',

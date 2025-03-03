@@ -3,7 +3,7 @@ import RdsPlandiscount from "./rds-plan-discount";
 
 
 const meta: Meta = {
-    title: "Elements/Plan Discount",
+    title: "Components/Plan Discount",
     component: RdsPlandiscount,
     tags: ['autodocs'],
     argTypes: {

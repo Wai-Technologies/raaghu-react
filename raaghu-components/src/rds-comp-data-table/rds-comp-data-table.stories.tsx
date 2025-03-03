@@ -3,7 +3,7 @@ import RdsCompDatatable from "./rds-comp-data-table";
 
 
 const meta: Meta = { 
-    title: "Components/Datatable",
+    title: "Elements/Datatable",
     component: RdsCompDatatable,
     parameters: {
         layout: 'padded',

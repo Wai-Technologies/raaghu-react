@@ -3,7 +3,7 @@ import RdsPrice from "./rds-price";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Price',
+    title: 'Components/Price',
     component: RdsPrice,
     parameters: {
         layout: 'padded',

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Checkbox Group',
+    title: 'Components/Checkbox Group',
     component: RdsCheckboxGroup,
     parameters: {
         layout: 'padded',
