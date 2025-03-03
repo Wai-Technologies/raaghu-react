@@ -3,7 +3,7 @@ import RdsFeed from "./rds-feed";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Feed',
+    title: 'Components/Feed',
     component: RdsFeed,
     parameters: {
         layout: 'padded',

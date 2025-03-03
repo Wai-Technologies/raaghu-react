@@ -3,7 +3,7 @@ import RdsBanner from "./rds-banner";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Banner',
+    title: 'Components/Banner',
     component: RdsBanner,
     parameters: {
         layout: 'padded',

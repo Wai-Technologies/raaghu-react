@@ -4,7 +4,7 @@ import { id } from 'date-fns/locale';
 
 
 const meta: Meta = { 
-    title: "Components/Top Navigation",
+    title: "Elements/Top Navigation",
     component: RdsCompTopNavigation,
     parameters: {
         layout: 'padded',

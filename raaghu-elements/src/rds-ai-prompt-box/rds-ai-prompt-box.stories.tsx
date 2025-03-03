@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsAiPromptBox from "./rds-ai-prompt-box";
 
 const meta: Meta = {
-  title: "Elements/AI Prompt Box",
+  title: "Components/AI Prompt Box",
   component: RdsAiPromptBox,
   parameters: {
     layout: "padded",
