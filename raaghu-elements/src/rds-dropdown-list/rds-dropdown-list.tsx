@@ -6,48 +6,67 @@ import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 
-export interface RdsDropdownListProps {
-  id?: string;
-  reset?: boolean;
-  labelIcon?: string;
-  labelIconWidth?: string;
-  labelIconHeight?: string;
-  icon?: string;
-  iconFill?: boolean;
-  iconWidth?: string;
-  iconStroke?: boolean;
-  iconHeight?: string;
-  placeholder?: string;
-  isPlaceholder?: boolean;
-  isIconPlaceholder?: boolean;
-  borderDropdown?: boolean;
-  size?: string;
-  listItems: {
-    label: string;
-    val: string;
-    icon?: string;
-    iconWidth?: string;
-    iconHeight?: string;
-    iconPath?: string;
-  }[];
+export enum DropdownSize {
+  Default = "Default",
+  Small = "Small",
+  Large = "Large",
+}
 
-  multiSelect?: boolean;
-  xOffset?: string;
-  yOffset?: string;
-  iconPath?: string;
-  onClick?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
-  selectedItems?: (selectedItems: any) => void;
-  selectedIndex?: (selectedindex: number) => void;
-  showIcon?: boolean;
-  isCode?: boolean;
-  block?: boolean;
-  state?: "Default" | "Expanded" | "Selected" | "Disabled";
-  style?: "Default" | "Bottom Line";
-  showTitle?: boolean;
-  title?: string;
-  isMandatory?: boolean;
-  showHint?: boolean;
-  hint?: string;
+export enum DropdownState {
+  Default = "Default",
+  Expanded = "Expanded",
+  Selected = "Selected",
+  Disabled = "Disabled",
+}
+
+export enum DropdownStyle {
+  Default = "Default",
+  BottomLine = "Bottom Line",
+}
+
+export interface RdsDropdownListProps {
+  
+  id?: string; // Id of the dropdown
+  reset?: boolean; // To reset the dropdown
+  labelIcon?: string; // Icon for the label
+  labelIconWidth?: string; // Width of the icon for the label
+  labelIconHeight?: string; // Height of the icon for the label
+  icon?: string; // Icon for the dropdown
+  iconFill?: boolean; // To fill the icon
+  iconWidth?: string; // Width of the icon
+  iconStroke?: boolean; // To stroke the icon
+  iconHeight?: string; // Height of the icon
+  placeholder?: string; // Placeholder for the dropdown
+  isPlaceholder?: boolean; // To show placeholder
+  isIconPlaceholder?: boolean; // To show icon placeholder
+  borderDropdown?: boolean; // To show border in dropdown
+  size?: DropdownSize; // Size of the dropdown
+  listItems: {
+    label: string; // Label of the dropdown
+    val: string; // Value of the dropdown
+    icon?: string; // Icon of the dropdown
+    iconWidth?: string; // Width of the icon
+    iconHeight?: string; // Height of the icon
+    iconPath?: string; // Path of the icon
+  }[]; // List of items in the dropdown
+
+  multiSelect?: boolean; // To enable multiselect dropdown
+  xOffset?: string; // X offset of the dropdown
+  yOffset?: string; // Y offset of the dropdown
+  iconPath?: string;  // To show icon in dropdown
+  onClick?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void; // To get the selected item
+  selectedItems?: (selectedItems: any) => void; // To get the selected items
+  selectedIndex?: (selectedindex: number) => void; // To get the index of the selected item
+  showIcon?: boolean; // To show icon in dropdown
+  isCode?: boolean; // To show code in dropdown
+  block?: boolean; // To show dropdown in block
+  state?: DropdownState; // To set the state of the dropdown
+  style?: DropdownStyle; // To show bottom line in dropdown
+  showTitle?: boolean; // show/hide title of the dropdown
+  title?: string; // Title of the dropdown
+  isMandatory?: boolean; // To show required field
+  showHint?: boolean; // To show hint in dropdown
+  hint?: string; // Hint text
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
@@ -208,10 +227,15 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       : props.size === "Large"
       ? "form-control-lng"
       : ""; // Default size if not provided
-
-  const border = props.borderDropdown ? "form-control " + fieldSize : "border-0";
-  const bottomLine = props.style === "Bottom Line" ? "bottom-line" : "";
-
+  
+  const border = props.state === "Disabled" ? "form-control " + fieldSize : props.borderDropdown ? "form-control border-primary " + fieldSize : "border-0";
+  const bottomLine = props.style === "Bottom Line" 
+    ? props.state === "Disabled" 
+      ? "bottom-line-disabled" 
+      : "bottom-line-primary" 
+    : "";
+  const defaultDisabled = props.style === "Default" && props.state === "Disabled" ? "default-disabled" : "";
+  
   useEffect(() => {
     setIsTouch(false);
     setCheckedCategoryList([]);
@@ -221,26 +245,26 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       props.selectedIndex != undefined &&
       props.selectedIndex(selectedOption);
   }, [selectedOption]);
-
+  
   useEffect(() => {
     props.multiSelect &&
       props.selectedItems != undefined &&
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
-
+  
   const calculateVisibleItems = () => {
     return checkedCategoryList.slice(0, 2); // Always take the first two items
   };
-
+  
   const visibleItems = calculateVisibleItems();
   const remainingCount = checkedCategoryList.length - visibleItems.length;
-
+  
   useEffect(() => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
   }, [props.state]);
-
+  
   return (
     <>
       {props.showTitle && props.title && (
@@ -249,9 +273,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.isMandatory && <span className="text-danger"> *</span>}
         </label>
       )}
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: '8px' }}>
         <span
-          className={`gap-2 ${offset} ${border} ${bottomLine} ${props.state === "Disabled" ? "disabled" : ""}`}
+          className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${props.state === "Disabled" ? "disabled" : ""}`}
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -305,7 +329,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   ))}
               </div>
             )}
-
+  
             {/* single select dropdown placeholder */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
@@ -323,7 +347,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 </span>
               </div>
             )}
-
+  
             {/* multiselected dropdown placeholder */}
             {props.state !== "Selected" && checkedCategoryList.length == 0 &&
               props.multiSelect &&
@@ -370,9 +394,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 )}
               </div>
             )}
-
+  
             {/* chevron_down icon */}
-            {props.state !== "Selected" && !props.isIconPlaceholder && !props.multiSelect && (
+            {props.state !== "Selected" && !props.isIconPlaceholder && (
               <span
                 className="ms-2"
                 onClick={(e) => {
@@ -391,11 +415,11 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             )}
           </div>
         </span>
-
+  
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
-            className={`dropdown-menu ${expand ? "show" : "hide"}`}
+            className={`dropdown-menu ${expand ? "show" : "hide"} ${props.size === "Default" ? "mt-2" : props.size === "Large" ? "mt-3" : ""}`}
             id={props.id}
             aria-labelledby={props.id}
           >
@@ -441,7 +465,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-
+  
                   {language.iconPath && (
                     <div>
                       <RdsIcon
@@ -455,7 +479,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-
+  
                   <span className="ms-1">
                     <div data-name={language.val}>{language.label} </div>
                   </span>
@@ -465,7 +489,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           </ul>
         )}
       </div>
-
+  
       {props.showHint && (
         <p className="my-1 text-black-50">
           <small>{props.hint}</small>
