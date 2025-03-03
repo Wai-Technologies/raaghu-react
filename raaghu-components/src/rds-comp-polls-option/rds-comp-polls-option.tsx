@@ -9,7 +9,7 @@ interface RdsCompPollsOptionProps {
 }
 
 const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
-  const [tableData, setTableData] = useState<any>([]);
+  const [tableData, setTableData] = useState<any[]>([]);
   const [optionData, setOptionData] = useState<{ option: string }>({
     option: "",
   });
@@ -17,7 +17,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (props.optionsData) {
+    if (Array.isArray(props.optionsData)) {
       setTableData(props.optionsData);
     }
   }, [props.optionsData]);
@@ -141,7 +141,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         <div className="row align-items-center mt-3">
           <div className="col-10 col-sm-8 col-md-11 position-relative">
             <RdsInput
-              label="Options"
+              label={true}
               placeholder="Enter Option"
               inputType="text"
               id="passwordfield"
