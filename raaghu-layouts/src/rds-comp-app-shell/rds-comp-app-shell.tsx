@@ -7,9 +7,12 @@ export * from "../../../raaghu-elements/src/index";
 export * from "../../../raaghu-components/src/index";
 export interface RdsCompAppShellProps {
   displayType: DisplayType;
+  children?: ReactNode;
 }
 
 export enum DisplayType {
+  Basic="Basic",
+  Header="Header",
   Default = "Default",
   Relaxing = "Relaxing",
   TopNav = "Top Nav",
