@@ -32,15 +32,15 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                 <div className="row ">
                     <div className="col-6">
                         <RdsInput
-                            label="Property Name"
+                            name="Property Name"
+                            label={true}
                             required={true}
                             placeholder="Enter Property Name"
                             inputType="text"
                             onChange={(e) => {
                                 handleDataChanges(e.target.value, "propertyname");
                             }}
-                            value={userData?.propertyname}
-                            name={"Property Name"}
+                            value={userData?.propertyname}                           
                             dataTestId="property-name"
                             reset={inputReset}
                         ></RdsInput>
@@ -48,7 +48,8 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
 
                     <div className="col-6">
                         <RdsInput
-                            label="Display Name"
+                            name="Display Name"
+                            label={true}
                             required={true}
                             placeholder="Enter Display Name"
                             inputType="text"
@@ -56,7 +57,7 @@ const RdsCompInformation = (props: RdsCompInformationProps) => {
                                 handleDataChanges(e.target.value, "displayname");
                             }}
                             value={userData?.displayname}
-                            name={"Display Name"}
+                            
                             dataTestId="display-name"
                             reset={inputReset}
                         ></RdsInput>

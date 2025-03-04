@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsLabel, RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsCompRoleProps {
     roleData: any;
@@ -41,8 +42,9 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                             <div className="col-md-12 mb-2">
                                 <div className="form-group">  
                                     <RdsInput
-                                        label="Role Name"
-                                        size="medium"
+                                        name="Role Name"
+                                        label={true}
+                                        size={InputSize.Medium}  
                                         inputType="text"
                                         isDisabled={false}
                                         readonly={false}

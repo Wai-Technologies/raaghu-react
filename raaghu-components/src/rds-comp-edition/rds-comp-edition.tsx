@@ -155,9 +155,9 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                     <RdsInput
                                                         required={true}
                                                         inputType="text"
-                                                        label={"Edition Name"}
-                                                        placeholder="Edition Name"
-                                                        name="editionName"
+                                                        name={"Edition Name"}
+                                                        label={true}
+                                                        placeholder="Edition Name"                                                       
                                                         value={FormData?.editionName}
                                                         onChange={(e: any) => handleChangeform(e.target.value, "editionName")}
                                                         id="editionName"
@@ -239,9 +239,9 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                     <RdsInput
                         required={true}
                         inputType="text"
-                        label={"Edition Name"}
-                        placeholder="Edition Name"
-                        name="editionName"
+                        name={"Select"}
+                        label={true}
+                        placeholder="Edition Name"                       
                         value={FormData?.editionName}
                         onChange={(e: any) =>
                           handleChangeform(e.target.value, "editionName")

@@ -58,7 +58,8 @@ function RdsCompPollsQuestion(props: any) {
                     <div className="col-md-12">
                         <RdsInput
                             required={true}
-                            label="Question"
+                            name="Question"
+                            label={true}
                             placeholder="Enter Question"
                             inputType="text"
                             value={QuestionData?.question}
@@ -72,7 +73,8 @@ function RdsCompPollsQuestion(props: any) {
 
                     <div className="col-md-6">
                         <RdsInput
-                            label="Code"
+                            name="Code"
+                            label={true}
                             placeholder="Enter Code"
                             inputType="text"
                             required={true}
@@ -86,7 +88,8 @@ function RdsCompPollsQuestion(props: any) {
                     </div>
                     <div className="col-md-6">
                         <RdsInput
-                            label="Name"
+                            name="Name"
+                            label={true}
                             placeholder="Enter Name"
                             inputType="text"
                             required={false}

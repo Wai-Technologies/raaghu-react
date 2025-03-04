@@ -55,25 +55,25 @@ const isFormValid=isNameValid(formData?.name);
                             <div className="col-6">
                                 <RdsInput
                                     required={true}
-                                    label="Name"
+                                    name="Name"
+                                    label={true}
                                     placeholder="Enter name"
                                     inputType="text"
                                     onChange={(e) => {
                                         apiScopeDataChange(e.target.value, "name");
                                     }}
-                                    value={formData?.name}
-                                    name="name"
+                                    value={formData?.name}                                    
                                     dataTestId="name"
                                     reset={inputReset}
                                 ></RdsInput>
                             </div>
                             <div className="col-6">
                                 <RdsInput
-                                    label="Description"
+                                    name="Description"
+                                    label={true}
                                     placeholder="Enter Description"
                                     inputType="text"
-                                    required={false}
-                                    name="Description"
+                                    required={false}                                    
                                     onChange={(e) => {
                                         apiScopeDataChange(e.target.value, "description");
                                     }}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsDropdownList, RdsLabel } from "../rds-elements";
 import React from "react";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { useTranslation } from "react-i18next";
 export interface RdsForgotPasswordProps {
     onForgotPassword?: (email?: string) => void;
@@ -112,8 +113,9 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                             <form>
                                 <div className="form-group mb-3 text-start">
                                     <RdsInput
-                                        size="medium"
-                                        label="Email"
+                                        size={InputSize.Medium}   
+                                        name="Email"
+                                        label={true}
                                         inputType="email"
                                         placeholder="Enter Email"                            
                                         onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
