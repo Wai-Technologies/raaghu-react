@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
+import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 
 export interface RdsCompRegisterMemberProps {
   registerMemberData?: any;
@@ -178,8 +179,8 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
             <RdsCheckbox
               id="id1"
               labeltext="I Accept Terms Of Service"
-              state="Checkbox"
-              withlabel
+              status={CheckboxStatus.Checked}
+              showtext
               checked={isCheckTerms}
               onChange={(e: any) => setIsCheckTerms(e.target.checked)}
             />
