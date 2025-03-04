@@ -4,6 +4,7 @@ import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAv
 import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -538,7 +539,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -827,7 +828,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -987,7 +988,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1062,7 +1063,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1152,7 +1153,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -2309,7 +2310,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}

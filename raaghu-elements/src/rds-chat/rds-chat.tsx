@@ -7,6 +7,7 @@ import RdsFabMenu from '../rds-fab-menu';
 import RdsAvatar from '../rds-avatar';
 import Picker from 'emoji-picker-react';
 import './rds-chat.css';
+import { AvatarSize } from '../rds-avatar/rds-avatar';
 
 export interface Comment {
     firstName: string;
@@ -256,7 +257,7 @@ const RdsChat = (props: RdsChatProps) => {
                         {userData.map((item: any, index: any) => {
                             return (
                                 <div key={index} className={`d-flex justify-content-between my-2 mx-1 p-2 ${selectedIndex === index ? 'selected' : ''}`} onClick={() => onUserSelect(index)}>
-                                    <RdsAvatar activeDotBottom={item.activeDotButton} avtarWithName colorVariant="primary" firstName={item.firstName} lastName={item.lastName} profilePic={item.profilePic} role={item.status} size="medium" type="image" />
+                                    <RdsAvatar activeDotBottom={item.activeDotButton} avtarWithName colorVariant="primary" firstName={item.firstName} lastName={item.lastName} profilePic={item.profilePic} role={item.status} size={AvatarSize.medium} type="image" />
                                     {item.time}
                                 </div>
                             )
@@ -266,7 +267,7 @@ const RdsChat = (props: RdsChatProps) => {
             <div className={`chat-window ${!isChatScreenEnabled ? 'full-width' : ''}`}>
                 <div className='chat-window-header'>
                     <div className='chat-window-header-title'>
-                        <RdsAvatar activeDotBottom={currentUser.activeDotBottom} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size="large" type="image" />
+                        <RdsAvatar activeDotBottom={currentUser.activeDotBottom} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size={AvatarSize.large} type="image" />
                     </div>
                     <div className='chat-window-header-options'>
                         <span>

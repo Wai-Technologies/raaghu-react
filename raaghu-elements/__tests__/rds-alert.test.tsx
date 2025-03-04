@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import RdsAlert from "../src/rds-alert/rds-alert";
+import RdsAlert, { AlertType } from "../src/rds-alert/rds-alert";
 import "@testing-library/jest-dom";
 import React from "react";
 
@@ -11,7 +11,7 @@ jest.mock('react-lottie-player', () => ({
 describe("RdsAlert", () => {
     it("renders alert message", () => {
         const alertMessage = "Test alert message";
-        render(<RdsAlert message={alertMessage} type={"info"} />);
+        render(<RdsAlert message={alertMessage} type={AlertType.info} />);
         const messageElement = screen.getByText(alertMessage);
         expect(messageElement).toBeInTheDocument();
     });
@@ -21,7 +21,7 @@ describe("RdsAlert", () => {
         render(
             <RdsAlert
                 message="Test alert message"
-                icon={icon} type={"info"}            />
+                icon={icon} type={AlertType.info}            />
         );
         const iconElement = screen.getByRole("img");
         expect(iconElement).toBeInTheDocument();
