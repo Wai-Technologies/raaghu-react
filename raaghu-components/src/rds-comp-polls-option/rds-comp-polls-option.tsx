@@ -141,6 +141,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         <div className="row align-items-center mt-3">
           <div className="col-10 col-sm-8 col-md-11 position-relative">
             <RdsInput
+              name="Options"
               label={true}
               placeholder="Enter Option"
               inputType="text"

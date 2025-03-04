@@ -89,8 +89,8 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                 value={userData?.firstName}
                                 placeholder="Enter First Name"
                                 inputType="text"
-                                label="First Name"
-                                name="firstName"
+                                name="First Name"
+                                label={true}                              
                                 required={true}
                                 onChange={(e) => {
                                     handleDataChange(e.target.value, "firstName");
@@ -103,8 +103,8 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                 value={userData?.lastName}
                                 placeholder="Enter Last Name"
                                 inputType="text"
-                                label="Last Name"
-                                name="lastName"
+                                name="Last Name"
+                                label={true}                               
                                 required={true}
                                 onChange={(e) => {
                                     handleDataChange(e.target.value, "lastName");
@@ -121,8 +121,8 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                     value={userData?.email}
                                     placeholder="Enter Email Address"
                                     inputType="email"
-                                    label="Email Address"
-                                    name="email"
+                                    name="Email Address"
+                                    label={true}                                    
                                     required={true}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "email");
@@ -140,9 +140,9 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                 <RdsInput
                                     value={userData?.password}
                                     inputType="password"
-                                    label="Password"
-                                    placeholder="Enter Password"
-                                    name="password"
+                                    name="Password"
+                                    label={true}
+                                    placeholder="Enter Password"                                    
                                     required={true}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "password");
@@ -160,8 +160,8 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                     value={userData?.userName}
                                     placeholder="Enter Username"
                                     inputType="text"
-                                    label="Username"
-                                    name="userName"
+                                    name="Username"
+                                    label={true}                                    
                                     required={true}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "userName");
@@ -176,8 +176,8 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                                     value={userData?.phoneNumber}
                                     placeholder="Enter Phone Number"
                                     inputType="text"
-                                    label="Phone Number"
-                                    name="phone"
+                                    name="Phone Number"
+                                    label={true}                                   
                                     required={true}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "phoneNumber");

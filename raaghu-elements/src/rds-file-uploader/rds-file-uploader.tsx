@@ -33,12 +33,8 @@ export enum Size {
 
 export interface RdsFileUploaderProps {
   state?: FileUploaderState; // State of the file uploader
-  style?: FileUploaderStyle; // Style of the file uploader
-  Drop_Area_Top_Icon?: boolean; // Flag for Drop Area with Top Icon style
-  placeholderImage?: string; // Placeholder image URL
-  Drop_Area_Side_Icon?: boolean; // Flag for Drop Area with Side Icon style
-  Drop_Area_With_Upload_Button?: boolean; // Flag for Drop Area with Upload Button style
-  Drop_Area_With_Icon?: boolean; // Flag for Drop Area with Icon style
+  style?: FileUploaderStyle; // Style of the file uploader 
+  placeholderImage?: string; // Placeholder image URL 
   placeholder?: string; // Placeholder text
   size?: string; // Size of the file uploader
   fileSizeLimitInMb?: number; // File size limit in MB
@@ -238,10 +234,10 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         files: newFiles,
       });
 
-    if (props.Drop_Area_Top_Icon) {
+    if (props.style === "Drop_Area_Side_Icon") {
       event.target.value = "";
     }
-    if (props.Drop_Area_Side_Icon) {
+    if (props.style === "Drop_Area_With_Upload_Button") {
       event.target.value = "";
     }
     if (newFiles.length > 0) {

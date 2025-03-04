@@ -68,8 +68,9 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
-                                           value={item?.properties[0]?.value || ""}
-                                           label="Client Id"
+                                           value={item?.properties[0]?.value || ""}                                          
+                                           name="Client Id"           
+                                           label={true}
                                            placeholder="Client Id"
                                            customClasses="form-control"
                                            onChange={(e) => handlerChange(e, e.target.value, index, "properties")}
@@ -81,8 +82,8 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.secretProperties[0]?.value}
-                                           name={item?.secretProperties[0]?.name}
-                                           label="Client Secret"
+                                           name={item?.secretProperties[0]?.name}                                       
+                                           label={true}
                                            placeholder="Client Secret"
                                            customClasses="form-control"
                                            inputType="password"

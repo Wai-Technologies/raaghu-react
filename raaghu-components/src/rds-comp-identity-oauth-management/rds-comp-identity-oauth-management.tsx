@@ -73,10 +73,10 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
-                                value={oauth?.clientId}
-                                name="clientId"
+                                value={oauth?.clientId}                               
                                 required={true}
-                                label="Client Id"
+                                name="Client Id"
+                                label={true}
                                 placeholder="Enter Client Id"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "clientId")}
@@ -90,8 +90,8 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                             placeholder="389"
                             customClasses="form-control"
                             inputType="text"
-                            label="Client Secret"
-                            name="clientSecret"
+                            name="Client Secret"
+                            label={true}
                             value={oauth?.clientSecret}
                             onChange={(e: any) => handleChangeform(e.target.value, "clientSecret")}
                             dataTestId="client-secret"
@@ -102,10 +102,10 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
-                                value={oauth?.authority}
-                                name="authority"
+                                value={oauth?.authority}                                
                                 required={true}
-                                label="Authority"
+                                name="Authority"
+                                label={true}
                                 placeholder="Enter Base Domain Component"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "authority")}
@@ -119,8 +119,8 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                             placeholder="Scope"
                             customClasses="form-control"
                             inputType="text"
-                            label="Enter Scope"
-                            name="scope"
+                            name="Enter Scope"
+                            label={true}                            
                             value={oauth?.scope}
                             onChange={(e: any) => handleChangeform(e.target.value, "scope")}
                             dataTestId="scope"

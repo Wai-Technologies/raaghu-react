@@ -44,7 +44,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                     <div className="row mt-3">
                         <div className="col-md-4 form-group">
                             <RdsInput
-                                label="Type"
+                                name="Type"
+                                label={true}
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -60,7 +61,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         </div>
                         <div className="col-md-4 form-group">
                             <RdsInput
-                                label="Value"
+                                name="Value"
+                                label={true}
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -75,7 +77,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                         </div>
                         <div className="col-md-4 form-group">
                             <RdsInput
-                                label="Expiration"
+                                name="Expiration"
+                                label={true}
                                 inputType="text"
                                 isDisabled={false}
                                 readonly={false}
@@ -92,7 +95,8 @@ const RdsCompSecrets = (props: RdsCompSecretsProps) => {
                     </div>
                     <div className="form-group">
                         <RdsInput
-                            label="Description"
+                            name="Description"
+                            label={true}
                             inputType="text"
                             isDisabled={false}
                             readonly={false}

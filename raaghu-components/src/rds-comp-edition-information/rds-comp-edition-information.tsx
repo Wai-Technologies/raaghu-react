@@ -101,26 +101,26 @@ const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(
                     <div className="row px-2">
                         <div className="col-md-6 my-3">
                             <RdsInput
-                                label={"Edition Name"}
+                                name={"Edition Name"}
+                                label={true}
                                 required={true}
                                 placeholder="Edition Name"
                                 inputType="text"
                                 value={values?.editionName}
-                                onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
-                                name={"editionName"}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}                                
                                 dataTestId="edition-name"
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-md-6 my-3">
                             <RdsInput
-                                label="Annual Price"
+                                name="Annual Price"
+                                label={true}
                                 required={true}
                                 placeholder="Annual Price"
                                 inputType="number"
                                 value={values?.annualPrice}
-                                onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
-                                name={"annualPrice"}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}                               
                                 dataTestId="annual-price"
                                 reset={inputReset}
                             ></RdsInput>

@@ -67,7 +67,8 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                 <div className="row g-3">
                     <div className="col-md-6">
                         <RdsInput
-                            label="Address"
+                        name="Address"           
+                         label={true}
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
@@ -81,8 +82,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
 
                     <div className="col-md-6">
             
-                        <RdsInput
-                            label="Address 2 (Optional)"
+                        <RdsInput                        
+                            name="Address 2 (Optional)"           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
@@ -154,8 +156,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                     </div>
                     <div className="col-md-6">
 
-                        <RdsInput
-                            label="Zip"
+                        <RdsInput                
+                            name="Zip"           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Zip code"
                             inputType="text"

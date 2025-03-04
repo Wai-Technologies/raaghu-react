@@ -294,9 +294,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.environment}
-                              name="environment"
-                              label="Environment"
+                              value={modeData?.environment}                           
+                              name="Environment"
+                              label={true}
                               reset={inputReset}
                               placeholder="Enter Environment"
                               customClasses="form-control"
@@ -332,8 +332,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                                  <div className="form-group">
                                     <RdsInput
                                        value={modeData?.appUrl}
-                                       name="app-url"
-                                       label="app"
+                                       name="Application URL"                                      
+                                       label={true}
                                        placeholder="Enter Application URL"
                                        customClasses="form-control"
                                        reset={inputReset}
@@ -350,9 +350,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.apiUrl}
-                              name="app-url"
-                              label="Application API URL"
+                              value={modeData?.apiUrl}                              
+                              name="Application API URL"
+                              label={true}
                               placeholder="Enter Application API URL"
                               customClasses="form-control"
                               reset={inputReset}
@@ -387,9 +387,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.clientId}
-                              name="app-client"
-                              label="Application Client ID"
+                              value={modeData?.clientId}                              
+                              name="Application Client ID"
+                              label={true}
                               reset={inputReset}
                               placeholder="Enter Application Client ID"
                               customClasses="form-control"
@@ -404,9 +404,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.scope}
-                              name="app-scope"
-                              label="Application Scope"
+                              value={modeData?.scope}                             
+                              name="Application Scope"
+                              label={true}
                               placeholder="Enter Application Scope"
                               customClasses="form-control"
                               reset={inputReset}

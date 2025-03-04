@@ -80,7 +80,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
                 maxLength={1}
                 value={digit}
                 singleDigit={true}
-                name="otp"
+                name="OTP"
                 ref={(ref: any) => (inputRefs.current[index] = ref)}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
