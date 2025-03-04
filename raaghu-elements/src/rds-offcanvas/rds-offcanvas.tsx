@@ -3,6 +3,7 @@ import "./rds-offcanvas.css";
 import RdsIcon from "../rds-icon";
 import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 export enum RdsOffcanvasPlacement {
   Start = "start",
   End = "end",
@@ -129,7 +130,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
               onClick={props.onClose}
               tooltip={true}
               tooltipTitle={t("Close") || ""}
-              tooltipPlacement="left"
+              tooltipPlacement={TooltipStyle.RightArrow}
               aria-label="Close"
             ></RdsButton>
           </span>

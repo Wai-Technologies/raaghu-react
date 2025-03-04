@@ -2142,7 +2142,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement="top"
+                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
@@ -2829,7 +2829,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement="top"
+                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
