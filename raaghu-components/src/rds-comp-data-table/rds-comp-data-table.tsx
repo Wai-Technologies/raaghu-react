@@ -16,6 +16,16 @@ import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
+export enum ActionPosition {
+  Right = "right",
+  Left = "left",
+}
+
+export enum ActionColumnStyle {
+  ShowDots = "show dots",
+  ShowButtonsDirectly = "show buttons directly",
+}
+
 export interface RdsCompDatatableProps {
   fontWeight?: string;
   enablecheckboxselection?: boolean;
@@ -55,10 +65,10 @@ export interface RdsCompDatatableProps {
   onRowClick?: (rowId: any) => void;
   tableStyle?: any;
   alignmentType?: any;
-  actionPosition?: "right" | "left";
+  actionPosition?: ActionPosition;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   totalRecords?: any;
-  actionColumnStyle?: "show dots" | "show buttons directly";
+  actionColumnStyle?: ActionColumnStyle;
 }
 const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [data, setData] = useState(props.tableData);

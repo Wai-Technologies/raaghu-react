@@ -3,6 +3,7 @@ import "./rds-comp-app-shell.css";
 import { BrowserRouter, Outlet } from "react-router-dom";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation";
 import RdsSideNav from "../../../raaghu-elements/src/rds-side-nav";
+import { NavLayout, NavType, Platform } from "../../../raaghu-elements/src/rds-side-nav/rds-side-nav";
 export * from "../../../raaghu-elements/src/index";
 export * from "../../../raaghu-components/src/index";
 export interface RdsCompAppShellProps {
@@ -121,9 +122,9 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
           <RdsSideNav
             layout="LeftSideNav"
             logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-            navLayout="Raaghu"
-            navType="Fixed"
-            platform="Side Navigation-ABP List"
+            navLayout={NavLayout.Raaghu}
+            navType={NavType.Fixed}
+            platform={Platform.SideNavigationABPList}
             showUserProfile
             sideNavItems={[
               {

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -1406,7 +1407,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <>
                     <RdsBreadcrumb
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={true}
                     ></RdsBreadcrumb>
                   </>
@@ -1435,7 +1436,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                                   <>
                                       <RdsBreadcrumb
                                           breadcrumbItems={breacrumItem}
-                                          separator={props.product1 ? ">" : undefined}
+                                          separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                                           topnavPlusIcon={true}
                                       ></RdsBreadcrumb>
                                   </>
@@ -1954,7 +1955,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <div className="mob-description fs-6">
                     <RdsBreadcrumb
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </div>
@@ -2022,7 +2023,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <>
                     <RdsBreadcrumb
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </>
@@ -2323,7 +2324,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <div className="mob-description">
                     <RdsBreadcrumb 
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </div>
@@ -2338,7 +2339,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     <>
                         <RdsBreadcrumb
                             breadcrumbItems={breacrumItem}
-                            separator={props.product1 ? ">" : undefined}
+                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                             topnavPlusIcon={props.product2 || props.product3}
                         ></RdsBreadcrumb>
                     </>

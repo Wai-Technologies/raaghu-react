@@ -10,7 +10,9 @@ import {
 import { RdsFileUploader } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { content } from "html2canvas/dist/types/css/property-descriptors/content";
+import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -116,7 +118,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 key={counter}
                 colorVariant="dark"
                 extensions="png, jpg, doc, pdf, ppt"
-                size="large"
+                size={Size.Large}
                 fileSizeLimitInMb={1}
                 label="Cover Image"
                 validation={[

@@ -135,50 +135,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
           </span>
         </div>
         <div className={`offcanvas-body ${props.className}`}>
-          <div className="d-flex flex-column h-100">
-            <h5 className="p-3">
-              Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing
-              elit.
-            </h5>
-            <div className="d-flex justify-content-start mt-auto p-3 offcanvas-margin">
-              <div className="me-2">
-                <RdsButton
-                  label="RESTORE TO DEFAULT"
-                  isOutline={true}
-                  colorVariant="primary"
-                  block={false}
-                  tooltipTitle={""}
-                  type="button"
-                  size="medium"
-                />
-              </div>
-              <div className="me-2">
-                <RdsButton
-                  label="CANCEL"
-                  colorVariant="primary"
-                  isOutline={true}
-                  block={false}
-                  tooltipTitle={""}
-                  type="button"
-                  size="medium"
-                />
-              </div>
-              <div className="me-2">
-                <RdsButton
-                  label="SAVE"
-                  colorVariant="primary"
-                  block={false}
-                  tooltipTitle={""}
-                  type="submit"
-                  size="medium"
-                  data-bs-dismiss="offcanvas"
-                  databstoggle="offcanvas"
-                  databstarget="#canvasExample"
-                  ariacontrols="canvasExample"
-                />
-              </div>
-            </div>
-          </div>
+          {props.children}
         </div>
       </div>
     </>

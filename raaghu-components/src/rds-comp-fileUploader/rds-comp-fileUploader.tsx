@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsFileUploader } from "../rds-elements";
 import "./rds-comp-fileUploader.css";
+import { FileUploaderStyle, Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 
 export interface RdsCompFileUploaderProps {
     onClick: any
@@ -47,9 +48,9 @@ const RdsCompFileUploader = (props: RdsCompFileUploaderProps) => {
                     colorVariant="primary"
                     extensions="png, jpg, doc, pdf, ppt"
                     fileSizeLimitInMb={5}
-                    Drop_Area_Side_Icon
+                    style={FileUploaderStyle.DropAreaSideIcon}
                     multiple={true}
-                    size="large"
+                    size={Size.Large}
                     key={uploaderKey}
                     validation={[
                         {

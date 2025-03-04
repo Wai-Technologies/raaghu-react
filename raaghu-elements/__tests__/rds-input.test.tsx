@@ -19,14 +19,14 @@ describe("RdsInput", () => {
     it("renders input element with placeholder", () => {
         const onChange = jest.fn();
         render(
-            <RdsInput placeholder="Enter your name" value="test" onChange={onChange} />
+            <RdsInput placeholder="Enter your name" value="test" onChange={onChange} name={""} />
         );
         expect(screen.getByPlaceholderText("Enter your name")).toBeInTheDocument();
     });
 
     it("calls onChange function when input value changes", () => {
         const onChange = jest.fn();
-        render(<RdsInput placeholder="Enter your name" value="test" onChange={onChange} />);
+        render(<RdsInput placeholder="Enter your name" value="test" onChange={onChange} name={""} />);
         fireEvent.change(screen.getByPlaceholderText("Enter your name"), {
             target: { value: "John Doe" },
         });

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompDatatable from "./rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "./rds-comp-data-table";
 
 const meta: Meta = { 
     title: "Elements/Datatable",
@@ -25,7 +25,7 @@ export const Datatable: Story = {
        
         enableRadioButtonselection: true,
         enablecheckboxselection: true,
-        actionPosition: "left",
+        actionPosition: ActionPosition.Left,
         tableHeaders: [
             
             // {

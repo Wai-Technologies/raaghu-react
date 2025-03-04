@@ -120,7 +120,7 @@ const RdsButton = (props: RdsButtonProps) => {
     return (<Fragment>
         {  
            props.tooltip && props.label === "" ? (
-            < Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            < Tooltip label={props.tooltipTitle} style={props.tooltipPlacement}>
                 <button className={`btn ${
                 props.style === "outline" && props.state === "default"
                   ? `btn-outline-${props.colorVariant}`

@@ -2,6 +2,7 @@ import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompUserPermissionProps {
   tableHeaders: {
@@ -49,7 +50,7 @@ const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
       </div>
 
       <RdsCompDatatable
-        actionPosition="right"
+        actionPosition={ActionPosition.Right}
         tableHeaders={props.tableHeaders}
         actions={props.actions}
         tableData={props.tableData}
@@ -78,7 +79,7 @@ const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
         />
       </div>
       <RdsCompDatatable
-        actionPosition="right"
+        actionPosition={ActionPosition.Right}
         tableHeaders={props.tableHeaders}
         actions={props.actions}
         tableData={props.tableData}
