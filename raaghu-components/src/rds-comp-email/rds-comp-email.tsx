@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsOffcanvas, RdsTextArea } from "../rds-elements";
 import "./rds-comp-email.css";
 import { useTranslation } from "react-i18next";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 
 export interface RdsCompEmailProps {
     emailSettings: any;
@@ -230,14 +231,14 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     </div>
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                            <RdsCheckbox label="Enable SSL" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
+                            <RdsCheckbox labeltext="Enable SSL" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
-                                label="SMTP Use Default Credentials"
+                                labeltext="SMTP Use Default Credentials"
                                 onChange={(e: any) => { handleChangeform(e.target.checked, "smtpUseDefaultCredentials"); }}
                                 checked={formData?.smtpUseDefaultCredentials}
                                 dataTestId="use-default-credential"
@@ -262,7 +263,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                 <div>
                     <RdsOffcanvas
                         canvasTitle="Send Test Email"
-                        placement="end"
+                        placement={RdsOffcanvasPlacement.End}
                         offcanvasbutton={
                             <RdsButton
                                 size="small"
@@ -273,7 +274,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 label="Send Test Email"
                             />
                         }
-                        backDrop={true}
+                        backDrop={RdsOffcanvasBackDrop.True}
                         scrolling={false}
                         preventEscapeKey={false}
                         offId={"Edition"}

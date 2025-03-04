@@ -8,6 +8,7 @@ import {
     RdsButton,
 } from "../rds-elements";
 import "./rds-comp-product-image.css";
+import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 export interface Item {
     imgUrl?: string;
     rating?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -75,7 +76,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                     <div className="mt-1 me-4 d-inline-block">
                         <RdsRating
                             rating={props.item.rating}
-                            colorVariant="warning"
+                            colorVariant={ColorVariant.Warning}
                         ></RdsRating>
                     </div>
                 )}

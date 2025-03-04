@@ -10,6 +10,7 @@ import {
   RdsTooltip,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompFormsQuestionProps {
@@ -208,9 +209,9 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                           checked={element.isRequired}
                           id="id1"
                           isSwitch
-                          state="Checkbox"
-                          label={""}
-                          withlabel={false}
+                          style={CheckboxStyle.Square}
+                          labeltext={""}
+                          showtext={false}
                           onChange={(e: any) => {
                             setIsRequired(i, e.target.checked);
                           }}

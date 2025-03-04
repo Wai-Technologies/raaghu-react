@@ -8,6 +8,7 @@ import {
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import RdsCompProfile from "../rds-comp-profile";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 export interface RdsCompTopNavigationWithSearchProps {
   ShowProfileSection?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
@@ -299,7 +300,7 @@ const RdsCompTopNavigationWithSearch = (
                     <div className="px-2 px-md-3 d-none d-lg-block">  
                         <RdsOffcanvas
                             className="pb-0"
-                            placement="end"
+                            placement={RdsOffcanvasPlacement.End}
                             offcanvaswidth={307}
                             offId="Profile"
                             offcanvasbutton={
@@ -326,7 +327,7 @@ const RdsCompTopNavigationWithSearch = (
                                     </span>
                                 </div>
                             }
-                            backDrop={true}
+                            backDrop={RdsOffcanvasBackDrop.True}
                             scrolling={false}
                             preventEscapeKey={false}
                             canvasTitle={""}
