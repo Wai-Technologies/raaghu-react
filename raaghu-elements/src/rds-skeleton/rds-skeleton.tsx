@@ -1,12 +1,22 @@
 import React from "react";
 import "./rds-skeleton.css";
 
+export enum RdsSkeletonShape {
+  RECTANGLE = "rectangle",
+  CIRCLE = "circle",
+}
+
+export enum SkeletonState {
+  State1 = 1,
+  State2 = 2,
+  State3 = 3,
+}
 interface RdsSkeletonProps {
-  shape?: "rectangle" | "circle"; // shape of the skeleton
+  shape?: RdsSkeletonShape; // shape of the skeleton
   isAnimated?: boolean; // Determines whether the skeleton has an animation effect.
   width?: string; // width of the skeleton
   height?: string; // height of the skeleton
-  state?: 1 | 2 | 3; // state of the skeleton
+  state?: SkeletonState; // State of the skeleton
 }
 
 const RdsSkeleton = (props: RdsSkeletonProps) => {
