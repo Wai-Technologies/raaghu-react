@@ -2,6 +2,7 @@ import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 import { ColorVariant, RatingStyle, RatingType } from "../../../raaghu-elements/src/rds-rating/rds-rating";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export enum VariantType {
   Default = "Default",
@@ -29,7 +30,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                     <RdsAvatar
                       profilePic={item.imageUrl}
                       withProfilePic={true}
-                      size="large"
+                      size={AvatarSize.large}
                     />
                   </div>
                   <h5 className="card-title">{item.name}</h5>
@@ -389,7 +390,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <RdsAvatar
                         profilePic={item.imageUrl}
                         withProfilePic={true}
-                        size="large"
+                        size={AvatarSize.large}
                       />
                     </div>
                     <h5 className="card-title text-center">{item.name}</h5>

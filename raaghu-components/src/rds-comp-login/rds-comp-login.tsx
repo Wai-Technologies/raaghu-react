@@ -11,6 +11,7 @@ import {
 } from "../rds-elements";
 import "./rds-comp-login.css";
 import { useTranslation } from "react-i18next";
+import { AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
 export interface RdsCompLoginProps {
   error?: any;
   getvalidTenantName: string;
@@ -239,7 +240,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     // colorVariant={Alert?.color}
                     size="small"
                     onDismiss={props.onDismissAlert}
-                    reset={Alert?.show} type={"error"}                  />
+                    reset={Alert?.show} type={AlertType.error}                  />
                 </div>
               )}
             </div>
