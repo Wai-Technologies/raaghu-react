@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj, Meta } from "@storybook/react";
-import RdsSkeleton from "./rds-skeleton";
+import RdsSkeleton, { RdsSkeletonShape, SkeletonState } from "./rds-skeleton";
 
 const meta: Meta = {
   title: "Elements/Skeleton",
@@ -30,9 +30,9 @@ type Story = StoryObj<typeof RdsSkeleton>;
 
 export const Default: Story = {
   args: {
-    shape: "rectangle",
+    shape: RdsSkeletonShape.RECTANGLE,
     isAnimated: false,
-    state: 1,
+    state: SkeletonState.State1,
   },
 } satisfies Story;
 
