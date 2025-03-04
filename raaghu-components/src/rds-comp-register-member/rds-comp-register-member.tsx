@@ -177,7 +177,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
           <div className="pb-4 pt-2">
             <RdsCheckbox
               id="id1"
-              label="I Accept Terms Of Service"
+              labeltext="I Accept Terms Of Service"
               state="Checkbox"
               withlabel
               checked={isCheckTerms}

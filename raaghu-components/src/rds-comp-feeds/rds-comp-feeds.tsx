@@ -1,6 +1,7 @@
 import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating } from "../rds-elements";
 import "./rds-comp-feeds.css";
+import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 export interface Item {
     name: string;
@@ -119,7 +120,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                 <div className="h-25 mt-1 me-4 d-inline-block">
                                     <RdsRating
                                         rating={item.rating}
-                                        colorVariant="warning"
+                                        colorVariant={ColorVariant.Warning}
                                         dataTestId="rating"
                                         size="medium"
                                     ></RdsRating>
