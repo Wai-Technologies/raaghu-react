@@ -3,7 +3,7 @@ import RdsSearch from "./rds-search";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Search',
+    title: 'Components/Search',
     component: RdsSearch,
     parameters: {
         layout: 'padded',

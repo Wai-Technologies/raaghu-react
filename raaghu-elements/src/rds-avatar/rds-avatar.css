@@ -41,14 +41,16 @@
   right: 0px !important;
     bottom: 0px;
     top: 30px;
-    width: 13px;
-    height: 13px;
+    width: 11px;
+    height: 11px;
 
 }
 .bottom-dot-lg{
   right: 1px !important;
   bottom: 0px;
   top: 36px;
+  width: 13px;
+  height: 13px;
 
 }
 .top-dot-sm{
@@ -61,29 +63,31 @@
 .top-dot-md{
   right: 0 !important;
   top: -3px !important;
-  width: 13px;
-  height: 13px;
+  width: 11px;
+  height: 11px;
 
 }
 .top-dot-lg{
   right: 0 !important;
   bottom: 0 !important;
   top: 0 !important;
+  width: 13px;
+  height: 13px;
 
 }
 .top-dot-smallest{
   right: 0 !important;
   top: -1px !important;
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height:7px;
 
 }
 .bottom-dot-smallest{
   right: 0 !important;
   bottom: 0 !important;
   top: 16px !important;
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
 
 }
 .bottom-dot-largest{

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompContribution from "./rds-comp-contribution";
 import dayjs from 'dayjs';
 const meta: Meta = {
-  title: "Components/Contribution",
+  title: "Elements/Contribution",
   component: RdsCompContribution,
   parameters: {
     layout: "padded",

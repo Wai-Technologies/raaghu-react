@@ -3,7 +3,7 @@ import RdsPaymentSummary from "./rds-payment-summary";
 
 
 const meta: Meta = {
-    title: "Elements/Payment Summary",
+    title: "Components/Payment Summary",
     component: RdsPaymentSummary,
     tags: ['autodocs'],
     argTypes: {

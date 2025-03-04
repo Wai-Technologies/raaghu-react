@@ -1,13 +1,13 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import Tooltip from "../src/rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../src/rds-tooltip/rds-tooltip";
 
 describe("Tooltip component", () => {
 
     it("disposes tooltip correctly", () => {
         const { unmount } = render(
-            <Tooltip text="Tooltip text" place="right">
+            <Tooltip label="Tooltip text" style={TooltipStyle.MiddleBottomArrow}>
                 <button role="tooltip">Hover me</button>
             </Tooltip>
         );

@@ -57,7 +57,7 @@
   border-radius: 4px;
   height: 64px;
   margin: 0px !important;
-  background-color: #f3ebfe;
+  background-color: #7825E9 !important;
   margin-bottom: 20px !important;
 }
 
@@ -67,7 +67,7 @@
   height: 44px;
   align-items: center;
   display: flex;
-  background-color: #ebf0ff;
+  background-color: #7825E9!important;
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -145,7 +145,7 @@
   font-size: 12px !important;
 }
 .custom-file-button-rounded{
-  border-radius: 50%;
+  border-radius: 50%!important;
 }
 .hint-left{
     justify-content:left;
@@ -163,4 +163,14 @@
   .file-name {
     font-size: 13px !important; 
   }
+}
+.custom-file-button {
+  display: flex !important;
+  justify-content: center !important;
+  width: 105px!important;
+  cursor: pointer!important;
+  line-height: 21px!important;
+}
+.chosenFileSpan {
+  width: 25rem;
 }

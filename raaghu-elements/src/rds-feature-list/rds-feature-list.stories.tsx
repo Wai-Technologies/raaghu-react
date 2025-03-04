@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Feature List',
+    title: 'Components/Feature List',
     component: RdsFeatureList,
     parameters: {
         layout: 'padded',

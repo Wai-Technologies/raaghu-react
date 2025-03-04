@@ -1778,8 +1778,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small >Due in two days</small>
                                             </div>
@@ -1816,8 +1815,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         colorVariant={"danger"}
                                                         progressWidth={20}
                                                         role={"single"}
-                                                        width={"245px"}
-                                                    ></RdsProgressBar>
+                                                        width={"245px"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small>Due in two days</small>
                                             </>
@@ -1855,8 +1853,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"success"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1890,8 +1887,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"warning"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1927,8 +1923,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>

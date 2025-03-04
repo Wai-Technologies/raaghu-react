@@ -1,3 +1,11 @@
+.rds-truncate-text-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
 .rds-truncate-text {
-  /* Add your styles here */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }

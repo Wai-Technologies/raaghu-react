@@ -11,7 +11,7 @@ export interface StepIconName {
 }
 
 const meta: Meta = {
-    title: 'Elements/Stepper',
+    title: 'Components/Stepper',
     component: RdsStepper,
     parameters: {
         layout: 'padded',
@@ -73,7 +73,7 @@ const meta: Meta = {
             ],
         },
         stepperType: {
-            options: ["simple", "withcheckbox"],
+            options: ["simple", "withcheckbox", "advance"],
             control: { type: "select" },
         },
         showSubtitles: {
@@ -160,7 +160,7 @@ NumberStepper.parameters = {
     }
 };
 
-export const advanceStepper: Story = {
+export const advance: Story = {
     args: {
         stepperType: "advance",
         stepperSectionClass: "m-3",
@@ -174,4 +174,4 @@ export const advanceStepper: Story = {
     },
 } satisfies Story;
 
-advanceStepper.parameters = { controls: { include: ['stepperType', 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
+advance.parameters = { controls: { include: ['stepperType', 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };

@@ -139,7 +139,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             <RdsTextArea
               rows={5}
               label={"Message"}
-              isRequired={true}
+              isMandatory={true}
               placeholder={"Enter your message here ..."}
               value={assistance?.message}
 

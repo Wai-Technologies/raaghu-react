@@ -8,7 +8,7 @@ const buttonColorsArray = Object.values(button_colors);
 const inputSizeArray = Object.values(input_size);
 
 const meta: Meta = {
-    title: 'Elements/Input Group',
+    title: 'Components/Input Group',
     component: RdsInputGroup,
     parameters: {
         layout: 'padded',

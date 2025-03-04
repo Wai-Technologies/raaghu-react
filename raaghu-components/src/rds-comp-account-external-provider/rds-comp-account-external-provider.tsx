@@ -56,7 +56,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                        <div className="row">
                            <div className="col-md-12 mb-3">
                                <RdsCheckbox
-                                   label="Enabled"
+                                   labeltext="Enabled"
                                    checked={item?.enabled}
                                    onChange={(e) => {
                                        handlerChange(e, e.target.checked, index, "enabled");

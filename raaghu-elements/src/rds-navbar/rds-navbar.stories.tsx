@@ -3,7 +3,7 @@ import RdsNavbar from "./rds-navbar";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Navbar',
+    title: 'Components/Navbar',
     component: RdsNavbar,
     parameters: {
         layout: 'padded',

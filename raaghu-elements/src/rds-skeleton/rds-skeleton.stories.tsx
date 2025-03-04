@@ -12,10 +12,14 @@ const meta: Meta = {
   argTypes: {
     shape: {
       options: ["rectangle", "circle"],
-      control: { type: "radio" },
+      control: { type: "select" }, 
     },
     isAnimated: {
       control: { type: "boolean" },
+    },
+    state: {
+      options: [1, 2, 3], 
+      control: { type: "select" },
     },
   },
 } satisfies Meta<typeof RdsSkeleton>;
@@ -28,25 +32,25 @@ export const Default: Story = {
   args: {
     shape: "rectangle",
     isAnimated: false,
-    width: "200px",
-    height: "100px",
+    state: 1,
   },
 } satisfies Story;
+
 Default.parameters = {
   controls: {
-    include: ["shape", "isAnimated", "width", "height"],
+    include: ["shape", "isAnimated", "state"],
   },
 };
 
-export const Circle: Story = {
-  args: {
-    shape: "circle",
-    isAnimated: false,
-    width: "200px",
-  },
-} satisfies Story;
-Circle.parameters = {
-  controls: {
-    include: ["shape", "isAnimated", "width"],
-  },
-};
+// export const Circle: Story = {
+//   args: {
+//     shape: "circle",
+//     isAnimated: false,
+//     width: "200px",
+//   },
+// } satisfies Story;
+// Circle.parameters = {
+//   controls: {
+//     include: ["shape", "isAnimated", "width"],
+//   },
+// };

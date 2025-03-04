@@ -3,7 +3,7 @@ import * as Chart from "chart.js";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Charts/Line Chart',
+    title: 'Components/Charts/Line Chart',
     component: RdsLineChart,
     parameters: {
         layout: 'padded',
