@@ -10,6 +10,7 @@ import {
 import RdsButton from "../rds-button";
 import { use } from "i18next";
 import { t } from "i18next";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 export enum ColorPickerType {
   Default = "Default",
@@ -185,7 +186,7 @@ useEffect(() => {
             state="default"
             style="filled"
             textCase="unset"
-            tooltipPlacement="right"
+            tooltipPlacement={TooltipStyle.LeftArrow}
             tooltipTitle="This is tooltip"
             onClick={handleButtonClick}
           />
@@ -206,7 +207,7 @@ useEffect(() => {
             state="default"
             style="filled"
             textCase="unset"
-            tooltipPlacement="right"
+            tooltipPlacement={TooltipStyle.LeftArrow}
             tooltipTitle="This is tooltip"
             onClick={handleButtonClick}
           />
