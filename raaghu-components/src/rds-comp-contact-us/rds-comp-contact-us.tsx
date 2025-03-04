@@ -132,7 +132,7 @@ function emitSaveData(event: any) {
                             label='Message'
                             reset={inputReset}
                             placeholder='Message'
-                            isRequired={true}
+                            isMandatory={true}
                             onChange= {(e) =>{messagehandleChange(e.target.value , "message");}}
                             rows={3}
                             value={formData?.message}

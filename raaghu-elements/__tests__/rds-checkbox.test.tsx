@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import RdsCheckbox from "../src/rds-checkbox/rds-checkbox";
+import RdsCheckbox, { CheckboxStatus } from "../src/rds-checkbox/rds-checkbox";
 
 describe("RdsCheckbox", () => {
     const defaultProps = {
@@ -11,7 +11,7 @@ describe("RdsCheckbox", () => {
 
     it("renders with default props", () => {
         const handleChange = jest.fn();
-        render(<RdsCheckbox label='Checkbox' id='checkbox' onChange={handleChange} checked={false}/>);
+        render(<RdsCheckbox labeltext='Checkbox' id='checkbox' onChange={handleChange} checked={false}/>);
         const checkbox = screen.getByLabelText("Checkbox") as HTMLInputElement;
         expect(checkbox).toBeInTheDocument();
         expect(checkbox.checked).toBe(false);
@@ -41,7 +41,7 @@ describe("RdsCheckbox", () => {
 
     it("renders checkbox with indeterminate state", () => {
         const handleChange = jest.fn();
-        render(<RdsCheckbox {...defaultProps} state="Indeterminate" id='checkbox' onChange={handleChange}/>);
+        render(<RdsCheckbox {...defaultProps} status={CheckboxStatus.Indeterminate} id='checkbox' onChange={handleChange}/>);
         const checkbox = screen.getByLabelText(defaultProps.label)  as HTMLInputElement;
         expect(checkbox.classList).toContain("form-check-input-intermediate");
     });

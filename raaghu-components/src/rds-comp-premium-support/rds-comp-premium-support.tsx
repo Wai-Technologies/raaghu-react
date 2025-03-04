@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea, RdsTextEditor } from "../rds-elements";
 import "./rds-comp-premium-support.css";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+
 export interface RdsCompPremiumSupportProps {
   premiumSupportData?: any;
   reset?: boolean;
@@ -69,7 +71,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                 <div className="text-center">
 
                     <RdsOffcanvas
-                        backDrop="static"
+                        backDrop={RdsOffcanvasBackDrop.Static}
                         canvasTitle="GET PREMIUM SUPPORT"
                         offId="SUPPORT"
                         offcanvasbutton={
@@ -83,7 +85,8 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 onClick={props.onClickOffcanvas}>
                             </RdsButton>}
                         offcanvaswidth={544}
-                        placement="end" scrolling={false}>
+                        placement={RdsOffcanvasPlacement.End}
+                         scrolling={false}>
                         <div>
                             <div className="offcanvas-intive-banner">
                                 <div className="d-flex align-items-center gap-3 py-3 px-4">
@@ -152,7 +155,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                           State="Default"
                                           id=""
                                           label="Message"
-                                          required
+                                          ismandatory
                                           placeholder="Enter your extra message about your invoice"
                                         />
                                 </div>

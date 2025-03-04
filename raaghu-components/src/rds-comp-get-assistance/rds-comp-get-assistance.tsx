@@ -142,7 +142,7 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
 
               <div className="col-md-12 pb-4">
                 <RdsTextArea
-                  isRequired
+                  isMandatory
                   label="Notes"
                   labelPosition="top"
                   placeholder="Enter your specific requirements..."

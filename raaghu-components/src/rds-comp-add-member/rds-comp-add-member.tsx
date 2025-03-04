@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompAddMemberProps {
   addMemberData?: any;
@@ -84,7 +85,7 @@ const isRoleIdValid = (roleId: any) => {
   return (
     <div className="pt-md-0 pt-2 addMemberOffCancvas">
       <RdsOffcanvas
-        backDrop="static"
+        backDrop={RdsOffcanvasBackDrop.Static}
         canvasTitle="ADD NEW MEMBER"
         offId="manage-member-add-off"
         offcanvasbutton={(
@@ -107,7 +108,7 @@ const isRoleIdValid = (roleId: any) => {
           )
         }
         offcanvaswidth={544}
-        placement="end"
+        placement={RdsOffcanvasPlacement.End}
         scrolling={false}
       >
         <div className="offcanvas-content d-flex flex-column h-100">
@@ -152,7 +153,7 @@ const isRoleIdValid = (roleId: any) => {
                   <RdsCheckbox
                     key={index}
                     id={`checkbox-${assignRoles.id}`}
-                    label={assignRoles.name}
+                    labeltext={assignRoles.name}
                     onChange={() => {
                       if (assignRoles.isDefault) {
                         setAddMemberData((prevAddMemberData: any) => ({
@@ -164,7 +165,7 @@ const isRoleIdValid = (roleId: any) => {
                       }
                     }}
                     checked={assignRoles.isDefault}
-                    withlabel
+                    showtext
                   />
                 ))}
               </div>

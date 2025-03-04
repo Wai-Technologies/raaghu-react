@@ -9,7 +9,7 @@ interface RdsCompPollsOptionProps {
 }
 
 const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
-  const [tableData, setTableData] = useState<any>([]);
+  const [tableData, setTableData] = useState<any[]>([]);
   const [optionData, setOptionData] = useState<{ option: string }>({
     option: "",
   });
@@ -17,7 +17,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (props.optionsData) {
+    if (Array.isArray(props.optionsData)) {
       setTableData(props.optionsData);
     }
   }, [props.optionsData]);

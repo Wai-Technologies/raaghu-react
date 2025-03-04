@@ -3,6 +3,8 @@ import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -383,7 +385,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
                 <RdsOffcanvas
                   className="pb-5 m-auto"
-                  placement="end"
+                  placement={RdsOffcanvasPlacement.End}
                   offcanvaswidth={307}
                   offId="Profile1"
                   offcanvasbutton={
@@ -397,7 +399,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       ></img>
                     </div>
                   }
-                  backDrop={true}
+                  backDrop={RdsOffcanvasBackDrop.True}
                   scrolling={false}
                   preventEscapeKey={false}
                   canvasTitle={""}
@@ -421,7 +423,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="px-2 px-md-3 d-none d-lg-block">
                 <RdsOffcanvas
                   className="pb-0"
-                  placement="end"
+                  placement={RdsOffcanvasPlacement.End}
                   offcanvaswidth={307}
                   offId="Profile"
                   offcanvasbutton={
@@ -449,7 +451,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       </span>
                     </div>
                   }
-                  backDrop={true}
+                  backDrop={RdsOffcanvasBackDrop.True}
                   scrolling={false}
                   preventEscapeKey={false}
                   canvasTitle={""}
@@ -537,7 +539,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -826,7 +828,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}
@@ -986,7 +988,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1061,7 +1063,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1151,7 +1153,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
               </div>
@@ -1630,7 +1632,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                  <div className="position-relative  d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -1644,7 +1646,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1668,7 +1670,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className=" d-none d-lg-block px-1">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -1688,7 +1690,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1856,7 +1858,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -1870,7 +1872,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1894,7 +1896,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="px-2 px-md-3 d-none d-lg-block">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -1922,7 +1924,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -2142,7 +2144,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -2156,7 +2158,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -2180,7 +2182,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="px-2 px-md-3 d-none d-lg-block">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -2208,7 +2210,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -2308,7 +2310,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
+                      size={AvatarSize.medium}
                       titleAlign="horizontal"
                     />
                 </div>)}

@@ -49,8 +49,7 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
                                     height={15}
                                     colorVariant="warning"
                                     progressWidth={getReviewRate(item.count)}
-                                    role={"single"}
-                                ></RdsProgressBar>
+                                    role={"single"} steps={0} completedSteps={0}                                ></RdsProgressBar>
                             </div>
                         </div>
                         <div className="d-flex align-items-center">

@@ -112,7 +112,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12 mb-3">
                   <RdsCheckbox
-                    label={(featureManagementData[0].features[2].displayName) || ''}
+                    labeltext={(featureManagementData[0].features[2].displayName) || ''}
                     checked={payloads[2]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[0].features[2].name)
@@ -122,7 +122,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12 mb-3">
                   <RdsCheckbox
-                    label={(featureManagementData[0].features[3].displayName) || ''}
+                    labeltext={(featureManagementData[0].features[3].displayName) || ''}
                     checked={payloads[3]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[0].features[3].name)
@@ -140,7 +140,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[1].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[1].features[0].displayName) || ''}
                     checked={payloads[4]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[1].features[0].name)
@@ -158,7 +158,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[2].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[2].features[0].displayName) || ''}
                     checked={payloads[5]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[2].features[0].name) }}
                     dataTestId="text-template-management"
@@ -174,7 +174,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[3].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[3].features[0].displayName) || ''}
                     checked={payloads[6]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[3].features[0].name) }}
                     dataTestId="text-template-management"
@@ -207,7 +207,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[4].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[4].features[0].displayName) || ''}
                     checked={payloads[8]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[4].features[0].name) }}
                     dataTestId="text-template-management"
@@ -223,7 +223,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[5].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[5].features[0].displayName) || ''}
                     checked={payloads[9]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[5].features[0].name) }}
                     dataTestId="text-template-management"
@@ -241,7 +241,7 @@ const handlerSubmit = (e: any) => {
                 (
                   <div className="col-md-12 mb-3" key={index}>
                     <RdsCheckbox
-                      label={(item.displayName) || ''}
+                      labeltext={(item.displayName) || ''}
                       checked={payloads[10 + index]?.value}
                       onChange={(e: any) => { handlerChanges(e.target.checked, item.name) }}
                       dataTestId="text-template-management"
@@ -260,7 +260,7 @@ const handlerSubmit = (e: any) => {
                 (
                   <div className="col-md-12" key={index}>
                     <RdsCheckbox
-                      label={(item.displayName) || ''}
+                      labeltext={(item.displayName) || ''}
                       checked={payloads[18 + index]?.value}
                       onChange={(e: any) => { handlerChanges(e.target.checked, item.name) }}
                       dataTestId="text-template-management"
@@ -277,7 +277,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[8].features[0].displayName) || ''}
+                    labeltext={(featureManagementData[8].features[0].displayName) || ''}
                     checked={payloads[22]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[8].features[0].name) }}
                     dataTestId="audit-logging"

@@ -85,7 +85,7 @@ const isFormValid=isNameValid(formData?.name);
                         <div className="row mb-2 mt-1">
                             <RdsCheckbox
                                 id="0"
-                                label="Enabled"
+                                labeltext="Enabled"
                                 checked={formData?.enabled}
                                 onChange={(e) => {
                                     apiScopeDataChange(e.target.checked, "enabled");
@@ -96,7 +96,7 @@ const isFormValid=isNameValid(formData?.name);
                         <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
-                                label="Required"
+                                labeltext="Required"
                                 checked={formData?.required}
                                 onChange={(e: any) => {
                                     apiScopeDataChange(e.target.checked, "required");
@@ -107,7 +107,7 @@ const isFormValid=isNameValid(formData?.name);
                         <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
-                                label="Emphasize"
+                                labeltext="Emphasize"
                                 checked={formData?.emphasize}
                                 onChange={(e: any) => {
                                     apiScopeDataChange(e.target.checked, "emphasize");
@@ -118,7 +118,7 @@ const isFormValid=isNameValid(formData?.name);
                         <div className="row mb-2">
                             <RdsCheckbox
                                 id="0"
-                                label="Show in Discovery Document"
+                                labeltext="Show in Discovery Document"
                                 checked={formData?.showInDiscovery}
                                 onChange={(e) => {
                                     apiScopeDataChange(e.target.checked, "showInDiscovery");
