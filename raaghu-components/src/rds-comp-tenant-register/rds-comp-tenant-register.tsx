@@ -109,12 +109,12 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                     <form>
                         <div className="form-group text-start">
                             <RdsInput
-                                label="Organization Name"
+                                name="Organization Name"
+                                label={true}
                                 placeholder="Enter Organization Name"
                                 inputType="text"
                                 reset={inputReset}
-                                required={true}
-                                name={"name"}
+                                required={true}                                
                                 value={registerFormData?.name}
                                 dataTestId="name"
                                 onChange={(e: any) => handleRegisterDataChanges(e.target.value, "name")}
@@ -123,13 +123,13 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
 
                         <div className="form-group text-start">
                             <RdsInput
-                                label="Email"
+                                name="Email"
+                                label={true}
                                 placeholder="Enter Email"
                                 reset={inputReset}
                                 inputType="email"
                                 onChange={(e: any) => handleRegisterDataChanges(e.target.value, "adminEmailAddress")}
-                                value={registerFormData?.adminEmailAddress}
-                                name={"email"}
+                                value={registerFormData?.adminEmailAddress}                               
                                 required={true}
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
@@ -140,12 +140,13 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         <div className="form-group text-start ">
                             <RdsInput
                                 required={true}
-                                label="Password"
+                                name="Password"
+                                label={true}
                                 placeholder="Enter Password"
                                 reset={inputReset}
                                 inputType="password"
                                 onChange={(e: any) => handleRegisterDataChanges(e.target.value, "adminPassword")}
-                                name={"password"}
+                                
                                 value={registerFormData?.adminPassword}
                                 dataTestId="password"
                                 showIcon={true}
@@ -168,7 +169,8 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                             <div className="col-md-6">
                                 <RdsInput
                                     required={true}
-                                    label="Zip Code"
+                                    name="Zip Code"
+                                    label={true}
                                     reset={inputReset}
                                     placeholder="Enter Zip Code"
                                     inputType="text"

@@ -37,7 +37,8 @@ describe("RdsInput", () => {
         const onChange = jest.fn();
         render(
             <RdsInput
-                label="Password"
+                name="Password"
+                label={true}
                 id="password"
                 value="test"
                 inputType="password"
@@ -55,14 +56,14 @@ describe("RdsInput", () => {
 
     it("input disabled", () => {
         const onChange = jest.fn();
-        render(<RdsInput onChange={onChange} value="test" isDisabled={true} />);
+        render(<RdsInput onChange={onChange} value="test" isDisabled={true} name="testInput" />);
         const inputElement = screen.getByRole("textbox");
         expect(inputElement).toBeDisabled();
     });
 
     it("read Only", () => {
         const onChange = jest.fn();
-        render(<RdsInput onChange={onChange} value="test" readonly={true} />);
+        render(<RdsInput onChange={onChange} value="test" readonly={true} name="testInput" />);
         const inputElement = screen.getByRole("textbox") as HTMLInputElement;
         expect(inputElement.readOnly).toBeTruthy();
     });

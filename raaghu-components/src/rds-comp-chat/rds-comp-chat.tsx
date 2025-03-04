@@ -256,7 +256,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       value={commentText}
       inputType="text"
       placeholder="Type comment..."
-      name="comment"
+      name="Comment"
       onChange={(e) => setCommentText(e.target.value)}
       showIcon={true} 
     />

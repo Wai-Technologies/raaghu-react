@@ -180,7 +180,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Maximum user count"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)
@@ -213,7 +213,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Storage size"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)

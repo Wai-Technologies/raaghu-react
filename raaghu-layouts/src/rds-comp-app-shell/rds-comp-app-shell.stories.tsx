@@ -6,6 +6,7 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 import { RdsDropdown, RdsIcon, RdsInput, RdsSearch, RdsSideNav } from "../../../raaghu-elements/src";
+import { DisplayType } from "../../../raaghu-elements/src/rds-dropdown/rds-dropdown";
 
 const meta: Meta = {
   title: "Application Shells",
@@ -296,7 +297,7 @@ export const Header: Story = {
                         ></img>
                         <RdsDropdown
                           colorVariant="white"
-                          displayType="dropdown"
+                          displayType= {DisplayType.Dropdown}
                           id="1"
                           label="Hi, John Doe"
                           listItems={[
@@ -401,7 +402,7 @@ export const Header: Story = {
                         ></img>
                         <RdsDropdown
                           colorVariant="white"
-                          displayType="dropdown"
+                          displayType= {DisplayType.Dropdown}
                           id="1"
                           label="Hi, John Doe"
                           listItems={[

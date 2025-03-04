@@ -64,7 +64,8 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                                 inputType="text"
                                 required={true}
                                 reset={inputReset}
-                                label="Title"
+                                name="Title"
+                                label={true}
                                 placeholder="Enter Title"
                                 value={data?.title}
                                 onChange={(e) => {
@@ -80,7 +81,8 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                                 inputType="text"
                                 required={true}
                                 reset={inputReset}
-                                label="Slug"
+                                name="Slug"
+                                label={true}
                                 placeholder="Enter Slug"
                                 value={data?.slug}
                                 onChange={(e) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsSelectList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompBillingAddressProps {
     onSaveHandler?: (data: any) => void;
     countryList: { option: string, value: any }[];
@@ -163,11 +163,11 @@ function emitSaveData(event: any) {
                 <div className="custom-content-scroll">
                     <div className="row">
                         <div className="col-md-6">
-                            <RdsInput
-                                label="First Name"
-                                size="medium"
+                            <RdsInput                                
+                                label={true}
+                                size={InputSize.Medium}   
                                 inputType="text"
-                                name="firstName"
+                                name="First Name"
                                 placeholder="Enter First Name"
                                 value={formData?.firstName}
                                 onChange={(e) => { handleChange(e.target.value,"firstName"); }}
@@ -183,11 +183,11 @@ function emitSaveData(event: any) {
                             )}
                         </div>
                         <div className="col-md-6">
-                            <RdsInput
-                                label="Last Name"
-                                size="medium"
+                            <RdsInput                              
+                                label={true}
+                                size={InputSize.Medium} 
                                 inputType="text"
-                                name="lastName"
+                                name="Last Name"
                                 placeholder="Enter Last Name"
                                 required={true}
                                 // onBlur={(e) => lastNameValidation(e.target.value)}
@@ -205,10 +205,10 @@ function emitSaveData(event: any) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <RdsInput
-                                label="Company"
-                                size="medium"
-                                name="company"
+                            <RdsInput                               
+                                label={true}
+                                size={InputSize.Medium} 
+                                name="Company"
                                 id="txtCompany"
                                 placeholder="Enter Company"
                                 dataTestId="company"
@@ -217,10 +217,10 @@ function emitSaveData(event: any) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <RdsInput
-                                label="Phone"
-                                size="medium"
-                                name="phone"
+                            <RdsInput                               
+                                label={true}
+                                size={InputSize.Medium} 
+                                name="Phone"
                                 id="txtPhone"
                                 placeholder="Enter phone"
                                 required={true}
@@ -256,11 +256,11 @@ function emitSaveData(event: any) {
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <RdsInput
-                                label="Address"
+                            <RdsInput                                
+                                label={true}
                                 placeholder="Enter Address"
-                                size="medium"
-                                name="address"
+                                size={InputSize.Medium} 
+                                name="Address"
                                 id="txtAddress"
                                 required={true}
                                 // onBlur={(e) => addressValidation(e.target.value)}
@@ -278,10 +278,10 @@ function emitSaveData(event: any) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <RdsInput
-                                label="City"
-                                size="medium"
-                                name="city"
+                            <RdsInput                               
+                                label={true}
+                                size={InputSize.Medium} 
+                                name="City"
                                 id="txtCompany"
                                 placeholder="Enter City"
                                 required={true}
@@ -338,9 +338,9 @@ function emitSaveData(event: any) {
                             )} 
                         </div>
                         <div className="col-md-6">
-                            <RdsInput
-                                label="Postal Code"
-                                name="postalCode"
+                            <RdsInput                                
+                                label={true}
+                                name="Postal Code"
                                 id="txtPostalCode"
                                 placeholder="Enter Postal code"
                                 required={true}

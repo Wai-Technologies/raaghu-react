@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsNavtabs, RdsSelectList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompFeatureManagementProps {
   featureManagementData: any;
   onSubmit?: any
@@ -94,7 +95,8 @@ const handlerSubmit = (e: any) => {
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mt-3 mb-3">
                   <div className="form-group">
                     <RdsInput
-                      size="medium"
+                      name="Input Number"
+                      size={InputSize.Medium}   
                       label={(featureManagementData[0].features[1].displayName) || ''}
                       inputType="number"
                       isDisabled={false}
@@ -182,7 +184,8 @@ const handlerSubmit = (e: any) => {
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12  mt-4 ">
                   <div className="form-group ">
                     <RdsInput
-                      size="medium"
+                      name="Text"
+                      size={InputSize.Medium}   
                       label={(featureManagementData[3].features[1].displayName) || ''}
                       inputType="text"
                       isDisabled={false}
