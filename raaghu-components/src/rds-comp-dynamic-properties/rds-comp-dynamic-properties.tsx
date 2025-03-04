@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompDynamicPropertiesProp {
     propertyData: any[];
@@ -12,7 +12,7 @@ const RdsCompDynamicProperties = (props: RdsCompDynamicPropertiesProp) => {
     return (
         <>
             <RdsCompDatatable
-                actionPosition="right"
+                actionPosition={ActionPosition.Right}
                 tableHeaders={props.propertyHeaders}
                 actions={props.actions}
                 tableData={props.propertyData}

@@ -7,6 +7,7 @@ import {
   RdsLabel,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { FileUploaderStyle, Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 
 export interface RdsCompApplyForPositionProps {
   applyForPositionData?: any;
@@ -202,9 +203,9 @@ const isPeriodValid = (period: any) => {
                   colorVariant="primary"
                   extensions="png, jpg, doc, pdf, ppt"
                   fileSizeLimitInMb={5}
-                  Drop_Area_Side_Icon
+                  style={FileUploaderStyle.DropAreaSideIcon}
                   multiple={true}
-                  size="large"
+                  size={Size.Large}
                   validation={[
                     {
                       hint: "File size exceeds the limit",
