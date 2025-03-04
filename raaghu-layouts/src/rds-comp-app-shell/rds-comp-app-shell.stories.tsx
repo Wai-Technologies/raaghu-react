@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsCompAppShell, { DisplayType } from "./rds-comp-app-shell";
+import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsCompAppShellItem from "./rds-comp-app-shell-item";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 
 export const Basic: Story = {
   args: {
-    displayType: DisplayType.Basic,
+    displayType: AppShellDisplayType.Basic,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -245,7 +245,7 @@ export const Basic: Story = {
 
 export const Header: Story = {
   args: {
-    displayType: DisplayType.Header,
+    displayType: AppShellDisplayType.Header,
     children: (
       <>
         <div className="container-fluid bg-white px-0">
@@ -439,7 +439,7 @@ export const Header: Story = {
 
 export const Default: Story = {
   args: {
-    displayType: DisplayType.Default,
+    displayType: AppShellDisplayType.Default,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -504,7 +504,7 @@ export const Default: Story = {
 
 export const Relaxing: Story = {
   args: {
-    displayType: DisplayType.Relaxing,
+    displayType: AppShellDisplayType.Relaxing,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -633,7 +633,7 @@ export const Relaxing: Story = {
 
 export const TopNavBar: Story = {
   args: {
-    displayType: DisplayType.TopNav,
+    displayType: AppShellDisplayType.TopNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -824,7 +824,7 @@ export const TopNavBar: Story = {
 
 export const SideNav: Story = {
   args: {
-    displayType: DisplayType.SideNav,
+    displayType: AppShellDisplayType.SideNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -944,7 +944,7 @@ export const SideNav: Story = {
 
 export const DoubleNav: Story = {
   args: {
-    displayType: DisplayType.DoubleNav,
+    displayType: AppShellDisplayType.DoubleNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -1083,7 +1083,7 @@ export const DoubleNav: Story = {
 
 export const One_Three_One: Story = {
   args: {
-    displayType: DisplayType.OneThreeOne,
+    displayType: AppShellDisplayType.OneThreeOne,
     children: (
       <>
         <RdsCompAppShellItem title={""}>

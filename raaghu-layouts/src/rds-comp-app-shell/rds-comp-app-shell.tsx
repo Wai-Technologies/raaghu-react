@@ -6,11 +6,11 @@ import RdsSideNav from "../../../raaghu-elements/src/rds-side-nav";
 export * from "../../../raaghu-elements/src/index";
 export * from "../../../raaghu-components/src/index";
 export interface RdsCompAppShellProps {
-  displayType: DisplayType;
+  displayType: AppShellDisplayType;
   children?: ReactNode;
 }
 
-export enum DisplayType {
+export enum AppShellDisplayType {
   Basic="Basic",
   Header="Header",
   Default = "Default",
