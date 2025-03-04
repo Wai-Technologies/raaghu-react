@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 import { RdsInput, RdsButton, RdsIcon } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
@@ -128,7 +128,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
         {props.displayType == "basic" && (
             <form onSubmit={handleSubmit}>
                 <RdsCompDatatable
-                    actionPosition="right"
+                    actionPosition={ActionPosition.Right}
                     tableHeaders={props.propertyHeaders}
                     tableData={props.propertyData}
                     pagination={false}
@@ -234,7 +234,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
             </div>
             <div className="mt-3 px-2">
                 <RdsCompDatatable
-                    actionPosition="right"
+                    actionPosition={ActionPosition.Right}
                     tableHeaders={tableHeaders}
                     tableData={tableData}
                     pagination={false}

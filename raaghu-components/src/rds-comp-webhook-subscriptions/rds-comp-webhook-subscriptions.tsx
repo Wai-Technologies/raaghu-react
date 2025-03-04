@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 import {
     RdsButton,
     RdsIllustration,
@@ -220,7 +220,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
 
                     {webhookheaderfile.length != 0 && (
                         <RdsCompDatatable
-                            actionPosition="right"
+                            actionPosition={ActionPosition.Right}
                             classes="table__userTable"
                             tableHeaders={tableHeaders}
                             actions={actions}
