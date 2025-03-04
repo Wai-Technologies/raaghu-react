@@ -10,14 +10,13 @@ import { unmountComponentAtNode } from "react-dom";
 
 
 import "@testing-library/jest-dom";
-import RdsToggle from "../src/rds-toggle/rds-toggle";
+import RdsToggle, { ToggleLayout, ToggleState, ToggleStyle } from "../src/rds-toggle/rds-toggle";
 
 describe("RdsToggle", () => {
     const mockOnClick = jest.fn();
     const defaultProps = {
         iconOnUncheck: "uncheck",
         iconOnCheck: "check",
-        checked: false,
     };
 
     afterEach(() => {
@@ -25,13 +24,14 @@ describe("RdsToggle", () => {
     });
 
     it("renders the component", () => {
-        const { container } = render(<RdsToggle style={"Style 1"} layout={"Switch + label"} isChecked={false} isDisabled={false} {...defaultProps} />);
+        const { container } = render(<RdsToggle style={ToggleStyle.Style1} layout={ToggleLayout.SwitchLabel} checked={false} state={ToggleState.DisabledOn} {...defaultProps} />);
         expect(container.firstChild).toMatchSnapshot();
     });
 
+
     it("calls onChangeHandler function when checkbox is clicked", () => {
         const { getByRole } = render(
-            <RdsToggle style={"Style 1"} layout={"Switch + label"} isChecked={false} isDisabled={false} {...defaultProps} onClick={mockOnClick} />
+            <RdsToggle style={ToggleStyle.Style1} layout={ToggleLayout.SwitchLabel} checked={false} state={ToggleState.DisabledOn} {...defaultProps} onClick={mockOnClick} />
         );
         fireEvent.click(getByRole("checkbox"));
         expect(mockOnClick).toHaveBeenCalledTimes(1);

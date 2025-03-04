@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./rds-truncate-text.css";
 import Tooltip from "../rds-tooltip"; 
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 export enum TruncateTextState {
   Default = "default",
@@ -13,7 +14,7 @@ export interface RdsTruncateTextProps {
   state: TruncateTextState; // Control behavior (default or hover)
 }
 
-const TruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state }) => {
+const RdsTruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -30,7 +31,7 @@ const TruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state 
   return (
     <div className="rds-truncate-text" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {state === "hover" && isHovered && text.length > maxLength ? (
-        <Tooltip style="MiddleTopArrow" label={text}>
+        <Tooltip style={TooltipStyle.MiddleBottomArrow} label={text}>
           <span>{displayText}</span>
         </Tooltip>
       ) : (
@@ -40,4 +41,4 @@ const TruncatedText: React.FC<RdsTruncateTextProps> = ({ text, maxLength, state 
   );
 };
 
-export default TruncatedText;
+export default RdsTruncatedText;

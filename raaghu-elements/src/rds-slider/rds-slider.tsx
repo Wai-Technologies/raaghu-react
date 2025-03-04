@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import "./rds-slider.scss";
 
 export interface RdsSliderProps {
@@ -146,7 +146,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
             {style === "show tooltip" && (
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
-                  style="Middle Top Arrow"
+                  style={TooltipStyle.MiddleBottomArrow}
                   label="100">
                   <button className="btn btn-primary">
                     {value}
@@ -216,7 +216,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
              {style === "show tooltip" && (
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
-                  style="Middle Top Arrow"
+                  style={TooltipStyle.MiddleBottomArrow}
                   label="100">
                   <button className="btn btn-primary">
                     {value}
