@@ -3,7 +3,7 @@ import RdsButton from "../rds-button";
 import RdsInput from "../rds-input";
 import { colors } from "../../libs/types";
 import "./rds-input-group.css";
-
+import { InputSize} from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsInputGroupProps {
     buttonLabel?: string;
     colorVariant: colors;
@@ -71,7 +71,8 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
                             value={value}
                             onChange={changeValue}
                             formName={formName}
-                            size={props.size}
+                           // size={props.size}
+                            size={InputSize.Medium}  
                             showTitle={false}
                         ></RdsInput>
                     </div>

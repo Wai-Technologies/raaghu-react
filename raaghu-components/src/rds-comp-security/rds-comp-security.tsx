@@ -69,7 +69,8 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
 
                 <div className="mb-3 fw-normal mt-2 col-5">
                     <RdsInput
-                        label=" Account Locking Duration(as seconds) "
+                        name=" Account Locking Duration(as seconds) "
+                        label={true}
                         inputType="number"
                         placeholder="Enter a Value"
                     />

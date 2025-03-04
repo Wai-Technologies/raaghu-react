@@ -105,11 +105,11 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
 
                     <div className="col-md-5">
                         <RdsInput
-                           required={true}
-                            label="Claim Value"
+                           required={true}                           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Value"
-                            name="value"
+                            name="Value"
                             value={selectedData.claimValue}
                             onChange={(event) =>
                                 setSelectedData({

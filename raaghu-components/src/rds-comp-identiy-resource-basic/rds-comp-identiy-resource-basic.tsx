@@ -54,11 +54,11 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             <div className="col-6">
                                 <RdsInput
                                     required={true}
-                                    label="Name"
+                                    name="Name"
+                                    label={true}
                                     placeholder="Enter name"
                                     inputType="text"
-                                    value={identityBasicData?.name}
-                                    name={"email"}
+                                    value={identityBasicData?.name}                                    
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "name");
                                     }}
@@ -68,15 +68,15 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             </div>
                             <div className="col-6">
                                 <RdsInput
-                                    label="Display name"
+                                    name="Display name"
+                                    label={true}
                                     placeholder="Enter display name"
                                     inputType="text"
                                     required={false}
                                     value={identityBasicData?.displayName}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "displayName");
-                                    }}
-                                    name={"Displayname"}
+                                    }}                                   
                                     dataTestId="display-name"
                                 ></RdsInput>
                             </div>

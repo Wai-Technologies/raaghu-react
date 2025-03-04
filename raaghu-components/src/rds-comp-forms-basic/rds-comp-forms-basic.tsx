@@ -39,12 +39,12 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                         <div className="row">
                             <div className="col-12">
                                 <RdsInput
-                                    label="Title"
+                                    name="Title"
+                                    label={true}
                                     placeholder="Enter title"
                                     inputType="text"
                                     onChange={(e) => setTitle(e.target.value)}
-                                    value={basicFormData?.title}
-                                    name={"title"}
+                                    value={basicFormData?.title}                                   
                                     required={true}
                                     dataTestId="title"
                                     reset={inputReset}
@@ -67,12 +67,12 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                     <div className="row">
                         <div className="col-12">
                             <RdsInput
-                                label="Title"
+                                name="Title"
+                                label={true}
                                 placeholder="Enter title"
                                 inputType="text"
                                 onChange={(e) => setTitle(e.target.value)}
-                                value={basicFormData?.title}
-                                name={"title"}
+                                value={basicFormData?.title}                               
                                 required={true}
                                 dataTestId="title"
                                 reset={inputReset}

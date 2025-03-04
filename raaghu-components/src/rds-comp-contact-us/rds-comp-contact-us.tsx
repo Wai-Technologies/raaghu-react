@@ -98,7 +98,8 @@ function emitSaveData(event: any) {
                 <form >
                     <div className="mt-1 mb-3">
                         <RdsInput
-                            label='Email ID'
+                            name='Email ID'
+                            label={true}
                             reset={inputReset}
                             required={true}
                             validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i}
@@ -108,20 +109,21 @@ function emitSaveData(event: any) {
                             onChange= {(e) =>{emailhandleChange(e.target.value , "email");}}
                             dataTestId="email"
                             value={formData?.email}
-                            name={"email"}
+                           
                         ></RdsInput>
                     </div>
 
                     <div className=" mb-3">
                         <RdsInput
-                            label='Full Name'
+                            name='Full Name'
+                            label={true}
                             reset={inputReset}
                             required={true}
                             placeholder='Full Name'
                             inputType='text'
                             dataTestId="fullname"
                             onChange= {(e) =>{fullnamehandleChange(e.target.value , "fullname");}}
-                            name={"fullname"}
+                           
                             value={formData?.fullname}
                         ></RdsInput>
                     </div>
