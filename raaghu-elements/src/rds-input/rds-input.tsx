@@ -41,7 +41,7 @@ export interface RdsInputProps {
   singleDigit?: boolean; // Whether the input field is for single digit input
   ref?: any; // Reference to the input field
   labelPosition?: LabelPosition; // Position of the label (e.g., top, bottom, floating, right, left)
-  name?: string; // Name attribute of the input field
+  name: string; // Name attribute of the input field
   label?: boolean; // Whether to show the label
   id?: string; // ID attribute of the input field
   required?: boolean; // Whether the input field is required
@@ -162,7 +162,6 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 
       setValue(inputValue);
     };
-
     let size: "sm" | "lg" | "md";
 
     if (props.size === InputSize.Small) {
@@ -252,7 +251,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         htmlFor={props.id}
         className={`text-capitalize ${fontWeight} ${props.id === 'address-input' ? '' : 'mt-2'}`}
     >
-        {props.label ? 'label' : ''}
+        {props.label ? props.name : ''}
         {(props.required || props.validatonPattern) && (
             <span className="text-danger ms-1">*</span>
         )}
@@ -327,7 +326,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             {hasError && isTouch && props.required && value === "" && (
               <div className="form-control-feedback validation-position">
                 <span className="text-danger">
-                  {props.label} {t("is required")}
+                  {props.name} {t("is required")}
                 </span>
               </div>
             )}
@@ -367,7 +366,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         {hasError && isTouch && props.required && value === "" && (
           <div className="form-control-feedback validation-position">
             <span className="text-danger">
-              {props.label} {t("")}
+              {props.name} {t("")}
             </span>
           </div>
         )}

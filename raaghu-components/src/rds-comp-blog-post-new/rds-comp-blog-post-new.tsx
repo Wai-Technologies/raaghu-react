@@ -10,7 +10,7 @@ import {
 import { RdsFileUploader } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { content } from "html2canvas/dist/types/css/property-descriptors/content";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -149,10 +149,10 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             <div className="form-group">
               <RdsInput
                 inputType="text"
-                size="medium"
+                size={InputSize.Medium}   
                 required={true}
-                isDisabled={false}
-                label="Title"
+                isDisabled={false}                
+                label={true}
                 readonly={false}
                 name="title"
                 placeholder="Enter Title"
@@ -168,7 +168,8 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Slug"
+               // label="Slug"
+                label={true}
                 name="slug"
                 placeholder="Enter Slug"
                 dataTestId="slug"
@@ -184,8 +185,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 <RdsInput
                   inputType="text"
                   required={true}
-                  label="Concurrency Stamp"
-                  name="concurrentMode"
+                  //name="Concurrency Stamp"
+                  label={true}
+                  name="concurrent Mode"
                   placeholder=""
                   onChange={(e) => {
                     handlerBlogDataChange(e.target.value, "concurrencyStamp");
@@ -217,7 +219,8 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Tags"
+                name="Tags"
+                label={true}
                 placeholder="Enter Tag"
                 dataTestId="tag"
                 onChange={(e) => {

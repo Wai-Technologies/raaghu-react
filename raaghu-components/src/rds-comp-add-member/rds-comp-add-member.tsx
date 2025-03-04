@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompAddMemberProps {
   addMemberData?: any;
   assignableRolesList?: any;
@@ -128,12 +128,13 @@ const isRoleIdValid = (roleId: any) => {
               <RdsInput
                 id=""
                 reset={inputReset}
-                inputType="email"
-                label="Email"
-                labelPosition="top"
+                inputType="email"               
+                name="Email"           
+                label={true}
+                labelPosition={LabelPosition.Top}
                 placeholder="Enter Email"
                 required
-                size="medium"
+                size={InputSize.Medium}   
                 value={addMemberData?.email}
                 onChange={(e: any) => {
                   handleAddMemberDataChanges(e.target.value, "email");

@@ -374,26 +374,31 @@ const RdsCard = (props: RdsCardProps) => {
               {props.type === "Example-Avatar" && showEdit &&(
                 <div>
                   <RdsInput
+                    name="cardTitle"
                     value={cardTitle}
                     onChange={(e) => setCardTitle(e.target.value)}
                     placeholder="Card Title"
                   />
                   <RdsInput
+                    name="cardSubTitle"
                     value={cardSubTitle}
                     onChange={(e) => setCardSubTitle(e.target.value)}
                     placeholder="Card Subtitle"
                   />
                   <RdsInput
+                    name="firstName"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="First Name"
                   />
                   <RdsInput
+                    name="lastName"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Last Name"
                   />
                   <RdsInput
+                    name="role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     placeholder="Role"

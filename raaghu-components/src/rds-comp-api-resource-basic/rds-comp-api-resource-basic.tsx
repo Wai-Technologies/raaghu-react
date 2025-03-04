@@ -51,8 +51,8 @@ const isFormValid = isNameValid(formData?.name);
               <div className="col-6">
                 <RdsInput
                   required={true}
-                  reset={inputReset}
-                  label="Name"
+                  reset={inputReset}                  
+                  label={true}
                   placeholder="Enter name"
                   inputType="text"
                   onChange={(e) => {
@@ -65,8 +65,8 @@ const isFormValid = isNameValid(formData?.name);
               </div>
 
               <div className="col-6 ">
-                <RdsInput
-                  label="Display name"
+                <RdsInput                       
+                  label={true}
                   reset={inputReset}
                   placeholder="Enter display name"
                   inputType="text"
@@ -74,7 +74,7 @@ const isFormValid = isNameValid(formData?.name);
                     handleDataChanges(e.target.value, "displayName");
                   }}
                   required={false}
-                  name={"displayName"}
+                  name={"display Name"}
                   value={formData?.displayName}
                   dataTestId="displayName"
                 ></RdsInput>
@@ -93,8 +93,8 @@ const isFormValid = isNameValid(formData?.name);
               />
             </div>
             <div className=" mb-4">
-              <RdsInput
-                label="Allowed access token signing algorithms"
+              <RdsInput               
+               label={true}
                 reset={inputReset}
                 placeholder="Enter Allowed access token signing algorithms"
                 inputType="text"
@@ -105,7 +105,7 @@ const isFormValid = isNameValid(formData?.name);
                   );
                 }}
                 required={false}
-                name={"accessTokenSigningAlgorithm"}
+                name={"access Token Signing Algorithm"}
                 value={formData?.accessTokenSigningAlgorithm}
                 dataTestId="allowed-access-token"
               ></RdsInput>

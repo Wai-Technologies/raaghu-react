@@ -83,11 +83,11 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
         <form>
           <div className="form-group">
             <RdsInput
-              label="User Name"
+              name="User Name"
+              label={true}
               placeholder="User Name"
               inputType="text"
-              required={true}
-              name={"userName"}
+              required={true}              
               readonly={false}
               labelPosition="top"
               value={registerMemberData?.userName}
@@ -104,8 +104,8 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               placeholder="Email"
               customClasses="form-control"
               inputType="text"
-              label="Email"
-              name={"email"}
+              name="Email"
+              label={true}             
               required={true}
               value={registerMemberData?.email}
               onChange={(e: any) =>
@@ -119,11 +119,11 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
 
           <div className="form-group">
             <RdsInput
-              label="Enter First Name"
+              name="Enter First Name"
+              label={true}
               placeholder="Enter First Name"
               inputType="text"
-              required={true}
-              name={"name"}
+              required={true}             
               readonly={false}
               labelPosition="top"
               value={registerMemberData?.name}
@@ -136,11 +136,11 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
 
           <div className="form-group">
             <RdsInput
-              label="Enter Last Name"
+              name="Enter Last Name"
+              label={true}
               placeholder="Enter Last Name"
               inputType="text"
-              required={true}
-              name={"surname"}
+              required={true}              
               readonly={false}
               labelPosition="top"
               value={registerMemberData?.surname}
@@ -156,8 +156,8 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               inputType="password"
               placeholder="Enter Password"
               required={true}
-              label="Password"
-              name="password"
+              name="Password"
+              label={true}             
               id={(errors.password && registerMemberData?.password)? "passwordfield":"password" }
               onBlur={() => setIsPasswordTouched(true)}
               onChange={(e: any) =>

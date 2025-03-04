@@ -126,12 +126,12 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                         ></RdsCheckbox>
                                     </div>
                                     <RdsInput
-                                        label="Already Have An Account"
+                                        name="Already Have An Account"
+                                        label={true}
                                         placeholder="Already Have An Account"
                                         inputType="email/text"
                                         onChange={TenancyNameChange}
-                                        value={currentTenant}
-                                        name={"currentTenant"}
+                                        value={currentTenant}                                       
                                         required={true}
                                         isDisabled={!checked}
                                         dataTestId="tenacy-name"
@@ -169,14 +169,15 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form>
                         <div className="form-group text-start">
                             <RdsInput
-                                label="Email"
+                                name="Email"
+                                label={true}
                                 placeholder="Enter Email"
                                 inputType="email"    
                                onChange={(e) => {
                                 handleDataChanges(e.target.value, "emailAddress");
                               }}
-                              value={registerData?.emailAddress}                               
-                                name={"email"}
+                              value={registerData?.emailAddress}                             
+                                
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
@@ -186,14 +187,14 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                label="Password"
+                                name="Password"
+                                label={true}
                                 placeholder="Enter Password"
                                 inputType="password"
                                  onChange={(e) => {
                                     handleDataChanges(e.target.value, "password");
                                   }}
-                                  value={registerData?.password}
-                                name={"password"}                        
+                                  value={registerData?.password}                                                       
                                 dataTestId="password"
                                 showIcon={true}
                                 validatonPattern={

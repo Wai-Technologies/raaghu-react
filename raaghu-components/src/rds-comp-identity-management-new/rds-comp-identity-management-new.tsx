@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { set } from "date-fns";
-
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompIdentityManagementProps {
     onIdentitySettingsSubmit: any;
     lockoutSettings: any;
@@ -67,10 +67,11 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                    size={InputSize.Medium}   
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Required Length"
+                                    name="Required Length"
+                                    label={true}
                                     fontWeight={"normal"}
                                     readonly={false}
                                     placeholder="Enter Length"
@@ -86,11 +87,12 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 ">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                     size={InputSize.Medium}  
                                     inputType="text"
                                     isDisabled={false}
                                     readonly={false}
-                                    label="Required Unique Chars"
+                                    name="Required Unique Chars"
+                                    label={true}
                                     fontWeight={"normal"}
                                     placeholder="Enter Number"
                                     value={passwordSettings?.requiredUniqueChars}
@@ -164,10 +166,11 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                     size={InputSize.Medium} 
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Password Change PeriodDays"
+                                    name="Password Change PeriodDays"
+                                    label={true}
                                     fontWeight={"normal"}
                                     readonly={false}
                                     placeholder="Enter Length"
@@ -201,11 +204,12 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                             <div className="form-group ">
                                 <RdsInput
                                     fontWeight={"normal"}
-                                    size="medium"
+                                    size={InputSize.Medium}
                                     inputType="number"
                                     isDisabled={false}
                                     readonly={false}
-                                    label="Lockout Duration"
+                                    name="Lockout Duration"
+                                    label={true}
                                     placeholder="Enter Length"
                                     value={passwordSettings?.lockoutDuration}
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "lockoutDuration")}
@@ -218,10 +222,11 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
-                                    size="medium"
+                                    size={InputSize.Medium}  
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Max Failed Access Attempts"
+                                    name="Max Failed Access Attempts"
+                                    label={true}
                                     readonly={false}
                                     placeholder="Enter Name"
                                     value={passwordSettings?.maxFailedAccessAttempts}

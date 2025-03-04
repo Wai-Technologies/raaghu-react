@@ -55,10 +55,10 @@ const isFormValid = isEmailValid(receiverEmailAddress);
                     validationMsg="Invalid Email Address."
                   ></RdsInput> */}
                   <RdsInput
-                    label="Receiver Email Address"
+                    name="Receiver Email Address"
+                    label={true}
                     reset={inputReset}                  
-                    inputType="text"
-                    name="receiverEmail"
+                    inputType="text"                  
                     placeholder="info@mycompanyname.com"
                     required={true}
                     value={receiverEmailAddress}

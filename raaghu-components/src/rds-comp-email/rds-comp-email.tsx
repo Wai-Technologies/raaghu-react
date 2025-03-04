@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsOffcanvas, RdsTextArea } from "../rds-elements";
 import "./rds-comp-email.css";
 import { useTranslation } from "react-i18next";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompEmailProps {
     emailSettings: any;
     onEmailDataSubmit?: any;
@@ -110,8 +110,8 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     <RdsInput
                         fontWeight={"normal"}
                         value={formData?.smtpDomain}
-                        name="displayName"
-                        label="Domain"
+                        name="display Name"                       
+                       label={true}
                         required={false}
                         placeholder={"Enter Domain"}
                         customClasses="form-control"
@@ -125,9 +125,9 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
             <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                 <RdsInput
                     fontWeight={"normal"}
-                    value={formData?.smtpUserName}
-                    name="displayName"
-                    label={"User Name"}
+                    value={formData?.smtpUserName}                  
+                    name={"User Name"}
+                    label={true}
                     required={false}
                     placeholder="Enter User Name"
                     customClasses="form-control"
@@ -138,9 +138,9 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
             <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 pb-3">
                 <RdsInput
                     fontWeight={"normal"}
-                    value={formData?.smtpPassword}
-                    name="displayName"
-                    label="Password"
+                    value={formData?.smtpPassword}                   
+                    name="Password"
+                    label={true}
                     required={false}
                     placeholder={"Enter Password"}
                     inputType="password"
@@ -163,10 +163,10 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
-                                    value={formData?.defaultFromDisplayName}
-                                    name="displayName"
+                                    value={formData?.defaultFromDisplayName}                                   
                                     required={true}
-                                    label="Default From Display Name"
+                                    name="Default From Display Name"
+                                    label={true}
                                     placeholder="Display Name"
                                     customClasses="form-control"
                                     onChange={(e: any) => handleChangeform(e.target.value, "defaultFromDisplayName")}
@@ -182,8 +182,8 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 placeholder="Email Address"
                                 customClasses="form-control"
                                 inputType="text"
-                                label="Default From Address"
-                                name="email"
+                                name="Default From Address"
+                                label={true}                              
                                 required={true}
                                 value={formData?.defaultFromAddress}
                                 onChange={(e: any) => handleChangeform(e.target.value, "defaultFromAddress")}
@@ -204,8 +204,8 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 <RdsInput
                                     fontWeight={"normal"}
                                     value={formData?.smtpHost}
-                                    name="smtpHost"
-                                    label="Host"
+                                    name="smtp Host"                                    
+                                    label={true}
                                     placeholder="127.0.0.1"
                                     required={false}
                                     customClasses="form-control"
@@ -218,9 +218,9 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                             <RdsInput
                                 fontWeight={"normal"}
                                 value={formData?.smtpPort}
-                                name="smtpPort"
-                                placeholder="25"
-                                label="Port"
+                                name="smtp Port"
+                                placeholder="25"                               
+                                label={true}
                                 required={false}
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "smtpPort")}
@@ -286,12 +286,13 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                             <RdsInput
                                                 id=""
                                                 inputType="text"
-                                                label="Sender email address"
-                                                labelPosition="top"
+                                                name="Sender email address"
+                                                label={true}
+                                                labelPosition={LabelPosition.Top}
                                                 placeholder="Enter sender email address"
                                                 reset={inputReset}
                                                 required={true}
-                                                size="medium"
+                                                size={InputSize.Medium}   
                                                 value={sendTestEmailData?.senderEmailAddress}
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "senderEmailAddress")}
                                                 validatonPattern={
@@ -304,12 +305,13 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                             <RdsInput
                                                 id=""
                                                 inputType="text"
-                                                label="Target email address"
-                                                labelPosition="top"
+                                                name="Target email address"
+                                                label={true}
+                                                labelPosition={LabelPosition.Top}
                                                 placeholder="Enter target email address"
                                                 reset={inputReset}
                                                 required={true}
-                                                size="medium"
+                                                size={InputSize.Medium}   
                                                 value={sendTestEmailData?.targetEmailAddress}
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "targetEmailAddress")}
                                                 validatonPattern={
@@ -324,12 +326,13 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                             <RdsInput
                                                 id=""
                                                 inputType="text"
-                                                label="Subject"
-                                                labelPosition="top"
+                                                name="Subject"
+                                                label={true}
+                                                labelPosition={LabelPosition.Top}
                                                 placeholder="Subject"
                                                 reset={inputReset}
                                                 required={true}
-                                                size="medium"
+                                                size={InputSize.Medium}   
                                                 value={sendTestEmailData?.subject}
                                                 onChange={(e: any) => onSubmitSendTestMail(e.target.value, "subject")}
                                             />

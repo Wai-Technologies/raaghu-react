@@ -64,8 +64,8 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
             <div className="custom-content-scroll">
                 <div className="row">
                     <div className="col-md-12">
-                        <RdsInput
-                            label="Name"
+                        <RdsInput                            
+                            label={true}
                             value={formData?.name}
                             placeholder="Enter Name"
                             required={true}
@@ -77,8 +77,8 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                     </div>
                     <div className="col-md-6  pt-2">
                         {" "}
-                        <RdsInput
-                            label="Regex"
+                        <RdsInput                           
+                            label={true}
                             value={formData?.regex}
                             placeholder="Enter Regex"
                             name="regex"
@@ -104,11 +104,11 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
 
                     </div>
                     <div className="col-md-12 pt-2">
-                        <RdsInput
-                            label="Regex Description"
+                        <RdsInput                          
+                            label={true}
                             value={formData?.regexDescription}
                             placeholder="Enter Regex Description"
-                            name="regexDesc"
+                            name="regex Desc"
                             required={true}
                             onChange= {(e) =>{handleSelectChange(e.target.value , "regexDescription");}}
                             dataTestId="reges-description"

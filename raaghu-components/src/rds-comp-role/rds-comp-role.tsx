@@ -41,7 +41,8 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                             <div className="col-md-12 mb-2">
                                 <div className="form-group">  
                                     <RdsInput
-                                        label="Role Name"
+                                        name="Role Name"
+                                        label={true}
                                         size="medium"
                                         inputType="text"
                                         isDisabled={false}

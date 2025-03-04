@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea, RdsTextEditor } from "../rds-elements";
 import "./rds-comp-premium-support.css";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompPremiumSupportProps {
   premiumSupportData?: any;
   reset?: boolean;
@@ -99,11 +99,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="text"
-                                        label="Name"
-                                        labelPosition="top"
+                                        name="Name"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Name"
                                         // required
-                                        size="medium"
+                                        size={InputSize.Medium}   
                                         value={premiumSupportData?.name}
                                         onChange={(e: any) => {
                                             handlePremiumSupportDataChanges(e.target.value, "name");
@@ -114,11 +115,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="email"
-                                        label="Email"
-                                        labelPosition="top"
+                                        name="Email"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Email"
                                         // required
-                                        size="medium"
+                                        size={InputSize.Medium}   
                                         value={premiumSupportData?.email}
                                         onChange={(e: any) => {
                                             handlePremiumSupportDataChanges(e.target.value, "email");
@@ -130,11 +132,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="number"
-                                        label="Contact Number"
-                                        labelPosition="top"
+                                        name="Contact Number"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Contact Number"
                                         required
-                                        size="medium"
+                                        size={InputSize.Medium}   
                                         reset={inputReset}
                                         value={premiumSupportData?.phoneNumber}
                                         maxLength={10}

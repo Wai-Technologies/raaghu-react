@@ -9,7 +9,8 @@ const RdsCompInvoice = (props: RdsCompInvoiceProps) => {
             <div>
                 <h5 className="mb-3">Invoice Information</h5>
                 <div className="mb-3">
-                    <RdsInput label="Legal name" placeholder="Enter name" />
+                    <RdsInput name="Legal name"
+                       label={true} placeholder="Enter name" />
                 </div>
                 <div className="mb-3">
                     <RdsTextArea placeholder="Address" rows={4} label="Address" />

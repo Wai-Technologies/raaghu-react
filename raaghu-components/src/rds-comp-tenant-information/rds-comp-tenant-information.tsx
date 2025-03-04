@@ -222,7 +222,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     reset={inputReset}
                                     inputType="text"
                                     required={true}
-                                    label="Name"
+                                    name="Name"
+                                    label={true}
                                     value={tenantInformationData?.name}
                                     placeholder="Enter Tenant Name"
                                     onChange={(e) => {
@@ -259,9 +260,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         reset={inputReset}
                                         required={true}
                                         inputType="email"
-                                        label="Admin Email"
-                                        placeholder="Enter Email"
-                                        name="email"
+                                        name="Admin Email"
+                                        label={true}
+                                        placeholder="Enter Email"                                        
                                         value={tenantInformationData?.adminEmailAddress}
                                         id="email"
                                         onChange={(e: any) => {
@@ -277,10 +278,10 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 <RdsInput
                                 reset={inputReset}
                                 required={true}
-                                label="Password"
+                                name="Password"
+                                label={true}
                                 placeholder="Enter Password"
-                                inputType="password"
-                                name="adminPassword"
+                                inputType="password"                                
                                 id={(errors.adminPassword && tenantInformationData?.adminPassword) ? "passwordfield" : "adminPassword"}
                                 onBlur={() => setIsPasswordTouched(true)}
                                 value={tenantInformationData?.adminPassword}

@@ -98,7 +98,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6">
               <div className="form-group">
                 <RdsInput
-                  label="First Name"
+                  name="First Name"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -115,7 +116,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
-                  label="Last Name"
+                  name="Last Name"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -135,7 +137,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
-                  label="Company"
+                  name="Company"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -152,7 +155,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
-                  label="Phone"
+                  name="Phone"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -189,7 +193,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
           <div className="col-md-12 ">
             <div className="form-group">
               <RdsInput
-                label="Address"
+                name="Address"
+                label={true}
                 inputType="text"
                 isDisabled={false}
                 readonly={false}
@@ -209,7 +214,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6">
               <div className="form-group">
                 <RdsInput
-                  label="City"
+                  name="City"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -244,7 +250,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6 ">
               <div className="form-group">
                 <RdsInput
-                  label="State/Province"
+                  name="State/Province"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}
@@ -261,7 +268,8 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             <div className="col-md-6  pb-3">
               <div className="form-group">
                 <RdsInput
-                  label="Postal Code"
+                  name="Postal Code"
+                  label={true}
                   inputType="text"
                   isDisabled={false}
                   readonly={false}

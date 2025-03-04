@@ -10,7 +10,7 @@ import {
   RdsTooltip,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-
+import {LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
   handleQuestions?: any;
@@ -236,12 +236,12 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               <div className="row">
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                   <RdsInput
-                    label="Title"
+                    name="Title"
+                    label={true}
                     placeholder="Title"
                     inputType="text"
                     onChange={(e: any) => setTitle(i, e.target.value)}
-                    value={element.title}
-                    name={"title"}
+                    value={element.title}                   
                     dataTestId="title"
                   ></RdsInput>
                 </div>
@@ -315,8 +315,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                   value={elements.value}
                                   name={"option"}
                                   readonly={elements.readOnly}
-                                  customClasses="rounded-start-0"
-                                  labelPosition="right"
+                                  customClasses="rounded-start-0"                                 
+                                 labelPosition={LabelPosition.Right}
                                   dataTestId="option"
                                 ></RdsInput>
                               </div>

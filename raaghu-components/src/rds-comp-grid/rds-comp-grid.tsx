@@ -2579,6 +2579,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                     </div>
                                   ) : (
                                     <RdsInput
+                                      name={tableHeader.key}
                                       inputType={tableHeader.datatype}
                                       value={tableDataRow[tableHeader.key]}
                                       onChange={(e) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsLabel, RdsButton } from "../rds-elements";
-
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompUserClaimsProps { 
     userClaimData?: any;
     reset?: boolean;
@@ -53,12 +53,13 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                         <div className="col-md-6">
                             <div className="form-group mb-3">
                                 <RdsInput
-                                    label="Type"
+                                    name="Type"
+                                    label={true}
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
                                     placeholder="Enter Type"
-                                    size="medium"
+                                    size={InputSize.Medium}
                                     dataTestId="type"
                                     onChange={(e) => {
                                         handleDataChanges(e.target.value, "type");
@@ -70,12 +71,13 @@ const RdsCompUserClaim = (props: RdsCompUserClaimsProps) => {
                         <div className="col-md-6">
                             <div className="form-group mb-3">
                                 <RdsInput
-                                    label="Value"
+                                    name="Value"
+                                    label={true}
                                     required={true}
                                     reset={inputReset}
                                     inputType="text"
                                     placeholder="Enter Value"
-                                    size="medium"
+                                    size={InputSize.Medium}
                                     dataTestId="value"
                                     onChange={(e) => {
                                         handleDataChanges(e.target.value, "value");

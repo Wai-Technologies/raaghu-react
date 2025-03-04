@@ -47,7 +47,8 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
 
                         <RdsInput
                             reset={inputReset}
-                            label="Client Secret"
+                            name="Client Secret"
+                            label={true}
                             placeholder="Enter Client Secrete"
                             inputType="text"
                             onChange={(e) => handleDataChanges(e.target.value, "clientSecret")}

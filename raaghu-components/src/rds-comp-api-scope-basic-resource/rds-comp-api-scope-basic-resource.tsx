@@ -52,8 +52,8 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                         <div className="col-md-6">
                             <RdsInput
                                 reset={inputReset}
-                                required={true}
-                                label="Name"
+                                required={true}                                           
+                                label={true}
                                 placeholder="Enter Name"
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "name")}
@@ -66,13 +66,13 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
 
                         <div className="col-md-6 ">
                             <RdsInput
-                                reset={inputReset}
-                                label="Display Name"
+                                reset={inputReset}                                
+                                label={true}
                                 placeholder="Enter Display Name"
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "displayName")}
                                 required={false}
-                                name={"Displayname"}
+                                name={"Display name"}
                                 value={fieldScopeData?.displayName}
                                 dataTestId="display-name"
                             ></RdsInput>
@@ -82,12 +82,12 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                     <div className=" mb-3 mt-2">
                         <RdsInput
                             reset={inputReset}
-                            label="Description"
+                            name={"Description"}   
+                            label={true}
                             placeholder="Description"
                             inputType='text'
                             onChange={(e) => inputHandlerChange(e, "description")}
-                            required={false}
-                            name={"Description"}
+                            required={false}                            
                             value={fieldScopeData?.description}
                             dataTestId="desc"
                         ></RdsInput>

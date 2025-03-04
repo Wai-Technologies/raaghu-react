@@ -118,8 +118,8 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         required={true}
                                         inputType="text"
                                         placeholder="Database Connection String"
-                                        label="Database Connection String"
-                                        name="dcstring"
+                                        name="Database Connection String"
+                                        label={true}                                       
                                         id="dcstring"
                                         dataTestId="connection-string"
                                         onChange={(e) => {
@@ -140,8 +140,8 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         inputType="password"
                                         placeholder="Enter Password"
                                         required={true}
-                                        label="Password"
-                                        name="password"
+                                        name="Password"
+                                        label={true}                                        
                                         id={(errors.password && formData?.password)? "passwordfield":"password" }
                                         onBlur={() => setIsPasswordTouched(true)}
                                         onChange={(e) => {
@@ -161,8 +161,8 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                                         inputType="password"
                                         placeholder="Enter Confirm Password"
                                         required={true}
-                                        label="Confirm Password"
-                                        name="cpassword"
+                                        name="Confirm Password"
+                                        label={true}                                       
                                         id={(errors.cpassword &&  formData?.cpassword)? "passwordfield":"cpassword" }
                                         onFocus={() => setIsConfirmPasswordFocused(true)}
                                         onBlur={() => setIsConfirmPasswordTouched(true)}
