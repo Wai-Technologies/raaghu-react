@@ -104,7 +104,7 @@ const isPeriodValid = (period: any) => {
                 }}
                 value={formData?.email}
                 reset={inputReset}
-                name={"email"}
+                name={"Email Id"}
                 required
                 dataTestId="email"
                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
@@ -122,7 +122,7 @@ const isPeriodValid = (period: any) => {
                 }}
                 value={formData?.fullName}
                 reset={inputReset}
-                name={"full Name"}
+                name={"Full Name"}
                 required
                 dataTestId="full-name"
               ></RdsInput>
@@ -156,7 +156,7 @@ const isPeriodValid = (period: any) => {
                   }}
                 value={formData?.contactNumber}
                 reset={inputReset}
-                name={"contact Number"}
+                name={"Contact Number"}
                 dataTestId="contact-number"
                 required
               ></RdsInput>
@@ -171,7 +171,7 @@ const isPeriodValid = (period: any) => {
                   handleDataChanges(e.target.value, "position");
                 }}
                 value={formData?.position}
-                name={"position"}
+                name={"Applying For Position"}
                 reset={inputReset}
                 required
                 dataTestId="position-name"

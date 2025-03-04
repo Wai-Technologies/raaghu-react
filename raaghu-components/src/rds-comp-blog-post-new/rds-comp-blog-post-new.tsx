@@ -154,7 +154,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 isDisabled={false}                
                 label={true}
                 readonly={false}
-                name="title"
+                name="Title"
                 placeholder="Enter Title"
                 onChange={(e) => {
                   handlerBlogDataChange(e.target.value, "title");
@@ -170,7 +170,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 required={true}
                // label="Slug"
                 label={true}
-                name="slug"
+                name="Slug"
                 placeholder="Enter Slug"
                 dataTestId="slug"
                 onChange={(e) => {
@@ -187,7 +187,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                   required={true}
                   //name="Concurrency Stamp"
                   label={true}
-                  name="concurrent Mode"
+                  name="Concurrent Mode"
                   placeholder=""
                   onChange={(e) => {
                     handlerBlogDataChange(e.target.value, "concurrencyStamp");

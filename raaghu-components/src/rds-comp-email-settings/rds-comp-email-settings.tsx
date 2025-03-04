@@ -44,7 +44,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
-                    name="currentEmail"
+                    name="Surrent Email"
                     placeholder="Enter Current Email"
                     customClasses="form-control"
                     inputType="email"
@@ -61,7 +61,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
-                    name="newEmail"
+                    name="New Email"
                     placeholder="Enter New Email"
                     customClasses="form-control"
                     inputType="email"
@@ -78,7 +78,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
-                    name="confirmEmail"
+                    name="Confirm New Email"
                     placeholder="Confirm New Email"
                     customClasses="form-control"
                     inputType="email"

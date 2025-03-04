@@ -112,7 +112,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     <RdsInput
                         fontWeight={"normal"}
                         value={formData?.smtpDomain}
-                        name="display Name"                       
+                        name="Display Name"                       
                        label={true}
                         required={false}
                         placeholder={"Enter Domain"}
@@ -206,7 +206,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                 <RdsInput
                                     fontWeight={"normal"}
                                     value={formData?.smtpHost}
-                                    name="smtp Host"                                    
+                                    name="Smtp Host"                                    
                                     label={true}
                                     placeholder="127.0.0.1"
                                     required={false}
@@ -220,7 +220,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                             <RdsInput
                                 fontWeight={"normal"}
                                 value={formData?.smtpPort}
-                                name="smtp Port"
+                                name="Smtp Port"
                                 placeholder="25"                               
                                 label={true}
                                 required={false}

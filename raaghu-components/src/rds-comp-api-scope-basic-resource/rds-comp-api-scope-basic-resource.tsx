@@ -58,7 +58,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "name")}
                                 value={fieldScopeData?.name}
-                                name={"email"}
+                                name={"Name"}
                                 dataTestId="name"
                             ></RdsInput>
 
@@ -72,7 +72,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                                 inputType='text'
                                 onChange={(e) => inputHandlerChange(e, "displayName")}
                                 required={false}
-                                name={"Display name"}
+                                name={"Display Name"}
                                 value={fieldScopeData?.displayName}
                                 dataTestId="display-name"
                             ></RdsInput>

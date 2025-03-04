@@ -332,7 +332,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                                  <div className="form-group">
                                     <RdsInput
                                        value={modeData?.appUrl}
-                                       name="app-url"                                      
+                                       name="Application URL"                                      
                                        label={true}
                                        placeholder="Enter Application URL"
                                        customClasses="form-control"

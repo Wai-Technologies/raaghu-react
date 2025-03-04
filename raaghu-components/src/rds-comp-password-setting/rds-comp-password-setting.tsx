@@ -91,7 +91,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
-                            name="Current password"
+                            name="Current Password"
                             label={true}
                             reset={inputReset}
                             required={true}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
-
+import {  LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompRegisterMemberProps {
   registerMemberData?: any;
   isEmailFieldVisible?: boolean;
@@ -90,7 +90,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               inputType="text"
               required={true}              
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.userName}
               dataTestId="name"
               onChange={(e: any) =>
@@ -126,7 +126,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               inputType="text"
               required={true}             
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.name}
               dataTestId="name"
               onChange={(e: any) =>
@@ -143,7 +143,7 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               inputType="text"
               required={true}              
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.surname}
               dataTestId="surname"
               onChange={(e: any) =>

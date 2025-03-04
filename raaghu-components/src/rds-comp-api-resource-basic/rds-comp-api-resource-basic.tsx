@@ -59,7 +59,7 @@ const isFormValid = isNameValid(formData?.name);
                     handleDataChanges(e.target.value, "name");
                   }}
                   value={formData?.name}
-                  name={"name"}
+                  name={"Name"}
                   dataTestId="name"
                 ></RdsInput>
               </div>
@@ -74,7 +74,7 @@ const isFormValid = isNameValid(formData?.name);
                     handleDataChanges(e.target.value, "displayName");
                   }}
                   required={false}
-                  name={"display Name"}
+                  name={"Display Name"}
                   value={formData?.displayName}
                   dataTestId="displayName"
                 ></RdsInput>
@@ -105,7 +105,7 @@ const isFormValid = isNameValid(formData?.name);
                   );
                 }}
                 required={false}
-                name={"access Token Signing Algorithm"}
+                name={"Allowed Access Token Signing Algorithm"}
                 value={formData?.accessTokenSigningAlgorithm}
                 dataTestId="allowed-access-token"
               ></RdsInput>

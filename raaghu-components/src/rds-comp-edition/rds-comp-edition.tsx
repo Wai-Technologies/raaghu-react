@@ -239,7 +239,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                     <RdsInput
                         required={true}
                         inputType="text"
-                        name={"Edition Name"}
+                        name={"Select"}
                         label={true}
                         placeholder="Edition Name"                       
                         value={FormData?.editionName}

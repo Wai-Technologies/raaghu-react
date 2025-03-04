@@ -381,25 +381,25 @@ const RdsCard = (props: RdsCardProps) => {
                     placeholder="Card Title"
                   />
                   <RdsInput
-                    name="cardSubTitle"
+                    name="Card Sub Title"
                     value={cardSubTitle}
                     onChange={(e) => setCardSubTitle(e.target.value)}
                     placeholder="Card Subtitle"
                   />
                   <RdsInput
-                    name="firstName"
+                    name="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="First Name"
                   />
                   <RdsInput
-                    name="lastName"
+                    name="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Last Name"
                   />
                   <RdsInput
-                    name="role"
+                    name="Role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     placeholder="Role"

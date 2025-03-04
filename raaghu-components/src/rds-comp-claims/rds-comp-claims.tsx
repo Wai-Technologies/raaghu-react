@@ -109,7 +109,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                             label={true}
                             reset={inputReset}
                             placeholder="Enter Value"
-                            name="value"
+                            name="Value"
                             value={selectedData.claimValue}
                             onChange={(event) =>
                                 setSelectedData({

@@ -74,7 +74,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
                     <RdsInput
                       reset={inputReset}                     
-                      name="clientId"
+                      name="Client Id"
                       label={true}
                       placeholder="Enter Client Id"
                       inputType="text"
@@ -89,7 +89,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                     <RdsInput
                       reset={inputReset}
                       required={true}                      
-                      name="display Name"
+                      name="Display Name"
                       label={true}
                       placeholder="Enter Display Name"
                       inputType="text"
@@ -104,7 +104,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3">
                   
                     <RdsInput
-                      name="client uri"
+                      name="Client Uri"
                       labelPosition={LabelPosition.Top}
                       label={true}
                       placeholder="Enter Client Uri"
@@ -123,7 +123,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3">
                     
                     <RdsInput
-                      name="logo uri"
+                      name="Logo Uri"
                       labelPosition={LabelPosition.Top}                     
                       label={true}
                       placeholder="Enter Logo Uri"

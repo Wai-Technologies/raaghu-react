@@ -316,7 +316,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                     setOption(i, idx, e.target.value)
                                   }
                                   value={elements.value}
-                                  name={"option"}
+                                  name={"Option"}
                                   readonly={elements.readOnly}
                                   customClasses="rounded-start-0"                                 
                                  labelPosition={LabelPosition.Right}

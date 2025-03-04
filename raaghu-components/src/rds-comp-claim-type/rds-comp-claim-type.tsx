@@ -69,7 +69,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             value={formData?.name}
                             placeholder="Enter Name"
                             required={true}
-                            name="name"
+                            name="Name"
                             onChange= {(e) =>{handleSelectChange(e.target.value , "name");}}
                             dataTestId="name"
                             reset={inputReset}
@@ -81,7 +81,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             label={true}
                             value={formData?.regex}
                             placeholder="Enter Regex"
-                            name="regex"
+                            name="Regex"
                             required={true}
                             onChange= {(e) =>{handleSelectChange(e.target.value , "regex");}}
                             dataTestId="regex"
@@ -108,7 +108,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             label={true}
                             value={formData?.regexDescription}
                             placeholder="Enter Regex Description"
-                            name="regex Desc"
+                            name="Regex Description"
                             required={true}
                             onChange= {(e) =>{handleSelectChange(e.target.value , "regexDescription");}}
                             dataTestId="reges-description"

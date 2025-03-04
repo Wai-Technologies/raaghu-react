@@ -167,7 +167,7 @@ function emitSaveData(event: any) {
                                 label={true}
                                 size={InputSize.Medium}   
                                 inputType="text"
-                                name="first Name"
+                                name="First Name"
                                 placeholder="Enter First Name"
                                 value={formData?.firstName}
                                 onChange={(e) => { handleChange(e.target.value,"firstName"); }}
@@ -187,7 +187,7 @@ function emitSaveData(event: any) {
                                 label={true}
                                 size={InputSize.Medium} 
                                 inputType="text"
-                                name="last Name"
+                                name="Last Name"
                                 placeholder="Enter Last Name"
                                 required={true}
                                 // onBlur={(e) => lastNameValidation(e.target.value)}
@@ -208,7 +208,7 @@ function emitSaveData(event: any) {
                             <RdsInput                               
                                 label={true}
                                 size={InputSize.Medium} 
-                                name="company"
+                                name="Company"
                                 id="txtCompany"
                                 placeholder="Enter Company"
                                 dataTestId="company"
@@ -220,7 +220,7 @@ function emitSaveData(event: any) {
                             <RdsInput                               
                                 label={true}
                                 size={InputSize.Medium} 
-                                name="phone"
+                                name="Phone"
                                 id="txtPhone"
                                 placeholder="Enter phone"
                                 required={true}
@@ -260,7 +260,7 @@ function emitSaveData(event: any) {
                                 label={true}
                                 placeholder="Enter Address"
                                 size={InputSize.Medium} 
-                                name="address"
+                                name="Address"
                                 id="txtAddress"
                                 required={true}
                                 // onBlur={(e) => addressValidation(e.target.value)}
@@ -281,7 +281,7 @@ function emitSaveData(event: any) {
                             <RdsInput                               
                                 label={true}
                                 size={InputSize.Medium} 
-                                name="city"
+                                name="City"
                                 id="txtCompany"
                                 placeholder="Enter City"
                                 required={true}
@@ -340,7 +340,7 @@ function emitSaveData(event: any) {
                         <div className="col-md-6">
                             <RdsInput                                
                                 label={true}
-                                name="postal Code"
+                                name="Postal Code"
                                 id="txtPostalCode"
                                 placeholder="Enter Postal code"
                                 required={true}

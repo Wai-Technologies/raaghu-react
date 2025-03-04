@@ -256,7 +256,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           <RdsInput                      
                             size={InputSize.Medium}
                             inputType="text"
-                            name="verifyBaseUrl"
+                            name="Verify BaseUrl"
                             label={true}
                             placeholder="Enter URL"
                             customClasses="form-control"
@@ -295,7 +295,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                         <div className="form-group ">
                           <RdsInput                
                             labelPosition={LabelPosition.Top}
-                            name="siteKey"
+                            name="Site Key"
                             label={true}
                             placeholder="Enter URL"
                             customClasses="form-control"
@@ -313,7 +313,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
-                          name="siteSecret"
+                          name="Site Secret"
                           labelPosition={LabelPosition.Top}
                           label={true}
                           placeholder="Enter Secret"
@@ -330,7 +330,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
-                            name="score"            
+                            name="Score"            
                             label={true}                              
                             size={InputSize.Medium}                        
                             placeholder="Enter Score"
