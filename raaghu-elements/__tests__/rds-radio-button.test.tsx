@@ -29,7 +29,7 @@ describe("RdsRadioButton", () => {
         const errorMessage = "This is an error message";
         render(<RdsRadioButton onChange={function (value: any): void {
             throw new Error("Function not implemented.");
-        } } value={""} {...defaultProps} state="errorRadio" errorMessage={errorMessage} />);
+        } } value={""} {...defaultProps}  errorMessage={errorMessage} />);
         expect(screen.getByText(errorMessage)).toBeInTheDocument();
     });
 
