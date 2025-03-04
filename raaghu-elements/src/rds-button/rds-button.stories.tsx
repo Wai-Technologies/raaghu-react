@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import RdsButton from "./rds-button";
 import React from "react";
 import RdsBadge from "../rds-badge/rds-badge"; // Import RdsBadge
+import { Tooltip } from "bootstrap";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 const displayOptions = ["Icon + Text", "Icon Only", "Text Only"]; 
 
@@ -82,8 +84,8 @@ const meta: Meta = {
             control: { type: "select" },
         },
         tooltipPlacement: {
-            options: ["right", "left", "top", "bottom"],
-            control: {type: "select"},
+            options: ["NoArrow", "MiddleTopArrow", "MiddleBottomArrow", "LeftArrow", "LeftTopArrow", "LeftBottomArrow", "RightArrow", "RightTopArrow", "RightBottomArrow"],
+            control: { type: "select" },
             //if: { arg: "tooltip"},
         },
         /*tooltipTitle: {
@@ -118,7 +120,7 @@ export const Default: Story = {
         label: "Click Here",
         databstoggle: "tooltip",
         tooltip: false, 
-        tooltipPlacement: "right",
+        tooltipPlacement: TooltipStyle.LeftArrow,
         tooltipTitle: "This is tooltip",
         withBadge: false,
         badgeLabel: "99", // Badge label

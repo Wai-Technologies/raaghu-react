@@ -7,11 +7,13 @@ import { NavLayout, NavType, Platform } from "../../../raaghu-elements/src/rds-s
 export * from "../../../raaghu-elements/src/index";
 export * from "../../../raaghu-components/src/index";
 export interface RdsCompAppShellProps {
-  displayType: DisplayType;
+  displayType: AppShellDisplayType;
   children?: ReactNode;
 }
 
-export enum DisplayType {
+export enum AppShellDisplayType {
+  Basic="Basic",
+  Header="Header",
   Default = "Default",
   Relaxing = "Relaxing",
   TopNav = "Top Nav",
