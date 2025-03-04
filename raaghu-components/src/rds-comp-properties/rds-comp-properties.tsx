@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 import { RdsInput, RdsButton, RdsIcon } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
@@ -128,7 +128,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
         {props.displayType == "basic" && (
             <form onSubmit={handleSubmit}>
                 <RdsCompDatatable
-                    actionPosition="right"
+                    actionPosition={ActionPosition.Right}
                     tableHeaders={props.propertyHeaders}
                     tableData={props.propertyData}
                     pagination={false}
@@ -138,22 +138,22 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                 <div className=" fw-normal row mb-3 mt-2">
                     <div className="col-md-5 col-sm-12 mb-3">
                         <RdsInput
-                            label="Key"
+                            name="Key"
+                            label={true}
                             placeholder="Enter a key"
                             inputType="text"
-                            onChange={headerKeyhandleChange}
-                            name={"Key"}
+                            onChange={headerKeyhandleChange}                            
                             value={key}
                             dataTestId="key"
                         ></RdsInput>
                     </div>
                     <div className="col-md-5 col-sm-12 mb-3">
                         <RdsInput
-                            label="Value"
+                            name="Value"
+                            label={true}
                             placeholder="Enter a value"
                             inputType="text"
-                            onChange={headerValuehandleChange}
-                            name={"value"}
+                            onChange={headerValuehandleChange}                           
                             value={value}
                             dataTestId="value"
                         ></RdsInput>
@@ -196,7 +196,8 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
             <div className=" row g-3 mt-3 px-2">
                 <div className="col-md-5">
                     <RdsInput
-                        label="Key"
+                        name="Key"
+                        label={true}
                         placeholder="Enter a key"
                         inputType="text"
                         onChange={(e: any) => {
@@ -208,7 +209,8 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                 </div>
                 <div className="col-md-5">
                     <RdsInput
-                        label="Value"
+                        name="Value"
+                        label={true}
                         placeholder="Enter a value"
                         inputType="text"
                         onChange={(e: any) => {
@@ -232,7 +234,7 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
             </div>
             <div className="mt-3 px-2">
                 <RdsCompDatatable
-                    actionPosition="right"
+                    actionPosition={ActionPosition.Right}
                     tableHeaders={tableHeaders}
                     tableData={tableData}
                     pagination={false}

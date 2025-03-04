@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: "Elements/Select List",
+    title: "Components/Select List",
     component: RdsSelectList,
     argTypes: {
         size: {

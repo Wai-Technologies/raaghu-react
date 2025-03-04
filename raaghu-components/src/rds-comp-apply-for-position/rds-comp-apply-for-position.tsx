@@ -7,6 +7,7 @@ import {
   RdsLabel,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { FileUploaderStyle, Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 
 export interface RdsCompApplyForPositionProps {
   applyForPositionData?: any;
@@ -95,8 +96,8 @@ const isPeriodValid = (period: any) => {
         <div className="custom-content-scroll">
           <div className="row">
             <div className="col-lg-6 col-md-12">
-              <RdsInput
-                label="Email ID"
+              <RdsInput              
+                label={true}
                 placeholder="name@domain.com"
                 inputType="email"
                 onChange={(e) => {
@@ -104,7 +105,7 @@ const isPeriodValid = (period: any) => {
                 }}
                 value={formData?.email}
                 reset={inputReset}
-                name={"email"}
+                name={"Email Id"}
                 required
                 dataTestId="email"
                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
@@ -113,8 +114,8 @@ const isPeriodValid = (period: any) => {
             </div>
 
             <div className="col-lg-6 col-md-12">
-              <RdsInput
-                label="Full Name"
+              <RdsInput                
+                label={true}
                 placeholder="Full Name"
                 inputType="text"
                 onChange={(e) => {
@@ -122,7 +123,7 @@ const isPeriodValid = (period: any) => {
                 }}
                 value={formData?.fullName}
                 reset={inputReset}
-                name={"fullName"}
+                name={"Full Name"}
                 required
                 dataTestId="full-name"
               ></RdsInput>
@@ -130,8 +131,8 @@ const isPeriodValid = (period: any) => {
           </div>
           <div className="row mt-2">
             <div className="col-md-6 col-sm-12">
-              <RdsInput
-                label="Contact Number"
+              <RdsInput                
+                label={true}
                 placeholder="+91 9087654321"
                 inputType="text"
                 onChange={(e) => {
@@ -156,22 +157,22 @@ const isPeriodValid = (period: any) => {
                   }}
                 value={formData?.contactNumber}
                 reset={inputReset}
-                name={"contactNumber"}
+                name={"Contact Number"}
                 dataTestId="contact-number"
                 required
               ></RdsInput>
             </div>
 
             <div className="col-md-6 col-sm-12">
-              <RdsInput
-                label="Applying For Position"
+              <RdsInput                
+                label={true}
                 placeholder="Position Name"
                 inputType="text"
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "position");
                 }}
                 value={formData?.position}
-                name={"position"}
+                name={"Applying For Position"}
                 reset={inputReset}
                 required
                 dataTestId="position-name"
@@ -182,15 +183,15 @@ const isPeriodValid = (period: any) => {
             <div className="col-md-6 col-sm-12">
               <div className="mb-2 mt-2">
                 <RdsInput
-                  label="When Can You Start?"
+                  name="When Can You Start?"
+                  label={true}
                   placeholder="Notice Period"
                   inputType="text"
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "period");
                   }}
                   value={formData?.period}
-                  reset={inputReset}
-                  name={"period"}
+                  reset={inputReset}                 
                   required
                   dataTestId="notice-period"
                 ></RdsInput>
@@ -202,9 +203,9 @@ const isPeriodValid = (period: any) => {
                   colorVariant="primary"
                   extensions="png, jpg, doc, pdf, ppt"
                   fileSizeLimitInMb={5}
-                  Drop_Area_Side_Icon
+                  style={FileUploaderStyle.DropAreaSideIcon}
                   multiple={true}
-                  size="large"
+                  size={Size.Large}
                   validation={[
                     {
                       hint: "File size exceeds the limit",

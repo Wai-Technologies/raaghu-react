@@ -31,10 +31,10 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                 <div>
                     <label className="mb-2 fw-medium">Password Complexity </label>
                     <div className="fw-normal">
-                        <RdsCheckbox label="Use Default Settings" checked={isDefaultChecked} />
+                        <RdsCheckbox labeltext="Use Default Settings" checked={isDefaultChecked} />
                         <div className="m-3 ">
                             {props.checkgroupList.map((item, index) => (
-                                <RdsCheckbox key={index} label={item.label} checked={item.checked} onChange={() => { item.onCheck(!item.checked); item.checked = !item.checked; }} />
+                                <RdsCheckbox key={index} labeltext={item.label} checked={item.checked} onChange={() => { item.onCheck(!item.checked); item.checked = !item.checked; }} />
                             ))}
                         </div>
                     </div>
@@ -51,7 +51,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                     <label className="mt-2 mb-2 fw-medium">User Lock Out</label>
                     <div className="fw-normal">
                         <RdsCheckbox
-                            label="Enable user Account Locking On Failed Login Attempts"
+                            labeltext="Enable user Account Locking On Failed Login Attempts"
                             checked={false}
                         />
                     </div>
@@ -69,7 +69,8 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
 
                 <div className="mb-3 fw-normal mt-2 col-5">
                     <RdsInput
-                        label=" Account Locking Duration(as seconds) "
+                        name=" Account Locking Duration(as seconds) "
+                        label={true}
                         inputType="number"
                         placeholder="Enter a Value"
                     />
@@ -77,12 +78,12 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
 
                 <label className="mt-2 fw-medium">Two Factor Login </label>
                 <div className="fw-normal py-2">
-                    <RdsCheckbox label="Enable Two Factor Login  " checked={false} />
+                    <RdsCheckbox labeltext="Enable Two Factor Login  " checked={false} />
                 </div>
                 <label className="mt-2 fw-medium">Only One Concurrent Login per user </label>
                 <div className="fw-normal py-2">
                     <RdsCheckbox
-                        label="Disable Concurrent Login For A User. If A User Logins With A Second Device, The First Session Is Automatically Closed."
+                        labeltext="Disable Concurrent Login For A User. If A User Logins With A Second Device, The First Session Is Automatically Closed."
                         checked={false}
                     />
                 </div>

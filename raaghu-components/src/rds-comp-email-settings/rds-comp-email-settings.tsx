@@ -44,6 +44,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="Surrent Email"
                     placeholder="Enter Current Email"
                     customClasses="form-control"
                     inputType="email"
@@ -60,6 +61,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="New Email"
                     placeholder="Enter New Email"
                     customClasses="form-control"
                     inputType="email"
@@ -76,6 +78,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="Confirm New Email"
                     placeholder="Confirm New Email"
                     customClasses="form-control"
                     inputType="email"
@@ -117,7 +120,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
                         <RdsInput
-                            label="Default From Display Name"
+                            name="Default From Display Name"
+                            label={true}
                             placeholder="Enter Display Name"
                             customClasses="form-control"
                             inputType="email"
@@ -127,7 +131,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
-                        label="Default From Address"
+                        name="Default From Address"
+                        label={true}
                         placeholder="Enter Email Address"
                         customClasses="form-control"
                         dataTestId='address'
@@ -143,7 +148,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
                         <RdsInput
-                            label="Host"
+                            name="Host"
+                            label={true}
                             placeholder="127.0.0.1"
                             customClasses="form-control"
                             dataTestId='host'
@@ -152,7 +158,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
-                        label="Port"
+                        name="Port"
+                        label={true}
                         placeholder="25"
                         customClasses="form-control"
                         dataTestId='port'
@@ -164,7 +171,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
-                    <RdsCheckbox label="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
+                    <RdsCheckbox labeltext="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
                 </div>
             </div>
 
@@ -173,7 +180,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
                     <RdsCheckbox
-                        label="Use Default Credentials"
+                        labeltext="Use Default Credentials"
                         checked={false}
                         dataTestId='default-credentials'
                     ></RdsCheckbox>

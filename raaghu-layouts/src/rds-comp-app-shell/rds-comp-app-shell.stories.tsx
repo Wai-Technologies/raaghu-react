@@ -1,11 +1,12 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsCompAppShell from "./rds-comp-app-shell";
+import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsCompAppShellItem from "./rds-comp-app-shell-item";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 import { RdsDropdown, RdsIcon, RdsInput, RdsSearch, RdsSideNav } from "../../../raaghu-elements/src";
+import { DisplayType } from "../../../raaghu-elements/src/rds-dropdown/rds-dropdown";
 
 const meta: Meta = {
   title: "Application Shells",
@@ -26,7 +27,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 
 export const Basic: Story = {
   args: {
-    displayType: "Basic",
+    displayType: AppShellDisplayType.Basic,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -244,7 +245,7 @@ export const Basic: Story = {
 
 export const Header: Story = {
   args: {
-    displayType: "Header",
+    displayType: AppShellDisplayType.Header,
     children: (
       <>
         <div className="container-fluid bg-white px-0">
@@ -296,7 +297,7 @@ export const Header: Story = {
                         ></img>
                         <RdsDropdown
                           colorVariant="white"
-                          displayType="dropdown"
+                          displayType= {DisplayType.Dropdown}
                           id="1"
                           label="Hi, John Doe"
                           listItems={[
@@ -401,7 +402,7 @@ export const Header: Story = {
                         ></img>
                         <RdsDropdown
                           colorVariant="white"
-                          displayType="dropdown"
+                          displayType= {DisplayType.Dropdown}
                           id="1"
                           label="Hi, John Doe"
                           listItems={[
@@ -438,7 +439,7 @@ export const Header: Story = {
 
 export const Default: Story = {
   args: {
-    displayType: "Default",
+    displayType: AppShellDisplayType.Default,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -503,7 +504,7 @@ export const Default: Story = {
 
 export const Relaxing: Story = {
   args: {
-    displayType: "Relaxing",
+    displayType: AppShellDisplayType.Relaxing,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -632,7 +633,7 @@ export const Relaxing: Story = {
 
 export const TopNavBar: Story = {
   args: {
-    displayType: "TopNavBar",
+    displayType: AppShellDisplayType.TopNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -823,7 +824,7 @@ export const TopNavBar: Story = {
 
 export const SideNav: Story = {
   args: {
-    displayType: "TopNavBar",
+    displayType: AppShellDisplayType.SideNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -943,7 +944,7 @@ export const SideNav: Story = {
 
 export const DoubleNav: Story = {
   args: {
-    displayType: "DoubleNav",
+    displayType: AppShellDisplayType.DoubleNav,
     children: (
       <>
         <RdsCompAppShellItem title={""}>
@@ -1082,7 +1083,7 @@ export const DoubleNav: Story = {
 
 export const One_Three_One: Story = {
   args: {
-    displayType: "DEmo",
+    displayType: AppShellDisplayType.OneThreeOne,
     children: (
       <>
         <RdsCompAppShellItem title={""}>

@@ -4,19 +4,38 @@ import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
 import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
+import { AvatarSize } from "../rds-avatar/rds-avatar";
 
-export interface RdsSideNavProps {
-  sideNavItems: any;
-  toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
-  collapse?: boolean;
-  toggleClass?: boolean;
-  layout?: string;
-  showUserProfile?: boolean;
-  logo?: string;
-  navLayout?: "Raaghu" | "List" | "Toolbar";
-  navType?: "Collapsed" | "Expanded" | "Fixed";
-  platform?: "Side Navigation-ABP List" | "Side Navigation-ANZ List";
-}
+export enum NavLayout {
+    Raaghu = "Raaghu",
+    List = "List",
+    Toolbar = "Toolbar",
+  }
+  
+  export enum NavType {
+    Collapsed = "Collapsed",
+    Expanded = "Expanded",
+    Fixed = "Fixed",
+  }
+  
+  export enum Platform {
+    SideNavigationABPList = "Side Navigation-ABP List",
+    SideNavigationANZList = "Side Navigation-ANZ List",
+  }
+  
+  export interface RdsSideNavProps {
+    sideNavItems: any;
+    toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
+    collapse?: boolean;
+    toggleClass?: boolean;
+    layout?: string;
+    showUserProfile?: boolean;
+    logo?: string;
+    navLayout?: NavLayout;
+    navType?: NavType;
+    platform?: Platform;
+  }
+  
 
 const RdsSideNav = (props: RdsSideNavProps) => {
     const [isLocked, setIsLocked] = useState(false);
@@ -299,7 +318,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 <nav
                     id="sidebar"
                     ref={ref}
-                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1
+                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
                     <div>
@@ -318,7 +337,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                     lastName="Technologies"
                                     profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                     role="Developer"
-                                    size="small"
+                                    size={AvatarSize.small}
                                     titleAlign="horizontal"
                                     withProfilePic
                                 />
@@ -356,7 +375,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 lastName="Technologies"
                                 profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                 role="Developer"
-                                size="small"
+                                size={AvatarSize.small}
                                 titleAlign="horizontal"
                                 withProfilePic
                             />

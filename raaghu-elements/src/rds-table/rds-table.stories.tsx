@@ -3,7 +3,7 @@ import RdsTable from "./rds-table";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Table',
+    title: 'Components/Table',
     component: RdsTable,
     parameters: {
         layout: 'padded',

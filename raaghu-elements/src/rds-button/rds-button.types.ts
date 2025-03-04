@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { colors, placements, size } from "../../libs";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 export interface RdsButtonProps {
     submit?: boolean;
@@ -21,7 +22,7 @@ export interface RdsButtonProps {
     icon?: string;
     isOutline?: boolean; 
     tooltip?: boolean; 
-    tooltipPlacement?: placements; 
+    tooltipPlacement?: TooltipStyle; 
     tooltipTitle?: any; 
     type?: "button" | "submit";
     onClick?: React.MouseEventHandler<HTMLButtonElement>;

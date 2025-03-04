@@ -3,7 +3,7 @@ import RdsLikeDislike from "./rds-like-dislike";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Like-Dislike',
+    title: 'Components/Like-Dislike',
     component: RdsLikeDislike,
     parameters: {
         layout: 'padded',

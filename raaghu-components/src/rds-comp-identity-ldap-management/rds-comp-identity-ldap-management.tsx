@@ -50,7 +50,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                 </div>
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        label="Enable Ldap Login"
+                        labeltext="Enable Ldap Login"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableLdapLogin"); }}
                         checked={ldap?.enableLdapLogin}
                         dataTestId="use-default-credential"
@@ -60,9 +60,9 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
-                                value={ldap?.ldapServerHost}
-                                name="serverHost"
-                                label="Server Host"
+                                value={ldap?.ldapServerHost}                                
+                                name="Server Host"
+                                label={true}
                                 placeholder="Enter Server Host"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapServerHost")}
@@ -75,8 +75,8 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             placeholder="389"
                             customClasses="form-control"
                             inputType="text"
-                            label="Server Port"
-                            name="ldapServerPort"
+                            name="Server Port"
+                            label={true}                            
                             value={ldap?.ldapServerPort}
                             onChange={(e: any) => handleChangeform(e.target.value, "ldapServerPort")}
                             dataTestId="server-port"
@@ -89,9 +89,9 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
-                                value={ldap?.ldapBaseDc}
-                                name="ldapBaseDc"
-                                label="Base Dc"
+                                value={ldap?.ldapBaseDc}                               
+                                name="Base Dc"
+                                label={true}
                                 placeholder="Enter Base Domain Component"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapBaseDc")}
@@ -105,8 +105,8 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                             placeholder="Enter Domain"
                             customClasses="form-control"
                             inputType="text"
-                            label="Domain"
-                            name="ldapDomain"
+                            name="Domain"
+                            label={true}                            
                             value={ldap?.ldapDomain}
                             onChange={(e: any) => handleChangeform(e.target.value, "ldapDomain")}
                             dataTestId="domain"
@@ -118,9 +118,9 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <div className="form-group">
                             <RdsInput
-                                value={ldap?.ldapUserName}
-                                name="ldapUserName"
-                                label="Username"
+                                value={ldap?.ldapUserName}                                
+                                name="Username"
+                                label={true}
                                 placeholder="Enter Username"
                                 customClasses="form-control"
                                 onChange={(e: any) => handleChangeform(e.target.value, "ldapUserName")}
@@ -131,9 +131,9 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                     </div>
                     <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                         <RdsInput
-                            value={ldap?.ldapPassword}
-                            name="ldapPassword"
-                            label="Password"
+                            value={ldap?.ldapPassword}                            
+                            name="Password"
+                            label={true}
                             placeholder="Enter Password"
                             inputType="password"
                             customClasses="form-control"

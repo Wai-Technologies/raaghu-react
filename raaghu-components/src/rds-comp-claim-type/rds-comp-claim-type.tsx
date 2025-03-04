@@ -64,12 +64,12 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
             <div className="custom-content-scroll">
                 <div className="row">
                     <div className="col-md-12">
-                        <RdsInput
-                            label="Name"
+                        <RdsInput                            
+                            label={true}
                             value={formData?.name}
                             placeholder="Enter Name"
                             required={true}
-                            name="name"
+                            name="Name"
                             onChange= {(e) =>{handleSelectChange(e.target.value , "name");}}
                             dataTestId="name"
                             reset={inputReset}
@@ -77,11 +77,11 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                     </div>
                     <div className="col-md-6  pt-2">
                         {" "}
-                        <RdsInput
-                            label="Regex"
+                        <RdsInput                           
+                            label={true}
                             value={formData?.regex}
                             placeholder="Enter Regex"
-                            name="regex"
+                            name="Regex"
                             required={true}
                             onChange= {(e) =>{handleSelectChange(e.target.value , "regex");}}
                             dataTestId="regex"
@@ -104,11 +104,11 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
 
                     </div>
                     <div className="col-md-12 pt-2">
-                        <RdsInput
-                            label="Regex Description"
+                        <RdsInput                          
+                            label={true}
                             value={formData?.regexDescription}
                             placeholder="Enter Regex Description"
-                            name="regexDesc"
+                            name="Regex Description"
                             required={true}
                             onChange= {(e) =>{handleSelectChange(e.target.value , "regexDescription");}}
                             dataTestId="reges-description"
@@ -129,7 +129,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
 
                     <div className="col-md-12 pb-3">
                         <RdsCheckbox
-                            label="Required"
+                            labeltext="Required"
                             onChange= {(e) =>{handleSelectChange(e.target.checked , "required");}}
                             checked={formData?.required}
                             dataTestId="required"

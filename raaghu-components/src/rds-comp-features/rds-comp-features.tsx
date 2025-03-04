@@ -180,7 +180,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Maximum user count"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)
@@ -194,7 +194,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                         ) : feature.valueType.validator.name === "BOOLEAN" ? (
                           <div className="form-group mb-2">
                             <RdsCheckbox
-                              label={(feature.displayName) || ""}
+                              labeltext={(feature.displayName) || ""}
                               checked={feature.value === true}
                               name={feature.name}
                               dataTestId={feature.name}
@@ -213,7 +213,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Storage size"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)

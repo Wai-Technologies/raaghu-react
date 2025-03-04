@@ -53,7 +53,6 @@ describe("RdsNotification", () => {
     it("renders the component with notifications", () => {
         const { getByText } = render(
             <RdsNotification
-                colorVariant="success"
                 notifications={notifications}
             />
         );
@@ -67,9 +66,7 @@ describe("RdsNotification", () => {
         const onSetAsRead = jest.fn();
         const { getAllByText } = render(
             <RdsNotification
-                colorVariant="success"
                 notifications={notifications}
-                onSetAsRead={onSetAsRead}
             />
         );
         const setAsReadButtons = getAllByText("Set as Read");

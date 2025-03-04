@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompContactInfoProps {
     onSaveHandler?: (
         contactInfomation: any
@@ -56,13 +56,14 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
               <RdsInput
                 id=""
                 inputType="Email"
-                label="Email"
-                labelPosition="top"
+                name="Email"
+                label={true}
+                labelPosition={LabelPosition.Top}
                 placeholder="Enter Email address"
                 required={true}
                 readonly={false}
                 isDisabled={false}
-                size="medium"
+                size={InputSize.Medium}   
                 value={user?.email}
                 onChange={(e: any) =>
                   handleDataChanges(e.target.value, "email")
@@ -77,7 +78,8 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
               <RdsInput
                 placeholder="Enter Contact Number"
                 inputType="text"
-                label="Contact Number"
+                name="Contact Number"
+                label={true}
                 required={true}
                 onChange={(e) => handleDataChanges(e.target.value, "contact")}
                 onKeyDown={(e) => {
@@ -107,7 +109,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
                     e.preventDefault();
                   }
                 }}
-                name={"fullname"}
+                //name={"fullname"}
                 value={user?.contact}
                 dataTestId="contact-number"
               ></RdsInput>
@@ -115,7 +117,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
             <div className=" mt-2 mb-5 py-2 d-flex">
               <RdsCheckbox
                 id="flexCheckDefault"
-                label={`${"I have read the terms and conditions and agree to the sale of my personal information to the highest bidder."}`}
+                labeltext={`${"I have read the terms and conditions and agree to the sale of my personal information to the highest bidder."}`}
                 checked={user?.checked}
                 onChange={(e) => handleDataChanges(e.target.checked, "checked")}
                 dataTestId="remember-me"

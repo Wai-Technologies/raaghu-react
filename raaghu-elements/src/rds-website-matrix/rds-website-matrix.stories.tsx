@@ -3,7 +3,7 @@ import RdsWebsiteMatrix from "./rds-website-matrix";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Website Matrix',
+    title: 'Components/Website Matrix',
     component: RdsWebsiteMatrix,
     parameters: {
         layout: 'padded',

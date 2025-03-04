@@ -75,8 +75,8 @@ useEffect(() => {
                     inputType="password"
                     placeholder="Enter Password"
                     required={true}
-                    label="Password"
-                    name="password"
+                    name="Password"
+                    label={true}                    
                     id={(errors.password && passwordField?.password)? "passwordfield":"password" }
                     onBlur={() => setIsPasswordTouched(true)}
                     onChange={(e) => {

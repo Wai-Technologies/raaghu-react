@@ -10,6 +10,7 @@ import {
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import "./rds-comp-edition.css";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -120,7 +121,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 offcanvaswidth={650}
                                 canvasTitle={"Update Edition"}
                                 onclick={offCanvasHandler}
-                                placement="end"
+                                placement={RdsOffcanvasPlacement.End}
                                 offcanvasbutton={<div>
                                     <span className="position-relative btn btn-outline-primary btn-sm btn-icon p-1 rounded-pill">
                                         <RdsIcon
@@ -131,7 +132,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                             stroke={true} />
                                     </span>
                                 </div>}
-                                backDrop={false}
+                                backDrop={RdsOffcanvasBackDrop.False}
                                 scrolling={false}
                                 preventEscapeKey={false}
                                 offId={"compEditionOff"}>
@@ -154,9 +155,9 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                                     <RdsInput
                                                         required={true}
                                                         inputType="text"
-                                                        label={"Edition Name"}
-                                                        placeholder="Edition Name"
-                                                        name="editionName"
+                                                        name={"Edition Name"}
+                                                        label={true}
+                                                        placeholder="Edition Name"                                                       
                                                         value={FormData?.editionName}
                                                         onChange={(e: any) => handleChangeform(e.target.value, "editionName")}
                                                         id="editionName"
@@ -238,9 +239,9 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                     <RdsInput
                         required={true}
                         inputType="text"
-                        label={"Edition Name"}
-                        placeholder="Edition Name"
-                        name="editionName"
+                        name={"Select"}
+                        label={true}
+                        placeholder="Edition Name"                       
                         value={FormData?.editionName}
                         onChange={(e: any) =>
                           handleChangeform(e.target.value, "editionName")

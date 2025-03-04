@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RdsButton, RdsFileUploader, RdsRadioButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 
 interface RdsCompProfilePictureProps {
   profilePictureData?: any;
@@ -211,7 +212,7 @@ const RdsCompProfilePicture = (props: RdsCompProfilePictureProps) => {
                 colorVariant="primary"
                 extensions="jpg, jpeg, png"
                 placeholder=""
-                size="small"
+                size={Size.Small}
                 label="Select New Image"
                 fileSizeLimitInMb={1}
                 validation={validation}

@@ -54,11 +54,11 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             <div className="col-6">
                                 <RdsInput
                                     required={true}
-                                    label="Name"
+                                    name="Name"
+                                    label={true}
                                     placeholder="Enter name"
                                     inputType="text"
-                                    value={identityBasicData?.name}
-                                    name={"email"}
+                                    value={identityBasicData?.name}                                    
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "name");
                                     }}
@@ -68,15 +68,15 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                             </div>
                             <div className="col-6">
                                 <RdsInput
-                                    label="Display name"
+                                    name="Display name"
+                                    label={true}
                                     placeholder="Enter display name"
                                     inputType="text"
                                     required={false}
                                     value={identityBasicData?.displayName}
                                     onChange={(e) => {
                                         handleDataChange(e.target.value, "displayName");
-                                    }}
-                                    name={"Displayname"}
+                                    }}                                   
                                     dataTestId="display-name"
                                 ></RdsInput>
                             </div>
@@ -95,7 +95,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                         <div className="row mb-3">
                             <RdsCheckbox
                                 id="0"
-                                label="Enabled"
+                                labeltext="Enabled"
                                 checked={identityBasicData?.enabled}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "enabled");
@@ -106,7 +106,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                         <div className="row mb-3">
                             <RdsCheckbox
                                 id="0"
-                                label="Required"
+                                labeltext="Required"
                                 checked={identityBasicData?.required}
                                 onChange={(e:any) => {
                                     handleDataChange(e.target.checked, "required");
@@ -117,7 +117,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                         <div className="row mb-3">
                             <RdsCheckbox
                                 id="0"
-                                label="Emphasize"
+                                labeltext="Emphasize"
                                 checked={identityBasicData?.emphasize}
                                 onChange={(e:any) => {
                                     handleDataChange(e.target.checked, "emphasize");
@@ -128,7 +128,7 @@ const RdsCompIdentiyResourceBasic = (props: RdsCompIdentiyResourceBasicProps) =>
                         <div className="row mb-3">
                             <RdsCheckbox
                                 id="0"
-                                label="Show in Discovery Document"
+                                labeltext="Show in Discovery Document"
                                 checked={identityBasicData?.showInDiscovery}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "showInDiscovery");

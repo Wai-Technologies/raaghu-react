@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsChangePasswordProps {
   changePasswordData?: any;
   reset?: boolean;
@@ -82,9 +82,10 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
         <div className="row">
           <div className="col-12 col-md-12">
             <RdsInput
-              size="medium"
+               size={InputSize.Medium} 
               reset={inputReset}
-              label="Current Password"
+              name="Current Password"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}
@@ -99,9 +100,10 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
           </div>
           <div className="col-12 col-md-12">
             <RdsInput
-              size="medium"
+              size={InputSize.Medium} 
               reset={inputReset}
-              label="New Password"
+              name="New Password"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}
@@ -119,9 +121,10 @@ const RdsCompChangeUserPassword = (props: RdsChangePasswordProps) => {
           </div>
           <div className="col-12 col-md-12">
             <RdsInput
-              size="medium"
+              size={InputSize.Medium} 
               reset={inputReset}
-              label="Confirm New Password"
+              name="Confirm New Password"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}

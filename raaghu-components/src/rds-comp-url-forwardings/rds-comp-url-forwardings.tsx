@@ -22,7 +22,8 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label="Source"
+                        name="Source"
+                        label={true}
                         placeholder="Enter Source"
                         required={true}
                         value={formData.source}
@@ -37,7 +38,8 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label="Target"
+                        name="Target"
+                        label={true}
                         placeholder="Enter Target"
                         required={true}
                         onChange={(e: any) => {(e.target.value);}}

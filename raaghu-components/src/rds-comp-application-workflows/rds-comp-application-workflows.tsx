@@ -47,7 +47,8 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
 
                         <RdsInput
                             reset={inputReset}
-                            label="Client Secret"
+                            name="Client Secret"
+                            label={true}
                             placeholder="Enter Client Secrete"
                             inputType="text"
                             onChange={(e) => handleDataChanges(e.target.value, "clientSecret")}
@@ -61,7 +62,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Authorization Code Flow"
+                            labeltext="Allow Authorization Code Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowAuthorizationCodeFlow"); }}
                             checked={basicApplicationData?.allowAuthorizationCodeFlow}
                             dataTestId="authorization-flow"
@@ -70,7 +71,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Implicit Flow"
+                            labeltext="Allow Implicit Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowImplicitFlow"); }}
                             dataTestId="implicit-flow"
                             checked={basicApplicationData?.allowImplicitFlow}
@@ -79,7 +80,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Hybrid Flow"
+                            labeltext="Allow Hybrid Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowHybridFlow"); }}
                             dataTestId="hybrid-flow"
                             checked={basicApplicationData?.allowHybridFlow}
@@ -89,7 +90,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Password Flow"
+                            labeltext="Allow Password Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowPasswordFlow"); }}
                             checked={basicApplicationData?.allowPasswordFlow}
                             dataTestId="password-flow"
@@ -98,7 +99,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Refresh Token Flow"
+                            labeltext="Allow Refresh Token Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowRefreshTokenFlow"); }}
                             checked={basicApplicationData?.allowRefreshTokenFlow}
                             isDisabled={isAllowRefreshTokenFlowDisabled}
@@ -108,7 +109,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Client Credentials Flow"
+                            labeltext="Allow Client Credentials Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowClientCredentialsFlow"); }}
                             checked={basicApplicationData?.allowClientCredentialsFlow}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -118,7 +119,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            label="Allow Device End point"
+                            labeltext="Allow Device End point"
                             onChange={e => { handleDataChanges(e.target.checked, "allowDeviceEndpoint"); }}
                             checked={basicApplicationData?.allowDeviceEndpoint}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -141,15 +142,15 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         rows={3}
                         dataTestId="redirect-uri"
                         isDisabled={!isDivVisible}
-                        isRequired={false}
-                        validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
+                        isMandatory={false}
+                        validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
                         validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
                     />
                 </div>
                 <div className="mb-3">
                     <RdsCheckbox
-                        label="Allow Logout End point"
+                        labeltext="Allow Logout End point"
                         onChange={e => { handleDataChanges(e.target.checked, "allowLogoutEndpoint"); }}
                         checked={basicApplicationData?.allowLogoutEndpoint}
                         dataTestId="logout-endpoint"
@@ -169,8 +170,8 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         rows={3}
                         dataTestId="logout-redirect-uri"
                         isDisabled={!basicApplicationData?.allowLogoutEndpoint}
-                        isRequired={false}
-                        validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
+                        isMandatory={false}
+                        validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
                         validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
 
                     />
@@ -191,7 +192,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
             {basicApplicationData?.id && (
                 <div className="row py-2">
                     <RdsCheckbox
-                        label="Enabled"
+                        labeltext="Enabled"
                         checked={basicApplicationData?.enabled}
                         dataTestId="enabled"
                     ></RdsCheckbox>

@@ -5,8 +5,9 @@ import {
     RdsInput,
     RdsLabel,
     RdsSelectList,
-    RdsNavtabs
+    RdsNavtabs,    
 } from "../../../raaghu-elements/src";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsCompAccountProps {
     accountGeneralSettings: any;
@@ -145,7 +146,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        label="Is Self Registration Enabled"
+                        labeltext="Is Self Registration Enabled"
                         onChange={(e: any) => {
                           handlerChangeGeneral(
                             e.target.checked,
@@ -160,7 +161,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        label="Authentication With a Local Account"
+                        labeltext="Authentication With a Local Account"
                         onChange={(e) => {
                           handlerChangeGeneral(
                             e.target.checked,
@@ -199,7 +200,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        label="Remember Browser"
+                        labeltext="Remember Browser"
                         checked={accountGeneralData?.isRememberBrowserEnabled}
                         onChange={(e) => {
                           handlerChangeGeneral(
@@ -222,7 +223,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                          label="Use Security Image Questions(Captcha) On Login"
+                          labeltext="Use Security Image Questions(Captcha) On Login"
                           checked={accountGeneralData?.useCaptchaOnLogin}
                           onChange={(e) => {
                             handlerChangeGeneral(
@@ -237,7 +238,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                          label="Use Security Image Questions(Captcha) On Registration"
+                          labeltext="Use Security Image Questions(Captcha) On Registration"
                           checked={accountGeneralData?.useCaptchaOnRegistration}
                           onChange={(e) => {
                             handlerChangeGeneral(
@@ -252,10 +253,11 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
-                          <RdsInput
-                            size="medium"
+                          <RdsInput                      
+                            size={InputSize.Medium}
                             inputType="text"
-                            label="Verify BaseUrl"
+                            name="Verify BaseUrl"
+                            label={true}
                             placeholder="Enter URL"
                             customClasses="form-control"
                             value={accountGeneralData?.verifyBaseUrl}
@@ -291,10 +293,10 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
-                          <RdsInput
-                            name="sitekey"
-                            labelPosition="top"
-                            label="Site Key"
+                          <RdsInput                
+                            labelPosition={LabelPosition.Top}
+                            name="Site Key"
+                            label={true}
                             placeholder="Enter URL"
                             customClasses="form-control"
                             value={accountGeneralData?.siteKey}
@@ -311,9 +313,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       </div>
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
-                          name="siteSecret"
-                          labelPosition="top"
-                          label="Site Secret"
+                          name="Site Secret"
+                          labelPosition={LabelPosition.Top}
+                          label={true}
                           placeholder="Enter Secret"
                           customClasses="form-control"
                           value={accountGeneralData?.siteSecret}
@@ -328,9 +330,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                       <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <div className="form-group ">
                           <RdsInput
-                            name="score"
-                            size="medium"
-                            label="Score"
+                            name="Score"            
+                            label={true}                              
+                            size={InputSize.Medium}                        
                             placeholder="Enter Score"
                             customClasses="form-control"
                             value={accountGeneralData?.score}

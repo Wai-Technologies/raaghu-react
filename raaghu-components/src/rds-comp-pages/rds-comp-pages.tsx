@@ -1,5 +1,6 @@
 import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompPagesProps {
     tableHeaders: {
@@ -26,7 +27,7 @@ export interface RdsCompPagesProps {
 const RdsCompPages = (props: RdsCompPagesProps) => {
     return (
         <RdsCompDatatable
-            actionPosition="right"
+            actionPosition={ActionPosition.Right}
             tableHeaders={props.tableHeaders}
             actions={props.actions}
             recordsPerPageSelectListOption={true}

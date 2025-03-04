@@ -1,0 +1,25 @@
+.bottom-line-disabled {
+  border-bottom: 3px solid gray;
+  background-color: #f1f2f4;
+  border-top: var(--bs-border-width) solid #7d7d7d;
+  border-right: var(--bs-border-width) solid #7d7d7d;
+  border-left: var(--bs-border-width) solid #7d7d7d;
+}
+
+.bottom-line-primary {
+  border-bottom: 3px solid rgba(var(--bs-primary-rgb), var(--bs-border-opacity));
+}
+
+.form-control .bottom-line-disabled {
+  background-color: #f1f2f4;
+  border: var(--bs-border-width) solid #7d7d7d;
+}
+
+.dropdown-menu {
+  --bs-dropdown-border-color: #7e2eef;
+}
+
+.default-disabled {
+  border: 1px solid gray;
+  background-color: #f1f2f4;
+}

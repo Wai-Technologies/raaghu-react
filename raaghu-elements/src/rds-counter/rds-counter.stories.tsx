@@ -1,4 +1,4 @@
-import RdsCounter from "./rds-counter";
+import RdsCounter, { CounterState, LayoutOptions } from "./rds-counter";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -22,9 +22,29 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        position: {
-            options: ["top", "bottom", "left", "right"],
-            control: { type: "radio" },
+        layout: {
+            options: ["Right Side", "Side to Side", "Bottom"],
+            control: { type: "select" },
+        },
+        state: {
+            options: ["Default", "Selected", "Disabled"],
+            control: { type: "select" },
+        },
+        showTitle:{
+            control: { type: "boolean" }
+        },
+       
+        titleText: {
+            control: { type: "text" },
+        },
+        min: {
+            control: { type: "number" },
+        },
+        max: {
+            control: { type: "number" },
+        },
+        width: {
+            control: { type: "number" },
         },
     },
 } satisfies Meta<typeof RdsCounter>;
@@ -32,15 +52,25 @@ const meta: Meta = {
 export default meta;
 
 type Story = StoryObj<typeof RdsCounter>;
-export const NumericCounter: Story = {    
+
+export const Default: Story = {
     args: {
         // counterValue: 0,
         min: 0,
         max: 50,
-        width: 135,
+        width: 280,
         colorVariant: "primary",
-        position: "top",
-        label: "Counter",
-    }
-} satisfies Story;
-NumericCounter.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'position', 'label'] } };
+        layout: LayoutOptions.SideToSide, 
+        state: CounterState.Default,
+        showTitle:true,
+        titleText: "Label",
+        isMandatory: false,
+        placeholder: "00",
+        //isDisabled: false, 
+        //position:"top",
+    },
+};
+
+Default.parameters = { controls: { include: [/*'min', 'max', 'width', 'colorVariant',*/ 'layout', 'state', 'titleText', 'isMandatory', 'placeholder', 'showTitle',/*'position'*/] } };
+
+
