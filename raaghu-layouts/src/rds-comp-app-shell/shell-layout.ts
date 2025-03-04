@@ -1,4 +1,4 @@
-import { DisplayType } from "./rds-comp-app-shell";
+import { AppShellDisplayType } from "./rds-comp-app-shell";
 
 
 
@@ -16,19 +16,19 @@ export class CssItems {
 
 
 
-export const GetShellLayoutCss = (displayType: DisplayType) => {
+export const GetShellLayoutCss = (displayType: AppShellDisplayType) => {
     switch (displayType) {
-        case DisplayType.Default:
+        case AppShellDisplayType.Default:
             return DefaultCss;
-        case DisplayType.Relaxing:
+        case AppShellDisplayType.Relaxing:
             return "relaxing";
-        case DisplayType.TopNav:
+        case AppShellDisplayType.TopNav:
             return "top-nav";
-        case DisplayType.SideNav:
+        case AppShellDisplayType.SideNav:
             return "side-nav";
-        case DisplayType.DoubleNav:
+        case AppShellDisplayType.DoubleNav:
             return "double-nav";
-        case DisplayType.OneThreeOne:
+        case AppShellDisplayType.OneThreeOne:
             return "one-three-one";
         default:
             return "default";
