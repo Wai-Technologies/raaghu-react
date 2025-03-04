@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import RdsSideNav from "./rds-side-nav";
+import RdsSideNav, { NavLayout, NavType, Platform } from "./rds-side-nav";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -153,9 +153,9 @@ export const DefaultNavigationSidebar: Story = (args: any) => (
 DefaultNavigationSidebar.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     showUserProfile:true,
-    navLayout: "Raaghu",
-    navType: "Collapsed",
-    platform: "Side Navigation-ABP List",
+    navLayout: NavLayout.Raaghu, 
+    navType: NavType.Collapsed, 
+    platform: Platform.SideNavigationABPList, 
 };
 DefaultNavigationSidebar.parameters = { controls: { include: ["navLayout", "navType", "platform"] } };
 
