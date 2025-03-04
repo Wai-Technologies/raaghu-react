@@ -1,6 +1,7 @@
 import "./rds-comp-permission-tree-new.css";
 import React, { useState, useEffect } from "react";
 import { RdsCheckbox } from "../rds-elements";
+import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 
 export interface RdsCompPermissionTreeNewProps {
     permissions: any[];
@@ -303,10 +304,10 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                 <div className="position-relative">
                     <div className="vertical-dotted-line-select-all"></div>
                     <RdsCheckbox
-                        label="Select All"
+                        labeltext="Select All"
                         checked={selectAll}
                         onChange={(e) => selectAllFn(e.target.checked)}
-                        state={selectAllInter ? "Indeterminate" : "Checkbox"}
+                        status={selectAllInter ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
                         dataTestId="select-all"
                     />
                     {treeData?.map((mainParent: any, mainParentIndex: any) => (
@@ -317,9 +318,9 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                             {/* style={{ height: customHeightParent(mainParent) }} */}
                             <div className="position-relative pt-4">
                                 <RdsCheckbox
-                                    label={mainParent.displayName}
+                                    labeltext={mainParent.displayName}
                                     checked={mainParent.isGranted}
-                                    state={mainParent.isIntermediate ? "Indeterminate" : "Checkbox"}
+                                    status={mainParent.isIntermediate ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
                                     onChange={(e) =>
                                         selectParentFn(e.target.checked, mainParent, mainParentIndex)
                                     }
@@ -343,8 +344,8 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                                         }
                                     >
                                         <RdsCheckbox
-                                            label={parent.displayName}
-                                            state={parent.isIntermediate ? "Indeterminate" : "Checkbox"}
+                                            labeltext={parent.displayName}
+                                            status={parent.isIntermediate ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
                                             checked={parent.isGranted}
                                             onChange={(e) =>
                                                 selectChild(e.target.checked, parent, mainParentIndex)

@@ -7,6 +7,7 @@ import {
     RdsDropdownList,
     RdsLabel,
 } from "../rds-elements";
+import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 
 export interface RdsCompTenantRegisterProps {
     registerData?: any;
@@ -180,9 +181,9 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         <div className="pb-4 mt-2 pt-2 text-start">
                             <RdsCheckbox
                                 id="id1"
-                                label="I Accept Terms Of Service"
-                                state="Checkbox"
-                                withlabel
+                                labeltext="I Accept Terms Of Service"
+                                status={CheckboxStatus.Checked}
+                                showtext
                                 checked={isCheckTerms}
                                 onChange={(e: any) => setIsCheckTerms(e.target.checked)}
                              
