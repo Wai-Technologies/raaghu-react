@@ -12,7 +12,7 @@ const RdsCompOtherSettings = (props: RdsCompOtherSettingsProps) => {
             <li>
                 <div className="form-group mb-2">
                     <RdsCheckbox
-                        label={"Is Quick Theme Select Enabled"}
+                        labeltext={"Is Quick Theme Select Enabled"}
                         checked={false}
                         dataTestId="quick-theme-select"
                     ></RdsCheckbox>

@@ -4,6 +4,7 @@ import React from "react";
 import "./rds-comp-profile.css";
 import RdsCompLinkedAccount from "../rds-comp-linked-account/rds-comp-linked-account";
 import { useTranslation } from "react-i18next";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 
 export interface RdsCompProfileProps {
     navtabItems: any[];
@@ -146,9 +147,9 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                                 </li>
                                 <RdsOffcanvas
                                     offId={item.id}
-                                    placement="start"
+                                    placement={RdsOffcanvasPlacement.Start}
                                     offcanvaswidth={400}
-                                    backDrop={false}
+                                    backDrop={RdsOffcanvasBackDrop.False}
                                     scrolling={false}
                                     preventEscapeKey={false}
                                     canvasTitle={""}

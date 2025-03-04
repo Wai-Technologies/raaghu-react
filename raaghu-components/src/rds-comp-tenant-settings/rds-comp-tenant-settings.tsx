@@ -101,7 +101,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
-                                        label="Use Host Database"
+                                        labeltext="Use Host Database"
                                         dataTestId="host-database"                                        
                                         onChange={(e) => setHostDatabaseChecked(e.target.checked)}
                                         checked={hostDatabaseChecked} 
@@ -184,7 +184,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
-                                        label="Set Random Password"
+                                        labeltext="Set Random Password"
                                         onChange={(e) =>
                                             setIsRandomPasswordChecked(e.target.checked)
                                         }
@@ -198,7 +198,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
-                                        label="Should Change Password On Next Login"
+                                        labeltext="Should Change Password On Next Login"
                                         dataTestId="change-passord-on-next-login"
                                         onChange={(e) => {
                                             handleDataChanges(e.target.checked, "shouldChangePasswordOnNextLogin");
@@ -212,7 +212,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                             <div className="col-md-12">
                                 <div className="form-group mb-3">
                                     <RdsCheckbox
-                                        label="Send Activation Password"
+                                        labeltext="Send Activation Password"
                                         dataTestId="send-activation-password"
                                         onChange={(e) => {
                                             handleDataChanges(e.target.checked, "sendActivationPassword");
@@ -224,7 +224,7 @@ const isFormValid=isConnectionStringValid(formData?.dcstring) && isPasswordValid
                         )}
                         <div className="col-md-12">
                             <div className="form-group mb-3">
-                                <RdsCheckbox label="Activate"
+                                <RdsCheckbox labeltext="Activate"
                                  dataTestId="activate"
                                  onChange={(e) => {
                                      handleDataChanges(e.target.checked, "activate");

@@ -10,9 +10,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Email Confirmation Required For Login."
+                        labeltext="Email Confirmation Required For Login."
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="email-confirmation"
                     />
@@ -20,9 +20,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Phone Number Verification Enabled (Via SMS)."
+                        labeltext="Phone Number Verification Enabled (Via SMS)."
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="phone-number-verification"
                     />
@@ -30,9 +30,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Use Security Image Question (Captcha) On Login."
+                        labeltext="Use Security Image Question (Captcha) On Login."
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="security-image-quest"
                     />
@@ -41,9 +41,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Cookie Consent Enabled"
+                        labeltext="Cookie Consent Enabled"
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="cookie-consent-enable"
                     />
@@ -52,9 +52,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Session Time Out Control Enabled"
+                        labeltext="Session Time Out Control Enabled"
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="session-time-out-control"
                     />
@@ -63,9 +63,9 @@ const RdsCompUserManagement = (props: RdsCompUserManagementProps) => {
                 <div className="py-1">
                     <RdsCheckbox
                         isDisabled={false}
-                        label="Allow Using to use Gravatar Profile Picture"
+                        labeltext="Allow Using to use Gravatar Profile Picture"
                         checked={false}
-                        withlabel={true}
+                        showtext={true}
                         isSwitch={false}
                         dataTestId="gravatar-profile-picture"
                     />

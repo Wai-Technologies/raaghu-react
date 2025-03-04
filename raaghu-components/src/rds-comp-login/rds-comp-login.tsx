@@ -276,7 +276,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                   <div className="form-group mb-4 pb-2 remember-me">
                     <RdsCheckbox
                       id="remembercheckid"
-                      label={`${"Remember Me"}`}
+                      labeltext={`${"Remember Me"}`}
                       checked={rememberMe}
                       onChange={onCheckedHandler}
                       dataTestId="remember-me"
