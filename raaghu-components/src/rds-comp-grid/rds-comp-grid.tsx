@@ -1367,6 +1367,8 @@ import {
 import "./rds-comp-grid.css";
 import { useTranslation } from "react-i18next";
 import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompGridCombinedProps{
   fontWeight?: string;
@@ -2460,12 +2462,12 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                         "avatarTitleInfo" && (
                                         <div className="avatarTitleInfo">
                                           <RdsAvatar
-                                            border="NoBorder"
+                                            //border="NoBorder"
                                             firstName="Wai"
                                             lastName="Technologies"
                                             profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                             role="Developer"
-                                            size="small"
+                                            size={AvatarSize.small}
                                             withProfilePic
                                           />
                                         </div>
@@ -2556,7 +2558,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                           null && (
                                           <RdsTooltip
                                             label={tableDataRow[tableHeader.key]}
-                                            style="Middle Top Arrow"
+                                            style={TooltipStyle.MiddleBottomArrow}
                                           >
                                             <span className="d-inline-block">
                                               {tableDataRow[

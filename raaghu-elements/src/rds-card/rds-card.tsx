@@ -8,6 +8,7 @@ import RdsLabel from "../rds-label";
 import RdsBadge from "../rds-badge";
 import RdsTag from "../rds-tag";
 import RdsInput from "../rds-input";
+import { AvatarSize } from "../rds-avatar/rds-avatar";
 
 export enum CardTypes {  //types of cards
   CardWithImage = "Card With Image",
@@ -158,7 +159,7 @@ const RdsCard = (props: RdsCardProps) => {
                           withProfilePic={true}
                           roundedAvatar={true}
                           profilePic={props.src}
-                          size="small"
+                          size={AvatarSize.small}
                         ></RdsAvatar>
                       </div>
                     </div>
@@ -173,7 +174,7 @@ const RdsCard = (props: RdsCardProps) => {
                           withProfilePic={true}
                           roundedAvatar={true}
                           profilePic={props.src}
-                          size="small"
+                          size={AvatarSize.small}
                         ></RdsAvatar>
                       </div>
                     </div>
@@ -190,7 +191,7 @@ const RdsCard = (props: RdsCardProps) => {
                       withProfilePic={true}
                       roundedAvatar={true}
                       profilePic={props.src}
-                      size="small"
+                      size={AvatarSize.small}
                     ></RdsAvatar>
                   </div>
                 </div>
@@ -366,7 +367,7 @@ const RdsCard = (props: RdsCardProps) => {
                       lastName={lastName}
                       profilePic={profilePic}
                       role={role}
-                      size="large"
+                      size={AvatarSize.large}
                       type="image"
                     />
                 </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./rds-input.css";
 import RdsIcon from "../rds-icon";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
 export enum InputSize {
@@ -260,7 +260,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
 )}
           <div className="mb-0 input-group">
             {props.tooltipTitle ? (
-              <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+              <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
                 <input
             type={props.inputType === "password" && !showPassword ? "password" : props.inputType}
             className={`${inputClasses} ${borderColorClass}`}

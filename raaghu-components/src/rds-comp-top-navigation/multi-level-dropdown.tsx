@@ -3,7 +3,7 @@ import { RdsDropdownList, RdsIcon } from "../rds-elements";
 import elementList from "./element-list";
 import componentList from "./components-list";
 import chartList from "./charts-list";
-import Tooltip from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 const MultiLevelDropdown = (props: any) => {
     const [currUI, setCurrUI] = useState<any>({
@@ -141,7 +141,7 @@ const MultiLevelDropdown = (props: any) => {
                 <div className="px-2 py-1 fw-light fs-5 d-flex align-items-center ps-2 justify-content-between">
                     {/* simple dropdown  */}
                     <div className="d-flex align-items-baseline">
-                        <Tooltip text="UI Library" place="bottom">
+                        <Tooltip label="UI Library" style={TooltipStyle.MiddleTopArrow}>
                             <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
                                 <RdsIcon
                                     name="ui_library"

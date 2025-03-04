@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RdsIcon from "../rds-icon";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import './rds-dropdown.css';
 
 export enum DisplayType {
@@ -204,7 +204,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       {props.displayType === 'dropdown' && (
         <div className={`dropdown ${(props.style === 'secondary' || props.style === 'outline') ? 'rectangle' : ''}  ${(props.shape === 'pill') ? 'pill' : ''} `  }>
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               {renderButton()}
             </Tooltip>
           ) : (

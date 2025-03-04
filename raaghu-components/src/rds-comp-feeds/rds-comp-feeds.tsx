@@ -2,6 +2,7 @@ import React from "react";
 import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating } from "../rds-elements";
 import "./rds-comp-feeds.css";
 import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 export interface Item {
     name: string;
     username?: string;
@@ -35,7 +36,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                     profilePic={item.imageUrl}
                                     withProfilePic={true}
                                     height="60px"
-                                    size="small"
+                                    size={AvatarSize.small}
                                 ></RdsAvatar>
                             </div>
                             <div className="ps-3 flex-grow-1">
@@ -79,7 +80,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                                 profilePic={item.imageUrl}
                                 withProfilePic={true}
                                 height="60px"
-                                size="small"
+                                size={AvatarSize.small}
                             ></RdsAvatar>
                         </div>
                         <div className="ps-md-3 flex-grow-1 userdetails">
