@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { content } from "html2canvas/dist/types/css/property-descriptors/content";
 import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
-
+import { FileUploaderState } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -117,6 +117,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsFileUploader
                 key={counter}
                 colorVariant="dark"
+                state={FileUploaderState.Default}
                 extensions="png, jpg, doc, pdf, ppt"
                 size={Size.Large}
                 fileSizeLimitInMb={1}
