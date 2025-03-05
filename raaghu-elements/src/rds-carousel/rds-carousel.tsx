@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./rds-carousel.css";
 import "../../../raaghu-react-themes/src/styles/carousel.scss"
 
@@ -37,12 +37,26 @@ const RdsCarousel = (props: RdsCarouselProps) => {
         roleClass = "carousel-fade";
         indicatorClass="carousel-indicators-onImage";
     }
-    const activeState = parseInt(props.state || '1'); // Default to first item
+
+    const [activeState, setActiveState] = useState(parseInt(props.state || '1')); // Default to first item
+    const activeItem = props.carouselItems.find(item => item.id === activeState);
+
+    useEffect(() => {
+        setActiveState(parseInt(props.state || '1'));
+    }, [props.state]);
+
+    const handlePrev = () => {
+        setActiveState(prevState => (prevState === 1 ? props.carouselItems.length : prevState - 1));
+    };
+
+    const handleNext = () => {
+        setActiveState(prevState => (prevState === props.carouselItems.length ? 1 : prevState + 1));
+    };
 
     return (
       <Fragment>
         {style == "Default" && (
-          <div className="col-sm-12">
+          <div className="col-sm-12 carousel-default">
           <div
             id="carouselExampleCaptions"
             className={`carousel slide ${roleClass}`}
@@ -80,7 +94,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   <div className="card text-center imageheight">
                     <img
                       src={carouselItem.imgUrl}
-                      className="card-img-top w-100"
+                      className="card-image-top w-100"
                       alt="..."
                     />
                   </div>
@@ -94,6 +108,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="prev"
+                  onClick={handlePrev}
                 >
                   <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span className="visually-hidden">Previous</span>
@@ -103,6 +118,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="next"
+                  onClick={handleNext}
                 >
                   <span className="carousel-control-next-icon" aria-hidden="true"></span>
                   <span className="visually-hidden">Next</span>
@@ -112,8 +128,12 @@ const RdsCarousel = (props: RdsCarouselProps) => {
           </div>
         </div>
         )}
-        {style == "With Title" && (
-        <div className="col-sm-12">
+        {style == "With Title" && activeItem && (
+        <div className="col-sm-12 carousel-with-title">
+          <div className="carousel-item-title">
+            <h5>{activeItem.name}</h5>
+            <p>{activeItem.subTitle}</p>
+          </div>
           <div
             id="carouselExampleCaptions"
             className={`carousel slide ${roleClass}`}
@@ -148,15 +168,10 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 <div
                   key={carouselItem.id}
                   className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}`}>
-
-                                <div className="card-body">
-                      <h5 className="card-title">{carouselItem.name}</h5>
-                      <p className="card-text">{carouselItem.subTitle}</p>
-                    </div>
                   <div className="card text-center imageheight">
                     <img
                       src={carouselItem.imgUrl}
-                      className="card-img-top w-100"
+                      className="card-image-top w-100"
                       alt="..."
                     />
                   </div>
@@ -170,6 +185,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="prev"
+                  onClick={handlePrev}
                 >
                   <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span className="visually-hidden">Previous</span>
@@ -179,6 +195,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="next"
+                  onClick={handleNext}
                 >
                   <span className="carousel-control-next-icon" aria-hidden="true"></span>
                   <span className="visually-hidden">Next</span>
@@ -189,8 +206,8 @@ const RdsCarousel = (props: RdsCarouselProps) => {
         </div>
         )}
 
-        {(style == "Full Width Image") && (
-          <div className="col-sm-12">
+        {(style == "Full Width Image") && activeItem && (
+          <div className="col-sm-12 carousel-full-width">
             <div
               id="carouselExampleCaptions"
               className={
@@ -228,8 +245,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                 {props.carouselItems.map((carouselItem) => (
                   <div
                     key={carouselItem.id}
-                    className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass}imageheight`}>
-
+                    className={`carousel-item ${carouselItem.id === activeState ? "active" : ""} ${roleClass} imageheight`}>
                     <img
                       src={props.carouselItems[carouselItem.id - 1].imgUrl}
                       className="d-block w-100"
@@ -244,6 +260,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="prev"
+                  onClick={handlePrev}
                 >
                   <span
                     className="carousel-control-prev-icon"
@@ -258,6 +275,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   type="button"
                   data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="next"
+                  onClick={handleNext}
                 >
                   <span
                     className="carousel-control-next-icon"
@@ -266,6 +284,10 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   <span className="visually-hidden">Next</span>
                 </button>
               )}
+            </div>
+            <div className="carousel-item-caption mt-3">
+              <h5>{activeItem.name}</h5>
+              <p>{activeItem.subTitle}</p>
             </div>
           </div>
         )}

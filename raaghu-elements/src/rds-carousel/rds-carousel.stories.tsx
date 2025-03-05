@@ -41,9 +41,7 @@ export const Default: Story = {
         state: "1",
         type: "Circle",
         Indicators: true,
-        // crossFade: true,
         controls: true,
-        // role: "default",
         carouselItems: [
             {
                 id: 1,
@@ -70,9 +68,20 @@ export const Default: Story = {
             //     subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
             // }
         ],
-    }
+    },
+    decorators: [(Story, context) => {
+        const styleClass = context.args.style === "Default" ? "carousel-default" :
+                           context.args.style === "With Title" ? "carousel-with-title" :
+                           context.args.style === "Full Width Image" ? "carousel-full-width" : "";
+        return (
+            <div className={styleClass}>
+                <Story />
+            </div>
+        );
+    }]
 } satisfies Story;
 Default.parameters = { controls: { include: ['style','state','Indicators','type', 'controls'] } };
+
 
 // export const Style1: Story = {
 //     args: {
