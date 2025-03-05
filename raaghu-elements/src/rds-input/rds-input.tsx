@@ -331,10 +331,11 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
               </div>
             )}
           {/* Error Messages */}
+          
           {props.inputType === "password" && props.showIcon ? (
             <RdsIcon
               name={showPassword ? "eye" : "eye_slash"}
-              classes="password-toggle mysettingspage "
+              classes="password-toggle mysettingspage pt-3"
               height="16px"
               width="16px"
               id={"iconPassword" + props.labelPosition}
@@ -347,7 +348,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes={`password-toggle mt-3 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
+                classes={`password-toggle mt-4 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}
@@ -361,13 +362,6 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         {props.ShowHintText && props.HintText && (
           <div className={`d-flex justify-content-start text-muted`}>
             {props.HintText}
-          </div>
-        )}
-        {hasError && isTouch && props.required && value === "" && (
-          <div className="form-control-feedback validation-position">
-            <span className="text-danger">
-              {props.name} {t("")}
-            </span>
           </div>
         )}
       </>

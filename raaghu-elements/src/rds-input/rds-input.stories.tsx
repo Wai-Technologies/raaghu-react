@@ -67,6 +67,7 @@ export const Default: Story = {
     id: "default-input",
     value: "",
     required: true,
+    name: "label",
     showIcon: true,
     singleDigit: false,
     fontWeight: "normal",
@@ -75,7 +76,7 @@ export const Default: Story = {
     placeholder: {
       table: {
         disable: true,
-      },
+      }, 
     },
   },
   decorators: [
