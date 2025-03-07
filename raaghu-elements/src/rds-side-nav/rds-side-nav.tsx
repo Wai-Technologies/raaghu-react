@@ -21,6 +21,8 @@ export enum NavLayout {
   export enum Platform {
     SideNavigationABPList = "Side Navigation-ABP List",
     SideNavigationANZList = "Side Navigation-ANZ List",
+    Web = "Web",
+    Mobile = "Mobile",
   }
   
   export interface RdsSideNavProps {

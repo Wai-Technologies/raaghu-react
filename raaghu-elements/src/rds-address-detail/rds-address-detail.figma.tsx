@@ -15,18 +15,18 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=19-18",
   {
     props: {
-      showTitle: figma.boolean("Show Title"),
-      showIcon: figma.boolean("Show Icon"),
-      style: figma.enum("Style", {
+      showTitle: figma.boolean("🆕 Show Title"),
+      showIcon: figma.boolean("👀 - Show Icon"),
+      style: figma.enum("✨ Style", {
         Default: "default",
-        Outline: "outline",
+        Outlined: "outlined",
       }),
-      addressDetails: figma.enum("Address Details", {
-        "Detail Address Line 1": "detail-address-line-1",
-        "Detail Address Line 2": "detail-address-line-2",
-        "Detail Address Line 3": "detail-address-line-3",
+      level: figma.enum("📊 Level", {
+        "Level 1": "level-1",
+        "Level 2": "level-2",
+        "Level 3": "level-3",
       }),
     },
-    example: (props) => <RdsAddressDetail {...props} children={""}/>,
+    example: (props) => <RdsAddressDetail {...props} children={undefined} />,
   },
 )

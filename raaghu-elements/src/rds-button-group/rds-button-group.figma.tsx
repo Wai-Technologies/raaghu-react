@@ -15,7 +15,7 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=29-1049",
   {
     props: {
-      layout: figma.enum("Layout", {
+      layout: figma.enum("📱 Layout", {
         Horizontal: "horizontal",
         Vertical: "vertical",
       }),

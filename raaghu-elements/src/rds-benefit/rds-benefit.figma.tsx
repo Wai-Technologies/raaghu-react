@@ -12,9 +12,15 @@ import RdsBenefit from "./rds-benefit"
 
 figma.connect(
   RdsBenefit,
-  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=44-639",
+  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=244-346",
   {
-    props: {},
+    props: {
+      showIcon: figma.boolean("Show Icon"),
+      style: figma.enum("✨ Style", {
+        Default: "default",
+        Outlined: "outlined",
+      }),
+    },
     example: (props) => <RdsBenefit {...props} item={undefined} displayType={""} />,
   },
 )

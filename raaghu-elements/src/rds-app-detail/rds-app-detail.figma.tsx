@@ -12,15 +12,16 @@ import RdsAppDetail from "./rds-app-detail"
 
 figma.connect(
   RdsAppDetail,
-  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=21-451",
+  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=228-868",
   {
     props: {
-      style: figma.enum("Style", {
+      showIcon: figma.boolean("👀 - Show Icon"),
+      style: figma.enum("✨ Style", {
         Default: "default",
-        Outline: "outline",
+        Outlined: "outlined",
       }),
     },
-    example: (props) => <RdsAppDetail  {...props} appDetailsItem={{
+    example: (props) => <RdsAppDetail {...props} appDetailsItem={{
       title: "",
       subtitle: "",
       icon: "",

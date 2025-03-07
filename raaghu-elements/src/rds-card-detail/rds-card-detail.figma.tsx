@@ -15,12 +15,14 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=31-238",
   {
     props: {
+      showSubtext: figma.boolean("🔤 - Show Subtext"),
+      showHeader: figma.boolean("📝 - Show Header"),
       showLinkButton: figma.boolean("Show Link Button"),
-      state: figma.enum("State", {
-        Selection: "selection",
+      state: figma.enum("💡 State", {
         Default: "default",
+        Selection: "selection",
       }),
     },
-    example: (props) => <RdsCardDetail {...props} cardDatas={undefined}    />,
+    example: (props) => <RdsCardDetail {...props} cardDatas={undefined} />,
   },
 )

@@ -11,6 +11,7 @@ export enum AlertType {
   error = "error",
 }
 
+
 export enum AlertBorder {
   none = "none",
   single = "single",

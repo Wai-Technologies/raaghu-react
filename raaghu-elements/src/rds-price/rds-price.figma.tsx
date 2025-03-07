@@ -12,7 +12,7 @@ import RdsPrice from "./rds-price"
 
 figma.connect(
   RdsPrice,
-  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=104-318",
+  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=228-1098",
   {
     props: {
       showIcon: figma.boolean("Show Icon"),

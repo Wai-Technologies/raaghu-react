@@ -15,20 +15,20 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=34-3782",
   {
     props: {
-      style: figma.enum("Style", {
+      style: figma.enum("✨ Style", {
         Toggle: "toggle",
         "checkbox list": "checkbox-list",
       }),
-      level: figma.enum("Level", {
+      level: figma.enum("📊 Level", {
         "Level 2": "level-2",
         "Level 3": "level-3",
         "Level 4": "level-4",
       }),
-      layout: figma.enum("Layout", {
-        Vertical: "vertical",
+      layout: figma.enum("📱 Layout", {
         Horizontal: "horizontal",
+        Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsCheckboxGroup {...props} itemList={undefined}  />,
+    example: (props) => <RdsCheckboxGroup {...props} itemList={undefined} />,
   },
 )

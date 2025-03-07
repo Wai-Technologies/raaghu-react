@@ -1,6 +1,6 @@
 import React from "react"
 import figma from "@figma/code-connect"
-import RdsInput from "./rds-input"
+import RdsInput, { InputSize } from "./rds-input"
 
 figma.connect(
   RdsInput,
@@ -16,17 +16,16 @@ figma.connect(
       hintText: figma.string("✍ Hint Text"),
       showIcon: figma.boolean("👀 - Show Icon"),
       showTitle: figma.boolean("🆕 Show Title"),
-      label: figma.string("✏️ Label"),
-     // number: figma.string("🔢 Number"), // ✅ Fixed: Removed the leading space
+      label: figma.boolean("✏️ Label"),
       password: figma.string("🔑 Password"),
       showSubtext: figma.boolean("🔤 - Show Subtext"),
       changeIcon: figma.instance("🔃 Change Icon"),
       phoneNumber: figma.string("☎️ - Phone Number"),
       isMandatory: figma.boolean("❗ Is Mandatory"),
       size: figma.enum("📏 Size", {
-        Default: "default",
-        Small: "small",
-        Large: "large",
+        Small: InputSize.Small,
+        Medium: InputSize.Medium,
+        Large: InputSize.Large,
       }),
       layout: figma.enum("📱 Layout", {
         Text: "text",
@@ -48,6 +47,6 @@ figma.connect(
         Pill: "pill",
       }),
     },
-    example: (props) => <RdsInput {...props} />,
+    example: (props) => <RdsInput {...props} name={"Label"}  />,
   },
 )

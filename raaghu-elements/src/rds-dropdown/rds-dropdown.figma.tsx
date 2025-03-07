@@ -1,6 +1,6 @@
 import React from "react";
 import figma from "@figma/code-connect";
-import RdsDropdown from "./rds-dropdown";
+import RdsDropdown, { Layout, Shape, State, Style } from "./rds-dropdown";
 
 figma.connect(
   RdsDropdown,
@@ -16,36 +16,36 @@ figma.connect(
         Small: "small",
       }),
       layout: figma.enum("📱 Layout", {
-        "Text Only": "Textonly",
-        "Icon Before": "IconBefore",
-        "Icon Only": "onlyIcon",
+        "Text Only": Layout.TextOnly,
+        "Icon Before": Layout.IconBefore,
+        "Icon Only": Layout.OnlyIcon,
       }),
       state: figma.enum("💡 State", {
-        Default: "default",
-        Hover: "hover",
-        Disabled: "disabled",
-        Selected: "selected",
+        Default: State.Default,
+        Hover: State.Hover,
+        Disabled: State.Disabled,
+        Selected: State.Selected,
       }),
       style: figma.enum("✨ Style", {
-        Primary: "primary",
-        Secondary: "secondary",
-        Outline: "outline",
-        Transparent: "transparent",
+        Primary: Style.Primary,
+        Secondary: Style.Secondary,
+        Outline: Style.Outline,
+        Transparent: Style.Transparent,
       }),
       shape: figma.enum("💠 Shape", {
-        Rectangle: "rectangle",
-        Pill: "pill",
+        Rectangle: Shape.Rectangle,
+        Pill: Shape.Pill,
       }),
     },
 
     example: (props) => (
       <RdsDropdown
+        {...props}  
         colorVariant="primary" 
         darkDropdown={false}   
         label="Dropdown"       
         listItems={[]}        
         id="dropdown1"         
-        {...props}            
       />
     ),
   },

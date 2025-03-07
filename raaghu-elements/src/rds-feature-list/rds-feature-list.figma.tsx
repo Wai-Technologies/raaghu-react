@@ -15,19 +15,19 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=146-16228",
   {
     props: {
-      style: figma.enum("Style", {
-        "Double Column": "double-column",
+      style: figma.enum("✨ Style", {
         "Single Column": "single-column",
+        "Double Column": "double-column",
       }),
-      type: figma.enum("Type", {
+      type: figma.enum("⚠️ Type", {
         Default: "default",
         Primary: "primary",
         Secondary: "secondary",
-        Error: "error",
-        Warning: "warning",
         Success: "success",
+        Warning: "warning",
+        Error: "error",
       }),
     },
-    example: (props) => <RdsFeatureList {...props} heading={"Features"} itemList={[]} columns={0} />,
+    example: (props) => <RdsFeatureList {...props} heading={"Feature"} itemList={[]} columns={0} />,
   },
 )

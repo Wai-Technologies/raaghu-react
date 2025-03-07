@@ -12,7 +12,7 @@ import RdsAccordion from "./rds-accordion"
 
 figma.connect(
   RdsAccordion,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-Kit?node-id=513-2027",
+  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=513-2027",
   {
     props: {
       title: figma.string("✏️ Title"),
@@ -38,9 +38,6 @@ figma.connect(
         "Base Line": "base-line",
       }),
     },
-    example: (props) => (
-      <RdsAccordion items={[]} {...props}/>
-    ),
+    example: (props) => <RdsAccordion items={[]} />,
   },
 )
-

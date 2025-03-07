@@ -16,9 +16,9 @@ figma.connect(
   {
     props: {
       type: figma.enum("⚠️ Type", {
-        Default: "default",
-        Youtube: "youtube",
-        Vimeo: "vimeo",
+        Default: "Default",
+        Youtube: "YouTube",
+        Vimeo: "Vimeo",
       }),
     },
     example: (props) => <RdsVideoPlayer {...props} width={""} height={""} autoplay={false} muted={false} videoLink={""} />,
