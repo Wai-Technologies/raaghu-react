@@ -3,7 +3,7 @@ import "./rds-divider.css";
 import RdsIcon from "../rds-icon";
 
 export interface RdsDividerProps {
-  colorVariant: string;
+  Style: string;
   icon?: string;
   iconFill?: boolean;
   iconStroke?: boolean;
@@ -20,7 +20,7 @@ export interface RdsDividerProps {
 const RdsDivider = (props: RdsDividerProps) => {
 
   return ( props.layout==="horizontal" ? (
-    <div className={`separator ${props.colorVariant} border-${props.size} divider ${props.textalign} separator-${props.withdashed ? "dashed" : "solid"} `}>
+    <div className={`separator ${props.Style} border-${props.size} divider ${props.textalign} separator-${props.withdashed ? "dashed" : "solid"} `}>
       {props.iconShow && props.hasOwnProperty("icon") && (
       <RdsIcon
         name={props.icon || " "}
@@ -28,14 +28,14 @@ const RdsDivider = (props: RdsDividerProps) => {
         stroke={props.iconStroke}
         height={props.iconHeight}
         width={props.iconWidth}
-        colorVariant={props.colorVariant}
+        colorVariant={props.Style}
         classes="me-2"
       />
       )}
-      {<span className={`text-${props.colorVariant}`}>{props.dividerMessage}</span>}
+      {<span className={`text-${props.Style}`}>{props.dividerMessage}</span>}
     </div>
   ) : 
-  <div className={`vseparator ${props.colorVariant} border-${props.size} vseparator-${props.withdashed ? "dashed" : "solid"} `}>
+  <div className={`vseparator ${props.Style} border-${props.size} vseparator-${props.withdashed ? "dashed" : "solid"} `}>
     </div>
   );
 };
