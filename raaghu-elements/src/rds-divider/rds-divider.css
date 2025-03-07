@@ -151,3 +151,32 @@
   padding: 1px;
   margin: 5px;
 }
+.separator.subtle::before,
+.separator.subtle::after,
+.vseparator.subtle {
+  border-color: #7D7D7D; /* Example subtle color */
+}
+
+.separator.strong::before,
+.separator.strong::after,
+.vseparator.strong {
+  border-color: #B1B1B1; /* Example strong color */
+}
+
+.separator.subtle,
+.vseparator.subtle,
+.separator.subtle .icon,
+.vseparator.subtle .icon,
+.separator.subtle .content,
+.vseparator.subtle .content {
+  color: #7D7D7D; /* Example subtle color */
+}
+
+.separator.strong,
+.vseparator.strong,
+.separator.strong .icon,
+.vseparator.strong .icon,
+.separator.strong .content,
+.vseparator.strong .content {
+  color: #B1B1B1; /* Example strong color */
+}
