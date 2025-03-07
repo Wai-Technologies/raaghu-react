@@ -2,25 +2,51 @@ import React, { useState, useEffect } from "react";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import "./rds-slider.scss";
 
+export enum ColorVariant {
+  Primary = "primary",
+  Success = "success",
+  Danger = "danger",
+  Warning = "warning",
+  Light = "light",
+  Info = "info",
+  Secondary = "secondary",
+  Dark = "dark",
+}
+
+export enum SliderSize {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
+export enum SliderType {
+  OneWay = "One Way",
+  TwoWay = "Two Way",
+}
+
+export enum SliderStyle {
+  Default = "default",
+  ShowTooltip = "show tooltip",
+}
+
+export enum SliderLevel {
+  Level1 = 1,
+  Level2 = 2,
+  Level3 = 3,
+  Level4 = 4,
+  Level5 = 5,
+}
 export interface RdsSliderProps {
-  colorVariant?:
-  | "primary"
-  | "success"
-  | "danger"
-  | "warning"
-  | "light"
-  | "info"
-  | "secondary"
-  | "dark";
-  size?: "small" | "medium" | "large";
-  type?: "One Way" | "Two Way";
+  colorVariant?: ColorVariant;
+  size?: SliderSize;
+  type?: SliderType;
   leftLabel?: string;
   rightLabel?: string;
   showLabels?: boolean;
-  level?: 1 | 2 | 3 | 4 | 5;
-  style?: "default" | "show tooltip"; // Added style prop
-  value?: number; // Prop to control slider value
-  onChange?: (value: number) => void; // Callback when value changes
+  level?: SliderLevel;
+  style?: SliderStyle;
+  value?: number;
+  onChange?: (value: number) => void;
 }
 
 const RdsSlider: React.FC<RdsSliderProps> = ({
@@ -126,7 +152,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
             }`}
         >
           {showLabels && (
-            <label className="slider-title text-left align-self-start">
+            <label className="slider-title text-left align-self-start text-muted">
               Slider
             </label>
           )}

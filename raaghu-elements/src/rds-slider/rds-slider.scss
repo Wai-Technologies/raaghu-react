@@ -91,12 +91,12 @@
   }
 
 
-  input[type="range"] {
+  .slider-wrapper input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
     // background: transparent;
     pointer-events: all;
-    position: absolute;
+    position: absolute !important;
   }
   
   input[type="range"]::-webkit-slider-runnable-track {
@@ -110,7 +110,7 @@
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
-    background: #007bff;
+    background: #7e2eef;
     border-radius: 50%;
     cursor: pointer;
     position: relative;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsSlider from "./rds-slider";
+import RdsSlider, { ColorVariant, SliderLevel, SliderSize, SliderStyle, SliderType } from "./rds-slider";
  
  
 const meta: Meta = {
@@ -51,14 +51,14 @@ type Story = StoryObj<typeof RdsSlider>;
  
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
-        type: "One Way",
-        size: "small",
+        colorVariant: ColorVariant.Primary,
+        type: SliderType.OneWay,
+        size: SliderSize.Small,
         leftLabel: "0",
         rightLabel: "100",
         showLabels: true,
-        level: 1,
-        style: "default",
+        level: SliderLevel.Level1,
+        style: SliderStyle.Default
     },
   } satisfies Story;
   Default.parameters = { controls: { include: ['colorVariant', 'type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };
