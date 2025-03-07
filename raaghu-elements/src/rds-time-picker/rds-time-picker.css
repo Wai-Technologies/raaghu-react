@@ -3,8 +3,6 @@
   width: 250px;
 }
 
-
-
 .time-picker {
   position: absolute;
   top: 50px;
@@ -64,10 +62,11 @@
   padding: 5px;
   margin: 5px 0;
 }
-.time-picker .time-controls .number{
-  margin-left: 13px !important;
 
+.time-picker .time-controls .number {
+  margin-left: 13px !important;
 }
+
 .time-picker .buttons {
   display: flex;
   justify-content: space-between;
@@ -112,6 +111,7 @@
   margin-right: 10px; /* Adjust the spacing as needed */
   font-weight: 500;
 }
+
 .time-input-container {
   position: relative;
   width: 100%;
@@ -136,9 +136,11 @@
   transform: translateY(-50%);
   cursor: pointer;
 }
+
 .time-input::placeholder {
   font-size: 13px; /* Adjust the size as needed */
 }
+
 .time-picker-compact {
   position: absolute;
   top: 50px;
@@ -151,6 +153,7 @@
   text-align: center;
   z-index: 10;
 }
+
 .time-picker .time-controls .numberCompact {
   margin-left: 13px !important;
   padding: 4px !important;
@@ -159,12 +162,49 @@
   height: 38px;
   border-radius: 4px !important;
 }
-.time-display-compact{
+
+.time-display-compact {
   width: 26%;
   margin-left: -4px;
 }
+
 .time-picker .buttons-compact {
   display: flex;
   margin-top: 10px;
   justify-content: end !important;
+}
+
+/* Dark theme styles */
+.theme-dark .time-picker {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.theme-dark .time-input {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.theme-dark .time-picker .time-controls input,
+.theme-dark .time-picker .time-controls select,
+.theme-dark .time-picker .time-controls .number {
+  background: #444;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.theme-dark .time-picker button {
+  background: #555;
+  color: #fff;
+}
+
+.theme-dark .time-picker button.cancel {
+  background: transparent;
+  color: #bbb;
+}
+
+.theme-dark .now-button {
+  color: #bbb;
 }
