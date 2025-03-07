@@ -56,6 +56,7 @@ export const Default: Story = {
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
         showDismiss: true,
+        chatTime: "12.29 PM"
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ["layout", "state", "headerText", "showSubText", "subText", "showHeader", "showDismiss", "leadingIcon", "showLeading"] } };
