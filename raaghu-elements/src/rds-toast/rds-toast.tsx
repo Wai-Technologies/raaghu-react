@@ -54,6 +54,7 @@ export enum ToastLayout {
     showDismiss?: boolean; // Show/Hide Dismiss button of Toast
     showLeading: boolean; // Show/Hide Leading Icon of Toast
     leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
+    chatTime: string; // Chat Time of Toast
   }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
@@ -120,13 +121,16 @@ const RdsToast = (props: RdsToastProps) => {
                                     {" "}
                                     {props.headerText}{" "}
                                 </strong>
-                                {props.showDismiss && 
+                                {props.showDismiss && props.layout !== "chat" && 
                                     <button
                                         type="button"
                                         data-bs-dismiss="toast"
                                         aria-label="Close"
                                         className="btn-close btn-primary text-primary"
                                     ></button>
+                                }
+                                {
+                                   props.layout == "chat" && <span>{props.chatTime}</span>
                                 }
                             </div>
                             <div className="toast-body text-body">{props.showSubText && props.subText}</div>
