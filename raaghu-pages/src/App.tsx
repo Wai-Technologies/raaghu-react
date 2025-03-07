@@ -1,6 +1,6 @@
 import RdsCompAppShell from '../../raaghu-layouts/src/rds-comp-app-shell';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
+import { AppShellDisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
 
 export * from "../../raaghu-elements/src/index";
 export * from "../../raaghu-components/src/index";
@@ -11,7 +11,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<RdsCompAppShell displayType={DisplayType.Default} />}>
+          <Route path="/" element={<RdsCompAppShell displayType={AppShellDisplayType.Default} />}>
             <Route index element={<h1>Home </h1>} /> {/* Default page */}
             <Route path="dashboard" element={<div className="container mt-4">
               {/* Row 1 */}
