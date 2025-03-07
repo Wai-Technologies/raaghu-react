@@ -82,7 +82,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.secretProperties[0]?.value}
-                                           name={item?.secretProperties[0]?.name}                                       
+                                           name={"Client Secret"}                                       
                                            label={true}
                                            placeholder="Client Secret"
                                            customClasses="form-control"
