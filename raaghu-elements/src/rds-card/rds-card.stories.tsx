@@ -117,6 +117,7 @@ export const CardWithRingChart: Story = {
       iconName="refresh"
       iconTooltipLabel="Refresh"
       iconTooltipPosition="top"
+      isCardStretch={false}
   >
       <div>
           <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>

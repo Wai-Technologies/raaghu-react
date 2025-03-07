@@ -40,6 +40,7 @@ export interface RdsWidgetProps {
   onIconClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   iconTooltipLabel?: string;
   iconTooltipPosition?: any;
+  isCardStretch?: boolean;
 }
 
 const RdsWidget = (props: RdsWidgetProps) => {
@@ -77,7 +78,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
   return (
     <Fragment>
       <div
-        className={`card card-stretch gutter-b ` + classes()}
+        className={`card ${props.isCardStretch ? "card-stretch gutter-b" : ""} ` + classes()}
         style={{
           height: `${props.height}`,
           minHeight: `${props.minHeight}`,
