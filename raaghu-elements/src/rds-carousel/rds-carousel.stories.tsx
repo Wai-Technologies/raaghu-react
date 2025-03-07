@@ -55,18 +55,18 @@ export const Default: Story = {
                 name: "king John",
                 subTitle: "this is the caption section were u can add the caption for the image"
             },
-            // {
-            //     id: 3,
-            //     imgUrl: "https://th.bing.com/th/id/OIP.KioAfqTsUpUyfSk3pq_87QHaD2?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            //     name: "John Doe",
-            //     subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
-            // },
-            // {
-            //     id: 4,
-            //     imgUrl: "https://th.bing.com/th/id/OIP.KXcvPkuLGgnaS38MRGnQZQHaDw?w=285&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            //     name: "User",
-            //     subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
-            // }
+            {
+                id: 3,
+                imgUrl: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
+                name: "John Doe",
+                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
+            },
+            {
+                id: 4,
+                imgUrl: "https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/coca-cola-london-eye/the-london-eye-2-640x360.jpg?mw=640&hash=F7D574072DAD523443450DF57E3B91530064E4EE",
+                name: "User",
+                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum."
+            }
         ],
     },
     decorators: [(Story, context) => {

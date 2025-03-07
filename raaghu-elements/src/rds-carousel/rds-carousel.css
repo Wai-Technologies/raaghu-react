@@ -68,3 +68,15 @@
 .card-image-top {
   border-radius: 6px;
 }
+
+.card-image-top-full-width {
+  border-radius: 6px 6px 0 0;
+}
+
+.carousel-indicators-default {
+  top: 410px !important;
+}
+
+.close-icon-border-radius {
+  border-radius: 6px;
+}
