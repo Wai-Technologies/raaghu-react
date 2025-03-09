@@ -52,7 +52,9 @@
 }
 
 .carousel-full-width {
-  border-radius: 0px;
+  border-radius: 6px;
+  padding-bottom: 3px;
+  box-shadow: 1px 1px 5px 1px rgb(224, 224, 224);
 }
 
 .carousel-item-title {
@@ -79,4 +81,20 @@
 
 .close-icon-border-radius {
   border-radius: 6px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
 }

@@ -4,7 +4,6 @@ import "../../../raaghu-react-themes/src/styles/carousel.scss";
 import RdsIcon from "../rds-icon";
 
 export interface CarouselItem {
-  // Carousel Item
   id: number;
   imgUrl: string;
   name?: string;
@@ -12,13 +11,13 @@ export interface CarouselItem {
 }
 
 export interface RdsCarouselProps {
-  Indicators: boolean; // show or hide indicators
-  crossFade?: boolean; // crossfade effect
+  Indicators: boolean; // show or hide indicator
+  crossFade?: boolean; // cross fade effect
   controls?: boolean; // show or hide controls
-  type?: "Circle" | "Line"; // type of indicators
-  carouselItems: CarouselItem[]; // array of carousel items
-  style?: string; // style of carousel
-  state?: string; // active state of carousel
+  type?: "Circle" | "Line"; // indicator type
+  carouselItems: CarouselItem[]; // carousel items
+  style?: string; // carousel style
+  state?: string; // active state
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
@@ -40,10 +39,8 @@ const RdsCarousel = (props: RdsCarouselProps) => {
       indicatorClass = "carousel-indicators-onImage";
   }
 
-  const [activeState, setActiveState] = useState(parseInt(props.state || "1")); // Default to first item
-  const activeItem = props.carouselItems.find(
-    (item) => item.id === activeState
-  );
+  const [activeState, setActiveState] = useState(parseInt(props.state || "1"));
+  const activeItem = props.carouselItems.find((item) => item.id === activeState);
 
   useEffect(() => {
     setActiveState(parseInt(props.state || "1"));
@@ -233,7 +230,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
       )}
 
       {style == "Full Width Image" && activeItem && (
-        <div className="col-sm-12 carousel-full-width">
+        <div className="col-sm-12">
           <div
             id="carouselExampleCaptions"
             className={
@@ -336,7 +333,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
               </button>
             )}
           </div>
-          <div className="carousel-item-caption mt-3">
+          <div className="carousel-item-caption mt-3 ms-3">
             <h5>{activeItem.name}</h5>
             <p>{activeItem.subTitle}</p>
           </div>
