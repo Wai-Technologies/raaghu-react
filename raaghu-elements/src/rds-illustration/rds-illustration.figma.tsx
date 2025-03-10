@@ -4,16 +4,15 @@ import RdsIllustration from "./rds-illustration";
 
 figma.connect(
   RdsIllustration,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-Kit?node-id=2155-3061",
+  "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=51-872",
   {
     props: {
-      mode: figma.enum("🌙 Mode", {
-        "Dark NRA": "dark-nra",
-        "Light NRA": "light-nra",
-        "Dark NCS": "dark-ncs",
-        "Light NCS": "light-ncs",
-      }),
+      iconHeight: "250px",
+      iconWidth: "250px",
+      label: "Currently you don't have any data",
+      subLabel: "Click on the button above to add data",
+      iconPath: "/assets/lottie-files/outlined/dual-color/illustration-light.json",
     },
-    example: (props) => <RdsIllustration {...props} />, // Spread props to avoid type mismatch
+    example: (props) => <RdsIllustration {...props} />,
   }
 );
