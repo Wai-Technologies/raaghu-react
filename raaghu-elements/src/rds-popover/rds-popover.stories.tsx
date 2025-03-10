@@ -1,5 +1,5 @@
 import React from "react";
-import RdsPopover from "./rds-popover";
+import RdsPopover, { PopoverState } from "./rds-popover";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -10,14 +10,28 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        popoverPosition: {
-            // options: ["top", "bottom", "right", "left"],
+        state: {
             options: [
-                "no-arrow", "top-left", "top-centre", "top-right",
-                "bottom-left", "bottom-centre", "bottom-right",
-                "left-top", "left-centre", "left-bottom",
-                "right-bottom", "right-centre", "right-top"
+                "No Arrow", "Top Left", "Top Centre", "Top Right",
+                "Bottom Left", "Bottom Centre", "Bottom Right",
+                "Left Top", "Left Centre", "Left Bottom",
+                "Right Bottom", "Right Centre", "Right Top"
             ],
+            mapping: {
+                "No Arrow": PopoverState.NoArrow,
+                "Top Left": PopoverState.TopLeft,
+                "Top Centre": PopoverState.TopCentre,
+                "Top Right": PopoverState.TopRight,
+                "Bottom Left": PopoverState.BottomLeft,
+                "Bottom Centre": PopoverState.BottomCentre,
+                "Bottom Right": PopoverState.BottomRight,
+                "Left Top": PopoverState.LeftTop,
+                "Left Centre": PopoverState.LeftCentre,
+                "Left Bottom": PopoverState.LeftBottom,
+                "Right Bottom": PopoverState.RightBottom,
+                "Right Centre": PopoverState.RightCentre,
+                "Right Top": PopoverState.RightTop,
+            },
             control: { type: "select" },
         },
     },
@@ -28,10 +42,8 @@ type Story = StoryObj<typeof RdsPopover>;
 
 export const PopoverWithDirection: Story = {
     args: {
-        //popoverPosition: "top",
-        popoverPosition: "top-centre",
-        children: <p>Popover</p>,
+        state: PopoverState.TopLeft,
+        children: <p>Replace with your content component </p>,
     }
 } satisfies Story;
-//PopoverWithDirection.parameters = { controls: { include: ['popoverPosition', 'children'] } };
-PopoverWithDirection.parameters = { controls: { include: ['popoverPosition'] } };
+PopoverWithDirection.parameters = { controls: { include: ['state'] } };
