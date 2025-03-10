@@ -15,6 +15,9 @@ const meta: Meta = {
       options: ["top", "bottom", "end", "start"],
       control: { type: "select" },
     },
+    showPrimaryButton: { control: 'boolean' },
+    showSecondaryButton: { control: 'boolean' },
+    showTertiaryButton: { control: 'boolean' },
   },
 } satisfies Meta<typeof RdsOffcanvas>;
 
@@ -29,6 +32,9 @@ export const CustomSlideOutOffcanvas: Story = {
     placement: RdsOffcanvasPlacement.End, // Use enum value
     backDrop: RdsOffcanvasBackDrop.Static, // Use enum value
     offcanvaswidth: 650,
+    showPrimaryButton: true,
+    showSecondaryButton: true,
+    showTertiaryButton: true,
     children: (
       <>
         <div className="d-flex flex-column h-100">
@@ -36,44 +42,6 @@ export const CustomSlideOutOffcanvas: Story = {
               Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing
               elit.
             </h5>
-            <div className="d-flex justify-content-start mt-auto p-3 offcanvas-margin">
-              <div className="me-2">
-                <RdsButton
-                  label="RESTORE TO DEFAULT"
-                  isOutline={true}
-                  colorVariant="primary"
-                  block={false}
-                  tooltipTitle={""}
-                  type="button"
-                  size="medium"
-                />
-              </div>
-              <div className="me-2">
-                <RdsButton
-                  label="CANCEL"
-                  colorVariant="primary"
-                  isOutline={true}
-                  block={false}
-                  tooltipTitle={""}
-                  type="button"
-                  size="medium"
-                />
-              </div>
-              <div className="me-2">
-                <RdsButton
-                  label="SAVE"
-                  colorVariant="primary"
-                  block={false}
-                  tooltipTitle={""}
-                  type="submit"
-                  size="medium"
-                  data-bs-dismiss="offcanvas"
-                  databstoggle="offcanvas"
-                  databstarget="#canvasExample"
-                  ariacontrols="canvasExample"
-                />
-              </div>
-            </div>
           </div>
       </>
     ),
@@ -91,6 +59,4 @@ export const CustomSlideOutOffcanvas: Story = {
     ),
   },
 } satisfies Story;
-CustomSlideOutOffcanvas.parameters = { controls: { include: ['offId', 'canvasTitle', 'scrolling', 'placement', 'backDrop', 'offcanvaswidth', 'children', 'offcanvasbutton'] } };
-
-
+CustomSlideOutOffcanvas.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton'] } };
