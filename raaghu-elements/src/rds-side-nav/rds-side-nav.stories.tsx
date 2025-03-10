@@ -20,7 +20,7 @@ const meta: Meta = {
             options: ['Collapsed', 'Expanded', 'Fixed'],
         },
         platform: {
-            control: { type: 'select' },
+            control: { type: 'check' },
             options: ['Side Navigation-ABP List', 'Side Navigation-ANZ List'],
         },
     },
@@ -29,8 +29,31 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSideNav>;
 
-const getSideNavItems = (platform: string) => {
-    if (platform === 'Side Navigation-ANZ List') {
+const getSideNavItems = (platform: string[], navLayout: string) => {
+    if (platform.length === 0 && navLayout === 'Toolbar') {
+        return [
+            {
+                key: "0",
+                label: "Language",
+                icon: "language",
+                path: "",
+            },
+            {
+                key: "1",
+                label: "Chat",
+                icon: "chat",
+                path: "",
+            },
+            {
+                key: "2",
+                label: "Payments",
+                icon: "sun",
+                path: "",
+            },
+        ];
+    }
+
+    if (platform.includes('Side Navigation-ANZ List')) {
         return [
             {
                 key: "0",
@@ -146,7 +169,7 @@ const getLayout = (navLayout: string) => {
 
 export const DefaultNavigationSidebar: Story = (args: any) => (
     <BrowserRouter>
-        <RdsSideNav {...args} sideNavItems={getSideNavItems(args.platform)} layout={getLayout(args.navLayout)} />
+        <RdsSideNav {...args} sideNavItems={getSideNavItems(args.platform, args.navLayout)} layout={getLayout(args.navLayout)} />
     </BrowserRouter>
 );
 
@@ -158,6 +181,7 @@ DefaultNavigationSidebar.args = {
     platform: Platform.SideNavigationABPList, 
 };
 DefaultNavigationSidebar.parameters = { controls: { include: ["navLayout", "navType", "platform"] } };
+
 
 
 
