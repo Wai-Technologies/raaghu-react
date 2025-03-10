@@ -235,7 +235,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
               {Alert?.show && (
                 <div>
                   <RdsAlert
-                    dismisable={true}
+                    showDismiss={true}
                     message={Alert?.message}
                     // colorVariant={Alert?.color}
                     size="small"
