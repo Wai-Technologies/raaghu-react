@@ -168,7 +168,7 @@
 }
  .quill{
     .ql-toolbar.ql-snow {
-        border-bottom: none;
+        border: 1px solid #ccc;
         border-top-right-radius: 4px !important;
         border-top-left-radius: 4px !important;
     }
@@ -176,9 +176,5 @@
         border-top: none;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
-    }
-
-     .ql-toolbar {
-        background-color: #e9ecef !important;
     }
 }
