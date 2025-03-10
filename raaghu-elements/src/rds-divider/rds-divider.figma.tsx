@@ -30,6 +30,6 @@ figma.connect(
         Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsDivider colorVariant={""} iconShow={false}  {...props} />,
+    example: (props) => <RdsDivider  Style={""} iconShow={false} {...props} />,
   },
 )
