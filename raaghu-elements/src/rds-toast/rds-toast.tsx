@@ -54,6 +54,7 @@ export enum ToastLayout {
     showDismiss?: boolean; // Show/Hide Dismiss button of Toast
     showLeading: boolean; // Show/Hide Leading Icon of Toast
     leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
+    chatTime: string; // Chat Time of Toast
   }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";
@@ -120,13 +121,16 @@ const RdsToast = (props: RdsToastProps) => {
                                     {" "}
                                     {props.headerText}{" "}
                                 </strong>
-                                {props.showDismiss && 
+                                {props.showDismiss && props.layout !== "chat" && 
                                     <button
                                         type="button"
                                         data-bs-dismiss="toast"
                                         aria-label="Close"
                                         className="btn-close btn-primary text-primary"
                                     ></button>
+                                }
+                                {
+                                   props.layout == "chat" && <span>{props.chatTime}</span>
                                 }
                             </div>
                             <div className="toast-body text-body">{props.showSubText && props.subText}</div>
@@ -144,7 +148,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     <label className="progress-label ml-4">{props.progressWidth}%</label>
                                 </div>
                                 <label className="filename text-body">{props.filename}</label>
-                                <div className="d-flex toast-footer justify-content-end pb-1 pe-4">
+                                <div className="d-flex toast-footer justify-content-end pb-1 pe-4 gap-2">
                                     <button type="button" className="btn text-primary btn-sm">Cancel</button>
                                     <button type="button" className="btn btn-primary btn-sm">Go To Downloads</button>
                                 </div>
@@ -154,14 +158,14 @@ const RdsToast = (props: RdsToastProps) => {
                                 <div className="d-flex ml-2 pl-2">
                                     <input type="text" className="form-control form-text pl-1" placeholder={props.placeholder} />
                                 </div>
-                                <div className="d-flex justify-justify-content-start mt-2">
+                                <div className="d-flex justify-justify-content-start mt-2 gap-2">
                                     <button type="button" className="btn btn-primary btn-sm">Reply</button>
                                     <button type="button" className="btn text-primary btn-sm">Mark As Read</button>
                                 </div>
                             </div>
 
                             <div className={`toast-footer justify-content-end align-items-end ${props.layout === "request" ? "d-block" : "d-none"}`}>
-                                <div className="d-flex justify-content-end">
+                                <div className="d-flex justify-content-end gap-2">
                                     <button type="button" className="btn text-primary btn-sm">Reject</button>
                                     <button type="button" className="btn btn-primary btn-sm">Accept</button>
                                 </div>
@@ -207,7 +211,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     <label className="progress-label justify-content-end ml-3">{props.progressWidth}%</label>
                                 </div>
                                 <label className="filename">{props.filename}</label>
-                                <div className="d-flex toast-footer justify-content-end pe-4">
+                                <div className="d-flex toast-footer justify-content-end pe-4 gap-2">
                                     <button type="button" className="btn text-primary btn-sm">Cancel</button>
                                     <button type="button" className="btn btn-primary btn-sm">Go To Downloads</button>
                                 </div>
@@ -217,12 +221,12 @@ const RdsToast = (props: RdsToastProps) => {
                                 <div className="d-flex">
                                     <input type="text" className="form-control form-text pl-1" placeholder={props.placeholder} />
                                 </div>
-                                <div className="d-flex toast-footer justify-justify-content-start pb-1 ps-2">
+                                <div className="d-flex toast-footer justify-justify-content-start pb-1 ps-2 gap-2">
                                     <button type="button" className="btn btn-primary btn-sm">Reply</button>
                                     <button type="button" className="btn text-primary btn-sm">Mark As Read</button>
                                 </div>
                             </div>
-                            <div className={`pt-0 d-flex toast-footer justify-content-end align-items-end pb-1 pe-4 ${props.layout === "request" ? "d-block" : "d-none"}`}>
+                            <div className={`pt-0 d-flex toast-footer justify-content-end align-items-end pb-1 pe-4 gap-2 ${props.layout === "request" ? "d-block" : "d-none"}`}>
                                 <button type="button" className="btn text-primary btn-sm">Reject</button>
                                 <button type="button" className="btn btn-primary btn-sm">Accept</button>
                             </div>

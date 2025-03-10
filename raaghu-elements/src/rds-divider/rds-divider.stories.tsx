@@ -9,16 +9,11 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: {
-                options: [
-                    "primary",
-                    "success",
-                    "danger",
-                    "warning",
-                    "light",
-                    "info",
-                    "secondary",
-                    "dark",
+        Style: {
+                options: [                                  
+                    "subtle",
+                    "strong",
+                    "primary", 
                 ],
                 control: { type: "select" },
             },
@@ -61,7 +56,7 @@ export const Default: Story = {
         iconHeight: "20px",
         iconWidth: "20px",
         dividerMessage: "Content",
-        colorVariant: "primary",
+        Style: "subtle",
         size: "medium",
         textalign: "middle",
         withdashed: false,
@@ -69,4 +64,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['icon','iconShow','colorVariant', 'size', 'textalign','withdashed','dividerMessage','layout'] } };
+Default.parameters = { controls: { include: ['icon','iconShow','Style', 'size', 'textalign','withdashed','dividerMessage','layout'] } };

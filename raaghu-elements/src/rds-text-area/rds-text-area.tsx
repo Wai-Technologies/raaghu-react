@@ -80,7 +80,7 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
       case TextareaState.Disabled:
         return " inputDisabled";
       default:
-        return " inputOutline";
+        return "";
     }
   };
 
