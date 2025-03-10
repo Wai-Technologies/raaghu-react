@@ -128,7 +128,7 @@ const RdsButton = (props: RdsButtonProps) => {
                   : props.style === "transparent" && props.state === "default"
                   ? `transparent-${props.colorVariant}`
                   : props.style === "transparent" && props.state === "selected"
-                  ? "btn tselected"
+                  ? "btn transparent-selected"
                   : props.style === "transparent" 
                   ? `transparent-${props.state}`
                   : `btn-${props.colorVariant}`
@@ -169,7 +169,7 @@ const RdsButton = (props: RdsButtonProps) => {
                   : props.style === "transparent" && props.state === "default"
                   ? `transparent-${props.colorVariant}`
                   : props.style === "transparent" && props.state === "selected"
-                  ? "btn tselected"
+                  ? "btn transparent-selected"
                   : props.style === "transparent" 
                   ? `transparent-${props.state}`
                   : `btn-${props.colorVariant}`

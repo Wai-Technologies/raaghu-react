@@ -74,11 +74,10 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
   const handleMenuOpen = (id: string) => {
     setExpandedItems((prev) => {
       const newState: { [key: string]: boolean } = {};
-      if (!prev[id]) {
-        newState[id] = true;
-      }
+      newState[id] = !prev[id];
       return newState;
     });
+    setSelectedItem(id);
   };
 
   const handleMouseEnter = (id: string) => {
@@ -91,13 +90,14 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
 
   const handleItemClick = (id: string) => {
     setSelectedItem(id);
+    setExpandedItems({});
   };
 
   const itemsList = size === "large" ? largeItem : defaultItems;
 
   return (
     <div className="row">
-      <ul className="shadow col-4 m-2 p-2 rounded" style={{ listStyleType: "none", padding: 0, minWidth: "200px" }}>
+      <ul className="shadow col-4 m-2 rounded" style={{ listStyleType: "none", padding: 0, minWidth: "200px" }}>
         {itemsList.map((item) => {
           const isHovered = hoveredItem === item.id;
           const isSelected = selectedItem === item.id;
@@ -117,7 +117,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                   <span>{item.label}</span>
                 </label>
                 {type === "expandable" && item.submenu ? (
-                  <span onClick={() => handleMenuOpen(item.id)} style={{ cursor: "pointer" }}>
+                  <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(item.id); }} style={{ cursor: "pointer" }}>
                     <RdsIcon
                       name={"chevron_right"}
                       fill={false}
@@ -163,7 +163,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                               <span>{child.label}</span>
                             </label>
                             {type === "expandable" && child.submenu ? (
-                              <span onClick={() => handleMenuOpen(child.id)} style={{ cursor: "pointer" }}>
+                              <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(child.id); }} style={{ cursor: "pointer" }}>
                                 <RdsIcon
                                   name={"chevron_right"}
                                   fill={false}
