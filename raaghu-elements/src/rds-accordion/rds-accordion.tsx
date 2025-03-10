@@ -45,7 +45,7 @@ export interface RdsAccordionProps {
     iconHeight?: string;
     iconWidth?: string;
     size?: AccordionSize;
-    border?: AccordionBorder;
+    style?: AccordionBorder;
     accordionType?: AccordionType;
     layout?: AccordionLayout; // NEW: Layout Prop
     accordionId?: string;
@@ -62,8 +62,8 @@ const classes = (props: RdsAccordionProps) => {
         const size = 'accordion-' + `${props.size === 'small' ? 'sm' : props.size === 'large' ? 'lg' : 'md'}`;
         classes = ' ' + size;
     }
-    if (props.border) {
-        const borderClass = `accordion-${props.border}`;
+    if (props.style) {
+        const borderClass = `accordion-${props.style}`;
         classes += ' ' + borderClass;
     }
 
@@ -143,7 +143,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
     }, [openItemIds, props.items]);
 
     const handleMouseEnter = (id: string) => {
-        if (props.state === "hover" && props.border === "borderhide") {
+        if (props.state === "hover" && props.style === "borderhide") {
             const headerElement = document.getElementById(`heading${id}`);
             const bodyElement = document.getElementById(`collapse${id}`);
             const itemElement = document.getElementById(`item${id}`);
@@ -157,7 +157,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
     };
 
     const handleMouseLeave = (id: string) => {
-        if (props.state === "hover" && props.border === "borderhide") {
+        if (props.state === "hover" && props.style === "borderhide") {
             const headerElement = document.getElementById(`heading${id}`);
             const bodyElement = document.getElementById(`collapse${id}`);
             const itemElement = document.getElementById(`item${id}`);
@@ -187,7 +187,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                         >
                             <h2 className="accordion-header" id={`heading${item.id}`}>
                                 <button
-                                    className={`accordion-button ${isOpen ? "" : "collapsed"} ${props.border === "borderhide" && props.state === "hover" ? "hover-content-wrapper" : ""} ${props.state === "selected" ? "accordion-selected" : ""}`}
+                                    className={`accordion-button ${isOpen ? "" : "collapsed"} ${props.style === "borderhide" && props.state === "hover" ? "hover-content-wrapper" : ""} ${props.state === "selected" ? "accordion-selected" : ""}`}
                                     type="button"
                                     aria-expanded={isOpen}
                                     aria-controls={`collapse${item.id}`}
@@ -208,7 +208,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                             </h2>
                             <div
                                 id={`collapse${item.id}`}
-                                className={`accordion-collapse collapse ${isOpen ? 'show' : ''} ${props.border === "borderhide" && props.state === "hover" ? "hover-content-wrapper" : ""}`}
+                                className={`accordion-collapse collapse ${isOpen ? 'show' : ''} ${props.style === "borderhide" && props.state === "hover" ? "hover-content-wrapper" : ""}`}
                                 aria-labelledby={`heading${item.id}`}
                                 data-bs-parent={props.accordionType === 'single' ? `#accordion${props.accordionId}` : undefined}
                                 onMouseEnter={() => handleMouseEnter(item.id)}

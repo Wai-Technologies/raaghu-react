@@ -24,10 +24,10 @@ const meta: Meta<typeof RdsAlert> = {
       control: {type: "text"},
       //if: { arg: "showlink"},
     },
-    showprimarybutton: {
+    showPrimary: {
       if: { arg: "showbutton"},
     },
-    showsecondarybutton: {
+    showSecondary: {
       if: { arg: "showbutton"},
     },
     size: {
@@ -102,11 +102,11 @@ export const Default: Story = {
     iconHeight: "20px",
     iconWidth: "20px",
     size: "medium",
-    showlink: true,
-    showbutton:true,
-    showprimarybutton: true,
-    showsecondarybutton: true,
-    dismisable: true,
+    showLink: true,
+    showButtons:true,
+    showPrimary: true,
+    showSecondary: true,
+    showDismiss: true,
     showDescription: true,
     showIcon: true,
     iconFill: false,
@@ -130,7 +130,7 @@ Default.parameters = {
       "dismisable",
       "sticky",
       "position",
-      "showlink",
+      "showLink",
       "showbutton",
       "showprimarybutton",
       "showsecondarybutton",
