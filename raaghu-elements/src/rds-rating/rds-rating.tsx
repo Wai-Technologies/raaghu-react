@@ -28,6 +28,17 @@ export enum RatingLevel {
   Left = "left",
   Mid = "mid",
   Right = "right",
+  Zero = "0",
+  ZeroPointFive = "0-5",
+  One = "1",
+  OnePointFive = "1-5",
+  Two = "2",
+  TwoPointFive = "2-5",
+  Three = "3",
+  ThreePointFive = "3-5",
+  Four = "4",
+  FourPointFive = "4-5",
+  Five = "5",
 }
 
 export interface RdsRatingProps {

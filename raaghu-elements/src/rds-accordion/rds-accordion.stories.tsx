@@ -15,7 +15,7 @@ const meta: Meta = {
             options: ["small", "medium", "large"],
             control: { type: "select" },
         },
-        border:{
+        style:{
             options:["border","bottomline","borderhide"],
             control:{type: "select"}
         },
@@ -52,7 +52,7 @@ export const Default: Story = {
         accordionType: AccordionType.multiple,
         size: AccordionSize.small,
         state: AccordionState.default,
-        border: AccordionBorder.bottomline,
+        style: AccordionBorder.bottomline,
         layout: AccordionLayout.default,
         withIcon: true,
         icon: "plus",
@@ -88,7 +88,7 @@ export const Default: Story = {
             },
         ],
     },
-    parameters: { controls: { include: ['size', 'accordionId', 'accordionType' , 'state', 'layout', 'items', 'border', 'withIcon', 'icon', /*'iconFill', 'iconStroke'*/] } },
+    parameters: { controls: { include: ['size', 'accordionId', 'accordionType' , 'state', 'layout', 'items', 'style', 'withIcon', 'icon', /*'iconFill', 'iconStroke'*/] } },
 } satisfies Story;
 /*
 export const flush: Story = {

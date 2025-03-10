@@ -19,7 +19,8 @@ export interface RdsInputGroupProps {
     iconWidth?: string
     iconFill?: boolean
     iconStroke?: boolean
-    inputValue(arg: string): any;
+   // inputValue(arg: string): any;
+    inputValue?: (arg: string) => void;
 }
 
 const RdsInputGroup = (props: RdsInputGroupProps) => {
@@ -36,7 +37,8 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
 
     const buttonClickHandler = (e: any) => {
         e.preventDefault();
-        props.inputValue(value);
+       // props.inputValue(value);
+        props.inputValue?.(value);
     };
 
     const formName = "input-group_" + Math.random().toString(36).substr(2, 9);

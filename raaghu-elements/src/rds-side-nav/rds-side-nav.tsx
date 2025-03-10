@@ -22,9 +22,11 @@ export enum NavType {
 export enum Platform {
     SideNavigationABPList = "Side Navigation-ABP List",
     SideNavigationANZList = "Side Navigation-ANZ List",
-}
-
-export interface RdsSideNavProps {
+    Web = "Web",
+    Mobile = "Mobile",
+  }
+  
+  export interface RdsSideNavProps {
     sideNavItems: any;
     toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
     collapse?: boolean;
