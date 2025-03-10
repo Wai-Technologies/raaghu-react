@@ -100,6 +100,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [themeIcon, setThemeIcon] = useState("sun");
 
   const navtabItems = [
     {
@@ -151,6 +152,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   };
 
   const onClicktheme = (e: any, val: string) => {
+    setThemeIcon(val);
     if (props.onClickThemeCheck) {
       props.onClickThemeCheck(e, val);
     }
@@ -1613,24 +1615,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               </span>
             ))}
             <div className="position-relative px-2 px-md-1 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+            <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
             {props.professional5 && (
               <div className="position-relative px-md-1 col text-center d-flex align-items-center language custome-border-start">
@@ -1770,24 +1768,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           >
  
            <div className="position-relative px-2 px-md-3 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+           <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
 
            <div
@@ -2047,23 +2041,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
            <div className="position-relative px-2 px-md-3 col text-center  ">
               <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
+              {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
             </div>
 
            <div
