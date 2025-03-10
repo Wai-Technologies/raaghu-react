@@ -85,6 +85,8 @@ export interface RdsCompTopNavigationProps {
   navButtons?: any; // Array of nav buttons to display.
   top_nav_logo?: string; // Top navigation logo to display.
   style?: any; // Style to display in the navbar.
+  breadcrumbBorderColor?: string; 
+  breadcrumbBorderPlacement?: string; 
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -502,7 +504,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -576,7 +578,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -602,7 +604,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 </div>
 
                 {( props.ecommerce2 && <div
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -640,7 +642,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -675,7 +677,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div className={` ${props.ecommerce3?"ps-4":""}`}>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -762,7 +764,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -841,7 +843,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -1406,6 +1408,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 <div className="mob-description ">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={true}
@@ -1495,7 +1499,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">          
                <div className={` ${props.professional4?"ps-4":""}`}>
                    <>
-                      <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                    </>
                   </div>             
           </div>)}
@@ -1954,6 +1958,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 { breacrumItem?.length > 0 && (
                   <div className="mob-description fs-6">
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
@@ -2022,6 +2028,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                             <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
@@ -2234,7 +2242,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             { props.product2  && 
             <div id="topnav">
                  <div  
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -2324,6 +2332,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <div className="mob-description">
                     <RdsBreadcrumb 
                       breadcrumbItems={breacrumItem}
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
@@ -2339,6 +2349,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     <>
                         <RdsBreadcrumb
                             breadcrumbItems={breacrumItem}
+                            borderColor={props.breadcrumbBorderColor}
+                            borderPlacement={props.breadcrumbBorderPlacement}
                             separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                             topnavPlusIcon={props.product2 || props.product3}
                         ></RdsBreadcrumb>

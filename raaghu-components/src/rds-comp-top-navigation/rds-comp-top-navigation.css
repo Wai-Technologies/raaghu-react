@@ -15,6 +15,11 @@
   transform: translateY(14px);
 }
 
+.dropdown-list {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
 #topnav .border-custom-dropdown-menu {
  background: #ffffff 0% 0% no-repeat padding-box;
  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
