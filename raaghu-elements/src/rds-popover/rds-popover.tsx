@@ -1,9 +1,26 @@
 import React, { ReactNode, useState } from "react";
 import "./rds-popover.css";
 import RdsButton from "../rds-button";
+
+export enum PopoverState {
+  NoArrow = "no-arrow",
+  TopLeft = "top-left",
+  TopCentre = "top-centre",
+  TopRight = "top-right",
+  BottomLeft = "bottom-left",
+  BottomCentre = "bottom-centre",
+  BottomRight = "bottom-right",
+  LeftTop = "left-top",
+  LeftCentre = "left-centre",
+  LeftBottom = "left-bottom",
+  RightBottom = "right-bottom",
+  RightCentre = "right-centre",
+  RightTop = "right-top"
+}
+
 export interface RdsPopoverProps {
   children: ReactNode; // The content to be displayed in the popover
-  popoverPosition: string; // The position of the popover
+  state: PopoverState; // The position of the popover
 }
 
 const RdsPopover = (props: RdsPopoverProps) => {
@@ -30,20 +47,12 @@ const RdsPopover = (props: RdsPopoverProps) => {
             onClick={toggleDisplay}
           />
           <div
-            className={`popoverCard ${props.popoverPosition}`}
-            // className={`popoverCard ${props.popoverPosition == "top"
-            //     ? "popoverTop popoverCardTop"
-            //     : props.popoverPosition == "bottom"
-            //         ? "popoverBottom popoverCardBottom"
-            //         : props.popoverPosition == "right"
-            //             ? "popoverRight popoverCardRight"
-            //             : props.popoverPosition == "left"
-            //                 ? "popoverLeft popoverCardLeft"
-            //                 : ""
-            //     }`}
-            style={{ display: displayType, padding: "5px" }}
+            className={`popoverCard ${props.state}`}
+            style={{ display: displayType }}
           >
-            <span>{props.children}</span>
+            <hr style={{ width: "100%" }} />
+              <span>{props.children}</span>
+            <hr style={{ width: "100%" }} />
           </div>
         </div>
       </div>
