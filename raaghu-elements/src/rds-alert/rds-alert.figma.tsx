@@ -19,15 +19,14 @@ figma.connect(
       showIcon: figma.boolean("👀 - Show Icon"),
       showLink: figma.boolean("🔗 - Show Link"),
       showTitle: figma.boolean("🆕 Show Title"),
-      changeIcon: figma.instance("🔃 Change Icon"),
+      //changeIcon: figma.instance("🔃 Change Icon"),
       title: figma.string("✏️ Title"),
-      descriptionLine2: figma.string("✍ Description Line 2"),
       showDescription: figma.boolean("〰 - Show Description"),
       showSecondary: figma.boolean("🔶 - Show Secondary"),
       showPrimary: figma.boolean("🔷 - Show Primary"),
       showDismiss: figma.boolean("⛔️ - Show Dismiss"),
       showButtons: figma.boolean("🕹️ - Show Buttons"),
-      descriptionLine1: figma.string("✍ Description Line 1"),
+      description: figma.string("✍ Description Line 1"),
 
         // Use enum values directly for the type property
         type: figma.enum("⚠️ Type", {
@@ -37,11 +36,6 @@ figma.connect(
           Error: AlertType.error,
         }),
       
-      style: figma.enum("✨ Style", {
-        "Style 1": "style-1",
-        "Style 2": "style-2",
-        "Style 3": "style-3",
-      }),
       multiline: figma.boolean("☰ Multiline"),
       size: figma.enum("Size", {
         Large: "large",
@@ -49,6 +43,6 @@ figma.connect(
         Medium: "medium",
       }),
     },
-    example: (props) => <RdsAlert {...props}  />,
+    example: (props) => <RdsAlert {...props} icon="information" iconHeight="20px" iconWidth="20px" />,
   },
 )

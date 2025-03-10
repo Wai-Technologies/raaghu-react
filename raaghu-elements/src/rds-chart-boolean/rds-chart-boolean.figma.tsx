@@ -17,11 +17,11 @@ figma.connect(
     props: {
       showIcon: figma.boolean("Show Icon"),
       iconSwap: figma.instance("Icon Swap"),
-      state: figma.enum("State", {
+      state: figma.enum("💡 State", {
         Default: "default",
         Hover: "hover",
       }),
-      type: figma.enum("Type", {
+      level: figma.enum("📏 Level", {
         "25%": "25-",
         "50%": "50-",
         "75%": "75-",
