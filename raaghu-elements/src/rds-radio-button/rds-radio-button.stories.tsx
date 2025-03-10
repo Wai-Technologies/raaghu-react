@@ -49,7 +49,7 @@ export const Default: Story = {
         layout: RdsRadioButtonLayout.Icon, // Use the enum here
         state: RdsRadioButtonState.Default, // Use the enum here
         selected: false,
-        text: "This is a default radio button",
+        text: "Label",
         itemList: [
             {
                 id: 1,

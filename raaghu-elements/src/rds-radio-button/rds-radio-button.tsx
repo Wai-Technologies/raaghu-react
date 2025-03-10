@@ -79,7 +79,7 @@ const renderLabel = (item: any) => {
       );
     case "Icon with bottom Label":
       return (
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-start">
           <i className={item.iconClass}></i>
           <div>{label}</div>
         </div>
@@ -102,9 +102,11 @@ return (
               }
             >
               {props.layout === "Icon with bottom Label" ? (
-                <div className="d-flex flex-column align-items-center">
+                <div className="d-flex flex-column align-items-start">
+                  <div className="icon-with-bottom-label ">
                   <input
                     type="radio"
+                    className="form-check-input" 
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
                     name={item.name}
                     value={item.label}
@@ -115,6 +117,7 @@ return (
                     onChange={handlerRadioChange}
                     data-testid={props.dataTestId}
                   />
+                  </div>  
                   <label htmlFor={item.id} className="form-check-label mt-2">
                     {renderLabel(item)}
                   </label>
@@ -124,6 +127,7 @@ return (
                   <input
                     type="radio"
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
+                    className="form-check-input" 
                     name={item.name}
                     value={item.label}
                     checked={props.selected ? true : false}
