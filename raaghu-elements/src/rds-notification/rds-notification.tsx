@@ -28,78 +28,93 @@ export interface RdsNotificationProps {
     layout?: NotificationLayout; // Layout of the notification
     style?: NotificationStyle; // Style of the notification
     type?: NotificationType; // Type of the notification
+    showButtons?: boolean; // Show buttons in the notification
+    showPrimaryButton?: boolean; // Show primary button in the notification
+    showSecondaryButton?: boolean; // Show secondary button in the notification
+    showdismissButton?: boolean; // Show dismiss button in the notification
     onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
     onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 
 
-const RdsNotification = ({
-    notifications,
-    layout = NotificationLayout.Vertical,
-    style = NotificationStyle.Default,
-    type = NotificationType.Info,
-    onDismiss,
-    onAccept
-}: RdsNotificationProps) => {
+const RdsNotification = (props : RdsNotificationProps) => {
     return (
         <Fragment>
-            {notifications.map((notification) => (
+            {props.notifications.map((notification) => (
                 <div
                     key={notification.userNotificationId}
-                    className={`notification-card layout-${layout} style-${style} type-${type}`}
+                    className={`notification-card layout-${props.layout} style-${props.style} type-${props.type}`}
                 >
-                    {/* {style === "image" && layout === "horizontal" && (
+                    <div className="notification-header">
+                    {props.style === "image" && props.layout === "vertical" && (
                         <img
                             src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                             alt="Notification"
-                            className="notification-image-horizontal"
+                            className="notification-image-horizontal me-2"
+                            height="50px"
+                            width="120px"
                         />
-                    )} */}
-                    <div className="notification-header">
-                        {style === "avatar" && (
+                    )}
+                        {props.style === "avatar" && (
                             <img
                                 src={notification.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"}
                                 alt="Avatar"
-                                className="notification-avatar"
+                                className="notification-avatar me-2"
                             />
                         )}
-                        {style === "icon" && (
-                            <RdsIcon name={notification.icon || "notification_icon"} stroke={true} width="38px" height="38px" />
+                        {props.style === "icon" && (
+                            <RdsIcon name={notification.icon || "notification_icon"} stroke={true} width="38px" height="38px" classes="me-2"/>
                         )}
                         
-                        <div className={`notification-title flex-grow-1 mt-2 ${layout === "vertical" ? "ms-2" : ""}`}>
+                        <div className={`notification-title flex-grow-1 ${props.layout === "vertical" ? "" : ""}`}>
                                 <strong>{notification.title}</strong>{" "}
                                 <span className="text-muted">{notification.time}</span>
                             </div>
-                        <button
+                        {/* <button
                             type="button"
                             className="btn-close position-absolute top-0 end-0 m-1"
                             aria-label="Close"
-                            onClick={(e) => onDismiss?.(e, notification)}
-                        ></button>
-                        {style === "image" && layout === "horizontal" && (
+                            onClick={(e) => props.onDismiss?.(e, notification)}
+                        ></button> */}
+                        {props.showdismissButton && (
+                            <>
+                        <RdsIcon name="close" classes="position-absolute top-0 end-0 m-1" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
+                            </>
+                        )}
+                    </div>
+                    <div className={`notification-body mt-2 ${props.layout === "vertical" && (props.style === "avatar" || props.style === "icon" || props.style === "image") ? "ms-5" : ""} `}>
+                    {props.style === "image" && props.layout === "horizontal" && (
                             <img
                                 src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                                 alt="Notification"
-                                className={`notification-image mt-3 ${layout === "horizontal" ? "me-3 full-width" : "mb-2 full-height"}`}
+                                className={`notification-image mt-3 ${props.layout === "horizontal" ? "me-3 full-width" : "h-50 w-100"}`}
                             />
                         )}
-                    </div>
-                    <div className={`notification-body mt-2 ${layout === "vertical" ? "ms-5" : ""} `}>
-                        {notification.message ||
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry."}
+                        {notification.description}
                     </div>
                     <div className="notification-footer d-flex justify-content-end mt-2 gap-2">
+                        {props.showButtons && ( 
+                        <>
+                        {props.showSecondaryButton && (
                         <RdsButton
                             label="Dismiss"
                             size="small"
-                            onClick={(e) => onDismiss?.(e, notification)}
+                            onClick={(e) => props.onDismiss?.(e, notification)}
+                            style="transparent"
+                            colorVariant="secondary"
                         />
+                        )}
+                        {props.showPrimaryButton && (
                         <RdsButton
                             label="Accept"
                             size="small"
-                            onClick={(e) => onAccept?.(e, notification)}
+                            onClick={(e) => props.onAccept?.(e, notification)}
+                            style="transparent"
+                            colorVariant="primary"
                         />
+                        )}
+                    </>
+                        )}
                     </div>
                 </div>
             ))}
