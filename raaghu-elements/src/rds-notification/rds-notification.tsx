@@ -100,8 +100,6 @@ const RdsNotification = (props : RdsNotificationProps) => {
                             label="Dismiss"
                             size="small"
                             onClick={(e) => props.onDismiss?.(e, notification)}
-                            style="transparent"
-                            colorVariant="secondary"
                         />
                         )}
                         {props.showPrimaryButton && (
