@@ -54,7 +54,7 @@ export enum ToastLayout {
     showDismiss?: boolean; // Show/Hide Dismiss button of Toast
     showLeading: boolean; // Show/Hide Leading Icon of Toast
     leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
-    chatTime: string; // Chat Time of Toast
+    chatTime?: string; // Chat Time of Toast
   }
 const RdsToast = (props: RdsToastProps) => {
     const statewiseColor = props.state === "info" ? "dark" : props.state === "success" ? "primary" : props.state === "error" ? "danger" : "light";

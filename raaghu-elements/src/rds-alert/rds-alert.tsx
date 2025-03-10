@@ -11,6 +11,7 @@ export enum AlertType {
   error = "error",
 }
 
+
 export enum AlertBorder {
   none = "none",
   single = "single",
@@ -29,7 +30,7 @@ export enum AlertDisplayType {
 
 export interface RdsAlertProps {
   type: AlertType; // Use enum instead of string literal
-  dismisable?: boolean;
+  showDismiss?: boolean;
   icon?: string;
   iconFill?: boolean;
   iconStroke?: boolean;
@@ -46,10 +47,10 @@ export interface RdsAlertProps {
   reset?: boolean;
   sticky?: boolean;
   size?: string;
-  showlink?: boolean;
-  showbutton?: boolean;
-  showprimarybutton?: boolean;
-  showsecondarybutton?: boolean;
+  showLink?: boolean;
+  showButtons?: boolean;
+  showPrimary?: boolean;
+  showSecondary?: boolean;
   showTitle?: boolean;
   title?: string;
   displayType?: AlertDisplayType; // Use enum for displayType
@@ -93,7 +94,7 @@ const RdsAlert = (props: RdsAlertProps) => {
 
   const classes = () => {
     let defaultClass = "";
-    if (props.dismisable) {
+    if (props.showDismiss) {
       defaultClass = "alert-dismissible";
     }
 
@@ -158,7 +159,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           </span>
           <span className="d-flex me-3">
             <div className="d-flex gap-2 alertBtns pe-1 align-items-center">
-              {props.showlink && (
+              {props.showLink && (
                 <a
                   className="text-decoration-underline ms-2 cursor-pointer"
                   href={props.linkUrl}
@@ -166,7 +167,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                   Link
                 </a>
               )}
-              {props.showsecondarybutton && (
+              {props.showSecondary && (
                 <button
                   type="button"
                   className={`border-0 bg-transparent ${
@@ -177,7 +178,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                   Cancel
                 </button>
               )}
-              {props.showprimarybutton && (
+              {props.showPrimary && (
                 <RdsButton
                   colorVariant={props.type === "error" ? "danger" : "primary"}
                   onClick={(e: any) => closeHandler(e)}
@@ -187,7 +188,7 @@ const RdsAlert = (props: RdsAlertProps) => {
               <div
                 className={`d-flex align-items-center justify-content-end gap-2 alert-close alert-${props.size}`}
               >
-                {props.dismisable && (
+                {props.showDismiss && (
                   <RdsIcon
                     colorVariant="primary"
                     name="close"
@@ -227,7 +228,7 @@ const RdsAlert = (props: RdsAlertProps) => {
               {props.description && props.showDescription && (
                 <p>{props.description}</p>
               )}
-              {props.showlink && (
+              {props.showLink && (
                 <a
                   className="text-decoration-underline mt-4 mt-md-6 cursor-pointer"
                   href={props.linkUrl}
@@ -240,7 +241,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           </span>
           <span>
             <div className="d-flex align-items-top justify-content-end gap-2 alert-close pe-2">
-              {props.dismisable && (
+              {props.showDismiss && (
                 <RdsIcon
                   colorVariant="primary"
                   name="close"
@@ -253,7 +254,7 @@ const RdsAlert = (props: RdsAlertProps) => {
               )}
             </div>
             <div className="d-flex align-items-flex-end mt-5 gap-2 alertBtns">
-              {props.showsecondarybutton && (
+              {props.showSecondary && (
                 <button
                   className={`border-0 bg-transparent ${
                     props.type === "error" ? "text-danger" : "text-primary"
@@ -263,7 +264,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                   Cancel
                 </button>
               )}
-              {props.showprimarybutton && (
+              {props.showPrimary && (
                 <RdsButton
                   colorVariant={props.type === "error" ? "danger" : "primary"}
                   onClick={(e: any) => closeHandler(e)}

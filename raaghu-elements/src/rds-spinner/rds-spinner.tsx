@@ -6,6 +6,7 @@ export enum SpinnerSize {
     Default = "Default",
     Small = "Small",
     Large = "Large",
+    Medium = "Medium",
 }
 
 export enum SpinnerLayout {
