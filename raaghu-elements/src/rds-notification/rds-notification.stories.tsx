@@ -34,20 +34,22 @@ export const Default: Story = {
         layout: NotificationLayout.Vertical,
         style: NotificationStyle.Default,
         type: NotificationType.Info,
+        showButtons: true,
+        showPrimaryButton: true,
+        showSecondaryButton: true,
+        showdismissButton: true,
         notifications: [
             {
                 status: "success",
-                title: "Tenant added",
+                title: "Notification Title",
                 urlTitle: "hello",
                 time: "a month ago",
-                state: 1,
-                userNotificationId: 0,
-                selected: false
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
             }
         ]
     }
 }
-Default.parameters = { controls: { include: ['layout', 'style', 'type'] } };
+Default.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showdismissButton'] } };
 
 
 
