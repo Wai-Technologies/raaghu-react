@@ -4,6 +4,7 @@ import RdsIcon from "../rds-icon";
 import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+
 export enum RdsOffcanvasPlacement {
   Start = "start",
   End = "end",
@@ -32,33 +33,22 @@ export interface RdsOffcanvasProps {
   children?: ReactNode;
   onclick?: (data: any) => void;
   className?: string;
+  showPrimaryButton?: boolean;
+  showSecondaryButton?: boolean;
+  showTertiaryButton?: boolean;
 }
+
 const RdsOffcanvas = (props: RdsOffcanvasProps) => {
   const { t } = useTranslation();
-  const preventEscapeKey = `${
-    props.hasOwnProperty("preventEscapeKey") ? props.preventEscapeKey : true
-  }`;
-  const Backdrop = `${
-    props.hasOwnProperty("backDrop") ? props.backDrop : true
-  }`;
+  const preventEscapeKey = `${props.hasOwnProperty("preventEscapeKey") ? props.preventEscapeKey : true}`;
+  const Backdrop = `${props.hasOwnProperty("backDrop") ? props.backDrop : true}`;
 
-  const align = ` offcanvas p-0 offcanvas-${props.placement} ${
-    props.placement == "start" || props.placement == "end"
-      ? " offCanvas_Class"
-      : " offCanvasClass"
-  }`;
+  const align = ` offcanvas p-0 offcanvas-${props.placement} ${props.placement == "start" || props.placement == "end" ? " offCanvas_Class" : " offCanvasClass"}`;
   const offcanvasCustomWidth = props.offcanvaswidth || 650;
-  const Width = `${
-    props.placement == "start" || props.placement == "end"
-      ? `${offcanvasCustomWidth}px`
-      : "100% "
-  }`;
-  const isCanvasTitle =
-    props.canvasTitle !== "" && props.canvasTitle !== undefined;
+  const Width = `${props.placement == "start" || props.placement == "end" ? `${offcanvasCustomWidth}px` : "100% "}`;
+  const isCanvasTitle = props.canvasTitle !== "" && props.canvasTitle !== undefined;
 
-  const OffCanvasBtn = document.querySelectorAll(
-    '[data-bs-toggle="offcanvas"]'
-  );
+  const OffCanvasBtn = document.querySelectorAll('[data-bs-toggle="offcanvas"]');
   OffCanvasBtn.forEach((element) => {
     element.addEventListener("click", () => {
       const allBackdrops = document.querySelectorAll(".offcanvas-backdrop");
@@ -110,18 +100,6 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
             </h5>
           )}
           <span className="close">
-            {/* <RdsIcon
-                            colorVariant="secondary"
-                            height="12px"
-                            name="close"
-                            stroke={false}
-                            width="12px"
-                            databsdismiss="offcanvas"
-                            onClick={props.onClose}
-                            tooltip={true}
-                            tooltipTitle="Close"
-                            tooltipPlacement="left" aria-label="Close"
-                        /> */}
             <RdsButton
               icon="close"
               size="large"
@@ -137,9 +115,56 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
         </div>
         <div className={`offcanvas-body ${props.className}`}>
           {props.children}
+          <div className="d-flex justify-content-start mt-auto p-3 offcanvas-margin">
+            {props.showTertiaryButton && (
+              <div className="me-2">
+                <RdsButton
+                  label="RESTORE TO DEFAULT"
+                  isOutline={true}
+                  colorVariant="primary"
+                  block={false}
+                  tooltipTitle={""}
+                  type="button"
+                  size="medium"
+                  style={"transparent"}
+                />
+              </div>
+            )}
+            {props.showSecondaryButton && (
+              <div className="me-2">
+                <RdsButton
+                  label="CANCEL"
+                  colorVariant="primary"
+                  isOutline={true}
+                  block={false}
+                  tooltipTitle={""}
+                  type="button"
+                  size="medium"
+                  style={"outline"}
+                />
+              </div>
+            )}
+            {props.showPrimaryButton && (
+              <div className="me-2">
+                <RdsButton
+                  label="SAVE"
+                  colorVariant="primary"
+                  block={false}
+                  tooltipTitle={""}
+                  type="submit"
+                  size="medium"
+                  data-bs-dismiss="offcanvas"
+                  databstoggle="offcanvas"
+                  databstarget="#canvasExample"
+                  ariacontrols="canvasExample"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
   );
 };
+
 export default RdsOffcanvas;
