@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsTabGroup, { TabLayout } from "./rds-tab-group";
+import RdsTabGroup, { TabType, TabState } from "./rds-tab-group";
 
 const meta: Meta =  {
   title: "Elements/Tab",
@@ -12,19 +12,40 @@ const meta: Meta =  {
       control: { type: "select" },
       defaultValue: 3,
     },
-    style: {
-      options: ["Bottom Select","Top Select","Bottom Select Alt","Top Select Alt","Background Filled","Pill","Select Tabs","Vertical-Alt Right Line","Vertical-Alt Left Line","Vertical-Left Line","Vertical-Right Line","Vertical-Left Filled","Vertical-Pointer","Vertical-Flap"],
+    type: {
+      options: [TabType.Horizontal, TabType.Vertical],
+      control: { type: "select" },
+      defaultValue: TabType.Horizontal,
+    },
+    layout: {
+      options: ["Filled","Flap","Pill","Line Bottom","Line Bottom Solid","Line Top","Line Top Solid",  "Vertical-Flap","Vertical-Pill","Vertical-Left Line","Vertical Line-Left Solid","Vertical-Right Line","Vertical Line-Right Solid"],
       control: { type: "select" },
     },
-    iconName :{
-      options: ["user","plus","pencil","edit"],
+    leftIcon :{
+      options: ["user_tab","plus","pencil","edit"],
       control: { type: "select" },
     },
-    iconSelect :{
-      options: ["user","plus","pencil","edit"],
+    rightIcon :{
+      options: ["user_tab","plus","pencil","edit"],
       control: { type: "select" },
     },
-
+    state: {
+      options: [TabState.Default, TabState.Hover, TabState.Selected, TabState.Disabled],
+      control: { type: "select" },
+      defaultValue: TabState.Default,
+    },
+    showLeftIcon: {
+      control: { type: "boolean" },
+      defaultValue: true,
+    },
+    showRightIcon: {
+      control: { type: "boolean" },
+      defaultValue: true,
+    },
+    title: {
+      control: { type: "text" },
+      defaultValue: "Tab",
+    },
   },
 } satisfies Meta<typeof RdsTabGroup>
 
@@ -32,13 +53,18 @@ export default meta;
 type Story = StoryObj<typeof RdsTabGroup>;
 
 export const Default : Story = {
-args :{
-  level: 3,
-  layout: TabLayout.Horizontal,
-  style: "",
-  iconName: "user",
-  iconSelect: "plus",
-  icon : "cancel",
-}
+  args: {
+    level: 1,
+    type: TabType.Horizontal,
+    layout: "",
+    state: TabState.Default,
+    title: "Tab",
+    showLeftIcon: true,
+    leftIcon: "user_tab",
+    showRightIcon: true,
+    rightIcon: "plus",
+    icon: "cancel",
+  }
 } satisfies Story;
-Default.parameters = { controls: { include: ['level', 'layout', 'style'] } };
+
+Default.parameters = { controls: { include: ['level', 'type', 'layout', 'state', 'showLeftIcon', 'showRightIcon', 'title', 'leftIcon', 'rightIcon'] } };

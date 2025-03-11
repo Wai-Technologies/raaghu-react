@@ -44,6 +44,8 @@ export interface BreadcrumbProps {
   icon?: string;
   showIcon?: boolean;
   state?: BreadcrumbState;
+  borderColor?: string; // Add borderColor prop
+  borderPlacement?: string; // Add border-placement prop
 }
 
 const handleIconClick = (icon: any) => {
@@ -137,6 +139,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 onClick={() => isClickable && onClickHandler(breadItem.id)}  // Allow clicking
                 onMouseEnter={() => setHoveredItem(breadItem.id)}
                 onMouseLeave={() => setHoveredItem(null)}
+                style={breadItem.active ? (props.borderPlacement === "top" ? { borderTop: `2px solid ${props.borderColor}` } : { borderBottom: `2px solid ${props.borderColor}` }) : {}}
               >
                 {props.showIcon && props.icon && (
                   <span className="me-2">
