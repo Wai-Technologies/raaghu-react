@@ -304,7 +304,7 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                 <div className="position-relative">
                     <div className="vertical-dotted-line-select-all"></div>
                     <RdsCheckbox
-                        labeltext="Select All"
+                        labelText="Select All"
                         checked={selectAll}
                         onChange={(e) => selectAllFn(e.target.checked)}
                         status={selectAllInter ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
@@ -318,7 +318,7 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                             {/* style={{ height: customHeightParent(mainParent) }} */}
                             <div className="position-relative pt-4">
                                 <RdsCheckbox
-                                    labeltext={mainParent.displayName}
+                                    labelText={mainParent.displayName}
                                     checked={mainParent.isGranted}
                                     status={mainParent.isIntermediate ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
                                     onChange={(e) =>
@@ -344,7 +344,7 @@ const RdsCompPermissionTreeNew = (props: RdsCompPermissionTreeNewProps) => {
                                         }
                                     >
                                         <RdsCheckbox
-                                            labeltext={parent.displayName}
+                                            labelText={parent.displayName}
                                             status={parent.isIntermediate ? CheckboxStatus.Indeterminate : CheckboxStatus.Checked}
                                             checked={parent.isGranted}
                                             onChange={(e) =>

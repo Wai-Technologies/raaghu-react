@@ -35,9 +35,9 @@ const RdsCompTenantManagement = (props: RdsCompTenantManagementProps) => {
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox
                     isDisabled={false}
-                    labeltext="Allow Tenants To Register To The System."
+                    labelText="Allow Tenants To Register To The System."
                     checked={props.allowSelfRegistration}
-                    showtext={true}
+                    showText={true}
                     isSwitch={false}
                 />
                 <h6 className="sub-text pt-2">
@@ -48,9 +48,9 @@ const RdsCompTenantManagement = (props: RdsCompTenantManagementProps) => {
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox
                     isDisabled={false}
-                    labeltext="New Registered Tenants Are Active By Default."
+                    labelText="New Registered Tenants Are Active By Default."
                     checked={props.isNewRegisteredTenantActiveByDefault}
-                    showtext={true}
+                    showText={true}
                     isSwitch={false}
                 />
                 <h6 className="sub-text pt-2">
@@ -62,9 +62,9 @@ const RdsCompTenantManagement = (props: RdsCompTenantManagementProps) => {
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox
                     isDisabled={false}
-                    labeltext="Use Security Image Question (Captcha) On Registration."
+                    labelText="Use Security Image Question (Captcha) On Registration."
                     checked={props.useCaptchaOnRegistration}
-                    showtext={true}
+                    showText={true}
                     isSwitch={false}
                 />
             </div>

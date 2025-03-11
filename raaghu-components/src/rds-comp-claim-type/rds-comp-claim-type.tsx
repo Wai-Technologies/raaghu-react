@@ -129,7 +129,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
 
                     <div className="col-md-12 pb-3">
                         <RdsCheckbox
-                            labeltext="Required"
+                            labelText="Required"
                             onChange= {(e) =>{handleSelectChange(e.target.checked , "required");}}
                             checked={formData?.required}
                             dataTestId="required"

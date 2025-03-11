@@ -232,14 +232,14 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                     </div>
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                            <RdsCheckbox labeltext="Enable SSL" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
+                            <RdsCheckbox labelText="Enable SSL" onChange={(e: any) => { handleChangeform(e.target.checked, "smtpEnableSsl"); }} checked={formData?.smtpEnableSsl} dataTestId="use-ssl"></RdsCheckbox>
                         </div>
                     </div>
 
                     <div className="row px-2">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
-                                labeltext="SMTP Use Default Credentials"
+                                labelText="SMTP Use Default Credentials"
                                 onChange={(e: any) => { handleChangeform(e.target.checked, "smtpUseDefaultCredentials"); }}
                                 checked={formData?.smtpUseDefaultCredentials}
                                 dataTestId="use-default-credential"
