@@ -85,6 +85,8 @@ export interface RdsCompTopNavigationProps {
   navButtons?: any; // Array of nav buttons to display.
   top_nav_logo?: string; // Top navigation logo to display.
   style?: any; // Style to display in the navbar.
+  breadcrumbBorderColor?: string; 
+  breadcrumbBorderPlacement?: string; 
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -98,6 +100,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [themeIcon, setThemeIcon] = useState("sun");
 
   const navtabItems = [
     {
@@ -149,6 +152,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   };
 
   const onClicktheme = (e: any, val: string) => {
+    setThemeIcon(val);
     if (props.onClickThemeCheck) {
       props.onClickThemeCheck(e, val);
     }
@@ -502,7 +506,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -576,7 +580,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -602,7 +606,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 </div>
 
                 {( props.ecommerce2 && <div
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -640,7 +644,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -675,7 +679,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div className={` ${props.ecommerce3?"ps-4":""}`}>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -762,7 +766,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -841,7 +845,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -1406,6 +1410,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 <div className="mob-description ">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={true}
@@ -1495,7 +1501,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">          
                <div className={` ${props.professional4?"ps-4":""}`}>
                    <>
-                      <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                    </>
                   </div>             
           </div>)}
@@ -1609,24 +1615,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               </span>
             ))}
             <div className="position-relative px-2 px-md-1 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+            <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
             {props.professional5 && (
               <div className="position-relative px-md-1 col text-center d-flex align-items-center language custome-border-start">
@@ -1766,24 +1768,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           >
  
            <div className="position-relative px-2 px-md-3 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+           <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
 
            <div
@@ -1954,6 +1952,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 { breacrumItem?.length > 0 && (
                   <div className="mob-description fs-6">
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
@@ -2022,6 +2022,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                             <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
@@ -2039,23 +2041,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
            <div className="position-relative px-2 px-md-3 col text-center  ">
               <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                // tooltip={true}
-                // tooltipTitle={"Select Theme"}
-                // tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
+              {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
             </div>
 
            <div
@@ -2234,7 +2233,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             { props.product2  && 
             <div id="topnav">
                  <div  
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -2324,6 +2323,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <div className="mob-description">
                     <RdsBreadcrumb 
                       breadcrumbItems={breacrumItem}
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
@@ -2339,6 +2340,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     <>
                         <RdsBreadcrumb
                             breadcrumbItems={breacrumItem}
+                            borderColor={props.breadcrumbBorderColor}
+                            borderPlacement={props.breadcrumbBorderPlacement}
                             separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                             topnavPlusIcon={props.product2 || props.product3}
                         ></RdsBreadcrumb>
