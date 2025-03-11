@@ -24,33 +24,33 @@
 
 /* Add consistent styling for all pagination items */
 .page-item {
-    display: inline-block;
-    margin: 0 0.5rem;
+    display: inline-block !important;
+    margin: 0 0.5rem !important;
   }
   
   .page-item a {
-    padding: .188rem 0rem;
-    width: 1.875rem;
-    height: 1.875rem;
-    text-align: center;
-    align-items: center;
-    border-radius: 50%;
-    display: flex;
-    border: 0;
-    justify-content: center;
-    z-index: 0;
-    font-size: small;
+    padding: .188rem 0rem !important;
+    width: 1.875rem !important;
+    height: 1.875rem !important;
+    text-align: center !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    border: 0 !important;
+    justify-content: center !important;
+    z-index: 0 !important;
+    font-size: small !important;
   }
   
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
-    color: #343a40;
-    font-weight:700;
+    color: #343a40 !important;
+    font-weight:700 !important;
   }
   
   .page-item.disabled a {
-    color: #6c757d;
-    cursor: not-allowed;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
   }
   
   .page-item a:hover {
@@ -58,7 +58,7 @@
   }
   
   .page-item.roundeds a {
-    border-radius: 50%;
+    border-radius: 50% !important;
   }
   .pagination-sm a{
     font-size: 12px !important;
