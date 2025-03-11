@@ -1264,6 +1264,7 @@ const updatedColumns = calculateLeftPositions();
                               tooltipPlacement="top"
                             />
                           </button>
+                          <div id="action-dropdown">
                           <ul
                             ref={dropdownRef}
                             aria-labelledby="dropdownMenuButton"
@@ -1304,6 +1305,7 @@ const updatedColumns = calculateLeftPositions();
                               </li>
                             ))}
                           </ul>
+                          </div>
                         </div>
                       </>
                     </td>
