@@ -5,10 +5,10 @@ import RdsLabel from "../rds-label/rds-label";
 
 export interface RdsIconLabelProps {
     label?: string;
-    icon: string;
+    icon?: string;
     size: string;
-    fill: boolean;
-    iconposition: string;
+    fill?: boolean;
+    iconposition?: string;
     colorVariant?: string;
 }
 

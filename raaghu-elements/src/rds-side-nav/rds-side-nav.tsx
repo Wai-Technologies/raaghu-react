@@ -5,22 +5,25 @@ import RdsAvatar from "../rds-avatar";
 import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
+import { use } from "i18next";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
     List = "List",
     Toolbar = "Toolbar",
-  }
-  
-  export enum NavType {
+}
+
+export enum NavType {
     Collapsed = "Collapsed",
     Expanded = "Expanded",
     Fixed = "Fixed",
-  }
-  
-  export enum Platform {
+}
+
+export enum Platform {
     SideNavigationABPList = "Side Navigation-ABP List",
     SideNavigationANZList = "Side Navigation-ANZ List",
+    Web = "Web",
+    Mobile = "Mobile",
   }
   
   export interface RdsSideNavProps {
@@ -34,29 +37,28 @@ export enum NavLayout {
     navLayout?: NavLayout;
     navType?: NavType;
     platform?: Platform;
-  }
-  
+}
 
 const RdsSideNav = (props: RdsSideNavProps) => {
     const [isLocked, setIsLocked] = useState(false);
     const [collapse, setCollapse] = useState(props.navType === "Collapsed");
     const [isMenuClick, setMenuClick] = useState(false);
     const [menuParentKey, setMenuParentKey] = useState("");
-    const [menuKey, setMenuKey] = useState(""); 
+    const [menuKey, setMenuKey] = useState("");
     const [isShowOne, setShowOne] = useState(false);
-    const [isShowTwo, setShowTwo] = useState(false);  
+    const [isShowTwo, setShowTwo] = useState(false);
     const mainMenu = props.sideNavItems;
     const labelObj: any = {};
     const [menuToShow, filterMenus] = useState(mainMenu);
-    const [searchQuery, setSearchQuery] = useState("");   
+    const [searchQuery, setSearchQuery] = useState("");
     const logo = props.logo ? props.logo : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
-    const [activeItem,  setActiveItem] = useState<string | null>(null);
+    const [activeItem, setActiveItem] = useState<string | null>(null);
     const navigatepage = useNavigate();
 
     const addFilter = (value: string) => {
         setSearchQuery(value);
-    
+
         if (value) {
             const filteredProducts = mainMenu.filter((menuItem: { label: string, children?: any[] }) =>
                 filterMenuItem(menuItem, value.toLowerCase())
@@ -66,23 +68,23 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             filterMenus(mainMenu);
         }
     };
-    
+
     const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: string): boolean => {
         if (menuItem.label.toLowerCase().includes(query)) {
             return true;
         }
-    
+
         if (menuItem.children) {
             return menuItem.children.some(child => filterMenuItem(child, query));
         }
-    
+
         return false;
     };
 
     mainMenu.forEach((item: any) => {
         labelObj[item.key] = false;
     });
-    
+
     useEffect(() => {
         setCollapse(props.navType === "Collapsed");
     }, [props.navType]);
@@ -92,6 +94,19 @@ const RdsSideNav = (props: RdsSideNavProps) => {
             setMenuClick(false);
         }
     }, [window.location.pathname]);
+
+    useEffect(() => {
+        console.log("props.sideNavItems", props.sideNavItems);
+        filterMenus(props.sideNavItems);
+    }, [props.sideNavItems]);
+
+    useEffect(() => {
+        if (props.navType === "Collapsed" || props.navType === "Fixed") {
+            setCollapse(true);
+        } else {
+            setCollapse(false);
+        }
+    }, [props.navType]);
 
     const useLocationChange = (action: any) => {
         React.useEffect(() => {
@@ -117,16 +132,16 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 });
 
                 if (item?.length <= 0) {
-                     setMenuParentKey("");
+                    setMenuParentKey("");
                     setMenuKey("");
                 } else {
                     if (item[0].children) {
                         if (item[0].children[0].children) {
                             setMenuParentKey(item[0].key);
                             setMenuKey(item[0].children[0].key);
-                          } else {
+                        } else {
                             setMenuKey(item[0].key);
-                          }
+                        }
                     }
                 }
             }
@@ -149,8 +164,8 @@ const RdsSideNav = (props: RdsSideNavProps) => {
         parent: any,
         level: number,
         isNavigate: boolean
-    ) => {       
-       
+    ) => {
+
         if (!item.children) {
             setActiveItem(item.key);
             setOpenMenus((prevOpenMenus) => {
@@ -174,7 +189,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 
         setMenuClick(true);
         if (isNavigate) {
-              setShowOne(false);
+            setShowOne(false);
             if (window.innerWidth < 768) {
                 setCollapse(!collapse);
                 localStorage.setItem("isMenuCollapse", !collapse + "");
@@ -239,7 +254,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                             (openMenus[item.key] ? "active " : "") +
                             (activeItem === item.key ? " active" : "")
                         }
-                        aria-expanded={openMenus[item.key] ? "true" : "false"}                       
+                        aria-expanded={openMenus[item.key] ? "true" : "false"}
                     >
                         <span>
                             {item.iconPath ? (
@@ -269,12 +284,12 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         </span>
                     </a>
                 </li>
-                {item.children && openMenus[item.key] &&(
+                {item.children && openMenus[item.key] && (
                     <ul
                         className={
                             (collapse
                                 ? "list-unstyled ps-2 dropdown-menu "
-                                : "list-unstyled")                           
+                                : "list-unstyled")
                         }
                     >
                         {displayMenu(item.children, item.key, level + 1)}
@@ -287,34 +302,34 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     return (
         <>
             <div
-                className={`${props.layout === "RightSideNav" ? "right-nav" : "aside"}`}
+                className={`${props.layout === "RightSideNav" ? "left-nav" : "aside"}`}
                 id="aside"
             >
                 {props.layout != "RightSideNav" && (
                     <div className="aside-right">
-                    <div
-                        className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
-                            props.toggleClass ? " show" : " hide"
-                        } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
-                    >
-                        <span className="collpase-button cursor-pointer d-flex lock-icon"
-                            onMouseEnter={(e) => e.stopPropagation()}
-                            onMouseLeave={(e) => e.stopPropagation()}>
+                        <div
+                            className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
+                                props.toggleClass ? " show" : " hide"
+                            } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
+                        >
+                            <span className="collpase-button cursor-pointer d-flex lock-icon"
+                                onMouseEnter={(e) => e.stopPropagation()}
+                                onMouseLeave={(e) => e.stopPropagation()}>
                                 <RdsIcon
-                                name={!isLocked ? "unlock" : "lock_nav"}
-                                height="21px"
-                                width="21px"
-                                stroke={true}
-                                fill={false}
-                                strokeWidth="1.2"
-                                colorVariant="white"
-                                onClick={() => setIsLocked(!isLocked)}
-                            ></RdsIcon>
-                        </span>
-                    </div>
+                                    name={!isLocked ? "unlock" : "lock_nav"}
+                                    height="21px"
+                                    width="21px"
+                                    stroke={true}
+                                    fill={false}
+                                    strokeWidth="1.2"
+                                    colorVariant="white"
+                                    onClick={() => setIsLocked(!isLocked)}
+                                ></RdsIcon>
+                            </span>
+                        </div>
                     </div>
                 )}
-                
+
                 <nav
                     id="sidebar"
                     ref={ref}
@@ -323,10 +338,10 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 >
                     <div>
                         {props.layout != "RightSideNav" && (
-                            <>  
+                            <>
                                 <br></br>
-                                <img src={logo!= "" ? logo : ""} className="ps-2" alt={logo != ""? "Raaghu Side Navigation" : ""} 
-                                    style={{ height:"30px" }}></img>
+                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                    style={{ height: "30px" }}></img>
                             </>
                         )}
 
@@ -345,7 +360,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         )}
 
                         {props.layout === "LeftSideNavList" && !props.collapse && (
-                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsSearch 
+                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsSearch
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}
@@ -357,7 +372,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                             </div>
                         )}
                         {props.layout === "LeftSideNavList" && props.collapse && (
-                            <RdsIcon 
+                            <RdsIcon
                                 name="search"
                                 colorVariant="primary"
                             />
@@ -381,7 +396,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                             />
                         </ul>
                     )}
-                </nav>                
+                </nav>
             </div>
         </>
     );
