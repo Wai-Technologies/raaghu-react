@@ -34,10 +34,10 @@ export const Default: Story = {
         layout: NotificationLayout.Vertical,
         style: NotificationStyle.Default,
         type: NotificationType.Info,
-        showButtons: true,
+        showButton: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
-        showdismissButton: true,
+        showDismissIcon: true,
         notifications: [
             {
                 status: "success",
@@ -49,7 +49,7 @@ export const Default: Story = {
         ]
     }
 }
-Default.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showdismissButton'] } };
+Default.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showDismissIcon'] } };
 
 
 
