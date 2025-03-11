@@ -22,11 +22,11 @@ const meta: Meta =  {
       control: { type: "select" },
     },
     leftIcon :{
-      options: ["user","plus","pencil","edit"],
+      options: ["user_tab","plus","pencil","edit"],
       control: { type: "select" },
     },
     rightIcon :{
-      options: ["user","plus","pencil","edit"],
+      options: ["user_tab","plus","pencil","edit"],
       control: { type: "select" },
     },
     state: {
@@ -60,7 +60,7 @@ export const Default : Story = {
     state: TabState.Default,
     title: "Tab",
     showLeftIcon: true,
-    leftIcon: "user",
+    leftIcon: "user_tab",
     showRightIcon: true,
     rightIcon: "plus",
     icon: "cancel",
