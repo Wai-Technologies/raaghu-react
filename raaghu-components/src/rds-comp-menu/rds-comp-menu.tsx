@@ -117,7 +117,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                     </div>
                     <div className="col-md-12 pt-1">
                         <RdsCheckbox
-                            labeltext="Active"
+                            labelText="Active"
                             onChange={(e) => {
                                 handlerChangeActive(e.target.checked);
                             }}

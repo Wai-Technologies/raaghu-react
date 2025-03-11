@@ -31,10 +31,10 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                 <div>
                     <label className="mb-2 fw-medium">Password Complexity </label>
                     <div className="fw-normal">
-                        <RdsCheckbox labeltext="Use Default Settings" checked={isDefaultChecked} />
+                        <RdsCheckbox labelText="Use Default Settings" checked={isDefaultChecked} />
                         <div className="m-3 ">
                             {props.checkgroupList.map((item, index) => (
-                                <RdsCheckbox key={index} labeltext={item.label} checked={item.checked} onChange={() => { item.onCheck(!item.checked); item.checked = !item.checked; }} />
+                                <RdsCheckbox key={index} labelText={item.label} checked={item.checked} onChange={() => { item.onCheck(!item.checked); item.checked = !item.checked; }} />
                             ))}
                         </div>
                     </div>
@@ -51,7 +51,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
                     <label className="mt-2 mb-2 fw-medium">User Lock Out</label>
                     <div className="fw-normal">
                         <RdsCheckbox
-                            labeltext="Enable user Account Locking On Failed Login Attempts"
+                            labelText="Enable user Account Locking On Failed Login Attempts"
                             checked={false}
                         />
                     </div>
@@ -78,12 +78,12 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
 
                 <label className="mt-2 fw-medium">Two Factor Login </label>
                 <div className="fw-normal py-2">
-                    <RdsCheckbox labeltext="Enable Two Factor Login  " checked={false} />
+                    <RdsCheckbox labelText="Enable Two Factor Login  " checked={false} />
                 </div>
                 <label className="mt-2 fw-medium">Only One Concurrent Login per user </label>
                 <div className="fw-normal py-2">
                     <RdsCheckbox
-                        labeltext="Disable Concurrent Login For A User. If A User Logins With A Second Device, The First Session Is Automatically Closed."
+                        labelText="Disable Concurrent Login For A User. If A User Logins With A Second Device, The First Session Is Automatically Closed."
                         checked={false}
                     />
                 </div>

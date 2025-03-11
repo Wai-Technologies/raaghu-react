@@ -47,7 +47,7 @@ export interface RdsFileUploaderProps {
   getFileUploaderInfo?: any; // Callback for getting file uploader info
   validation?: any[]; // Validation rules
   title?: string; // Title of the file uploader
-  isRequired?: boolean; // Flag for required field
+  isMandatory?: boolean; // Flag for mandatory field
   showTitle?: boolean; // Flag to show title
   showHint?: boolean; // Flag to show hint
   showThumbnail?: boolean; // Flag to show thumbnail
@@ -336,7 +336,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title || label}
-              {props.isRequired && <span className="text-danger ml-1">*</span>}
+              {props.isMandatory && <span className="text-danger ml-1">*</span>}
             </label>
           )}
           <label
@@ -373,7 +373,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 accept={props.extensions}
                 onChange={onchangehandler}
                 multiple={props.multiple}
-                required={props.isRequired ? true : false}
               />
             </div>
           </label>
@@ -452,7 +451,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               {props.showTitle && (
                 <label className={"form-label label-gray"}>
                   {props.title || props.label}
-                  {props.isRequired && (
+                  {props.isMandatory && (
                     <span className="text-danger ml-1">*</span>
                   )}
                 </label>
@@ -575,7 +574,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //             {props.showTitle && (
       //                 <label className={"form-label label-gray"}>
       //                     {props.title}
-      //                     {props.isRequired && (
+      //                     {props.isMandatory && (
       //                         <span className="text-danger ml-1">*</span>
       //                     )}
       //                 </label>
@@ -624,7 +623,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //                             : onChangeHandlerForSingleSelection
       //                     }
       //                     multiple={props.multiple}
-      //                     required={props.isRequired ? true : false}
+      //                     mandatory={props.isMandatory ? true : false}
       //                 />
       //             </div>
       //         </label>
@@ -701,7 +700,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             {props.showTitle && (
               <label className={"form-label label-gray"}>
                 {props.title}
-                {props.isRequired && (
+                {props.isMandatory && (
                   <span className="text-danger ml-1">*</span>
                 )}
               </label>
@@ -760,7 +759,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     : onChangeHandlerForSingleSelection
                 }
                 multiple={props.multiple}
-                required={props.isRequired ? true : false}
               />
             </div>
           </label>
@@ -842,7 +840,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             {props.showTitle && (
               <label className={"form-label label-gray"}>
                 {props.title}
-                {props.isRequired && (
+                {props.isMandatory && (
                   <span className="text-danger ml-1">*</span>
                 )}
               </label>
@@ -880,7 +878,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   accept={props.extensions}
                   onChange={onChangeHandlerForSingleSelection}
                   multiple={true}
-                  required={props.isRequired ? true : false}
                 />
               </div>
               <div className="d-flex justify-content-between">
@@ -912,7 +909,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
           {props.showTitle && (
             <label className={"form-label label-gray"}>
               {props.title}
-              {props.isRequired && <span className="text-danger ml-1">*</span>}
+              {props.isMandatory && <span className="text-danger ml-1">*</span>}
             </label>
           )}
         </div>
@@ -965,7 +962,6 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 accept={props.extensions}
                 onChange={onChangeHandlerForSingleSelection}
                 multiple={true}
-                required={props.isRequired ? true : false}
               />
             </div>
             <div className="d-flex justify-content-between">

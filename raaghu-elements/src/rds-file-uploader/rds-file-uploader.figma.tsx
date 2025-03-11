@@ -16,11 +16,11 @@ figma.connect(
   {
     props: {
       attachmentStyle: figma.instance("🔗 Attachment Style"),
-      hint: figma.string("✏️ Hint"),
+      hintText: figma.string("✏️ Hint"),
       isMandatory: figma.boolean("❗ Is Mandatory"),
       title: figma.string("✏️ Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      showTitle: figma.boolean("🆕 Show Title"),
+      showTitle: figma.boolean("🆕 Show Title"),  
       state: figma.enum("💡 State", {
         Default: FileUploaderState.Default,
         Selected: FileUploaderState.Selected,
@@ -32,6 +32,6 @@ figma.connect(
         "Drop Area - With Upload Button": FileUploaderStyle.DropAreaWithUploadButton,
       }),
     },
-    example: (props) => <RdsFileUploader  {...props}  extensions={""} label={""}/>,
+    example: (props) => <RdsFileUploader  {...props}  extensions={""} label={"Title"}  multiple showThumbnail placeholderImage={""} />,
   },
 )

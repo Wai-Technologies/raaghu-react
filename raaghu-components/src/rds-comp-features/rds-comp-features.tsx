@@ -194,7 +194,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                         ) : feature.valueType.validator.name === "BOOLEAN" ? (
                           <div className="form-group mb-2">
                             <RdsCheckbox
-                              labeltext={(feature.displayName) || ""}
+                              labelText={(feature.displayName) || ""}
                               checked={feature.value === true}
                               name={feature.name}
                               dataTestId={feature.name}

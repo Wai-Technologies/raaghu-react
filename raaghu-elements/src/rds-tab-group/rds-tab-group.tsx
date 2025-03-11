@@ -8,81 +8,101 @@ export interface TabItem {
   children?: TabItem[]; // Nested tabs
 }
 
-export enum TabLayout {
+export enum TabType {
   Horizontal = "Horizontal",
   Vertical = "Vertical",
 }
-export interface RdsTabGroupProps {
-  level?: number; //tab level
-  layout?: TabLayout; // Layout type
-  style?: string; // Tab style
-  iconName?: string; //tab right icon
-  iconSelect?: string; //tab left icon
-  icon?: string; //tab icon
+
+export enum TabState {
+  Default = "Default",
+  Hover = "Hover",
+  Selected = "Selected",
+  Disabled = "Disabled",
 }
 
-// Mapping style prop to CSS classes
-const styleClassesForHorizontal: { [key: string]: string } = {
-  "Bottom Select": "bottom-select",
-  "Top Select": "top-select",
-  "Bottom Select Alt": "bottom-select-alt",
-  "Top Select Alt": "top-select-alt",
-  "Background Filled": "background-filled",
-  "Pill": "pill-style",
-  "Select Tabs": "select-tabs",
+export interface RdsTabGroupProps {
+  level?: number; // Tab level
+  type?: TabType; // Tab type
+  layout?: string; // Tab layout
+  leftIcon?: string; // Tab right icon
+  rightIcon?: string; // Tab left icon
+  icon?: string; // Tab icon
+  state?: TabState; // Tab state
+  showLeftIcon?: boolean; // Show left icon
+  showRightIcon?: boolean; // Show right icon
+  title?: string; // Tab title
+}
 
+// Mapping layout prop to CSS classes
+const layoutClassesForHorizontal: { [key: string]: string } = {
+  "Filled": "filled",
+  "Flap": "flap",
+  "Pill": "pill",
+  "Line Bottom": "line-bottom",
+  "Line Bottom Solid": "line-bottom-solid",
+  "Line Top": "line-top",
+  "Line Top Solid": "line-top-solid"
 };
 
-const styleClassesForVertical: { [key: string]: string } = {
-  "Vertical-Alt Right Line": "vertical-alt-right-line",
-  "Vertical-Alt Left Line": "vertical-alt-left-line",
-  "Vertical-Left Line": "vertical-left-line",
-  "Vertical-Right Line": "vertical-right-line",
-  "Vertical-Left Filled": "vertical-left-filled",
-  "Vertical-Pointer": "vertical-pointer",
+const layoutClassesForVertical: { [key: string]: string } = {
   "Vertical-Flap": "vertical-flap",
+  "Vertical-Pill": "vertical-pill",
+  "Vertical-Left Line": "vertical-left-line",
+  "Vertical Line-Left Solid": "vertical-line-left-solid",
+  "Vertical-Right Line": "vertical-right-line",
+  "Vertical Line-Right Solid": "vertical-line-right-solid",
 };
 
 const RdsTabGroup = (props: RdsTabGroupProps) => {
   const [activeTabs, setActiveTabs] = useState<string[]>([]);
 
   const onClickTab = (label: string) => {
-    setActiveTabs((prev) =>
-      prev.includes(label) ? prev.filter((tab) => tab !== label) : [...prev, label]
-    );
+    if (props.state !== TabState.Disabled) {
+      setActiveTabs((prev) =>
+        prev.includes(label) ? prev.filter((tab) => tab !== label) : [...prev, label]
+      );
+    }
   };
 
   // Generate tab list dynamically based on `level`
   const tabList: TabItem[] = Array.from({ length: props.level ?? 3 }, (_, i) => ({
-    label: `Tab ${i + 1}`,
+    label: props.title ? `${props.title} ${i + 1}` : `Tab ${i + 1}`,
   }));
 
   // Recursive function to render nested tabs
   const renderTabs = (tabs: TabItem[], level = 0) => {
     return (
       <div
-        style={{ marginLeft: props.layout === TabLayout.Vertical ? level * 20 : 0 }}
-        // className={`tab-level ${props.style ? styleClassesForHorizontal[props.style] : ""}`}
-        className={`tab-level ${props.layout === TabLayout.Vertical ? (props.style ? styleClassesForVertical[props.style] : "") : (props.style ? styleClassesForHorizontal[props.style] : "")}`}
+        style={{ marginLeft: props.type === TabType.Vertical ? level * 20 : 0 }}
+        className={`tab-level ${props.state === TabState.Hover ? "tab-hover" : ""} ${props.layout === "Pill" ? "tab-pill" : ""} ${props.type === TabType.Vertical ? (props.layout ? layoutClassesForVertical[props.layout] : "") : (props.layout ? layoutClassesForHorizontal[props.layout] : "")}`}
+
       >
         {tabs.map((item, index) => (
-          <div key={index} className={props.layout === TabLayout.Horizontal ? "d-inline-block" : ""}>
+          <div key={index} className={props.type === TabType.Horizontal ? "d-inline-block" : ""}>
             <div
-              className={`tab cursor-pointer px-3 py-2 ${activeTabs.includes(item.label) ? "active" : ""}`}
+              className={`tab cursor-pointer px-3 py-2 ${activeTabs.includes(item.label) ? "active" : ""} ${props.state?.toLowerCase()}`}
               onClick={() => onClickTab(item.label)}
             >
-              {props.layout === TabLayout.Vertical && (
+              {props.type === TabType.Vertical && (
                 <p className="mb-0 d-flex align-items-center">
-                  <RdsIcon name={props.iconSelect} height="13px" width="13px" classes="mx-1" />
+                  {props.showLeftIcon && (
+                    <RdsIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1" />
+                  )}
                   <RdsLabel label={item.label} />
-                  <RdsIcon name={props.icon} height="11px" width="11px" classes="mx-2" />
+                  {props.showRightIcon && (
+                    <RdsIcon name={props.rightIcon} height="11px" width="11px" classes="mx-2" />
+                  )}
                 </p>
               )}
-              {props.layout === TabLayout.Horizontal && (
+              {props.type === TabType.Horizontal && (
                 <p className="mb-0 d-flex align-items-center">
-                  <RdsIcon name={props.iconName} height="13px" width="13px" classes="mx-1"/>
+                  {props.showLeftIcon && (
+                    <RdsIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1"/>
+                  )}
                   <RdsLabel label={item.label} />
-                  <RdsIcon name={props.iconSelect} height="13px" width="13px" classes="mx-1" />
+                  {props.showRightIcon && (
+                    <RdsIcon name={props.rightIcon} height="13px" width="13px" classes="mx-1" />
+                  )}
                 </p>
               )}
             </div>
@@ -95,17 +115,13 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
 
   return (
     <>
-      {props.layout === TabLayout.Horizontal && (
-        <div
-          className={`d-flex ${props.layout === TabLayout.Horizontal ? "flex-row" : ""}`}
-        >
+      {props.type === TabType.Horizontal && (
+        <div className={`d-flex ${props.type === TabType.Horizontal ? "flex-row" : ""}`}>
           {renderTabs(tabList)}
         </div>
       )}
-      {props.layout === TabLayout.Vertical  && (
-        <div
-          className={`d-flex ${props.layout === TabLayout.Vertical  ? "flex-column" : ""}VerticalWidth`}
-        >
+      {props.type === TabType.Vertical && (
+        <div className={`d-flex ${props.type === TabType.Vertical ? "flex-column" : ""}VerticalWidth`}>
           {renderTabs(tabList)}
         </div>
       )}

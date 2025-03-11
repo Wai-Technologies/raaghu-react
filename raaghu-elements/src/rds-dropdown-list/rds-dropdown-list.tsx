@@ -67,12 +67,14 @@ export interface RdsDropdownListProps {
   isMandatory?: boolean; // To show required field
   showHint?: boolean; // To show hint in dropdown
   hint?: string; // Hint text
+  showSelectedOption?: boolean; // To show selected option
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
   const [showIcon, setShowIcon] = useState(
     props.showIcon || props.showIcon == undefined ? true : false
   );
+  const [showSelectedOption, setShowSelectedOption] = useState(props.showSelectedOption == undefined ? true : false);
   const [checkedCategoryList, setCheckedCategoryList] = useState<any>([]);
   const [expand, setExpend] = useState(props.state === "Expanded");
   const [isTouch, setIsTouch] = useState(false);
@@ -342,9 +344,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     stroke={true}
                   />
                 )}
-                <span className="dw-placeholder fs-6 ms-2">
+                {showSelectedOption && <span className="dw-placeholder fs-6 ms-2">
                   {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                </span>
+                </span>}
               </div>
             )}
   

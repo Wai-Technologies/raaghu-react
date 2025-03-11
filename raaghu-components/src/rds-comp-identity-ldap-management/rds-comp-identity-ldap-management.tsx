@@ -50,7 +50,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
                 </div>
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        labeltext="Enable Ldap Login"
+                        labelText="Enable Ldap Login"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableLdapLogin"); }}
                         checked={ldap?.enableLdapLogin}
                         dataTestId="use-default-credential"

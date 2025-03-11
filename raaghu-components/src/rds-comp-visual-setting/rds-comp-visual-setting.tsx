@@ -216,7 +216,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                     >
                                         <RdsCheckbox
                                            onChange={()=>onCheckboxCheck(!fixedSubHeader,"fixedSubHeader")}
-                                            labeltext="Fixed SubHeader"
+                                            labelText="Fixed SubHeader"
                                             name="fixedSubHeader"
                                             checked={
                                                 fixedSubHeader
@@ -273,7 +273,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                         <div className="form-group mb-3">
                                             <RdsCheckbox
                                                 onChange={()=>onCheckboxCheck(!fixedAsideChecked,"fixedAside")}
-                                                labeltext="Fixed Aside"
+                                                labelText="Fixed Aside"
                                                 name="fixedAside"
                                                 checked={
                                                     fixedAsideChecked
@@ -282,7 +282,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
                                             <RdsCheckbox
                                                 onChange={()=>onCheckboxCheck(!allowAsideMinimizing,"allowAsideMinimizing")}
-                                                labeltext="Allow Aside Minimizing"
+                                                labelText="Allow Aside Minimizing"
                                                 name="allowAsideMinimizing"
                                                 checked={
                                                     allowAsideMinimizing
@@ -292,7 +292,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                             <RdsCheckbox
                                                 onChange={()=>onCheckboxCheck(!defaultMinimisedAside,"defaultMinimizedAside")}
                                                 name="defaultMinimizedAside"
-                                                labeltext="Default Minimised Aside"
+                                                labelText="Default Minimised Aside"
                                                 checked={
                                                     defaultMinimisedAside
                                                 }
@@ -300,7 +300,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
                                             <RdsCheckbox
                                                 onChange={()=>onCheckboxCheck(!expandMenuWhenHovered,"expandMenuHovered")}
-                                                labeltext="Expand Menu when Hovered"
+                                                labelText="Expand Menu when Hovered"
                                                 name="hoverableAside"
                                                 checked={
                                                     expandMenuWhenHovered
@@ -359,7 +359,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                         <div className="pt-4"> 
                                             <RdsCheckbox
                                                 onChange={()=>onCheckboxCheck(!fixedFooter,"fixedFooter")}
-                                                labeltext="Fixed Footer"
+                                                labelText="Fixed Footer"
                                                 name="fixedFooter"
                                                 checked={
                                                     fixedFooter
@@ -432,7 +432,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                         <label className="mb-2">Desktop</label>
                                                         <RdsCheckbox
                                                             onChange={onCheckboxCheck}
-                                                            labeltext="Fixed Header"
+                                                            labelText="Fixed Header"
                                                             name="desktopFixedHeader"
                                                             checked={
                                                                 vsItem.filter(
@@ -443,7 +443,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                         <label className="mb-2">Mobile</label>
                                                         <RdsCheckbox
                                                             onChange={onCheckboxCheck}
-                                                            labeltext="Fixed Header"
+                                                            labelText="Fixed Header"
                                                             name="mobileFixedHeader"
                                                             checked={
                                                                 vsItem.filter(

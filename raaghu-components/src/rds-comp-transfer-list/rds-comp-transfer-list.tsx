@@ -84,7 +84,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
                   numberOfChecked(left) === left.length && left.length !== 0
                 }
                 onChange={(e) => handleToggleAll(left, e.target.checked)}
-                labeltext="Choices"
+                labelText="Choices"
               />
             </div>
             <div className="selected-counter">
@@ -99,7 +99,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
                style={CheckboxStyle.Square}
               checked={checked.indexOf(value) !== -1}
               onChange={handleToggle(value)}
-              labeltext={`List item ${value + 1}`}
+              labelText={`List item ${value + 1}`}
             />
           </div>
         ))}
@@ -148,7 +148,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
                   numberOfChecked(right) === right.length && right.length !== 0
                 }
                 onChange={(e) => handleToggleAll(right, e.target.checked)}
-                labeltext="Chosen"
+                labelText="Chosen"
               />
             </div>
             <div className="selected-counter">
@@ -163,7 +163,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
               style={CheckboxStyle.Square}
               checked={checked.indexOf(value) !== -1}
               onChange={handleToggle(value)}
-              labeltext={`List item ${value + 1}`}
+              labelText={`List item ${value + 1}`}
             />
           </div>
         ))}

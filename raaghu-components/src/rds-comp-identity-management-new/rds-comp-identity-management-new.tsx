@@ -106,7 +106,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require NonAlphanumeric"
+                                labelText="Require NonAlphanumeric"
                                 checked={passwordSettings?.requireNonAlphanumeric}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireNonAlphanumeric")}
                                 dataTestId="required-non-alpha-num-char"
@@ -117,7 +117,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require Uppercase"
+                                labelText="Require Uppercase"
                                 checked={passwordSettings?.requireUppercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireUppercase")}
                                 dataTestId="required-upper-case"
@@ -128,7 +128,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require Lowercase"
+                                labelText="Require Lowercase"
                                 checked={passwordSettings?.requireLowercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireLowercase")}
                                 dataTestId="required-lower-case"
@@ -139,7 +139,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require Digit"
+                                labelText="Require Digit"
                                 checked={passwordSettings?.requireDigit}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireDigit")}
                                 dataTestId="required-numbers"
@@ -154,7 +154,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Force Users To Periodically Change Password"
+                                labelText="Force Users To Periodically Change Password"
                                 checked={passwordSettings?.forceUsersToPeriodicallyChangePassword}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "forceUsersToPeriodicallyChangePassword")}
                                 dataTestId="enable-new-user"
@@ -191,7 +191,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Allowed For New Users"
+                                labelText="Allowed For New Users"
                                 checked={passwordSettings?.allowedForNewUsers}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "allowedForNewUsers")}
                                 dataTestId="enable-new-user"
@@ -245,7 +245,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require Confirmed Email"
+                                labelText="Require Confirmed Email"
                                 checked={passwordSettings?.requireConfirmedEmail}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedEmail")}
                                 dataTestId="required-confirmed-email"
@@ -256,7 +256,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Enable Phone Number Confirmation"
+                                labelText="Enable Phone Number Confirmation"
                                 checked={passwordSettings?.enablePhoneNumberConfirmation}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "enablePhoneNumberConfirmation")}
                                 dataTestId="allow-user-conf-phone"
@@ -267,7 +267,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Require Confirmed Phone Number"
+                                labelText="Require Confirmed Phone Number"
                                 checked={passwordSettings?.requireConfirmedPhoneNumber}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedPhoneNumber")}
                                 dataTestId="required-conf-phone"
@@ -282,7 +282,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Is Email Update Enabled"
+                                labelText="Is Email Update Enabled"
                                 checked={passwordSettings?.isEmailUpdateEnabled}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isEmailUpdateEnabled")}
                                 dataTestId="allow-user-change-email"
@@ -293,7 +293,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                labeltext="Is User Name Update Enabled"
+                                labelText="Is User Name Update Enabled"
                                 checked={passwordSettings?.isUserNameUpdateEnabled}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isUserNameUpdateEnabled")}
                                 dataTestId="allow-user-change-username"

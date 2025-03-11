@@ -63,7 +63,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
 
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox
-                        labeltext="Enable OAuth Login"
+                        labelText="Enable OAuth Login"
                         onChange={(e: any) => { handleChangeform(e.target.checked, "enableOAuthLogin"); }}
                         checked={oauth?.enableOAuthLogin}
                         dataTestId="use-default-credential"
@@ -131,7 +131,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                 <div className="row">
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            labeltext="Require Https Metadata"
+                            labelText="Require Https Metadata"
                             checked={oauth?.requireHttpsMetadata}
                             onChange={(e: any) => handleChangeform(e.target.checked, "requireHttpsMetadata")}
                             dataTestId="requireHttpsMetadata"
@@ -139,7 +139,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            labeltext="Validate End points"
+                            labelText="Validate End points"
                             checked={oauth?.validateEndpoints}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateEndpoints")}
                             dataTestId="validateEndpoints"
@@ -147,7 +147,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
                     </div>
                     <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                            labeltext="Validate Issuer Name"
+                            labelText="Validate Issuer Name"
                             checked={oauth?.validateIssuerName}
                             onChange={(e: any) => handleChangeform(e.target.checked, "validateIssuerName")}
                             dataTestId="validateIssuerName"

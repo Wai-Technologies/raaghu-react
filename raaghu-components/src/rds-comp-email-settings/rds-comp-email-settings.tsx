@@ -171,7 +171,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
-                    <RdsCheckbox labeltext="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
+                    <RdsCheckbox labelText="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
                 </div>
             </div>
 
@@ -180,7 +180,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                     className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
                 >
                     <RdsCheckbox
-                        labeltext="Use Default Credentials"
+                        labelText="Use Default Credentials"
                         checked={false}
                         dataTestId='default-credentials'
                     ></RdsCheckbox>

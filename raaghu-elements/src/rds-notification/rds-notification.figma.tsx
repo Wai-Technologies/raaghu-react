@@ -17,8 +17,6 @@ figma.connect(
     props: {
       showDismissIcon: figma.boolean("⛔️ Show Dismiss Icon"),
       showSecondaryButton: figma.boolean("🔶 Show Secondary Button"),
-      title: figma.string("✏️ Title"),
-      description: figma.string("📝 Description "),
       showPrimaryButton: figma.boolean("🔷 Show Primary Button"),
       showButton: figma.boolean("🕹️ Show Button"),
       layout: figma.enum("📱 Layout", {
@@ -38,6 +36,14 @@ figma.connect(
         Warning: NotificationType.Warning,
       }),
     },
-    example: (props) => <RdsNotification {...props} notifications={[]}/>,
+    example: (props) => <RdsNotification {...props} notifications={[
+      {
+        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+        status: 'success',
+        time: 'a month ago',
+        title: 'Notification Title',
+        urlTitle: 'hello'
+      }
+    ]}/>,
   },
 )

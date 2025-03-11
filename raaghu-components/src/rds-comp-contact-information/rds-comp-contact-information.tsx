@@ -117,7 +117,7 @@ const RdsCompContactInformation = (props: RdsCompContactInfoProps) => {
             <div className=" mt-2 mb-5 py-2 d-flex">
               <RdsCheckbox
                 id="flexCheckDefault"
-                labeltext={`${"I have read the terms and conditions and agree to the sale of my personal information to the highest bidder."}`}
+                labelText={`${"I have read the terms and conditions and agree to the sale of my personal information to the highest bidder."}`}
                 checked={user?.checked}
                 onChange={(e) => handleDataChanges(e.target.checked, "checked")}
                 dataTestId="remember-me"

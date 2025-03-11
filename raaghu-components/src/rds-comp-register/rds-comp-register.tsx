@@ -118,7 +118,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             >
                                 <div className="text-start  mb-4 border-bottom">
                                     <div className="form-check form-switch text-start ps-0 mb-4">
-                                        <RdsCheckbox labeltext={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
+                                        <RdsCheckbox labelText={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                             }`}
                                             checked={checked} isSwitch={checked}
                                             onChange={() => setChecked(!checked)}
@@ -209,7 +209,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 <div className="form-group mb-3 pb-2 remember-me d-flex">
                                     <RdsCheckbox
                                         id="remembercheckid"
-                                        labeltext="I Accept Terms Of Service"
+                                        labelText="I Accept Terms Of Service"
                                         onChange={(e) => {
                                             handleDataChanges(e.target.checked, "Accept");
                                         }}

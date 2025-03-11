@@ -211,7 +211,7 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                         <div className="mb-2 ">
                             <RdsCheckbox
                                 id="0"
-                                labeltext="Two Factor Authentication"
+                                labelText="Two Factor Authentication"
                                 checked={userData?.twoFactorEnabled}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "twoFactorEnabled");
@@ -223,7 +223,7 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                         <div className="mb-2 ">
                             <RdsCheckbox
                                 id="0"
-                                labeltext="Active"
+                                labelText="Active"
                                 checked={userData?.isActive}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "isActive");
@@ -235,7 +235,7 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                         <div className="mb-2">
                             <RdsCheckbox
                                 id="1"
-                                labeltext="Should Change Password On Next Login"
+                                labelText="Should Change Password On Next Login"
                                 checked={userData?.shouldChangePasswordOnNextLogin}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "shouldChangePasswordOnNextLogin");
@@ -248,7 +248,7 @@ const isFormValid = isFirstNameValid(userData?.firstName) && isLastNameValid(use
                         <div className="mb-2">
                             <RdsCheckbox
                                 id="0"
-                                labeltext="Account Lockout"
+                                labelText="Account Lockout"
                                 checked={userData?.lockoutEnabled}
                                 onChange={(e) => {
                                     handleDataChange(e.target.checked, "lockoutEnabled");
