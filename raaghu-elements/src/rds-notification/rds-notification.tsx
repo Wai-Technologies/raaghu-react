@@ -28,10 +28,10 @@ export interface RdsNotificationProps {
     layout?: NotificationLayout; // Layout of the notification
     style?: NotificationStyle; // Style of the notification
     type?: NotificationType; // Type of the notification
-    showButtons?: boolean; // Show buttons in the notification
+    showButton?: boolean; // Show buttons in the notification
     showPrimaryButton?: boolean; // Show primary button in the notification
     showSecondaryButton?: boolean; // Show secondary button in the notification
-    showdismissButton?: boolean; // Show dismiss button in the notification
+    showDismissIcon?: boolean; // Show dismiss button in the notification
     onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
     onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
@@ -76,7 +76,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                             aria-label="Close"
                             onClick={(e) => props.onDismiss?.(e, notification)}
                         ></button> */}
-                        {props.showdismissButton && (
+                        {props.showDismissIcon && (
                             <>
                         <RdsIcon name="close" classes="position-absolute top-0 end-0 m-1" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
                             </>
@@ -93,7 +93,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         {notification.description}
                     </div>
                     <div className="notification-footer d-flex justify-content-end mt-2 gap-2">
-                        {props.showButtons && ( 
+                        {props.showButton && ( 
                         <>
                         {props.showSecondaryButton && (
                         <RdsButton
