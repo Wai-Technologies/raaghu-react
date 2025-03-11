@@ -25,7 +25,7 @@ const meta: Meta = {
     title: {
       control: { type: "text" },
     },
-    isRequired: {
+    isMandatory: {
       control: { type: "boolean" },
     },
     showTitle: {
@@ -57,7 +57,7 @@ export const Default: Story = {
     fileSizeLimitInMb: 5,
     title: "Title",
     multiple: true,
-    isRequired: true,
+    isMandatory: true,
     showThumbnail: true,
     showTitle: true,
     showHint: true,
@@ -72,7 +72,7 @@ Default.parameters = {
       "state",
       "style",
       "title",
-      "isRequired",
+      "isMandatory",
       "showTitle",
       "showHint",
       "multiple",

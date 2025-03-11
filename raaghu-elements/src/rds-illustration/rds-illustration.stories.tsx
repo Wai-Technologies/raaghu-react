@@ -35,7 +35,7 @@ EmptyDataView.parameters = {
   controls: {
     include: [
       "mode",
-    //   "label",
+      "label",
     //   "subLabel",
     //   "iconHeight",
     //   "iconWidth",
