@@ -2224,7 +2224,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
 
                             <th>
                               <RdsBadge
-                                badgeType="box"
+                                shape="rectangle"
                                 colorVariant="primary"
                                 iconName="notification"
                                 iconPosition="right"
@@ -2389,7 +2389,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                         tableDataRow[tableHeader.key]}
                                       {tableHeader.datatype === "badge" && (
                                         <RdsBadge
-                                          badgeType="box"
+                                          shape="rectangle"
                                           colorVariant={
                                             tableDataRow[tableHeader.key]
                                               .badgeColorVariant
@@ -2417,7 +2417,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                             (badge: any, index: number) => (
                                               <RdsBadge
                                                 key={index}
-                                                badgeType="box"
+                                                shape="rectangle"
                                                 colorVariant={
                                                   badge.badgeColorVariant
                                                 }
@@ -2439,7 +2439,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                             (badge: any, index: number) => (
                                               <RdsBadge
                                                 key={index}
-                                                badgeType="box"
+                                                shape="rectangle"
                                                 colorVariant={
                                                   badge.badgeColorVariant
                                                 }

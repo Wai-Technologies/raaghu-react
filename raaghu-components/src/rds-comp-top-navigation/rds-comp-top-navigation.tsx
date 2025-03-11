@@ -541,7 +541,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
                 </div>)}
             </div>
@@ -830,7 +830,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
                 </div>)}
             </div>
@@ -990,7 +990,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
               </div>
             )}
@@ -1065,7 +1065,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
               </div>
             )}
@@ -1155,7 +1155,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
               </div>
             )}
@@ -2312,7 +2312,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       profilePic={profilePic}
                       role={props.role}
                       size={AvatarSize.medium}
-                      titleAlign="horizontal"
+                      title="horizontal"
                     />
                 </div>)}
           </div>

@@ -353,7 +353,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                     profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                     role="Developer"
                                     size={AvatarSize.small}
-                                    titleAlign="horizontal"
+                                    title="horizontal"
                                     withProfilePic
                                 />
                             </div>
@@ -391,7 +391,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                 role="Developer"
                                 size={AvatarSize.small}
-                                titleAlign="horizontal"
+                                title="horizontal"
                                 withProfilePic
                             />
                         </ul>

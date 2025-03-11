@@ -149,7 +149,7 @@ export const Default: Story = {
                             <RdsBadge 
                                 label={args.badgeLabel} 
                                 colorVariant={args.badgeColorVariant} 
-                                badgeType={args.badgeType}
+                                shape={args.shape}
                                 layout={args.badgeLayout}
                                 style={args.badgeStyle}
                                 state={args.badgeState}

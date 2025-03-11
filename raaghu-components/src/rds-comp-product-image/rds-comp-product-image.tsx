@@ -111,7 +111,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                                 <RdsBadge
                                     label={props.item.badgeWithIcon?.badge}
                                     size="small"
-                                    badgeType="pill"
+                                    shape="pill"
                                     colorVariant="warning"
                                     children={
                                         <RdsIcon
