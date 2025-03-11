@@ -366,6 +366,8 @@ export const Ecommerce_1: Story = {
             }
         ],
         showLogo: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce1: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
@@ -511,6 +513,8 @@ export const Ecommerce_2: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce2: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
@@ -656,6 +660,8 @@ export const Ecommerce_3: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         socialMediaIcons : [
@@ -807,6 +813,8 @@ export const Ecommerce_4: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -991,6 +999,8 @@ export const Product_2: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         product2: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1137,6 +1147,8 @@ export const Product_3: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         product3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1296,6 +1308,8 @@ export const Product_4: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "top",
+        breadcrumbBorderColor: "#6610f2",
         product4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1755,7 +1769,8 @@ export const Professional_3: Story = {
                 iconHeight: "20px",
             }
         ],
-       
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         professional3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1783,7 +1798,7 @@ export const Professional_3: Story = {
                 active: true,
             },
             {
-                label: "Tab 1",
+                label: "Tab 2",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -1832,7 +1847,8 @@ export const Professional_4: Story = {
                 iconHeight: "20px",
             }
         ],
-       
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         professional4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         showLogo: true, 
@@ -1866,7 +1882,7 @@ export const Professional_4: Story = {
             },
             {
                 label: "Resources",
-                id: 2,
+                id: 3,
                 route: "#",
                 disabled: false,
                 icon: "resources",
@@ -2112,6 +2128,8 @@ export const App_Shell_3: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "top",
+        breadcrumbBorderColor: "#6610f2",
         appshell3: true,
         showLogo: true, 
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
