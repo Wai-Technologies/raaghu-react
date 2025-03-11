@@ -153,7 +153,7 @@ const isRoleIdValid = (roleId: any) => {
                   <RdsCheckbox
                     key={index}
                     id={`checkbox-${assignRoles.id}`}
-                    labeltext={assignRoles.name}
+                    labelText={assignRoles.name}
                     onChange={() => {
                       if (assignRoles.isDefault) {
                         setAddMemberData((prevAddMemberData: any) => ({
@@ -165,7 +165,7 @@ const isRoleIdValid = (roleId: any) => {
                       }
                     }}
                     checked={assignRoles.isDefault}
-                    showtext
+                    showText
                   />
                 ))}
               </div>

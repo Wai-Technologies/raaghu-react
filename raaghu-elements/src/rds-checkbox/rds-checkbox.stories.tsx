@@ -37,8 +37,8 @@ export const Default: Story = {
         status: CheckboxStatus.Checked,   
         style: CheckboxStyle.Square,     
         state: CheckboxState.Default,   
-        showtext: true,
-        labeltext: "Label",
+        showText: true,
+        labelText: "Label",
         checked: true,
         labelPosition: LabelPosition.Right
         //isDisabled: false,
@@ -49,4 +49,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: [ "status", "style", "state", "showtext", "labeltext",   /* "checked", "isSwitch", "isDisabled", "id", "labelPosition", "isInputGroup"*/] } };
+Default.parameters = { controls: { include: [ "status", "style", "state", "showText", "labelText",   /* "checked", "isSwitch", "isDisabled", "id", "labelPosition", "isInputGroup"*/] } };

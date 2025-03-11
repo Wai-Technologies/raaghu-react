@@ -347,7 +347,7 @@ const RdsStepper = (props: RdsStepperProps) => {
                             <div key={index} className="mb-3">
                                 <RdsCheckbox
                                     classes="py-2"
-                                    labeltext={detail.label}
+                                    labelText={detail.label}
                                     status= {CheckboxStatus.Checked}
                                     style={CheckboxStyle.Square}
                                     id={`projectDetailsCheckbox-${index}`}
@@ -383,7 +383,7 @@ const RdsStepper = (props: RdsStepperProps) => {
             <>
             {props.advanceList?.map((e) => <div className={props.stepperSectionClass}>
             <span className={props.headerClass}>{e.headerContain}</span>
-            <span className={props.checkBoxClass}><RdsCheckbox isDisabled={e.isDisabled} checked={e.checkedValue}labeltext={e.checkBoxLabel} id={e.checkBoxId} showtext={e.checkBoxWithLabel}/></span>
+            <span className={props.checkBoxClass}><RdsCheckbox isDisabled={e.isDisabled} checked={e.checkedValue}labelText={e.checkBoxLabel} id={e.checkBoxId} showText={e.checkBoxWithLabel}/></span>
             {e.showDetails && <div className={props.showDetailsClass}>{e.detailsContain}</div>}
             </div>)}
             </>

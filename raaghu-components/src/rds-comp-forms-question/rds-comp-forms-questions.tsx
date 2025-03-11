@@ -211,8 +211,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                           id="id1"
                           isSwitch
                           style={CheckboxStyle.Square}
-                          labeltext={""}
-                          showtext={false}
+                          labelText={""}
+                          showText={false}
                           onChange={(e: any) => {
                             setIsRequired(i, e.target.checked);
                           }}

@@ -11,7 +11,7 @@ describe("RdsCheckbox", () => {
 
     it("renders with default props", () => {
         const handleChange = jest.fn();
-        render(<RdsCheckbox labeltext='Checkbox' id='checkbox' onChange={handleChange} checked={false}/>);
+        render(<RdsCheckbox labelText='Checkbox' id='checkbox' onChange={handleChange} checked={false}/>);
         const checkbox = screen.getByLabelText("Checkbox") as HTMLInputElement;
         expect(checkbox).toBeInTheDocument();
         expect(checkbox.checked).toBe(false);

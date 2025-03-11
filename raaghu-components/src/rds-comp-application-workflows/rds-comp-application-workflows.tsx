@@ -62,7 +62,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Authorization Code Flow"
+                            labelText="Allow Authorization Code Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowAuthorizationCodeFlow"); }}
                             checked={basicApplicationData?.allowAuthorizationCodeFlow}
                             dataTestId="authorization-flow"
@@ -71,7 +71,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Implicit Flow"
+                            labelText="Allow Implicit Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowImplicitFlow"); }}
                             dataTestId="implicit-flow"
                             checked={basicApplicationData?.allowImplicitFlow}
@@ -80,7 +80,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Hybrid Flow"
+                            labelText="Allow Hybrid Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowHybridFlow"); }}
                             dataTestId="hybrid-flow"
                             checked={basicApplicationData?.allowHybridFlow}
@@ -90,7 +90,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Password Flow"
+                            labelText="Allow Password Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowPasswordFlow"); }}
                             checked={basicApplicationData?.allowPasswordFlow}
                             dataTestId="password-flow"
@@ -99,7 +99,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Refresh Token Flow"
+                            labelText="Allow Refresh Token Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowRefreshTokenFlow"); }}
                             checked={basicApplicationData?.allowRefreshTokenFlow}
                             isDisabled={isAllowRefreshTokenFlowDisabled}
@@ -109,7 +109,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Client Credentials Flow"
+                            labelText="Allow Client Credentials Flow"
                             onChange={e => { handleDataChanges(e.target.checked, "allowClientCredentialsFlow"); }}
                             checked={basicApplicationData?.allowClientCredentialsFlow}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -119,7 +119,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <div className="mb-3">
                         <RdsCheckbox
                             classes="py-2"
-                            labeltext="Allow Device End point"
+                            labelText="Allow Device End point"
                             onChange={e => { handleDataChanges(e.target.checked, "allowDeviceEndpoint"); }}
                             checked={basicApplicationData?.allowDeviceEndpoint}
                             isDisabled={basicApplicationData?.type === "public"}
@@ -150,7 +150,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                 </div>
                 <div className="mb-3">
                     <RdsCheckbox
-                        labeltext="Allow Logout End point"
+                        labelText="Allow Logout End point"
                         onChange={e => { handleDataChanges(e.target.checked, "allowLogoutEndpoint"); }}
                         checked={basicApplicationData?.allowLogoutEndpoint}
                         dataTestId="logout-endpoint"
@@ -192,7 +192,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
             {basicApplicationData?.id && (
                 <div className="row py-2">
                     <RdsCheckbox
-                        labeltext="Enabled"
+                        labelText="Enabled"
                         checked={basicApplicationData?.enabled}
                         dataTestId="enabled"
                     ></RdsCheckbox>

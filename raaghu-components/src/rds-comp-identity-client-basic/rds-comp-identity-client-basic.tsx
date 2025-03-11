@@ -177,7 +177,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
           </div>
           <div className="row mt-2">
             <RdsCheckbox
-              labeltext="Required Consent"
+              labelText="Required Consent"
               dataTestId="consent"
               onChange={(e: any) => {
                 handleDataChanges(e.target.checked, "requiredConsent");

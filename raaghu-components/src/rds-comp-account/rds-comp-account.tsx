@@ -146,7 +146,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        labeltext="Is Self Registration Enabled"
+                        labelText="Is Self Registration Enabled"
                         onChange={(e: any) => {
                           handlerChangeGeneral(
                             e.target.checked,
@@ -161,7 +161,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        labeltext="Authentication With a Local Account"
+                        labelText="Authentication With a Local Account"
                         onChange={(e) => {
                           handlerChangeGeneral(
                             e.target.checked,
@@ -200,7 +200,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <div className="row">
                     <div className="col-md-12 mb-3">
                       <RdsCheckbox
-                        labeltext="Remember Browser"
+                        labelText="Remember Browser"
                         checked={accountGeneralData?.isRememberBrowserEnabled}
                         onChange={(e) => {
                           handlerChangeGeneral(
@@ -223,7 +223,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                          labeltext="Use Security Image Questions(Captcha) On Login"
+                          labelText="Use Security Image Questions(Captcha) On Login"
                           checked={accountGeneralData?.useCaptchaOnLogin}
                           onChange={(e) => {
                             handlerChangeGeneral(
@@ -238,7 +238,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                     <div className="row">
                       <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                          labeltext="Use Security Image Questions(Captcha) On Registration"
+                          labelText="Use Security Image Questions(Captcha) On Registration"
                           checked={accountGeneralData?.useCaptchaOnRegistration}
                           onChange={(e) => {
                             handlerChangeGeneral(

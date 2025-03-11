@@ -145,7 +145,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                         <div className="row">
                            <div className="col-md-12 mb-3">
                               <RdsCheckbox
-                                 labeltext="Use Module Specific Database Connection String"
+                                 labelText="Use Module Specific Database Connection String"
                                  checked={isModuleSpecificDb}
                                  onChange={checkboxHandler}
                               ></RdsCheckbox>

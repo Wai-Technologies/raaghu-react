@@ -60,7 +60,7 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <RdsCheckbox
-                                        labeltext="Default"
+                                        labelText="Default"
                                         checked={roleData?.isDefault}
                                         onChange={(e) => {
                                             handleDataChange(e.target.checked, "isDefault");
