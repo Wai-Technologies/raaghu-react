@@ -16,11 +16,8 @@ figma.connect(
   {
     props: {
       showNameDesignation: figma.boolean("🔤 Show Name & Designation"),
-      changeIcon: figma.instance("🔃 Change Icon"),
       activeDotTop: figma.boolean("● Active Dot - Top"),
       activityRing: figma.boolean("⭕ Activity ring"),
-      showDesignation: figma.boolean("🔤 Show Designation"),
-      subtext: figma.string("✏️ Subtext"),
       title: figma.string("✏️ Title"),
       activeDotBottom: figma.boolean("● Active Dot - Bottom"),
       size: figma.enum("📏 Size", {
@@ -28,7 +25,7 @@ figma.connect(
         Large: AvatarSize.large,
         Medium: AvatarSize.medium,
         Small: AvatarSize.small,
-        Smallest: AvatarSize.smallest
+        Smallest: AvatarSize.smallest,
       }),
       type: figma.enum("⚠️ Type", {
         Image: "image",
@@ -36,11 +33,44 @@ figma.connect(
         Icon: "icon",
       }),
       style: figma.enum("✨ Style", {
-        WithName: AvatarStyle.withname, // Use enum value
-        NameOnBottom: AvatarStyle.nameonbottom, // Use enum value
-        Stacking: AvatarStyle.stacking, // Use enum value
+        WithName: AvatarStyle.withname,
+        NameOnBottom: AvatarStyle.nameonbottom,
+        Stacking: AvatarStyle.stacking,
       }),
     },
-    example: (props) => <RdsAvatar {...props}/>,
-  },
-)
+    example: (props) => (
+      <RdsAvatar
+        {...props}
+        style={AvatarStyle.withname}
+        firstName="Wai"
+        lastName="Technologies"
+        showName={true}
+        colorVariant="primary"
+        role="Developer"
+        profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+        avatars={[
+          {
+            profilePic:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+          },
+          {
+            profilePic:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+          },
+          {
+            profilePic:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+          },
+          {
+            profilePic:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+          },
+          {
+            profilePic:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+          },
+        ]}
+      />
+    ),
+  }
+);

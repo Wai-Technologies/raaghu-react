@@ -18,8 +18,8 @@ const meta: Meta = {
       options: ["small", "medium", "large"],
       control: { type: "select" },
     },
-    badgeType: {
-      options: ["pill", "box"],
+    shape: {
+      options: ["pill", "rectangle"],
       control: { type: "select" },
     },
     colorVariant: {
@@ -97,7 +97,7 @@ const Positioned = (args: any) => (
 export const TextBadge: Story = {
   args: {
     size: "small",
-    badgeType: "box",
+    shape: "rectangle",
     layout: "Text_only",
     style: "primary",
     state: "default",
@@ -108,7 +108,7 @@ export const TextBadge: Story = {
     //iconPosition: "right",
   },
 } satisfies Story;
-TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'badgeType', 'layout', 'style', 'state', 'iconName'] } };
+TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'shape', 'layout', 'style', 'state', 'iconName'] } };
 /*
 export const WithLabel: Story = {
   args: {

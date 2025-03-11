@@ -70,11 +70,11 @@ export const Default: Story = {
         //avtarWithName: true,
         //isTitle: true,
         style: AvatarStyle.withname,
-        activityChain : false,
+        activityRing : false,
         activeDotTop: false,
         activeDotBottom: false,
         showName: false,
-        showDesignation: false,
+        showNameDesignation: false,
         firstName: "Wai",
         lastName: "Technologies",
         role: "Developer",
@@ -86,7 +86,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['size', 'showName', 'showDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityChain','type'] } };
+Default.parameters = { controls: { include: ['size', 'showName', 'showNameDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityRing','type'] } };
 
 /*
 export const Default: Story = {
