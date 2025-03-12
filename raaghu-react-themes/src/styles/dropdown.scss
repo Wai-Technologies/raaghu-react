@@ -129,6 +129,13 @@ height: 20px;
   margin: 0px; 
 }
 
+#languageDropdownTopNavigation.dropdown-menu.show {
+  position: absolute; 
+  inset: 0px auto auto 0px; 
+  margin: 0px; 
+  transform: translate3d(0px, 36.5px, 0px);
+}
+
 #fab-list .dropdown-menu.show {
   inset: 15px auto auto 15px !important; 
 }
