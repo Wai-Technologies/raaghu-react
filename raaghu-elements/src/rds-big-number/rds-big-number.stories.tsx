@@ -30,7 +30,6 @@ const meta: Meta = {
                 "info",
                 "dark",
                 "light",
-                "white"
             ],
             control: { type: "select" },
         }
