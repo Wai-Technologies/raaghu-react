@@ -14,7 +14,7 @@ export interface RdsBadgeProps {
     children?: ReactNode;
     size?: size;
     colorVariant?: string;
-    badgeType?: "box" | "pill";
+    shape?: "rectangle" | "pill";
     childrenSide?: "right" | "left";
     positioned?: boolean;
     showClose?: boolean;
@@ -53,8 +53,8 @@ const RdsBadge = (props: RdsBadgeProps) => {
             defaultClass = defaultClass + sizeClass;
         }
 
-        if (props.badgeType) {
-            const badgeTypeClass = `${props.badgeType === 'pill' ? 'rounded-pill' : ''}`;
+        if (props.shape) {
+            const badgeTypeClass = `${props.shape === 'pill' ? 'rounded-pill' : ''}`;
             defaultClass = defaultClass + badgeTypeClass;
         }
 

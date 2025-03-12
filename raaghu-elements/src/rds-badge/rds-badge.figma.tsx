@@ -15,7 +15,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-Kit?node-id=386-3365",
   {
     props: {
-      changeIcon: figma.instance("🔃 Change Icon"),
+      //changeIcon: figma.instance("🔃 Change Icon"),
       size: figma.enum("📏 Size", {
         Large: "large",
         Medium: "medium",
@@ -26,10 +26,10 @@ figma.connect(
         Pill: "pill",
       }),
       layout: figma.enum("📱 Layout", {
-        "Icon only": "icon-only",
-        "Text only": "text-only",
-        "Left Icon+Text": "left-icon-text",
-        "Right Icon+Text": "right-icon-text",
+        "Icon only": "Icon_only",
+        "Text only": "Text_only",
+        "Left Icon+Text": "Icon+Text",
+        "Right Icon+Text": "Text+Icon",
       }),
       style: figma.enum("✨ Style", {
         Filled: "filled",
@@ -45,6 +45,6 @@ figma.connect(
         Lottie: "lottie",
       }),
     },
-    example: (props) => <RdsBadge  {...props} label={"Badge"} />,
+    example: (props) => <RdsBadge  {...props} label={"Badge"} colorVariant="primary" iconName="circle" isIconshow />,
   },
 );

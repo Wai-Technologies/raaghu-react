@@ -330,7 +330,7 @@ const RdsCard = (props: RdsCardProps) => {
               {props.type === "Example-Badges" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                   <RdsBadge
-                    badgeType="box"
+                    shape="rectangle"
                     colorVariant="primary"
                     iconName="notification"
                     iconPosition="right"
@@ -341,7 +341,7 @@ const RdsCard = (props: RdsCardProps) => {
                     style="tertiary"
                   />
                   <RdsBadge
-                    badgeType="box"
+                    shape="rectangle"
                     colorVariant="primary"
                     iconName="notification"
                     iconPosition="right"
@@ -360,7 +360,7 @@ const RdsCard = (props: RdsCardProps) => {
               {props.type === "Example-Avatar" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                     <RdsAvatar
-                      activityChain
+                      activityRing
                       avtarWithName
                       colorVariant="primary"
                       firstName={firstName}

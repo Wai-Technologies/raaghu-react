@@ -34,7 +34,7 @@ export interface RdsAvatarProps {
   lastName?: string;
   role?: string;
   colorVariant?: colors;
-  titleAlign?: string;
+  title?: string;
   size?: AvatarSize;
   verticallyAlligned?: boolean;
   roundedAvatar?: boolean;
@@ -51,18 +51,18 @@ export interface RdsAvatarProps {
   activeDotTop?: boolean;
   activeDotBottom?: boolean;
   maxVisibleAvatars?: number;
-  activityChain?: boolean;
+  activityRing?: boolean;
   type?: string;
   iconName?: string;
   border?: AvatarBorder;
   showName?: boolean;
   style?: AvatarStyle;
-  showDesignation?: boolean;
+  showNameDesignation?: boolean;
 }
 
 const RdsAvatar = (props: RdsAvatarProps) => {
   const { profilePic } = props;
-  const tAlign = props.titleAlign;
+  const tAlign = props.title;
   const Align = `${props.hasOwnProperty("titleAlign") ? tAlign : "horizontal"}`;
   const Aligned = `${
     Align === "horizontal"
@@ -115,8 +115,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
       props.style!=="stacking"
     ) {
       classes += ` rounded-circle ${
-        props.activityChain ? "border border-2" : ""
-      } border-${props.activityChain ? props.colorVariant : ""} `;
+        props.activityRing ? "border border-2" : ""
+      } border-${props.activityRing ? props.colorVariant : ""} `;
     }
     if (
       props.avtarOnly ||
@@ -492,7 +492,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               </div>
             )}
 
-            {avtarWithName && props.showName===true && props.showDesignation===true ? (
+            {avtarWithName && props.showName===true && props.showNameDesignation===true ? (
               <span
                 className={
                   `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
@@ -525,7 +525,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                   </p>
                 </div>
               </span>
-            ): avtarWithName && props.showName===true && props.showDesignation===false ? (
+            ): avtarWithName && props.showName===true && props.showNameDesignation===false ? (
               <span
                 className={
                   `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
@@ -554,7 +554,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                   </span>
                 </div>
               </span>
-            ): avtarWithName && props.showName===false && props.showDesignation===true ? (
+            ): avtarWithName && props.showName===false && props.showNameDesignation===true ? (
               <span
                 className={
                   `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
@@ -668,7 +668,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                 </div>
 
                 {/* Name and Role */}
-                {props.showName===true && props.showDesignation===true ? (
+                {props.showName===true && props.showNameDesignation===true ? (
                   <span className={`avatar-initials text-center fw-bold mt-2 ${
                     props.size === "smallest"
                       ? "textTopSmall"
@@ -685,7 +685,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                     <h5 className="card-title mb-1 fw-bold">{titleFirstName} {titleLastName}</h5>
                     <p className="card-text text-muted">{titleRole}</p>
                   </span>
-                  ) : props.showName===true && props.showDesignation===false ? (
+                  ) : props.showName===true && props.showNameDesignation===false ? (
                   <span className={`avatar-initials text-center fw-bold mt-2 ${
                     props.size === "smallest"
                       ? "textTopSmall"
@@ -701,7 +701,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                     }` + profileName()}>
                     <h5 className="card-title mb-1 fw-bold">{titleFirstName} {titleLastName}</h5>
                   </span>
-                  ) : props.showName===false && props.showDesignation===true ? (
+                  ) : props.showName===false && props.showNameDesignation===true ? (
                   <span className={`avatar-initials text-center fw-bold mt-2 ${
                     props.size === "smallest"
                     ? "textTopSmall"
