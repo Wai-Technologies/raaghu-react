@@ -22,7 +22,7 @@ export const Default: Story = {
                     [{
                         title: "Tina",
                         subTitle: "Web Developer",
-                        imgLink: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100",
+                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
                         twitterIcon: "twitter",
                         linkdineIcon: "linkedin",
                         description: "Lorem ipsum dolor sit amet conr adipiscing elit"
@@ -30,7 +30,7 @@ export const Default: Story = {
                     [{
                         title: "Wily",
                         subTitle: "Web Developer",
-                        imgLink: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100",
+                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
                         twitterIcon: "twitter",
                         linkdineIcon: "linkedin",
                         description: "Lorem ipsum dolor sit amet conr adipiscing elit"
@@ -38,7 +38,7 @@ export const Default: Story = {
                     [{
                         title: "Vivek",
                         subTitle: "Web Developer",
-                        imgLink: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100",
+                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
                         twitterIcon: "twitter",
                         linkdineIcon: "linkedin",
                         description: "Lorem ipsum dolor sit amet conr adipiscing elit"
@@ -46,7 +46,7 @@ export const Default: Story = {
                     [{
                         title: "Riya",
                         subTitle: "Web Developer",
-                        imgLink: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100",
+                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
                         twitterIcon: "twitter",
                         linkdineIcon: "linkedin",
                         description: "Lorem ipsum dolor sit amet conr adipiscing elit"
