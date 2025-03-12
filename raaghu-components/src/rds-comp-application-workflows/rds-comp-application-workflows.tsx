@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsCheckbox, RdsDropdownList, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsDropdownList, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompApplicationWorkflowsProps {
@@ -29,8 +29,31 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
 
     const isDivVisible = basicApplicationData?.allowAuthorizationCodeFlow || basicApplicationData?.allowImplicitFlow || basicApplicationData?.allowHybridFlow;
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.handleSubmit(event);
+        setInputReset(!inputReset);
+        setBasicApplicationData({
+            type: "",
+            clientSecret: "",
+            allowAuthorizationCodeFlow: false,
+            allowImplicitFlow: false,
+            allowHybridFlow: false,
+            allowPasswordFlow: false,
+            allowRefreshTokenFlow: false,
+            allowClientCredentialsFlow: false,
+            allowDeviceEndpoint: false,
+            redirectUris: "",
+            allowLogoutEndpoint: false,
+            postLogoutRedirectUris: "",
+            consentType: "",
+            enabled: false
+        })
+    }
+
     return (
         <>
+        <div className="custom-content-scroll">
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
                     <label>Type</label>
@@ -197,7 +220,30 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     ></RdsCheckbox>
                 </div>
             )}
-
+        </div>
+          <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+            <RdsButton
+              class="me-2"
+              tooltipTitle={""}
+              type={"button"}
+              label="Cancel"
+              colorVariant="outline-primary"
+              size="small"
+              databsdismiss="offcanvas"
+              dataTestId="cancel"
+            ></RdsButton>
+            <RdsButton
+              class="me-2"
+              label="Save"
+              size="small"
+              colorVariant="primary"
+              tooltipTitle={""}
+              type={"submit"}
+              databsdismiss="offcanvas"
+              onClick={(e: any) => emitSaveData(e)}
+              dataTestId="save"
+            ></RdsButton>
+          </div>
         </>
     );
 };
