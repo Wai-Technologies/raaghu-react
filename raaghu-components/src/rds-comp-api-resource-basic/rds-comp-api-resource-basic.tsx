@@ -47,7 +47,7 @@ const isFormValid = isNameValid(formData?.name);
       <div>
         <form>
           <div className="custom-content-scroll">
-            <div className="row mt-3">
+            <div className="row mt-3 mb-3">
               <div className="col-6">
                 <RdsInput
                   required={true}
@@ -80,7 +80,7 @@ const isFormValid = isNameValid(formData?.name);
                 ></RdsInput>
               </div>
             </div>
-            <div className=" mb-4">
+            <div className=" mb-3">
               <RdsTextArea
                 label="Description"
                 placeholder="Description"
@@ -92,7 +92,7 @@ const isFormValid = isNameValid(formData?.name);
                 data-testId="desc"
               />
             </div>
-            <div className=" mb-4">
+            <div className=" mb-3">
               <RdsInput
                 label="Allowed access token signing algorithms"
                 reset={inputReset}
