@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { RdsDropdownList, RdsInput } from "../rds-elements";
+import { RdsButton, RdsDropdownList, RdsInput } from "../rds-elements";
+
 export interface RdsCompAddressInputProps {
     address?: any;
     address2?: any;
@@ -11,6 +12,7 @@ export interface RdsCompAddressInputProps {
     AddressData?: any;
     reset?: boolean;
     label: React.ReactNode;
+    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
@@ -61,9 +63,21 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
         getcity();
     }, [stateid]);
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        setInputReset(!inputReset);
+        props.onSaveHandler && props.onSaveHandler(AddressData); // Call onSaveHandler with AddressData
+        setAddressData({
+            address: "",
+            address2: "",
+            zip: "",
+      });
+   }
+
     return (
-        <div className="mfe-outline p-3">
-            <form className="needs-validation" >
+    <div className="mfe-outline">
+      <form className="needs-validation">
+        <div className="custom-content-scroll">
                 <div className="row g-3">
                     <div className="col-md-6">
                         <RdsInput
@@ -71,7 +85,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
-                            onChange={e => handlerInputChange(e.target.value, "address")}
+                            onChange={(e) => handlerInputChange(e.target.value, "address")}
                             value={AddressData?.address}
                         ></RdsInput>
                         <div className="invalid-feedback">
@@ -86,7 +100,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
-                            onChange={e => handlerInputChange(e.target.value, "address2")}
+                            onChange={(e) => handlerInputChange(e.target.value, "address2")}
                             value={AddressData?.address2}
                         ></RdsInput>
                     </div>
@@ -159,16 +173,40 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Zip code"
                             inputType="text"
-                            onChange={e => handlerInputChange(e.target.value, "zip")}
+                            onChange={(e) => handlerInputChange(e.target.value, "zip")}
                             value={AddressData?.zip}
                             id="address-input"
                         ></RdsInput>
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>
-            </form>
         </div>
-    );
+        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+          <RdsButton
+            class="me-2"
+            tooltipTitle={""}
+            type={"button"}
+            label="Cancel"
+            colorVariant="outline-primary"
+            size="small"
+            databsdismiss="offcanvas"
+            dataTestId="cancel"
+          ></RdsButton>
+          <RdsButton
+            class="me-2"
+            label="Save"
+            size="small"
+            colorVariant="primary"
+            tooltipTitle={""}
+            type={"submit"}
+            databsdismiss="offcanvas"
+            onClick={(e: any) => emitSaveData(e)}
+            dataTestId="save"
+          ></RdsButton>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default RdsCompAddressInput;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsInput, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsInput, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompFormsBasicProps {
@@ -30,6 +30,17 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
         setBasicFormData(props.basicInfo);
         setInputReset(!inputReset);
     }, [props.basicInfo]);
+
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.handleNewFormData(basicFormData);
+        setInputReset(!inputReset);
+        setBasicFormData({
+            id: "",
+            title: "",
+            description: ""
+        })
+    }
 
     return (
         <>
@@ -78,7 +89,6 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-
                     </div>
                     <div className="row mt-1">
                         <RdsTextArea
@@ -90,11 +100,32 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                             dataTestId="description"
                         />
                     </div>
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+                        <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
+                        <RdsButton
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            onClick={(e: any) => emitSaveData(e)}
+                            dataTestId="save"
+                        ></RdsButton>
+                    </div>
                 </>
-
                 }
             </form>
-
         </>
     );
 };
