@@ -34,9 +34,22 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
         });
     }
 
+    function emitSaveData1(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler(formData);
+        setFormData({
+            displayName: "",
+            address: "",
+            host: "",
+            port: "",
+            enableSSL: false,
+            defaultCredentials: false
+        });
+    }
+
     return (
         <>
-        {props.displayType == "basic" && (
+        {props.displayType === "basic" && (
         <form>
         <div className="form-group px-2 ps-2  row align-items-center">
             <div className="col-12 col-sm-4 col-md-3 pt-4 text-sm-end">
@@ -124,7 +137,9 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             label={true}
                             placeholder="Enter Display Name"
                             customClasses="form-control"
-                            inputType="email"
+                            inputType="text"
+                            onChange={(e) => handleDataChanges(e.target.value, "displayName")}
+                            value={formData?.displayName}
                             dataTestId='display-name'
                         ></RdsInput>
                     </div>
@@ -136,9 +151,10 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         placeholder="Enter Email Address"
                         customClasses="form-control"
                         dataTestId='address'
-                        validatonPattern={
-                            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-                            }
+                        inputType="email"
+                        onChange={(e) => handleDataChanges(e.target.value, "address")}
+                        value={formData?.address}
+                        validatonPattern={/^[A-Z0-0._%+-]+@[A-Z0-0.-]+\.[A-Z]{2,}$/i}
                         validationMsg="Please Enter Valid Email Address."
                     ></RdsInput>
                 </div>
@@ -153,6 +169,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             placeholder="127.0.0.1"
                             customClasses="form-control"
                             dataTestId='host'
+                            onChange={(e) => handleDataChanges(e.target.value, "host")}
+                            value={formData?.host}
                         ></RdsInput>
                     </div>
                 </div>
@@ -163,28 +181,50 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         placeholder="25"
                         customClasses="form-control"
                         dataTestId='port'
+                        onChange={(e) => handleDataChanges(e.target.value, "port")}
+                        value={formData?.port}
                     ></RdsInput>
                 </div>
             </div>
 
             <div className="row mt-3">
-                <div
-                    className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
-                >
-                    <RdsCheckbox labelText="Enable SSL" checked={false} dataTestId='enable-ssl'></RdsCheckbox>
+            <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
+                    <RdsCheckbox
+                        labelText="Enable SSL"
+                        onChange={(e) => handleDataChanges(e.target.checked, "enableSSL")}
+                        checked={formData?.enableSSL}
+                        dataTestId='enable-ssl'
+                    ></RdsCheckbox>
                 </div>
             </div>
 
             <div className="row mt-3">
-                <div
-                    className="col-lg-12 col-md-12 col-sm-12 fs-small-size"
-                >
+            <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
                     <RdsCheckbox
                         labelText="Use Default Credentials"
-                        checked={false}
+                        onChange={(e) => handleDataChanges(e.target.checked, "defaultCredentials")}
+                        checked={formData?.defaultCredentials}
                         dataTestId='default-credentials'
                     ></RdsCheckbox>
                 </div>
+            </div>
+            <div className="mt-3 d-flex pb-3 ps-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+                <RdsButton
+                    type="button"
+                    colorVariant="primary"
+                    label="Cancel"
+                    isOutline={true}
+                    size="small"
+                    dataTestId="cancel"
+                ></RdsButton>
+                <RdsButton
+                    type="submit"
+                    colorVariant="primary"
+                    label="Save"
+                    size="small"
+                    dataTestId="submit"
+                    onClick={(e) => emitSaveData1(e)}
+                ></RdsButton>
             </div>
             </form>
         )}
