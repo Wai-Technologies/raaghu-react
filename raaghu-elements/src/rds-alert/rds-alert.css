@@ -57,6 +57,8 @@
   }
   #rdicon {
     margin-top: -31px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -68,6 +70,8 @@
   }
   #rdicon {
     margin-top: -31px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -91,6 +95,7 @@
   }
   #rdicon {
     margin-top: 0;
-    order: 1;
+    display: flex;
+    align-items: center;
   }
 }

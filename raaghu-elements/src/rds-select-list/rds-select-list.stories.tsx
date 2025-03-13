@@ -134,7 +134,7 @@ export const WithIcon: Story = {
             {
                 option: "Alex Brown",
                 value: "Alex",
-                imgUrl: "https://i0.wp.com/studio.ameliate.com/wp-content/uploads/2021/01/Michele-Oval-Edited-768x768-1.png?w=760&ssl=1",
+                imgUrl: "https://th.bing.com/th/id/OIP.dmCI62ZlmvIp1yxyBVSAxAHaHP?w=567&h=555&rs=1&pid=ImgDetMain",
                 imgWidth: "30px",
                 imgHeight: "30px",
             },

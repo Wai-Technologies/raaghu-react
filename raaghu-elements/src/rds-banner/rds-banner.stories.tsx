@@ -52,7 +52,7 @@ export const ActionableBanner: Story = {
         titleText: "15 days challenge",
         subTitleText: " We will deliver an MVP in a record time of 15 days",
         imageUrl: "../../../stories/assets/raaghubannerimage.png",
-        firstButtonText: "Learn More",
+        firstButtonText: "About Us",
         secondButtonText: "Contact Us",
         firstButtonIcon: "learn_more",
         secondButtonIcon: "phone",

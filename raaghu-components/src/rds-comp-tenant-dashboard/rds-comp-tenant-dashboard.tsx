@@ -19,6 +19,7 @@ const RdsCompTenantDashboard = () => {
                         isRefreshRequired={true}
                         class="card-stretch"
                         colorVariant="white"
+                        isCardStretch={true}
                     >
                         <RdsLineChart
                             id="linechart"
@@ -214,7 +215,8 @@ const RdsCompTenantDashboard = () => {
                 </div>
                 <div className="col-xl-3 col-lg-6 col-md-12">
                     <RdsWidget
-                        headerTitle="License">
+                        headerTitle="License"
+                        isCardStretch={true}>
                         <RdsBigNumber bigNumber="10"></RdsBigNumber>
                         <RdsRadarChart
                             id="newRadar"
@@ -360,6 +362,7 @@ const RdsCompTenantDashboard = () => {
                         iconName="refresh"
                         iconTooltipLabel="Refresh"
                         iconTooltipPosition="top"
+                        isCardStretch={true}
                     >
                         <div>
                             <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
@@ -479,7 +482,7 @@ const RdsCompTenantDashboard = () => {
                                 <RdsWidget
                                     headerTitle="Call Overview"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}
                                     height="auto"
                                 >
                                     <div>
@@ -647,8 +650,9 @@ const RdsCompTenantDashboard = () => {
                                 <RdsWidget
                                     headerTitle="Maximum Profit"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}
                                     height="auto"
+                                   
 
                                 >
                                     <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
@@ -1002,6 +1006,7 @@ const RdsCompTenantDashboard = () => {
 
                         <div className="col-md-6">
                             <RdsWidget
+                                isCardStretch={true}
                                 headerTitle={"Daily Sales Growth"}
                                 isRefreshRequired={true}
                                 colorVariant={"white"}
@@ -1198,287 +1203,288 @@ const RdsCompTenantDashboard = () => {
                     </div>
                 </div>
                 <div className="col-md-12 col-lg-6">
-                <RdsWidget
-                        headerTitle="Member Activity"
-                        isRefreshRequired={true}  >
-                        <div className="table-responsive">
-                            <RdsTable
-                                tableHeightForScroll="356px"
-
-                                headerDatas={[
-                                    {
-                                        displayName: "Members",
-                                        key: "member",
-                                        dataType: "html",
-                                    },
-                                    { displayName: "Cases", key: "cases", dataType: "html" },
-                                    {
-                                        displayName: "Active",
-                                        key: "active",
-                                        dataType: "html",
-                                    },
-                                    {
-                                        displayName: "Closed",
-                                        key: "closed",
-                                        dataType: "html",
-                                    },
-                                    { displayName: "Rate", key: "rate", dataType: "html" },
-                                ]}
-                                tableDatas={[
-                                    {
-                                        id: 12,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 10 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Brian</b>
-                                                    </p>
-                                                    <small className="custom-desc">
-                                                        Software Developer{" "}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 38 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 10 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="HighRate d-flex align-items-center justify-content-start ">
-                                                92%
-                                            </div>
-                                        ),
-                                    },
-                                    {
-                                        id: 23,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 18 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Kim</b>
-                                                    </p>
-                                                    <small className="custom-desc">
-                                                        Senior Developer{" "}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 342 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 25 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="MidRate d-flex align-items-center justify-content-start">
-                                                42%
-                                            </div>
-                                        ),
-                                    },
-                                    {
-                                        id: 22,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 7 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px\"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Jane</b>
-                                                    </p>
-                                                    <small className="custom-desc">
-                                                        Sales Executive{" "}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 25 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 5 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="HighRate d-flex align-items-center justify-content-start">
-                                                96%
-                                            </div>
-                                        ),
-                                    },
-                                    {
-                                        id: 11,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 14 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px\"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Brian</b>
-                                                    </p>
-                                                    <small className="custom-desc">
-                                                        Software Developer
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 42 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 42 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="LowRate d-flex align-items-center justify-content-start">
-                                                16%
-                                            </div>
-                                        ),
-                                    },
-                                    {
-                                        id: 19,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 13 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px\"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Kath</b>
-                                                    </p>
-                                                    <small>Manager </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 10 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 3 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="MidRate d-flex align-items-center justify-content-start">
-                                                52%
-                                            </div>
-                                        ),
-                                    },
-                                    ,
-                                    {
-                                        id: 20,
-                                        cases: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 13 </div>
-                                            </div>
-                                        ),
-                                        member: (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div>
-                                                    {" "}
-                                                    <img
-                                                        src="./assets/dashboard-data.png"
-                                                        width="40px\"
-                                                    />
-                                                </div>
-                                                <div className="">
-                                                    <p className="mb-0">
-                                                        <b>Kath</b>
-                                                    </p>
-                                                    <small>Manager </small>
-                                                </div>
-                                            </div>
-                                        ),
-                                        active: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 10 </div>
-                                            </div>
-                                        ),
-                                        closed: (
-                                            <div className="d-flex align-items-center justify-content-start">
-                                                <div> 3 </div>
-                                            </div>
-                                        ),
-                                        rate: (
-                                            <div className="MidRate d-flex align-items-center justify-content-start">
-                                                52%
-                                            </div>
-                                        ),
-                                    },
-                                ]}
-                            ></RdsTable>
-                        </div>
-
-                    </RdsWidget>
+                                    <RdsWidget
+                                        headerTitle={"Member Activity"}
+                                        isRefreshRequired={true}
+                                        isCardStretch={true}
+                                    >
+                                        <div className="table-responsive">
+                                            <RdsTable
+                                                tableHeightForScroll="356px"
+                
+                                                headerDatas={[
+                                                    {
+                                                        displayName: ("Members"),
+                                                        key: "member",
+                                                        dataType: "html",
+                                                    },
+                                                    { displayName: ("Cases"), key: "cases", dataType: "html" },
+                                                    {
+                                                        displayName: ("Active"),
+                                                        key: "active",
+                                                        dataType: "html",
+                                                    },
+                                                    {
+                                                        displayName: ("Closed"),
+                                                        key: "closed",
+                                                        dataType: "html",
+                                                    },
+                                                    { displayName: ("Rate"), key: "rate", dataType: "html" },
+                                                ]}
+                                                tableDatas={[
+                                                    {
+                                                        id: 12,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 10 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Brian</b>
+                                                                    </p>
+                                                                    <small className="custom-desc">
+                                                                        Software Developer{" "}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 38 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 10 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="HighRate d-flex align-items-center justify-content-start ">
+                                                                92%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                    {
+                                                        id: 23,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 18 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Kim</b>
+                                                                    </p>
+                                                                    <small className="custom-desc">
+                                                                        Senior Developer{" "}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 342 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 25 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="MidRate d-flex align-items-center justify-content-start">
+                                                                42%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                    {
+                                                        id: 22,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 7 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px\"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Jane</b>
+                                                                    </p>
+                                                                    <small className="custom-desc">
+                                                                        Sales Executive{" "}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 25 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 5 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="HighRate d-flex align-items-center justify-content-start">
+                                                                96%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                    {
+                                                        id: 11,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 14 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px\"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Brian</b>
+                                                                    </p>
+                                                                    <small className="custom-desc">
+                                                                        Software Developer
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 42 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 42 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="LowRate d-flex align-items-center justify-content-start">
+                                                                16%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                    {
+                                                        id: 19,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 13 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px\"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Kath</b>
+                                                                    </p>
+                                                                    <small>Manager </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 10 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 3 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="MidRate d-flex align-items-center justify-content-start">
+                                                                52%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                    ,
+                                                    {
+                                                        id: 20,
+                                                        cases: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 13 </div>
+                                                            </div>
+                                                        ),
+                                                        member: (
+                                                            <div className="d-flex align-items-center gap-2">
+                                                                <div>
+                                                                    {" "}
+                                                                    <img
+                                                                        src="./assets/dashboard-data.png"
+                                                                        width="40px\"
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <p className="mb-0">
+                                                                        <b>Kath</b>
+                                                                    </p>
+                                                                    <small>Manager </small>
+                                                                </div>
+                                                            </div>
+                                                        ),
+                                                        active: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 10 </div>
+                                                            </div>
+                                                        ),
+                                                        closed: (
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <div> 3 </div>
+                                                            </div>
+                                                        ),
+                                                        rate: (
+                                                            <div className="MidRate d-flex align-items-center justify-content-start">
+                                                                52%
+                                                            </div>
+                                                        ),
+                                                    },
+                                                ]}
+                                            ></RdsTable>
+                                        </div>
+                                    </RdsWidget>
                 </div>
             </div>
             <div className="row">
@@ -1486,6 +1492,7 @@ const RdsCompTenantDashboard = () => {
                     <RdsWidget
                         headerTitle="To do List"
                         isRefreshRequired={true}
+                        isCardStretch={true}
                     >
                         <div className="table-responsive">
                             <RdsTable id="sortable"

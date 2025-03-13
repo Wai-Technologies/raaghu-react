@@ -3,7 +3,8 @@ import {
     RdsCheckbox,
     RdsInput,
     RdsSelectList,
-    RdsDatePicker
+    RdsDatePicker,
+    RdsButton
 } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 
@@ -49,6 +50,25 @@ function RdsCompPollsQuestion(props: any) {
         const date = dateFormateConvert(data);
         setQuestionData({ ...QuestionData, resultShowingEndDate: date });
         props.getPollsQuestion && props.getPollsQuestion({ ...QuestionData, resultShowingEndDate: date });
+    }
+
+    const emitSaveData = (event: any) => {
+        event.preventDefault();
+        props.getPollsQuestion && props.getPollsQuestion(QuestionData);
+        setInputReset(!inputReset);
+        setQuestionData({
+            question: "",
+            code: "",
+            name: "",
+            widget: "",
+            startDate: "",
+            endDate: "",
+            resultShowingEndDate: "",
+            showHoursLeft: false,
+            allowMultipleVote: false,
+            showVoteCount: false,
+            showResultWithoutGivingVote: false
+        })
     }
 
     return (
@@ -193,6 +213,29 @@ function RdsCompPollsQuestion(props: any) {
                         ></RdsCheckbox>
                     </div>
                 </div>
+            </div>
+            <div className="d-flex flex-column-reverse ps-3 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+                <RdsButton
+                    class="me-2"
+                    tooltipTitle={""}
+                    type={"button"}
+                    label="Cancel"
+                    colorVariant="outline-primary"
+                    size="small"
+                    databsdismiss="offcanvas"
+                    dataTestId="cancel"
+                ></RdsButton>
+                <RdsButton
+                    class="me-2"
+                    label="Save"
+                    size="small"
+                    colorVariant="primary"
+                    tooltipTitle={""}
+                    type={"submit"}
+                    databsdismiss="offcanvas"
+                    onClick={(e: any) => emitSaveData(e)}
+                    dataTestId="save"
+                ></RdsButton>
             </div>
         </>
     );
