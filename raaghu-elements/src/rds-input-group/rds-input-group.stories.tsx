@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj, Meta } from "@storybook/react";
-import RdsInputGroup from "./rds-input-group";
+import RdsInputGroup, { InputGroupSize } from "./rds-input-group";
 import { input_size } from "../../libs/types/size";
 import { button_colors } from "../../libs/types/colorvariant";
 
@@ -38,7 +38,7 @@ export const TextInputWithButton: Story = {
         buttonLabel: "BUTTON",
         colorVariant: "primary",
         placeholder: "Placeholder text",
-        size: "medium",
+        size: InputGroupSize.Medium,
         outline: true,
         inputGroupLabel: "Field Label",
         labelPosition: "top",

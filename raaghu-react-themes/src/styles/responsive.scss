@@ -612,3 +612,10 @@ form .form-group .select-options,
     padding-left: 0rem !important;
 }
 }
+
+@media (max-width: 600px) {
+  #fab-list .dropdown-menu.show {
+      width: 292px !important;
+      height: auto !important;
+  }
+}
