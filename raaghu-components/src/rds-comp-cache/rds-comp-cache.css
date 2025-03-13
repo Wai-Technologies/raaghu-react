@@ -12,3 +12,9 @@
 .icon {
   cursor: pointer;
 }
+
+.fixed-button {
+    position: absolute; 
+    right: 20px;
+    transform: translateY(-50%); 
+}
