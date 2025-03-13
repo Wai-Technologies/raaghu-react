@@ -8,7 +8,8 @@ export interface RdsBannerProps {
   bannerText?: string;
   sticky?: boolean;
   position?: "top" | "bottom";
-  colorVariant?: "primary"
+  colorVariant?:
+    | "primary"
     | "secondary"
     | "success"
     | "danger"
@@ -59,79 +60,94 @@ const RdsBanner = (props: RdsBannerProps) => {
     : "../../../stories/assets/raaghubannerimage.png";
   return (
     <>
-    <span id="news-banner">
-     {!props.raaghuBanner &&( <div
-        className={`alert d-flex align-items-center fade show ${classes}`}
-        role="alert" 
-      >
-        <span className="ps-2 d-flex align-items-center">
-          {props.icon && (
-            <RdsIcon
-              classes="fs-6 me-2"
-              colorVariant={iconColor}
-              name={props.icon}
-              width={props.iconWidth || "20px"}
-              height={props.iconHeight || "20px"}
-              fill={props.iconFill || false}
-              stroke={iconStroke}
-            ></RdsIcon>
-          )}
-          {props.bannerText}
-        </span>
-      </div>
-     )}
-      {props.raaghuBanner &&(<div className="challenge-banner p-3 rounded text-light"
-      style={{ backgroundImage: `url(${bannerImage})`,
-              backgroundRepeat:"no-repeat",
-              backgroundSize:"cover" }}>
-        <div className="content bg-layer bg-dark">
-          <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
-          <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
+      <span id="news-banner">
+        {!props.raaghuBanner && (
+          <div
+            className={`alert d-flex align-items-center fade show ${classes}`}
+            role="alert"
+          >
+            <span className="ps-2 d-flex align-items-center">
+              {props.icon && (
+                <RdsIcon
+                  classes="fs-6 me-2"
+                  colorVariant={iconColor}
+                  name={props.icon}
+                  width={props.iconWidth || "20px"}
+                  height={props.iconHeight || "20px"}
+                  fill={props.iconFill || false}
+                  stroke={iconStroke}
+                ></RdsIcon>
+              )}
+              {props.bannerText}
+            </span>
+          </div>
+        )}
+        {props.raaghuBanner && (
+          <div
+            className="challenge-banner p-3 rounded text-light"
+            style={{
+              backgroundImage: `url(${bannerImage})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          >
+            <div className="content bg-layer bg-dark">
+              <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
+              <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
 
-          <RdsHeader size="h6" headerText={props.subTitleText}></RdsHeader>
+              <RdsHeader size="h6" headerText={props.subTitleText}></RdsHeader>
 
-          <div className="buttons w-100">
-            {props.showFirstButton &&(<RdsButton
-                        label={props.firstButtonText}
-                        type="button"
-                        colorVariant={props.colorVariant}
-                        size="medium"
-                        dataTestId={props.firstButtonText}
-                         icon={props.firstButtonIcon}
-                         isBanerButton={true}
-                         onClick={(e) => onButtonClick(e)}
-                    ></RdsButton>)}
-           {props.showSecondButton &&( <RdsButton
-                        label={props.secondButtonText}
-                        type="button"
-                        colorVariant={props.colorVariant}
-                        size="medium"
-                        dataTestId={props.secondButtonText}
-                        icon={props.secondButtonIcon}
-                        isBanerButton={true}
-                        onClick={(e) => onButtonClick(e)}
-                    ></RdsButton>)}
-                     {props.showHyperlink &&( 
-                      <div className="links">
-                         
-                        <a className="btn text-primary bg-light" href={props.hyperlink} target="_blank" rel="noopener noreferrer">
-                        <span className="me-2">
+              <div className="buttons w-100">
+                {props.showFirstButton && (
+                  <RdsButton
+                    label={props.firstButtonText}
+                    type="button"
+                    colorVariant={props.colorVariant}
+                    size="medium"
+                    dataTestId={props.firstButtonText}
+                    icon={props.firstButtonIcon}
+                    isBanerButton={true}
+                    onClick={(e) => onButtonClick(e)}
+                  ></RdsButton>
+                )}
+                {props.showSecondButton && (
+                  <RdsButton
+                    label={props.secondButtonText}
+                    type="button"
+                    colorVariant={props.colorVariant}
+                    size="medium"
+                    dataTestId={props.secondButtonText}
+                    icon={props.secondButtonIcon}
+                    isBanerButton={true}
+                    onClick={(e) => onButtonClick(e)}
+                  ></RdsButton>
+                )}
+                {props.showHyperlink && (
+                  <div className="links">
+                    <a
+                      className="btn text-primary bg-light"
+                      href={props.hyperlink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="me-2">
                         <RdsIcon
                           colorVariant="primary"
                           name={props.hyperlinkIcon}
-                          width= "16px"
+                          width="16px"
                           height="16px"
-                          fill={ false}
+                          fill={false}
                           stroke={true}
                         ></RdsIcon>
-                        </span>
-                         {props.hyperlinkText}
-                        </a>
-                        
-                      </div>)}
+                      </span>
+                      {props.hyperlinkText}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>)}
+        )}
       </span>
     </>
   );
