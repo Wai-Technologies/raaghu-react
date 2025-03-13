@@ -212,7 +212,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         <>
           <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
             {props.icon && props.showIcon && (
-              <div className="align-items-center d-flex" id="rdicon">
+              <div className=" d-flex" id="rdicon">
                 <RdsIcon
                   name={props.icon || " "}
                   fill={props.iconFill}
