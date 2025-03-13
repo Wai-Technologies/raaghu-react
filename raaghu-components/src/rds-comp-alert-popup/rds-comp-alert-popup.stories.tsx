@@ -99,7 +99,7 @@ Confirm.args = {
     iconUrl: "tick_circle",
     colorVariant: "primary",
     alertConfirmation: "Ownership transfer is complete !",
-    messageAlert: "Full control has been granted.Thank you for your patience",
+    messageAlert: "Full control has been granted. Thank you for your patience",
     buttonlabel: "Ok",
     type: "confirm"
 };
