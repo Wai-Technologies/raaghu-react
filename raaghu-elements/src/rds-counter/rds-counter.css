@@ -19,7 +19,7 @@ button {
 }
 
 .theme-dark svg {
-  color: #fff !important;
+  color: #fff;
 }
 /* Hide the spinner arrows for number input */
 input[type="number"]::-webkit-inner-spin-button,
