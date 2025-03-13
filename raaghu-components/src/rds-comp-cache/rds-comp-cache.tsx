@@ -100,13 +100,16 @@ const RdsCompCache = (props: RdsCacheProps) => {
                             <div className="icon">
                                 <button
                                     type="button"
-                                    className="btn btn-primary"
+                                    className="btn btn-primary fixed-button"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#alert_popup"
+                                    data-bs-target={`#alert_popup_${element.id}`} 
                                 >
                                     Delete
                                 </button>
-                                <RdsCompAlertPopup alertID="alert_popup"></RdsCompAlertPopup>
+                                <RdsCompAlertPopup
+                                    alertID={`alert_popup_${element.id}`} 
+                                    onSuccess={() => deleteHandler(element.id)}
+                                ></RdsCompAlertPopup>
                             </div>
                         </div>
                     ))}
