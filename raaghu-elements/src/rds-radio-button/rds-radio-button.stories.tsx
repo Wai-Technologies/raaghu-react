@@ -6,13 +6,13 @@ const meta: Meta = {
     title: "Elements/Radio Button",
     component: RdsRadioButton,
     argTypes: {
-        displayType: {
-            options: [
-                "Default",
-                "Horizontal"
-            ],
-            control: { type: "select" },
-        },
+        // displayType: {
+        //     options: [
+        //         "Default",
+        //         "Horizontal"
+        //     ],
+        //     control: { type: "select" },
+        // },
         layout: {
             options: [
                 "Icon",

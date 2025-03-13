@@ -21,17 +21,70 @@ figma.connect(
         SideNavigationABPList: Platform.SideNavigationABPList,
         SideNavigationANZList: Platform.SideNavigationANZList,
       }),
-      layout: figma.enum("📱 Layout", {
+      navLayout: figma.enum("📱 Layout", {
         Raaghu: NavLayout.Raaghu,
         Lists: NavLayout.List,
         Toolbar: NavLayout.Toolbar,
       }),
-      type: figma.enum("⚠️ Type", {
+      navType: figma.enum("⚠️ Type", {
         Collapsed: NavType.Collapsed,
         Expanded: NavType.Expanded,
         Fixed: NavType.Fixed,
       }),
     },
-    example: (props) => <RdsSideNav  {...props} platform={props.platform} sideNavItems={undefined} />,
+    example: (props) => <RdsSideNav  {...props} platform={props.platform}
+    layout="LeftSideNav" 
+    logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+    showUserProfile
+    sideNavItems={[
+      {
+        icon: 'home',
+        key: '0',
+        label: 'Home',
+        path: '/dashboard'
+      },
+      {
+        icon: 'dashboard',
+        key: '1',
+        label: 'Dashboard'
+      },
+      {
+        icon: 'tenant',
+        key: '2',
+        label: 'Saas',
+        path: ''
+      },
+      {
+        icon: 'administration',
+        key: '3',
+        label: 'Administration',
+        path: ''
+      },
+      {
+        icon: 'folder',
+        key: '4',
+        label: 'File Management',
+        path: ''
+      },
+      {
+        icon: 'forms',
+        key: '5',
+        label: 'Forms',
+        path: ''
+      },
+      {
+        icon: 'payment',
+        key: '5',
+        label: 'Payments',
+        path: ''
+      },
+      {
+        icon: 'cms',
+        key: '6',
+        label: 'CMS',
+        path: ''
+      }
+    ]}
+    />,
   },
 )
