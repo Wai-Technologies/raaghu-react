@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./rds-radio-button.css";
 import { useTranslation } from "react-i18next";
 
-
 export enum RdsRadioButtonState {
   Default = "Default",
   Hover = "Hover",

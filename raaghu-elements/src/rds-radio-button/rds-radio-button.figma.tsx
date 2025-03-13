@@ -28,6 +28,25 @@ figma.connect(
       }),
       selected: figma.boolean("⚠️ Selected"),
     },
-    example: (props) => <RdsRadioButton {...props} itemList={undefined} value={""} />,
+    example: (props) => <RdsRadioButton {...props} itemList={[
+      {
+        checked: true,
+        id: 1,
+        label: "Radio Button 1",
+        name: "radio_button",
+      },
+      {
+        checked: true,
+        id: 2,
+        label: "Radio Button 2",
+        name: "radio_button",
+      },
+      {
+        checked: true,
+        id: 3,
+        label: "Radio Button 3",
+        name: "radio_button",
+      },
+    ]} value={""} />,
   },
 )
