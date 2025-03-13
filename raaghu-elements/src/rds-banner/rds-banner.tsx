@@ -97,40 +97,32 @@ const RdsBanner = (props: RdsBannerProps) => {
 
               <RdsHeader size="h6" headerText={props.subTitleText}></RdsHeader>
 
-              <div className="buttons w-100">
-                {props.showFirstButton && (
-                  <RdsButton
-                    label={props.firstButtonText}
-                    type="button"
-                    colorVariant={props.colorVariant}
-                    size="medium"
-                    dataTestId={props.firstButtonText}
-                    icon={props.firstButtonIcon}
-                    isBanerButton={true}
-                    onClick={(e) => onButtonClick(e)}
-                  ></RdsButton>
-                )}
-                {props.showSecondButton && (
-                  <RdsButton
-                    label={props.secondButtonText}
-                    type="button"
-                    colorVariant={props.colorVariant}
-                    size="medium"
-                    dataTestId={props.secondButtonText}
-                    icon={props.secondButtonIcon}
-                    isBanerButton={true}
-                    onClick={(e) => onButtonClick(e)}
-                  ></RdsButton>
-                )}
-                {props.showHyperlink && (
-                  <div className="links">
-                    <a
-                      className="btn text-primary bg-light"
-                      href={props.hyperlink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span className="me-2">
+          <div className="buttons w-100">
+            {props.showFirstButton &&(<RdsButton
+                        label={props.firstButtonText}
+                        type="button"
+                        colorVariant={props.colorVariant}
+                        size="medium"
+                        dataTestId={props.firstButtonText}
+                         icon={props.firstButtonIcon}
+                         isBanerButton={true}
+                         onClick={(e) => onButtonClick(e)}
+                    ></RdsButton>)}
+           {props.showSecondButton &&( <RdsButton
+                        label={props.secondButtonText}
+                        type="button"
+                        colorVariant={props.colorVariant}
+                        size="medium"
+                        dataTestId={props.secondButtonText}
+                        icon={props.secondButtonIcon}
+                        isBanerButton={true}
+                        onClick={(e) => onButtonClick(e)}
+                    ></RdsButton>)}
+                     {props.showHyperlink &&( 
+                      <div className="links">
+                         
+                        <a className="btn text-primary bg-light w-100 border-primary" href={props.hyperlink} target="_blank" rel="noopener noreferrer">
+                        <span className="me-2">
                         <RdsIcon
                           colorVariant="primary"
                           name={props.hyperlinkIcon}
