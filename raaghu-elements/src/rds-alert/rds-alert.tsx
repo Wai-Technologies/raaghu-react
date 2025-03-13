@@ -65,13 +65,13 @@ const RdsAlert = (props: RdsAlertProps) => {
   const handler = "delay" in props; 
   const { multiline = false } = props;  // Destructure `multiline` here
 
-  useEffect(() => {
-    if (handler) {
-      setTimeout(() => {
-        setClicked(true);
-      }, delay);
-    }
-  }, [handler, delay]);
+  // useEffect(() => {
+  //   if (handler) {
+  //     setTimeout(() => {
+  //       setClicked(true);
+  //     }, delay);
+  //   }
+  // }, [handler, delay]);
 
   useEffect(() => {
     setClicked(false);
@@ -139,6 +139,7 @@ const RdsAlert = (props: RdsAlertProps) => {
       {!multiline && (
         <>
           <span className="custom-alert-message wordbreak d-flex align-items-top">
+            <div className="d-flex">
             {props.icon && props.showIcon && (
               <RdsIcon
                 name={props.icon || " "}
@@ -150,10 +151,11 @@ const RdsAlert = (props: RdsAlertProps) => {
                 classes="me-2"
               />
             )}
-            <div>
               {props.title && props.showTitle && <strong>{props.title}</strong>}
-              {props.description && props.showDescription && (
-                <span className="ps-2"> {props.description} </span>
+            </div>
+            <div>
+            {props.description && props.showDescription && (
+                <span> {props.description} </span>
               )}
             </div>
           </span>
@@ -210,7 +212,7 @@ const RdsAlert = (props: RdsAlertProps) => {
         <>
           <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
             {props.icon && props.showIcon && (
-              <div className="align-items-center" id="rdicon">
+              <div className="align-items-center d-flex" id="rdicon">
                 <RdsIcon
                   name={props.icon || " "}
                   fill={props.iconFill}
@@ -218,13 +220,13 @@ const RdsAlert = (props: RdsAlertProps) => {
                   height={props.iconHeight}
                   width={props.iconWidth}
                   colorVariant={colorType}
-                  classes="me-2 pt-3 "
+                  classes="me-2"
                 />
+                {props.title && props.showTitle && <strong>{props.title}</strong>}
               </div>
             )}
             <div className="flex-grow-1">
-              {props.title && props.showTitle && <strong>{props.title}</strong>}
-
+              {!props.icon && props.title && props.showTitle && <strong>{props.title}</strong>}
               {props.description && props.showDescription && (
                 <p>{props.description}</p>
               )}
