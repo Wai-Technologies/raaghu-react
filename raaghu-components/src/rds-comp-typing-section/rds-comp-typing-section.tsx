@@ -6,6 +6,7 @@ import './rds-comp-typing-section.css';
 export interface RdsTypingAltProps {
     colorVariant?: string;
     placeholderText?: string;
+    onSend?: (inputText: string) => void;
 }
 
 declare global {
@@ -78,6 +79,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
     const handleSent = () => {
         setPrevInputText(inputText);
+        props.onSend && props.onSend(inputText);
         setInputText("");
         setShowEnhancer(true);
     };
