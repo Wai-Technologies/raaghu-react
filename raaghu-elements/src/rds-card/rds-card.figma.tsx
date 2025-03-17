@@ -18,17 +18,37 @@ figma.connect(
       showIndicator: figma.boolean("👀 Show Indicator"),
       showTitle: figma.boolean("🆕 Show Title"),
       state: figma.enum("💡 State", {
-        Default: "default",
-        Hover: "hover",
-        Selected: "selected",
-        Disabled: "disabled",
+        Default: "Default",
+        Hover: "Hovered",
+        Selected: "Selected",
+        Disabled: "Disabled",
       }),
       style: figma.enum("✨ Style", {
-        Default: "default",
-        Outlined: "outlined",
-        Filled: "filled",
+        Default: "Default",
+        Outlined: "Outlined",
+        Filled: "Filled",
       }),
+
     },
-    example: (props) => <RdsCard {...props} />,
+    example: (props) => <RdsCard 
+    {...props}
+      borderColor=""
+      buttonLabel1="Link Button"
+      buttonLabel2="Cancel"
+      buttonLabel3="Okay"
+      cardSubTitle="Card Sub title"
+      cardText="In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo"
+      cardTitle="Card title"
+      colorVariant="primary"
+      iconName="circle"
+      imageUrl="https://picsum.photos/seed/picsum/1200/600"
+      layout="Vertical"
+      showCardText
+      showFooter
+      showIcon
+      showLinkButton
+      showSubTitle
+      showTitleAndSubText
+     />,
   },
 )
