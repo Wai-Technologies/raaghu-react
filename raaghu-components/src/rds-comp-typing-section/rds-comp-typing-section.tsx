@@ -8,6 +8,12 @@ export interface RdsTypingAltProps {
     placeholderText?: string;
 }
 
+declare global {
+    interface Window {
+        webkitSpeechRecognition: any;
+    }
+}
+
 const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const [inputText, setInputText] = useState<string>("");
     const [prevInputText, setPrevInputText] = useState<string>("");
@@ -33,9 +39,37 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const handleAttachmentClick = () => {
         console.log("Attachment icon clicked");
     };
-
+    
     const handleMicClick = () => {
-        console.log("Mic icon clicked");
+        if (!('webkitSpeechRecognition' in window)) {
+            console.log("Speech recognition not supported");
+            return;
+        }
+
+        const recognition = new window.webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onstart = () => {
+            console.log("Speech recognition started");
+        };
+
+        recognition.onresult = (event : any) => {
+            const transcript = event.results[0][0].transcript;
+            setInputText(transcript);
+            console.log("Speech recognition result: ", transcript);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.log("Speech recognition error: ", event.error);
+        };
+
+        recognition.onend = () => {
+            console.log("Speech recognition ended");
+        };
+
+        recognition.start();
     };
 
     const handleProject = () => {
