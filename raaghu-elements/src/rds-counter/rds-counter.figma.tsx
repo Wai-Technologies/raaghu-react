@@ -17,8 +17,8 @@ figma.connect(
     props: {
       isMandatory: figma.boolean("❗ - Is Mandatory"),
       showTitle: figma.boolean("🆕 - Show Title"),
-      changeTitle: figma.string("✏️ Change Title"),
-      placeholderText: figma.string("✏️ Placeholder Text"),
+     // changeTitle: figma.string("✏️ Change Title"),
+     // placeholderText: figma.string("✏️ Placeholder Text"),
       layout: figma.enum("📱 Layout", {
         "Right Side": LayoutOptions.RightSide,
         "Side to Side": LayoutOptions.SideToSide,
@@ -30,6 +30,9 @@ figma.connect(
         Disabled: CounterState.Disabled,
       }),
     },
-    example: (props) => <RdsCounter  counterValue={0} min={0} max={0} width={0}  {...props}/>,
+    example: (props) => <RdsCounter  counterValue={0} min={0} max={50} width={280} 
+    titleText="Label"
+    placeholder="00"
+    {...props}/>,
   },
 )
