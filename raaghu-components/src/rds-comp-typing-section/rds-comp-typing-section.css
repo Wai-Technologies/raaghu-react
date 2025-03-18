@@ -32,6 +32,14 @@
     right: 10px;
 }
 
+.theme-dark .input-with-image {
+    background-color: black;
+}
+
+.theme-dark .input-with-image .form-control {
+    background-color: black;
+}
+
 #1 {
     position: absolute;
     bottom: 10px;
