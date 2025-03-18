@@ -1,0 +1,82 @@
+.planToggle {
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    overflow: hidden; /* Ensure border radius is applied */
+    height: 60px;
+    width: 291px;
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    align-items: center; /* Vertically center align */
+}
+
+.planToggle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px; /* Adjust the width of the border */
+    background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude; 
+    pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
+}
+
+.equalWidth {
+    flex: 1;
+    text-align: center;
+}
+
+.multicolorBorder {
+    position: relative;
+    border-radius: 5px;
+    padding: 5px;
+    overflow: hidden; /* Ensure border radius is applied */
+    height: 35px;
+    margin-top: 5px;
+    margin-left: 12px;
+}
+
+.multicolorBorder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+    padding: 1px; /* Adjust the width of the border to 1px */
+    background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude; 
+    pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
+}
+
+.premiumSelected {
+    background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #D2A134, #E8A529);
+    border-radius: 5px;
+    height: 30px;
+}
+
+.premiumContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Ensure the content takes full height */
+}
+
+.crownImage {
+    margin-right: 5px; /* Adjust the spacing between the image and the text */
+    height: 20px; /* Ensure the image has a fixed height */
+}
