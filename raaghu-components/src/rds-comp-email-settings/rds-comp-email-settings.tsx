@@ -47,19 +47,6 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
         });
     }
 
-    function emitSaveData1(event: any) {
-        event.preventDefault();
-        props.onSaveHandler && props.onSaveHandler(formData);
-        setFormData({
-            displayName: "",
-            address: "",
-            host: "",
-            port: "",
-            enableSSL: false,
-            defaultCredentials: false
-        });
-    }
-
     return (
         <>
         {props.displayType === "basic" && (
@@ -184,8 +171,6 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                             dataTestId='host'
                             onChange={(e) => handleDataChanges(e.target.value, "host")}
                             value={formData?.host}
-                            onChange={(e) => handleDataChanges(e.target.value, "host")}
-                            value={formData?.host}
                         ></RdsInput>
                     </div>
                 </div>
@@ -196,8 +181,6 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                         placeholder="25"
                         customClasses="form-control"
                         dataTestId='port'
-                        onChange={(e) => handleDataChanges(e.target.value, "port")}
-                        value={formData?.port}
                         onChange={(e) => handleDataChanges(e.target.value, "port")}
                         value={formData?.port}
                     ></RdsInput>

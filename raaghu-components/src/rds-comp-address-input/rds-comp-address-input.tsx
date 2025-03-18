@@ -13,7 +13,6 @@ export interface RdsCompAddressInputProps {
     reset?: boolean;
     label: React.ReactNode;
     onSaveHandler?: (data: any) => void;
-    onSaveHandler?: (data: any) => void;
 }
 
 const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
@@ -88,7 +87,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             placeholder="Enter Address"
                             inputType="text"
                             onChange={(e) => handlerInputChange(e.target.value, "address")}
-                            onChange={(e) => handlerInputChange(e.target.value, "address")}
                             value={AddressData?.address}
                         ></RdsInput>
                         <div className="invalid-feedback">
@@ -104,7 +102,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
-                            onChange={(e) => handlerInputChange(e.target.value, "address2")}
                             onChange={(e) => handlerInputChange(e.target.value, "address2")}
                             value={AddressData?.address2}
                         ></RdsInput>
@@ -179,7 +176,6 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Zip code"
                             inputType="text"
-                            onChange={(e) => handlerInputChange(e.target.value, "zip")}
                             onChange={(e) => handlerInputChange(e.target.value, "zip")}
                             value={AddressData?.zip}
                             id="address-input"
