@@ -8,6 +8,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 export default {
     title: "Elements/Subscription Plan",
     component: RdsCompSubscriptionPlan,
+    tags: ['autodocs'],
     decorators: [
         (StoryComponent: React.FC) => (
             <I18nextProvider i18n={i18n}>
