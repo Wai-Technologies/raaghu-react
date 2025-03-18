@@ -1,0 +1,251 @@
+.subscriptionContainer {
+  display: flex;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  position: relative; /* Added for positioning the close button */
+}
+
+.subscriptionContainer > div {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  border: none;
+}
+
+.backGifContainer {
+  position: relative;
+  width: 511px;
+  height: 784px;
+}
+
+.backGif {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; /* Added border radius */
+}
+
+.panelImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 294px;
+  height: 400px;
+  pointer-events: none; /* Ensure the panel image does not interfere with any interactions */
+}
+
+.centerText {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.upgradeText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-size: 1.875rem; /* 3xl size */
+  line-height: 100%;
+  letter-spacing: normal;
+}
+
+.aiPunditChat {
+  font-family: "Poppins";
+  font-weight: bold;
+  font-size: 2xl;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-right: 8px;
+}
+
+.currentPlanText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; /* Regular weight */
+  font-size: 1.25rem; /* xl size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.freeText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; /* Regular weight */
+  font-size: 1.5rem; /* 2xl size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 20px; /* Added margin-bottom */
+  margin-top: 24px;
+}
+
+.perfectForIndividuals {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem; /* Assuming lg corresponds to 18px */
+  line-height: 28px;
+  letter-spacing: 0%;
+  margin-bottom: 28px; /* Added margin-bottom */
+}
+
+.priceText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; /* Semi-bold weight */
+  font-size: 1.875rem; /* 3xl size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 20px; /* Added margin-bottom */
+}
+
+.priceText span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; /* Regular weight */
+  font-size: 1.5rem; /* 2xl size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #646464;
+}
+
+.forIndividualsText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; /* Semi-bold */
+  font-size: 1.5rem; /* 2xl */
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-top: 20px;
+  margin-bottom: 20px; /* Added margin-bottom */
+}
+
+.forProUsersText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-size: 1.5rem; /* 2xl size */
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 20px; /* Added margin-bottom */
+}
+
+.accessChat,
+.upToCredits,
+.shareChatUrl {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; /* Regular weight */
+  font-size: 1.125rem; /* Assuming lg corresponds to 18px */
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #646464;
+  margin-bottom: 10px; /* Added margin-bottom */
+}
+
+.accessChat {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; /* Regular weight */
+  font-size: 1.125rem; /* Assuming lg corresponds to 18px */
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #646464;
+  margin-bottom: 10px; /* Added margin-bottom */
+  display: flex;
+  align-items: center;
+}
+
+.accessChat img {
+  margin-right: 8px; /* Add gap between image and text */
+}
+
+.proText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  background-color: #E8AC39;
+  padding: 5px 10px;
+  border-radius: 999px; /* Pill shape */
+  color: #000000; /* Assuming white text color for contrast */
+  position: relative;
+  top: -7px; 
+}
+
+.planToggle {
+  display: flex;
+  position: relative;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 10px;
+  overflow: hidden; /* Ensure border radius is applied */
+  height: 60px;
+  width: 291px;
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+}
+
+.planToggle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  padding: 1px; /* Adjust the width of the border */
+  background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude; 
+  pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
+}
+
+.planOption {
+  cursor: pointer;
+}
+
+.planDetails {
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #E1E3EA;
+  margin-top: 10px;
+  height: 572px;
+}
+
+.multicolorBorder {
+  position: relative;
+  border-radius: 5px;
+  padding: 5px;
+  overflow: hidden; /* Ensure border radius is applied */
+  height: 35px;
+  margin-top: 5px;
+  margin-left: 12px;
+}
+
+.multicolorBorder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+  padding: 1px; /* Adjust the width of the border to 1px */
+  background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude; 
+  pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
+}
+
+.equalWidth {
+  flex: 1;
+  text-align: center;
+}
