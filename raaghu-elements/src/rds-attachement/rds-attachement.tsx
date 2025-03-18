@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import RdsFabMenu from "../rds-fab-menu";
 import RdsBadge from "../rds-badge/rds-badge";
 import RdsModal from "../rds-modal/rds-modal";
@@ -9,18 +9,29 @@ const RdsAttachement = () => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Function to trigger the file input
   const handleFileUpload = () => {
     fileInputRef.current?.click();
   };
 
-  // Function to handle file selection
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       console.log("File selected:", selectedFile.name);
-      // Add your file handling logic here (e.g., upload to a server)
     }
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+
+    // Close the FAB menu using DOM manipulation
+    const fabMenu = document.querySelector(".fab-dropdown");
+    if (fabMenu && fabMenu.classList.contains("show")) {
+      fabMenu.classList.remove("show");
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -32,7 +43,7 @@ const RdsAttachement = () => {
         style={{ display: "none" }}
         onChange={onFileChange}
       />
-      
+
       <span className="mb-3 mt-2">
         <RdsFabMenu
           menuIcon="attachment_icon"
@@ -44,7 +55,7 @@ const RdsAttachement = () => {
               key: "new",
               value: (
                 <button
-                  onClick={() => setShowModal(true)}
+                  onClick={openModal}  // Open modal and close FAB
                   style={{
                     cursor: "pointer",
                     background: "none",
@@ -53,8 +64,10 @@ const RdsAttachement = () => {
                     font: "inherit",
                     padding: 0,
                   }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal1234"
                 >
-                  <span className="me-2"  >Upload From Figma</span>
+                  <span className="me-2">Upload From Figma</span>
                   <RdsBadge
                     colorVariant="success"
                     iconName="notification"
@@ -90,7 +103,7 @@ const RdsAttachement = () => {
           ]}
         />
       </span>
-      
+
       {/* Modal Component */}
       {showModal && (
         <RdsModal
@@ -98,27 +111,28 @@ const RdsAttachement = () => {
           modalAnimation="modal-fade"
           modalId="modal1234"
           modalTitle="Import From Figma"
-          modalbutton={<button className="btn btn-primary">Default</button>}
+          modalbutton={null}
           saveChangesName="Next"
           showModalFooter
           showModalHeader
-          size="medium" 
+          size="medium"
+          onClose={closeModal}   // Close modal handler
         >
-         <p className="text-muted import-size" >
-          Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.
-         </p>
+          <p className="text-muted import-size">
+            Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.
+          </p>
           <RdsInput
-          HintText="Hint Text"
-          fontWeight="normal"
-          id="default-input"
-          placeholder="Enter URL"
-          inputType="text"
-          label
-          name="Enter Figma URL"
-          state="default"
-          style="Default"
-          value=""
-           />
+            HintText="Hint Text"
+            fontWeight="normal"
+            id="default-input"
+            placeholder="Enter URL"
+            inputType="text"
+            label
+            name="Enter Figma URL"
+            state="default"
+            style="Default"
+            value=""
+          />
         </RdsModal>
       )}
     </>
