@@ -40,6 +40,10 @@
     max-width: 100%;
     height: auto;
   }
+
+  .theme-dark .form-label.mb-0.fw-undefined  {
+    color: rgb(71 65 65) !important;
+  }  
   
   /* Responsive styles */
   @media (max-width: 768px) {
