@@ -4,12 +4,28 @@ import { RdsIcon, RdsPlanSwitcher, RdsCard } from "../rds-elements";
 
 export interface RdsSubscriptionPlanProps {
   planAmount?: string;
+  freePlanText: string;
+  premiumPlanText: string;
+  upgradeText: string;
+  aiPunditChatText: string;
+  proText: string;
+  currentPlanText: string;
+  freePlanDescription: string;
+  premiumPlanDescription: string;
+  freePlanPrice: string;
+  premiumPlanPrice: string;
+  freePlanFeatures: string[];
+  premiumPlanFeatures: string[];
+  perMonthText: string;
+  forIndividualsText: string;
+  forProUsersText: string;
+  whatsIncludedText: string;
 }
 
 const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
   const [isPlanFree, setIsPlanFree] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [subscriptionPlanAmount, setSubscriptionPlanAmount] = useState(props.planAmount || "---");
+  const [subscriptionPlanAmount, setSubscriptionPlanAmount] = useState(props.planAmount || props.premiumPlanPrice);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -29,46 +45,42 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
         onClick={closeModal}
       /></div>
       <div className="backGifContainer">
-        <img src={"./assets/backGif.gif"} alt="ssj" className="backGif" />
-        <img src={"./assets/Panel-0421.png"} alt="ssj" className="panelImage" />
+        <img src={"./assets/backGif.gif"} alt="Background Animation" className="backGif" />
+        <img src={"./assets/Panel-0421.png"} alt="Panel Image" className="panelImage" />
       </div>
       <div>
         <div className="centerText">
-          <div className="upgradeText">Upgrade to<img src={"./assets/AIPunditColored.png"} alt="ssj" />
-            <span className="aiPunditChat">AI Pundit Chat</span><span className="proText">Pro</span></div>
-          <div className="currentPlanText">You’re currently on the free plan</div>
+          <div className="upgradeText">{props.upgradeText}<img src={"./assets/AIPunditColored.png"} alt="AI Pundit Logo" />
+            <span className="aiPunditChat">{props.aiPunditChatText}</span><span className="proText">{props.proText}</span></div>
+          <div className="currentPlanText">{props.currentPlanText}</div>
           <RdsPlanSwitcher
-            button1Text="Free"
-            button2Text="Premium"
+            button1Text={props.freePlanText}
+            button2Text={props.premiumPlanText}
             setIsPlanFree={setIsPlanFree}
           />
         </div>
         <div>
           <RdsCard state="Default" style="Default">
             <div className="card-text">{isPlanFree ? <div >
-              <div className="freeText">Free</div>
-              <div className="perfectForIndividuals">Perfect for individuals exploring our platform.</div>
-              <div className="priceText">$0<span>/month</span></div>
+              <div className="freeText">{props.freePlanText}</div>
+              <div className="perfectForIndividuals">{props.freePlanDescription}</div>
+              <div className="priceText">{props.freePlanPrice}<span>{props.perMonthText}</span></div>
               <hr />
-              <div className="forIndividualsText">For Individuals:</div>
-              <div className="forProUsersText">For pro users:</div>
-              <div className="accessChat"><img src="./assets/check.png" />Access to chat.raaghu.ai</div>
-              <div className="accessChat"><img src="./assets/check.png" />Up to 5 credits daily</div>
-              <div className="accessChat"><img src="./assets/check.png" />Share chat URL with anyone</div>
+              <div className="forIndividualsText">{props.forIndividualsText}</div>
+              <div className="forProUsersText">{props.forProUsersText}</div>
+              {props.freePlanFeatures.map((feature, index) => (
+                <div key={index} className="accessChat"><img src="./assets/check.png" alt="Check Icon" />{feature}</div>
+              ))}
             </div> : <div>
-              <div className="freeText">Premium</div>
-              <div className="perfectForIndividuals">Take your projects to the next level with pro features.</div>
-              <div className="priceText">${subscriptionPlanAmount}<span>/month</span></div>
+              <div className="freeText">{props.premiumPlanText}</div>
+              <div className="perfectForIndividuals">{props.premiumPlanDescription}</div>
+              <div className="priceText">${subscriptionPlanAmount}<span>{props.perMonthText}</span></div>
               <hr />
-              <div className="forIndividualsText">What’s included</div>
-              <div className="forProUsersText">For pro users:</div>
-              <div className="accessChat"><img src="./assets/check.png" />Everything in free</div>
-              <div className="accessChat"><img src="./assets/check.png" />Higher messaging limits</div>
-              <div className="accessChat"><img src="./assets/check.png" />Custom domains on integration option</div>
-              <div className="accessChat"><img src="./assets/check.png" />Unlimited Projects</div>
-              <div className="accessChat"><img src="./assets/check.png" />Import from Figma</div>
-              <div className="accessChat"><img src="./assets/check.png" />Integrate ABP</div>
-              <div className="accessChat"><img src="./assets/check.png" />Integrate ASP.NET Zero</div>
+              <div className="forIndividualsText">{props.whatsIncludedText}</div>
+              <div className="forProUsersText">{props.forProUsersText}</div>
+              {props.premiumPlanFeatures.map((feature, index) => (
+                <div key={index} className="accessChat"><img src="./assets/check.png" alt="Check Icon" />{feature}</div>
+              ))}
             </div>}
             </div>
           </RdsCard>

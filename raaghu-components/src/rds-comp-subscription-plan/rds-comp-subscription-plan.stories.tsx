@@ -24,4 +24,32 @@ const Template: ComponentStory<typeof RdsCompSubscriptionPlan> = (args: any) => 
 export const Default = Template.bind({});
  
 Default.args = {
+  freePlanText: "Free",
+  premiumPlanText: "Premium",
+  upgradeText: "Upgrade to",
+  aiPunditChatText: "AI Pundit Chat",
+  proText: "Pro",
+  currentPlanText: "You’re currently on the free plan",
+  freePlanDescription: "Perfect for individuals exploring our platform.",
+  premiumPlanDescription: "Take your projects to the next level with pro features.",
+  freePlanPrice: "$0",
+  premiumPlanPrice: "---",
+  freePlanFeatures: [
+    "Access to chat.raaghu.ai",
+    "Up to 5 credits daily",
+    "Share chat URL with anyone"
+  ],
+  premiumPlanFeatures: [
+    "Everything in free",
+    "Higher messaging limits",
+    "Custom domains on integration option",
+    "Unlimited Projects",
+    "Import from Figma",
+    "Integrate ABP",
+    "Integrate ASP.NET Zero"
+  ],
+  perMonthText: "/month",
+  forIndividualsText: "For Individuals:",
+  forProUsersText: "For pro users:",
+  whatsIncludedText: "What’s included"
 };
