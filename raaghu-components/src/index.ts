@@ -116,3 +116,4 @@ export { default as RdsCompDialog } from "./rds-comp-dialog";
 export { default as RdsCompTransferList } from "./rds-comp-transfer-list";
 export {default as RdsCompMessageBox} from "./rds-comp-message-box";
 export { default as  RdsCompSubscriptionPlan} from "./rds-comp-subscription-plan";
+export { default as RdsCompTypingSection } from "./rds-comp-typing-section";
