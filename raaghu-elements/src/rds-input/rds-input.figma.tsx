@@ -13,15 +13,13 @@ figma.connect(
       placeholderPassword: figma.string("🚧 Placeholder- Password"),
       placeholderText: figma.string("📝 Placeholder - Text"),
       cardNumber: figma.string("💳 Card Number"),
-      hintText: figma.string("✍ Hint Text"),
+      HintText: figma.string("✍ Hint Text"),
       showIcon: figma.boolean("👀 - Show Icon"),
       showTitle: figma.boolean("🆕 Show Title"),
       label: figma.boolean("✏️ Label"),
       password: figma.string("🔑 Password"),
       showSubtext: figma.boolean("🔤 - Show Subtext"),
-      changeIcon: figma.instance("🔃 Change Icon"),
       phoneNumber: figma.string("☎️ - Phone Number"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
       size: figma.enum("📏 Size", {
         Small: InputSize.Small,
         Medium: InputSize.Medium,
@@ -47,6 +45,10 @@ figma.connect(
         Pill: "pill",
       }),
     },
-    example: (props) => <RdsInput {...props} name={"Label"}  />,
+    example: (props) => <RdsInput {...props} 
+    name="Label"
+    label
+    required
+    ShowHintText />,
   },
 )
