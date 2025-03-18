@@ -36,7 +36,7 @@ const RdsPopover = (props: RdsPopoverProps) => {
 
   return (
     <>
-      <div className="col-auto">
+      <div className="col-auto d-flex justify-content-center">
         <div data-testid="popover-card" className="popoverContainer my-5">
           <RdsButton
             type="button"
