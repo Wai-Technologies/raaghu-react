@@ -19,7 +19,15 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
 
   return (<>
     <div className="subscriptionContainer">
-      <div className="closeButton" onClick={closeModal}>×</div>
+      <div className="closeButton" ><RdsIcon
+  colorVariant="dark"
+  height="16px"
+  isCursorPointer
+  name="close"
+  stroke
+  width="16px"
+  onClick={closeModal}
+/></div>
       <div className="backGifContainer">
         <img src={"./assets/backGif.gif"} alt="ssj" className="backGif" />
         <img src={"./assets/Panel-0421.png"} alt="ssj" className="panelImage" />

@@ -14,10 +14,9 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 10px;
   cursor: pointer;
-  font-size: 20px;
   background: none;
   border: none;
 }
