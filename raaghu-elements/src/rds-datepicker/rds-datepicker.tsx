@@ -25,7 +25,7 @@ export enum DatePickerState {
 export interface RdsDatepickerProps {
     selectedDate?: (date: Date | null) => void; // Selected Date
     dateForEdit?: string; // Date for Edit
-    title?: string; // Title
+    titleText?: string; // Title
     showTitle?: boolean; // Show or hide Title
     onDatePicker?: (date: Date | [Date | null, Date | null]) => void; // On Date Picker
     datePickerStyleType?: DatePickerStyleType; // Date Picker Style Type
@@ -219,9 +219,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
 
     return (
         <>
-            {props.showTitle && props.title && (
+            {props.showTitle && props.titleText && (
                 <label className="form-label">
-                    {props.title}
+                    {props.titleText}
                     {props.isMandatory && <span className="text-danger"> *</span>}
                 </label>
             )}
