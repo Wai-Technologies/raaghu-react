@@ -7,6 +7,10 @@
   position: relative; 
 }
 
+.theme-dark .subscriptionContainer {
+  background-color: #1A1A1A;
+}
+
 .subscriptionContainer > div {
   flex: 1;
   margin: 0 10px;
