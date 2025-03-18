@@ -85,9 +85,9 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     };
 
     return (<>
-        <div className="input-column">
+        <div className="d-flex flex-column">
             <div className="input-wrapper">
-                <div className="input-with-image">
+                <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
                 {showEnhancer &&
                 <span className="mt-2">
                     <RdsIcon
@@ -102,14 +102,13 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 </span>
                 }
                     <textarea
-                        className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
+                        className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant} mt-3`}
                         placeholder={props.placeholderText || "Placeholder Text"}
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         title="Enter your prompt here"
-                        style={{marginTop: "12px"}}
                     />
-                    <div className={`icon-container ${isMobile ? 'mobile' : ''}`}>
+                    <div className={`d-flex ${isMobile ? 'flex-column align-items-center' : 'gap-3 mt-3 mr-3 me-2'}`}>
                     {!isMobile && <RdsIcon
                         colorVariant="primary"
                         height="20px"
@@ -166,7 +165,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                     )}
                     </div>
                     {isMobile && (
-                        <div className="mobile-icons">
+                        <div className="d-flex gap-2 position-absolute mt-3 end-0 me-2">
                             <RdsIcon
                                 colorVariant="primary"
                                 height="20px"
