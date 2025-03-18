@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./rds-comp-subscription-plan.css";
-import { RdsIcon, RdsPlanSwitcher } from "../rds-elements";
+import { RdsIcon, RdsPlanSwitcher, RdsCard } from "../rds-elements";
 
 export interface RdsSubscriptionPlanProps {
   planAmount?: string;
@@ -44,8 +44,8 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
           />
         </div>
         <div>
-          <div className="planDetails">
-            {isPlanFree ? <div >
+          <RdsCard state="Default" style="Default">
+            <div className="card-text">{isPlanFree ? <div >
               <div className="freeText">Free</div>
               <div className="perfectForIndividuals">Perfect for individuals exploring our platform.</div>
               <div className="priceText">$0<span>/month</span></div>
@@ -70,7 +70,8 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
               <div className="accessChat"><img src="./assets/check.png" />Integrate ABP</div>
               <div className="accessChat"><img src="./assets/check.png" />Integrate ASP.NET Zero</div>
             </div>}
-          </div>
+            </div>
+          </RdsCard>
         </div>
       </div>
     </div>

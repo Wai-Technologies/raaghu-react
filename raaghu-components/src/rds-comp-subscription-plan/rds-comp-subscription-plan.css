@@ -272,3 +272,7 @@
   height: 20px; /* Adjust height as needed */
   margin-right: 8px; /* Add some space between the image and text */
 }
+
+.card-text {
+  margin-top: -50px;
+}
