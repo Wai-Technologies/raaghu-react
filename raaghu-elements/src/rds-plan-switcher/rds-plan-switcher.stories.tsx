@@ -1,28 +1,22 @@
-import React from "react";
+import type { Meta, StoryObj } from '@storybook/react';
 import RdsPlanSwitcher from "./rds-plan-switcher";
-import { I18nextProvider } from "react-i18next";
-import i18n from 'i18next';
-import { ComponentMeta, ComponentStory } from "@storybook/react";
- 
- 
-export default {
-    title: "Elements/Plan Switcher",
+
+
+const meta: Meta = { 
+    title: "Components/Plan Switcher",
     component: RdsPlanSwitcher,
-    decorators: [
-        (StoryComponent: React.FC) => (
-            <I18nextProvider i18n={i18n}>
-            <StoryComponent />
-          </I18nextProvider>
-        ),
-      ],
-} as ComponentMeta<typeof RdsPlanSwitcher>;
- 
-const Template: ComponentStory<typeof RdsPlanSwitcher> = (args: any) => (
-    <RdsPlanSwitcher {...args} />
-);
- 
-export const Default = Template.bind({});
- 
-Default.args = {
-};
- 
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+    }, 
+} satisfies Meta<typeof RdsPlanSwitcher>;
+
+export default meta;
+type Story = StoryObj<typeof RdsPlanSwitcher>;
+
+export const Default: Story = {
+    args: {
+    }
+} satisfies Story;
