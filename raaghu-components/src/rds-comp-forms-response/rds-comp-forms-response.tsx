@@ -241,7 +241,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                               ele.choices.length &&
                               ele.choices.map((eles: any) => (
                                 <RdsCheckbox
-                                  label={eles.value}
+                                  labelText={eles.value}
                                   id={eles.id}
                                   checked={undefined}
                                   choiceId={ele.choiceId}

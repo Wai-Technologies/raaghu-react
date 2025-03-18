@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./rds-radio-button.css";
 import { useTranslation } from "react-i18next";
 
+export enum RdsRadioButtonState {
+  Default = "Default",
+  Hover = "Hover",
+  Disabled = "Disabled",
+}
+
+export enum RdsRadioButtonLayout {
+  Icon = "Icon",
+  IconWithLabel = "Icon with Label",
+  IconWithBottomLabel = "Icon with bottom Label",
+}
 export interface RdsRadioButtonProps {
   switch?: boolean;
   inline?: boolean;
@@ -14,12 +25,16 @@ export interface RdsRadioButtonProps {
   label?: string;
   id?: number;
   dataTestId?: string;
-  state?: "radio" | "errorRadio";
+  state?: RdsRadioButtonState;
   errorMessage?: string;
   onlyChecked?: boolean;
   checkedId?: string;
   customClass?: string;
+  layout?: RdsRadioButtonLayout;
+  selected?: boolean;
+  text?: string;
 }
+
 
 const RdsRadioButton = (props: RdsRadioButtonProps) => {
   const { t } = useTranslation();
@@ -37,9 +52,11 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
 
   const InputGroup1 = `${InputGroup === true ? "input-group-text" : ""} `;
   const Switch1 = `${Switch === true ? "form-switch" : ""} `;
-  const Inline1 = `${Inline === true || display_type == "Horizontal" ? "form-check-inline" : ""
-    } `;
-  const state = props.state || "radio"; //form-check-input-error
+  // const Inline1 = `${Inline === true || display_type == "Horizontal" ? "form-check-inline" : ""
+  //   } `;
+  // const state = props.state || "radio"; //form-check-input-error
+  const Inline1 = `${Inline === true || display_type == "Horizontal" ? "form-check-inline" : ""} `;
+  const stateClass = props.state === "Hover" ? "hover-state" : props.state === "Disabled" ? "disabled-state" : "";
   const radioButtonClass = props.displayType === "Horizontal" ? "d-flex" : "";
   const handlerRadioChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
   e.persist(); // This will remove the event from the pool
@@ -47,72 +64,162 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
   // Now you can safely use selectedPaymentMethod asynchronously
   props.onChange && props.onChange(selectedPaymentMethod);
 }
-  return (
-    <>
-      <div key={props.id}>
-        <div>
-          {state == "errorRadio" && (
-            <span className="error_Msg"> {props.errorMessage}</span>
-          )}
-          <div className={radioButtonClass}>
-            {list?.map((item: any, idx: any) => (
-              <div
-                key={idx}
-                className={
-                  "form-check mb-2" + `${InputGroup1}` + `${Switch1}` + `${Inline1}`
-                }
-              >
-                {props.onlyChecked ?
+const renderLabel = (item: any) => {
+  const label = props.text || t(item.label); // Use the text prop if provided
+  switch (props.layout) {
+    case "Icon":
+      return <i className={item.iconClass}></i>;
+    case "Icon with Label":
+      return (
+        <>
+          <i className={item.iconClass}></i>
+          <span className="ms-2">{label}</span>
+        </>
+      );
+    case "Icon with bottom Label":
+      return (
+        <div className="d-flex flex-column align-items-start">
+          <i className={item.iconClass}></i>
+          <div>{label}</div>
+        </div>
+      );
+    default:
+      return label;
+  }
+};
+
+return (
+  <>
+    <div key={props.id}>
+      <div>
+        <div className={`${radioButtonClass} ${stateClass}`}>
+          {list?.map((item: any, idx: any) => (
+            <div
+              key={idx}
+              className={
+                "form-check mb-2" + `${InputGroup1}` + `${Switch1}` + `${Inline1}`
+              }
+            >
+              {props.layout === "Icon with bottom Label" ? (
+                <div className="d-flex flex-column align-items-start">
+                  <div className="icon-with-bottom-label ">
                   <input
                     type="radio"
-                    className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
+                    className="form-check-input" 
+                    //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
                     name={item.name}
                     value={item.label}
-                    checked={item.checked}
+                    checked={props.selected ? true : false}
                     id={item.id}
-                    disabled={item.disabled}
+                    disabled={props.state === "Disabled" || item.disabled}
                     onClick={props.onClick}
                     onChange={handlerRadioChange}
                     data-testid={props.dataTestId}
-                  /> : props.checkedId ? <input
+                  />
+                  </div>  
+                  <label htmlFor={item.id} className="form-check-label mt-2">
+                    {renderLabel(item)}
+                  </label>
+                </div>
+              ) : (
+                <>
+                  <input
                     type="radio"
-                    className={`${state == "errorRadio"
-                      ? "form-check-input-error"
-                      : "form-check-input"
-                      }`}
+                    //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
+                    className="form-check-input" 
                     name={item.name}
                     value={item.label}
-                    defaultChecked={item.checked}
+                    checked={props.selected ? true : false}
                     id={item.id}
-                    disabled={item.disabled}
+                    disabled={props.state === "Disabled" || item.disabled}
                     onClick={props.onClick}
                     onChange={handlerRadioChange}
                     data-testid={props.dataTestId}
-                    checked={item.id == props.checkedId}
-                  /> :
-
-                    <input
-                      type="radio"
-                      className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
-                      name={item.name}
-                      value={item.label}
-                      checked={item.checked}
-                      id={item.id}
-                      disabled={item.disabled}
-                      onClick={props.onClick}
-                      onChange={handlerRadioChange}
-                      data-testid={props.dataTestId}
-                    />}
-                <label htmlFor={item.id} className="form-check-label ms-2">
-
-                  {t(item.label)}
-                </label>
-              </div>
-            ))}
-          </div>
+                  />
+                  <label htmlFor={item.id} className="form-check-label ms-2">
+                    {renderLabel(item)}
+                  </label>
+                </>
+              )}
+            </div>
+          ))}
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 };
+
+
+
+
+
+//   return (
+//     <>
+//       <div key={props.id}>
+//         <div>
+//           {state == "errorRadio" && (
+//             <span className="error_Msg"> {props.errorMessage}</span>
+//           )}
+//           <div className={radioButtonClass}>
+//             {list?.map((item: any, idx: any) => (
+//               <div
+//                 key={idx}
+//                 className={
+//                   "form-check mb-2" + `${InputGroup1}` + `${Switch1}` + `${Inline1}`
+//                 }
+//               >
+//                 {props.onlyChecked ?
+//                   <input
+//                     type="radio"
+//                     className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
+//                     name={item.name}
+//                     value={item.label}
+//                     checked={item.checked}
+//                     id={item.id}
+//                     disabled={item.disabled}
+//                     onClick={props.onClick}
+//                     onChange={handlerRadioChange}
+//                     data-testid={props.dataTestId}
+//                   /> : props.checkedId ? <input
+//                     type="radio"
+//                     className={`${state == "errorRadio"
+//                       ? "form-check-input-error"
+//                       : "form-check-input"
+//                       }`}
+//                     name={item.name}
+//                     value={item.label}
+//                     defaultChecked={item.checked}
+//                     id={item.id}
+//                     disabled={item.disabled}
+//                     onClick={props.onClick}
+//                     onChange={handlerRadioChange}
+//                     data-testid={props.dataTestId}
+//                     checked={item.id == props.checkedId}
+//                   /> :
+
+//                     <input
+//                       type="radio"
+//                       className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
+//                       name={item.name}
+//                       value={item.label}
+//                       checked={item.checked}
+//                       id={item.id}
+//                       disabled={item.disabled}
+//                       onClick={props.onClick}
+//                       onChange={handlerRadioChange}
+//                       data-testid={props.dataTestId}
+//                     />}
+//                 <label htmlFor={item.id} className="form-check-label ms-2">
+
+//                   {t(item.label)}
+//                 </label>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 export default RdsRadioButton;

@@ -19,44 +19,39 @@ type Story = StoryObj<typeof RdsCompTeams>;
 export const Default: Story = {
     args: {
         teamItem: [
-                    [{
-                        title: "Tina",
-                        subTitle: "Web Developer",
-                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
-                        twitterIcon: "twitter",
-                        linkdineIcon: "linkedin",
-                        description: "Lorem ipsum dolor sit amet conr adipiscing elit"
-                    },],
-                    [{
-                        title: "Wily",
-                        subTitle: "Web Developer",
-                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
-                        twitterIcon: "twitter",
-                        linkdineIcon: "linkedin",
-                        description: "Lorem ipsum dolor sit amet conr adipiscing elit"
-                    },],
-                    [{
-                        title: "Vivek",
-                        subTitle: "Web Developer",
-                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
-                        twitterIcon: "twitter",
-                        linkdineIcon: "linkedin",
-                        description: "Lorem ipsum dolor sit amet conr adipiscing elit"
-                    },],
-                    [{
-                        title: "Riya",
-                        subTitle: "Web Developer",
-                        imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
-                        twitterIcon: "twitter",
-                        linkdineIcon: "linkedin",
-                        description: "Lorem ipsum dolor sit amet conr adipiscing elit"
-                    }]
-                ]
-            }
-    
+            [{
+                title: "Tina",
+                subTitle: "Web Developer",
+                imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
+                twitterIcon: "twitter",
+                linkdineIcon: "linkedin",
+                description: "Lorem ipsum dolor sit amet conr adipiscing elit"
+            },],
+            [{
+                title: "Wily",
+                subTitle: "Web Developer",
+                imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
+                twitterIcon: "twitter",
+                linkdineIcon: "linkedin",
+                description: "Lorem ipsum dolor sit amet conr adipiscing elit"
+            },],
+            [{
+                title: "Vivek",
+                subTitle: "Web Developer",
+                imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
+                twitterIcon: "twitter",
+                linkdineIcon: "linkedin",
+                description: "Lorem ipsum dolor sit amet conr adipiscing elit"
+            },],
+            [{
+                title: "Riya",
+                subTitle: "Web Developer",
+                imgLink: "https://media.istockphoto.com/id/499728904/photo/unknown-person-silhouette.jpg?s=1024x1024&w=is&k=20&c=cvcV9WvqFt691KAQCXPzFexJ5VVSIYx4lBlhPXwydaE=",
+                twitterIcon: "twitter",
+                linkdineIcon: "linkedin",
+                description: "Lorem ipsum dolor sit amet conr adipiscing elit"
+            }]
+        ]
+    }
 } satisfies Story;
 Default.parameters = { controls: { include: ['teamItem'] } };
-
-
-
-

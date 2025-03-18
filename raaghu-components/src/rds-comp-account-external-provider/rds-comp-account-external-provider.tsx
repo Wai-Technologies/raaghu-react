@@ -56,7 +56,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                        <div className="row">
                            <div className="col-md-12 mb-3">
                                <RdsCheckbox
-                                   label="Enabled"
+                                   labelText="Enabled"
                                    checked={item?.enabled}
                                    onChange={(e) => {
                                        handlerChange(e, e.target.checked, index, "enabled");
@@ -68,8 +68,9 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
                                    <div className="form-group">
                                        <RdsInput
-                                           value={item?.properties[0]?.value || ""}
-                                           label="Client Id"
+                                           value={item?.properties[0]?.value || ""}                                          
+                                           name="Client Id"           
+                                           label={true}
                                            placeholder="Client Id"
                                            customClasses="form-control"
                                            onChange={(e) => handlerChange(e, e.target.value, index, "properties")}
@@ -81,8 +82,8 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                                    <div className="form-group">
                                        <RdsInput
                                            value={item?.secretProperties[0]?.value}
-                                           name={item?.secretProperties[0]?.name}
-                                           label="Client Secret"
+                                           name={"Client Secret"}                                       
+                                           label={true}
                                            placeholder="Client Secret"
                                            customClasses="form-control"
                                            inputType="password"

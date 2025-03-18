@@ -1,4 +1,5 @@
-import RdsAlert from "./rds-alert";
+import { Alert } from "bootstrap";
+import RdsAlert, { AlertBorder, AlertPosition, AlertType } from "./rds-alert";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof RdsAlert> = {
@@ -17,7 +18,17 @@ const meta: Meta<typeof RdsAlert> = {
     position: {
       options: ["top", "bottom"],
       control: { type: "radio" },
-      if: { arg: "sticky" },
+      //if: { arg: "sticky" },
+    },
+    linkUrl: {
+      control: {type: "text"},
+      //if: { arg: "showlink"},
+    },
+    showPrimary: {
+      if: { arg: "showbutton"},
+    },
+    showSecondary: {
+      if: { arg: "showbutton"},
     },
     size: {
       options: ["small", "medium", "large"],
@@ -33,7 +44,7 @@ const meta: Meta<typeof RdsAlert> = {
 export default meta;
 type Story = StoryObj<typeof RdsAlert>;
 
-export const SingleLineAlert: Story = {
+/*export const SingleLineAlert: Story = {
   args: {
     type: "info",
     icon: "information",
@@ -50,7 +61,7 @@ export const SingleLineAlert: Story = {
     iconWidth: "20px",
     sticky: false,
     position: "top",
-    displayType: "singleline",
+    multiline: false,
     showlink: true,
     showbutton: true,
   },
@@ -71,52 +82,64 @@ SingleLineAlert.parameters = {
       "showbutton",
       "linkUrl",
       "delay",
+      "multiline",
     ],
   },
-};
+};*/
 
-export const MultilineAlert: Story = {
+export const Default: Story = {
   args: {
-    type: "info",
+    type: AlertType.info,
+    border: AlertBorder.none,
+    multiline: false,
     icon: "information",
-    title: "Heading Title. ",
-    message: "This is the description of the message bar.",
-    description:
-      "This is the description which should not exceed 100 character limit.",
-    border: "none",
+    showTitle: true,
+    title: "Heading Title.",
+    description: "This is the description of the message bar.",
+    //description: "This is the description which should not exceed 100 character limit.",
+    //border: "none",
     iconStroke: true,
     iconHeight: "20px",
     iconWidth: "20px",
-    size: "small",
-    dismisable: true,
-    linkUrl: "https://example.com",
+    size: "medium",
+    showLink: true,
+    showButtons:true,
+    showPrimary: true,
+    showSecondary: true,
+    showDismiss: true,
+    showDescription: true,
+    showIcon: true,
     iconFill: false,
     delay: 5000,
     sticky: false,
-    position: "top",
-    showlink: true,
-    showbutton: true,
-    displayType: "multiline",
+    position: AlertPosition.top,
+    linkUrl: "https://example.com",
   },
 };
-MultilineAlert.parameters = {
+Default.parameters = {
   controls: {
     include: [
       "type",
       "icon",
+      "showTitle",
       "title",
-      "message",
+      //"message",
       "description",
       "border",
       "size",
       "dismisable",
       "sticky",
       "position",
-      "showlink",
+      "showLink",
       "showbutton",
-      "linkUrl",
-      "iconFill",
-      "delay",
+      "showprimarybutton",
+      "showsecondarybutton",
+      "showDescription",
+      "showIcon",
+      //"linkUrl",
+      //"iconFill",
+      //"delay",
+      "multiline",
     ],
   },
 };

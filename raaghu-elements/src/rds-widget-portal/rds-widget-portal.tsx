@@ -53,8 +53,7 @@ const RdsWidgetPortal = (props: RdsWidgetPortalProps) => {
           colorVariant="success"
           height={10}
           progressWidth={39}
-          role="single"
-        />
+          role="single" steps={0} completedSteps={0}        />
       ) : (<div>
         <p className="text-secondary">{props.statusMsg}</p>
       </div>)}

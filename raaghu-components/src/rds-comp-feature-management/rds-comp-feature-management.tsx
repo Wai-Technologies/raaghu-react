@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsNavtabs, RdsSelectList } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompFeatureManagementProps {
   featureManagementData: any;
   onSubmit?: any
@@ -94,7 +95,8 @@ const handlerSubmit = (e: any) => {
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mt-3 mb-3">
                   <div className="form-group">
                     <RdsInput
-                      size="medium"
+                      name="Input Number"
+                      size={InputSize.Medium}   
                       label={(featureManagementData[0].features[1].displayName) || ''}
                       inputType="number"
                       isDisabled={false}
@@ -110,7 +112,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12 mb-3">
                   <RdsCheckbox
-                    label={(featureManagementData[0].features[2].displayName) || ''}
+                    labelText={(featureManagementData[0].features[2].displayName) || ''}
                     checked={payloads[2]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[0].features[2].name)
@@ -120,7 +122,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12 mb-3">
                   <RdsCheckbox
-                    label={(featureManagementData[0].features[3].displayName) || ''}
+                    labelText={(featureManagementData[0].features[3].displayName) || ''}
                     checked={payloads[3]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[0].features[3].name)
@@ -138,7 +140,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[1].features[0].displayName) || ''}
+                    labelText={(featureManagementData[1].features[0].displayName) || ''}
                     checked={payloads[4]?.value}
                     onChange={(e: any) => {
                       handlerChanges(e.target.checked, featureManagementData[1].features[0].name)
@@ -156,7 +158,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[2].features[0].displayName) || ''}
+                    labelText={(featureManagementData[2].features[0].displayName) || ''}
                     checked={payloads[5]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[2].features[0].name) }}
                     dataTestId="text-template-management"
@@ -172,7 +174,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[3].features[0].displayName) || ''}
+                    labelText={(featureManagementData[3].features[0].displayName) || ''}
                     checked={payloads[6]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[3].features[0].name) }}
                     dataTestId="text-template-management"
@@ -182,7 +184,8 @@ const handlerSubmit = (e: any) => {
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12  mt-4 ">
                   <div className="form-group ">
                     <RdsInput
-                      size="medium"
+                      name="Text"
+                      size={InputSize.Medium}   
                       label={(featureManagementData[3].features[1].displayName) || ''}
                       inputType="text"
                       isDisabled={false}
@@ -204,7 +207,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[4].features[0].displayName) || ''}
+                    labelText={(featureManagementData[4].features[0].displayName) || ''}
                     checked={payloads[8]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[4].features[0].name) }}
                     dataTestId="text-template-management"
@@ -220,7 +223,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[5].features[0].displayName) || ''}
+                    labelText={(featureManagementData[5].features[0].displayName) || ''}
                     checked={payloads[9]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[5].features[0].name) }}
                     dataTestId="text-template-management"
@@ -238,7 +241,7 @@ const handlerSubmit = (e: any) => {
                 (
                   <div className="col-md-12 mb-3" key={index}>
                     <RdsCheckbox
-                      label={(item.displayName) || ''}
+                      labelText={(item.displayName) || ''}
                       checked={payloads[10 + index]?.value}
                       onChange={(e: any) => { handlerChanges(e.target.checked, item.name) }}
                       dataTestId="text-template-management"
@@ -257,7 +260,7 @@ const handlerSubmit = (e: any) => {
                 (
                   <div className="col-md-12" key={index}>
                     <RdsCheckbox
-                      label={(item.displayName) || ''}
+                      labelText={(item.displayName) || ''}
                       checked={payloads[18 + index]?.value}
                       onChange={(e: any) => { handlerChanges(e.target.checked, item.name) }}
                       dataTestId="text-template-management"
@@ -274,7 +277,7 @@ const handlerSubmit = (e: any) => {
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
-                    label={(featureManagementData[8].features[0].displayName) || ''}
+                    labelText={(featureManagementData[8].features[0].displayName) || ''}
                     checked={payloads[22]?.value}
                     onChange={(e: any) => { handlerChanges(e.target.checked, featureManagementData[8].features[0].name) }}
                     dataTestId="audit-logging"

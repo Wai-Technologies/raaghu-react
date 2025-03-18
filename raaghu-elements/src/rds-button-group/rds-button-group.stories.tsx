@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Button Group',
+    title: 'Components/Button Group',
     component: RdsButtonGroup,
     parameters: {
         layout: 'padded',

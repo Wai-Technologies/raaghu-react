@@ -1,31 +1,59 @@
-import * as React from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import RdsCompAppShell from '../../raaghu-layouts/src/rds-comp-app-shell';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AppShellDisplayType } from '../../raaghu-layouts/src/rds-comp-app-shell/rds-comp-app-shell';
+
+export * from "../../raaghu-elements/src/index";
+export * from "../../raaghu-components/src/index";
+export * from "../../raaghu-layouts/src/index";
 
 function App() {
   return (
     <>
-      <div className="mb-2">
-        <a href="https://raaghu.io" target="_blank">
-          <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" className="logo" alt="Raaghu Logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React Logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite Logo" />
-        </a>
-      </div>
-      <h1 className="mb-4 fw-bolder">Raaghu with React + Vite</h1>
-      <div className="">
-        <p>
-          Start creating pages by using Application Shells, Layouts, Component, Elements, Charts and more.
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Raaghu, Vite and React Logos to learn more
-      </p>
+      <Router>
+        <Routes>
+          <Route path="/" element={<RdsCompAppShell displayType={AppShellDisplayType.Default} />}>
+            <Route index element={<h1>Home </h1>} /> {/* Default page */}
+            <Route path="dashboard" element={<div className="container mt-4">
+              {/* Row 1 */}
+              <div className="row">
+                <div className="col-lg-8">
+                  <div className="card p-3 h-100">Daily Summary</div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="row">
+                    <div className="col-12 mb-3">
+                      <div className="card p-3 h-100">Sales</div>
+                    </div>
+                    <div className="col-12">
+                      <div className="card p-3 h-100">Profit Share</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="row mt-3">
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Call Overview</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Daily Sales Growth</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="card p-3 h-100">Maximum Profit</div>
+                </div>
+              </div>
+
+              {/* Row 3 */}
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="card p-3 h-100">Member Activity</div>
+                </div>
+              </div>
+            </div>} />
+          </Route>
+        </Routes>
+      </Router>
     </>
   )
 }

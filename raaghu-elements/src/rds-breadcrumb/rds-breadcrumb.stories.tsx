@@ -1,4 +1,4 @@
-import RdsBreadcrumb from "./rds-breadcrumb";
+import RdsBreadcrumb, { BreadcrumbLevel, BreadcrumbSeparator, BreadcrumbState, BreadcrumbStyle } from "./rds-breadcrumb";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -11,19 +11,19 @@ const meta: Meta = {
     argTypes: {
       style: {
         control: 'select',
-        options: ['Pill Background', 'Square Background', 'Without Background'], // Updated to include new style options
+        options: ['Pill Background', 'Without Background', 'Square Background'], // Updated to include new style options
       },
       separator: {
-        control: {
-          type: 'select',
-          options: ['>', '/', '→', '»', '|', '-'], 
-        },
+        control: 'select',
+        options: ['>', '/', '→', '»', '|', '-'],
       },
       level: {
-        control: {
-          type: 'select',
-          options: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'], // Add level options
-        },
+        control: 'select',
+        options: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'], // Add level options
+      },
+      state: {
+        control: 'select',
+        options: ['Default', 'Hover', 'Selected'],
       },
     },
   } satisfies Meta<typeof RdsBreadcrumb>;
@@ -91,38 +91,39 @@ const breadItems = [
 
 export const Default: Story = {
   args: {
-    title:"Home",
-    level: "Level 3",
-    separator: "/",
-    icon: "home",
+    style: BreadcrumbStyle.PillBackground, 
+    level: BreadcrumbLevel.Level3,
+    state: BreadcrumbState.Default,
     showIcon: true,
-    style: "Pill Background", // Set default style
+    icon: "home",
+    title:"Home",
+    separator: BreadcrumbSeparator.Slash,
     breadcrumbItems: breadItems,
 
   },
 };
-export const WithoutBackground: Story = {
-    args: {
-      title:"Home",
-      level: "Level 3",
-      separator: "/",
-      icon: "home",
-      showIcon: true,
-      style: "Without Background", // Set default style
-      breadcrumbItems: breadItems,
+// export const WithoutBackground: Story = {
+//     args: {
+//       title:"Home",
+//       level: "Level 3",
+//       separator: "/",
+//       icon: "home",
+//       showIcon: true,
+//       style: "Without Background", // Set default style
+//       breadcrumbItems: breadItems,
   
-    },
-  };
-  export const SquareBackground: Story = {
-    args: {
-      title:"Home",
-      level: "Level 3",
-      separator: "/",
-      icon: "home",
-      showIcon: true,
-      style: "Square Background", // Set default style
-      breadcrumbItems: breadItems,
+//     },
+//   };
+//   export const SquareBackground: Story = {
+//     args: {
+//       title:"Home",
+//       level: "Level 3",
+//       separator: "/",
+//       icon: "home",
+//       showIcon: true,
+//       style: "Square Background", // Set default style
+//       breadcrumbItems: breadItems,
   
-    },
-  };
+//     },
+//   };
 

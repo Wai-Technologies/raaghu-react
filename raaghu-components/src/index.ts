@@ -114,3 +114,5 @@ export { default as RdsCompUserComments } from "./rds-comp-chat";
 export { default as RdsCompSkeleton } from "./rds-comp-skeleton";
 export { default as RdsCompDialog } from "./rds-comp-dialog";
 export { default as RdsCompTransferList } from "./rds-comp-transfer-list";
+export { default as RdsCompTypingSection } from "./rds-comp-typing-section";
+export {default as RdsCompMessageBox} from "./rds-comp-message-box";

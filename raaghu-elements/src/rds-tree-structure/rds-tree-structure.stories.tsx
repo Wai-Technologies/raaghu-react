@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import RdsTreeStructure, { RdsTreeStructureProps } from './rds-tree-structure';
+import RdsTreeStructure, { IconType, NodeState, RdsTreeStructureProps, TreeLevel } from './rds-tree-structure';
 
 const meta: Meta = {
   title: 'Elements/Tree Structure',
@@ -19,7 +19,7 @@ const meta: Meta = {
       ],
       control: { type: "select" },
     },
-    folderType: {
+    type: {
       options: [
         "circle",
         "folder",
@@ -34,7 +34,7 @@ const meta: Meta = {
       ],
       control: { type: "select" },
     },
-    fileLanguage: {
+    Language: {
       options: [
         "CSS",
         "Cplus",
@@ -63,10 +63,11 @@ const meta: Meta = {
     showChewron: { control: 'boolean' },
     showCheckbox: { control: 'boolean' },
     showFolder: { control: 'boolean' },
-    showFileIcon: { control: 'boolean' },
+    showFile: { control: 'boolean' },
     showActions: { control: 'boolean' },
     showCollapsed: { control: 'boolean' },
     treeData: { control: 'object' },
+    text: { control: 'text' }, 
   },
 } satisfies Meta<RdsTreeStructureProps>;
 
@@ -75,35 +76,36 @@ type Story = StoryObj<typeof RdsTreeStructure>;
 
 export const Default: Story = {
   args: {
-    level: "level4",
-    state: "default",
+    level: TreeLevel.Level4,  // Use enum instead of string
+    state: NodeState.Default, // Use enum instead of string
     showChewron: true,
     showCheckbox: true,
     showFolder: true,
-    showFileIcon: true,
+    showFile: true,
+    text: "Name", 
     showActions: true,
     showCollapsed: false,
-    folderType: "folder",
-    fileLanguage: "CSS",
+    type: IconType.Folder,  // Use enum instead of string
+    Language: "CSS",
     treeData: [
       {
         id: 1,
-        name: "Name 1",
+        name: "Name",
         icon: "folder",
         children: [
           {
             id: 2,
-            name: "Name 2",
+            name: "Name",
             icon: "folder",
             children: [
               {
                 id: 3,
-                name: "Name 3",
+                name: "Name",
                 icon: "file",
                 children: [
                   {
                     id: 4,
-                    name: "Name 4",
+                    name: "Name",
                     icon: "file",
                   },
                 ],
@@ -114,22 +116,22 @@ export const Default: Story = {
       },
       {
         id: 5,
-        name: "Name 5",
+        name: "Name",
         icon: "folder",
         children: [
           {
             id: 6,
-            name: "Name 6",
+            name: "Name",
             icon: "folder",
             children: [
               {
                 id: 7,
-                name: "Name 7",
+                name: "Name",
                 icon: "file",
                 children: [
                   {
                     id: 8,
-                    name: "Name 8",
+                    name: "Name",
                     icon: "file",
                   },
                 ],
@@ -140,22 +142,22 @@ export const Default: Story = {
       },
       {
         id: 9,
-        name: "Name 9",
+        name: "Name",
         icon: "folder",
         children: [
           {
             id: 10,
-            name: "Name 10",
+            name: "Name",
             icon: "folder",
             children: [
               {
                 id: 11,
-                name: "Name 11",
+                name: "Name",
                 icon: "file",
                 children: [
                   {
                     id: 12,
-                    name: "Name 12",
+                    name: "Name",
                     icon: "file",
                   },
                 ],
@@ -166,22 +168,22 @@ export const Default: Story = {
       },
       {
         id: 13,
-        name: "Name 13",
+        name: "Name",
         icon: "folder",
         children: [
           {
             id: 14,
-            name: "Name 14",
+            name: "Name",
             icon: "folder",
             children: [
               {
                 id: 15,
-                name: "Name 15",
+                name: "Name",
                 icon: "file",
                 children: [
                   {
                     id: 16,
-                    name: "Name 16",
+                    name: "Name",
                     icon: "file",
                   },
                 ],
@@ -195,5 +197,5 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFileIcon', 'showActions', 'showCollapsed', 'fileLanguage', 'folderType', 'treeData'] },
+  controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
 };

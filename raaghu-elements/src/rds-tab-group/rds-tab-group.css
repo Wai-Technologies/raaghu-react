@@ -1,0 +1,237 @@
+/* Base styles */
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+}
+
+.tab svg {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+/* Filled */
+.filled {
+  background-color: #9747ff;
+  color: #fff;
+  border: none;
+  border-top-left-radius: 6px; 
+  border-top-right-radius: 6px;
+}
+
+/* Flap */
+.flap {
+    background-color: #9747ff;
+    color: #fff;
+    position: relative;
+}
+
+.flap::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #9747ff;
+}
+
+/* Pill */
+.pill {
+    background-color: #9747ff;
+    color: #fff;
+    border-radius: 20px;
+}
+
+/* Line Bottom */
+.line-bottom {
+    background: transparent;
+    color: #9747ff;
+    border: none;
+    position: relative;
+}
+
+.line-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #9747ff;
+}
+
+/* Line Bottom Solid */
+.line-bottom-solid {
+    background-color: #D4BBFF;
+    color: #9747ff;
+    border-radius: 6px;
+    position: relative;
+}
+
+.line-bottom-solid::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #9747ff;
+}
+
+/* Line Top */
+.line-top {
+    background: transparent;
+    color: #9747ff;
+    border: none;
+    position: relative;
+}
+
+.line-top::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #9747ff;
+}
+
+/* Line Top Solid */
+.line-top-solid {
+    background-color: #D4BBFF;
+    color: #9747ff;
+    border-radius: 6px;
+    /* padding: 10px 15px; */
+    position: relative;
+}
+
+.line-top-solid::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #9747ff;
+}
+
+/* ********************************************************************************************************************************** */
+
+/* Vertical Styles */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab svg {
+  width: 16px;
+  height: 16px;
+}
+
+.vertical-flap {
+  background: #9747ff;
+  color: #fff;
+  position: relative;
+  border-radius: 6px;
+}
+
+.vertical-flap::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid #9747ff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.vertical-pill {
+  background: #9747ff;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.vertical-left-line {
+  border-left: 3px solid #9747ff;
+  padding-left: 5px;
+}
+
+.vertical-line-left-solid {
+  background: #D4BBFF;
+  border-left: 3px solid #9747ff;
+  padding-left: 5px;
+}
+
+.vertical-right-line {
+  border-right: 3px solid #9747ff;
+  padding-right: 5px;
+}
+
+.vertical-line-right-solid {
+  background: #D4BBFF;
+  border-right: 3px solid #9747ff;
+  padding-right: 5px;
+}
+
+/* Common tab styles */
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Default state */
+/* .tab.default {
+  background-color: transparent;
+  color: #f6f4f4;
+} */
+
+/* Hover state */
+.tab-hover:hover {
+  background-color: #ebdcff !important;
+  color: #444 !important;
+}
+
+/* Selected state */
+.tab.selected {
+  background-color: #9747FF; 
+  color: #fff;
+}
+.tab-pill .selected{
+  background-color: unset !important;
+}
+.vertical-pill .selected{
+  border-radius: 20px !important;
+}
+/* Disabled state */
+.tab.disabled {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.5;
+  background-color: #ebdcff;
+  color: #999;
+}
+
+.tab-pill{
+  border-radius: 20px !important;
+}

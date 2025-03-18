@@ -1,6 +1,6 @@
 import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompChangePasswordProps {
   onSaveHandler?: (data: any) => void;
   reset?: boolean;
@@ -71,9 +71,10 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
         <div className="row">
           <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
             <RdsInput
-              size="medium"
+              size={InputSize.Medium} 
               reset={inputReset}
-              label="Current Password"
+              name="Current Password"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}
@@ -91,9 +92,10 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
         <div className="row">
           <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
             <RdsInput
-              size="medium"
+                size={InputSize.Medium}   
               reset={inputReset}
-              label="New Password"
+              name="New Password"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}
@@ -111,9 +113,10 @@ const isFormValid=isCurrentPasswordValid(formData?.currentPassword) && isNewPass
         <div className="row">
           <div className="col-xxl-4 col-xl-6 col-lg-6 col-12">
             <RdsInput
-              size="medium"
+                size={InputSize.Medium}   
               reset={inputReset}
-              label="New Password Confirm"
+              name="New Password Confirm"
+              label={true}
               inputType="password"
               isDisabled={false}
               readonly={false}

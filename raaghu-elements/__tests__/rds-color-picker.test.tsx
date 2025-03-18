@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import RdsColorPicker from "../src/rds-color-picker/rds-color-picker";
+import RdsColorPicker, { ColorPickerType } from "../src/rds-color-picker/rds-color-picker";
 
 describe("RdsColorPicker", () => {
     const label = "Pick a color";
@@ -16,8 +16,7 @@ describe("RdsColorPicker", () => {
         render(
             <RdsColorPicker
                 value={value}
-                label={label}
-            />
+                label={label} type={ColorPickerType.Default}            />
         );
 
         expect(screen.getByText(label)).toBeInTheDocument();
@@ -29,8 +28,7 @@ describe("RdsColorPicker", () => {
             <RdsColorPicker
                 value={value}
                 label={label}
-                isDisabled={true}
-            />
+                isDisabled={true} type={ColorPickerType.Default}            />
         );
 
         const input = screen.getByTitle("Choose your color");
@@ -38,7 +36,7 @@ describe("RdsColorPicker", () => {
     });
 
     it("should update color on color input change", () => {
-        render(<RdsColorPicker value="#ffffff" label="Pick a color" />);
+        render(<RdsColorPicker value="#ffffff" label="Pick a color" type={ColorPickerType.Default} />);
         const colorInput = screen.getByTestId("colorPicker");
         fireEvent.change(colorInput, { target: { value: "#000000" } });
         expect(colorInput).toHaveValue("#000000");

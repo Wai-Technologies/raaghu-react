@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsLabel } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { LabelPosition } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 interface RdsCompUserRolesProps {
     usersRole: any;
     changedData?: any;
@@ -23,7 +24,7 @@ const RdsCompUserRoles = (props: RdsCompUserRolesProps) => {
                         <div className="pt-3">
                             <RdsCheckbox
                                 key={e.name}
-                                label={(e.name)}
+                                labelText={(e.name)}
                                 onChange={(event) => {
                                     isRoleChecked(index, event.target.checked);
                                 }}

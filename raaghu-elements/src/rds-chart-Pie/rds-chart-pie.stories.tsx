@@ -2,7 +2,7 @@ import RdsPieChart from "./rds-chart-pie";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Charts/Pie Chart',
+    title: 'Components/Charts/Pie Chart',
     component: RdsPieChart,
     parameters: {
         layout: 'padded',

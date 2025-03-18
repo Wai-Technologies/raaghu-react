@@ -14,9 +14,42 @@
   position: absolute;
   top: -5px;
 }
+
 .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
   opacity: 1;
 }
+
 .form-check-input:disabled{
   opacity: 1;
+}
+
+.stepper-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.step {
+  padding: 5px;
+  margin: 0 12px;
+  border-radius: 96px;
+}
+
+.theme-dark .bg-default {
+  background: #E9E9E9;
+  border-radius: 96px;
+  color: #353535;
+}
+
+.theme-dark .bg-completed {
+  background: #7825e9;
+  border-radius: 96px;
+  color: #353535;
+}
+
+.theme-dark .bg-error {
+  background: #bd0d1d;
+  border-radius: 96px;
+  color: #353535;
 }

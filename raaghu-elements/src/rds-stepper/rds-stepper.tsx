@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./rds-stepper.css";
 import RdsIcon from "../rds-icon";
-import RdsCheckbox from "../rds-checkbox/rds-checkbox";
+import RdsCheckbox, { CheckboxStatus, CheckboxStyle } from "../rds-checkbox/rds-checkbox";
 
 
 interface StepperDetail {
@@ -347,9 +347,9 @@ const RdsStepper = (props: RdsStepperProps) => {
                             <div key={index} className="mb-3">
                                 <RdsCheckbox
                                     classes="py-2"
-                                    label={detail.label}
-                                    state="Checkbox"
-                                    type="Square"
+                                    labelText={detail.label}
+                                    status= {CheckboxStatus.Checked}
+                                    style={CheckboxStyle.Square}
                                     id={`projectDetailsCheckbox-${index}`}
                                     checked={checkedStates[index]}
                                     dataTestId={`projectDetails-${index}`} isDisabled={true}
@@ -383,7 +383,7 @@ const RdsStepper = (props: RdsStepperProps) => {
             <>
             {props.advanceList?.map((e) => <div className={props.stepperSectionClass}>
             <span className={props.headerClass}>{e.headerContain}</span>
-            <span className={props.checkBoxClass}><RdsCheckbox type={e.type} isDisabled={e.isDisabled} checked={e.checkedValue}label={e.checkBoxLabel} id={e.checkBoxId} withlabel={e.checkBoxWithLabel}/></span>
+            <span className={props.checkBoxClass}><RdsCheckbox isDisabled={e.isDisabled} checked={e.checkedValue}labelText={e.checkBoxLabel} id={e.checkBoxId} showText={e.checkBoxWithLabel}/></span>
             {e.showDetails && <div className={props.showDetailsClass}>{e.detailsContain}</div>}
             </div>)}
             </>

@@ -2,7 +2,7 @@ import { StoryObj, Meta } from "@storybook/react";
 import RdsLoader from "./rds-loader";
 
 const meta: Meta = {
-    title: 'Elements/Loader',
+    title: 'Components/Loader',
     component: RdsLoader,
     parameters: {
         layout: 'padded',

@@ -118,7 +118,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                             >
                                 <div className="text-start  mb-4 border-bottom">
                                     <div className="form-check form-switch text-start ps-0 mb-4">
-                                        <RdsCheckbox label={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
+                                        <RdsCheckbox labelText={`${checked ? "SWITCH TO THE TENANT" : "SWITCH TO THE HOST"
                                             }`}
                                             checked={checked} isSwitch={checked}
                                             onChange={() => setChecked(!checked)}
@@ -126,12 +126,12 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                         ></RdsCheckbox>
                                     </div>
                                     <RdsInput
-                                        label="Already Have An Account"
+                                        name="Already Have An Account"
+                                        label={true}
                                         placeholder="Already Have An Account"
                                         inputType="email/text"
                                         onChange={TenancyNameChange}
-                                        value={currentTenant}
-                                        name={"currentTenant"}
+                                        value={currentTenant}                                       
                                         required={true}
                                         isDisabled={!checked}
                                         dataTestId="tenacy-name"
@@ -169,14 +169,15 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                     <form>
                         <div className="form-group text-start">
                             <RdsInput
-                                label="Email"
+                                name="Email"
+                                label={true}
                                 placeholder="Enter Email"
                                 inputType="email"    
                                onChange={(e) => {
                                 handleDataChanges(e.target.value, "emailAddress");
                               }}
-                              value={registerData?.emailAddress}                               
-                                name={"email"}
+                              value={registerData?.emailAddress}                             
+                                
                                 dataTestId="email"
                                 validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
                                 validationMsg="Invalid Email Address." 
@@ -186,14 +187,14 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
 
                         <div className="form-group text-start mt-4">
                             <RdsInput
-                                label="Password"
+                                name="Password"
+                                label={true}
                                 placeholder="Enter Password"
                                 inputType="password"
                                  onChange={(e) => {
                                     handleDataChanges(e.target.value, "password");
                                   }}
-                                  value={registerData?.password}
-                                name={"password"}                        
+                                  value={registerData?.password}                                                       
                                 dataTestId="password"
                                 showIcon={true}
                                 validatonPattern={
@@ -208,7 +209,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                 <div className="form-group mb-3 pb-2 remember-me d-flex">
                                     <RdsCheckbox
                                         id="remembercheckid"
-                                        label="I Accept Terms Of Service"
+                                        labelText="I Accept Terms Of Service"
                                         onChange={(e) => {
                                             handleDataChanges(e.target.checked, "Accept");
                                         }}

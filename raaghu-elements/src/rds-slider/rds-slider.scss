@@ -1,0 +1,123 @@
+.slidercontainerlg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  }
+   
+  .slidercontainersm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+  }
+   
+  .slidercontainermd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+  }
+   
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    outline: none;
+    opacity: 1 !important;
+    transition: opacity 0.2s;
+  }
+   
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--thumb-color, purple);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+   
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--thumb-color, purple);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns everything to the start */
+  }
+  
+  .slider-title {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .left-label, .right-label {
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+  }
+  
+  .left-label {
+    left: 0;
+  }
+  
+  .right-label {
+    right: 0;
+  }
+
+  .slider-container {
+    position: relative;
+  }
+  
+  .tooltip {
+    position: absolute;
+    top: -25px;
+    transform: translateX(-50%);
+    background-color: #333;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+
+  .slider-wrapper input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    // background: transparent;
+    pointer-events: all;
+    position: absolute !important;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    // background: transparent;
+    border-radius: 3px;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #7e2eef;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    margin-top: -5px;
+    pointer-events: all;
+  }
+  .inputSlider {
+    height: 5px !important;
+}
+  

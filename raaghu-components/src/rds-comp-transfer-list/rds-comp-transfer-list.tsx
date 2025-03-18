@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./rds-comp-transfer-list.css";
 import { RdsButton, RdsCheckbox } from "../rds-elements";
+import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 
 export interface RdsCompTransferListProps {
   selectAllType?: "default" | "advanced";
@@ -78,12 +79,12 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
           <>
             <div className="transfer-list-header">
               <RdsCheckbox
-                type="Square"
+                style={CheckboxStyle.Square}
                 checked={
                   numberOfChecked(left) === left.length && left.length !== 0
                 }
                 onChange={(e) => handleToggleAll(left, e.target.checked)}
-                label="Choices"
+                labelText="Choices"
               />
             </div>
             <div className="selected-counter">
@@ -95,10 +96,10 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
         {left.map((value) => (
           <div key={value} className="transfer-list-item">
             <RdsCheckbox
-              type="Square"
+               style={CheckboxStyle.Square}
               checked={checked.indexOf(value) !== -1}
               onChange={handleToggle(value)}
-              label={`List item ${value + 1}`}
+              labelText={`List item ${value + 1}`}
             />
           </div>
         ))}
@@ -142,12 +143,12 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
           <>
             <div className="transfer-list-header">
               <RdsCheckbox
-                type="Square"
+                style={CheckboxStyle.Square}
                 checked={
                   numberOfChecked(right) === right.length && right.length !== 0
                 }
                 onChange={(e) => handleToggleAll(right, e.target.checked)}
-                label="Chosen"
+                labelText="Chosen"
               />
             </div>
             <div className="selected-counter">
@@ -159,10 +160,10 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
         {right.map((value) => (
           <div key={value} className="transfer-list-item">
             <RdsCheckbox
-              type="Square"
+              style={CheckboxStyle.Square}
               checked={checked.indexOf(value) !== -1}
               onChange={handleToggle(value)}
-              label={`List item ${value + 1}`}
+              labelText={`List item ${value + 1}`}
             />
           </div>
         ))}

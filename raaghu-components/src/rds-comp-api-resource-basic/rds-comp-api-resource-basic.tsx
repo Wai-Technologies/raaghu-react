@@ -47,26 +47,26 @@ const isFormValid = isNameValid(formData?.name);
       <div>
         <form>
           <div className="custom-content-scroll">
-            <div className="row mt-3 mb-3">
+            <div className="row mt-3 mb-4">
               <div className="col-6">
                 <RdsInput
                   required={true}
-                  reset={inputReset}
-                  label="Name"
+                  reset={inputReset}                  
+                  label={true}
                   placeholder="Enter name"
                   inputType="text"
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "name");
                   }}
                   value={formData?.name}
-                  name={"name"}
+                  name={"Name"}
                   dataTestId="name"
                 ></RdsInput>
               </div>
 
               <div className="col-6 ">
-                <RdsInput
-                  label="Display name"
+                <RdsInput                       
+                  label={true}
                   reset={inputReset}
                   placeholder="Enter display name"
                   inputType="text"
@@ -74,7 +74,7 @@ const isFormValid = isNameValid(formData?.name);
                     handleDataChanges(e.target.value, "displayName");
                   }}
                   required={false}
-                  name={"displayName"}
+                  name={"Display Name"}
                   value={formData?.displayName}
                   dataTestId="displayName"
                 ></RdsInput>
@@ -92,9 +92,9 @@ const isFormValid = isNameValid(formData?.name);
                 data-testId="desc"
               />
             </div>
-            <div className=" mb-3">
-              <RdsInput
-                label="Allowed access token signing algorithms"
+            <div className=" mb-4">
+              <RdsInput               
+               label={true}
                 reset={inputReset}
                 placeholder="Enter Allowed access token signing algorithms"
                 inputType="text"
@@ -105,7 +105,7 @@ const isFormValid = isNameValid(formData?.name);
                   );
                 }}
                 required={false}
-                name={"accessTokenSigningAlgorithm"}
+                name={"Allowed Access Token Signing Algorithm"}
                 value={formData?.accessTokenSigningAlgorithm}
                 dataTestId="allowed-access-token"
               ></RdsInput>

@@ -15,30 +15,19 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
     useEffect(() => {
         setFormData(props.urlForwardingData || { source: '', target: '' });
     }, [props.urlForwardingData]);
-
-    function handleSource(data: any) {
-        const updatedFormData = { ...formData, source: data };
-        setFormData(updatedFormData);
-        props.emitUrlForwardingData(updatedFormData);
-    }
-
-    function handleTarget(data: any) {
-        const updatedFormData = { ...formData, target: data };
-        setFormData(updatedFormData);
-        props.emitUrlForwardingData(updatedFormData);
-    }
-
+ 
     return (
         <>
             <div className="tab-content">
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label="Source"
+                        name="Source"
+                        label={true}
                         placeholder="Enter Source"
                         required={true}
                         value={formData.source}
-                        onChange={(e: any) => { handleSource(e.target.value); }}
+                        onChange={(e: any) => {(e.target.value);}}
                         dataTestId="source"
                         isDisabled={props.isEdit || false}
                         reset={props.reset}
@@ -49,10 +38,11 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                 <div className="form-group mb-3">
                     <RdsInput
                         inputType="text"
-                        label="Target"
+                        name="Target"
+                        label={true}
                         placeholder="Enter Target"
                         required={true}
-                        onChange={(e: any) => { handleTarget(e.target.value); }}
+                        onChange={(e: any) => {(e.target.value);}}
                         value={formData.target}
                         dataTestId="target"
                         reset={props.reset}

@@ -81,7 +81,8 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                 <div className="row g-3">
                     <div className="col-md-6">
                         <RdsInput
-                            label="Address"
+                        name="Address"           
+                         label={true}
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
@@ -95,8 +96,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
 
                     <div className="col-md-6">
             
-                        <RdsInput
-                            label="Address 2 (Optional)"
+                        <RdsInput                        
+                            name="Address 2 (Optional)"           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
@@ -168,8 +170,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                     </div>
                     <div className="col-md-6">
 
-                        <RdsInput
-                            label="Zip"
+                        <RdsInput                
+                            name="Zip"           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Zip code"
                             inputType="text"
@@ -180,8 +183,8 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                         <div className="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>
-        </div>
-        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+            </div>
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
           <RdsButton
             class="me-2"
             tooltipTitle={""}
@@ -204,9 +207,9 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
             dataTestId="save"
           ></RdsButton>
         </div>
-      </form>
-    </div>
-  );
+            </form>
+        </div>
+    );
 };
 
 export default RdsCompAddressInput;

@@ -6,7 +6,7 @@ import {
   RdsSpinner,
 } from "../rds-elements";
 import "./rds-comp-payment-detail.css";
-
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompPaymentDetailProps {
   buttonSpinner?: boolean;
   paymentModeList?: any[];
@@ -99,12 +99,12 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           </div>
           <div>
             <RdsInput
-              label="Card Number"
+              name="Card Number"
+              label={true}
               placeholder="XXXX XXXX XXXX XXXX"
               reset={inputReset}
               required
-              size="medium"
-              name="cardNumber"
+              size={InputSize.Medium}        
               id="txtCardNumber"
               onChange={(e) => {
                 handleDataChanges(e.target.value, "cardNumber");
@@ -114,12 +114,12 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           </div>
           <div>
             <RdsInput
-              label="Name On Card"
+              name="Name On Card"
+              label={true}
               placeholder="Enter Name On Card"
               reset={inputReset}
               required
-              size="medium"
-              name="name"
+              size={InputSize.Medium}           
               id="txtName"
               onChange={(e) => {
                 handleDataChanges(e.target.value, "cardHolderName");
@@ -130,12 +130,12 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
           <div className="row">
             <div className="col-9">
               <RdsInput
-                label="Expiration Date (MM/YY)"
+                name="Expiration Date (MM/YY)"
+                label={true}
                 placeholder="Enter Expiry Date"
                 reset={inputReset}
                 required
-                size="medium"
-                name="expirationDate"
+                size={InputSize.Medium}              
                 id="txtExpirationDate"
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "cardExpirationDate");
@@ -145,7 +145,8 @@ const RdsCompPaymentDetail = (props: RdsCompPaymentDetailProps) => {
             </div>
             <div className="col-3">
               <RdsInput
-                label="CVV"
+                name="CVV"
+                label={true}
                 placeholder="Enter CVV"
                 reset={inputReset}
                 id="txtCvc"

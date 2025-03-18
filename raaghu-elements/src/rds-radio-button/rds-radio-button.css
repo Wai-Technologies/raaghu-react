@@ -1,0 +1,13 @@
+.icon-with-bottom-label {
+    margin-left: 32px;
+  }
+  
+  .form-check-input:checked {
+    background-color: #7825E9; 
+    border-color: #7825E9; 
+  }
+  
+  .form-check-input:focus {
+    border-color: #7825E9; 
+    
+  }

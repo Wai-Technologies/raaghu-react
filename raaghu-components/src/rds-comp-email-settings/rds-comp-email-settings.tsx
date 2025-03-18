@@ -57,6 +57,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="Surrent Email"
                     placeholder="Enter Current Email"
                     customClasses="form-control"
                     inputType="email"
@@ -73,6 +74,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="New Email"
                     placeholder="Enter New Email"
                     customClasses="form-control"
                     inputType="email"
@@ -89,6 +91,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
+                    name="Confirm New Email"
                     placeholder="Confirm New Email"
                     customClasses="form-control"
                     inputType="email"
@@ -130,7 +133,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
                         <RdsInput
-                            label="Default From Display Name"
+                            name="Default From Display Name"
+                            label={true}
                             placeholder="Enter Display Name"
                             customClasses="form-control"
                             inputType="text"
@@ -142,7 +146,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
-                        label="Default From Address"
+                        name="Default From Address"
+                        label={true}
                         placeholder="Enter Email Address"
                         customClasses="form-control"
                         dataTestId='address'
@@ -159,7 +164,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <div className="form-group">
                         <RdsInput
-                            label="Host"
+                            name="Host"
+                            label={true}
                             placeholder="127.0.0.1"
                             customClasses="form-control"
                             dataTestId='host'
@@ -170,7 +176,8 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 </div>
                 <div className="col-md-6 col-sm-6 col-lg-6 mt-2">
                     <RdsInput
-                        label="Port"
+                        name="Port"
+                        label={true}
                         placeholder="25"
                         customClasses="form-control"
                         dataTestId='port'
@@ -181,9 +188,9 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
 
             <div className="row mt-3">
-                <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
+            <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
                     <RdsCheckbox
-                        label="Enable SSL"
+                        labelText="Enable SSL"
                         onChange={(e) => handleDataChanges(e.target.checked, "enableSSL")}
                         checked={formData?.enableSSL}
                         dataTestId='enable-ssl'
@@ -192,16 +199,16 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
             </div>
 
             <div className="row mt-3">
-                <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
+            <div className="col-lg-12 col-md-12 col-sm-12 fs-small-size">
                     <RdsCheckbox
-                        label="Use Default Credentials"
+                        labelText="Use Default Credentials"
                         onChange={(e) => handleDataChanges(e.target.checked, "defaultCredentials")}
                         checked={formData?.defaultCredentials}
                         dataTestId='default-credentials'
                     ></RdsCheckbox>
                 </div>
             </div>
-            <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+            <div className="mt-3 d-flex pb-3 ps-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
                 <RdsButton
                     type="button"
                     colorVariant="primary"

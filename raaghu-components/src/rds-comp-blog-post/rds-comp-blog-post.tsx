@@ -1,6 +1,7 @@
 import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import './rds-comp-blog-post.css';
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 interface RdsCompBlogPostProps {
   tableHeaders: {
@@ -30,7 +31,7 @@ interface RdsCompBlogPostProps {
 const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
     return (
         <div className="bloglist"><RdsCompDatatable
-      actionPosition="right"
+      actionPosition={ActionPosition.Right}
       tableHeaders={props.tableHeaders}
       actions={props.actions}
       noDataheaderTitle="No Records Available"

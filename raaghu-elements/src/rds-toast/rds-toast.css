@@ -13,3 +13,34 @@
 /* .theme-dark .btn-close {
   filter: unset;
 } */
+
+.text-dark {
+  --bs-text-opacity: 1;
+  color: rgb(96 96 96) !important;
+}
+.text-body {
+  --bs-text-opacity: 1;
+  color: rgb(96 96 96) !important;
+}
+.theme-dark .toast-basic  {
+    background: #000000; 
+} 
+.theme-dark .toast-info {
+  background: #000000;
+}
+.theme-dark .toast-success {
+  background: #000000;
+} 
+.theme-dark .toast-error {
+  background: #000000;
+}
+
+.toast {
+  border-top :none !important;
+  border-bottom :none !important;
+  border-right :none !important;
+}
+
+.toast-header {
+  border-bottom: none !important;
+}

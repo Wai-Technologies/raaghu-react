@@ -11,6 +11,7 @@ import {
 } from "../rds-elements";
 import "./rds-comp-login.css";
 import { useTranslation } from "react-i18next";
+import { AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
 export interface RdsCompLoginProps {
   error?: any;
   getvalidTenantName: string;
@@ -122,10 +123,10 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
         <div className="text-center">
         <div className="container">
           <div className="row align-items-center mb-1 mx-md-1">
-            <div className="col-12 col-md-11 text-center mb-3">
+            <div className="col-12 col-md-10 text-center mb-3">
               <h2 className="mb-0 ms-4">Login</h2>
             </div>
-            <div className="col-12 col-md-1 text-center text-md-end mb-3 px-md-0 px-lg-4">
+            <div className="col-12 col-md-1 text-center text-md-end mb-3 px-md-0">
               <RdsDropdownList
                 labelIcon={currentLanguageIcon}
                 labelIconWidth="18px"
@@ -146,7 +147,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
           </div>
         </div>
           <div>
-            <small className="d-flex justify-content-center">
+            <small className="d-flex justify-content-center col-md-11">
               <span className="d-flex">
                 {" "}
                 <RdsLabel label={`${"Current Tenant"}`}></RdsLabel>:
@@ -175,12 +176,12 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 >
                   <div className="text-start  mb-4 ">
                     <RdsInput
-                      label="Name"
+                      name="Name"
+                      label={true}
                       placeholder=""
                       inputType="email/text"
                       onChange={TenancyNameChange}
-                      value={currentTenant}
-                      name={"currentTenant"}
+                      value={currentTenant}                      
                       required={false}
                       isDisabled={false}
                       dataTestId="tenancy-name"
@@ -234,24 +235,24 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
               {Alert?.show && (
                 <div>
                   <RdsAlert
-                    dismisable={true}
+                    showDismiss={true}
                     message={Alert?.message}
                     // colorVariant={Alert?.color}
                     size="small"
                     onDismiss={props.onDismissAlert}
-                    reset={Alert?.show} type={"error"}                  />
+                    reset={Alert?.show} type={AlertType.error}                  />
                 </div>
               )}
             </div>
             <form onSubmit={handleSubmit} className="">
               <div className="form-group text-start">
                 <RdsInput
-                  label="Username/ Email"
+                  name="Username/ Email"
+                  label={true}
                   placeholder="Enter Username/ Email"
                   inputType="email/text"
                   onChange={emailhandleChange}
-                  value={email}
-                  name={"email"}
+                  value={email}                 
                   required={false}
                   dataTestId="username"
                 />
@@ -259,13 +260,13 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
 
               <div className="form-group text-start mt-4">
                 <RdsInput
-                  label="Password"
+                  name="Password"
+                  label={true}
                   customClasses="pe-5"
                   required={false}
                   placeholder="Enter Password"
                   inputType="password"
-                  onChange={passwordhandleChange}
-                  name={"password"}
+                  onChange={passwordhandleChange}                  
                   value={password}
                   dataTestId="password"
                   showIcon= {true}
@@ -276,7 +277,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                   <div className="form-group mb-4 pb-2 remember-me">
                     <RdsCheckbox
                       id="remembercheckid"
-                      label={`${"Remember Me"}`}
+                      labelText={`${"Remember Me"}`}
                       checked={rememberMe}
                       onChange={onCheckedHandler}
                       dataTestId="remember-me"

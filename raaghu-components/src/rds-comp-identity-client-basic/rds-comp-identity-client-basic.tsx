@@ -66,8 +66,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               <RdsInput
                 placeholder="Enter Client ID"
                 inputType="text"
-                label="Client ID"
-                name="name"
+                name="Client ID"
+                label={true}              
                 required={false}
                 dataTestId="client-id"
                 onChange={(e) => {
@@ -80,8 +80,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               <RdsInput
                 placeholder="Enter Client Name"
                 inputType="text"
-                label="Client Name"
-                name="name"
+                name="Client Name"
+                label={true}               
                 required={false}
                 dataTestId="client-name"
                 onChange={(e) => {
@@ -110,8 +110,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               <RdsInput
                 placeholder="Enter Client URL"
                 inputType="text"
-                label="Client URL"
-                name="name"
+                name="Client URL"
+                label={true  }              
                 required={true}
                 dataTestId="client-url"
                 onChange={(e) => {
@@ -127,8 +127,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 <RdsInput
                   placeholder="Enter Logo URL"
                   inputType="text"
-                  label="Logo URL"
-                  name="name"
+                  name="Logo URL"
+                  label={true}                  
                   required={true}
                   dataTestId="logo-url"
                   onChange={(e) => {
@@ -146,8 +146,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               <RdsInput
                 placeholder="Enter CallBack URL"
                 inputType="text"
-                label="CallBack URL"
-                name="name"
+                name="CallBack URL"
+                label={true}                
                 required={true}
                 dataTestId="callback-url"
                 onChange={(e) => {
@@ -162,8 +162,8 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
               <RdsInput
                 placeholder="Enter Logout URL"
                 inputType="text"
-                label="Logout URL"
-                name="name"
+                name="Logout URL"
+                label={true}                
                 required={true}
                 dataTestId="logout-url"
                 onChange={(e) => {
@@ -177,7 +177,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
           </div>
           <div className="row mt-2">
             <RdsCheckbox
-              label="Required Consent"
+              labelText="Required Consent"
               dataTestId="consent"
               onChange={(e: any) => {
                 handleDataChanges(e.target.checked, "requiredConsent");

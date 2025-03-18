@@ -1,0 +1,96 @@
+/* Default state - faded text */
+.accordion-button {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+/* Hover state for accordion button */
+
+
+.accordion-hover .accordion-button:hover {
+    background-color: #e5d5fc;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.accordion-hover .accordion-button:not(.collapsed):hover {
+    background-color: #e5d5fc; /* Same hover background */
+    color: rgba(0, 0, 0, 0.8); /* Darker text */
+}
+
+.accordion-selected .accordion-button {
+    background-color: #ffffff; /* Change this to your desired selected color */
+
+}
+
+
+.hover-content-wrapper {
+    background-color: transparent; /* Adjust the background color as needed */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Apply the hover effect to both the header and body */
+.hover-content-wrapper:hover,
+.hover-content-wrapper:hover .accordion-button,
+.hover-content-wrapper:hover .accordion-body {
+    background-color: #e5d5fc !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.accordion-content {
+    background-color: white !important;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Selected/open state */
+.accordion-selected.open {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background-color: transparent;
+}
+.default .accordion-button:not(.collapsed) {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent; /* Maintain faded text color when expanded in default state */
+}
+.default .accordion-button.collapse {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent; /* Maintain faded text color */
+}
+
+/* Remove focus shadow */
+.accordion-selected:focus {
+    box-shadow: none;
+}
+
+/* Hover effect for accordion content wrapper ONLY when border is 'borderhide' */
+
+
+.accordion-sm .accordion-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 1rem;
+    display: grid;
+    align-content: center;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 10' fill='none'%3e%3cpath d='M1 1L8.5696 8.80786C8.6147 8.86455 8.67532 8.91151 8.74646 8.94486C8.81761 8.9782 8.89724 8.997 8.97881 8.99967C9.06037 9.00234 9.14153 8.98883 9.21559 8.96024C9.28965 8.93165 9.35451 8.88877 9.4048 8.8352L9.4312 8.80786L17 0.999997' stroke='%23646464' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e")!important;
+}
+
+.accordion-button::after {
+    position: absolute ;
+    right: -2.875rem !important;
+    background-position: 0.938rem 1.25rem ;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 10' fill='none'%3e%3cpath d='M1 1L8.5696 8.80786C8.6147 8.86455 8.67532 8.91151 8.74646 8.94486C8.81761 8.9782 8.89724 8.997 8.97881 8.99967C9.06037 9.00234 9.14153 8.98883 9.21559 8.96024C9.28965 8.93165 9.35451 8.88877 9.4048 8.8352L9.4312 8.80786L17 0.999997' stroke='%23646464' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e") !important;
+    background-size: 1.1375rem !important;
+    border-bottom-right-radius: 0.2rem !important;
+    border-top-right-radius: 0.2rem !important;
+}
+.accordion-border {
+    border: 1px solid #646464 !important;
+} 
+
+.accordion-borderhide {
+    border: 0px !important;
+}
+
