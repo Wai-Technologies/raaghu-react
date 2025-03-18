@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import RdsFabMenu from "../rds-fab-menu";
 import RdsBadge from "../rds-badge/rds-badge";
 import RdsModal from "../rds-modal/rds-modal";
@@ -20,18 +20,17 @@ const RdsAttachement = () => {
     }
   };
 
-  const openModal = () => {
+  const openModal = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent FAB from closing prematurely
     setShowModal(true);
 
-    // Close the FAB menu using DOM manipulation
+    if(showModal) {
+    // ✅ Manually close the FAB menu after opening the modal
     const fabMenu = document.querySelector(".fab-dropdown");
     if (fabMenu && fabMenu.classList.contains("show")) {
       fabMenu.classList.remove("show");
     }
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
+  }
   };
 
   return (
@@ -116,7 +115,6 @@ const RdsAttachement = () => {
           showModalFooter
           showModalHeader
           size="medium"
-          onClose={closeModal}   // Close modal handler
         >
           <p className="text-muted import-size">
             Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.
