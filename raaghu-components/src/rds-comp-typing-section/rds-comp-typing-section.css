@@ -36,8 +36,9 @@
     background-color: black;
 }
 
-.theme-dark .input-with-image .form-control {
+.theme-dark .input-with-image .form-controls {
     background-color: black;
+    color: white;
 }
 
 #1 {
