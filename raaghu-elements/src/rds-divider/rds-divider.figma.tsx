@@ -20,7 +20,7 @@ figma.connect(
         Medium: "medium",
         Large: "large",
       }),
-      style: figma.enum("✨ Style", {
+      Style: figma.enum("✨ Style", {
         Subtle: "subtle",
         Strong: "strong",
         Primary: "primary",
@@ -30,6 +30,14 @@ figma.connect(
         Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsDivider  Style={""} iconShow={false} {...props} />,
+    example: (props) => <RdsDivider   
+    dividerMessage="Content"
+    icon="information"
+    iconHeight="20px"
+    iconStroke
+    iconWidth="20px"
+    textalign="middle"
+    iconShow
+    {...props} />,
   },
 )
