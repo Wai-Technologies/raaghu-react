@@ -4,8 +4,8 @@ import "./rds-plan-switcher.css";
  
 export interface RdsPlanSwitcherProps {
   setIsPlanFree?: (isPlanFree: boolean) => void;
-  button1Text?: string;
-  button2Text?: string;
+  button1Text: string;
+  button2Text: string;
 }
  
 const RdsPlanSwitcher = (props:RdsPlanSwitcherProps) => {
@@ -22,7 +22,7 @@ const RdsPlanSwitcher = (props:RdsPlanSwitcherProps) => {
             className={`equalWidth ${isPlanFree ? "multicolorBorder" : ""}`} 
             id="1"
           >
-            Free
+            {props.button1Text}
           </div>
           <div 
             onClick={() => setIsPlanFree(false)} 
@@ -49,7 +49,7 @@ const RdsPlanSwitcher = (props:RdsPlanSwitcherProps) => {
                   fill={true}
                   stroke={false} />
               </div>}
-              <span className="premium-text">Premium</span>
+              <span className="premium-text">{props.button2Text}</span>
             </div>
           </div>
         </div>

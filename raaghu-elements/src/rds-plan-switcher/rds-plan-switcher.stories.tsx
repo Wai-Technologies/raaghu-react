@@ -18,5 +18,7 @@ type Story = StoryObj<typeof RdsPlanSwitcher>;
 
 export const Default: Story = {
     args: {
+        button1Text: "Free",
+        button2Text: "Premium",
     }
 } satisfies Story;
