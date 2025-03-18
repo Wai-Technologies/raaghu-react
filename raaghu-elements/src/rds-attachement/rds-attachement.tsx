@@ -25,7 +25,7 @@ const RdsAttachement = () => {
     setShowModal(true);
 
     if(showModal) {
-    // ✅ Manually close the FAB menu after opening the modal
+    // Manually close the FAB menu after opening the modal
     const fabMenu = document.querySelector(".fab-dropdown");
     if (fabMenu && fabMenu.classList.contains("show")) {
       fabMenu.classList.remove("show");
