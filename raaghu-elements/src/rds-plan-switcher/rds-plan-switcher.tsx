@@ -26,7 +26,7 @@ const RdsPlanSwitcher = (props:RdsPlanSwitcherProps) => {
             className={`equalWidth ${!isPlanFree ? "premiumSelected" : ""}`} 
             id="2"
           >
-            <div className="premiumContent">
+            <div className={`premiumContent ${isPlanFree ? 'free' : ''}`}>
               <img 
                 src={isPlanFree ? "./assets/crown.png" : "./assets/crownwhite.png"} 
                 alt="ssj" 

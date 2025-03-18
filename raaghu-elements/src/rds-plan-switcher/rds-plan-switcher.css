@@ -76,6 +76,12 @@
     height: 100%; /* Ensure the content takes full height */
 }
 
+.free {
+    background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #FFB30D, #F1C13C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .crownImage {
     margin-right: 5px; /* Adjust the spacing between the image and the text */
     height: 20px; /* Ensure the image has a fixed height */
