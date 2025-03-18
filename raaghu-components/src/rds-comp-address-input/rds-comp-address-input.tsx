@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RdsButton, RdsDropdownList, RdsInput } from "../rds-elements";
+
 export interface RdsCompAddressInputProps {
     address?: any;
     address2?: any;
@@ -11,6 +12,7 @@ export interface RdsCompAddressInputProps {
     AddressData?: any;
     reset?: boolean;
     label: React.ReactNode;
+    onSaveHandler?: (data: any) => void;
     onSaveHandler?: (data: any) => void;
 }
 
@@ -71,12 +73,12 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
             address2: "",
             zip: "",
       });
-    }
+   }
 
     return (
-        <div className="mfe-outline">
-            <form className="needs-validation" >
-            <div className="custom-content-scroll">
+    <div className="mfe-outline">
+      <form className="needs-validation">
+        <div className="custom-content-scroll">
                 <div className="row g-3">
                     <div className="col-md-6">
                         <RdsInput
@@ -85,6 +87,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
+                            onChange={(e) => handlerInputChange(e.target.value, "address")}
                             onChange={(e) => handlerInputChange(e.target.value, "address")}
                             value={AddressData?.address}
                         ></RdsInput>
@@ -101,6 +104,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Address"
                             inputType="text"
+                            onChange={(e) => handlerInputChange(e.target.value, "address2")}
                             onChange={(e) => handlerInputChange(e.target.value, "address2")}
                             value={AddressData?.address2}
                         ></RdsInput>
@@ -175,6 +179,7 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
                             reset={inputReset}
                             placeholder="Enter Zip code"
                             inputType="text"
+                            onChange={(e) => handlerInputChange(e.target.value, "zip")}
                             onChange={(e) => handlerInputChange(e.target.value, "zip")}
                             value={AddressData?.zip}
                             id="address-input"

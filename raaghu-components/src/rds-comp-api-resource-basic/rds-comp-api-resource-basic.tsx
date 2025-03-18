@@ -80,7 +80,7 @@ const isFormValid = isNameValid(formData?.name);
                 ></RdsInput>
               </div>
             </div>
-            <div className=" mb-4">
+            <div className=" mb-3">
               <RdsTextArea
                 label="Description"
                 placeholder="Description"
