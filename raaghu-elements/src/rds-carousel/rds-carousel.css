@@ -85,7 +85,7 @@
 
 .carousel-control-prev,
 .carousel-control-next {
-  top: 50%;
+  top: 50% !important;
   transform: translateY(-50%);
   width: auto;
   height: auto;

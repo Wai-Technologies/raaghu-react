@@ -23,6 +23,35 @@ figma.connect(
         Block: "block",
       }),
     },
-    example: (props) => <RdsProgressBar {...props} steps={0} completedSteps={4} colorVariant={""} progressWidth={0} role={""}  />,
+    example: (props) => <RdsProgressBar 
+    striped
+    height={4}
+    role={props.style} 
+    steps={4} 
+    completedSteps={2} 
+    colorVariant="primary"
+    displayPercentage 
+    progressWidth={40} 
+    progressValues={[
+      {
+        animation: true,
+        colorVariant: 'success',
+        progressWidth: 50,
+        stripe: true
+      },
+      {
+        animation: true,
+        colorVariant: 'danger',
+        progressWidth: 20,
+        stripe: true
+      },
+      {
+        animation: true,
+        colorVariant: 'info',
+        progressWidth: 30,
+        stripe: true
+      }
+    ]}
+     />,
   },
 )

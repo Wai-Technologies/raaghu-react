@@ -19,7 +19,7 @@ figma.connect(
       showTitle: figma.boolean("🆕 - Show Title"),
       placeholderText: figma.string("✏️ Placeholder Text"),
       titleText: figma.string("✏️ Title Text"),
-      changeIcon: figma.string("🔃 Change Icon"),
+      //changeIcon: figma.string("🔃 Change Icon"),
       state: figma.enum("💡 State", {
         Default: DatePickerState.Default,
         Expanded: DatePickerState.Expanded,
@@ -30,7 +30,8 @@ figma.connect(
         Advanced: "advanced", // ✅ Updated value
         WithTime: "withTime", // ✅ Updated value
       }),
+      
     },
-    example: (props) => <RdsDatepicker isDropdownOpen={false} {...props} />,
+    example: (props) => <RdsDatepicker isDropdownOpen={false} {...props} changeIcon="calendar" type="Custom" />,
   }
 );

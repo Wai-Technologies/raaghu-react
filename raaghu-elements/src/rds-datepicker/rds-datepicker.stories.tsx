@@ -41,7 +41,7 @@ export const Default: Story = {
         state: DatePickerState.Default,
         type: "Custom",
         showTitle: true,
-        title: "Date",
+        titleText: "Date",
         isMandatory : true,
         placeholderText: "Select Date",
         changeIcon: "calendar",

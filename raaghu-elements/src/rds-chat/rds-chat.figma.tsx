@@ -15,20 +15,66 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=692-20694",
   {
     props: {
-      message: figma.enum("🗨️ Message", {
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4": "4",
-        "5": "5",
-      }),
+  
     },
     example: (props) => (
       <RdsChat 
         {...props} 
-        isChatScreenEnabled={false} 
-        userData={[]} 
+        OtherUserCommentTextColor="#202020"
+        currentUserCommentBgColor="#7825E9"
+        currentUserCommentTextColor="#FEF7FF"
+        isChatScreenEnabled = {true}
         handleAddComment={() => {}}
+        otherUserCommentBgColor="#D6D6D6"
+        userData={[
+          {
+            activeDotButton: true,
+            colorVariant: 'primary',
+            comments: [
+              {
+                comment: 'Hi, How are you?',
+                firstName: 'Alice',
+                lastName: 'Smith'
+              },
+              {
+                comment: 'This is sample message.',
+                firstName: 'Alice',
+                lastName: 'Smith'
+              }
+            ],
+            firstName: 'Wai',
+            lastName: 'Technologies',
+            messageStatus: 'sent',
+            profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
+            size: 'medium',
+            status: 'Typing....',
+            time: '13.00'
+          },
+          {
+            activeDotButton: false,
+            colorVariant: 'primary',
+            comments: [],
+            firstName: 'Nikhil',
+            lastName: 'Kasar',
+            messageStatus: '',
+            profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s',
+            size: 'medium',
+            status: 'Developer',
+            time: '13.00'
+          },
+          {
+            activeDotButton: false,
+            colorVariant: 'primary',
+            comments: [],
+            firstName: 'Supriya',
+            lastName: 'Tambe',
+            messageStatus: '',
+            profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s',
+            size: 'medium',
+            status: 'Company Owner',
+            time: '13.00'
+          }
+        ]}
       />
     ),
   },

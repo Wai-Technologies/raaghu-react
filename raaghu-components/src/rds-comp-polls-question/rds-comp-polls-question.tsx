@@ -138,7 +138,7 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handlerStartDate}
                             DatePickerLabel="Start Date"
-                            title="Start Date"
+                            titleText="Start Date"
                             showTitle={true}
                             type="default"
                             isDropdownOpen={false}
@@ -148,7 +148,7 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleEndDate}
                             DatePickerLabel="End Date"
-                            title="End Date"
+                            titleText="End Date"
                             showTitle={true}
                             type="default"
                             isDropdownOpen={false}
@@ -158,7 +158,7 @@ function RdsCompPollsQuestion(props: any) {
                         <RdsDatePicker
                             onDatePicker={handleResultDatepickerData}
                             DatePickerLabel="Result Showing End Date"
-                            title="Result Showing End Date"
+                            titleText="Result Showing End Date"
                             showTitle={true}
                             type="default"
                             isDropdownOpen={false}
