@@ -19,7 +19,7 @@
   cursor: pointer;
   background: none;
   border: none;
-  z-index: 10; /* Ensure the close button is on top */
+  z-index: 10; 
 }
 
 .backGifContainer {
@@ -107,8 +107,8 @@
 
 .priceText span {
   font-family: 'Poppins', sans-serif;
-  font-weight: 400; /* Regular weight */
-  font-size: 1.5rem; /* 2xl size */
+  font-weight: 400; 
+  font-size: 1.5rem; 
   line-height: 100%;
   letter-spacing: 0%;
   color: #646464;
@@ -116,49 +116,37 @@
 
 .forIndividualsText {
   font-family: 'Poppins', sans-serif;
-  font-weight: 600; /* Semi-bold */
-  font-size: 1.5rem; /* 2xl */
+  font-weight: 600; 
+  font-size: 1.5rem; 
   line-height: 100%;
   letter-spacing: 0%;
   margin-top: 20px;
-  margin-bottom: 20px; /* Added margin-bottom */
+  margin-bottom: 20px; 
 }
 
 .forProUsersText {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500; /* Medium weight */
-  font-size: 1.5rem; /* 2xl size */
+  font-weight: 500; 
+  font-size: 1.5rem; 
   line-height: 100%;
   letter-spacing: 0%;
-  margin-bottom: 20px; /* Added margin-bottom */
-}
-
-.accessChat,
-.upToCredits,
-.shareChatUrl {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400; /* Regular weight */
-  font-size: 1.125rem; /* Assuming lg corresponds to 18px */
-  line-height: 28px;
-  letter-spacing: 0%;
-  color: #646464;
-  margin-bottom: 10px; /* Added margin-bottom */
+  margin-bottom: 20px; 
 }
 
 .accessChat {
   font-family: 'Poppins', sans-serif;
-  font-weight: 400; /* Regular weight */
-  font-size: 1.125rem; /* Assuming lg corresponds to 18px */
+  font-weight: 400; 
+  font-size: 1.125rem; 
   line-height: 28px;
   letter-spacing: 0%;
   color: #646464;
-  margin-bottom: 10px; /* Added margin-bottom */
+  margin-bottom: 10px; 
   display: flex;
   align-items: center;
 }
 
 .accessChat img {
-  margin-right: 8px; /* Add gap between image and text */
+  margin-right: 8px; 
 }
 
 .proText {
@@ -167,113 +155,12 @@
   font-size: 12px;
   line-height: 100%;
   letter-spacing: 0%;
-  background-color: #E8AC39;
   padding: 5px 10px;
-  border-radius: 999px; /* Pill shape */
-  color: #000000; /* Assuming white text color for contrast */
+  border-radius: 999px; 
+  color: #000000; 
   position: relative;
   top: -7px; 
-}
-
-.planToggle {
-  display: flex;
-  position: relative;
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: 10px;
-  overflow: hidden; /* Ensure border radius is applied */
-  height: 60px;
-  width: 291px;
-  margin-left: auto; /* Center horizontally */
-  margin-right: auto; /* Center horizontally */
-  align-items: center; /* Vertically center align */
-}
-
-.planToggle::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 10px;
-  padding: 1px; /* Adjust the width of the border */
-  background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude; 
-  pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
-}
-
-.planOption {
-  cursor: pointer;
-  display: flex;
-  align-items: center; /* Vertically center align */
-  justify-content: center; /* Horizontally center align */
-  width: 50%; /* Ensure both options have the same width */
-  height: 100%; /* Ensure the height is consistent */
-  position: relative; /* Ensure the position is consistent */
-}
-
-.planOption img {
-  position: absolute; /* Position the image absolutely */
-  left: 10px; /* Adjust the left position as needed */
-}
-
-.planDetails {
-  background-color: #FFFFFF;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #E1E3EA;
-  margin-top: 10px;
-  height: 572px;
-}
-
-.multicolorBorder {
-  position: relative;
-  border-radius: 5px;
-  padding: 5px;
-  overflow: hidden; /* Ensure border radius is applied */
-  height: 35px;
-  margin-top: 5px;
-  margin-left: 12px;
-}
-
-.multicolorBorder::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 5px;
-  padding: 1px; /* Adjust the width of the border to 1px */
-  background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude; 
-  pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
-}
-
-.equalWidth {
-  flex: 1;
-  text-align: center;
-}
-
-.premiumSelected {
-  background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #D2A134, #E8A529);
-  border-radius: 5px;
-  height: 35px;
-}
-
-.crownImage {
-  width: 20px; /* Adjust width as needed */
-  height: 20px; /* Adjust height as needed */
-  margin-right: 8px; /* Add some space between the image and text */
+  background-image: linear-gradient(to right, #E8AC39, #FFB40B, #FFCA3A, #FFC100, #FCC201); 
 }
 
 .card-text {
@@ -339,6 +226,6 @@
     right: 10px;
     width: 24px;
     height: 24px;
-    z-index: 10; /* Ensure the close button is on top */
+    z-index: 10; 
   }
 }
