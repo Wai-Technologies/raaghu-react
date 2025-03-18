@@ -2,11 +2,14 @@ import React, {useState} from "react";
 import "./rds-comp-subscription-plan.css";
 import { RdsIcon } from "../rds-elements";
 
-export interface RdsSubscriptionPlanProps { }
+export interface RdsSubscriptionPlanProps { 
+  planAmount?: string;
+}
 
 const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
   const [isPlanFree, setIsPlanFree] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [subscriptionPlanAmount, setSubscriptionPlanAmount] = useState(props.planAmount || "---");
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -27,8 +30,25 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
         <span className="aiPunditChat">AI Pundit Chat</span><span className="proText">Pro</span></div>
         <div className="currentPlanText">You’re currently on the free plan</div>
         <div className="planToggle">
-          <div onClick={() => setIsPlanFree(true)} className="planOption multicolorBorder equalWidth" id="1">Free</div>
-          <div onClick={() => setIsPlanFree(false)} className="planOption equalWidth" id="2">Premium</div>
+          <div 
+            onClick={() => setIsPlanFree(true)} 
+            className={`planOption equalWidth ${isPlanFree ? "multicolorBorder" : ""}`} 
+            id="1"
+          >
+            Free
+          </div>
+          <div 
+            onClick={() => setIsPlanFree(false)} 
+            className={`planOption equalWidth ${!isPlanFree ? "premiumSelected" : ""}`} 
+            id="2"
+          >
+            <img 
+              src={isPlanFree ? "./assets/crown.png" : "./assets/crownwhite.png"} 
+              alt="ssj" 
+              className="crownImage" 
+            />
+            Premium
+          </div>
         </div>
       </div>
       <div>
@@ -46,7 +66,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
           </div> : <div>
           <div className="freeText">Premium</div>
           <div className="perfectForIndividuals">Take your projects to the next level with pro features.</div>
-          <div className="priceText">$----/month</div>
+          <div className="priceText">${subscriptionPlanAmount}<span>/month</span></div>
           <hr />
           <div className="forIndividualsText">What’s included</div>
           <div className="forProUsersText">For pro users:</div>

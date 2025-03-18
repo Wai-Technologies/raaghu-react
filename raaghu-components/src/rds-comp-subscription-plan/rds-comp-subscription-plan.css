@@ -184,6 +184,7 @@
   width: 291px;
   margin-left: auto; /* Center horizontally */
   margin-right: auto; /* Center horizontally */
+  align-items: center; /* Vertically center align */
 }
 
 .planToggle::before {
@@ -206,6 +207,17 @@
 
 .planOption {
   cursor: pointer;
+  display: flex;
+  align-items: center; /* Vertically center align */
+  justify-content: center; /* Horizontally center align */
+  width: 50%; /* Ensure both options have the same width */
+  height: 100%; /* Ensure the height is consistent */
+  position: relative; /* Ensure the position is consistent */
+}
+
+.planOption img {
+  position: absolute; /* Position the image absolutely */
+  left: 10px; /* Adjust the left position as needed */
 }
 
 .planDetails {
@@ -248,4 +260,16 @@
 .equalWidth {
   flex: 1;
   text-align: center;
+}
+
+.premiumSelected {
+  background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #D2A134, #E8A529);
+  border-radius: 5px;
+  height: 35px;
+}
+
+.crownImage {
+  width: 20px; /* Adjust width as needed */
+  height: 20px; /* Adjust height as needed */
+  margin-right: 8px; /* Add some space between the image and text */
 }
