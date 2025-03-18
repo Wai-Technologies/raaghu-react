@@ -34,7 +34,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
   if (!isModalOpen) return null;
 
   return (<>
-    <div className="subscriptionContainer">
+    <div className="subscriptionContainer responsiveContainer">
       <div className="closeButton" ><RdsIcon
         colorVariant="dark"
         height="16px"
@@ -44,9 +44,9 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
         width="16px"
         onClick={closeModal}
       /></div>
-      <div className="backGifContainer">
-        <img src={"./assets/backGif.gif"} alt="Background Animation" className="backGif" />
-        <img src={"./assets/Panel-0421.png"} alt="Panel Image" className="panelImage" />
+      <div className="backGifContainer responsiveBackGifContainer">
+        <img src={"./assets/backGif.gif"} alt="Background Animation" className="backGif responsiveBackGif" />
+        <img src={"./assets/Panel-0421.png"} alt="Panel Image" className="panelImage responsivePanelImage" />
       </div>
       <div>
         <div className="centerText">
