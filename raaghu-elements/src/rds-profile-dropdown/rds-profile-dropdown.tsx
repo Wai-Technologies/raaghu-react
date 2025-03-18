@@ -3,6 +3,8 @@ import "./rds-profile-dropdown.css";
 
 export interface RdsProfileDropdownProps {
     profileImage: string;
+    listOptions: string[];
+    footer: string;
 }
 
 const RdsProfileDropdown = (props: RdsProfileDropdownProps) => {
@@ -41,12 +43,11 @@ const RdsProfileDropdown = (props: RdsProfileDropdownProps) => {
             {isDropdownOpen && (
                 <div id="profile-dropdown">
                     <ul className="dropdown-menu show">
-                        <li>Option 1</li>
-                        <li>Option 1</li>
-                        <li>Option 1</li>
-                        <li>Option 1</li>
+                        {props.listOptions.map((option, index) => (
+                            <li key={index}>{option}</li>
+                        ))}
                         <hr className="m-0 border-gray-300"/>
-                        <li className="highlight-option">Click Here</li>
+                        <li className="highlight-option">{props.footer}</li>
                     </ul>
                 </div>
             )}
