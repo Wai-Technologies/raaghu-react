@@ -11,3 +11,6 @@ svg.text-dark{
     font-size: 12px;
 }
 
+.dropdown-menu {
+    width: none !important;
+}
