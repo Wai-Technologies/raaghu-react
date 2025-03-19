@@ -111,3 +111,4 @@ export { default as RdsChatHeader } from "./rds-chat-header";
 export { default as RdsAttachement } from "./rds-attachement";
 export { default as RdsPlanSwitcher } from "./rds-plan-switcher";
 export { default as RdsProfileDropdown } from "./rds-profile-dropdown";
+export {default as RdsThemeToggle} from "./rds-theme-toggle";
