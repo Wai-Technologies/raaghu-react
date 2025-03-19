@@ -9,6 +9,7 @@ export interface RdsAiChatBotProps {
     placeholderText?: string;
     messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    icon_name: string;
 }
 
 interface Message {
@@ -85,6 +86,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                             colorVariant="#353535"
                             onSend={handleSendMessage}
                             placeholderText={placeholderText || "Ask me anything"}
+                            icon_name={props.icon_name}
                         />
                         {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
                     </div>
