@@ -65,7 +65,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                     logoUrl={aiLogoUrl}
                     title="New Chat Started"
                 />
-                <div className="chat-messages" style={{ paddingBottom: "80px" }}>
+                <div className="chat-messages" style={{ paddingBottom: "80px", height: "70vh" }}>
                     {messages.map((message) => (
                         <div
                             key={message.id}

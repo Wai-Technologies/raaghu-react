@@ -15,6 +15,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 export default {
     title: "Elements/Ai Chat Bot",
     component: RdsAiChatBot,
+    tags: ['autodocs'],
     decorators: [
         (StoryComponent: React.FC) => (
             <I18nextProvider i18n={i18n}>

@@ -3,7 +3,6 @@
     flex-direction: column;
     position: relative;
     overflow-x: hidden;
-    height: 100vh; /* Adjust height for full viewport */
 }
 
 .chat {
