@@ -99,7 +99,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                     carouselItem.id === activeState ? "active" : ""
                   } ${roleClass}`}
                 >
-                  <div className="card text-center imageheight">
+                  <div className=" text-center imageheight">
                     <img
                       src={carouselItem.imgUrl}
                       className="card-image-top w-100"
