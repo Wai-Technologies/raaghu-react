@@ -24,17 +24,18 @@ export interface RdsAttachementProps {
 }
 
 export interface UserData {
-    firstName: string;
-    lastName: string;
-    activeDotButton: boolean;
-    status: string;
-    size: string;
-    colorVariant: string;
-    time: string;
-    profilePic: string;
-    messageStatus: string;
-    comments: Comment[];
+  firstName: string;
+  lastName: string;
+  activeDotButton: boolean;
+  status: string;
+  size: string;
+  colorVariant: string;
+  time: string;
+  profilePic: string;
+  messageStatus: string;
+  comments: Comment[];
 }
+
 export interface Comment {
   firstName: string;
   lastName: string;
@@ -42,59 +43,38 @@ export interface Comment {
   image?: string;
 }
 
-const RdsAttachement= (props: RdsAttachementProps) => {
+const RdsAttachement = (props: RdsAttachementProps) => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [commentText, setCommentText] = useState<string>('');
+  const [commentText, setCommentText] = useState<string>("");
   const firstUser = props.userData && props.userData.length > 0 ? props.userData[0] : null;
   const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
   const [currentUser, setCurrentUser] = useState<any>(props.userData ? props.userData[0] : null);
-  
 
-    const handleAddComment = () => {
-      debugger
-          if (commentText.trim() === '') return;
-  
-          const newComment: Comment = {
-              firstName: currentUser?.firstName || "",
-              lastName: currentUser?.lastName || "",
-              comment: commentText, // Emoji and text will be added here
-          };
-  
-          setCommentList([...commentList, newComment]);
-          setCommentText(''); // Clear input after adding the comment
-          if (props.handleAddComment) {
-              props.handleAddComment(newComment); // Ensure the callback is defined before invoking
-          }
+  // ✅ Single handler for Base64 conversion
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string; // Base64 string
+        console.log("Base64 Image:", base64String);  // ✅ Prints Base64 in console
+
+        const newComment: Comment = {
+          firstName: currentUser?.firstName || "",
+          lastName: currentUser?.lastName || "",
+          comment: "",
+          image: base64String, // Store Base64 string in the comment
+        };
+
+        setCommentList([...commentList, newComment]);
+        if (props.handleAddComment) {
+          props.handleAddComment(newComment);
+        }
       };
-
-
-      const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files?.[0];
-              if (file && file.type.startsWith('image/')) {
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                      const newComment: Comment = {
-                          firstName: currentUser?.firstName,
-                          lastName: currentUser?.lastName,
-                          comment: '',
-                          image: reader.result as string,
-                      };
-      
-                      setCommentList([...commentList, newComment]);
-                      if (props.handleAddComment) {
-                          props.handleAddComment(newComment); // Ensure the callback is defined before invoking
-                      }
-                  };
-                  reader.readAsDataURL(file);
-              }
-          };
-
-
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      props.onFileSelect?.(selectedFile);
+      reader.readAsDataURL(file);  // Convert image to Base64
+    } else {
+      console.error("Please select a valid image file.");
     }
   };
 
@@ -110,13 +90,16 @@ const RdsAttachement= (props: RdsAttachementProps) => {
     }
   };
 
-  function onFigmaSubmit(value: string): any {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <>
-      <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={onFileChange} />
+      {/* ✅ Single input field for image upload */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileUpload}
+      />
+
       <span className="mb-3 mt-2">
         <RdsFabMenu
           menuIcon={props.menuIcon}
@@ -129,7 +112,14 @@ const RdsAttachement= (props: RdsAttachementProps) => {
               value: (
                 <button
                   onClick={openModal}
-                  style={{ cursor: "pointer", background: "none", border: "none", color: "inherit", font: "inherit", padding: 0 }}
+                  style={{
+                    cursor: "pointer",
+                    background: "none",
+                    border: "none",
+                    color: "inherit",
+                    font: "inherit",
+                    padding: 0,
+                  }}
                   data-bs-toggle="modal"
                   data-bs-target="#modal1234"
                 >
@@ -154,27 +144,20 @@ const RdsAttachement= (props: RdsAttachementProps) => {
               key: "refresh",
               value: (
                 <button
-                onClick={() => fileInputRef.current?.click()}
-                style={{
-                  cursor: "pointer",
-                  background: "none",
-                  border: "none",
-                  color: "inherit",
-                  font: "inherit",
-                  padding: 0,
-                }}
-              >
-                {props.importText}
-              </button>
+                  onClick={() => fileInputRef.current?.click()}  // Trigger hidden file input
+                  style={{
+                    cursor: "pointer",
+                    background: "none",
+                    border: "none",
+                    color: "inherit",
+                    font: "inherit",
+                    padding: 0,
+                  }}
+                >
+                  {props.importText}
+                </button>
               ),
             },
-            <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-            onClick={handleAddComment}
-          />
           ]}
         />
       </span>
@@ -203,7 +186,7 @@ const RdsAttachement= (props: RdsAttachementProps) => {
             state="default"
             style="Default"
             value=""
-            onChange={(e) => onFigmaSubmit?.(e.target.value)}
+            onChange={(e) => props.onFigmaSubmit?.(e.target.value)}
           />
         </RdsModal>
       )}
