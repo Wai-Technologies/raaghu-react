@@ -16,7 +16,7 @@ figma.connect(
   {
     props: {
       showIcon: figma.boolean("👀 Show Icon"),
-      showHintText: figma.boolean("🔤 Show Hint Text"),
+      showHint: figma.boolean("🔤 Show Hint Text"),
       showTitle: figma.boolean("🆕 Show Title"),
       //hint: figma.string("✏️ Hint "),
       //title: figma.string("✏️ Title "),
@@ -38,6 +38,65 @@ figma.connect(
         "Bottom Line": DropdownStyle.BottomLine,
       }),
     },
-    example: (props) => <RdsDropdownList  {...props} listItems={[]}/>,
+    example: (props) => <RdsDropdownList  {...props} 
+    borderDropdown
+    hint="Hint Text"
+    icon="dropdown_icon"
+    iconHeight="1px"
+    iconWidth="1px"
+    isPlaceholder
+    placeholder="Filter"
+    title="Label"
+    listItems={[
+      {
+        icon: 'us',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'EN(US)',
+        val: 'en'
+      },
+      {
+        icon: 'in',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'English(IND)',
+        val: 'en'
+      },
+      {
+        icon: 'fr',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'Français',
+        val: 'fr'
+      },
+      {
+        icon: 'de',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'Deutsch',
+        val: 'de'
+      },
+      {
+        icon: 'br',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'Português (Brasil)',
+        val: 'pt-BR'
+      },
+      {
+        icon: 'tr',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'Türkçe',
+        val: 'tr'
+      },
+      {
+        icon: 'it',
+        iconHeight: '20px',
+        iconWidth: '20px',
+        label: 'Italiano',
+        val: 'it'
+      }
+    ]}/>,
   },
 )
