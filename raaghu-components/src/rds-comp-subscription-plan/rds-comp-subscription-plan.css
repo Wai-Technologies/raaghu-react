@@ -87,7 +87,7 @@
   font-size: 1.5rem;
   line-height: 100%;
   letter-spacing: 0%;
-  margin-bottom: 20px; 
+  margin-bottom: 5px; 
   margin-top: 24px;
 }
 
@@ -97,7 +97,7 @@
   font-size: 1.125rem; 
   line-height: 28px;
   letter-spacing: 0%;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
 }
 
 .priceText {
@@ -134,7 +134,7 @@
   font-size: 1.5rem; 
   line-height: 100%;
   letter-spacing: 0%;
-  margin-bottom: 20px; 
+  margin-bottom: 12px; 
 }
 
 .accessChat {
@@ -144,7 +144,7 @@
   line-height: 28px;
   letter-spacing: 0%;
   color: #646464;
-  margin-bottom: 10px; 
+  margin-bottom: 4px; 
   display: flex;
   align-items: center;
 }
