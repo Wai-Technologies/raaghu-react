@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import {RdsChatHeader} from "../rds-elements";
+import { RdsChatHeader } from "../rds-elements";
 import RdsMessageBox from "../rds-comp-message-box";
 import RdsCompTypingSection from "../rds-comp-typing-section";
 
-export interface RdsAiChatBotProps { }
+export interface RdsAiChatBotProps {
+    aiLogoUrl: string;
+    userAvatarUrl?: string;
+    placeholderText?: string; // Add this line
+}
 
 interface Message {
     id: number;
@@ -13,6 +17,7 @@ interface Message {
 }
 
 const RdsAiChatBot = (props: RdsAiChatBotProps) => {
+    const { aiLogoUrl, userAvatarUrl, placeholderText } = props;
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputText, setInputText] = useState<string>("");
     const [inputImage, setInputImage] = useState<string | null>(null);
@@ -69,9 +74,9 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
 
     return (
         <>
-            <div className="chat-box" >
+            <div className="chat-box">
                 <RdsChatHeader
-                    logoUrl="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png"
+                    logoUrl={aiLogoUrl}
                     title="New Chat Started"
                 />
                 <div className="chat-messages" style={{ paddingBottom: "80px" }}>
@@ -81,7 +86,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                             className={`chat-message ${message.sender ? "sender" : "receiver"}`}
                         >
                             <RdsMessageBox
-                                avtar={`${message.sender ? "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png" : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png"}`}
+                                avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
                                 message={message.text}
                                 src={message.image}
                             />
@@ -93,7 +98,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                         <RdsCompTypingSection
                             colorVariant="#353535"
                             onSend={handleSendMessage}
-                            placeholderText="Ask me anything"
+                            placeholderText={placeholderText || "Ask me anything"} // Modify this line
                         />
                         {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
                     </div>
