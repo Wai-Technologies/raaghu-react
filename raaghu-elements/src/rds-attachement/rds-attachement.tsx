@@ -16,17 +16,80 @@ export interface RdsAttachementProps {
   uploadText?: string;
   importText?: string;
   modalText?: string;
+  image?: string;
+  userData?: UserData[];
   onFileSelect?: (file: File) => void;
   onFigmaSubmit?: (value: string) => void;
+  handleAddComment: (comment: Comment) => void;
+}
+
+export interface UserData {
+    firstName: string;
+    lastName: string;
+    activeDotButton: boolean;
+    status: string;
+    size: string;
+    colorVariant: string;
+    time: string;
+    profilePic: string;
+    messageStatus: string;
+    comments: Comment[];
+}
+export interface Comment {
+  firstName: string;
+  lastName: string;
+  comment: string;
+  image?: string;
 }
 
 const RdsAttachement= (props: RdsAttachementProps) => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [commentText, setCommentText] = useState<string>('');
+  const firstUser = props.userData && props.userData.length > 0 ? props.userData[0] : null;
+  const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
+  const [currentUser, setCurrentUser] = useState<any>(props.userData ? props.userData[0] : null);
+  
 
-  const handleFileUpload = () => {
-    fileInputRef.current?.click();
-  };
+    const handleAddComment = () => {
+      debugger
+          if (commentText.trim() === '') return;
+  
+          const newComment: Comment = {
+              firstName: currentUser?.firstName || "",
+              lastName: currentUser?.lastName || "",
+              comment: commentText, // Emoji and text will be added here
+          };
+  
+          setCommentList([...commentList, newComment]);
+          setCommentText(''); // Clear input after adding the comment
+          if (props.handleAddComment) {
+              props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+          }
+      };
+
+
+      const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+              const file = event.target.files?.[0];
+              if (file && file.type.startsWith('image/')) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                      const newComment: Comment = {
+                          firstName: currentUser?.firstName,
+                          lastName: currentUser?.lastName,
+                          comment: '',
+                          image: reader.result as string,
+                      };
+      
+                      setCommentList([...commentList, newComment]);
+                      if (props.handleAddComment) {
+                          props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+                      }
+                  };
+                  reader.readAsDataURL(file);
+              }
+          };
+
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -90,11 +153,28 @@ const RdsAttachement= (props: RdsAttachementProps) => {
             {
               key: "refresh",
               value: (
-                <button onClick={handleFileUpload} style={{ cursor: "pointer", background: "none", border: "none", color: "inherit", font: "inherit", padding: 0 }}>
-                  {props.importText}
-                </button>
+                <button
+                onClick={() => fileInputRef.current?.click()}
+                style={{
+                  cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  color: "inherit",
+                  font: "inherit",
+                  padding: 0,
+                }}
+              >
+                {props.importText}
+              </button>
               ),
             },
+            <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+            onClick={handleAddComment}
+          />
           ]}
         />
       </span>
