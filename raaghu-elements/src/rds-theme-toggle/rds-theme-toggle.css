@@ -64,7 +64,7 @@
 /* Dark mode: Replace the default circle with a proper moon */
 .form-check-input:checked {
     background-color: black !important;
-    border-color: black !important;
+    border-color: #ffff !important;
     position: relative;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' width='16px' height='16px'%3E%3Cg transform='rotate(210, 12, 12)'%3E%3Cpath d='M12 2a10 10 0 1 0 8.66 15.07 7 7 0 0 1-8.66-8.66A9.94 9.94 0 0 0 12 2z'/%3E%3C/g%3E%3C/svg%3E") !important;
 }
