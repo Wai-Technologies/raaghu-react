@@ -20,6 +20,9 @@ export interface RdsSubscriptionPlanProps {
   forIndividualsText: string;
   forProUsersText: string;
   whatsIncludedText: string;
+  backgroundImageSrc: string;
+  panelImageSrc: string;
+  aiPunditLogoSrc: string;
 }
 
 const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
@@ -45,12 +48,12 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
         onClick={closeModal}
       /></div>
       <div className="backGifContainer responsiveBackGifContainer">
-        <img src={"./assets/backGif.gif"} alt="Background Animation" className="backGif responsiveBackGif" />
-        <img src={"./assets/Panel-0421.png"} alt="Panel Image" className="panelImage responsivePanelImage" />
+        <img src={props.backgroundImageSrc} alt="Background Animation" className="backGif responsiveBackGif" />
+        <img src={props.panelImageSrc} alt="Panel Image" className="panelImage responsivePanelImage" />
       </div>
       <div>
         <div className="centerText">
-          <div className="upgradeText">{props.upgradeText}<img src={"./assets/AIPunditColored.png"} alt="AI Pundit Logo" />
+          <div className="upgradeText">{props.upgradeText}<img src={props.aiPunditLogoSrc} alt="AI Pundit Logo" />
             <span className="aiPunditChat">{props.aiPunditChatText}</span><span className="proText">{props.proText}</span></div>
           <div className="currentPlanText">{props.currentPlanText}</div>
           <RdsPlanSwitcher

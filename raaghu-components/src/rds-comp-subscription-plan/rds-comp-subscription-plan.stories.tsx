@@ -52,5 +52,8 @@ Default.args = {
   perMonthText: "/month",
   forIndividualsText: "For Individuals:",
   forProUsersText: "For pro users:",
-  whatsIncludedText: "What’s included"
+  whatsIncludedText: "What’s included",
+  backgroundImageSrc: "./assets/backGif.gif",
+  panelImageSrc: "./assets/Panel-0421.png",
+  aiPunditLogoSrc: "./assets/AIPunditColored.png"
 };
