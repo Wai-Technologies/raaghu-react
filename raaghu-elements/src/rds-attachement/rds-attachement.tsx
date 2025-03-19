@@ -44,6 +44,7 @@ export interface Comment {
 }
 
 const RdsAttachement = (props: RdsAttachementProps) => {
+  console.clear(); // Clear console
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [commentText, setCommentText] = useState<string>("");
