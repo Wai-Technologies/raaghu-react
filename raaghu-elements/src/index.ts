@@ -113,3 +113,4 @@ export { default as RdsPlanSwitcher } from "./rds-plan-switcher";
 export { default as RdsProfileDropdown } from "./rds-profile-dropdown";
 export {default as RdsThemeToggle} from "./rds-theme-toggle";
 export {default as RdsCommunityFileWidget} from "./rds-community-file-widget";
+export { default as RdsSortingDropdown } from "./rds-sorting-dropdown";
