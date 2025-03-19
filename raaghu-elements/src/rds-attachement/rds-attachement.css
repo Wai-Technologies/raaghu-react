@@ -1,0 +1,13 @@
+svg.text-dark{
+    height: 32px !important;
+    width: 32px !important;
+}
+
+#fab-list .dropdown-menu.show {
+    inset: 10px auto auto 15px !important;
+}
+
+.import-size{
+    font-size: 12px;
+}
+
