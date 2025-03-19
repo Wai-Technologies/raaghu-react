@@ -1,0 +1,39 @@
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    height: 100vh; /* Adjust height for full viewport */
+}
+
+.chat {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Increase padding to prevent overlap with input */
+}
+
+.chat-input-wrapper {
+    flex-shrink: 0;
+    background: white;
+    position: fixed; /* Ensure it stays fixed at the bottom */
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    padding: 10px; /* Add padding for better spacing */
+}
+
+@media (max-width: 768px) {
+    .chat-box {
+        height: 100vh; /* Adjust height for mobile view */
+    }
+
+    .chat-input-wrapper {
+        bottom: 0; /* Ensure it sticks to the bottom */
+        width: 100%; /* Full width for mobile view */
+    }
+}
