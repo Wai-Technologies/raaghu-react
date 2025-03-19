@@ -20,7 +20,7 @@ export interface RdsAttachementProps {
   userData?: UserData[];
   onFileSelect?: (file: File) => void;
   onFigmaSubmit?: (value: string) => void;
-  handleAddComment: (comment: Comment) => void;
+  handleAddComment?: (comment: Comment) => void;
 }
 
 export interface UserData {
@@ -52,7 +52,7 @@ const RdsAttachement = (props: RdsAttachementProps) => {
   const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
   const [currentUser, setCurrentUser] = useState<any>(props.userData ? props.userData[0] : null);
 
-  // ✅ Single handler for Base64 conversion
+  // Single handler for Base64 conversion
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
@@ -93,7 +93,7 @@ const RdsAttachement = (props: RdsAttachementProps) => {
 
   return (
     <>
-      {/* ✅ Single input field for image upload */}
+      {/* Single input field for image upload */}
       <input
         type="file"
         ref={fileInputRef}
