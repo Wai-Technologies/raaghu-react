@@ -3,21 +3,19 @@ import RdsSidebar from "./rds-side-bar";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: "Elements/Side Bar",
+    title: 'Elements/Side Bar',
     component: RdsSidebar,
+    parameters: {
+        layout: 'padded',
+    },
+    tags: ['autodocs'],
     argTypes: {
        
     },
-    parameters: {
-        layout: 'padded',
-        
-    },
-    tags: ['autodocs'],
 } satisfies Meta<typeof RdsSidebar>;
 
 export default meta;
 type Story = StoryObj<typeof RdsSidebar>;
-
 export const Default: Story = {
     args: {
         labels: [
@@ -27,7 +25,8 @@ export const Default: Story = {
             "Community",
             "Help",
             "Activity",
-            "home"
+            "Settings"
         ]
     },
-}
+} satisfies Story;
+

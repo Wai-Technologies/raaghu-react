@@ -4,12 +4,9 @@ import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
 
 export interface RdsSidebarProps {
-  title?: string;
-  items?: string[];
   labels?: string[];
 }
-
-const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels = [] }) => {
+const RdsSidebar = (props: RdsSidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
@@ -40,7 +37,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="new_chat"
-              label={isCollapsed ? "" : labels[0] || "New Chat"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[0] : "New Chat")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -51,11 +48,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
           </div>
         </div>
       </div>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+
       <div className="recents-dashboard">
         <div className="">
           <div className="recents">
@@ -67,7 +60,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="recent"
-              label={isCollapsed ? "" : labels[1] || "Recent"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[1] : "Recent")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -85,7 +78,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="saas_chat"
-              label={isCollapsed ? "" : labels[2] || "SAAS Dashboard"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[2] : "SAAS Dashboard")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -107,7 +100,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="community"
-              label={isCollapsed ? "" : labels[3] || "Community"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[3] : "Community")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -125,7 +118,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="chat_help"
-              label={isCollapsed ? "" : labels[4] || "Help"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[4] : "Help")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -143,7 +136,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="activity"
-              label={isCollapsed ? "" : labels[5] || "Activity"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[5] : "Activity")}
               shape="rectangle"
               size="medium"
               state="hover"
@@ -161,7 +154,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({ title = "", items = [], labels 
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="chat_settings"
-              label={isCollapsed ? "" : labels[6] || "Settings"}
+              label={isCollapsed ? "" : (props.labels ? props.labels[6] : "Settings")}
               shape="rectangle"
               size="medium"
               state="hover"
