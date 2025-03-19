@@ -14,7 +14,7 @@ const RdsMessageBox = (props: RdsMessageBoxProps) => {
   return (
     <div className="message-box-container">
       {props.isImage ? (
-        <div className="border rounded p-2">
+        <div className="p-2">
           <div className="d-flex align-items-center">
             <RdsAvatar
               size={AvatarSize.medium}
@@ -39,7 +39,7 @@ const RdsMessageBox = (props: RdsMessageBoxProps) => {
           </div>
         </div>
       ) : (
-        <div className="chat-container d-flex align-items-center border rounded p-2">
+        <div className="chat-container d-flex align-items-center p-2">
           <RdsAvatar
             size={AvatarSize.medium}
             type="image"
