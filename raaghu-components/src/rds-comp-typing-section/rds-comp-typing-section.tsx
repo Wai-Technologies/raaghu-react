@@ -6,6 +6,7 @@ import './rds-comp-typing-section.css';
 export interface RdsTypingAltProps {
     colorVariant?: string;
     placeholderText?: string;
+    icon_name: string;
     onSend?: (inputText: string) => void;
 }
 
@@ -94,7 +95,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                     colorVariant="primary"
                     height="40px"
                     isCursorPointer
-                    name="enhancer"
+                    name={props.icon_name}
                     stroke
                     width="40px"
                     onClick={handleEnhancerClick}
