@@ -2,8 +2,11 @@
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    background-color: #fff;
     width: 100%;
+  }
+
+  .theme-dark .chat-header {
+    color: #dee2e6 !important;
   }
   
   .chat-header img {
