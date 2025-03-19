@@ -1,16 +1,15 @@
 import React from "react";
 import "./rds-chat-header.css";
-
 export interface RdsChatHeaderProps {
   logoUrl?: string;
   title?: string;
 }
 
-const RdsChatHeader = ({ logoUrl, title }: RdsChatHeaderProps) => {
+const RdsChatHeader = (props: RdsChatHeaderProps) => {
     return (
       <div className="chat-header">
-        <img src={logoUrl} alt="Logo" />
-        <h3>{title}</h3>
+        <img src={props.logoUrl} alt="Logo" />
+        <h3>{props.title}</h3>
       </div>
     );
   };
