@@ -78,7 +78,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         ></button> */}
                         {props.showDismissIcon && (
                             <>
-                        <RdsIcon name="close" classes="position-absolute top-0 end-0 m-1" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
+                        <RdsIcon name="close" classes="position-absolute top-0 end-0" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
                             </>
                         )}
                     </div>

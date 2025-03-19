@@ -1,5 +1,6 @@
 .imageheight {
-  max-height: 500px;
+  max-height: 600px;
+  width: 100%;
 }
 
 .carousel-indicators [data-bs-target] {
@@ -76,7 +77,7 @@
 }
 
 .carousel-indicators-default {
-  top: 410px !important;
+  top: 610px !important;
 }
 
 .close-icon-border-radius {
