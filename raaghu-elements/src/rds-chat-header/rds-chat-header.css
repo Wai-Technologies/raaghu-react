@@ -1,0 +1,21 @@
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #fff;
+    width: 100%;
+  }
+  
+  .chat-header img {
+    height: 2.5rem;
+    width: auto;
+    flex-shrink: 0;
+  }
+  
+  .chat-header h3 {
+    margin-left: 1rem;
+    margin-top:  0.5rem;
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+  
