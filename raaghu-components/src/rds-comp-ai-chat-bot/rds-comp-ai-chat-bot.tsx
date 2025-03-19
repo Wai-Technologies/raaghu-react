@@ -80,7 +80,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                         </div>
                     ))}
                 </div>
-                <div className="chat-input-wrapper" style={{ position: "fixed", bottom: 10, width: "98%", padding: "10px" }}>
+                <div className="chat-input-wrapper" style={{ position: "fixed", bottom: 10, width: "100%", padding: "10px", marginLeft: "-10px" }}>
                     <div className="chat-input">
                         <RdsCompTypingSection
                             colorVariant="#353535"

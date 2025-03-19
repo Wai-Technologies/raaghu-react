@@ -35,5 +35,6 @@
     .chat-input-wrapper {
         bottom: 0; /* Ensure it sticks to the bottom */
         width: 100%; /* Full width for mobile view */
+        margin-right: 10px;
     }
 }
