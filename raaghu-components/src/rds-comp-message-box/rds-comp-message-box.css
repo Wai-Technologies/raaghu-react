@@ -6,8 +6,8 @@
   .chat-container {
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: none !important;
+    /* border-radius: 8px; */
     padding: 16px;
   }
   
@@ -39,11 +39,7 @@
   .responsive-image {
     max-width: 100%;
     height: auto;
-  }
-
-  .theme-dark .form-label.mb-0.fw-undefined  {
-    color: rgb(71 65 65) !important;
-  }  
+  } 
   
   /* Responsive styles */
   @media (max-width: 768px) {
