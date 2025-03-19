@@ -6,7 +6,9 @@ import RdsCompTypingSection from "../rds-comp-typing-section";
 export interface RdsAiChatBotProps {
     aiLogoUrl: string;
     userAvatarUrl?: string;
-    placeholderText?: string; // Add this line
+    placeholderText?: string;
+    messages: Message[];
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 }
 
 interface Message {
@@ -17,49 +19,33 @@ interface Message {
 }
 
 const RdsAiChatBot = (props: RdsAiChatBotProps) => {
-    const { aiLogoUrl, userAvatarUrl, placeholderText } = props;
-    const [messages, setMessages] = useState<Message[]>([]);
+    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages } = props;
     const [inputText, setInputText] = useState<string>("");
     const [inputImage, setInputImage] = useState<string | null>(null);
 
     const handleSendMessage = async (messageText: any) => {
         console.log("Sending message...", messageText);
         if (messageText || inputText || inputImage) {
-            // Simulate API call to determine sender
-            const apiResponse = await fetchSenderFromApi();
             const newMessage: Message = {
                 id: messages.length + 1,
                 text: messageText || inputText,
                 image: inputImage || undefined,
-                sender: apiResponse.sender,
+                sender: false,
             };
             setMessages([...messages, newMessage]);
             setInputText("");
             setInputImage(null);
 
             // Send a default message from the sender
-            setTimeout(() => {
-                const defaultMessage: Message = {
-                    id: messages.length + 2,
-                    text: "This is a default response from the sender.",
-                    sender: true,
-                };
-                setMessages((prevMessages) => [...prevMessages, defaultMessage]);
-            }, 1000);
+            // setTimeout(() => {
+            //     const defaultMessage: Message = {
+            //         id: messages.length + 2,
+            //         text: "This is a default response from the sender.",
+            //         sender: true,
+            //     };
+            //     setMessages((prevMessages) => [...prevMessages, defaultMessage]);
+            // }, 1000);
         }
-    };
-
-    const fetchSenderFromApi = async () => {
-        // Simulate an API response
-        return new Promise<{ sender: boolean }>((resolve) => {
-            setTimeout(() => {
-                resolve({ sender: Math.random() > 0.5 }); // Randomly assign sender for demo purposes
-            }, 500);
-        });
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputText(e.target.value);
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +73,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                         >
                             <RdsMessageBox
                                 avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
+                                isImage={message.image ? true : false}
                                 message={message.text}
                                 src={message.image}
                             />
@@ -98,7 +85,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                         <RdsCompTypingSection
                             colorVariant="#353535"
                             onSend={handleSendMessage}
-                            placeholderText={placeholderText || "Ask me anything"} // Modify this line
+                            placeholderText={placeholderText || "Ask me anything"}
                         />
                         {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
                     </div>

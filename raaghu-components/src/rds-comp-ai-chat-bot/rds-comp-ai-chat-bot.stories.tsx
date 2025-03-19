@@ -1,4 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+
+// Define the Message type
+type Message = {
+  id: string;
+  text: string;
+  sender: "user" | "bot";
+};
 import RdsAiChatBot from "./rds-comp-ai-chat-bot";
 import { I18nextProvider } from "react-i18next";
 import i18n from 'i18next';
@@ -17,9 +24,10 @@ export default {
       ],
 } as ComponentMeta<typeof RdsAiChatBot>;
  
-const Template: ComponentStory<typeof RdsAiChatBot> = (args: any) => (
-    <RdsAiChatBot {...args} />
-);
+const Template: ComponentStory<typeof RdsAiChatBot> = (args: any) => {
+    const [messages, setMessages] = useState<Message[]>([]);
+    return <RdsAiChatBot {...args} messages={messages} setMessages={setMessages} />;
+};
  
 export const Default = Template.bind({});
  
