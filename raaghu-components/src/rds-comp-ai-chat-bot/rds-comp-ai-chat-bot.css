@@ -13,27 +13,27 @@
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 80px; /* Increase padding to prevent overlap with input */
+    padding-bottom: 80px;
 }
 
 .chat-input-wrapper {
     flex-shrink: 0;
     background: white;
-    position: fixed; /* Ensure it stays fixed at the bottom */
+    position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 1;
-    padding: 10px; /* Add padding for better spacing */
+    padding: 10px;
 }
 
 @media (max-width: 768px) {
     .chat-box {
-        height: 100vh; /* Adjust height for mobile view */
+        height: 100vh;
     }
 
     .chat-input-wrapper {
-        bottom: 0; /* Ensure it sticks to the bottom */
-        width: 100%; /* Full width for mobile view */
+        bottom: 0;
+        width: 100%;
         margin-right: 10px;
     }
 }

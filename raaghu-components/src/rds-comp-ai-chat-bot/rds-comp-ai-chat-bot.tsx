@@ -15,7 +15,7 @@ interface Message {
     id: number;
     text: string;
     image?: string;
-    sender: boolean; // true for sender, false for receiver
+    sender: boolean;
 }
 
 const RdsAiChatBot = (props: RdsAiChatBotProps) => {
@@ -24,7 +24,6 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
     const [inputImage, setInputImage] = useState<string | null>(null);
 
     const handleSendMessage = async (messageText: any) => {
-        console.log("Sending message...", messageText);
         if (messageText || inputText || inputImage) {
             const newMessage: Message = {
                 id: messages.length + 1,
