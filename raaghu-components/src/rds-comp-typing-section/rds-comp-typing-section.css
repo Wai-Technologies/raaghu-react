@@ -1,0 +1,30 @@
+.input-with-image {
+    border: 1px solid #862FFF;
+}
+
+@media (max-width: 768px) {
+    .input-with-image {
+        padding-right: 52px;
+    }
+}
+
+.theme-dark .input-with-image {
+    background-color: black;
+}
+
+.theme-dark .input-with-image .form-controls {
+    background-color: black;
+    color: white;
+}
+
+#1 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#left-bottom-corner {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}

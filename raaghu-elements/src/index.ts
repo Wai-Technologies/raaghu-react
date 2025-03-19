@@ -108,3 +108,6 @@ export { default as RdsScrollBar } from "./rds-scroll-bar";
 export { default as RdsSlider } from "./rds-slider";
 export { default as RdsMultilevelMenu } from "./rds-multilevel-menu";
 export { default as RdsChatHeader } from "./rds-chat-header";
+export { default as RdsAttachement } from "./rds-attachement";
+export { default as RdsPlanSwitcher } from "./rds-plan-switcher";
+export { default as RdsProfileDropdown } from "./rds-profile-dropdown";

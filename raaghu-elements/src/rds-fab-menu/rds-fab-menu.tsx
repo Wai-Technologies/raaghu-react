@@ -9,6 +9,9 @@ export interface RdsFabMenuProps {
     menuiconWidth?: string;
     menuiconHeight?: string;
     listItems: any[];
+    className?: string;
+    id?: string;
+    isShowBorder?: boolean;
     onClick?: (React.MouseEventHandler<HTMLButtonElement>);
 }
 
@@ -16,7 +19,7 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const customClasses = `btn btn-${props.colorVariant} btn-icon fab-btn ${props.size == "small" ? "btn-sm" : props.size == "large" ? "btn-lg" : ""}`;
+    const customClasses = `btn border-0 btn-${props.colorVariant} btn-icon fab-btn ${props.size == "small" ? "btn-sm" : props.size == "large" ? "btn-lg" : ""}`;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -53,7 +56,7 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                 data-testid="fab-menu-btn"
             >
                 <RdsIcon
-                    name={props.menuIcon || "list"}
+                    name={props.menuIcon || "list"}  
                     fill={false}
                     stroke={true}
                     height="17px"
@@ -62,9 +65,10 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                 ></RdsIcon>
             </button>
             <div id="fab-list" ref={menuRef}>
-                <div className={"dropdown-menu dropdown-menu-list fab-dropdown border-0 shadow mb-1" + (isMenuOpen ? " show" : "")} role="menu">
+                <div className={`${props.isShowBorder ? props.className : "border-0 dropdown-menu dropdown-menu-list fab-dropdown shadow mb-1"} ${isMenuOpen ? " show" : ""}`}  role="menu">
                     {props.listItems.map((listItem) => (
-                        <a key={listItem.key} role="link" className="dropdown-item fab-dropdown-item d-flex py-3" onClick={handleItemClick(listItem.onClick)}>
+                        <a key={listItem.key} role="link"  className={`dropdown-item fab-dropdown-item d-flex ${props.id === "attachment-text" ? "py-2" : "py-3"}`}
+                        onClick={handleItemClick(listItem.onClick)}>
                             <RdsIcon name={listItem.icon} height={listItem.iconHeight} width={listItem.iconWidth} fill={false} stroke={true}></RdsIcon>
                             <span className="ms-3">{listItem.value}</span>
                         </a>
