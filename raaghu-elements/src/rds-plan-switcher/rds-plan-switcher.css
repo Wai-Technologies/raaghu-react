@@ -64,6 +64,7 @@
     background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #D2A134, #E8A529);
     border-radius: 5px;
     height: 35px;
+    color: white;
 }
 
 .premiumContent {
