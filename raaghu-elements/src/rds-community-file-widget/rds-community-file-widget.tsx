@@ -17,7 +17,7 @@ export interface RdsCommunityFileWidgetProps {
 const RdsCommunityFileWidget = (props: RdsCommunityFileWidgetProps) => {
   return (
     <div className="community-widget">
-      <div className="card">
+      <div className="community-card">
         {/* Wrap image inside a div for hover effect */}
         <div className="image-container">
           <img
@@ -31,7 +31,7 @@ const RdsCommunityFileWidget = (props: RdsCommunityFileWidgetProps) => {
             <button className="hover-btn">{props.openInChat}</button>
           </div>
         </div>
-        <div className="card-body">
+        <div className="community-card-body">
           <div className="avatar-section">
             <RdsAvatar
               showNameDesignation={false}
