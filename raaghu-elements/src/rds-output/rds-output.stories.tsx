@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsOutput from "./rds-output";
+import RdsOutput, { RdsOutputButtonType } from "./rds-output";
 
 const meta: Meta =  {
   title: "Elements/Output",
@@ -18,11 +18,11 @@ export const Default : Story = {
         buttonInfo: [
           {
             id : 1,
-            text: "Preview",
+            text: RdsOutputButtonType.Preview,
           },
           {
             id : 2,
-            text: "Code",
+            text: RdsOutputButtonType.Code,
           }
         ]
   }

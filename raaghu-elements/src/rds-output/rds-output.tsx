@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import RdsIcon from "../rds-icon";
 import "./rds-output.css";
 
-export interface RdsOutPutProps {
-  setPreview?: (isSelected: any) => void;
-  buttonInfo?: { id: number; text: string }[];
+// Define enum for button types
+export enum RdsOutputButtonType {
+  Preview = "Preview",
+  Code = "Code",
 }
 
-const RdsOutput = (props: RdsOutPutProps) => {
+export interface RdsOutputProps {
+  setPreview?: (isSelected: any) => void;
+  buttonInfo?: { id: number; text: RdsOutputButtonType }[];
+}
+
+const RdsOutput = (props: RdsOutputProps) => {
   // Initialize state with the first button as active
   const [isSelected, setIsSelected] = useState(props.buttonInfo?.[0] || null);
 
-  const handleToggle = (button: any) => {
+  const handleToggle = (button: { id: number; text: RdsOutputButtonType }) => {
     setIsSelected(button);
     props.setPreview?.(button);
   };
@@ -27,7 +33,7 @@ const RdsOutput = (props: RdsOutPutProps) => {
           <span>
             <RdsIcon
               name={
-                button.text === "Preview"
+                button.text === RdsOutputButtonType.Preview
                   ? isSelected?.id === button.id
                     ? "eye_new"
                     : "eye"
