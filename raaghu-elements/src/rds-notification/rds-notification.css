@@ -127,3 +127,14 @@
 .layout-horizontal {
     flex-direction: row;
 } */
+
+.theme-dark {
+   color: black !important
+}
+.theme-dark .notification-header {
+   background-color: transparent !important;
+}
+.theme-dark svg
+{
+    color: black;;
+}
