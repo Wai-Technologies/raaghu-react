@@ -233,3 +233,10 @@
     z-index: 10; 
   }
 }
+
+.theme-dark .centerText {
+    color: white !important;
+}
+.theme-dark .closeButton {
+   color: white !important;
+}
