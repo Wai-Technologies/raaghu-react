@@ -1,0 +1,129 @@
+.wide-button {
+  width: 100%;  /* Set the desired width */
+}
+
+.rds-sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-right: 1px solid #ddd; 
+}
+
+.rds-sidebar.collapsed {
+  width: 60px;
+}
+
+.rds-sidebar h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.rds-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rds-sidebar li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.recents, .dashboard {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.recents-icon, .dashboard-icon {
+  font-size: 1.5em;
+  margin-right: 8px;
+}
+
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.chat-send-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.chat-send-icon {
+  font-size: 1.5em;
+}
+
+.recents-dashboard {
+  background: #FFFFFF;
+}
+
+.background-color {
+  background: linear-gradient(180deg, #DCF4F7 0%, #FFECEC 100%);
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+.rds-sidebar.collapsed .rds-button .label {
+  display: none;
+}
+.rds-sidebar {
+  position: relative;
+  /* ...existing styles... */
+}
+
+.icon-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  /* Adjust padding as needed */
+}
+
+.rds-sidebar.collapsed .icon-wrapper {
+  /* Ensure the icon stays visible when collapsed */
+  left: 0;
+}
+.rds-sidebar.collapsed .recents-dashboard .recents,
+.rds-sidebar.collapsed .recents-dashboard .dashboard,
+.rds-sidebar.collapsed .chat-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.collapsed-button {
+  width: 30px; /* Adjust the width as needed */
+}
+.btn.outline-hover{
+  min-width: 220px !important;
+}
+.rds-sidebar.collapsed .btn.outline-hover{
+  min-width: 10px !important;
+}
+.theme-light svg {
+  stroke:none !important;
+}
+
+.btn.transparent-hover{
+  color:#353535 !important;
+}
+.btn.outline-hover
+{
+  color:#353535 !important;
+}
