@@ -199,15 +199,21 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                     )}
                     {isMobile &&
                         <div id="left-bottom-corner">
-                            <RdsIcon
-                                colorVariant="primary"
-                                height="20px"
-                                isCursorPointer
-                                name="attachment_new"
-                                stroke
-                                width="20px"
-                                onClick={() => console.log("Attachment icon clicked")}
-                            />
+                            <RdsAttachement
+                            badgeColor="success"
+                            badgeLabel="Premium"
+                            handleAddComment={handleAddComment} // Pass the handler function
+                            hintText="Hint Text"
+                            importText="Import From This Device"
+                            inputPlaceholder="Enter URL"
+                            menuIcon="attachment_icon"
+                            modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                            modalTitle="Import From Figma"
+                            onFigmaSubmit={() => { }}
+                            onFileSelect={() => { }}
+                            showBadge
+                            uploadText="Upload From Figma"
+                        />
                         </div>}
                 </div>
             </div>
