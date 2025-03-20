@@ -8,6 +8,11 @@
     width: 32px;;
     margin-right: 8px;
   }
+
+  .loader-icon {
+    height: 40px; 
+    width: 40px; 
+  }
   
   .title {
     font-size: 1rem;
