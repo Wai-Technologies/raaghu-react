@@ -59,7 +59,6 @@ const RdsAttachement = (props: RdsAttachementProps) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string; // Base64 string
-        console.log("Base64 Image:", base64String);  // ✅ Prints Base64 in console
 
         const newComment: Comment = {
           firstName: currentUser?.firstName || "",
