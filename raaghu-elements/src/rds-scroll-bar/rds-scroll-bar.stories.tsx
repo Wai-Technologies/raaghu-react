@@ -19,7 +19,7 @@ export default {
           control: "select",
           options: ["Start", "Middle", "End"],
         },
-        showScrollButton: {
+        showButtons: {
           control: "boolean",
         },
       },
@@ -31,7 +31,7 @@ export default {
     Default.args = {
       type: ScrollBarType.Mac, 
       position: ScrollPosition.Start, 
-      showScrollButton: true,
+      showButtons: true,
     };
-   Default.parameters = { controls: { include: ['type', 'position', 'showScrollButton'] } };
+   Default.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
     
