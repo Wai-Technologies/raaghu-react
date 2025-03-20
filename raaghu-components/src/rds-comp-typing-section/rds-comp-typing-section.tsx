@@ -137,6 +137,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 colorVariant="primary"
                                 databstoggle="tooltip"
                                 displayType="Icon + Text"
+                                iconStroke={true}
                                 icon="plus"
                                 label="Project"
                                 shape="rectangle"
