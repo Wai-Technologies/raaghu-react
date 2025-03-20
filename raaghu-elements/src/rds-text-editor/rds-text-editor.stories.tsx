@@ -29,9 +29,9 @@ type Story = StoryObj<typeof RdsTextEditor>;
 export const Default: Story = {
     args: {
         State: "Default",
-        ShowTitle: true,
+        showTitle: true,
         label:"Label",
-        ismandatory: true,
+        isMandatory: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'ShowTitle', 'label', 'ismandatory'] } };
+Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };
