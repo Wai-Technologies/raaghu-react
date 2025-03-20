@@ -7,9 +7,9 @@ export interface RdsTypingAltProps {
     colorVariant?: string;
     placeholderText?: string;
     icon_name: string;
-    onSend?: (inputText: string, image?: string) => void; // Update onSend to accept image
+    onSend?: (inputText: string, image?: string) => void;
     onAddComment?: (comment: AttachmentComment) => void;
-    previewImage?: string; // Add previewImage prop
+    previewImage?: string;
 }
 
 declare global {
@@ -65,7 +65,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
     const handleSent = () => {
         setPrevInputText(inputText);
-        onSend && onSend(inputText, enhancedImage || previewImage); // Pass the image
+        onSend && onSend(inputText, enhancedImage || previewImage);
         setInputText("");
         setEnhancedImage(null);
         setShowEnhancer(true);
@@ -74,6 +74,11 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const handleAddComment = (comment: AttachmentComment) => {
         setAttachmentComment(comment);
         onAddComment && onAddComment(comment);
+    };
+
+    const handleFigmaSubmit = (value: string) => {
+        console.log("Figma URL submitted:", value);
+        onAddComment && onAddComment({ image: value } as AttachmentComment);
     };
 
     return (
@@ -109,15 +114,14 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         {!isMobile && <RdsAttachement
                             badgeColor="success"
                             badgeLabel="Premium"
-                            handleAddComment={handleAddComment} // Pass the handler function
+                            handleAddComment={handleAddComment}
                             hintText="Hint Text"
                             importText="Import From This Device"
                             inputPlaceholder="Enter URL"
                             menuIcon="attachment_icon"
                             modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
                             modalTitle="Import From Figma"
-                            onFigmaSubmit={() => { }}
-                            onFileSelect={() => { }}
+                            onFigmaSubmit={handleFigmaSubmit}
                             showBadge
                             uploadText="Upload From Figma"
                         />}
@@ -202,15 +206,14 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             <RdsAttachement
                             badgeColor="success"
                             badgeLabel="Premium"
-                            handleAddComment={handleAddComment} // Pass the handler function
+                            handleAddComment={handleAddComment}
                             hintText="Hint Text"
                             importText="Import From This Device"
                             inputPlaceholder="Enter URL"
                             menuIcon="attachment_icon"
                             modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
                             modalTitle="Import From Figma"
-                            onFigmaSubmit={() => { }}
-                            onFileSelect={() => { }}
+                            onFigmaSubmit={handleFigmaSubmit}
                             showBadge
                             uploadText="Upload From Figma"
                         />

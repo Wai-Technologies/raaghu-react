@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsPlanSwitcher from "./rds-plan-switcher";
 
-
 const meta: Meta = {
   title: "Components/Plan Switcher",
   component: RdsPlanSwitcher,

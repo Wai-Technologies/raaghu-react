@@ -54,7 +54,10 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
             console.error("Comment image is undefined");
             return;
         }
-        // Convert base64 to binary data
+        if (comment.image.startsWith("http")) {
+            setInputImage(comment.image);
+            return;
+        }
         const byteString = atob(comment.image.split(',')[1]);
         const mimeString = comment.image.split(',')[0].split(':')[1].split(';')[0];
         const ab = new ArrayBuffer(byteString.length);
@@ -64,7 +67,6 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
         }
         const blob = new Blob([ab], { type: mimeString });
 
-        // Create a synthetic event to pass to handleImageChange
         const syntheticEvent = {
             target: {
                 files: [blob]
@@ -102,7 +104,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                         placeholderText={placeholderText || "Ask me anything"}
                         icon_name={icon_name}
                         onAddComment={handleAddComment}
-                        previewImage={inputImage || undefined} // Pass the preview image
+                        previewImage={inputImage || undefined}
                     />
                 </div>
             </div>
