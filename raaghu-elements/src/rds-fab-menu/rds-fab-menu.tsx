@@ -12,7 +12,7 @@ export interface RdsFabMenuProps {
     className?: string;
     id?: string;
     isShowBorder?: boolean;
-    onClick?: (React.MouseEventHandler<HTMLButtonElement>);
+    onClick?: () => void;
 }
 
 const RdsFabMenu = (props: RdsFabMenuProps) => {
