@@ -116,3 +116,4 @@ export {default as RdsThemeToggle} from "./rds-theme-toggle";
 export {default as RdsCommunityFileWidget} from "./rds-community-file-widget";
 export { default as RdsSortingDropdown } from "./rds-sorting-dropdown";
 export { default as RdsGradientTextWithIcon } from "./rds-gradient-text-with-icon";
+export { default as RdsConfirmationPopup } from "./rds-confirmation-popup";
