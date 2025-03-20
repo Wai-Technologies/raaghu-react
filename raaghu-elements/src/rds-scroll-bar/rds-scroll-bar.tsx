@@ -15,14 +15,14 @@ export enum ScrollPosition {
 export interface RdsScrollBarProps {
   type?: ScrollBarType; // Scroll bar type
   position?: ScrollPosition; // Scroll position
-  showScrollButton?: boolean; // Show scroll buttons only for Mac type
+  showButtons?: boolean; // Show scroll buttons only for Mac type
 }
 
 
 const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
   type = "Mac",
   position = "Start",
-  showScrollButton = true,
+  showButtons = true,
 }) => {
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +54,7 @@ const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
 
   return (
     <div className={type === "Mac" ? "scroll-container mac" : "scroll-container simple"}>
-      {type === "Mac" && showScrollButton && (
+      {type === "Mac" && showButtons && (
         <div className="scroll-controls">
           <button
             className="scroll-button"
