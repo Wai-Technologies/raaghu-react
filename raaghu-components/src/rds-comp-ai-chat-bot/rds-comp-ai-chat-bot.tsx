@@ -25,12 +25,12 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
     const [inputText, setInputText] = useState<string>("");
     const [inputImage, setInputImage] = useState<string | null>(null);
 
-    const handleSendMessage = async (messageText: string) => {
-        if (messageText || inputText || inputImage) {
+    const handleSendMessage = async (messageText: string, image?: string) => {
+        if (messageText || inputText || image) {
             const newMessage: Message = {
                 id: messages.length + 1,
                 text: messageText || inputText,
-                image: inputImage || undefined,
+                image: image || inputImage || undefined,
                 sender: false,
             };
             setMessages([...messages, newMessage]);

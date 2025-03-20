@@ -7,7 +7,7 @@ export interface RdsTypingAltProps {
     colorVariant?: string;
     placeholderText?: string;
     icon_name: string;
-    onSend?: (inputText: string) => void;
+    onSend?: (inputText: string, image?: string) => void; // Update onSend to accept image
     onAddComment?: (comment: AttachmentComment) => void;
     previewImage?: string; // Add previewImage prop
 }
@@ -25,6 +25,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const [showEnhancer, setShowEnhancer] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [attachmentComment, setAttachmentComment] = useState<AttachmentComment | null>(null);
+    const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -39,6 +40,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
     const handleEnhancerClick = () => {
         setInputText(prevInputText);
+        setEnhancedImage(attachmentComment?.image || null);
         setShowEnhancer(false);
     };
 
@@ -63,8 +65,9 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
     const handleSent = () => {
         setPrevInputText(inputText);
-        onSend && onSend(inputText);
+        onSend && onSend(inputText, enhancedImage || previewImage); // Pass the image
         setInputText("");
+        setEnhancedImage(null);
         setShowEnhancer(true);
     };
 
@@ -90,9 +93,9 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             />
                         </span>
                     }
-                    {previewImage && (
+                    {(previewImage || enhancedImage) && (
                         <div className="preview-image-container">
-                            <img src={previewImage} alt="Preview" className="preview-image" />
+                            <img src={previewImage || enhancedImage || ''} alt="Preview" className="preview-image" />
                         </div>
                     )}
                     <textarea
