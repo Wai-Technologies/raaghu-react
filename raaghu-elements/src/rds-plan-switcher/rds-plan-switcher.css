@@ -5,15 +5,11 @@
     padding: 5px;
     margin-top: 10px;
     overflow: hidden;
-    /* Ensure border radius is applied */
     height: 60px;
     width: 291px;
     margin-left: auto;
-    /* Center horizontally */
     margin-right: auto;
-    /* Center horizontally */
     align-items: center;
-    /* Vertically center align */
 }
 
 .planToggle::before {
@@ -25,15 +21,9 @@
     bottom: 0;
     border-radius: 10px;
     padding: 1px;
-    /* Adjust the width of the border */
-    background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
-    /* Ensure the pseudo-element does not interfere with any interactions */
 }
 
 .equalWidth {
@@ -44,38 +34,36 @@
 .multicolorBorder {
     position: relative;
     border-radius: 5px;
-    padding: 5px;
+    padding: 6px;
     overflow: hidden;
-    /* Ensure border radius is applied */
     height: 35px;
-    margin-top: 5px;
     margin-left: 12px;
+    color: white;
+    background: linear-gradient(90deg, #535AEA 0%, #862FFF 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
 }
 
 .multicolorBorder::before {
     content: "";
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     border-radius: 5px;
     padding: 1px;
-    /* Adjust the width of the border to 1px */
-    background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
+    border-image: linear-gradient(90deg, #6a11cb, #2575fc) 1;
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
-    /* Ensure the pseudo-element does not interfere with any interactions */
 }
 
 .premiumSelected {
     background: linear-gradient(to right, #FBE254, #F0CC44, #E1B131, #D2A134, #E8A529);
     border-radius: 5px;
-    height: 30px;
+    height: 35px;
 }
 
 .premiumContent {
@@ -94,9 +82,7 @@
 
 .crownImage {
     margin-right: 5px;
-    /* Adjust the spacing between the image and the text */
     height: 20px;
-    /* Ensure the image has a fixed height */
 }
 
 .icon-background-white {
@@ -116,5 +102,36 @@
 
 .premium-text {
     margin-left: 5px;
-    /* Adjust the spacing between the icon and the text */
 }
+
+.theme-dark {
+    color: white;
+}
+.multicolorBorderInactive {
+    background: #ffffff;
+    color: #6a11cb;
+    border: 1px solid;
+    border-image: linear-gradient(90deg, #6269FD 0%, #1FD9FA 30.5%, #5481FC 64%, #862FFF 100%) 1;
+    transform: scale(1);
+    position: relative;
+    border-radius: 5px ;
+    padding: 6px;
+    overflow: hidden;
+    height: 35px;
+    margin-left: 12px;
+    margin-right: 5px;
+  }
+
+  .premiumSelectedInactive {
+    background: #ffffff;
+    color: #6a11cb;
+    border: 1px solid;
+    border-image: linear-gradient(90deg, #F9DF52 0%, #E4A42B 100%)1;
+        transform: scale(1);
+    position: relative;
+    border-radius: 5px ;
+    padding: 5px;
+    overflow: hidden;
+    height: 35px;
+    margin-left: 5px;
+  }
