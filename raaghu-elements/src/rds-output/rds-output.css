@@ -1,4 +1,4 @@
-.planToggle {
+.planToggleOutPut {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.equalWidth {
+.equalWidthOutPut {
     flex: 1;
     display: flex;
     align-items: center;
@@ -52,14 +52,9 @@
     z-index: -1;
 }
 
-/* Add spacing for icons */
-.equalWidth {
-    margin-right: 5px;
-   
-}
- .theme-dark .planToggle {
+ .theme-dark .planToggleOutPut {
     background-color: black;
 }
-.theme-light .planToggle {
+.theme-light .planToggleOutPut {
     background-color: #ffffff;
 }
