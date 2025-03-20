@@ -12,7 +12,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-
 .equalWidth {
     flex: 1;
     display: flex;

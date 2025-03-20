@@ -15,8 +15,6 @@ type Story = StoryObj<typeof RdsOutput>;
 
 export const Default : Story = {
   args: {
-        // button1Text: "Preview",
-        // button2Text: "Code",
         buttonInfo: [
           {
             id : 1,
