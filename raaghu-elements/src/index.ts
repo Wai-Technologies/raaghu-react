@@ -76,6 +76,7 @@ export { default as RdsPlandiscount } from "./rds-plan-discount";
 export { default as RdsWidgetPortal } from "./rds-widget-portal";
 export { default as RdsTabGroup } from "./rds-tab-group";
 // export { default as RdsAnimation } from "./rds-animation";
+export { default as RdsSideBar } from "./rds-side-bar";
 
 // //Charts
 export { default as RdsAreaChart } from "./rds-chart-area";
