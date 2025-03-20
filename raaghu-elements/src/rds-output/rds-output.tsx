@@ -23,12 +23,12 @@ const RdsOutput = (props: RdsOutputProps) => {
   };
 
   return (
-    <div className="planToggle">
+    <div className="planToggleOutPut">
       {props.buttonInfo?.map((button) => (
         <div
           key={button.id}
           onClick={() => handleToggle(button)}
-          className={`equalWidth ${isSelected?.id === button.id ? "activeButton" : ""}`}
+          className={`equalWidthOutPut ${isSelected?.id === button.id ? "activeButton" : ""}`}
         >
           <span>
             <RdsIcon
