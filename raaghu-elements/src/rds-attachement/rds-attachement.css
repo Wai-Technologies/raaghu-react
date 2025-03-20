@@ -12,5 +12,5 @@ svg.text-dark{
 }
 
 .dropdown-menu {
-    width: none !important;
+    width: auto !important;
 }
