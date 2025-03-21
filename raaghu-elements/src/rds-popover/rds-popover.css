@@ -286,3 +286,6 @@
 hr {
   margin: 0.5rem 0 !important;
 }
+.theme-dark .pcard div p {
+  color: #0b0b0b !important;
+}
