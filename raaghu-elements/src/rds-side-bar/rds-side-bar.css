@@ -28,7 +28,7 @@
   border-bottom: 1px solid #ddd;
 }
 
-.recents, .dashboard {
+.recents .dashboard {
   display: flex;
   align-items: center;
   margin-top: 15px;

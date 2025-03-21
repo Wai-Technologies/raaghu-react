@@ -7,7 +7,7 @@ const RdsThemeToggle = (props: RdsThemeToggleProps) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div className="container mt-2 position-relative">
+    <div id="theme-toggle" className="container mt-2 position-relative">
       <label className="form-check form-switch position-relative">
         <input
           className="form-check-input"
