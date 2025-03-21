@@ -286,3 +286,12 @@
 hr {
   margin: 0.5rem 0 !important;
 }
+/* @media
+  (max-width: 620px) {
+  .pcard {
+   overflow-x: auto;
+  }
+} */
+.theme-dark .pcard div p {
+  color: #0b0b0b !important;
+}
