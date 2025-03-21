@@ -3,7 +3,7 @@ import RdsSortingDropdown from "./rds-sorting-dropdown";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Sorting Dropdown',
+    title: 'AI Pundit Chat/Sorting Dropdown',
     component: RdsSortingDropdown,
     parameters: {
         layout: 'padded',
