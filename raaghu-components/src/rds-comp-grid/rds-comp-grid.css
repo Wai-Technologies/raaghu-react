@@ -63,7 +63,9 @@
 }
 
 .badge-primary {
-  background-color: #d4bbff;
-  color: #7825e9;
   margin-left: 8px;
+}
+.btn.btn-transparent-primary {
+  color: #29292a;
+  border-color:none;
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompGrid from "./rds-comp-grid";
+import RdsCompGrid, {  } from "./rds-comp-grid";
 
 const meta: Meta = { 
     title: "Elements/Grid",
@@ -14,6 +14,78 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof RdsCompGrid>;
+export const Default: Story = {
+    args: {
+        tableHeaders: [
+            
+            {
+                displayName: "Title",
+                filter: true,
+                key: "edition",
+                datatype: "text",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            {
+                displayName: "Title",
+                filter: true,
+                key: "edition",
+                datatype: "text",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            {
+                displayName: "Title",
+                filter: true,
+                key: "edition",
+                datatype: "text",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            {
+                displayName: "Title",
+                filter: true,
+                key: "edition",
+                datatype: "text",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            {
+                displayName: "Title",
+                filter: true,
+                key: "edition",
+                datatype: "text",
+                dataLength: 30,
+                required: true,
+                sortable: true,
+            },
+            
+            
+        ],
+        tableData: [
+            { id: 1, edition: "Text" },
+            { id: 2, edition: "Text" },
+            { id: 3, edition: "Text" },
+            { id: 4, edition: "Text" },
+            { id: 5, edition: "Text" },
+            { id: 6, edition: "Text" },
+            { id: 7, edition: "Text" },
+            { id: 8, edition: "Text" },
+            { id: 9, edition: "Text" },
+        ],
+        state: "Default",
+        showHeader: true, 
+        showAddNewColumn: true,
+        showSubHeader: true,
+    }
+} satisfies Story;
+
+Default.parameters = { controls: { include: ['state', 'showHeader', 'showSubHeader', ' showAddNewColumn'] } };
+
 
 // export const Default: Story = {
 //     args: {
@@ -313,110 +385,5 @@ type Story = StoryObj<typeof RdsCompGrid>;
 // Advance.parameters = { controls: { include: ['tableHeaders', 'tableData', 'pagination', 'recordsPerPage', '', 'allSearch', 'allFilter', 'actions', 'actionPosition', 'enablecheckboxselection'] } };
 
 
-export const Default: Story = {
-  args: {
-      enableRadioButtonselection: true,
-      enablecheckboxselection: true,
-      actionPosition: "left",
-      tableHeaders: [
-          {
-              displayName: "Text",
-              key: "text",
-              datatype: "text",
-              dataLength: 50,
-              required: false
-          },
-          {
-              displayName: "Text",
-              key: "tenant",
-              datatype: "text",
-              dataLength: 30,
-              required: true,
-              sortable: true,
-              isBold: true,
-              fontWeight: "medium"
-          },
-          {
-              displayName: "Text",
-              key: "member",
-              datatype: "avatarTitleInfo",
-              dataLength: 30,
-              required: true,
-              sortable: true,
-          },
-          {
-              displayName: "Text",
-              key: "sampleText",
-              datatype: "text",
-              dataLength: 50,
-              required: false
-          },
-              
-          {
-              displayName: "Text",
-              key: "edition",
-              datatype: "text",
-              dataLength: 30,
-              required: true,
-              sortable: true,
-          },
-          {
-              displayName: "Text",
-              key: "progressBar",
-              datatype: "progressbar",
-              dataLength: 50,
-              required: false,
-          },
-      
-          {
-              displayName: "Text",
-              key: "status",
-              datatype: "status",
-              dataLength: 5,
-              required: true,
-          },
-          {
-              displayName: "Text",
-              key: "userName",
-              datatype: "iconAvatarTitle",
-              sortable: true,
-          },
-          {
-              displayName: "Text",
-              key: "checkbox",
-              datatype: "checkbox",
-              dataLength: 5,
-              required: false,
-          },
-          
-      ],
-    
-      tableData: [
-          { id: 1, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, ], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "John Doe", src: "avatar1.jpg" } },
-          { id: 2, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jane Doe", src: "avatar2.jpg" } },
-          { id: 3, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "badge 3", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jim Doe", src: "avatar3.jpg" } },
-          { id: 4, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "John Doe", src: "avatar1.jpg" } },
-          { id: 5, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jane Doe", src: "avatar2.jpg" } },
-          { id: 6, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "badge 3", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jim Doe", src: "avatar3.jpg" } },
-          { id: 7, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "John Doe", src: "avatar1.jpg" } },
-          { id: 8, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jane Doe", src: "avatar2.jpg" } },
-          { id: 9, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "badge 3", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jim Doe", src: "avatar3.jpg" } },
-          { id: 10, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "John Doe", src: "avatar1.jpg" } },
-          { id: 11, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jane Doe", src: "avatar2.jpg" } },
-          { id: 12, text: " Text ", userName: "iconAvatarTitle", badge: { "badgeColorVariant": "primary", "content": "badge 3", "icon": "iconName" }, member: "Joy", tenant: "Text", edition: "Text", status: " Text ", statusBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }], checkbox: " Text ", checkboxBadges: [{ "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }, { "badgeColorVariant": "primary", "content": "Badge", "icon": "iconName" }],  progressBar: "Text", sampleText: "This is a sample text", avatar: { name: "Jim Doe", src: "avatar3.jpg" } },
-          
-      ],
 
-      actions: [
-          { id: "delete", displayName: "Delete" },
-          { id: "edit", displayName: "Edit" },
-      ],
-      
-      pagination: true,
-      recordsPerPage: 10,
-      isClickable: true
-  }
-} satisfies Story;
 
-Default.parameters = { controls: { include: []}};
-//Default.parameters = { controls: { include: ['enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'] } };
