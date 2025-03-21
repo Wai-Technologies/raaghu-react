@@ -3,7 +3,7 @@ import RdsPlanSwitcher from "./rds-plan-switcher";
 
 
 const meta: Meta = {
-  title: "Components/Plan Switcher",
+  title: "AI Pundit Chat/Plan Switcher",
   component: RdsPlanSwitcher,
   parameters: {
     layout: 'padded',
