@@ -103,7 +103,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 </span>
                 }
                     <textarea
-                        className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant} mt-3`}
+                        className={`form-controls input-box type-section-border text-${props.colorVariant} border-${props.colorVariant} mt-3`}
                         placeholder={props.placeholderText || "Placeholder Text"}
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
@@ -137,6 +137,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 colorVariant="primary"
                                 databstoggle="tooltip"
                                 displayType="Icon + Text"
+                                iconStroke={true}
                                 icon="plus"
                                 label="Project"
                                 shape="rectangle"

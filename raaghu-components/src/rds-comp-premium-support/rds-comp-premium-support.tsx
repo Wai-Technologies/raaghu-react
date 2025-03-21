@@ -155,7 +155,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                           State="Default"
                                           id=""
                                           label="Message"
-                                          ismandatory
+                                          isMandatory
                                           placeholder="Enter your extra message about your invoice"
                                         />
                                 </div>

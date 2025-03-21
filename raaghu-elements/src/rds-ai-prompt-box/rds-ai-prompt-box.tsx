@@ -476,6 +476,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
           </div>
           <div className="input-column">
             <div className="input-wrapper">
+              <div className="ai-prompt">
               <div className="input-with-image">
                 <textarea
                   className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
@@ -503,6 +504,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                     </div>
                   ))}
                 </div>
+              </div>
               </div>
               <label
                 htmlFor="file-upload"
