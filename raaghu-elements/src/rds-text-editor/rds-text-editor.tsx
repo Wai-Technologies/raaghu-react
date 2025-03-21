@@ -22,23 +22,23 @@ export interface RdsTextEditorProps {
     theme?: string; //Theme for the editor.
     value?: string; //Value for the editor.
     label?: string; //Label for the editor.
-    ismandatory?: boolean; //Determines whether the label is mandatory.
+    isMandatory?: boolean; //Determines whether the label is mandatory.
     labelClass?: string; //Class for the label.
     State?:string; //State of the editor.
-    ShowTitle?: boolean; //Determines whether to show the title.
+    showTitle?: boolean; //Determines whether to show the title.
 }
  
 const RdsTextEditor = (props: RdsTextEditorProps) => {
-    const [value, setValue] = useState(props.ShowTitle ? "Enter Description" : props.value || "");
+    const [value, setValue] = useState(props.showTitle ? "Enter Description" : props.value || "");
     const [isTouch, setIsTouch] = useState(false);
  
     useEffect(() => {
-        if (props.ShowTitle && (!props.value || props.value.trim() === "")) {
+        if (props.showTitle && (!props.value || props.value.trim() === "")) {
             setValue("Enter Description");
         } else {
             setValue(props.value || "");
         }
-    }, [props.value, props.ShowTitle]);
+    }, [props.value, props.showTitle]);
  
     const handleChange = (value: string, delta: any, source: any, editor: any) => {
         setValue(value);
@@ -66,7 +66,7 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
  
     return (
         <>
-            <RdsLabel label={props.label} required={props.ismandatory} class={"mb-2 " + props.labelClass}></RdsLabel>
+            <RdsLabel label={props.label} required={props.isMandatory} class={"mb-2 " + props.labelClass}></RdsLabel>
             <ReactQuill
             theme="snow"
             bounds={props.bounds}
@@ -83,7 +83,7 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
             readOnly={props.readOnly}
             tabIndex={props.tabIndex}
             />
-            {props.ismandatory && (!value || value.trim() === "" || value === "<p><br></p>") && isTouch && (
+            {props.isMandatory && (!value || value.trim() === "" || value === "<p><br></p>") && isTouch && (
                 <div className="form-control-feedback">
                     <span className="text-danger">
                         {props.label} is required
