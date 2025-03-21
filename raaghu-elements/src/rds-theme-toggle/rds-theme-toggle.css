@@ -1,5 +1,5 @@
 /* Center the toggle switch */
-.container {
+#theme-toggle .container {
     display: flex;
     justify-content: start; /* Center horizontally */
     align-items: start; /* Center vertically */
@@ -7,7 +7,7 @@
 }
 
 /* Tooltip styles */
-.tooltip-text {
+#theme-toggle .tooltip-text {
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
@@ -16,8 +16,7 @@
     border-radius: 5px;
     position: absolute;
     top: 120%; /* Position below the switch */
-    left: 50%;
-    transform: translateX(-50%); /* Center tooltip */
+    transform: translateX(-100%); /* Center tooltip */
     opacity: 0;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     font-size: 12px;
@@ -25,7 +24,7 @@
 }
 
 /* Tooltip Arrow */
-.tooltip-text::after {
+#theme-toggle .tooltip-text::after {
     content: "";
     position: absolute;
     top: -9px; /* Position above the tooltip */
@@ -37,32 +36,32 @@
 }
 
 /* Show tooltip when hovering */
-.form-switch:hover .tooltip-text {
+#theme-toggle .form-switch:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
 }
 
 /* Style for the toggle switch */
-.form-check {
+#theme-toggle .form-check {
     display: flex;
     align-items: center;
     position: relative;
 }
 
 /* Default toggle circle color */
-.form-check-input {
+#theme-toggle .form-check-input {
     transition: background-color 0.3s ease, border-color 0.3s ease;
     position: relative;
 }
 
 /* Light mode: When unchecked */
-.form-check-input:not(:checked) {
+#theme-toggle .form-check-input:not(:checked) {
     background-color: #f0f0f0; /* Light gray */
     border-color: #ccc;
 }
 
 /* Dark mode: Replace the default circle with a proper moon */
-.form-check-input:checked {
+#theme-toggle .form-check-input:checked {
     background-color: black !important;
     border-color: #ffff !important;
     position: relative;
@@ -72,7 +71,7 @@
 
 
 /* Add stars inside the toggle in dark mode */
-.form-check-input:checked::after {
+#theme-toggle .form-check-input:checked::after {
     content: "✨";
     position: absolute;
     right: 10px;
@@ -81,10 +80,10 @@
     color: white;
 }
 
-.theme-dark .tooltip-text {
+#theme-toggle .theme-dark .tooltip-text {
     background-color: #ffff;
     color: #000;
 }
-.theme-dark .tooltip-text::after {
+#theme-toggle .theme-dark .tooltip-text::after {
     border-color: transparent transparent #fff transparent !important;
 };
