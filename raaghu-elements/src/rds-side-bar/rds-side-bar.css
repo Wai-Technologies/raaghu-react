@@ -127,3 +127,6 @@
 {
   color:#353535 !important;
 }
+.theme-dark svg {
+  stroke:none !important;
+}
