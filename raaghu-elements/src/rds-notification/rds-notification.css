@@ -139,3 +139,7 @@
 {
     color: black;;
 }
+.theme-dark .btn
+{
+    color: black !important;
+}
