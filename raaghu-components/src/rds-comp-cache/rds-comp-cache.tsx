@@ -100,7 +100,7 @@ const RdsCompCache = (props: RdsCacheProps) => {
                             <div className="icon">
                                 <button
                                     type="button"
-                                    className="btn btn-primary fixed-button"
+                                    className="btn btn-primary "
                                     data-bs-toggle="modal"
                                     data-bs-target={`#alert_popup_${element.id}`} 
                                 >
