@@ -35,7 +35,7 @@ export interface RdsTabGroupProps {
 
 // Mapping layout prop to CSS classes
 const layoutClassesForHorizontal: { [key: string]: string } = {
-  "Filled": "filled",
+  "Filled": "horizontal-filled",
   "Flap": "flap",
   "Pill": "pill",
   "Line Bottom": "line-bottom",

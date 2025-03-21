@@ -61,7 +61,8 @@
 }
 
 .type-info {
-    background-color: #f4f4f4;
+    background-color: #FFFFFF;
+    border: 1px solid #e2e3e5;
     /* border-left: 4px solid #bee5eb; */
 }
 
@@ -127,3 +128,18 @@
 .layout-horizontal {
     flex-direction: row;
 } */
+
+.theme-dark {
+   color: black !important
+}
+.theme-dark .notification-header {
+   background-color: transparent !important;
+}
+.theme-dark svg
+{
+    color: black;;
+}
+.theme-dark .btn
+{
+    color: black !important;
+}

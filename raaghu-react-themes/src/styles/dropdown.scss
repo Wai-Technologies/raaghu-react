@@ -127,11 +127,17 @@ height: 20px;
   top:30px!important;
 }
 
-.dropdown-menu.show {
+.top-nav .dropdown-menu.show {
   position: absolute; 
   inset: 0px auto auto 0px;
   margin: 0px;
   transform:translate3d(0px, 33.5px, 0px) !important; 
+}
+.dropdown-menu.show {
+  position: absolute; 
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform:translate3d(0px, 33.5px, 0px); 
 }
 
 #languageDropdownTopNavigation.dropdown-menu.show {

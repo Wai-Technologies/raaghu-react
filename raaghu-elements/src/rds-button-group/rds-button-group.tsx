@@ -66,7 +66,7 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
             {props.role == "button" && (
                 <div
                     className={`${props.vertical == true ? "btn-group-vertical" : "btn-group"
-                        } ${size}`}
+                        } ${size} hover-button`}
                     role="group"
                     aria-label="Basic outlined example"
  
@@ -108,15 +108,3 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
  
 export default RdsButtonGroup;
  
- 
-<div className="btn-group" role="group" aria-label="Basic outlined example">
-    <button type="button" className="btn btn-outline-primary">
-        Left
-    </button>
-    <button type="button" className="btn btn-outline-primary">
-        Middle
-    </button>
-    <button type="button" className="btn btn-outline-primary">
-        Right
-    </button>
-</div>

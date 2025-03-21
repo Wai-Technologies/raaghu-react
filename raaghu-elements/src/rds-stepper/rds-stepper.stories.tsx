@@ -147,9 +147,9 @@ export const NumberStepper: Story = {
         StepIconName: [
             { iconName: 'circle', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20' },
             { iconName: 'users', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'administration', iconFill: true, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'award', iconFill: false, iconStroke: false, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'bag', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20' }
+            { iconName: 'administration', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
+            { iconName: 'award', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
+            { iconName: 'bag', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' }
         ]
     },
 } satisfies Story;

@@ -68,7 +68,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         
                         <div className={`notification-title flex-grow-1 ${props.layout === "vertical" ? "" : ""}`}>
                                 <strong>{notification.title}</strong>{" "}
-                                <span className="text-muted">{notification.time}</span>
+                                <span className="text-muted ms-2">{notification.time}</span>
                             </div>
                         {/* <button
                             type="button"
@@ -78,7 +78,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         ></button> */}
                         {props.showDismissIcon && (
                             <>
-                        <RdsIcon name="close" classes="position-absolute top-0 end-0 m-1" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
+                        <RdsIcon name="close" classes="position-absolute top-0 end-0" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
                             </>
                         )}
                     </div>

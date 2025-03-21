@@ -13,9 +13,8 @@ export interface RdsMessageBoxProps {
 const RdsMessageBox = (props: RdsMessageBoxProps) => {
   return (
     <div className="message-box-container">
-      {props.isImage ? (
-        <div className="border rounded p-2">
-          <div className="d-flex align-items-center">
+        <div className="p-2">
+          <div className="d-flex">
             <RdsAvatar
               size={AvatarSize.medium}
               type="image"
@@ -32,33 +31,14 @@ const RdsMessageBox = (props: RdsMessageBoxProps) => {
               profilePic={props.avtar}
               maxVisibleAvatars={3}
             />
-            <RdsLabel class="m-2" label={props.message} />
+            <RdsLabel class="m-2 word-wrap" label={props.message} />
           </div>
-          <div className="ms-5">
+          {props.isImage &&
+          <div className="imageDiv">
             <img src={props.src} alt="image" className="responsive-image" />
           </div>
+          }
         </div>
-      ) : (
-        <div className="chat-container d-flex align-items-center border rounded p-2">
-          <RdsAvatar
-            size={AvatarSize.medium}
-            type="image"
-            style={AvatarStyle.withname}
-            activityRing={false}
-            activeDotTop={false}
-            activeDotBottom={false}
-            showName={false}
-            showNameDesignation={false}
-            firstName="Wai"
-            lastName="Technologies"
-            role="Developer"
-            colorVariant="primary"
-            profilePic={props.avtar}
-            maxVisibleAvatars={3}
-          />
-          <RdsLabel class="m-2" label={props.message} />
-        </div>
-      )}
     </div>
   );
 };

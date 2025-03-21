@@ -3,20 +3,13 @@ import RdsCompTypingSection from "./rds-comp-typing-section";
 
 
 const meta: Meta = { 
-    title: "Components/Typing Section",
+    title: "AI Pundit Chat/Typing Section",
     component: RdsCompTypingSection,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
-        selectAllType: {
-            options: [
-                "default",
-                "advanced",       
-            ],
-            control: { type: "radio" },
-        },
     }, 
 } satisfies Meta<typeof RdsCompTypingSection>;
 
@@ -25,8 +18,8 @@ type Story = StoryObj<typeof RdsCompTypingSection>;
 
 export const Default: Story = {
     args: {
-        selectAllType: "default",
         colorVariant: "#353535",
         placeholderText: "Ask me anything",
+        icon_name: "enhancer",
     }
 } satisfies Story;
