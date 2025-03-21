@@ -14,7 +14,7 @@ const RdsFeatureList = (props: RdsFeatureListProps) => {
     const columnArray = (props.columns > 0) ? Array.from(Array(Math.min(props.columns, props.itemList.length)), (_: any, index: number) => index + 1) : [1];
     const listItemInEachRow = props.itemList.length / noOfColumns < 1 ? 1 : Math.ceil(props.itemList.length / noOfColumns);
     const ExtraListElements = props.itemList.length % noOfColumns;
-    const fontStyle = props.fontStyle == "italic" ? " fst-italic fw-normal " : " fw-normal ";
+    const fontStyle = props.fontStyle == "italic" ? " fst-italic fw-normal " : " select-container ";
     const color = " text-" + props.colorVariant || "dark";
     return (
         <>
