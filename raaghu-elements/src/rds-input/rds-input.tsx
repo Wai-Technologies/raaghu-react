@@ -348,7 +348,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsIcon
                 name="information"
-                classes={`password-toggle mt-4 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
+                classes={`password-toggle  ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}
