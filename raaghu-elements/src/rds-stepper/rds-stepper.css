@@ -37,7 +37,7 @@
 }
 
 .theme-dark .bg-default {
-  background: #E9E9E9;
+  background: #bcb4b4;
   border-radius: 96px;
   color: #353535;
 }
@@ -52,4 +52,48 @@
   background: #bd0d1d;
   border-radius: 96px;
   color: #353535;
+}
+
+.theme-dark .step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-line {
+  position: absolute;
+  top: 50%;
+  right: -56%;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(211, 211, 211);
+}
+
+.bg-inprogress {
+  background: #d4bbff;
+  border-radius: 96px;
+  color: #fcfcfc;
+}
+
+.theme-dark .outline-default {
+  border: 2px solid #bcb4b4;
+  background: #353535;
+}
+
+.theme-dark .outline-inprogress {
+  background: #353535;
+  border: 2px solid #D4BBFF;
+}
+
+.theme-dark .outline-completed {
+  background: #353535;
+  border: 2px solid #7825E9;
+}
+
+.theme-dark .outline-error {
+  background: #353535;
+  border: 2px solid #BD0D1D;
 }
