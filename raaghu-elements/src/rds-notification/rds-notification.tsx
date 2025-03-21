@@ -68,7 +68,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         
                         <div className={`notification-title flex-grow-1 ${props.layout === "vertical" ? "" : ""}`}>
                                 <strong>{notification.title}</strong>{" "}
-                                <span className="text-muted">{notification.time}</span>
+                                <span className="text-muted ms-2">{notification.time}</span>
                             </div>
                         {/* <button
                             type="button"
