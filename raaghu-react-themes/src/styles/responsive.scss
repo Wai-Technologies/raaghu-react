@@ -615,6 +615,13 @@ form .form-group .select-options,
 
 @media (max-width: 600px) {
   #fab-list .dropdown-menu.show {
+      width: 292px !important;
+      height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .attachement-dropdown #fab-list .dropdown-menu.show {
       width: 270px !important;
       height: auto !important;
   }
