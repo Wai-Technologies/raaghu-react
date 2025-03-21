@@ -98,7 +98,7 @@
   width: 100%;
 }
 
-.input-with-image {
+.ai-prompt .input-with-image {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -108,12 +108,12 @@
     border: 1px solid #000;
     border-radius: var(--bs-border-radius);
 }
-.input-with-image .form-controls {
+.ai-prompt .input-with-image .form-controls {
   border: none!important;
   width: calc(100% - 2rem);
   padding-right: 2rem;
 }
-.input-with-image {
+.ai-prompt .input-with-image {
   position: relative;
   display: flex;
   align-items: flex-start;

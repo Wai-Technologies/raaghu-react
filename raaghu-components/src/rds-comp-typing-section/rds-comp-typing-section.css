@@ -1,5 +1,13 @@
 .input-with-image {
     border: 1px solid #862FFF !important;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px; /* Add gap between images */
+    justify-content: flex-end; /* Align images to the right */
+    /* border: 1px solid #000; */
+    border-radius: var(--bs-border-radius);
 }
 
 @media (max-width: 768px) {
@@ -27,4 +35,14 @@
     position: absolute;
     bottom: 10px;
     left: 10px;
+}
+
+.chat-input {
+    flex: 1 !important;
+    padding: 8px !important;
+    border-radius: 4px !important; 
+  }
+
+.type-section-border{
+    border :none !important;
 }
