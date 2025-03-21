@@ -476,7 +476,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
           </div>
           <div className="input-column">
             <div className="input-wrapper">
-              <div className="input-group ">
+              <div className="input-with-image">
                 <textarea
                   className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
                   placeholder={props.placeholderText || "Placeholder Text"}
