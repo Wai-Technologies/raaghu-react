@@ -602,11 +602,11 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                 : ""
             }`}
           >
-            <span className="fw-medium">
+            <span className="fw-medium ps-1">
               {tableHeader.displayName}
             </span>
             <div className="header-options mobile-header-option cursor-pointer ps-5">
-              <span className="px-2 d-flex ms-5">
+              <span className="ps-4 d-flex ms-5">
                 <RdsIcon
                   name="three_dots"
                   height="12px"
@@ -617,7 +617,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
               </span>
             </div>
           </div>
-          <div className="d-flex align-items-center mt-1">
+          <div className="d-flex align-items-center mt-1 ps-1 px-4">
             <input
               type="text"
               placeholder={`Filter ${tableHeader.displayName}`}
