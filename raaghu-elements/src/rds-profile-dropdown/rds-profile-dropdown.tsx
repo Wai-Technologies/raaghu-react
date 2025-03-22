@@ -42,7 +42,7 @@ const RdsProfileDropdown = (props: RdsProfileDropdownProps) => {
             </div>
             {isDropdownOpen && (
                 <div id="profile-dropdown">
-                    <ul className="dropdown-menu show">
+                    <ul className="dropdown-menu show menu-color">
                         {props.listOptions.map((option, index) => (
                             <li key={index}>{option}</li>
                         ))}

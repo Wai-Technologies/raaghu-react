@@ -39,7 +39,6 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
   return (<>
     <div className="subscriptionContainer responsiveContainer">
       <div className="closeButton" ><RdsIcon
-        colorVariant="dark"
         height="16px"
         isCursorPointer
         name="close"

@@ -19,14 +19,14 @@ const RdsPlanSwitcher = (props: RdsPlanSwitcherProps) => {
     <div className="planToggle">
       <div
         onClick={() => setIsPlanFree(true)}
-        className={`equalWidth ${isPlanFree ? "multicolorBorder" : ""}`}
+        className={`equalWidth ${isPlanFree ? "multicolorBorder" : "multicolorBorderInactive"}`}
         id="1"
       >
         {props.button1Text}
       </div>
       <div
         onClick={() => setIsPlanFree(false)}
-        className={`equalWidth ${!isPlanFree ? "premiumSelected" : ""}`}
+        className={`equalWidth ${!isPlanFree ? "premiumSelected" : "premiumSelectedInactive"}`}
         id="2"
       >
         <div className={`premiumContent ${isPlanFree ? 'free' : ''}`}>

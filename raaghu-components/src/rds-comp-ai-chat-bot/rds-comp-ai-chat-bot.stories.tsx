@@ -13,7 +13,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
  
  
 export default {
-    title: "Elements/Ai Chat Bot",
+    title: "AI Pundit Chat/Ai Chat Bot",
     component: RdsAiChatBot,
     tags: ['autodocs'],
     decorators: [

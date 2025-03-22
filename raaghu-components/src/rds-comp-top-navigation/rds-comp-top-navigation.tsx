@@ -1581,7 +1581,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             )}
           </div>
       
-          <div className="d-flex align-items-center right-side-menu">
+          <div className="d-flex align-items-center right-side-menu top-nav">
           <div
               className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
             >
@@ -1980,7 +1980,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         props.style === "Product_4") && (
 
       <div>
-        <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
+        <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
           <div
             onClick={handlerLogoClick}
             id="raaghuLogo"
@@ -2039,7 +2039,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             }
           >
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
-           <div className="position-relative px-2 px-md-3 col text-center  ">
+           <div className="position-relative px-2 px-md-3 col text-center">
               <RdsDropdownList
                 labelIconWidth="30px"
                 iconFill={true}

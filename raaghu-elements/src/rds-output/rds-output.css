@@ -1,0 +1,60 @@
+.planToggleOutPut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 5px;
+    margin: 10px auto;
+    width: 90%; /* Use a percentage to make the width relative to the parent container */
+    max-width: 310px; /* Set a maximum width to prevent excessive stretching on larger screens */
+    background: #ffff;
+    border: 2px solid #dcddde;
+    transition: all 0.3s ease-in-out;
+}
+
+.equalWidthOutPut {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    /* transition: all 0.3s ease-in-out; */
+    gap: 7px; /* Adds space between buttons */
+}
+
+/* Active Button - Selected */
+.activeButton {
+    position: relative;
+    /* color: #777; */
+    color:black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: white;
+    z-index: 1;
+}
+
+.activeButton::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* Covers full button */
+    padding: 1px; /* Border thickness */
+    border-radius: 8px;
+    background: linear-gradient(to right, #6269FD, #1FD9FA, #5481FC, #862FFF);
+    -webkit-mask: 
+        linear-gradient(white 0 0) content-box, 
+        linear-gradient(white 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+}
+
+ .theme-dark .planToggleOutPut {
+    background-color: black;
+}
+.theme-light .planToggleOutPut {
+    background-color: #ffffff;
+}

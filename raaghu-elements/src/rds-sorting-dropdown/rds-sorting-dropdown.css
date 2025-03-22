@@ -17,3 +17,12 @@
 .dropdown-menu li:hover {
     background-color: #f0f0f0;
 }
+
+.theme-dark .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+    color:black
+}
+
+.theme-dark .sorting-text {
+    color: #dee2e6 !important;
+}
