@@ -3,7 +3,7 @@ import RdsCompTypingSection from "./rds-comp-typing-section";
 
 
 const meta: Meta = { 
-    title: "Components/Typing Section",
+    title: "AI Pundit Chat/Typing Section",
     component: RdsCompTypingSection,
     parameters: {
         layout: 'padded',
