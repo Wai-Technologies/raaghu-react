@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsCommunityFileWidget from "./rds-community-file-widget";
 
 const meta: Meta =  {
-  title: "AI Pundit Chat/Community File Widget",
+  title: "Components/Automate/Community File Widget",
   component: RdsCommunityFileWidget,
   tags: ['autodocs'],
   argTypes: {
