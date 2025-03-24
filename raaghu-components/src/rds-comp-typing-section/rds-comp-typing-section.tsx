@@ -82,7 +82,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     };
 
     return (
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column typing-section">
             <div className="input-wrapper">
                 <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
                     {showEnhancer &&

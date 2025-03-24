@@ -81,7 +81,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                 logoUrl={aiLogoUrl}
                 title="New Chat Started"
             />
-            <div className="chat-messages" style={{ paddingBottom: "80px", height: "70vh" }}>
+            <div className="chat-messages" style={{ flex: 1, overflowY: "auto" }}>
                 {messages.map((message) => (
                     <div
                         key={message.id}
@@ -96,7 +96,7 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
                     </div>
                 ))}
             </div>
-            <div className="chat-input-wrapper" style={{ position: "fixed", bottom: 10, width: "100%", padding: "10px", marginLeft: "-10px" }}>
+            <div className="chat-input-wrapper" style={{ position: "fixed", bottom: "-17px", width: "100%", padding: "10px", marginLeft: "-10px" }}>
                 <div className="chat-input">
                     <RdsCompTypingSection
                         colorVariant="#353535"
