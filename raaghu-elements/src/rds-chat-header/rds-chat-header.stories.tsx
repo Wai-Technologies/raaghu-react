@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsChatHeader from "./rds-chat-header";
 
 const meta: Meta = {
-    title: "Elements/Chat Header",
+    title: "AI Pundit Chat/Chat Header",
     component: RdsChatHeader,
     argTypes: {},
     parameters: {
