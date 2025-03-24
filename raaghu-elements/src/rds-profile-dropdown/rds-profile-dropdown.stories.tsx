@@ -3,7 +3,7 @@ import RdsProfileDropdown from "./rds-profile-dropdown";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'AI Pundit Chat/Profile Dropdown',
+    title: 'Components/Automate/Profile Dropdown',
     component: RdsProfileDropdown,
     parameters: {
         layout: 'padded',
