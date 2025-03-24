@@ -3,7 +3,7 @@ svg.text-dark{
     width: 32px;
 }
 
-#fab-list .dropdown-menu.show {
+.attachement-dropdown #fab-list .dropdown-menu.show {
     inset: 10px auto auto 15px !important;
 }
 

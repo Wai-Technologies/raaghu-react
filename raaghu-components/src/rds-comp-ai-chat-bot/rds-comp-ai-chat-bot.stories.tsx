@@ -11,7 +11,7 @@ import i18n from 'i18next';
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
-    title: "Component/Ai Chat Bot",
+    title: "AI Pundit Chat/Ai Chat Bot",
     component: RdsAiChatBot,
     tags: ['autodocs'],
     decorators: [

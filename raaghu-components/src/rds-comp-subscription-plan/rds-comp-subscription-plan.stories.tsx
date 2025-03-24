@@ -5,7 +5,7 @@ import i18n from 'i18next';
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
-    title: "Elements/Subscription Plan",
+    title: "AI Pundit Chat/Subscription Plan",
     component: RdsCompSubscriptionPlan,
     tags: ['autodocs'],
     decorators: [

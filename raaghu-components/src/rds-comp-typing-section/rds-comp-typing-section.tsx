@@ -104,8 +104,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     )}
                     <textarea
-                        className={`form-controls input-box text-${colorVariant} border-${colorVariant} mt-3`}
-                        placeholder={placeholderText || "Placeholder Text"}
+                        className={`form-controls input-box-typing-section  type-section-border text-${props.colorVariant} border-${props.colorVariant} mt-2`}
+                        placeholder={props.placeholderText || "Placeholder Text"}
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         title="Enter your prompt here"
