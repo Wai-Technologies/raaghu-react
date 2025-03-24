@@ -64,7 +64,7 @@ const RdsCompCache = (props: RdsCacheProps) => {
                 <div>
                     <div>
                         {pagecache.map((element: any, i) => (
-                            <div key={i} className="contentbox border-bottom">
+                            <div key={i} className=" border-bottom">
                                 <div>{element.name}</div>
                                 <div className="icon">
                                     <RdsIcon
@@ -95,12 +95,12 @@ const RdsCompCache = (props: RdsCacheProps) => {
             ) : (
                 <div>
                     {cache.map((element: any, i) => (
-                        <div key={i} className="contentbox border-bottom">
-                            <div>{element.name}</div>
-                            <div className="icon">
+                         <div key={i} className="contentbox row align-items-center border-bottom">
+                            <div className="col-8">{element.name}</div>
+                            <div className="icon col-4">
                                 <button
                                     type="button"
-                                    className="btn btn-primary "
+                                    className="btn btn-primary fixed-button"
                                     data-bs-toggle="modal"
                                     data-bs-target={`#alert_popup_${element.id}`} 
                                 >
