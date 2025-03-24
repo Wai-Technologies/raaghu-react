@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsGradientTextWithIcon from "./rds-gradient-text-with-icon";
  
 const meta: Meta = {
-    title: "AI Pundit Chat/Gradient Text With Icon",
+    title: "Components/Automate/Gradient Text With Icon",
     component: RdsGradientTextWithIcon,
     argTypes: {
        

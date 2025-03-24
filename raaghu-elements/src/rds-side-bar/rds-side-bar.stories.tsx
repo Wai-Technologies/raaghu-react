@@ -3,7 +3,7 @@ import RdsSidebar from "./rds-side-bar";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'AI Pundit Chat/Side Bar',
+    title: 'Components/Automate/Side Bar',
     component: RdsSidebar,
     parameters: {
         layout: 'padded',
