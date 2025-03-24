@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsRadarChart>;
 
 export const RadarSpiderMeshChart: Story = {
     args: {
-        id: "Radar Chart",
+        id: "Radar_Chart",
         labels: [
             "Jan",
             "Feb",
