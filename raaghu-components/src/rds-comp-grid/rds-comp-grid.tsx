@@ -169,7 +169,10 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
       setData(listCopy);
     }
   };
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => {
     const value = e.target.value.toLowerCase();
     const filteredData = props.tableData.filter((item) =>
       item[key]?.toString().toLowerCase().includes(value)
@@ -412,270 +415,275 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                 className={`table table-hover table-bordered     ${Classes} `}
                 id="sortTable"
               >
+                <thead className="text-nowrap">
+                  {props.showHeader && (
+                    <tr>
+                      <th
+                        colSpan={
+                          props.tableHeaders.length + (props.actions ? 1 : 0)
+                        }
+                      >
+                        <div className="d-flex align-items-center">
+                          <div className="me">
+                            <RdsSearch
+                              iconPosition="right"
+                              labelPosition="top"
+                              placeholder="Search"
+                              size="small"
+                              onChange={handleSearchChange} // Add this line
+                            />
+                          </div>
+                          <div className="mx-2">
+                            <RdsButton
+                              class="buttonWidth color"
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="plus"
+                              label="Add New"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                            />
+                          </div>
+                          <div className="mx-1">
+                            <RdsButton
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="persons"
+                              label="Persons"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                              textCase="unset"
+                            />
+                          </div>
+                          <div className="mx-1">
+                            <RdsButton
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="filters"
+                              label="Filters"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                            />
+                          </div>
+                          <div className="mx-1">
+                            <RdsButton
+                              class="stroke"
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="sort"
+                              label="Sort"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                            />
+                          </div>
+                          <div className="mx-1">
+                            <RdsButton
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="hide"
+                              label="Hide"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                            />
+                          </div>
+                          <div className="mx-1">
+                            <RdsButton
+                              badgeLayout="Text_only"
+                              badgeState="default"
+                              databstoggle="tooltip"
+                              displayType="Icon + Text"
+                              icon="more"
+                              label="More"
+                              shape="rectangle"
+                              size="medium"
+                              state="default"
+                              style="transparent"
+                            />
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  )}
+                  {props.showSubHeader && (
+                    <tr>
+                      <th
+                        colSpan={
+                          props.tableHeaders.length + (props.actions ? 1 : 0)
+                        }
+                      >
+                        <div className="d-flex">
+                          <RdsLabel fontWeight="bolder" label="Title" />
+                          <div className="ms-3" style={{ gap: "10px" }}>
+                            <RdsIcon
+                              classes="stroke"
+                              name="three_dotshorizontal"
+                              height="12px"
+                              width="auto"
+                              stroke={true}
+                              isCursorPointer={true}
+                            />
+                          </div>
+                          <div className="ms-5">
+                            <RdsIcon
+                              classes="ms-2"
+                              name="chevron_down"
+                              height="8px"
+                              width="auto"
+                              stroke={true}
+                              isCursorPointer={true}
+                              onClick={toggleCollapse}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  )}
+                  <tr className="align-middle ">
+                    <th className="text-center fw-medium">
+                      <RdsIcon
+                        name=""
+                        height="16px"
+                        width="16px"
+                        fill={false}
+                        isCursorPointer={true}
+                      />
+                    </th>
+                    <th className="text-center fw-medium">
+                      <RdsIcon
+                        name=""
+                        height="16px"
+                        width="16px"
+                        fill={false}
+                        isCursorPointer={true}
+                      />
+                    </th>
+                    {actionPosition != true &&
+                      props.tableHeaders &&
+                      props.tableHeaders?.length > 0 &&
+                      props.actions &&
+                      props.actions?.length > 0 && (
+                        <th className="text-center fw-medium actionWidth">
+                          Actions
+                        </th>
+                      )}
+                    {props.isSwap && <th></th>}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                        <label className="fw-medium ms-2">Text</label>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                        <label className="fw-medium">Text</label>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                        <label className="fw-medium">Text</label>
+                      </th>
+                    )}
+                    {props?.tableHeaders?.map((tableHeader, index) => (
+                      <th scope="col" key={"tableHeader-" + index}>
+                        <div
+                          className={`align-items-center d-flex ${
+                            tableHeader.datatype === "iconAvatarTitle"
+                              ? "justify-content-center"
+                              : ""
+                          }`}
+                        >
+                          <span className="fw-medium ps-1">
+                            {tableHeader.displayName}
+                          </span>
+                          <div className="header-options mobile-header-option cursor-pointer ps-5">
+                            <span className="ps-2 d-flex ms-3">
+                              <RdsIcon
+                                name="three_dots"
+                                height="12px"
+                                width="auto"
+                                stroke={true}
+                                isCursorPointer={true}
+                              />
+                            </span>
+                          </div>
+                        </div>
+                        <div className="d-flex align-items-center mt-1 ps-1 px-4">
+                          <RdsSelectList
+                            color="primary"
+                            id="story"
+                            isMultiple
+                            isSearchable
+                            label=""
+                            onChange={function Xs() {}}
+                            placeholder="filter..."
+                            selectItems={[
+                              {
+                                option: "Select All",
+                                value: "Select All",
+                              },
+                              {
+                                option: "One",
+                                value: "one",
+                              },
+                              {
+                                option: "two",
+                                value: "two",
+                              },
+                              {
+                                option: "three",
+                                value: "three",
+                              },
+                              {
+                                option: "four",
+                                value: "four",
+                              },
+                            ]}
+                            showLabel
+                          />
+                          <span className="ms-2">
+                            <RdsIcon
+                              name="filter"
+                              height="12px"
+                              width="30px"
+                              stroke={true}
+                              isCursorPointer={true}
+                            />
+                          </span>
+                        </div>
+                      </th>
+                    ))}
+                    {actionPosition &&
+                      props.tableHeaders &&
+                      props.tableHeaders?.length > 0 &&
+                      props.actions &&
+                      props.actions?.length > 0 && (
+                        <th className="text-center fw-medium actionWidth">
+                          Actions
+                        </th>
+                      )}
+                  </tr>
+                </thead>
 
-<thead className="text-nowrap"> 
-  {props.showHeader && ( 
-    <tr>
-      <th colSpan={props.tableHeaders.length + (props.actions ? 1 : 0)}>
-        <div className="d-flex align-items-center">
-          <div className="me">
-            <RdsSearch
-              iconPosition="right"
-              labelPosition="top"
-              placeholder="Search"
-              size="small"
-              onChange={handleSearchChange} // Add this line
-            />
-          </div>
-          <div className="mx-2">
-            <RdsButton
-              class="buttonWidth color"
-              badgeLayout="Text_only"
-              badgeState="default"           
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="plus"
-              label="Add New"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-            />
-          </div>
-          <div className="mx-1">
-            <RdsButton
-              badgeLayout="Text_only"
-              badgeState="default"           
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="persons"
-              label="Persons"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-              textCase="unset"
-            />
-          </div>
-          <div className="mx-1">
-            <RdsButton
-              badgeLayout="Text_only"
-              badgeState="default"           
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="filters"
-              label="Filters"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-            />
-          </div>
-          <div className="mx-1">
-            <RdsButton class="stroke"
-              badgeLayout="Text_only"
-              badgeState="default"      
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="sort"
-              label="Sort"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-            />
-          </div>
-          <div className="mx-1">
-            <RdsButton
-              badgeLayout="Text_only"
-              badgeState="default"            
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="hide"
-              label="Hide"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-            />
-          </div>
-          <div className="mx-1">
-            <RdsButton
-              badgeLayout="Text_only"
-              badgeState="default"            
-              databstoggle="tooltip"
-              displayType="Icon + Text"
-              icon="more"
-              label="More"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="transparent"
-            />
-          </div>
-        </div>
-      </th>
-    </tr>
-    )}
-    {props.showSubHeader && (
-      <tr>
-        <th colSpan={props.tableHeaders.length + (props.actions ? 1 : 0)}>
-          <div className="d-flex">
-            <RdsLabel
-              fontWeight="bolder"
-              label="Title"
-            />
-            <div className="ms-3" style={{ gap: '10px' }}>
-              <RdsIcon
-                classes="stroke"
-                name="three_dotshorizontal"
-                height="12px"
-                width="auto"
-                stroke={true}
-                isCursorPointer={true}
-              />
-            </div>
-            <div className="ms-5">
-              <RdsIcon
-                classes="ms-2"
-                name="chevron_down"
-                height="8px"
-                width="auto"
-                stroke={true}
-                isCursorPointer={true}
-                onClick={toggleCollapse}
-              />
-            </div>     
-          </div>
-        </th>
-      </tr>
-    )}
-    <tr className="align-middle ">
-      <th className="text-center fw-medium">
-        <RdsIcon
-          name=""
-          height="16px"
-          width="16px"        
-          fill={false}
-          isCursorPointer={true}
-        />
-      </th>
-      <th className="text-center fw-medium">
-        <RdsIcon
-          name=""
-          height="16px"
-          width="16px"        
-          fill={false}
-          isCursorPointer={true}
-        />
-      </th>
-      {actionPosition != true &&
-        props.tableHeaders &&
-        props.tableHeaders?.length > 0 &&
-        props.actions &&
-        props.actions?.length > 0 && (
-          <th className="text-center fw-medium actionWidth">
-            Actions
-          </th>
-        )}
-      {props.isSwap && <th></th>}
-      {props.enablecheckboxselection && (
-        <th scope="col">
-          <label className="fw-medium ms-2">Text</label>
-        </th>
-      )}
-      {props.enablecheckboxselection && (
-        <th scope="col">
-          <label className="fw-medium">Text</label>
-        </th>
-      )}
-      {props.enablecheckboxselection && (
-        <th scope="col">
-          <label className="fw-medium">Text</label>
-        </th>
-      )}
-      {props?.tableHeaders?.map((tableHeader, index) => (
-        <th scope="col" key={"tableHeader-" + index}>
-          <div
-            className={`align-items-center d-flex ${
-              tableHeader.datatype === "iconAvatarTitle"
-                ? "justify-content-center"
-                : ""
-            }`}
-          >
-            <span className="fw-medium ps-1">
-              {tableHeader.displayName}
-            </span>
-            <div className="header-options mobile-header-option cursor-pointer ps-5">
-              <span className="ps-2 d-flex ms-3">
-                <RdsIcon
-                  name="three_dots"
-                  height="12px"
-                  width="auto"
-                  stroke={true}
-                  isCursorPointer={true}
-                />
-              </span>
-            </div>
-          </div>
-          <div className="d-flex align-items-center mt-1 ps-1 px-4">
-          <RdsSelectList
-  color="primary"
-  id="story"
-  isMultiple
-  isSearchable
-  label=""
-  onChange={function Xs(){}}
-  placeholder="filter....."
-  selectItems={[
-    {
-      option: 'Select All',
-      value: 'Select All'
-    },
-    {
-      option: 'One',
-      value: 'one'
-    },
-    {
-      option: 'two',
-      value: 'two'
-    },
-    {
-      option: 'three',
-      value: 'three'
-    },
-    {
-      option: 'four',
-      value: 'four'
-    }
-  ]}
-  showLabel
-/>
-            <span className="ms-2">
-              <RdsIcon
-                name="filter"
-                height="12px"
-                width="30px"
-                stroke={true}
-                isCursorPointer={true}
-              />
-            </span>
-          </div>
-        </th>
-      ))}
-      {actionPosition &&
-        props.tableHeaders &&
-        props.tableHeaders?.length > 0 &&
-        props.actions &&
-        props.actions?.length > 0 && (
-          <th className="text-center fw-medium actionWidth">
-            Actions
-          </th>
-        )}
-    </tr>
-  </thead>
-
-<tbody>
+                <tbody>
                   {Array.isArray(data) &&
                     data?.map((tableDataRow, index) => {
                       const totalActions =
@@ -717,23 +725,23 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                             key={"tableRow-" + index}
                           >
                             <td className="text-center align-middle">
-              <RdsIcon
-                name="shuffle"
-                height="16px"
-                width="16px"               
-                fill={false}
-                isCursorPointer={true}
-              />
-            </td>            
-            <td className="text-center align-middle">
-              <RdsIcon
-                name="three_dotshorizontal"
-                height="16px"
-                width="16px"                
-                fill={false}
-                isCursorPointer={true}
-              />
-            </td>
+                              <RdsIcon
+                                name="shuffle"
+                                height="16px"
+                                width="16px"
+                                fill={false}
+                                isCursorPointer={true}
+                              />
+                            </td>
+                            <td className="text-center align-middle">
+                              <RdsIcon
+                                name="three_dotshorizontal"
+                                height="16px"
+                                width="16px"
+                                fill={false}
+                                isCursorPointer={true}
+                              />
+                            </td>
                             {actionPosition != true &&
                               totalActions &&
                               totalActions?.length > 1 && (
@@ -970,7 +978,9 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
+                                        tooltipPlacement={
+                                          TooltipStyle.MiddleBottomArrow
+                                        }
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
@@ -1100,7 +1110,6 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                 />
                               </th>
                             )}
-
 
                             {props.tableHeaders?.map(
                               (tableHeader, tableHeaderIndex) => (
@@ -1302,22 +1311,23 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                       )}
                                       {tableHeader.datatype ===
                                         "progressbar" && (
-                                          <div>
+                                        <div>
                                           <RdsProgressBar
                                             colorVariant="primary"
-
                                             height={4}
                                             progressValues={[]}
                                             progressWidth={70}
                                             role="single"
-                                            striped steps={0} completedSteps={0}                                        />
-                                        <span>
+                                            striped
+                                            steps={0}
+                                            completedSteps={0}
+                                          />
+                                          <span>
                                             {tableDataRow[tableHeader.key]}
                                           </span>
-
                                         </div>
                                       )}
-                                      
+
                                       {tableHeader.datatype === "button" &&
                                         tableHeader.key === "delete" && (
                                           <div className="d-flex justify-content-center">
@@ -1385,8 +1395,12 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                         tableDataRow[tableHeader.key] !==
                                           null && (
                                           <RdsTooltip
-                                            label={tableDataRow[tableHeader.key]}
-                                            style={TooltipStyle.MiddleBottomArrow}
+                                            label={
+                                              tableDataRow[tableHeader.key]
+                                            }
+                                            style={
+                                              TooltipStyle.MiddleBottomArrow
+                                            }
                                           >
                                             <span className="d-inline-block">
                                               {tableDataRow[
@@ -1657,7 +1671,9 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
+                                        tooltipPlacement={
+                                          TooltipStyle.MiddleBottomArrow
+                                        }
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
@@ -1773,7 +1789,6 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
   );
 };
 export default RdsCompGrid;
-
 
 // import React, { useEffect, useRef, useState } from "react";
 // import { DndProvider, DragSourceMonitor, useDrag, useDrop } from "react-dnd";
@@ -1975,7 +1990,7 @@ export default RdsCompGrid;
 //     <th
 //       className={`text-nowrap ${isDragging ? 'dragging' : 'not-dragging'} ${column.fixed ? "fixed-auto" : ""} ${column.frozen ? "frozen-auto" : ""}`}
 //       ref={refheader}
-      
+
 //     >
 //       <div className="d-flex justify-content-start align-items-center full-width">
 //         <span>{column.displayName}</span>
@@ -1990,7 +2005,7 @@ export default RdsCompGrid;
 //         )}
 //         {gridType === "advance" && ( <>
 //         <button onClick={() => onToggleFixed(column.key)} className="btn btn-sm btn-icon ms-1">
-          
+
 //           <RdsIcon
 //             name={column.fixed ? "fixed_unlock" : "fixed_lock"}
 //             width="20px"
@@ -2151,7 +2166,7 @@ export default RdsCompGrid;
 //   };
 
 //   const onLeftPin = (key: string) => {
-//     if(!leftPinColumn.includes(key)){ 
+//     if(!leftPinColumn.includes(key)){
 //       const currentKeyIndex = columns.findIndex(item => item['key'] == key);
 //       moveColumn(currentKeyIndex, leftPinColumn.length);
 //       setRightPinColumn(rightPinColumn.filter(element => element !== key));
@@ -2160,7 +2175,7 @@ export default RdsCompGrid;
 //   }
 
 //   const onRightPin = (key: string) => {
-//     if(!rightPinColumn.includes(key)){ 
+//     if(!rightPinColumn.includes(key)){
 //       const currentKeyIndex = columns.findIndex(item => item['key'] == key);
 //       moveColumn(currentKeyIndex, columns.length - 1);
 //       setLeftPinColumn(leftPinColumn.filter(element => element !== key));
@@ -2329,7 +2344,6 @@ export default RdsCompGrid;
 //     endingRow: props.recordsPerPage,
 //   });
 
-  
 //   const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
 //     props.onPaginationHandler &&
 //       props.onPaginationHandler(currentPage, recordsPerPage);
@@ -2606,7 +2620,7 @@ export default RdsCompGrid;
 //                     moveColumn={moveColumn}
 //                     onLeftPin={onLeftPin}
 //                     onRightPin={onRightPin}
-//                     onNoPin={onNoPin} 
+//                     onNoPin={onNoPin}
 //                     onSearchChange={handleSearchChange}
 //                     onFilterClick={handleFilterClick}
 //                     onSortClick={handleSortClick}
@@ -2899,7 +2913,7 @@ export default RdsCompGrid;
 //             name="collapsable"
 //             stroke
 //             width="20px"
-          
+
 //           /> </td>
 
 //                 {actionPosition != true&&
