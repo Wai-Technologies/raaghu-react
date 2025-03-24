@@ -1746,7 +1746,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                 <RdsIcon
                   colorVariant="dark"
                   isCursorPointer
-                  name="pluss"
+                  name="with_border_plus"
                 />
               </div>
             </div>
