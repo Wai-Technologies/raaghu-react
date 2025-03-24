@@ -24,3 +24,10 @@
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
 }
+
+.theme-dark .btn.btn-transparent-primary,
+.theme-dark .btn.btn-outline-primary {
+  background: #1c1d20;
+  color: #ffffff !important;
+  border: 1px solid #7825e9;
+}
