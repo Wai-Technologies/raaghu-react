@@ -258,7 +258,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       placeholder="Type comment..."
       name="Comment"
       onChange={(e) => setCommentText(e.target.value)}
-      showIcon={true} 
+      showIcon={false} 
     />
     <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-3">
       <RdsIcon

@@ -32,7 +32,7 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
 
     return (
         <Fragment>
-            <div className="d-flex justify-content-start">
+            <div className="d-flex justify-content-start mt-2">
                 <div>
                     <RdsIcon
                         name="like"
