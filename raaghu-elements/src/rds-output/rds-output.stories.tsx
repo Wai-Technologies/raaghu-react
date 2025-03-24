@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsOutput, { RdsOutputButtonType } from "./rds-output";
 
 const meta: Meta =  {
-  title: "AI Pundit Chat/Output",
+  title: "Components/Automate/Output",
   component: RdsOutput,
   tags: ['autodocs'],
   argTypes: {
