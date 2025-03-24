@@ -10,6 +10,10 @@
     border-radius: var(--bs-border-radius);
 }
 
+.attachement-web {
+    margin-top: -5px;
+}
+
 @media (max-width: 768px) {
     .input-with-image {
         padding-right: 52px;
@@ -28,7 +32,7 @@
 #left-bottom-corner {
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    left: -10px;
 }
 
 .preview-image-container {

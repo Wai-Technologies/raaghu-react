@@ -111,7 +111,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         title="Enter your prompt here"
                     />
                     <div className={`d-flex ${isMobile ? 'flex-column align-items-center' : 'gap-3 mt-3 mr-3 me-2'}`}>
-                        {!isMobile && <RdsAttachement
+                        {!isMobile &&<div className="attachement-web">
+                            <RdsAttachement
                             badgeColor="success"
                             badgeLabel="Premium"
                             handleAddComment={handleAddComment}
@@ -124,7 +125,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             onFigmaSubmit={handleFigmaSubmit}
                             showBadge
                             uploadText="Upload From Figma"
-                        />}
+                        />
+                        </div> }
                         {!isMobile && (
                             <>
                                 <RdsIcon
