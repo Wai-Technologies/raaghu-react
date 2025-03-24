@@ -11,6 +11,7 @@ import {
   RdsProgressBar,
   RdsSearch,
   RdsLabel,
+  RdsSelectList,
 } from "../rds-elements";
 import "./rds-comp-grid.css";
 import { useTranslation } from "react-i18next";
@@ -434,7 +435,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
               databstoggle="tooltip"
               displayType="Icon + Text"
               icon="plus"
-              label="Click Here"
+              label="Add New"
               shape="rectangle"
               size="medium"
               state="default"
@@ -521,7 +522,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
         <th colSpan={props.tableHeaders.length + (props.actions ? 1 : 0)}>
           <div className="d-flex">
             <RdsLabel
-              fontWeight="bold"
+              fontWeight="bolder"
               label="Title"
             />
             <div className="ms-3" style={{ gap: '10px' }}>
@@ -606,7 +607,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
               {tableHeader.displayName}
             </span>
             <div className="header-options mobile-header-option cursor-pointer ps-5">
-              <span className="ps-4 d-flex ms-5">
+              <span className="ps-2 d-flex ms-3">
                 <RdsIcon
                   name="three_dots"
                   height="12px"
@@ -618,12 +619,38 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
             </div>
           </div>
           <div className="d-flex align-items-center mt-1 ps-1 px-4">
-            <input
-              type="text"
-              placeholder={`Filter ${tableHeader.displayName}`}
-              onChange={(e) => handleFilterChange(e, tableHeader.key)}
-              className="form-control"
-            />
+          <RdsSelectList
+  color="primary"
+  id="story"
+  isMultiple
+  isSearchable
+  label=""
+  onChange={function Xs(){}}
+  placeholder="filter....."
+  selectItems={[
+    {
+      option: 'Select All',
+      value: 'Select All'
+    },
+    {
+      option: 'One',
+      value: 'one'
+    },
+    {
+      option: 'two',
+      value: 'two'
+    },
+    {
+      option: 'three',
+      value: 'three'
+    },
+    {
+      option: 'four',
+      value: 'four'
+    }
+  ]}
+  showLabel
+/>
             <span className="ms-2">
               <RdsIcon
                 name="filter"
@@ -1715,6 +1742,13 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                     })}
                 </tbody>
               </table>
+              <div className="ps-3 ms-1">
+                <RdsIcon
+                  colorVariant="dark"
+                  isCursorPointer
+                  name="pluss"
+                />
+              </div>
             </div>
           </div>
           {props.pagination && (
