@@ -19,6 +19,16 @@ import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
+export enum ActionPosition {
+  Right = "right",
+  Left = "left",
+}
+
+export enum ActionColumnStyle {
+  ShowDots = "show dots",
+  ShowButtonsDirectly = "show buttons directly",
+}
+
 export interface RdsCompGridCombinedProps {
   fontWeight?: string;
   enablecheckboxselection?: boolean;
@@ -62,15 +72,15 @@ export interface RdsCompGridCombinedProps {
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
   onRowClick?: (rowId: any) => void;
-  actionPosition?: "right" | "left";
+  actionPosition?: ActionPosition;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   totalRecords?: any;
-  actionColumnStyle?: "show dots" | "show buttons directly";
+  actionColumnStyle?: ActionColumnStyle;
   showSubHeader?: boolean;
   showHeader?: boolean;
   showAddNewColumn?: boolean;
   state?: string;
-  collapsed?: boolean; // Add this line
+  collapsed?: boolean;
 }
 
 const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
@@ -81,11 +91,26 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeDropdownId, setActiveDropdownId] = useState(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
-  const actionColumnStyle = props.actionColumnStyle || "show dots";
+  const actionColumnStyle =
+    props.actionColumnStyle || ActionColumnStyle.ShowDots;
   const [isCollapsed, setIsCollapsed] = useState(props.collapsed || false); // Modify this line
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  const selectItemsArray = [
+    {
+      option: "(Select All)",
+      value: "(Select All)",
+    },
+    {
+      option: "One",
+      value: "one",
+    },
+    {
+      option: "two",
+      value: "two",
+    },
+  ];
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
     endingRow: props.recordsPerPage,
@@ -635,29 +660,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                             label=""
                             onChange={function Xs() {}}
                             placeholder="filter..."
-                            selectItems={[
-                              {
-                                option: "Select All",
-                                value: "Select All",
-                              },
-                              {
-                                option: "One",
-                                value: "one",
-                              },
-                              {
-                                option: "two",
-                                value: "two",
-                              },
-                              {
-                                option: "three",
-                                value: "three",
-                              },
-                              {
-                                option: "four",
-                                value: "four",
-                              },
-                            ]}
-                            showLabel
+                            selectItems={selectItemsArray}
                           />
                           <span className="ms-2">
                             <RdsIcon
