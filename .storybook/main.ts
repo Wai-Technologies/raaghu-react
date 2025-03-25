@@ -18,6 +18,7 @@ const config: StorybookConfig = {
     // "@storybook/addon-themes",
     "@storybook/addon-mdx-gfm",
     "@chromatic-com/storybook",
+    "storybook-addons"
   ],
   managerHead: (headHtmlContent) => {
     const style = `
