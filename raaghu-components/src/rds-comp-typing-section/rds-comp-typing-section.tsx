@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { RdsInput, RdsIcon, RdsButton } from "../rds-elements";
-import { LabelPosition, InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { RdsInput, RdsIcon, RdsButton, RdsAttachement } from "../rds-elements";
 import './rds-comp-typing-section.css';
+import { Comment as AttachmentComment } from "../../../raaghu-elements/src/rds-attachement/rds-attachement";
 
 export interface RdsTypingAltProps {
     colorVariant?: string;
     placeholderText?: string;
     icon_name: string;
-    onSend?: (inputText: string) => void;
+    onSend?: (inputText: string, image?: string) => void;
+    onAddComment?: (comment: AttachmentComment) => void;
+    previewImage?: string;
 }
 
 declare global {
@@ -17,10 +19,13 @@ declare global {
 }
 
 const RdsCompTypingSection = (props: RdsTypingAltProps) => {
+    const { colorVariant, placeholderText, icon_name, onSend, onAddComment, previewImage } = props;
     const [inputText, setInputText] = useState<string>("");
     const [prevInputText, setPrevInputText] = useState<string>("");
     const [showEnhancer, setShowEnhancer] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [attachmentComment, setAttachmentComment] = useState<AttachmentComment | null>(null);
+    const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -34,12 +39,9 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     }, []);
 
     const handleEnhancerClick = () => {
-        console.log("Enhancer icon clicked");
         setInputText(prevInputText);
-    };
-
-    const handleAttachmentClick = () => {
-        console.log("Attachment icon clicked");
+        setEnhancedImage(attachmentComment?.image || null);
+        setShowEnhancer(false);
     };
 
     const handleMicClick = () => {
@@ -60,33 +62,33 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
         recognition.onresult = (event: any) => {
             const transcript = event.results[0][0].transcript;
             setInputText(transcript);
-            console.log("Speech recognition result: ", transcript);
-        };
-
-        recognition.onerror = (event: any) => {
-            console.log("Speech recognition error: ", event.error);
-        };
-
-        recognition.onend = () => {
-            console.log("Speech recognition ended");
         };
 
         recognition.start();
     };
 
-    const handleProject = () => {
-        console.log("Project Button clicked");
-    };
-
     const handleSent = () => {
         setPrevInputText(inputText);
-        props.onSend && props.onSend(inputText);
+        onSend && onSend(inputText, enhancedImage || previewImage);
         setInputText("");
+        setEnhancedImage(null);
         setShowEnhancer(true);
     };
 
-    return (<>
-        <div className="d-flex flex-column">
+    const handleProjectClick = () => {
+    };
+
+    const handleAddComment = (comment: AttachmentComment) => {
+        setAttachmentComment(comment);
+        onAddComment && onAddComment(comment);
+    };
+
+    const handleFigmaSubmit = (value: string) => {
+        onAddComment && onAddComment({ image: value } as AttachmentComment);
+    };
+
+    return (
+        <div className="d-flex flex-column typing-section">
             <div className="input-wrapper">
                 <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
                     {showEnhancer &&
@@ -95,13 +97,18 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 colorVariant="primary"
                                 height="40px"
                                 isCursorPointer
-                                name={props.icon_name}
+                                name={icon_name}
                                 stroke
                                 width="40px"
                                 onClick={handleEnhancerClick}
                             />
                         </span>
                     }
+                    {(previewImage || enhancedImage) && (
+                        <div className="preview-image-container">
+                            <img src={previewImage || enhancedImage || ''} alt="Preview" className="preview-image" />
+                        </div>
+                    )}
                     <textarea
                         className={`form-controls input-box-typing-section  type-section-border text-${props.colorVariant} border-${props.colorVariant} mt-2`}
                         placeholder={props.placeholderText || "Placeholder Text"}
@@ -110,15 +117,22 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         title="Enter your prompt here"
                     />
                     <div className={`d-flex ${isMobile ? 'flex-column align-items-center' : 'gap-3 mt-3 mr-3 me-2'}`}>
-                        {!isMobile && <RdsIcon
-                            colorVariant="primary"
-                            height="20px"
-                            isCursorPointer
-                            name="attachment_new"
-                            stroke
-                            width="20px"
-                            onClick={handleAttachmentClick}
-                        />}
+                    {!isMobile &&<div className="attachement-web">
+                            <RdsAttachement
+                            badgeColor="success"
+                            badgeLabel="Premium"
+                            handleAddComment={handleAddComment}
+                            hintText="Hint Text"
+                            importText="Import From This Device"
+                            inputPlaceholder="Enter URL"
+                            menuIcon="attachment_icon"
+                            modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                            modalTitle="Import From Figma"
+                            onFigmaSubmit={handleFigmaSubmit}
+                            showBadge
+                            uploadText="Upload From Figma"
+                        />
+                        </div> }
                         {!isMobile && (
                             <>
                                 <RdsIcon
@@ -145,7 +159,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                     state="default"
                                     style="filled"
                                     textCase="unset"
-                                    onClick={handleProject}
+                                    onClick={handleProjectClick}
                                 />
                                 <RdsButton
                                     badgeLayout="Text_only"
@@ -196,14 +210,20 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     )}
                     {isMobile &&
-                        <div id="left-bottom-corner" className="d-flex gap-15"><RdsIcon
-                            colorVariant="primary"
-                            height="20px"
-                            isCursorPointer
-                            name="attachment_new"
-                            stroke
-                            width="20px"
-                            onClick={handleAttachmentClick}
+                        <div id="left-bottom-corner" className="d-flex">
+                            <RdsAttachement
+                            badgeColor="success"
+                            badgeLabel="Premium"
+                            handleAddComment={handleAddComment}
+                            hintText="Hint Text"
+                            importText="Import From This Device"
+                            inputPlaceholder="Enter URL"
+                            menuIcon="attachment_icon"
+                            modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                            modalTitle="Import From Figma"
+                            onFigmaSubmit={handleFigmaSubmit}
+                            showBadge
+                            uploadText="Upload From Figma"
                         />
                             <RdsButton
                                 badgeLayout="Text_only"
@@ -220,13 +240,13 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 state="default"
                                 style="filled"
                                 textCase="unset"
-                                onClick={handleProject}
+                                onClick={handleProjectClick}
                             />
                         </div>}
                 </div>
             </div>
         </div>
-    </>);
+    );
 };
 
 export default RdsCompTypingSection;

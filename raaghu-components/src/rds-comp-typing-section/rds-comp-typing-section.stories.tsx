@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompTypingSection from "./rds-comp-typing-section";
 
-
 const meta: Meta = { 
     title: "Components/Automate/Typing Section",
     component: RdsCompTypingSection,
