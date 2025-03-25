@@ -71,13 +71,15 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
         setShowEnhancer(true);
     };
 
+    const handleProjectClick = () => {
+    };
+
     const handleAddComment = (comment: AttachmentComment) => {
         setAttachmentComment(comment);
         onAddComment && onAddComment(comment);
     };
 
     const handleFigmaSubmit = (value: string) => {
-        console.log("Figma URL submitted:", value);
         onAddComment && onAddComment({ image: value } as AttachmentComment);
     };
 
@@ -153,7 +155,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                     state="default"
                                     style="filled"
                                     textCase="unset"
-                                    onClick={() => console.log("Project Button clicked")}
+                                    onClick={handleProjectClick}
                                 />
                                 <RdsButton
                                     badgeLayout="Text_only"
