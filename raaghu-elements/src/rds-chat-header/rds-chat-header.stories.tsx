@@ -1,23 +1,38 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsChatHeader from "./rds-chat-header";
+import RdsChatHeader, { ChatHeaderSize } from "./rds-chat-header";
 
-const meta: Meta = {
-    title: "Components/Automate/Chat Header",
-    component: RdsChatHeader,
-    argTypes: {},
-    parameters: {
-        layout: 'padded',
+const meta: Meta<typeof RdsChatHeader> = {
+  title: "Components/Automate/Chat Header",
+  component: RdsChatHeader,
+  argTypes: {
+    logoUrl: {
+      control: "text",
+      description: "URL of the logo image",
     },
-    tags: ['autodocs'],
-} satisfies Meta<typeof RdsChatHeader>;
+    title: {
+      control: "text",
+      description: "Header title text",
+    },
+    size: {
+      control: "select",
+      options: ["small", "medium", "large"],
+      description: "Controls the size of the header text and logo",
+    },
+  },
+  parameters: {
+    layout: "padded",
+  },
+  tags: ["autodocs"],
+};
 
 export default meta;
 type Story = StoryObj<typeof RdsChatHeader>;
 
 export const Default: Story = {
-    args: {
-       logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
-       title: "New Chat Started"
-    },
+  args: {
+    logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
+    title: "New Chat Started",
+    size: ChatHeaderSize.Medium,
+  },
 };
