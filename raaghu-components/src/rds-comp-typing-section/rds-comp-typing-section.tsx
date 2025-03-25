@@ -41,7 +41,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const handleAttachmentClick = () => {
         console.log("Attachment icon clicked");
     };
-    
+
     const handleMicClick = () => {
         if (!('webkitSpeechRecognition' in window)) {
             console.log("Speech recognition not supported");
@@ -57,7 +57,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
             console.log("Speech recognition started");
         };
 
-        recognition.onresult = (event : any) => {
+        recognition.onresult = (event: any) => {
             const transcript = event.results[0][0].transcript;
             setInputText(transcript);
             console.log("Speech recognition result: ", transcript);
@@ -89,19 +89,19 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
         <div className="d-flex flex-column">
             <div className="input-wrapper">
                 <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
-                {showEnhancer &&
-                <span className="mt-2">
-                    <RdsIcon
-                    colorVariant="primary"
-                    height="40px"
-                    isCursorPointer
-                    name={props.icon_name}
-                    stroke
-                    width="40px"
-                    onClick={handleEnhancerClick}
-                />
-                </span>
-                }
+                    {showEnhancer &&
+                        <span className="mt-2">
+                            <RdsIcon
+                                colorVariant="primary"
+                                height="40px"
+                                isCursorPointer
+                                name={props.icon_name}
+                                stroke
+                                width="40px"
+                                onClick={handleEnhancerClick}
+                            />
+                        </span>
+                    }
                     <textarea
                         className={`form-controls input-box-typing-section  type-section-border text-${props.colorVariant} border-${props.colorVariant} mt-2`}
                         placeholder={props.placeholderText || "Placeholder Text"}
@@ -110,61 +110,61 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         title="Enter your prompt here"
                     />
                     <div className={`d-flex ${isMobile ? 'flex-column align-items-center' : 'gap-3 mt-3 mr-3 me-2'}`}>
-                    {!isMobile && <RdsIcon
-                        colorVariant="primary"
-                        height="20px"
-                        isCursorPointer
-                        name="attachment_new"
-                        stroke
-                        width="20px"
-                        onClick={handleAttachmentClick}
-                    />}
-                    {!isMobile && (
-                        <>
-                            <RdsIcon
-                                colorVariant="primary"
-                                height="20px"
-                                isCursorPointer
-                                name="mic"
-                                stroke
-                                width="20px"
-                                onClick={handleMicClick}
-                            />
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                databstoggle="tooltip"
-                                displayType="Icon + Text"
-                                iconStroke={true}
-                                icon="plus"
-                                label="Project"
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                                onClick={handleProject}
-                            />
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                databstoggle="tooltip"
-                                displayType="Icon Only"
-                                icon="uparrow"
-                                label=""
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                                onClick={handleSent}
-                            />
-                        </>
-                    )}
+                        {!isMobile && <RdsIcon
+                            colorVariant="primary"
+                            height="20px"
+                            isCursorPointer
+                            name="attachment_new"
+                            stroke
+                            width="20px"
+                            onClick={handleAttachmentClick}
+                        />}
+                        {!isMobile && (
+                            <>
+                                <RdsIcon
+                                    colorVariant="primary"
+                                    height="20px"
+                                    isCursorPointer
+                                    name="mic"
+                                    stroke
+                                    width="20px"
+                                    onClick={handleMicClick}
+                                />
+                                <RdsButton
+                                    badgeLayout="Text_only"
+                                    badgeState="default"
+                                    badgeStyle="primary"
+                                    colorVariant="primary"
+                                    databstoggle="tooltip"
+                                    displayType="Icon + Text"
+                                    iconStroke={true}
+                                    icon="plus"
+                                    label="Project"
+                                    shape="rectangle"
+                                    size="medium"
+                                    state="default"
+                                    style="filled"
+                                    textCase="unset"
+                                    onClick={handleProject}
+                                />
+                                <RdsButton
+                                    badgeLayout="Text_only"
+                                    badgeState="default"
+                                    badgeStyle="primary"
+                                    colorVariant="primary"
+                                    databstoggle="tooltip"
+                                    displayType="Icon Only"
+                                    icon="uparrow"
+                                    label=""
+                                    shape="rectangle"
+                                    size="medium"
+                                    state="default"
+                                    style="filled"
+                                    textCase="unset"
+                                    onClick={handleSent}
+                                />
+                            </>
+                        )}
                     </div>
                     {isMobile && (
                         <div className="d-flex gap-2 position-absolute mt-3 end-0 me-2">
@@ -177,23 +177,6 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 width="20px"
                                 onClick={handleMicClick}
                             />
-                            {!isMobile &&
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                databstoggle="tooltip"
-                                displayType="Icon + Text"
-                                icon="plus"
-                                label="Project"
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                                onClick={handleProject}
-                            />}
                             <RdsButton
                                 badgeLayout="Text_only"
                                 badgeState="default"
@@ -213,15 +196,33 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     )}
                     {isMobile &&
-                    <div id="left-bottom-corner"><RdsIcon
-                        colorVariant="primary"
-                        height="20px"
-                        isCursorPointer
-                        name="attachment_new"
-                        stroke
-                        width="20px"
-                        onClick={handleAttachmentClick}
-                    /></div>}
+                        <div id="left-bottom-corner" className="d-flex gap-15"><RdsIcon
+                            colorVariant="primary"
+                            height="20px"
+                            isCursorPointer
+                            name="attachment_new"
+                            stroke
+                            width="20px"
+                            onClick={handleAttachmentClick}
+                        />
+                            <RdsButton
+                                badgeLayout="Text_only"
+                                badgeState="default"
+                                badgeStyle="primary"
+                                colorVariant="primary"
+                                databstoggle="tooltip"
+                                displayType="Icon + Text"
+                                iconStroke={true}
+                                icon="plus"
+                                label="Project"
+                                shape="rectangle"
+                                size="medium"
+                                state="default"
+                                style="filled"
+                                textCase="unset"
+                                onClick={handleProject}
+                            />
+                        </div>}
                 </div>
             </div>
         </div>
