@@ -74,7 +74,8 @@
 .line-bottom-solid {
     background-color: #D4BBFF;
     color: #9747ff;
-    border-radius: 6px;
+    border-top-left-radius: 6px; 
+    border-top-right-radius: 6px;
     position: relative;
 }
 
@@ -110,8 +111,8 @@
 .line-top-solid {
     background-color: #D4BBFF;
     color: #9747ff;
-    border-radius: 6px;
-    /* padding: 10px 15px; */
+    border-bottom-left-radius: 6px; 
+    border-bottom-right-radius: 6px;
     position: relative;
 }
 
