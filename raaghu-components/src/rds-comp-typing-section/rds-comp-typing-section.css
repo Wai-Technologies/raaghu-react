@@ -10,6 +10,10 @@
     border-radius: var(--bs-border-radius);
 }
 
+.gap-15 {
+    gap: 15px;
+}
+
 @media (max-width: 768px) {
     .input-with-image {
         padding-right: 52px;
