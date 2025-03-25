@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompGrid, {  } from "./rds-comp-grid";
+import RdsCompGrid from "./rds-comp-grid";
 
 const meta: Meta = { 
     title: "Elements/Grid",
