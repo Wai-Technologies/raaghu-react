@@ -55,6 +55,10 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
         recognition.interimResults = false;
         recognition.lang = "en-US";
 
+        recognition.onstart = () => {
+            console.log("Speech recognition started");
+        };
+
         recognition.onresult = (event: any) => {
             const transcript = event.results[0][0].transcript;
             setInputText(transcript);
@@ -113,7 +117,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         title="Enter your prompt here"
                     />
                     <div className={`d-flex ${isMobile ? 'flex-column align-items-center' : 'gap-3 mt-3 mr-3 me-2'}`}>
-                        {!isMobile &&<div className="attachement-web">
+                    {!isMobile &&<div className="attachement-web">
                             <RdsAttachement
                             badgeColor="success"
                             badgeLabel="Premium"
@@ -206,7 +210,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     )}
                     {isMobile &&
-                        <div id="left-bottom-corner">
+                        <div id="left-bottom-corner" className="d-flex">
                             <RdsAttachement
                             badgeColor="success"
                             badgeLabel="Premium"
@@ -221,6 +225,23 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             showBadge
                             uploadText="Upload From Figma"
                         />
+                            <RdsButton
+                                badgeLayout="Text_only"
+                                badgeState="default"
+                                badgeStyle="primary"
+                                colorVariant="primary"
+                                databstoggle="tooltip"
+                                displayType="Icon + Text"
+                                iconStroke={true}
+                                icon="plus"
+                                label="Project"
+                                shape="rectangle"
+                                size="medium"
+                                state="default"
+                                style="filled"
+                                textCase="unset"
+                                onClick={handleProjectClick}
+                            />
                         </div>}
                 </div>
             </div>
