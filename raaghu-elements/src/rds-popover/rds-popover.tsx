@@ -51,7 +51,9 @@ const RdsPopover = (props: RdsPopoverProps) => {
             style={{ display: displayType }}
           >
             <hr style={{ width: "100%" }} />
-              <span>{props.children}</span>
+            <div className="popover-content">
+              {props.children}
+            </div>
             <hr style={{ width: "100%" }} />
           </div>
         </div>
