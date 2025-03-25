@@ -78,12 +78,12 @@
     color: white;
 }
 
-#theme-toggle .theme-dark .tooltip-text {
-    background-color: #ffff;
-    color: #000;
+.theme-dark #theme-toggle  .tooltip-text {
+    background-color: #ffff !important;
+    color: #000 !important;
 }
-#theme-toggle .theme-dark .tooltip-text::after {
-    border-color: transparent transparent #fff transparent !important;
+.theme-dark #theme-toggle  .tooltip-text::after {
+    border-color: transparent transparent #ffff transparent !important;
 };
 
 
