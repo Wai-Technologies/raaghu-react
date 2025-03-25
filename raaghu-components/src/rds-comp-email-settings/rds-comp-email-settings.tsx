@@ -227,7 +227,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
                 ></RdsButton>
             </div>
             </form>
-        )}
+            )}
         </>
     );
 };
