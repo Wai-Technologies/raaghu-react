@@ -65,9 +65,9 @@
 .badge-primary {
   margin-left: 8px;
 }
-.btn.btn-transparent-primary {
+.grid-header .btn.btn-transparent-primary {
   color: #29292a;
-  border-color:none;
+  border-color: none;
 }
 .theme-light svg {
   stroke:#dee2e6 !important;

@@ -458,7 +458,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               onChange={handleSearchChange} // Add this line
                             />
                           </div>
-                          <div className="mx-2">
+                          <div className="mx-2 grid-header">
                             <RdsButton
                               class="buttonWidth color"
                               badgeLayout="Text_only"
@@ -473,7 +473,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               style="transparent"
                             />
                           </div>
-                          <div className="mx-1">
+                          <div className="mx-1 grid-header">
                             <RdsButton
                               badgeLayout="Text_only"
                               badgeState="default"
@@ -488,7 +488,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               textCase="unset"
                             />
                           </div>
-                          <div className="mx-1">
+                          <div className="mx-1 grid-header">
                             <RdsButton
                               badgeLayout="Text_only"
                               badgeState="default"
@@ -502,7 +502,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               style="transparent"
                             />
                           </div>
-                          <div className="mx-1">
+                          <div className="mx-1 grid-header">
                             <RdsButton
                               class="stroke"
                               badgeLayout="Text_only"
@@ -517,7 +517,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               style="transparent"
                             />
                           </div>
-                          <div className="mx-1">
+                          <div className="mx-1 grid-header">
                             <RdsButton
                               badgeLayout="Text_only"
                               badgeState="default"
@@ -531,7 +531,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               style="transparent"
                             />
                           </div>
-                          <div className="mx-1">
+                          <div className="mx-1 grid-header">
                             <RdsButton
                               badgeLayout="Text_only"
                               badgeState="default"
