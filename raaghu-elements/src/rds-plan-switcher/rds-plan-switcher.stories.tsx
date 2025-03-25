@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsPlanSwitcher from "./rds-plan-switcher";
 
-
 const meta: Meta = {
-  title: "AI Pundit Chat/Plan Switcher",
+  title: "Components/Automate/Plan Switcher",
   component: RdsPlanSwitcher,
   parameters: {
     layout: 'padded',

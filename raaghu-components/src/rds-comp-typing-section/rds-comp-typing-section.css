@@ -1,3 +1,6 @@
+.typing-section {
+    background: #ffffff;
+}
 .input-with-image {
     border: 1px solid #862FFF !important;
     position: relative;
@@ -8,6 +11,10 @@
     justify-content: flex-end; /* Align images to the right */
     /* border: 1px solid #000; */
     border-radius: var(--bs-border-radius);
+}
+
+.attachement-web {
+    margin-top: -5px;
 }
 
 @media (max-width: 768px) {
@@ -25,18 +32,23 @@
     color: white;
 }
 
-/* #1 {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-} */
-
 #left-bottom-corner {
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    left: -10px;
 }
 
+.preview-image-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 .chat-input {
     flex: 1 !important;
     padding: 8px !important;

@@ -13,6 +13,10 @@
 /* .theme-dark .btn-close {
   filter: unset;
 } */
+.theme-dark .closeBtnDark .btn-close
+{
+  filter: invert(0);
+}
 
 .text-dark {
   --bs-text-opacity: 1;

@@ -42,13 +42,13 @@
 .chat-input-container {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top:  60px;
 }
 
 .chat-input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 4px;
 }
 

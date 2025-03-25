@@ -622,7 +622,13 @@ form .form-group .select-options,
 
 @media (max-width: 600px) {
   .attachement-dropdown #fab-list .dropdown-menu.show {
-      width: 270px !important;
+      width: 245px !important;
       height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-text {
+    padding-left: 6px!important;
   }
 }

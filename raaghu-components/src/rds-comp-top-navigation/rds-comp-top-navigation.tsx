@@ -84,7 +84,7 @@ export interface RdsCompTopNavigationProps {
   icons?: any; // Array of icons to display.
   navButtons?: any; // Array of nav buttons to display.
   top_nav_logo?: string; // Top navigation logo to display.
-  style?: any; // Style to display in the navbar.
+  style: any; // Style to display in the navbar.
   breadcrumbBorderColor?: string; 
   breadcrumbBorderPlacement?: string; 
 }
