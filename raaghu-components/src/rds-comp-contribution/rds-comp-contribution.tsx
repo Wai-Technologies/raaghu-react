@@ -163,7 +163,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
   return (
     <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
       { ({ measureRef }: any) => (
-        <div ref={ measureRef } className="full-width">
+        <div ref={ measureRef } >
           <svg
             className='contribution-svg contribution-font'>
             { innerDom }
