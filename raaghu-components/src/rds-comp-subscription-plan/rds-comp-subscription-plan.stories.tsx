@@ -5,7 +5,7 @@ import i18n from 'i18next';
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
-    title: "AI Pundit Chat/Subscription Plan",
+    title: "Components/Automate/Subscription Plan",
     component: RdsCompSubscriptionPlan,
     tags: ['autodocs'],
     decorators: [
@@ -27,7 +27,7 @@ Default.args = {
   freePlanText: "Free",
   premiumPlanText: "Premium",
   upgradeText: "Upgrade to",
-  aiPunditChatText: "AI Pundit Chat",
+  aiPunditChatText: "Components/Automate",
   proText: "Pro",
   currentPlanText: "You’re currently on the free plan",
   freePlanDescription: "Perfect for individuals exploring our platform.",

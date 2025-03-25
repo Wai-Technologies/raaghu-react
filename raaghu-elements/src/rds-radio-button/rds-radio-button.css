@@ -1,13 +1,43 @@
+/* Base styles for the radio button */
+.form-check-input {
+  appearance: none; /* Removes default styles */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #7825E9; /* Purple border */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Outer ring effect */
+.form-check-input:checked {
+  background-color: transparent;
+  border: 2px solid #7825E9;
+}
+
+/* Inner filled circle - properly centered */
+.form-check-input:checked::before {
+  content: "";
+  width: 10px;  /* Adjust size for better alignment */
+  height: 10px;
+  background-color: #7825E9;
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;  /* Ensures centering */
+  margin: auto;  /* Centers both horizontally and vertically */
+}
+
+/* Spacing for label positioning */
 .icon-with-bottom-label {
-    margin-left: 32px;
-  }
-  
-  .form-check-input:checked {
-    background-color: #7825E9; 
-    border-color: #7825E9; 
-  }
-  
-  .form-check-input:focus {
-    border-color: #7825E9; 
-    
-  }
+  margin-left: 32px;
+  text-align: center;
+}
+
+.theme-dark .form-check-input:checked {
+  background-color: #dee2e6 !important;
+  border-color: #7825E9;
+}

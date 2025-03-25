@@ -64,7 +64,7 @@ const RdsToggle = (props: RdsToggleProps) => {
   const isChecked = props.state === ToggleState.On || props.state === ToggleState.DisabledOn;
 
   return (
-    <>
+    <div className="rds-toggle">
       {props.layout === ToggleLayout.SwitchLabel && (
         <>
           <div className={rootClasses()}>
@@ -176,7 +176,7 @@ const RdsToggle = (props: RdsToggleProps) => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
