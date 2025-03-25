@@ -94,7 +94,7 @@ const RdsToast = (props: RdsToastProps) => {
 
     return (
         <>
-            <div className={`toast-container position-fixed ${classes()}`}>
+            <div className={`toast-container position-fixed ${classes()} closeBtnDark`}>
                 <div
                     role="alert"
                     aria-live="assertive"
