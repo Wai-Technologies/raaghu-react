@@ -105,7 +105,7 @@ return (
                   <div className="icon-with-bottom-label ">
                   <input
                     type="radio"
-                    className="form-check-input" 
+                    className="form-check-input toggle-switch" 
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
                     name={item.name}
                     value={item.label}

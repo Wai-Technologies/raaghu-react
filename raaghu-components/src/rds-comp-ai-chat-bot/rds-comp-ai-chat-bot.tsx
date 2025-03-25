@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RdsChatHeader } from "../rds-elements";
 import RdsMessageBox from "../rds-comp-message-box";
-import RdsCompTypingSection from "../rds-comp-typing-section";
+import RdsCompTypingSection from "../rds-comp-typing-section/rds-comp-typing-section";
+import { Comment as AttachmentComment } from "../../../raaghu-elements/src/rds-attachement/rds-attachement";
 
 export interface RdsAiChatBotProps {
     aiLogoUrl: string;
@@ -20,31 +21,21 @@ interface Message {
 }
 
 const RdsAiChatBot = (props: RdsAiChatBotProps) => {
-    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages } = props;
+    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages, icon_name } = props;
     const [inputText, setInputText] = useState<string>("");
     const [inputImage, setInputImage] = useState<string | null>(null);
 
-    const handleSendMessage = async (messageText: any) => {
-        if (messageText || inputText || inputImage) {
+    const handleSendMessage = async (messageText: string, image?: string) => {
+        if (messageText || inputText || image) {
             const newMessage: Message = {
                 id: messages.length + 1,
                 text: messageText || inputText,
-                image: inputImage || undefined,
+                image: image || inputImage || undefined,
                 sender: false,
             };
             setMessages([...messages, newMessage]);
             setInputText("");
             setInputImage(null);
-
-            // Send a default message from the sender
-            // setTimeout(() => {
-            //     const defaultMessage: Message = {
-            //         id: messages.length + 2,
-            //         text: "This is a default response from the sender.",
-            //         sender: true,
-            //     };
-            //     setMessages((prevMessages) => [...prevMessages, defaultMessage]);
-            // }, 1000);
         }
     };
 
@@ -58,41 +49,66 @@ const RdsAiChatBot = (props: RdsAiChatBotProps) => {
         }
     };
 
+    const handleAddComment = (comment: AttachmentComment) => {
+        if (!comment.image) {
+            console.error("Comment image is undefined");
+            return;
+        }
+        if (comment.image.startsWith("http")) {
+            setInputImage(comment.image);
+            return;
+        }
+        const byteString = atob(comment.image.split(',')[1]);
+        const mimeString = comment.image.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+
+        const syntheticEvent = {
+            target: {
+                files: [blob]
+            }
+        } as unknown as React.ChangeEvent<HTMLInputElement>;
+        handleImageChange(syntheticEvent);
+    };
+
     return (
-        <>
-            <div className="chat-box">
-                <RdsChatHeader
-                    logoUrl={aiLogoUrl}
-                    title="New Chat Started"
-                />
-                <div className="chat-messages" style={{ paddingBottom: "80px", height: "70vh" }}>
-                    {messages.map((message) => (
-                        <div
-                            key={message.id}
-                            className={`chat-message ${message.sender ? "sender" : "receiver"}`}
-                        >
-                            <RdsMessageBox
-                                avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
-                                isImage={message.image ? true : false}
-                                message={message.text}
-                                src={message.image}
-                            />
-                        </div>
-                    ))}
-                </div>
-                <div className="chat-input-wrapper" style={{ position: "fixed", bottom: 10, width: "100%", padding: "10px", marginLeft: "-10px" }}>
-                    <div className="chat-input">
-                        <RdsCompTypingSection
-                            colorVariant="#353535"
-                            onSend={handleSendMessage}
-                            placeholderText={placeholderText || "Ask me anything"}
-                            icon_name={props.icon_name}
+        <div className="chat-box">
+            <RdsChatHeader
+                logoUrl={aiLogoUrl}
+                title="New Chat Started"
+            />
+            <div className="chat-messages" style={{ flex: 1, overflowY: "auto" }}>
+                {messages.map((message) => (
+                    <div
+                        key={message.id}
+                        className={`chat-message ${message.sender ? "sender" : "receiver"}`}
+                    >
+                        <RdsMessageBox
+                            avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
+                            isImage={!!message.image}
+                            message={message.text}
+                            src={message.image}
                         />
-                        {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
                     </div>
+                ))}
+            </div>
+            <div className="chat-input-wrapper" style={{ position: "fixed", bottom: "-17px", width: "100%", padding: "10px", marginLeft: "-10px" }}>
+                <div className="chat-input">
+                    <RdsCompTypingSection
+                        colorVariant="#353535"
+                        onSend={handleSendMessage}
+                        placeholderText={placeholderText || "Ask me anything"}
+                        icon_name={icon_name}
+                        onAddComment={handleAddComment}
+                        previewImage={inputImage || undefined}
+                    />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
