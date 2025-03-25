@@ -65,10 +65,8 @@
     background-color: black !important;
     border-color: #ffff !important;
     position: relative;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' width='16px' height='16px'%3E%3Cg transform='rotate(210, 12, 12)'%3E%3Cpath d='M12 2a10 10 0 1 0 8.66 15.07 7 7 0 0 1-8.66-8.66A9.94 9.94 0 0 0 12 2z'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' width='16px' height='16px'%3E%3Cpath transform='rotate(195, 12, 12)' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c3.26 0 6.17-1.56 8-4a7 7 0 0 1-8-8c0-2.96 1.64-5.64 4.07-7.07A9.94 9.94 0 0 0 12 2z'/%3E%3C/svg%3E") !important;
 }
-
-
 
 /* Add stars inside the toggle in dark mode */
 #theme-toggle .form-check-input:checked::after {
@@ -87,3 +85,5 @@
 #theme-toggle .theme-dark .tooltip-text::after {
     border-color: transparent transparent #fff transparent !important;
 };
+
+
