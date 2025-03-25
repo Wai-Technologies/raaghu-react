@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Product Image',
+    title: 'Components/Product Images',
     component: RdsProductImage,
     parameters: {
         layout: 'padded',

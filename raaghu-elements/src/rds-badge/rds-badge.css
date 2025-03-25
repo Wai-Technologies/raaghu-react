@@ -189,3 +189,8 @@
 .theme-dark #new-badges .badge-success svg {
   stroke: #1f7630 !important;
 }
+
+.badge {
+  padding: 0.35em 0.35em !important;
+  /* font-size: 0.675rem; */
+}

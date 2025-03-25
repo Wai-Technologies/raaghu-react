@@ -256,11 +256,11 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       value={commentText}
       inputType="text"
       placeholder="Type comment..."
-      name="comment"
+      name="Comment"
       onChange={(e) => setCommentText(e.target.value)}
-      showIcon={true} 
+      showIcon={false} 
     />
-    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
+    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-3">
       <RdsIcon
         name="send_email"
         fill={false}

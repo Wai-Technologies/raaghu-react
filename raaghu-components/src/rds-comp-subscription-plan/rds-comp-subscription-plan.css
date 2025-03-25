@@ -1,0 +1,242 @@
+.subscriptionContainer {
+  display: flex;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  position: relative; 
+}
+
+.theme-dark .subscriptionContainer {
+  background-color: #1A1A1A;
+}
+
+.subscriptionContainer > div {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 10; 
+}
+
+.backGifContainer {
+  position: relative;
+  width: 511px;
+  height: 784px;
+}
+
+.backGif {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; 
+}
+
+.panelImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 294px;
+  height: 400px;
+  pointer-events: none; 
+}
+
+.centerText {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 25px;
+}
+
+.upgradeText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; 
+  font-size: 1.875rem; 
+  line-height: 100%;
+  letter-spacing: normal;
+}
+
+.aiPunditChat {
+  font-family: "Poppins";
+  font-weight: bold;
+  font-size: 2xl;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-right: 8px;
+}
+
+.currentPlanText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; 
+  font-size: 1.25rem; 
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.freeText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; 
+  font-size: 1.5rem;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 5px; 
+  margin-top: 24px;
+}
+
+.perfectForIndividuals {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem; 
+  line-height: 28px;
+  letter-spacing: 0%;
+  margin-bottom: 12px;
+}
+
+.priceText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+  font-size: 1.875rem; 
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 20px; 
+}
+
+.priceText span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; 
+  font-size: 1.5rem; 
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #646464;
+}
+
+.forIndividualsText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+  font-size: 1.5rem; 
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-top: 20px;
+  margin-bottom: 20px; 
+}
+
+.forProUsersText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; 
+  font-size: 1.5rem; 
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 12px; 
+}
+
+.accessChat {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400; 
+  font-size: 1.125rem; 
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #646464;
+  margin-bottom: 4px; 
+  display: flex;
+  align-items: center;
+}
+
+.accessChat img {
+  margin-right: 8px; 
+}
+
+.proText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding: 5px 10px;
+  border-radius: 999px; 
+  color: #000000; 
+  position: relative;
+  top: -7px; 
+  background-image: linear-gradient(to right, #E8AC39, #FFB40B, #FFCA3A, #FFC100, #FCC201); 
+}
+
+.card-text {
+  margin-top: -50px;
+}
+
+@media (max-width: 768px) {
+  .responsiveContainer {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .responsiveBackGifContainer {
+    width: 100%;
+    height: auto;
+  }
+
+  .responsiveBackGif {
+    border-radius: 5px;
+  }
+
+  .responsivePanelImage {
+    width: 80%;
+    height: auto;
+  }
+
+  .centerText {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  .upgradeText {
+    font-size: 1.5rem;
+  }
+
+  .currentPlanText {
+    font-size: 1rem;
+  }
+
+  .freeText,
+  .forIndividualsText,
+  .forProUsersText {
+    font-size: 1.25rem;
+  }
+
+  .perfectForIndividuals,
+  .priceText,
+  .accessChat {
+    font-size: 1rem;
+  }
+
+  .planToggle {
+    width: 100%;
+    height: 50px;
+  }
+
+  .planDetails {
+    height: auto;
+  }
+
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    z-index: 10; 
+  }
+}
+
+.theme-dark .centerText {
+    color: white !important;
+}
+.theme-dark .closeButton {
+   color: white !important;
+}

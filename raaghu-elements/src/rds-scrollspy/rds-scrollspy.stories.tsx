@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/Scrollspy',
+    title: 'Components/Scrollspy',
     component: RdsScrollspy,
     parameters: {
         layout: 'padded',

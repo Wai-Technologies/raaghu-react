@@ -1,4 +1,4 @@
-.colorPick {
+/* .colorPick {
     border: 1px solid #fff !important;
     padding: 0rem !important;
     width: 30px !important;
@@ -8,4 +8,103 @@
 .theme-dark .form-control, .theme-dark .form-control:focus, .theme-dark .select-container, .theme-dark .select-container:focus {
     background-color: #dee2e6;
     color: #dee2e6;
-}
+} */
+
+.colorPick {
+    border: 1px solid #fff !important;
+    padding: 0rem !important;
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
+  .theme-dark .form-control,
+  .theme-dark .form-control:focus,
+  .theme-dark .select-container,
+  .theme-dark .select-container:focus {
+    background-color: #dee2e6;
+    color: #dee2e6;
+  }
+
+ 
+  .tabs {
+    display: flex;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #e9e9e9;
+    width: 220px;
+    border-radius: 3px;
+    flex-direction: unset !important;
+    gap: 0px !important;
+  }
+  
+  .tab {
+    /* padding: 10px 20px; */
+    cursor: pointer;
+    border: 1px solid #f4f4f4; 
+    background-color: #f9f9f9;
+    margin-right: 5px;
+    flex: 1;
+    text-align: center;
+    border-radius: 3px;
+    
+  }
+  
+  .tab.active {
+    background-color: #340071;
+    color: #fff;
+    border-bottom: none;
+  }
+
+  .color-picker-type1{
+    padding: 5px;
+    display: flex;
+    background-color: #e9e9e9;
+    width: 220px;
+    text-align: center;
+  }
+
+  .color-display-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 220px;
+    background-color: #e9e9e9;
+  }
+  
+  .color-mode-dropdown {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 4px;
+
+  }
+  
+  .color-display-container {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  
+  .color-display-input1 {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 98px;
+  }
+
+  .color-display-input2 {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 46px;
+    margin-right: 4px;
+  }
+  
+
+

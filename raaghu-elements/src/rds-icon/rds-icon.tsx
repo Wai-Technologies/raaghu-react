@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Icons } from "./Icons";
 import { Flags } from "./flag-icons";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import Lottie from "react-lottie-player";
 
@@ -193,7 +193,7 @@ const RdsIcon = (props: RdsIconProps) => {
       {props.type === "lottie" && (
         <>
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               <div
                 id={props.id}
                 data-testid={props.dataTestId}
@@ -254,7 +254,7 @@ const RdsIcon = (props: RdsIconProps) => {
       {props.type !== "lottie" && (
         <>
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               {props.imageUrl ? (
                 <img
                   src={props.imageUrl}

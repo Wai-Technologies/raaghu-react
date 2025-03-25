@@ -2,7 +2,7 @@ import RdsDoubleRange from "./rds-double-range";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Double Range',
+    title: 'Components/Double Range',
     component: RdsDoubleRange,
     parameters: {
         layout: 'padded',

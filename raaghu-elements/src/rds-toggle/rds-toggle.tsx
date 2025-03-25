@@ -1,117 +1,183 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import "./rds-toggle.css";
+import "../../../raaghu-react-themes/src/styles/toggle.scss";
+
+export enum ToggleStyle {
+  Style1 = "Style 1",
+  Style2 = "Style 2",
+  Style3 = "Style 3",
+  Style4 = "Style 4",
+  Style5 = "Style 5",
+  Style6 = "Style 6",
+}
+
+export enum ToggleLayout {
+  SwitchLabel = "Switch + Label",
+  LabelSwitch = "Label + Switch",
+  TopLabelSwitch = "Top Label + Switch",
+  BottomLabelSwitch = "Bottom Label + Switch",
+}
+
+export enum ToggleState {
+  On = "On",
+  Off = "Off",
+  DisabledOn = "Disabled On",
+  DisabledOff = "Disabled Off",
+}
 
 export interface RdsToggleProps {
-    onClick?: React.MouseEventHandler<HTMLInputElement>;
-    checked: boolean;
-    style?: "Style 1" | "Style 2" | "Style 3" | "Style 4" | "Style 5" | "Style 6" ;
-    layout?: "Switch + label" | "label + Switch" | "Top label + Switch" | "Bottom label + Switch"; 
-    isChecked? : boolean;
-    isDisabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLInputElement>; // Click event for the toggle
+  checked: boolean; // Checked/Unchecked state for the toggle
+  style?: ToggleStyle; // Different styles for the toggle
+  layout?: ToggleLayout; // Different layouts for the toggle
+  state?: ToggleState; // Different states for the toggle
+  showLabel?: boolean; // Show/Hide label for the toggle
+  label?: string; // Label for the toggle
 }
 
 const RdsToggle = (props: RdsToggleProps) => {
-    const [checked, setChecked] = useState(props.checked);
-    const [styleClass, setStyleClass] = useState(props.style);
-    // useEffect(() => {
+  const [checked, setChecked] = useState(props.checked);
+  const [styleClass, setStyleClass] = useState(props.style);
 
-    //     setChecked(props.checked);
-    // }, [props.checked]);
+  useEffect(() => {
+    setStyleClass(props.style);
+  }, [props.style]);
 
+  const onChangeHandler = () => {
+    setChecked((prev) => !prev);
+  };
 
+  const classes = () => {
+    let classes: string = "form-check-input";
+    return classes;
+  };
 
-    useEffect(() => {
-        setStyleClass(props.style);
-    }, [props.style]);
+  const rootClasses = () => {
+    let classList = "position-relative form-check form-switch";
+    classList += ` ${styleClass?.toLowerCase().replace(/\s+/g, "-")}`;
+    if (props.state === ToggleState.DisabledOn || props.state === ToggleState.DisabledOff) {
+      classList += " disabled";
+    }
+    return classList;
+  };
 
-    const onChangeHandler = () => {
+  const isChecked = props.state === ToggleState.On || props.state === ToggleState.DisabledOn;
 
-        setChecked((prev) => !prev);
-    };
-
-    const classes = () => {
-        let classes: string = "form-check-input";
-       /*  if (props.style === "") {
-            classes = "form-check-input form-check-input-style3";
-        }  */
-        return classes;
-    };
-    const rootClasses = () => {
-        let classList = "position-ralative form-check form-switch";
-        classList += ` ${styleClass?.toLowerCase().replace(/\s+/g, "-")}`;
-        if (props.isDisabled) {
-            classList += " disabled";
-        }
-        return classList;
-    };
-    return (
+  return (
+    <div className="rds-toggle">
+      {props.layout === ToggleLayout.SwitchLabel && (
         <>
-            {props.layout === "Switch + label" && (
-                <>
-                    <div className={rootClasses()}>
-                        
-                    {(props.style === "Style 5" || props.style === "Style 6") && <span className={props.isChecked ? "on" : "off"}>
-                                    {props.isChecked ? "on" : "off"}
-                        </span>}
-                        {(props.style === "Style 2" || props.style === "Style 4") && <span className={props.isChecked ? "input-custom  checked" : "input-custom"}></span>}
-                        <input className={classes()} type="checkbox" role="switch" id="flexSwitchCheckDefault" checked={props.isChecked}></input>
-                        <label className="form-check-label ms-2">{props.style === "Style 3" ? "style 3" : "Label"}</label>
-                    </div>
-                </>)}
-
-            {props.layout === "label + Switch" && (
-                <>
-                    <div className="d-flex align-items-center">
-                        <label className="form-check-label me-2" htmlFor="flexSwitchCheckDefault">Label</label>
-                        <div className={rootClasses()}>
-                            <span className="position-relative">
-                        {(props.style === "Style 5" || props.style === "Style 6") && <span className={props.isChecked ? "on left" : "off left"}>
-                                    {props.isChecked ? "on" : "off"}
-                                </span>}
-                                {(props.style === "Style 2" || props.style === "Style 4") && <span className={props.isChecked ? "input-custom  checked" : "input-custom"}></span>}
-
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked={props.isChecked}></input>
-                        </span>
-                        </div>
-                    </div>
-            </>)}
-
-            {props.layout === "Top label + Switch" && (
-                <>
-                    <div>
-                        <label className="d-flex align-items-center form-check-label me-2" htmlFor="flexSwitchCheckDefault">Label</label>
-                        <div className={rootClasses()}>
-                        {(props.style === "Style 5" || props.style === "Style 6") && <span className={props.isChecked ? "on" : "off"}>
-                                    {props.isChecked ? "on" : "off"}
-                                </span>}
-                                {(props.style === "Style 2" || props.style === "Style 4") && <span className={props.isChecked ? "input-custom  checked" : "input-custom"}></span>}
-
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked={props.isChecked}></input>
-                        </div>
-                    </div>
-                </>)}
-
-            {props.layout === "Bottom label + Switch" && (
-                <>
-                    <div>
-                        <div className={rootClasses()}>
-                        {(props.style === "Style 5" || props.style === "Style 6") && <span className={props.isChecked ? "on" : "off"}>
-                                    {props.isChecked ? "on" : "off"}
-                                </span>}
-                                {(props.style === "Style 2" || props.style === "Style 4") && <span className={props.isChecked ? "input-custom  checked" : "input-custom"}></span>}
-
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked={props.isChecked}></input>
-                        </div>
-                        <label className="d-flex align-items-center form-check-label me-2" htmlFor="flexSwitchCheckDefault">Label</label>
-
-                    </div>
-                </>
+          <div className={rootClasses()}>
+            {(props.style === ToggleStyle.Style5 || props.style === ToggleStyle.Style6) && (
+              <span className={isChecked ? "on" : "off"}>{isChecked ? "on" : "off"}</span>
             )}
+            {(props.style === ToggleStyle.Style2 || props.style === ToggleStyle.Style4) && (
+              <span className={isChecked ? "input-custom checked" : "input-custom"}></span>
+            )}
+            <input
+              className={classes()}
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              checked={isChecked}
+              onChange={onChangeHandler}
+            />
+            {props.showLabel && (
+              <label className="form-check-label ms-2">
+                {props.label || (props.style === ToggleStyle.Style3 ? "style 3" : "Label")}
+              </label>
+            )}
+          </div>
+        </>
+      )}
 
-        </> 
-    );
+      {props.layout === ToggleLayout.LabelSwitch && (
+        <>
+          <div className="d-flex align-items-center">
+            {props.showLabel && (
+              <label className="form-check-label me-2" htmlFor="flexSwitchCheckDefault">
+                {props.label || "Label"}
+              </label>
+            )}
+            <div className={rootClasses()}>
+              <span className="position-relative">
+                {(props.style === ToggleStyle.Style5 || props.style === ToggleStyle.Style6) && (
+                  <span className={isChecked ? "on left" : "off left"}>{isChecked ? "on" : "off"}</span>
+                )}
+                {(props.style === ToggleStyle.Style2 || props.style === ToggleStyle.Style4) && (
+                  <span className={isChecked ? "input-custom checked" : "input-custom"}></span>
+                )}
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckDefault"
+                  checked={isChecked}
+                  onChange={onChangeHandler}
+                />
+              </span>
+            </div>
+          </div>
+        </>
+      )}
 
+      {props.layout === ToggleLayout.TopLabelSwitch && (
+        <>
+          <div>
+            {props.showLabel && (
+              <label className="d-flex align-items-center form-check-label me-2" htmlFor="flexSwitchCheckDefault">
+                {props.label || "Label"}
+              </label>
+            )}
+            <div className={rootClasses()}>
+              {(props.style === ToggleStyle.Style5 || props.style === ToggleStyle.Style6) && (
+                <span className={isChecked ? "on" : "off"}>{isChecked ? "on" : "off"}</span>
+              )}
+              {(props.style === ToggleStyle.Style2 || props.style === ToggleStyle.Style4) && (
+                <span className={isChecked ? "input-custom checked" : "input-custom"}></span>
+              )}
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                checked={isChecked}
+                onChange={onChangeHandler}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {props.layout === ToggleLayout.BottomLabelSwitch && (
+        <>
+          <div>
+            <div className={rootClasses()}>
+              {(props.style === ToggleStyle.Style5 || props.style === ToggleStyle.Style6) && (
+                <span className={isChecked ? "on" : "off"}>{isChecked ? "on" : "off"}</span>
+              )}
+              {(props.style === ToggleStyle.Style2 || props.style === ToggleStyle.Style4) && (
+                <span className={isChecked ? "input-custom checked" : "input-custom"}></span>
+              )}
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                checked={isChecked}
+                onChange={onChangeHandler}
+              />
+            </div>
+            {props.showLabel && (
+              <label className="d-flex align-items-center form-check-label me-2" htmlFor="flexSwitchCheckDefault">
+                {props.label || "Label"}
+              </label>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default RdsToggle;

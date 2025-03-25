@@ -3,11 +3,16 @@ import "./rds-ai-prompt-box.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export interface RdsAiPromptBoxProps {
-  prefilledprompt?: any;
+  prefilledprompt?: { question: string }[];
   colorVariant?: string;
   outputtype?: string;
   showVariations?: boolean;
   onClick?: ($event: React.MouseEvent<HTMLLIElement>, val: string) => void;
+  generateButtonText?: string;
+  designText?: string;
+  codeText?: string;
+  aiPunditLogoImage?: string;
+  placeholderText?: string;
 }
 
 const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
@@ -18,18 +23,20 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
   const [chatHistory, setChatHistory] = useState<
     { type: "input" | "output"; text: string; images: string[] }[]
   >([]);
-  const [selectedViews, setSelectedViews] = useState<{ [key: number]: string }>({});
+  const [selectedViews, setSelectedViews] = useState<{ [key: number]: string }>(
+    {}
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const defaultImage = "../../../stories/assets/Aigeneratedimage.png";
+  const defaultImage = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/default-image.png";
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       if (event.target.files.length > 2) {
-        event.preventDefault(); // Prevent opening the file dialog if 2 images are already selected
+        event.preventDefault();
         alert("You can only select up to 2 images.");
       } else {
         const filesArray = Array.from(event.target.files);
@@ -44,7 +51,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                 setSelectedImages((prevImages) => {
                   const totalImages = [...prevImages, ...newImages];
                   if (totalImages.length > 2) {
-                    return totalImages.slice(totalImages.length - 2); // Keep only the last 2 images
+                    return totalImages.slice(totalImages.length - 2);
                   }
                   return totalImages;
                 });
@@ -54,7 +61,6 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
           reader.readAsDataURL(file);
         });
 
-        // Reset the file input value
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
@@ -68,15 +74,13 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
 
   const handlePromptText = (question: any) => {
     setInputText(question);
+    setSelectedImages([]);
   };
 
   const handleGenerateButtonClick = () => {
     // Use default text if inputText is empty
     const textToUse = inputText.trim() !== "" ? inputText : "Message Bubble";
-
-    // Use default image if no images are selected
-    const imagesToUse =
-      selectedImages.length > 0 ? selectedImages : [defaultImage];
+    const imagesToUse = selectedImages.length > 0 ? selectedImages : [];
 
     // Add input to chat history
     setChatHistory((prevHistory) => [
@@ -99,8 +103,6 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
         ...prevViews,
         [chatHistory.length + 1]: "Design",
       }));
-
-      console.log("Generate button clicked");
     }, 1000); // Simulate delay for generating response
 
     // Clear input and selected images
@@ -131,10 +133,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
         images: outputImages,
       });
 
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        ...newOutputs,
-      ]);
+      setChatHistory((prevHistory) => [...prevHistory, ...newOutputs]);
 
       // Set default view to "Design" for the new responses
       setSelectedViews((prevViews) => {
@@ -145,8 +144,6 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
         }
         return newViews;
       });
-
-      console.log(`Button ${button.id} clicked, added ${incrementValue} outputs to chat history`);
     }
 
     if (button.id === "Chat") {
@@ -154,7 +151,6 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       setChatHistory([]);
       setInputText("");
       setSelectedImages([]);
-      console.log("New chat opened");
     }
   };
 
@@ -185,20 +181,18 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
         ...prevViews,
         [chatHistory.length]: "Design",
       }));
-
-      console.log("Regenerate button clicked");
     }
   };
+
   const handleCheckboxChange = (checked: boolean) => {
     setIsChecked(checked);
     if (checked) {
       // Perform actions to select all data into the frame
-      console.log("Checkbox checked, select all data into the frame");
     } else {
       // Perform actions to deselect all data from the frame
-      console.log("Checkbox unchecked, deselect all data from the frame");
     }
   };
+
   const handleStarClick = () => {
     setIsStarred(!isStarred);
   };
@@ -216,6 +210,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       setIsLiked(false); // Ensure like is reset if dislike is clicked
     }
   };
+
   const preCode = `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -253,7 +248,10 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                 <span className="pundit-image-container mt-3">
                   <img
                     className="img"
-                    src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png"
+                    src={
+                      props.aiPunditLogoImage ||
+                      "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png"
+                    }
                     alt="ai pundit"
                     style={{ height: "3.3rem" }}
                   />
@@ -269,32 +267,36 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                           <div className="d-flex justify-content-between align-items-center mb-2">
                             <div>{entry.text}</div>
                             <div className="d-flex ml-auto">
-                              {props.outputtype=='Raaghu_reply_with_design' &&(<div className="toggle-container">
-                                <div
-                                  className={`toggle-option ${
-                                    selectedViews[index] === "Design"
-                                      ? "selected"
-                                      : "unselected"
-                                  }`}
-                                  onClick={() => handleClick(index, "Design")}
-                                >
-                                  Design
+                              {props.outputtype ===
+                                "Raaghu_reply_with_design" && (
+                                <div className="toggle-container ms-2">
+                                  <div
+                                    className={`toggle-option ${
+                                      selectedViews[index] === "Design"
+                                        ? "selected"
+                                        : "unselected"
+                                    }`}
+                                    onClick={() => handleClick(index, "Design")}
+                                  >
+                                    {props.designText || "Design"}
+                                  </div>
+                                  <div
+                                    className={`toggle-option ${
+                                      selectedViews[index] === "Code"
+                                        ? "selected"
+                                        : "unselected"
+                                    }`}
+                                    onClick={() => handleClick(index, "Code")}
+                                  >
+                                    {props.codeText || "Code"}
+                                  </div>
                                 </div>
-                                <div
-                                  className={`toggle-option ${
-                                    selectedViews[index] === "Code"
-                                      ? "selected"
-                                      : "unselected"
-                                  }`}
-                                  onClick={() => handleClick(index, "Code")}
-                                >
-                                  Code
-                                </div>
-                              </div>)}
+                              )}
                               <span
                                 className="form-controls border-primary ms-1 cursor-pointer"
                                 style={{ height: "2.5rem" }}
                                 onClick={handleRegenerate}
+                                title="Regenerate"
                               >
                                 <RdsIcon
                                   name="sync"
@@ -308,65 +310,81 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             </div>
                           </div>
                         )}
-                        {(entry.images.length > 0 && selectedViews[index] === "Design") && (
-                          <div className="mb-3">
-                            {entry.images.map((image, imgIndex) => (
-                              <img
-                                key={imgIndex}
-                                src={image}
-                                alt={`Chat ${entry.type} ${imgIndex}`}
-                                className="chat-image mt-2"
-                              />
-                            ))}
-                          </div>
-                        )}
+                        {entry.images.length > 0 &&
+                          selectedViews[index] === "Design" && (
+                            <div className="mb-3">
+                              {entry.images.map((image, imgIndex) => (
+                                <img
+                                  key={imgIndex}
+                                  src={image}
+                                  alt={`Chat ${entry.type} ${imgIndex}`}
+                                  className="chat-image mt-2"
+                                />
+                              ))}
+                            </div>
+                          )}
                         {selectedViews[index] === "Code" && (
                           <div className="mb-3">
                             <pre className="code-block">{preCode}</pre>
                           </div>
-                                        )}
-                                        <div className="hover-buttons">
-                                            <span className="hover-button">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={isChecked}
-                                                    className={"form-check-input customcheckbox border-primary"}
-                                                    onChange={(e) => handleCheckboxChange(e.target.checked)}
-                                                />
-                                            </span>
-                                            <span className="hover-button" onClick={handleStarClick}>
-                                                <RdsIcon
-                                                    name="star"
-                                                    height="33px"
-                                                    width="24px"
-                                                    colorVariant="primary"
-                                                    fill={isStarred}
-                                                    stroke={!isStarred}
-                                                />
-                                            </span>
-                                            <span className="hover-button " onClick={handleLikeClick}>
-                                                <RdsIcon
-                                                    name="likeaiprompt"
-                                                    height="33px"
-                                                    width="24px"
-                                                    colorVariant="primary"
-                                                    fill={isLiked}
-                                                    stroke={!isLiked}
-                                                />
-                                            </span>
-                                            <span className="hover-button" onClick={handleDislikeClick}>
-                                                <RdsIcon
-                                                    name="dislikeaiprompt"
-                                                    height="33px"
-                                                    width="24px"
-                                                    colorVariant="primary"
-                                                    fill={isDisliked}
-                                                    stroke={!isDisliked}
-                                                />
-                                            </span>
-                                        </div>
+                        )}
+                        <div className="hover-buttons">
+                          <span className="hover-button" title="Select All">
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              className={
+                                "form-check-input customcheckbox border-primary"
+                              }
+                              onChange={(e) =>
+                                handleCheckboxChange(e.target.checked)
+                              }
+                            />
+                          </span>
+                          <span
+                            className="hover-button"
+                            title="Favourite"
+                            onClick={handleStarClick}
+                          >
+                            <RdsIcon
+                              name="star"
+                              height="33px"
+                              width="24px"
+                              colorVariant="primary"
+                              fill={isStarred}
+                              stroke={!isStarred}
+                            />
+                          </span>
+                          <span
+                            className="hover-button"
+                            title="Like"
+                            onClick={handleLikeClick}
+                          >
+                            <RdsIcon
+                              name="likeaiprompt"
+                              height="33px"
+                              width="24px"
+                              colorVariant="primary"
+                              fill={isLiked}
+                              stroke={!isLiked}
+                            />
+                          </span>
+                          <span
+                            className="hover-button"
+                            title="Dislike"
+                            onClick={handleDislikeClick}
+                          >
+                            <RdsIcon
+                              name="dislikeaiprompt"
+                              height="33px"
+                              width="24px"
+                              colorVariant="primary"
+                              fill={isDisliked}
+                              stroke={!isDisliked}
+                            />
+                          </span>
+                        </div>
                       </div>
-                      
                     </>
                   )}
                 </div>
@@ -396,118 +414,132 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
         ))}
       </div>
       <div className={`prefilled-prompts d-flex justify-content-between`}>
-        {props.prefilledprompt.map(
-          (prompt: { question: string }, index: number) => (
-              
-                <button
-              key={index}
-              className={`form-controls prompt-button text-primary border-primary`}
-              onClick={(e) =>
-                handlePromptText((e.target as HTMLButtonElement).value)
-              }
-              value={prompt.question}
-            >
-              {prompt.question}
-                    </button>
-               
-          )
-        )}
-      </div>
-
-          <div className="main-content d-lg-flex d-md-flex">
-              <div className="d-flex w-100">   <div className="button-column">
-         { props.showVariations &&( <div className="button-row">
-            <button
-              className={`form-controls sidebar-button me-2 text-primary border-primary`}
-              onClick={() => handleButtonClick({ id: "1" })}
-            >
-              1
-            </button>
-            <button
-              className={`form-controls sidebar-button me-2 text-primary border-primary`}
-              onClick={() => handleButtonClick({ id: "2" })}
-            >
-              2
-            </button>
-          </div>)}
-          <div className={`button-row ${props.showVariations? 'mt-2':''}`}>
-          { props.showVariations &&(  <button
-              className={`form-controls sidebar-button me-2 text-primary border-primary`}
-              onClick={() => handleButtonClick({ id: "4" })}
-            >
-              4
-            </button>
+        {props.prefilledprompt &&
+          props.prefilledprompt.map(
+            (prompt: { question: string }, index: number) => (
+              <button
+                key={index}
+                className={`form-controls prompt-button text-primary border-primary`}
+                onClick={(e) =>
+                  handlePromptText((e.target as HTMLButtonElement).value)
+                }
+                value={prompt.question}
+              >
+                {prompt.question}
+              </button>
+            )
           )}
-            <button
-              className={`form-controls sidebar-button me-2 text-primary border-primary`}
-              onClick={() => handleButtonClick({ id: "Chat" })}
-            >
-              <RdsIcon
-                name="newchat"
-                height="33px"
-                width="24px"
-                colorVariant="primary"
-                fill={false}
-                stroke={false}
+      </div>
+      <div className="main-content d-lg-flex d-md-flex">
+        <div className="d-flex w-100">
+          <div className="button-column">
+            {props.showVariations && (
+              <div className="button-row">
+                <button
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  onClick={() => handleButtonClick({ id: "1" })}
+                >
+                  1
+                </button>
+                <button
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  onClick={() => handleButtonClick({ id: "2" })}
+                >
+                  2
+                </button>
+              </div>
+            )}
+            <div className={`button-row ${props.showVariations ? "mt-2" : ""}`}>
+              {props.showVariations && (
+                <button
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  onClick={() => handleButtonClick({ id: "4" })}
+                >
+                  4
+                </button>
+              )}
+              <button
+                className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                onClick={() => handleButtonClick({ id: "Chat" })}
+                title="Clear Chat"
+              >
+                <RdsIcon
+                  name="newchat"
+                  height="33px"
+                  width="24px"
+                  colorVariant="primary"
+                  fill={false}
+                  stroke={false}
+                />
+              </button>
+            </div>
+          </div>
+          <div className="input-column">
+            <div className="input-wrapper">
+              <div className="ai-prompt">
+              <div className="input-with-image">
+                <textarea
+                  className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
+                  placeholder={props.placeholderText || "Placeholder Text"}
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  title="Enter your prompt here"
+                />
+                <div className="image-preview-group">
+                  {selectedImages.map((image, index) => (
+                    <div key={index} className="image-preview me-2">
+                      <img
+                        src={image}
+                        alt={`Selected ${index}`}
+                        className="selected-image"
+                        title={`Selected image ${index + 1}`}
+                      />
+                      <button
+                        className="remove-image-button"
+                        onClick={() => removeImage(index)}
+                        title="Remove image"
+                      >
+                        ✖
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              </div>
+              <label
+                htmlFor="file-upload"
+                className={`file-upload-label`}
+                title="Attach image"
+              >
+                <RdsIcon
+                  name="attachment"
+                  height="20px"
+                  width="20px"
+                  colorVariant={props.colorVariant}
+                  fill={false}
+                  stroke={true}
+                />
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                multiple
+                className="file-input"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+                ref={fileInputRef}
+                title="Upload images"
               />
-            </button>
+            </div>
           </div>
         </div>
-
-        <div className="input-column">
-          <div className="input-wrapper">
-            <div className="input-with-image">
-              <textarea
-                className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
-                placeholder="Placeholder Text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                              /><div className="image-preview-group">
-                              {selectedImages.map((image, index) => (
-                                  
-                <div key={index} className="image-preview me-2">
-                  <img
-                    src={image}
-                    alt={`Selected ${index}`}
-                    className="selected-image"
-                  />
-                  <button
-                    className="remove-image-button"
-                    onClick={() => removeImage(index)}
-                  >
-                    ✖
-                  </button>
-                                      </div>
-                              ))}</div>
-            </div>
-            <label htmlFor="file-upload" className={`file-upload-label`}>
-              <RdsIcon
-                name="attachment"
-                height="20px"
-                width="20px"
-                colorVariant={props.colorVariant}
-                fill={false}
-                stroke={true}
-              />
-            </label>
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              multiple
-              className="file-input"
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-              ref={fileInputRef}
-            />
-          </div>
-              </div>
-              </div>
         <div className="action-column mt-1">
           <button
             disabled={inputText.trim() === "" && selectedImages.length === 0}
             className={`btn form-controls generate-button mb-1 btn-primary bg-primary text-white`}
             onClick={handleGenerateButtonClick}
+            title={props.generateButtonText || "Generate"}
           >
             <RdsIcon
               name="aigenerate"
@@ -517,7 +549,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
               fill={false}
               stroke={true}
             />
-            Generate
+            {props.generateButtonText || "Generate"}
           </button>
         </div>
       </div>

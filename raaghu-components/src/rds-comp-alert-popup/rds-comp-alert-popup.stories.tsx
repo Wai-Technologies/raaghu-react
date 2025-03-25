@@ -12,7 +12,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
             colorVariant: {
-                options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
+                options: ["primary", "success", "danger", "warning", "info", "secondary"],
                 control: { type: "select" },
             }
     },
@@ -99,7 +99,7 @@ Confirm.args = {
     iconUrl: "tick_circle",
     colorVariant: "primary",
     alertConfirmation: "Ownership transfer is complete !",
-    messageAlert: "Full control has been granted.Thank you for your patience",
+    messageAlert: "Full control has been granted. Thank you for your patience",
     buttonlabel: "Ok",
     type: "confirm"
 };

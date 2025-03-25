@@ -1,0 +1,40 @@
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+.chat {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.chat-messages {
+    flex: 1;
+    padding-bottom: 80px;
+    overflow-y: auto;
+}
+
+.chat-input-wrapper {
+    flex-shrink: 0;
+    background: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .chat-box {
+        height: 100vh;
+    }
+
+    .chat-input-wrapper {
+        bottom: 0;
+        width: 100%;
+        margin-right: 10px;
+    }
+}

@@ -49,7 +49,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row">
             <div className="mb-3">
               <RdsCheckbox
-                label="Is accepting responses"
+                labelText="Is accepting responses"
                 onChange={(e) => {
                   setResponses(e.target.checked);
                 }}
@@ -59,7 +59,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label="Is collecting email"
+                labelText="Is collecting email"
                 onChange={(e) => {
                   setEmail(e.target.checked);
                 }}
@@ -69,7 +69,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label="Is a quiz"
+                labelText="Is a quiz"
                 onChange={(e) => {
                   setQuiz(e.target.checked);
                 }}
@@ -81,7 +81,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row">
             <div className="mb-3">
               <RdsCheckbox
-                label="Requires login"
+                labelText="Requires login"
                 onChange={(e) => {
                   setLogin(e.target.checked);
                 }}
@@ -91,7 +91,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
             </div>
             <div className="mb-3">
               <RdsCheckbox
-                label="Has limit one response per user"
+                labelText="Has limit one response per user"
                 onChange={(e) => {
                   setHasLimit(e.target.checked);
                 }}
@@ -104,7 +104,7 @@ const RdsCompFormsSettings = (props: RdsCompFormsSettingProps) => {
           <div className="row ">
             <div className="mb-3">
               <RdsCheckbox
-                label="Can edit after submit"
+                labelText="Can edit after submit"
                 onChange={(e) => {
                   setEdit(e.target.checked);
                 }}

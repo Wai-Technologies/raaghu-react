@@ -13,3 +13,42 @@
 /* .theme-dark .btn-close {
   filter: unset;
 } */
+.theme-dark .closeBtnDark .btn-close
+{
+  filter: invert(0);
+}
+
+.text-dark {
+  --bs-text-opacity: 1;
+  color: rgb(96 96 96) !important;
+}
+.text-body {
+  --bs-text-opacity: 1;
+  color: rgb(96 96 96) !important;
+}
+.theme-dark .toast-basic  {
+    background: white; 
+    color: black;
+} 
+.theme-dark .toast-info {
+  background: white;
+  color: black;
+}
+.theme-dark .toast-success {
+  background: white;
+  color: black;
+} 
+.theme-dark .toast-error {
+  background: white;
+  color: black;
+}
+
+.toast {
+  border-top :none !important;
+  border-bottom :none !important;
+  border-right :none !important;
+}
+
+.toast-header {
+  border-bottom: none !important;
+}

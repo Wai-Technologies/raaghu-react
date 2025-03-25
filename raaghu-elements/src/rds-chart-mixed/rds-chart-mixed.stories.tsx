@@ -3,7 +3,7 @@ import "./rds-chart-mixed.css";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Charts/Mixed Chart',
+    title: 'Components/Charts/Mixed Chart',
     component: RdsMixedChart,
     parameters: {
         layout: 'padded',
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof RdsMixedChart>;
 
 export const MixedChart: Story = {
     args: {
-        id: "mixed chart",
+        id: "mixed_chart",
         dataSets: [
             {
                 type: "bar",

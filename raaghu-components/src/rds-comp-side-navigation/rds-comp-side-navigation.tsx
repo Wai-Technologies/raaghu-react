@@ -1,7 +1,15 @@
 import React from "react";
 import { RdsSideNav } from "../rds-elements";
+
+export interface sideNavItems {
+  key: string;
+  label: string;
+  icon: string;
+  path?: string;
+  children?: sideNavItems[];
+}
 export interface RdsCompSideNavigationProps {
-  sideNavItems: any[];
+  sideNavItems: sideNavItems[];
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
   toggleClass?: any;
   collapse?: any;
@@ -9,7 +17,7 @@ export interface RdsCompSideNavigationProps {
 }
 
 const RdsCompSideNavigation = (props: RdsCompSideNavigationProps) => {
-  return <RdsSideNav  logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
+  return <RdsSideNav logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
 };
 
 export default RdsCompSideNavigation;

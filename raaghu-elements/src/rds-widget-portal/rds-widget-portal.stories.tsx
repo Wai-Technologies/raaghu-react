@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsWidgetPortal from "./rds-widget-portal";
 
 const meta: Meta = {
-    title: "Elements/Widget Portal",
+    title: "Components/Widget Portal",
     component: RdsWidgetPortal,
     tags: ['autodocs'],
     argTypes: {

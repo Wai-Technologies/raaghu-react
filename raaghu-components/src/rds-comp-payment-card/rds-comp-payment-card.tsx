@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompPaymentCardProps {
   paymentCardData?: any;
   onSaveHandler?: (data: any) => void;
@@ -43,11 +43,12 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
             <RdsInput
               id=""
               inputType="text"
-              label="Card Number"
-              labelPosition="top"
+              name="Card Number"
+              label={true}
+              labelPosition={LabelPosition.Top}
               placeholder="XXXX XXXX XXXX XXXX"
               required
-              size="medium"
+              size={InputSize.Medium}
               value={cardData?.cardNumber}
               onChange={(e) => {
                 handleDataChanges(e.target.value, "cardNumber");
@@ -59,11 +60,12 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
             <RdsInput
               id=""
               inputType="text"
-              label="Cardholder Name"
-              labelPosition="top"
+              name="Cardholder Name"
+              label={true}
+              labelPosition={LabelPosition.Top}
               placeholder="Enter Cardholder Name"
               required
-              size="medium"
+              size={InputSize.Medium}
               value={cardData?.cardHolderName}
               onChange={(e) => {
                 handleDataChanges(e.target.value, "cardHolderName");
@@ -76,11 +78,12 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
               <RdsInput
                 id=""
                 inputType="text"
-                label="Expiry Date"
-                labelPosition="top"
+                name="Expiry Date"
+                label={true}
+                labelPosition={LabelPosition.Top}
                 placeholder="Enter Expiry Date"
                 required
-                size="medium"
+                size={InputSize.Medium}  
                 value={cardData?.expiryDate}
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "expiryDate");
@@ -92,11 +95,12 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
               <RdsInput
                 id=""
                 inputType="text"
-                label="CVV"
-                labelPosition="top"
+                name="CVV"
+                label={true}
+                labelPosition={LabelPosition.Top}
                 placeholder="Enter CVV"
                 required
-                size="medium"
+                size={InputSize.Medium}  
                 value={cardData?.cvv}
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "cvv");

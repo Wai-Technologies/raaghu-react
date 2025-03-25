@@ -10,7 +10,9 @@ import {
 import { RdsFileUploader } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { content } from "html2canvas/dist/types/css/property-descriptors/content";
-
+import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { FileUploaderState } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -115,8 +117,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsFileUploader
                 key={counter}
                 colorVariant="dark"
+                state={FileUploaderState.Default}
                 extensions="png, jpg, doc, pdf, ppt"
-                size="large"
+                size={Size.Large}
                 fileSizeLimitInMb={1}
                 label="Cover Image"
                 validation={[
@@ -149,12 +152,12 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             <div className="form-group">
               <RdsInput
                 inputType="text"
-                size="medium"
+                size={InputSize.Medium}   
                 required={true}
-                isDisabled={false}
-                label="Title"
+                isDisabled={false}                
+                label={true}
                 readonly={false}
-                name="title"
+                name="Title"
                 placeholder="Enter Title"
                 onChange={(e) => {
                   handlerBlogDataChange(e.target.value, "title");
@@ -168,8 +171,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Slug"
-                name="slug"
+               // label="Slug"
+                label={true}
+                name="Slug"
                 placeholder="Enter Slug"
                 dataTestId="slug"
                 onChange={(e) => {
@@ -184,8 +188,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 <RdsInput
                   inputType="text"
                   required={true}
-                  label="Concurrency Stamp"
-                  name="concurrentMode"
+                  //name="Concurrency Stamp"
+                  label={true}
+                  name="Concurrent Mode"
                   placeholder=""
                   onChange={(e) => {
                     handlerBlogDataChange(e.target.value, "concurrencyStamp");
@@ -217,7 +222,8 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Tags"
+                name="Tags"
+                label={true}
                 placeholder="Enter Tag"
                 dataTestId="tag"
                 onChange={(e) => {

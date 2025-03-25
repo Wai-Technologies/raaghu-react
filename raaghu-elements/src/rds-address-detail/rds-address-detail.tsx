@@ -6,7 +6,7 @@ export interface RdsAddressDetailProps {
 	withIcon?: boolean;
 	header?: string;
 	addressLine1?: string;
-	addressLine2: string;
+	addressLine2?: string;
 	addressLine3?: string;
 	cardborder?: boolean;
 }

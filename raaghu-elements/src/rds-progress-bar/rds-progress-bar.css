@@ -1,5 +1,69 @@
-.theme-light .circular-progress-primary {
+.circular-progress-primary {
     background: conic-gradient(#7825e9 calc(var(--progress-value)* 1%), #E9E9E9 calc(var(--progress-value)* 1%));
     border-radius: 96px;
     color: #353535;
+}
+.progress-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+}
+.progress-circle-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.stepper-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.step {
+    padding: 5px;
+    margin: 0 12px;
+    border-radius: 96px;
+}
+.bg-inprogress {
+    background: #D4BBFF;
+    border-radius: 96px;
+    color: #FCFCFC;
+}
+.bg-default {
+    background: #E9E9E9;
+    border-radius: 96px;
+    color: #353535;
+}
+.step-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Stepper_step {
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    position: relative;
+}
+.step-line {
+    position: absolute;
+    top: 50%;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    /* z-index: -1; */
+    background-color: rgb(211, 211, 211);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 import {
     RdsButton,
     RdsIllustration,
@@ -132,14 +132,14 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                     <RdsInput
-                    label="Webhook Endpoint"
+                    name="Webhook Endpoint"
+                    label={true}
                     reset={inputReset}
                     required={true}
                     placeholder="https://example.com/postreceive"
                     inputType="url"
                     onChange={(e) => handleDataChanges(e.target.value, "endpoint")}
-                    value={user?.endpoint}
-                    name="endpoint"
+                    value={user?.endpoint}                  
                     dataTestId="webhook-endpoint"
                     validatonPattern={/^(https?:\/\/)((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[?[a-fA-F\d:]+\]?)(:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(#[-a-zA-Z\d_]*)?$/i}
                     validationMsg="Enter a valid Webhook URL"
@@ -157,7 +157,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             }}
                             value={user?.event}
                             dataTestId="webhook-event"
-                            validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
+                            validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
                             validationMsg="Enter valid url"
                         />
                     </div>
@@ -167,10 +167,10 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                         <div className="col-12 col-md-5 mb-3">
                             <RdsInput
                                 placeholder="Header key"
-                                label="Additional Webhook Headers"
+                                name="Additional Webhook Headers"
+                                label={true}
                                 reset={inputReset}
-                                inputType="text"
-                                name={"headerKey"}
+                                inputType="text"                              
                                 onChange={(e) => {
                                   handleDataChanges(e.target.value, "headerKey");
                                 }}
@@ -220,7 +220,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
 
                     {webhookheaderfile.length != 0 && (
                         <RdsCompDatatable
-                            actionPosition="right"
+                            actionPosition={ActionPosition.Right}
                             classes="table__userTable"
                             tableHeaders={tableHeaders}
                             actions={actions}

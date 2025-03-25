@@ -1,0 +1,77 @@
+.typing-section {
+    background: #ffffff;
+}
+.input-with-image {
+    border: 1px solid #862FFF !important;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px; /* Add gap between images */
+    justify-content: flex-end; /* Align images to the right */
+    /* border: 1px solid #000; */
+    border-radius: var(--bs-border-radius);
+}
+
+.attachement-web {
+    margin-top: -5px;
+}
+
+@media (max-width: 768px) {
+    .input-with-image {
+        padding-right: 52px;
+    }
+}
+
+.theme-dark .input-with-image {
+    background-color: black;
+}
+
+.theme-dark .input-with-image .form-controls {
+    background-color: black;
+    color: white;
+}
+
+#left-bottom-corner {
+    position: absolute;
+    bottom: 10px;
+    left: -10px;
+}
+
+.preview-image-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.chat-input {
+    flex: 1 !important;
+    padding: 8px !important;
+    border-radius: 4px !important; 
+  }
+
+.type-section-border{
+    border :none !important;
+}
+
+.input-box-typing-section {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333333;
+    height: 97px;
+    width: inherit;
+    padding-right: 40px; /* Adjust padding to make space for the icon */
+    box-sizing: border-box; /* Ensure padding is included in the height */
+    display: flex;
+    align-items: flex-start; /* Align text to the top */
+    justify-content: flex-start; /* Align text to the top */
+    line-height: 1.5; /* Adjust line height as needed */
+    resize: none; 
+  }

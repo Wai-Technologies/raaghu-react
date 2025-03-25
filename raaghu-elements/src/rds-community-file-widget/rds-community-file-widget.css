@@ -1,0 +1,126 @@
+.community-widget {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .community-card {
+    width: 280px;
+    border-radius: 12px 12px 12px 12px !important; /* Curving all corners */
+    overflow: hidden;
+    border-color: rgb(241 237 237 / 18%) !important;
+  }
+  
+  .community-card-body {
+    display: grid;
+    padding: 10px 0px 0px 0px;
+    border-radius: 0 0 20px 20px !important; /* Curving only bottom corners */
+  }
+  
+  .avatar-section {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .user-info {
+    display: grid;
+    gap: 0px;
+  }
+  
+  .user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  .followers-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: rgba(100, 100, 100, 1) !important;
+    font-weight: 300;
+}
+.followers-text{
+    font-size:13px;
+}
+  
+
+/* When hover on image apply this css */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+  }
+  
+  /* Image styling */
+  .card-img-top {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Dark overlay */
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Hover buttons container */
+  .hover-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 8px;
+    width: 43%; /* Ensure consistent width */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Button styling */
+  .hover-btn {
+    width: 100%; /* Full width within the container */
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    /* font-weight: bold; */
+    text-align: center;
+  }
+  
+  /* View Details Button */
+  .hover-btn:first-child {
+    background-color: white;
+    color: black;
+  }
+  
+  /* Open in Chat Button */
+  .hover-btn:last-child {
+    background-color: black;
+    color: white;
+  }
+  
+  /* Show overlay and buttons on hover */
+  .image-container:hover .image-overlay {
+    opacity: 1;
+  }
+  
+  .image-container:hover .hover-buttons {
+    opacity: 1;
+  }
+  

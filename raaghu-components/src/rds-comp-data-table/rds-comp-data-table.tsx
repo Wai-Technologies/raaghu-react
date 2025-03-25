@@ -8,10 +8,23 @@ import {
   RdsIllustration,
   RdsAvatar,
   RdsTooltip,
+  RdsProgressBar,
 } from "../rds-elements";
 import "./rds-comp-data-table.css";
 import { useTranslation } from "react-i18next";
 import { fontWeight } from "../../../raaghu-elements/libs/types/fontWeight";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+
+export enum ActionPosition {
+  Right = "right",
+  Left = "left",
+}
+
+export enum ActionColumnStyle {
+  ShowDots = "show dots",
+  ShowButtonsDirectly = "show buttons directly",
+}
 
 export interface RdsCompDatatableProps {
   fontWeight?: string;
@@ -44,18 +57,18 @@ export interface RdsCompDatatableProps {
   }[];
   tableData: any[];
   pagination: boolean;
-  isClickable?:boolean;
+  isClickable?: boolean;
   recordsPerPage?: number;
   recordsPerPageSelectListOption?: boolean;
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
-  onRowClick?: (rowId: any) => void; 
+  onRowClick?: (rowId: any) => void;
   tableStyle?: any;
   alignmentType?: any;
-  actionPosition?: "right" | "left";
+  actionPosition?: ActionPosition;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   totalRecords?: any;
-  actionColumnStyle?:  "show dots" | "show buttons directly";
+  actionColumnStyle?: ActionColumnStyle;
 }
 const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [data, setData] = useState(props.tableData);
@@ -71,7 +84,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
     startingRow: 0,
     endingRow: props.recordsPerPage,
   });
-  let sort: boolean;
+  let sort: boolean = false;
   useEffect(() => {
     setTotalRecords(props.totalRecords);
   }, [props.totalRecords]);
@@ -148,6 +161,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
       dragOverItem.current = null;
       props.swapRows(listCopy);
       setData(listCopy);
+    }
+  };
+  const handleDelete = (id: any) => {
+    const updatedData = data.filter((item) => item.id !== id);
+    setData(updatedData);
+    if (props.onRowSelect) {
+      props.onRowSelect(updatedData);
     }
   };
 
@@ -261,11 +281,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const handleRadioButtonChange = (e: any) => {
     const { name, checked } = e.target;
     const tempUser = data?.map((user) =>
-      user.id == name ? { ...user, selected: checked } : { ...user, selected: false }
+      user.id == name
+        ? { ...user, selected: checked }
+        : { ...user, selected: false }
     );
     setData(tempUser);
     props.onRowSelect !== undefined && props.onRowSelect(tempUser);
-  }
+  };
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Simulate data loading for 2 seconds, replace this with your actual data loading logic
@@ -296,7 +318,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
 
   const actionPosition =
     Object.prototype.hasOwnProperty.call(props, "actionPosition") &&
-      props.actionPosition === "right"
+    props.actionPosition === "right"
       ? true
       : false;
 
@@ -306,7 +328,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   };
 
   const handleRowClick = (rowId: any) => {
-   props.onRowClick && props.onRowClick(rowId); 
+    props.onRowClick && props.onRowClick(rowId);
   };
 
   return (
@@ -356,7 +378,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         </div>
       ) : (
         <>
-          <div className={props.actionPosition == "left" ? "table-responsive left-action" : "table-responsive-none"}>
+          <div
+            className={
+              props.actionPosition == "left"
+                ? "table-responsive left-action"
+                : "table-responsive-none"
+            }
+          >
             <div className="table-responsive table-responsive-sm">
               <table
                 className={`table table-hover table-bordered     ${Classes} `}
@@ -373,7 +401,165 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                           Actions
                         </th>
                       )}
-                    {props.isSwap && <th></th>}
+
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                       <div>    
+                          {props.enablecheckboxselection && (
+                            <th scope="col">
+                              <label className="fw-medium">Text</label>
+                              <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                       </div>
+
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
+                    {/* {props.isSwap && <th></th>}
                     {props.enablecheckboxselection && (
                       <th scope="col">
                         <input
@@ -388,41 +574,49 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                         />
                       </th>
                     )}
-                      {props.enableRadioButtonselection && (
+                    {props.enableRadioButtonselection && (
                       <th scope="col">
-                       
+                        <input
+                          type="radio"
+                          className="form-check-input"
+                          name="allSelect"
+                          checked={
+                            data.filter((user) => user?.selected == true)
+                              ?.length == data?.length
+                          }
+                          onChange={handleRadioButtonChange}
+                        />
                       </th>
                     )}
                     {props?.tableHeaders?.map((tableHeader, index) => (
                       <th scope="col" key={"tableHeader-" + index}>
                         <div
-                          className={`align-items-center d-flex ${tableHeader.datatype === "iconAvatarTitle"
-                            ? "justify-content-center"
-                            : ""
-                            }`}
+                          className={`align-items-center d-flex ${
+                            tableHeader.datatype === "iconAvatarTitle"
+                              ? "justify-content-center"
+                              : ""
+                          }`}
                         >
                           <span className="fw-medium">
                             {tableHeader.displayName}
                           </span>
                           <div className="header-options mobile-header-option cursor-pointer ps-1">
-                            {tableHeader.sortable && (
-                              <span
-                                className="px-2 d-flex"
-                                onClick={(e) =>
-                                  onSortClickHandler(e, tableHeader.key)
-                                }
-                              >
-                                <span>
-                                  <RdsIcon
-                                    name="sort"
-                                    height="12px"
-                                    width="auto"
-                                    stroke={true}
-                                    isCursorPointer={true}
-                                  />
-                                </span>
+                            <span
+                              className="px-2 d-flex"
+                              onClick={(e) =>
+                                onSortClickHandler(e, tableHeader.key)
+                              }
+                            >
+                              <span>
+                                <RdsIcon
+                                  name="sort"
+                                  height="12px"
+                                  width="auto"
+                                  stroke={true}
+                                  isCursorPointer={true}
+                                />
                               </span>
-                            )}
+                            </span>
                           </div>
                         </div>
                       </th>
@@ -435,7 +629,21 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                         <th className="text-center fw-medium actionWidth">
                           Actions
                         </th>
-                      )}
+                      )} */}
+                      {props.enablecheckboxselection && (
+                      <th scope="col">
+                       <label className="fw-medium">Text</label>
+                        <span className="ms-2">
+                                  <RdsIcon
+                                    name="sort"
+                                    height="12px"
+                                    width="auto"
+                                    stroke={true}
+                                    isCursorPointer={true}
+                                  />
+                        </span>
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -443,24 +651,34 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                     data?.map((tableDataRow, index) => {
                       const totalActions =
                         tableDataRow?.rowActions &&
-                          props?.actions &&
-                          tableDataRow?.rowActionsAdd
+                        props?.actions &&
+                        tableDataRow?.rowActionsAdd
                           ? [
-                            ...props.actions,
-                            tableDataRow?.rowActions,
-                            tableDataRow?.rowActionsAdd,
-                          ]
+                              ...props.actions,
+                              tableDataRow?.rowActions,
+                              tableDataRow?.rowActionsAdd,
+                            ]
                           : tableDataRow?.rowActions && props?.actions
-                            ? [...props.actions, tableDataRow?.rowActions]
-                            : tableDataRow?.rowActionsAdd && props?.actions
-                              ? [...props.actions, tableDataRow?.rowActionsAdd]
-                              : props.actions;
+                          ? [...props.actions, tableDataRow?.rowActions]
+                          : tableDataRow?.rowActionsAdd && props?.actions
+                          ? [...props.actions, tableDataRow?.rowActionsAdd]
+                          : props.actions;
+
+                      function handleDelete(id: any): void {
+                        const updatedData = data.filter(
+                          (item) => item.id !== id
+                        );
+                        setData(updatedData);
+                        if (props.onRowSelect) {
+                          props.onRowSelect(updatedData);
+                        }
+                      }
 
                       return (
                         (props.pagination
                           ? typeof rowStatus.endingRow != "undefined" &&
-                          index >= rowStatus.startingRow &&
-                          index < rowStatus.endingRow
+                            index >= rowStatus.startingRow &&
+                            index < rowStatus.endingRow
                           : true) && (
                           <tr
                             onDragStart={(e) => handleDragStart(e, index)}
@@ -473,114 +691,200 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                               totalActions &&
                               totalActions?.length > 1 && (
                                 <td className="align-middle bg-transparent text-center actionWidth">
-
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
-                                      {(actionColumnStyle==="show dots"  && <div className="btn-group dropstart">
-                                        <button
-                                          className="btn btn-sm btn-icon border-0 three-dot-btn"
-                                          type="button"
-                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'true' : 'false'}
-                                          onClick={() => toggleDropdown(tableDataRow.id)}
-                                          data-bs-toggle="dropdown"
-                                          data-bs-auto-close="true"
-                                          id="dropdownMenuButton"
-                                          data-testid="action-btn"
-                                        >
-                                          <RdsIcon
-                                            name={"three_dots"}
-                                            height="14px"
-                                            width="14px"
-                                            stroke={false}
-                                            fill={true}
-                                            tooltip={true}
-                                            tooltipTitle="More Actions"
-                                            tooltipPlacement="top"
-                                            isCursorPointer={true}
-                                          />
-                                        </button>
-                                        <ul
-                                          ref={dropdownRef}
-                                          aria-labelledby="dropdownMenuButton"
-                                          className={`dropdown-menu dropdown-adjusted ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
-                                     
-                                       >
-                                          {totalActions?.map((action, actionIndex) => (
-                                            <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
-                                              {action.modalId && (
-                                                <a
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target={`#${action?.modalId}`}
-                                                  aria-controls={action?.modalId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
+                                      {actionColumnStyle === "show dots" && (
+                                        <div className="btn-group dropstart">
+                                          <button
+                                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                                            type="button"
+                                            aria-expanded={
+                                              activeDropdownId ===
+                                              tableDataRow.id
+                                                ? "true"
+                                                : "false"
+                                            }
+                                            onClick={() =>
+                                              toggleDropdown(tableDataRow.id)
+                                            }
+                                            data-bs-toggle="dropdown"
+                                            data-bs-auto-close="true"
+                                            id="dropdownMenuButton"
+                                            data-testid="action-btn"
+                                          >
+                                            <RdsIcon
+                                              name={"three_dots"}
+                                              height="14px"
+                                              width="14px"
+                                              stroke={false}
+                                              fill={true}
+                                              tooltip={true}
+                                              tooltipTitle="More Actions"
+                                              tooltipPlacement="top"
+                                              isCursorPointer={true}
+                                            />
+                                          </button>
+                                          <ul
+                                            ref={dropdownRef}
+                                            aria-labelledby="dropdownMenuButton"
+                                            className={`dropdown-menu dropdown-adjusted ${
+                                              activeDropdownId ===
+                                                tableDataRow.id &&
+                                              isDropdownOpen
+                                                ? "show"
+                                                : ""
+                                            }`}
+                                          >
+                                            {totalActions?.map(
+                                              (action, actionIndex) => (
+                                                <li
+                                                  key={
+                                                    "action-" +
+                                                    actionIndex +
+                                                    "-inside-tableRow" +
+                                                    tableDataRow.id
+                                                  }
                                                 >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId && (
-                                                <a
-                                                  data-bs-toggle="offcanvas"
-                                                  data-bs-target={`#${action?.offId}`}
-                                                  aria-controls={action?.offId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId == undefined && action.modalId == undefined && (
-                                                <a
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      </div>
+                                                  {action.modalId && (
+                                                    <a
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target={`#${action?.modalId}`}
+                                                      aria-controls={
+                                                        action?.modalId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId && (
+                                                    <a
+                                                      data-bs-toggle="offcanvas"
+                                                      data-bs-target={`#${action?.offId}`}
+                                                      aria-controls={
+                                                        action?.offId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId == undefined &&
+                                                    action.modalId ==
+                                                      undefined && (
+                                                      <a
+                                                        onClick={(e) =>
+                                                          actionOnClickHandler(
+                                                            e,
+                                                            tableDataRow,
+                                                            tableDataRow.id,
+                                                            action
+                                                          )
+                                                        }
+                                                        className="dropdown-item"
+                                                      >
+                                                        {action.displayName}
+                                                      </a>
+                                                    )}
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
+                                        </div>
                                       )}
-                                         {actionColumnStyle === "show buttons directly" && (
-                                        <div className="d-flex flex-wrap align-items-center justify-content-center mx-1" id="action_column">
-                                          {totalActions?.map((action, actionIndex) => (
-                                            <button
-                                              key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}
-                                              className="btn btn-outline-primary mx-2 my-1"
-                                            >
-                                              {action.modalId && (
-                                                <a
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target={`#${action?.modalId}`}
-                                                  aria-controls={action?.modalId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId && (
-                                                <a
-                                                  data-bs-toggle="offcanvas"
-                                                  data-bs-target={`#${action?.offId}`}
-                                                  aria-controls={action?.offId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId == undefined && action.modalId == undefined && (
-                                                <a
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                            </button>
-                                          ))}
+                                      {actionColumnStyle ===
+                                        "show buttons directly" && (
+                                        <div
+                                          className="d-flex flex-wrap align-items-center justify-content-center mx-1"
+                                          id="action_column"
+                                        >
+                                          {totalActions?.map(
+                                            (action, actionIndex) => (
+                                              <button
+                                                key={
+                                                  "action-" +
+                                                  actionIndex +
+                                                  "-inside-tableRow" +
+                                                  tableDataRow.id
+                                                }
+                                                className="btn btn-outline-primary mx-2 my-1"
+                                              >
+                                                {action.modalId && (
+                                                  <a
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target={`#${action?.modalId}`}
+                                                    aria-controls={
+                                                      action?.modalId
+                                                    }
+                                                    onClick={(e) =>
+                                                      actionOnClickHandler(
+                                                        e,
+                                                        tableDataRow,
+                                                        tableDataRow.id,
+                                                        action
+                                                      )
+                                                    }
+                                                    className="dropdown-item"
+                                                  >
+                                                    {action.displayName}
+                                                  </a>
+                                                )}
+                                                {action.offId && (
+                                                  <a
+                                                    data-bs-toggle="offcanvas"
+                                                    data-bs-target={`#${action?.offId}`}
+                                                    aria-controls={
+                                                      action?.offId
+                                                    }
+                                                    onClick={(e) =>
+                                                      actionOnClickHandler(
+                                                        e,
+                                                        tableDataRow,
+                                                        tableDataRow.id,
+                                                        action
+                                                      )
+                                                    }
+                                                    className="dropdown-item"
+                                                  >
+                                                    {action.displayName}
+                                                  </a>
+                                                )}
+                                                {action.offId == undefined &&
+                                                  action.modalId ==
+                                                    undefined && (
+                                                    <a
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                              </button>
+                                            )
+                                          )}
                                         </div>
                                       )}
                                     </>
@@ -599,7 +903,13 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tableDataRow.id
                                           );
                                         }}
-                                        style={{ display: activeDropdownId === tableDataRow.id && isDropdownOpen ? 'none' : 'block' }}
+                                        style={{
+                                          display:
+                                            activeDropdownId ===
+                                              tableDataRow.id && isDropdownOpen
+                                              ? "none"
+                                              : "block",
+                                        }}
                                       >
                                         <RdsIcon
                                           name={"check"}
@@ -613,7 +923,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement="top"
+                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
@@ -643,54 +953,56 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                               totalActions?.length == 1 && (
                                 <td className="px-2 align-middle">
                                   <div className="d-grid justify-content-center">
-                                    {totalActions?.map((action, actionIndex) => (
-                                      <>
-                                        <RdsIcon
-                                          key={
-                                            "action-" +
-                                            actionIndex +
-                                            "-inside-tableRow" +
-                                            index
-                                          }
-                                          name={action.icon || action.id}
-                                          height="16px"
-                                          width="16px"
-                                          stroke={true}
-                                          fill={false}
-                                          tooltip={true}
-                                          tooltipTitle={action.displayName}
-                                          tooltipPlacement={"top"}
-                                          isCursorPointer={true}
-                                          databstoggle={
-                                            action.offId
-                                              ? "offcanvas"
-                                              : action.modalId
+                                    {totalActions?.map(
+                                      (action, actionIndex) => (
+                                        <>
+                                          <RdsIcon
+                                            key={
+                                              "action-" +
+                                              actionIndex +
+                                              "-inside-tableRow" +
+                                              index
+                                            }
+                                            name={action.icon || action.id}
+                                            height="16px"
+                                            width="16px"
+                                            stroke={true}
+                                            fill={false}
+                                            tooltip={true}
+                                            tooltipTitle={action.displayName}
+                                            tooltipPlacement={"top"}
+                                            isCursorPointer={true}
+                                            databstoggle={
+                                              action.offId
+                                                ? "offcanvas"
+                                                : action.modalId
                                                 ? "modal"
                                                 : ""
-                                          }
-                                          databstarget={
-                                            action.offId
-                                              ? `#${action?.offId}`
-                                              : action.modalId
+                                            }
+                                            databstarget={
+                                              action.offId
+                                                ? `#${action?.offId}`
+                                                : action.modalId
                                                 ? `#${action?.modalId}`
                                                 : ""
-                                          }
-                                          ariacontrols={action?.offId}
-                                          onClick={(e) => {
-                                            actionOnClickHandler(
-                                              e,
-                                              tableDataRow,
-                                              tableDataRow.id,
-                                              action
-                                            );
-                                          }}
-                                        />
-                                      </>
-                                    ))}
+                                            }
+                                            ariacontrols={action?.offId}
+                                            onClick={(e) => {
+                                              actionOnClickHandler(
+                                                e,
+                                                tableDataRow,
+                                                tableDataRow.id,
+                                                action
+                                              );
+                                            }}
+                                          />
+                                        </>
+                                      )
+                                    )}
                                   </div>
                                 </td>
                               )}
-                            {props.isSwap && (
+                            {props.isSwap &&  (
                               <th>
                                 <RdsIcon
                                   name="six_dots_vertical"
@@ -702,18 +1014,21 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 />
                               </th>
                             )}
-                            {props.enablecheckboxselection && (
-                              <th scope="row" className="align-middle">
-                                <input
-                                  type="checkbox"
-                                  name={tableDataRow?.id}
-                                  onChange={handleChange}
-                                  checked={tableDataRow?.selected}
-                                  className="form-check-input"
-                                  id="rowcheck{user.id}"
-                                />
-                              </th>
-                            )}
+                            
+                            <th>
+                              <RdsBadge
+                                shape="rectangle"
+                                colorVariant="primary"
+                                iconName="notification"
+                                iconPosition="right"
+                                isIconshow
+                                label="Badge"
+                                layout="Text_only"
+                                size="small"
+                                style="primary"
+                              />
+                            </th>
+
                             {props.enableRadioButtonselection && (
                               <th scope="row" className="align-middle">
                                 <input
@@ -721,7 +1036,19 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                   name={tableDataRow?.id}
                                   onChange={handleRadioButtonChange}
                                   checked={tableDataRow?.selected}
-                                  className="form-check-input"
+                                  className="form-check-input border-dark"
+                                  id="rowcheck{user.id}"
+                                />
+                              </th>
+                            )}
+                            {props.enablecheckboxselection && (
+                              <th scope="row" className="align-middle">
+                                <input
+                                  type="checkbox"
+                                  name={tableDataRow?.id}
+                                  onChange={handleChange}
+                                  checked={tableDataRow?.selected}
+                                  className="form-check-input border-dark"
                                   id="rowcheck{user.id}"
                                 />
                               </th>
@@ -735,204 +1062,304 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                     "-inside-tableRow" +
                                     index
                                   }
-                                  className={`px-2 align-middle text-nowrap ${tableHeader.isBold === true
-                                    ? `fw-${tableHeader.fontWeight}`
-                                    : ""
-                                    }`}
+                                  className={`px-2 align-middle text-nowrap ${
+                                    tableHeader.isBold === true
+                                      ? `fw-${tableHeader.fontWeight}`
+                                      : ""
+                                  }`}
                                 >
                                   {!tableDataRow.isEndUserEditing ? (
                                     <div>
-                                     {tableHeader.datatype === "text" && tableHeaderIndex === 0 && props.isClickable ? (
-                                      <a href="#"
-                                      onClick={() => handleRowClick(tableDataRow.id)}>
-                                        {tableDataRow[tableHeader.key]}
-                                      </a>
-                                    ) : (
-                                      <>
-                                      {tableHeader.datatype === "text" && (
+                                      {tableHeader.datatype === "text" &&
+                                      tableHeaderIndex === 0 &&
+                                      props.isClickable ? (
+                                        <a
+                                          href="#"
+                                          onClick={() =>
+                                            handleRowClick(tableDataRow.id)
+                                          }
+                                        >
+                                          {tableDataRow[tableHeader.key]}
+                                        </a>
+                                      ) : (
                                         <>
-                                          {tableHeader.key.includes("time") ||
-                                            tableHeader.key.includes("Time") ? (
+                                          {tableHeader.datatype === "text" && (
                                             <>
-                                              {`${(
-                                                "0" +
-                                                new Date(
-                                                  tableDataRow[tableHeader.key]
-                                                ).getDate()
-                                              ).slice(-2)}/${(
-                                                "0" +
-                                                (new Date(
-                                                  tableDataRow[tableHeader.key]
-                                                ).getMonth() +
-                                                  1)
-                                              ).slice(-2)}/${new Date(
-                                                tableDataRow[tableHeader.key]
-                                              ).getFullYear()}, ${(
-                                                "0" +
-                                                new Date(
-                                                  tableDataRow[tableHeader.key]
-                                                ).getHours()
-                                              ).slice(-2)}:${(
-                                                "0" +
-                                                new Date(
-                                                  tableDataRow[tableHeader.key]
-                                                ).getMinutes()
-                                              ).slice(-2)} ${new Date(
-                                                tableDataRow[tableHeader.key]
-                                              ).getHours() >= 12
-                                                ? "PM"
-                                                : "AM"
-                                                }`}
+                                              {tableHeader.key.includes(
+                                                "time"
+                                              ) ||
+                                              tableHeader.key.includes(
+                                                "Time"
+                                              ) ? (
+                                                <>
+                                                  {`${(
+                                                    "0" +
+                                                    new Date(
+                                                      tableDataRow[
+                                                        tableHeader.key
+                                                      ]
+                                                    ).getDate()
+                                                  ).slice(-2)}/${(
+                                                    "0" +
+                                                    (new Date(
+                                                      tableDataRow[
+                                                        tableHeader.key
+                                                      ]
+                                                    ).getMonth() +
+                                                      1)
+                                                  ).slice(-2)}/${new Date(
+                                                    tableDataRow[
+                                                      tableHeader.key
+                                                    ]
+                                                  ).getFullYear()}, ${(
+                                                    "0" +
+                                                    new Date(
+                                                      tableDataRow[
+                                                        tableHeader.key
+                                                      ]
+                                                    ).getHours()
+                                                  ).slice(-2)}:${(
+                                                    "0" +
+                                                    new Date(
+                                                      tableDataRow[
+                                                        tableHeader.key
+                                                      ]
+                                                    ).getMinutes()
+                                                  ).slice(-2)} ${
+                                                    new Date(
+                                                      tableDataRow[
+                                                        tableHeader.key
+                                                      ]
+                                                    ).getHours() >= 12
+                                                      ? "PM"
+                                                      : "AM"
+                                                  }`}
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {
+                                                    tableDataRow[
+                                                      tableHeader.key
+                                                    ]
+                                                  }
+                                                </>
+                                              )}
                                             </>
-                                          ) : (
-                                            <>{tableDataRow[tableHeader.key]}</>
                                           )}
                                         </>
                                       )}
-
-                                      </>
-                                    )}                                                                  
                                       {tableHeader.datatype === "date" && (
-                                        <>
-                                          <span className="d-flex text-truncate">
-                                            {new Intl.DateTimeFormat("en-US", {
-                                              year: "numeric",
-                                              month: "2-digit",
-                                              day: "2-digit",
-                                              hour: "2-digit",
-                                              minute: "2-digit",
-                                              hour12: true,
-                                            }).format(
-                                              new Date(
-                                                tableDataRow[tableHeader.key]
-                                              )
-                                            )}
-                                          </span>
-                                        </>
+                                        <span className="d-flex text-truncate">
+                                          {new Intl.DateTimeFormat("en-US", {
+                                            year: "numeric",
+                                            month: "2-digit",
+                                            day: "2-digit",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                          }).format(
+                                            new Date(
+                                              tableDataRow[tableHeader.key]
+                                            )
+                                          )}
+                                        </span>
                                       )}
                                       {tableHeader.datatype === "number" &&
                                         tableDataRow[tableHeader.key]}
                                       {tableHeader.datatype === "badge" && (
                                         <RdsBadge
+                                          shape="rectangle"
                                           colorVariant={
                                             tableDataRow[tableHeader.key]
-                                              ?.badgeColorVariant
-                                              ? tableDataRow[tableHeader.key]
-                                                .badgeColorVariant
-                                              : "success"
+                                              .badgeColorVariant
                                           }
+                                          iconName={
+                                            tableDataRow[tableHeader.key].icon
+                                          }
+                                          iconPosition="right"
+                                          isIconshow
                                           label={
-                                            tableDataRow[tableHeader.key]?.content
-                                              ? tableDataRow[tableHeader.key]
-                                                .content
-                                              : tableDataRow[tableHeader.key]
+                                            tableDataRow[tableHeader.key]
+                                              .content
                                           }
+                                          layout="Text_only"
+                                          size="small"
+                                          style="primary"
                                         />
+                                      )}
+                                      {tableHeader.datatype === "status" && (
+                                        <div className="d-flex align-items-center">
+                                          <span>
+                                            {tableDataRow[tableHeader.key]}
+                                          </span>
+                                          {tableDataRow.statusBadges?.map(
+                                            (badge: any, index: number) => (
+                                              <RdsBadge
+                                                key={index}
+                                                shape="rectangle"
+                                                colorVariant={
+                                                  badge.badgeColorVariant
+                                                }
+                                                iconName={badge.icon}
+                                                iconPosition="right"
+                                                isIconshow
+                                                label={badge.content}
+                                                layout="Text_only"
+                                                size="small"
+                                                style="primary"
+                                              />
+                                            )
+                                          )}
+                                        </div>
+                                      )}
+                                      {tableHeader.datatype === "checkbox" && (
+                                        <div className="d-flex align-items-center">
+                                          {tableDataRow.checkboxBadges?.map(
+                                            (badge: any, index: number) => (
+                                              <RdsBadge
+                                                key={index}
+                                                shape="rectangle"
+                                                colorVariant={
+                                                  badge.badgeColorVariant
+                                                }
+                                                iconName={badge.icon}
+                                                iconPosition="right"
+                                                isIconshow
+                                                label={badge.content}
+                                                layout="Text_only"
+                                                size="small"
+                                                style="primary"
+                                              />
+                                            )
+                                          )}
+                                          <span className="ms-2">
+                                            {tableDataRow[tableHeader.key]}
+                                          </span>
+                                        </div>
                                       )}
                                       {tableHeader.datatype ===
                                         "avatarTitleInfo" && (
-                                          <div className="avatarTitleInfo">
-                                            <RdsAvatar
-                                              withProfilePic={true}
-                                              profilePic={
-                                                tableDataRow[tableHeader.key].avatar
+                                        <div className="avatarTitleInfo">
+                                          <RdsAvatar
+                                            //border="NoBorder"
+                                            firstName="Wai"
+                                            lastName="Technologies"
+                                            profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+                                            role="Developer"
+                                            size={AvatarSize.small}
+                                            withProfilePic
+                                          />
+                                        </div>
+                                      )}
+
+                                      
+                                      {tableHeader.datatype ===
+                                        "progressbar" && (
+                                          <>
+                                          <RdsProgressBar
+                                            colorVariant="primary"
+                                            height={4}
+                                            progressValues={[]}
+                                            progressWidth={70}
+                                            role="single"
+                                            striped steps={0} completedSteps={0}                                        />
+                                        <span>
+                                            {tableDataRow[tableHeader.key]}
+                                          </span>
+                                        </>
+                                      )}
+                                      {tableHeader.datatype === "button" &&
+                                        tableHeader.key === "delete" && (
+                                          <div className="d-flex justify-content-center">
+                                            <RdsIcon
+                                              name="deleteIcon"
+                                              height="16px"
+                                              width="16px"
+                                              stroke={true}
+                                              fill={false}
+                                              tooltip={true}
+                                              tooltipTitle="Delete"
+                                              tooltipPlacement={"top"}
+                                              isCursorPointer={true}
+                                              onClick={() =>
+                                                handleDelete(tableDataRow.id)
                                               }
-                                              firstName={
-                                                tableDataRow[tableHeader.key].title
-                                                  ? tableDataRow[tableHeader.key]
-                                                    .title
-                                                  : tableDataRow[tableHeader.key]
-                                              }
-                                              role={
-                                                tableDataRow[tableHeader.key].info
-                                              }
-                                              size="small"
                                             />
                                           </div>
                                         )}
                                       {tableHeader.datatype ===
                                         "iconAvatarTitle" && (
-                                          <div className="d-flex justify-content-evenly align-items-center">
-                                            <div className="col-1">
-                                              <RdsIcon
-                                                name={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconName
-                                                }
-                                                fill={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconFill
-                                                }
-                                                stroke={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconStroke
-                                                }
-                                                colorVariant={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconColor
-                                                }
-                                                width={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconWidth
-                                                }
-                                                height={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconHeight
-                                                }
-                                                strokeWidth={
-                                                  tableDataRow[tableHeader.key]
-                                                    .iconStrokeWidth
-                                                }
-                                                isCursorPointer={true}
-                                              />
-                                            </div>
-                                            {tableDataRow[tableHeader.key]
-                                              .withavatar && (
-                                                <div>
-                                                  <div className="col-5">
-                                                    <RdsAvatar
-                                                      withProfilePic={true}
-                                                      profilePic={
-                                                        tableDataRow[tableHeader.key]
-                                                          ?.avatar
-                                                      }
-                                                    />
-                                                  </div>
-                                                  <div className="col-6">
-                                                    <label>
-                                                      {
-                                                        tableDataRow[tableHeader.key]
-                                                          .title
-                                                      }{" "}
-                                                    </label>
-                                                  </div>
-                                                </div>
-                                              )}
+                                        <div className=" ms-2 justify-content-evenly align-items-center">
+                                          <div className="col-1">
+                                            <RdsIcon
+                                              colorVariant="danger"
+                                              height="20px"
+                                              isCursorPointer
+                                              name="Delete"
+                                              stroke
+                                              width="20px"
+                                            />
                                           </div>
-                                        )}
+                                          {tableDataRow[tableHeader.key]
+                                            .withavatar && (
+                                            <div>
+                                              <div className="col-5">
+                                                <RdsAvatar
+                                                  withProfilePic={true}
+                                                  profilePic={
+                                                    tableDataRow[
+                                                      tableHeader.key
+                                                    ]?.avatar
+                                                  }
+                                                />
+                                              </div>
+                                              <div className="col-6">
+                                                <label>
+                                                  {
+                                                    tableDataRow[
+                                                      tableHeader.key
+                                                    ].title
+                                                  }{" "}
+                                                </label>
+                                              </div>
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}
                                       {tableHeader.datatype === "children" && (
                                         <div className="d-xxl-flex d-xl-flex d-block">
-                                          {" "}
                                           {tableDataRow[tableHeader.key]}
                                         </div>
                                       )}
                                       {tableHeader.datatype === "tooltip" &&
                                         tableDataRow[tableHeader.key] !==
-                                        null && (
+                                          null && (
                                           <RdsTooltip
-                                            text={tableDataRow[tableHeader.key]}
-                                            place="bottom"
+                                            label={tableDataRow[tableHeader.key]}
+                                            style={TooltipStyle.MiddleBottomArrow}
                                           >
                                             <span className="d-inline-block">
-                                              {tableDataRow[tableHeader.key].substring(0, tableHeader.dataLength) + "..."}
+                                              {tableDataRow[
+                                                tableHeader.key
+                                              ].substring(
+                                                0,
+                                                tableHeader.dataLength
+                                              ) + "..."}
                                             </span>
                                           </RdsTooltip>
                                         )}
-
-                                      {/* add more types here if reequired */}
+                                      {tableHeader.key === "tenant" && (
+                                        <div
+                                          dangerouslySetInnerHTML={{
+                                            __html:
+                                              tableDataRow[tableHeader.key],
+                                          }}
+                                        />
+                                      )}
                                     </div>
                                   ) : (
                                     <RdsInput
+                                      name={tableHeader.key}
                                       inputType={tableHeader.datatype}
                                       value={tableDataRow[tableHeader.key]}
                                       onChange={(e) => {
@@ -955,113 +1382,202 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 <td className="align-middle text-center">
                                   {!tableDataRow?.isEndUserEditing ? (
                                     <>
-                                    {( actionColumnStyle==="show dots" &&<div className="btn-group dropstart">
-                                        <button
-                                          className="btn btn-sm btn-icon border-0 three-dot-btn"
-                                          type="button"
-                                          aria-expanded={activeDropdownId === tableDataRow.id ? 'false' : 'true'}
-                                          onClick={() => toggleDropdown(tableDataRow.id)}
-                                          data-bs-toggle="dropdown"
-                                          data-bs-auto-close="true"
-                                          id="dropdownMenuButton"
-                                          data-testid="action-btn"
-                                        >
-                                          <RdsIcon
-                                            name={"three_dots"}
-                                            height="14px"
-                                            width="14px"
-                                            stroke={false}
-                                            fill={true}
-                                            tooltip={true}
-                                            tooltipTitle="More Actions"
-                                            tooltipPlacement="top"
-                                            isCursorPointer={true}
-                                          />
-                                        </button>
-                                        <ul
-                                          ref={dropdownRef}
-                                          aria-labelledby="dropdownMenuButton"
-                                          className={`dropdown-menu ${activeDropdownId === tableDataRow.id && isDropdownOpen ? 'show' : ''}`}
-                                        >
-                                          {totalActions?.map((action, actionIndex) => (
-                                            <li key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}>
-                                              {action.modalId && (
-                                                <a
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target={`#${action?.modalId}`}
-                                                  aria-controls={action?.modalId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
+                                      {actionColumnStyle === "show dots" && (
+                                        <div className="btn-group dropstart">
+                                          <button
+                                            className="btn btn-sm btn-icon border-0 three-dot-btn"
+                                            type="button"
+                                            aria-expanded={
+                                              activeDropdownId ===
+                                              tableDataRow.id
+                                                ? "false"
+                                                : "true"
+                                            }
+                                            onClick={() =>
+                                              toggleDropdown(tableDataRow.id)
+                                            }
+                                            data-bs-toggle="dropdown"
+                                            data-bs-auto-close="true"
+                                            id="dropdownMenuButton"
+                                            data-testid="action-btn"
+                                          >
+                                            <RdsIcon
+                                              name={"three_dots"}
+                                              height="14px"
+                                              width="14px"
+                                              stroke={false}
+                                              fill={true}
+                                              tooltip={true}
+                                              tooltipTitle="More Actions"
+                                              tooltipPlacement="top"
+                                              isCursorPointer={true}
+                                            />
+                                          </button>
+                                          <ul
+                                            ref={dropdownRef}
+                                            aria-labelledby="dropdownMenuButton"
+                                            className={`dropdown-menu ${
+                                              activeDropdownId ===
+                                                tableDataRow.id &&
+                                              isDropdownOpen
+                                                ? "show"
+                                                : ""
+                                            }`}
+                                          >
+                                            {totalActions?.map(
+                                              (action, actionIndex) => (
+                                                <li
+                                                  key={
+                                                    "action-" +
+                                                    actionIndex +
+                                                    "-inside-tableRow" +
+                                                    tableDataRow.id
+                                                  }
                                                 >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId && (
-                                                <a
-                                                  data-bs-toggle="offcanvas"
-                                                  data-bs-target={`#${action?.offId}`}
-                                                  aria-controls={action?.offId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId == undefined && action.modalId == undefined && (
-                                                <a
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      </div>)}
-                                      <div>
-                                      {actionColumnStyle === "show buttons directly" && (
-                                        <div className="d-flex align-items-center justify-content-center mx-1"  id="action_column">
-                                          {totalActions?.map((action, actionIndex) => (
-                                            <button
-                                              key={"action-" + actionIndex + "-inside-tableRow" + tableDataRow.id}
-                                              className="btn btn-outline-primary mx-1 my-1"
-                                            >
-                                              {action.modalId && (
-                                                <a
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target={`#${action?.modalId}`}
-                                                  aria-controls={action?.modalId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId && (
-                                                <a
-                                                  data-bs-toggle="offcanvas"
-                                                  data-bs-target={`#${action?.offId}`}
-                                                  aria-controls={action?.offId}
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                              {action.offId == undefined && action.modalId == undefined && (
-                                                <a
-                                                  onClick={(e) => actionOnClickHandler(e, tableDataRow, tableDataRow.id, action)}
-                                                  className="dropdown-item"
-                                                >
-                                                  {action.displayName}
-                                                </a>
-                                              )}
-                                            </button>
-                                          ))}
+                                                  {action.modalId && (
+                                                    <a
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target={`#${action?.modalId}`}
+                                                      aria-controls={
+                                                        action?.modalId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId && (
+                                                    <a
+                                                      data-bs-toggle="offcanvas"
+                                                      data-bs-target={`#${action?.offId}`}
+                                                      aria-controls={
+                                                        action?.offId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId == undefined &&
+                                                    action.modalId ==
+                                                      undefined && (
+                                                      <a
+                                                        onClick={(e) =>
+                                                          actionOnClickHandler(
+                                                            e,
+                                                            tableDataRow,
+                                                            tableDataRow.id,
+                                                            action
+                                                          )
+                                                        }
+                                                        className="dropdown-item"
+                                                      >
+                                                        {action.displayName}
+                                                      </a>
+                                                    )}
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
                                         </div>
                                       )}
-                                    </div>
+                                      <div>
+                                        {actionColumnStyle ===
+                                          "show buttons directly" && (
+                                          <div
+                                            className="d-flex align-items-center justify-content-center mx-1"
+                                            id="action_column"
+                                          >
+                                            {totalActions?.map(
+                                              (action, actionIndex) => (
+                                                <button
+                                                  key={
+                                                    "action-" +
+                                                    actionIndex +
+                                                    "-inside-tableRow" +
+                                                    tableDataRow.id
+                                                  }
+                                                  className="btn btn-outline-primary mx-1 my-1"
+                                                >
+                                                  {action.modalId && (
+                                                    <a
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target={`#${action?.modalId}`}
+                                                      aria-controls={
+                                                        action?.modalId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId && (
+                                                    <a
+                                                      data-bs-toggle="offcanvas"
+                                                      data-bs-target={`#${action?.offId}`}
+                                                      aria-controls={
+                                                        action?.offId
+                                                      }
+                                                      onClick={(e) =>
+                                                        actionOnClickHandler(
+                                                          e,
+                                                          tableDataRow,
+                                                          tableDataRow.id,
+                                                          action
+                                                        )
+                                                      }
+                                                      className="dropdown-item"
+                                                    >
+                                                      {action.displayName}
+                                                    </a>
+                                                  )}
+                                                  {action.offId == undefined &&
+                                                    action.modalId ==
+                                                      undefined && (
+                                                      <a
+                                                        onClick={(e) =>
+                                                          actionOnClickHandler(
+                                                            e,
+                                                            tableDataRow,
+                                                            tableDataRow.id,
+                                                            action
+                                                          )
+                                                        }
+                                                        className="dropdown-item"
+                                                      >
+                                                        {action.displayName}
+                                                      </a>
+                                                    )}
+                                                </button>
+                                              )
+                                            )}
+                                          </div>
+                                        )}
+                                      </div>
                                     </>
                                   ) : (
                                     <div className="d-flex justify-content-center align-items-center w-60px">
@@ -1091,7 +1607,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                       <RdsButton
                                         class="ms-2 text-white"
                                         colorVariant="danger"
-                                        tooltipPlacement="top"
+                                        tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                                         size="medium"
                                         tooltipTitle={""}
                                         type={"button"}
@@ -1121,50 +1637,52 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                               totalActions?.length == 1 && (
                                 <td className="px-2 align-middle">
                                   <div className="d-grid justify-content-center">
-                                    {totalActions?.map((action, actionIndex) => (
-                                      <>
-                                        <RdsIcon
-                                          key={
-                                            "action-" +
-                                            actionIndex +
-                                            "-inside-tableRow" +
-                                            index
-                                          }
-                                          name={action.icon || action.id}
-                                          height="16px"
-                                          width="16px"
-                                          stroke={true}
-                                          fill={false}
-                                          tooltip={true}
-                                          tooltipTitle={action.displayName}
-                                          tooltipPlacement={"top"}
-                                          isCursorPointer={true}
-                                          databstoggle={
-                                            action.offId
-                                              ? "offcanvas"
-                                              : action.modalId
+                                    {totalActions?.map(
+                                      (action, actionIndex) => (
+                                        <>
+                                          <RdsIcon
+                                            key={
+                                              "action-" +
+                                              actionIndex +
+                                              "-inside-tableRow" +
+                                              index
+                                            }
+                                            name={action.icon || action.id}
+                                            height="16px"
+                                            width="16px"
+                                            stroke={true}
+                                            fill={false}
+                                            tooltip={true}
+                                            tooltipTitle={action.displayName}
+                                            tooltipPlacement={"top"}
+                                            isCursorPointer={true}
+                                            databstoggle={
+                                              action.offId
+                                                ? "offcanvas"
+                                                : action.modalId
                                                 ? "modal"
                                                 : ""
-                                          }
-                                          databstarget={
-                                            action.offId
-                                              ? `#${action?.offId}`
-                                              : action.modalId
+                                            }
+                                            databstarget={
+                                              action.offId
+                                                ? `#${action?.offId}`
+                                                : action.modalId
                                                 ? `#${action?.modalId}`
                                                 : ""
-                                          }
-                                          ariacontrols={action?.offId}
-                                          onClick={(e) => {
-                                            actionOnClickHandler(
-                                              e,
-                                              tableDataRow,
-                                              tableDataRow.id,
-                                              action
-                                            );
-                                          }}
-                                        />
-                                      </>
-                                    ))}
+                                            }
+                                            ariacontrols={action?.offId}
+                                            onClick={(e) => {
+                                              actionOnClickHandler(
+                                                e,
+                                                tableDataRow,
+                                                tableDataRow.id,
+                                                action
+                                              );
+                                            }}
+                                          />
+                                        </>
+                                      )
+                                    )}
                                   </div>
                                 </td>
                               )}
@@ -1189,7 +1707,6 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                 paginationType={
                   props.recordsPerPageSelectListOption ? "default" : "advanced"
                 }
-
               ></RdsPagination>
             </div>
           )}

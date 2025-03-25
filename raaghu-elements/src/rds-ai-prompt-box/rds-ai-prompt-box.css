@@ -58,8 +58,6 @@
   resize: none; 
 }
 
-
-
 /* Generate button styling */
 .generate-button {
   padding: 10px 20px;
@@ -71,11 +69,11 @@
 }
 
 /* Dropdown styling */
-.input-column {
+/* .input-column {
   margin-left: 0px;
   padding: 0px;
   margin-top:4px;
-}
+} */
 
 .file-upload-label {
   position: absolute;
@@ -90,7 +88,10 @@
   flex-direction: column;
   align-items: center;
   width:inherit;
-  margin-right:8px;
+  margin-right:3px;
+  margin-left: 0px;
+  padding: 0px;
+  margin-top:4px;
 }
 
 .input-wrapper {
@@ -98,21 +99,31 @@
   width: 100%;
 }
 
-.input-with-image {
+.ai-prompt .input-with-image {
     position: relative;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 10px; /* Add gap between images */
     justify-content: flex-end; /* Align images to the right */
-    border: 1px solid #000;
+    border: 1px solid #862FFF;
     border-radius: var(--bs-border-radius);
 }
-    .input-with-image .form-controls {
-        border: none;
-        width: calc(100% - 2rem);
-        padding-right:2rem;
-    }
+.ai-prompt .input-with-image .form-controls {
+  border: none!important;
+  width: calc(100% - 2rem);
+  padding-right: 2rem;
+}
+.ai-prompt .input-with-image {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0px!important; /* Add gap between images */
+  justify-content: flex-end;
+  border: 1px solid #862FFF;
+  border-radius: var(--bs-border-radius);
+}
 
 .selected-image {
     max-width: 50px;
@@ -183,7 +194,7 @@
   max-width:80%;
   display: inline-block;
   word-wrap: break-word; /* Allows long words to be broken and wrap to the next line */
-  word-break: break-word; /* Ensures that the text breaks within words if necessary */
+  /* word-break: break-word; */
   white-space: normal; /* Allows text to wrap to the next line */
 }
 .chat-entry.input {
@@ -349,4 +360,173 @@
 .generate-button:active{
   outline: none;
   border:0px;
+}
+
+/* Small mobile view (up to 480px) */
+@media (max-width: 480px) {
+  .input-box {
+    height: 80px; /* Adjust height for medium screens */
+  }
+}
+
+.d-flex.ml-auto {
+  display: flex;
+  justify-content: flex-end; /* Align items to the end of the container */
+  align-items: center; /* Vertically center items */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  gap: 8px; /* Add some spacing between elements */
+}
+
+.toggle-container {
+  display: flex;
+  border: 2px solid #8000ff;
+  border-radius: 7px;
+  overflow: hidden;
+  width: auto; /* Allow the width to adjust based on content */
+  max-width: 200px; /* Optional: Set a maximum width */
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 7px 10px; /* Reduced padding for smaller screens */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.875rem; /* Reduced font size for smaller screens */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.selected {
+  background-color: #8000ff;
+  color: white;
+}
+
+.unselected {
+  background-color: white;
+  color: #8000ff;
+}
+
+.form-controls.border-primary.ms-1.cursor-pointer {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem; /* Adjust padding for smaller screens */
+}
+
+@media (max-width: 768px) {
+  .d-flex.ml-auto {
+    flex-direction: row; /* Stack items vertically on smaller screens */
+    justify-content: flex-start; /* Align items to the start on smaller screens */
+    width: 100%; /* Take full width */
+  }
+
+  .toggle-container {
+    width: 100%; /* Take full width on smaller screens */
+    max-width: none; /* Remove max width */
+  }
+
+  .toggle-option {
+    padding: 7px; /* Further reduce padding on very small screens */
+    font-size: 0.75rem; /* Further reduce font size */
+  }
+
+  .form-controls.border-primary.ms-1.cursor-pointer {
+    height: auto;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+    .d-flex.ml-auto{
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.d-flex.justify-content-between.align-items-center.mb-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Equivalent to mb-2 */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.d-flex.justify-content-between.align-items-center.mb-2 > div:first-child {
+  flex: 1 1 auto; /* Allow the text to take up available space */
+  min-width: 0; /* Allow the text to shrink below its content size */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Show an ellipsis (...) for truncated text */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.d-flex.justify-content-between.align-items-center.mb-2 > div:last-child {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Push the buttons to the right */
+  margin-top: 0.5rem; /* Add some space between text and buttons on small screens */
+  flex-wrap: wrap; /* Allow button wrapping*/
+  gap:8px;
+}
+
+@media (max-width: 480px) {
+  .d-flex.justify-content-between.align-items-center.mb-2 > div:first-child {
+    white-space: normal; /* Allow text to wrap on very small screens */
+    text-overflow: clip; /* Remove ellipsis */
+  }
+}
+
+.toggle-container {
+  display: flex;
+  border: 2px solid #8000ff;
+  border-radius: 7px;
+  overflow: hidden;
+  width: auto;
+  max-width: 200px;
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.selected {
+  background-color: #8000ff;
+  color: white;
+}
+
+.unselected {
+  background-color: white;
+  color: #8000ff;
+}
+
+.form-controls.border-primary.ms-1.cursor-pointer {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .toggle-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .toggle-option {
+    padding: 7px;
+    font-size: 0.75rem;
+  }
+
+  .form-controls.border-primary.ms-1.cursor-pointer {
+    width: auto;
+    height: auto;
+    padding: 0.5rem;
+  }
 }

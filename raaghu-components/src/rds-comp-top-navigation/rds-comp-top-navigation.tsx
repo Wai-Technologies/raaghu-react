@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import "./rds-comp-top-navigation.css";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 
 export interface RdsCompTopNavigationProps {
-  ShowProfileSection?: boolean;
+  ShowProfileSection?: boolean; // Determines whether to show the profile section.
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
   onChatClickHandler?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
@@ -12,25 +16,25 @@ export interface RdsCompTopNavigationProps {
     event: React.MouseEvent<HTMLLIElement>,
     val: string
   ) => void;
-  notifications?: any[];
-  languageItems?: any[];
-  themeItems: any[];
-  toggleItems: any[];
-  elementList: any[];
-  componentsList: any[];
-  navbarTitle?: string;
-  brandName?: string;
-  brandLogo?: string;
-  profileTitle?: any;
-  profileName?: string;
-  profileEmail?: string;
-  logo?: string;
-  languageLabel: string;
-  languageIcon?: string;
-  width?: string;
-  themeLabel: string;
-  breadcrumItem?: any;
-  profilePic?: any;
+  notifications?: any[]; // Array of notifications to display.
+  languageItems?: any[]; // Array of language items to display.
+  themeItems: any[]; // Array of theme items to display.
+  toggleItems: any[]; // Array of toggle items to display.
+  elementList: any[]; // Array of elements to display.
+  componentsList: any[]; // Array of components to display.
+  navbarTitle?: string; // Title to display in the navbar.
+  brandName?: string; // Brand name to display in the navbar.
+  brandLogo?: string; // Brand logo to display in the navbar.
+  profileTitle?: any; // Profile title to display in the navbar.
+  profileName?: string; // Profile name to display in the navbar.
+  profileEmail?: string; // Profile email to display in the navbar.
+  logo?: string; // Logo to display in the navbar.
+  languageLabel: string; // Label for the language dropdown.
+  languageIcon?: string; // Icon for the language dropdown.
+  width?: string;  // Width of the navbar.
+  themeLabel: string; // Label for the theme dropdown.
+  breadcrumItem?: any; // Breadcrum item to display in the navbar.
+  profilePic?: any; // Profile picture to display in the navbar.
   onLogout?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   onElementSelect?: (selectedElement: any) => void;
   isImpersonation?: any;
@@ -42,44 +46,47 @@ export interface RdsCompTopNavigationProps {
     label?: string
   ) => void;
   chatsHandler?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-  tenantName?: any;
+  tenantName?: any; // Tenant name to display in the navbar.
   mobileViewLogoClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickHamburger?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
-  isLandingPage?: boolean;
-  isChatPermission?: any;
-  showUserName?: boolean;
-  navbarSubTitle?: any;
-  showLogo?: boolean;
-  raaghuPortal?: boolean;
-  ecommerce1?: boolean;
-  navtabItems?: any;
-  colorVariant?: string;
-  firstName?: string;
-  lastName?: string;
-  role?: string;
-  showSearch?: boolean;
-  ecommerce2?: boolean;
+  isLandingPage?: boolean; // Determines whether the page is a landing page.
+  isChatPermission?: any; // Determines whether the user has chat permission.
+  showUserName?: boolean; // Determines whether to show the user name.
+  navbarSubTitle?: any; // Subtitle to display in the navbar.
+  showLogo?: boolean; // Determines whether to show the logo.
+  raaghuPortal?: boolean; // Determines whether the portal is a Raaghu portal.
+  ecommerce1?: boolean; // Determines whether the portal is an ecommerce portal.
+  navtabItems?: any; // Array of navtab items to display.
+  colorVariant?: string; // Color variant to display in the navbar.
+  firstName?: string; // First name to display in the navbar.
+  lastName?: string; // Last name to display in the navbar.
+  role?: string; // Role to display in the navbar.
+  showSearch?: boolean; // Determines whether to show the search bar.
+  ecommerce2?: boolean; // Determines whether the portal is an ecommerce portal.
   ecommerce3?: boolean;
   ecommerce4?: boolean;
-  product1?: boolean;
+  product1?: boolean; // Determines whether the portal is a product portal.
   product2?: boolean;
   product3?: boolean;
   product4?: boolean;
-  entertainment1?: boolean;
+  entertainment1?: boolean; // Determines whether the portal is an entertainment portal.
   entertainment2?: boolean;
   entertainment3?: boolean;
   entertainment4?: boolean;
-  professional1?: boolean;
+  professional1?: boolean; // Determines whether the portal is a professional portal.
   professional2?: boolean;
   professional3?: boolean;
   professional4?: boolean;
   professional5?: boolean;
-  appshell3?: boolean;
-  listItems?: any;
-  socialMediaIcons?: any;
-  icons?: any;
-  navButtons?: any;
-  top_nav_logo?: string;
+  appshell3?: boolean; // Determines whether the portal is an appshell portal.
+  listItems?: any; // Array of list items to display.
+  socialMediaIcons?: any; // Array of social media icons to display.
+  icons?: any; // Array of icons to display.
+  navButtons?: any; // Array of nav buttons to display.
+  top_nav_logo?: string; // Top navigation logo to display.
+  style: any; // Style to display in the navbar.
+  breadcrumbBorderColor?: string; 
+  breadcrumbBorderPlacement?: string; 
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -93,6 +100,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [themeIcon, setThemeIcon] = useState("sun");
 
   const navtabItems = [
     {
@@ -144,6 +152,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   };
 
   const onClicktheme = (e: any, val: string) => {
+    setThemeIcon(val);
     if (props.onClickThemeCheck) {
       props.onClickThemeCheck(e, val);
     }
@@ -160,7 +169,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 }, [props.breadcrumItem]);
 
   const [profilePic, setProfilePic] = useState(props.profilePic||
-    "./assets/profile-picture-circle.svg"
+    "/assets/profile-picture-circle.svg"
   );
   useEffect(() => {
     if (props.profilePic) {
@@ -322,7 +331,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
   };
 
   const renderTopbar = () => {
-    if (props.raaghuPortal) {
+    if (props.style === "RaaghuPortal") {
       return (
         <div>
           <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -381,7 +390,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
                 <RdsOffcanvas
                   className="pb-5 m-auto"
-                  placement="end"
+                  placement={RdsOffcanvasPlacement.End}
                   offcanvaswidth={307}
                   offId="Profile1"
                   offcanvasbutton={
@@ -395,7 +404,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       ></img>
                     </div>
                   }
-                  backDrop={true}
+                  backDrop={RdsOffcanvasBackDrop.True}
                   scrolling={false}
                   preventEscapeKey={false}
                   canvasTitle={""}
@@ -419,7 +428,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="px-2 px-md-3 d-none d-lg-block">
                 <RdsOffcanvas
                   className="pb-0"
-                  placement="end"
+                  placement={RdsOffcanvasPlacement.End}
                   offcanvaswidth={307}
                   offId="Profile"
                   offcanvasbutton={
@@ -447,7 +456,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       </span>
                     </div>
                   }
-                  backDrop={true}
+                  backDrop={RdsOffcanvasBackDrop.True}
                   scrolling={false}
                   preventEscapeKey={false}
                   canvasTitle={""}
@@ -471,7 +480,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         </div>
       );
     }
-    if (props.ecommerce1) {
+    if (props.style === "Ecommerce_1") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between shadow">
@@ -497,7 +506,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -535,8 +544,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
                 </div>)}
             </div>
@@ -545,7 +554,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce2) {
+    if (props.style === "Ecommerce_2") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -571,7 +580,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -597,7 +606,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 </div>
 
                 {( props.ecommerce2 && <div
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -611,9 +620,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -635,7 +644,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -644,7 +653,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce3) {
+    if (props.style === "Ecommerce_3") {
       return (
         <div  id="topnav">
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -670,7 +679,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div className={` ${props.ecommerce3?"ps-4":""}`}>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -731,7 +740,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if (props.ecommerce4) {
+    if (props.style === "Ecommerce_4") {
       return (
         <div  id="topnav">
               <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -757,7 +766,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     {breacrumItem?.length > 0 && (
                             <div>
                                 <>
-                                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                                 </>
                             </div>
                         )}
@@ -824,8 +833,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
                 </div>)}
             </div>
@@ -836,7 +845,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       {breacrumItem?.length > 0 && (
                           <div>
                               <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                               </>
                           </div>
                       )}
@@ -845,7 +854,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
     </div>
       );
     }
-    if(props.entertainment1){
+    if (props.style === "Entertainment_1") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -920,7 +929,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment2){
+    if (props.style === "Entertainment_2") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -984,8 +993,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
               </div>
             )}
@@ -994,7 +1003,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment3){
+    if (props.style === "Entertainment_3") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1059,8 +1068,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
               </div>
             )}
@@ -1069,7 +1078,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.entertainment4){
+    if (props.style === "Entertainment_4") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1149,8 +1158,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
               </div>
             )}
@@ -1159,7 +1168,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional1){
+    if (props.style === "Professional_1") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1252,7 +1261,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional2){
+    if (props.style === "Professional_2") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1347,7 +1356,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional3){
+    if (props.style === "Professional_3") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1401,8 +1410,10 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 <div className="mob-description ">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={true}
                     ></RdsBreadcrumb>
                   </>
@@ -1431,7 +1442,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                                   <>
                                       <RdsBreadcrumb
                                           breadcrumbItems={breacrumItem}
-                                          separator={props.product1 ? ">" : undefined}
+                                          separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                                           topnavPlusIcon={true}
                                       ></RdsBreadcrumb>
                                   </>
@@ -1446,7 +1457,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional4){
+    if (props.style === "Professional_4") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1490,7 +1501,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">          
                <div className={` ${props.professional4?"ps-4":""}`}>
                    <>
-                      <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
                    </>
                   </div>             
           </div>)}
@@ -1528,7 +1539,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.professional5){
+    if (props.style === "Professional_5") {
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
@@ -1570,7 +1581,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             )}
           </div>
       
-          <div className="d-flex align-items-center right-side-menu">
+          <div className="d-flex align-items-center right-side-menu top-nav">
           <div
               className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
             >
@@ -1584,9 +1595,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={languageItems}
                 showIcon={false}
                 onClick={onClickHandler}
-                tooltip={true}
-                tooltipTitle={"Select Language"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Language"}
+                // tooltipPlacement="bottom"
                 isCode={true}
               ></RdsDropdownList>
               <div className="d-block d-none fs-8 text-center">Language</div>
@@ -1604,31 +1615,27 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               </span>
             ))}
             <div className="position-relative px-2 px-md-1 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+            <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
             {props.professional5 && (
               <div className="position-relative px-md-1 col text-center d-flex align-items-center language custome-border-start">
                  <div className="position-relative  d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -1642,7 +1649,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1666,7 +1673,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className=" d-none d-lg-block px-1">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -1686,7 +1693,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1712,7 +1719,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       </div>
     );
     }
-    if(props.appshell3){
+    if (props.style === "App_Shell_3") {
       return (
         <div>
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
@@ -1761,24 +1768,20 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           >
  
            <div className="position-relative px-2 px-md-3 col text-center  ">
-              <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
+           <RdsDropdownList
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
             </div>
 
            <div
@@ -1842,9 +1845,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -1854,7 +1857,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -1868,7 +1871,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1892,7 +1895,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="px-2 px-md-3 d-none d-lg-block">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -1920,7 +1923,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -1949,8 +1952,10 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 { breacrumItem?.length > 0 && (
                   <div className="mob-description fs-6">
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </div>
@@ -1965,8 +1970,17 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       
     }
     return (
+      <>
+      
+      {(props.style === "Default" || 
+        props.style === "ABP" || 
+        props.style === "Product_1" || 
+        props.style === "Product_2" || 
+        props.style === "Product_3" || 
+        props.style === "Product_4") && (
+
       <div>
-        <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
+        <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
           <div
             onClick={handlerLogoClick}
             id="raaghuLogo"
@@ -1987,7 +2001,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
+          <div className="d-flex align-items-center mt-md-0 d-xxl-block d-xl-block d-lg-block">
             <div className="d-flex">
                 <>
                  {(!props.product1  && <div>
@@ -2008,8 +2022,10 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                             <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
                   <>
                     <RdsBreadcrumb
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </>
@@ -2019,29 +2035,26 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </div>
           <div
             className={
-              "d-flex align-items-center justify-content-between right-side-menu"
+              "d-flex px-2 align-items-center justify-content-between right-side-menu"
             }
           >
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
-           <div className="position-relative px-2 px-md-3 col text-center  ">
+           <div className="position-relative px-2 px-md-3 col text-center">
               <RdsDropdownList
-                iconPath={"/assets/lottie-files/outlined/dual-color/sun.json"}
                 labelIconWidth="30px"
+                iconFill={true}
+                iconStroke={true}
+                icon={themeIcon} 
                 labelIconHeight="26px"
                 isIconPlaceholder={true}
+                showSelectedOption={false}
                 isPlaceholder={false}
-                placeholder={
-                  "/assets/lottie-files/outlined/dual-color/sun.json"
-                }
                 id={"themeDropdown"}
                 listItems={props.themeItems}
                 onClick={onClicktheme}
                 showIcon={true}
-                tooltip={true}
-                tooltipTitle={"Select Theme"}
-                tooltipPlacement="bottom"
               />
-              <div className="d-block d-none fs-8 text-center">Light</div>
+              {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
             </div>
 
            <div
@@ -2090,7 +2103,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             </div>
 
             <div
-              className={`position-relative px-2 px-md-3 ${
+              className={`position-relative px-2 px-md-4 ${
                 !props.ShowProfileSection && "border-start-custom"
               }  border-end-custom col text-center d-flex align-items-center language`}
             >
@@ -2104,9 +2117,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 listItems={languageItems}
                 showIcon={false}
                 onClick={onClickHandler}
-                tooltip={true}
-                tooltipTitle={"Select Language"}
-                tooltipPlacement="bottom"
+                // tooltip={true}
+                // tooltipTitle={"Select Language"}
+                // tooltipPlacement="bottom"
                 isCode={true}
               ></RdsDropdownList>
               <div className="d-block d-none fs-8 text-center">Language</div>
@@ -2128,10 +2141,10 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               ))}
               
             {( (!props.product2 && !props.product3 && !props.product4 && !props.entertainment1)&&<>
-            <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
+            <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
               <RdsOffcanvas
                 className="pb-5 m-auto"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile1"
                 offcanvasbutton={
@@ -2145,7 +2158,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     ></img>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -2169,7 +2182,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div className="px-2 px-md-3 d-none d-lg-block">
               <RdsOffcanvas
                 className="pb-0"
-                placement="end"
+                placement={RdsOffcanvasPlacement.End}
                 offcanvaswidth={307}
                 offId="Profile"
                 offcanvasbutton={
@@ -2197,7 +2210,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     </span>
                   </div>
                 }
-                backDrop={true}
+                backDrop={RdsOffcanvasBackDrop.True}
                 scrolling={false}
                 preventEscapeKey={false}
                 canvasTitle={""}
@@ -2220,7 +2233,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             { props.product2  && 
             <div id="topnav">
                  <div  
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu"}
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
                 >
                     <RdsDropdownList
                         labelIconWidth="18px"
@@ -2234,9 +2247,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         listItems={listItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        tooltip={true}
-                        tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                        tooltipPlacement="bottom"
+                        // tooltip={true}
+                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                        // tooltipPlacement="bottom"
                         isCode={true}
 
                     ></RdsDropdownList> 
@@ -2297,8 +2310,8 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       lastName={props.lastName}
                       profilePic={profilePic}
                       role={props.role}
-                      size="medium"
-                      titleAlign="horizontal"
+                      size={AvatarSize.medium}
+                      title="horizontal"
                     />
                 </div>)}
           </div>
@@ -2310,7 +2323,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   <div className="mob-description">
                     <RdsBreadcrumb 
                       breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? ">" : undefined}
+                      borderColor={props.breadcrumbBorderColor}
+                      borderPlacement={props.breadcrumbBorderPlacement}
+                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
                   </div>
@@ -2325,13 +2340,17 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     <>
                         <RdsBreadcrumb
                             breadcrumbItems={breacrumItem}
-                            separator={props.product1 ? ">" : undefined}
+                            borderColor={props.breadcrumbBorderColor}
+                            borderPlacement={props.breadcrumbBorderPlacement}
+                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                             topnavPlusIcon={props.product2 || props.product3}
                         ></RdsBreadcrumb>
                     </>
                 </div>
             )}
       </div>
+    )}
+    </>
     );
   };
 

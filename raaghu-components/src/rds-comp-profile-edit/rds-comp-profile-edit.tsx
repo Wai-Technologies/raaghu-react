@@ -54,8 +54,8 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                   <RdsInput
                     inputType="text"
                     required={true}
-                    label="Name"
-                    name="name"
+                    name="Name"
+                    label={true}                    
                     id="name"
                     placeholder="Enter Name"
                     onChange={(e) => {
@@ -72,9 +72,9 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                   <RdsInput
                     required={true}
                     inputType="email"
-                    label="Email Address"
-                    placeholder="Enter Email Address"
-                    name="email"
+                    name="Email Address"
+                    label={true}
+                    placeholder="Enter Email Address"                    
                     id="email"
                     onChange={(e) => {
                       handleDataChanges(e.target.value, "email");
@@ -95,8 +95,9 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                   <RdsInput
                     placeholder="Enter Phone Nunber"
                     inputType="number"
-                    label="Phone Number"
-                    name="phone"
+                    name="Phone Number"
+                    label={true}
+                    
                     id="phone"
                     required={true}
                     onChange={(e) => {
@@ -114,8 +115,8 @@ const RdsCompProfileEdit = (props: RdsCompProfileEditProps) => {
                   <RdsInput
                     placeholder="Enter Username"
                     inputType="text"
-                    label="User Name"
-                    name="userName"
+                    name="User Name"
+                    label={true}                    
                     id="username"
                     required={true}
                     onChange={(e) => {

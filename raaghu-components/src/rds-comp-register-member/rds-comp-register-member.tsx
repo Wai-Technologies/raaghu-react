@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
-
+import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import {  LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompRegisterMemberProps {
   registerMemberData?: any;
   isEmailFieldVisible?: boolean;
@@ -83,13 +84,13 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
         <form>
           <div className="form-group">
             <RdsInput
-              label="User Name"
+              name="User Name"
+              label={true}
               placeholder="User Name"
               inputType="text"
-              required={true}
-              name={"userName"}
+              required={true}              
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.userName}
               dataTestId="name"
               onChange={(e: any) =>
@@ -104,8 +105,8 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               placeholder="Email"
               customClasses="form-control"
               inputType="text"
-              label="Email"
-              name={"email"}
+              name="Email"
+              label={true}             
               required={true}
               value={registerMemberData?.email}
               onChange={(e: any) =>
@@ -119,13 +120,13 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
 
           <div className="form-group">
             <RdsInput
-              label="Enter First Name"
+              name="Enter First Name"
+              label={true}
               placeholder="Enter First Name"
               inputType="text"
-              required={true}
-              name={"name"}
+              required={true}             
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.name}
               dataTestId="name"
               onChange={(e: any) =>
@@ -136,13 +137,13 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
 
           <div className="form-group">
             <RdsInput
-              label="Enter Last Name"
+              name="Enter Last Name"
+              label={true}
               placeholder="Enter Last Name"
               inputType="text"
-              required={true}
-              name={"surname"}
+              required={true}              
               readonly={false}
-              labelPosition="top"
+              labelPosition={LabelPosition.Top}
               value={registerMemberData?.surname}
               dataTestId="surname"
               onChange={(e: any) =>
@@ -156,8 +157,8 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
               inputType="password"
               placeholder="Enter Password"
               required={true}
-              label="Password"
-              name="password"
+              name="Password"
+              label={true}             
               id={(errors.password && registerMemberData?.password)? "passwordfield":"password" }
               onBlur={() => setIsPasswordTouched(true)}
               onChange={(e: any) =>
@@ -177,9 +178,9 @@ const isFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(
           <div className="pb-4 pt-2">
             <RdsCheckbox
               id="id1"
-              label="I Accept Terms Of Service"
-              state="Checkbox"
-              withlabel
+              labelText="I Accept Terms Of Service"
+              status={CheckboxStatus.Checked}
+              showText
               checked={isCheckTerms}
               onChange={(e: any) => setIsCheckTerms(e.target.checked)}
             />

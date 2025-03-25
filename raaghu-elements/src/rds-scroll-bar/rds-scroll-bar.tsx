@@ -1,0 +1,82 @@
+import React, { useEffect, useRef } from "react";
+import "./rds-scroll-bar.scss";
+import RdsIcon from "../rds-icon";
+
+export enum ScrollBarType {
+  Mac = "Mac",
+  Simple = "Simple",
+}
+
+export enum ScrollPosition {
+  Start = "Start",
+  Middle = "Middle",
+  End = "End",
+}
+export interface RdsScrollBarProps {
+  type?: ScrollBarType; // Scroll bar type
+  position?: ScrollPosition; // Scroll position
+  showButtons?: boolean; // Show scroll buttons only for Mac type
+}
+
+
+const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
+  type = "Mac",
+  position = "Start",
+  showButtons = true,
+}) => {
+  const scrollContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollContentRef.current) {
+      const content = scrollContentRef.current;
+      if (position === "Start") {
+        content.scrollTop = 0;
+      } else if (position === "Middle") {
+        content.scrollTop = content.scrollHeight / 2 - content.clientHeight / 2;
+      } else if (position === "End") {
+        content.scrollTop = content.scrollHeight;
+      }
+    }
+  }, [position]);
+
+  const scrollToPosition = (pos: "Start" | "Middle" | "End") => {
+    if (scrollContentRef.current) {
+      const content = scrollContentRef.current;
+      if (pos === "Start") {
+        content.scrollTop = 0;
+      } else if (pos === "Middle") {
+        content.scrollTop = content.scrollHeight / 2 - content.clientHeight / 2;
+      } else if (pos === "End") {
+        content.scrollTop = content.scrollHeight;
+      }
+    }
+  };
+
+  return (
+    <div className={type === "Mac" ? "scroll-container mac" : "scroll-container simple"}>
+      {type === "Mac" && showButtons && (
+        <div className="scroll-controls">
+          <button
+            className="scroll-button"
+            onClick={() => scrollToPosition("Start")}
+            style={{ backgroundColor: "lightgray" }}
+          >
+            <RdsIcon width="8px" height="8px" name="chevron_up" />
+          </button>
+          <button
+            className="scroll-button"
+            onClick={() => scrollToPosition("End")}
+            style={{ backgroundColor: "lightgray" }}
+          >
+            <RdsIcon width="8px" height="8px" name="chevron_down" />
+          </button>
+        </div>
+      )}
+      <div className="scroll-content" ref={scrollContentRef}>
+        <div style={{ height: "500px" }}></div>
+      </div>
+    </div>
+  );
+};
+
+export default RdsScrollBar;

@@ -191,7 +191,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
 {navtabsItem.count && navtabsItem.count > 0 && (
     <span>
         <RdsBadge
-            badgeType="pill"
+            shape="pill"
             colorVariant={navtabsItem.colorVariant || "default"} // Fallback colorVariant
             label={navtabsItem.count.toString()} // Ensure label is a string
             size="small"

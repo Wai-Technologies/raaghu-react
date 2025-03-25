@@ -603,3 +603,32 @@ form .form-group .select-options,
   transform: translate(126px, 37px);
 }
 }
+
+@media (max-width: 767px){
+  .side-navigation {
+    margin-left: 520px !important;
+  }
+  #mobileviewmenusdirectory ol, ul {
+    padding-left: 0rem !important;
+}
+}
+
+@media (max-width: 600px) {
+  #fab-list .dropdown-menu.show {
+      width: 292px !important;
+      height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .attachement-dropdown #fab-list .dropdown-menu.show {
+      width: 245px !important;
+      height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-text {
+    padding-left: 6px!important;
+  }
+}

@@ -5,22 +5,22 @@ import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button/rds-button";
 
 export interface RdsPaginationProps {
-  totalRecords: number;
-  recordsPerPage?: number;
-  paginationType?: string;
-  alignmentType?: string;
-  size?: string;
-  onPageChange?: (currentPage: number, recordsPerPage: number) => void;
-  currentPage?: number;
-  count?: number;
-  onPreviousClickHandler?: () => void;
-  onNextClickHandler?: () => void;
-  style?: string;
-  showFirst?: boolean;
-  showLast?: boolean;
-  showManualInput?: boolean;
-  showDropdown?: boolean;
-  showLegend?: boolean;
+  totalRecords: number; // Total number of records
+  recordsPerPage?: number; // Number of records per page
+  paginationType?: string; // Type of pagination
+  alignmentType?: string; // Alignment of pagination
+  size?: string; // Size of pagination
+  onPageChange?: (currentPage: number, recordsPerPage: number) => void; // Function to handle page change
+  currentPage?: number; // Current page number
+  count?: number; // Count of records
+  onPreviousClickHandler?: () => void; // Function to handle previous click
+  onNextClickHandler?: () => void; // Function to handle next click
+  style?: string; // Style of pagination
+  showFirst?: boolean; // Show first button
+  showLast?: boolean; // Show last button
+  showManualInput?: boolean; // Show manual input
+  showDropdown?: boolean; // Show dropdown
+  showLegend?: boolean; // Show legend
 
 
 }
@@ -182,8 +182,8 @@ const RdsPagination = (props: RdsPaginationProps) => {
 };
   return (
     <>
-      <div data-testid="page-link">
-        {paginType === "default" && (
+      <div data-testid="page-link" className="rds-pagination-container">
+        {/* {paginType === "default" && (
           <nav aria-label="Page navigation example">
             <ul className={"pagination align-items-center mb-0" + `${size}` + `${align}`}>
               <li className={"page-item cursor-pointer " + `${currentPage === 1 ? "disabled d-none" : " "}`}>
@@ -227,11 +227,11 @@ const RdsPagination = (props: RdsPaginationProps) => {
               </li>
             </ul>
           </nav>
-        )}
+        )} */}
 
-        {paginType === "advanced" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
+        {paginType === "default" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
-            <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
+            <ul className={"pagination rounded align-items-center mb-0 mt-2" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
 
               {(
@@ -337,7 +337,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             </ul>
 
             {/* Dropdown for Records Per Page */}
-            {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={`dropdown custom-navigation  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
+            {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={` custom-navigation mt-2  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
               <button
                 className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark border-primary' : 'customWidthForBtn'}`}
                 id="paginationBtnId"
@@ -372,7 +372,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             )}
              {(
               props.showLegend && (
-                <li className={` ms-3 page-item chevron cursor-pointer}`}>
+                <li className={` ms-3 mt-2 page-item chevron cursor-pointer}`}>
                   {totalRecords > recordsPerPage && (
                     <span>{currentPage} of {int} items</span>
                   )}
@@ -384,7 +384,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               props.showManualInput && (
                 <li className={` page-item cursor-pointer}`}>
                   {totalRecords > recordsPerPage && (
-                    <div className="d-flex"> <span className="m-2">Go to</span>
+                    <div className="d-flex mt-2"> <span className="m-2 nowrap">Go to</span>
                       <input type="text"  className={`form-control btn-outline border-primary gotopageinput   ${(props.style=="Style3"||props.style=="Style7")?"bg-white text-dark":""}`} onChange={(e) => handleGotoPage(e.target.value)} /> 
                       <span className="m-2">Page</span> </div>
                   )}
@@ -393,7 +393,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             )}
           </nav>
         )}
-        {paginType === "advanced" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
+        {paginType === "default" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align} ` }>
           <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
             {/* Previous Page Button */}

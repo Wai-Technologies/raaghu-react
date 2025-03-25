@@ -76,6 +76,7 @@ export { default as RdsPlandiscount } from "./rds-plan-discount";
 export { default as RdsWidgetPortal } from "./rds-widget-portal";
 export { default as RdsTabGroup } from "./rds-tab-group";
 // export { default as RdsAnimation } from "./rds-animation";
+export { default as RdsSideBar } from "./rds-side-bar";
 
 // //Charts
 export { default as RdsAreaChart } from "./rds-chart-area";
@@ -103,3 +104,17 @@ export { default as RdsHeader } from "./rds-header";
 export { default as RdsTreeStructure } from "./rds-tree-structure";
 export { default as RdsSkeleton } from "./rds-skeleton";
 export { default as RdsAiPromptBox } from "./rds-ai-prompt-box";
+export { default as RdsChat } from "./rds-chat";
+export { default as RdsScrollBar } from "./rds-scroll-bar";
+export { default as RdsSlider } from "./rds-slider";
+export { default as RdsMultilevelMenu } from "./rds-multilevel-menu";
+export { default as RdsChatHeader } from "./rds-chat-header";
+export { default as RdsAttachement } from "./rds-attachement";
+export { default as RdsPlanSwitcher } from "./rds-plan-switcher";
+export { default as RdsProfileDropdown } from "./rds-profile-dropdown";
+export {default as RdsThemeToggle} from "./rds-theme-toggle";
+export {default as RdsCommunityFileWidget} from "./rds-community-file-widget";
+export {default as RdsOutput} from "./rds-output";
+export { default as RdsSortingDropdown } from "./rds-sorting-dropdown";
+export { default as RdsGradientTextWithIcon } from "./rds-gradient-text-with-icon";
+export { default as RdsConfirmationPopup } from "./rds-confirmation-popup";
