@@ -101,7 +101,7 @@ const RdsAttachement = (props: RdsAttachementProps) => {
                 onChange={handleFileUpload}
             />
 
-            <span className="attachement-dropdown">
+            <div className="attachement-dropdown">
                 <RdsFabMenu
                     menuIcon={props.menuIcon}
                     id="attachment-text"
@@ -161,7 +161,7 @@ const RdsAttachement = (props: RdsAttachementProps) => {
                         },
                     ]}
                 />
-            </span>
+            </div>
 
             {showModal && (
                 <RdsModal
