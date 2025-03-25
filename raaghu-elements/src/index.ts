@@ -118,3 +118,4 @@ export {default as RdsOutput} from "./rds-output";
 export { default as RdsSortingDropdown } from "./rds-sorting-dropdown";
 export { default as RdsGradientTextWithIcon } from "./rds-gradient-text-with-icon";
 export { default as RdsConfirmationPopup } from "./rds-confirmation-popup";
+export {default as RdsDetailPane} from "./rds-detail-pane";

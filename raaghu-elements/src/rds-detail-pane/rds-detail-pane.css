@@ -1,0 +1,28 @@
+.rds-detail-pane {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* height: 100vh; */
+    background-color: #f8f9fa;
+  }
+  
+  .rds-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .rds-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .rds-card-content {
+    font-size: 1rem;
+    color: #666;
+  }
+  
