@@ -73,7 +73,7 @@
     "i18next-http-backend": "^2.1.1",
     "i18next-localstorage-backend": "^4.1.1",
     "install-all": "^1.1.0",
-    "jspdf": "^2.5.1",
+    "jspdf": "^3.0.1",
     "math": "^0.0.3",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
