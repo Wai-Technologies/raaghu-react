@@ -626,3 +626,9 @@ form .form-group .select-options,
       height: auto !important;
   }
 }
+
+@media (max-width: 600px) {
+  .rating-text {
+    padding-left: 6px!important;
+  }
+}
