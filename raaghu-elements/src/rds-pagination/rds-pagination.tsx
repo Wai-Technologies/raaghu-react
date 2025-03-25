@@ -182,7 +182,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
 };
   return (
     <>
-      <div data-testid="page-link">
+      <div data-testid="page-link" className="rds-pagination-container">
         {/* {paginType === "default" && (
           <nav aria-label="Page navigation example">
             <ul className={"pagination align-items-center mb-0" + `${size}` + `${align}`}>
