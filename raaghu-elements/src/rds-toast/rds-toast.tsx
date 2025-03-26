@@ -94,7 +94,7 @@ const RdsToast = (props: RdsToastProps) => {
 
     return (
         <>
-            <div className={`toast-container position-fixed ${classes()} closeBtnDark`}>
+            <div className={`toast-container position-fixed ${classes()}`}>
                 <div
                     role="alert"
                     aria-live="assertive"
@@ -126,7 +126,7 @@ const RdsToast = (props: RdsToastProps) => {
                                         type="button"
                                         data-bs-dismiss="toast"
                                         aria-label="Close"
-                                        className="btn-close btn-primary text-primary"
+                                        className="btn-close"
                                     ></button>
                                 }
                                 {
@@ -194,7 +194,7 @@ const RdsToast = (props: RdsToastProps) => {
                                         type="button"
                                         data-bs-dismiss="toast"
                                         aria-label="Close"
-                                        className="btn-close btn-primary text-primary"
+                                        className="btn-close"
                                     ></button>
                                }
                             </div>
