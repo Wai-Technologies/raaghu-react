@@ -69,7 +69,7 @@ const RdsSidebar = (props: RdsSidebarProps) => {
               tooltipTitle="This is tooltip"
             />
           </div>
-          <div className="dashboard">
+          <div className="dashboard ">
             <RdsButton
               badgeLayout="Text_only"
               badgeState="default"
@@ -84,6 +84,7 @@ const RdsSidebar = (props: RdsSidebarProps) => {
               state="hover"
               style="transparent"
               textCase="unset"
+              id="saas_chats"
               tooltipTitle="This is tooltip"
             />
           </div>

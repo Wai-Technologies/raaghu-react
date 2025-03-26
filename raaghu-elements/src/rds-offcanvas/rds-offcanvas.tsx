@@ -62,6 +62,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
 
   return (
     <>
+    <div className="offcanvas-text">
       {props.offcanvasbutton && (
         <div
           className="cursor-pointer"
@@ -115,7 +116,8 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
         </div>
         <div className={`offcanvas-body ${props.className}`}>
           {props.children}
-          <div className="d-flex justify-content-start mt-auto p-3 offcanvas-margin">
+        
+          <div className="d-flex justify-content-start mt-auto offcanvas-margin">
             {props.showTertiaryButton && (
               <div className="me-2">
                 <RdsButton
@@ -161,7 +163,9 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
               </div>
             )}
           </div>
+         
         </div>
+      </div>
       </div>
     </>
   );

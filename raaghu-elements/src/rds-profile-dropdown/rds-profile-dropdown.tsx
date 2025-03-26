@@ -30,14 +30,13 @@ const RdsProfileDropdown = (props: RdsProfileDropdownProps) => {
     }, []);
 
     return (
-        <div ref={dropdownRef}>
-            <div className="">
+        <div ref={dropdownRef} className="profile-dropdown-container">
+            <div className="profile-avatar-container">
                 <img
                     src={props.profileImage}
                     alt="Profile"
                     className="profile-avatar"
                     onClick={toggleDropdown}
-                    style={{ cursor: 'pointer', borderRadius: '50%', width: '50px', height: '50px' }}
                 />
             </div>
             {isDropdownOpen && (

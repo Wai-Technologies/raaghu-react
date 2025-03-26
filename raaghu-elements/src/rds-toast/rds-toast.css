@@ -23,17 +23,21 @@
   color: rgb(96 96 96) !important;
 }
 .theme-dark .toast-basic  {
-    background: #000000; 
+    background: black; 
+    color: white;
 } 
 .theme-dark .toast-info {
-  background: #000000;
+  background: black; 
+  color: white;
 }
 .theme-dark .toast-success {
-  background: #000000;
+  background: black; 
+  color: white;
 } 
 .theme-dark .toast-error {
-  background: #000000;
-}
+  background: black; 
+  color: white;
+} 
 
 .toast {
   border-top :none !important;

@@ -111,28 +111,32 @@
 .multicolorBorderInactive {
     background: #ffffff;
     color: #6a11cb;
-    border: 1px solid;
-    border-image: linear-gradient(90deg, #6269FD 0%, #1FD9FA 30.5%, #5481FC 64%, #862FFF 100%) 1;
+    border: 1px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(90deg, #6269FD 0%, #1FD9FA 30.5%, #5481FC 64%, #862FFF 100%);
     transform: scale(1);
     position: relative;
-    border-radius: 5px ;
+    border-radius: 5px;
     padding: 6px;
     overflow: hidden;
     height: 35px;
     margin-left: 12px;
     margin-right: 5px;
-  }
+}
 
-  .premiumSelectedInactive {
+.premiumSelectedInactive {
     background: #ffffff;
     color: #6a11cb;
-    border: 1px solid;
-    border-image: linear-gradient(90deg, #F9DF52 0%, #E4A42B 100%)1;
-        transform: scale(1);
+    border: 1px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(90deg, #F9DF52 0%, #E4A42B 100%);
+    transform: scale(1);
     position: relative;
-    border-radius: 5px ;
+    border-radius: 5px;
     padding: 5px;
     overflow: hidden;
     height: 35px;
     margin-left: 5px;
-  }
+}

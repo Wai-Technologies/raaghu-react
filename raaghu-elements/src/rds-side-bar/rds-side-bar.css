@@ -42,13 +42,13 @@
 .chat-input-container {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top:  60px;
 }
 
 .chat-input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 4px;
 }
 
@@ -126,4 +126,7 @@
 .btn.outline-hover
 {
   color:#353535 !important;
+}
+ .theme-dark #saas_chats svg{
+  stroke:none !important;
 }

@@ -3,6 +3,7 @@
     flex-direction: column;
     position: relative;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 .chat {
@@ -12,8 +13,8 @@
 
 .chat-messages {
     flex: 1;
-    overflow-y: auto;
     padding-bottom: 80px;
+    overflow-y: auto;
 }
 
 .chat-input-wrapper {

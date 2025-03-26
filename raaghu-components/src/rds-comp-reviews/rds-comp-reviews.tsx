@@ -217,7 +217,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
             );
             case "style7":
               return (
-                <div className="card p-3 col-lg-5 col-sm-12 col-md-6">
+                <div className="rating-text card p-3 col-lg-5 col-sm-12 col-md-6">
                   {/* Image, Name, and Rating in the Same Line */}
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center">

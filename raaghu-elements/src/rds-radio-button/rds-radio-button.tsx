@@ -73,7 +73,7 @@ const renderLabel = (item: any) => {
       return (
         <>
           <i className={item.iconClass}></i>
-          <span className="ms-2">{label}</span>
+          <span>{label}</span>
         </>
       );
     case "Icon with bottom Label":
@@ -105,7 +105,7 @@ return (
                   <div className="icon-with-bottom-label ">
                   <input
                     type="radio"
-                    className="form-check-input" 
+                    className="form-check-input toggle-switch" 
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
                     name={item.name}
                     value={item.label}
@@ -136,7 +136,7 @@ return (
                     onChange={handlerRadioChange}
                     data-testid={props.dataTestId}
                   />
-                  <label htmlFor={item.id} className="form-check-label ms-2">
+                  <label htmlFor={item.id} className="form-check-label">
                     {renderLabel(item)}
                   </label>
                 </>
@@ -150,76 +150,4 @@ return (
 );
 };
 
-
-
-
-
-//   return (
-//     <>
-//       <div key={props.id}>
-//         <div>
-//           {state == "errorRadio" && (
-//             <span className="error_Msg"> {props.errorMessage}</span>
-//           )}
-//           <div className={radioButtonClass}>
-//             {list?.map((item: any, idx: any) => (
-//               <div
-//                 key={idx}
-//                 className={
-//                   "form-check mb-2" + `${InputGroup1}` + `${Switch1}` + `${Inline1}`
-//                 }
-//               >
-//                 {props.onlyChecked ?
-//                   <input
-//                     type="radio"
-//                     className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
-//                     name={item.name}
-//                     value={item.label}
-//                     checked={item.checked}
-//                     id={item.id}
-//                     disabled={item.disabled}
-//                     onClick={props.onClick}
-//                     onChange={handlerRadioChange}
-//                     data-testid={props.dataTestId}
-//                   /> : props.checkedId ? <input
-//                     type="radio"
-//                     className={`${state == "errorRadio"
-//                       ? "form-check-input-error"
-//                       : "form-check-input"
-//                       }`}
-//                     name={item.name}
-//                     value={item.label}
-//                     defaultChecked={item.checked}
-//                     id={item.id}
-//                     disabled={item.disabled}
-//                     onClick={props.onClick}
-//                     onChange={handlerRadioChange}
-//                     data-testid={props.dataTestId}
-//                     checked={item.id == props.checkedId}
-//                   /> :
-
-//                     <input
-//                       type="radio"
-//                       className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
-//                       name={item.name}
-//                       value={item.label}
-//                       checked={item.checked}
-//                       id={item.id}
-//                       disabled={item.disabled}
-//                       onClick={props.onClick}
-//                       onChange={handlerRadioChange}
-//                       data-testid={props.dataTestId}
-//                     />}
-//                 <label htmlFor={item.id} className="form-check-label ms-2">
-
-//                   {t(item.label)}
-//                 </label>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
 export default RdsRadioButton;

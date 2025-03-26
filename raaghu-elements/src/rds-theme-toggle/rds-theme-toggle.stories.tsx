@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsThemeToggle from "./rds-theme-toggle";
 
 const meta: Meta =  {
-  title: "Elements/Theme Toggle",
+  title: "Components/Automate/Theme Toggle",
   component: RdsThemeToggle,
   tags: ['autodocs'],
   argTypes: {
