@@ -13,7 +13,7 @@ export interface RdsAiChatBotProps {
     icon_name: string;
 }
 
-interface Message {
+export interface Message {
     id: number;
     text: string;
     image?: string;
