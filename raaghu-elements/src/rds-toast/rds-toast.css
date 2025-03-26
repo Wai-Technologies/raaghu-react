@@ -13,6 +13,10 @@
 /* .theme-dark .btn-close {
   filter: unset;
 } */
+.theme-dark .closeBtnDark .btn-close
+{
+  filter: invert(0);
+}
 
 .text-dark {
   --bs-text-opacity: 1;
@@ -23,16 +27,20 @@
   color: rgb(96 96 96) !important;
 }
 .theme-dark .toast-basic  {
-    background: #000000; 
+    background: white; 
+    color: black;
 } 
 .theme-dark .toast-info {
-  background: #000000;
+  background: white;
+  color: black;
 }
 .theme-dark .toast-success {
-  background: #000000;
+  background: white;
+  color: black;
 } 
 .theme-dark .toast-error {
-  background: #000000;
+  background: white;
+  color: black;
 }
 
 .toast {

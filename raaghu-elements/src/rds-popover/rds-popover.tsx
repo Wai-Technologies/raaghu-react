@@ -36,7 +36,7 @@ const RdsPopover = (props: RdsPopoverProps) => {
 
   return (
     <>
-      <div className="col-auto d-flex justify-content-center">
+      <div className="col-auto d-flex justify-content-center pcard">
         <div data-testid="popover-card" className="popoverContainer my-5">
           <RdsButton
             type="button"
@@ -51,7 +51,9 @@ const RdsPopover = (props: RdsPopoverProps) => {
             style={{ display: displayType }}
           >
             <hr style={{ width: "100%" }} />
-              <span>{props.children}</span>
+            <div className="popover-content">
+              {props.children}
+            </div>
             <hr style={{ width: "100%" }} />
           </div>
         </div>

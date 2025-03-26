@@ -13,8 +13,8 @@
     --bs-border-radius-lg: 0.5rem;
 }
 
-.theme-dark .btn.btn-outline-primary {
+.theme-dark .popup-btn-color .btn.btn-outline-primary {
     background: #1c1d20;
-    color: #ffffff;
+    color: #ffffff !important;
     border: 1px solid #7825e9;
 }

@@ -83,3 +83,9 @@
     width: 4.4rem !important;
     height: 2.4rem !important;
 }
+.rds-pagination-container .dropdown-menu.show {
+  position: absolute; 
+  margin: 0px;
+  inset: unset !important;
+  transform: translate3d(0px, 0px, 0px) !important;
+}

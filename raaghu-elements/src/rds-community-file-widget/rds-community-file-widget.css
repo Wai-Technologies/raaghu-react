@@ -6,14 +6,15 @@
   
   .community-card {
     width: 280px;
-    border-radius: 12px;
+    border-radius: 12px 12px 12px 12px !important; /* Curving all corners */
     overflow: hidden;
     border-color: rgb(241 237 237 / 18%) !important;
   }
   
   .community-card-body {
     display: grid;
-    padding: 16px;
+    padding: 10px 0px 0px 0px;
+    border-radius: 0 0 20px 20px !important; /* Curving only bottom corners */
   }
   
   .avatar-section {

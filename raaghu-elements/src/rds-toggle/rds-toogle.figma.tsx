@@ -15,15 +15,14 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-Kit?node-id=720-54963",
   {
     props: {
-      labelText: figma.boolean("📝 - Label Text"),
-      textTitle: figma.string("✏️ Text / Title"),
+      showLabel: figma.boolean("📝 - Label Text"),
+      label: figma.string("✏️ Text / Title"),
       layout: figma.enum("📱 Layout", {
-        "Switch + label": ToggleLayout.SwitchLabel,
-        "label + Switch": ToggleLayout.LabelSwitch,
-        "Top label + Switch": ToggleLayout.TopLabelSwitch,
-        "Bottom label + Switch": ToggleLayout.BottomLabelSwitch,
-      }),
-      
+        "Switch + Label": ToggleLayout.SwitchLabel,
+      "Label + Switch": ToggleLayout.LabelSwitch,
+      "Top Lable + Switch": ToggleLayout.TopLabelSwitch,
+      "Bottom Lable + Switch": ToggleLayout.BottomLabelSwitch
+    }),
       
       state: figma.enum("💡 State", {
         Off: ToggleState.Off,
@@ -43,7 +42,7 @@ figma.connect(
     example: (props) => <RdsToggle
     {...props}
     checked={false}
-  />
+/>
 
   },
 )
