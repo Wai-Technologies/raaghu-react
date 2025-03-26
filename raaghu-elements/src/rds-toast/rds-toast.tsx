@@ -94,7 +94,7 @@ const RdsToast = (props: RdsToastProps) => {
 
     return (
         <>
-            <div className={`toast-container position-fixed ${classes()}`}>
+            <div className={`toast-container position-fixed ${classes()} closeBtnDark`}>
                 <div
                     role="alert"
                     aria-live="assertive"
@@ -138,7 +138,7 @@ const RdsToast = (props: RdsToastProps) => {
 
                             <div className={`toast-footer justify-content-end p-2 align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex text-body ml-4">
-                                    <div className="progress w-100 ml-4" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
+                                    <div className="progress w-100 ml-4 mt-1" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
                                         <div className="progress-bar btn-primary" role="progressbar"
                                             style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
                                             aria-valuenow={props.progressWidth}

@@ -170,8 +170,9 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                     <div className="container">
                         <img
                             src="https://www.nicepng.com/png/full/362-3624869_success-image-png.png"
-                            className="mt-4 mb-4 w-25"
+                            className="mt-4 mb-4"
                             alt="img"
+                            style={{ width: "50px" }}
                         />
                         <h3 className="pb-3">Email has been sent!</h3>
                         <div>
