@@ -10,6 +10,14 @@
   align-items: center;
 }
 
+.popover-content {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /*Center vertically if needed*/
+  height: 29px;
+  padding-top: 16px;
+}
+
 .buttonClass {
   position: relative;
 }
@@ -87,7 +95,7 @@
 
 .popoverCard.right-top {
   position: absolute;
-  margin-left: 118px;
+  margin-left: 11px;
   top: -20%;
 }
 

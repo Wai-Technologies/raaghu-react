@@ -25,6 +25,6 @@ figma.connect(
         Default: "default",
       }),
     },
-    example: (props) => <RdsTimePicker {...props}/>,
+    example: (props) => <RdsTimePicker {...props} colorVariant="primary"/>,
   },
 )
