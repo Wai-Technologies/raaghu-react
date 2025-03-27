@@ -1,3 +1,9 @@
 .bloglist .dropdown-menu{
     min-width:8.7rem;
 }
+
+@media (max-width: 480px) {
+    .file-name {
+        font-size: 10px !important;
+    }
+}
