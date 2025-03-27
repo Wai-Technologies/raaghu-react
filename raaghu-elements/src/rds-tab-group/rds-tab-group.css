@@ -236,3 +236,7 @@
 .tab-pill{
   border-radius: 20px !important;
 }
+
+.theme-dark div p {
+  color: rgb(255 248 248) !important;
+  }
