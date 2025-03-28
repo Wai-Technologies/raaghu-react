@@ -1695,7 +1695,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
             </div>
           </div>
           {props.pagination && (
-            <div className=" d-flex justify-content-end pt-3">
+            <div className=" d-flex justify-content-end pt-3 px-0">
               <RdsPagination
                 totalRecords={
                   totalRecords ? totalRecords : props.tableData?.length

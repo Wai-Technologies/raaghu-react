@@ -29,6 +29,6 @@ figma.connect(
         "Right Bottom Arrow": TooltipStyle.RightBottomArrow,
       }),
     },
-    example: (props) => <RdsTooltip {...props} children={''} />,
+    example: (props) => <RdsTooltip {...props} children={<button className="btn btn-primary">Button</button>} />,
   },
 )
