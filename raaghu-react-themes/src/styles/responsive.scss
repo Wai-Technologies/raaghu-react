@@ -139,12 +139,13 @@
   }
 
   .mobile-ul-tabs {
-    overflow-x: scroll;
+    overflow-x: scroll !important;
     display: flex;
     white-space: nowrap;
     align-items: normal;
     overflow-y: hidden;
     margin-bottom: 30px;
+    flex-wrap: nowrap;
   }
 
   .mobile-ul-tabs::-webkit-scrollbar {
@@ -285,13 +286,13 @@
     position: relative !important;
   }
 
-  .mobile-ul-tabs {
-    overflow-x: hidden;
-    display: flex;
-    white-space: nowrap;
-    align-items: normal;
-    overflow-y: hidden;
-  }
+  // .mobile-ul-tabs {
+  //   overflow-x: hidden;
+  //   display: flex;
+  //   white-space: nowrap;
+  //   align-items: normal;
+  //   overflow-y: hidden;
+  // }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -622,13 +623,7 @@ form .form-group .select-options,
 
 @media (max-width: 600px) {
   .attachement-dropdown #fab-list .dropdown-menu.show {
-      width: 245px !important;
+      width: 270px !important;
       height: auto !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .rating-text {
-    padding-left: 6px!important;
   }
 }
