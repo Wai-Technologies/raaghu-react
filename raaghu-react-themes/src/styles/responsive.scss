@@ -243,12 +243,12 @@
   }
 
   #sidebar.show {
-    width: 250px;
+    width: 65px;
   }
 
-  #sidebar.hide {
-    width: 0px;
-  }
+  // #sidebar.hide {
+  //   width: 0px;
+  // }
 }
 
 .bd-links.toggle-sidebar-menu .menuLabels {
@@ -605,9 +605,9 @@ form .form-group .select-options,
 }
 
 @media (max-width: 767px){
-  .side-navigation {
-    margin-left: 520px !important;
-  }
+  // .side-navigation {
+  //   margin-left: 520px !important;
+  // }
   #mobileviewmenusdirectory ol, ul {
     padding-left: 0rem !important;
 }
