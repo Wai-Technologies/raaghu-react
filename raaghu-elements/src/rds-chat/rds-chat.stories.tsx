@@ -26,7 +26,9 @@ export const Default: Story = {
                 colorVariant: "primary",
                 time: '13.00',
                 profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
-                messageStatus: 'sent',
+                profileType: 'icon',
+                withProfilePic: true,
+                messageStatus: '',
                 comments: [
                     {
                         firstName: "Alice",
@@ -50,6 +52,8 @@ export const Default: Story = {
                 time: '13.00',
                 profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s',
                 messageStatus: '',
+                profileType: 'icon',
+                withProfilePic: true,
                 comments: []
             },
             {
@@ -62,12 +66,14 @@ export const Default: Story = {
                 time: '13.00',
                 profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s',
                 messageStatus: '',
+                profileType: 'icon',
+                withProfilePic: true,
                 comments: []
             }
         ],
         currentUserCommentBgColor: '#7825E9',
         currentUserCommentTextColor: '#FEF7FF',
-        otherUserCommentBgColor: '#D6D6D6',
+        otherUserCommentBgColor: '#E1E3EA',
         OtherUserCommentTextColor: '#202020',
         handleAddComment: (comment) => console.log('Comment added:', comment),
     }
