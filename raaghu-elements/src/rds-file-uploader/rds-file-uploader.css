@@ -174,3 +174,6 @@
 .chosenFileSpan {
   width: 25rem;
 }
+.theme-light svg {
+ stroke: none !important;
+}
