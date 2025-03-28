@@ -174,3 +174,6 @@
 .chosenFileSpan {
   width: 25rem;
 }
+.upload-icon {
+ stroke: none !important;
+}
