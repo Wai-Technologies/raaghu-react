@@ -130,16 +130,14 @@
 } */
 
 .theme-dark {
-   color: black !important
+   color: black;
 }
 .theme-dark .notification-header {
    background-color: transparent !important;
 }
-.theme-dark svg
-{
-    color: black;;
+.theme-dark svg{
+    color: black;
 }
-.theme-dark .btn
-{
+.theme-dark .btn{
     color: black;
 }
