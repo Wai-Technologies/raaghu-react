@@ -718,7 +718,7 @@ export const CardWithDataTable: Story = {
                         headerTitle={"Member Activity"}
                         isRefreshRequired={true}
                     >
-                        <div className="table-responsive">
+                        <div className="table-responsive custom-classname">
                             <RdsTable
                                 tableHeightForScroll="356px"
 
