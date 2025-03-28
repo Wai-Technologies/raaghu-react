@@ -161,16 +161,33 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
       }
     }
   return (
-    <Measure bounds onResize={ (rect) => updateSize(rect.bounds) }>
-      { ({ measureRef }: any) => (
-        <div ref={ measureRef } >
+    <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
+    {({ measureRef }: any) => (
+      <div
+        ref={measureRef}
+        className="full-width custum-content-scroll"
+        style={{ background: 'none' }}
+      >
+        <div
+          style={{
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch', 
+            display: 'flex', 
+          }}
+        >
           <svg
-            className='contribution-svg contribution-font'>
-            { innerDom }
+            className="contribution-svg contribution-font"
+            style={{
+              minWidth: `${columns * ((panelSize ?? 0) + (panelMargin ?? 0)) + weekLabelWidth}px`, 
+              overflow: 'visible', 
+            }}
+          >
+            {innerDom}
           </svg>
         </div>
-      ) }
-    </Measure>
+      </div>
+    )}
+  </Measure>
   );
 }
 
