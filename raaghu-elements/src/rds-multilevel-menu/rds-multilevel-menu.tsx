@@ -138,7 +138,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                     className="shadow rounded position-absolute"
                     style={{
                       listStyleType: "none",
-                      padding: "10px",
+                      padding: "0px",
                       top: "0%",
                       left: "105%",
                       minWidth: "100%",

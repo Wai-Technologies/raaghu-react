@@ -21,6 +21,6 @@ figma.connect(
         Vimeo: "Vimeo",
       }),
     },
-    example: (props) => <RdsVideoPlayer {...props} width={""} height={""} autoplay={false} muted={false} videoLink={""} />,
+    example: (props) => <RdsVideoPlayer {...props} width="480px" height="240px" autoplay={false} muted={false} videoLink="" />,
   },
 )
