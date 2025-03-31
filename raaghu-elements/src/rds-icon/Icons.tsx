@@ -339,7 +339,7 @@ export const Icons: any = {
     play_video:
     "<svg id=\"a\" viewBox=\"0 0 21 21\"><rect id=\"b\" class=\"icon\" x=\".5\" y=\".5\" width=\"20\" height=\"20\" rx=\".919\" ry=\".919\"/><path id=\"c\" class=\"icon\" d=\"M8.134,16.075v-5.997c.015-.311,.279-.552,.59-.537,.072,.003,.144,.021,.209,.051l5.202,2.992c.272,.168,.357,.525,.189,.798-.047,.077-.112,.142-.189,.189l-5.202,3.009c-.296,.122-.635-.019-.757-.315-.024-.059-.039-.122-.043-.186v-.003Z\"/><line id=\"d\" class=\"icon\" x1=\".822\" y1=\"5.8\" x2=\"20.177\" y2=\"5.8\"/><line id=\"e\" class=\"icon\" x1=\"5.8\" y1=\"5.799\" x2=\"7.919\" y2=\"1.053\"/><line id=\"f\" class=\"icon\" x1=\"12.85\" y1=\"5.799\" x2=\"15.016\" y2=\"1.053\"/></svg>",
     plus: 
-    "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M1 7.00006H13M7 1.00006V13.0001\" stroke=\"#6e6e6e\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+    "<svg id=\"a\" viewBox=\"0 0 21 21\"><defs></defs><line id=\"b\" class=\"icon\" x1=\".5\" y1=\"10.5\" x2=\"20.5\" y2=\"10.5\"/><line id=\"c\" class=\"icon\" x1=\"10.5\" y1=\".5\" x2=\"10.5\" y2=\"20.5\"/></svg>",
     with_border_plus:
     "<svg xmlns=\"http:/www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M6.99999 4.23077V9.76923M4.23075 7H9.76922M3.76922 1H10.2308C11.7602 1 13 2.23983 13 3.76923V10.2308C13 11.7602 11.7602 13 10.2308 13H3.76922C2.23981 13 0.999985 11.7602 0.999985 10.2308V3.76923C0.999985 2.23983 2.23981 1 3.76922 1Z\" stroke=\"#7D7D7D\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
     premium_subscription:
