@@ -26,6 +26,15 @@ export const Default: Story = {
             "Help",
             "Activity",
             "Settings"
+        ],
+        icons: [
+            "new_chat",
+            "recent",
+            "saas_chat",
+            "community",
+            "chat_help",
+            "activity",
+            "chat_settings"
         ]
     },
 } satisfies Story;

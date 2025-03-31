@@ -1,5 +1,8 @@
 
-.theme-dark #Scatter_Chart , #Scatter_Chart_Multi_Axis{
+.theme-dark #Scatter_Chart {
     background-color: rgb(51 51 51)
 }
 
+.theme-dark #Scatter_Chart_Multi_Axis{
+    background-color: rgb(51 51 51)
+}
