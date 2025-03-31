@@ -102,7 +102,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
           )}
           <span className="close">
             <RdsButton
-              icon="close"
+              icon="cross"
               size="large"
               databsdismiss="offcanvas"
               type={"button"}

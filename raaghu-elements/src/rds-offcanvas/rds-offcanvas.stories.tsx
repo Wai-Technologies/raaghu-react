@@ -27,7 +27,7 @@ type Story = StoryObj<typeof RdsOffcanvas>;
 export const CustomSlideOutOffcanvas: Story = {
   args: {
     offId: "canvasExample",
-    canvasTitle: "Offcanvas Title",
+    canvasTitle: "NEW TENENT",
     scrolling: false,
     placement: RdsOffcanvasPlacement.End, // Use enum value
     backDrop: RdsOffcanvasBackDrop.Static, // Use enum value
