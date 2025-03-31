@@ -139,7 +139,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
           </div>
         </div>
         {props.children && (
-          <div className="card-body pt-0 px-0" style={props.style}>
+          <div className="card-body pt-0 " style={props.style}>
             {props.isBignumberIcon && (
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <RdsBigNumber
