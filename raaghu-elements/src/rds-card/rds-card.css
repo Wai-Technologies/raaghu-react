@@ -205,5 +205,5 @@ text-decoration: none !important;
 }
 
 .table-responsive {
-  min-height: calc(100vh - 320px) !important;
+  min-height: calc(75vh  - 439px) !important;
 }
