@@ -259,7 +259,7 @@ const RdsCard = (props: RdsCardProps) => {
           )
         ) : (
           <div>
-            <div className="card-body m-2 p-0">
+            <div className="card-body">
                 <div className="row">
                   <div className="col-md-10">
                     {props.layout === "Vertical" && (
