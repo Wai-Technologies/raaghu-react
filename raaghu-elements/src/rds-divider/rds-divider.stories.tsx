@@ -49,7 +49,7 @@ type Story = StoryObj<typeof RdsDivider>;
 
 export const Default: Story = {
     args: {
-        icon: "information",
+        icon: "information_divider",
         iconShow: true,
         iconFill: false,
         iconStroke: true,

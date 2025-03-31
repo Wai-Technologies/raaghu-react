@@ -91,7 +91,7 @@ export const Simple: Story = {
         stepperType: "simple",
     }
 } satisfies Story;
-Simple.parameters = { controls: { include: ['stepperType'] } };
+Simple.parameters = { controls: { include: [] } };
 
 export const withcheckbox: Story = {
     args: {
@@ -104,7 +104,7 @@ export const withcheckbox: Story = {
     showSubtitles: true,
     }
 } satisfies Story;
-withcheckbox.parameters = { controls: { include: ['stepperType', 'stepperDetails', 'showSubtitles'] } };
+withcheckbox.parameters = { controls: { include: ['stepperDetails', 'showSubtitles'] } };
 
 export const Dash: Story = {
     args: {
@@ -174,4 +174,4 @@ export const advance: Story = {
     },
 } satisfies Story;
 
-advance.parameters = { controls: { include: ['stepperType', 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
+advance.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
