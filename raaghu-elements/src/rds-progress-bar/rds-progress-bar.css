@@ -40,17 +40,25 @@
     color: #FCFCFC;
 }
 
-.theme-dark .bg-completed {
+
+.theme-dark #stepper-dash .bg-completed, 
+.theme-dark #stepper-stepper .bg-completed, 
+.theme-dark #stepper-block .bg-completed {
     background: #7825e9;
     border-radius: 96px;
     color: #FCFCFC;
 }
 
-.bg-error {
-    background: #e61b3d;
+
+#stepper-dash .bg-error, 
+#stepper-stepper .bg-error,
+#stepper-block .bg-error
+ {
+    background: #bd0d1d;
     border-radius: 96px;
     color: #FCFCFC;
 }
+
 .bg-default {
     background: #E9E9E9;
     border-radius: 96px;
