@@ -440,14 +440,14 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox
                            labelText="Disable Collapsible Side Menu"
-                           checked={modeData?.sideNav}
+                           checked={modeData?.sideNav === 'true'}
                            onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
                            dataTestId="sideMenu"></RdsCheckbox>
                      </div>
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox
                            labelText="Enable Static Icons"
-                           checked={modeData?.staticIcons}
+                           checked={modeData?.staticIcons === 'true'}
                            onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
                            dataTestId="staticIcons"></RdsCheckbox>
                      </div>
