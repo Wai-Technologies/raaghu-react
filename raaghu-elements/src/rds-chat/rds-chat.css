@@ -189,3 +189,7 @@
         overflow-x: auto;
     }
 }
+
+.current-user .comment-content {
+    background-color: #B30FBC !important;
+}
