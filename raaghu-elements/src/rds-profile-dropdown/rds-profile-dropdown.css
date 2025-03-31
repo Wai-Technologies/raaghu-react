@@ -20,7 +20,7 @@
     margin: 0;
 }
 
-.dropdown-menu li {
+#profile-dropdown .dropdown-menu li {
     padding: 10px;
     cursor: pointer;
 }
