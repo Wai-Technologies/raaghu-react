@@ -38,8 +38,6 @@
 
 .css-meqmo6-control{
     box-shadow: none !important;
-    background-color: #343a40 !important;
-    border-color: #32343b !important;
 
 }
 .css-meqmo6-control:hover{
@@ -50,18 +48,11 @@
     box-shadow: none !important;
 }
 
-.css-lofsuq-control{
-    background-color: #343a40 !important;
-    border-color: #32343b !important;
-}
-
 .css-lofsuq-control:hover{
     border-color: #6525bf !important;
 }
-.css-3o0vwh-control {
-    /* border-color: rgb(207, 204, 204, 0.5) !important; */
-    background-color: #343a40 !important;
-    border-color: #32343b !important;
+.css-3o0vwh-control{
+    border-color:  rgb(207, 204, 204, 0.5) !important;
 }
 
 .css-17pj0yt-control{
@@ -84,11 +75,3 @@
     z-index: 11 !important;
     margin-top: 1px !important;
 }
-.css-17pj0yt-control {   
-    background-color: #343a40 !important;
-    border-color: #32343b !important;
-   }
-   .css-qr46ko {
-    background-color: #343a40 !important;
-    border-color: #32343b !important;
-   }
