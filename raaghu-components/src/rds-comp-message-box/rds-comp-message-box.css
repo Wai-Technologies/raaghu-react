@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.chat-container {
+.message-box-container .chat-container {
   display: flex;
   align-items: start !important;
   border: none !important;
