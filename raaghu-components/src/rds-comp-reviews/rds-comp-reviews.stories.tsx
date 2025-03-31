@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompReviews, { VariantType } from "./rds-comp-reviews";
+import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 
     title: "Components/Reviews",
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof RdsCompReviews>;
 export const Default: Story = {
     args: {
         variantType: VariantType.Default,
-        style: "style1",
+        style: RevieweStyle.Style1,
         itemList: [
             {
                 name: "Jane Doe",
@@ -40,7 +40,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['itemList','style'] } };
+Default.parameters = { controls: { include: ['itemList','style','variantType'] } };
 
 // whatever code is commented in this file is needed in further reference - enhancement as per the figma design
 
