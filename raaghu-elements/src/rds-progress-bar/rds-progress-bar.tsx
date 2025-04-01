@@ -96,6 +96,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                 <>
                     <div
                         className="progress-circle-container"
+                        id="stepper-circular"
                         style={{
                             width: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
                             height: `${Math.max(80, Math.min(300, props.height ?? 80))}px`,
@@ -114,7 +115,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
             )}
             {props.role === "dash" && (
                 <>
-                    <div className="stepper-container" style={{ width: `100%` }}>
+                    <div className="stepper-container" id="stepper-dash" style={{ width: `100%` }}>
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
@@ -136,7 +137,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
 
             {props.role === "block" && (
                 <>
-                    <div className="stepper-container" style={{ width: `100%` }}>
+                    <div className="stepper-container"  id="stepper-block" style={{ width: `100%` }}>
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
@@ -172,7 +173,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
             )}
             {props.role === "stepper" && (
                 <>
-                    <div className="stepper-container" style={{ width: `100%`, position: 'relative' }}>
+                    <div className="stepper-container" id="stepper-stepper" style={{ width: `100%`, position: 'relative' }}>
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
