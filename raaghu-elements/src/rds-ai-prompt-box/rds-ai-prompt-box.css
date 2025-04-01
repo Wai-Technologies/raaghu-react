@@ -241,10 +241,11 @@
   left: 0;
 }
 
-.output-content {
-  margin-left: 4rem; /* Adjust this value based on the width of the image */
-  padding-top: 1rem; /* Adjust this value based on the height of the image */
-}
+/* .output-content {
+  margin-left: 4rem; 
+  padding-top: 1rem; 
+  position: relative;
+} */
 .toggle-container {
   display: flex;
   border: 2px solid #8000ff;
@@ -278,18 +279,15 @@
   white-space: pre-wrap; /* Ensure the code wraps within the container */
   font-family: monospace;
 }
-.output-content {
-  position: relative;
-}
 
-.hover-buttons {
+/* .hover-buttons {
   position: absolute;
   top: 0rem;
   right: -3rem;
   display: none;
   flex-direction: column;
   gap: 10px;
-}
+} */
 
 .output-content:hover .hover-buttons {
   display: flex;
@@ -528,5 +526,53 @@
     width: auto;
     height: auto;
     padding: 0.5rem;
+  }
+}
+
+
+/* Ensure the parent container has relative positioning */
+.output-content {
+  position: relative; /* Keep this line */
+  margin-left: 4rem; /* Adjust this value based on the width of the image */
+  padding-top: 1rem; /* Adjust this value based on the height of the image */
+  padding-bottom: 3.5%; 
+}
+
+/* Hover buttons styling */
+.hover-buttons {
+  position: absolute; /* Change to absolute */
+  bottom: -40px; /* Adjust this value to move it outside the box */
+  right: 0; /* Align to the right */
+  display: none; /* Keep it hidden by default */
+  flex-direction: row; /* Arrange buttons in a row */
+}
+
+/* Show hover buttons on output content hover */
+.output-content:hover .hover-buttons {
+  display: flex; /* Show on hover */
+}
+
+@media (max-width: 480px) {
+  .output-content {
+    padding-bottom: 12%; 
+    width: 81%;
+  }
+  .hover-buttons{
+    left: -10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hover-buttons {
+    position: absolute; /* Keep it absolute for larger screens */
+    top: 22px; /* Position at the top */
+    right: -180px; /* Adjust this value to position it outside the box */
+    margin-top: 0; /* Reset margin-top */
+    flex: row;;
+  }
+
+  /* Ensure the hover buttons remain visible when hovered */
+  .hover-buttons:hover {
+    display: flex; /* Keep buttons visible when hovered */
   }
 }

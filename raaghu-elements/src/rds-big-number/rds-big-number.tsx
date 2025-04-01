@@ -69,7 +69,7 @@ const RdsBigNumber = (props: RdsBigNumberProps) => {
   return (
     <Fragment>
       {!props.children && (
-        <div className="card border-0 bg-transparent">
+        <div className="card border-0 card-title bg-transparent">
           <div className={alignclasses}>
             <h2 className={`text-${props.bigNumberColor} mb-0`}>{props.bigNumber}</h2>
             {props.isIconSubTitle && (
