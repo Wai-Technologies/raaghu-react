@@ -22,18 +22,19 @@ const RdsButtonGrid = (props: RdsButtonGridProps) => {
         const isNumeric = /^[0-9]+$/.test(text);
         const isAlphabetic = /^[a-zA-Z]+$/.test(text);
         if (isNumeric) {
-            return "50px"; // Width for numeric text
+            return "rds-btn-md"; // Custom class for small button size
         } else if (isAlphabetic) {
-            return "100px"; // Width for alphabetic text
+            return "rds-btn-md"; // Custom class for medium button size
         } else {
-            return "150px"; // Default width for other text
+            return "rds-btn-lg"; // Custom class for large button size
         }
     };
 
     return ( 
         <div className="button-grid">
             {Array.from({ length: props.rows }).map((_, rowIndex) => (
-                <div key={rowIndex} className="button-row"      >
+                <div key={rowIndex} className="button-row">
+                    <div className="d-flex">
                     {Array.from({ length: props.columns }).map((_, colIndex) => {
                         const buttonInput = props.buttonInputs[rowIndex * props.columns + colIndex];
                         return buttonInput ? (
@@ -47,6 +48,7 @@ const RdsButtonGrid = (props: RdsButtonGridProps) => {
                             </button>
                         ) : null;
                     })}
+                </div>
                 </div>
             ))}
         </div>

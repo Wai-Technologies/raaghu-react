@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsPolarAreaChart>;
 
 export const PolarAreaChart: Story = {
     args: {
-        id: "Polar Area chart",
+        id: "Polar_Area_chart",
         radius: 300,
         dataSets: [
             {
