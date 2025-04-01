@@ -7,3 +7,9 @@
         font-size: 10px !important;
     }
 }
+.theme-dark .css-17pj0yt-control, 
+.theme-dark .css-meqmo6-control, 
+.theme-dark .css-8jouw6-menu {
+    background-color: #343a40 !important;
+    color: #fff !important;
+}
