@@ -120,7 +120,7 @@ const RdsRating = (props: RdsRatingProps) => {
     props.colorVariant === 'secondary' ? '#2539FF' :
     '#343a40';
 
-  const lighterColor = lightenColor(primaryColor, 25); // Lighten the primary color by 25%
+  const lighterColor = lightenColor(primaryColor, 20); // Lighten the primary color by 20%
 
   const getBackgroundStyle = () => {
     let background = '';
