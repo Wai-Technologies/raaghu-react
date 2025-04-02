@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RdsButton, RdsDropdownList, RdsInput } from "../rds-elements";
+
 export interface RdsCompAddressInputProps {
     address?: any;
     address2?: any;
@@ -71,12 +72,12 @@ const RdsCompAddressInput = (props: RdsCompAddressInputProps) => {
             address2: "",
             zip: "",
       });
-    }
+   }
 
     return (
-        <div className="mfe-outline">
-            <form className="needs-validation" >
-            <div className="custom-content-scroll">
+    <div className="mfe-outline">
+      <form className="needs-validation">
+        <div className="custom-content-scroll">
                 <div className="row g-3">
                     <div className="col-md-6">
                         <RdsInput

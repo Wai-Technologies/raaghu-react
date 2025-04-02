@@ -89,7 +89,6 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-
                     </div>
                     <div className="row mt-1">
                         <RdsTextArea
@@ -128,7 +127,6 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
 
                 }
             </form>
-
         </>
     );
 };
