@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RdsChatHeader } from "../rds-elements";
 import RdsMessageBox from "../rds-comp-message-box";
 import RdsCompTypingSection from "../rds-comp-typing-section";
+import "./rds-comp-ai-chat-bot.css";
 
 export interface RdsAiChatBotProps {
     aiLogoUrl: string;

@@ -19,9 +19,9 @@ export interface RdsCompTopNavigationProps {
   notifications?: any[]; // Array of notifications to display.
   languageItems?: any[]; // Array of language items to display.
   themeItems: any[]; // Array of theme items to display.
-  toggleItems: any[]; // Array of toggle items to display.
-  elementList: any[]; // Array of elements to display.
-  componentsList: any[]; // Array of components to display.
+  toggleItems?: any[]; // Array of toggle items to display.
+  elementList?: any[]; // Array of elements to display.
+  componentsList?: any[]; // Array of components to display.
   navbarTitle?: string; // Title to display in the navbar.
   brandName?: string; // Brand name to display in the navbar.
   brandLogo?: string; // Brand logo to display in the navbar.
@@ -29,10 +29,10 @@ export interface RdsCompTopNavigationProps {
   profileName?: string; // Profile name to display in the navbar.
   profileEmail?: string; // Profile email to display in the navbar.
   logo?: string; // Logo to display in the navbar.
-  languageLabel: string; // Label for the language dropdown.
+  languageLabel?: string; // Label for the language dropdown.
   languageIcon?: string; // Icon for the language dropdown.
   width?: string;  // Width of the navbar.
-  themeLabel: string; // Label for the theme dropdown.
+  themeLabel?: string; // Label for the theme dropdown.
   breadcrumItem?: any; // Breadcrum item to display in the navbar.
   profilePic?: any; // Profile picture to display in the navbar.
   onLogout?: (Event: React.MouseEvent<HTMLButtonElement>) => void;

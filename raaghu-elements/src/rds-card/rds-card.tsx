@@ -58,7 +58,7 @@ export interface RdsCardProps {
   showFooterButton?: boolean; //show or hide footer button
   showIndicator?: boolean; //show or hide indicator
   type ?: CardTypes; //types of cards
-  showTitleAndSubText?: boolean; //show title and subtitle
+  showTitleAndSubText: boolean; //show title and subtitle
   initialFirstName?: string; //initial first name for avatar card type - example avtar
   initialLastName?: string; //initial last name for avatar card type - example avtar
   role?: string; //role for avatar card type - example avtar

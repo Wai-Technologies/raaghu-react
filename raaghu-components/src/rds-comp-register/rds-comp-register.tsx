@@ -150,7 +150,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                                     ></RdsButton>
                                     <RdsButton
                                         class="me-2"
-                                        label={checked ? "SWITCH TO THE TENANT" || "" : "SWITCH TO THE HOST"}
+                                        label={checked ? "SWITCH TO THE TENANT": "SWITCH TO THE HOST"}
                                         size="small"
                                         isDisabled={false}
                                         colorVariant="primary"

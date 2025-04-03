@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { RdsInput, RdsIcon, RdsButton } from "../rds-elements";
-import { LabelPosition, InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 import './rds-comp-typing-section.css';
 
 export interface RdsTypingAltProps {

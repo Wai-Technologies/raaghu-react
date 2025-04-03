@@ -38,7 +38,7 @@ const BORDER_COLORS = {
   primary: "#b38de9",
   danger: "red",
   success: "green",
-  default: undefined, // Default/fallback border color
+  default: "", // Default/fallback border color
 };
 
 const BACKGROUND_COLORS = {
@@ -51,7 +51,7 @@ const BACKGROUND_COLORS = {
 
 const TEXT_COLORS = {
   selected: "white",
-  default: undefined, // Default/fallback text color
+  default: "", // Default/fallback text color
 };
 
 const RdsSelectList = (props: RdsSelectProps) => {

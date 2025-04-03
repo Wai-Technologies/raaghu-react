@@ -62,7 +62,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
           />
         </div>
         <div>
-          <RdsCard state="Default" style="Default">
+          <RdsCard state="Default" style="Default" showTitleAndSubText={false}>
             <div className="card-text">{isPlanFree ? <div >
               <div className="freeText">{props.freePlanText}</div>
               <div className="perfectForIndividuals">{props.freePlanDescription}</div>

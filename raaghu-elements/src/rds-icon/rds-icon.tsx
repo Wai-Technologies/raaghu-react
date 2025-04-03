@@ -157,7 +157,7 @@ const RdsIcon = (props: RdsIconProps) => {
 
     return (
       svg || document.createElementNS("http://www.w3.org/2000/svg", "path")
-    );
+    ) as any;
   };
 
   const style = {

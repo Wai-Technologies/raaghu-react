@@ -30,7 +30,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
     tags: "",
     blogList: "",
     concurrencyStamp: "",
-    file: [],
+    file: "",
     fileName: "",
     blogId: "",
     content : ""
@@ -79,7 +79,7 @@ const RdsCompBlogPostNew = (props: RdsCompBlogPostNewProps) => {
         concurrencyStamp: "",
         blogList: "",
         blogId: "",
-        file: [],
+        file: "",
         fileName: "",
       };
       props.onSaveHandler && props.onSaveHandler(prevData);

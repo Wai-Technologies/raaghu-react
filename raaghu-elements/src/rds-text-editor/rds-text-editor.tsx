@@ -51,12 +51,12 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
     const defaultModules = {
         toolbar: {
             container: [
-                [{ font: [] }],
+                [{ font: [] as unknown[] }],
                 [{ header: [1, 2, 3, 4, 5, 6, false] }],
                 ["bold", "italic", "underline", "strike"],
                 [{ list: "ordered" }, { list: "bullet" }],
                 [{ indent: "-1" }, { indent: "+1" }],
-                [{ align: [] }],
+                [{ align: [] as unknown[] }],
                 ["link", "image"],
                 ["clean"],
             ],

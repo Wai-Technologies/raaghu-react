@@ -1,0 +1,15 @@
+﻿.green-text {
+  color: #28a745;
+}
+
+.red-text {
+  color: #dc3545;
+}
+
+.orange-text {
+  color: #fd7e14;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}

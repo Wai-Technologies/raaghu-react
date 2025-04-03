@@ -157,14 +157,14 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
               class="me-2"
               tooltipTitle={""}
               type={"button"}
-              label={"Cancel" || ""}
+              label={"Cancel"}
               colorVariant="outline-primary"
               size="small"
               databsdismiss="offcanvas"
             ></RdsButton>
             <RdsButton
               class="me-2"
-              label={"Send" || ""}
+              label={"Send"}
               size="small"
               colorVariant="primary"
               tooltipTitle={""}
