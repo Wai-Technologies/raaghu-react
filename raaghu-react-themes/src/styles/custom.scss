@@ -3035,6 +3035,11 @@ rds-nav-tab {
     color: white;
     box-shadow: none;
     font-weight: 700;
+    .worldmap__figure-container {
+        svg{
+            width: 220px;
+        }
+    }
 }
 
 .frontSide,
@@ -3824,4 +3829,3 @@ label.form-check-label.ms-2.undefined {
 .theme-dark .css-1dimb5e-singleValue {
     color: #393434 !important;
 }
-

@@ -58,6 +58,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
+  // const [menuOpen, setMenuOpen] = useState(true);
   const [reset, setIsReset] = useState<any>(
     false
    );

@@ -105,11 +105,12 @@ return (
                   <div className="icon-with-bottom-label ">
                   <input
                     type="radio"
-                    className="form-check-input" 
+                    className="form-check-input radio-toggle-switch" 
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
                     name={item.name}
                     value={item.label}
-                    checked={props.selected ? true : false}
+                    {...(props.selected ? { checked: true } : {})}
+                    //checked={props.selected ? true : false}
                     id={item.id}
                     disabled={props.state === "Disabled" || item.disabled}
                     onClick={props.onClick}
@@ -125,11 +126,12 @@ return (
                 <>
                   <input
                     type="radio"
+                    className="form-check-input radio-toggle-switch" 
                     //className={`${state == "errorRadio" ? "form-check-input-error" : "form-check-input"}`}
-                    className="form-check-input" 
                     name={item.name}
                     value={item.label}
-                    checked={props.selected ? true : false}
+                    //checked={props.selected ? true : false}
+                    {...(props.selected ? { checked: true } : {})}
                     id={item.id}
                     disabled={props.state === "Disabled" || item.disabled}
                     onClick={props.onClick}

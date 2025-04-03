@@ -10,9 +10,25 @@ export enum VariantType {
   MultiColumn = "multi-column",
 }
 
+export enum RevieweStyle {
+  Style1 = "style1",
+  Style2 = "style2",
+  Style3 = "style3",
+  Style4 = "style4",
+  Style5 = "style5",
+  Style6 = "style6",
+  Style7 = "style7",
+  Style8 = "style8",
+  Style9 = "style9",
+  Style10 = "style10",
+  Style11 = "style11",
+  Style12 = "style12",
+  Style13 = "style13",
+}
+
 export interface RdsCompReviewsProps {
   itemList: Item[]; // List of items to be displayed
-  style?: string; // Style of the component
+  style?: RevieweStyle; // Style of the component
   variantType?: VariantType; // Variant type of the component
 }
 
@@ -20,7 +36,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
   const renderContentByStyle = (item: Item) => {
     const currentDate = new Date();
     switch (props.style) {
-      case "style1":
+      case RevieweStyle.Style1:
         return (
           <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -53,7 +69,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
           </div>
         );
 
-      case "style2":
+      case RevieweStyle.Style2:
         return (
           <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -80,7 +96,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
         );
         
 
-      case "style3":
+      case RevieweStyle.Style3:
         return (
           <div className="card p-3 col-lg-4 col-sm-12 col-md-6" >
             <div className="d-flex align-items-center">
@@ -119,7 +135,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
         );
 
-      case "style4":
+      case RevieweStyle.Style4:
         return (
           <div className="card p-3 col-lg-4 col-sm-12 col-md-6" >
             <div className="d-flex align-items-center">
@@ -151,7 +167,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
           </div>
         );
 
-        case "style5":
+        case RevieweStyle.Style5:
           return (
             <div className="card p-3 col-lg-4 col-sm-12 col-md-6" >
               <div className="d-flex align-items-center">
@@ -186,7 +202,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               <p className="mt-3">{item.description}</p>
             </div>
           );
-          case "style6":
+          case RevieweStyle.Style6:
             return (
               <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
                 <div className="d-flex align-items-center">
@@ -215,12 +231,12 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 <p className="mt-3">{item.description}</p>
               </div>
             );
-            case "style7":
+            case RevieweStyle.Style7:
               return (
-                <div className="card p-3 col-lg-5 col-sm-12 col-md-6">
+                <div className="rating-text card p-3 col-lg-5 col-sm-12 col-md-6">
                   {/* Image, Name, and Rating in the Same Line */}
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center">
+                    <div className="nowrap align-items-center">
                       <img
                         src={item.imageUrl}
                         alt={item.name}
@@ -262,7 +278,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 </div>
               );
 
-              case "style8":
+              case RevieweStyle.Style8:
                 return (
                   <div className="card p-3 col-lg-5 col-sm-12 col-md-6" style={{ height: '100%' }}>
                     <div>
@@ -297,7 +313,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                     </div>
                   </div>
                 );
-              case "style9": 
+              case RevieweStyle.Style9: 
               return (
                 <div className="card p-3 col-lg-6 col-md-6 col-sm-12 " >
                   <div className="d-flex align-items-center">
@@ -343,7 +359,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   </div>
                 </div>
               ); 
-              case "style10": 
+              case RevieweStyle.Style10: 
               return (
                 <div className="card p-3 col-lg-6 col-md-6 col-sm-12" >
                   <div className="d-flex align-items-center">
@@ -382,7 +398,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   </div>
                 </div>
               );
-              case "style11": 
+              case RevieweStyle.Style11: 
               return (
                 <div className="card col-lg-3 col-sm-12 col-md-6">
                   <div className="card-body">
@@ -412,7 +428,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   </div>
                 </div>
               );
-              case "style12":
+              case RevieweStyle.Style12:
           return (
           <div className="card col-lg-3 col-sm-12 col-md-6" >
             <div className="card-body">

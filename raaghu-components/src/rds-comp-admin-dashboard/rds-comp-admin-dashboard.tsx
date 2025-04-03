@@ -102,6 +102,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         isButtonGroupRequired={true}
                         buttonGroupList={buttonGroupList}
                         handleButtonClick={handleButtonClick}
+                        isCardStretch={true}
                     >
 
                         {isDayChart == true && (
@@ -630,6 +631,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     iconTooltipPosition={"top"}
                                     iconColor="success"
                                     isBignumberIcon={true}
+                                    isCardStretch={true}
                                     bigNumberLabel="$632,230"
                                     iconLabel="$27,203"
                                     onIconClick={onBackSide}>
@@ -652,6 +654,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     iconTooltipPosition={"top"}
                                     iconColor="danger"
                                     isBignumberIcon={true}
+                                    isCardStretch={true}
                                     bigNumberLabel="$49,361"
                                     iconLabel="$9,543"
                                     onIconClick={onFrontSide}>
@@ -673,6 +676,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         iconName="refresh"
                         iconTooltipLabel="Refresh"
                         iconTooltipPosition="top"
+                        isCardStretch={true}
                     >
                         <div>
                             <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
@@ -790,7 +794,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                 <RdsWidget
                                     headerTitle="Call Overview"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}    
                                     height="auto"
                                 >
                                     <div>
@@ -957,7 +961,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                 <RdsWidget
                                     headerTitle="Maximum Profit"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}
                                     height="auto"
 
                                 >
@@ -1314,7 +1318,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                             <RdsWidget
                                 headerTitle="Daily Sales Growth"
                                 isRefreshRequired={true}
-
+                                isCardStretch={true}
                             >
                                 <div>
                                     <RdsBigNumber
@@ -1442,7 +1446,9 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                 <div className="col-md-12 col-lg-6">
                     <RdsWidget
                         headerTitle="Member Activity"
-                        isRefreshRequired={true}  >
+                        isRefreshRequired={true}  
+                        isCardStretch={true}
+                        >
                         <div className="table-responsive">
                             <div className="tableheigthMemberActivity">
                             <RdsTable
@@ -1728,6 +1734,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                     <RdsWidget
                         headerTitle="To do List"
                         isRefreshRequired={true}
+                        isCardStretch={true}
                     >
                         <div className="table-responsive">
                             <RdsTable id="sortable"

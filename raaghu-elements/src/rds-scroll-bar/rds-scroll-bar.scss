@@ -20,11 +20,12 @@
       height: 100%;
       top: 0;
       left: 0;
+      padding: 1px;
       button {
         background: none;
         border: none;
         cursor: pointer;
-        font-size: 12px; /* Reduced size */
+        font-size: 10px; /* Reduced size */
         padding: 1px; /* Reduced padding */
       }
     }
@@ -75,7 +76,7 @@
 
 .scroll-button{
   background-color: lightgray;
-  border-radius: 6px;
+  border-radius: 1px;
   margin-top: 4px;
   margin-bottom: 4px;
   max-height: 18px;

@@ -387,7 +387,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               key={index}
               className="d-flex justify-content-between p-3 mt-3 fileName border"
             >
-              <div className="d-flex gap-2 align-items-center">
+              <div className="d-flex gap-2 ">
                 <span>
                   {props.showThumbnail && file.type.startsWith("image/") ? (
                     <img
@@ -802,7 +802,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   </a>
                 </span>
               </div>
-              <div className="closeIcon">
+              <div className="closeIcon mt-2">
                 <span className="text-muted opacity-50">
                   {(file.size / 1048576).toFixed(2)} MB
                 </span>
@@ -915,7 +915,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
         </div>
         <div>
           <form>
-            <div className={`align-items-center d-flex mt-1 flex-row`}>
+            <div className={` d-flex mt-1 flex-row`}>
               <label
                 htmlFor="file1"
                 className={`border-end-0 align-items-center custom-file-button upload-btn ${sizeClass}`}

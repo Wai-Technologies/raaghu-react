@@ -31,6 +31,6 @@ figma.connect(
         BottomOutline: TextareaStyle.BottomOutline,
       }),
     },
-    example: (props) => <RdsTextArea {...props} placeholder={"Enter Description"} />,
+    example: (props) => <RdsTextArea {...props} placeholder="Enter Description" rows={5}/>,
   }
 );

@@ -2,30 +2,23 @@ import React from "react";
 import RdsCompSubscriptionPlan from "./rds-comp-subscription-plan";
 import { I18nextProvider } from "react-i18next";
 import i18n from 'i18next';
-import { ComponentMeta, ComponentStory } from "@storybook/react";
- 
- 
-export default {
-    title: "Components/Automate/Subscription Plan",
-    component: RdsCompSubscriptionPlan,
-    tags: ['autodocs'],
-    decorators: [
-        (StoryComponent: React.FC) => (
-            <I18nextProvider i18n={i18n}>
-            <StoryComponent />
-          </I18nextProvider>
-        ),
-      ],
-} as ComponentMeta<typeof RdsCompSubscriptionPlan>;
- 
-const Template: ComponentStory<typeof RdsCompSubscriptionPlan> = (args: any) => (
-    <RdsCompSubscriptionPlan {...args} />
-);
- 
-export const Default = Template.bind({});
- 
-Default.args = {
-  freePlanText: "Free",
+import { StoryObj, Meta } from "@storybook/react";
+
+const meta: Meta = {
+  title: "Components/Automate/Subscription Plan",
+  component: RdsCompSubscriptionPlan,
+  tags: ["autodocs"],
+  argTypes: {
+  },
+} satisfies Meta<typeof RdsCompSubscriptionPlan>;
+
+export default meta;
+
+type Story = StoryObj<typeof RdsCompSubscriptionPlan>;
+
+export const Default: Story = {
+  args: {
+    freePlanText: "Free",
   premiumPlanText: "Premium",
   upgradeText: "Upgrade to",
   aiPunditChatText: "Components/Automate",
@@ -56,4 +49,5 @@ Default.args = {
   backgroundImageSrc: "./assets/backGif.gif",
   panelImageSrc: "./assets/Panel-0421.png",
   aiPunditLogoSrc: "./assets/AIPunditColored.png"
-};
+  },
+} satisfies Story;

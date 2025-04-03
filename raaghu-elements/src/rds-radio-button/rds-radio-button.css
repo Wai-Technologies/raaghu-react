@@ -1,5 +1,5 @@
 /* Base styles for the radio button */
-.form-check-input {
+.form-check-input .radio-toggle-switch {
   appearance: none; /* Removes default styles */
   width: 20px;
   height: 20px;
@@ -14,13 +14,13 @@
 }
 
 /* Outer ring effect */
-.form-check-input:checked {
+.form-check-input .radio-toggle-switch:checked {
   background-color: transparent;
   border: 2px solid #7825E9;
 }
 
 /* Inner filled circle - properly centered */
-.form-check-input:checked::before {
+.form-check-input .radio-toggle-switch:checked::before {
   content: "";
   width: 10px;  /* Adjust size for better alignment */
   height: 10px;
@@ -37,7 +37,7 @@
   text-align: center;
 }
 
-.theme-dark .form-check-input:checked {
+.theme-dark .form-check-input .radio-toggle-switch:checked {
   background-color: #dee2e6 !important;
   border-color: #7825E9;
 }
