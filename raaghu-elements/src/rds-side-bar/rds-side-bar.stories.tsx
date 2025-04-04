@@ -3,7 +3,7 @@ import RdsSidebar from "./rds-side-bar";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Components/Automate/Side Bar',
+    title: 'Components/AI ChatBox/Side Bar',
     component: RdsSidebar,
     parameters: {
         layout: 'padded',
