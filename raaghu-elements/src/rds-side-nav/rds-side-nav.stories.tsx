@@ -115,18 +115,18 @@ const getSideNavItems = (platform: string[], navLayout: string) => {
             {
                 key: "1",
                 label: "Dashboard",
-                icon: "dashboard",
+                icon: "dashboard_meter",
             },
             {
                 key: "2",
                 label: "Saas",
-                icon: "tenant",
+                icon: "saas",
                 path: "",
             },
             {
                 key: "3",
                 label: "Administration",
-                icon: "administration",
+                icon: "administration_new",
                 path:"",
             },
             {
@@ -144,7 +144,7 @@ const getSideNavItems = (platform: string[], navLayout: string) => {
             {
                 key: "5",
                 label: "Payments",
-                icon: "payment",
+                icon: "payment_new",
                 path: "",
             },
             {
