@@ -20,6 +20,12 @@ export const Default: Story = {
     args: {
         languageData: [
                     {
+                        label: "Select Language",
+                        val: "",
+                        iconWidth: "",
+                        iconHeight: "",
+                    },
+                    {
                         label: "العربية",
                         val: "AR",
                         iconWidth: "20px",
