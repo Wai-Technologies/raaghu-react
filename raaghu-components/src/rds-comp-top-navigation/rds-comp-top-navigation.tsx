@@ -1498,7 +1498,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <span className="navbar-toggler-icon"></span>
           </button>
                   {breacrumItem?.length > 0 && (
-                      <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">          
+                      <div className="align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex d-none">          
                <div className={` ${props.professional4?"ps-4":""}`}>
                    <>
                       <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
