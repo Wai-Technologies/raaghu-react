@@ -2,18 +2,50 @@ import React, { useState } from "react";
 import "./rds-side-bar.css";
 import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
+import Tooltip from "../rds-tooltip";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+
+export interface NavItem {
+  icon: string;
+  label: string;
+  action: string;
+  colorVariant?: string;
+  style?: string;
+  stroke?: boolean;
+}
+
+export interface NavGroup {
+  header?: string;
+  items: NavItem[];
+  className?: string;
+}
 
 export interface RdsSidebarProps {
+  // Legacy props for backward compatibility
   labels?: string[];
-  icons?: string[]; 
+  icons?: string[];
+  // New more flexible props
+  topItems?: NavItem[];
+  middleGroups?: NavGroup[];
+  bottomItems?: NavItem[];
+  // Callbacks
   onButtonClick?: (action: string) => void;
+  onToggle?: (isCollapsed: boolean) => void;
+  // Initial state
+  initialCollapsed?: boolean;
 }
 
 const RdsSidebar = (props: RdsSidebarProps) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(
+    props.initialCollapsed || false
+  );
 
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+    const newCollapsedState = !isCollapsed;
+    setIsCollapsed(newCollapsedState);
+    if (props.onToggle) {
+      props.onToggle(newCollapsedState);
+    }
   };
 
   const handleButtonClick = (action: string) => {
@@ -22,199 +54,216 @@ const RdsSidebar = (props: RdsSidebarProps) => {
     }
   };
 
+  // Default items based on the image
+  const defaultTopItems: NavItem[] = [
+    {
+      icon: "new_chat",
+      label: "New Chat",
+      action: "new_chat",
+      colorVariant: "light",
+      style: "outline",
+    },
+  ];
+
+  const defaultMiddleGroups: NavGroup[] = [
+    {
+      header: "Recents",
+      className: "recents-dashboard rounded-2 p-2 px-3",
+      items: [{
+        icon: "recents_icon", 
+        label: "SAAS Dashboard",
+        action: "saas_dashboard",
+        colorVariant: "primary",
+        style: "transparent",
+        stroke: false,
+      }],
+    },
+  ];
+
+  const defaultBottomItems: NavItem[] = [
+    {
+      icon: "community",
+      label: "Community",
+      action: "community",
+      colorVariant: "light",
+      style: "transparent",
+    },
+    {
+      icon: "chat_help",
+      label: "Help",
+      action: "help",
+      colorVariant: "light",
+      style: "transparent",
+    },
+    {
+      icon: "activity",
+      label: "Activity",
+      action: "activity",
+      colorVariant: "light",
+      style: "transparent",
+    },
+    {
+      icon: "chat_settings",
+      label: "Settings",
+      action: "settings",
+      colorVariant: "light",
+      style: "transparent",
+    },
+  ];
+
+  // Support legacy props format if provided
+  let topItems = props.topItems || defaultTopItems;
+  let middleGroups = props.middleGroups || defaultMiddleGroups;
+  let bottomItems = props.bottomItems || defaultBottomItems;
+
+  // If legacy props are provided, convert them to the new format
+  if (props.labels && props.icons) {
+    const legacyItems: NavItem[] = props.labels.map((label, index) => {
+      const icon = props.icons?.[index] || "";
+      return {
+        icon,
+        label,
+        action: label.toLowerCase().replace(/\s+/g, "_"),
+        colorVariant: index === 0 ? "light" : index === 1 ? "dark" : "primary",
+        style: index === 0 ? "outline" : "transparent",
+        // Set stroke to false for specific icons
+        stroke: !["saas_chat", "recents_icon", "recent"].includes(icon),
+      };
+    });
+
+    if (legacyItems.length > 0) {
+      topItems = [legacyItems[0]];
+    }
+
+    if (legacyItems.length > 1) {
+      middleGroups = [
+        {
+          header: "",
+          className: "recents-dashboard rounded-2 p-2 px-3",
+          items: legacyItems.slice(1, 3),
+        },
+      ];
+    }
+
+    if (legacyItems.length > 3) {
+      bottomItems = legacyItems.slice(3);
+    }
+  }
+
+  const renderNavButton = (item: NavItem) => {
+    // Only show tooltip when sidebar is collapsed
+    if (isCollapsed) {
+      return (
+        <Tooltip
+          key={item.action}
+          label={item.label}
+          style={TooltipStyle.MiddleTopArrow}
+        >
+          <RdsButton
+            class={`${isCollapsed ? "collapsed-button" : "wide-button"} ${item.icon === "recents_icon" || item.icon === "recent" ? "recent-icon" : ""}`}
+            badgeLayout="Text_only"
+            badgeState="default"
+            badgeStyle={item.colorVariant || "primary"}
+            colorVariant={item.colorVariant || "primary"}
+            displayType="Icon + Text"
+            icon={item.icon}
+            label=""
+            shape="rectangle"
+            size="medium"
+            state="hover"
+            style={item.style || "transparent"}
+            textCase="unset"
+            onClick={() => handleButtonClick(item.action)}
+            // iconStroke={item.stroke !== false}
+          />
+        </Tooltip>
+      );
+    } else {
+      // When expanded, show button without tooltip
+      return (
+        <RdsButton
+          key={item.action}
+          class={`wide-button ${item.icon === "recents_icon" || item.icon === "recent" ? "recent-icon" : ""}`}
+          badgeLayout="Text_only"
+          badgeState="default"
+          badgeStyle={item.colorVariant || "primary"}
+          colorVariant={item.colorVariant || "primary"}
+          displayType="Icon + Text"
+          icon={item.icon}
+          label={item.label}
+          shape="rectangle"
+          size="medium"
+          state="hover"
+          style={item.style || "transparent"}
+          textCase="unset"
+          onClick={() => handleButtonClick(item.action)}
+          // iconStroke={item.stroke !== false}
+        />
+      );
+    }
+  };
+
   return (
     <div
       className={`background-color rds-sidebar ${
         isCollapsed ? "collapsed" : ""
-      } d-flex flex-column justify-content-between vh-100`}
+      } d-flex flex-column justify-content-between vh-100 `}
     >
-      <div className="">
-        <div className="d-flex flex-column justify-content-between vh-100 text">
-          <div>
-            <div className={`icon-wrapper ${isCollapsed ? "collapsed" : ""}`}>
-              <RdsIcon
-                colorVariant="primary"
-                height="15px"
-                isCursorPointer
-                name="collapsibe_expand"
-                stroke
-                width="15px"
-                onClick={toggleSidebar}
-              />
-            </div>
-            <div className="chat-input-container ">
-              <div className="pb-3">
-                <div className="recents">
-                  <RdsButton
-                    class="buttonWidth color"
-                    badgeLayout="Text_only"
-                    badgeState="default"
-                    badgeStyle="light"
-                    colorVariant="light"
-                    databstoggle="tooltip"
-                    displayType="Icon + Text"
-                    icon={props.icons ? props.icons[0] : "new_chat"} 
-                    label={
-                      isCollapsed
-                        ? ""
-                        : props.labels
-                        ? props.labels[0]
-                        : "New Chat"
-                    }
-                    shape="rectangle"
-                    size="medium"
-                    state="hover"
-                    style="outline"
-                    textCase="unset"
-                    tooltipTitle="This is tooltip"
-                    onClick={() => handleButtonClick("settings")}
-                  />
+      <div className="d-flex flex-column justify-content-between vh-100 text">
+        <div>
+          {/* Collapse button with tooltip */}
+          <div className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}>
+  <Tooltip
+    label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+    style={TooltipStyle.MiddleTopArrow}
+  >
+    <RdsIcon
+      colorVariant="primary"
+      height="15px"
+      isCursorPointer
+      name={isCollapsed ? "interface_arrow_right" : "interface_arrow_left"} // Change icon based on state
+      stroke
+      width="10px"
+      onClick={toggleSidebar}
+    />
+  </Tooltip>
+</div>
+
+          {/* Top section (New Chat) */}
+          <div className="chat-input-container">
+            <div className="pb-3">{topItems.map(renderNavButton)}</div>
+          </div>
+
+          {/* Middle section (Recents header, SAAS Dashboard) */}
+          {middleGroups.map((group, groupIndex) => (
+            <div key={groupIndex} className={group.className || "my-3 button-sidebar"}>
+              {group.header && !isCollapsed && (
+                <div className="section-header px-2 py-1">
+                  <span className="text-secondary fw-medium icon">
+                    {group.header}
+                  </span>
                 </div>
-              </div>
+              )}
+              {group.items.map((item, index) => (
+                <div key={index} className="dashboard">
+                  {renderNavButton(item)}
+                </div>
+              ))}
             </div>
-            <div className="recents-dashboard rounded-2 p-2 px-3">
-              <div className="recents">
-                <RdsButton
-                  class="color"
-                  badgeLayout="Text_only"
-                  badgeState="default"
-                  badgeStyle="dark"
-                  colorVariant="dark"
-                  databstoggle="tooltip"
-                  displayType="Icon + Text"
-                  icon={props.icons ? props.icons[1] : "recent"} 
-                  label={
-                    isCollapsed ? "" : props.labels ? props.labels[1] : "Recent"
-                  }
-                  shape="rectangle"
-                  size="medium"
-                  state="hover"
-                  style="transparent"
-                  textCase="unset"
-                  tooltipTitle="This is tooltip"
-                  onClick={() => handleButtonClick("settings")}
-                />
-              </div>
-              <div className="dashboard ">
-                <RdsButton
-                  badgeLayout="Text_only"
-                  badgeState="default"
-                  badgeStyle="primary"
-                  colorVariant="primary"
-                  databstoggle="tooltip"
-                  displayType="Icon + Text"
-                  icon={props.icons ? props.icons[2] : "saas_chat"} 
-                  label={
-                    isCollapsed
-                      ? ""
-                      : props.labels
-                      ? props.labels[2]
-                      : "SAAS Dashboard"
-                  }
-                  shape="rectangle"
-                  size="medium"
-                  state="hover"
-                  style="transparent"
-               
-                  textCase="unset"
-                  id="saas_chats"
-                  tooltipTitle="This is tooltip"
-                  onClick={() => handleButtonClick("settings")}
-                  iconStroke = {false}
-                />
-              </div>
+          ))}
+        </div>
+
+        {/* Bottom section (Community, Help, Activity, Settings) */}
+        <div className="recents-dashboard rounded-2 p-2 mb-5 px-3" id="side-bar-icons">
+          {bottomItems.map((item, index) => (
+            <div
+              key={index}
+              id={`bottom-item-${item.action}`}
+              className={`dashboard ${index === 0 ? "recents" : ""} bottom-item-${index}`}
+            >
+              {renderNavButton(item)}
             </div>
-          </div>
-          <div className="recents-dashboard rounded-2 p-2 mb-5 px-3">
-            <div className="recents">
-              <RdsButton
-                badgeLayout="Text_only"
-                badgeState="default"
-                badgeStyle="primary"
-                colorVariant="primary"
-                databstoggle="tooltip"
-                displayType="Icon + Text"
-                icon={props.icons ? props.icons[3] : "community"} 
-                label={
-                  isCollapsed
-                    ? ""
-                    : props.labels
-                    ? props.labels[3]
-                    : "Community"
-                }
-                shape="rectangle"
-                size="medium"
-                state="hover"
-                style="transparent"
-                textCase="unset"
-                tooltipTitle="This is tooltip"
-                onClick={() => handleButtonClick("settings")}
-              />
-            </div>
-            <div className="dashboard">
-              <RdsButton
-                badgeLayout="Text_only"
-                badgeState="default"
-                badgeStyle="primary"
-                colorVariant="primary"
-                databstoggle="tooltip"
-                displayType="Icon + Text"
-                icon={props.icons ? props.icons[4] : "chat_help"} 
-                label={
-                  isCollapsed ? "" : props.labels ? props.labels[4] : "Help"
-                }
-                shape="rectangle"
-                size="medium"
-                state="hover"
-                style="transparent"
-                textCase="unset"
-                tooltipTitle="This is tooltip"
-                onClick={() => handleButtonClick("settings")}
-              />
-            </div>
-            <div className="dashboard">
-              <RdsButton
-                badgeLayout="Text_only"
-                badgeState="default"
-                badgeStyle="primary"
-                colorVariant="primary"
-                databstoggle="tooltip"
-                displayType="Icon + Text"
-                icon={props.icons ? props.icons[5] : "activity"} 
-                label={
-                  isCollapsed ? "" : props.labels ? props.labels[5] : "Activity"
-                }
-                shape="rectangle"
-                size="medium"
-                state="hover"
-                style="transparent"
-                textCase="unset"
-                tooltipTitle="This is tooltip"
-                onClick={() => handleButtonClick("settings")}
-              />
-            </div>
-            <div className="dashboard">
-              <RdsButton
-                badgeLayout="Text_only"
-                badgeState="default"
-                badgeStyle="primary"
-                colorVariant="primary"
-                databstoggle="tooltip"
-                displayType="Icon + Text"
-                icon={props.icons ? props.icons[6] : "chat_settings"} 
-                label={
-                  isCollapsed ? "" : props.labels ? props.labels[6] : "Settings"
-                }
-                shape="rectangle"
-                size="medium"
-                state="hover"
-                style="transparent"
-                textCase="unset"
-                tooltipTitle="This is tooltip"
-                onClick={() => handleButtonClick("settings")}
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
