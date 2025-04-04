@@ -24,7 +24,7 @@
  background: #ffffff 0% 0% no-repeat padding-box;
  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
  opacity: 1;
- margin-top: -4px !important;
+ margin-top: -15px !important;
 }
 
 .border-start-custom {

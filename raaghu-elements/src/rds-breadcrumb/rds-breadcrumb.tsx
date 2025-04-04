@@ -112,7 +112,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
 
   return (
     <nav aria-label="breadcrumb">
-      <ol className={`breadcrumb m-0 ${props.topnavPlusIcon ? "m-2" : ""}`}>
+      <ol className={`breadcrumb ${props.topnavPlusIcon ? "m-2" : ""}`}>
         {displayedItems.map((breadItem, index) => {
           const isLastItem = index === displayedItems.length - 1;
           const isHovered = hoveredItem === breadItem.id;
