@@ -67,7 +67,6 @@ const RdsSidebar = (props: RdsSidebarProps) => {
 
   const defaultMiddleGroups: NavGroup[] = [
     {
-      header: "Recents",
       className: "recents-dashboard rounded-2 p-2 px-3",
       items: [{
         icon: "recents_icon", 
@@ -138,7 +137,6 @@ const RdsSidebar = (props: RdsSidebarProps) => {
     if (legacyItems.length > 1) {
       middleGroups = [
         {
-          header: "",
           className: "recents-dashboard rounded-2 p-2 px-3",
           items: legacyItems.slice(1, 3),
         },
@@ -151,56 +149,34 @@ const RdsSidebar = (props: RdsSidebarProps) => {
   }
 
   const renderNavButton = (item: NavItem) => {
-    // Only show tooltip when sidebar is collapsed
-    if (isCollapsed) {
-      return (
-        <Tooltip
-          key={item.action}
-          label={item.label}
-          style={TooltipStyle.MiddleTopArrow}
-        >
-          <RdsButton
-            class={`${isCollapsed ? "collapsed-button" : "wide-button"} ${item.icon === "recents_icon" || item.icon === "recent" ? "recent-icon" : ""}`}
-            badgeLayout="Text_only"
-            badgeState="default"
-            badgeStyle={item.colorVariant || "primary"}
-            colorVariant={item.colorVariant || "primary"}
-            displayType="Icon + Text"
-            icon={item.icon}
-            label=""
-            shape="rectangle"
-            size="medium"
-            state="hover"
-            style={item.style || "transparent"}
-            textCase="unset"
-            onClick={() => handleButtonClick(item.action)}
-            // iconStroke={item.stroke !== false}
-          />
-        </Tooltip>
-      );
-    } else {
-      // When expanded, show button without tooltip
-      return (
+    // Always show tooltip regardless of sidebar state
+    return (
+      <Tooltip
+        key={item.action}
+        label={item.label}
+        style={TooltipStyle.MiddleTopArrow}
+      >
         <RdsButton
-          key={item.action}
-          class={`wide-button ${item.icon === "recents_icon" || item.icon === "recent" ? "recent-icon" : ""}`}
+          class={`${isCollapsed ? "collapsed-button" : "wide-button"} ${item.icon === "recents_icon" || item.icon === "recent" ? "recent-icon" : ""}`}
           badgeLayout="Text_only"
           badgeState="default"
           badgeStyle={item.colorVariant || "primary"}
           colorVariant={item.colorVariant || "primary"}
           displayType="Icon + Text"
           icon={item.icon}
-          label={item.label}
+          label={isCollapsed ? "" : item.label}
           shape="rectangle"
           size="medium"
           state="hover"
           style={item.style || "transparent"}
           textCase="unset"
           onClick={() => handleButtonClick(item.action)}
-          // iconStroke={item.stroke !== false}
+          tooltip={true}
+          tooltipPlacement={TooltipStyle.MiddleTopArrow}
+          tooltipTitle={item.label}
         />
-      );
-    }
+      </Tooltip>
+    );
   };
 
   return (
@@ -213,21 +189,21 @@ const RdsSidebar = (props: RdsSidebarProps) => {
         <div>
           {/* Collapse button with tooltip */}
           <div className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}>
-  <Tooltip
-    label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-    style={TooltipStyle.MiddleTopArrow}
-  >
-    <RdsIcon
-      colorVariant="primary"
-      height="15px"
-      isCursorPointer
-      name={isCollapsed ? "interface_arrow_right" : "interface_arrow_left"} // Change icon based on state
-      stroke
-      width="10px"
-      onClick={toggleSidebar}
-    />
-  </Tooltip>
-</div>
+            <Tooltip
+              label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              style={TooltipStyle.MiddleTopArrow}
+            >
+              <RdsIcon
+                colorVariant="primary"
+                height="15px"
+                isCursorPointer
+                name={isCollapsed ? "interface_arrow_right" : "interface_arrow_left"}
+                stroke
+                width="10px"
+                onClick={toggleSidebar}
+              />
+            </Tooltip>
+          </div>
 
           {/* Top section (New Chat) */}
           <div className="chat-input-container">
