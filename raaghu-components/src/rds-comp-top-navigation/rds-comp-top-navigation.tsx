@@ -1726,10 +1726,10 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           <div
             onClick={handlerLogoClick}
             id="raaghuLogo"
-            className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
+            className="d-xxl-none d-xl-none d-lg-none d-block"
           >
             <img
-              className="cursor-pointer sidenav-mobile-logo"
+              className="cursor-pointer sidenav-mobile-logo sidenav-logo"
               src={brandLogo}
               alt="logo"
             ></img>
