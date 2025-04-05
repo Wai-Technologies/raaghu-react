@@ -47,7 +47,7 @@ const isFormValid = isNameValid(formData?.name);
       <div>
         <form>
           <div className="custom-content-scroll">
-            <div className="row mt-3 mb-4">
+            <div className="row">
               <div className="col-6">
                 <RdsInput
                   required={true}
@@ -80,7 +80,7 @@ const isFormValid = isNameValid(formData?.name);
                 ></RdsInput>
               </div>
             </div>
-            <div className=" mb-4">
+            <div className="">
               <RdsTextArea
                 label="Description"
                 placeholder="Description"
