@@ -158,7 +158,7 @@
     margin-top: 10px;
 }
 
-.dropdown-menu.show {
+.chat-container .dropdown-menu.show {
     transform: translate3d(0px, -180px, 0px)
 }
 
@@ -188,4 +188,8 @@
         flex-wrap: nowrap;
         overflow-x: auto;
     }
+}
+
+.current-user .comment-content {
+    background-color: #B30FBC !important;
 }

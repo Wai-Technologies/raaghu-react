@@ -62,7 +62,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
       <div>
        <ul
   className={
-    "nav fit-content mobile-ul-tabs flex navtabs-icon-align nav-tabs" +
+    `nav fit-content mobile-ul-tabs d-flex navtabs-icon-align nav-tabs ${props.id == "chat"? "":"d-md-block "}` +
     (props.layout === "horizontal"
       ? " col-12 d-flex d-lg-block d-xl-block d-xxl-block d-md-block"
               : props.style === "Top Select"

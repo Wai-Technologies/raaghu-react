@@ -143,7 +143,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
     }, [openItemIds, props.items]);
 
     const handleMouseEnter = (id: string) => {
-        if (props.state === "hover" && props.style === "borderhide") {
+        if (props.state === "hover" || props.style === "borderhide") {
             const headerElement = document.getElementById(`heading${id}`);
             const bodyElement = document.getElementById(`collapse${id}`);
             const itemElement = document.getElementById(`item${id}`);
@@ -157,7 +157,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
     };
 
     const handleMouseLeave = (id: string) => {
-        if (props.state === "hover" && props.style === "borderhide") {
+        if (props.state === "hover" || props.style === "borderhide") {
             const headerElement = document.getElementById(`heading${id}`);
             const bodyElement = document.getElementById(`collapse${id}`);
             const itemElement = document.getElementById(`item${id}`);
