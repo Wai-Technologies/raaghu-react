@@ -356,7 +356,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <span className="navbar-toggler-icon"></span>
             </button>
     
-            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block flex-grow-1 justify-content-center">
+            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block flex-grow-1 justify-content-center d-none d-md-block">
               <div className="d-flex align-items-center">
                   <>
                     <div className="d-flex align-items-center">
