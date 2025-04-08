@@ -858,7 +858,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
       return (
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center mb-3">
+          <div className="d-flex align-items-center ps-2">
           <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
@@ -885,14 +885,14 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </div>
       
           <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0 ms-5"
             type="button"
             onClick={props.onClickHamburger}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
       
-          <div className="d-flex align-items-center flex-grow-1 justify-content-center">
+          <div className="d-flex align-items-center flex-grow-1 justify-content-center d-lg-flex d-md-flex d-none">
             {props.showSearch && props.entertainment1 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
