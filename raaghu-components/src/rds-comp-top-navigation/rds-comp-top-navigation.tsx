@@ -685,7 +685,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         )}
                 </div>
             </div>
-            {( (props.showSearch && props.ecommerce3) &&  <div className="searchBackground" id="serachOption">
+            {( (props.showSearch && props.ecommerce3) &&  <div className="d-md-flex d-none searchBackground" id="serachOption">
                     <RdsSearch
                         iconPosition="right"
                         labelPosition="right"
@@ -726,7 +726,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             </div>
            
               </nav>
-              <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
+              <div className="align-items-center d-flex d-lg-block d-md-block d-none d-xl-block d-xxl-block justify-content-center mt-5 mt-md-0">
                   <div>
                       {breacrumItem?.length > 0 && (
                           <div className={` ${props.ecommerce3 ? "ps-4" : ""}`}>
