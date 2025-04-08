@@ -501,7 +501,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
+            <div className="align-items-center d-flex d-lg-block d-md-block d-none d-xl-block d-xxl-block justify-content-center mt-5 mt-md-0">
                 <div>
                     {breacrumItem?.length > 0 && (
                             <div>
