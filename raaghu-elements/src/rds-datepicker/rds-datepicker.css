@@ -34,3 +34,6 @@
 .react-datepicker__navigation {
   top: 8px;
 }
+.react-datepicker {
+  left:-50px;
+}
