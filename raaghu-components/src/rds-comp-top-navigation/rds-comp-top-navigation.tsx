@@ -341,7 +341,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
             >
               {props.showLogo && ( <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 alt="logo"
               ></img>
@@ -875,7 +875,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -940,7 +940,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-3"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1014,7 +1014,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-5"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1089,7 +1089,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1179,7 +1179,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-3"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1272,7 +1272,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-3"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1367,7 +1367,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-3"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1479,7 +1479,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1550,7 +1550,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className="mb-3"
             >
               <img
-                className="cursor-pointer sidenav-mobile-logo"
+                className="cursor-pointer sidenav-mobile-logo sidenav-logo"
                 src={brandLogo}
                 width={140}
                 alt="logo"
@@ -1987,7 +1987,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
           >
             <img
-              className="cursor-pointer sidenav-mobile-logo"
+              className="cursor-pointer sidenav-mobile-logo sidenav-logo"
               src={brandLogo}
               alt="logo"
             ></img>
