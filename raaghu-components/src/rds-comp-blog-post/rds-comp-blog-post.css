@@ -13,3 +13,6 @@
     background-color: #343a40 !important;
     color: #fff !important;
 }
+.theme-dark .quill svg {
+    color: #e9ecef !important;
+}
