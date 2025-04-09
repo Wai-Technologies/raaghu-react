@@ -446,7 +446,7 @@ export const Icons: any = {
     up_down_arrow:
     "<svg id=\"a\" viewBox=\"0 0 21 21\"><line class=\"icon\" x1=\"16.253\" y1=\".5\" x2=\"16.253\" y2=\"20.5\"/><polyline class=\"icon\" points=\"20.5 15.115 16.253 20.5 12.006 15.115\"/><line class=\"icon\" x1=\"4.747\" y1=\"20.5\" x2=\"4.747\" y2=\".5\"/><polyline class=\"icon\" points=\"8.994 5.885 4.747 .5 .5 5.885\"/></svg>",
     sort:
-    "<svg id=\"a\" viewBox=\"0 0 21.2 21.2\"><g id=\"Sort\"><path id=\"Path_172770\" class=\"icon\" d=\"m13.933.6v20l6.667-7.763\"/><path id=\"Path_172771\" class=\"icon\" d=\"m7.267,20.6V.6L.6,8.363\"/></g></svg>",
+    "<svg xmlns=\"http:/www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M9.4 1.00006V13.0001L13 8.34166M4.6 13.0001V1.00006L1 5.65846\" stroke=\"#6e6e6e\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
     upload:
     "<svg id=\"a\" viewBox=\"0 0 21 21\"><path class=\"icon\" d=\"M8.141,9.423c-.049,.021-.098,.042-.146,.064-1.841,.834-3.242,2.392-3.624,4.381h-.645c-1.841,0-3.226,1.671-3.226,3.474s1.385,3.158,3.226,3.158H13.33\"/><path class=\"icon\" d=\"M12.84,20.5h5.079c1.473,0,2.581-1.085,2.581-2.526s-1.108-2.842-2.581-2.842c0-2.637-1.655-4.796-3.985-5.765-.307-.128-.627-.235-.955-.32\"/><polyline class=\"icon\" points=\"6.68 4.265 10.527 .5 14.373 4.265\"/><line class=\"icon\" x1=\"10.527\" y1=\"1.556\" x2=\"10.527\" y2=\"14.454\"/></svg>",
     upload_data:
