@@ -1,34 +1,33 @@
 /* Base styles for the radio button */
-.form-check-input .toggle-switch {
-  appearance: none; /* Removes default styles */
-  width: 20px;
-  height: 20px;
+.radio-toggle-switch {
+  appearance: none;
+  width: 18px;
+  height: 18px;
   border: 2px solid #7825E9; /* Purple border */
+  border-color: #979797;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   position: relative;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-/* Outer ring effect */
-.form-check-input .toggle-switch:checked {
   background-color: transparent;
-  border: 2px solid #7825E9;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Inner filled circle - properly centered */
-.form-check-input .toggle-switch:checked::before {
+.radio-toggle-switch:checked {
+  background-color: white; /* Background remains white */
+  border: 2px solid #7825E9; /* Purple border */
+}
+
+.radio-toggle-switch:checked::before {
   content: "";
-  width: 10px;  /* Adjust size for better alignment */
-  height: 10px;
-  background-color: #7825E9;
+  width: 10px; /* Adjusted size for better centering */
+  height: 10px; /* Adjusted size for better centering */
+  background-color: #7d4cdb; /* Blue inner dot */
   border-radius: 50%;
   position: absolute;
-  inset: 0;  /* Ensures centering */
-  margin: auto;  /* Centers both horizontally and vertically */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Ensures perfect centering */
 }
 
 /* Spacing for label positioning */
@@ -37,7 +36,7 @@
   text-align: center;
 }
 
-.theme-dark .form-check-input .toggle-switch:checked {
+.theme-dark .form-check-input .radio-toggle-switch:checked {
   background-color: #dee2e6 !important;
   border-color: #7825E9;
 }
