@@ -784,7 +784,11 @@ export const Icons: any = {
   information_divider: 
   "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"17\" height=\"18\" viewBox=\"0 0 17 18\" fill=\"none\"><path d=\"M8.5 9V13.3077M16.5 9C16.5 13.4183 12.9183 17 8.5 17C4.08172 17 0.5 13.4183 0.5 9C0.5 4.58172 4.08172 1 8.5 1C12.9183 1 16.5 4.58172 16.5 9ZM9.11539 5.92308C9.11539 6.26295 8.83987 6.53846 8.5 6.53846C8.16013 6.53846 7.88462 6.26295 7.88462 5.92308C7.88462 5.58321 8.16013 5.30769 8.5 5.30769C8.83987 5.30769 9.11539 5.58321 9.11539 5.92308Z\" stroke=\"#B1B1B1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
   cross: 
-  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M13 1L1 13M1 1L13 13\" stroke=\"#CDCDCD\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M13 1L1 13M1 1L13 13\" stroke=\"#CDCDCD\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+  interface_arrow_right:
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M8.24774 1L16.7892 8.56923C16.8558 8.62448 16.9088 8.69121 16.945 8.7653C16.9813 8.83939 17 8.91927 17 9C17 9.08073 16.9813 9.16061 16.945 9.2347C16.9088 9.30879 16.8558 9.37552 16.7892 9.43077L8.24774 17M1 1L9.55539 8.56923C9.68284 8.68426 9.75422 8.83892 9.75422 9C9.75422 9.16108 9.68284 9.31574 9.55539 9.43077L1 17\" stroke=\"#7D7D7D\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+  interface_arrow_left: 
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M9.75226 0.999989L1.21078 8.56922C1.14424 8.62447 1.09121 8.6912 1.05496 8.76529C1.0187 8.83938 1 8.91925 1 8.99999C1 9.08072 1.0187 9.1606 1.05496 9.23469C1.09121 9.30878 1.14424 9.37551 1.21078 9.43076L9.75226 17M17 0.999989L8.44461 8.56922C8.31716 8.68425 8.24578 8.83891 8.24578 8.99999C8.24578 9.16107 8.31716 9.31572 8.44461 9.43076L17 17\" stroke=\"#7D7D7D\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
 };
        
 
