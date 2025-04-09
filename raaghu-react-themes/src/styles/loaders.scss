@@ -522,39 +522,61 @@
   
 
   .spinner-ring {
-    width: 120px;
-    height: 120px;
-    border: 8px solid transparent;
-    border-top: 8px solid #6c2bd9; /* Purple top */
+    // Default variables (maps to large size for spinner-ring)
+    --spinner-ring-size: 120px;
+    --spinner-ring-border-main: 8px;
+    --spinner-ring-border-pseudo: 3px;
+
+    width: var(--spinner-ring-size);
+    height: var(--spinner-ring-size);
+    border: var(--spinner-ring-border-main) solid transparent;
+    border-top: var(--spinner-ring-border-main) solid #6c2bd9;
+    border-right: var(--spinner-ring-border-main) solid #6c2bd9;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .spinner-ring::before,
-  .spinner-ring::after {
-    content: "";
-    position: absolute;
-    border: 3px solid #6c2bd9;
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .spinner-ring::before {
-    width: 120%;
-    height: 120%;
-    border-color: #6c2bd9;
-  }
-  
-  .spinner-ring::after {
-    width: 80%;
-    height: 80%;
-    border-color: #6c2bd9;
+    box-sizing: border-box;
+
+    // Size overrides when combined with size classes
+    &.loader-medium {
+      --spinner-ring-size: 80px;
+      --spinner-ring-border-main: 5px;
+      --spinner-ring-border-pseudo: 2px;
+    }
+
+    &.loader-small {
+      --spinner-ring-size: 40px;
+      --spinner-ring-border-main: 3px;
+      --spinner-ring-border-pseudo: 1px;
+    }
+
+    // Pseudo-elements using the variables
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border: var(--spinner-ring-border-pseudo) solid #6c2bd9;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-sizing: border-box;
+    }
+
+    &::before {
+      width: 131%;
+      height: 131%;
+      border-color: #6c2bd9;
+    }
+
+    &::after {
+      width: 88%;
+      height: 88%;
+      border-color: #6c2bd9;
+    }
   }
   
   @keyframes spin {
