@@ -190,6 +190,20 @@
     }
 }
 
+@media (max-width: 600px) {
+    #fab-list .dropdown-menu.show {
+        width: auto !important;
+        height: auto !important;
+    }
+}
+
 .current-user .comment-content {
     background-color: #B30FBC !important;
+}
+
+.EmojiPickerReact {
+    height: 450px!important;
+    width: 260px !important;
+    right: 5rem !important;
+    top: 20rem !important;
 }
