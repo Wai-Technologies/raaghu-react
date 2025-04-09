@@ -18,6 +18,9 @@ export interface RdsCarouselProps {
   carouselItems: CarouselItem[]; // carousel items
   style?: string; // carousel style
   state?: string; // active state
+  chevronColor?: string; // chevron color
+  chevronHeight?: string; // chevron height
+  chevronWidth?: string; // chevron width
 }
 
 const RdsCarousel = (props: RdsCarouselProps) => {
@@ -118,10 +121,14 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   data-bs-slide="prev"
                   onClick={handlePrev}
                 >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
+                  <RdsIcon
+                    name="chevron_left"
+                    height={props.chevronHeight || "40px"}
+                    width={props.chevronWidth || "40px"}
+                    fill={false}
+                    stroke={true}
+                    colorVariant={props.chevronColor}
+                  />
                   <span className="visually-hidden">Previous</span>
                 </button>
                 <button
@@ -131,10 +138,14 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   data-bs-slide="next"
                   onClick={handleNext}
                 >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
+                  <RdsIcon
+                    name="chevron_right"
+                    height={props.chevronHeight || "40px"}
+                    width={props.chevronWidth || "40px"}
+                    fill={false}
+                    stroke={true}
+                    colorVariant={props.chevronColor}
+                  />
                   <span className="visually-hidden">Next</span>
                 </button>
               </>
