@@ -1946,7 +1946,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
            
           </div>
         </nav>
-        {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top">
+        {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top d-none d-sm-flex d-xl-block">
             <div className="d-flex align-items-center justify-content-center flex-grow-1">
               <div className="d-flex justify-content-center w-100">
                 { breacrumItem?.length > 0 && (
