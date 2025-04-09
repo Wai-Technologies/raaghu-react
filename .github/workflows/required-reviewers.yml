@@ -22,7 +22,7 @@ jobs:
           script: |
             const author = context.payload.pull_request.user.login;
             const userA = "sharmaamanwai";
-            const userB = "Aditya2091";
+            const userB = "WAi-Aditya";
             let requiredReviewers = [];
             if (author === userA) {
               requiredReviewers.push(userB);
