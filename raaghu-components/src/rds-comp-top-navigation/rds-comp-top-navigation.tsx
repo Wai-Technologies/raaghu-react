@@ -1376,7 +1376,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           )}
             <div >
             {props.showSearch && props.professional3 && (
-              <div className="searchBackground ps-2" id="serachOption">
+              <div className="searchBackground ps-2 d-lg-flex d-md-flex d-none" id="serachOption">
                 <RdsSearch
                   iconPosition="right"
                   labelPosition="right"

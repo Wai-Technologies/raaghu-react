@@ -43,3 +43,7 @@
 .col {
   flex: none !important;
 }
+#serachOption {
+  width: 15rem !important;
+  margin-left: 15rem;
+}
