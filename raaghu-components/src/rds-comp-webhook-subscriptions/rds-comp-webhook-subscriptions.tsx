@@ -130,7 +130,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
             <div>
                 <form>
                 <div className="custom-content-scroll">
-                    <div className="fw-normal mt-1 mb-3">
+                    <div className="fw-normal mt-1 mb-4">
                     <RdsInput
                     name="Webhook Endpoint"
                     label={true}
