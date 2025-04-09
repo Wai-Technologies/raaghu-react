@@ -1568,7 +1568,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <span className="navbar-toggler-icon"></span>
           </button>
       
-          <div className="d-flex align-items-center flex-grow-1 justify-content-center">
+          <div className="d-flex align-items-center flex-grow-1 justify-content-center ps-5 d-none d-sm-flex">
             {props.showSearch && props.professional5 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
