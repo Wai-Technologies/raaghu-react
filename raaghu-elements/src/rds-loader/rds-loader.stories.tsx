@@ -27,7 +27,6 @@ const meta: Meta = {
             control: { type: "select" },
         },
         size: { // Add size argType
-            description: 'Size of the loader (only applies to spinner-ring)',
             options: ["small", "medium", "large"] as LoaderSize[],
             control: { type: "radio" },
             defaultValue: "medium",
@@ -40,11 +39,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsLoader>;
 
-// Default Story - Let Storybook decide controls based on argTypes (including conditional size)
-
-
-// --- Individual Loader Stories ---
-// Let Storybook handle controls based on argTypes
 
 export const LineWobble: Story = {
     args: {
