@@ -21,7 +21,8 @@ export interface RdsCompContributionProps {
 }
 
 export const RdsCompContribution = (props: RdsCompContributionProps) => {
-  const [columns, setColumns] = useState(53);
+  // Always show full year (53 columns) regardless of screen size
+  const [columns] = useState(53);
   const [dynamicPanelSize, setDynamicPanelSize] = useState(props.panelSize ?? 12);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(props.panelMargin ?? 1);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -57,22 +58,18 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
       // For very small screens
       setDynamicPanelSize(5);
       setDynamicPanelMargin(1);
-      setColumns(Math.min(Math.floor((width - weekLabelWidth) / 6), 53));
     } else if (width < 500) {
       // For small mobile screens
       setDynamicPanelSize(7);
       setDynamicPanelMargin(1);
-      setColumns(Math.min(Math.floor((width - weekLabelWidth) / 8), 53));
     } else if (width < 800) {
       // For larger mobile screens
       setDynamicPanelSize(9);
       setDynamicPanelMargin(1);
-      setColumns(Math.min(Math.floor((width - weekLabelWidth) / 10), 53));
     } else {
       // For larger screens
       setDynamicPanelSize(props.panelSize ?? 12);
       setDynamicPanelMargin(props.panelMargin ?? 2);
-      setColumns(Math.min(Math.floor((width - weekLabelWidth) / (props.panelSize ?? 12) + (props.panelMargin ?? 2)), 53));
     }
   };
 
@@ -129,7 +126,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
   const contributions = makeCalendarData(props.values, props.until, columns);
   const innerDom: React.ReactElement[] = [];
 
-  // Add week labels
+  // Add week labels (uncommented - you can enable if needed)
   // if (props.weekNames && props.weekNames.length >= 7) {
   //   for (let j = 0; j < 7; j++) {
   //     innerDom.push(
@@ -179,11 +176,11 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
     }
   }
 
+  
   if (showMonth && props.monthNames) {
     let prevMonth = -1;
-    let monthLabelCounts = new Map();
+    const monthLabelCounts = new Map<number, number>();
     
-    // First pass: count months to identify which ones appear in the data
     for (let i = 0; i < columns; i++) {
       const c = contributions[i][0];
       if (c === null) continue;
@@ -228,22 +225,27 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
             {props.monthNames[c.month] || ''}
           </text>
         );
+  
+        prevMonth = c.month;
       }
-      prevMonth = c.month;
     }
   }
+  
   const svgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth;
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
       {({ measureRef }: any) => (
-        <div 
-          ref={measureRef} 
-          className="full-width custum-content-scroll" 
-          style={{ 
+        <div
+          ref={measureRef}
+          className="full-width custom-content-scroll"
+          style={{
             background: 'none',
-            width: '100%',          
+            width: '100%',
+            overflowX: 'auto', 
+            whiteSpace: 'nowrap', 
+            paddingBottom: '8px', 
           }}
         >
           <svg
@@ -251,8 +253,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
             width={svgWidth}
             height={svgHeight}
             style={{
-              minWidth: `${svgWidth}px`,
-            
+              minWidth: `${svgWidth}px`, 
             }}
           >
             {innerDom}
@@ -261,9 +262,6 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
       )}
     </Measure>
   );
-  
 };
-
-
 
 export default RdsCompContribution;
