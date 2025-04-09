@@ -21,6 +21,7 @@ const meta: Meta = {
                 "rotate",
                 "spin",
                 "triangle",
+                "spinner-ring",
             ],
             control: { type: "select" },
         },
@@ -99,3 +100,10 @@ export const Triangle: Story = {
   },
 } satisfies Story;
 Triangle.parameters = { controls: { include: ['loaderType'] } };
+
+export const Spinner: Story = {
+  args: {
+    loaderType: 'spinner-ring',
+  },
+} satisfies Story;
+Spinner.parameters = { controls: { include: ['loaderType'] } };

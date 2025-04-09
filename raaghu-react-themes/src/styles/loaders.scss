@@ -518,4 +518,51 @@
       transform: rotate(calc(var(--s,1)*120deg)) translate(0)
     }
   }
+
+  
+
+  .spinner-ring {
+    width: 120px;
+    height: 120px;
+    border: 8px solid transparent;
+    border-top: 8px solid #6c2bd9; /* Purple top */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .spinner-ring::before,
+  .spinner-ring::after {
+    content: "";
+    position: absolute;
+    border: 3px solid #6c2bd9;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .spinner-ring::before {
+    width: 120%;
+    height: 120%;
+    border-color: #6c2bd9;
+  }
+  
+  .spinner-ring::after {
+    width: 80%;
+    height: 80%;
+    border-color: #6c2bd9;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
   
