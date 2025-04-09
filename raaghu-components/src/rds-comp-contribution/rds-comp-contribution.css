@@ -84,12 +84,13 @@
     width: 100% !important;
     height: 100% !important;
     padding: 10px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-left: 0px !important;
+    padding-right: 200px !important;
     padding-top: 50px !important;
     padding-bottom: 50px !important;
     object-fit: cover;
-    background-color: rgb(235, 235, 235);
+    /* background-color: rgb(235, 235, 235); */
+    /* background-color: none!important; */
   }
 
   .contribution-font{
