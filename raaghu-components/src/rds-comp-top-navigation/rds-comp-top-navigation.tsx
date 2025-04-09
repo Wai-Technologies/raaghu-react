@@ -1462,7 +1462,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         <div  id="topnav"> 
         <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
           <div className="d-flex align-items-center mb-3">
-          <span className={`px-2 cursor-pointer active}`}>
+          <span className={`px-3 pt-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
                   fill={false}
