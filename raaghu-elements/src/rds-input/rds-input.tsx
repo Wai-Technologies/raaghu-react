@@ -257,7 +257,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
         )}
     </label>
 )}
-          <div className="mb-0 input-group">
+          <div className="mb-0">
             {props.tooltipTitle ? (
               <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
                 <input
