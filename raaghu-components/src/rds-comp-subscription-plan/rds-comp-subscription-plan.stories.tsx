@@ -5,7 +5,7 @@ import i18n from 'i18next';
 import { StoryObj, Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "Components/Automate/Subscription Plan",
+  title: "Components/AI ChatBox/Subscription Plan",
   component: RdsCompSubscriptionPlan,
   tags: ["autodocs"],
   argTypes: {

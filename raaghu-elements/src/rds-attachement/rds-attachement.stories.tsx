@@ -2,7 +2,7 @@ import RdsAttachement from "./rds-attachement";
 import { Meta, StoryObj } from "@storybook/react";
  
 const meta: Meta = {
-    title: "Components/Automate/Attachement",
+    title: "Components/AI ChatBox/Attachement",
     component: RdsAttachement,
     argTypes: {
     },
