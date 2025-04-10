@@ -272,11 +272,11 @@ const RdsChat = (props: RdsChatProps) => {
                     </div>
                 </div>}
             <div className={`chat-window ${!isChatScreenEnabled ? 'full-width' : ''}`}>
-                <div className='chat-window-header'>
+                <div className='chat-window-header d-md-flex'>
                     <div className="chat-window-header-title d-flex align-items-center">
                         <RdsAvatar activeDotBottom={currentUser.activeDotBottom} withProfilePic={currentUser.withProfilePic} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size={AvatarSize.medium} type={currentUser.profileType} style={currentUser.style} />
                     </div>
-                    <div className='chat-window-header-options d-lg-flex d-md-flex d-none'>
+                    <div className='chat-window-header-options justify-content-between'>
                         <span>
                             <RdsNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
                                 {
