@@ -243,7 +243,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                          className="rounded-circle ps-0 px-1"
                         style={{ width: '50px', height: '50px' }}
                       />
-                      <div className="ms-3">
+                      <div className="ms-1">
                         <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                         <small className="text-muted">
                           {item.date
