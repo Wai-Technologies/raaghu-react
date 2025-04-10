@@ -334,7 +334,7 @@ const RdsChat = (props: RdsChatProps) => {
                         </div>
                     )}
                     <span className="ms-3 me-2 mb-3 mt-2">
-                        <RdsFabMenu
+                        <RdsFabMenu className='fab-menu-btn'
                             colorVariant="primary"
                             menuIcon='plus'
                             listItems={[
@@ -384,7 +384,7 @@ const RdsChat = (props: RdsChatProps) => {
                             stroke={true}
                             colorVariant="neutral"
                             isCursorPointer={true}
-                            width="30px"
+                            // width="30px"
                             height="30px"
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                         />
