@@ -37,3 +37,8 @@
 .react-datepicker {
   left:-50px;
 }
+.react-datepicker-popper {
+  position: absolute !important;
+  inset: 0px auto auto 50px !important;
+  transform: translate3d(0px, 35.2px, 0px) !important;
+}
