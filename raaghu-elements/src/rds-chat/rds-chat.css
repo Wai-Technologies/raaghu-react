@@ -30,10 +30,8 @@
 }
 
 .chat-window-header {
-   
     align-items: center;
     justify-content: space-between;
-    
     padding-left: 12px;
     border-bottom: 1px solid #E9E9E9;
 }
