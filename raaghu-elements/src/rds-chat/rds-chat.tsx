@@ -28,6 +28,9 @@ export interface UserData {
     profilePic: string;
     messageStatus: string;
     comments: Comment[];
+    profileType?: string;
+    withProfilePic?: boolean;
+    style?: string;
 }
 
 export interface RdsChatProps {
@@ -256,9 +259,13 @@ const RdsChat = (props: RdsChatProps) => {
                     <div className='chat-screen-main'>
                         {userData.map((item: any, index: any) => {
                             return (
-                                <div key={index} className={`d-flex justify-content-between my-2 mx-1 p-2 ${selectedIndex === index ? 'selected' : ''}`} onClick={() => onUserSelect(index)}>
-                                    <RdsAvatar activeDotBottom={item.activeDotButton} avtarWithName colorVariant="primary" firstName={item.firstName} lastName={item.lastName} profilePic={item.profilePic} role={item.status} size={AvatarSize.medium} type="image" />
-                                    {item.time}
+                                <div key={index} className={`d-flex align-items-center justify-content-between my-2 mx-1 p-2 ${selectedIndex === index ? 'selected' : ''}`} onClick={() => onUserSelect(index)}>
+                                    <div className="d-flex align-items-center">
+                                        <RdsAvatar activeDotBottom={item.activeDotButton} withProfilePic={item.withProfilePic} avtarWithName colorVariant="primary" firstName={item.firstName} lastName={item.lastName} profilePic={item.profilePic} role={item.status} size={AvatarSize.medium} type={item.profileType} style={item.style} />
+                                    </div>
+                                    <div className="text-muted" style={{ fontSize: '12px' }}>
+                                        {item.time}
+                                    </div>
                                 </div>
                             )
                         })}
@@ -266,12 +273,12 @@ const RdsChat = (props: RdsChatProps) => {
                 </div>}
             <div className={`chat-window ${!isChatScreenEnabled ? 'full-width' : ''}`}>
                 <div className='chat-window-header'>
-                    <div className='chat-window-header-title'>
-                        <RdsAvatar activeDotBottom={currentUser.activeDotBottom} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size={AvatarSize.large} type="image" />
+                    <div className="chat-window-header-title d-flex align-items-center">
+                        <RdsAvatar activeDotBottom={currentUser.activeDotBottom} withProfilePic={currentUser.withProfilePic} avtarWithName colorVariant="primary" firstName={currentUser.firstName} lastName={currentUser.lastName} profilePic={currentUser.profilePic} role={currentUser.status} size={AvatarSize.medium} type={currentUser.profileType} style={currentUser.style} />
                     </div>
                     <div className='chat-window-header-options'>
                         <span>
-                            <RdsNavtabs layout="Horizontal" type='tabs' activeNavTabId="chat" navtabsItems={[
+                            <RdsNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
                                 {
                                     id: 'chat',
                                     label: 'Chat',
