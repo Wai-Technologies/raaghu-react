@@ -21,7 +21,7 @@ export const Default: Story = {
     freePlanText: "Free",
   premiumPlanText: "Premium",
   upgradeText: "Upgrade to",
-  aiPunditChatText: "Components/AI ChatBox",
+  aiPunditChatText: "Components/Automate",
   proText: "Pro",
   currentPlanText: "You’re currently on the free plan",
   freePlanDescription: "Perfect for individuals exploring our platform.",
