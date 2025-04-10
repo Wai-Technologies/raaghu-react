@@ -235,7 +235,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             </div>
           </div>
 
-          <div className="d-flex flex-column-reverse flex-lg-row ps-4 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 px-4">
             {!props.isEdit ? (
               <>
                 <RdsButton
