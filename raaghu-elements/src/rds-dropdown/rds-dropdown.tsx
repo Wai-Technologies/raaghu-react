@@ -23,7 +23,8 @@ export enum Style {
 export enum Layout {
   TextOnly = 'Textonly',
   IconBefore = 'IconBefore',
-  OnlyIcon = 'onlyIcon'
+  OnlyIcon = 'onlyIcon',
+  IconText = "IconText"
 }
 
 export enum State {
