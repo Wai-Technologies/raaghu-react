@@ -344,7 +344,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     stroke={true}
                   />
                 )}
-                {showSelectedOption && <span className="dw-placeholder fs-6 ms-2">
+                {showSelectedOption && <span className="dw-placeholder fs-6 ms-2 nowrap">
                   {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
                 </span>}
               </div>
