@@ -339,7 +339,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             {/* Dropdown for Records Per Page */}
             {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={` custom-navigation mt-2  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
               <button
-                className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark border-primary' : 'customWidthForBtn'}`}
+                className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark' : 'customWidthForBtn'}`}
                 id="paginationBtnId"
                 type="button"
                 data-bs-toggle="dropdown"
