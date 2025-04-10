@@ -21,9 +21,6 @@ export const Default: Story = {
         languageData: [
                     {
                         label: "Select Language",
-                        val: "",
-                        iconWidth: "",
-                        iconHeight: "",
                     },
                     {
                         label: "العربية",
