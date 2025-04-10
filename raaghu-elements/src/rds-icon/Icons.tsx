@@ -448,7 +448,7 @@ export const Icons: any = {
     up_down_arrow:
     "<svg id=\"a\" viewBox=\"0 0 21 21\"><line class=\"icon\" x1=\"16.253\" y1=\".5\" x2=\"16.253\" y2=\"20.5\"/><polyline class=\"icon\" points=\"20.5 15.115 16.253 20.5 12.006 15.115\"/><line class=\"icon\" x1=\"4.747\" y1=\"20.5\" x2=\"4.747\" y2=\".5\"/><polyline class=\"icon\" points=\"8.994 5.885 4.747 .5 .5 5.885\"/></svg>",
     sort:
-   "<svg xmlns=\"http:/www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M9.4 1.00006V13.0001L13 8.34166M4.6 13.0001V1.00006L1 5.65846\" stroke=\"#6e6e6e\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+    "<svg xmlns=\"http:/www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M9.4 1.00006V13.0001L13 8.34166M4.6 13.0001V1.00006L1 5.65846\" stroke=\"#6e6e6e\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
     upload:
     "<svg id=\"a\" viewBox=\"0 0 21 21\"><path class=\"icon\" d=\"M8.141,9.423c-.049,.021-.098,.042-.146,.064-1.841,.834-3.242,2.392-3.624,4.381h-.645c-1.841,0-3.226,1.671-3.226,3.474s1.385,3.158,3.226,3.158H13.33\"/><path class=\"icon\" d=\"M12.84,20.5h5.079c1.473,0,2.581-1.085,2.581-2.526s-1.108-2.842-2.581-2.842c0-2.637-1.655-4.796-3.985-5.765-.307-.128-.627-.235-.955-.32\"/><polyline class=\"icon\" points=\"6.68 4.265 10.527 .5 14.373 4.265\"/><line class=\"icon\" x1=\"10.527\" y1=\"1.556\" x2=\"10.527\" y2=\"14.454\"/></svg>",
     upload_data:
@@ -793,6 +793,9 @@ export const Icons: any = {
   "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M8.24774 1L16.7892 8.56923C16.8558 8.62448 16.9088 8.69121 16.945 8.7653C16.9813 8.83939 17 8.91927 17 9C17 9.08073 16.9813 9.16061 16.945 9.2347C16.9088 9.30879 16.8558 9.37552 16.7892 9.43077L8.24774 17M1 1L9.55539 8.56923C9.68284 8.68426 9.75422 8.83892 9.75422 9C9.75422 9.16108 9.68284 9.31574 9.55539 9.43077L1 17\" stroke=\"#7D7D7D\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
   interface_arrow_left: 
   "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M9.75226 0.999989L1.21078 8.56922C1.14424 8.62447 1.09121 8.6912 1.05496 8.76529C1.0187 8.83938 1 8.91925 1 8.99999C1 9.08072 1.0187 9.1606 1.05496 9.23469C1.09121 9.30878 1.14424 9.37551 1.21078 9.43076L9.75226 17M17 0.999989L8.44461 8.56922C8.31716 8.68425 8.24578 8.83891 8.24578 8.99999C8.24578 9.16107 8.31716 9.31572 8.44461 9.43076L17 17\" stroke=\"#7D7D7D\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+  share_color: 
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M6.24322 7.7696L11.7568 5M6.24322 10.2304L11.7568 13M6.5392 8.99999C6.5392 10.5296 5.29921 11.7696 3.7696 11.7696C2.23999 11.7696 1 10.5296 1 8.99999C1 7.47039 2.23999 6.23039 3.7696 6.23039C5.29921 6.23039 6.5392 7.47039 6.5392 8.99999ZM17 14.2304C17 15.76 15.76 17 14.2304 17C12.7008 17 11.4608 15.76 11.4608 14.2304C11.4608 12.7008 12.7008 11.4608 14.2304 11.4608C15.76 11.4608 17 12.7008 17 14.2304ZM17 3.7696C17 5.29921 15.76 6.5392 14.2304 6.5392C12.7008 6.5392 11.4608 5.29921 11.4608 3.7696C11.4608 2.23999 12.7008 1 14.2304 1C15.76 1 17 2.23999 17 3.7696Z\" stroke=\"url(#paint0_linear_2394_4991)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><defs><linearGradient id=\"paint0_linear_2394_4991\" x1=\"9\" y1=\"1\" x2=\"9\" y2=\"17\" gradientUnits=\"userSpaceOnUse\"><stop stop-color=\"#6E00FF\"/><stop offset=\"1\" stop-color=\"#FF37DF\"/></linearGradient></defs></svg>"
+
 };
        
 
