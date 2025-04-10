@@ -30,10 +30,8 @@
 }
 
 .chat-window-header {
-    display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
     padding-left: 12px;
     border-bottom: 1px solid #E9E9E9;
 }
@@ -190,6 +188,23 @@
     }
 }
 
+@media (max-width: 600px) {
+    #fab-list .dropdown-menu.show {
+        width: auto !important;
+        height: auto !important;
+    }
+}
+
 .current-user .comment-content {
     background-color: #B30FBC !important;
+}
+
+.EmojiPickerReact {
+    height: 450px!important;
+    width: 260px !important;
+    right: 5rem !important;
+    top: 20rem !important;
+}
+.btn-icon {
+    min-width: 10px !important;
 }
