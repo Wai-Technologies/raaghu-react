@@ -31,9 +31,9 @@ export interface RdsCardProps {
   buttonLabel2?: string; //for cancel button
   buttonLabel3?: string; //for save button
   colorVariant?: colors; //for apply colors
-  cardTitle?: string; //title of card
+  cardTitle?: ReactNode; //title of card
   cardSubTitle?: string; //subtitle of card
-  cardText?: string; //text of card
+  cardText?: ReactNode; //text of card
   showFooter?: boolean; //show or hide footer
   showTitle?: boolean; //show or hide title
   showSubTitle?: boolean; //show or hide subtitle
@@ -376,7 +376,7 @@ const RdsCard = (props: RdsCardProps) => {
                 <div>
                   <RdsInput
                     name="cardTitle"
-                    value={cardTitle}
+                    value={typeof cardTitle === "string" ? cardTitle : ""}
                     onChange={(e) => setCardTitle(e.target.value)}
                     placeholder="Card Title"
                   />
