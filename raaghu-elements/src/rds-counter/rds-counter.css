@@ -41,3 +41,11 @@ input[type="number"] {
 .width_element button {
   flex: 1; /* Ensures buttons fill the available space equally */
 }
+
+#counter-button-width .btn {
+  min-width: 30px !important;
+  min-height: 30px !important;
+}
+.theme-dark #counter-back-color{
+  background-color: #363636 !important;
+}
