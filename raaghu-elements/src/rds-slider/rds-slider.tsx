@@ -166,13 +166,13 @@ const RdsSlider= (props:RdsSliderProps) =>{
                 background: getBackgroundStyle(),
                 "--thumb-color": primaryColor,
               } as React.CSSProperties}
-              className="slider rounded"
+              className="slider-line rounded"
             />
             {props.style === "show tooltip" && (
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
                   style={TooltipStyle.MiddleBottomArrow}
-                  label="100">
+                  label={value.toString()}>
                   <button className="btn btn-primary">
                     {value}
                   </button>
@@ -220,7 +220,7 @@ const RdsSlider= (props:RdsSliderProps) =>{
               max="100"
               value={rangeValues[0]}
               onChange={(e) => handleChangeSlider(e, 0)}
-              className=" inputSlider slider rounded absolute w-full bg-transparent appearance-none pointer-events-none"
+              className=" inputSlider slider-line rounded absolute w-full bg-transparent appearance-none pointer-events-none"
               style={{
                
                 "--thumb-color": primaryColor, zIndex:1
@@ -232,7 +232,7 @@ const RdsSlider= (props:RdsSliderProps) =>{
               max="100"
               value={rangeValues[1]}
               onChange={(e) => handleChangeSlider(e, 1)}
-              className=" inputSlider slider rounded absolute w-full appearance-none bg-transparent pointer-events-none"
+              className=" inputSlider slider-line rounded absolute w-full appearance-none bg-transparent pointer-events-none"
               style={{
                 background: getBackgroundStyle(),
                 "--thumb-color": primaryColor,
@@ -242,9 +242,9 @@ const RdsSlider= (props:RdsSliderProps) =>{
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
                   style={TooltipStyle.MiddleBottomArrow}
-                  label="100">
+                  label={`${rangeValues[0]} - ${rangeValues[1]}`}>
                   <button className="btn btn-primary">
-                    {value}
+                  {rangeValues[1]}
                   </button>
                 </Tooltip>
               </div>
