@@ -110,6 +110,13 @@ export const Default: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
+            },
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
             }
         ],
         showLogo: true,
@@ -208,7 +215,14 @@ export const ABP: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         showLogo: false,
         role: "Admin",
@@ -242,7 +256,14 @@ export const RaaghuPortal: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         navtabItems: [
             {
@@ -311,7 +332,14 @@ export const Ecommerce_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         breadcrumItem : [
             {
@@ -405,7 +433,14 @@ export const Ecommerce_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -552,7 +587,14 @@ export const Ecommerce_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -705,7 +747,14 @@ export const Ecommerce_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -857,7 +906,14 @@ export const Product_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -944,7 +1000,14 @@ export const Product_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1092,7 +1155,14 @@ export const Product_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1241,7 +1311,14 @@ export const Product_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1356,7 +1433,14 @@ export const Entertainment_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1468,7 +1552,14 @@ export const Entertainment_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment2: true,
@@ -1519,7 +1610,14 @@ export const Entertainment_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment3: true,
@@ -1569,7 +1667,14 @@ export const Entertainment_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment4: true,
@@ -1620,7 +1725,14 @@ export const Professional_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional1: true,
@@ -1669,7 +1781,14 @@ export const Professional_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional2: true,
@@ -1767,7 +1886,14 @@ export const Professional_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
@@ -1845,7 +1971,14 @@ export const Professional_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
@@ -1954,7 +2087,14 @@ export const Professional_5: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional5: true,
@@ -2001,7 +2141,14 @@ export const App_Shell_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semi_dark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         listItems: [
             {

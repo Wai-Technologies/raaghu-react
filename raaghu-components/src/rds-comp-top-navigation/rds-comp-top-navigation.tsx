@@ -237,8 +237,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     },
     {
       id: 2,
-      label: t("Semi Dark"),
-      val: "Semi Dark",
+      label: t("Semi-Dark"),
+      val: "semi-dark",
       iconWidth: "30px",
       iconHeight: "30px",
       iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
