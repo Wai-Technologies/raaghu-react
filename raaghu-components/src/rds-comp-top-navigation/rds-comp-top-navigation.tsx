@@ -218,32 +218,32 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const handleSearchMouseLeave = () => {
     setShowSearchInput(false);
   };
-  const themeItems = [
-    {
-      id: 0,
-      label: t("Light"),
-      val: "Light",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/sun.json",
-    },
-    {
-      id: 1,
-      label: t("Dark"),
-      val: "Dark",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/moon.json",
-    },
-    {
-      id: 2,
-      label: t("Semi-Dark"),
-      val: "semi-dark",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
-    },
-  ];
+  // const themeItems = [
+  //   {
+  //     id: 0,
+  //     label: t("Light"),
+  //     val: "Light",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/sun.json",
+  //   },
+  //   {
+  //     id: 1,
+  //     label: t("Dark"),
+  //     val: "Dark",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/moon.json",
+  //   },
+  //   {
+  //     id: 2,
+  //     label: t("Semi-Dark"),
+  //     val: "semi-dark",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
+  //   },
+  // ];
 
   const languageItems = [
     {
