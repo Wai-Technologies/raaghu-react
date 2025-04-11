@@ -192,7 +192,7 @@ const RdsRating = (props: RdsRatingProps) => {
   return (
     <>
       {props.type === "star" && props.style !== "default" && (
-        <div className={`align-items-center d-flex d-lg-flex fs-5 gap-2 starrating ${sizeClass}`}>
+         <div className={`align-items-center d-flex d-lg-flex fs-5 starrating ${sizeClass}`}>
           {renderStars()}
         </div>
       )}

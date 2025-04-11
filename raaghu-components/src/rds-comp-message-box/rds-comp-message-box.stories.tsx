@@ -3,7 +3,7 @@ import RdsMessageBox from './rds-comp-message-box';
 
 
 const meta: Meta = {
-  title: "Components/Automate/Message Box",
+  title: "Components/AI ChatBox/Message Box",
   component: RdsMessageBox,
   parameters: {
     layout: 'padded',
