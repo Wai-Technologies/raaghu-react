@@ -61,4 +61,20 @@
   margin: auto;
 }
 
-
+.theme-dark .dialog-actions
+{
+  color: #ffffff !important;
+}
+.theme-dark  .dialog-container
+{
+  background-color: #343a40;
+  color: #ffffff!important;
+}
+.theme-dark  .dialog-title
+{
+  color: #ffffff!important;
+}
+.theme-dark .dialog-content
+{
+  color: #ffffff!important;
+}

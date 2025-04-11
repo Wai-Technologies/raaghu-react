@@ -37,7 +37,7 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
       case "large":
         return "col-12";
       case "small":
-        return "col-3";
+        return "col-sm-4 col-md-12 col-lg-6 col-xl-3";
       default:
         return "";
     }
