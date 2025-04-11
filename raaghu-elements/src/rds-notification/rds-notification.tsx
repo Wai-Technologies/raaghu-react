@@ -50,7 +50,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         <img
                             src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                             alt="Notification"
-                            className="notification-image-horizontal me-2"
+                            className="notification-image-horizontal me-2 img-fluid"
                             height="50px"
                             width="120px"
                         />
@@ -66,28 +66,24 @@ const RdsNotification = (props : RdsNotificationProps) => {
                             <RdsIcon name={notification.icon || "notification_icon"} stroke={true} width="38px" height="38px" classes="me-2"/>
                         )}
                         
-                        <div className={`notification-title flex-grow-1 ${props.layout === "vertical" ? "" : ""}`}>
-                                <strong>{notification.title}</strong>{" "}
+                        <div className={`notification-title col-sm-12 flex-grow-1 ${props.layout === "vertical" ? "mt-1" : ""}`}>
+                                <strong >{notification.title}</strong>
                                 <span className="text-muted ms-2">{notification.time}</span>
                             </div>
-                        {/* <button
-                            type="button"
-                            className="btn-close position-absolute top-0 end-0 m-1"
-                            aria-label="Close"
-                            onClick={(e) => props.onDismiss?.(e, notification)}
-                        ></button> */}
                         {props.showDismissIcon && (
                             <>
                         <RdsIcon name="close" classes="position-absolute top-0 end-0" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
                             </>
                         )}
                     </div>
-                    <div className={`notification-body mt-2 ${props.layout === "vertical" && (props.style === "avatar" || props.style === "icon" || props.style === "image") ? "ms-5" : ""} `}>
+                    <div className={`notification-body mt-2 ${props.layout === "horizontal" && (props.style === "avatar" || props.style === "icon") ? "ms-5" : ""} `}>
                     {props.style === "image" && props.layout === "horizontal" && (
                             <img
                                 src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                                 alt="Notification"
-                                className={`notification-image mt-3 ${props.layout === "horizontal" ? "me-3 full-width" : "h-50 w-100"}`}
+                                className={`notification-image img-fluid ${props.layout === "horizontal" ? "me-3" : "h-50 w-100"}`}
+                                height="50px"
+                            width="120px"
                             />
                         )}
                         {notification.description}
