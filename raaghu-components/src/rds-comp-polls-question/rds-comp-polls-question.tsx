@@ -15,7 +15,6 @@ export interface RdsCompPollsQuestion {
 }
 
 function RdsCompPollsQuestion(props: any) {
-
     const [QuestionData, setQuestionData] = useState(props.questionData);
     const [inputReset, setInputReset] = useState(props.reset)
 
