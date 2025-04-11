@@ -222,11 +222,11 @@ const RdsAlert = (props: RdsAlertProps) => {
                   colorVariant={colorType}
                   classes="me-2"
                 />
-                {props.title && props.showTitle && <strong>{props.title}</strong>}
+                {/* {props.title && props.showTitle && <strong>{props.title}</strong>} */}
               </div>
             )}
             <div className="flex-grow-1">
-              {!props.icon && props.title && props.showTitle && <strong>{props.title}</strong>}
+              {props.icon && props.title && props.showTitle && <strong>{props.title}</strong>}
               {props.description && props.showDescription && (
                 <p>{props.description}</p>
               )}
