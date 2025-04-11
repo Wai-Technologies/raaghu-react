@@ -39,8 +39,7 @@
 .layout-horizontal .notification-avatar,
 .layout-horizontal .notification-image,
 .layout-horizontal .notification-icon {
-    flex: 0 0 40px;
-    height: 40px;
+
     margin-right: 1rem;
 }
 
@@ -104,7 +103,7 @@
 }
 
 .full-width {
-    width: 100%;
+    width: 75%;
     height: 50%;
     padding: 10px;
     padding-left: 200px;
@@ -118,9 +117,9 @@
 
 
 .notification-image-horizontal {
-    width: 80px;
+    /* width: 80px;
     height: 80px;
-    object-fit: cover;
+    object-fit: cover; */
     border-radius: 8px;
     margin-right: 1rem;
 }
@@ -139,4 +138,13 @@
 }
 .theme-dark .btn{
     color: black;
+}
+
+.notification-footer .btn.btn-transparent-primary
+{
+background-color: transparent !important;
+}
+.theme-dark .notification-card
+{
+    color: black !important;
 }

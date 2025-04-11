@@ -50,7 +50,7 @@ const RdsNotification = (props : RdsNotificationProps) => {
                         <img
                             src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                             alt="Notification"
-                            className="notification-image-horizontal me-2"
+                            className="notification-image-horizontal me-2 img-fluid"
                             height="50px"
                             width="120px"
                         />
@@ -81,7 +81,9 @@ const RdsNotification = (props : RdsNotificationProps) => {
                             <img
                                 src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
                                 alt="Notification"
-                                className={`notification-image mt-3 ${props.layout === "horizontal" ? "me-3 full-width" : "h-50 w-100"}`}
+                                className={`notification-image img-fluid ${props.layout === "horizontal" ? "me-3" : "h-50 w-100"}`}
+                                height="50px"
+                            width="120px"
                             />
                         )}
                         {notification.description}
