@@ -148,6 +148,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
           activeNavtabOrder={handleActiveNavtabVertical} type={"default"}        />
       </div>
       <div className="col-md-7 ps-4 ">
+        <div className="custom_sm_scroll">
         {localChanges &&
           localChanges.map((tabsData: any, mainIndex: number) => (
             <div key={mainIndex}>
@@ -231,6 +232,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
               )}
             </div>
           ))}
+        </div>
           <div className="d-flex flex-column-reverse flex-lg-row ps-lg-3 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 px-4 ms-1 ">
           
           <RdsButton
