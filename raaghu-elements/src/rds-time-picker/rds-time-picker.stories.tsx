@@ -21,7 +21,6 @@ const meta: Meta = {
         "info",
         "light",
         "dark",
-        "white",
       ],
       control: { type: "select" },
     },
