@@ -29,20 +29,20 @@
     display: block;
 }
 
-/* .layout-horizontal .notification-header,
+.layout-horizontal .notification-header,
 .layout-horizontal .notification-body,
 .layout-horizontal .notification-footer {
     display: flex;
     align-items: center;
-} */
+}
 
-/* .layout-horizontal .notification-avatar,
+.layout-horizontal .notification-avatar,
 .layout-horizontal .notification-image,
 .layout-horizontal .notification-icon {
     flex: 0 0 40px;
     height: 40px;
     margin-right: 1rem;
-} */
+}
 
 .style-avatar .notification-avatar {
     width: 40px;
@@ -87,7 +87,6 @@
 }
 
 .notification-header {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
@@ -118,7 +117,7 @@
 
 
 
-/* .notification-image-horizontal {
+.notification-image-horizontal {
     width: 80px;
     height: 80px;
     object-fit: cover;
@@ -127,7 +126,7 @@
 }
 .layout-horizontal {
     flex-direction: row;
-} */
+}
 
 .theme-dark {
    color: black;
