@@ -31,7 +31,7 @@ type Story = StoryObj<typeof RdsNotification>;
 
 export const Default: Story = {
     args: {
-        layout: NotificationLayout.Vertical,
+        layout: NotificationLayout.Horizontal,
         style: NotificationStyle.Default,
         type: NotificationType.Info,
         showButton: true,

@@ -42,10 +42,10 @@ export const Default: Story = {
         style: TextareaStyle.Default,
         showTitle: true,
         rows: 5,
-        placeholder: "This is text area...",
+        placeholder: "Enter Description",
         // labelPosition: "top",
         isMandatory: false,
-        label: "Textarea label",
+        label: "Label",
 
     }
 } satisfies Story;
