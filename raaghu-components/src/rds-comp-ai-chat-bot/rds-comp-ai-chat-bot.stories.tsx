@@ -6,7 +6,7 @@ import { Message } from "./rds-comp-ai-chat-bot";
 import { StoryObj, Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "Components/Automate/Ai Chat Bot",
+  title: "Components/AI ChatBox/Ai Chat Bot",
   component: RdsAiChatBot,
   tags: ["autodocs"],
   argTypes: {

@@ -33,6 +33,7 @@ figma.connect(
     example: (props) => <RdsCounter  counterValue={0} min={0} max={50} width={280} 
     titleText="Label"
     placeholder="00"
+    colorVariant="primary"
     {...props}/>,
   },
 )

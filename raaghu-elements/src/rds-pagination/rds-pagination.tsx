@@ -339,7 +339,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             {/* Dropdown for Records Per Page */}
             {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={` custom-navigation mt-2  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
               <button
-                className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark border-primary' : 'customWidthForBtn'}`}
+                className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark' : 'customWidthForBtn'}`}
                 id="paginationBtnId"
                 type="button"
                 data-bs-toggle="dropdown"
@@ -421,19 +421,27 @@ const RdsPagination = (props: RdsPaginationProps) => {
               </li>
               )
             )}
-                { props.style=='Style9' && (<div className="d-flex">
-                {previous.map((number, index) => (
-                <li
-                  key={number}
-                  className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active" : "") : ""} ${(props.style =='Style3' && number === currentPage) ? 'pagination-border-bottom-custom' : ''}`}
-                 
-                >
-                  <a onClick={() => typeof number === 'number' && onPage(number)}  style={getLinkStyles()}>
-                    {number}
-                  </a>
-                </li>
-              ))}
-                </div>)}
+            {props.style == 'Style9' && (
+             <div className="d-flex">
+             {previous.map((number, index) => (
+              <li
+                key={number}
+                className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active pagination-border-bottom-custom" : "") : ""}`}
+              >
+              <a
+                onClick={() => {
+                if (typeof number === 'number') {
+                onPage(number);
+                }
+               }}
+               style={getLinkStyles()}
+               >
+                {number}
+              </a>
+            </li>
+           ))}
+         </div>
+          )}
             {/* Next Page Button */}
             <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
               {totalRecords > recordsPerPage &&  (
