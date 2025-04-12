@@ -169,7 +169,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
     };
 
 
-    return <ul className="pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
+    return <ul className="pt-1 cursor-pointer pb-3 p-4">{renderDirectoryItems(props.items)}</ul>;
 };
 
 export default RdsCompFileManagementTree;
