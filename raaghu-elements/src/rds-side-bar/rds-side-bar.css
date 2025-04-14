@@ -171,9 +171,9 @@
 }
  
 /* Icons for specific buttons */
-.theme-light svg, .theme-dark #saas_chats svg {
+/* .theme-light svg, .theme-dark #saas_chats svg {
   stroke: none !important;
-}
+} */
  
 /* Fix for recents icon */
 .icon-recents_icon, .icon-recent {
