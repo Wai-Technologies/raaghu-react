@@ -1,4 +1,3 @@
-import { figma } from "@figma/code-connect";
 import { Dropdown } from "bootstrap";
 import React from "react";
 
