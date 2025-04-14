@@ -40,30 +40,21 @@ export interface RdsSliderProps {
   colorVariant?: ColorVariant;
   size?: SliderSize;
   type?: SliderType;
-  leftLabel?: string;
-  rightLabel?: string;
+  leftLabel: string;
+  rightLabel: string;
   showLabels?: boolean;
   level?: SliderLevel;
   style?: SliderStyle;
   value?: number;
+
   onChange?: (value: number) => void;
 }
 
-const RdsSlider: React.FC<RdsSliderProps> = ({
-  colorVariant = "primary",
-  size = "medium",
-  type = "One Way",
-  showLabels = true,
-  leftLabel = "0", // Default label for the left side
-  rightLabel = "100", // Default label for the right side
-  level = 1,
-  style = "default", // Default style
-  value: propValue = 0, // Default value prop
-  onChange, // Callback to handle value changes
-}) => {
+const RdsSlider= (props:RdsSliderProps) =>{
+  const propValue = props.value || 0; // Default value prop
   const [value, setValue] = useState(propValue);
   const [rangeValues, setRangeValues] = useState<[number, number]>([0, 100]);
-
+    const [isTouched, setIsTouched] = useState(false);
   useEffect(() => {
     // Sync state with prop value (if exists)
     setValue(propValue);
@@ -71,15 +62,15 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
 
   useEffect(() => {
     // Map the level to a value between 0 and 100
-    const levelValue = (level - 1) * 25;
+    const levelValue = (props.level ? props.level - 1 : 0) * 25;
     setValue(levelValue);
-  }, [level]);
+  }, [props.level]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     setValue(newValue);
-    if (onChange) {
-      onChange(newValue);
+    if (props.onChange) {
+      props.onChange(newValue);
     }
   };
 
@@ -100,26 +91,26 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   };
 
   const primaryColor =
-    colorVariant === "primary"
+    props.colorVariant === "primary"
       ? "#7e2eef"
-      : colorVariant === "success"
+      : props.colorVariant === "success"
         ? "#24993A"
-        : colorVariant === "danger"
+        : props.colorVariant === "danger"
           ? "#E02D30"
-          : colorVariant === "warning"
+          : props.colorVariant === "warning"
             ? "#EA6C0C"
-            : colorVariant === "light"
+            : props.colorVariant === "light"
               ? "#f8f9fa"
-              : colorVariant === "info"
+              : props.colorVariant === "info"
                 ? "#3ef1e8"
-                : colorVariant === "secondary"
+                : props.colorVariant === "secondary"
                   ? "#2539FF"
                   : "#343a40";
 
   const lighterColor = lightenColor(primaryColor, 25);
 
   const getBackgroundStyle = () => {
-    return type === "One Way"
+    return props.type === "One Way"
       ? `linear-gradient(90deg, ${primaryColor} ${value}%, ${lighterColor} ${value}%)`
       : `linear-gradient(90deg, ${lighterColor} 0%, ${primaryColor} ${value}%, ${lighterColor} 100%)`;
   };
@@ -139,19 +130,27 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       return [min, max];
     });
   };
+  const percent1 = ((value - Number(props.leftLabel)) / (Number(props.rightLabel) - Number(props.leftLabel))) * 100;
+
+  const left = `calc(${percent1}% + (${-3 - percent1 * 0.28}px))`;
+  const left2 = `calc(${percent1}% + (${-10 - percent1 * 0.22}px))`;
+
+  const background = `linear-gradient(90deg,#5C82E3 ${percent1}%,#D0D7DD 0%)`;
+  const a = "calc(0% + (-5px))";
+  const styleleft = `${isTouched === true ? left : a}`;
 
   return (
     <>
-      {type === "One Way" && (
+      {props.type === "One Way" && (
         <div
-          className={`slider-container ${size === "small"
+          className={`slider-container ${props.size === "small"
               ? "slidercontainersm"
-              : size === "large"
+              : props.size === "large"
                 ? "slidercontainerlg"
                 : "slidercontainermd"
             }`}
         >
-          {showLabels && (
+          {props.showLabels && (
             <label className="slider-title text-left align-self-start text-muted">
               Slider
             </label>
@@ -167,13 +166,13 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
                 background: getBackgroundStyle(),
                 "--thumb-color": primaryColor,
               } as React.CSSProperties}
-              className="slider rounded"
+              className="slider-line rounded"
             />
-            {style === "show tooltip" && (
+            {props.style === "show tooltip" && (
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
                   style={TooltipStyle.MiddleBottomArrow}
-                  label="100">
+                  label={value.toString()}>
                   <button className="btn btn-primary">
                     {value}
                   </button>
@@ -181,22 +180,22 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
               </div>
             )}
             <div className="d-flex justify-content-between mt-2">
-              <span className="left-label">{leftLabel}</span>
-              <span className="right-label">{rightLabel}</span>
+              <span className="left-label">{props.leftLabel}</span>
+              <span className="right-label">{props.rightLabel}</span>
             </div>
           </div>
         </div>
       )}
 
-      {type === "Two Way" && (
+      {props.type === "Two Way" && (
 
-        <div className={`slider-container ${size === "small"
+        <div className={`slider-container ${props.size === "small"
             ? "slidercontainersm"
-            : size === "large"
+            : props.size === "large"
               ? "slidercontainerlg"
               : "slidercontainermd"
           }`}>
-          {showLabels && (
+          {props.showLabels && (
             <label className="slider-title text-left align-self-start">
               Slider
             </label>
@@ -221,7 +220,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
               max="100"
               value={rangeValues[0]}
               onChange={(e) => handleChangeSlider(e, 0)}
-              className=" inputSlider slider rounded absolute w-full bg-transparent appearance-none pointer-events-none"
+              className=" inputSlider slider-line rounded absolute w-full bg-transparent appearance-none pointer-events-none"
               style={{
                
                 "--thumb-color": primaryColor, zIndex:1
@@ -233,28 +232,28 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
               max="100"
               value={rangeValues[1]}
               onChange={(e) => handleChangeSlider(e, 1)}
-              className=" inputSlider slider rounded absolute w-full appearance-none bg-transparent pointer-events-none"
+              className=" inputSlider slider-line rounded absolute w-full appearance-none bg-transparent pointer-events-none"
               style={{
                 background: getBackgroundStyle(),
                 "--thumb-color": primaryColor,
               } as React.CSSProperties}
             />
-             {style === "show tooltip" && (
+             {props.style === "show tooltip" && (
               <div className="tooltip" style={{ left: `calc(${value}% - 20px)` }}>
                 <Tooltip
                   style={TooltipStyle.MiddleBottomArrow}
-                  label="100">
+                  label={`${rangeValues[0]} - ${rangeValues[1]}`}>
                   <button className="btn btn-primary">
-                    {value}
+                  {rangeValues[1]}
                   </button>
                 </Tooltip>
               </div>
             )}
           </div>
           <div className="d-flex justify-content-between mt-2">
-            <span className="left-label">{leftLabel}</span>
+            <span className="left-label">{props.leftLabel}</span>
             {/* <span className="justify-content-center"> {rangeValues[0]} - {rangeValues[1]}</span> */}
-            <span className="right-label">{rightLabel}</span>
+            <span className="right-label">{props.rightLabel}</span>
           </div>
         </div>
       )}
