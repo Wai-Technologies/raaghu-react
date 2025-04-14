@@ -191,116 +191,98 @@ const RdsSidebar = (props: RdsSidebarProps) => {
  
   return (
     <div
-      className={`background-color rds-sidebar ${
-        isCollapsed ? "collapsed" : ""
-      } d-flex flex-column justify-content-between vh-100`}
-      style={{
-        width: isCollapsed ? "60px" : "240px", 
-        transition: "width 0.3s ease", 
-      }}
-    >
-      <div className="d-flex flex-column justify-content-between vh-100 text">
-        <div className="top-and-middle-container d-flex flex-column">
-          {/* Collapse button with tooltip */}
-          <div
-            className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}
-            style={{
-              display: "flex",
-              justifyContent: isCollapsed ? "center" : "flex-start", 
-            }}
+    className={`background-color rds-sidebar ${
+      isCollapsed ? "collapsed" : ""
+    } d-flex flex-column justify-content-between vh-100`}
+  >
+    <div className="d-flex flex-column justify-content-between vh-100 text">
+      <div className="top-and-middle-container d-flex flex-column">
+        {/* Collapse button with tooltip */}
+        <div
+          className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}
+        >
+          <Tooltip
+            label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            style={TooltipStyle.MiddleTopArrow}
           >
-            <Tooltip
-              label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              style={TooltipStyle.MiddleTopArrow}
-            >
-              <RdsIcon
-                colorVariant="primary"
-                height="15px"
-                isCursorPointer
-                name={
-                  isCollapsed
-                    ? "interface_arrow_right"
-                    : "interface_arrow_left"
-                }
-                stroke
-                width="10px"
-                onClick={toggleSidebar}
-              />
-            </Tooltip>
+            <RdsIcon
+              colorVariant="primary"
+              height="15px"
+              isCursorPointer
+              name={
+                isCollapsed
+                  ? "interface_arrow_right"
+                  : "interface_arrow_left"
+              }
+              stroke
+              width="10px"
+              onClick={toggleSidebar}
+            />
+          </Tooltip>
+        </div>
+  
+        {/* Top section (New Chat) */}
+        <div
+          className={`chat-input-container ${
+            isCollapsed ? "text-center" : "text-left"
+          }`}
+        >
+          <div className="pb-3">{topItems.map(renderNavButton)}</div>
+        </div>
+  
+        {/* Middle section with scrollbar */}
+        <div
+          className={`middle-section-container px-2 ${
+            middleGroups.length > 0 ? "scrollable" : "hidden-scroll"
+          }`}
+        >
+          <div>
+            {middleGroups.map((group, groupIndex) => (
+              <div
+                key={groupIndex}
+                className={`${
+                  group.className || "my-3 button-sidebar"
+                } middle-section-group`}
+              >
+                {group.header && !isCollapsed && (
+                  <div className="section-header px-2 py-1">
+                    <span className="text-secondary fw-medium icon">
+                      {group.header}
+                    </span>
+                  </div>
+                )}
+                {group.items.map((item, index) => (
+                  <div key={index} className="dashboard">
+                    {renderNavButton(item)}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
- 
-          {/* Top section (New Chat) */}
-          <div
-            className="chat-input-container"
-            style={{
-              textAlign: isCollapsed ? "center" : "left", 
-            }}
-          >
-            <div className="pb-3">{topItems.map(renderNavButton)}</div>
-          </div>
- 
-          {/* Middle section with scrollbar */}
-          <div className="middle-section-container px-2"
-  style={{
-    overflowY: middleGroups.length > 0 ? "auto" : "hidden", 
-    maxHeight: "calc(100vh - 200px)", 
-  }}
->
- 
-  <div>
-    {middleGroups.map((group, groupIndex) => (
-      <div  style={{
-        overflowY: middleGroups.length > 0 ? "auto" : "hidden", 
-        overflowX: "hidden",
-        maxHeight: "calc(100vh - 200px)", 
-        border: "1px solid #ccc", 
-        borderRadius: "4px", 
-      }}
-        key={groupIndex}
-        className={group.className || "my-3 button-sidebar"}
+        </div>
+      </div>
+  
+      {/* Bottom section (Community, Help, Activity, Settings) */}
+      <div
+        className={`recents-dashboard rounded-2 mb-0 ${
+          isCollapsed ? "" : "p-2 px-3"
+        }`}
+        id="side-bar-icons"
       >
-        {group.header && !isCollapsed && (
-          <div className="section-header px-2 py-1">
-            <span className="text-secondary fw-medium icon">
-              {group.header}
-            </span>
-          </div>
-        )}
-        {group.items.map((item, index) => (
-          <div key={index} className="dashboard">
+        {bottomItems.map((item, index) => (
+          <div
+            key={index}
+            id={`bottom-item-${item.action}`}
+            className={`dashboard ${
+              index === 0 ? "recents" : ""
+            } bottom-item-${index}`}
+          >
             {renderNavButton(item)}
           </div>
         ))}
       </div>
-    ))}
-  </div>
-</div>
-        </div>
- 
-        {/* Bottom section (Community, Help, Activity, Settings) */}
-        <div 
-          className={`recents-dashboard rounded-2 mb-0 ${isCollapsed ? '' : 'p-2 px-3'}`}
-          id="side-bar-icons"
-          style={{
-            textAlign: isCollapsed ? "center" : "left", 
-            border: "1px solid #ccc", 
-            borderRadius: "4px", 
-          }}
-        >
-          {bottomItems.map((item, index) => (
-            <div
-              key={index}
-              id={`bottom-item-${item.action}`}
-              className={`dashboard ${
-                index === 0 ? "recents" : ""
-              } bottom-item-${index}`}
-            >
-              {renderNavButton(item)}
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
+  </div>
   );
  
 }

@@ -328,3 +328,60 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
   transition: all 0.3s ease;
   border-radius: 0.25rem;
 }
+/* Sidebar styles */
+.rds-sidebar {
+  width: 240px;
+  transition: width 0.3s ease;
+}
+
+.rds-sidebar.collapsed {
+  width: 60px;
+}
+
+/* Collapse button styles */
+.icon-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rds-sidebar.collapsed .icon-wrapper {
+  justify-content: center;
+}
+
+/* Top section styles */
+.chat-input-container {
+  text-align: left;
+}
+
+.rds-sidebar.collapsed .chat-input-container {
+  text-align: center;
+}
+
+/* Middle section styles */
+.middle-section-container {
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.middle-section-container.hidden-scroll {
+  overflow-y: hidden;
+}
+
+.middle-section-group {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 200px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Bottom section styles */
+#side-bar-icons {
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rds-sidebar.collapsed #side-bar-icons {
+  text-align: center;
+}
