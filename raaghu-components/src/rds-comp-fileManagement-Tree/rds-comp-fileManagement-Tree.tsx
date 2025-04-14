@@ -1,6 +1,7 @@
 import React, {useState } from "react";
 import { RdsButtonGroup } from "../rds-elements";
 import { RdsLabel } from "../rds-elements";
+import "./rds-comp-fileManagement-Tree.css";
 
 export interface FileManagementTree {
     id: string;
@@ -169,7 +170,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
     };
 
 
-    return <ul className="pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
+    return <ul className="file-tree pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
 };
 
 export default RdsCompFileManagementTree;
