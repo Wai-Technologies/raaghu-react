@@ -188,24 +188,29 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 320px) {
     #fab-list .dropdown-menu.show {
         width: auto !important;
         height: auto !important;
     }
-}
-
-.current-user .comment-content {
-    background-color: #B30FBC !important;
-}
-@media screen and (max-width: 600px) {
     .EmojiPickerReact {
         height: 450px!important;
         width: 260px !important;
         right: 3.5rem !important;
         top: 25rem !important;
     }
-    
+}
+@media (max-width: 768px){
+    .EmojiPickerReact{
+        height: 370px !important;
+        width: 266px !important;
+        right: 3.5rem !important;
+        top: 5rem !important;
+    }
+}
+
+.current-user .comment-content {
+    background-color: #B30FBC !important;
 }
 
 .btn-icon {
