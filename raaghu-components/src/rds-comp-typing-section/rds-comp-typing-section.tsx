@@ -136,7 +136,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 colorVariant="primary"
                                 data-bs-toggle="tooltip"
                                 displayType="Icon + Text"
-                                icon="figma_colored"
+                                icon="figma_icon"
                                 label="Import From Figma"
                                 textCase="unset"
                                 tooltipPlacement={
