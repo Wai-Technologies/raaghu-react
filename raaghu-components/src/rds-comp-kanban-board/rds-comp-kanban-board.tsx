@@ -72,7 +72,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
     props.allowAddingNewCard || false
   );
   const [allowAddingNewSubCard, setAllowAddingNewSubCard] = useState(
-    props.allowAddingNewSubCard || false
+    props.allowAddingNewSubCard || true
   );
 
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(

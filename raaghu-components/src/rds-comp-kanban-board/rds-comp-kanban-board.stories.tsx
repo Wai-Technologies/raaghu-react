@@ -100,6 +100,7 @@ type Story = StoryObj<typeof RdsCompKanbanBoard>;
 
 export const Default: Story = {
     args: {
+        allowAddingNewCard: true,
         //boardName: "Board123",
         boardData: sampleItems,
         allowAddingDynamicData : true,
@@ -111,7 +112,6 @@ export const Default: Story = {
             { label: "Category 5", val: "category5" },
             { label: "Category 6", val: "category6" },
         ],
-        allowAddingNewCard: true,
         allTagsList: [
             { label: "Tag 1", val: "tag1" },
             { label: "Tag 2", val: "tag2" },
