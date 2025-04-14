@@ -44,12 +44,17 @@ export interface RdsStepperProps {
     iconWidth?: string;
     iconHeight?: string;
     stepNames?: string[];
+    stepDetails?: {
+        stepNumber: number;
+        stepState: string;
+    }[];
     StepIconName?: {
         iconName: string;
         iconFill: boolean;
         iconStroke: boolean;
         iconWidth: string;
         iconHeight: string;
+        stepState: string;
     }[];
     stepiconName?: string;
     icons?: {
@@ -167,25 +172,25 @@ const RdsStepper = (props: RdsStepperProps) => {
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`step ${props.state === 'default'
+                                className={`step ${props.stepDetails && props.stepDetails[index].stepState === 'default'
                                     ? 'bg-default'
-                                    : props.state === 'inprogress'
+                                    : props.stepDetails && props.stepDetails[index].stepState === 'inprogress'
                                         ? index === 0
                                             ? 'bg-completed'
                                             : index === 1
                                                 ? 'bg-inprogress'
                                                 : 'bg-default'
-                                        : props.state === 'completed'
-                                            ? index < (props.steps ?? 0) - 1
+                                        : props.stepDetails && props.stepDetails[index].stepState === 'completed'
+                                            ? index < (props.steps ?? 0)
                                                 ? 'bg-completed'
                                                 : 'bg-inprogress'
-                                            : props.state === 'error'
+                                            : props.stepDetails && props.stepDetails[index].stepState === 'error'
                                                 ? index === 0 || index === 1
                                                     ? 'bg-completed'
                                                     : index === 2
                                                         ? 'bg-error'
                                                         : 'bg-default'
-                                                : index < (props.steps ?? 0) - 1
+                                                : index < (props.steps ?? 0)
                                                     ? 'bg-completed'
                                                     : 'bg-inprogress'
                                     }`}
@@ -273,19 +278,19 @@ const RdsStepper = (props: RdsStepperProps) => {
                                 }}
                             >
                                 <div className="step-content">
-                                    <div className={`step-icon ${props.state === 'default'
+                                    <div className={`step-icon ${props.StepIconName && props.StepIconName[index].stepState === 'default'
                                         ? props.variant === 'outlined' ? 'outline-default' : 'bg-default'
-                                        : props.state === 'inprogress'
+                                        : props.StepIconName && props.StepIconName[index].stepState === 'inprogress'
                                             ? index === 0
                                                 ? props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
                                                 : index === 1
                                                     ? props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
                                                     : props.variant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
-                                            : props.state === 'completed'
+                                            : props.StepIconName && props.StepIconName[index].stepState === 'completed'
                                                 ? index < (props.steps ?? 0) - 1
                                                     ? props.variant === 'outlined' ? 'outline-completed' : 'bg-completed'
                                                     : props.variant === 'outlined' ? 'outline-completed' : 'bg-completed'
-                                                : props.state === 'error'
+                                                : props.StepIconName && props.StepIconName[index].stepState === 'error'
                                                     ? index === 0 || index === 1
                                                         ? props.variant === 'outlined' ? 'outline-error' : 'bg-error'
                                                         : index === 2
@@ -322,13 +327,13 @@ const RdsStepper = (props: RdsStepperProps) => {
                                     <div
                                         className="step-line"
                                         style={{
-                                            backgroundColor: props.state === 'default'
+                                            backgroundColor: props.StepIconName && props.StepIconName[index].stepState === 'default'
                                                 ? '#d3d3d3'
-                                                : props.state === 'inprogress'
+                                                : props.StepIconName && props.StepIconName[index].stepState === 'inprogress'
                                                     ? '#D4BBFF'
-                                                    : props.state === 'completed'
+                                                    : props.StepIconName && props.StepIconName[index].stepState === 'completed'
                                                         ? '#7825E9'
-                                                        : props.state === 'error'
+                                                        : props.StepIconName && props.StepIconName[index].stepState === 'error'
                                                             ? '#BD0D1D'
                                                             : '#BD0D1D'
                                         }}
