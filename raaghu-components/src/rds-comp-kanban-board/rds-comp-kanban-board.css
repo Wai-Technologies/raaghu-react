@@ -34,7 +34,7 @@
   
     .btn-sm svg {
       stroke-width: inherit !important;
-      fill: none !important;
+      /* fill: none !important; */
       display: flex;
       width: 16px !important;
       height: 16px !important;
@@ -158,4 +158,23 @@
   }
   .margin-top-5{
     margin-top: -5px !important;
+  }
+  
+  .sub-cards-container {
+    min-height: 50px;
+    padding: 8px;
+  }
+  
+  .sub-card {
+    transition: background-color 0.2s ease;
+    cursor: grab;
+  }
+  
+  .sub-card.dragging {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sub-card:active {
+    cursor: grabbing;
   }

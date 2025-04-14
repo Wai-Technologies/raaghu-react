@@ -82,6 +82,15 @@ const commonArgs = {
   showCardText: true,
 };
 
+export const AdvanceCard: Story = {
+    args: {
+        ...commonArgs,
+        type: CardTypes.AdvanceCard,
+
+    },
+};
+AdvanceCard.parameters = { controls: { include: ['cardTitle','cardText','buttonLabel1','showFooter',] } };
+
 export const CardWithButton: Story = {
   args: {
     ...commonArgs,

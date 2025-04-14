@@ -16,6 +16,8 @@ import { RdsBadge } from "../rds-elements";
 import "./rds-comp-kanban-board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { CardTypes } from "../../../raaghu-elements/src/rds-card/rds-card";
+import { DropdownSize, DropdownState, DropdownStyle } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 
 export interface boardInfo {
   cardId?: number;
@@ -48,6 +50,7 @@ export interface RdsCompKanbanBoardProps {
   boardData?: any;
   allowAddingNewCard?: boolean;
   allowAddingNewSubCard?: boolean;
+  allowAddingDynamicData?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: any, subCardIndex: number, subCardId: any) => void;
   onCardOption?: (
@@ -247,11 +250,11 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
       prevCards.map((card, i) =>
         i === index
           ? {
-              ...card,
-              subCards: card.subCards.filter(
-                (subCard, j) => subCard.SubcardId !== subCardIndex
-              ),
-            }
+            ...card,
+            subCards: card.subCards.filter(
+              (subCard, j) => subCard.SubcardId !== subCardIndex
+            ),
+          }
           : card
       )
     );
@@ -301,8 +304,8 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         break;
       case viewAction:
         break;
-        case "viewedit":
-          break;
+      case "viewedit":
+        break;
       case deleteAction:
         deleteSubCard(subCardIndex, subCardId);
         break;
@@ -315,10 +318,11 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   };
 
   const onAddSubCardClick = (index: number) => {
+    debugger
     setTicketDateValue(formatDate(new Date()));
 
     const newSubcard = {
-      ticketId: addQuestionData.discription,
+      ticketId: addQuestionData.description,
       ticketPriority: "",
       ticketQuestion: addQuestionData.title,
       ticketDate: ticketDateValue,
@@ -554,22 +558,22 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="row d-flex">
+      <div className="row d-flex ">
         {boards.map((card, index) => (
           <div
             className={
               showBoard && card.name
-                ? "col-xl-3 col-lg-6 col-md-12 col-12 mt-2 mb-xl-0 mb-3"
-                : ""
+                ? "col-xl-3 col-md-3 col-lg-6 col-md-12 col-12 mt-2 mb-xl-0 mb-3"
+                : "col-xl-3 col-md-3 col-lg-6 col-md-12 col-12 mt-2 mb-xl-0 mb-3"
             }
             key={index}
           >
             {showBoard && card.name && (
-              <div className={`kanban-board ${colorClass(card.colorType)}`}>
+              <div className={`kanban-board ` + colorClass(card.colorType)}>
                 <RdsCard
-                  colorVariant={card.colorType}
+                  type={CardTypes.AdvanceCard}
                   cardTitle={
-                    <div className="row">
+                    <div className={"row"}>
                       <div className="col-md-8 col-6">
                         {!isEditingBoardName[index] ? (
                           <div className="d-flex">
@@ -583,7 +587,6 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                         ) : (
                           <div className="d-flex">
                             <RdsInput
-                              name="cardTitle"
                               size={InputSize.Small}
                               inputType="text"
                               customClasses="form-control margin-top-5"
@@ -592,8 +595,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                 if (e.key === "Enter") {
                                   handleChange(e.target, card.cardId);
                                 }
-                              }}
-                            />
+                              }} name={""}                            ></RdsInput>
                           </div>
                         )}
                       </div>
@@ -610,17 +612,34 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                               onClick={() => toggleDropdown(index)}
                             >
                               <RdsIcon
-                                name="three_dots"
+                                name={"three_dots"}
                                 height="14px"
                                 width="14px"
                                 fill={true}
                               />
                             </button>
                             <ul
-                              className={`dropdown-menu dropdown-adjusted ${
-                                isBoardDropdownOpen[index] ? "show" : ""
-                              } dropdown-right`}
+                              aria-labelledby="dropdownMenuButton"
+                              className={`dropdown-menu dropdown-adjusted ${isBoardDropdownOpen[index] ? "show" : ""
+                                } dropdown-right`}
                             >
+                              {/* <li onClick={() => editBoardName(index)}>
+                                <a
+                                  data-bs-toggle="modal"
+                                  className="dropdown-item"
+                                >
+                                  <RdsLabel label="Edit" />
+                                </a>
+                              </li> */}
+                              <li onClick={() => deleteCard(index)}>
+                                <a
+                                  data-bs-toggle="modal"
+                                  className="dropdown-item"
+                                >
+                                  <RdsLabel label="Delete Board" />
+                                </a>
+                              </li>
+
                               {card.actions.map((option, optIndex) => (
                                 <li
                                   key={optIndex}
@@ -636,6 +655,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   <a
                                     data-bs-toggle="modal"
                                     data-bs-target={`#${option.value}`}
+                                    area-control={option.value}
                                     className="dropdown-item"
                                   >
                                     <RdsLabel label={option.key} />
@@ -649,241 +669,359 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                     </div>
                   }
                   cardText={
-                    <Droppable droppableId={`${index}`} type="subCard">
-                      {(provided: any) => (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {card.subCards.map((subCard) => (
-                            <Draggable
-                              key={subCard.SubcardId}
-                              draggableId={`${subCard.SubcardId}`}
-                              index={subCard.SubcardId}
-                            >
-                              {(provided: any) => (
-                                <div
-                                  className="mt-2 row sub-card"
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                >
-                                  <RdsCard
-                                    key={subCard.SubcardId}
-                                    colorVariant={card.colorType}
-                                    cardTitle={
-                                      <div className="row">
-                                        <div className="col-md-8">
-                                          <div className="d-flex flex-column">
-                                            <span className="f-12 fw-500">
-                                              {subCard.ticketId}
-                                            </span>
-                                            {subCard.ticketPriority && (
-                                              <div className="priority-btn mt-1">
-                                                <RdsBadge
-                                                  shape="rectangle"
-                                                  colorVariant="warning"
-                                                  label={subCard.ticketPriority}
-                                                  size="small"
-                                                  className="custom-badge"
-                                                />
-                                              </div>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                          <div className="d-flex justify-content-end">
-                                            <div className="btn-group dropstart">
-                                              <button
-                                                className="btn btn-sm btn-icon border-0 three-dot-btn"
-                                                type="button"
-                                                data-bs-toggle="dropdown"
-                                                data-bs-auto-close="true"
-                                                aria-expanded="true"
-                                                title="More options"
-                                                onClick={() =>
-                                                  toggleSubCardDropdown(
-                                                    subCard.SubcardId
-                                                  )
-                                                }
-                                              >
-                                                <RdsIcon
-                                                  name="three_dots"
-                                                  height="14px"
-                                                  width="14px"
-                                                  fill={true}
-                                                />
-                                              </button>
-                                              <ul
-                                                className={`dropdown-menu dropdown-adjusted ${
-                                                  isSubCardDropdownOpen[
-                                                    subCard.SubcardId
-                                                  ]
-                                                    ? "show"
-                                                    : ""
-                                                } dropdown-right`}
-                                              >
-                                                {subCard.actions.map(
-                                                  (option, optIndex) => (
-                                                    <li
-                                                      key={optIndex}
-                                                      onClick={() =>
-                                                        handleOptionClick(
-                                                          option.value,
-                                                          index,
-                                                          subCard.SubcardId
-                                                        )
+                    <>
+                      <Droppable droppableId={`${index}`} type="subCard">
+                        {(provided: any) => (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {card.subCards.map((subCard) => (
+                              <Draggable
+                                key={subCard.SubcardId}
+                                draggableId={`${subCard.SubcardId}`}
+                                index={subCard.SubcardId}
+                              >
+                                {(provided: any) => (
+                                  <div
+                                    className="mt-2 row sub-card"
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                  >
+                                    <RdsCard
+                                      type={CardTypes.AdvanceCard}
+                                      key={subCard.SubcardId}
+                                      cardTitle={
+                                        <>
+                                          <div className="row">
+                                            <div className="col-md-8">
+                                              <div className="d-flex flex-column">
+                                                <span className="f-12 fw-500">
+                                                  {subCard.ticketId}
+                                                </span>
+
+                                                {subCard.ticketPriority && (
+                                                  <div className="priority-btn mt-1">
+                                                    <RdsBadge
+                                                      shape="rectangle"
+                                                      state="default"
+                                                      colorVariant="warning"
+                                                      label={
+                                                        subCard.ticketPriority
                                                       }
-                                                    >
-                                                      <a
-                                                        data-bs-toggle="offcanvas"
-                                                        data-bs-target={`#${option.value}`}
-                                                        className="dropdown-item"
-                                                      >
-                                                        <RdsLabel
-                                                          label={option.key}
-                                                        />
-                                                      </a>
-                                                    </li>
-                                                  )
+                                                      className="custom-badge"
+                                                      layout="Text_only"
+                                                    />
+                                                  </div>
                                                 )}
-                                              </ul>
+                                              </div>
+                                            </div>
+                                            <div className="col-md-4">
+                                              <div className="d-flex justify-content-end">
+                                                <div className="btn-group dropstart">
+                                                  <button
+                                                    className="btn btn-sm btn-icon border-0 three-dot-btn"
+                                                    type="button"
+                                                    data-bs-toggle="dropdown"
+                                                    data-bs-auto-close="true"
+                                                    aria-expanded="true"
+                                                    title="More options"
+                                                    onClick={() =>
+                                                      toggleSubCardDropdown(
+                                                        subCard.SubcardId
+                                                      )
+                                                    }
+                                                  >
+                                                    <RdsIcon
+                                                      name={"three_dots"}
+                                                      height="14px"
+                                                      width="14px"
+                                                      fill={true}
+                                                    />
+                                                  </button>
+                                                  {/* <ul
+                                                                                                        aria-labelledby="dropdownMenuButton"
+                                                                                                        className={`dropdown-menu dropdown-adjusted ${
+                                                                                                            isSubCardDropdownOpen[ subCard.SubcardId]
+                                                                                                                ? "show": "" } dropdown-right`}>
+                                                                                                        <li
+                                                                                                            onClick={() =>
+                                                                                                                deleteSubCard( index, subCard.SubcardId )} >
+                                                                                                            <a data-bs-toggle="modal" className="dropdown-item" >
+                                                                                                                <RdsLabel label="Delete Card" />
+                                                                                                            </a>
+                                                                                                        </li><li
+                                                                                                            onClick={() =>
+                                                                                                                deleteSubCard( index, subCard.SubcardId )} >
+                                                                                                            <a data-bs-toggle="modal" className="dropdown-item" >
+                                                                                                                <RdsLabel label="View" />
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    </ul> */}
+                                                  <ul
+                                                    aria-labelledby="dropdownMenuButton"
+                                                    className={`dropdown-menu dropdown-adjusted ${isSubCardDropdownOpen[
+                                                        subCard.SubcardId
+                                                      ]
+                                                        ? "show"
+                                                        : ""
+                                                      } dropdown-right`}
+                                                  >
+                                                    {subCard.actions.map(
+                                                      (option, optIndex) => (
+                                                        <li
+                                                          className={colorClass(
+                                                            card.colorType
+                                                          )}
+                                                          key={optIndex}
+                                                          onClick={() =>
+                                                            handleOptionClick(
+                                                              option.value,
+                                                              index,
+                                                              subCard.SubcardId
+                                                            )
+                                                          }
+                                                        >
+                                                          <a
+                                                            data-bs-toggle="offcanvas"
+                                                            data-bs-target={`#${option.value}`}
+                                                            area-control={
+                                                              option.value
+                                                            }
+                                                            className="dropdown-item"
+                                                          >
+                                                            <RdsLabel
+                                                              label={option.key}
+                                                            />
+                                                          </a>
+                                                        </li>
+                                                      )
+                                                    )}
+                                                  </ul>
+                                                </div>
+                                              </div>
                                             </div>
                                           </div>
-                                        </div>
-                                      </div>
-                                    }
-                                    cardText={
-                                      <>
-                                        <div className="mb-2">
-                                          <span className="f-16 fw-500 truncate-text">
-                                            {subCard.ticketQuestion}
-                                          </span>
-                                        </div>
-                                        <div className="row">
-                                          <div className="col-12 d-flex justify-content-between">
-                                            <span className="f-12 fw-500">
-                                              {subCard.ticketDate}
+                                        </>
+                                      }
+                                      cardText={
+                                        <>
+                                          <div className="mb-2">
+                                            <span className="f-16 fw-500 truncate-text">
+                                              {subCard.ticketQuestion}
                                             </span>
-                                            {subCard.assignedTo && (
-                                              <span className="f-12 fw-500">
-                                                <img
-                                                  src={subCard.assignedTo}
-                                                  alt="assignedToName"
-                                                  width="24px"
-                                                  height="24px"
-                                                  className="rounded-circle"
-                                                />
-                                              </span>
-                                            )}
                                           </div>
-                                        </div>
-                                      </>
-                                    }
-                                  />
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                          {allowAddingNewSubCard && (
-                            <>
-                              {subCardInputsVisible === index ? (
-                                <div className="mt-3">
-                                  <RdsDropdownList
-                                    borderDropdown={true}
-                                    isPlaceholder={true}
-                                    listItems={props.allCategoriesList}
-                                    onClick={(e: any, val: any) =>
-                                      handleAddQuestionDataChanges(
-                                        val,
-                                        "supportCategoryId"
-                                      )
-                                    }
-                                    placeholder="Select Category"
-                                  />
-                                  <div className="pt-1">
-                                    <RdsInput
-                                      name="cardTitle"
-                                      inputType="text"
-                                      placeholder="Enter Title"
-                                      showIcon
-                                      size={InputSize.Medium}
-                                      value={addQuestionData?.title || ""}
-                                      onChange={(e: any) =>
-                                        handleAddQuestionDataChanges(
-                                          e.target.value,
-                                          "title"
-                                        )
+                                          <div className="row">
+                                            <div className="col-12 d-flex justify-content-between">
+                                              <span className="f-12 fw-500">
+                                                {subCard.ticketDate}
+                                              </span>
+                                              {subCard.assignedTo && (
+                                                <span className="f-12 fw-500">
+                                                  <img
+                                                    // src={`data:image/jpeg;base64,${subCard.assignedTo}`}
+                                                    src={subCard.assignedTo}
+                                                    alt="assignedToName"
+                                                    width="24px"
+                                                    height="24px"
+                                                    className="rounded-circle"
+                                                  ></img>
+                                                </span>
+                                              )}
+                                            </div>
+                                          </div>
+                                        </>
                                       }
                                     />
                                   </div>
-                                  <div className="pt-1">
-                                    <RdsInput
-                                      name="cardText"
+                                )}
+                              </Draggable>
+                            ))}
+                            {allowAddingNewSubCard && (
+                              <>
+                                {subCardInputsVisible === index ? (
+                                  <div className="mt-3">
+                                    {/* <RdsInput
+                                      id=""
                                       inputType="text"
-                                      placeholder="Enter Description"
-                                      value={addQuestionData?.description || ""}
-                                      onChange={(e: any) =>
-                                        handleAddQuestionDataChanges(
-                                          e.target.value,
-                                          "description"
-                                        )
-                                      }
+                                      placeholder="Enter Ticket Id"
                                       size={InputSize.Small}
-                                    />
-                                  </div>
-                                  <div className="pt-1">
+                                      value={ticketIdValue}
+                                      onChange={(event) => setticketIdValue(event.target.value)} name={""} />
+                                    <div className="pb-2">
+                                      <RdsDropdownList
+                                        data-testid="priority"
+                                        borderDropdown={true}
+                                        placeholder="Select Priority"
+                                        listItems={priorityList}
+                                        isPlaceholder={true}
+                                        onClick={(e: any, val: any) =>
+                                          setTicketPriorityValue(val)
+                                        }
+                                      />
+                                    </div>
+                                    <div className="pt-1">
+                                      <RdsInput
+                                        id=""
+                                        inputType="text"
+                                        placeholder="Enter Question"
+                                        size={InputSize.Small}
+                                        value={ticketQuestionValue}
+                                        onChange={(event) => setTicketQuestionValue(event.target.value)} name={""} />
+                                    </div>
+                                    <div className="mt-2 d-flex add-item-btn btn-margin"> */}
+                                      {/* <RdsButton
+                                                                            colorVariant="default"
+                                                                            icon="plus_circle"
+                                                                            label="Add Item"
+                                                                            size="medium"
+                                                                            onClick={() => onAddSubCardClick(index)}
+                                                                        /> */}
+                                      {/* <RdsButton
+                                        badgeLayout="Text_only"
+                                        colorVariant="primary"
+                                        displayType="Icon + Text"
+                                        icon="plus_circle"
+                                        label="Add Item"
+                                        shape="rectangle"
+                                        size="medium"
+                                        state="hover"
+                                        style="outline"
+                                        onClick={() => onAddSubCardClick(index)}
+                                      />
+                                      <RdsIcon
+                                        classes={"m-2 close-board"}
+                                        colorVariant="black"
+                                        name="cancel"
+                                        height="12px"
+                                        width="12px"
+                                        onClick={() =>
+                                          setSubCardInputsVisible(null)
+                                        }
+                                      /> */}
+                                    {/* </div> */}
+
                                     <RdsDropdownList
+                                      // isSearch={true}
+                                      hint="Hint Text"
+                                      icon="dropdown_icon"
+                                      iconHeight="1px"
+                                      iconWidth="1px"
                                       borderDropdown={true}
                                       isPlaceholder={true}
-                                      listItems={props.allTagsList}
-                                      multiSelect={true}
-                                      placeholder="Select Tags"
-                                      selectedItems={(items) => {
-                                        onSelectedCreators(items);
-                                      }}
+                                      listItems={props?.allCategoriesList}
+                                      showHint
+                                      showIcon
+                                      showTitle
+                                      size={DropdownSize.Default}
+                                      state={DropdownState.Default}
+                                      style={DropdownStyle.Default}
+                                      title="Label"
+                                      onClick={(e: any, val: any) =>
+                                        handleAddQuestionDataChanges(
+                                          val,
+                                          "supportCategoryId"
+                                        )
+                                      }
+                                      placeholder="Select Category"
                                     />
+                                    <div className="pt-1">
+                                      <RdsInput
+                                        id=""
+                                        inputType="text"
+                                        placeholder="Enter Title"
+                                        showIcon
+                                        size={InputSize.Medium}
+                                        value={addQuestionData?.title || ""}
+                                        onChange={(e: any) => handleAddQuestionDataChanges(
+                                          e.target.value,
+                                          "title"
+                                        )} name={""} />
+                                    </div>
+                                    <div className="pt-1">
+                                      <RdsInput
+                                        id=""
+                                        inputType="text"
+                                        placeholder="Enter Description"
+                                        value={addQuestionData?.description || ""}
+                                        onChange={(e: any) => handleAddQuestionDataChanges(
+                                          e.target.value,
+                                          "description"
+                                        )}
+                                        size={InputSize.Small} name={""} />
+                                    </div>
+                                    <div className="pt-1">
+                                      <RdsDropdownList
+                                        borderDropdown={true}
+                                        isPlaceholder={true}
+                                        listItems={props.allTagsList}
+                                        multiSelect={true}
+                                        // isSearch={true}
+                                        placeholder="Select Tags"
+                                        selectedItems={(items) => {
+                                          onSelectedCreators(items);
+                                        }}
+                                      />
+                                    </div>
+
+                                    <div className="mt-2 d-flex add-item-btn btn-margin">
+                                      <RdsButton
+                                       badgeLayout="Text_only"
+                                       badgeState="default"
+                                       badgeStyle="primary"
+                                       colorVariant="primary"
+                                       databstoggle="tooltip"
+                                       displayType="Icon + Text"
+                                       icon="plus_circle"
+                                       label="Add Item"
+                                       shape="rectangle"
+                                       size="medium"
+                                       state="hover"
+                                       style="outline"
+                                       textCase="unset"
+                                        onClick={() => onAddSubCardClick(index)}
+                                      />
+                                      <RdsIcon
+                                        classes={"m-2 close-board"}
+                                        colorVariant="black"
+                                        name="cancel"
+                                        height="12px"
+                                        width="12px"
+                                        onClick={() =>
+                                          setSubCardInputsVisible(null)
+                                        }
+                                      />
+                                    </div>
                                   </div>
-                                  <div className="mt-2 d-flex add-item-btn btn-margin">
+                                ) : (
+                                  <div className="mt-2 add-item-btn">
                                     <RdsButton
-                                      colorVariant="default"
+                                      badgeLayout="Text_only"
+                                      badgeState="default"
+                                      badgeStyle="primary"
+                                      colorVariant="primary"
+                                      databstoggle="tooltip"
+                                      displayType="Icon + Text"
                                       icon="plus_circle"
                                       label="Add Item"
+                                      shape="rectangle"
                                       size="medium"
-                                      onClick={() => onAddSubCardClick(index)}
-                                    />
-                                    <RdsIcon
-                                      classes="m-2 close-board"
-                                      colorVariant="black"
-                                      name="cancel"
-                                      height="12px"
-                                      width="12px"
-                                      onClick={() =>
-                                        setSubCardInputsVisible(null)
-                                      }
+                                      state="hover"
+                                      style="outline"
+                                      textCase="unset"
+                                      onClick={() => addSubCard(index)}
                                     />
                                   </div>
-                                </div>
-                              ) : (
-                                <div className="mt-2 add-item-btn">
-                                  <RdsButton
-                                    class="w-100"
-                                    colorVariant="default"
-                                    icon="plus_circle"
-                                    label="Add Item"
-                                    size="medium"
-                                    onClick={() => addSubCard(index)}
-                                  />
-                                </div>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      )}
-                    </Droppable>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </Droppable>
+                    </>
                   }
-                />
+                ></RdsCard>
               </div>
             )}
           </div>
@@ -891,16 +1029,15 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         {allowAddingNewCard && (
           <>
             {showAddBoardBtn && (
-              <div className="mx-2 mt-2 add-board">
+              <div className=" mt-2 add-board">
                 <div className="col-md-12">
                   <RdsInput
-                    name="cardTitle"
+                    id=""
                     inputType="text"
                     placeholder="Enter Board Title"
                     size={InputSize.Small}
                     value={boardName}
-                    onChange={(event) => handleDataChanges(event)}
-                  />
+                    onChange={(event) => handleDataChanges(event)} name={""} />
                 </div>
                 <div className="mt-2 d-flex add-item-btn btn-margin">
                   <RdsButton
@@ -908,10 +1045,12 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                     icon="plus_circle"
                     label="Add Board"
                     size="medium"
+                     style="outline"
+                     state="hover"
                     onClick={onAddButtonClick}
                   />
                   <RdsIcon
-                    classes="m-2"
+                    classes={"m-2"}
                     colorVariant="black"
                     name="cancel"
                     height="13px"
@@ -922,7 +1061,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
               </div>
             )}
             {!showAddBoardBtn && addButton && (
-              <div className="d-flex align-items-center mt-2 mx-2 add-board">
+              <div className="d-flex align-items-center mt-2 add-board">
                 <div className="add-item-btn add-board-btn flex-grow-1">
                   <RdsButton
                     class="mt-2"
@@ -930,6 +1069,8 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                     icon="plus_circle"
                     label="Add Board"
                     size="medium"
+                     style="outline"
+                     state="hover"
                     onClick={handleShowInputBox}
                   />
                 </div>

@@ -24,7 +24,8 @@ export enum CardTypes {  //types of cards
   CardWithLineChart = "Card With Line Chart",
   CardWithDataTable = "Card With DataTable",
   CardWithChart = "Card With Chart",
-  CardWithTable = "Card With Table"
+  CardWithTable = "Card With Table",
+  AdvanceCard = "Advance Card",
 }
 export interface RdsCardProps {
   buttonLabel1?: string; //for link button
@@ -131,6 +132,7 @@ const RdsCard = (props: RdsCardProps) => {
 
   return (
     <Fragment>
+      {props.type !== CardTypes.AdvanceCard ? (
       <div
         className={`card ${props.isDisabled || props.state === "Disabled"
             ? "card-disabled"
@@ -376,7 +378,7 @@ const RdsCard = (props: RdsCardProps) => {
                 <div>
                   <RdsInput
                     name="cardTitle"
-                    value={typeof cardTitle === "string" ? cardTitle : ""}
+                    value={String(cardTitle ?? "")}
                     onChange={(e) => setCardTitle(e.target.value)}
                     placeholder="Card Title"
                   />
@@ -457,6 +459,92 @@ const RdsCard = (props: RdsCardProps) => {
             )}
           </div>)}
       </div>
+      ):(
+        <div className={`card ${props.borderColor ? borderColor : ""}`}>
+        <div className="headerClass">
+            {props.isImage === true ? (
+                <div className="position-relative">
+                    <img
+                        src={props.imageUrl}
+                        id="backImg"
+                        className="card-img-top"
+                        alt="..."
+                    />
+                    {isCenter === true ? (
+                        <>
+                            {props.isAvatar === true && (
+                                <div>
+                                    <div className="position-relative avatar-pic2 d-flex justify-content-center">
+                                        <RdsAvatar
+                                            withProfilePic={true}
+                                            roundedAvatar={true}
+                                            profilePic={props.src}
+                                        ></RdsAvatar>
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            {props.isAvatar === true && (
+                                <div>
+                                    <div className="position-absolute avatar-pic">
+                                        <RdsAvatar
+                                            withProfilePic={true}
+                                            roundedAvatar={true}
+                                            profilePic={props.src}
+                                        ></RdsAvatar>
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+            ) : (
+                <>
+                    {props.isAvatar === true && (
+                        <div>
+                            <div className="">
+                                <RdsAvatar
+                                    withProfilePic={true}
+                                    roundedAvatar={true}
+                                    profilePic={props.src}
+                                ></RdsAvatar>
+                            </div>
+                        </div>
+                    )}
+                </>
+            )}
+        </div>
+
+        {props.isImage || props.isAvatar ? (
+            <div className="card-body">
+                <h5 className={`${isCenter ? "" : "mt-3"}`}>{props.cardTitle}</h5>
+                <p>{props.cardText}</p>
+            </div>
+        ) : (
+            <>
+                <div className={`${isCenter === true ? "":"card-header pt-3"}`}>
+                    <h5>{props.cardTitle}</h5>
+                </div>
+
+                <div className="card-body">
+                    <div>
+                        <p>{props.cardText}</p>
+                    </div>
+                </div>
+            </>
+        )}
+
+        {props.showFooter === true && (
+            <div className="card-footer">
+                <button type="button" className={` ${btnColor}`}>
+                    {props.buttonLabel1}
+                </button>
+            </div>
+        )}
+    </div>
+      )}
     </Fragment>
   );
 };
