@@ -89,3 +89,6 @@
   inset: unset !important;
   transform: translate3d(0px, 0px, 0px) !important;
 }
+.theme-dark .custom-navigation .customWidthForBtn {
+  border-color: #7442b7  !important;
+}

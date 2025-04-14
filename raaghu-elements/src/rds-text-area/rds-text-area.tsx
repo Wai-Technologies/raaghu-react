@@ -136,7 +136,7 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
         </label>
       )}
       {!isValid && props.validationMsg && (
-        <div className="text-danger">{props.validationMsg}</div>
+        <div className="text-danger text-end">{props.validationMsg}</div>
       )}
     </div>
   );

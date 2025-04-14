@@ -1,143 +1,121 @@
-.wide-button {
-  width: 100%;  /* Set the desired width */
-}
-
 .rds-sidebar {
-  width: 300px;
-  background-color: #f4f4f4;
+  width: 240px;
+  background-color: transparent;
   padding: 15px;
-  border-right: 1px solid #ddd; 
+  transition: width 0.3s ease;
 }
 
 .rds-sidebar.collapsed {
   width: 60px;
 }
 
-.rds-sidebar h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.rds-sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.rds-sidebar li {
-  padding: 8px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.recents .dashboard {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-}
-
-.recents-icon, .dashboard-icon {
-  font-size: 1.5em;
-  margin-right: 8px;
-}
-
-.chat-input-container {
-  display: flex;
-  align-items: center;
-  margin-top:  60px;
-}
-
-.chat-input {
-  flex: 1;
-  padding: 8px;
-  /* border: 1px solid #ddd; */
-  border-radius: 4px;
-}
-
-.chat-send-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 8px;
-}
-
-.chat-send-icon {
-  font-size: 1.5em;
-}
-
-.recents-dashboard {
-  background: #FFFFFF;
-}
-
 .background-color {
   background: linear-gradient(180deg, #DCF4F7 0%, #FFECEC 100%);
 }
 
-.toggle-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 15px;
-  font-size: 1em;
+/* Button styling */
+.wide-button {
+  width: 100%;
 }
 
-.rds-sidebar.collapsed .rds-button .label {
-  display: none;
-}
-.rds-sidebar {
-  position: relative;
-  /* ...existing styles... */
+.collapsed-button {
+  width: 30px;
+  display: flex;
+  justify-content: center;
 }
 
+/* Top section - New Chat button */
+.chat-input-container {
+  margin-top: 60px;  
+}
+
+/* Cards for grouping nav items */
+.recents-dashboard {
+  background: #FFFFFF;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Container for each nav item */
+.dashboard {
+  padding: 5px 0;
+}
+
+/* Section headers */
+.section-header {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Collapse/expand button positioning */
 .icon-wrapper {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 5px;
+  top: 10px;
   padding: 10px;
-  /* Adjust padding as needed */
+  cursor: pointer;
 }
 
 .rds-sidebar.collapsed .icon-wrapper {
-  /* Ensure the icon stays visible when collapsed */
   left: 0;
 }
-.rds-sidebar.collapsed .recents-dashboard .recents,
-.rds-sidebar.collapsed .recents-dashboard .dashboard,
+
+/* Button styling adjustments */
+.btn.outline-hover {
+  min-width: 210px !important;
+  text-align: left;
+}
+
+.rds-sidebar.collapsed .btn.outline-hover {
+  min-width: 40px !important;
+  justify-content: center;
+}
+
+.btn.transparent-hover {
+  color: #353535 !important;
+  text-align: left;
+}
+
+/* Icons for specific buttons */
+.theme-light svg, .theme-dark #saas_chats svg {
+  stroke: none !important;
+}
+
+/* Fix for recents icon */
+.icon-recents_icon, .icon-recent {
+  color: #007bff !important;
+  fill: #007bff !important;
+  stroke: none !important;
+}
+
+.recent-icon svg {
+  stroke: none !important;
+  fill: #007bff !important;
+}
+
+.btn-icon.btn-md {
+  padding: 0;
+  width: 32px !important;
+  height: 35px;
+}
+
+/* Remove text capitalization */
+.btn {
+  text-transform: none !important;
+}
+
+/* Ensure proper spacing in collapsed state */
+.rds-sidebar.collapsed .recents-dashboard .recents, 
+.rds-sidebar.collapsed .recents-dashboard .dashboard, 
 .rds-sidebar.collapsed .chat-input-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100%; */
 }
-.collapsed-button {
-  width: 30px; /* Adjust the width as needed */
+.dashboard .btn {
+  min-width :0rem !important;
 }
-.btn.outline-hover{
-  min-width: 269px  !important;
-}
-.rds-sidebar.collapsed .btn.outline-hover{
-  min-width: 10px !important;
-}
-.theme-light svg {
-  stroke:none !important;
-}
-
-.btn.transparent-hover{
-  color:#353535 !important;
-}
-.btn.outline-hover
-{
-  color:#353535 !important;
-}
- .theme-dark #saas_chats svg{
-  stroke:none !important;
-}
-.btn-icon.btn-md {
-  padding: 0;
-  width: 32px!important;
-  height: 35px;
-}
-/* .text .text-transform-lowercase{ 
-  text-transform:lowercase;
-} */
-.btn{
-  text-transform:none !important;
+.dashboard .btn-md svg{
+  stroke: none !important;
 }

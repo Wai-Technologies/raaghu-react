@@ -11,19 +11,19 @@ const meta: Meta = {
       },
       tags: ['autodocs'],
       argTypes: {
-        colorVariant: {
-          options: [
-            "primary",
-            "secondary",
-            "success",
-            "info",
-            "warning",
-            "danger",
-            "dark",
-            "light",
-          ],
-          control: { type: "select" },
-        },
+        // colorVariant: {
+        //   options: [
+        //     "primary",
+        //     "secondary",
+        //     "success",
+        //     "info",
+        //     "warning",
+        //     "danger",
+        //     "dark",
+        //     "light",
+        //   ],
+        //   control: { type: "select" },
+        // },
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
@@ -61,4 +61,4 @@ export const Default: Story = {
         style: SliderStyle.Default
     },
   } satisfies Story;
-  Default.parameters = { controls: { include: ['colorVariant', 'type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };
+  Default.parameters = { controls: { include: ['type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };

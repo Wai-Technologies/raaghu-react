@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsChatHeader, { ChatHeaderSize } from "./rds-chat-header";
 
 const meta: Meta<typeof RdsChatHeader> = {
-  title: "Components/Automate/Chat Header",
+  title: "Components/AI ChatBox/Chat Header",
   component: RdsChatHeader,
   argTypes: {
     logoUrl: {

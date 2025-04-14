@@ -1,5 +1,6 @@
 .typing-section {
     background: #ffffff;
+    border-radius: 5px;
 }
 .input-with-image {
     border: 1px solid #862FFF !important;
@@ -61,11 +62,11 @@
 
 .input-box-typing-section {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     background-color: #ffffff;
     color: #333333;
-    height: 97px;
+    height: 120px;
     width: inherit;
     padding-right: 40px; /* Adjust padding to make space for the icon */
     box-sizing: border-box; /* Ensure padding is included in the height */
@@ -74,4 +75,45 @@
     justify-content: flex-start; /* Align text to the top */
     line-height: 1.5; /* Adjust line height as needed */
     resize: none; 
+    border-radius: 3px;
   }
+
+.input-box-typing-section:focus {
+    outline: none; /* Remove focus outline */
+    border: none !important; /* Remove border on focus */
+}
+
+#typing-section .btn-icon.btn-md {
+    width: 30px !important;
+    height: 32px !important;
+    border-radius: 8px;
+}
+
+#typing-btn .btn.btn-primary {
+    left: 15px;
+    bottom: 15px;
+    position: absolute !important;
+}
+#typing-btn-outline .btn.btn-outline-primary {
+    left: 120px;
+    bottom: 15px;
+    position: absolute !important;
+    --bs-btn-hover-bg: #d4b9f9;
+    --bs-btn-hover-color: #7e2eef;
+}
+
+#typing-section .btn {
+    min-width: 2.35rem;
+}
+
+#typing-section .attachement-dropdown #fab-list .dropdown-menu.show {
+    top: auto !important;
+    bottom: 18px !important;
+    left: auto !important;
+    right: 28px !important;
+    transform: translate3d(30px, 97.5px, 0px) !important;
+}
+
+.btn-transition:hover {
+    transform: scale(1.1);
+}
