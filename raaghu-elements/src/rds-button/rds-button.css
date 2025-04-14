@@ -167,5 +167,7 @@
   cursor: not-allowed; 
   pointer-events: none; 
 }
-
-
+.btn-icon.theme-light svg {
+  stroke: #FFFFFF;
+  color: #FFFFFF;
+}
