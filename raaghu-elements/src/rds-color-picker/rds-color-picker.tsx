@@ -218,13 +218,13 @@ useEffect(() => {
             {showTabs && (
               <div className="tabs">
                 <button
-                  className={`tab ${selectedTab === "Grid" ? "active" : ""}`}
+                  className={`tabcolor ${selectedTab === "Grid" ? "active" : ""}`}
                   onClick={() => handleTabClick("Grid")}
                 >
                   Grid
                 </button>
                 <button
-                  className={`tab ${
+                  className={`tabcolor ${
                     selectedTab === "Spectrum" ? "active" : ""
                   }`}
                   onClick={() => handleTabClick("Spectrum")}
