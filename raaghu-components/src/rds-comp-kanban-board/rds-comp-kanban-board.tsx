@@ -69,7 +69,7 @@ export interface RdsCompKanbanBoardProps {
 const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   const [boardName, setboardName] = useState("");
   const [allowAddingNewCard, setAllowAddingNewCard] = useState(
-    props.allowAddingNewCard || false
+    props.allowAddingNewCard || true
   );
   const [allowAddingNewSubCard, setAllowAddingNewSubCard] = useState(
     props.allowAddingNewSubCard || true
@@ -318,7 +318,6 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   };
 
   const onAddSubCardClick = (index: number) => {
-    debugger
     setTicketDateValue(formatDate(new Date()));
 
     const newSubcard = {
