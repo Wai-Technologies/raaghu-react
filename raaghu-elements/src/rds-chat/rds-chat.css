@@ -198,13 +198,16 @@
 .current-user .comment-content {
     background-color: #B30FBC !important;
 }
-
-.EmojiPickerReact {
-    height: 450px!important;
-    width: 260px !important;
-    right: 5rem !important;
-    top: 20rem !important;
+@media screen and (max-width: 600px) {
+    .EmojiPickerReact {
+        height: 450px!important;
+        width: 260px !important;
+        right: 3.5rem !important;
+        top: 25rem !important;
+    }
+    
 }
+
 .btn-icon {
     min-width: 10px !important;
 }
