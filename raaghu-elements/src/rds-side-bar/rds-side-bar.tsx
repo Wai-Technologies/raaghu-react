@@ -4,7 +4,9 @@ import RdsButton from "../rds-button";
 import RdsIcon from "../rds-icon";
 import Tooltip from "../rds-tooltip";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
-
+import RdsScrollBar from "../rds-scroll-bar";
+import { ScrollBarType, ScrollPosition } from "../rds-scroll-bar/rds-scroll-bar";
+ 
 export interface NavItem {
   icon: string;
   label: string;
@@ -13,13 +15,13 @@ export interface NavItem {
   style?: string;
   stroke?: boolean;
 }
-
+ 
 export interface NavGroup {
   header?: string;
   items: NavItem[];
   className?: string;
 }
-
+ 
 export interface RdsSidebarProps {
   // Legacy props for backward compatibility
   labels?: string[];
@@ -34,12 +36,12 @@ export interface RdsSidebarProps {
   // Initial state
   initialCollapsed?: boolean;
 }
-
+ 
 const RdsSidebar = (props: RdsSidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(
     props.initialCollapsed || false
   );
-
+ 
   const toggleSidebar = () => {
     const newCollapsedState = !isCollapsed;
     setIsCollapsed(newCollapsedState);
@@ -47,13 +49,12 @@ const RdsSidebar = (props: RdsSidebarProps) => {
       props.onToggle(newCollapsedState);
     }
   };
-
+ 
   const handleButtonClick = (action: string) => {
     if (props.onButtonClick) {
       props.onButtonClick(action);
     }
-  };
-
+  }; 
   // Default items based on the image
   const defaultTopItems: NavItem[] = [
     {
@@ -64,26 +65,36 @@ const RdsSidebar = (props: RdsSidebarProps) => {
       style: "outline",
     },
   ];
-
-  const defaultMiddleGroups: NavGroup[] = [
-    {
-      className: "recents-dashboard rounded-2 p-2 px-3",
-      items: [{
-        icon: "recents_icon", 
+ 
+ const defaultMiddleGroups: NavGroup[] = [
+  {
+    className: "recents-dashboard rounded-2 p-2 px-3",
+    items: [
+      {
+        icon: "recents_icon",
         label: "SAAS Dashboard",
         action: "saas_dashboard",
         colorVariant: "primary",
         style: "transparent",
         stroke: false,
-      }],
-    },
-  ];
-
+      },
+     
+    ],
+  },
+];
+ 
   const defaultBottomItems: NavItem[] = [
     {
       icon: "community",
       label: "Community",
       action: "community",
+      colorVariant: "light",
+      style: "transparent",
+    },
+    {
+      icon: "chat_folder",
+      label: "Folder",
+      action: "folder",
       colorVariant: "light",
       style: "transparent",
     },
@@ -109,12 +120,11 @@ const RdsSidebar = (props: RdsSidebarProps) => {
       style: "transparent",
     },
   ];
-
-  // Support legacy props format if provided
+ 
   let topItems = props.topItems || defaultTopItems;
   let middleGroups = props.middleGroups || defaultMiddleGroups;
   let bottomItems = props.bottomItems || defaultBottomItems;
-
+ 
   // If legacy props are provided, convert them to the new format
   if (props.labels && props.icons) {
     const legacyItems: NavItem[] = props.labels.map((label, index) => {
@@ -129,11 +139,11 @@ const RdsSidebar = (props: RdsSidebarProps) => {
         stroke: !["saas_chat", "recents_icon", "recent"].includes(icon),
       };
     });
-
+ 
     if (legacyItems.length > 0) {
       topItems = [legacyItems[0]];
     }
-
+ 
     if (legacyItems.length > 1) {
       middleGroups = [
         {
@@ -142,14 +152,14 @@ const RdsSidebar = (props: RdsSidebarProps) => {
         },
       ];
     }
-
+ 
     if (legacyItems.length > 3) {
       bottomItems = legacyItems.slice(3);
     }
   }
-
+ 
   const renderNavButton = (item: NavItem) => {
-    // Always show tooltip regardless of sidebar state
+    
     return (
       <Tooltip
         key={item.action}
@@ -178,72 +188,103 @@ const RdsSidebar = (props: RdsSidebarProps) => {
       </Tooltip>
     );
   };
-
+ 
   return (
     <div
-      className={`background-color rds-sidebar ${
-        isCollapsed ? "collapsed" : ""
-      } d-flex flex-column justify-content-between vh-100 `}
-    >
-      <div className="d-flex flex-column justify-content-between vh-100 text">
-        <div>
-          {/* Collapse button with tooltip */}
-          <div className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}>
-            <Tooltip
-              label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              style={TooltipStyle.MiddleTopArrow}
-            >
-              <RdsIcon
-                colorVariant="primary"
-                height="15px"
-                isCursorPointer
-                name={isCollapsed ? "interface_arrow_right" : "interface_arrow_left"}
-                stroke
-                width="10px"
-                onClick={toggleSidebar}
-              />
-            </Tooltip>
-          </div>
-
-          {/* Top section (New Chat) */}
-          <div className="chat-input-container">
-            <div className="pb-3">{topItems.map(renderNavButton)}</div>
-          </div>
-
-          {/* Middle section (Recents header, SAAS Dashboard) */}
-          {middleGroups.map((group, groupIndex) => (
-            <div key={groupIndex} className={group.className || "my-3 button-sidebar"}>
-              {group.header && !isCollapsed && (
-                <div className="section-header px-2 py-1">
-                  <span className="text-secondary fw-medium icon">
-                    {group.header}
-                  </span>
-                </div>
-              )}
-              {group.items.map((item, index) => (
-                <div key={index} className="dashboard">
-                  {renderNavButton(item)}
-                </div>
-              ))}
-            </div>
-          ))}
+    className={`background-color rds-sidebar ${
+      isCollapsed ? "collapsed" : ""
+    } d-flex flex-column justify-content-between vh-100`}
+  >
+    <div className="d-flex flex-column justify-content-between vh-100 text">
+      <div className="top-and-middle-container d-flex flex-column">
+        {/* Collapse button with tooltip */}
+        <div
+          className={`icon-wrapper ms-2 ${isCollapsed ? "collapsed" : ""}`}
+        >
+          <Tooltip
+            label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            style={TooltipStyle.MiddleTopArrow}
+          >
+            <RdsIcon
+              colorVariant="primary"
+              height="15px"
+              isCursorPointer
+              name={
+                isCollapsed
+                  ? "interface_arrow_right"
+                  : "interface_arrow_left"
+              }
+              stroke
+              width="10px"
+              onClick={toggleSidebar}
+            />
+          </Tooltip>
         </div>
-
-        {/* Bottom section (Community, Help, Activity, Settings) */}
-        <div className="recents-dashboard rounded-2 p-2 mb-5 px-3" id="side-bar-icons">
-          {bottomItems.map((item, index) => (
-            <div
-              key={index}
-              id={`bottom-item-${item.action}`}
-              className={`dashboard ${index === 0 ? "recents" : ""} bottom-item-${index}`}
-            >
-              {renderNavButton(item)}
-            </div>
-          ))}
+  
+        {/* Top section (New Chat) */}
+        <div
+          className={`chat-input-container ${
+            isCollapsed ? "text-center" : "text-left"
+          }`}
+        >
+          <div className="pb-3">{topItems.map(renderNavButton)}</div>
+        </div>
+  
+        {/* Middle section with scrollbar */}
+        <div
+          className={`middle-section-container px-2 ${
+            middleGroups.length > 0 ? "scrollable" : "hidden-scroll"
+          }`}
+        >
+          <div>
+            {middleGroups.map((group, groupIndex) => (
+              <div
+                key={groupIndex}
+                className={`${
+                  group.className || "my-3 button-sidebar"
+                } middle-section-group`}
+              >
+                {group.header && !isCollapsed && (
+                  <div className="section-header px-2 py-1">
+                    <span className="text-secondary fw-medium icon">
+                      {group.header}
+                    </span>
+                  </div>
+                )}
+                {group.items.map((item, index) => (
+                  <div key={index} className="dashboard">
+                    {renderNavButton(item)}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+  
+      {/* Bottom section (Community, Help, Activity, Settings) */}
+      <div
+        className={`recents-dashboard rounded-2 mb-0 ${
+          isCollapsed ? "" : "p-2 px-3"
+        }`}
+        id="side-bar-icons"
+      >
+        {bottomItems.map((item, index) => (
+          <div
+            key={index}
+            id={`bottom-item-${item.action}`}
+            className={`dashboard ${
+              index === 0 ? "recents" : ""
+            } bottom-item-${index}`}
+          >
+            {renderNavButton(item)}
+          </div>
+        ))}
+      </div>
     </div>
+  </div>
   );
-};
-
+ 
+}
+ 
 export default RdsSidebar;
