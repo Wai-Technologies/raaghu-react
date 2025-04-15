@@ -79,9 +79,9 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (
       <RdsIcon
-        height="28px"
-        width="28px"
-        colorVariant={props.ColorVariant}
+        height="30px"
+        width="30px"
+        colorVariant="danger"
         name={props.Icon}
         fill={false}
         stroke={true}
@@ -124,6 +124,7 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
       size="small"
       databsdismiss="offcanvas"
       onClick={handleSave}
+      class="btnclr"
     ></RdsButton>
   )}
 </div>
