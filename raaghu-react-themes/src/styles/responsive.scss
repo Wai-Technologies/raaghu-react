@@ -244,11 +244,7 @@
   }
 
   #sidebar.show {
-    width: 250px;
-  }
-
-  #sidebar.hide {
-    width: 0px;
+    width: 65px;
   }
 }
 .custom_sm_scroll{
@@ -611,9 +607,6 @@ form .form-group .select-options,
 }
 
 @media (max-width: 767px){
-  .side-navigation {
-    margin-left: 520px !important;
-  }
   #mobileviewmenusdirectory ol, ul {
     padding-left: 0rem !important;
 }
