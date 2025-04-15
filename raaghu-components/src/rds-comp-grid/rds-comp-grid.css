@@ -52,7 +52,7 @@
   }
   tr{
       &:hover{
-          z-index: 10;
+          z-index: 2;
           position: relative;
       }
   }
@@ -73,7 +73,7 @@
   stroke:#dee2e6 !important;
 }
 .theme-dark .btn {
-  color: #6e6e6e !important;
+  color: #6e6e6e;
 }
 .btn.btn-neutral {
   background: #ffffff!important;

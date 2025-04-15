@@ -40,7 +40,7 @@
 .bottom-dot-md{
   right: 0px !important;
     bottom: 0px;
-    top: 30px;
+    top: 27px;
     width: 11px;
     height: 11px;
 
@@ -48,21 +48,21 @@
 .bottom-dot-lg{
   right: 1px !important;
   bottom: 0px;
-  top: 36px;
+  top: 33px;
   width: 13px;
   height: 13px;
 
 }
 .top-dot-sm{
   right: 0px !important;
-  top: -1px;
+  top: 0px;
   width: 9px;
   height: 9px;
 
 }
 .top-dot-md{
   right: 0 !important;
-  top: -3px !important;
+  top: 1px !important;
   width: 11px;
   height: 11px;
 
@@ -77,7 +77,7 @@
 }
 .top-dot-smallest{
   right: 0 !important;
-  top: -1px !important;
+  top: 0px !important;
   width: 7px;
   height:7px;
 
@@ -100,7 +100,7 @@
 }
 .top-dot-largest{
     right: 1px !important;
-    top: 2px !important;
+    top: 1px !important;
     width: 16px;
     height: 16px;
 

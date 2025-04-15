@@ -7,10 +7,10 @@
 /* Hover state for accordion button */
 
 
-.accordion-hover .accordion-button:hover {
+/* .accordion-hover .accordion-button:hover {
     background-color: #e5d5fc;
     color: rgba(0, 0, 0, 0.8);
-}
+} */
 
 .accordion-hover .accordion-button:not(.collapsed):hover {
     background-color: #e5d5fc; /* Same hover background */
@@ -30,7 +30,7 @@
 
 /* Apply the hover effect to both the header and body */
 .hover-content-wrapper:hover,
-.hover-content-wrapper:hover .accordion-button,
+.hover-content-wrapper:hover,
 .hover-content-wrapper:hover .accordion-body {
     background-color: #e5d5fc !important;
     color: rgba(0, 0, 0, 0.8) !important;

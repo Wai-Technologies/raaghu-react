@@ -239,7 +239,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
       {({ measureRef }: any) => (
         <div
           ref={measureRef}
-          className="full-width custom-content-scroll"
+          className="full-width custom-content-scroll position-absolute start-50"
           style={{
             background: 'none',
             width: '100%',
