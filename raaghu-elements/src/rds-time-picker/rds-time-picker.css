@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .time-picker .time-controls-row-compact {
@@ -170,7 +170,7 @@
 
 .time-picker .buttons-compact {
   display: flex;
-  margin-top: 10px;
+  margin-top: 35px;
   justify-content: end !important;
 }
 
@@ -207,4 +207,50 @@
 
 .theme-dark .now-button {
   color: #bbb;
+}
+
+/* .css-lofsuq-control {
+  height: 20px !important;
+}
+
+.css-3o0vwh-control {
+  height: 20px !important;
+}
+.css-1s2u09g-control {
+  height: 20px !important;
+}
+
+.css-1dimb5e-singleValue {
+  height: 61px !important;
+}
+.css-1xc3v61-indicatorContainer {
+  height: 75px !important;
+} */
+
+.css-hlgwow {
+  max-height: 50px !important;
+  min-height: 20px !important;
+  height: 30px !important;
+  padding: 0px !important;
+  overflow: unset !important;
+  display: inline-grid !important;
+}
+
+.css-1dimb5e-singleValue {
+  margin-bottom: 37px;
+}
+
+.theme-dark .css-8jouw6-menu {
+  background: #555;
+  color: #fff;
+}
+
+.theme-dark .time-picker .time-controls .number {
+  background: none !important;
+  color: none !important;
+  border: none !important;
+}
+
+.theme-dark .time-display {
+  color: #fff;
 }
