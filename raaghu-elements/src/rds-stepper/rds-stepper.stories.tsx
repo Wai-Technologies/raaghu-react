@@ -109,15 +109,16 @@ withcheckbox.parameters = { controls: { include: ['stepperDetails', 'showSubtitl
 export const Dash: Story = {
     args: {
         role: "Dash",
-        steps: 5,
+        steps: 3,
         height: 5,
+        stepDetails: [{stepNumber: 1, stepState: 'completed'}, {stepNumber: 2, stepState: 'completed'}, {stepNumber: 3, stepState: 'completed'}],
         state: 'default'
     },
 } satisfies Story;
 
 Dash.parameters = {
     controls: {
-        include: ['state', 'height', 'steps']
+        include: ['state', 'height', 'steps', 'stepDetails']
     }
 };
 
@@ -145,18 +146,18 @@ export const NumberStepper: Story = {
         variant: 'filled',
         Icon: false,
         StepIconName: [
-            { iconName: 'circle', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'users', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'administration', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'award', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'bag', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' }
+            { iconName: 'circle', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20', stepState: 'completed' },
+            { iconName: 'users', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'completed' },
+            { iconName: 'administration', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'inprogress' },
+            { iconName: 'award', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'error' },
+            { iconName: 'bag', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'error' }
         ]
     },
 } satisfies Story;
 
 NumberStepper.parameters = {
     controls: {
-        include: ['state', 'steps', 'variant', 'Icon', 'StepIconName']
+        include: ['steps', 'variant', 'Icon', 'StepIconName']
     }
 };
 

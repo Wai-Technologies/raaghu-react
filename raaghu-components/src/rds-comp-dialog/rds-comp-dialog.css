@@ -32,8 +32,8 @@
 } */
 .dialog-title {
   margin: 16px 0 8px;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 400;
   color: #333;
 }
 
@@ -61,7 +61,7 @@
   margin: auto;
 }
 
-.theme-dark .dialog-actions
+.theme-dark .dialog-actions .btnclr
 {
   color: #ffffff !important;
 }

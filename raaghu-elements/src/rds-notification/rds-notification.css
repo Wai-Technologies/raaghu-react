@@ -142,7 +142,8 @@
 
 .notification-footer .btn.btn-transparent-primary
 {
-background-color: transparent !important;
+    background: #ffffff !important;
+    color: #7825e9 !important;
 }
 .theme-dark .notification-card
 {
