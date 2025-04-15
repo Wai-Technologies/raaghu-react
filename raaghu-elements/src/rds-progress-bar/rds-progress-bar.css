@@ -92,15 +92,15 @@
     border-radius: 96px;
     color: #353535;
 }
-.theme-dark .progress-bar-bg-error {
+.theme-dark #single .progress-bar-bg-error {
     background-color: #BD0D1D;
 }
-.theme-light .bg-completed {
+#stepper-circular.theme-light .bg-completed  {
     background: #BD0D1D;
     border-radius: 96px;
-    color: #FCFCFC;
+     color: #FCFCFC;
 }
-.theme-dark .bg-completed {
+#dash .theme-dark .bg-completed {
     background: #BD0D1D;
     border-radius: 96px;
     color: #FCFCFC;
