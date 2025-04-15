@@ -7,7 +7,19 @@ const meta: Meta = {
     component: RdsAccordion,
     parameters: {
         layout: 'padded',
-        disableZoom: false
+        disableZoom: false,
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(single|multiple)"/g, '{AccordionType.$1}');
+                    code = code.replace(/"(small|medium|large)"/g, '{AccordionSize.$1}');
+                    code = code.replace(/"(default|hover|selected)"/g, '{AccordionState.$1}');
+                    code = code.replace(/"(border|bottomline|borderhide)"/g, '{AccordionBorder.$1}');
+                    code = code.replace(/"(default|expanded)"/g, '{AccordionLayout.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
