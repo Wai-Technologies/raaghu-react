@@ -38,15 +38,16 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
         <>
             {props.role === "single" && (
                 <>
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center single"  >
                         <div
-                            className="progress p-0 w-100"
+                            className="progress p-0 w-100" id="single"
                             style={{ height: `${props.height}px`, maxWidth: `${props.width}px` }}
                         >
                             <div
                                 className={`progress-bar ${props.striped ? "progress-bar progress-bar-striped" : "progress-bar"}   
                                 ${props.animation ? "progress-bar-striped progress-bar-animated" : "progress-bar"}
                                 progress-bar-bg-${props.colorVariant}`}
+                                id="single" 
                                 role="progressbar"
                                 style={{ width: `${props.progressWidth}%`, textAlign: "center" }}
                                 aria-valuenow={props.progressWidth}
@@ -127,6 +128,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                                     ? 'bg-inprogress'
                                     : 'bg-default'
                                     }`}
+                                    id="dash"
                                 style={{ flex: 1, height: `${props.height}px` }}
                             >
                             </div>
