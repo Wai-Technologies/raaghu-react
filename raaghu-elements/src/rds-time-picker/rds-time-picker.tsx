@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './rds-time-picker.css';
 import RdsIcon from '../rds-icon/rds-icon';
+import RdsSelectList from '../rds-select-list';
 
 export interface RdsTimePickerProps {
   style?: string;
@@ -126,6 +127,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
             height="16px"
             width="16px"
             colorVariant={getIconColor()}
+            stroke={true}
           />
         </span>
       </div>
@@ -143,42 +145,63 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
           <div className={`row time-controls-row ${props.style == 'compact' ? 'time-controls-row-compact' : 'time-controls-row'}`}>
             {props.style === 'compact' ? (
               <>
-                <div className="time-controls">
-                  <select
-                    className={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                    value={hours}
-                    onChange={(e) => setHours(parseInt(e.target.value))}
-                  >
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                      <option key={hour} value={hour}>
-                        {String(hour).padStart(2, '0')}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="time-controls dropdown-height">
-                  <select
-                    className={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                    value={minutes}
-                    onChange={(e) => setMinutes(parseInt(e.target.value))}
-                  >
-                    {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
-                      <option key={minute} value={minute}>
-                        {String(minute).padStart(2, '0')}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="time-controls">
-                  <select
-                    className={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                    value={period}
-                    onChange={(e) => setPeriod(e.target.value)}
-                  >
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                  </select>
-                </div>
+               <div className="time-controls">
+  <RdsSelectList
+    color="primary"
+    id="hours-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setHours(parseInt(selected.value))}
+    placeholder="HH"
+    selectItems={Array.from({ length: 12 }, (_, i) => {
+      const hour = i + 1;
+      return {
+        option: String(hour).padStart(2, '0'),
+        value: hour.toString()
+      };
+    })}
+    selectedValue={hours.toString()}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
+<div className="time-controls dropdown-height">
+  <RdsSelectList
+    color="primary"
+    id="minutes-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setMinutes(parseInt(selected.value))}
+    placeholder="MM"
+    selectItems={Array.from({ length: 60 }, (_, i) => ({
+      option: String(i).padStart(2, '0'),
+      value: i.toString()
+    }))}
+    selectedValue={minutes.toString()}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
+<div className="time-controls">
+  <RdsSelectList
+    color="primary"
+    id="period-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setPeriod(selected.value)}
+    placeholder="AM/PM"
+    selectItems={[
+      { option: 'AM', value: 'AM' },
+      { option: 'PM', value: 'PM' }
+    ]}
+    selectedValue={period}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
               </>
             ) : (
               <>
