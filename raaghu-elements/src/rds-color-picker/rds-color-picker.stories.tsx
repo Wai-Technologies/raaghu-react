@@ -6,6 +6,22 @@ const meta: Meta = {
     component: RdsColorPicker,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={ColorPickerType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: ColorPickerType.${p1.replace(/\s+/g, '')}`);
+                    // Transform pickerType enum - remove spaces and transform
+                    code = code.replace(/pickerType="([^"]+)"/g, (match, p1) => `pickerType={PickerType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/pickerType:\s*"([^"]+)"/g, (match, p1) => `pickerType: PickerType.${p1.replace(/\s+/g, '')}`);
+                    // Transform colorMode enum - remove spaces and transform
+                    code = code.replace(/colorMode="([^"]+)"/g, (match, p1) => `colorMode={ColorMode.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/colorMode:\s*"([^"]+)"/g, (match, p1) => `colorMode: ColorMode.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        },
     },
     tags: ['autodocs'],
     argTypes: {
