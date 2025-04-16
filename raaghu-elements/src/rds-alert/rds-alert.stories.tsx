@@ -6,7 +6,7 @@ const meta: Meta<typeof RdsAlert> = {
   title: "Elements/Alerts",
   component: RdsAlert,
   parameters: {
-    layout: 'centered',
+    // layout: 'centered',
     docs: {
       source: {
         transform: (code: string) => {

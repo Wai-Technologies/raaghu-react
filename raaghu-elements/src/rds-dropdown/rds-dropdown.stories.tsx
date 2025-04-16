@@ -1,12 +1,38 @@
 import React from "react";
 import RdsDropdown, { DisplayType, Layout, Shape, State, Style, TooltipPlacement } from "./rds-dropdown";
 import { Meta, StoryObj } from "@storybook/react";
+import { transform } from "typescript";
 
 const meta: Meta = {
     title: 'Elements/Dropdown Button',
     component: RdsDropdown,
     parameters: {
         layout: 'padded',
+        docs : {
+            source:{
+                transform: (code: string) => {
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={Style.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: Style.${p1.replace(/\s+/g, '')}`);
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={State.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: State.${p1.replace(/\s+/g, '')}`);
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={Layout.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: Layout.${p1.replace(/\s+/g, '')}`);
+                    // Transform shape enum - remove spaces and transform
+                    code = code.replace(/shape="([^"]+)"/g, (match, p1) => `shape={Shape.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/shape:\s*"([^"]+)"/g, (match, p1) => `shape: Shape.${p1.replace(/\s+/g, '')}`);
+                    // Transform displayType enum - remove spaces and transform
+                    code = code.replace(/displayType="([^"]+)"/g, (match, p1) => `displayType={DisplayType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/displayType:\s*"([^"]+)"/g, (match, p1) => `displayType: DisplayType.${p1.replace(/\s+/g, '')}`);
+                    // Transform tooltipPlacement enum - remove spaces and transform
+                    code = code.replace(/tooltipPlacement="([^"]+)"/g, (match, p1) => `tooltipPlacement={TooltipPlacement.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/tooltipPlacement:\s*"([^"]+)"/g, (match, p1) => `tooltipPlacement: TooltipPlacement.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        },    
     },
     tags: ['autodocs'],
     argTypes: {

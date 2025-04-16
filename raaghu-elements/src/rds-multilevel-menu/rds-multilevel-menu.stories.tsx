@@ -6,19 +6,32 @@ const meta: Meta = {
     component: RdsMultilevelMenu,
     parameters: {
         layout: "padded",
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform size enum
+                    code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={MenuSize.${p1}}`);
+                    // Transform type enum
+                    code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={MenuType.${p1}}`);
+                    // Transform state enum
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={MenuState.${p1}}`);
+                    return code;
+                }
+            }
+        },
     },
     tags: ["autodocs"],
     argTypes: {
         size: {
-            options: ["default", "large"],
+            options: ["Default", "Large"],
             control: { type: "select" },
         },
         type: {
-            options: ["selectable", "expandable"],
+            options: ["Selectable", "Expandable"],
             control: { type: "select" },
         },
         state: {
-            options: ["default", "hover", "selected"],
+            options: ["Default", "Hover", "Selected"],
             control: { type: "select" },
         }
     },
