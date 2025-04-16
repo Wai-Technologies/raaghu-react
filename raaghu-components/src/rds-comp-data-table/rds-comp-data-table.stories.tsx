@@ -1,16 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompDatatable, { ActionPosition } from "./rds-comp-data-table";
+import RdsCompDatatable, { ActionColumnStyle, ActionPosition } from "./rds-comp-data-table";
 
 const meta: Meta = { 
     title: "Elements/Datatable",
     component: RdsCompDatatable,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform action position enum
+                    code = code.replace(/actionPosition="([^"]+)"/g, 'actionPosition={ActionPosition.$1}');
+                    code = code.replace(/actionPosition:\s*"([^"]+)"/g, 'actionPosition: ActionPosition.$1');
+                    
+                    // Transform action column style enum
+                    code = code.replace(/actionColumnStyle="([^"]+)"/g, 'actionColumnStyle={ActionColumnStyle.$1}');
+                    code = code.replace(/actionColumnStyle:\s*"([^"]+)"/g, 'actionColumnStyle: ActionColumnStyle.$1');
+                    
+                    return code;
+                }
+            }
+        },
     },
     tags: ['autodocs'],
     argTypes: {
+        actionPosition: {
+            options: Object.values(ActionPosition),
+            control: { type: "select" },
+        },
         actionColumnStyle: {
-            options: ["show dots", "show buttons directly"],
+            options: Object.values(ActionColumnStyle),
             control: { type: "select" },
         },
     },
@@ -21,43 +40,11 @@ type Story = StoryObj<typeof RdsCompDatatable>;
 
 export const Datatable: Story = {
     args: {
-        
-       
         enableRadioButtonselection: true,
         enablecheckboxselection: true,
         actionPosition: ActionPosition.Left,
+        actionColumnStyle: ActionColumnStyle.ShowDots,
         tableHeaders: [
-            
-            // {
-            //     displayName: "check",
-            //     key: "check",
-            //     datatype: "check",
-            //     dataLength: 50,
-            //     required: false,
-            // },
-            // {
-            //     displayName: "Radio",
-            //     key: "Radio",
-            //     datatype: "Radio",
-            //     dataLength: 50,
-            //     required: false,
-            // },
-            // {
-            //     displayName: "Text",
-            //     key: "badge",
-            //     datatype: "badge",
-            //     dataLength: 50,
-            //     required: false,
-            // },
-            
-            // {
-            //     displayName: "badge",
-            //     key: "dagas",
-            //     datatype: "text",
-            //     dataLength: 50,
-            //     required: false
-            // },
-           
             {
                 displayName: "Text",
                 key: "text",

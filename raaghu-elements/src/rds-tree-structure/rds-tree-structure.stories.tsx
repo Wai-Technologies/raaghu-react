@@ -7,31 +7,38 @@ const meta: Meta = {
   component: RdsTreeStructure,
   parameters: {
     layout: 'padded',
+    docs: {
+      source: {
+        transform: (code: string) => {
+          // Transform TreeLevel enum
+          code = code.replace(/level="Level([1-4])"/g, 'level={TreeLevel.Level$1}');
+          code = code.replace(/level:\s*"Level([1-4])"/g, 'level: TreeLevel.Level$1');
+          
+          // Transform NodeState enum
+          code = code.replace(/state="(Default|Hover|Selected)"/g, 'state={NodeState.$1}');
+          code = code.replace(/state:\s*"(Default|Hover|Selected)"/g, 'state: NodeState.$1');
+          
+          // Transform IconType enum
+          code = code.replace(/type="(Circle|Folder)"/g, 'type={IconType.$1}');
+          code = code.replace(/type:\s*"(Circle|Folder)"/g, 'type: IconType.$1');
+          
+          return code;
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
     level: {
-      options: [
-        "level1",
-        "level2",
-        "level3",
-        "level4",
-      ],
+      options: Object.values(TreeLevel),
       control: { type: "select" },
     },
     type: {
-      options: [
-        "circle",
-        "folder",
-      ],
+      options: Object.values(IconType),
       control: { type: "select" },
     },
     state: {
-      options: [
-        "default",
-        "hover",
-        "selected"
-      ],
+      options: Object.values(NodeState),
       control: { type: "select" },
     },
     Language: {
