@@ -1,7 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
-import { transform } from 'typescript';
 
 const meta: Meta = { 
     title: "Components/Reviews",
