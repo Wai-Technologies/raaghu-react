@@ -93,7 +93,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
     return (
 
-        <div className="dark dashboard bg-grey p-2">
+        <div className="dark dashboard bg-grey p-2 p-xl-3">
             <div className="row">
                 <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
                 <RdsWidget
