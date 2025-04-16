@@ -384,9 +384,9 @@ const RdsPagination = (props: RdsPaginationProps) => {
               props.showManualInput && (
                 <li className={` page-item cursor-pointer}`}>
                   {totalRecords > recordsPerPage && (
-                    <div className="d-flex mt-2"> <span className="m-2 nowrap">Go to</span>
+                    <div className="d-flex mt-2"> <span className="m-2 nowrap mt-2">Go to</span>
                       <input type="text"  className={`form-control btn-outline border-primary gotopageinput   ${(props.style=="Style3"||props.style=="Style7")?"bg-white text-dark":""}`} onChange={(e) => handleGotoPage(e.target.value)} /> 
-                      <span className="m-2">Page</span> </div>
+                      <span className="m-2 mt-2">Page</span> </div>
                   )}
               </li>
               )

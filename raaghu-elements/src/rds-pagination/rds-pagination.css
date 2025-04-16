@@ -92,3 +92,9 @@
 .theme-dark .custom-navigation .customWidthForBtn {
   border-color: #7442b7  !important;
 }
+.theme-dark .pagination  {
+  color: #6c757dcf !important;
+}
+.theme-dark .btn {
+  color: #b8b8b8;
+}
