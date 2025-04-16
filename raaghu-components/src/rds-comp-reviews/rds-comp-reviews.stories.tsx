@@ -1,12 +1,26 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
+import { transform } from 'typescript';
 
 const meta: Meta = { 
     title: "Components/Reviews",
     component: RdsCompReviews,
     parameters: {
         layout: 'padded',
+        docs: {
+            source:{
+                transform:(code:string) => {
+                    //transform VariantType enum
+                    code = code.replace(/variantType="([^"]+)"/g, (match, p1) => `variantType={VariantType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/variantType:\s*"([^"]+)"/g, (match, p1) => `variantType: VariantType.${p1.replace(/\s+/g, '')}`);
+                    //transform RevieweStyle enum
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: RevieweStyle.${p1.replace(/\s+/g, '')}`);
+                    return code;
+            }
+        }
+    }
     },
     tags: ['autodocs'],
     argTypes: {
