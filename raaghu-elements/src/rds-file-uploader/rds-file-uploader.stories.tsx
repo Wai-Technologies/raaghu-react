@@ -6,6 +6,25 @@ const meta: Meta = {
   component: RdsFileUploader,
   parameters: {
     layout: "padded",
+    docs: {
+      source:{
+        transform: (code: string) => {
+          // Transform style enum - remove spaces and transform
+          code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={FileUploaderStyle.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: FileUploaderStyle.${p1.replace(/\s+/g, "")}`);
+          // Transform state enum - remove spaces and transform
+          code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={FileUploaderState.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: FileUploaderState.${p1.replace(/\s+/g, "")}`);
+          // Transform HintPosition prop - remove spaces and transform
+          code = code.replace(/hintPosition="([^"]+)"/g, (match, p1) => `hintPosition={HintPosition.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/hintPosition:\s*"([^"]+)"/g, (match, p1) => `hintPosition: HintPosition.${p1.replace(/\s+/g, "")}`);
+          // Transform size prop - remove spaces and transform
+          code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={Size.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/size:\s*"([^"]+)"/g, (match, p1) => `size: Size.${p1.replace(/\s+/g, "")}`);
+          return code;
+        },
+      }
+      }
   },
   tags: ["autodocs"],
   argTypes: {

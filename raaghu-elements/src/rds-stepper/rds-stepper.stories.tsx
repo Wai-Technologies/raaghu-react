@@ -118,7 +118,7 @@ export const Dash: Story = {
 
 Dash.parameters = {
     controls: {
-        include: ['state', 'height', 'steps', 'stepDetails']
+        include: [ 'height', 'steps', 'stepDetails']
     }
 };
 
@@ -126,15 +126,15 @@ Dash.parameters = {
 export const Block: Story = {
     args: {
         role: "Block",
-        steps: 5,
-        state: 'default',
-        stepNames: ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"]
+        steps: 3,
+        // state: 'default',
+        stepDetailsName: [{stepName: "Step 1", stepState: 'completed'}, {stepName: "Step 2", stepState: 'completed'}, {stepName: "Step 3", stepState: 'completed'}]
     },
 } satisfies Story;
 
 Block.parameters = {
     controls: {
-        include: ['state', 'steps', 'stepNames']
+        include: ['steps', 'stepDetailsName']
     }
 };
 
