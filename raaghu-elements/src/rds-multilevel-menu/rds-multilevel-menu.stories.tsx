@@ -9,12 +9,14 @@ const meta: Meta = {
         docs: {
             source: {
                 transform: (code: string) => {
-                    // Transform size enum
+                    // Transform boolean props to show without ={true}
+                    code = code.replace(/="true"/g, '');
+                    
+                    // Transform enum values to show in curly braces
                     code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={MenuSize.${p1}}`);
-                    // Transform type enum
                     code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={MenuType.${p1}}`);
-                    // Transform state enum
                     code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={MenuState.${p1}}`);
+                    
                     return code;
                 }
             }

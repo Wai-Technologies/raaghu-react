@@ -1,4 +1,3 @@
-import { transform } from "typescript";
 import RdsColorPicker, { ColorMode, ColorPickerType, PickerType } from "./rds-color-picker";
 import { Meta, StoryObj } from "@storybook/react";
 
