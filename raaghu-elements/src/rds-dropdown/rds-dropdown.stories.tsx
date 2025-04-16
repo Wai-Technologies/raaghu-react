@@ -1,7 +1,6 @@
 import React from "react";
 import RdsDropdown, { DisplayType, Layout, Shape, State, Style, TooltipPlacement } from "./rds-dropdown";
 import { Meta, StoryObj } from "@storybook/react";
-import { transform } from "typescript";
 
 const meta: Meta = {
     title: 'Elements/Dropdown Button',

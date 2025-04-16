@@ -1,7 +1,6 @@
 import React from "react";
 import RdsRating, { ColorVariant, RatingStyle, RatingType } from "./rds-rating";
 import { Meta, StoryObj } from "@storybook/react";
-import { transform } from "typescript";
 
 const meta: Meta = {
     title: 'Elements/Rating',

@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import RdsNotification, { NotificationLayout, NotificationStyle, NotificationType } from "./rds-notification";
-import { transform } from "typescript";
 
 const meta: Meta = {
     title: "Elements/Notification",
