@@ -117,9 +117,9 @@
 .btn-transition:hover {
     transform: scale(1.1);
 }
-.btn-md svg {
+/* .btn-md svg {
     stroke-width: 0px;
-}
+} */
 .theme-light svg {
     stroke: none !important;
 }
