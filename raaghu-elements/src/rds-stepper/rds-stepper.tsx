@@ -48,6 +48,10 @@ export interface RdsStepperProps {
         stepNumber: number;
         stepState: string;
     }[];
+    stepDetailsName?: {
+        stepName: string;
+        stepState: string;
+    }[];
     StepIconName?: {
         iconName: string;
         iconFill: boolean;
@@ -208,25 +212,25 @@ const RdsStepper = (props: RdsStepperProps) => {
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`block_step d-flex align-items-center justify-content-center ${props.state === 'default'
+                                className={`block_step d-flex align-items-center justify-content-center ${props.stepDetailsName && props.stepDetailsName[index].stepState === 'default'
                                     ? 'bg-default'
-                                    : props.state === 'inprogress'
+                                    : props.stepDetailsName && props.stepDetailsName[index].stepState === 'inprogress'
                                         ? index === 0
                                             ? 'bg-completed'
                                             : index === 1
                                                 ? 'bg-inprogress'
                                                 : 'bg-default'
-                                        : props.state === 'completed'
-                                            ? index < (props.steps ?? 0) - 1
+                                        : props.stepDetailsName && props.stepDetailsName[index].stepState === 'completed'
+                                            ? index < (props.steps ?? 0)
                                                 ? 'bg-completed'
                                                 : 'bg-inprogress'
-                                            : props.state === 'error'
+                                            : props.stepDetailsName && props.stepDetailsName[index].stepState === 'error'
                                                 ? index === 0 || index === 1
                                                     ? 'bg-completed'
                                                     : index === 2
                                                         ? 'bg-error'
                                                         : 'bg-default'
-                                                : index < (props.steps ?? 0) - 1
+                                                : index < (props.steps ?? 0)
                                                     ? 'bg-completed'
                                                     : 'bg-inprogress'
                                     }`}
@@ -246,7 +250,7 @@ const RdsStepper = (props: RdsStepperProps) => {
                                                     : '0'
                                 }}
                             >
-                                {props.stepNames && props.stepNames[index] ? props.stepNames[index] : `Step ${index + 1}`}
+                                {props.stepDetailsName && props.stepDetailsName[index].stepName ? props.stepDetailsName[index].stepName : `Step ${index + 1}`}
                             </div>
                         ))}
                     </div>
