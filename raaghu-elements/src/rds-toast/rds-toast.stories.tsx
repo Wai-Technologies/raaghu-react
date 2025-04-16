@@ -7,6 +7,25 @@ const meta: Meta = {
     component: RdsToast,
     parameters: {
         layout: "padded",
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state:ToastState ${p1.replace(/\s+/g, "")}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout:ToastLayout ${p1.replace(/\s+/g, "")}`);
+                    //Transform leadingIcon enum - remove spaces and transform
+                    code = code.replace(/leadingIcon="([^"]+)"/g, (match, p1) => `leadingIcon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/leadingIcon:\s*"([^"]+)"/g, (match, p1) => `leadingIcon:ToastLeadingIcon ${p1.replace(/\s+/g, "")}`);
+                    //Transform position enum - remove spaces and transform
+                    code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ToastPosition.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position:ToastPosition ${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ["autodocs"],
     argTypes: {

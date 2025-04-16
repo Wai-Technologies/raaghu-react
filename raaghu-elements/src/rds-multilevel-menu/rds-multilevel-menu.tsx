@@ -3,19 +3,19 @@ import RdsIcon from "../rds-icon";
 import "../../../raaghu-react-themes/src/styles/multilevel-menu.scss";
 
 export enum MenuSize {
-  Default = "default",
-  Large = "large",
+  Default = "Default",
+  Large = "Large",
 }
 
 export enum MenuType {
-  Selectable = "selectable",
-  Expandable = "expandable",
+  Selectable = "Selectable",
+  Expandable = "Expandable",
 }
 
 export enum MenuState {
-  Default = "default",
-  Hover = "hover",
-  Selected = "selected",
+  Default = "Default",
+  Hover = "Hover",
+  Selected = "Selected",
 }
 
 export interface RdsMultilevelMenuProps {
@@ -66,7 +66,7 @@ const largeItem = [
 ];
 
 const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
-  const { type, size = "default", state = "default" } = props;
+  // const { type, size = "default", state = "default" } = props;
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({});
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -93,7 +93,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
     setExpandedItems({});
   };
 
-  const itemsList = size === "large" ? largeItem : defaultItems;
+  const itemsList = props.size === MenuSize.Large? largeItem : defaultItems;
 
   return (
     <div className="row">
@@ -116,7 +116,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                 <label style={{ cursor: "pointer" }}>
                   <span>{item.label}</span>
                 </label>
-                {type === "expandable" && item.submenu ? (
+                {props.type === MenuType.Expandable && item.submenu ? (
                   <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(item.id); }} style={{ cursor: "pointer" }}>
                     <RdsIcon
                       name={"chevron_right"}
@@ -162,7 +162,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                             <label style={{ cursor: "pointer" }}>
                               <span>{child.label}</span>
                             </label>
-                            {type === "expandable" && child.submenu ? (
+                            {props.type === MenuType.Expandable && child.submenu ? (
                               <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(child.id); }} style={{ cursor: "pointer" }}>
                                 <RdsIcon
                                   name={"chevron_right"}

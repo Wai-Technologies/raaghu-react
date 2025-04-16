@@ -7,6 +7,22 @@ const meta: Meta = {
   component: RdsInput,
   parameters: {
     layout: 'padded',
+    docs: {
+      source:{
+        transform:(code:string) => {
+          // Transform InputSize enum - remove spaces and transform
+          code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={InputSize.${p1.replace(/\s+/g, '')}}`);
+          code = code.replace(/size:\s*"([^"]+)"/g, (match, p1) => `size: InputSize.${p1.replace(/\s+/g, '')}`);
+          // Transform LabelPosition enum - remove spaces and transform
+          code = code.replace(/labelPosition="([^"]+)"/g, (match, p1) => `labelPosition={LabelPosition.${p1.replace(/\s+/g, '')}}`);
+          code = code.replace(/labelPosition:\s*"([^"]+)"/g, (match, p1) => `labelPosition: LabelPosition.${p1.replace(/\s+/g, '')}`);
+          // Transform TooltipPlacement enum - remove spaces and transform
+          code = code.replace(/tooltipPlacement="([^"]+)"/g, (match, p1) => `tooltipPlacement={TooltipPlacement.${p1.replace(/\s+/g, '')}}`);
+          code = code.replace(/tooltipPlacement:\s*"([^"]+)"/g, (match, p1) => `tooltipPlacement: TooltipPlacement.${p1.replace(/\s+/g, '')}`);
+          return code;
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {

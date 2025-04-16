@@ -7,6 +7,25 @@ const meta: Meta = {
     component: RdsRating,
     parameters: {
         layout: 'padded',
+        docs: {
+            source : {
+                transform: (code: string) => {
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={RatingType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: RatingType.${p1.replace(/\s+/g, '')}`);
+                    // Transform colorVariant enum - remove spaces and transform
+                    code = code.replace(/colorVariant="([^"]+)"/g, (match, p1) => `colorVariant={ColorVariant.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/colorVariant:\s*"([^"]+)"/g, (match, p1) => `colorVariant: ColorVariant.${p1.replace(/\s+/g, '')}`);
+                    // Transform ratingStyle enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={RatingStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: RatingStyle.${p1.replace(/\s+/g, '')}`);
+                    //Transform rating enum - remove spaces and transform
+                    code = code.replace(/rating="([^"]+)"/g, (match, p1) => `rating={${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/rating:\s*"([^"]+)"/g, (match, p1) => `rating: ${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
