@@ -143,7 +143,7 @@
   }
   
   .btn-margin{
-    margin: 6px 0px 6px 0px !important;
+    margin: 20px 0px 6px 0px !important;
   }
   .add-board{
     width: 300px !important;
@@ -177,4 +177,7 @@
   
   .sub-card:active {
     cursor: grabbing;
+  }
+  .kanban-board .card{
+    border-radius: 0px;
   }

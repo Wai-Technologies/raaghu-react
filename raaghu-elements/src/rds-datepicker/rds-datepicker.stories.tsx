@@ -7,6 +7,22 @@ const meta: Meta = {
     component: RdsDatepicker,
     parameters: {
         layout: 'padded',
+        docs :{
+            source:{
+                transform: (code: string) => {
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/datePickerStyleType="([^"]+)"/g, (match, p1) => `datePickerStyleType={DatePickerStyleType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/datePickerStyleType:\s*"([^"]+)"/g, (match, p1) => `datePickerStyleType: DatePickerStyleType.${p1.replace(/\s+/g, '')}`);
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={DatePickerLayout.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: DatePickerLayout.${p1.replace(/\s+/g, '')}`);
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={DatePickerState.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: DatePickerState.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {

@@ -12,6 +12,14 @@ const meta: Meta = {
     component: RdsInputGroup,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(small|medium|large)"/g, '{InputGroupSize.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {

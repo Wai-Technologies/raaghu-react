@@ -22,6 +22,14 @@ const meta: Meta<typeof RdsChatHeader> = {
   },
   parameters: {
     layout: "padded",
+    docs: {
+      source: {
+          transform: (code: string) => {
+              code = code.replace(/"(small|medium|large)"/g, '{ChatHeaderSize.$1}');
+              return code;
+          },
+      },
+  },
   },
   tags: ["autodocs"],
 };
