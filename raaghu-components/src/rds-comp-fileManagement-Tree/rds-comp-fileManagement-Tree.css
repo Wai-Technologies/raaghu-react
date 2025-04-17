@@ -3,3 +3,15 @@
         padding-left: 2rem !important;
       }
     }
+    .hover-button :hover {
+      background: none;
+  }
+    .hover-button .undefined:hover {
+      background: #b190e0!important;
+  }
+    .hover-button .d-inline-block:hover {
+      background: #b190e0!important;
+  }
+    .hover-button .btn:hover {
+        background: #b190e0!important;
+    }
