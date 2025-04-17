@@ -11,7 +11,10 @@ const meta: Meta<typeof RdsCompUserComments> = {
     },
     tags: ['autodocs'],
     argTypes: {
-        allowDelete: { control: "boolean" },
+        allowDelete: { 
+            control: "boolean",
+            description: "When true, allows deletion of any message (both sent and received)" 
+        },
         isEmojiPicker: { control: "boolean" },
         isFilepload: { control: "boolean" },
         dateFormat: {
