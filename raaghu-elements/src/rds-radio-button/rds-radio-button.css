@@ -35,8 +35,11 @@
   margin-left: 32px;
   text-align: center;
 }
-
+.theme-dark .form-check-input:checked {
+  background-color: #0a0a0a !important;
+  border-color: #7825E9!important; 
+}
 .theme-dark .form-check-input .radio-toggle-switch:checked {
   background-color: #dee2e6 !important;
-  border-color: #7825E9;
+  border-color: #7825E9!important; 
 }
