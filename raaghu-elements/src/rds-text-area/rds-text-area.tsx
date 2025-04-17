@@ -132,11 +132,11 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
       {props.labelPosition === "bottom" && (
         <label className="form-label mt-1">
           {props.label}
-          {props.isMandatory && <span className="text-danger fs-6"> *</span>}
+          {props.isMandatory && <span className="text-danger form-control-feedback fs-6"> *</span>}
         </label>
       )}
       {!isValid && props.validationMsg && (
-        <div className="text-danger text-end">{props.validationMsg}</div>
+        <div className="text-danger form-control-feedback text-end">{props.validationMsg}</div>
       )}
     </div>
   );

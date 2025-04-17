@@ -2,10 +2,6 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import RdsAvatar, { AvatarSize, AvatarStyle, AvatarBorder} from "./rds-avatar";
 
-const colorVariantArgTypes = {
-
-};
-
 const textAlignArgTypes = {
     titleAlign: {
         options: ["horizontal", "vertical"],
@@ -18,6 +14,16 @@ const meta: Meta = {
     component: RdsAvatar,
     parameters: {
         layout: 'padded',
+        docs:{
+            source:{
+                transform: (code: string) => {
+                    code = code.replace(/"(smallest|small|medium|large|largest)"/g, '{AvatarSize.$1}');
+                    code = code.replace(/"(NoBorder|solid|dashed|dotted)"/g, '{AvatarBorder.$1}');
+                    code = code.replace(/"(withname|nameonbottom|stacking)"/g, '{AvatarStyle.$1}');
+                    return code;
+                },
+            },
+        }
     },
     tags: ['autodocs'],
     argTypes: {

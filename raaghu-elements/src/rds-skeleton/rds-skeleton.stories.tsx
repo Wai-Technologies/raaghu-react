@@ -7,6 +7,19 @@ const meta: Meta = {
   component: RdsSkeleton,
   parameters: {
     layout: "padded",
+    docs : {
+      source:{
+        transform: (code: string) => {
+          // Transform shape enum - remove spaces and transform
+          code = code.replace(/shape="([^"]+)"/g, (match, p1) => `shape={RdsSkeletonShape.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/shape:\s*"([^"]+)"/g, (match, p1) => `shape: RdsSkeletonShape.${p1.replace(/\s+/g, "")}`);
+          // Transform state enum - remove spaces and transform
+          code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={SkeletonState.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: SkeletonState.${p1.replace(/\s+/g, "")}`);
+          return code;
+        }
+      }
+    },
   },
   tags: ["autodocs"],
   argTypes: {

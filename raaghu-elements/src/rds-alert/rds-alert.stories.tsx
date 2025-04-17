@@ -5,6 +5,20 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof RdsAlert> = {
   title: "Elements/Alerts",
   component: RdsAlert,
+  parameters: {
+    // layout: 'centered',
+    docs: {
+      source: {
+        transform: (code: string) => {
+          code = code.replace(/"(info|success|warning|error)"/g, '{AlertType.$1}');
+          code = code.replace(/"(none|single|left border)"/g, '{AlertBorder.$1}');
+          code = code.replace(/"(top|bottom)"/g, '{AlertPosition.$1}');
+          code = code.replace(/"(singleline|multiline)"/g, '{AlertDisplayType.$1}');
+          return code;
+        }
+      }
+    }
+  },
   tags: ["autodocs"],
   argTypes: {
     type: {

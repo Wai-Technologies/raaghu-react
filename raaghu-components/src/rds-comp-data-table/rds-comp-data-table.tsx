@@ -17,13 +17,13 @@ import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export enum ActionPosition {
-  Right = "right",
-  Left = "left",
+  Right = "Right",
+  Left = "Left",
 }
 
 export enum ActionColumnStyle {
-  ShowDots = "show dots",
-  ShowButtonsDirectly = "show buttons directly",
+  ShowDots = "ShowDots",
+  ShowButtonsDirectly = "ShowButtonsDirectly",
 }
 
 export interface RdsCompDatatableProps {
@@ -78,7 +78,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeDropdownId, setActiveDropdownId] = useState(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
-  const actionColumnStyle = props.actionColumnStyle || "show dots";
+  const actionColumnStyle = props.actionColumnStyle || "ShowDots";
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -318,7 +318,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
 
   const actionPosition =
     Object.prototype.hasOwnProperty.call(props, "actionPosition") &&
-    props.actionPosition === "right"
+    props.actionPosition === "Right"
       ? true
       : false;
 
@@ -380,7 +380,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         <>
           <div
             className={
-              props.actionPosition == "left"
+              props.actionPosition == "Left"
                 ? "table-responsive left-action"
                 : "table-responsive-none"
             }
@@ -693,7 +693,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 <td className="align-middle bg-transparent text-center actionWidth">
                                   {!tableDataRow.isEndUserEditing ? (
                                     <>
-                                      {actionColumnStyle === "show dots" && (
+                                      {actionColumnStyle === "ShowDots" && (
                                         <div className="btn-group dropstart">
                                           <button
                                             className="btn btn-sm btn-icon border-0 three-dot-btn"
@@ -809,7 +809,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                         </div>
                                       )}
                                       {actionColumnStyle ===
-                                        "show buttons directly" && (
+                                        "ShowButtonsDirectly" && (
                                         <div
                                           className="d-flex flex-wrap align-items-center justify-content-center mx-1"
                                           id="action_column"
@@ -1382,7 +1382,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                 <td className="align-middle text-center">
                                   {!tableDataRow?.isEndUserEditing ? (
                                     <>
-                                      {actionColumnStyle === "show dots" && (
+                                      {actionColumnStyle === "ShowDots" && (
                                         <div className="btn-group dropstart">
                                           <button
                                             className="btn btn-sm btn-icon border-0 three-dot-btn"
@@ -1499,7 +1499,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                       )}
                                       <div>
                                         {actionColumnStyle ===
-                                          "show buttons directly" && (
+                                          "ShowButtonsDirectly" && (
                                           <div
                                             className="d-flex align-items-center justify-content-center mx-1"
                                             id="action_column"

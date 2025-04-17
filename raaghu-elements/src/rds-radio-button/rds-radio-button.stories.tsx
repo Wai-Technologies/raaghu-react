@@ -5,6 +5,21 @@ import RdsRadioButton, { RdsRadioButtonLayout, RdsRadioButtonState } from "./rds
 const meta: Meta = {
     title: "Elements/Radio Button",
     component: RdsRadioButton,
+    parameters: {
+    docs: {
+        source :{
+            transform:(code: string) => {
+                // Transform layout enum - remove spaces and transform
+                code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={RdsRadioButtonLayout.${p1.replace(/\s+/g, '')}}`);
+                code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: RdsRadioButtonLayout.${p1.replace(/\s+/g, '')}`);
+                // Transform state enum - remove spaces and transform
+                code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={RdsRadioButtonState.${p1.replace(/\s+/g, '')}}`);
+                code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: RdsRadioButtonState.${p1.replace(/\s+/g, '')}`);
+                return code;
+            }
+        }
+    }
+    },
     argTypes: {
         // displayType: {
         //     options: [
