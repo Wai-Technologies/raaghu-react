@@ -27,6 +27,7 @@
 
 #sidebar {
     background-color: #fff !important;
+    width: 56px !important;
 }
 
 .show_one {
@@ -67,4 +68,9 @@
 .theme-dark #sidebar {
     background-color: #414141 !important;
     border-right-color: #414141 !important;
+}
+@media (max-width: 767px) {
+    #sidebar.show {
+        width: 56px !important;
+    }
 }
