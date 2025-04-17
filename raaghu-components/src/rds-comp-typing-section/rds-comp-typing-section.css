@@ -113,7 +113,11 @@
     right: 28px !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
 }
-
+.btn-md svg {
+    width: 12px !important;
+    height: 17px !important;
+    stroke-width: 2.5;
+}
 .btn-transition:hover {
     transform: scale(1.1);
 }
