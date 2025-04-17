@@ -1,6 +1,12 @@
 .customWidthClass {
     --bs-dropdown-min-width: 4.4rem !important;
 }
+
+.customrecordpagedropdown {
+  margin-top: -4px !important;
+  padding-left: 6px !important;
+  color: #8b8b8b !important;
+}
 /*
 .custom-navigation .customWidthForBtn {
     min-width: 4.4rem !important;
@@ -41,10 +47,14 @@
     z-index: 0 !important;
     font-size: small !important;
   }
-  
+  .theme-dark .page-item.active a {
+    background-color: #ced4da; /* Customize as needed */
+    color:#a4a2a2 !important;
+    font-weight:700 !important;
+  }
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
-    color:#c7cacd !important;
+    color:#303030 !important;
     font-weight:700 !important;
   }
   
@@ -100,5 +110,9 @@
   color: #7c7d7dfa !important;
 }
 .theme-dark .btn {
-  color: #b8b8b8;
+  color: #d4d0d0 !important;
+}
+.theme-dark svg {
+  stroke: none !important; 
+  color: none !important; 
 }
