@@ -79,11 +79,11 @@ const RdsNotification = (props : RdsNotificationProps) => {
                     <div className={`notification-body mt-2 ${props.layout === "horizontal" && (props.style === "avatar" || props.style === "icon") ? "ms-5" : ""} `}>
                     {props.style === "image" && props.layout === "horizontal" && (
                             <img
-                                src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
+                                src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg"}
                                 alt="Notification"
-                                className={`notification-image img-fluid ${props.layout === "horizontal" ? "me-3" : "h-50 w-100"}`}
-                                height="50px"
-                            width="120px"
+                                className={`notification-image img-fluid ${props.layout === "horizontal" ? "me-2" : "h-50 w-100"}`}
+                                height="70px"
+                            width="70px"
                             />
                         )}
                         {notification.description}
