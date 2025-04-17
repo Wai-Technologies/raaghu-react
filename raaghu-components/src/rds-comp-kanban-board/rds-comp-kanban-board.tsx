@@ -15,7 +15,7 @@ import { RdsCard } from "../rds-elements";
 import { RdsBadge } from "../rds-elements";
 import "./rds-comp-kanban-board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { CardTypes } from "../../../raaghu-elements/src/rds-card/rds-card";
 import { DropdownSize, DropdownState, DropdownStyle } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 
@@ -71,9 +71,9 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   const [allowAddingNewCard, setAllowAddingNewCard] = useState(
     props.allowAddingNewCard || true
   );
-  const [allowAddingNewSubCard, setAllowAddingNewSubCard] = useState(
-    props.allowAddingNewSubCard || true
-  );
+  // const [allowAddingNewSubCard, setAllowAddingNewSubCard] = useState(
+  //   props.allowAddingNewSubCard || true
+  // );
 
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(
     props.allowAddingNewCard ? false : true
@@ -837,10 +837,10 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                 )}
                               </Draggable>
                             ))}
-                            {allowAddingNewSubCard && (
+                            {props.allowAddingNewSubCard && (
                               <>
                                 {subCardInputsVisible === index ? (
-                                  <div className="mt-3">
+                                  <div className="mt-2">
                                     {/* <RdsInput
                                       id=""
                                       inputType="text"
@@ -902,21 +902,18 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                     {/* </div> */}
 
                                     <RdsDropdownList
-                                      // isSearch={true}
-                                      hint="Hint Text"
                                       icon="dropdown_icon"
                                       iconHeight="1px"
                                       iconWidth="1px"
                                       borderDropdown={true}
                                       isPlaceholder={true}
                                       listItems={props?.allCategoriesList}
-                                      showHint
                                       showIcon
                                       showTitle
                                       size={DropdownSize.Default}
                                       state={DropdownState.Default}
                                       style={DropdownStyle.Default}
-                                      title="Label"
+                                      title="Category"
                                       onClick={(e: any, val: any) =>
                                         handleAddQuestionDataChanges(
                                           val,
@@ -925,46 +922,63 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                       }
                                       placeholder="Select Category"
                                     />
-                                    <div className="pt-1">
-                                      <RdsInput
-                                        id=""
-                                        inputType="text"
-                                        placeholder="Enter Title"
-                                        showIcon
-                                        size={InputSize.Medium}
-                                        value={addQuestionData?.title || ""}
-                                        onChange={(e: any) => handleAddQuestionDataChanges(
-                                          e.target.value,
-                                          "title"
-                                        )} name={""} />
+                                    <div className="">
+                                        <RdsInput
+                                          fontWeight="normal"
+                                          id="default-input"
+                                          inputType="text"
+                                          label
+                                          labelPosition={LabelPosition.Top}
+                                          name="Title"
+                                          placeholder="Enter Title"
+                                          showIcon
+                                          size={InputSize.Medium}
+                                          state="default"
+                                          style="Default"
+                                          value={addQuestionData?.title || ""}
+                                          onChange={(e: any) => handleAddQuestionDataChanges(
+                                            e.target.value,
+                                            "title"
+                                          )}
+                                        />
                                     </div>
-                                    <div className="pt-1">
+                                    <div className="">
                                       <RdsInput
-                                        id=""
+                                        fontWeight="normal"
+                                        id="default-input"
                                         inputType="text"
+                                        label
+                                        labelPosition={LabelPosition.Top}
+                                        name="Description"
                                         placeholder="Enter Description"
+                                        showIcon={false}
+                                        size={InputSize.Medium}
+                                        state="default"
+                                        style="Default"
                                         value={addQuestionData?.description || ""}
                                         onChange={(e: any) => handleAddQuestionDataChanges(
                                           e.target.value,
                                           "description"
                                         )}
-                                        size={InputSize.Small} name={""} />
+                                        />
                                     </div>
-                                    <div className="pt-1">
+                                    <div className="mt-3">
                                       <RdsDropdownList
+                                      showTitle
                                         borderDropdown={true}
                                         isPlaceholder={true}
                                         listItems={props.allTagsList}
                                         multiSelect={true}
-                                        // isSearch={true}
+                                        title="Tags"
                                         placeholder="Select Tags"
                                         selectedItems={(items) => {
                                           onSelectedCreators(items);
+                                          
                                         }}
                                       />
                                     </div>
 
-                                    <div className="mt-2 d-flex add-item-btn btn-margin">
+                                    <div className=" d-flex add-item-btn btn-margin">
                                       <RdsButton
                                        badgeLayout="Text_only"
                                        badgeState="default"
@@ -982,11 +996,11 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                         onClick={() => onAddSubCardClick(index)}
                                       />
                                       <RdsIcon
-                                        classes={"m-2 close-board"}
+                                        classes={"close-board mt-2 mx-2"}
                                         colorVariant="black"
                                         name="cancel"
-                                        height="12px"
-                                        width="12px"
+                                        height="8px"
+                                        width="8px"
                                         onClick={() =>
                                           setSubCardInputsVisible(null)
                                         }
@@ -1025,58 +1039,60 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
             )}
           </div>
         ))}
-        {allowAddingNewCard && (
-          <>
-            {showAddBoardBtn && (
-              <div className=" mt-2 add-board">
-                <div className="col-md-12">
-                  <RdsInput
-                    id=""
-                    inputType="text"
-                    placeholder="Enter Board Title"
-                    size={InputSize.Small}
-                    value={boardName}
-                    onChange={(event) => handleDataChanges(event)} name={""} />
-                </div>
-                <div className="mt-2 d-flex add-item-btn btn-margin">
-                  <RdsButton
-                    colorVariant="default"
-                    icon="plus_circle"
-                    label="Add Board"
-                    size="medium"
-                     style="outline"
-                     state="hover"
-                    onClick={onAddButtonClick}
-                  />
-                  <RdsIcon
-                    classes={"m-2"}
-                    colorVariant="black"
-                    name="cancel"
-                    height="13px"
-                    width="13px"
-                    onClick={onCancel}
-                  />
-                </div>
-              </div>
-            )}
-            {!showAddBoardBtn && addButton && (
-              <div className="d-flex align-items-center mt-2 add-board">
-                <div className="add-item-btn add-board-btn flex-grow-1">
-                  <RdsButton
-                    class="mt-2"
-                    colorVariant="default"
-                    icon="plus_circle"
-                    label="Add Board"
-                    size="medium"
-                     style="outline"
-                     state="hover"
-                    onClick={handleShowInputBox}
-                  />
-                </div>
-              </div>
-            )}
-          </>
-        )}
+       {props.allowAddingNewCard !== undefined && (
+  <>
+    {showAddBoardBtn && props.allowAddingNewCard && (
+      <div className="mt-2 add-board">
+        <div className="col-md-12">
+          <RdsInput
+            id=""
+            inputType="text"
+            placeholder="Enter Board Title"
+            size={InputSize.Small}
+            value={boardName}
+            onChange={(event) => handleDataChanges(event)}
+            name=""
+          />
+        </div>
+        <div className="mt-2 d-flex add-item-btn btn-margin">
+          <RdsButton
+            colorVariant="default"
+            icon="plus_circle"
+            label="Add Board"
+            size="medium"
+            style="outline"
+            state="hover"
+            onClick={onAddButtonClick}
+          />
+          <RdsIcon
+            classes={"m-2"}
+            colorVariant="black"
+            name="cancel"
+            height="13px"
+            width="13px"
+            onClick={onCancel}
+          />
+        </div>
+      </div>
+    )}
+    {!showAddBoardBtn && props.allowAddingNewCard && addButton && (
+      <div className="d-flex align-items-center mt-2 add-board">
+        <div className="add-item-btn add-board-btn flex-grow-1">
+          <RdsButton
+            class="mt-2"
+            colorVariant="default"
+            icon="plus_circle"
+            label="Add Board"
+            size="medium"
+            style="outline"
+            state="hover"
+            onClick={handleShowInputBox}
+          />
+        </div>
+      </div>
+    )}
+  </>
+)}
       </div>
     </DragDropContext>
   );
