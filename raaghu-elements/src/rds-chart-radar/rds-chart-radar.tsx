@@ -35,7 +35,7 @@ const RdsRadarChart = (props: RdsRadarProps) => {
 
     if (radarCanvas != null) {
       radarCanvas.canvas.style.height = "250px";
-      radarCanvas.canvas.style.width = "260px";
+      radarCanvas.canvas.style.width = "275px";
       chartInstanceRef.current = radarCanvas; // Store the chart instance
     }
   }, [props]);
