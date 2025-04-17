@@ -147,6 +147,15 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     </div>
                     <div id="typing-section" className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 align-self-end me-3 mb-3"}`}>
+                        <div className="mt-1">
+                    <RdsIcon
+                        colorVariant="primary"
+                        height="20px"
+                        isCursorPointer
+                        name="prompt"
+                        width="20px"
+                    />
+                    </div>
                         {!isMobile &&
                             <RdsAttachement
                                 badgeColor="success"
