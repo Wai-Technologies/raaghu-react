@@ -78,7 +78,7 @@ const RdsInputGroup = (props: RdsInputGroupProps) => {
               showTitle={false}
             ></RdsInput>
           </div>
-          <div className="mb-2">
+          <div className="mb-1">
             <RdsButton
               label={props.buttonLabel}
               tooltipTitle={""}

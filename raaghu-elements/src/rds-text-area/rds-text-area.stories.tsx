@@ -9,6 +9,19 @@ const meta: Meta = {
     component: RdsTextArea,
     parameters: {
         layout: 'padded',
+        docs:{
+            source:{
+                transform: (code: string) => {
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TextareaState.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state:TextareaState ${p1.replace(/\s+/g, "")}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style:TextareaStyle ${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
