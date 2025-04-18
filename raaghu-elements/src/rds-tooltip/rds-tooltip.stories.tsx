@@ -7,6 +7,15 @@ const meta: Meta = {
     component: Tooltip,
     parameters: {
         layout: 'centered',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(NoArrow|MiddleBottomArrow|MiddleTopArrow|LeftArrow|RightArrow|LeftTopArrow|RightTopArrow|LeftBottomArrow|RightBottomArrow)"/g, '{TooltipStyle.$1}');
+                    code = code.replace(/"(hover|click|focus|manual)"/g, '{TooltipTrigger.$1}');
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {

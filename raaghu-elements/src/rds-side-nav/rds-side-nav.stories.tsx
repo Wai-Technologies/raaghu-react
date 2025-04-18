@@ -8,6 +8,22 @@ const meta: Meta = {
     component: RdsSideNav,
     parameters: {
         layout: "padded",
+        docs:   {
+            source :{
+                transform: (code: string) => {
+                // Transform navLayout enum - remove spaces and transform
+                code = code.replace(/navLayout="([^"]+)"/g, (match, p1) => `navLayout={NavLayout.${p1.replace(/\s+/g, '')}}`);
+                code = code.replace(/navLayout:\s*"([^"]+)"/g, (match, p1) => `navLayout: NavLayout.${p1.replace(/\s+/g, '')}`);
+                // Transform navType enum - remove spaces and transform
+                code = code.replace(/navType="([^"]+)"/g, (match, p1) => `navType={NavType.${p1.replace(/\s+/g, '')}}`);
+                code = code.replace(/navType:\s*"([^"]+)"/g, (match, p1) => `navType: NavType.${p1.replace(/\s+/g, '')}`);
+                // Transform platform enum - remove spaces and transform
+                code = code.replace(/platform="([^"]+)"/g, (match, p1) => `platform={Platform.${p1.replace(/\s+/g, '')}}`);
+                code = code.replace(/platform:\s*"([^"]+)"/g, (match, p1) => `platform: Platform.${p1.replace(/\s+/g, '')}`);
+                return code;
+                }
+            }
+        }
     },
     tags: ["autodocs"],
     argTypes: {
@@ -115,18 +131,18 @@ const getSideNavItems = (platform: string[], navLayout: string) => {
             {
                 key: "1",
                 label: "Dashboard",
-                icon: "dashboard",
+                icon: "dashboard_meter",
             },
             {
                 key: "2",
                 label: "Saas",
-                icon: "tenant",
+                icon: "saas",
                 path: "",
             },
             {
                 key: "3",
                 label: "Administration",
-                icon: "administration",
+                icon: "administration_new",
                 path:"",
             },
             {
@@ -144,7 +160,7 @@ const getSideNavItems = (platform: string[], navLayout: string) => {
             {
                 key: "5",
                 label: "Payments",
-                icon: "payment",
+                icon: "payment_new",
                 path: "",
             },
             {

@@ -1,5 +1,5 @@
 /* Base styles */
-.tab {
+.tab-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,7 +11,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.tab svg {
+.tab-group svg {
     margin-right: 2px;
     margin-left: 2px;
 }
@@ -135,7 +135,7 @@
   gap: 10px;
 }
 
-.tab svg {
+.tab-group svg {
   width: 16px;
   height: 16px;
 }
@@ -144,9 +144,8 @@
   background: #9747ff;
   color: #fff;
   position: relative;
-  border-radius: 6px;
 }
-
+ 
 .vertical-flap::after {
   content: "";
   position: absolute;
@@ -155,9 +154,9 @@
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 10px solid #9747ff;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-left: 11px solid #9747ff;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
 }
 
 .vertical-pill {
@@ -188,8 +187,8 @@
   padding-right: 5px;
 }
 
-/* Common tab styles */
-.tab {
+/* Common tab-group styles */
+.tab-group {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -201,31 +200,28 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Default state */
-/* .tab.default {
-  background-color: transparent;
-  color: #f6f4f4;
-} */
-
 /* Hover state */
-.tab-hover:hover {
+.tab-group-hover:hover {
   background-color: #ebdcff !important;
   color: #444 !important;
 }
 
 /* Selected state */
-.tab.selected {
+.tab-group.selected {
   background-color: #9747FF; 
   color: #fff;
 }
-.tab-pill .selected{
+
+.tab-group-pill .selected {
   background-color: unset !important;
 }
-.vertical-pill .selected{
+
+.vertical-pill .selected {
   border-radius: 20px !important;
 }
+
 /* Disabled state */
-.tab.disabled {
+.tab-group.disabled {
   pointer-events: none;
   user-select: none;
   opacity: 0.5;
@@ -233,10 +229,10 @@
   color: #999;
 }
 
-.tab-pill{
+.tab-group-pill {
   border-radius: 20px !important;
 }
 
 .theme-dark div p {
   color: rgb(173 165 165) !important;
-  }
+}

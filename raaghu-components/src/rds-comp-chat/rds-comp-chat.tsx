@@ -57,6 +57,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   const [commentText, setCommentText] = useState<string>('');
   const [commentList, setCommentList] = useState<Comment[]>(comments);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
+  const [selectedMessageIndex, setSelectedMessageIndex] = useState<number | null>(null); // Track selected message for deletion
 
   useEffect(() => {
     setCommentList(comments); // Set initial comments from props
@@ -78,6 +79,20 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showEmojiPicker]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const commentContainer = document.querySelector('.comments-container');
+      if (commentContainer && !commentContainer.contains(event.target as Node)) {
+        setSelectedMessageIndex(null); // Reset selected message index
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   
   const handleAddComment = () => {
@@ -132,12 +147,29 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   const commentToDelete = commentList[index];
   const commentId = commentToDelete?.CommentId;
 
-  if (!commentId) return;
+  if (commentId === undefined) return;
 
   // Update the comments list
   setCommentList((prevList) => prevList.filter((_, i) => i !== index));
 
-  props.handleDeleteComment?.(commentId);
+  props.handleDeleteComment?.(commentId); // Trigger the callback with the comment ID
+};
+
+  const handleDeleteOptionClick = (index: number) => {
+    setSelectedMessageIndex((prevIndex) => (prevIndex === index ? null : index)); // Toggle selection
+  };
+
+  const confirmDeleteMessage = () => {
+    if (selectedMessageIndex === null) return;
+  
+    const commentToDelete = commentList[selectedMessageIndex];
+    const commentId = commentToDelete?.CommentId;
+  
+    // Update the comments list
+    setCommentList((prevList) => prevList.filter((_, i) => i !== selectedMessageIndex));
+  
+    commentId && props.handleDeleteComment?.(commentId);
+    setSelectedMessageIndex(null); // Reset the selected message index
   };
 
   const formatDate = (date: Date, dateFormat: string) => {
@@ -160,7 +192,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         const showDeleteIcon = allowDelete && (Date.now() - (comment.addedTime || 0) < deleteIconTimeout); // Show delete icon based on timeout
 
         return (
-          <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
+          <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`} onClick={() => handleDeleteOptionClick(index)}>
             <div className={`d-flex ${isCurrentUser ? 'flex-row-reverse' : ''}`}>
               <div className="profile-initials">
                 {comment.profilePic && comment.profilePic.trim() !== "" ? (
@@ -186,6 +218,20 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
                   {comment.comment}
                   {comment.image && <img src={comment.image} alt="uploaded" className="comment-image" />}
                 </div>
+                {selectedMessageIndex === index && (
+                  <div className="delete-option mt-2">
+                    <RdsIcon
+                    name="delete"
+                    fill={false}
+                    stroke={true}
+                    colorVariant="danger"
+                    isCursorPointer={true}
+                    width="18px"
+                    height="18px"
+                    onClick={confirmDeleteMessage}
+                  />
+                  </div>
+                )}
               </div>
 
               {showDeleteIcon && isCurrentUser && (
@@ -243,7 +289,6 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
               stroke={true}
               colorVariant="neutral"
               isCursorPointer={true}
-              width="30px"
               height="30px"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Toggle emoji picker
             />
@@ -258,6 +303,11 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       placeholder="Type comment..."
       name="Comment"
       onChange={(e) => setCommentText(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleAddComment();
+        }
+      }}
       showIcon={false} 
     />
     <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-3">

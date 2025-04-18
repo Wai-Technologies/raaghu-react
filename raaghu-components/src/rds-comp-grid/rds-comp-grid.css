@@ -72,9 +72,9 @@
 .theme-light svg {
   stroke:#dee2e6 !important;
 }
-.theme-dark .btn {
-  color: #6e6e6e !important;
-}
+/* .theme-dark .btn {
+  color: #6e6e6e;
+} */
 .btn.btn-neutral {
   background: #ffffff!important;
   color: #202020!important;

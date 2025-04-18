@@ -236,31 +236,33 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
 
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: any) => (
-        <div
-          ref={measureRef}
-          className="full-width custom-content-scroll"
+    {({ measureRef }: any) => (
+      <div
+        ref={measureRef}
+        className="full-width custom-content-scroll position-absolute ms-3"
+        style={{
+          background: 'none',
+          width: '100%',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          paddingBottom: '8px',
+          textAlign: 'center', 
+        }}
+      >
+        <svg
+          className="contribution-svg contribution-font"
+          width={svgWidth}
+          height={svgHeight}
           style={{
-            background: 'none',
-            width: '100%',
-            overflowX: 'auto', 
-            whiteSpace: 'nowrap', 
-            paddingBottom: '8px', 
+            minWidth: `${svgWidth}px`,
+            display: 'inline-block', 
           }}
         >
-          <svg
-            className="contribution-svg contribution-font"
-            width={svgWidth}
-            height={svgHeight}
-            style={{
-              minWidth: `${svgWidth}px`, 
-            }}
-          >
-            {innerDom}
-          </svg>
-        </div>
-      )}
-    </Measure>
+          {innerDom}
+        </svg>
+      </div>
+    )}
+  </Measure>
   );
 };
 

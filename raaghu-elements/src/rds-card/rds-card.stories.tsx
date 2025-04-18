@@ -19,6 +19,13 @@ const meta: Meta = {
   component: RdsCard,
   parameters: {
     layout: 'padded',
+    docs: {
+      source: {
+        transform: (code: string) => {
+          return code.replace(/"(Card With Image|Card With Ring Chart|Card With Map|Card With Graph|Example-Badges|Card With Button|Card With Link Button|Example-Avatar|Example-Tags|Card With Boolean Chart|Card With Line Chart|Card With DataTable|Card With Chart|Card With Table|Advance Card)"/g, '{CardTypes.$1}');
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -81,6 +88,15 @@ const commonArgs = {
   imageUrl: "https://picsum.photos/seed/picsum/1200/600",
   showCardText: true,
 };
+
+export const AdvanceCard: Story = {
+    args: {
+        ...commonArgs,
+        type: CardTypes.AdvanceCard,
+
+    },
+};
+AdvanceCard.parameters = { controls: { include: ['cardTitle','cardText','buttonLabel1','showFooter',] } };
 
 export const CardWithButton: Story = {
   args: {
