@@ -106,7 +106,7 @@ svg.text-dark {
   border: none !important;
 }
 .comp-grid .btn.btn-transparent-primary {
-  color: #1d1d1e;
+  color: #1d1d1e !important;
   border-color: none;
 }
 
