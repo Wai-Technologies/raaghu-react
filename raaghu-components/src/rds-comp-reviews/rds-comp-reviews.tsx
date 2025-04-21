@@ -6,8 +6,6 @@ import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export enum VariantType {
   Default = "Default",
-  WithSummaryChart = "with-summary-chart",
-  MultiColumn = "multi-column",
 }
 
 export enum RevieweStyle {
@@ -422,7 +420,9 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                         type={RatingType.Star}
                         rating={4.75} 
                       />
-                      <span className="fw-bold card-title mt-1">{item.reviews}</span>
+                      <div className="mt-1">
+                      <span className="fw-bold card-title">{item.reviews}</span>
+                      </div>
                     </div>
                     <p className="card-text text-center">{item.description}</p>
                   </div>
@@ -445,7 +445,9 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                         type={RatingType.Star}
                         rating={4.75} 
                       />
-                      <span className="fw-bold card-title mt-1">{item.reviews}</span>
+                      <div className="mt-1">
+                      <span className="fw-bold card-title">{item.reviews}</span>
+                      </div>
                     </div>
               <p className="card-text text-center">{item.description}</p>
             </div>
@@ -458,21 +460,10 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
   return (
     <div>
-      {props.variantType === "Default" &&
+      {props.variantType === VariantType.Default &&
         props.itemList.map((item: Item, index: any) => (
           <div key={index}>
             {renderContentByStyle(item)}
-          </div>
-        ))}
-
-      {props.variantType === "with-summary-chart" && (
-        <RdsCompFeeds variantType="Advanced" itemList={props.itemList} />
-      )}
-
-      {props.variantType === "multi-column" &&
-        props.itemList.map((item: any, index: any) => (
-          <div key={index} className="mb-4">
-            <RdsReviewCategory display_type="Basic" item={item} />
           </div>
         ))}
     </div>

@@ -1,5 +1,5 @@
 /* Base styles */
-.tab {
+.tab-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,7 +11,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.tab svg {
+.tab-group svg {
     margin-right: 2px;
     margin-left: 2px;
 }
@@ -27,22 +27,38 @@
 
 /* Flap */
 .flap {
-    background-color: #9747ff;
-    color: #fff;
-    position: relative;
+  background-color: #9747ff;
+  color: #fff;
+  position: relative;
 }
 
 .flap::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #9747ff;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #9747ff;
+} 
+
+.flap-disabled::after {
+  border-top-color: #b987ff !important; 
+  pointer-events: none;
+  user-select: none;
+  opacity: 1.5;
+  color: #999 !important; 
+}
+
+ .flap-hover:hover::after {
+  border-top-color: #ebdcff !important;
+}
+
+.theme-dark .tab-group svg {
+  color: rgb(173 165 165) !important;
 }
 
 /* Pill */
@@ -135,18 +151,19 @@
   gap: 10px;
 }
 
-.tab svg {
+.tab-group svg {
   width: 16px;
   height: 16px;
 }
 
+/* Base styling for vertical flap */
 .vertical-flap {
   background: #9747ff;
   color: #fff;
   position: relative;
-  border-radius: 6px;
 }
 
+/* Creates the arrow using borders */
 .vertical-flap::after {
   content: "";
   position: absolute;
@@ -155,9 +172,30 @@
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 10px solid #9747ff;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-left: 11px solid #9747ff;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+/* Disabled flap */
+.vertical-flap-disabled {
+  background: #d8c9ed; /* Optional: adjust background if needed */
+  color: #999 !important;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6;
+}
+
+/* Disabled arrow */
+.vertical-flap-disabled::after {
+  border-left-color: #d8c9ed !important;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* Hover state: arrow color changes on hover */
+.vertical-flap-hover:hover::after {
+  border-left-color: #ebdcff !important;
 }
 
 .vertical-pill {
@@ -188,8 +226,8 @@
   padding-right: 5px;
 }
 
-/* Common tab styles */
-.tab {
+/* Common tab-group styles */
+.tab-group {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -201,42 +239,39 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Default state */
-/* .tab.default {
-  background-color: transparent;
-  color: #f6f4f4;
-} */
-
 /* Hover state */
-.tab-hover:hover {
+.tab-group-hover:hover {
   background-color: #ebdcff !important;
   color: #444 !important;
 }
 
 /* Selected state */
-.tab.selected {
+.tab-group.selected {
   background-color: #9747FF; 
   color: #fff;
 }
-.tab-pill .selected{
+
+.tab-group-pill .selected {
   background-color: unset !important;
 }
-.vertical-pill .selected{
+
+.vertical-pill .selected {
   border-radius: 20px !important;
 }
+
 /* Disabled state */
-.tab.disabled {
+.tab-group.disabled {
   pointer-events: none;
   user-select: none;
   opacity: 0.5;
-  background-color: #ebdcff;
+  background-color: #d8c9ed;
   color: #999;
 }
 
-.tab-pill{
+.tab-group-pill {
   border-radius: 20px !important;
 }
 
 .theme-dark div p {
   color: rgb(173 165 165) !important;
-  }
+}

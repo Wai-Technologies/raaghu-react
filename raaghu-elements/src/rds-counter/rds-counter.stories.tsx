@@ -6,6 +6,19 @@ const meta: Meta = {
     component: RdsCounter,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={LayoutOptions.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: LayoutOptions.${p1.replace(/\s+/g, '')}`);
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={CounterState.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: CounterState.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {

@@ -8,11 +8,26 @@ const meta: Meta = {
   component: RdsOffcanvas,
   parameters: {
     layout: 'padded',
+    docs: {
+      source:{
+        transform:(code:string) => {
+          code = code.replace(/placement="([^"]+)"/g, (match, p1) => `placement={RdsOffcanvasPlacement.${p1.replace(/\s+/g, '')}}`);
+          code = code.replace(/placement:\s*"([^"]+)"/g, (match, p1) => `placement: RdsOffcanvasPlacement.${p1.replace(/\s+/g, '')}`);
+          code = code.replace(/backDrop="([^"]+)"/g, (match, p1) => `backDrop={RdsOffcanvasBackDrop.${p1.replace(/\s+/g, '')}}`);
+          code = code.replace(/backDrop:\s*"([^"]+)"/g, (match, p1) => `backDrop: RdsOffcanvasBackDrop.${p1.replace(/\s+/g, '')}`);
+          return code;
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
     placement: {
       options: ["top", "bottom", "end", "start"],
+      control: { type: "select" },
+    },
+    backDrop: {
+      options: ["true", "false", "static"],
       control: { type: "select" },
     },
     showPrimaryButton: { control: 'boolean' },

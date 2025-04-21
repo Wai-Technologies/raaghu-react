@@ -43,8 +43,8 @@ input[type="number"] {
 }
 
 #counter-button-width .btn {
-  min-width: 30px !important;
-  min-height: 30px !important;
+  min-width: 35px !important;
+  min-height: 35px !important;
 }
 .theme-dark #counter-back-color{
   background-color: #363636 !important;

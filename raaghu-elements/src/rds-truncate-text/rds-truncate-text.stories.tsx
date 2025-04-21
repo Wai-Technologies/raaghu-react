@@ -7,11 +7,21 @@ const meta: Meta = {
   component: TruncatedText,
   parameters: {
     layout: 'padded',
+    docs: {
+      source: {
+        transform: (code: string) => {
+          // Transform state enum
+          code = code.replace(/state="([^"]+)"/g, 'state={TruncateTextState.$1}');
+          code = code.replace(/state:\s*"([^"]+)"/g, 'state: TruncateTextState.$1');
+          return code;
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
     state: {
-      options: ['default', 'hover'],
+      options: Object.values(TruncateTextState),
       control: { type: 'select' },
       description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
     },
@@ -36,6 +46,22 @@ export const Default: Story = {
     maxLength: 16,
   },
 } satisfies Story;
+
+// export const WithHover: Story = {
+//   args: {
+//     state: TruncateTextState.Hover,
+//     text: 'This is a sample text that will be truncated.',
+//     maxLength: 16,
+//   },
+// } satisfies Story;
+
+// export const WithoutTruncation: Story = {
+//   args: {
+//     state: TruncateTextState.Default,
+//     text: 'This text will be shown in full.',
+//     maxLength: 16,
+//   },
+// } satisfies Story;
 
 Default.parameters = {
   controls: { include: ['state', 'text', 'maxLength'] },

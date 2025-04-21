@@ -74,13 +74,18 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
     return (
       <div
         style={{ marginLeft: props.type === TabType.Vertical ? level * 20 : 0 }}
-        className={`tab-level ${props.state === TabState.Hover ? "tab-hover" : ""} ${props.layout === "Pill" ? "tab-pill" : ""} ${props.type === TabType.Vertical ? (props.layout ? layoutClassesForVertical[props.layout] : "") : (props.layout ? layoutClassesForHorizontal[props.layout] : "")}`}
-
+        className={`tab-level ${props.state === TabState.Hover ? "tab-group-hover" : ""} ${props.layout === "Pill" ? "tab-group-pill" : ""} 
+        ${props.layout === "Flap" && props.state === TabState.Hover  ? "flap-hover" : ""} 
+        ${props.layout === "Pill" ? "tab-group-pill" : ""} 
+        ${props.layout === "Flap" && props.state === TabState.Disabled  ? "flap-disabled" : ""}
+         ${props.layout === "Vertical-Flap" && props.state === TabState.Hover  ? "vertical-flap-hover" : ""} 
+        ${props.layout === "Vertical-Flap" && props.state === TabState.Disabled  ? "vertical-flap-disabled" : ""}  
+        ${props.type === TabType.Vertical ? (props.layout ? layoutClassesForVertical[props.layout] : "") : (props.layout ? layoutClassesForHorizontal[props.layout] : "")}`}
       >
         {tabs.map((item, index) => (
           <div key={index} className={props.type === TabType.Horizontal ? "d-inline-block" : ""}>
             <div
-              className={`tab cursor-pointer px-3 py-2 ${activeTabs.includes(item.label) ? "active" : ""} ${props.state?.toLowerCase()}`}
+              className={`tab-group cursor-pointer px-3 py-2 ${activeTabs.includes(item.label) ? "selected" : ""} ${props.state?.toLowerCase()}`}
               onClick={() => onClickTab(item.label)}
             >
               {props.type === TabType.Vertical && (
