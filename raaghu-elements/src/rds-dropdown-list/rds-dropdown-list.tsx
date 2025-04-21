@@ -386,7 +386,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               <div>
                 {visibleItems.map((item: any) => (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     key={item.id}
                     label={item.label}
                     colorVariant="primary"
@@ -398,7 +398,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 ))}
                 {remainingCount > 0 && (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     label={"+" + remainingCount.toString()}
                     colorVariant="primary"
                     size="small"
@@ -437,19 +437,29 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             id={props.id}
             aria-labelledby={props.id}
           >
+            
             {/* Search Input */}
             {props.showSearch && (
-             <li className="p-2">
-              <RdsSearch
-                iconPosition="left"
-                labelPosition="top"
-                placeholder="Search..."
-                value={searchQuery}
-                size="small"
-                onChange={handleSearchChange}
-              />
+              <li className=" d-flex align-items-center ps-3 search-border-bottom mb-1">
+                <RdsIcon
+                  colorVariant="dark"
+                  height="15px"
+                  isCursorPointer
+                  name="search"
+                  stroke
+                  width="15px"
+                />
+                <input
+                  type="text"
+                  className="form-control border-0"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  size={10}
+                />
               </li>
             )}
+
             {filteredListItems.map((language: any, i: any) => (
               <li
                 key={i}
