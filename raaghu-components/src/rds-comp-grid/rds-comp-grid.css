@@ -102,7 +102,7 @@ svg.text-dark {
   border: none !important;
 }
 .comp-grid .theme-light .btn-transparent {
-  color: #333339 !important;
+  color: #1d1d1e !important;
   border: none !important;
 }
 .comp-grid .btn.btn-transparent-primary {
@@ -120,5 +120,5 @@ svg.text-dark {
 }
 .theme-dark #sortTable thead th svg, .theme-dark #sortTable tbody td svg {
   stroke: #ffffff;
-  color: #29292a !important;
+  color: #727277 !important;
 }
