@@ -512,7 +512,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
   }, []);
 
   return (
-    <>
+   <div className="comp-grid">
       {data?.length == 0 && !totalRecords && props.illustration ? (
         <div className="h-100 d-flex align-items-center justify-content-center">
           {isLoading ? <div className="loader"></div> : <></>}
@@ -2393,7 +2393,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 export default RdsCompGrid;
