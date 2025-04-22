@@ -54,6 +54,7 @@ export const Default: Story = {
         state: DropdownState.Default,
         style: DropdownStyle.Default,
         showTitle: true,
+        showSearch: true,
         title: "Label",
         isMandatory: false,
         showHint: true,
@@ -65,7 +66,7 @@ export const Default: Story = {
         listItems: [
                         {
                             label: "EN(US)",
-                            val: "en",
+                            val: "en-us",
                             icon: "us",
                             iconWidth: "20px",
                             iconHeight: "20px",
@@ -116,7 +117,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect'] } };
+Default.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect', 'showSearch'] } };
 
 // export const WithMultiSelect: Story = {
 //     args: {
