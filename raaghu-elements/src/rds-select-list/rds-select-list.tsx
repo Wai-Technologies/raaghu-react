@@ -92,7 +92,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
     if (props.isMultiple) {
       // Handle "Select All" option
       if (items && items.some((item: any) => item.value === "select_all")) {
-        // Check if "Select All" was newly selected
         const wasSelectAllAlreadySelected = selectedValue?.includes("select_all");
         
         if (wasSelectAllAlreadySelected) {
@@ -104,11 +103,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
         } else {
           // Select all items (excluding the "select_all" option)
           const allItemValues = regularItems.map(item => item.value);
-          const allItemObjects = regularItems.map(item => ({
-            label: item.label,
-            value: item.value,
-          }));
-          
           if (props.onChange) {
             props.onChange(allItemValues);
           }
@@ -127,11 +121,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
         const finalValues = allRegularItemsSelected 
           ? ["select_all", ...values]
           : values;
-          
-        const finalObjects = items ? items.map((item: any) => ({
-          label: item.label,
-          value: item.value,
-        })) : [];
         
         if (props.onChange) {
           props.onChange(values);
