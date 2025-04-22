@@ -88,17 +88,24 @@ const RdsSelectList = (props: RdsSelectProps) => {
           }
           setSelectedValue([]);
         } else {
-          // Select all
-          const allValues = mappedSelectItems.map((item) => ({
-            label: item.label,
-            value: item.value,
-          }));
+          // Select all (excluding 'select_all')
+          const allValues = mappedSelectItems
+            .filter((item) => item.value !== "select_all") // Exclude 'select_all'
+            .map((item) => ({
+              label: item.label,
+              value: item.value,
+            }));
           if (props.onChange) {
             props.onChange(allValues);
           }
-          setSelectedValue(mappedSelectItems.map((item) => item.value));
+          setSelectedValue(
+            mappedSelectItems
+              .filter((item) => item.value !== "select_all") // Exclude 'select_all'
+              .map((item) => item.value)
+          );
         }
       } else {
+        // Handle individual selection
         const multiSelectValue = items.map((item: any) => ({
           label: item.label,
           value: item.value,
@@ -107,6 +114,16 @@ const RdsSelectList = (props: RdsSelectProps) => {
           props.onChange(multiSelectValue);
         }
         setSelectedValue(items.map((item: any) => item.value));
+
+        // Unselect "Select All" if not all items are selected
+        const allSelected = mappedSelectItems
+          .filter((item) => item.value !== "select_all")
+          .every((item) => items.some((selected: any) => selected.value === item.value));
+        if (!allSelected) {
+          setSelectedValue((prev: any) =>
+            prev.filter((value: any) => value !== "select_all")
+          );
+        }
       }
     } else {
       if (props.onChange) {
