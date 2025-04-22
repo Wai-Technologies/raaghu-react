@@ -333,18 +333,20 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 <nav
                     id="sidebar"
                     ref={ref}
-                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-3 side-navigation
+                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0  shadow px-2 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
-                    <div>
+                    <div className="raghu">
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
-                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                <div className="d-flex gap-2">
+                                <img src={"./assets/raaghu_icon.png"} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
                                     style={{ height: "30px" }}></img>
+                                    <span className="mt-1 text-lowercase textTopLarge px-2">raaghu</span>
+                                </div>
                             </>
                         )}
-
                         {props.layout === "RightSideNav" && props.showUserProfile && (
                             <div className="align-items-align-items-start left-space mt-2">
                                 <RdsAvatar
