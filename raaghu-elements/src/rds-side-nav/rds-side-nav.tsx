@@ -336,7 +336,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                     className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0  shadow px-2 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
-                    <div className="raghu">
+                    <div>
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
