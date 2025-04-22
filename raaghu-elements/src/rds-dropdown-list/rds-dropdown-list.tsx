@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import RdsIcon from "../rds-icon";
 import RdsBadge from "../rds-badge";
-import RdsCheckbox from "../rds-checkbox";
 import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
+import RdsSearch from "../rds-search";
 
 export enum DropdownSize {
   Default = "Default",
@@ -26,7 +26,7 @@ export enum DropdownStyle {
 }
 
 export interface RdsDropdownListProps {
-  
+
   id?: string; // Id of the dropdown
   reset?: boolean; // To reset the dropdown
   labelIcon?: string; // Icon for the label
@@ -69,24 +69,25 @@ export interface RdsDropdownListProps {
   showHint?: boolean; // To show hint in dropdown
   hint?: string; // Hint text
   showSelectedOption?: boolean; // To show selected option
+  showSearch?: boolean; // To show search input
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
   const [showIcon, setShowIcon] = useState(
-    props.showIcon || props.showIcon == undefined ? true : false
+    props.showIcon || props.showIcon === undefined ? true : false
   );
-  const [showSelectedOption, setShowSelectedOption] = useState(props.showSelectedOption == undefined ? true : false);
+  const [showSelectedOption, setShowSelectedOption] = useState(props.showSelectedOption === undefined ? true : false);
   const [checkedCategoryList, setCheckedCategoryList] = useState<any>([]);
   const [expand, setExpend] = useState(props.state === "Expanded");
   const [isTouch, setIsTouch] = useState(false);
+  // to fetch the index of the selected language
   const [toggle, setToggle] = useState("show");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const block = props.block == false ? props.block : true;
+  const block = props.block === false ? props.block : true;
+  //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [selectedOption, setSelectedOption] = useState<number>(0);
-
-  // Ensure listItems is always an array
-  const listItems = props.listItems || [];
 
   const clickedOnDropDown = () => {
     if (props.state !== "Disabled") {
@@ -118,7 +119,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       setToggle("show");
     }
   };
-  
+
   useEffect(() => {
     setShowIcon(props.showIcon || false);
   }, [props.showIcon]);
@@ -130,32 +131,46 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     };
   }, [props.id]);
 
-  //  updating the selected language accordingly
+  
 
-  // using handlerLIstItem to change the language
+ // using handlerLIstItem to change the language
 
   const handlerLIstItem = (
     event: React.MouseEvent<HTMLLIElement>,
     index: number,
     val: string
   ) => {
+    setIsTouch(true);
     if (props.multiSelect) {
+       // If it's a multiselect dropdown, handle checkbox selection
       const isChecked = checkedCategoryList.some(
-        (item: any) => item.label === props.listItems && props.listItems[index]?.label
+        (item: any) => item.label === props.listItems[index].label
       );
+
       if (isChecked) {
-        uncheckHandler(event, props.listItems && props.listItems[index]);
+        // If item is already selected, uncheck it
+        const newCheckedCategoryList = checkedCategoryList.filter(
+          (item: any) => item.label !== props.listItems[index].label
+        );
+        setCheckedCategoryList(newCheckedCategoryList);
       } else {
-        checkHandler(event, props.listItems && props.listItems[index]);
+        // If item is not selected, check it
+        setCheckedCategoryList([
+          ...checkedCategoryList,
+          { label: props.listItems[index].label },
+        ]);
       }
     } else {
+      // If it's a single select dropdown, just update the selected option
       setSelectedOption(index);
-      setExpend(false);
-      props.onClick && props.onClick(event, val);
+      if (props.onClick) {
+        props.onClick(event, val);
+      }
+      setExpend(!expand);
     }
   };
-  const IconWidth = props.listItems && props.listItems[selectedOption]?.iconWidth || "16px";
-  const IconHeight = props.listItems && props.listItems[selectedOption]?.iconHeight || "12px";
+  const IconWidth = props.listItems[selectedOption]?.iconWidth || "16px";
+  const IconHeight = props.listItems[selectedOption]?.iconHeight || "12px";
 
   const uncheckHandler = (e: any, item: any) => {
     const newChildTreeunits = checkedCategoryList.filter(
@@ -179,11 +194,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   const labelObj: any = {};
   const [hoverState, setHoverState] = useState(labelObj);
 
-  if (props.listItems && props.listItems.length > 0) {
-    props.listItems.forEach((listItems: any) => {
-      labelObj[listItems.val] = false;
-    });
-  }
+  props.listItems.forEach((listItems: any) => {
+    labelObj[listItems.val] = false;
+  });
   useEffect(() => {
     setHoverState(labelObj);
   }, []);
@@ -219,44 +232,53 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       : props.size === "Large"
       ? "form-control-lng"
       : ""; // Default size if not provided
-  
+
   const border = props.state === "Disabled" ? "form-control " + fieldSize : props.borderDropdown ? "form-control border-primary " + fieldSize : "border-0";
-  const bottomLine = props.style === "Bottom Line" 
-    ? props.state === "Disabled" 
-      ? "bottom-line-disabled" 
-      : "bottom-line-primary" 
-    : "";
+  const bottomLine = props.style === "Bottom Line"
+      ? props.state === "Disabled"
+        ? "bottom-line-disabled"
+        : "bottom-line-primary"
+      : "";
   const defaultDisabled = props.style === "Default" && props.state === "Disabled" ? "default-disabled" : "";
-  
+
   useEffect(() => {
     setIsTouch(false);
     setCheckedCategoryList([]);
   }, [props.reset]);
   useEffect(() => {
     props.multiSelect === undefined &&
-      props.selectedIndex != undefined &&
+      props.selectedIndex !== undefined &&
       props.selectedIndex(selectedOption);
   }, [selectedOption]);
-  
+
   useEffect(() => {
     props.multiSelect &&
-      props.selectedItems != undefined &&
+      props.selectedItems !== undefined &&
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
-  
+
   const calculateVisibleItems = () => {
     return checkedCategoryList.slice(0, 2); // Always take the first two items
   };
-  
+
   const visibleItems = calculateVisibleItems();
   const remainingCount = checkedCategoryList.length - visibleItems.length;
-  
+
   useEffect(() => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
   }, [props.state]);
-  
+
+  // Filtered list items based on search query
+  const filteredListItems = props.listItems.filter(item =>
+    item.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setSearchQuery(event.target.value);
+  }
+
   return (
     <>
       {props.showTitle && props.title && (
@@ -265,7 +287,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.isMandatory && <span className="text-danger"> *</span>}
         </label>
       )}
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: '8px' }}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: "8px" }}>
         <span
           className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${props.state === "Disabled" ? "disabled" : ""}`}
           role="button"
@@ -274,33 +296,33 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           id={props.id}
           onClick={props.state !== "Selected" && props.state !== "Disabled" ? clickedOnDropDown : undefined}
         >
-          <div
-            className={
-              "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
+          <div 
+          className={
+            "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
             }
-          >
+            >
             {/* simple dropdown  */}
-            {props.state === "Selected" && listItems.length > 0 && (
+            {props.state === "Selected" && props.listItems.length !== 0 && (
               <div className="d-flex align-items-baseline">
-                {(listItems[selectedOption]?.icon ||
-                  listItems[selectedOption]?.iconPath) &&
+                {(props.listItems[selectedOption]?.icon ||
+                  props.listItems[selectedOption]?.iconPath) &&
                   props.showIcon && (
                     <span>
-                      {listItems[selectedOption]?.iconPath ? (
+                      {props.listItems[selectedOption]?.iconPath ? (
                         <span>
                           <RdsIcon
-                            iconPath={listItems[selectedOption]?.iconPath}
-                            width={listItems[selectedOption]?.iconWidth || ""}
-                            height={listItems[selectedOption]?.iconHeight || ""}
+                            iconPath={props.listItems[selectedOption]?.iconPath}
+                            width={props.listItems[selectedOption]?.iconWidth || ""}
+                            height={props.listItems[selectedOption]?.iconHeight || ""}
                             fill={false}
                             stroke={true}
-                            isHovered={hoveredItem === listItems[selectedOption]?.label}
+                            isHovered={hoveredItem === props.listItems[selectedOption].label}
                             type="lottie"
                           ></RdsIcon>
                         </span>
                       ) : (
                         <RdsIcon
-                          name={listItems[selectedOption]?.icon}
+                          name={props.listItems[selectedOption].icon}
                           width={IconWidth}
                           height={IconHeight}
                           stroke={true}
@@ -309,20 +331,19 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       )}
                     </span>
                   )}
-                <span className="fs-6 me-2 flex-grow-1 text-nowrap">
-                  {props.isCode === true ? (
+                {!props.isIconPlaceholder &&
+                  (props.isCode === true ? (
                     <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
-                      {listItems[selectedOption]?.val.toUpperCase()}
+                      {props.listItems[selectedOption].val.toUpperCase()}
                     </span>
                   ) : (
                     <span className="fs-6 me-2 flex-grow-1 text-nowrap">
-                      {listItems[selectedOption]?.label}
+                      {props.listItems[selectedOption].label}
                     </span>
-                  )}
-                </span>
+                  ))}
               </div>
             )}
-  
+
             {/* single select dropdown placeholder */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
@@ -335,37 +356,37 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     stroke={true}
                   />
                 )}
-                {showSelectedOption && <span className="dw-placeholder fs-6 ms-2 nowrap">
-                  {selectedOption >= 0 && listItems.length > 0 ? listItems[selectedOption]?.label : props.placeholder}
-                </span>}
+                {showSelectedOption && ( <span className="dw-placeholder fs-6 ms-2">
+                    {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                  </span>)}
               </div>
             )}
-  
+
             {/* multiselected dropdown placeholder */}
-            {props.state !== "Selected" && checkedCategoryList.length == 0 &&
-              props.multiSelect &&
-              props.placeholder && (
-                <div className="d-flex align-items-center">
-                  {showIcon && (
-                    <RdsIcon
-                      name={props.icon}
-                      width="16px"
-                      height="16px"
-                      fill={false}
-                      stroke={true}
-                    />
-                  )}
-                  <span className="dw-placeholder fs-6 ms-2">
-                    {props.placeholder}
-                  </span>
-                </div>
-              )}
+            {props.state !== "Selected" && checkedCategoryList.length === 0 && 
+            props.multiSelect && 
+            props.placeholder && (
+              <div className="d-flex align-items-center">
+                {showIcon && (
+                  <RdsIcon
+                    name={props.icon}
+                    width="16px"
+                    height="16px"
+                    fill={false}
+                    stroke={true}
+                  />
+                )}
+                <span className="dw-placeholder fs-6 ms-2">
+                  {props.placeholder}
+                </span>
+              </div>
+            )}
             {/* multiselected dropdown's badge */}
-            {props.state !== "Selected" && props.multiSelect && checkedCategoryList.length != 0 && (
+            {props.state !== "Selected" && props.multiSelect && checkedCategoryList.length !== 0 && (
               <div>
                 {visibleItems.map((item: any) => (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     key={item.id}
                     label={item.label}
                     colorVariant="primary"
@@ -377,7 +398,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 ))}
                 {remainingCount > 0 && (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     label={"+" + remainingCount.toString()}
                     colorVariant="primary"
                     size="small"
@@ -387,7 +408,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 )}
               </div>
             )}
-  
+
             {/* chevron_down icon */}
             {props.state !== "Selected" && !props.isIconPlaceholder && (
               <span
@@ -408,7 +429,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             )}
           </div>
         </span>
-  
+
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
@@ -416,64 +437,97 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             id={props.id}
             aria-labelledby={props.id}
           >
-            {props.listItems && props.listItems.map((language: any, i: any) => (
+            
+            {/* Search Input */}
+            {props.showSearch && (
+              <li className=" d-flex align-items-center ps-3 search-border-bottom mb-1">
+                <RdsIcon
+                  colorVariant="dark"
+                  height="15px"
+                  isCursorPointer
+                  name="search"
+                  stroke
+                  width="15px"
+                />
+                <input
+                  type="text"
+                  className="form-control border-0"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  size={10}
+                />
+              </li>
+            )}
+
+            {filteredListItems.map((language: any, i: any) => (
               <li
                 key={i}
-                className={`dropdown-item ${
-                  props.multiSelect ? "d-flex align-items-center" : ""
-                }`}
-                onClick={(event) => handlerLIstItem(event, i, language.val)}
                 onMouseEnter={() => handleMouseEnter(language.val)}
                 onMouseLeave={handleMouseLeave}
+                onClick={(event) => {
+                  const originalIndex = props.listItems.findIndex(item => item.val === language.val);
+                  handlerLIstItem(event, originalIndex, language.val);
+                }}
               >
-                {props.multiSelect && (
-                  <RdsCheckbox
-                    checked={checkedCategoryList.some(
-                      (item: any) => item.label === language.label
-                    )}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      if (e.target.checked) {
-                        checkHandler(e, language);
-                      } else {
-                        uncheckHandler(e, language);
-                      }
-                    }}
-                  />
-                )}
-                {language.iconPath ? (
-                  <span>
-                    <RdsIcon
-                      iconPath={language.iconPath}
-                      width={language.iconWidth || ""}
-                      height={language.iconHeight || ""}
-                      fill={false}
-                      stroke={true}
-                      isHovered={hoveredItem === language.val}
-                      type="lottie"
-                    ></RdsIcon>
+                <a
+                  id={i}
+                  className="dropdown-item fab-dropdown-item d-flex cursor-pointer align-items-center"
+                >
+                  {props.multiSelect && (
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        checked={
+                          checkedCategoryList.filter(
+                            (curElem: any) => curElem.label === language.label
+                          ).length === 1
+                        }
+                        value=""
+                        id="flexCheckDefault"
+                      />
+                    </div>
+                  )}
+                  {language.icon && showIcon && (
+                    <div
+                      className={`${language.icon === "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
+                      }`}
+                    >
+                      <RdsIcon
+                        name={language.icon}
+                        height={language.iconWidth ? language.iconWidth : "20px"}
+                        width={language.iconWidth ? language.iconWidth : "20px"}
+                        fill={false}
+                        stroke={true}
+                      ></RdsIcon>
+                    </div>
+                  )}
+
+                  {language.iconPath && (
+                    <div>
+                      <RdsIcon
+                        iconPath={language.iconPath}
+                        height={language.iconWidth ? language.iconWidth : "30px"}
+                        width={language.iconWidth ? language.iconWidth : "30px"}
+                        fill={false}
+                        stroke={true}
+                        isHovered={hoveredItem === language.val}
+                        type="lottie"
+                      ></RdsIcon>
+                    </div>
+                  )}
+
+                  <span className="ms-1">
+                    <div data-name={language.val}>{language.label} </div>
                   </span>
-                ) : (
-                  language.icon && (
-                    <RdsIcon
-                      name={language.icon}
-                      width={language.iconWidth || "16px"}
-                      height={language.iconHeight || "12px"}
-                      stroke={true}
-                      fill={false}
-                    ></RdsIcon>
-                  )
-                )}
-                {props.isCode === true ? (
-                  <span className="fs-6 ms-2">{language.val.toUpperCase()}</span>
-                ) : (
-                  <span className="fs-6 ms-2">{language.label}</span>
-                )}
+                </a>
               </li>
             ))}
           </ul>
         )}
       </div>
-  
+
       {props.showHint && (
         <p className="my-1 text-black-50">
           <small>{props.hint}</small>
