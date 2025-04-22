@@ -78,19 +78,58 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   const handleSelectChange = (items: any) => {
     setIsReset(false);
-    if (!props.isMultiple) {
+    if (props.isMultiple) {
+      if (items.some((item: any) => item.value === "select_all")) {
+        const isAllSelected = selectedValue?.length === mappedSelectItems.length - 1; // Check if all are already selected
+        if (isAllSelected) {
+          // Unselect all
+          if (props.onChange) {
+            props.onChange([]);
+          }
+          setSelectedValue([]);
+        } else {
+          // Select all (excluding 'select_all')
+          const allValues = mappedSelectItems
+            .filter((item) => item.value !== "select_all") // Exclude 'select_all'
+            .map((item) => ({
+              label: item.label,
+              value: item.value,
+            }));
+          if (props.onChange) {
+            props.onChange(allValues);
+          }
+          setSelectedValue(
+            mappedSelectItems
+              .filter((item) => item.value !== "select_all") // Exclude 'select_all'
+              .map((item) => item.value)
+          );
+        }
+      } else {
+        // Handle individual selection
+        const multiSelectValue = items.map((item: any) => ({
+          label: item.label,
+          value: item.value,
+        }));
+        if (props.onChange) {
+          props.onChange(multiSelectValue);
+        }
+        setSelectedValue(items.map((item: any) => item.value));
+
+        // Unselect "Select All" if not all items are selected
+        const allSelected = mappedSelectItems
+          .filter((item) => item.value !== "select_all")
+          .every((item) => items.some((selected: any) => selected.value === item.value));
+        if (!allSelected) {
+          setSelectedValue((prev: any) =>
+            prev.filter((value: any) => value !== "select_all")
+          );
+        }
+      }
+    } else {
       if (props.onChange) {
         props.onChange(items);
       }
       setSelectedValue(items.value);
-    } else {
-      const multiSelectValue = items.map((item: any) => {
-        return { label: item.label, value: item.value };
-      });
-      if (props.onChange) {
-        props.onChange(multiSelectValue);
-      }
-      setSelectedValue(items.map((item: any) => item.value));
     }
   };
  
@@ -153,13 +192,18 @@ const RdsSelectList = (props: RdsSelectProps) => {
   
  
   // Determine if the items have 'option' or 'label' and map accordingly
-  const mappedSelectItems = props.selectItems?.map((item) => ({
-    label: item.label || item.option,
-    value: item.value,
-    imgUrl: item.imgUrl,
-    imgWidth: item.imgWidth,
-    imgHeight: item.imgHeight,
-  }));
+  const mappedSelectItems = [
+    ...(props.isMultiple
+      ? [{ label: "(Select All)", value: "select_all" }]
+      : []),
+    ...props.selectItems?.map((item) => ({
+      label: item.label || item.option,
+      value: item.value,
+      imgUrl: item.imgUrl,
+      imgWidth: item.imgWidth,
+      imgHeight: item.imgHeight,
+    })),
+  ];
  
   const selectedItem = props.isMultiple
     ? mappedSelectItems.filter((item: any) => selectedValue?.includes(item.value))
@@ -171,26 +215,22 @@ const RdsSelectList = (props: RdsSelectProps) => {
       optionProps.selectOption(optionProps.data);
     };
  
-    const defaultImgUrl = props.defaultImgUrl; // Replace with your default image URL profile_picture_circle
-    const imgUrl = optionProps.data.imgUrl || defaultImgUrl;
- 
     return (
-<div
-  id="select-background-color"
-  style={{
-    backgroundColor:
-      optionProps.isFocused || optionProps.isSelected
-        ? props.color === "primary"
-          ? BACKGROUND_COLORS.primary
-          : props.color === "danger"
-          ? BACKGROUND_COLORS.danger
-          : props.color === "success"
-          ? BACKGROUND_COLORS.success
-          : BACKGROUND_COLORS.default
-        : BACKGROUND_COLORS.default, // Default when not focused or selected
-  }}
->
-
+      <div
+        id="select-background-color"
+        style={{
+          backgroundColor:
+            optionProps.isFocused || optionProps.isSelected
+              ? props.color === "primary"
+                ? BACKGROUND_COLORS.primary
+                : props.color === "danger"
+                ? BACKGROUND_COLORS.danger
+                : props.color === "success"
+                ? BACKGROUND_COLORS.success
+                : BACKGROUND_COLORS.default
+              : BACKGROUND_COLORS.default, // Default when not focused or selected
+        }}
+      >
         <components.Option {...optionProps}>
           {optionProps.selectProps.isMulti && (
             <input
@@ -201,14 +241,16 @@ const RdsSelectList = (props: RdsSelectProps) => {
               onClick={(e) => e.stopPropagation()}
             />
           )}
-          <img
-            src={imgUrl}
-            style={{
-              width: optionProps.data.imgWidth,
-              height: optionProps.data.imgHeight,
-              cursor: "pointer",
-            }}
-          />
+          {optionProps.data.value !== "select_all" && optionProps.data.imgUrl && (
+            <img
+              src={optionProps.data.imgUrl}
+              style={{
+                width: optionProps.data.imgWidth,
+                height: optionProps.data.imgHeight,
+                cursor: "pointer",
+              }}
+            />
+          )}
           <label className="cursor-pointer ms-1">{optionProps.label}</label>
         </components.Option>
       </div>
