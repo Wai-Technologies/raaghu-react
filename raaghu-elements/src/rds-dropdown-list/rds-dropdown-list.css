@@ -23,3 +23,7 @@
   border: 1px solid gray;
   background-color: #f1f2f4;
 }
+
+.search-border-bottom{
+  border-bottom: 1px solid rgb(219, 219, 219);
+}

@@ -120,18 +120,18 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`step ${index < completedSteps
-                                    ? 'bg-completed'
-                                    : index === completedSteps && props.colorVariant === 'error'
-                                    ? 'bg-error'
-                                    : index === completedSteps && props.colorVariant === 'primary'
-                                    ? 'bg-inprogress'
-                                    : 'bg-default'
-                                    }`}
-                                    id="dash"
+                                className={`step ${
+                                    index < completedSteps
+                                        ? props.colorVariant === 'error'
+                                            ? 'bg-error'
+                                            : props.colorVariant === 'primary'
+                                            ? 'bg-primary'
+                                            : 'bg-completed'
+                                        : 'bg-default'
+                                }`}
+                                id="dash"
                                 style={{ flex: 1, height: `${props.height}px` }}
-                            >
-                            </div>
+                            ></div>
                         ))}
                     </div>
                 </>
@@ -139,18 +139,19 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
 
             {props.role === "block" && (
                 <>
-                    <div className="stepper-container"  id="stepper-block" style={{ width: `100%` }}>
+                    <div className="stepper-container" id="stepper-block" style={{ width: `100%` }}>
                         {[...Array(props.steps)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`block_step d-flex align-items-center justify-content-center ${index < completedSteps
-                                    ? 'bg-completed'
-                                    : index === completedSteps && props.colorVariant === 'error'
-                                    ? 'bg-error'
-                                    : index === completedSteps && props.colorVariant === 'primary'
-                                    ? 'bg-inprogress'
-                                    : 'bg-default'
-                                    }`}
+                                className={`block_step d-flex align-items-center justify-content-center ${
+                                    index < completedSteps
+                                        ? props.colorVariant === 'error'
+                                            ? 'bg-error'
+                                            : props.colorVariant === 'primary'
+                                            ? 'bg-primary'
+                                            : 'bg-completed'
+                                        : 'bg-default'
+                                }`}
                                 style={{
                                     flex: 1,
                                     height: `32px`,
@@ -164,7 +165,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                                                 ? '4px 0 0 4px'
                                                 : index === (props.steps ?? 0) - 1
                                                     ? '0 4px 4px 0'
-                                                    : '0'
+                                                    : '0',
                                 }}
                             >
                                 {props.stepNames && props.stepNames[index] ? props.stepNames[index] : `Step ${index + 1}`}
@@ -194,44 +195,43 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                                                 : index === (props.steps ?? 0) - 1
                                                     ? '0 4px 4px 0'
                                                     : '0',
-                                    position: 'relative'
+                                    position: 'relative',
                                 }}
                             >
                                 <div key={index} className="step-content">
-                                    <div className={`step-icon ${index < completedSteps
-                                        ? props.stepperVariant === 'outlined' ? 'outline-completed' : 'bg-completed'
-                                        : index === completedSteps && props.colorVariant ==='error'
-                                        ? props.stepperVariant === 'outlined' ? 'outline-error' : 'bg-error' 
-                                        : index === completedSteps && props.colorVariant ==='primary'
-                                        ? props.stepperVariant === 'outlined' ? 'outline-inprogress' : 'bg-inprogress'
-                                        : props.stepperVariant === 'outlined' ? 'outline-default' : 'bg-default'
-                                        }`}>
+                                    <div className={`step-icon ${
+                                        index < completedSteps
+                                            ? props.colorVariant === 'error'
+                                                ? 'bg-error'
+                                                : props.colorVariant === 'primary'
+                                                ? 'bg-primary'
+                                                : 'bg-completed'
+                                            : 'bg-default'
+                                    }`}>
                                         {props.Icon ? (
-                                            (
-                                                <RdsIcon 
-                                                    name={"circle"} // Default icon if none provided
-                                                    fill={index%1===0}
-                                                    stroke={index%1===1}
-                                                    width={'20'}
-                                                    height={'20'}
-                                                />
-                                            )
+                                            <RdsIcon
+                                                name={"circle"} // Default icon if none provided
+                                                fill={index % 1 === 0}
+                                                stroke={index % 1 === 1}
+                                                width={'20'}
+                                                height={'20'}
+                                            />
                                         ) : (
                                             index + 1
                                         )}
                                     </div>
                                 </div>
                                 {index < (props.steps ?? 0) - 1 && (
-                                    <div 
+                                    <div
                                         className="step-line"
                                         style={{
                                             backgroundColor: index < completedSteps
-                                                ? '#7825E9'
-                                                : index === completedSteps && props.colorVariant ==='error'
-                                                ? '#BD0D1D'
-                                                : index === completedSteps && props.colorVariant ==='error'
-                                                ? '#D4BBFF'
-                                                : '#d3d3d3'
+                                                ? props.colorVariant === 'error'
+                                                    ? '#BD0D1D'
+                                                    : props.colorVariant === 'primary'
+                                                    ? '#7825E9'
+                                                    : '#d3d3d3'
+                                                : '#d3d3d3',
                                         }}
                                     ></div>
                                 )}
