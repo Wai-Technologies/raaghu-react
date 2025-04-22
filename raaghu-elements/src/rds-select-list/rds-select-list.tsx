@@ -58,78 +58,93 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
-  // const [menuOpen, setMenuOpen] = useState(true);
-  const [reset, setIsReset] = useState<any>(
-    false
-   );
+  const [reset, setIsReset] = useState<boolean>(false);
+ 
   useEffect(() => {
     if (props.reset) {
       setIsReset(true);
     }
   }, [props.reset]);
  
-  const showLabel = props.showLabel || true;
-
-  // const [menuOpen, setMenuOpen] = useState(true);
+  const showLabel = props.showLabel ?? true;
 
   useEffect(() => {
     setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
 
+  // Create a fixed array of select items without the "Select All" option
+  const regularItems = props.selectItems?.map((item) => ({
+    label: item.label || item.option,
+    value: item.value,
+    imgUrl: item.imgUrl,
+    imgWidth: item.imgWidth,
+    imgHeight: item.imgHeight,
+  }));
+
+  // Create the full array including "Select All" if needed
+  const mappedSelectItems = props.isMultiple
+    ? [{ label: "(Select All)", value: "select_all" }, ...regularItems]
+    : regularItems;
+
   const handleSelectChange = (items: any) => {
     setIsReset(false);
+    
     if (props.isMultiple) {
-      if (items.some((item: any) => item.value === "select_all")) {
-        const isAllSelected = selectedValue?.length === mappedSelectItems.length - 1; // Check if all are already selected
-        if (isAllSelected) {
-          // Unselect all
+      // Handle "Select All" option
+      if (items && items.some((item: any) => item.value === "select_all")) {
+        // Check if "Select All" was newly selected
+        const wasSelectAllAlreadySelected = selectedValue?.includes("select_all");
+        
+        if (wasSelectAllAlreadySelected) {
+          // If "Select All" was already selected, unselect everything
           if (props.onChange) {
             props.onChange([]);
           }
           setSelectedValue([]);
         } else {
-          // Select all (excluding 'select_all')
-          const allValues = mappedSelectItems
-            .filter((item) => item.value !== "select_all") // Exclude 'select_all'
-            .map((item) => ({
-              label: item.label,
-              value: item.value,
-            }));
+          // Select all items (excluding the "select_all" option)
+          const allItemValues = regularItems.map(item => item.value);
+          const allItemObjects = regularItems.map(item => ({
+            label: item.label,
+            value: item.value,
+          }));
+          
           if (props.onChange) {
-            props.onChange(allValues);
+            props.onChange(allItemValues);
           }
-          setSelectedValue(
-            mappedSelectItems
-              .filter((item) => item.value !== "select_all") // Exclude 'select_all'
-              .map((item) => item.value)
-          );
+          setSelectedValue(["select_all", ...allItemValues]);
         }
       } else {
-        // Handle individual selection
-        const multiSelectValue = items.map((item: any) => ({
+        // Handle individual selections
+        const values = items ? items.map((item: any) => item.value) : [];
+        
+        // Check if all regular items are selected (to decide whether to include "select_all")
+        const allRegularItemsSelected = regularItems.length > 0 && 
+          regularItems.every(item => 
+            items ? items.some((selected: any) => selected.value === item.value) : false
+          );
+        
+        const finalValues = allRegularItemsSelected 
+          ? ["select_all", ...values]
+          : values;
+          
+        const finalObjects = items ? items.map((item: any) => ({
           label: item.label,
           value: item.value,
-        }));
+        })) : [];
+        
         if (props.onChange) {
-          props.onChange(multiSelectValue);
+          props.onChange(values);
         }
-        setSelectedValue(items.map((item: any) => item.value));
-
-        // Unselect "Select All" if not all items are selected
-        const allSelected = mappedSelectItems
-          .filter((item) => item.value !== "select_all")
-          .every((item) => items.some((selected: any) => selected.value === item.value));
-        if (!allSelected) {
-          setSelectedValue((prev: any) =>
-            prev.filter((value: any) => value !== "select_all")
-          );
-        }
+        
+        setSelectedValue(finalValues);
       }
     } else {
+      // Single select case
       if (props.onChange) {
-        props.onChange(items);
+        props.onChange(items?.value);
       }
-      setSelectedValue(items.value);
+      setSelectedValue(items?.value);
     }
   };
  
@@ -186,25 +201,9 @@ const RdsSelectList = (props: RdsSelectProps) => {
             ? BACKGROUND_COLORS.focused
             : BACKGROUND_COLORS.default, // Default background color when not selected or focused,
         color: state.isSelected ? TEXT_COLORS.selected : provided.color, // Text color
-        
     }),
   };
   
- 
-  // Determine if the items have 'option' or 'label' and map accordingly
-  const mappedSelectItems = [
-    ...(props.isMultiple
-      ? [{ label: "(Select All)", value: "select_all" }]
-      : []),
-    ...props.selectItems?.map((item) => ({
-      label: item.label || item.option,
-      value: item.value,
-      imgUrl: item.imgUrl,
-      imgWidth: item.imgWidth,
-      imgHeight: item.imgHeight,
-    })),
-  ];
- 
   const selectedItem = props.isMultiple
     ? mappedSelectItems.filter((item: any) => selectedValue?.includes(item.value))
     : mappedSelectItems?.find((item: any) => item.value === selectedValue);
@@ -212,7 +211,23 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const Option = (optionProps: any) => {
     const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (optionProps.isDisabled) return;
-      optionProps.selectOption(optionProps.data);
+      
+      // Special handling for the Select All checkbox
+      if (optionProps.data.value === "select_all") {
+        if (optionProps.isSelected) {
+          // If "Select All" is already selected, unselect everything
+          optionProps.clearValue();
+        } else {
+          // Select all options
+          const allOptions = mappedSelectItems.filter(item => item.value !== "select_all");
+          optionProps.setValue(allOptions, 'select-option');
+        }
+      } else {
+        // For regular options, toggle as normal
+        optionProps.selectOption(optionProps.data);
+      }
+      
+      event.stopPropagation();
     };
  
     return (
@@ -249,6 +264,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
                 height: optionProps.data.imgHeight,
                 cursor: "pointer",
               }}
+              alt=""
             />
           )}
           <label className="cursor-pointer ms-1">{optionProps.label}</label>
@@ -278,7 +294,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         hideSelectedOptions={false}
         components={props.isMultiple ? { Option } : undefined}
         onChange={handleSelectChange}
-        value={reset == true ? null : selectedItem}
+        value={reset === true ? null : selectedItem}
         placeholder={props.placeholder}
         isSearchable={props.isSearchable}
         isDisabled={props.isDisabled}
@@ -286,7 +302,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
         aria-label="select example"
         data-testid={props.dataTestId}
         styles={customStyles}
-        // menuIsOpen={menuOpen}
       />
       {props.showHint && (
         <p className="my-1 text-black-50">
