@@ -27,22 +27,38 @@
 
 /* Flap */
 .flap {
-    background-color: #9747ff;
-    color: #fff;
-    position: relative;
+  background-color: #9747ff;
+  color: #fff;
+  position: relative;
 }
 
 .flap::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #9747ff;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #9747ff;
+} 
+
+.flap-disabled::after {
+  border-top-color: #b987ff !important; 
+  pointer-events: none;
+  user-select: none;
+  opacity: 1.5;
+  color: #999 !important; 
+}
+
+ .flap-hover:hover::after {
+  border-top-color: #ebdcff !important;
+}
+
+.theme-dark .tab-group svg {
+  color: rgb(173 165 165) !important;
 }
 
 /* Pill */
@@ -140,12 +156,14 @@
   height: 16px;
 }
 
+/* Base styling for vertical flap */
 .vertical-flap {
   background: #9747ff;
   color: #fff;
   position: relative;
 }
- 
+
+/* Creates the arrow using borders */
 .vertical-flap::after {
   content: "";
   position: absolute;
@@ -157,6 +175,27 @@
   border-left: 11px solid #9747ff;
   border-top: 18px solid transparent;
   border-bottom: 18px solid transparent;
+}
+
+/* Disabled flap */
+.vertical-flap-disabled {
+  background: #d8c9ed; /* Optional: adjust background if needed */
+  color: #999 !important;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6;
+}
+
+/* Disabled arrow */
+.vertical-flap-disabled::after {
+  border-left-color: #d8c9ed !important;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* Hover state: arrow color changes on hover */
+.vertical-flap-hover:hover::after {
+  border-left-color: #ebdcff !important;
 }
 
 .vertical-pill {
@@ -225,7 +264,7 @@
   pointer-events: none;
   user-select: none;
   opacity: 0.5;
-  background-color: #ebdcff;
+  background-color: #d8c9ed;
   color: #999;
 }
 
