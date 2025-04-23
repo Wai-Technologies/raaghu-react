@@ -33,14 +33,14 @@ export interface RdsSelectProps {
   customClasses?: string;
   reset?: boolean;
 }
-
+ 
 const BORDER_COLORS = {
   primary: "#b38de9",
   danger: "red",
   success: "green",
   default: undefined, // Default/fallback border color
 };
-
+ 
 const BACKGROUND_COLORS = {
   primary: "#b38de9",
   danger: "red",
@@ -48,88 +48,92 @@ const BACKGROUND_COLORS = {
   focused: "lightgray",
   default: "transparent", // Default/fallback color
 };
-
+ 
 const TEXT_COLORS = {
   selected: "white",
   default: undefined, // Default/fallback text color
 };
-
+ 
 const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
-  // const [menuOpen, setMenuOpen] = useState(true);
-  const [reset, setIsReset] = useState<any>(
-    false
-   );
+  const [reset, setIsReset] = useState<boolean>(false);
+ 
   useEffect(() => {
     if (props.reset) {
       setIsReset(true);
     }
   }, [props.reset]);
  
-  const showLabel = props.showLabel || true;
-
-  // const [menuOpen, setMenuOpen] = useState(true);
-
+  const showLabel = props.showLabel ?? true;
+ 
   useEffect(() => {
     setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
-
+ 
+  // Create a fixed array of select items without the "Select All" option
+  const regularItems = props.selectItems?.map((item) => ({
+    label: item.label || item.option,
+    value: item.value,
+    imgUrl: item.imgUrl,
+    imgWidth: item.imgWidth,
+    imgHeight: item.imgHeight,
+  }));
+ 
+  // Create the full array including "Select All" if needed
+  const mappedSelectItems = props.isMultiple
+    ? [{ label: "(Select All)", value: "select_all" }, ...regularItems]
+    : regularItems;
+ 
   const handleSelectChange = (items: any) => {
     setIsReset(false);
+ 
     if (props.isMultiple) {
-      if (items.some((item: any) => item.value === "select_all")) {
-        const isAllSelected = selectedValue?.length === mappedSelectItems.length - 1; // Check if all are already selected
-        if (isAllSelected) {
-          // Unselect all
+      if (items && items.some((item: any) => item.value === "select_all")) {
+        const wasSelectAllAlreadySelected = selectedValue?.includes("select_all");
+ 
+        if (wasSelectAllAlreadySelected) {
+          // If "Select All" was already selected, unselect everything
           if (props.onChange) {
             props.onChange([]);
           }
           setSelectedValue([]);
         } else {
-          // Select all (excluding 'select_all')
-          const allValues = mappedSelectItems
-            .filter((item) => item.value !== "select_all") // Exclude 'select_all'
-            .map((item) => ({
-              label: item.label,
-              value: item.value,
-            }));
+          // Select all items (excluding the "select_all" option)
+          const allItemValues = regularItems.map((item) => item.value);
           if (props.onChange) {
-            props.onChange(allValues);
+            props.onChange(allItemValues);
           }
-          setSelectedValue(
-            mappedSelectItems
-              .filter((item) => item.value !== "select_all") // Exclude 'select_all'
-              .map((item) => item.value)
-          );
+          setSelectedValue(["select_all", ...allItemValues]);
         }
       } else {
-        // Handle individual selection
-        const multiSelectValue = items.map((item: any) => ({
-          label: item.label,
-          value: item.value,
-        }));
-        if (props.onChange) {
-          props.onChange(multiSelectValue);
-        }
-        setSelectedValue(items.map((item: any) => item.value));
-
-        // Unselect "Select All" if not all items are selected
-        const allSelected = mappedSelectItems
-          .filter((item) => item.value !== "select_all")
-          .every((item) => items.some((selected: any) => selected.value === item.value));
-        if (!allSelected) {
-          setSelectedValue((prev: any) =>
-            prev.filter((value: any) => value !== "select_all")
+        // Handle individual selections
+        const values = items ? items.map((item: any) => item.value) : [];
+ 
+        // Check if all regular items are selected
+        const allRegularItemsSelected =
+          regularItems.length > 0 &&
+          regularItems.every((item) =>
+            items ? items.some((selected: any) => selected.value === item.value) : false
           );
+ 
+        const finalValues = allRegularItemsSelected
+          ? ["select_all", ...values]
+          : values;
+ 
+        if (props.onChange) {
+          props.onChange(finalValues.filter((value: string) => value !== "select_all"));
         }
+ 
+        setSelectedValue(finalValues);
       }
     } else {
+      // Single select case
       if (props.onChange) {
-        props.onChange(items);
+        props.onChange(items?.value);
       }
-      setSelectedValue(items.value);
+      setSelectedValue(items?.value);
     }
   };
  
@@ -151,7 +155,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
       borderBottomWidth:
         props.style === "BottomLine" ? props.borderBottomWidth || "2px" : undefined,
       borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined,
-
+ 
       borderColor: props.color && props.color in BORDER_COLORS
       ? BORDER_COLORS[props.color as keyof typeof BORDER_COLORS]
       : provided.borderColor,
@@ -186,62 +190,79 @@ const RdsSelectList = (props: RdsSelectProps) => {
             ? BACKGROUND_COLORS.focused
             : BACKGROUND_COLORS.default, // Default background color when not selected or focused,
         color: state.isSelected ? TEXT_COLORS.selected : provided.color, // Text color
-        
     }),
   };
-  
- 
-  // Determine if the items have 'option' or 'label' and map accordingly
-  const mappedSelectItems = [
-    ...(props.isMultiple
-      ? [{ label: "(Select All)", value: "select_all" }]
-      : []),
-    ...props.selectItems?.map((item) => ({
-      label: item.label || item.option,
-      value: item.value,
-      imgUrl: item.imgUrl,
-      imgWidth: item.imgWidth,
-      imgHeight: item.imgHeight,
-    })),
-  ];
  
   const selectedItem = props.isMultiple
-    ? mappedSelectItems.filter((item: any) => selectedValue?.includes(item.value))
+    ? mappedSelectItems.filter(
+        (item: any) => selectedValue?.includes(item.value) && item.value !== "select_all"
+      )
     : mappedSelectItems?.find((item: any) => item.value === selectedValue);
  
-  const Option = (optionProps: any) => {
-    const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (optionProps.isDisabled) return;
-      optionProps.selectOption(optionProps.data);
-    };
- 
+    const Option = (optionProps: any) => {
+      const isSelectAll = optionProps.data.value === "select_all";
+   
+      const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (optionProps.isDisabled) return;
+   
+        if (isSelectAll) {
+          const allItemValues = regularItems.map((item) => item.value);
+   
+          if (selectedValue?.includes("select_all")) {
+            // Already selected, unselect everything
+            setSelectedValue([]);
+            props.onChange?.([]);
+          } else {
+            // Select all
+            setSelectedValue(["select_all", ...allItemValues]);
+            props.onChange?.(allItemValues);
+          }
+        } else {
+          optionProps.selectOption(optionProps.data);
+        }
+   
+        event.stopPropagation();
+      };
+   
+      const handleDoubleClick = () => {
+        // Always clear all on double click
+        setSelectedValue([]);
+        props.onChange?.([]);
+      };
+   
     return (
       <div
-        id="select-background-color"
-        style={{
-          backgroundColor:
-            optionProps.isFocused || optionProps.isSelected
-              ? props.color === "primary"
-                ? BACKGROUND_COLORS.primary
-                : props.color === "danger"
-                ? BACKGROUND_COLORS.danger
-                : props.color === "success"
-                ? BACKGROUND_COLORS.success
-                : BACKGROUND_COLORS.default
-              : BACKGROUND_COLORS.default, // Default when not focused or selected
-        }}
-      >
-        <components.Option {...optionProps}>
-          {optionProps.selectProps.isMulti && (
-            <input
-              className="form-check-input selectClasses my-1 mx-1"
-              type="checkbox"
-              checked={optionProps.isSelected}
-              onChange={handleOptionChange}
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
-          {optionProps.data.value !== "select_all" && optionProps.data.imgUrl && (
+      id="select-background-color"
+      onDoubleClick={isSelectAll ? handleDoubleClick : undefined}
+      style={{
+        backgroundColor:
+          optionProps.isFocused || optionProps.isSelected
+            ? props.color === "primary"
+              ? BACKGROUND_COLORS.primary
+              : props.color === "danger"
+              ? BACKGROUND_COLORS.danger
+              : props.color === "success"
+              ? BACKGROUND_COLORS.success
+              : BACKGROUND_COLORS.default
+            : BACKGROUND_COLORS.default,
+      }}
+    >
+         <components.Option {...optionProps}>
+        {props.isMultiple && (
+          <input
+            className="form-check-input selectClasses my-1 mx-1"
+            type="checkbox"
+            checked={
+              isSelectAll
+                ? selectedValue?.includes("select_all")
+                : optionProps.isSelected
+            }
+            onChange={handleOptionChange}
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
+          {optionProps.data.value !== "select_all" &&
+          optionProps.data.imgUrl && (
             <img
               src={optionProps.data.imgUrl}
               style={{
@@ -249,11 +270,12 @@ const RdsSelectList = (props: RdsSelectProps) => {
                 height: optionProps.data.imgHeight,
                 cursor: "pointer",
               }}
+              alt=""
             />
           )}
-          <label className="cursor-pointer ms-1">{optionProps.label}</label>
-        </components.Option>
-      </div>
+        <label className="cursor-pointer ms-1">{optionProps.label}</label>
+      </components.Option>
+    </div>
     );
   };
  
@@ -278,7 +300,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         hideSelectedOptions={false}
         components={props.isMultiple ? { Option } : undefined}
         onChange={handleSelectChange}
-        value={reset == true ? null : selectedItem}
+        value={reset === true ? null : selectedItem}
         placeholder={props.placeholder}
         isSearchable={props.isSearchable}
         isDisabled={props.isDisabled}
@@ -286,7 +308,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
         aria-label="select example"
         data-testid={props.dataTestId}
         styles={customStyles}
-        // menuIsOpen={menuOpen}
       />
       {props.showHint && (
         <p className="my-1 text-black-50">
