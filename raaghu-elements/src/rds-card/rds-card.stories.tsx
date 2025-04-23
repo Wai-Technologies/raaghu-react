@@ -120,18 +120,12 @@ const cardWithImageArgs = {
     showTitle: true,
     cardTitle: "Mountain Image",
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
+    layout: "Horizontal" as "Vertical" | "Horizontal",
     showTitleAndSubText: true,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
     imageUrl: "https://picsum.photos/seed/picsum/1200/600",
-    showCardText: false,
 };
 
 export const CardWithImage: Story = {
@@ -140,24 +134,16 @@ export const CardWithImage: Story = {
     type: CardTypes.CardWithImage,
   },
 };
-CardWithImage.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithImage.parameters = { controls: { include: ['state', 'style', 'showIndicator','layout', 'showTitleAndSubText', 'cardTitle','isDisabled'] } };
 
 const cardWithRingChartArgs = {
     state: "Default",
     style: "Default",
     showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithRingChart: Story = {
@@ -282,24 +268,15 @@ export const CardWithRingChart: Story = {
     ),
   },
 };
-CardWithRingChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithRingChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 const cardWithMapArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithMap: Story = {
@@ -339,24 +316,15 @@ export const CardWithMap: Story = {
     ),
   },
 };
-CardWithMap.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithMap.parameters = { controls: { include: ['state', 'style', 'showIndicator','layout', 'isDisabled'] } };
 
 const cardWithGraphArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithGraph: Story = {
@@ -475,24 +443,15 @@ export const CardWithGraph: Story = {
     ),
   },
 };
-CardWithGraph.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithGraph.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 const CardWithBooleanChartArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithBooleanChart: Story = {
@@ -657,7 +616,7 @@ export const CardWithBooleanChart: Story = {
     ),
   },
 };
-CardWithBooleanChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithBooleanChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 export const ExampleBadges: Story = {
   args: {
@@ -686,19 +645,10 @@ ExampleAvatar.parameters = { controls: { include: ['state', 'style', 'showTitle'
 const cardWithLineChartArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithLineChart: Story = {
@@ -833,24 +783,15 @@ export const CardWithLineChart: Story = {
        </RdsWidget>
     )},
 };
-CardWithLineChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithLineChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 const cardWithDataTableArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
 };
 
 export const CardWithDataTable: Story = {
@@ -1142,25 +1083,15 @@ export const CardWithDataTable: Story = {
                     </RdsWidget>
     )},
 };
-CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 const cardWithChartArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: true,
-    cardText: `In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo`,
 };
 
 export const CardWithChart: Story = {
@@ -1523,24 +1454,15 @@ export const CardWithChart: Story = {
   </RdsWidget>
     )},
 };
-CardWithChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 const cardWithTableArgs = {
     state: "Default",
     style: "Default",
-    showTitle: true,
     showIndicator: false,
-    layout: "Vertical" as "Vertical" | "Horizontal",
-    showIcon: false,
-    showTitleAndSubText: false,
-    showSubTitle: false,
     colorVariant: "primary",
     borderColor: "",
-    showFooter: false,
-    showLinkButton: false,
     isDisabled: false,
-    isEditing: false,
-    showCardText: false,
   };
 
 export const CardWithTable : Story = {
@@ -1763,4 +1685,4 @@ export const CardWithTable : Story = {
                     </RdsWidget>
     )},
 };
-CardWithTable.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithTable.parameters = { controls: { include: ['state', 'style', 'showIndicator','isDisabled'] } };
