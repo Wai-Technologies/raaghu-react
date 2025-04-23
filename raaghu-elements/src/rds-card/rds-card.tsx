@@ -262,7 +262,7 @@ const RdsCard = (props: RdsCardProps) => {
         ) : (
           <div>
             <div className="card-body m-2 p-0">
-                <div className="row">
+                {props.showTitleAndSubText && <div className="row">
                   <div className="col-md-10">
                     {props.layout === "Vertical" && (
                       <>
@@ -310,7 +310,7 @@ const RdsCard = (props: RdsCardProps) => {
                       />
                     )}
                   </div>
-                </div>
+                </div>}
               {props.layout === undefined && (
                 <>
                   {props.showIcon && (
