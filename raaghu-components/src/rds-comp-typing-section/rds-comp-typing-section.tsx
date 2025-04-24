@@ -253,31 +253,28 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 showLabel
                             /> */}
                             <RdsDropdown
-                            buttonIcon="plus"
-                            colorVariant="primary"
-                            displayType={DisplayType.dropdown}
-                            iconStroke
-                            id="dropdown"
-                            label="Select Frontend"
-                            layout={Layout.Textonly}
-                            listItems={[
-                                {
-                                    id: '1',
-                                    label: 'Raaghu',
-                                    path: ''
-                                },
-                                
-                            ]}
-                            // profileImage="https://www.svgrepo.com/show/497407/profile-circle.svg"
-                            // selectIcon="circle"
-                            shape={Shape.rectangle}
-                            showChevron
-                            size="medium"
-                            state={State.default}
-                            style={Style.transparent}
-                            tooltip darkDropdown={false} //tooltipPlacement={TooltipStyle.RightArrow}
-  //tooltipTitle="This is tooltip"
-/>
+                                buttonIcon=""
+                                colorVariant="primary"
+                                displayType={DisplayType.dropdown}
+                                iconStroke
+                                id="dropdown"
+                                label="Select Frontend"
+                                layout={Layout.Textonly}
+                                listItems={[
+                                    {
+                                        id: '1',
+                                        label: 'Raaghu',
+                                        path: ''
+                                    },
+                                ]}
+                                shape={Shape.rectangle}
+                                showChevron
+                                size="medium"
+                                state={State.default}
+                                style={Style.transparent}
+                                tooltip={true} 
+                                darkDropdown={false} // Corrected syntax
+                            />
                         </div>
                     </div>
                     </div>
