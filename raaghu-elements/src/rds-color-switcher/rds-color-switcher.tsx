@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./rds-color-switcher.css";
 import { use } from "i18next";
 
+export enum DisplayType {
+    Rounded = "rounded",
+    Square = "square",
+  }
 export interface RdsColorSwitcherProps {
     header?: string;
     itemList: { id: number, color: string }[];
     defaultValue?: number;
-    displayType?: "rounded" | "square";
+    displayType?: DisplayType;
     selectedColor?: (event: React.MouseEvent<HTMLDivElement>, selected_Color: any) => void;
 }
 
@@ -15,7 +19,7 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
     const [value, setValue] = useState(defaultV);
     const displaytype = props.hasOwnProperty("displayType")
         ? props.displayType
-        : "rounded";
+        : DisplayType.Rounded;
     const selectColor = (e: any, item: any) => {
         setValue(item.id);
         selectColor(e, item.value);
@@ -28,7 +32,7 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
     return (
         <>
             <div>
-                {displaytype == "rounded" && (
+                {displaytype == DisplayType.Rounded && (
                     <div>
                         <h6>{props.header}</h6>
                         <div className="d-flex">
@@ -46,7 +50,7 @@ const RdsColorSwitcher = (props: RdsColorSwitcherProps) => {
                         </div>
                     </div>
                 )}
-                {displaytype == "square" && (
+                {displaytype == DisplayType.Square && (
                     <div>
                         <h6>{props.header}</h6>
                         <div className="d-flex">

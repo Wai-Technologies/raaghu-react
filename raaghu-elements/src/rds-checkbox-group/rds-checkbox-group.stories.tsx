@@ -1,4 +1,4 @@
-import RdsCheckboxGroup from "./rds-checkbox-group";
+import RdsCheckboxGroup, { CheckboxState } from "./rds-checkbox-group";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -7,6 +7,14 @@ const meta: Meta = {
     component: RdsCheckboxGroup,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(Checkbox|Indeterminate|ErrorCheckbox)"/g, '{CheckboxState.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -23,7 +31,7 @@ type Story = StoryObj<typeof RdsCheckboxGroup>;
 
 export const MultiOptionCheckbox: Story = {
     args: {
-        state: "Checkbox",
+        state: CheckboxState.Checkbox,
         isSwitch: false,
         isInline: false,
         label: "Checkbox Group",

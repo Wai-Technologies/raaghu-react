@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAlertPopup from "./rds-comp-alert-popup";
 import React from 'react';
-import RdsCompOtpInput from '../rds-comp-otpinput/rds-comp-otpinput';
+import RdsCompOtpInput, { FieldStyle } from '../rds-comp-otpinput/rds-comp-otpinput';
 
 const meta: Meta = {
     title: "Components/Alert Popup",
@@ -63,7 +63,7 @@ export const OtpValidation: Story = (args: any) => (
             OTP VALIDATION POPUP
         </button>
         <RdsCompAlertPopup {...args}>
-            <RdsCompOtpInput otpSize={6} fieldStyle="Advance" iconUrl={args.iconUrl}/>
+            <RdsCompOtpInput otpSize={6} fieldStyle={FieldStyle.Advance} iconUrl={args.iconUrl}/>
         </RdsCompAlertPopup>
     </>
 );

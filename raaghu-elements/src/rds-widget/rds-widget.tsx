@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import { colors } from "../../libs/types";
-import RdsButtonGroup from "../rds-button-group/rds-button-group";
+import RdsButtonGroup, { Role } from "../rds-button-group/rds-button-group";
 import RdsBigNumber from "../rds-big-number/rds-big-number";
 
 export interface RdsWidgetProps {
@@ -115,7 +115,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                 buttonGroupItems={props.buttonGroupList}
                 colorVariant="primary"
                 isOutline={true}
-                role="radio"
+                role={Role.Radio}
                 size="small"
                 vertical={false}
                 onClick={props.handleButtonClick}

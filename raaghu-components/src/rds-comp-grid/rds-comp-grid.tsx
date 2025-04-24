@@ -30,6 +30,7 @@ import {
   Style,
 } from "../../../raaghu-elements/src/rds-dropdown/rds-dropdown";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 
 export enum ActionPosition {
   Right = "right",
@@ -555,7 +556,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                     <div className="d-flex align-items-center flex-grow-1">
                       <div className="mt-2 flex-grow-1 w-100 w-md-auto">
                         <RdsSearch
-                          iconPosition="right"
+                          iconPosition={IconPosition.Right}
                           labelPosition="top"
                           placeholder="Search"
                           size="small"
