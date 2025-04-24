@@ -104,3 +104,28 @@
     border: 0px !important;
 }
 
+/* Enhanced styles to remove focus when clicking on the same dropdown */
+.accordion-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Reset hover effect when collapsed after clicking */
+.accordion-button.collapsed:active,
+.accordion-button.collapsed:focus {
+    background-color: transparent !important;
+}
+
+/* Clear hover effect on mouseleave after clicking */
+.accordion-item:not(:hover) .hover-content-wrapper {
+    background-color: transparent !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Ensure focus and active states don't persist hover styles */
+.accordion-button:active,
+.accordion-button.active {
+    background-color: transparent !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
