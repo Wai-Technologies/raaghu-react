@@ -3,7 +3,7 @@
     border-radius: 5px;
 }
 .input-with-image {
-    border: 1px solid #862FFF !important;
+    /* border: 1px solid #862FFF !important; */
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -31,6 +31,12 @@
 .theme-dark .input-with-image .form-controls {
     background-color: black;
     color: white;
+    color: var(--text-txt-neutral-light-default, #969696);
+font-family: var(--font-family-poppins, Poppins);
+font-size: 16px !important;
+font-style: normal;
+font-weight: var(--font-weight-medium, 500);
+line-height: 16px; /* 100% */
 }
 
 #left-bottom-corner {
@@ -63,7 +69,7 @@
 .input-box-typing-section {
     flex: 1;
     padding: 15px;
-    font-size: 16px;
+    font-size: 16px !important;
     background-color: #ffffff;
     color: #333333;
     height: 120px;
@@ -125,5 +131,64 @@
     stroke-width: 0px;
 } */
 .theme-light svg {
+    stroke: none !important;
+}
+
+.end-0 {
+    right: 18px !important;
+}
+.gradient-text {
+    background: linear-gradient(90deg, #7825E9 0%, #FDB336 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /*text-fill-color: transparent;  For non-webkit browsers */
+    display: inline-block; /* Ensure proper rendering for inline elements */
+    background-clip: text; /* Standard property for non-webkit browsers */
+}
+
+#story {
+    margin-top: -12px !important; /* Reduce or remove the margin-top */
+   
+}
+.input-wrapper {
+    border-radius: var(--corner-radius-radius-s, 8px);
+    border: 0.5px solid #C6A2F6;
+    
+    background: var(--background-bg-neutral-lighter-default, #FFF);
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.18);
+    
+}
+.input-box-typing-section {
+    color: var(--text-txt-neutral-light-default, #969696);
+font-family: var(--font-family-poppins, Poppins);
+font-size: 16px !important;
+font-style: normal;
+font-weight: var(--font-weight-medium, 500);
+line-height: 16px; /* 100% */
+}
+#select-list-container{
+    border-radius: var(--corner-radius-radius-xs, 4px);
+border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
+background: var(--background-bg-neutral-lighter-default, #FFF);
+}
+.position-absolute .btn-transparent {
+    background-color: transparent !important;
+    color: #969696!important;
+    border: none !important;
+}
+.text-primary {
+    --bs-text-opacity: 1;
+    color: rgb(136 134 139) !important;
+}
+.position-absolute .dropdown-menu {
+    position: absolute;
+   --bs-dropdown-min-width: 9.5rem;
+    border: 1px solid #7a777e;
+    z-index: 1000;
+}
+#Premium .attach {
+    stroke: none !important;
+}
+#typing-btn {
     stroke: none !important;
 }

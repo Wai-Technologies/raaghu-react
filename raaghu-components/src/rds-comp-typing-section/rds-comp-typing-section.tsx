@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { RdsInput, RdsIcon, RdsButton, RdsAttachement } from "../rds-elements";
+import { RdsInput, RdsIcon, RdsButton, RdsAttachement, RdsSelectList, RdsDropdown } from "../rds-elements";
 import './rds-comp-typing-section.css';
 import { Comment as AttachmentComment } from "../../../raaghu-elements/src/rds-attachement/rds-attachement";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import { DisplayType, Layout, Shape, State, Style } from "../../../raaghu-elements/src/rds-dropdown/rds-dropdown";
+import { TooltipPlacement } from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsTypingAltProps {
     colorVariant?: string;
@@ -105,66 +107,28 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         onChange={(e) => setInputText(e.target.value)}
                         title="Enter your prompt here"
                     />
-                    <div className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 ms-2 mb-2"}`}>
-                        <div id="typing-btn">
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                data-bs-toggle="tooltip"
-                                displayType="Icon + Text"
-                                iconStroke
-                                icon="plus"
-                                label="Project"
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                            />
-                        </div>
-                        <div id="typing-btn-outline">
-                            <RdsButton
-                                size="medium"
-                                shape="rectangle"
-                                state="default"
-                                badgeLayout="Icon + Text"
-                                style="outline"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                data-bs-toggle="tooltip"
-                                displayType="Icon + Text"
-                                icon="figma_icon"
-                                label="Import From Figma"
-                                textCase="unset"
-                                tooltipPlacement={
-                                    TooltipStyle.LeftArrow
-                                }
-                                tooltipTitle="This is tooltip"
-                            />
-                        </div>
-                    </div>
+                    
                     <div id="typing-section" className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 align-self-end me-3 mb-3"}`}>
-                        <div className="mt-1">
-                    <RdsIcon
-                        colorVariant="primary"
-                        height="20px"
-                        isCursorPointer
-                        name="prompt"
-                        width="20px"
-                    />
-                    </div>
+                        <div className="mt-1 position-absolute top-0 end-0">
+                            <RdsIcon classes="gradient-text"
+                                colorVariant="primary"
+                                height="20px"
+                                isCursorPointer
+                                name="sparkle"
+                                width="20px"
+                                
+                            />
+                        </div>
                         {!isMobile &&
-                            <RdsAttachement
+                        <div className="attach" id="Premium">
+                            <RdsAttachement 
                                 badgeColor="success"
                                 badgeLabel="Premium"
                                 handleAddComment={handleAddComment}
                                 hintText="Hint Text"
                                 importText="Import From This Device"
                                 inputPlaceholder="Enter URL"
-                                menuIcon="attachment_icon"
+                                menuIcon="attach"
                                 modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
                                 modalTitle="Import From Figma"
                                 onFigmaSubmit={handleFigmaSubmit}
@@ -172,6 +136,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 showBadge
                                 uploadText="Upload From Figma"
                             />
+                            </div>
                         }
                         {!isMobile && (
                             <>
@@ -183,8 +148,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                         colorVariant="primary"
                                         data-bs-toggle="tooltip"
                                         displayType="Icon Only"
-                                        icon="uparrow"
-                                        label=""
+                                        icon="send"                                       
                                         shape="rectangle"
                                         size="medium"
                                         state="default"
@@ -217,7 +181,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 colorVariant="primary"
                                 data-bs-toggle="tooltip"
                                 displayType="Icon Only"
-                                icon="uparrow"
+                                icon=""
                                 label=""
                                 shape="rectangle"
                                 size="medium"
@@ -229,7 +193,94 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                         </div>
                     )}
                 </div>
+                
             </div>
+            <div className="d-flex gap-2 mt-2">
+            <div className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 mb-2"}`}>
+                        <div id="typing-btn ms-4">
+                            <RdsButton
+                                badgeLayout="Text_only"
+                                badgeState="default"
+                                badgeStyle="primary"
+                                colorVariant="primary"
+                                data-bs-toggle="tooltip"
+                                displayType="Icon + Text"
+                                iconStroke
+                                icon="plus_chat"
+                                label="New Project"
+                                shape="rectangle"
+                                size="medium"
+                                state="default"
+                                style="filled"
+                                textCase="unset"
+                            />
+                        </div>
+                        <div id="typing-btn-outline ms-4" className="ms-2">
+                            <RdsButton
+                                size="medium"
+                                shape="rectangle"
+                                state="default"
+                                badgeLayout="Icon + Text"
+                                style="outline"
+                                badgeState="default"
+                                badgeStyle="primary"
+                                colorVariant="primary"
+                                data-bs-toggle="tooltip"
+                                displayType="Icon + Text"
+                                icon="figma_icon"
+                                label="Import From Figma"
+                                textCase="unset"
+                                tooltipPlacement={
+                                    TooltipStyle.LeftArrow
+                                }
+                                tooltipTitle="This is tooltip"
+                            />
+                        </div>
+                        <div id="select-list-container" className= "ms-4 end-0 pb position-absolute">
+                            {/* <RdsSelectList
+                                color="primary"
+                                id="story"
+                                isSearchable
+                                onChange={function Xs(){}}
+                                placeholder="Select Frontend"
+                                selectItems={[
+                                    {
+                                        option: 'Raaghu',
+                                        value: 'Raaghu'
+                                    },
+                                ]}
+                                selectedValue=""
+                                showLabel
+                            /> */}
+                            <RdsDropdown
+                            buttonIcon="plus"
+                            colorVariant="primary"
+                            displayType={DisplayType.dropdown}
+                            iconStroke
+                            id="dropdown"
+                            label="Select Frontend"
+                            layout={Layout.Textonly}
+                            listItems={[
+                                {
+                                    id: '1',
+                                    label: 'Raaghu',
+                                    path: ''
+                                },
+                                
+                            ]}
+                            // profileImage="https://www.svgrepo.com/show/497407/profile-circle.svg"
+                            // selectIcon="circle"
+                            shape={Shape.rectangle}
+                            showChevron
+                            size="medium"
+                            state={State.default}
+                            style={Style.transparent}
+                            tooltip darkDropdown={false} //tooltipPlacement={TooltipStyle.RightArrow}
+  //tooltipTitle="This is tooltip"
+/>
+                        </div>
+                    </div>
+                    </div>
         </div>
     );
 };
