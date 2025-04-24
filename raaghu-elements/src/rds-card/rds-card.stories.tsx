@@ -114,17 +114,41 @@ export const CardWithLinkButton: Story = {
 };
 CardWithLinkButton.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
 
+const cardWithImageArgs = {
+    state: "Default",
+    style: "Default",
+    showTitle: true,
+    cardTitle: "Mountain Image",
+    showIndicator: false,
+    layout: "Horizontal" as "Vertical" | "Horizontal",
+    showTitleAndSubText: true,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+    imageUrl: "https://picsum.photos/seed/picsum/1200/600",
+};
+
 export const CardWithImage: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithImageArgs,
     type: CardTypes.CardWithImage,
   },
 };
-CardWithImage.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithImage.parameters = { controls: { include: ['state', 'style', 'showIndicator','layout', 'showTitleAndSubText', 'cardTitle','isDisabled'] } };
+
+const cardWithRingChartArgs = {
+    state: "Default",
+    style: "Default",
+    showTitle: true,
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithRingChart: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithRingChartArgs,
     type: CardTypes.CardWithRingChart,
     children: (
       <RdsWidget
@@ -244,11 +268,20 @@ export const CardWithRingChart: Story = {
     ),
   },
 };
-CardWithRingChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithRingChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
+
+const cardWithMapArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithMap: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithMapArgs,
     type: CardTypes.CardWithMap,
     children: (
       <RdsWidget
@@ -283,11 +316,20 @@ export const CardWithMap: Story = {
     ),
   },
 };
-CardWithMap.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithMap.parameters = { controls: { include: ['state', 'style', 'showIndicator','layout', 'isDisabled'] } };
+
+const cardWithGraphArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithGraph: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithGraphArgs,
     type: CardTypes.CardWithGraph,
     children: (
       <RdsAreaChart
@@ -401,11 +443,20 @@ export const CardWithGraph: Story = {
     ),
   },
 };
-CardWithGraph.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithGraph.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
+
+const CardWithBooleanChartArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithBooleanChart: Story = {
   args: {
-    ...commonArgs,
+    ...CardWithBooleanChartArgs,
     type: CardTypes.CardWithBooleanChart,
     children: (
       <><div className="d-flex align-items-center">
@@ -565,7 +616,7 @@ export const CardWithBooleanChart: Story = {
     ),
   },
 };
-CardWithBooleanChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithBooleanChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
 
 export const ExampleBadges: Story = {
   args: {
@@ -591,9 +642,18 @@ export const ExampleAvatar: Story = {
 };
 ExampleAvatar.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
 
+const cardWithLineChartArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
+
 export const CardWithLineChart: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithLineChartArgs,
     type: CardTypes.CardWithBooleanChart,
     children: (
       <RdsWidget
@@ -723,11 +783,20 @@ export const CardWithLineChart: Story = {
        </RdsWidget>
     )},
 };
-CardWithLineChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithLineChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
+
+const cardWithDataTableArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithDataTable: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithDataTableArgs,
     type: CardTypes.CardWithTable,
     children :(
       <RdsWidget
@@ -1014,11 +1083,20 @@ export const CardWithDataTable: Story = {
                     </RdsWidget>
     )},
 };
-CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithDataTable.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
+
+const cardWithChartArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+};
 
 export const CardWithChart: Story = {
   args: {
-    ...commonArgs,
+    ...cardWithChartArgs,
     type: CardTypes.CardWithTable,
     children :( 
       <RdsWidget
@@ -1376,11 +1454,20 @@ export const CardWithChart: Story = {
   </RdsWidget>
     )},
 };
-CardWithChart.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithChart.parameters = { controls: { include: ['state', 'style', 'showIndicator', 'isDisabled'] } };
+
+const cardWithTableArgs = {
+    state: "Default",
+    style: "Default",
+    showIndicator: false,
+    colorVariant: "primary",
+    borderColor: "",
+    isDisabled: false,
+  };
 
 export const CardWithTable : Story = {
   args: {
-    ...commonArgs,
+    ...cardWithTableArgs,
     type: CardTypes.CardWithTable,
     children :(
 <RdsWidget
@@ -1598,4 +1685,4 @@ export const CardWithTable : Story = {
                     </RdsWidget>
     )},
 };
-CardWithTable.parameters = { controls: { include: ['state', 'style', 'showTitle', 'showIndicator','layout','showIcon','iconName','showTitleAndSubText','showSubTitle','cardTitle','cardSubTitle','showFooter','showLinkButton','isDisabled','isEditing','showCardText'] } };
+CardWithTable.parameters = { controls: { include: ['state', 'style', 'showIndicator','isDisabled'] } };
