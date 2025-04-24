@@ -236,7 +236,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 tooltipTitle="This is tooltip"
                             />
                         </div>
-                        <div id="select-list-container" className= "ms-4 end-0 pb position-absolute">
+                        <div id="select-list-container" className= "ms-4 end-0 pb position-absolute dropdown">
                             {/* <RdsSelectList
                                 color="primary"
                                 id="story"

@@ -171,16 +171,16 @@ line-height: 16px; /* 100% */
 border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
 background: var(--background-bg-neutral-lighter-default, #FFF);
 }
-.position-absolute .btn-transparent {
+.dropdown .btn-transparent {
     background-color: transparent !important;
     color: #969696!important;
     border: none !important;
 }
-.position-absolute .text-primary {
+.dropdown .text-primary {
     --bs-text-opacity: 1;
     color: rgb(136 134 139) !important;
 }
-.position-absolute .dropdown-menu {
+.dropdown .dropdown-menu {
     position: absolute;
    --bs-dropdown-min-width: 9.5rem;
     border: 1px solid #7a777e;
