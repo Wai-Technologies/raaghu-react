@@ -252,14 +252,14 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                 selectedValue=""
                                 showLabel
                             /> */}
-                            <RdsDropdown
+                           <RdsDropdown
                                 buttonIcon=""
                                 colorVariant="primary"
-                                displayType={DisplayType.dropdown}
+                                displayType={DisplayType.Dropdown}
                                 iconStroke
                                 id="dropdown"
                                 label="Select Frontend"
-                                layout={Layout.Textonly}
+                                layout={Layout.TextOnly}
                                 listItems={[
                                     {
                                         id: '1',
@@ -267,12 +267,12 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                                         path: ''
                                     },
                                 ]}
-                                shape={Shape.rectangle}
+                                shape={Shape.Rectangle}
                                 showChevron
                                 size="medium"
-                                state={State.default}
-                                style={Style.transparent}
-                                tooltip={true} 
+                                state={State.Default}
+                                style={Style.Transparent}
+                                tooltip={true}
                                 darkDropdown={false} // Corrected syntax
                             />
                         </div>
