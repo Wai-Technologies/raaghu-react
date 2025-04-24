@@ -49,6 +49,17 @@
     color: #FCFCFC;
 }
 
+.theme-light #stepper-dash .bg-completed, 
+.theme-light #stepper-stepper .bg-completed, 
+.theme-light #stepper-block .bg-completed {
+    background: #7825E9;
+    border-radius: 96px;
+    color: #FCFCFC;
+}
+
+.theme-light #single .progress-bar-bg-error {   
+    background-color: #BD0D1D;
+}
 
 #stepper-dash .bg-error, 
 #stepper-stepper .bg-error,

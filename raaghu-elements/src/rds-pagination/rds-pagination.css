@@ -44,7 +44,7 @@
   
   .page-item.active a {
     background-color: #ced4da; /* Customize as needed */
-    color: #343a40 !important;
+    color: #9e9e9e !important;
     font-weight:700 !important;
   }
   
@@ -91,4 +91,13 @@
 }
 .theme-dark .custom-navigation .customWidthForBtn {
   border-color: #7442b7  !important;
+}
+.theme-dark .btn {
+  color: #b2b2b2 !important;
+}
+.theme-dark .pagination {
+  color: #706e6e !important;
+}
+.theme-dark .pagination-border-bottom-custom{
+  border-bottom: 1px solid #706e6e !important;
 }
