@@ -183,20 +183,20 @@ const getLayout = (navLayout: string) => {
     }
 };
 
-export const DefaultNavigationSidebar: Story = (args: any) => (
+export const Default: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav {...args} sideNavItems={getSideNavItems(args.platform, args.navLayout)} layout={getLayout(args.navLayout)} />
     </BrowserRouter>
 );
 
-DefaultNavigationSidebar.args = {
+Default.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     showUserProfile:true,
     navLayout: NavLayout.Raaghu, 
     navType: NavType.Collapsed, 
     platform: Platform.SideNavigationABPList, 
 };
-DefaultNavigationSidebar.parameters = { controls: { include: ["navLayout", "navType", "platform"] } };
+Default.parameters = { controls: { include: ["navLayout", "navType", "platform"] } };
 
 
 
