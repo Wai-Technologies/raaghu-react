@@ -151,3 +151,7 @@
     --bs-text-opacity: 1;
     color: rgb(159 155 165) !important;
 }
+.typing .rectangle {
+    border:1px solid #939196 !important;
+    border-radius: 6px;
+}
