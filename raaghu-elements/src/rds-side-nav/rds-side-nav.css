@@ -69,8 +69,21 @@
     background-color: #414141 !important;
     border-right-color: #414141 !important;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
     #sidebar.show {
         width: 56px !important;
     }
 }
+
+
+@media (min-width: 576px) {
+    .LeftSideNavListCollapse .form-control {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    #mobileviewmenusdirectory ol,
+    #mobileviewmenusdirectory ul {
+        padding-left: 0.9rem !important;
+    }
+} */
