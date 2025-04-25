@@ -2,17 +2,17 @@ import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 //import { RdsDoubleRange } from "../src";import "@testing-library/jest-dom"
 
-import RdsDoubleRange, { RdsDoubleRangeProps } from "../src/rds-double-range/rds-double-range";
+import RdsDoubleRange, { DoubleRangeType, RdsDoubleRangeProps } from "../src/rds-double-range/rds-double-range";
 
 test("RdsDoubleRange component renders without crashing", () => {
-    render(<RdsDoubleRange min={0} max={100} doubleRangeType="default" />);
+    render(<RdsDoubleRange min={0} max={100} doubleRangeType={DoubleRangeType.Default} />);
 });
 
 describe("RdsDoubleRange", () => {
     const props: RdsDoubleRangeProps = {
         min: 0,
         max: 100,
-        doubleRangeType: "default",
+        doubleRangeType: DoubleRangeType.Default,
     };
 
     test("renders without error", () => {

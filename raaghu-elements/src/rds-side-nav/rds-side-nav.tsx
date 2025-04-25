@@ -6,6 +6,7 @@ import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
+import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -365,7 +366,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={(e) => addFilter(e.target.value)}
-                                iconPosition="right"
+                                iconPosition={IconPosition.Right}
                                 size="small"
                                 id={`sidenavbar-search`}
                             />

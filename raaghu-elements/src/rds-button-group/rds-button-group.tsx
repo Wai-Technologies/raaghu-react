@@ -2,12 +2,18 @@ import React from "react";
 import "./rds-button-group.css";
 import { colors } from "../../libs/types";
 import RdsIcon from "../rds-icon";
+
+export enum Role {
+    Checkbox = "checkbox",
+    Radio = "radio",
+    Button = "button",
+  }
 export interface RdsButtonGroupProps {
     vertical: boolean;
     isOutline: boolean;
     colorVariant?: colors;
     size: string;
-    role: "checkbox" | "radio" | "button";
+    role?: Role;
     buttonGroupItems: any[];
     checked?: boolean;
     onClick?: React.MouseEventHandler<HTMLInputElement>;
@@ -31,7 +37,7 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
  
     return (
         <>
-            {props.role != "button" && (
+            {props.role != Role.Button && (
                 <div
                     className={`${props.vertical == true ? "btn-group-vertical" : "btn-group member-count"
                         } ${size}`}
@@ -42,11 +48,11 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
                         <>
                             <input
                                 type={props.role}
-                                className={`${props.role == "checkbox" || props.role == "radio"
+                                className={`${props.role == Role.Checkbox || props.role == Role.Radio
                                         ? "btn-check"
                                         : "btn btn-primary"
                                     }`}
-                                name={props.role == "radio" ? `${buttonGroupItem.name}` : ""}
+                                name={props.role == Role.Radio ? `${buttonGroupItem.name}` : ""}
                                 id={buttonGroupItem.id}
                                 autoComplete="off"
                                 checked={buttonGroupItem.checked}
@@ -63,7 +69,7 @@ const RdsButtonGroup = (props: RdsButtonGroupProps) => {
                 </div>
             )}
  
-            {props.role == "button" && (
+            {props.role == Role.Button && (
                 <div
                     className={`${props.vertical == true ? "btn-group-vertical" : "btn-group"
                         } ${size} hover-button`}
