@@ -81,8 +81,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const handleFileSelect = (file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-            setEnhancedImage(reader.result as string); // Set the preview image
-            setInputText(""); // Clear the input text
+            setEnhancedImage(reader.result as string);
+            setInputText("");
         };
         reader.readAsDataURL(file);
     };
@@ -97,187 +97,176 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     };
 
     return (
-        <div className="d-flex flex-column typing-section">
-            <div className="input-wrapper">
-                <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
-                    <textarea
-                        className={`form-controls w-100 input-box-typing-section type-section-border text-${colorVariant} border-${colorVariant}`}
-                        placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        title="Enter your prompt here"
-                    />
-                    
-                    <div id="typing-section" className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 align-self-end me-3 mb-3"}`}>
-                        <div className="mt-1 position-absolute top-0 end-0">
-                            <RdsIcon classes="gradient-text"
-                                colorVariant="primary"
-                                height="20px"
-                                isCursorPointer
-                                name="sparkle"
-                                width="20px"
-                                
-                            />
-                        </div>
-                        {!isMobile &&
-                        <div className="attach" id="Premium">
-                            <RdsAttachement 
-                                badgeColor="success"
-                                badgeLabel="Premium"
-                                handleAddComment={handleAddComment}
-                                hintText="Hint Text"
-                                importText="Import From This Device"
-                                inputPlaceholder="Enter URL"
-                                menuIcon="attach"
-                                modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
-                                modalTitle="Import From Figma"
-                                onFigmaSubmit={handleFigmaSubmit}
-                                onFileSelect={handleFileSelect} // Updated to use the modified function
-                                showBadge
-                                uploadText="Upload From Figma"
-                            />
+        <div className="typing-section-container">
+            <div className="typing-section">
+                <div className="input-wrapper">
+                    <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
+                        <textarea
+                            className={`form-controls w-100 input-box-typing-section type-section-border text-${colorVariant} border-${colorVariant}`}
+                            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
+                            value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
+                            title="Enter your prompt here"
+                        />
+                        
+                        <div id="typing-section" className="d-flex align-items-end justify-content-end me-3 mb-3">
+                            <div className="mt-1 position-absolute top-0 end-0 me-2">
+                                <RdsIcon 
+                                    classes="gradient-text"
+                                    colorVariant="primary"
+                                    height="20px"
+                                    isCursorPointer
+                                    name="sparkle"
+                                    width="20px"
+                                />
                             </div>
-                        }
-                        {!isMobile && (
-                            <>
-                                <div className="btn-transition">
-                                    <RdsButton
-                                        badgeLayout="Text_only"
-                                        badgeState="default"
-                                        badgeStyle="primary"
-                                        colorVariant="primary"
-                                        data-bs-toggle="tooltip"
-                                        displayType="Icon Only"
-                                        icon="send"                                       
-                                        shape="rectangle"
-                                        size="medium"
-                                        state="default"
-                                        style="filled"
-                                        textCase="unset"
-                                        tooltip
-                                        tooltipPlacement={TooltipStyle.MiddleTopArrow}
-                                        tooltipTitle="Send"
-                                        onClick={handleSent}
-                                    />
+                            
+                            {!isMobile && (
+                                <div className="d-flex gap-2">
+                                    <div className="attach" id="Premium">
+                                        <RdsAttachement 
+                                            badgeColor="success"
+                                            badgeLabel="Premium"
+                                            handleAddComment={handleAddComment}
+                                            hintText="Hint Text"
+                                            importText="Import From This Device"
+                                            inputPlaceholder="Enter URL"
+                                            menuIcon="attach"
+                                            modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                                            modalTitle="Import From Figma"
+                                            onFigmaSubmit={handleFigmaSubmit}
+                                            onFileSelect={handleFileSelect}
+                                            showBadge
+                                            uploadText="Upload From Figma"
+                                        />
+                                    </div>
+                                    <div className="btn-transition">
+                                        <RdsButton
+                                            badgeLayout="Text_only"
+                                            badgeState="default"
+                                            badgeStyle="primary"
+                                            colorVariant="primary"
+                                            data-bs-toggle="tooltip"
+                                            displayType="Icon Only"
+                                            icon="send"                                       
+                                            shape="rectangle"
+                                            size="medium"
+                                            state="default"
+                                            style="filled"
+                                            textCase="unset"
+                                            tooltip
+                                            tooltipPlacement={TooltipStyle.MiddleTopArrow}
+                                            tooltipTitle="Send"
+                                            onClick={handleSent}
+                                        />
+                                    </div>
                                 </div>
-                            </>
+                            )}
+                        </div>
+                        
+                        {isMobile && (
+                            <div className="d-flex justify-content-center gap-3 position-relative ms-auto mt-3">
+                                <RdsAttachement 
+                                    badgeColor="success"
+                                    badgeLabel="Premium"
+                                    handleAddComment={handleAddComment}
+                                    hintText="Hint Text"
+                                    importText="Import From This Device"
+                                    inputPlaceholder="Enter URL"
+                                    menuIcon="attach"
+                                    modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                                    modalTitle="Import From Figma"
+                                    onFigmaSubmit={handleFigmaSubmit}
+                                    onFileSelect={handleFileSelect}
+                                    showBadge
+                                    uploadText="Upload From Figma"
+                                />
+                                <RdsButton
+                                    badgeLayout="Text_only"
+                                    badgeState="default"
+                                    badgeStyle="primary"
+                                    colorVariant="primary"
+                                    data-bs-toggle="tooltip"
+                                    displayType="Icon Only"
+                                    icon="send"
+                                    shape="rectangle"
+                                    size="medium"
+                                    state="default"
+                                    style="filled"
+                                    textCase="unset"
+                                    tooltip
+                                    tooltipPlacement={TooltipStyle.MiddleTopArrow}
+                                    tooltipTitle="Send"
+                                    onClick={handleSent}
+                                />
+                            </div>
                         )}
                     </div>
-                    {isMobile && (
-                        <div className="d-flex gap-2 position-absolute mt-3 end-0 me-2">
-                            <RdsIcon
-                                colorVariant="primary"
-                                height="20px"
-                                isCursorPointer
-                                name="mic"
-                                stroke
-                                width="20px"
-                                onClick={handleMicClick}
-                            />
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                data-bs-toggle="tooltip"
-                                displayType="Icon Only"
-                                icon=""
-                                label=""
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                                onClick={handleSent}
-                            />
-                        </div>
-                    )}
                 </div>
-                
+
+                {/* Bottom action buttons with responsive layout */}
+                <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3`}>
+                    <div className="action-button-item ">
+                        <RdsButton
+                            badgeLayout="Text_only"
+                            badgeState="default"
+                            badgeStyle="primary"
+                            colorVariant="primary"
+                            displayType="Icon + Text"
+                            iconStroke
+                            icon="plus_chat"
+                            label="New Project"
+                            shape="rectangle"
+                            size="medium"
+                            state="default"
+                            style="filled"
+                            textCase="unset"
+                            
+                        />
+                    </div>
+                    <div className="action-button-item ">
+                        <RdsButton
+                            size="medium"
+                            shape="rectangle"
+                            state="default"
+                            badgeLayout="Icon + Text"
+                            style="outline"
+                            badgeState="default"
+                            badgeStyle="primary"
+                            colorVariant="primary"
+                            displayType="Icon + Text"
+                            icon="figma_icon"
+                            label="Import From Figma"
+                            textCase="unset"
+                           
+                        />
+                    </div>
+                    <div className={`action-button-item typing ${!isMobile ? 'ms-auto' : ''}`}>
+                    <RdsDropdown
+                            buttonIcon="plus"
+                            colorVariant="primary"
+                            displayType={DisplayType.Dropdown}
+                            iconStroke
+                            id="1"
+                            label="Select Frontend"
+                            layout={Layout.TextOnly}
+                            listItems={[
+                                {
+                                    id: '1',
+                                    label: 'Raaghu',
+                                    path: ''
+                                },
+                               
+                            ]}                           
+                            shape={Shape.Rectangle}
+                            showChevron
+                            size="medium"
+                            state={State.Default}
+                            style={Style.Outline} darkDropdown={false}      
+                            />
+                    </div>
+                </div>
             </div>
-            <div className="d-flex gap-2 mt-2">
-            <div className={`d-flex ${isMobile ? "flex-column align-items-center" : "gap-2 mb-2"}`}>
-                        <div id="typing-btn ms-4">
-                            <RdsButton
-                                badgeLayout="Text_only"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                data-bs-toggle="tooltip"
-                                displayType="Icon + Text"
-                                iconStroke
-                                icon="plus_chat"
-                                label="New Project"
-                                shape="rectangle"
-                                size="medium"
-                                state="default"
-                                style="filled"
-                                textCase="unset"
-                            />
-                        </div>
-                        <div id="typing-btn-outline ms-4" className="ms-2">
-                            <RdsButton
-                                size="medium"
-                                shape="rectangle"
-                                state="default"
-                                badgeLayout="Icon + Text"
-                                style="outline"
-                                badgeState="default"
-                                badgeStyle="primary"
-                                colorVariant="primary"
-                                data-bs-toggle="tooltip"
-                                displayType="Icon + Text"
-                                icon="figma_icon"
-                                label="Import From Figma"
-                                textCase="unset"
-                                tooltipPlacement={
-                                    TooltipStyle.LeftArrow
-                                }
-                                tooltipTitle="This is tooltip"
-                            />
-                        </div>
-                        <div id="select-list-container" className= "ms-4 end-0 pb position-absolute dropdown">
-                            {/* <RdsSelectList
-                                color="primary"
-                                id="story"
-                                isSearchable
-                                onChange={function Xs(){}}
-                                placeholder="Select Frontend"
-                                selectItems={[
-                                    {
-                                        option: 'Raaghu',
-                                        value: 'Raaghu'
-                                    },
-                                ]}
-                                selectedValue=""
-                                showLabel
-                            /> */}
-                           <RdsDropdown
-                                buttonIcon=""
-                                colorVariant="primary"
-                                displayType={DisplayType.Dropdown}
-                                iconStroke
-                                id="dropdown"
-                                label="Select Frontend"
-                                layout={Layout.TextOnly}
-                                listItems={[
-                                    {
-                                        id: '1',
-                                        label: 'Raaghu',
-                                        path: ''
-                                    },
-                                ]}
-                                shape={Shape.Rectangle}
-                                showChevron
-                                size="medium"
-                                state={State.Default}
-                                style={Style.Transparent}
-                                tooltip={true}
-                                darkDropdown={false} // Corrected syntax
-                            />
-                        </div>
-                    </div>
-                    </div>
         </div>
     );
 };
