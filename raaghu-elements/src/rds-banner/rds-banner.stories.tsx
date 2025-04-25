@@ -29,7 +29,6 @@ const meta: Meta<typeof RdsBanner> = {
     position: {
       options: ["top", "bottom"],
       control: { type: "radio" },
-      if: { arg: "sticky" },
     },
     colorVariant: {
       options: [

@@ -8,6 +8,15 @@ const meta: Meta = {
     component: RdsCompAlertPopup,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+              transform: (code: string) => {
+                // Transform FieldStyle enum - remove spaces and transform
+                code = code.replace(/"(Default|Square|Circle|Advance)"/g, '{FieldStyle.$1}');
+                return code;
+              }
+            }
+          }
     },
     tags: ['autodocs'],
     argTypes: {
