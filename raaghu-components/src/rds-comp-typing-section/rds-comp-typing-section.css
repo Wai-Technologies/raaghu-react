@@ -159,6 +159,15 @@
     top: auto !important;
     bottom: 10px !important;
     left: -250px !important;
+    left: -196px !important;
     right: auto !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
+}
+.typing .dropdown-menu {
+    position: absolute;
+    padding: 0px;
+    width: 120px;
+    --bs-dropdown-min-width: 9.7rem;
+    border: 1px solid #7D7D7D;
+    z-index: 1000;
 }
