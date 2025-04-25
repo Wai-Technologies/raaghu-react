@@ -139,19 +139,26 @@
 }
 
 .typing .rectangle {
-    border: 2px solid #939196 !important;
+    border: 2px solid #7D7D7D !important;
     border-radius: 6px;
 }
 .typing .btn-outline {
     background-color: transparent !important;
-    color: #95919a !important;
-    border: 1px solid #b6b2bd !important;
+    color: #7D7D7D !important;
+    border: 1px solid #7D7D7D!important;
 }
 .typing .text-primary {
     --bs-text-opacity: 1;
     color: rgb(159 155 165) !important;
 }
 .typing .rectangle {
-    border:1px solid #939196 !important;
+    border:1px solid #7D7D7D !important;
     border-radius: 6px;
+}
+.attachement-dropdown #fab-list .dropdown-menu.show {
+    top: auto !important;
+    bottom: 10px !important;
+    left: -250px !important;
+    right: auto !important;
+    transform: translate3d(30px, 97.5px, 0px) !important;
 }
