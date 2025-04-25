@@ -2,9 +2,14 @@ import React, { Fragment } from "react";
 import RdsIcon from "../rds-icon";
 import "./rds-app-detail.css";
 
+export enum IconPosition {
+  Left = "left",
+  Center = "center",
+  Right = "right"
+}
 export interface RdsAppDetailProps {
   linkUrl?: string;
-  iconPosition?: "left" | "center" | "right";
+  iconPosition?: IconPosition;
   showUpperBorder?: boolean;
   appDetailsItem: {
     title: string;

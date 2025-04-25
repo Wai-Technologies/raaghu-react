@@ -9,6 +9,7 @@ import RdsBadge from "../rds-badge";
 import RdsTag from "../rds-tag";
 import RdsInput from "../rds-input";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
+import { ColorVariant, Role, TagType } from "../rds-tag/rds-tag";
 
 export enum CardTypes {  //types of cards
   CardWithImage = "Card With Image",
@@ -356,7 +357,7 @@ const RdsCard = (props: RdsCardProps) => {
               )}
               {props.type === "Example-Tags" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
-                  <RdsTag tagType={"round"} role={"basic"} colorVariant={"primary"} />
+                  <RdsTag tagType={TagType.Round} role={Role.Basic} colorVariant={ColorVariant.Primary} />
                 </div>
               )}
               {props.type === "Example-Avatar" && (
