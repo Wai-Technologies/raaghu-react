@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RdsIcon, RdsButtonGroup } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
 
 export interface RdsCompMenuDirectoryProps {
     items?: any;
@@ -113,7 +114,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                             buttonGroupItems={buttonGroupList}
                             colorVariant="primary"
                             isOutline={true}
-                            role="button"
+                            role={Role.Button}
                             size="small"
                             vertical={false}
                             onButtonClick={(e: any, id: any) => handlerButtonGroupClick(e, id, item)}

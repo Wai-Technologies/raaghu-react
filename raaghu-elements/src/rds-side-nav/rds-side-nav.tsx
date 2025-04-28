@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
@@ -6,6 +7,7 @@ import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
+import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -333,14 +335,14 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 <nav
                     id="sidebar"
                     ref={ref}
-                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1 side-navigation
+                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-3 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
                     <div>
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
-                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                <img src={logo != "" ? logo : ""} className="ps-md-2 main-logo ps-1" alt={logo != "" ? "Raaghu Side Navigation" : ""}
                                     style={{ height: "30px" }}></img>
                             </>
                         )}
@@ -365,7 +367,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={(e) => addFilter(e.target.value)}
-                                iconPosition="right"
+                                iconPosition={IconPosition.Right}
                                 size="small"
                                 id={`sidenavbar-search`}
                             />
@@ -807,3 +809,4 @@ export default RdsSideNav;
 // };
 
 // export default RdsSideNav;
+

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsBanner from "./rds-banner";
+import RdsBanner, { ColorVariant, Position, TextAlign } from "./rds-banner";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof RdsBanner> = {
@@ -7,13 +7,28 @@ const meta: Meta<typeof RdsBanner> = {
   component: RdsBanner,
   parameters: {
     layout: "padded",
+    docs: {
+      source : {
+          transform: (code: string) => {
+              // Transform colorVariant enum - remove spaces and transform
+              code = code.replace(/colorVariant="([^"]+)"/g, (match, p1) => `colorVariant={ColorVariant.${p1.replace(/\s+/g, '')}}`);
+              code = code.replace(/colorVariant:\s*"([^"]+)"/g, (match, p1) => `colorVariant: ColorVariant.${p1.replace(/\s+/g, '')}`);
+              // Transform Position enum - remove spaces and transform
+              code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={Position.${p1.replace(/\s+/g, '')}}`);
+              code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: Position.${p1.replace(/\s+/g, '')}`);
+               // Transform textAlign enum - remove spaces and transform
+               code = code.replace(/textAlign="([^"]+)"/g, (match, p1) => `textAlign={TextAlign.${p1.replace(/\s+/g, '')}}`);
+               code = code.replace(/textAlign:\s*"([^"]+)"/g, (match, p1) => `textAlign: TextAlign.${p1.replace(/\s+/g, '')}`);
+              return code;
+          }
+      }
+  }
   },
   tags: ["autodocs"],
   argTypes: {
     position: {
       options: ["top", "bottom"],
       control: { type: "radio" },
-      if: { arg: "sticky" },
     },
     colorVariant: {
       options: [
@@ -40,11 +55,11 @@ type Story = StoryObj<typeof RdsBanner>;
 
 export const Banner: Story = {
   args: {
-    textAlign: "start",
+    textAlign: TextAlign.Start,
     bannerText: "Big news ! We are excited to announce a brand new product.",
     sticky: false,
-    position: "top",
-    colorVariant: "info",
+    position: Position.Top,
+    colorVariant: ColorVariant.Info,
     icon: "information",
     iconHeight: "20px",
     iconWidth: "20px",
@@ -71,7 +86,7 @@ Banner.parameters = {
 
 export const ActionableBanner: Story = {
     args: {
-        colorVariant: "light",
+        colorVariant: ColorVariant.Light,
         headingText: "Discover",
         titleText: "15 days challenge",
         subTitleText: " We will deliver an MVP in a record time of 15 days",

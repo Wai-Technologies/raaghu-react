@@ -2,21 +2,34 @@ import React, { useState } from "react";
 import RdsIcon from "../rds-icon";
 import "./rds-tag.css";
 
+export enum TagType {
+    Square = "square",
+    Round = "round",
+  }
+
+export enum Role {
+    Basic = "basic",
+    TagWithScroll = "tagWithScroll",
+  }
+
+export enum ColorVariant {
+    Primary = "primary",
+    Success = "success",
+    Danger = "danger",
+    Warning = "warning",
+    Light = "light",
+    Info = "info",
+    Secondary = "secondary",
+    Dark = "dark",
+  }
+
 export interface RdsTagProps {
-    tagType: "square" | "round";
+    tagType: TagType;
     tagArray?: any[];
     inputText?: string;
     fillClose?: boolean;
-    role: "basic" | "tagWithScroll";
-    colorVariant:
-    | "primary"
-    | "secondary"
-    | "danger"
-    | "success"
-    | "warning"
-    | "info"
-    | "light"
-    | "dark";
+    role: Role;
+    colorVariant: ColorVariant;
 }
 
 const RdsTag = (props: RdsTagProps) => {
@@ -27,10 +40,10 @@ const RdsTag = (props: RdsTagProps) => {
     const borderColor = "border border-" + `${props.colorVariant}`;
     classes = `bd-example ${tagColor} ${borderColor}`;
 
-    if (props.tagType === "square") {
+    if (props.tagType === TagType.Square) {
         classes = `bd-example square-tags  ${tagColor} ${borderColor}`;
     }
-    if (props.tagType === "round") {
+    if (props.tagType === TagType.Round) {
         classes = `bd-example rounded-pill  ${tagColor} ${borderColor}`;
     }
 
@@ -60,7 +73,7 @@ const RdsTag = (props: RdsTagProps) => {
                             <div className=" float-left ">
                                 <div
                                     className={
-                                        props.role == "basic"
+                                        props.role == Role.Basic
                                             ? "p-0"
                                             : "scroll-type d-block m-1 mb-2"
                                     }

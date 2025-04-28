@@ -9,6 +9,7 @@ import {
 import { useTranslation } from "react-i18next";
 import RdsCompProfile from "../rds-comp-profile";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 export interface RdsCompTopNavigationWithSearchProps {
   ShowProfileSection?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
@@ -215,7 +216,7 @@ const RdsCompTopNavigationWithSearch = (
                 </div>
                 <div className="searchBackground">
                     <RdsSearch
-                        iconPosition="right"
+                       iconPosition={IconPosition.Right}
                         labelPosition="right"
                         placeholder="Search"
                         size="small"
