@@ -221,3 +221,23 @@ aspect-ratio: 1/1;
 .action-button-item.theme-dark .btn {
     color: #7825E9 !important;
 }
+.theme-dark .input-with-image .form-controls {
+   
+    color: white;
+    color: var(--text-txt-neutral-light-default, #969696);
+    font-family: var(--font-family-poppins, Poppins);
+    font-size: 13px !important;
+    font-style: normal;
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 16px;
+}
+.theme-dark .btn-md svg {
+    width: 12px !important;
+    height: 17px !important;
+    stroke-width: 0.5px;
+}
+.theme-dark .btn-md svg {
+    width: 12px !important;
+    height: 17px !important;
+    stroke-width: 1.5px;
+}

@@ -98,7 +98,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
     return (
         <div className ="border-radius transperent">
-        <div className="d-flex flex-column typing-section">
+        <div className="d-flex flex-column typing-section px-1 pt-1">
           
 
 <div className="input-wrapper position-relative">
@@ -164,15 +164,15 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
         </div>
     </div>
 </div>
-            <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3`}>
-                    <div className="action-button-item ">
+            <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3 mb-1`}>
+                    <div className="action-button-item plus_chat">
                         <RdsButton
                             badgeLayout="Text_only"
                             badgeState="default"
                             badgeStyle="primary"
                             colorVariant="primary"
                             displayType="Icon + Text"
-                            iconStroke
+                            
                             icon="plus_chat"
                             label="New Project"
                             shape="rectangle"
