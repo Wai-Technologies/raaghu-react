@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
@@ -341,7 +342,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
-                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                <img src={logo != "" ? logo : ""} className="ps-md-2 main-logo ps-1" alt={logo != "" ? "Raaghu Side Navigation" : ""}
                                     style={{ height: "30px" }}></img>
                             </>
                         )}
@@ -808,3 +809,4 @@ export default RdsSideNav;
 // };
 
 // export default RdsSideNav;
+
