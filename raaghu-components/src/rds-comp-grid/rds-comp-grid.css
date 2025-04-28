@@ -85,3 +85,40 @@ svg.text-dark {
   height: 14px !important;
   width: 14px !important;
 }
+.comp-grid .btn-transparent {  
+  color: #29292a !important;
+  border: none !important;
+}
+.comp-grid .fixed-selectlist {
+  width: 120px;
+  height: 40px;
+}
+.comp-grid .custom-select-list .mt-2 {
+  margin-top: 0.5rem !important;
+  margin-left: -16px;
+}
+.theme-dark .btn-transparent  {
+  background: #ffffff !important;
+  border: none !important;
+}
+.comp-grid .theme-light .btn-transparent {
+  color: #1d1d1e !important;
+  border: none !important;
+}
+.comp-grid .btn.btn-transparent-primary {
+  color: #1d1d1e !important;
+  border-color: none;
+}
+
+.comp-grid .theme-dark .btn.btn-transparent-primary {
+  background: #141313;
+  color: #1d1d1e;
+}
+.comp-grid .theme-light .btn.btn-transparent-primary {
+  background: #1d1d1e;
+  color: #1d1d1e;
+}
+.theme-dark #sortTable thead th svg, .theme-dark #sortTable tbody td svg {
+  stroke: #ffffff;
+  color: #727277 !important;
+}

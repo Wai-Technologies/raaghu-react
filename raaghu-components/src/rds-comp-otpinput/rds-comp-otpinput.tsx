@@ -2,9 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import { RdsButton, RdsIcon, RdsInput } from "../rds-elements";
 
+
+export enum FieldStyle {
+  Default = "Default",
+  Circle = "Circle",
+  Square = "Square",
+  Advance = "Advance",
+}
 export interface RdsOtpInputProps {
   otpSize?: number;
-  fieldStyle?: "Default" | "Circle" | "Square" | "Advance";
+  fieldStyle?: FieldStyle;
   iconUrl?: string;
 }
 
@@ -14,9 +21,9 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
   const [otp, setOtp] = useState(Array(initialOtpSize).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const fieldClass =
-    props.fieldStyle === "Circle"
+    props.fieldStyle === FieldStyle.Circle
       ? "otp-input-circle"
-      : props.fieldStyle === "Square"
+      : props.fieldStyle === FieldStyle.Square
       ? "otp-input-square"
       : "otp-input-default";
 
@@ -66,7 +73,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
  };
   return (
     <>
-      {props.fieldStyle != "Advance" && (
+      {props.fieldStyle != FieldStyle.Advance && (
         <>
           <div className="text-center">
             <p>Enter the {otpSize}-digit OTP you received</p>
@@ -89,7 +96,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
           </div>
         </>
       )}
-      {props.fieldStyle == "Advance" && (
+      {props.fieldStyle == FieldStyle.Advance && (
         <div className="otp-verification-container">
           <div className="iconotpalert">
             <RdsIcon
