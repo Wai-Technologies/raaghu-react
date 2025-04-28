@@ -80,7 +80,7 @@ line-height: 16px; /* 100% */
     font-size: 16px !important;
     background-color: #ffffff;
     color: var(--text-txt-neutral-light-default, #969696);
-    height: 120px;
+    height: 100px;
     width: inherit;
     padding-right: 40px;
     box-sizing: border-box;
@@ -138,7 +138,7 @@ line-height: 16px; /* 100% */
 .btn-md svg {
     width: 12px !important;
     height: 17px !important;
-    stroke-width: 2.5;
+    stroke-width: 1.5;
 }
 .btn-transition:hover {
     transform: scale(1.1);
@@ -222,7 +222,6 @@ aspect-ratio: 1/1;
     color: #7825E9 !important;
 }
 .theme-dark .input-with-image .form-controls {
-   
     color: white;
     color: var(--text-txt-neutral-light-default, #969696);
     font-family: var(--font-family-poppins, Poppins);
@@ -234,10 +233,29 @@ aspect-ratio: 1/1;
 .theme-dark .btn-md svg {
     width: 12px !important;
     height: 17px !important;
-    stroke-width: 0.5px;
+    stroke-width: 1.5px;
 }
-.theme-dark .btn-md svg {
+.theme-light .btn-md svg {
     width: 12px !important;
     height: 17px !important;
-    stroke-width: 1.5px;
+    stroke-width: 1.5px ; 
+}
+.theme-dark .btn.btn-outline-primary {
+    color: #7825e9 !important;
+}
+.theme-dark .btn {
+    color: #fcfbfb !important;
+}
+.text-dark {
+    height: 17px !important;
+    width: 17px !important;
+    fill: none !important;
+    /* stroke: currentcolor; */
+    stroke-width: 0px!important;
+}
+.sparkle {
+    height: 20px !important;
+    width: 20px !important;
+    fill: none !important;
+    stroke: none !important;
 }

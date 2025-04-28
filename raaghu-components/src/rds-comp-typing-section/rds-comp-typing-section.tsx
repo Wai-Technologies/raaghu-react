@@ -150,7 +150,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 colorVariant="primary"
                 data-bs-toggle="tooltip"
                 displayType="Icon Only"
-                icon="send"                                       
+                icon="send"      
+                iconWidth="20px"                                 
                 shape="rectangle"
                 size="medium"
                 state="default"
@@ -165,14 +166,13 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     </div>
 </div>
             <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3 mb-1`}>
-                    <div className="action-button-item plus_chat">
+                    <div className="action-button-item plus_chat project">
                         <RdsButton
                             badgeLayout="Text_only"
                             badgeState="default"
                             badgeStyle="primary"
                             colorVariant="primary"
                             displayType="Icon + Text"
-                            
                             icon="plus_chat"
                             label="New Project"
                             shape="rectangle"
@@ -180,7 +180,6 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             state="default"
                             style="filled"
                             textCase="unset"
-                            
                         />
                     </div>
                     <div className="action-button-item ">
@@ -192,7 +191,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             style="outline"
                             badgeState="default"
                             badgeStyle="primary"
-                            colorVariant="primary"
+                            // colorVariant="primary"
                             displayType="Icon + Text"
                             icon="figma_icon"
                             label="Import From Figma"
