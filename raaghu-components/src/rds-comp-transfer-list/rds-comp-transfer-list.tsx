@@ -3,8 +3,12 @@ import "./rds-comp-transfer-list.css";
 import { RdsButton, RdsCheckbox } from "../rds-elements";
 import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 
+export enum SelectAllType {
+  Default = "default",
+  Advanced = "advanced",
+}
 export interface RdsCompTransferListProps {
-  selectAllType?: "default" | "advanced";
+  selectAllType?: SelectAllType;
 }
 
 const RdsCompTransferList = (props: RdsCompTransferListProps) => {
@@ -75,7 +79,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
   return (
     <div className="transfer-list-container">
       <div className="transfer-list">
-        {props.selectAllType === "advanced" && (
+        {props.selectAllType === SelectAllType.Advanced && (
           <>
             <div className="transfer-list-header">
               <RdsCheckbox
@@ -105,7 +109,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
         ))}
       </div>
       <div className="button-controls gap-2">
-        {props.selectAllType === "default" && (
+        {props.selectAllType === SelectAllType.Default && (
           <RdsButton
             label=">>"
             colorVariant="primary"
@@ -128,7 +132,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
           onClick={handleCheckedLeft}
           isDisabled={rightChecked.length === 0}
         />
-        {props.selectAllType === "default" && (
+        {props.selectAllType === SelectAllType.Default && (
           <RdsButton
             label="<<"
             colorVariant="primary"
@@ -139,7 +143,7 @@ const RdsCompTransferList = (props: RdsCompTransferListProps) => {
         )}
       </div>
       <div className="transfer-list">
-        {props.selectAllType === "advanced" && (
+        {props.selectAllType === SelectAllType.Advanced && (
           <>
             <div className="transfer-list-header">
               <RdsCheckbox

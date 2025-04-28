@@ -4,6 +4,11 @@ import RdsLikeDislike from "../rds-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-feed.styled.css";
 
+export enum Size {
+    Small = "small",
+    Medium = "medium",
+    Large = "large",
+  }
 export interface Item {
     id: React.Key | null | undefined;
     profilePic: string | undefined;
@@ -21,7 +26,7 @@ export interface Item {
     rating?: 0 | 1 | 2 | 3 | 4 | 5;
     fill?: boolean;
     stroke?: boolean;
-    size?: "small" | "medium" | "large"; // Optional per item
+    size?: Size; // Optional per item
 }
 
 export interface RdsFeedProps {
