@@ -1,4 +1,4 @@
-import RdsButtonGroup from "./rds-button-group";
+import RdsButtonGroup, { Role } from "./rds-button-group";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -7,6 +7,14 @@ const meta: Meta = {
     component: RdsButtonGroup,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(checkbox|radio|button)"/g, '{Role.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -44,7 +52,7 @@ export const Default: Story = {
         vertical: false,
         size: "medium",
         colorVariant: "primary",
-        role: "button",
+        role: Role.Button,
         buttonGroupItems: [
             {
                 label: "Left",
@@ -75,7 +83,7 @@ export const CheckboxButtonGroup: Story = {
         size: "medium",
         colorVariant: "primary",
         isOutline: true,
-        role: "checkbox",
+        role: Role.Checkbox,
         buttonGroupItems: [
             {
                 label: "Checkbox 1",
@@ -104,7 +112,7 @@ export const IconButtonGroup: Story = {
         vertical: false,
         size: "medium",
         colorVariant: "primary",
-        role: "button",
+        role: Role.Button,
         isOutline: true,
         buttonGroupItems: [
             {
@@ -146,7 +154,7 @@ export const RadioButtonGroup: Story = {
         size: "medium",
         colorVariant: "primary",
         isOutline: true,
-        role: "radio",
+        role: Role.Radio,
         buttonGroupItems: [
             {
                 label: "radio1",
@@ -179,7 +187,7 @@ export const Vertical: Story = {
         vertical: true,
         size: "medium",
         colorVariant: "primary",
-        role: "button",
+        role: Role.Button,
         buttonGroupItems: [
             {
                 label: "Left",

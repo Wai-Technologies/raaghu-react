@@ -1,6 +1,10 @@
 import React, { useState, ReactNode } from "react";
 import { RdsIcon } from "../rds-elements";
 
+export enum Position {
+   Right = "right",
+   Left = "left",
+ }
 export interface MenuItem {
    id?: string;
    name?: string;
@@ -9,7 +13,7 @@ export interface MenuItem {
 }
 
 export interface RdsCompCollapsibleContainerProps {
-   position: "right" | "left";
+   position: Position;
    menuItems: MenuItem[];
 }
 
@@ -22,7 +26,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
 
    return (
       <div className={`wrapperContainer justify-content-md-start justify-content-xl-end ${props.position}`}>
-         {props.position === "right" &&
+         {props.position === Position.Right &&
             <div className="leftChevronPosition">
                <div className="chevron-container">
                   <RdsIcon
@@ -48,7 +52,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
                ))}
             </div>
          </div>
-         {props.position === "left" &&
+         {props.position === Position.Left &&
             <div className="rightChevronPosition">
                <div className="chevron-container">
                   <RdsIcon

@@ -1,12 +1,27 @@
 import React, { Fragment } from "react";
 import "./rds-feature-list.css";
 
+export enum FontStyle {
+    Italic = "italic",
+    Normal = "normal",
+  }
+
+export enum ColorVariant {
+    Primary = "primary",
+    Success = "success",
+    Danger = "danger",
+    Warning = "warning",
+    Light = "light",
+    Info = "info",
+    Secondary = "secondary",
+    Dark = "dark",
+  }
 export interface RdsFeatureListProps {
     heading: string
     itemList: string[]
     columns: number,
-    fontStyle?: "italic" | "normal";
-    colorVariant?: "primary" | "success" | "danger" | "warning" | "light" | "info" | "secondary" | "dark";
+    fontStyle?: FontStyle;
+    colorVariant?: ColorVariant;
 }
 
 const RdsFeatureList = (props: RdsFeatureListProps) => {

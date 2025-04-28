@@ -244,7 +244,7 @@
   }
 
   #sidebar.show {
-    width: 65px;
+    width: 52px;
   }
 }
 .custom_sm_scroll{
@@ -302,6 +302,14 @@
     height: 40px;
     padding: 0;
     min-width: 40px;
+  }
+
+  #sidebar.show {
+    width: 55px;
+  }
+
+  #sidebar{
+    width: 55px !important;
   }
 
   .children-scrollable {

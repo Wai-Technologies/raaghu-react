@@ -59,8 +59,8 @@ export const Default: Story = {
                 status: "success",
                 title: "Notification Title",
                 urlTitle: "hello",
-                time: "a month ago",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                time: "10 min ago",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]
     }

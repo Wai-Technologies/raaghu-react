@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import useOutsideClick from "../rds-outside-click";
@@ -6,6 +7,7 @@ import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
+import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -340,7 +342,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
-                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                <img src={logo != "" ? logo : ""} className="ps-md-2 main-logo ps-1" alt={logo != "" ? "Raaghu Side Navigation" : ""}
                                     style={{ height: "30px" }}></img>
                             </>
                         )}
@@ -365,7 +367,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={(e) => addFilter(e.target.value)}
-                                iconPosition="right"
+                                iconPosition={IconPosition.Right}
                                 size="small"
                                 id={`sidenavbar-search`}
                             />
@@ -807,3 +809,4 @@ export default RdsSideNav;
 // };
 
 // export default RdsSideNav;
+
