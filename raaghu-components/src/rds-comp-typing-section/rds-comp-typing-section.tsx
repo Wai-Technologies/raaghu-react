@@ -81,8 +81,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     const handleFileSelect = (file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-            setEnhancedImage(reader.result as string);
-            setInputText("");
+            setEnhancedImage(reader.result as string); // Set the preview image
+            setInputText(""); // Clear the input text
         };
         reader.readAsDataURL(file);
     };
@@ -97,115 +97,74 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     };
 
     return (
-        <div className="typing-section-container">
-            <div className="typing-section">
-                <div className="input-wrapper">
-                    <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
-                        <textarea
-                            className={`form-controls w-100 input-box-typing-section type-section-border text-${colorVariant} border-${colorVariant}`}
-                            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
-                            value={inputText}
-                            onChange={(e) => setInputText(e.target.value)}
-                            title="Enter your prompt here"
-                        />
-                        
-                        <div id="typing-section" className="d-flex align-items-end justify-content-end me-3 mb-3">
-                            <div className="mt-1 position-absolute top-0 end-0 me-2">
-                                <RdsIcon 
-                                    classes="gradient-text"
-                                    colorVariant="primary"
-                                    height="20px"
-                                    isCursorPointer
-                                    name="sparkle"
-                                    width="20px"
-                                />
-                            </div>
-                            
-                            {!isMobile && (
-                                <div className="d-flex gap-2">
-                                    <div className="attach" id="Premium">
-                                        <RdsAttachement 
-                                            badgeColor="success"
-                                            badgeLabel="Premium"
-                                            handleAddComment={handleAddComment}
-                                            hintText="Hint Text"
-                                            importText="Import From This Device"
-                                            inputPlaceholder="Enter URL"
-                                            menuIcon="attach"
-                                            modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
-                                            modalTitle="Import From Figma"
-                                            onFigmaSubmit={handleFigmaSubmit}
-                                            onFileSelect={handleFileSelect}
-                                            showBadge
-                                            uploadText="Upload From Figma"
-                                        />
-                                    </div>
-                                    <div className="btn-transition">
-                                        <RdsButton
-                                            badgeLayout="Text_only"
-                                            badgeState="default"
-                                            badgeStyle="primary"
-                                            colorVariant="primary"
-                                            data-bs-toggle="tooltip"
-                                            displayType="Icon Only"
-                                            icon="send"                                       
-                                            shape="rectangle"
-                                            size="medium"
-                                            state="default"
-                                            style="filled"
-                                            textCase="unset"
-                                            tooltip
-                                            tooltipPlacement={TooltipStyle.MiddleTopArrow}
-                                            tooltipTitle="Send"
-                                            onClick={handleSent}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        
-                        {isMobile && (
-                            <div className="d-flex justify-content-center gap-3 position-relative ms-auto mt-3">
-                                <RdsAttachement 
-                                    badgeColor="success"
-                                    badgeLabel="Premium"
-                                    handleAddComment={handleAddComment}
-                                    hintText="Hint Text"
-                                    importText="Import From This Device"
-                                    inputPlaceholder="Enter URL"
-                                    menuIcon="attach"
-                                    modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
-                                    modalTitle="Import From Figma"
-                                    onFigmaSubmit={handleFigmaSubmit}
-                                    onFileSelect={handleFileSelect}
-                                    showBadge
-                                    uploadText="Upload From Figma"
-                                />
-                                <RdsButton
-                                    badgeLayout="Text_only"
-                                    badgeState="default"
-                                    badgeStyle="primary"
-                                    colorVariant="primary"
-                                    data-bs-toggle="tooltip"
-                                    displayType="Icon Only"
-                                    icon="send"
-                                    shape="rectangle"
-                                    size="medium"
-                                    state="default"
-                                    style="filled"
-                                    textCase="unset"
-                                    tooltip
-                                    tooltipPlacement={TooltipStyle.MiddleTopArrow}
-                                    tooltipTitle="Send"
-                                    onClick={handleSent}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </div>
+        <div className ="border-radius transperent">
+        <div className="d-flex flex-column typing-section">
+          
 
-                {/* Bottom action buttons with responsive layout */}
-                <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3`}>
+<div className="input-wrapper position-relative">
+    <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
+        <textarea
+            className={`form-controls w-100 input-box-typing-section type-section-border text-${colorVariant} border-${colorVariant}`}
+            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            title="Enter your prompt here"
+        />
+        
+        <div className="mt-1 position-absolute top-0 end-0">
+            <RdsIcon 
+                classes="gradient-text"
+              
+                height="20px"
+                isCursorPointer
+                name="sparkle"
+                width="20px"
+            />
+        </div>
+    </div>
+
+    {/* Mobile and Desktop Send/Attach Buttons */}
+    <div className={`d-flex ${isMobile ? 'justify-content-end mt-3' : 'justify-content-end  mb-3'} gap-2`}>
+        <div className="attach" id="Premium">
+            <RdsAttachement 
+                badgeColor="success"
+                badgeLabel="Premium"
+                handleAddComment={handleAddComment}
+                hintText="Hint Text"
+                importText="Import From This Device"
+                inputPlaceholder="Enter URL"
+                menuIcon="attach"
+                modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                modalTitle="Import From Figma"
+                onFigmaSubmit={handleFigmaSubmit}
+                onFileSelect={handleFileSelect}
+                showBadge
+                uploadText="Upload From Figma"
+            />
+        </div>
+        <div className="btn-transition ">
+            <RdsButton class="send-icon"
+                badgeLayout="Text_only"
+                badgeState="default"
+                badgeStyle="primary"
+                colorVariant="primary"
+                data-bs-toggle="tooltip"
+                displayType="Icon Only"
+                icon="send"                                       
+                shape="rectangle"
+                size="medium"
+                state="default"
+                style="filled"
+                textCase="unset"
+                tooltip
+                tooltipPlacement={TooltipStyle.MiddleTopArrow}
+                tooltipTitle="Send"
+                onClick={handleSent}
+            />
+        </div>
+    </div>
+</div>
+            <div className={`${isMobile ? 'd-flex flex-column gap-3' : 'd-flex gap-3'} mt-3`}>
                     <div className="action-button-item ">
                         <RdsButton
                             badgeLayout="Text_only"
@@ -241,7 +200,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                            
                         />
                     </div>
-                    <div className={`action-button-item typing ${!isMobile ? 'ms-auto' : ''}`}>
+                    <div id= "chat" className={`action-button-item typing chat-section  ${!isMobile ? 'ms-auto' : 'me-auto'}`}>
                     <RdsDropdown
                             buttonIcon="plus"
                             colorVariant="primary"
@@ -262,11 +221,12 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             showChevron
                             size="medium"
                             state={State.Default}
-                            style={Style.Outline} darkDropdown={false}      
+                            style={Style.Transparent} darkDropdown={false}      
                             />
                     </div>
                 </div>
-            </div>
+                    {/* </div> */}
+        </div>
         </div>
     );
 };

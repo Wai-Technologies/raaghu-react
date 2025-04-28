@@ -1,16 +1,69 @@
-.typing-section-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
 .typing-section {
-    display: flex;
-    flex-direction: column;
     background: #ffffff;
     border-radius: 5px;
-    margin-bottom: 20px;
+}
+.input-with-image {
+    /* border: 1px solid #862FFF !important; */
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px; /* Add gap between images */
+    justify-content: flex-end; /* Align images to the right */
+    /* border: 1px solid #000; */
+    border-radius: var(--bs-border-radius);
+}
+
+.attachement-web {
+    margin-top: -5px;
+}
+
+@media (max-width: 768px) {
+    .input-with-image {
+        padding-right: 52px;
+    }
+}
+
+.theme-dark .input-with-image {
+    background-color: black;
+}
+
+.theme-dark .input-with-image .form-controls {
+    background-color: black;
+    color: white;
+    color: var(--text-txt-neutral-light-default, #969696);
+font-family: var(--font-family-poppins, Poppins);
+font-size: 16px !important;
+font-style: normal;
+font-weight: var(--font-weight-medium, 500);
+line-height: 16px; /* 100% */
+}
+
+#left-bottom-corner {
+    position: absolute;
+    bottom: 10px;
+    left: -10px;
+}
+
+.preview-image-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.chat-input {
+    flex: 1 !important;
+    padding: 8px !important;
+    border-radius: 4px !important; 
+  }
+
+.type-section-border{
+    border :none !important;
 }
 
 .input-wrapper {
@@ -19,141 +72,143 @@
     background: var(--background-bg-neutral-lighter-default, #FFF);
     box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.18);
     padding: 12px;
-    position: relative;
-    margin-bottom: 15px;
-}
-
-.input-with-image {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
 }
 
 .input-box-typing-section {
-    width: 100%;
+    flex: 1;
     padding: 15px;
-    padding-right: 40px;
-    height: 120px;
     font-size: 16px !important;
     background-color: #ffffff;
     color: var(--text-txt-neutral-light-default, #969696);
+    height: 120px;
+    width: inherit;
+    padding-right: 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 1.5;
+    resize: none;
+    border-radius: 3px;
     font-family: var(--font-family-poppins, Poppins);
     font-style: normal;
     font-weight: var(--font-weight-medium, 500);
-    line-height: 1.5;
-    resize: none;
     border: none;
     outline: none;
-    border-radius: 3px;
 }
-
 .input-box-typing-section:focus {
     border: none;
     outline: none;
 }
 
+.type-section-border {
+    border: none !important;
+}
+
+#typing-section .btn-icon.btn-md {
+    width: 30px !important;
+    height: 32px !important;
+    border-radius: 8px;
+}
+
+#typing-btn .btn.btn-primary {
+    left: 15px;
+    bottom: 15px;
+    position: absolute !important;
+}
+#typing-btn-outline .btn.btn-outline-primary {
+    left: 120px;
+    bottom: 15px;
+    position: absolute !important;
+    --bs-btn-hover-bg: #d4b9f9;
+    --bs-btn-hover-color: #7e2eef;
+}
+
+#typing-section .btn {
+    min-width: 2.35rem;
+}
+
+#typing-section .attachement-dropdown #fab-list .dropdown-menu.show {
+    top: auto !important;
+    bottom: 18px !important;
+    left: auto !important;
+    right: 28px !important;
+    transform: translate3d(30px, 97.5px, 0px) !important;
+}
+.btn-md svg {
+    width: 12px !important;
+    height: 17px !important;
+    stroke-width: 2.5;
+}
 .btn-transition:hover {
     transform: scale(1.1);
 }
+/* .btn-md svg {
+    stroke-width: 0px;
+} */
+.theme-light svg {
+    stroke: none !important;
+}
 
+.end-0 {
+    right: 18px !important;
+}
 .gradient-text {
     background: linear-gradient(90deg, #7825E9 0%, #FDB336 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
+    /*text-fill-color: transparent;  For non-webkit browsers */
+    display: inline-block; /* Ensure proper rendering for inline elements */
+    background-clip: text; /* Standard property for non-webkit browsers */
 }
 
-/* Bottom action buttons styling */
-.bottom-actions-container {
-    display: flex;
-    padding: 0 5px;
-    margin-bottom: 15px;
+#story {
+    margin-top: -12px !important; /* Reduce or remove the margin-top */
+   
 }
-
-.action-buttons {
-    display: flex;
-    gap: 15px;
-    width: 100%;
+#select-list-container{
+    border-radius: var(--corner-radius-radius-xs, 4px);
+border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
+background: var(--background-bg-neutral-lighter-default, #FFF);
 }
-
-.action-button-item {
-    margin-bottom: 10px;
-}
-
-.select-dropdown {
-    min-width: 180px;
-}
-
-/* Vertical buttons for mobile */
-.vertical-buttons {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .action-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .action-button-item {
-        width: 100%;
-        max-width: 320px;
-        margin-bottom: 15px;
-    }
-    
-    .select-dropdown {
-        width: 100%;
-        max-width: 320px;
-    }
-    
-    .input-box-typing-section {
-        padding-right: 15px;
-    }
-}
-
-/* For larger mobile devices */
-@media (min-width: 576px) and (max-width: 768px) {
-    .action-button-item {
-        max-width: 350px;
-    }
-    
-    .select-dropdown {
-        max-width: 350px;
-    }
-}
-
-/* For very small devices */
-@media (max-width: 360px) {
-    .action-button-item {
-        max-width: 280px;
-    }
-    
-    .select-dropdown {
-        max-width: 280px;
-    }
-}
-
-.typing .rectangle {
-    border: 2px solid #7D7D7D !important;
-    border-radius: 6px;
-}
-.typing .btn-outline {
+#chat .dropdown .btn-transparent {
     background-color: transparent !important;
-    color: #7D7D7D !important;
-    border: 1px solid #7D7D7D!important;
+    color: #969696!important;
+    border: none !important;
 }
-.typing .text-primary {
+#chat .dropdown .text-primary {
     --bs-text-opacity: 1;
-    color: rgb(159 155 165) !important;
+    color: rgb(136 134 139) !important;
 }
-.typing .rectangle {
-    border:1px solid #7D7D7D !important;
-    border-radius: 6px;
+#chat .dropdown .dropdown-menu {
+    position: absolute;
+   --bs-dropdown-min-width: 9.5rem;
+    border: 1px solid #7a777e;
+    z-index: 1000;
+}
+#Premium .attach {
+    stroke: none !important;
+}
+#typing-btn {
+    stroke: none !important;
+}
+.theme-dark .input-with-image .form-controls {
+    background-color: white;
+    color: white;
+  
+}
+.theme-dark .input-with-image {
+    background-color: white;
+}
+ .chat-section {
+    border-radius: var(--corner-radius-radius-xs, 4px);
+    border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
+    background: var(--background-bg-neutral-lighter-default, #FFF);
+}
+.send-icon{
+    width: 16px;
+height: 16px;
+aspect-ratio: 1/1;
 }
 .attachement-dropdown #fab-list .dropdown-menu.show {
     top: auto !important;
@@ -163,11 +218,6 @@
     right: auto !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
 }
-.typing .dropdown-menu {
-    position: absolute;
-    padding: 0px;
-    width: 120px;
-    --bs-dropdown-min-width: 9.7rem;
-    border: 1px solid #7D7D7D;
-    z-index: 1000;
+.action-button-item.theme-dark .btn {
+    color: #7825E9 !important;
 }
