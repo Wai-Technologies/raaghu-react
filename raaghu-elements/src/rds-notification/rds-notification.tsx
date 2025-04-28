@@ -5,122 +5,169 @@ import RdsButton from "../rds-button";
 import "./rds-notification.css";
 
 export enum NotificationLayout {
-    Vertical = "vertical",
-    Horizontal = "horizontal"
+  Vertical = "vertical",
+  Horizontal = "horizontal",
 }
 
 export enum NotificationStyle {
-    Default = "default",
-    Avatar = "avatar",
-    Icon = "icon",
-    Image = "image"
+  Default = "default",
+  Avatar = "avatar",
+  Icon = "icon",
+  Image = "image",
 }
 
 export enum NotificationType {
-    Error = "error",
-    Info = "info",
-    Success = "success",
-    Warning = "warning"
+  Error = "error",
+  Info = "info",
+  Success = "success",
+  Warning = "warning",
 }
 
 export interface RdsNotificationProps {
-    notifications: any[]; // Array of notifications
-    layout?: NotificationLayout; // Layout of the notification
-    style?: NotificationStyle; // Style of the notification
-    type?: NotificationType; // Type of the notification
-    showButton?: boolean; // Show buttons in the notification
-    showPrimaryButton?: boolean; // Show primary button in the notification
-    showSecondaryButton?: boolean; // Show secondary button in the notification
-    showDismissIcon?: boolean; // Show dismiss button in the notification
-    onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
-    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
+  notifications: any[]; // Array of notifications
+  layout?: NotificationLayout; // Layout of the notification
+  style?: NotificationStyle; // Style of the notification
+  type?: NotificationType; // Type of the notification
+  showButton?: boolean; // Show buttons in the notification
+  showPrimaryButton?: boolean; // Show primary button in the notification
+  showSecondaryButton?: boolean; // Show secondary button in the notification
+  showDismissIcon?: boolean; // Show dismiss button in the notification
+  onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
+  onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 
-
-const RdsNotification = (props : RdsNotificationProps) => {
-    return (
-        <Fragment>
-            {props.notifications.map((notification) => (
+const RdsNotification = (props: RdsNotificationProps) => {
+  return (
+    <Fragment>
+      {props.notifications.map((notification) => (
+        <div
+          key={notification.userNotificationId}
+          className={`notification-card layout-${props.layout} style-${props.style} type-${props.type}`}
+        >
+          <div className="notification-header">
+            {props.style === "image" &&
+              (props.layout === "vertical" ||
+                props.layout === "horizontal") && (
                 <div
-                    key={notification.userNotificationId}
-                    className={`notification-card layout-${props.layout} style-${props.style} type-${props.type}`}
+                  className="notification-title col-sm-12 flex-grow-1"
+                  style={
+                    props.layout === "horizontal" && props.style === "image"
+                      ? { paddingLeft: "75px" }
+                      : { paddingLeft: "0px" }
+                  }
                 >
-                    <div className="notification-header">
-                    {props.style === "image" && props.layout === "vertical" && (
-                        <img
-                            src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"}
-                            alt="Notification"
-                            className="notification-image-horizontal me-2 img-fluid"
-                            height="50px"
-                            width="120px"
-                        />
-                    )}
-                        {props.style === "avatar" && (
-                            <img
-                                src={notification.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"}
-                                alt="Avatar"
-                                className="notification-avatar me-2"
-                            />
-                        )}
-                        {props.style === "icon" && (
-                            <RdsIcon name={notification.icon || "notification_icon"} stroke={true} width="38px" height="38px" classes="me-2"/>
-                        )}
-                        
-                        <div className={`notification-title col-sm-12 flex-grow-1 ${props.layout === "vertical" ? "mt-1" : ""}`}>
-                                <strong >{notification.title}</strong>
-                                <span className="text-muted ms-2">{notification.time}</span>
-                            </div>
-                        {props.showDismissIcon && (
-                            <>
-                        <RdsIcon name="close" classes="position-absolute top-0 end-0" stroke={true} width="13px" height="13px" isCursorPointer={true} onClick={(e) => props.onDismiss?.(e, notification)} />
-                            </>
-                        )}
-                    </div>
-                    <div className={`notification-body mt-2 ${props.layout === "horizontal" && (props.style === "avatar" || props.style === "icon") ? "ms-5" : ""} `}>
-                    {props.style === "image" && props.layout === "horizontal" && (
-                            <img
-                                src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg"}
-                                alt="Notification"
-                                className={`notification-image img-fluid ${props.layout === "horizontal" ? "me-2" : "h-50 w-100"}`}
-                                height="70px"
-                            width="70px"
-                            />
-                        )}
-                        {notification.description}
-                    </div>
-                    <div className="notification-footer d-flex justify-content-end mt-2 gap-2">
-                        {props.showButton && ( 
-                        <>
-                        {props.showSecondaryButton && (
-                        <RdsButton
-                            label="Dismiss"
-                            size="small"
-                            onClick={(e) => props.onDismiss?.(e, notification)}
-                        />
-                        )}
-                        {props.showPrimaryButton && (
-                        <RdsButton
-                            label="Accept"
-                            size="small"
-                            onClick={(e) => props.onAccept?.(e, notification)}
-                            style="transparent"
-                            colorVariant="primary"
-                        />
-                        )}
-                    </>
-                        )}
-                    </div>
+                  <strong>{notification.title}</strong>
+                  <span className="text-muted ms-2">{notification.time}</span>
                 </div>
-            ))}
-        </Fragment>
-    );
+              )}
+
+            {props.style === "image" && props.layout === "vertical" && (
+              <img
+                src={
+                  notification.image ||
+                  "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                }
+                alt="Notification"
+                className="notification-image-horizontal me-2 img-fluid mt-2"
+                height="50px"
+                width="120px"
+              />
+            )}
+            {props.style === "avatar" && (
+              <img
+                src={
+                  notification.avatar ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+                }
+                alt="Avatar"
+                className="notification-avatar me-2"
+              />
+            )}
+            {props.style === "icon" && (
+              <RdsIcon
+                name={notification.icon || "notification_icon"}
+                stroke={true}
+                width="38px"
+                height="38px"
+                classes="me-2"
+              />
+            )}
+
+            {((props.layout !== "vertical" && props.style !== "image") ||
+              (props.layout === "horizontal" && props.style !== "image") ||
+              (props.layout === "vertical" && props.style !== "image")) && (
+              <div className="notification-title col-sm-12 flex-grow-1 mt-1">
+                <strong>{notification.title}</strong>
+                <span className="text-muted ms-2">{notification.time}</span>
+              </div>
+            )}
+
+            {props.showDismissIcon && (
+              <div className="notification-dismiss-icon">
+                <RdsIcon
+                  name="close"
+                  stroke={true}
+                  width="13px"
+                  height="13px"
+                  isCursorPointer={true}
+                  onClick={(e) => props.onDismiss?.(e, notification)}
+                />
+              </div>
+            )}
+          </div>
+          <div
+            className={`notification-body mt-2 ${
+              props.layout === "horizontal" &&
+              (props.style === "avatar" || props.style === "icon")
+                ? "ms-5"
+                : ""
+            } `}
+          >
+            {props.style === "image" && props.layout === "horizontal" && (
+              <img
+                src={
+                  notification.image ||
+                  "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg"
+                }
+                alt="Notification"
+                className={`notification-image img-fluid ${
+                  props.layout === "horizontal" ? "me-2" : "h-50 w-100"
+                }`}
+                height="70px"
+                width="70px"
+              />
+            )}
+            {notification.description}
+          </div>
+          <div className="notification-footer d-flex justify-content-end mt-2 gap-2">
+            {props.showButton && (
+              <>
+                {props.showSecondaryButton && (
+                  <RdsButton
+                    label="DISMISS"
+                    size="small"
+                    onClick={(e) => props.onDismiss?.(e, notification)}
+                  />
+                )}
+                {props.showPrimaryButton && (
+                  <RdsButton
+                    label="ACCEPT"
+                    size="small"
+                    onClick={(e) => props.onAccept?.(e, notification)}
+                    style="transparent"
+                    colorVariant="primary"
+                  />
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      ))}
+    </Fragment>
+  );
 };
 
 export default RdsNotification;
-
-
-
-
 
 // import React, { Fragment, useEffect, useState } from "react";
 // import { colors } from "../../libs/types";
