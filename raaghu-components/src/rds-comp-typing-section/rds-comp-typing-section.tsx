@@ -103,18 +103,17 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 
 <div className="input-wrapper position-relative">
     <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
-        <textarea
-            className={`form-controls w-100 input-box-typing-section type-section-border text-${colorVariant} border-${colorVariant}`}
-            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            title="Enter your prompt here"
-        />
+    <textarea
+    className="form-controls w-100 input-box-typing-section type-section-border text-primary border-primary"
+    placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
+    value={inputText}
+    onChange={(e) => setInputText(e.target.value)}
+    title="Enter your prompt here"
+/>
         
         <div className="mt-1 position-absolute top-0 end-0">
             <RdsIcon 
-                classes="gradient-text"
-              
+                classes="gradient-text"              
                 height="20px"
                 isCursorPointer
                 name="sparkle"
@@ -122,8 +121,6 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
             />
         </div>
     </div>
-
-    {/* Mobile and Desktop Send/Attach Buttons */}
     <div className={`d-flex ${isMobile ? 'justify-content-end mt-3' : 'justify-content-end  mb-3'} gap-2`}>
         <div className="attach" id="Premium">
             <RdsAttachement 
@@ -142,7 +139,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 uploadText="Upload From Figma"
             />
         </div>
-        <div className="btn-transition ">
+        <div className="btn-transition size">
             <RdsButton class="send-icon"
                 badgeLayout="Text_only"
                 badgeState="default"
@@ -150,10 +147,9 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 colorVariant="primary"
                 data-bs-toggle="tooltip"
                 displayType="Icon Only"
-                icon="send"      
-                iconWidth="20px"                                 
+                icon="send"                                    
                 shape="rectangle"
-                size="medium"
+                size="medium"              
                 state="default"
                 style="filled"
                 textCase="unset"
@@ -190,8 +186,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             badgeLayout="Icon + Text"
                             style="outline"
                             badgeState="default"
-                            badgeStyle="primary"
-                            // colorVariant="primary"
+                            badgeStyle="primary"                         
                             displayType="Icon + Text"
                             icon="figma_icon"
                             label="Import From Figma"

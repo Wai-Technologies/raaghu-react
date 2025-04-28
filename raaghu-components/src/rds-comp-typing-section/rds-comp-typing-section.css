@@ -143,9 +143,6 @@ line-height: 16px; /* 100% */
 .btn-transition:hover {
     transform: scale(1.1);
 }
-/* .btn-md svg {
-    stroke-width: 0px;
-} */
 .theme-light svg {
     stroke: none !important;
 }
@@ -156,14 +153,13 @@ line-height: 16px; /* 100% */
 .gradient-text {
     background: linear-gradient(90deg, #7825E9 0%, #FDB336 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /*text-fill-color: transparent;  For non-webkit browsers */
-    display: inline-block; /* Ensure proper rendering for inline elements */
-    background-clip: text; /* Standard property for non-webkit browsers */
+    -webkit-text-fill-color: transparent;   
+    display: inline-block; 
+    background-clip: text;
 }
 
 #story {
-    margin-top: -12px !important; /* Reduce or remove the margin-top */
+    margin-top: -12px !important; 
    
 }
 #select-list-container{
@@ -250,7 +246,6 @@ aspect-ratio: 1/1;
     height: 17px !important;
     width: 17px !important;
     fill: none !important;
-    /* stroke: currentcolor; */
     stroke-width: 0px!important;
 }
 .sparkle {
@@ -258,4 +253,12 @@ aspect-ratio: 1/1;
     width: 20px !important;
     fill: none !important;
     stroke: none !important;
+}
+ .size .btn-md svg {
+    width: 19px !important;
+    height: 19px !important;
+    stroke-width: 1.5px;
+}
+.input-box-typing-section::placeholder {
+    font-weight: bold !important;
 }
