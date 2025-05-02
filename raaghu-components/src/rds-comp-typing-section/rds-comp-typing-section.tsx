@@ -111,7 +111,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
     title="Enter your prompt here"
 />
         
-        <div className="mt-1 position-absolute top-0 end-0">
+        <div className="mt-1 position-absolute top-0 end-0 ">
             <RdsIcon 
                 classes="gradient-text"              
                 height="20px"
@@ -121,7 +121,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
             />
         </div>
     </div>
-    <div className={`d-flex ${isMobile ? 'justify-content-end mt-3' : 'justify-content-end  mb-3'} gap-2`}>
+    <div className={`d-flex ${isMobile ? 'justify-content-end mt-3' : 'justify-content-end'} gap-1`}>
         <div className="attach" id="Premium">
             <RdsAttachement 
                 badgeColor="success"
