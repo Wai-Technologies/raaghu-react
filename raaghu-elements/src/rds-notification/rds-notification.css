@@ -149,3 +149,9 @@
 {
     color: black !important;
 }
+.notification-dismiss-icon
+{
+    position: absolute;
+    top: 0rem;
+    right: -0.5rem;
+}
