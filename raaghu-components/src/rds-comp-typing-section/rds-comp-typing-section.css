@@ -3,7 +3,7 @@
     border-radius: 5px;
 }
 .input-with-image {
-    /* border: 1px solid #862FFF !important; */
+    border: 1px solid #862FFF !important;
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -31,12 +31,6 @@
 .theme-dark .input-with-image .form-controls {
     background-color: black;
     color: white;
-    color: var(--text-txt-neutral-light-default, #969696);
-font-family: var(--font-family-poppins, Poppins);
-font-size: 16px !important;
-font-style: normal;
-font-weight: var(--font-weight-medium, 500);
-line-height: 16px; /* 100% */
 }
 
 #left-bottom-corner {
@@ -66,43 +60,27 @@ line-height: 16px; /* 100% */
     border :none !important;
 }
 
-.input-wrapper {
-    border-radius: var(--corner-radius-radius-s, 5px);
-    border: 1px solid var(--border-border-neutral-subtle-default, #C6A2F6);
-    background: var(--background-bg-neutral-lighter-default, #FFF);
-    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.18);
-    padding: 12px;
-}
-
 .input-box-typing-section {
     flex: 1;
     padding: 15px;
-    font-size: 16px !important;
+    font-size: 16px;
     background-color: #ffffff;
-    color: var(--text-txt-neutral-light-default, #969696);
-    height: 100px;
+    color: #333333;
+    height: 120px;
     width: inherit;
-    padding-right: 40px;
-    box-sizing: border-box;
+    padding-right: 40px; /* Adjust padding to make space for the icon */
+    box-sizing: border-box; /* Ensure padding is included in the height */
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    line-height: 1.5;
-    resize: none;
+    align-items: flex-start; /* Align text to the top */
+    justify-content: flex-start; /* Align text to the top */
+    line-height: 1.5; /* Adjust line height as needed */
+    resize: none; 
     border-radius: 3px;
-    font-family: var(--font-family-poppins, Poppins);
-    font-style: normal;
-    font-weight: var(--font-weight-medium, 500);
-    border: none;
-    outline: none;
-}
-.input-box-typing-section:focus {
-    border: none;
-    outline: none;
-}
+  }
 
-.type-section-border {
-    border: none !important;
+.input-box-typing-section:focus {
+    outline: none; /* Remove focus outline */
+    border: none !important; /* Remove border on focus */
 }
 
 #typing-section .btn-icon.btn-md {
@@ -138,127 +116,14 @@ line-height: 16px; /* 100% */
 .btn-md svg {
     width: 12px !important;
     height: 17px !important;
-    stroke-width: 1.5;
+    stroke-width: 2.5;
 }
 .btn-transition:hover {
     transform: scale(1.1);
 }
+/* .btn-md svg {
+    stroke-width: 0px;
+} */
 .theme-light svg {
     stroke: none !important;
-}
-
-.end-0 {
-    right: 18px !important;
-}
-.gradient-text {
-    background: linear-gradient(90deg, #7825E9 0%, #FDB336 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;   
-    display: inline-block; 
-    background-clip: text;
-}
-
-#story {
-    margin-top: -12px !important; 
-   
-}
-#select-list-container{
-    border-radius: var(--corner-radius-radius-xs, 4px);
-border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
-background: var(--background-bg-neutral-lighter-default, #FFF);
-}
-#chat .dropdown .btn-transparent {
-    background-color: transparent !important;
-    color: #969696!important;
-    border: none !important;
-}
-#chat .dropdown .text-primary {
-    --bs-text-opacity: 1;
-    color: rgb(136 134 139) !important;
-}
-#chat .dropdown .dropdown-menu {
-    position: absolute;
-   --bs-dropdown-min-width: 9.5rem;
-    border: 1px solid #7a777e;
-    z-index: 1000;
-}
-#Premium .attach {
-    stroke: none !important;
-}
-#typing-btn {
-    stroke: none !important;
-}
-.theme-dark .input-with-image .form-controls {
-    background-color: white;
-    color: white;
-  
-}
-.theme-dark .input-with-image {
-    background-color: white;
-}
- .chat-section {
-    border-radius: var(--corner-radius-radius-xs, 4px);
-    border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
-    background: var(--background-bg-neutral-lighter-default, #FFF);
-}
-.send-icon{
-    width: 16px;
-height: 16px;
-aspect-ratio: 1/1;
-}
-.attachement-dropdown #fab-list .dropdown-menu.show {
-    top: auto !important;
-    bottom: 10px !important;
-    left: -250px !important;
-    left: -196px !important;
-    right: auto !important;
-    transform: translate3d(30px, 97.5px, 0px) !important;
-}
-.action-button-item.theme-dark .btn {
-    color: #7825E9 !important;
-}
-.theme-dark .input-with-image .form-controls {
-    color: white;
-    color: var(--text-txt-neutral-light-default, #969696);
-    font-family: var(--font-family-poppins, Poppins);
-    font-size: 13px !important;
-    font-style: normal;
-    font-weight: var(--font-weight-medium, 500);
-    line-height: 16px;
-}
-.theme-dark .btn-md svg {
-    width: 12px !important;
-    height: 17px !important;
-    stroke-width: 1.5px;
-}
-.theme-light .btn-md svg {
-    width: 12px !important;
-    height: 17px !important;
-    stroke-width: 1.5px ; 
-}
-.theme-dark .btn.btn-outline-primary {
-    color: #7825e9 !important;
-}
-.theme-dark .btn {
-    color: #fcfbfb !important;
-}
-.text-dark {
-    height: 17px !important;
-    width: 17px !important;
-    fill: none !important;
-    stroke-width: 0px!important;
-}
-.sparkle {
-    height: 20px !important;
-    width: 20px !important;
-    fill: none !important;
-    stroke: none !important;
-}
- .size .btn-md svg {
-    width: 19px !important;
-    height: 19px !important;
-    stroke-width: 1.5px;
-}
-.input-box-typing-section::placeholder {
-    font-weight: bold !important;
 }

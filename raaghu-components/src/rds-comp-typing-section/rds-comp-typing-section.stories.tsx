@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompTypingSection>;
 export const Default: Story = {
     args: {
         colorVariant: "#353535",
-        placeholderText: "How can AI Pundit help you today?",
+        placeholderText: "Ask me anything",
         icon_name: "enhancer",
     }
 } satisfies Story;
