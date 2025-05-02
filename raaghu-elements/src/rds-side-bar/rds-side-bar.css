@@ -385,11 +385,3 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
 .rds-sidebar.collapsed #side-bar-icons {
   text-align: center;
 }
-/* @media (max-width: 767px) {
-  #sidebar {
-      position: absolute !important;
-  }
-}
-.px-3 {
-  padding-right: 3.5rem !important;
-} */
