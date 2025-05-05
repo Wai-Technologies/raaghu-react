@@ -291,3 +291,8 @@ aspect-ratio: 1/1;
 #send-icon .btn{
     min-width:none !important;
 }
+.size .btn {
+    text-transform: capitalize !important;
+    min-width: 1.35rem;
+    align-items: center !important;
+}
