@@ -1,0 +1,1044 @@
+{
+  "raaghu-components": {
+    "root": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:utility": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:common": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:tasks": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.executor": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options.script": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.scriptContent": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.runCommand": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "raaghu-components/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options.lintFilePatterns": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.passWithNoTests": [
+      "raaghu-components/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.dependsOn": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  },
+  "raaghu-elements": {
+    "root": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:utility": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:common": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:tasks": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.executor": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options.script": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.scriptContent": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.runCommand": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "raaghu-elements/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options.lintFilePatterns": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.passWithNoTests": [
+      "raaghu-elements/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.dependsOn": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  },
+  "raaghu-layouts": {
+    "root": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:utility": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:common": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:tasks": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.executor": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.options.script": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.scriptContent": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.coverage.metadata.runCommand": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "raaghu-layouts/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options.lintFilePatterns": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.passWithNoTests": [
+      "raaghu-layouts/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.dependsOn": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  },
+  "raaghu-pages": {
+    "root": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:private": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.1": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.executor": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.options": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.options.script": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata.scriptContent": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata.runCommand": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.executor": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.options": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.metadata": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.options.script": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.metadata.scriptContent": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.preview.metadata.runCommand": [
+      "raaghu-pages/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.options.lintFilePatterns": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.passWithNoTests": [
+      "raaghu-pages/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.dependsOn": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  },
+  "raaghu-react-themes": {
+    "root": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "name": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "tags": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.1": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.2": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.3": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.executor": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.options": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.options.script": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata.scriptContent": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata.runCommand": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.executor": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options.script": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.scriptContent": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.runCommand": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.executor": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.options": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.metadata": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.options.script": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.metadata.scriptContent": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.test.metadata.runCommand": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.executor": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.options": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.metadata": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.options.script": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.metadata.scriptContent": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.eject.metadata.runCommand": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "raaghu-react-themes/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.dependsOn": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  }
+}

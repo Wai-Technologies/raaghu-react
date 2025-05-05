@@ -1,0 +1,21 @@
+[43m[30m WARN [39m[49m Unsupported engine: wanted: {"node":">=22.14.0"} (current: {"node":"v20.19.0","pnpm":"10.10.0"})
+
+> @waiin/raaghu-react-layouts@ build /workspaces/raaghu-react/raaghu-layouts
+> rollup -c --bundleConfigAsCjs
+
+[1m[31m[!] [1mError: Cannot find module 'rollup-plugin-babel'
+Require stack:
+- /workspaces/raaghu-react/raaghu-layouts/rollup.config-1746252508615.cjs[22m[1m[39m[22m
+[2m    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/workspaces/raaghu-react/raaghu-layouts/rollup.config-1746252508615.cjs:12:13)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1096:12)
+    at cjsLoader (node:internal/modules/esm/translators:298:15)[22m
+
+
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
