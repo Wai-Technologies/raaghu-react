@@ -1,6 +1,7 @@
 .typing-section {
     background: #ffffff;
     border-radius: 5px;
+    padding-bottom: 42px!important;
 }
 .input-with-image {
     /* border: 1px solid #862FFF !important; */
@@ -295,4 +296,7 @@ aspect-ratio: 1/1;
     text-transform: capitalize !important;
     min-width: 1.35rem;
     align-items: center !important;
+}
+.theme-dark .dropdown-menu {
+    background-color: #fcfbfb!important;
 }
