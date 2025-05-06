@@ -1,0 +1,86 @@
+
+Linting "raaghu-components"...
+[0m[0m
+[0m[4m/workspaces/raaghu-react/raaghu-components/src/rds-comp-add-member/rds-comp-add-member.styled.ts[24m[0m
+[0m  [2m1:20[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m[0m
+[0m[4m/workspaces/raaghu-react/raaghu-components/src/rds-comp-features/rds-comp-features.stories.ts[24m[0m
+[0m    [2m1:37[22m  [31merror[39m  Strings must use doublequote                    [2mquotes[22m[0m
+[0m    [2m2:29[22m  [31merror[39m  Strings must use doublequote                    [2mquotes[22m[0m
+[0m    [2m9:17[22m  [31merror[39m  Strings must use doublequote                    [2mquotes[22m[0m
+[0m   [2m11:12[22m  [31merror[39m  Strings must use doublequote                    [2mquotes[22m[0m
+[0m  [2m137:1[22m   [31merror[39m  Expected indentation of 16 spaces but found 12  [2mindent[22m[0m
+[0m  [2m138:1[22m   [31merror[39m  Expected indentation of 16 spaces but found 12  [2mindent[22m[0m
+[0m  [2m139:1[22m   [31merror[39m  Expected indentation of 16 spaces but found 12  [2mindent[22m[0m
+[0m  [2m140:1[22m   [31merror[39m  Expected indentation of 20 spaces but found 16  [2mindent[22m[0m
+[0m  [2m141:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m142:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 12  [2mindent[22m[0m
+[0m  [2m143:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 12  [2mindent[22m[0m
+[0m  [2m144:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 12  [2mindent[22m[0m
+[0m  [2m145:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 12  [2mindent[22m[0m
+[0m  [2m146:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 16  [2mindent[22m[0m
+[0m  [2m147:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 16  [2mindent[22m[0m
+[0m  [2m148:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m149:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m150:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m151:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 24  [2mindent[22m[0m
+[0m  [2m152:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 24  [2mindent[22m[0m
+[0m  [2m153:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 24  [2mindent[22m[0m
+[0m  [2m154:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 28  [2mindent[22m[0m
+[0m  [2m155:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 28  [2mindent[22m[0m
+[0m  [2m156:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 24  [2mindent[22m[0m
+[0m  [2m157:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m158:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m159:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 20  [2mindent[22m[0m
+[0m  [2m160:1[22m   [31merror[39m  Expected indentation of 20 spaces but found 6   [2mindent[22m[0m
+[0m  [2m161:1[22m   [31merror[39m  Expected indentation of 20 spaces but found 6   [2mindent[22m[0m
+[0m  [2m162:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m163:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m164:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m165:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m166:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m167:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m168:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m169:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m170:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m171:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m172:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m173:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m174:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m175:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 12  [2mindent[22m[0m
+[0m  [2m176:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 12  [2mindent[22m[0m
+[0m  [2m177:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 10  [2mindent[22m[0m
+[0m  [2m178:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m179:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m180:1[22m   [31merror[39m  Expected indentation of 24 spaces but found 8   [2mindent[22m[0m
+[0m  [2m568:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m  [2m569:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m  [2m573:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m  [2m574:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m  [2m575:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m  [2m576:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 28  [2mindent[22m[0m
+[0m  [2m577:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 28  [2mindent[22m[0m
+[0m  [2m578:1[22m   [31merror[39m  Expected indentation of 36 spaces but found 30  [2mindent[22m[0m
+[0m  [2m579:1[22m   [31merror[39m  Expected indentation of 36 spaces but found 30  [2mindent[22m[0m
+[0m  [2m580:1[22m   [31merror[39m  Expected indentation of 36 spaces but found 30  [2mindent[22m[0m
+[0m  [2m581:1[22m   [31merror[39m  Expected indentation of 36 spaces but found 30  [2mindent[22m[0m
+[0m  [2m582:1[22m   [31merror[39m  Expected indentation of 32 spaces but found 28  [2mindent[22m[0m
+[0m  [2m583:1[22m   [31merror[39m  Expected indentation of 28 spaces but found 26  [2mindent[22m[0m
+[0m[0m
+[0m[4m/workspaces/raaghu-react/raaghu-components/src/rds-comp-otpinput/rds-comp-otpinput.styled.ts[24m[0m
+[0m  [2m1:20[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m[0m
+[0m[4m/workspaces/raaghu-react/raaghu-components/src/rds-comp-top-navigation/charts-list.ts[24m[0m
+[0m  [2m1:19[22m  [31merror[39m  Unexpected comma in middle of array  [2mno-sparse-arrays[22m[0m
+[0m[0m
+[0m[4m/workspaces/raaghu-react/raaghu-components/src/rds-comp-url-forwardings/rds-comp-url-forwardings.stories.ts[24m[0m
+[0m   [2m1:37[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m   [2m2:35[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m   [2m9:17[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m  [2m11:12[22m  [31merror[39m  Strings must use doublequote  [2mquotes[22m[0m
+[0m[0m
+[0m[31m[1m✖ 68 problems (68 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[31m[1m  67 errors and 0 warnings potentially fixable with the `--fix` option.[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+Lint errors found in the listed files.
+

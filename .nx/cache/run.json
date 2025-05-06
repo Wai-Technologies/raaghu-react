@@ -1,8 +1,8 @@
 {
   "run": {
     "command": "nx run-many --target=build --all",
-    "startTime": "2025-05-05T05:27:00.345Z",
-    "endTime": "2025-05-05T05:27:00.463Z",
+    "startTime": "2025-05-06T05:04:34.535Z",
+    "endTime": "2025-05-06T05:04:34.818Z",
     "inner": false
   },
   "tasks": [
@@ -11,8 +11,8 @@
       "target": "build",
       "projectName": "raaghu-react-themes",
       "hash": "17218175144276605188",
-      "startTime": "2025-05-05T05:27:00.389Z",
-      "endTime": "2025-05-05T05:27:00.422Z",
+      "startTime": "2025-05-06T05:04:34.597Z",
+      "endTime": "2025-05-06T05:04:34.707Z",
       "params": "",
       "cacheStatus": "local-cache-hit",
       "status": 0
@@ -22,8 +22,8 @@
       "target": "build",
       "projectName": "raaghu-pages",
       "hash": "4007649025068058319",
-      "startTime": "2025-05-05T05:27:00.390Z",
-      "endTime": "2025-05-05T05:27:00.422Z",
+      "startTime": "2025-05-06T05:04:34.598Z",
+      "endTime": "2025-05-06T05:04:34.707Z",
       "params": "",
       "cacheStatus": "local-cache-hit",
       "status": 0
@@ -33,8 +33,8 @@
       "target": "build",
       "projectName": "raaghu-components",
       "hash": "10207499659300169008",
-      "startTime": "2025-05-05T05:27:00.390Z",
-      "endTime": "2025-05-05T05:27:00.422Z",
+      "startTime": "2025-05-06T05:04:34.598Z",
+      "endTime": "2025-05-06T05:04:34.707Z",
       "params": "",
       "cacheStatus": "local-cache-hit",
       "status": 0
@@ -44,8 +44,8 @@
       "target": "build",
       "projectName": "raaghu-elements",
       "hash": "9952096047496700632",
-      "startTime": "2025-05-05T05:27:00.430Z",
-      "endTime": "2025-05-05T05:27:00.458Z",
+      "startTime": "2025-05-06T05:04:34.722Z",
+      "endTime": "2025-05-06T05:04:34.811Z",
       "params": "",
       "cacheStatus": "local-cache-hit",
       "status": 0
@@ -55,8 +55,8 @@
       "target": "build",
       "projectName": "raaghu-layouts",
       "hash": "8616626624908843580",
-      "startTime": "2025-05-05T05:27:00.430Z",
-      "endTime": "2025-05-05T05:27:00.460Z",
+      "startTime": "2025-05-06T05:04:34.722Z",
+      "endTime": "2025-05-06T05:04:34.812Z",
       "params": "",
       "cacheStatus": "local-cache-hit",
       "status": 0
