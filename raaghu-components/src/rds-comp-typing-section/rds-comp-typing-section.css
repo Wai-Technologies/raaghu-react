@@ -297,6 +297,3 @@ aspect-ratio: 1/1;
     min-width: 1.35rem;
     align-items: center !important;
 }
-.theme-dark .dropdown-menu {
-    background-color: #fcfbfb!important;
-}
