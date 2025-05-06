@@ -1,0 +1,10 @@
+
+Linting "raaghu-components"...
+[0m[0m
+[0m[4mE:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-top-navigation\charts-list.ts[24m[0m
+[0m  [2m1:19[22m  [31merror[39m  Unexpected comma in middle of array  [2mno-sparse-arrays[22m[0m
+[0m[0m
+[0m[31m[1m✖ 1 problem (1 error, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+Lint errors found in the listed files.
+

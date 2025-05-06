@@ -1,0 +1,306 @@
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mraaghu-components/src/rds-comp-developer-mode/[22m[1mrds-comp-developer-mode.test.tsx[22m
+  [1m● [22mTest suite failed to run
+
+    [1m[31mJest encountered an unexpected token[39m[22m
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see [4mhttps://jestjs.io/docs/ecmascript-modules[24m for how to enable it.
+     • If you are trying to use TypeScript, see [4mhttps://jestjs.io/docs/getting-started#using-typescript[24m
+     • To have some of your "node_modules" files transformed, you can specify a custom [1m"transformIgnorePatterns"[22m in your config.
+     • If you need a custom transformation specify a [1m"transform"[22m option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the [1m"moduleNameMapper"[22m config option.
+
+    You'll find more details and examples of these config options in the docs:
+    [36mhttps://jestjs.io/docs/configuration[39m
+    For information about custom transformations, see:
+    [36mhttps://jestjs.io/docs/code-transformation[39m
+
+    [1m[31mDetails:[39m[22m
+
+    SyntaxError: E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-developer-mode\rds-comp-developer-mode.test.tsx: Support for the experimental syntax 'jsx' isn't currently enabled (8:19):
+
+    [0m [90m  6 |[39m it([32m'It should mount'[39m[33m,[39m () [33m=>[39m {
+     [90m  7 |[39m   [36mconst[39m div [33m=[39m document[33m.[39mcreateElement([32m'div'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m  8 |[39m   [33mReactDOM[39m[33m.[39mrender([33m<[39m[33mRdsCompDeveloperMode[39m grantType[33m=[39m{[]} [33m/[39m[33m>[39m[33m,[39m div)[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m  9 |[39m   [33mReactDOM[39m[33m.[39munmountComponentAtNode(div)[33m;[39m
+     [90m 10 |[39m })[33m;[39m[0m
+
+    Add @babel/preset-react (https://github.com/babel/babel/tree/main/packages/babel-preset-react) to the 'presets' section of your Babel config to enable transformation.
+    If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing.
+
+    If you already added the plugin for this syntax to your config, it's possible that your config isn't being loaded.
+    You can re-run Babel with the BABEL_SHOW_CONFIG_FOR environment variable to show the loaded configuration:
+    	npx cross-env BABEL_SHOW_CONFIG_FOR=E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-developer-mode\rds-comp-developer-mode.test.tsx <your build command>
+    See https://babeljs.io/docs/configuration#print-effective-configs for more info.
+
+      [2mat toParseError ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parse-error.ts[2m:95:45)[22m
+      [2mat Parser.raise ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1497:19)[22m
+      [2mat Parser.expectOnePlugin ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1562:18)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1258:16)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+      [2mat Parser.parseExprListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2734:18)[22m
+      [2mat Parser.parseCallExpressionArguments ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1019:14)[22m
+      [2mat Parser.parseCoverCallAndAsyncArrowHead ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:897:29)[22m
+      [2mat Parser.parseSubscript ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:786:19)[22m
+      [2mat Parser.parseSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:744:19)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:729:17)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat Parser.parseExpressionBase ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:221:23)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:39)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3123:16)[22m
+      [2mat Parser.parseExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:17)[22m
+      [2mat Parser.parseStatementContent ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:642:23)[22m
+      [2mat Parser.parseStatementLike ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:437:17)[22m
+      [2mat Parser.parseStatementListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:386:17)[22m
+      [2mat Parser.parseBlockOrModuleBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1403:16)[22m
+      [2mat Parser.parseBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1376:10)[22m
+      [2mat Parser.parseBlock ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1344:10)[22m
+      [2mat Parser.parseFunctionBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2571:24)[22m
+      [2mat Parser.parseArrowExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2512:10)[22m
+      [2mat Parser.parseParenAndDistinguishExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1803:12)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1140:21)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mraaghu-components/src/rds-comp-blog-post/[22m[1mrds-comp-blog-post.test.tsx[22m
+  [1m● [22mTest suite failed to run
+
+    [1m[31mJest encountered an unexpected token[39m[22m
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see [4mhttps://jestjs.io/docs/ecmascript-modules[24m for how to enable it.
+     • If you are trying to use TypeScript, see [4mhttps://jestjs.io/docs/getting-started#using-typescript[24m
+     • To have some of your "node_modules" files transformed, you can specify a custom [1m"transformIgnorePatterns"[22m in your config.
+     • If you need a custom transformation specify a [1m"transform"[22m option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the [1m"moduleNameMapper"[22m config option.
+
+    You'll find more details and examples of these config options in the docs:
+    [36mhttps://jestjs.io/docs/configuration[39m
+    For information about custom transformations, see:
+    [36mhttps://jestjs.io/docs/code-transformation[39m
+
+    [1m[31mDetails:[39m[22m
+
+    SyntaxError: E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-blog-post\rds-comp-blog-post.test.tsx: Support for the experimental syntax 'jsx' isn't currently enabled (7:21):
+
+    [0m [90m 5 |[39m it([32m"It should mount"[39m[33m,[39m () [33m=>[39m {
+     [90m 6 |[39m     [36mconst[39m div [33m=[39m document[33m.[39mcreateElement([32m"div"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 7 |[39m     [33mReactDOM[39m[33m.[39mrender([33m<[39m[33mRdsCompBlogPost[39m tableHeaders[33m=[39m{[]} [33m/[39m[33m>[39m[33m,[39m div)[33m;[39m
+     [90m   |[39m                     [31m[1m^[22m[39m
+     [90m 8 |[39m     [33mReactDOM[39m[33m.[39munmountComponentAtNode(div)[33m;[39m
+     [90m 9 |[39m })[33m;[39m[0m
+
+    Add @babel/preset-react (https://github.com/babel/babel/tree/main/packages/babel-preset-react) to the 'presets' section of your Babel config to enable transformation.
+    If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing.
+
+    If you already added the plugin for this syntax to your config, it's possible that your config isn't being loaded.
+    You can re-run Babel with the BABEL_SHOW_CONFIG_FOR environment variable to show the loaded configuration:
+    	npx cross-env BABEL_SHOW_CONFIG_FOR=E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-blog-post\rds-comp-blog-post.test.tsx <your build command>
+    See https://babeljs.io/docs/configuration#print-effective-configs for more info.
+
+      [2mat toParseError ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parse-error.ts[2m:95:45)[22m
+      [2mat Parser.raise ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1497:19)[22m
+      [2mat Parser.expectOnePlugin ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1562:18)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1258:16)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+      [2mat Parser.parseExprListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2734:18)[22m
+      [2mat Parser.parseCallExpressionArguments ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1019:14)[22m
+      [2mat Parser.parseCoverCallAndAsyncArrowHead ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:897:29)[22m
+      [2mat Parser.parseSubscript ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:786:19)[22m
+      [2mat Parser.parseSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:744:19)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:729:17)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat Parser.parseExpressionBase ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:221:23)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:39)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3123:16)[22m
+      [2mat Parser.parseExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:17)[22m
+      [2mat Parser.parseStatementContent ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:642:23)[22m
+      [2mat Parser.parseStatementLike ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:437:17)[22m
+      [2mat Parser.parseStatementListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:386:17)[22m
+      [2mat Parser.parseBlockOrModuleBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1403:16)[22m
+      [2mat Parser.parseBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1376:10)[22m
+      [2mat Parser.parseBlock ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1344:10)[22m
+      [2mat Parser.parseFunctionBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2571:24)[22m
+      [2mat Parser.parseArrowExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2512:10)[22m
+      [2mat Parser.parseParenAndDistinguishExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1803:12)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1140:21)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mraaghu-components/src/rds-comp-application-scopes/[22m[1mrds-comp-application-scopes.test.tsx[22m
+  [1m● [22mTest suite failed to run
+
+    [1m[31mJest encountered an unexpected token[39m[22m
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see [4mhttps://jestjs.io/docs/ecmascript-modules[24m for how to enable it.
+     • If you are trying to use TypeScript, see [4mhttps://jestjs.io/docs/getting-started#using-typescript[24m
+     • To have some of your "node_modules" files transformed, you can specify a custom [1m"transformIgnorePatterns"[22m in your config.
+     • If you need a custom transformation specify a [1m"transform"[22m option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the [1m"moduleNameMapper"[22m config option.
+
+    You'll find more details and examples of these config options in the docs:
+    [36mhttps://jestjs.io/docs/configuration[39m
+    For information about custom transformations, see:
+    [36mhttps://jestjs.io/docs/code-transformation[39m
+
+    [1m[31mDetails:[39m[22m
+
+    SyntaxError: E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-application-scopes\rds-comp-application-scopes.test.tsx: Support for the experimental syntax 'jsx' isn't currently enabled (7:21):
+
+    [0m [90m 5 |[39m it([32m"It should mount"[39m[33m,[39m () [33m=>[39m {
+     [90m 6 |[39m     [36mconst[39m div [33m=[39m document[33m.[39mcreateElement([32m"div"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 7 |[39m     [33mReactDOM[39m[33m.[39mrender([33m<[39m[33mRdsCompApplicationScopes[39m scopesList[33m=[39m{[]} [33m/[39m[33m>[39m[33m,[39m div)[33m;[39m
+     [90m   |[39m                     [31m[1m^[22m[39m
+     [90m 8 |[39m     [33mReactDOM[39m[33m.[39munmountComponentAtNode(div)[33m;[39m
+     [90m 9 |[39m })[33m;[39m[0m
+
+    Add @babel/preset-react (https://github.com/babel/babel/tree/main/packages/babel-preset-react) to the 'presets' section of your Babel config to enable transformation.
+    If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing.
+
+    If you already added the plugin for this syntax to your config, it's possible that your config isn't being loaded.
+    You can re-run Babel with the BABEL_SHOW_CONFIG_FOR environment variable to show the loaded configuration:
+    	npx cross-env BABEL_SHOW_CONFIG_FOR=E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-components\src\rds-comp-application-scopes\rds-comp-application-scopes.test.tsx <your build command>
+    See https://babeljs.io/docs/configuration#print-effective-configs for more info.
+
+      [2mat toParseError ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parse-error.ts[2m:95:45)[22m
+      [2mat Parser.raise ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1497:19)[22m
+      [2mat Parser.expectOnePlugin ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/tokenizer/index.ts[2m:1562:18)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1258:16)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+      [2mat Parser.parseExprListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2734:18)[22m
+      [2mat Parser.parseCallExpressionArguments ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1019:14)[22m
+      [2mat Parser.parseCoverCallAndAsyncArrowHead ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:897:29)[22m
+      [2mat Parser.parseSubscript ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:786:19)[22m
+      [2mat Parser.parseSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:744:19)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:729:17)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat Parser.parseExpressionBase ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:221:23)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:39)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3123:16)[22m
+      [2mat Parser.parseExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:212:17)[22m
+      [2mat Parser.parseStatementContent ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:642:23)[22m
+      [2mat Parser.parseStatementLike ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:437:17)[22m
+      [2mat Parser.parseStatementListItem ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:386:17)[22m
+      [2mat Parser.parseBlockOrModuleBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1403:16)[22m
+      [2mat Parser.parseBlockBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1376:10)[22m
+      [2mat Parser.parseBlock ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/statement.ts[2m:1344:10)[22m
+      [2mat Parser.parseFunctionBody ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2571:24)[22m
+      [2mat Parser.parseArrowExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:2512:10)[22m
+      [2mat Parser.parseParenAndDistinguishExpression ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1803:12)[22m
+      [2mat Parser.parseExprAtom ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:1140:21)[22m
+      [2mat Parser.parseExprSubscripts ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:723:23)[22m
+      [2mat Parser.parseUpdate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:702:21)[22m
+      [2mat Parser.parseMaybeUnary ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:664:23)[22m
+      [2mat Parser.parseMaybeUnaryOrPrivate ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:398:14)[22m
+      [2mat Parser.parseExprOps ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:410:23)[22m
+      [2mat Parser.parseMaybeConditional ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:365:23)[22m
+      [2mat Parser.parseMaybeAssign ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:296:21)[22m
+      [2mat callback ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:252:12)[22m
+      [2mat Parser.allowInAnd ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:3128:12)[22m
+      [2mat Parser.parseMaybeAssignAllowIn ([22m../node_modules/.pnpm/@babel+parser@7.27.0/node_modules/@babel/parser/src/parser/expression.ts[2m:251:17)[22m
+
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mraaghu-components/src/rds-comp-register-member/[22m[1mrds-comp-register-member.test.tsx[22m
+  [1m● [22mTest suite failed to run
+
+    Your test suite must contain at least one test.
+
+      [2mat onResult ([22m../node_modules/.pnpm/@jest+core@27.5.1_ts-node@1_2960f8c573860356f6ae56d3f242caf9/node_modules/@jest/core/build/TestScheduler.js[2m:175:18)[22m
+      [2mat [22m../node_modules/.pnpm/@jest+core@27.5.1_ts-node@1_2960f8c573860356f6ae56d3f242caf9/node_modules/@jest/core/build/TestScheduler.js[2m:316:17[22m
+      [2mat [22m../node_modules/.pnpm/emittery@0.8.1/node_modules/emittery/index.js[2m:260:13[22m
+          at Array.map (<anonymous>)
+      [2mat Emittery.emit ([22m../node_modules/.pnpm/emittery@0.8.1/node_modules/emittery/index.js[2m:258:23)[22m
+
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mraaghu-components/src/rds-comp-top-navigation-with-search/[22m[1mrds-comp-top-navigation-with-search.test.tsx[22m
+  [1m● [22mTest suite failed to run
+
+    Your test suite must contain at least one test.
+
+      [2mat onResult ([22m../node_modules/.pnpm/@jest+core@27.5.1_ts-node@1_2960f8c573860356f6ae56d3f242caf9/node_modules/@jest/core/build/TestScheduler.js[2m:175:18)[22m
+      [2mat [22m../node_modules/.pnpm/@jest+core@27.5.1_ts-node@1_2960f8c573860356f6ae56d3f242caf9/node_modules/@jest/core/build/TestScheduler.js[2m:316:17[22m
+      [2mat [22m../node_modules/.pnpm/emittery@0.8.1/node_modules/emittery/index.js[2m:260:13[22m
+          at Array.map (<anonymous>)
+      [2mat Emittery.emit ([22m../node_modules/.pnpm/emittery@0.8.1/node_modules/emittery/index.js[2m:258:23)[22m
+
+[1mTest Suites: [22m[1m[31m5 failed[39m[22m, 5 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        20.607 s
+[2mRan all test suites[22m[2m.[22m

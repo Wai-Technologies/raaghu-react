@@ -1,0 +1,13 @@
+
+Linting "raaghu-elements"...
+[0m[0m
+[0m[4mE:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-elements\src\rds-button\rds-button.types.ts[24m[0m
+[0m  [2m2:18[22m  [31merror[39m  'placements' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mE:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-elements\src\rds-select-list\components\selectContext.ts[24m[0m
+[0m  [2m12:34[22m  [31merror[39m  'option' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[31m[1m✖ 2 problems (2 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+Lint errors found in the listed files.
+

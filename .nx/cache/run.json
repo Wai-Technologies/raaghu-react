@@ -1,0 +1,65 @@
+{
+  "run": {
+    "command": "nx run-many --target=build --all",
+    "startTime": "2025-05-06T04:52:36.695Z",
+    "endTime": "2025-05-06T04:52:47.756Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "raaghu-react-themes:build",
+      "target": "build",
+      "projectName": "raaghu-react-themes",
+      "hash": "11363646150961909634",
+      "startTime": "2025-05-06T04:52:36.873Z",
+      "endTime": "2025-05-06T04:52:44.489Z",
+      "params": "",
+      "cacheStatus": "local-cache-hit",
+      "status": 0
+    },
+    {
+      "taskId": "raaghu-pages:build",
+      "target": "build",
+      "projectName": "raaghu-pages",
+      "hash": "183975869822114649",
+      "startTime": "2025-05-06T04:52:36.874Z",
+      "endTime": "2025-05-06T04:52:44.554Z",
+      "params": "",
+      "cacheStatus": "local-cache-hit",
+      "status": 0
+    },
+    {
+      "taskId": "raaghu-elements:build",
+      "target": "build",
+      "projectName": "raaghu-elements",
+      "hash": "3152756256890785077",
+      "startTime": "2025-05-06T04:52:36.874Z",
+      "endTime": "2025-05-06T04:52:44.585Z",
+      "params": "",
+      "cacheStatus": "local-cache-hit",
+      "status": 0
+    },
+    {
+      "taskId": "raaghu-layouts:build",
+      "target": "build",
+      "projectName": "raaghu-layouts",
+      "hash": "1761126754948746644",
+      "startTime": "2025-05-06T04:52:44.913Z",
+      "endTime": "2025-05-06T04:52:47.424Z",
+      "params": "",
+      "cacheStatus": "local-cache-hit",
+      "status": 0
+    },
+    {
+      "taskId": "raaghu-components:build",
+      "target": "build",
+      "projectName": "raaghu-components",
+      "hash": "14587284560942782981",
+      "startTime": "2025-05-06T04:52:46.792Z",
+      "endTime": "2025-05-06T04:52:47.711Z",
+      "params": "",
+      "cacheStatus": "local-cache-hit",
+      "status": 0
+    }
+  ]
+}

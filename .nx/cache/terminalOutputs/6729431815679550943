@@ -1,0 +1,7 @@
+
+[0m[7m[1m[31m NX [39m[22m[27m[0m  [31mCan't find a root directory while resolving a config file path.[39m
+
+Provided path to resolve: E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-pages\jest.config.ts
+cwd: E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react
+Pass --verbose to see the stacktrace.
+

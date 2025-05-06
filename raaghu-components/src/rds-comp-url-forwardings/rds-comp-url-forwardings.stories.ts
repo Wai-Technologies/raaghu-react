@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompUrlForwardings from './rds-comp-url-forwardings';
+import type { Meta, StoryObj } from "@storybook/react";
+import RdsCompUrlForwardings from "./rds-comp-url-forwardings";
 
 
 const meta: Meta = { 
     title: "Components/Url Forwardings",
     component: RdsCompUrlForwardings,
     parameters: {
-        layout: 'padded',
+        layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompUrlForwardings>;

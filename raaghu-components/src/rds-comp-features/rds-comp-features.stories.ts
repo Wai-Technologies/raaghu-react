@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompFeatures from './rds-comp-features';
+import type { Meta, StoryObj } from "@storybook/react";
+import RdsCompFeatures from "./rds-comp-features";
  
  
 const meta: Meta = {
     title: "Components/Features",
     component: RdsCompFeatures,
     parameters: {
-        layout: 'padded',
+        layout: "padded",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompFeatures>;
@@ -134,50 +134,50 @@ export const Default: Story = {
                 ]
             },
             { "name": "SettingManagement",
-            "displayName": "Setting Management",
-            "description": "Enable setting management system in the application.",
-            "features": [
-                {
-                    "name": "YourFeatureName",
-            "displayName": "Your Feature Display Name",
-            "value": true,
-            "inputType": "checkbox",
-            "provider": {
-                "name": "C",
-                "key": null
+                "displayName": "Setting Management",
+                "description": "Enable setting management system in the application.",
+                "features": [
+                    {
+                        "name": "YourFeatureName",
+                        "displayName": "Your Feature Display Name",
+                        "value": true,
+                        "inputType": "checkbox",
+                        "provider": {
+                            "name": "C",
+                            "key": null
+                        },
+                        "description": "Enable or disable setting management. Optional values: Enabled,Disabled",
+                        "valueType": {
+                            "name": "BooleanValueType",
+                            "properties": {},
+                            "validator": {
+                                "name": "BOOLEAN",
+                                "properties": {}
+                            }
+                        },
+                        "depth": 0,
+                        "parentName": null
                     },
-                    "description": "Enable or disable setting management. Optional values: Enabled,Disabled",
-                    "valueType": {
-                        "name": "BooleanValueType",
-                        "properties": {},
-                        "validator": {
-                            "name": "BOOLEAN",
-                            "properties": {}
-                        }
-                    },
-                    "depth": 0,
-                    "parentName": null
-      },
-      {
-        "name": "SettingManagement.EmailSettings",
-        "displayName": "Email Settings",
-        "value": "Enabled",
-        "uiType": "checkbox",
-        "provider": {
-          "name": "D",
-          "key": null
-        },
-        "description": "Allow changing email settings. Optional values: Enabled,Disabled",
-        "valueType": {
-          "name": "BooleanValueType",
-          "properties": {},
-          "validator": {
-            "name": "BOOLEAN",
-            "properties": {}
-          }
-        },
-        "depth": 1,
-        "parentName": "SettingManagement.Enable"
+                    {
+                        "name": "SettingManagement.EmailSettings",
+                        "displayName": "Email Settings",
+                        "value": "Enabled",
+                        "uiType": "checkbox",
+                        "provider": {
+                            "name": "D",
+                            "key": null
+                        },
+                        "description": "Allow changing email settings. Optional values: Enabled,Disabled",
+                        "valueType": {
+                            "name": "BooleanValueType",
+                            "properties": {},
+                            "validator": {
+                                "name": "BOOLEAN",
+                                "properties": {}
+                            }
+                        },
+                        "depth": 1,
+                        "parentName": "SettingManagement.Enable"
                     },
                     
                     
@@ -565,22 +565,22 @@ export const Default: Story = {
                         "displayName": "Storage size",
                         "value": "2",
                         "provider": {
-                          "name": "T",
-                          "key": "9e83c5cd-119d-8e19-dee5-3a114d520ad5"
+                            "name": "T",
+                            "key": "9e83c5cd-119d-8e19-dee5-3a114d520ad5"
                         },
                         "description": "Set maximum storage size in bytes. Zero or null will be unlimited.",
                         "valueType": {
-                          "name": "FreeTextStringValueType",
-                          "properties": {},
-                          "validator": {
-                            "name": "STRING",
-                            "properties": {
-                              "MinLength": 1,
-                              "MaxLength": 2147483647,
-                              "RegularExpression": "^[0-9]+$",
-                              "AllowNull": "true"
+                            "name": "FreeTextStringValueType",
+                            "properties": {},
+                            "validator": {
+                                "name": "STRING",
+                                "properties": {
+                                    "MinLength": 1,
+                                    "MaxLength": 2147483647,
+                                    "RegularExpression": "^[0-9]+$",
+                                    "AllowNull": "true"
+                                }
                             }
-                          }
                         },
                         "depth": 0,
                         "parentName": null

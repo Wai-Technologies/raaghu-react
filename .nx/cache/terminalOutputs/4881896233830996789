@@ -1,0 +1,29 @@
+
+Linting "raaghu-layouts"...
+[0m[0m
+[0m[4mE:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-layouts\src\rds-comp-app-shell\shell-layout.ts[24m[0m
+[0m   [2m6:20[22m  [31merror[39m  Strings must use doublequote                           [2mquotes[22m[0m
+[0m   [2m8:7[22m   [31merror[39m  'DefaultMobileCss' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:26[22m  [31merror[39m  Strings must use doublequote                           [2mquotes[22m[0m
+[0m   [2m8:41[22m  [31merror[39m  Missing semicolon                                      [2msemi[22m[0m
+[0m  [2m21:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m22:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m23:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m24:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m25:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m26:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m27:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m28:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m29:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m30:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m31:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m32:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m33:1[22m   [31merror[39m  Expected indentation of 4 spaces but found 8           [2mindent[22m[0m
+[0m  [2m34:1[22m   [31merror[39m  Expected indentation of 8 spaces but found 12          [2mindent[22m[0m
+[0m  [2m36:2[22m   [31merror[39m  Missing semicolon                                      [2msemi[22m[0m
+[0m[0m
+[0m[31m[1m✖ 19 problems (19 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[31m[1m  18 errors and 0 warnings potentially fixable with the `--fix` option.[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+Lint errors found in the listed files.
+

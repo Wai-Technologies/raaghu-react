@@ -1,0 +1,26 @@
+
+> raaghu-react-themes@ build E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-react-themes
+> react-scripts build && sass src/styles/default.scss build/styles/default.css
+
+Creating an optimized production build...
+[32mCompiled successfully.[39m
+[32m[39m
+File sizes after gzip:
+
+  46.52 kB  [2mbuild\static\js\[22m[36mmain.f260e12f.js[39m
+  1.78 kB   [2mbuild\static\js\[22m[36m126.fe10cb79.chunk.js[39m
+  513 B     [2mbuild\static\css\[22m[36mmain.f855e6bc.css[39m
+
+The project was built assuming it is hosted at [32m/[39m.
+You can control this with the [32mhomepage[39m field in your [36mpackage.json[39m.
+
+The [36mbuild[39m folder is ready to be deployed.
+You may serve it with a static server:
+
+  [36mnpm[39m install -g serve
+  [36mserve[39m -s build
+
+Find out more about deployment here:
+
+  [33mhttps://cra.link/deployment[39m
+

@@ -15,6 +15,14 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": ["default"]
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "inputs": ["default"]
     }
   },
   "namedInputs": {
@@ -29,4 +37,4 @@
     ],
     "sharedGlobals": []
   }
-} 
+}

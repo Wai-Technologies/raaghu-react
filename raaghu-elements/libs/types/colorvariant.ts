@@ -18,7 +18,7 @@ export type colors =
 
   | string;
 
-  export const badge_colors = {
+export const badge_colors = {
     Primary: "primary",
     Secondary: "secondary",
     Tertiary : "tertiary",

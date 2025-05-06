@@ -1,0 +1,10 @@
+
+> @waiin/raaghu-pages@0.0.0 build E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-pages
+> tsc && vite build
+
+../raaghu-components/src/rds-comp-assistance/rds-comp-assistance.tsx(160,22): error TS2872: This kind of expression is always truthy.
+../raaghu-components/src/rds-comp-assistance/rds-comp-assistance.tsx(167,22): error TS2872: This kind of expression is always truthy.
+../raaghu-components/src/rds-comp-forgot-password/rds-comp-forgot-password.tsx(183,30): error TS2872: This kind of expression is always truthy.
+../raaghu-components/src/rds-comp-forms-question/rds-comp-forms-questions.tsx(190,22): error TS2872: This kind of expression is always truthy.
+../raaghu-components/src/rds-comp-register/rds-comp-register.tsx(153,58): error TS2872: This kind of expression is always truthy.
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m

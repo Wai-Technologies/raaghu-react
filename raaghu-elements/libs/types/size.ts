@@ -6,8 +6,8 @@ export type size =
   | "smaller"
   | "xlg"
 
-  export const input_size = {
+export const input_size = {
     small : "small",
     medium : "medium",
     large : "large"
-  }
+};

@@ -6,15 +6,15 @@ export type placements =
   | "left"
   | undefined
 
-  export const tooltip_position = {
+export const tooltip_position = {
     top: "top",
     bottom: "bottom",
     right: "right",
     Danger: "danger",
     left: "left",
-  }
+};
 
-  export type toaster_placements =
+export type toaster_placements =
   | "top left"
   | "top center"
   | "top right"

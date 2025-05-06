@@ -1,0 +1,20 @@
+
+> @waiin/raaghu-react-layouts@ build E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-layouts
+> rollup -c --bundleConfigAsCjs
+
+[1m[31m[!] [1mError: Cannot find module 'rollup-plugin-babel'
+Require stack:
+- E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-layouts\rollup.config-1746424608718.cjs[22m[1m[39m[22m
+[2m    at Function._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+    at Function._load (node:internal/modules/cjs/loader:1055:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at Module.require (node:internal/modules/cjs/loader:1311:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (E:\OneDrive - WAi Technologies\Raaghu Design System Projects\Project React-Raaghu\Nx_raaghu\raaghu-react\raaghu-layouts\rollup.config-1746424608718.cjs:12:13)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)[22m
+
+
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
