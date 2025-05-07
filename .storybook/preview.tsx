@@ -1,5 +1,6 @@
 import { Preview } from "@storybook/react"; // Import the 'Story' component
 import React from 'react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import '../raaghu-react-themes/src/styles/default.scss';
@@ -39,20 +40,26 @@ const preview: Preview = {
           { value: 'light', title: 'light' },
           { value: 'dark', title: 'dark' },
         ],
-         showName: true,
-        // dynamicTitle: true, // Use dynamic titles for buttons
+        showName: true,
       },
     },
   },
 };
 
-// Decorator to apply the theme dynamically
-const withTheme = (Story: React.FC, context: any) => { // Specify the type of 'Story' and 'context'
-  const selectedTheme = context.globals.theme; // Get the current selected theme
-  applyTheme(selectedTheme); // Apply the selected theme
-  return <Story/>;
+// Single decorator that handles both theme and routing
+const withThemeAndRouter = (Story: React.FC, context: any) => {
+  const selectedTheme = context.globals.theme;
+  applyTheme(selectedTheme);
+  
+  return (
+    <MemoryRouter>
+      <Routes>
+        <Route path="/*" element={<Story />} />
+      </Routes>
+    </MemoryRouter>
+  );
 };
 
-export const decorators = [withTheme];
+export const decorators = [withThemeAndRouter];
 
 export default preview;
