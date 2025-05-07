@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
-import { BrowserRouter } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import "./rds-comp-app-shell.css";
 
 const meta: Meta<typeof RdsCompAppShell> = {
@@ -11,14 +11,21 @@ const meta: Meta<typeof RdsCompAppShell> = {
   component: RdsCompAppShell,
   parameters: {
     layout: "padded",
+    docs: {
+      description: {},
+    }
   },
   tags: ["autodocs"],
-  argTypes: {},
   decorators: [
     (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Story />}>
+          <Route index element={<div></div>} />
+          <Route path="dashboard" element={<div>Dashboard Content</div>} />
+          <Route path="users" element={<div>Users Content</div>} />
+          <Route path="settings" element={<div>Settings Content</div>} />
+        </Route>
+      </Routes>
     ),
   ],
 };
@@ -337,6 +344,8 @@ export const HeaderOnly: Story = {
         componentsList={[]}
         languageLabel={""}
         themeLabel={""}
+        style={"ABP"}
+        showLogo={true}
         onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
           console.log("Forgot password clicked:", isForgotPasswordClicked);
         }}
@@ -347,7 +356,6 @@ export const HeaderOnly: Story = {
         ): void {
           console.log("Profile link clicked:", id, navigateTo, label);
         }}
-        style={undefined}
       />
     ),
   },
