@@ -106,7 +106,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                         label={true}
                                         labelPosition={LabelPosition.Top}
                                         placeholder="Enter Name"
-                                        // required
+                                        required
                                         size={InputSize.Medium}   
                                         value={premiumSupportData?.name}
                                         onChange={(e: any) => {
@@ -122,7 +122,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                         label={true}
                                         labelPosition={LabelPosition.Top}
                                         placeholder="Enter Email"
-                                        // required
+                                        required
                                         size={InputSize.Medium}   
                                         value={premiumSupportData?.email}
                                         onChange={(e: any) => {
@@ -157,6 +157,8 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                           label="Message"
                                           isMandatory
                                           placeholder="Enter your extra message about your invoice"
+                                          value={premiumSupportData?.message}
+                                          onChange={(value: any) => handlePremiumSupportDataChanges(value, "message")}
                                         />
                                 </div>
 
@@ -182,7 +184,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 tooltipTitle={""}
                                 type={"submit"}
                                 databsdismiss="offcanvas"
-                                isDisabled={!premiumSupportData.phoneNumber || !premiumSupportData.message}
+                                isDisabled={!premiumSupportData.phoneNumber || !premiumSupportData.message || !premiumSupportData.name || !premiumSupportData.email}
                                 onClick={(e: any) => emitSaveData(e)}
                             ></RdsButton>
                         </div>

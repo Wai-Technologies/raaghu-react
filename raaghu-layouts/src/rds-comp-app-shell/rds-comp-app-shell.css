@@ -7,15 +7,37 @@
   display: flex;
 }
 
-
 .Default #sidebar{
   height: 100vh !important;
+}
+
+/* Sidebar layout styles */
+.sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
 }
 
 .Default .sidebar-layout{
   width: fit-content;
 }
 
+/* Top navigation layout styles */
+.topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
 .Default .topnav-layout{
   width: 100%;
+}
+
+/* TopNav specific styles */
+.TopNav .sidebar-layout {
+    display: none;
+}
+
+.TopNav .topnav-layout {
+    width: 100%;
 }
