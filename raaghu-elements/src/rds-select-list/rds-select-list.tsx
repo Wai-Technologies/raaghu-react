@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
 import "./rds-select-list.css";
+import RdsSpinner from "../rds-spinner";
+import { SpinnerSize } from "../rds-spinner/rds-spinner";
  
 export interface RdsSelectProps {
   size?: "small" | "large" | "medium" | string;
@@ -58,18 +60,15 @@ const RdsSelectList = (props: RdsSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<any | null>(
     props.isMultiple ? [] : null
   );
-  const [reset, setIsReset] = useState<boolean>(false);
- 
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchTimer, setSearchTimer] = useState<NodeJS.Timeout | null>(null);
+  const showLabel = props.showLabel === undefined ? true : props.showLabel;
+  const reset = props.reset || false;
+
   useEffect(() => {
-    if (props.reset) {
-      setIsReset(true);
+    if (props.selectedValue !== undefined) {
+      setSelectedValue(props.selectedValue);
     }
-  }, [props.reset]);
- 
-  const showLabel = props.showLabel ?? true;
- 
-  useEffect(() => {
-    setSelectedValue(props.selectedValue);
   }, [props.selectedValue]);
  
   // Create a fixed array of select items without the "Select All" option
@@ -87,8 +86,6 @@ const RdsSelectList = (props: RdsSelectProps) => {
     : regularItems;
  
   const handleSelectChange = (items: any) => {
-    setIsReset(false);
- 
     if (props.isMultiple) {
       if (items && items.some((item: any) => item.value === "select_all")) {
         const wasSelectAllAlreadySelected = selectedValue?.includes("select_all");
@@ -279,6 +276,49 @@ const RdsSelectList = (props: RdsSelectProps) => {
     );
   };
  
+  // Added Spinner
+  const customComponents = {
+    ...props.isMultiple ? { Option } : {},
+    LoadingIndicator: () => (
+      <div className="custom-select__loading-indicator" data-testid="loading-spinner">
+        <RdsSpinner
+          spinnerType="border"
+          colorVariant="primary"
+          width="16px"
+          height="16px"
+          borderWidth="2px"
+          size={SpinnerSize.Small}
+        />
+      </div>
+    ),
+    IndicatorSeparator: () => null
+  };
+
+  const handleInputChange = (inputValue: string) => {
+    setIsSearching(true);
+    if (searchTimer) {
+      clearTimeout(searchTimer);
+    }
+    const timer = setTimeout(() => {
+      setIsSearching(false);
+    }, 500);
+    setSearchTimer(timer);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (searchTimer) {
+        clearTimeout(searchTimer);
+      }
+    };
+  }, [searchTimer]);
+
+  useEffect(() => {
+    if (reset) {
+      setSelectedValue(props.isMultiple ? [] : null);
+    }
+  }, [reset, props.isMultiple]);
+
   return (
     <div className={`${props.classes} mt-2`}>
       <div className="d-flex mb-1">
@@ -298,8 +338,9 @@ const RdsSelectList = (props: RdsSelectProps) => {
         isMulti={props.isMultiple}
         closeMenuOnSelect={!props.isMultiple}
         hideSelectedOptions={false}
-        components={props.isMultiple ? { Option } : undefined}
+        components={customComponents}
         onChange={handleSelectChange}
+        onInputChange={handleInputChange}
         value={reset === true ? null : selectedItem}
         placeholder={props.placeholder}
         isSearchable={props.isSearchable}
@@ -308,6 +349,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
         aria-label="select example"
         data-testid={props.dataTestId}
         styles={customStyles}
+        isLoading={isSearching}
       />
       {props.showHint && (
         <p className="my-1 text-black-50">
