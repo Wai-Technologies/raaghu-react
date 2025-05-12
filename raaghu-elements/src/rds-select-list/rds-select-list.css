@@ -76,3 +76,13 @@
     margin-top: 3px !important;
 }
 
+.custom-select__loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
