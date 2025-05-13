@@ -1988,7 +1988,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
           >
             <img
-              className="cursor-pointer sidenav-mobile-logo"
+              className="cursor-pointer sidenav-mobile-logo ms-4 ps-5"
               src={brandLogo}
               alt="logo"
             ></img>
@@ -2008,13 +2008,13 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                  {(!props.product1  && <div>
                     {props.showLogo && (
                       <img
-                        className="cursor-pointer pe-4"
+                        className="cursor-pointer pe-4 d-md-inline d-none"
                         width={140}
                         src={brandLogo}
                         alt="raaghu-logo"
                       ></img>
                     )}
-                    {((!props.product4 && !props.entertainment1)&& <span className="text-bold text-primary  ps-4">
+                    {((!props.product4 && !props.entertainment1)&& <span className="text-bold text-primary d-none d-md-inline ps-4">
                       {navtitle}
                     </span>)}
                   </div>)}
@@ -2036,7 +2036,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           </div>
           <div
             className={
-              "d-flex px-2 align-items-center justify-content-between right-side-menu"
+              "d-flex px-5 align-items-center justify-content-between right-side-menu"
             }
           >
            {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
