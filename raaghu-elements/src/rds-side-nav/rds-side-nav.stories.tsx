@@ -185,7 +185,12 @@ const getLayout = (navLayout: string) => {
 
 export const Default: Story = (args: any) => (
     <BrowserRouter>
-        <RdsSideNav {...args} sideNavItems={getSideNavItems(args.platform, args.navLayout)} layout={getLayout(args.navLayout)} />
+        <RdsSideNav 
+            {...args} 
+            sideNavItems={getSideNavItems(args.platform, args.navLayout)} 
+            layout={getLayout(args.navLayout)} 
+            lockIconVisible={args.lockIconVisible} // Added lockIcon prop
+        />
     </BrowserRouter>
 );
 
@@ -195,8 +200,10 @@ Default.args = {
     navLayout: NavLayout.Raaghu, 
     navType: NavType.Collapsed, 
     platform: Platform.SideNavigationABPList, 
+    lockIconVisible: true, // Default value for lockIcon
 };
-Default.parameters = { controls: { include: ["navLayout", "navType", "platform"] } };
+
+Default.parameters = { controls: { include: ["navLayout", "navType", "platform", "lockIconVisible"] } };
 
 
 
