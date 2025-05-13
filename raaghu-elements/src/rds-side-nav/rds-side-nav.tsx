@@ -38,6 +38,7 @@ export enum Platform {
     navLayout?: NavLayout;
     navType?: NavType;
     platform?: Platform;
+    lockIconVisible?: boolean; // Added lockIcon prop to control the visibility of the lock icon
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -334,33 +335,35 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 <nav
                     id="sidebar"
                     ref={ref}
-                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-3 side-navigation
+                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-2 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
-                    <span
-                        className="collpase-button cursor-pointer justify-content-center rounded-5 lock-icon-style"
-                        style={{
-                            backgroundColor: "#7e2eef",
-                            color: "#FFFFFF",
-                            position: "fixed", // Ensure the icon remains fixed
-                            top: "23px", // Adjust the vertical position to the top
-                            left: collapse ? "72px" : "250px", // Dynamically adjust position based on collapse state
-                            zIndex: 10, // Ensure it appears above other elements
-                            transition: "left 1.05s ease", // Smooth transition for position change
-                        }}
-                        onMouseEnter={(e) => e.stopPropagation()}
-                        onMouseLeave={(e) => e.stopPropagation()}>
-                        <RdsIcon
-                            name={!collapse ? "unlock" : "lock_nav"} // Change icon based on collapse state
-                            height="21px"
-                            width="21px"
-                            stroke={true}
-                            fill={false}
-                            strokeWidth="1.2"
-                            colorVariant="white"
-                            onClick={() => setCollapse(!collapse)} // Toggle collapse state
-                        ></RdsIcon>
-                    </span>
+                    {props.lockIconVisible && (
+                        <span
+                            className="collpase-button cursor-pointer justify-content-center rounded-5 lock-icon-style"
+                            style={{
+                                backgroundColor: "#7e2eef",
+                                color: "#FFFFFF",
+                                position: "absolute",
+                                top: props.navLayout === NavLayout.Toolbar ? "43px" : "23px", // Adjusted top for Toolbar layout
+                                left: props.navLayout === NavLayout.Toolbar ? (collapse ? "69px" : "247px") : (collapse ? "50px" : "231px"),
+                                zIndex: 10,
+                                transition: "left 1.05s ease",
+                            }}
+                            onMouseEnter={(e) => e.stopPropagation()}
+                            onMouseLeave={(e) => e.stopPropagation()}>
+                            <RdsIcon
+                                name={!collapse ? "unlock" : "lock_nav"}
+                                height="21px"
+                                width="21px"
+                                stroke={true}
+                                fill={false}
+                                strokeWidth="1.2"
+                                colorVariant="white"
+                                onClick={() => setCollapse(!collapse)}
+                            ></RdsIcon>
+                        </span>
+                    )}
                     <div>
                         {props.layout != "RightSideNav" && (
                             <>
