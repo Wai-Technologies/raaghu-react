@@ -295,6 +295,10 @@ const RdsSelectList = (props: RdsSelectProps) => {
   };
 
   const handleInputChange = (inputValue: string) => {
+    if (inputValue === "") {
+    // Do not show loader when closing the dropdown
+    return;
+    }
     setIsSearching(true);
     if (searchTimer) {
       clearTimeout(searchTimer);
