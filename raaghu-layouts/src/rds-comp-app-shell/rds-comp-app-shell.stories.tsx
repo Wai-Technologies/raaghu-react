@@ -736,13 +736,13 @@ export const Relaxing: Story = {
             },
             {
               icon: "payment_new",
-              key: "5",
+              key: "6",
               label: "Payments",
               path: "",
             },
             {
               icon: "cms",
-              key: "6",
+              key: "7",
               label: "CMS",
               path: "",
             },
@@ -998,13 +998,13 @@ export const SideNav: Story = {
               },
               {
                 icon: "payment_new",
-                key: "5",
+                key: "6",
                 label: "Payments",
                 path: "",
               },
               {
                 icon: "cms",
-                key: "6",
+                key: "7",
                 label: "CMS",
                 path: "",
               },
@@ -1233,13 +1233,13 @@ export const DoubleNav: Story = {
             },
             {
               icon: "payment_new",
-              key: "5",
+              key: "6",
               label: "Payments",
               path: "",
             },
             {
               icon: "cms",
-              key: "6",
+              key: "7",
               label: "CMS",
               path: "",
             },
@@ -1460,13 +1460,13 @@ export const OneThreeOne : Story = {
             },
             {
               icon: "payment_new",
-              key: "5",
+              key: "6",
               label: "Payments",
               path: "",
             },
             {
               icon: "cms",
-              key: "6",
+              key: "7",
               label: "CMS",
               path: "",
             },
