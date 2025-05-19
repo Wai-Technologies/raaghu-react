@@ -929,13 +929,13 @@ export const DoubleNav: Story = {
             },
             {
               icon: "pages",
-              key: "5",
+              key: "6",
               label: "Pages",
               path: "",
             },
             {
               icon: "tag",
-              key: "6",
+              key: "7",
               label: "Tags",
               path: "",
             },
