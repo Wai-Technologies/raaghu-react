@@ -3,7 +3,7 @@ import RdsPopularPage from "./rds-popular-page";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Popular-Page',
+    title: 'Components/Popular-Page',
     component: RdsPopularPage,
     parameters: {
         layout: 'padded',
@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof RdsPopularPage>;
 
 
-export const PopularPage: Story = {
+export const PopularItemsPage: Story = {
     args: {
         itemList: [
             {
@@ -47,6 +47,6 @@ export const PopularPage: Story = {
         ]
     }
 } satisfies Story;
-PopularPage.parameters = { controls: { include: ['itemList'] } };
+PopularItemsPage.parameters = { controls: { include: ['itemList'] } };
 
 

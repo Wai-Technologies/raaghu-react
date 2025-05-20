@@ -1,6 +1,7 @@
 import React from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import "./rds-comp-user-table.css";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 interface RdsCompUserTableProps {
   tableHeaders: {
@@ -29,7 +30,7 @@ const RdsCompUserTable = (props: RdsCompUserTableProps) => {
   return (
     <div>
       <RdsCompDatatable
-        actionPosition="right"
+        actionPosition={ActionPosition.Right}
         classes="table__userTable"
         tableHeaders={props.tableHeaders}
         actions={props.actions}

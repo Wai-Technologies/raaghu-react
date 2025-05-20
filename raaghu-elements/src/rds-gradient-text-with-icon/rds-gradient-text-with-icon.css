@@ -1,0 +1,23 @@
+.gradient-text-with-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .pundit-icon {
+    height: 32px;
+    width: 32px;;
+    margin-right: 8px;
+  }
+
+  .loader-icon {
+    height: 40px; 
+    width: 40px; 
+  }
+  
+  .title {
+    font-size: 1rem;
+    font-weight: 500;
+    background: linear-gradient(90deg, #6269FD 0%, #1FD9FA 32.5%, #5481FC 73.5%, #862FFF 92.5%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -3,7 +3,7 @@ import RdsCardDetail from "./rds-card-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Card Detail',
+    title: 'Components/Card Detail',
     component: RdsCardDetail,
     parameters: {
         layout: 'padded',
@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCardDetail>;
 
-export const cardDetail: Story = {
+export const cardDetailManager: Story = {
     args: {
         cardDatas: [
             {

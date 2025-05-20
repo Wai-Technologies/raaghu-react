@@ -1,10 +1,15 @@
 import React, { ChangeEvent, useCallback, useEffect, useState, useRef, Fragment, } from "react";
 import "./rds-double-range.css";
 
+export enum DoubleRangeType {
+    Default = "default",
+    Type1 = "type_1",
+    Type2 = "type_2",
+  }
 export interface RdsDoubleRangeProps {
     min: number;
     max: number;
-    doubleRangeType: "default" | "type_1" | "type_2";
+    doubleRangeType: DoubleRangeType;
 }
 
 
@@ -86,7 +91,7 @@ const RdsDoubleRange = (props: RdsDoubleRangeProps) => {
     return (
         <Fragment>
             {/* Default */}
-            {props.doubleRangeType == "default" && <div className="position-relative py-5">
+            {props.doubleRangeType == DoubleRangeType.Default && <div className="position-relative py-5">
                 <div className="slider-track" data-testid="slider-1" style={{ background: background }}>
                     <span
                         id="range1"
@@ -128,7 +133,7 @@ const RdsDoubleRange = (props: RdsDoubleRangeProps) => {
                 </div>
             </div>}
             {/* type1 */}
-            {props.doubleRangeType == "type_1" &&
+            {props.doubleRangeType == DoubleRangeType.Type1 &&
                 <div className="position-relative py-5">
 
                     <div className="slider-track" style={{ background: background }}>
@@ -172,7 +177,7 @@ const RdsDoubleRange = (props: RdsDoubleRangeProps) => {
                 </div>
             }
             {/* type - 2 */}
-            {props.doubleRangeType == "type_2" && <div className="position-relative py-5">
+            {props.doubleRangeType == DoubleRangeType.Type2 && <div className="position-relative py-5">
                 <div className="showvalue mb-3"><span className="showVlu">{props.min}</span> <span className="showVlu">{props.max}</span></div>
                 <div className="slider-track" style={{ background: background }}>
                     <span

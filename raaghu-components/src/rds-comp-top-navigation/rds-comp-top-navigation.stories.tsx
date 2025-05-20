@@ -4,7 +4,7 @@ import { id } from 'date-fns/locale';
 
 
 const meta: Meta = { 
-    title: "Components/Top Navigation",
+    title: "Elements/Top Navigation",
     component: RdsCompTopNavigation,
     parameters: {
         layout: 'padded',
@@ -110,18 +110,26 @@ export const Default: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
+            },
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
             }
         ],
         showLogo: true,
         top_nav_logo: "raaghu logo",
         role: "Admin",
+        style:"Default"
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['navbarTitle','top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role'] } };
+Default.parameters = { controls: { include: ['navbarTitle','top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role', 'style'] } };
 export const ABP: Story = {
     args: {
-        navbarTitle: "Dashboard",
+        navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
@@ -207,14 +215,22 @@ export const ABP: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         showLogo: false,
         role: "Admin",
+        style: "ABP",
     }
 } satisfies Story;
 
-ABP.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role'] } };
+ABP.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role', 'style'] } };
 
 export const RaaghuPortal: Story = {
     args: {
@@ -240,7 +256,14 @@ export const RaaghuPortal: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         navtabItems: [
             {
@@ -276,11 +299,12 @@ export const RaaghuPortal: Story = {
         raaghuPortal: true,
         top_nav_logo: "raaghu logo",
         role: "Admin",
+        style: "RaaghuPortal"
 
     }
 } satisfies Story;
 
-RaaghuPortal.parameters = { controls: { include: ['brandName', 'brandLogo','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','role'] } };
+RaaghuPortal.parameters = { controls: { include: ['brandName', 'brandLogo','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','role', 'style'] } };
 export const Ecommerce_1: Story = {
     args: {
         navbarTitle: "Dashboard",
@@ -308,7 +332,14 @@ export const Ecommerce_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         breadcrumItem : [
             {
@@ -363,14 +394,17 @@ export const Ecommerce_1: Story = {
             }
         ],
         showLogo: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce1: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
+        style: "Ecommerce_1"
 
     }
 } satisfies Story;
 
-Ecommerce_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Ecommerce_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Ecommerce_2: Story = {
     args: {
@@ -399,7 +433,14 @@ export const Ecommerce_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -507,14 +548,17 @@ export const Ecommerce_2: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce2: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
+        style: "Ecommerce_2"
 
     }
 } satisfies Story;
 
-Ecommerce_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch'] } };
+Ecommerce_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
 
 export const Ecommerce_3: Story = {
     args: {
@@ -543,7 +587,14 @@ export const Ecommerce_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -651,21 +702,23 @@ export const Ecommerce_3: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         socialMediaIcons : [
             { id: "google", src: "./assets/google.svg", alt: "social-media-icon-google" },
             { id: "whatsapp", src: "./assets/whatsapp.svg", alt: "social-media-icon-whatsapp" },
-            { id: "vimeo", src: "./assets/vimeo.svg", alt: "social-media-icon-vimeo" },
+            { id: "vimeo", src: "./assets/Vimeo.svg", alt: "social-media-icon-vimeo" },
           ],
         top_nav_logo: "raaghu logo",
-
+        style: "Ecommerce_3"
 
       
     }
 } satisfies Story;
 
-Ecommerce_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch'] } };
+Ecommerce_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
 
 export const Ecommerce_4: Story = {
     args: {
@@ -694,7 +747,14 @@ export const Ecommerce_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -802,6 +862,8 @@ export const Ecommerce_4: Story = {
           
         showLogo: true,
         showSearch: true,
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         ecommerce4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -809,13 +871,13 @@ export const Ecommerce_4: Story = {
             { id: "fevorite", name:"fevorite",  },
           ],
         top_nav_logo: "raaghu logo",
-       
+        style: "Ecommerce_4"
 
       
     }
 } satisfies Story;
 
-Ecommerce_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch'] } };
+Ecommerce_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
 
 export const Product_1: Story = {
     args: {
@@ -844,7 +906,14 @@ export const Product_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -896,12 +965,13 @@ export const Product_1: Story = {
             { id: "notification", name:"notification_new",  },
           ],
         top_nav_logo: "raaghu logo",
+        style: "Product_1"
 
       
     }
 } satisfies Story;
 
-Product_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems',] } };
+Product_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
 
 export const Product_2: Story = {
     args: {
@@ -930,7 +1000,14 @@ export const Product_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -985,6 +1062,8 @@ export const Product_2: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         product2: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1043,11 +1122,11 @@ export const Product_2: Story = {
             { id: "github", src: "./assets/github.svg", alt: "social-media-icon-github" },
           ],
         top_nav_logo: "raaghu logo",
-       
+        style: "Product_2"
     }
 } satisfies Story;
 
-Product_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Product_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Product_3: Story = {
     args: {
@@ -1076,7 +1155,14 @@ export const Product_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1131,6 +1217,8 @@ export const Product_3: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         product3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1189,12 +1277,12 @@ export const Product_3: Story = {
             { id: "github", src: "./assets/github.svg", alt: "social-media-icon-github" },
           ],
         top_nav_logo: "raaghu logo",
-        
+        style: "Product_3"
       
     }
 } satisfies Story;
 
-Product_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Product_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Product_4: Story = {
     args: {
@@ -1223,7 +1311,14 @@ export const Product_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1290,6 +1385,8 @@ export const Product_4: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "top",
+        breadcrumbBorderColor: "#6610f2",
         product4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1301,12 +1398,13 @@ export const Product_4: Story = {
         showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
+        style: "Product_4"
 
       
     }
 } satisfies Story;
 
-Product_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Product_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Entertainment_1: Story = {
     args: {
@@ -1335,7 +1433,14 @@ export const Entertainment_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "Semi-Dark",
+                val: "semi-dark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         breadcrumItem : [
@@ -1413,12 +1518,12 @@ export const Entertainment_1: Story = {
         showLogo: true, 
         showSearch: true,
         top_nav_logo: "raaghu logo",
-
+        style: "Entertainment_1"
       
     }
 } satisfies Story;
 
-Entertainment_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Entertainment_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Entertainment_2: Story = {
     args: {
@@ -1447,7 +1552,14 @@ export const Entertainment_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment2: true,
@@ -1464,12 +1576,12 @@ export const Entertainment_2: Story = {
         showLogo: true, 
         showSearch: true,
         top_nav_logo: "raaghu logo",
-
+        style: "Entertainment_2"
       
     }
 } satisfies Story;
 
-Entertainment_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Entertainment_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Entertainment_3: Story = {
     args: {
@@ -1498,7 +1610,14 @@ export const Entertainment_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment3: true,
@@ -1515,12 +1634,12 @@ export const Entertainment_3: Story = {
         showLogo: true, 
         showSearch: true,
         top_nav_logo: "raaghu logo",
-
+        style: "Entertainment_3"
       
     }
 } satisfies Story;
 
-Entertainment_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Entertainment_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 export const Entertainment_4: Story = {
     args: {
         navbarTitle: "Home",
@@ -1548,7 +1667,14 @@ export const Entertainment_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         entertainment4: true,
@@ -1565,12 +1691,12 @@ export const Entertainment_4: Story = {
         showLogo: true, 
         showSearch: true,
         top_nav_logo: "raaghu logo",
-
+        style: "Entertainment_4"
       
     }
 } satisfies Story;
 
-Entertainment_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Entertainment_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Professional_1: Story = {
     args: {
@@ -1599,7 +1725,14 @@ export const Professional_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional1: true,
@@ -1615,12 +1748,12 @@ export const Professional_1: Story = {
         showLogo: true, 
         showSearch: true,
         top_nav_logo: "raaghu logo",
-
+        style: "Professional_1"
       
     }
 } satisfies Story;
 
-Professional_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Professional_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 export const Professional_2: Story = {
     args: {
         navbarTitle: "Home",
@@ -1648,7 +1781,14 @@ export const Professional_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional2: true,
@@ -1714,11 +1854,11 @@ export const Professional_2: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
-      
+        style: "Professional_2"
     }
 } satisfies Story;
 
-Professional_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Professional_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 export const Professional_3: Story = {
     args: {
         navbarTitle: "Home",
@@ -1746,9 +1886,17 @@ export const Professional_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
-       
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         professional3: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons : [
@@ -1776,7 +1924,7 @@ export const Professional_3: Story = {
                 active: true,
             },
             {
-                label: "Tab 1",
+                label: "Tab 2",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -1790,11 +1938,12 @@ export const Professional_3: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
+        style: "Professional_3"
       
     }
 } satisfies Story;
 
-Professional_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Professional_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 export const Professional_4: Story = {
     args: {
         navbarTitle: "Home",
@@ -1822,9 +1971,17 @@ export const Professional_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
-       
+        breadcrumbBorderPlacement: "bottom",
+        breadcrumbBorderColor: "#6610f2",
         professional4: true,
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         showLogo: true, 
@@ -1858,7 +2015,7 @@ export const Professional_4: Story = {
             },
             {
                 label: "Resources",
-                id: 2,
+                id: 3,
                 route: "#",
                 disabled: false,
                 icon: "resources",
@@ -1896,11 +2053,12 @@ export const Professional_4: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
+        style: "Professional_4"
       
     }
 } satisfies Story;
 
-Professional_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Professional_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 
 export const Professional_5: Story = {
     args: {
@@ -1929,7 +2087,14 @@ export const Professional_5: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
        
         professional5: true,
@@ -1942,12 +2107,13 @@ export const Professional_5: Story = {
             { id: "help_question_circle", name:"help_question_circle",  },
           ],
        top_nav_logo: "raaghu logo",
+       style: "Professional_5"
 
       
     }
 } satisfies Story;
 
-Professional_5.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo'] } };
+Professional_5.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
 export const App_Shell_3: Story = {
     args: {
         navbarTitle: "Dashboard",
@@ -1975,7 +2141,14 @@ export const App_Shell_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            }
+            },   
+            {
+                label: "SemiDark",
+                val: "semiDark",
+                icon: "semidark",
+                iconWidth: "20px",
+                iconHeight: "20px",
+            },
         ],
         listItems: [
             {
@@ -2102,14 +2275,16 @@ export const App_Shell_3: Story = {
                 iconColor: "primary",
             },
         ],
+        breadcrumbBorderPlacement: "top",
+        breadcrumbBorderColor: "#6610f2",
         appshell3: true,
         showLogo: true, 
         profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
-       
+        style: "App_Shell_3"
 
       
     }
 } satisfies Story;
 
-App_Shell_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems',] } };
+App_Shell_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };

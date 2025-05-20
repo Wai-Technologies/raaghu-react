@@ -21,7 +21,7 @@ const Option: React.FC<{
     return (
         <li className="select-option" onClick={!multiple ? onChangeSelectedOption : undefined}>
             {!multiple ? value + (key == undefined ? "" : " - " + key) : (
-                <RdsCheckbox id={value} label={value} checked={isChecked} onChange={onChangeSelectedOption}></RdsCheckbox>
+                <RdsCheckbox id={value} labelText={value} checked={isChecked} onChange={onChangeSelectedOption}></RdsCheckbox>
             )}
         </li>
     );

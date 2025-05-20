@@ -1,214 +1,190 @@
-import React, { useState, Fragment, useEffect, forwardRef, ForwardRefRenderFunction } from "react";
-import "./rds-checkbox.css";
+import React, { useState, useEffect, useRef, Fragment } from "react";
+//import "./rds-checkbox.css";
+import "../../../raaghu-react-themes/src/styles/checkbox.scss";
 
-export interface RdsCheckboxProps {
-    label: string;
-    labelClass?: string;
-    checked: any;
-    isDisabled?: boolean;
-    classes?: string;
-    isSwitch?: boolean;
-    withlabel?: boolean;
-    name?: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
-    type?: "Square" | "Circular";
-    state?: "Checkbox" | "Indeterminate" | "ErrorCheckbox";
-    //errorMessage?: string;
-    id?: string;
-    dataTestId?: string;
-    isInputGroup?: boolean;
-    choiceId?: any;
-    labelPosition?: "left" | "right";
+export enum CheckboxStyle {
+  Square = "Square",
+  Circular = "Circular"
 }
 
+export enum CheckboxStatus {
+  Checked = "checked",
+  Unchecked = "unchecked",
+  Indeterminate = "indeterminate"
+}
 
-const RdsCheckbox: ForwardRefRenderFunction<HTMLInputElement, RdsCheckboxProps> = (
-    props,
-    ref
-) => {
+export enum CheckboxState {
+  Default = "Default",
+  Disabled = "Disabled",
+  Hover = "Hover"
+}
 
-    const [check, setcheck] = useState(props.checked);
-    const [labelChecked, setLabelChecked] = useState(props.checked);
+export enum LabelPosition {
+  Left = "left",
+  Right = "right"
+}
 
-    useEffect(() => {
-        setcheck(props.checked);
-        setLabelChecked(props.checked);
+export interface RdsCheckboxProps {
+  labelText?: string;
+  labelClass?: string;
+  checked?: boolean;
+  isDisabled?: boolean;
+  classes?: string;
+  isSwitch?: boolean;
+  showText?: boolean;
+  name?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  style?: CheckboxStyle;
+  status?: CheckboxStatus;
+  state?: CheckboxState;
+  id?: string;
+  dataTestId?: string;
+  isInputGroup?: boolean;
+  choiceId?: any;
+  labelPosition?: LabelPosition;
+}
 
-    }, [props.checked]);
+const RdsCheckbox: React.FC<RdsCheckboxProps> = (props) => {
+  const [check, setCheck] = useState(props.checked);
+  const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    setCheck(props.checked);
+  }, [props.checked]);
 
-    const classes = () => {
-        let classes: string = "form-check";
-        if (props.isSwitch != true) {
-            classes = "form-check mb-1 d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block mt-2";
-        } else {
-            classes = "form-switch";
-        }
-        if (props.isInputGroup === true) {
-            classes = "input-group-text";
-        }
-        if(props.state === "Indeterminate"){
-            classes = "ps-0 d-flex";
-        }
-        return classes;
-    };
+  const getStateClasses = () => {
+    const stateClasses: string[] = [];
+    
+    if (props.state === CheckboxState.Disabled || props.isDisabled) {
+      stateClasses.push('checkbox-disabled');
+    }
+    
+    if (props.state === CheckboxState.Hover || isHovered) {
+      stateClasses.push('checkbox-hover');
+    }
 
-    // const SWITCH = `${props.isSwitch !== true ? " form-check d-xxl-flex d-xl-flex d-lg-flex d-md-flex  d-block " : " form-switch "
-    // }`;ḍ
+    return stateClasses.join(' ');
+  };
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newCheck = event.target.checked;
-        setcheck(newCheck);
-        setLabelChecked(newCheck);
-        if (props.onChange) {
-            props.onChange(event);
-        }
-    };
+  const getBaseClasses = () => {
+    if (props.isSwitch) {
+      return "form-switch";
+    }
+    if (props.isInputGroup) {
+      return "input-group-text";
+    }
+    if (props.status === CheckboxStatus.Indeterminate) {
+      return "ps-0 d-flex";
+    }
+    return "form-check mb-1 d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-block";
+  };
 
-    const checkedValue = props.choiceId && props.choiceId!.filter((item: any) => item == props.id);
-    const checked = check || (checkedValue?.length !== undefined && checkedValue?.length !== 0) ? true : undefined;
+  const getInputClasses = () => {
+    const classes: string[] = ["form-check-input"];
 
-    const renderLabel = () => (
-        props.withlabel == false ? (
-            <></>
-        ) : (
-            <label className={`form-check-label  ms-2 ${props.labelClass}`} htmlFor={`${props.id}${props.label}`}>
-                {props.label}
-            </label>
-        )
-    );
+    if (props.style === CheckboxStyle.Circular) {
+      classes.push("form-check-input-type-circular");
+    }
+
+    if (props.status === CheckboxStatus.Unchecked) {
+      classes.push("form-check-input-error");
+    }
+
+    if (props.status === CheckboxStatus.Indeterminate) {
+      classes.push("form-check-input-intermediate");
+    }
+
+    return classes.join(" ");
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!props.isDisabled && props.state !== CheckboxState.Disabled) {
+      const newCheck = event.target.checked;
+      setCheck(newCheck);
+      if (props.onChange) {
+        props.onChange(event);
+      }
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (!props.isDisabled && props.state !== CheckboxState.Disabled) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const renderLabel = () => (
+    props.showText === false ? (
+      <></>
+    ) : (
+      <label 
+        className={`form-check-label ps-2 ${props.labelClass || ''} ${props.isDisabled || props.state === CheckboxState.Disabled ? 'disabled' : ''}`} 
+        htmlFor={`${props.id}${props.labelText}`}
+      >
+        {props.labelText}
+      </label>
+    )
+  );
+
+  const renderCheckbox = () => {
+    const isDisabled = props.state === CheckboxState.Disabled || props.isDisabled;
+    const baseClasses = `rds-checkbox ${getBaseClasses()} ${getStateClasses()} ${props.classes || ''}`;
 
     return (
-        <>
-            {props.type === "Circular" && props.state != "Indeterminate" ? (
-                <> 
-                    <Fragment>
-                        <div>
-                            <div className="rds-checkbox {classes()}">
-                                {props.labelPosition === "left" && renderLabel()}
-                                <input
-                                    type="checkbox"
-                                    className={
-                                        props.state == "ErrorCheckbox"
-                                            ? " form-check-input form-check-input-error form-check-input-type-circular"
-                                            : "form-check-input form-check-input-type-circular"
-                                    }
-                                    
-                                    value={props.checked}
-                                    disabled={props.isDisabled}
-                                    checked={checked}
-                                    id={`${props.id}${props.label}`}
-                                    name={props.id}
-                                    onChange={handleCheckboxChange}
-                                    data-testid={props.dataTestId}
-                                    ref={ref}
-                                />
-
-                                {props.labelPosition === "right" && renderLabel()}
-                               
-
-                            </div>
-                        </div>
-                    </Fragment>
-                </>) 
-                : (props.type === "Circular" && props.state === "Indeterminate" ? ( 
-                    <> 
-                        <Fragment>
-                            <div>
-                                <div className="rds-checkbox {classes()}">
-                                    {props.labelPosition === "left" && renderLabel()}
-                                    <span className= "form-check-input-type-circular-indeterminate">
-                                        <input
-                                            type="checkbox"
-                                            className={
-                                                props.state == "Indeterminate"
-                                                    ? "form-check-input form-check-input-intermediate form-check-input-type-circular"
-                                                    : "form-check-input form-check-input-indeterminate form-check-input-type-circular"
-                                            }
-                                            
-                                            value={props.checked}
-                                            disabled={props.isDisabled}
-                                            checked={checked}
-                                            id={`${props.id}${props.label}`}
-                                            name={props.id}
-                                            onChange={handleCheckboxChange}
-                                            data-testid={props.dataTestId}
-                                            ref={ref}
-                                        />
-                                    </span>
-                                
-                                    {props.labelPosition === "right" && renderLabel()}
-
-                                </div>
-                            </div>
-                        </Fragment>  
-                    </>)
-                    : (props.type === "Square" && props.state === "Indeterminate" ? ( 
-                        <> 
-                            <Fragment>
-                                <div>
-                                    <div className="rds-checkbox {classes()}">
-                                        {props.labelPosition === "left" && renderLabel()}
-                                        <span className="form-check-input-type-square-indeterminate">
-                                            <input
-                                                type="checkbox"
-                                                className={
-                                                    props.state == "Indeterminate"
-                                                        ? "form-check-input form-check-input-intermediate"
-                                                        : props.state == "ErrorCheckbox"
-                                                            ? " form-check-input form-check-input-error"
-                                                            : "form-check-input"
-                                                }
-                                                
-                                                value={props.checked}
-                                                disabled={props.isDisabled}
-                                                checked={checked}
-                                                id={`${props.id}${props.label}`}
-                                                name={props.id}
-                                                onChange={handleCheckboxChange}
-                                                data-testid={props.dataTestId}
-                                                ref={ref}/>
-                                        </span>                            
-                                        {props.labelPosition === "right" && renderLabel()}
-
-                                    </div>
-                                </div>
-                            </Fragment>
-                        </>)
-                        : (<> 
-                            <Fragment>
-                                <div>
-                                    <div className="rds-checkbox {classes()}">
-                                        {props.labelPosition === "left" && renderLabel()}
-                                        <input
-                                            type="checkbox"
-                                            className={
-                                                props.state == "Indeterminate"
-                                                    ? "form-check-input form-check-input-intermediate"
-                                                    : props.state == "ErrorCheckbox"
-                                                        ? " form-check-input form-check-input-error"
-                                                        : "form-check-input"
-                                            }
-                                            
-                                            value={props.checked}
-                                            disabled={props.isDisabled}
-                                            checked={checked}
-                                            id={`${props.id}${props.label}`}
-                                            name={props.id}
-                                            onChange={handleCheckboxChange}
-                                            data-testid={props.dataTestId}
-                                            ref={ref}
-                                        />
-
-{(props.labelPosition || "right") === "right" && renderLabel()}
-
-                                    </div>
-                                </div>
-                            </Fragment>
-
-                        </>)))} 
-        </>        
+      <div>
+        <div 
+          className={baseClasses}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {props.status === CheckboxStatus.Indeterminate ? (
+            <span className={props.style === CheckboxStyle.Circular ? 
+              "form-check-input-type-circular-indeterminate" : 
+              "form-check-input-type-square-indeterminate"}
+            >
+              <input
+                type="checkbox"
+                className={getInputClasses()}
+                value={check ? "true" : "false"}
+                disabled={isDisabled}
+                checked={check}
+                id={`${props.id}${props.labelText}`}
+                name={props.id || props.name}
+                onChange={handleCheckboxChange}
+                data-testid={props.dataTestId}
+                ref={ref}
+              />
+            </span>
+          ) : (
+            <input
+              type="checkbox"
+              className={getInputClasses()}
+              value={check ? "true" : "false"}
+              disabled={isDisabled}
+              checked={props.status === CheckboxStatus.Unchecked ? false : check}
+              id={`${props.id}${props.labelText}`}
+              name={props.id || props.name}
+              onChange={handleCheckboxChange}
+              data-testid={props.dataTestId}
+              ref={ref}
+            />
+          )}
+          {renderLabel()}
+        </div>
+      </div>
     );
+  };
+
+  return (
+    <Fragment>
+      {renderCheckbox()}
+    </Fragment>
+  );
 };
 
-export default forwardRef(RdsCheckbox);
+export default RdsCheckbox;

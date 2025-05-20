@@ -21,3 +21,23 @@
 .breadcrumb-md-separator {
     margin: 0 0.35rem;
 }
+
+.breadcrumb-default {
+  color: #6c757d; 
+}
+ 
+.breadcrumb-hover:hover {
+  color: #6610f2 !important;
+  background-color: #D4BBFF !important;
+  border-radius: 50px;
+  padding-left: 10px; 
+  padding-right: 10px;
+}
+ 
+.breadcrumb-selected {
+  color: #6610f2 !important;
+  background-color: #D4BBFF !important;
+  border-radius: 50px;
+  padding-left: 10px; 
+  padding-right: 10px;
+}

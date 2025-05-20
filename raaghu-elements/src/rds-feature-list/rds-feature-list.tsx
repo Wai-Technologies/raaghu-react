@@ -1,12 +1,27 @@
 import React, { Fragment } from "react";
 import "./rds-feature-list.css";
 
+export enum FontStyle {
+    Italic = "italic",
+    Normal = "normal",
+  }
+
+export enum ColorVariant {
+    Primary = "primary",
+    Success = "success",
+    Danger = "danger",
+    Warning = "warning",
+    Light = "light",
+    Info = "info",
+    Secondary = "secondary",
+    Dark = "dark",
+  }
 export interface RdsFeatureListProps {
     heading: string
     itemList: string[]
     columns: number,
-    fontStyle?: "italic" | "normal";
-    colorVariant?: "primary" | "success" | "danger" | "warning" | "light" | "info" | "secondary" | "dark";
+    fontStyle?: FontStyle;
+    colorVariant?: ColorVariant;
 }
 
 const RdsFeatureList = (props: RdsFeatureListProps) => {
@@ -14,7 +29,7 @@ const RdsFeatureList = (props: RdsFeatureListProps) => {
     const columnArray = (props.columns > 0) ? Array.from(Array(Math.min(props.columns, props.itemList.length)), (_: any, index: number) => index + 1) : [1];
     const listItemInEachRow = props.itemList.length / noOfColumns < 1 ? 1 : Math.ceil(props.itemList.length / noOfColumns);
     const ExtraListElements = props.itemList.length % noOfColumns;
-    const fontStyle = props.fontStyle == "italic" ? " fst-italic fw-normal " : " fw-normal ";
+    const fontStyle = props.fontStyle == "italic" ? " fst-italic fw-normal " : " select-container ";
     const color = " text-" + props.colorVariant || "dark";
     return (
         <>

@@ -92,17 +92,20 @@ export const Default: Story = {
     args: {
         allClaimsArray: [
             {
-                option: "One"
-
+                option: "One",
+                value: "one"
             },
             {
-                option: "two"
+                option: "Two",
+                value: "two"
             },
             {
-                option: "three"
+                option: "Three",
+                value: "three"
             },
             {
-                option: "four"
+                option: "Four",
+                value: "four"
             }
 
         ],

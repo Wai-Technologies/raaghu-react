@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput, RdsTextArea } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompAssistanceProps {
   assistanceData?: any;
   onSaveHandler?: (data: any) => void;
@@ -8,7 +8,7 @@ export interface RdsCompAssistanceProps {
 }
 
 const RdsCompAssistance = (props: RdsCompAssistanceProps) => {
-  const [assistance, setAssistance] = useState(props.assistanceData);
+  const [assistance, setAssistance] = useState(props.assistanceData || {});
   const [inputReset, setInputReset] = useState(false);
 
   useEffect(() => {
@@ -79,7 +79,8 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             <RdsInput
               inputType="text"
               required={true}
-              label={"Name"}
+              name={"Name"}
+              label={true}
               value={assistance?.name}
               placeholder={"Enter Name"}
               onChange={(e) => {
@@ -90,10 +91,10 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             
           </div>
           <div className="col-md-6">
-             <RdsInput
-              label="Email"
+             <RdsInput              
+              label={true}
               reset={inputReset}
-              size="medium"
+              size={InputSize.Medium} 
               inputType="text"
               name="Email"
               placeholder={"Enter Email"}
@@ -107,9 +108,10 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             <div className="col-md-6 form-group">
               <RdsInput
                 inputType="text"
-                value={assistance.contactNumber}
+                value={assistance?.contactNumber}
                 required={true}
-                label={"Contact Number"}
+                name={"Contact Number"}
+                label={true}
                 placeholder={"Enter contact number"}
                 onChange={(e) => {
                   handleDataChanges(e.target.value, "contactNumber");
@@ -139,9 +141,10 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
             <RdsTextArea
               rows={5}
               label={"Message"}
-              isRequired={true}
+              isMandatory={true}
               placeholder={"Enter your message here ..."}
-              value={assistance.message}
+              value={assistance?.message}
+
               onChange={(e) => {
                 handleDataChanges(e.target.value, "message");
               }}

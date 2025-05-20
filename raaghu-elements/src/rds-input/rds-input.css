@@ -106,8 +106,8 @@ input[type=number]::-webkit-outer-spin-button {
   position:absolute;
   right:0px;
 }
-#icontop, #iconfloating{
-  margin-top: 1.2rem !important;
+ #iconfloating{
+  margin-top: 1rem !important;
 }
 #iconbottom{
   margin-top: -1rem !important;
@@ -116,7 +116,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-right: 3.2rem !important;
 }
 #iconPasswordtop, #iconPasswordfloating{
-  margin-top: 1.3rem !important;
+  margin-top: 1rem !important;
 }
 #iconPasswordbottom{
   margin-top: -1rem !important;
@@ -124,4 +124,47 @@ input[type=number]::-webkit-outer-spin-button {
 
 #iconPasswordright{
   margin-right: 5rem !important;
+}
+.number-placeholder-style {
+  right: 35px !important;
+}
+
+.inputDisabled {
+  background-color: #f5f5f5bb; 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
+}
+
+.inputOutlineSelected {
+  border-bottom: solid 2px #7D7D7D !important;
+}
+
+.inputOutline {
+  border-bottom: solid 1px #7D7D7D !important;
+}
+.inputActive {
+  border-color: #7e2eef !important;
+}
+
+.inputSelected {
+  border: solid 1px #7D7D7D !important;
+}
+
+.inputError {
+  border-color: #E02D30 !important;
+}
+
+.inputOutlineActive {
+  border-bottom: solid 2px #7e2eef !important;
+}
+
+.inputOutlineError {
+  border-bottom: solid 2px #E02D30 !important;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-tenant-list.css";
 export interface RdsCompEditionListProps {
@@ -32,7 +32,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
   const { t } = useTranslation();
   return (
     <RdsCompDatatable
-      actionPosition="right"
+      actionPosition={ActionPosition.Right}
       tableHeaders={props.tableHeaders}
       actions={props.actions}
       tableData={props.tableData!}

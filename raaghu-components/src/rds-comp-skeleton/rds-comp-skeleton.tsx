@@ -1,6 +1,6 @@
 import React from "react";
 import "./rds-comp-skeleton.css";
-import RdsSkeleton from "../../../raaghu-elements/src/rds-skeleton/rds-skeleton";
+import RdsSkeleton, { RdsSkeletonShape } from "../../../raaghu-elements/src/rds-skeleton/rds-skeleton";
 
 interface RdsCompSkeletonProps {
   type: "pagination" | "dropdown" | "card";
@@ -35,7 +35,7 @@ const RdsCompSkeleton = (props: RdsCompSkeletonProps) => {
             {Array.from({ length: validatedCount }).map((_, index) => (
               <RdsSkeleton
                 key={index}
-                shape="rectangle"
+                shape= {RdsSkeletonShape.RECTANGLE}
                 isAnimated={isAnimated}
                 width="25px"
                 height="25px"
@@ -49,13 +49,13 @@ const RdsCompSkeleton = (props: RdsCompSkeletonProps) => {
             {Array.from({ length: validatedCount }).map((_, index) => (
               <div key={index} className="dropdown-item-skeleton">
                 <RdsSkeleton
-                  shape="circle"
+                  shape= {RdsSkeletonShape.CIRCLE}
                   isAnimated={isAnimated}
                   width="20px"
                   height="20px"
                 />
                 <RdsSkeleton
-                  shape="rectangle"
+                  shape= {RdsSkeletonShape.RECTANGLE}
                   isAnimated={isAnimated}
                   width={`${Math.random() * 60 + 40}px`}
                   height="15px"
@@ -101,31 +101,31 @@ const RdsCompSkeleton = (props: RdsCompSkeletonProps) => {
     <div className="card-skeleton">
       <div className="card-body-skeleton">
         <RdsSkeleton
-          shape="rectangle"
+          shape= {RdsSkeletonShape.RECTANGLE}
           isAnimated={isAnimated}
           width="25px"
           height="25px"
         />
         <RdsSkeleton
-          shape="rectangle"
+          shape= {RdsSkeletonShape.RECTANGLE}
           isAnimated={isAnimated}
           width="100%"
           height="8px"
         />
         <RdsSkeleton
-          shape="rectangle"
+          shape= {RdsSkeletonShape.RECTANGLE}
           isAnimated={isAnimated}
           width="100%"
           height="100px"
         />
         <RdsSkeleton
-          shape="rectangle"
+          shape= {RdsSkeletonShape.RECTANGLE}
           isAnimated={isAnimated}
           width="100%"
           height="10px"
         />
         <RdsSkeleton
-          shape="rectangle"
+          shape= {RdsSkeletonShape.RECTANGLE}
           isAnimated={isAnimated}
           width="40%"
           height="15px"

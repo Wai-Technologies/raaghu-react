@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import RdsHeader from "./rds-header";
 const meta: Meta = {
-  title: "Elements/Header",
+  title: "Components/Header",
   component: RdsHeader,
   parameters: {
     layout: "padded",

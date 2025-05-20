@@ -42,8 +42,7 @@ const RdsCompBackgroundImage: React.FC<RdsCompBackgroundImageProps> = (props) =>
                     {props.btnLabel && <div className="mt-4" >
                         <button className="btn btn-primary" onClick={toggleImage}>{showImage ? 'Hide Image' : props.btnLabel}</button>
                     </div>}
-                </div>
-            </div>
+                </div></div>
         </>
     );
 };

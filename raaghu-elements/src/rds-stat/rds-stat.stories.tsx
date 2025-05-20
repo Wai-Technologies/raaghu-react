@@ -2,7 +2,7 @@ import RdsStat from "./rds-stat";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Stat',
+    title: 'Components/Stat',
     component: RdsStat,
     parameters: {
         layout: 'padded',

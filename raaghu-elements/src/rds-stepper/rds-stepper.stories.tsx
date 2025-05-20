@@ -11,7 +11,7 @@ export interface StepIconName {
 }
 
 const meta: Meta = {
-    title: 'Elements/Stepper',
+    title: 'Components/Stepper',
     component: RdsStepper,
     parameters: {
         layout: 'padded',
@@ -73,7 +73,7 @@ const meta: Meta = {
             ],
         },
         stepperType: {
-            options: ["simple", "withcheckbox"],
+            options: ["simple", "withcheckbox", "advance"],
             control: { type: "select" },
         },
         showSubtitles: {
@@ -91,7 +91,7 @@ export const Simple: Story = {
         stepperType: "simple",
     }
 } satisfies Story;
-Simple.parameters = { controls: { include: ['stepperType'] } };
+Simple.parameters = { controls: { include: [] } };
 
 export const withcheckbox: Story = {
     args: {
@@ -104,20 +104,21 @@ export const withcheckbox: Story = {
     showSubtitles: true,
     }
 } satisfies Story;
-withcheckbox.parameters = { controls: { include: ['stepperType', 'stepperDetails', 'showSubtitles'] } };
+withcheckbox.parameters = { controls: { include: ['stepperDetails', 'showSubtitles'] } };
 
 export const Dash: Story = {
     args: {
         role: "Dash",
-        steps: 5,
+        steps: 3,
         height: 5,
+        stepDetails: [{stepNumber: 1, stepState: 'completed'}, {stepNumber: 2, stepState: 'completed'}, {stepNumber: 3, stepState: 'completed'}],
         state: 'default'
     },
 } satisfies Story;
 
 Dash.parameters = {
     controls: {
-        include: ['state', 'height', 'steps']
+        include: [ 'height', 'steps', 'stepDetails']
     }
 };
 
@@ -125,19 +126,19 @@ Dash.parameters = {
 export const Block: Story = {
     args: {
         role: "Block",
-        steps: 5,
-        state: 'default',
-        stepNames: ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"]
+        steps: 3,
+        // state: 'default',
+        stepDetailsName: [{stepName: "Step 1", stepState: 'completed'}, {stepName: "Step 2", stepState: 'completed'}, {stepName: "Step 3", stepState: 'completed'}]
     },
 } satisfies Story;
 
 Block.parameters = {
     controls: {
-        include: ['state', 'steps', 'stepNames']
+        include: ['steps', 'stepDetailsName']
     }
 };
 
-export const Stepper: Story = {
+export const NumberStepper: Story = {
     args: {
         role: "Stepper",
         steps: 5,
@@ -145,17 +146,33 @@ export const Stepper: Story = {
         variant: 'filled',
         Icon: false,
         StepIconName: [
-            { iconName: 'circle', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'users', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'administration', iconFill: true, iconStroke: true, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'award', iconFill: false, iconStroke: false, iconWidth: '20', iconHeight: '20' },
-            { iconName: 'bag', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20' }
+            { iconName: 'circle', iconFill: true, iconStroke: false, iconWidth: '20', iconHeight: '20', stepState: 'completed' },
+            { iconName: 'users', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'completed' },
+            { iconName: 'administration', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'inprogress' },
+            { iconName: 'award', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'error' },
+            { iconName: 'bag', iconFill: false, iconStroke: true, iconWidth: '20', iconHeight: '20', stepState: 'error' }
         ]
     },
 } satisfies Story;
 
-Stepper.parameters = {
+NumberStepper.parameters = {
     controls: {
-        include: ['state', 'steps', 'variant', 'Icon', 'StepIconName']
+        include: ['steps', 'variant', 'Icon', 'StepIconName']
     }
 };
+
+export const advance: Story = {
+    args: {
+        stepperType: "advance",
+        stepperSectionClass: "m-3",
+        headerClass: "fs-9 lh-base fw-semibold",
+        checkBoxClass: "float-end", 
+        showDetailsClass: "fs-9 fw-normal lh-sm mt-3", 
+        advanceList: [{headerContain: 'Header 1', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '1', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 1'},
+                    {headerContain: 'Header 2', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '2', checkBoxWithLabel: false, showDetails: true, detailsContain: 'Details of header 2'},
+                    {headerContain: 'Header 3', type: "Circular", isDisabled: true, checkedValue: false, checkBoxLabel: '', checkBoxId: '3', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 3'}
+                ]
+    },
+} satisfies Story;
+
+advance.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };

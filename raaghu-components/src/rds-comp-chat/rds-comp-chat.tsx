@@ -10,7 +10,9 @@ interface Comment {
     date: string;
     comment: string;
     image?: string; // Optional image field for comments with images
-    addedTime?: number; // Track when the comment was added
+    addedTime?: any; // Track when the comment was added
+    CommentId? : number;
+    tempId?: string; // Add temporary ID for tracking
 }
 
 interface RdsCompUserCommentsProps {
@@ -19,7 +21,10 @@ interface RdsCompUserCommentsProps {
         firstName: string;
         lastName: string;
         profilePic: string;
+        userId?:any;
     };
+    handleAddComment: (comment: Comment) => void; // Callback to handle new comment
+    handleDeleteComment?:(comment: number) => void;
     allowDelete?: boolean; // Optional prop to control delete functionality
     width?: "small" | "medium" | "large"; // Width options,
     isEmojiPicker?: boolean;
@@ -51,13 +56,52 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   } = props;
 
   const [commentText, setCommentText] = useState<string>('');
-  const [commentList, setCommentList] = useState<Comment[]>(comments);
+  const [commentList, setCommentList] = useState<Comment[]>([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle emoji picker
+  const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null); // Track by ID instead of index
 
   useEffect(() => {
-    setCommentList(comments); // Set initial comments from props
+    const commentsWithIds = comments.map(comment => {
+      if (!comment.tempId) {
+        return { ...comment, tempId: `temp-${Date.now()}-${Math.random().toString(36).substring(2, 9)}` };
+      }
+      return comment;
+    });
+    setCommentList(commentsWithIds);
   }, [comments]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const pickerElement = document.querySelector('.emoji-popup');
+      if (pickerElement && !pickerElement.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const commentContainer = document.querySelector('.comments-container');
+      if (commentContainer && !commentContainer.contains(event.target as Node)) {
+        setSelectedMessageId(null); // Reset selected message index
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  
   const handleAddComment = () => {
     if (commentText.trim() === '') return;
 
@@ -68,10 +112,14 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       date: new Date().toLocaleDateString('en-US'),
       comment: commentText, // Emoji and text will be added here
       addedTime: Date.now(), // Store the time when the comment was added
+      tempId: `temp-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`, // Add unique temporary ID
     };
 
     setCommentList([...commentList, newComment]);
     setCommentText(''); // Clear input after adding the comment
+    if (props.handleAddComment) {
+      props.handleAddComment(newComment); // Ensure the callback is defined before invoking
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +135,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           comment: '', // No text for image-only comments
           image: reader.result as string, // Base64 image data
           addedTime: Date.now(), // Store the time when the comment was added
+          tempId: `temp-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`, // Add unique temporary ID
         };
 
         setCommentList([...commentList, newComment]); // Add the new image comment
@@ -100,11 +149,34 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
     setShowEmojiPicker(false); // Close the emoji picker
   };
 
-  const handleDeleteComment = (index: number) => {
-    if (allowDelete) {
-      const updatedComments = commentList.filter((_, i) => i !== index);
-      setCommentList(updatedComments);
+  const handleDeleteComment = (commentId: number, tempId: string) => {
+    if (!allowDelete) return;
+
+    // Update the comments list
+    setCommentList((prevList) => prevList.filter(c => c.tempId !== tempId));
+
+    // Reset selection
+    setSelectedMessageId(null);
+
+    if (commentId !== undefined) {
+      props.handleDeleteComment?.(commentId);
     }
+  };
+
+  const handleDeleteOptionClick = (tempId: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent event bubbling
+    setSelectedMessageId(prevId => (prevId === tempId ? null : tempId));
+  };
+
+  const confirmDeleteMessage = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent event bubbling
+    
+    if (!selectedMessageId) return;
+
+    const commentToDelete = commentList.find(c => c.tempId === selectedMessageId);
+    if (!commentToDelete) return;
+
+    handleDeleteComment(commentToDelete.CommentId!, selectedMessageId);
   };
 
   const formatDate = (date: Date, dateFormat: string) => {
@@ -121,13 +193,16 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
   };
 
   return (
-    <div className={`comments-container ${width}`}>
-     {commentList.map((comment, index) => {
+    <div className={`comments-container ${width}`} onClick={() => setSelectedMessageId(null)}>
+     {commentList.map((comment) => {
         const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
-        const showDeleteIcon = allowDelete && (Date.now() - (comment.addedTime || 0) < deleteIconTimeout); // Show delete icon based on timeout
+        const isSelected = selectedMessageId === comment.tempId; // Check if the message is selected
 
         return (
-          <div key={index} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`}>
+          <div key={comment.tempId} className={`comment-box ${isCurrentUser ? 'current-user' : 'other-user'}`} onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteOptionClick(comment.tempId!, e);
+          }}>
             <div className={`d-flex ${isCurrentUser ? 'flex-row-reverse' : ''}`}>
               <div className="profile-initials">
                 {comment.profilePic && comment.profilePic.trim() !== "" ? (
@@ -153,11 +228,9 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
                   {comment.comment}
                   {comment.image && <img src={comment.image} alt="uploaded" className="comment-image" />}
                 </div>
-              </div>
-
-              {showDeleteIcon && isCurrentUser && (
-                <span className="d-flex align-items-top me-1 d-none">
-                  <RdsIcon
+                {isSelected && allowDelete && (
+                  <div className="delete-option mt-2">
+                    <RdsIcon
                     name="delete"
                     fill={false}
                     stroke={true}
@@ -165,10 +238,11 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
                     isCursorPointer={true}
                     width="18px"
                     height="18px"
-                    onClick={() => handleDeleteComment(index)}
+                    onClick={confirmDeleteMessage}
                   />
-                </span>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className={`comment-footer d-flex ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`}>
@@ -182,7 +256,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       })}
 
 
-      <div className="comment-input mt-4">
+      <div className="comment-input mt-3">
         {/* Emoji Picker */}
         {showEmojiPicker && (
           <div className="emoji-popup">
@@ -190,7 +264,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
           </div>
         )}
         {isFilepload && (
-          <span className="me-2">
+          <span className="me-2 mb-3">
             <RdsButton colorVariant="primary" icon="plus" size="medium" onClick={() => document.getElementById('fileUpload')?.click()} />
             <input
               id="fileUpload"
@@ -203,41 +277,47 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
         )}
 
         {isEmojiPicker && (
-          <span className="me-2">
+          <span className="me-2 mb-3">
             <RdsIcon
               name="smileys"
               fill={false}
               stroke={true}
               colorVariant="neutral"
               isCursorPointer={true}
-              width="30px"
               height="30px"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Toggle emoji picker
             />
           </span>
         )}
         <span className="w-100 d-flex input-box-chat p-1">
-          <span className="w-100">
-            <RdsInput
-              value={commentText}
-              inputType="text"
-              placeholder="Type comment..."
-              name="comment"
-              onChange={(e) => setCommentText(e.target.value)}
-              showIcon={true}
-            />
-          </span>
-          <span className="d-flex align-items-center mx-2">
-            <RdsIcon
-              name="send_email"
-              fill={false}
-              stroke={true}
-              colorVariant="primary"
-              isCursorPointer={true}
-              onClick={handleAddComment}
-            />
-          </span>
-        </span>
+    <span className="w-100 position-relative" id="password-icon">
+    <RdsInput 
+      showTitle={false}
+      value={commentText}
+      inputType="text"
+      placeholder="Type comment..."
+      name="Comment"
+      onChange={(e) => setCommentText(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleAddComment();
+        }
+      }}
+      showIcon={false} 
+    />
+    <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-3">
+      <RdsIcon
+        name="send_email"
+        fill={false}
+        stroke={true}
+        colorVariant="primary"
+        isCursorPointer={true}
+        onClick={handleAddComment}  
+      />
+    </span>
+  </span>
+  </span>
+
       </div>
     </div>
   );

@@ -1,13 +1,20 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsCompAppShell from "./rds-comp-app-shell";
-import RdsCompAppShellItem from "./rds-comp-app-shell-item";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import RdsCompAppShell, {
+  AppShellDisplayType,
+  RdsSideNav,
+} from "./rds-comp-app-shell";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
-import { RdsDropdown, RdsIcon } from "../../../raaghu-elements/src";
+import { BrowserRouter } from "react-router-dom";
+import "./rds-comp-app-shell.css";
+import {
+  NavLayout,
+  NavType,
+  Platform,
+} from "../../../raaghu-elements/src/rds-side-nav/rds-side-nav";
 
-const meta: Meta = {
+const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
   component: RdsCompAppShell,
   parameters: {
@@ -15,423 +22,1457 @@ const meta: Meta = {
   },
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof RdsCompAppShell>;
-
-const toggleDropdown = () => {
-  console.log('Dropdown clicked');
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-export const Basic: Story = {
-  args: {
-    displayType: "Basic",
-    children: (
-      <>
-        <RdsCompAppShellItem title={""}>
-          <div className="row">
-            <RdsCompTopNavigation
-              brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-              brandName="Raaghu Design System"
-              languageItems={[
-                {
-                  icon: "us",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "EN(US)",
-                  val: "en",
-                },
-                {
-                  icon: "in",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "English(IND)",
-                  val: "en",
-                },
-                {
-                  icon: "us",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "French",
-                  val: "fr",
-                },
-              ]}
-              logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
-              navbarSubTitle="Statistics and reports"
-              navbarTitle="Dashboard"
-              notifications={[
-                {
-                  selected: false,
-                  state: 1,
-                  status: "success",
-                  time: "a month ago",
-                  title: "Tenant added",
-                  urlTitle: "hello",
-                  userNotificationId: 0,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "error",
-                  time: "a month ago",
-                  title: "Tenant deleted",
-                  urlTitle: "hello",
-                  userNotificationId: 1,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "warn",
-                  time: "a month ago",
-                  title: "Tenant added  warn",
-                  urlTitle: "hello",
-                  userNotificationId: 2,
-                },
-                {
-                  selected: false,
-                  state: 1,
-                  status: "info",
-                  time: "a month ago",
-                  title: "Tenant deleted info",
-                  urlTitle: "hello",
-                  userNotificationId: 3,
-                },
-              ]}
-              profileTitle="John Doe"
-              profileEmail="john.doe@raaghu.io"
-              profileName="John Doe"
+// export const Basic: Story = {
+//   args: {
+//     displayType: AppShellDisplayType.Default,
+//     sidebar: (
+//       <RdsCompSideNavigation
+//         sideNavItems={[
+//           {
+//             icon: "home",
+//             key: "0",
+//             label: "Dashboard",
+//             path: "/dashboard",
+//           },
+//           {
+//             icon: "demo_ui",
+//             key: "1",
+//             label: "UI Components",
+//             path: "/demo-ui",
+//           },
+//           {
+//             icon: "icons",
+//             key: "2",
+//             label: "Icons",
+//             path: "/icons",
+//           },
+//           {
+//             children: [
+//               {
+//                 icon: "tenant",
+//                 key: "3-0",
+//                 label: "Tenants",
+//                 path: "/tenant",
+//               },
+//               {
+//                 icon: "editions",
+//                 key: "3-1",
+//                 label: "Editions",
+//                 path: "/edition",
+//               },
+//               {
+//                 children: [
+//                   {
+//                     icon: "organization",
+//                     key: "3-2-0",
+//                     label: "Organization Units",
+//                     path: "/organization-unit",
+//                   },
+//                   {
+//                     icon: "roles",
+//                     key: "3-2-1",
+//                     label: "Roles",
+//                     path: "/role",
+//                   },
+//                   {
+//                     icon: "users",
+//                     key: "3-2-2",
+//                     label: "Users",
+//                     path: "/user",
+//                   },
+//                   {
+//                     icon: "languages",
+//                     key: "3-2-3",
+//                     label: "Language",
+//                     path: "/language",
+//                   },
+//                   {
+//                     icon: "audit_logs",
+//                     key: "3-2-4",
+//                     label: "Audit Logs",
+//                     path: "/audit-logs",
+//                   },
+//                   {
+//                     icon: "webhook_subscription",
+//                     key: "3-2-5",
+//                     label: "Webhook Subscriptions",
+//                     path: "/webhook-subscription",
+//                   },
+//                   {
+//                     icon: "maintenance",
+//                     key: "3-2-6",
+//                     label: "Maintenance",
+//                     path: "/maintainance",
+//                   },
+//                   {
+//                     icon: "visual_settings",
+//                     key: "3-2-7",
+//                     label: "Visual Settings",
+//                     path: "/visual-setting",
+//                   },
+//                   {
+//                     icon: "setting",
+//                     key: "3-2-8",
+//                     label: "Settings",
+//                     path: "/settings",
+//                   },
+//                 ],
+//                 icon: "administration",
+//                 key: "3-2",
+//                 label: "Administration",
+//               },
+//             ],
+//             icon: "pages",
+//             key: "3",
+//             label: "Pages",
+//           },
+//         ]}
+//       />
+//     ),
+//     topbar: (
+//       <RdsCompTopNavigation
+//         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+//         brandName="Raaghu Design System"
+//         languageItems={[
+//           {
+//             icon: "us",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "EN(US)",
+//             val: "en",
+//           },
+//           {
+//             icon: "in",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "English(IND)",
+//             val: "en",
+//           },
+//           {
+//             icon: "us",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "French",
+//             val: "fr",
+//           },
+//         ]}
+//         logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+//         navbarSubTitle="Statistics and reports"
+//         navbarTitle="Dashboard"
+//         notifications={[
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "success",
+//             time: "a month ago",
+//             title: "Tenant added",
+//             urlTitle: "hello",
+//             userNotificationId: 0,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "error",
+//             time: "a month ago",
+//             title: "Tenant deleted",
+//             urlTitle: "hello",
+//             userNotificationId: 1,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "warn",
+//             time: "a month ago",
+//             title: "Tenant added  warn",
+//             urlTitle: "hello",
+//             userNotificationId: 2,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "info",
+//             time: "a month ago",
+//             title: "Tenant deleted info",
+//             urlTitle: "hello",
+//             userNotificationId: 3,
+//           },
+//         ]}
+//         profileTitle="John Doe"
+//         profileEmail="john.doe@raaghu.io"
+//         profileName="John Doe"
+//         themeItems={[
+//           {
+//             icon: "sun",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "Light",
+//             val: "light",
+//           },
+//           {
+//             icon: "moon",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "Dark",
+//             val: "dark",
+//           },
+//         ]}
+//         toggleItems={[]}
+//         elementList={[]}
+//         componentsList={[]}
+//         languageLabel={""}
+//         themeLabel={""}
+//         onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+//           console.log("Forgot password clicked:", isForgotPasswordClicked);
+//         }}
+//         onProfileLinkTopNav={function (
+//           id: string,
+//           navigateTo?: string,
+//           label?: string
+//         ): void {
+//           console.log("Profile link clicked:", id, navigateTo, label);
+//         }}
+//         style={"ABP"}
+//       />
+//     ),
+//   },
+// };
 
-              themeItems={[
+// // Add more variants
+// export const HeaderOnly: Story = {
+//   args: {
+//     displayType: AppShellDisplayType.TopNav,
+//     topbar: (
+//       <RdsCompTopNavigation
+//         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+//         brandName="Raaghu Design System"
+//         languageItems={[
+//           {
+//             icon: "us",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "EN(US)",
+//             val: "en",
+//           },
+//           {
+//             icon: "in",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "English(IND)",
+//             val: "en",
+//           },
+//           {
+//             icon: "us",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "French",
+//             val: "fr",
+//           },
+//         ]}
+//         logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+//         navbarSubTitle="Statistics and reports"
+//         navbarTitle="Dashboard"
+//         notifications={[
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "success",
+//             time: "a month ago",
+//             title: "Tenant added",
+//             urlTitle: "hello",
+//             userNotificationId: 0,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "error",
+//             time: "a month ago",
+//             title: "Tenant deleted",
+//             urlTitle: "hello",
+//             userNotificationId: 1,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "warn",
+//             time: "a month ago",
+//             title: "Tenant added  warn",
+//             urlTitle: "hello",
+//             userNotificationId: 2,
+//           },
+//           {
+//             selected: false,
+//             state: 1,
+//             status: "info",
+//             time: "a month ago",
+//             title: "Tenant deleted info",
+//             urlTitle: "hello",
+//             userNotificationId: 3,
+//           },
+//         ]}
+//         profileTitle="John Doe"
+//         profileEmail="john.doe@raaghu.io"
+//         profileName="John Doe"
+//         themeItems={[
+//           {
+//             icon: "sun",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "Light",
+//             val: "light",
+//           },
+//           {
+//             icon: "moon",
+//             iconHeight: "20px",
+//             iconWidth: "20px",
+//             label: "Dark",
+//             val: "dark",
+//           },
+//         ]}
+//         toggleItems={[]}
+//         elementList={[]}
+//         componentsList={[]}
+//         languageLabel={""}
+//         themeLabel={""}
+//         onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+//           console.log("Forgot password clicked:", isForgotPasswordClicked);
+//         }}
+//         onProfileLinkTopNav={function (
+//           id: string,
+//           navigateTo?: string,
+//           label?: string
+//         ): void {
+//           console.log("Profile link clicked:", id, navigateTo, label);
+//         }}
+//         style={"ABP"}
+//         showLogo={true}
+//       />
+//     ),
+//   },
+// };
+
+// export const SidebarOnly: Story = {
+//   args: {
+//     displayType: AppShellDisplayType.SideNav,
+//     sidebar: (
+//       <RdsCompSideNavigation
+//         sideNavItems={[
+//           {
+//             icon: "home",
+//             key: "0",
+//             label: "Dashboard",
+//             path: "/dashboard",
+//           },
+//           {
+//             icon: "users",
+//             key: "1",
+//             label: "Users",
+//             path: "/users",
+//           },
+//           {
+//             icon: "setting",
+//             key: "2",
+//             label: "Settings",
+//             path: "/settings",
+//           },
+//         ]}
+//       />
+//     ),
+//   },
+// };
+
+//Default story
+export const Default: Story = {
+  args: {
+    displayType: AppShellDisplayType.Default,
+    sidebar: (
+      <RdsCompSideNavigation
+        sideNavItems={[
+          {
+            icon: "home",
+            key: "0",
+            label: "Dashboard",
+            path: "/dashboard",
+          },
+          {
+            icon: "demo_ui",
+            key: "1",
+            label: "UI Components",
+            path: "/demo-ui",
+          },
+          {
+            icon: "icons",
+            key: "2",
+            label: "Icons",
+            path: "/icons",
+          },
+          {
+            children: [
+              {
+                icon: "tenant",
+                key: "3-0",
+                label: "Tenants",
+                path: "/tenant",
+              },
+              {
+                icon: "editions",
+                key: "3-1",
+                label: "Editions",
+                path: "/edition",
+              },
+              {
+                children: [
+                  {
+                    icon: "organization",
+                    key: "3-2-0",
+                    label: "Organization Units",
+                    path: "/organization-unit",
+                  },
+                  {
+                    icon: "roles",
+                    key: "3-2-1",
+                    label: "Roles",
+                    path: "/role",
+                  },
+                  {
+                    icon: "users",
+                    key: "3-2-2",
+                    label: "Users",
+                    path: "/user",
+                  },
+                  {
+                    icon: "languages",
+                    key: "3-2-3",
+                    label: "Language",
+                    path: "/language",
+                  },
+                  {
+                    icon: "audit_logs",
+                    key: "3-2-4",
+                    label: "Audit Logs",
+                    path: "/audit-logs",
+                  },
+                  {
+                    icon: "webhook_subscription",
+                    key: "3-2-5",
+                    label: "Webhook Subscriptions",
+                    path: "/webhook-subscription",
+                  },
+                  {
+                    icon: "maintenance",
+                    key: "3-2-6",
+                    label: "Maintenance",
+                    path: "/maintainance",
+                  },
+                  {
+                    icon: "visual_settings",
+                    key: "3-2-7",
+                    label: "Visual Settings",
+                    path: "/visual-setting",
+                  },
+                  {
+                    icon: "setting",
+                    key: "3-2-8",
+                    label: "Settings",
+                    path: "/settings",
+                  },
+                ],
+                icon: "administration",
+                key: "3-2",
+                label: "Administration",
+              },
+            ],
+            icon: "pages",
+            key: "3",
+            label: "Pages",
+          },
+        ]}
+      />
+    ),
+    topbar: (
+      <RdsCompTopNavigation
+        brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+        brandName="Raaghu Design System"
+        languageItems={[
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "EN(US)",
+            val: "en",
+          },
+          {
+            icon: "in",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "English(IND)",
+            val: "en",
+          },
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "French",
+            val: "fr",
+          },
+        ]}
+        logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+        navbarSubTitle="Statistics and reports"
+        navbarTitle="Dashboard"
+        notifications={[
+          {
+            selected: false,
+            state: 1,
+            status: "success",
+            time: "a month ago",
+            title: "Tenant added",
+            urlTitle: "hello",
+            userNotificationId: 0,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "error",
+            time: "a month ago",
+            title: "Tenant deleted",
+            urlTitle: "hello",
+            userNotificationId: 1,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "warn",
+            time: "a month ago",
+            title: "Tenant added  warn",
+            urlTitle: "hello",
+            userNotificationId: 2,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "info",
+            time: "a month ago",
+            title: "Tenant deleted info",
+            urlTitle: "hello",
+            userNotificationId: 3,
+          },
+        ]}
+        profileTitle="John Doe"
+        profileEmail="john.doe@raaghu.io"
+        profileName="John Doe"
+        themeItems={[
+          {
+            icon: "sun",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Light",
+            val: "light",
+          },
+          {
+            icon: "moon",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Dark",
+            val: "dark",
+          },
+        ]}
+        toggleItems={[]}
+        elementList={[]}
+        componentsList={[]}
+        languageLabel={""}
+        themeLabel={""}
+        onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+          console.log("Forgot password clicked:", isForgotPasswordClicked);
+        }}
+        onProfileLinkTopNav={function (
+          id: string,
+          navigateTo?: string,
+          label?: string
+        ): void {
+          console.log("Profile link clicked:", id, navigateTo, label);
+        }}
+        style={"ABP"}
+      />
+    ),
+  },
+};
+
+//Relaxing Story
+export const Relaxing: Story = {
+  args: {
+    displayType: AppShellDisplayType.TopNav,
+    topbar: (
+      <div className="fixed-top">
+        <RdsCompTopNavigation
+          brandLogo="assets/Raaghu-logo-mfe-black.png"
+          brandName="Raaghu"
+          firstName="John"
+          icons={[
+            {
+              id: "star",
+              name: "star",
+            },
+            {
+              id: "notification_new",
+              name: "notification_new",
+            },
+            {
+              id: "help_question_circle",
+              name: "help_question_circle",
+            },
+          ]}
+          lastName="Doe"
+          logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+          navbarSubTitle="Statistics and reports"
+          navbarTitle="Home"
+          professional5
+          profileEmail="john.doe@raaghu.io"
+          profileName="John Doe"
+          profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+          profileTitle="John Doe"
+          role="Admin"
+          showLogo
+          showSearch
+          style="Professional_5"
+          themeItems={[
+            {
+              icon: "sun",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "Light",
+              val: "light",
+            },
+            {
+              icon: "moon",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "Dark",
+              val: "dark",
+            },
+            {
+              icon: "semidark",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "SemiDark",
+              val: "semiDark",
+            },
+          ]}
+          top_nav_logo="raaghu logo"
+          toggleItems={[]}
+          elementList={[]}
+          componentsList={[]}
+          languageLabel={""}
+          themeLabel={""}
+          onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+            throw new Error("Function not implemented.");
+          }}
+          onProfileLinkTopNav={function (
+            id: string,
+            navigateTo?: string,
+            label?: string
+          ): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      </div>
+    ),
+
+    sidebar: (
+      <div className="mt-5">
+        <RdsSideNav
+          lockIconVisible={true}
+          layout="LeftSideNav"
+          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+          navLayout={NavLayout.Raaghu}
+          navType={NavType.Expanded}
+          platform={Platform.SideNavigationABPList}
+          showUserProfile
+          sideNavItems={[
+            {
+              icon: "home",
+              key: "0",
+              label: "Home",
+              path: "/dashboard",
+            },
+            {
+              icon: "dashboard_meter",
+              key: "1",
+              label: "Dashboard",
+            },
+            {
+              icon: "saas",
+              key: "2",
+              label: "Saas",
+              path: "",
+            },
+            {
+              icon: "administration_new",
+              key: "3",
+              label: "Administration",
+              path: "",
+            },
+            {
+              icon: "folder",
+              key: "4",
+              label: "File Management",
+              path: "",
+            },
+            {
+              icon: "forms",
+              key: "5",
+              label: "Forms",
+              path: "",
+            },
+            {
+              icon: "payment_new",
+              key: "5",
+              label: "Payments",
+              path: "",
+            },
+            {
+              icon: "cms",
+              key: "6",
+              label: "CMS",
+              path: "",
+            },
+          ]}
+        />
+      </div>
+    ),
+  },
+};
+
+//TopNav Story
+export const TopNav: Story = {
+  args: {
+    displayType: AppShellDisplayType.Default,
+
+    topbar: (
+      <RdsCompTopNavigation
+        appshell3
+        brandLogo="assets/Raaghu-logo-mfe-black.png"
+        brandName="Raaghu"
+        breadcrumItem={[
+          {
+            active: true,
+            disabled: false,
+            icon: "home",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "15px",
+            iconWidth: "15px",
+            iconstroke: true,
+            id: 0,
+            label: "Home",
+            route: "#",
+          },
+          {
+            active: false,
+            disabled: false,
+            icon: "dashboard_new",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "15px",
+            iconWidth: "15px",
+            iconstroke: true,
+            id: 1,
+            label: "Dashboard",
+            route: "#",
+          },
+          {
+            active: false,
+            disabled: false,
+            icon: "saas",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "15px",
+            iconWidth: "15px",
+            iconstroke: true,
+            id: 2,
+            label: "Saas",
+            route: "#",
+          },
+          {
+            active: false,
+            disabled: true,
+            icon: "administration",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "15px",
+            iconWidth: "15px",
+            iconstroke: true,
+            id: 3,
+            label: "Administration",
+          },
+          {
+            active: false,
+            disabled: true,
+            icon: "file_management",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "14px",
+            iconWidth: "14px",
+            iconstroke: true,
+            id: 4,
+            label: "File Management",
+          },
+          {
+            active: false,
+            disabled: true,
+            icon: "forms",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "14px",
+            iconWidth: "14px",
+            iconstroke: true,
+            id: 5,
+            label: "Forms",
+          },
+          {
+            active: false,
+            disabled: true,
+            icon: "payment",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "14px",
+            iconWidth: "14px",
+            iconstroke: true,
+            id: 6,
+            label: "Payment",
+          },
+          {
+            active: false,
+            disabled: true,
+            icon: "cms",
+            iconColor: "primary",
+            iconFill: false,
+            iconHeight: "14px",
+            iconWidth: "14px",
+            iconstroke: true,
+            id: 7,
+            label: "CMS",
+          },
+        ]}
+        breadcrumbBorderColor="#6610f2"
+        breadcrumbBorderPlacement="top"
+        firstName="John"
+        lastName="Doe"
+        listItems={[
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "EN(US)",
+            val: "en",
+          },
+          {
+            icon: "in",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "English(IND)",
+            val: "en",
+          },
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "French",
+            val: "fr",
+          },
+        ]}
+        logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+        navbarSubTitle="Statistics and reports"
+        navbarTitle="Dashboard"
+        profileEmail="john.doe@raaghu.io"
+        profileName="John Doe"
+        profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
+        profileTitle="John Doe"
+        role="Admin"
+        showLogo
+        style="App_Shell_3"
+        themeItems={[
+          {
+            icon: "sun",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Light",
+            val: "light",
+          },
+          {
+            icon: "moon",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Dark",
+            val: "dark",
+          },
+          {
+            icon: "semidark",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "SemiDark",
+            val: "semiDark",
+          },
+        ]}
+        top_nav_logo="raaghu logo"
+        toggleItems={[]}
+        elementList={[]}
+        componentsList={[]}
+        languageLabel={""}
+        themeLabel={""}
+        onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+          throw new Error("Function not implemented.");
+        }}
+        onProfileLinkTopNav={function (
+          id: string,
+          navigateTo?: string,
+          label?: string
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    ),
+  },
+};
+
+//Side Nav Story
+export const SideNav: Story = {
+  args: {
+    displayType: AppShellDisplayType.SideNav,
+    sidebar: (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+        }}
+      >
+        <div style={{ flex: "1" }}>
+          <RdsCompSideNavigation
+            lockIconVisible={true}
+            sideNavItems={[
+              {
+                icon: "home",
+                key: "0",
+                label: "Home",
+                path: "/dashboard",
+              },
+              {
+                icon: "dashboard_meter",
+                key: "1",
+                label: "Dashboard",
+              },
+              {
+                icon: "saas",
+                key: "2",
+                label: "Saas",
+                path: "",
+              },
+              {
+                icon: "administration_new",
+                key: "3",
+                label: "Administration",
+                path: "",
+              },
+              {
+                icon: "folder",
+                key: "4",
+                label: "File Management",
+                path: "",
+              },
+              {
+                icon: "forms",
+                key: "5",
+                label: "Forms",
+                path: "",
+              },
+              {
+                icon: "payment_new",
+                key: "5",
+                label: "Payments",
+                path: "",
+              },
+              {
+                icon: "cms",
+                key: "6",
+                label: "CMS",
+                path: "",
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <div style={{ flex: "3" }} className="float-end icon-sapce-between">
+            <RdsSideNav
+              layout="RightSideNav"
+              logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              navLayout={NavLayout.Toolbar}
+              navType={NavType.Collapsed}
+              // platform={[]}
+              showUserProfile
+              sideNavItems={[
+                {
+                  icon: "language",
+                  key: "0",
+                  label: "Language",
+                  path: "",
+                },
+                {
+                  icon: "chat",
+                  key: "1",
+                  label: "Chat",
+                  path: "",
+                },
                 {
                   icon: "sun",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "Light",
-                  val: "light",
+                  key: "2",
+                  label: "Theme",
+                  path: "",
                 },
                 {
-                  icon: "moon",
-                  iconHeight: "20px",
-                  iconWidth: "20px",
-                  label: "Dark",
-                  val: "dark",
+                  icon: "grid_layout",
+                  key: "3",
+                  label: "Layout",
+                  path: "",
                 },
-              ]} toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean | undefined): void {
-                throw new Error("Function not implemented.");
-              }} onProfileLinkTopNav={function (id: string, navigateTo?: string | undefined, label?: string | undefined): void {
-                throw new Error("Function not implemented.");
-              }} />
+                {
+                  icon: "my_settings",
+                  key: "4",
+                  label: "Settings",
+                  path: "",
+                },
+                {
+                  icon: "interface_logout",
+                  key: "5",
+                  label: "Logout",
+                  path: "",
+                },
+              ]}
+            />
           </div>
-          <div className="row">
-            <div className="d-flex">
-              <div>
-                <BrowserRouter>
-                  <RdsCompSideNavigation
-                    sideNavItems={[
-                      {
-                        icon: "home",
-                        key: "0",
-                        label: "Dashboard",
-                        path: "/dashboard",
-                      },
-                      {
-                        icon: "demo_ui",
-                        key: "1",
-                        label: "UI Components",
-                        path: "/demo-ui",
-                      },
-                      {
-                        icon: "icons",
-                        key: "2",
-                        label: "Icons",
-                        path: "/icons",
-                      },
-                      {
-                        children: [
-                          {
-                            icon: "tenant",
-                            key: "3-0",
-                            label: "Tenants",
-                            path: "/tenant",
-                          },
-                          {
-                            icon: "editions",
-                            key: "3-1",
-                            label: "Editions",
-                            path: "/edition",
-                          },
-                          {
-                            children: [
-                              {
-                                icon: "organization",
-                                key: "3-2-0",
-                                label: "Organization Units",
-                                path: "/organization-unit",
-                              },
-                              {
-                                icon: "roles",
-                                key: "3-2-1",
-                                label: "Roles",
-                                path: "/role",
-                              },
-                              {
-                                icon: "users",
-                                key: "3-2-2",
-                                label: "Users",
-                                path: "/user",
-                              },
-                              {
-                                icon: "languages",
-                                key: "3-2-3",
-                                label: "Language",
-                                path: "/language",
-                              },
-                              {
-                                icon: "audit_logs",
-                                key: "3-2-4",
-                                label: "Audit Logs",
-                                path: "/audit-logs",
-                              },
-                              {
-                                icon: "webhook_subscription",
-                                key: "3-2-5",
-                                label: "Webhook Subscriptions",
-                                path: "/webhook-subscription",
-                              },
-                              {
-                                icon: "maintenance",
-                                key: "3-2-6",
-                                label: "Maintenance",
-                                path: "/maintainance",
-                              },
-                              {
-                                icon: "visual_settings",
-                                key: "3-2-7",
-                                label: "Visual Settings",
-                                path: "/visual-setting",
-                              },
-                              {
-                                icon: "setting",
-                                key: "3-2-8",
-                                label: "Settings",
-                                path: "/settings",
-                              },
-                            ],
-                            icon: "administration",
-                            key: "3-2",
-                            label: "Administration",
-                          },
-                        ],
-                        icon: "pages",
-                        key: "3",
-                        label: "Pages",
-                      },
-                    ]}
-                  />
-                </BrowserRouter>
-              </div>
-              <div className="align-items-center bg-body-secondary d-flex justify-content-center w-100 app-shell-layout m-3">
-                <h2 className="fw-bolder">Add Layout Here</h2>
-              </div>
-            </div>
-          </div>
-        </RdsCompAppShellItem>
-      </>
+        </div>
+      </div>
     ),
   },
-} satisfies Story;
+};
 
-export const Header: Story = {
+//DoubleNav Story
+export const DoubleNav: Story = {
   args: {
-    displayType: "Header",
-    children: (
-      <>
-        <div className="container-fluid bg-white px-0">
-          <div>
-            <nav
-              className={
-                "navbar shadow d-block"
-              }
-            >
-              <div>
-                <div>
-                  {/* mobile top nav */}
+    displayType: AppShellDisplayType.TopNav,
+    topbar: (
+      <div className="fixed-top">
+        <RdsCompTopNavigation
+          brandLogo="assets/Raaghu-logo-mfe-black.png"
+          brandName="Raaghu"
+          languageItems={[
+            {
+              icon: "us",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "EN(US)",
+              val: "en",
+            },
+            {
+              icon: "in",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "English(IND)",
+              val: "en",
+            },
+            {
+              icon: "us",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "French",
+              val: "fr",
+            },
+          ]}
+          logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+          navbarSubTitle="Statistics and reports"
+          notifications={[
+            {
+              selected: false,
+              state: 1,
+              status: "success",
+              time: "a month ago",
+              title: "Tenant added",
+              urlTitle: "hello",
+              userNotificationId: 0,
+            },
+            {
+              selected: false,
+              state: 1,
+              status: "error",
+              time: "a month ago",
+              title: "Tenant deleted",
+              urlTitle: "hello",
+              userNotificationId: 1,
+            },
+            {
+              selected: false,
+              state: 1,
+              status: "warn",
+              time: "a month ago",
+              title: "Tenant added  warn",
+              urlTitle: "hello",
+              userNotificationId: 2,
+            },
+            {
+              selected: false,
+              state: 1,
+              status: "info",
+              time: "a month ago",
+              title: "Tenant deleted info",
+              urlTitle: "hello",
+              userNotificationId: 3,
+            },
+          ]}
+          profileEmail="john.doe@raaghu.io"
+          profileName="John Doe"
+          profileTitle="John Doe"
+          role="Admin"
+          showLogo
+          style="Default"
+          themeItems={[
+            {
+              icon: "sun",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "Light",
+              val: "light",
+            },
+            {
+              icon: "moon",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "Dark",
+              val: "dark",
+            },
+            {
+              icon: "semidark",
+              iconHeight: "20px",
+              iconWidth: "20px",
+              label: "SemiDark",
+              val: "semiDark",
+            },
+          ]}
+          top_nav_logo="raaghu logo"
+          toggleItems={[]}
+          elementList={[]}
+          componentsList={[]}
+          languageLabel={""}
+          themeLabel={""}
+          onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+            throw new Error("Function not implemented.");
+          }}
+          onProfileLinkTopNav={function (
+            id: string,
+            navigateTo?: string,
+            label?: string
+          ): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      </div>
+    ),
 
-                  <div className="d-md-none d-block">
-                    <button
-                      className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-none border-0 btn-sm"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#navbarSupportedContent"
-                      aria-controls="navbarSupportedContent"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation"
-                    >
-                      <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="d-flex justify-content-between">
-                      <div
-                        id="raaghuLogo"
-                        className=""
-                      >
-                        <img
-                          className="cursor-pointer tenant-sidenav-logo"
-                          src="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
-                          alt="logo"
-                          height="35px"
-                        ></img>
-                      </div>
+    sidebar: (
+      <div className="mt-5 double-nav-sidebar" style={{ display: 'flex', flexDirection: 'row', gap: '7px' }}>
+        <RdsSideNav
+          layout="LeftSideNav"
+          navLayout={NavLayout.Raaghu}
+          navType={NavType.Collapsed}
+          platform={Platform.SideNavigationABPList}
+          showUserProfile
+          sideNavItems={[
+            {
+              icon: "home",
+              key: "0",
+              label: "Home",
+              path: "/dashboard",
+            },
+            {
+              icon: "dashboard_meter",
+              key: "1",
+              label: "Dashboard",
+            },
+            {
+              icon: "saas",
+              key: "2",
+              label: "Saas",
+              path: "",
+            },
+            {
+              icon: "administration_new",
+              key: "3",
+              label: "Administration",
+              path: "",
+            },
+            {
+              icon: "folder",
+              key: "4",
+              label: "File Management",
+              path: "",
+            },
+            {
+              icon: "forms",
+              key: "5",
+              label: "Forms",
+              path: "",
+            },
+            {
+              icon: "payment_new",
+              key: "5",
+              label: "Payments",
+              path: "",
+            },
+            {
+              icon: "cms",
+              key: "6",
+              label: "CMS",
+              path: "",
+            },
+          ]}
+        />
 
-                      <div className="align-items-center d-flex ms-auto mx-3">
-                        <div className="px-2 px-md-3">
-                        <img
-                          src="./assets/profile-picture-circle.svg"
-                          alt={"profilePic"}
-                          width="30px"
-                          height="30px"
-                          className="profil_image_Class rounded-circle"
-                          data-testid="avatar"
-                          style={{ height: '-webkit-fill-available' }}
-                        ></img>
-                        <RdsDropdown
-                          colorVariant="white"
-                          displayType="dropdown"
-                          id="1"
-                          label="Hi, John Doe"
-                          listItems={[
-                            {
-                              id: '1',
-                              label: 'My Account',
-                              path: ''
-                            },
-                            {
-                              id: '2',
-                              label: 'Logout',
-                              path: ''
-                            },
-                          ]}
-                          size="mid" darkDropdown={false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* end */}
-
-                  <div className="d-md-flex d-grid align-items-center justify-content-md-between right-side-menu tenant-sm-nav">
-                    <div className="position-relative px-2 px-lg-3 d-md-flex d-block justify-content-center align-items-center text-center">
-                      <div
-                        id="raaghuLogo"
-                        className="d-xxl-block d-xl-block d-lg-block d-md-block d-none"
-
-                      >
-                        <img
-                          className="cursor-pointer tenant-sidenav-logo"
-                          src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                          alt="logo"
-                          height="35px"
-                        ></img>
-                      </div>
-                      <div className="ps-lg-4 d-flex pe-md-0 px-4 justify-content-between gap-4 ms-lg-4 top-link">
-                        <div className="m-lg-2 cursor-pointer fw-semibold">
-                          <a
-                            href="https://react.raaghu.ai"
-                            target="_blank"
-                            className="text-black"
-                          >
-                            <span className="d-md-block d-none">Storybook</span>
-                            <span className="d-md-none b-block">
-                              <RdsIcon
-                                colorVariant="dark"
-                                height="20px"
-                                name="code"
-                                stroke
-                                width="20px"
-                              />
-                            </span>
-                          </a>
-                        </div>
-                        <div className="m-lg-2 cursor-pointer fw-semibold">
-                          <a
-                            href="https://docs.raaghu.ai"
-                            target="_blank"
-                            className="text-black"
-                          >
-                            <span className="d-md-block d-none">Documentation</span>
-                            <span className="d-md-none b-block">
-                              <RdsIcon
-                                colorVariant="dark"
-                                height="20px"
-                                name="file_data"
-                                stroke
-                                width="20px"
-                              />
-                            </span>
-                          </a>
-                        </div>
-                        <div className="m-lg-2 cursor-pointer fw-semibold"
-                        >
-                          <a href="#" className="text-black">
-                            <span className="d-md-block d-none">Download Project</span>
-                            <span className="d-md-none b-block">
-                              <RdsIcon
-                                colorVariant="dark"
-                                height="20px"
-                                name="download_data"
-                                stroke
-                                width="20px"
-                              />
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="align-items-center d-flex ms-auto d-none d-md-block">
-                      <div className="px-2 px-md-3 d-none d-md-block ">
-
-                        <img
-                          src="./assets/profile-picture-circle.svg"
-                          alt={"profilePic"}
-                          width="30px"
-                          height="30px"
-                          className="profil_image_Class rounded-circle"
-                          data-testid="avatar"
-                          style={{ height: '-webkit-fill-available' }}
-                        ></img>
-                        <RdsDropdown
-                          colorVariant="white"
-                          displayType="dropdown"
-                          id="1"
-                          label="Hi, John Doe"
-                          listItems={[
-                            {
-                              id: '1',
-                              label: 'My Account',
-                              path: ''
-                            },
-                            {
-                              id: '2',
-                              label: 'Logout',
-                              path: ''
-                            },
-                          ]}
-                          size="mid" darkDropdown={false} />
-
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-
-        <div className=" align-items-center bg-body-secondary d-flex justify-content-center m-3 app-shell-layout">
-          <h2 className="fw-bolder">Add Layout Here</h2>
-        </div>
-      </>
+        <RdsCompSideNavigation
+          lockIconVisible={true}
+          sideNavItems={[
+          {
+              icon: "blogs",
+              key: "0",
+              label: "Blogs",
+              path: "/blogs",
+            },
+            {
+              icon: "file_data",
+              key: "1",
+              label: "Blog Post",
+            },
+            {
+              icon: "comments",
+              key: "2",
+              label: "Comments",
+              path: "",
+            },
+            {
+              icon: "globe",
+              key: "3",
+              label: "Global Resources",
+              path: "",
+            },
+            {
+              icon: "my_settings",
+              key: "4",
+              label: "Menus",
+              path: "",
+            },
+            {
+              icon: "newsletters",
+              key: "5",
+              label: "Newsletters",
+              path: "",
+            },
+            {
+              icon: "pages",
+              key: "5",
+              label: "Pages",
+              path: "",
+            },
+            {
+              icon: "tag",
+              key: "6",
+              label: "Tags",
+              path: "",
+            },
+          ]}
+        />
+      </div>
     ),
   },
-} satisfies Story;
+};
+
+//Relaxing Story
+export const OneThreeOne : Story = {
+  args: {
+    displayType: AppShellDisplayType.TopNav,
+    topbar: (
+      <div className="fixed-top">
+        <RdsCompTopNavigation
+          brandLogo="assets/Raaghu-logo-mfe-black.png"
+          brandName="Raaghu"
+          languageItems={[
+            {
+              icon: 'us',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'EN(US)',
+              val: 'en'
+            },
+            {
+              icon: 'in',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'English(IND)',
+              val: 'en'
+            },
+            {
+              icon: 'us',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'French',
+              val: 'fr'
+            }
+          ]}
+          logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+          navbarSubTitle="Statistics and reports"
+          notifications={[
+            {
+              selected: false,
+              state: 1,
+              status: 'success',
+              time: 'a month ago',
+              title: 'Tenant added',
+              urlTitle: 'hello',
+              userNotificationId: 0
+            },
+            {
+              selected: false,
+              state: 1,
+              status: 'error',
+              time: 'a month ago',
+              title: 'Tenant deleted',
+              urlTitle: 'hello',
+              userNotificationId: 1
+            },
+            {
+              selected: false,
+              state: 1,
+              status: 'warn',
+              time: 'a month ago',
+              title: 'Tenant added  warn',
+              urlTitle: 'hello',
+              userNotificationId: 2
+            },
+            {
+              selected: false,
+              state: 1,
+              status: 'info',
+              time: 'a month ago',
+              title: 'Tenant deleted info',
+              urlTitle: 'hello',
+              userNotificationId: 3
+            }
+          ]}
+          profileEmail="john.doe@raaghu.io"
+          profileName="John Doe"
+          profileTitle="John Doe"
+          role="Admin"
+          showLogo
+          style="Default"
+          themeItems={[
+            {
+              icon: 'sun',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'Light',
+              val: 'light'
+            },
+            {
+              icon: 'moon',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'Dark',
+              val: 'dark'
+            },
+            {
+              icon: 'semidark',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'SemiDark',
+              val: 'semiDark'
+            }
+          ]}
+          top_nav_logo="raaghu logo" toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+            throw new Error("Function not implemented.");
+          } } onProfileLinkTopNav={function (id: string, navigateTo?: string, label?: string): void {
+            throw new Error("Function not implemented.");
+          } }/>
+      </div>
+    ),
+
+    sidebar: (
+      <div className="mt-5 OneThreeOne-sidebar"> 
+        <RdsSideNav
+          lockIconVisible={true}
+          layout="LeftSideNav"
+          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+          navLayout={NavLayout.Raaghu}
+          navType={NavType.Expanded}
+          platform={Platform.SideNavigationABPList}
+          showUserProfile
+          sideNavItems={[
+            {
+              icon: "home",
+              key: "0",
+              label: "Home",
+              path: "/dashboard",
+            },
+            {
+              icon: "dashboard_meter",
+              key: "1",
+              label: "Dashboard",
+            },
+            {
+              icon: "saas",
+              key: "2",
+              label: "Saas",
+              path: "",
+            },
+            {
+              icon: "administration_new",
+              key: "3",
+              label: "Administration",
+              path: "",
+            },
+            {
+              icon: "folder",
+              key: "4",
+              label: "File Management",
+              path: "",
+            },
+            {
+              icon: "forms",
+              key: "5",
+              label: "Forms",
+              path: "",
+            },
+            {
+              icon: "payment_new",
+              key: "5",
+              label: "Payments",
+              path: "",
+            },
+            {
+              icon: "cms",
+              key: "6",
+              label: "CMS",
+              path: "",
+            },
+          ]}
+        />
+      </div>
+    ),
+  },
+};

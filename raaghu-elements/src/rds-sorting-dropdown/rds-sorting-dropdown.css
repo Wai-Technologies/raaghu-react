@@ -1,0 +1,28 @@
+#sorting-dropdown .dropdown-menu.show {
+    position: absolute; 
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform:translate3d(16px, 47.5px, 0px) !important; 
+}
+
+.dropdown-menu {
+    position: absolute;
+    padding: 0px;
+    width: 150px;
+    display: none;
+    border: 1px solid #7825e9;
+    z-index: 1000;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+.theme-dark .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+    color:black
+}
+
+.theme-dark .sorting-text {
+    color: #dee2e6 !important;
+}

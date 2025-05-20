@@ -11,7 +11,12 @@ const meta: Meta = {
         disableZoom: false
     },
     tags: ['autodocs'],
-
+    argTypes: {
+        hasShadow: {
+            control: 'boolean',
+            description: 'Adds a shadow effect to the layout'
+        },
+    }
 } satisfies Meta<typeof RdsCompLayout>;
 
 export default meta;
@@ -21,6 +26,7 @@ type Story = StoryObj<typeof RdsCompLayout>;
 export const Basic: Story = {
     args: {
         displayType: "Basic",
+        hasShadow: true,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -31,11 +37,15 @@ export const Basic: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Gridify: Story = {
     args: {
         displayType: "Gridify",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -51,11 +61,15 @@ export const Gridify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Spotlight: Story = {
     args: {
         displayType: "Spotlight",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -74,11 +88,15 @@ export const Spotlight: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Matrix: Story = {
     args: {
         displayType: "Matrix",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -99,11 +117,15 @@ export const Matrix: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Splitz: Story = {
     args: {
         displayType: "Splitz",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -115,11 +137,15 @@ export const Splitz: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Snapshots: Story = {
     args: {
         displayType: "Snapshots",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -164,11 +190,15 @@ export const Snapshots: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Sections: Story = {
     args: {
         displayType: "Sections",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -206,11 +236,15 @@ export const Sections: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Boxify: Story = {
     args: {
         displayType: "Boxify",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -235,11 +269,15 @@ export const Boxify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Stacks: Story = {
     args: {
         displayType: "Stacks",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -259,12 +297,16 @@ export const Stacks: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 
 export const Nexus: Story = {
     args: {
         displayType: "Nexus",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -289,11 +331,15 @@ export const Nexus: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Mosaic: Story = {
     args: {
         displayType: "Mosaic",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -332,11 +378,15 @@ export const Mosaic: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Collage: Story = {
     args: {
         displayType: "Collage",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -361,11 +411,15 @@ export const Collage: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Pinboard: Story = {
     args: {
         displayType: "Pinboard",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -387,11 +441,15 @@ export const Pinboard: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Cardify: Story = {
     args: {
         displayType: "Cardify",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -424,11 +482,15 @@ export const Cardify: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
 
 export const Board: Story = {
     args: {
         displayType: "Board",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -449,11 +511,15 @@ export const Board: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;
  
 export const Highlight: Story = {
     args: {
         displayType: "Highlight",
+        hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
@@ -472,4 +538,7 @@ export const Highlight: Story = {
             </>
         ),
     },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
 } satisfies Story;

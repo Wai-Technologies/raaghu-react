@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsLabel, RdsPagination, RdsSelectList } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompLoginAttemptsProps {
     tableHeaders?: {
@@ -118,7 +119,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
             {!page && (
                 <div className="table">
                     <RdsCompDatatable
-                        actionPosition="right"
+                        actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}
                         tableData={Tdata || []}
                         pagination={true}
