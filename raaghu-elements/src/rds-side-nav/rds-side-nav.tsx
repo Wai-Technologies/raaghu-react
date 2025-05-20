@@ -370,7 +370,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                         pointerEvents: "none",
                                     }}
                                 >
-                                    {collapse ? "Lock Sidebar" : "UnLock Sidebar"}
+                                    {collapse ? "Lock Sidebar" : "Unlock Sidebar"}
                                 </div>
                             )}
                             <RdsIcon
