@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
     RdsInput,
@@ -90,62 +91,65 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     const isFormValid = isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
 
     return (
-        <div className="edition-information-container">
-            <form>
-                <div className="row px-2">
-                    <div className="col-md-6 my-3">
-                        <RdsInput
-                            name={"Edition Name"}
-                            label={true}
-                            required={true}
-                            placeholder="Edition Name"
-                            inputType="text"
-                            value={values?.editionName}
-                            onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
-                            dataTestId="edition-name"
-                            reset={inputReset}
-                        />
+        <>
+            <div className="py-4 edition-information-container">
+                <form>
+                    <div className="row px-2">
+                        <div className="col-md-6 my-3">
+                            <RdsInput
+                                name={"Edition Name"}
+                                label={true}
+                                required={true}
+                                placeholder="Edition Name"
+                                inputType="text"
+                                value={values?.editionName}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
+                                dataTestId="edition-name"
+                                reset={inputReset}
+                            ></RdsInput>
+                        </div>
+                        <div className="col-md-6 my-3">
+                            <RdsInput
+                                 name="Annual Price"
+                                 label={true}
+                                required={true}
+                                placeholder="Annual Price"
+                                inputType="number"
+                                value={values?.annualPrice}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
+                                dataTestId="annual-price"
+                                reset={inputReset}
+                            ></RdsInput>
+                        </div>
                     </div>
-                    <div className="col-md-6 my-3">
-                        <RdsInput
-                            name="Annual Price"
-                            label={true}
-                            required={true}
-                            placeholder="Annual Price"
-                            inputType="number"
-                            value={values?.annualPrice}
-                            onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
-                            dataTestId="annual-price"
-                            reset={inputReset}
-                        />
+                    <div className="row px-2">
+                        <div className="col-md-6 px-3 my-3 ">
+                            <RdsCounter
+                                key={trialPeriodCounter}
+                                counterValue={trialPeriodCounter}
+                                label="Trial Period"
+                                min={0}
+                                max={50}
+                                width={200}
+                                type="Default"
+                                colorVariant="primary"
+                                onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
+                            />
+                        </div>
+                        <div className=" col-md-6 px-3 my-3">
+                            <RdsCounter
+                                key={expiryNotificationCounter}
+                                counterValue={expiryNotificationCounter}
+                                label="Expiry Notification Interval"
+                                min={0}
+                                max={50}
+                                width={200}
+                                type="Default"
+                                colorVariant="primary"
+                                onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="row px-2">
-                    <div className="col-md-6 my-3">
-                        <RdsCounter
-                            key={trialPeriodCounter}
-                            counterValue={trialPeriodCounter}
-                            label="Trial Period"
-                            min={0}
-                            max={50}
-                            width={125}
-                            colorVariant="primary"
-                            onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
-                        />
-                    </div>
-                    <div className="col-md-6 my-3">
-                        <RdsCounter
-                            key={expiryNotificationCounter}
-                            counterValue={expiryNotificationCounter}
-                            label="Expiry Notification Interval"
-                            min={0}
-                            max={50}
-                            width={125}
-                            colorVariant="primary"
-                            onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
-                        />
-                    </div>
-                </div>
 
                 <div className="row mb-3 px-2">
                     <div className="col-md-12">
@@ -201,6 +205,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                 </div>
             </form>
         </div>
+        </>
     );
 };
 
