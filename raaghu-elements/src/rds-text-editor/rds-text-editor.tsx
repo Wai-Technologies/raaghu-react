@@ -41,10 +41,11 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
     }, [props.value, props.showTitle]);
  
     const handleChange = (value: string, delta: any, source: any, editor: any) => {
-        setValue(value);
+        const normalizedValue = value === "<p><br></p>" ? "" : value; // Normalize empty value
+        setValue(normalizedValue);
         setIsTouch(true);
         if (props.onChange) {
-            props.onChange(value, delta, source, editor);
+            props.onChange(normalizedValue, delta, source, editor);
         }
     };
  

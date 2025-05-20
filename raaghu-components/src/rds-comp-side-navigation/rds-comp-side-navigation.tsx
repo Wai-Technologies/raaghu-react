@@ -14,10 +14,11 @@ export interface RdsCompSideNavigationProps {
   toggleClass?: any;
   collapse?: any;
   logo?: string;
+  lockIconVisible?: boolean;
 }
 
 const RdsCompSideNavigation = (props: RdsCompSideNavigationProps) => {
-  return <RdsSideNav logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass}></RdsSideNav>;
+  return <RdsSideNav logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass} lockIconVisible></RdsSideNav>;
 };
 
 export default RdsCompSideNavigation;

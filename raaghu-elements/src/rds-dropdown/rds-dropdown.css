@@ -43,9 +43,9 @@
 }
 
 .btn-sm {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    border-radius: 3px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    border-radius: 5px !important;
 }
 
 .dropdown-toggle::after {

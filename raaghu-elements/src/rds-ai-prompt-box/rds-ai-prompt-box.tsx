@@ -466,7 +466,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                 <RdsIcon
                   name="newchat"
                   height="33px"
-                  width="24px"
+                  width="30px"
                   colorVariant="primary"
                   fill={false}
                   stroke={false}

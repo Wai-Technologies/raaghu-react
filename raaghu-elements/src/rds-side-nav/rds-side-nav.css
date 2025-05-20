@@ -27,7 +27,7 @@
 
 #sidebar {
     background-color: #fff !important;
-    width: 56px !important;
+    width: 73px !important;
 }
 
 .show_one {
@@ -71,7 +71,7 @@
 }
 /* @media (max-width: 767px) {
     #sidebar.show {
-        width: 56px !important;
+        width: 63px !important;
     }
 }
 
