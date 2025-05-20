@@ -123,7 +123,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 px-3 my-3 ">
+                        <div className="col-md-6 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
@@ -136,7 +136,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 px-3 my-3">
+                        <div className=" col-md-6 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
@@ -179,7 +179,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                     </div>
                 </div>
 
-                <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons p-4 gap-2">
+                <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
                     <RdsButton
                         class="me-2"
                         tooltipTitle={""}
