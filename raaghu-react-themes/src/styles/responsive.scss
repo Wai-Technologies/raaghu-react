@@ -244,12 +244,13 @@
   }
 
   #sidebar.show {
-    width: 250px;
+    width: 64.3px;
   }
-
-  #sidebar.hide {
-    width: 0px;
-  }
+}
+.custom_sm_scroll{
+  overflow-y: auto;
+  max-height: 100vh;
+  height: calc(100vh - 16rem);
 }
 
 .bd-links.toggle-sidebar-menu .menuLabels {
@@ -301,6 +302,10 @@
     height: 40px;
     padding: 0;
     min-width: 40px;
+  }
+
+  #sidebar.show {
+    width: 69px;
   }
 
   .children-scrollable {
@@ -606,9 +611,6 @@ form .form-group .select-options,
 }
 
 @media (max-width: 767px){
-  .side-navigation {
-    margin-left: 520px !important;
-  }
   #mobileviewmenusdirectory ol, ul {
     padding-left: 0rem !important;
 }

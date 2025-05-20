@@ -5,6 +5,7 @@ import "./rds-dropdown-list.css";
 import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
+import RdsSearch from "../rds-search";
 
 export enum DropdownSize {
   Default = "Default",
@@ -25,7 +26,7 @@ export enum DropdownStyle {
 }
 
 export interface RdsDropdownListProps {
-  
+
   id?: string; // Id of the dropdown
   reset?: boolean; // To reset the dropdown
   labelIcon?: string; // Icon for the label
@@ -68,22 +69,26 @@ export interface RdsDropdownListProps {
   showHint?: boolean; // To show hint in dropdown
   hint?: string; // Hint text
   showSelectedOption?: boolean; // To show selected option
+  showSearch?: boolean; // To show search input
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
   const [showIcon, setShowIcon] = useState(
-    props.showIcon || props.showIcon == undefined ? true : false
+    props.showIcon || props.showIcon === undefined ? true : false
   );
-  const [showSelectedOption, setShowSelectedOption] = useState(props.showSelectedOption == undefined ? true : false);
+  const [showSelectedOption, setShowSelectedOption] = useState(props.showSelectedOption === undefined ? true : false);
   const [checkedCategoryList, setCheckedCategoryList] = useState<any>([]);
   const [expand, setExpend] = useState(props.state === "Expanded");
   const [isTouch, setIsTouch] = useState(false);
   // to fetch the index of the selected language
   const [toggle, setToggle] = useState("show");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const block = props.block == false ? props.block : true;
+  const block = props.block === false ? props.block : true;
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [selectedOption, setSelectedOption] = useState<number>(0);
+
   const clickedOnDropDown = () => {
     if (props.state !== "Disabled") {
       setExpend(!expand);
@@ -114,7 +119,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       setToggle("show");
     }
   };
-  
+
   useEffect(() => {
     setShowIcon(props.showIcon || false);
   }, [props.showIcon]);
@@ -126,11 +131,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     };
   }, [props.id]);
 
-  //  updating the selected language accordingly
+  
 
-  const [selectedOption, setSelectedOption] = useState<number>(0);
-
-  // using handlerLIstItem to change the language
+ // using handlerLIstItem to change the language
 
   const handlerLIstItem = (
     event: React.MouseEvent<HTMLLIElement>,
@@ -139,7 +142,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   ) => {
     setIsTouch(true);
     if (props.multiSelect) {
-      // If it's a multiselect dropdown, handle checkbox selection
+       // If it's a multiselect dropdown, handle checkbox selection
       const isChecked = checkedCategoryList.some(
         (item: any) => item.label === props.listItems[index].label
       );
@@ -154,7 +157,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
         // If item is not selected, check it
         setCheckedCategoryList([
           ...checkedCategoryList,
-          { label: props.listItems[index].label }
+          { label: props.listItems[index].label },
         ]);
       }
     } else {
@@ -229,44 +232,53 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       : props.size === "Large"
       ? "form-control-lng"
       : ""; // Default size if not provided
-  
+
   const border = props.state === "Disabled" ? "form-control " + fieldSize : props.borderDropdown ? "form-control border-primary " + fieldSize : "border-0";
-  const bottomLine = props.style === "Bottom Line" 
-    ? props.state === "Disabled" 
-      ? "bottom-line-disabled" 
-      : "bottom-line-primary" 
-    : "";
+  const bottomLine = props.style === "Bottom Line"
+      ? props.state === "Disabled"
+        ? "bottom-line-disabled"
+        : "bottom-line-primary"
+      : "";
   const defaultDisabled = props.style === "Default" && props.state === "Disabled" ? "default-disabled" : "";
-  
+
   useEffect(() => {
     setIsTouch(false);
     setCheckedCategoryList([]);
   }, [props.reset]);
   useEffect(() => {
     props.multiSelect === undefined &&
-      props.selectedIndex != undefined &&
+      props.selectedIndex !== undefined &&
       props.selectedIndex(selectedOption);
   }, [selectedOption]);
-  
+
   useEffect(() => {
     props.multiSelect &&
-      props.selectedItems != undefined &&
+      props.selectedItems !== undefined &&
       props.selectedItems(checkedCategoryList);
   }, [checkedCategoryList]);
-  
+
   const calculateVisibleItems = () => {
     return checkedCategoryList.slice(0, 2); // Always take the first two items
   };
-  
+
   const visibleItems = calculateVisibleItems();
   const remainingCount = checkedCategoryList.length - visibleItems.length;
-  
+
   useEffect(() => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
   }, [props.state]);
-  
+
+  // Filtered list items based on search query
+  const filteredListItems = props.listItems.filter(item =>
+    item.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setSearchQuery(event.target.value);
+  }
+
   return (
     <>
       {props.showTitle && props.title && (
@@ -275,7 +287,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.isMandatory && <span className="text-danger"> *</span>}
         </label>
       )}
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: '8px' }}>
+      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: "8px" }}>
         <span
           className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${props.state === "Disabled" ? "disabled" : ""}`}
           role="button"
@@ -284,11 +296,11 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           id={props.id}
           onClick={props.state !== "Selected" && props.state !== "Disabled" ? clickedOnDropDown : undefined}
         >
-          <div
-            className={
-              "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
+          <div 
+          className={
+            "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
             }
-          >
+            >
             {/* simple dropdown  */}
             {props.state === "Selected" && props.listItems.length !== 0 && (
               <div className="d-flex align-items-baseline">
@@ -331,7 +343,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   ))}
               </div>
             )}
-  
+
             {/* single select dropdown placeholder */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
@@ -344,37 +356,37 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     stroke={true}
                   />
                 )}
-                {showSelectedOption && <span className="dw-placeholder fs-6 ms-2">
-                  {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                </span>}
+                {showSelectedOption && ( <span className="dw-placeholder fs-6 ms-2">
+                    {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                  </span>)}
               </div>
             )}
-  
+
             {/* multiselected dropdown placeholder */}
-            {props.state !== "Selected" && checkedCategoryList.length == 0 &&
-              props.multiSelect &&
-              props.placeholder && (
-                <div className="d-flex align-items-center">
-                  {showIcon && (
-                    <RdsIcon
-                      name={props.icon}
-                      width="16px"
-                      height="16px"
-                      fill={false}
-                      stroke={true}
-                    />
-                  )}
-                  <span className="dw-placeholder fs-6 ms-2">
-                    {props.placeholder}
-                  </span>
-                </div>
-              )}
+            {props.state !== "Selected" && checkedCategoryList.length === 0 && 
+            props.multiSelect && 
+            props.placeholder && (
+              <div className="d-flex align-items-center">
+                {showIcon && (
+                  <RdsIcon
+                    name={props.icon}
+                    width="16px"
+                    height="16px"
+                    fill={false}
+                    stroke={true}
+                  />
+                )}
+                <span className="dw-placeholder fs-6 ms-2">
+                  {props.placeholder}
+                </span>
+              </div>
+            )}
             {/* multiselected dropdown's badge */}
-            {props.state !== "Selected" && props.multiSelect && checkedCategoryList.length != 0 && (
+            {props.state !== "Selected" && props.multiSelect && checkedCategoryList.length !== 0 && (
               <div>
                 {visibleItems.map((item: any) => (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     key={item.id}
                     label={item.label}
                     colorVariant="primary"
@@ -386,7 +398,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 ))}
                 {remainingCount > 0 && (
                   <RdsBadge
-                    className="me-1 mt-1"
+                    className="me-1"
                     label={"+" + remainingCount.toString()}
                     colorVariant="primary"
                     size="small"
@@ -396,7 +408,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 )}
               </div>
             )}
-  
+
             {/* chevron_down icon */}
             {props.state !== "Selected" && !props.isIconPlaceholder && (
               <span
@@ -417,7 +429,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             )}
           </div>
         </span>
-  
+
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
@@ -425,13 +437,37 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             id={props.id}
             aria-labelledby={props.id}
           >
-            {props.listItems?.map((language: any, i: any) => (
+            
+            {/* Search Input */}
+            {props.showSearch && (
+              <li className=" d-flex align-items-center ps-3 search-border-bottom mb-1">
+                <RdsIcon
+                  colorVariant="dark"
+                  height="15px"
+                  isCursorPointer
+                  name="search"
+                  stroke
+                  width="15px"
+                />
+                <input
+                  type="text"
+                  className="form-control border-0"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  size={10}
+                />
+              </li>
+            )}
+
+            {filteredListItems.map((language: any, i: any) => (
               <li
                 key={i}
                 onMouseEnter={() => handleMouseEnter(language.val)}
                 onMouseLeave={handleMouseLeave}
                 onClick={(event) => {
-                  handlerLIstItem(event, i, language.val);
+                  const originalIndex = props.listItems.findIndex(item => item.val === language.val);
+                  handlerLIstItem(event, originalIndex, language.val);
                 }}
               >
                 <a
@@ -445,8 +481,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         type="checkbox"
                         checked={
                           checkedCategoryList.filter(
-                            (curElem: any) => curElem.label == language.label
-                          ).length == 1
+                            (curElem: any) => curElem.label === language.label
+                          ).length === 1
                         }
                         value=""
                         id="flexCheckDefault"
@@ -455,8 +491,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   )}
                   {language.icon && showIcon && (
                     <div
-                      className={`${language.icon == "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
-                        }`}
+                      className={`${language.icon === "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
+                      }`}
                     >
                       <RdsIcon
                         name={language.icon}
@@ -467,7 +503,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-  
+
                   {language.iconPath && (
                     <div>
                       <RdsIcon
@@ -481,7 +517,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       ></RdsIcon>
                     </div>
                   )}
-  
+
                   <span className="ms-1">
                     <div data-name={language.val}>{language.label} </div>
                   </span>
@@ -491,7 +527,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           </ul>
         )}
       </div>
-  
+
       {props.showHint && (
         <p className="my-1 text-black-50">
           <small>{props.hint}</small>

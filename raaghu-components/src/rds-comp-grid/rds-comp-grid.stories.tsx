@@ -6,18 +6,36 @@ const meta: Meta = {
     component: RdsCompGrid,
     parameters: {
         layout: 'padded',
+        docs:{
+            source:{
+                transform: (code: string) => {
+                    // Transform position enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ActionPosition.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state:ActionPosition${p1.replace(/\s+/g, "")}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={ActionColumnStyle.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style:ActionColumnStyle ${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }   
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
+        state: {
+            options: ["default", "collpsed"],
+            control: { type: "select" },
+            description: "Controls the visibility of the table header and body",
+        },
     },
 } satisfies Meta<typeof RdsCompGrid>;
 
 export default meta;
 type Story = StoryObj<typeof RdsCompGrid>;
+
 export const Default: Story = {
     args: {
         tableHeaders: [
-            
             {
                 displayName: "Title",
                 filter: true,
@@ -63,8 +81,6 @@ export const Default: Story = {
                 required: true,
                 sortable: true,
             },
-            
-            
         ],
         tableData: [
             { id: 1, edition: "Text" },
@@ -75,16 +91,22 @@ export const Default: Story = {
             { id: 6, edition: "Text" },
             { id: 7, edition: "Text" },
             { id: 8, edition: "Text" },
-            { id: 9, edition: "Text" },
+            { id: 9, edition: "Text" }, 
         ],
-        state: "Default",
-        showHeader: true, 
-        showAddNewColumn: true,
+        state: "default",
+        collapsed: false,
+        showHeader: true,
         showSubHeader: true,
-    }
+       // showAddNewColumn: true,
+    },
+   
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['state', 'showHeader', 'showSubHeader', ' showAddNewColumn'] } };
+Default.parameters = { 
+    controls: { 
+        include: ['state', 'showHeader', 'showSubHeader',] 
+    } 
+};
 
 
 // export const Default: Story = {

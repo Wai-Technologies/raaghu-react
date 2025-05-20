@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompTypingSection from "./rds-comp-typing-section";
 
 const meta: Meta = { 
-    title: "Components/Automate/Typing Section",
+    title: "Components/AI ChatBox/Typing Section",
     component: RdsCompTypingSection,
     parameters: {
         layout: 'padded',
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompTypingSection>;
 export const Default: Story = {
     args: {
         colorVariant: "#353535",
-        placeholderText: "Ask me anything",
+        placeholderText: "How can AI Pundit help you today?",
         icon_name: "enhancer",
     }
 } satisfies Story;

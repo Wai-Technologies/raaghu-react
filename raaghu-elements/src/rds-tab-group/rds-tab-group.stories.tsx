@@ -5,6 +5,21 @@ import RdsTabGroup, { TabType, TabState } from "./rds-tab-group";
 const meta: Meta =  {
   title: "Elements/Tab",
   component: RdsTabGroup,
+  parameters: { 
+    docs: {
+      source: {
+        transform: (code: string) => {
+          // Transform type enum - remove spaces and transform
+          code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={TabType.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type:TabType${p1.replace(/\s+/g, "")}`);
+          //Transform state enum - remove spaces and transform
+          code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TabState.${p1.replace(/\s+/g, "")}}`);
+          code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state:TabState${p1.replace(/\s+/g, "")}`);
+          return code;
+        },
+      },
+    },
+  },
   tags: ['autodocs'],
   argTypes: {
     level: {
@@ -22,11 +37,11 @@ const meta: Meta =  {
       control: { type: "select" },
     },
     leftIcon :{
-      options: ["user_tab","plus","pencil","edit"],
+      options: ["user_tab","plus_new","pencil","edit"],
       control: { type: "select" },
     },
     rightIcon :{
-      options: ["user_tab","plus","pencil","edit"],
+      options: ["user_tab","plus_new","pencil","edit"],
       control: { type: "select" },
     },
     state: {
@@ -62,7 +77,7 @@ export const Default : Story = {
     showLeftIcon: true,
     leftIcon: "user_tab",
     showRightIcon: true,
-    rightIcon: "plus",
+    rightIcon: "plus_new",
     icon: "cancel",
   }
 } satisfies Story;

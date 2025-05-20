@@ -117,7 +117,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     )}
                                 </div>
 
-                                <strong className="me-auto text-dark">
+                                <strong className="me-auto ps-1 text-dark">
                                     {" "}
                                     {props.headerText}{" "}
                                 </strong>
@@ -133,10 +133,10 @@ const RdsToast = (props: RdsToastProps) => {
                                    props.layout == "chat" && <span>{props.chatTime}</span>
                                 }
                             </div>
-                            <div className="toast-body text-body">{props.showSubText && props.subText}</div>
+                            <div className="toast-body ms-3 ps-4 text-body">{props.showSubText && props.subText}</div>
 
 
-                            <div className={`toast-footer justify-content-end p-2 align-items-end ${props.layout === "download" ? "d-block" : "d-none"}`}>
+                            <div className={`toast-footer justify-content-end p-2 align-items-end ms-3 ps-4 ${props.layout === "download" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex text-body ml-4">
                                     <div className="progress w-100 ml-4 mt-1" aria-valuenow={props.progressWidth} aria-valuemin={0} aria-valuemax={100}>
                                         <div className="progress-bar btn-primary" role="progressbar"
@@ -145,7 +145,7 @@ const RdsToast = (props: RdsToastProps) => {
                                             aria-valuemin={0}
                                             aria-valuemax={100}></div>
                                     </div>
-                                    <label className="progress-label ml-4">{props.progressWidth}%</label>
+                                    <label className="progress-label ml-4 px-1">{props.progressWidth}%</label>
                                 </div>
                                 <label className="filename text-body">{props.filename}</label>
                                 <div className="d-flex toast-footer justify-content-end pb-1 pe-4 gap-2">
@@ -154,7 +154,7 @@ const RdsToast = (props: RdsToastProps) => {
                                 </div>
                             </div>
 
-                            <div className={`toast-footer justify-content-end align-items-end pt-0 ${props.layout === "chat" ? "d-block" : "d-none"}`}>
+                            <div className={`toast-footer justify-content-end align-items-end ms-3 ps-4 pt-0 ${props.layout === "chat" ? "d-block" : "d-none"}`}>
                                 <div className="d-flex ml-2 pl-2">
                                     <input type="text" className="form-control form-text pl-1" placeholder={props.placeholder} />
                                 </div>

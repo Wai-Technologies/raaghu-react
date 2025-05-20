@@ -1,21 +1,66 @@
 .Default {
   margin: 0;
   padding: 0;
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   overflow: hidden; /* Optional, to hide any content that exceeds the viewport */
   display: flex;
 }
 
-
 .Default #sidebar{
   height: 100vh !important;
+}
+
+/* Sidebar layout styles */
+.sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
 }
 
 .Default .sidebar-layout{
   width: fit-content;
 }
 
+/* Top navigation layout styles */
+.topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
 .Default .topnav-layout{
   width: 100%;
+}
+
+/* TopNav specific styles */
+.TopNav .sidebar-layout {
+    display: none;
+}
+
+.TopNav .topnav-layout {
+    width: 100%;
+}
+
+.double-nav-sidebar img.ps-md-2.main-logo.ps-1 {
+  visibility: hidden;
+}
+.OneThreeOne-sidebar img.ps-md-2.main-logo.ps-1 {
+  visibility: hidden;
+}
+
+.double-nav-sidebar ul.list-unstyled.pb-5.pd-md-0.mb-5.mb-md-0.pt-3.mb-auto{
+  margin-top: -51px !important;
+}
+
+.OneThreeOne-sidebar ul.list-unstyled.pb-5.pd-md-0.mb-5.mb-md-0.pt-3.mb-auto{
+  margin-top: -51px !important;
+}
+
+.custom-height-give a.align-items-center.d-inline-flex.text-decoration-none.cursor-pointer.ps-3.pe-2.active {
+  margin-top: 50% !important;
+}
+
+.icon-sapce-between li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="3_"] {
+  margin-top: 8.29vw !important;
 }

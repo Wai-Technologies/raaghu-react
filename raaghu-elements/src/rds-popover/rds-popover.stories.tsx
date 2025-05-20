@@ -7,6 +7,16 @@ const meta: Meta = {
     component: RdsPopover,
     parameters: {
         layout: 'centered',
+        docs: { 
+            source:{
+                transform: (code: string) => {
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={PopoverState.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: PopoverState.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {

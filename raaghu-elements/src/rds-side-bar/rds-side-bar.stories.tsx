@@ -1,10 +1,10 @@
 import React from "react";
-import RdsSidebar from "./rds-side-bar";
+import RdsSideBar from "./rds-side-bar";
 import { Meta, StoryObj } from "@storybook/react";
-
+ 
 const meta: Meta = {
-    title: 'Components/Automate/Side Bar',
-    component: RdsSidebar,
+    title: 'Components/AI ChatBox/Side Bar',
+    component: RdsSideBar,
     parameters: {
         layout: 'padded',
     },
@@ -12,10 +12,10 @@ const meta: Meta = {
     argTypes: {
        
     },
-} satisfies Meta<typeof RdsSidebar>;
-
+} satisfies Meta<typeof RdsSideBar>;
+ 
 export default meta;
-type Story = StoryObj<typeof RdsSidebar>;
+type Story = StoryObj<typeof RdsSideBar>;
 export const Default: Story = {
     args: {
         labels: [
@@ -23,6 +23,7 @@ export const Default: Story = {
             "Recent",
             "SAAS Dashboard",
             "Community",
+            "Folder",
             "Help",
             "Activity",
             "Settings"
@@ -32,10 +33,12 @@ export const Default: Story = {
             "recent",
             "saas_chat",
             "community",
+            "chat_folder",
             "chat_help",
             "activity",
             "chat_settings"
+ 
         ]
     },
 } satisfies Story;
-
+ 

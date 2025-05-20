@@ -11,7 +11,7 @@ export interface RdsCompAppShellProps {
   topbar?: ReactNode;
   sidebar?: ReactNode;
 }
-
+ 
 export enum AppShellDisplayType {
   Basic = "Basic",
   Header = "Header",
@@ -22,18 +22,18 @@ export enum AppShellDisplayType {
   DoubleNav = "Double Nav",
   OneThreeOne = "1-3-1"
 }
-
-
+ 
+ 
 const RdsCompAppShell = (props: RdsCompAppShellProps) => {
-
+ 
   return (
     <>
-
+ 
       <div className={props.displayType?.toString()}>
         <div className="sidebar-layout">
           {props.sidebar}
         </div>
-
+ 
         <div className="topnav-layout">
           {props.topbar}
           <Outlet />
@@ -42,5 +42,5 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
     </>
   );
 };
-
+ 
 export default RdsCompAppShell;

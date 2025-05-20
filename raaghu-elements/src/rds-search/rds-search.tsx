@@ -3,10 +3,14 @@ import RdsIcon from "../rds-icon";
 import "./rds-search.css";
 import { placements } from "../../libs";
 
+export enum IconPosition {
+    Left = "left",
+    Right = "right",
+  }
 export interface RdsSearchProps {
     placeholder: string;
     size: string;
-    iconPosition?: "left" | "right",
+    iconPosition?: IconPosition;
     value?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyPress?: (event: React.KeyboardEvent) => void;
@@ -58,11 +62,11 @@ const RdsSearch = (props: RdsSearchProps) => {
             {/* <div className={labelClass()}> */}
             {/* <label>{props.label}</label> */}
             <div className={`input-group border mt-1 rounded ` + classes()} id={props.id}>
-                {props.iconPosition === 'left' && (
+                {props.iconPosition === IconPosition.Left && (
                     <span className="input-group-text border-0">
                         <RdsIcon name="search" fill={false} stroke={true} isCursorPointer={true} ></RdsIcon>
                     </span>)}
-                <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === 'left' ? ' border-end-0' : ' border-start-0')} type="search"
+                <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === IconPosition.Left ? ' border-end-0' : ' border-start-0')} type="search"
                     defaultValue={props.value}
                     placeholder={props.placeholder}
                     id={props.id}
@@ -72,7 +76,7 @@ const RdsSearch = (props: RdsSearchProps) => {
                     onKeyDown={props.onKeyPress}
                     onKeyUp={props.onKeyUp}
                     data-testid={props.dataTestId} />
-                {props.iconPosition === 'right' && (
+                {props.iconPosition === IconPosition.Right && (
                     <span className="input-group-text border-0">
                         <RdsIcon
                             name="search"

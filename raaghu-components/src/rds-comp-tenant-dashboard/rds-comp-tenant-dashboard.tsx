@@ -11,7 +11,7 @@ import { ScriptableContext } from "chart.js";
 const RdsCompTenantDashboard = () => {
 
     return (
-        <div className="dark dashboard bg-grey p-4">
+        <div className="dark dashboard bg-grey p-2 p-lg-4 p-md-4">
             <div className="row">
                 <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
                     <RdsWidget

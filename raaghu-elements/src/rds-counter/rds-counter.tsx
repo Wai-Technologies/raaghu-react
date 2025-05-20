@@ -117,12 +117,12 @@ const RdsCounter = (props: RdsCounterProps) => {
         <div
           className={`border ${
             props.state === "Disabled" ? "border-gray bg-light" : "border-gray"
-          } rounded p-1`}
+          } rounded p-1`} id="counter-back-color"
           style={{
             backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex align-items-center gap-0">
+          <div className="d-flex gap-0" id="counter-button-width">
             <RdsButton
               colorVariant={props.colorVariant}
               icon="minus"
@@ -175,12 +175,12 @@ const RdsCounter = (props: RdsCounterProps) => {
         <div
           className={`border ${
             props.state === "Disabled" ? "border-gray" : "border-gray"
-          } rounded p-1`}
+          } rounded p-1`} id="counter-back-color"
           style={{
             backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex align-items-center gap-1">
+          <div className="d-flex gap-1" id="counter-button-width">
             <input
               type="number"
               className="form-control border-0"
@@ -232,12 +232,12 @@ const RdsCounter = (props: RdsCounterProps) => {
         <div
           className={`border ${
             props.state === "Disabled" ? "border-gray" : "border-gray"
-          } rounded p-1`}
+          } rounded p-1`} id="counter-back-color"
           style={{
             backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex flex-column align-items-center gap-2">
+          <div className="d-flex flex-column gap-2">
             <input
               type="number"
               className="form-control text-center border-0"

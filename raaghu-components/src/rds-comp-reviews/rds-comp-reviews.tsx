@@ -6,8 +6,6 @@ import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 
 export enum VariantType {
   Default = "Default",
-  WithSummaryChart = "with-summary-chart",
-  MultiColumn = "multi-column",
 }
 
 export enum RevieweStyle {
@@ -107,7 +105,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 style={{ width: '50px', height: '50px' }}
               />
               <div className="ms-3">
-                <h5 className="fw-bold mb-0">{item.name}</h5>
+              <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                 <small className="text-muted">
                   {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -140,7 +138,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
           <div className="card p-3 col-lg-4 col-sm-12 col-md-6" >
             <div className="d-flex align-items-center">
               <div className="">
-                <h5 className="fw-bold mb-0">{item.name}</h5>
+                <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                 <small className="text-muted">
                   {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -178,7 +176,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   style={{ width: '50px', height: '50px' }}
                 />
                 <div className="ms-3">
-                  <h5 className="fw-bold mb-0">{item.name}</h5>
+                  <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                   <small className="text-muted">
                     {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
                       day: '2-digit',
@@ -207,7 +205,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
                 <div className="d-flex align-items-center">
                   <div className="">
-                    <h5 className="fw-bold mb-0">{item.name}</h5>
+                    <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                     <small className="text-muted">
                       {item.date ? new Date(item.date).toLocaleDateString('en-GB', {
                         day: '2-digit',
@@ -236,15 +234,15 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 <div className="rating-text card p-3 col-lg-5 col-sm-12 col-md-6">
                   {/* Image, Name, and Rating in the Same Line */}
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="nowrap align-items-center">
+                    <div className="nowrap align-items-center d-flex">
                       <img
                         src={item.imageUrl}
                         alt={item.name}
-                        className="rounded-circle"
+                         className="rounded-circle ps-0 px-1"
                         style={{ width: '50px', height: '50px' }}
                       />
-                      <div className="ms-3">
-                        <h5 className="fw-bold mb-0">{item.name}</h5>
+                      <div className="ms-1">
+                        <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                         <small className="text-muted">
                           {item.date
                             ? new Date(item.date).toLocaleDateString('en-GB', {
@@ -272,7 +270,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <p className="mt-3">{item.description}</p>
             
                   {/* Like/Dislike Section */}
-                  <div className="d-flex align-items-center justify-content-start my-3">
+                  <div className="d-flex align-items-center justify-content-start my-3 card-title">
                     <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
@@ -285,7 +283,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       <div className=" align-items-center">
                         <div className="">
                           <small className="text-muted">
-                          <div className="d-flex align-items-center mt-2">
+                          <div className="d-flex align-items-center mb-2 mt-2">
                            <RdsRating
                            colorVariant={ColorVariant.Primary}
                            dataTestId="rating-test"
@@ -324,7 +322,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                       style={{ width: '50px', height: '50px' }}
                     />
                     <div className="ms-3">
-                      <h5 className="fw-bold mb-0">{item.name}</h5>
+                      <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                       <div className="text-muted text-lowercase">{item.username}</div>
                     </div>
                   </div>
@@ -354,7 +352,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               
                   <p className="mt-3">{item.description}</p>
 
-                  <div className="d-flex align-items-center justify-content-start my-3">
+                  <div className="d-flex align-items-center justify-content-start my-3 card-title">
                     <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
@@ -364,7 +362,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                 <div className="card p-3 col-lg-6 col-md-6 col-sm-12" >
                   <div className="d-flex align-items-center">
                     <div className="">
-                      <h5 className="fw-bold mb-0">{item.name}</h5>
+                      <h5 className="fw-bold card-title mb-0">{item.name}</h5>
                       <div className="text-muted text-lowercase">{item.username}</div>
                     </div>
                   </div>
@@ -393,7 +391,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   </div>
               
                   <p className="mt-3">{item.description}</p>
-                  <div className="d-flex align-items-center justify-content-start my-3">
+                  <div className="d-flex align-items-center justify-content-start my-3 card-title">
                     <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
@@ -422,7 +420,9 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                         type={RatingType.Star}
                         rating={4.75} 
                       />
-                      <span className="fw-bold mt-1">{item.reviews}</span>
+                      <div className="mt-1">
+                      <span className="fw-bold card-title">{item.reviews}</span>
+                      </div>
                     </div>
                     <p className="card-text text-center">{item.description}</p>
                   </div>
@@ -445,7 +445,9 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                         type={RatingType.Star}
                         rating={4.75} 
                       />
-                      <span className="fw-bold mt-1">{item.reviews}</span>
+                      <div className="mt-1">
+                      <span className="fw-bold card-title">{item.reviews}</span>
+                      </div>
                     </div>
               <p className="card-text text-center">{item.description}</p>
             </div>
@@ -458,21 +460,10 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
 
   return (
     <div>
-      {props.variantType === "Default" &&
+      {props.variantType === VariantType.Default &&
         props.itemList.map((item: Item, index: any) => (
           <div key={index}>
             {renderContentByStyle(item)}
-          </div>
-        ))}
-
-      {props.variantType === "with-summary-chart" && (
-        <RdsCompFeeds variantType="Advanced" itemList={props.itemList} />
-      )}
-
-      {props.variantType === "multi-column" &&
-        props.itemList.map((item: any, index: any) => (
-          <div key={index} className="mb-4">
-            <RdsReviewCategory display_type="Basic" item={item} />
           </div>
         ))}
     </div>

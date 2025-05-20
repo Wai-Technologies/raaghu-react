@@ -3,21 +3,21 @@ import "./rds-tree-structure.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
 export enum TreeLevel {
-  Level1 = "level1",
-  Level2 = "level2",
+  Level1 = "Level1",
+  Level2 = "Level2",
   Level3 = "level3",
-  Level4 = "level4",
+  Level4 = "Level4",
 }
 
 export enum NodeState {
-  Default = "default",
-  Hover = "hover",
-  Selected = "selected",
+  Default = "Default",
+  Hover = "Hover",
+  Selected = "Selected",
 }
 
 export enum IconType {
-  Circle = "circle",
-  Folder = "folder",
+  Circle = "Circle",
+  Folder = "Folder",
 }
 
 export interface RdsTreeStructureProps {
@@ -153,7 +153,7 @@ const TreeNode = ({
   return (
     <div className="tree-node-container">
       <div
-        className={`tree-node p-1 cursor-pointer ${props.state === "hover" ? "nodehover" : ""}`}
+        className={`tree-node p-1 cursor-pointer ${props.state === "Hover" ? "nodehover" : ""}`}
         style={{ marginLeft: level * 20 }}
       >
         <div
@@ -188,7 +188,7 @@ const TreeNode = ({
           )}
           {props.showFolder && (
             <span style={{ color: "#FFA500", marginRight: 5 }}>
-              {props.type === "circle" ? (
+              {props.type === "Circle" ? (
                 <span
                   style={{
                     display: "inline-block",

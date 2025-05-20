@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsChatHeader, { ChatHeaderSize } from "./rds-chat-header";
 
 const meta: Meta<typeof RdsChatHeader> = {
-  title: "Components/Automate/Chat Header",
+  title: "Components/AI ChatBox/Chat Header",
   component: RdsChatHeader,
   argTypes: {
     logoUrl: {
@@ -22,6 +22,14 @@ const meta: Meta<typeof RdsChatHeader> = {
   },
   parameters: {
     layout: "padded",
+    docs: {
+      source: {
+          transform: (code: string) => {
+              code = code.replace(/"(small|medium|large)"/g, '{ChatHeaderSize.$1}');
+              return code;
+          },
+      },
+  },
   },
   tags: ["autodocs"],
 };
