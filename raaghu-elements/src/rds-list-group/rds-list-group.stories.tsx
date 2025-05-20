@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-    title: 'Elements/List Group',
+    title: 'Components/List Group',
     component: RdsListGroup,
     parameters: {
         layout: 'padded',

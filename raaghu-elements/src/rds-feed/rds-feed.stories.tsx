@@ -1,12 +1,20 @@
 import React from "react";
-import RdsFeed from "./rds-feed";
+import RdsFeed, { Size } from "./rds-feed";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Feed',
+    title: 'Components/Feed',
     component: RdsFeed,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(small|medium|large)"/g, '{Size.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -22,7 +30,7 @@ type Story = StoryObj<typeof RdsFeed>;
 
 export const ReviewFeed: Story = {
     args: {
-        size: "medium", // Added size parameter for the avatar
+        size: Size.Medium, // Added size parameter for the avatar
         itemList: [
             {
                 id: "1",

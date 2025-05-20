@@ -17,7 +17,7 @@ const meta: Meta = {
       description: 'The color variant of the progress bar.',
     },
     role: {
-      options: ['single', 'multiple', 'Circular'],
+      options: ['single', 'multiple', 'circular', 'dash', 'block', 'stepper'],
       control: { type: "select" },
       description: 'The role of the progress bar.',
     },
@@ -26,6 +26,14 @@ const meta: Meta = {
       description: 'Whether the progress bar is striped.',
     },
     progressWidth: {
+      control: { type: 'number' },
+      description: 'The width of the progress bar.',
+    },
+    steps: {
+      control: { type: 'number' },
+      description: 'The width of the progress bar.',
+    },
+    completedSteps: {
       control: { type: 'number' },
       description: 'The width of the progress bar.',
     },
@@ -49,8 +57,17 @@ const meta: Meta = {
       control: { type: 'object' },
       description: 'The values for multiple progress bars.',
     },
+    stepperVariant: {
+      options: ['filled', 'outlined'],
+      control: { type: "select" },
+    },
+    Icon: {
+      control: { type: 'boolean' },
+      defaultValue: false,
+    },
   },
 } satisfies Meta<RdsProgressBarProps>;
+
 
 export default meta;
 type Story = StoryObj<typeof RdsProgressBar>;
@@ -61,9 +78,14 @@ export const Default: Story = {
     colorVariant: "primary",
     striped: true,
     progressWidth: 40,
+    steps: 5,
+    completedSteps: 0,
+    stepperVariant: 'filled',
+    Icon: false,
+    //StepIconName: generateStepIconName(5),
     animation: false,
     height: 4,
-    displayLabel: true,
+    //displayLabel: true,
     displayPercentage: true,
     progressValues: [
       {
@@ -89,9 +111,10 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'animation', 'height', 'displayLabel', 'displayPercentage'] },
+  controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'progressValues', 'steps', 'completedSteps', 'animation', 
+    'height', /*'displayLabel',*/ 'displayPercentage', 'stepperVariant', 'Icon', /*'StepIconName'*/] },
 };
-
+/*
 export const MultiProgressBar: Story = {
   args: {
     role: "multiple",
@@ -173,4 +196,4 @@ export const Circular: Story = {
 
 Circular.parameters = {
   controls: { include: ['role', 'colorVariant', 'progressWidth', 'height', 'displayPercentage'] },
-};
+};*/

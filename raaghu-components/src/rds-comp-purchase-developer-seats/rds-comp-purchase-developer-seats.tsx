@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCounter, RdsOffcanvas } from "../rds-elements";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 
 export interface RdsCompPurchaseDeveloperSeatsProps {
   purchaseDeveloperData?: any;
@@ -52,7 +53,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
     <>
       <div>
         <RdsOffcanvas
-          backDrop="static"
+          backDrop={RdsOffcanvasBackDrop.Static}
           canvasTitle="PURCHASE DEVELOPER SEATS"
           offId="purchaseDeveloper"
           offcanvasbutton={
@@ -67,7 +68,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
             ></RdsButton>
           }
           offcanvaswidth={544}
-          placement="end"
+          placement={RdsOffcanvasPlacement.End}
           scrolling={false}
         >
           <div>

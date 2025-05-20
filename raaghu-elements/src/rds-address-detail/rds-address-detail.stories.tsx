@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-  title: 'Elements/Address Detail',
+  title: 'Components/Address Detail',
   component: RdsAddressDetail,
   parameters: {
     layout: 'padded',

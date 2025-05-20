@@ -3,7 +3,7 @@ import RdsIcon from "./rds-icon";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Icon',
+    title: 'Components/Icon',
     component: RdsIcon,
     parameters: {
         layout: 'centered',

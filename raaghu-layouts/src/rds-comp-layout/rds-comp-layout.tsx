@@ -4,11 +4,20 @@ import RdsCompLayoutItem from "./rds-comp-layout-item";
 export interface RdsCompLayoutProps {
   displayType?: string;
   children?: ReactNode;
+  hasShadow?: boolean;
 }
 
 const RdsCompLayout = (props: RdsCompLayoutProps) => {
+  const getClasses = () => {
+    let classes = "layout1";
+    if (props.hasShadow) {
+      classes += " layout-shadow";
+    }
+    return classes;
+  };
+
   return (
-    <div className="layout1">
+    <div className={getClasses()}>
       <div className="">
         <div className="">{props.children}</div>
       </div>

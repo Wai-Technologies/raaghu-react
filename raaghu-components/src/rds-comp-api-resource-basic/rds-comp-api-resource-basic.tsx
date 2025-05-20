@@ -47,26 +47,26 @@ const isFormValid = isNameValid(formData?.name);
       <div>
         <form>
           <div className="custom-content-scroll">
-            <div className="row mt-3">
-              <div className="col-6">
+            <div className="row">
+              <div className="col-12 col-lg col-md">
                 <RdsInput
                   required={true}
-                  reset={inputReset}
-                  label="Name"
+                  reset={inputReset}                  
+                  label={true}
                   placeholder="Enter name"
                   inputType="text"
                   onChange={(e) => {
                     handleDataChanges(e.target.value, "name");
                   }}
                   value={formData?.name}
-                  name={"name"}
+                  name={"Name"}
                   dataTestId="name"
                 ></RdsInput>
               </div>
 
-              <div className="col-6 ">
-                <RdsInput
-                  label="Display name"
+              <div className="col-12 col-lg col-md">
+                <RdsInput                       
+                  label={true}
                   reset={inputReset}
                   placeholder="Enter display name"
                   inputType="text"
@@ -74,13 +74,13 @@ const isFormValid = isNameValid(formData?.name);
                     handleDataChanges(e.target.value, "displayName");
                   }}
                   required={false}
-                  name={"displayName"}
+                  name={"Display Name"}
                   value={formData?.displayName}
                   dataTestId="displayName"
                 ></RdsInput>
               </div>
             </div>
-            <div className=" mb-4">
+            <div className="">
               <RdsTextArea
                 label="Description"
                 placeholder="Description"
@@ -93,8 +93,8 @@ const isFormValid = isNameValid(formData?.name);
               />
             </div>
             <div className=" mb-4">
-              <RdsInput
-                label="Allowed access token signing algorithms"
+              <RdsInput               
+               label={true}
                 reset={inputReset}
                 placeholder="Enter Allowed access token signing algorithms"
                 inputType="text"
@@ -105,7 +105,7 @@ const isFormValid = isNameValid(formData?.name);
                   );
                 }}
                 required={false}
-                name={"accessTokenSigningAlgorithm"}
+                name={"Allowed Access Token Signing Algorithm"}
                 value={formData?.accessTokenSigningAlgorithm}
                 dataTestId="allowed-access-token"
               ></RdsInput>
@@ -115,7 +115,7 @@ const isFormValid = isNameValid(formData?.name);
             <RdsCheckboxGroup itemList={props.resourceData.checklist} /> */}
             </div>
           </div>
-          <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 px-4">
             <RdsButton
               class="me-2"
               tooltipTitle={""}

@@ -31,7 +31,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
   const [isStarred, setIsStarred] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const defaultImage = "../../../stories/assets/Aigeneratedimage.png";
+  const defaultImage = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/default-image.png";
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -80,13 +80,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
   const handleGenerateButtonClick = () => {
     // Use default text if inputText is empty
     const textToUse = inputText.trim() !== "" ? inputText : "Message Bubble";
-    const imagesToUse = props.prefilledprompt?.some(
-      (prompt) => prompt.question === inputText
-    )
-      ? []
-      : selectedImages.length > 0
-      ? selectedImages
-      : [defaultImage];
+    const imagesToUse = selectedImages.length > 0 ? selectedImages : [];
 
     // Add input to chat history
     setChatHistory((prevHistory) => [
@@ -189,6 +183,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       }));
     }
   };
+
   const handleCheckboxChange = (checked: boolean) => {
     setIsChecked(checked);
     if (checked) {
@@ -197,6 +192,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       // Perform actions to deselect all data from the frame
     }
   };
+
   const handleStarClick = () => {
     setIsStarred(!isStarred);
   };
@@ -214,6 +210,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       setIsLiked(false); // Ensure like is reset if dislike is clicked
     }
   };
+
   const preCode = `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -272,7 +269,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             <div className="d-flex ml-auto">
                               {props.outputtype ===
                                 "Raaghu_reply_with_design" && (
-                                <div className="toggle-container">
+                                <div className="toggle-container ms-2">
                                   <div
                                     className={`toggle-option ${
                                       selectedViews[index] === "Design"
@@ -469,7 +466,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                 <RdsIcon
                   name="newchat"
                   height="33px"
-                  width="24px"
+                  width="30px"
                   colorVariant="primary"
                   fill={false}
                   stroke={false}
@@ -479,6 +476,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
           </div>
           <div className="input-column">
             <div className="input-wrapper">
+              <div className="ai-prompt">
               <div className="input-with-image">
                 <textarea
                   className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
@@ -506,6 +504,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                     </div>
                   ))}
                 </div>
+              </div>
               </div>
               <label
                 htmlFor="file-upload"

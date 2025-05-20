@@ -1,0 +1,387 @@
+
+.rds-sidebar {
+  width: 240px;
+  background-color: transparent;
+  padding: 15px;
+  transition: width 0.3s ease;
+}
+ 
+.rds-sidebar.collapsed {
+  width: 60px;
+}
+ 
+.background-color {
+  background: linear-gradient(180deg, #DCF4F7 0%, #FFECEC 100%);
+}
+ 
+/* Button styling */
+.wide-button {
+  width: 100%;
+  background: #ffffff !important;
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+ 
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  color: #8B3DFF !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.wide-button svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: #8B3DFF !important;
+  stroke: #8B3DFF !important;
+}
+
+.wide-button:hover {
+  background-color: #F8F2FF !important;
+  border-color: #8B3DFF !important;
+  color: #8B3DFF !important;
+  box-shadow: 0 2px 4px rgba(139, 61, 255, 0.1) !important;
+}
+
+.wide-button:focus,
+.wide-button:focus-visible {
+
+  border-color: #ebdcff !important;
+}
+.btn.outline-hover {
+  min-width: 218px !important;
+  text-align: left;
+  color:#353535 !important;
+}
+.collapsed-button {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+ 
+  box-shadow: none !important;
+}
+
+.collapsed-button svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: #8B3DFF !important;
+  stroke: #8B3DFF !important;
+}
+
+.collapsed-button:hover {
+  background-color: #F8F2FF !important;
+  border-color: #8B3DFF !important;
+  box-shadow: 0 2px 4px rgba(139, 61, 255, 0.1) !important;
+}
+
+.collapsed-button:focus,
+.collapsed-button:focus-visible {
+  border-color: #ebdcff !important;
+}
+
+/* Override any conflicting styles */
+.btn.outline-hover,
+.rds-sidebar.collapsed .btn.outline-hover {
+  background: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.btn.outline-hover:hover,
+.rds-sidebar.collapsed .btn.outline-hover:hover {
+  background-color: #ebdcff !important;
+  border-color: #ebdcff !important;
+  color: #171515 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn.outline-hover:focus,
+.btn.outline-hover:focus-visible,
+.rds-sidebar.collapsed .btn.outline-hover:focus,
+.rds-sidebar.collapsed .btn.outline-hover:focus-visible {
+  border-color: #ebdcff !important;
+}
+ 
+/* Top section - New Chat button */
+.chat-input-container {
+  margin-top: 60px;
+  justify-content: center;
+  margin-right: -4px;
+  margin-left: -4px;
+}
+ 
+/* Cards for grouping nav items */
+.recents-dashboard {
+  background: #FFFFFF;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: -4px;
+  margin-right: -4px;
+}
+ 
+/* Container for each nav item */
+.dashboard {
+  padding: 0px 0;
+}
+ 
+/* Section headers */
+.section-header {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+ 
+/* Collapse/expand button positioning */
+.icon-wrapper {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+ 
+.rds-sidebar.collapsed .icon-wrapper {
+  left: 0;
+}
+ 
+/* Button styling adjustments */
+.btn.outline-hover {
+  min-width: 13.5rem  !important;
+  text-align: left;
+}
+ 
+.rds-sidebar.collapsed .btn.outline-hover {
+  min-width: 40px !important;
+  justify-content: center;
+}
+ 
+.btn.transparent-hover {
+  color: #353535 !important;
+  text-align: left;
+}
+ 
+/* Icons for specific buttons */
+/* .theme-light svg, .theme-dark #saas_chats svg {
+  stroke: none !important;
+} */
+ 
+/* Fix for recents icon */
+.icon-recents_icon, .icon-recent {
+  color: #007bff !important;
+  fill: #007bff !important;
+  stroke: none !important;
+}
+ 
+.recent-icon svg {
+  stroke: none !important;
+  fill: #007bff !important;
+}
+ 
+.btn-icon.btn-md {
+  padding: 0;
+  width: 32px !important;
+  height: 35px;
+}
+ 
+/* Remove text capitalization */
+.btn {
+  text-transform: none !important;
+}
+ 
+/* Ensure proper spacing in collapsed state */
+.rds-sidebar.collapsed .recents-dashboard .recents,
+.rds-sidebar.collapsed .recents-dashboard .dashboard,
+.rds-sidebar.collapsed .chat-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard .btn {
+  min-width :0rem !important;
+}
+.dashboard .btn-md svg{
+  stroke: none !important;
+}
+/* Hover effect for buttons */
+.dashboard .btn:hover,
+.rds-sidebar.collapsed .dashboard .btn:hover {
+  background-color: #ebdcff !important;
+  color: #4a4a4a;
+  border: 1px solid #ebdcff !important;
+  transition: all 0.3s ease;
+}
+
+/* Ensure proper alignment and visibility in collapsed state */
+.rds-sidebar.collapsed .dashboard .btn {
+  justify-content: center;
+  text-align: center;
+  min-width: 40px !important; /* Adjust button width for collapsed state */
+}
+
+/* Tooltip visibility in collapsed state */
+.rds-sidebar.collapsed .dashboard .btn:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.middle-section-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 500px) !important; /* Adjust as needed */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent; /* For Firefox */
+  border-radius: 7px !important; /* Add rounded corners similar to bottom section */
+ 
+}
+.middle-section-container::-webkit-scrollbar {
+  width: 10px; /* Scrollbar width */
+}
+ 
+.middle-section-container::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Scrollbar color */
+  border-radius: 4px; /* Rounded edges */
+}
+ 
+.middle-section-container::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+ 
+.middle-section-container{
+  min-width: 46px!important;
+  margin-left: -8px !important;
+  border-radius: 3px !important;
+  margin-right: -0.438rem;
+}
+ 
+.rds-sidebar.collapsed {
+  width: 10px; /* Collapsed width */
+}
+ 
+.rds-sidebar .collapsed-button {
+  justify-content: center;
+}
+ 
+.rds-sidebar .wide-button {
+  justify-content: flex-start;
+}
+
+/* New Chat button in collapsed state */
+.rds-sidebar.collapsed .chat-input-container button {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  padding: 8px !important;
+  margin: 4px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #ffffff !important;
+  border: 2px solid #DCF4F7 !important;
+  border-radius: 8px !important;
+  
+}
+
+.rds-sidebar.collapsed .chat-input-container button svg {
+  width: 20px !important;
+  height: 20px ;
+  stroke: #8B3DFF !important;
+  fill: none !important;
+}
+
+.rds-sidebar.collapsed .chat-input-container button:hover {
+  border-color: #8B3DFF !important;
+  background: #F8F2FF !important;
+  box-shadow: 0 0 0 2px rgba(139, 61, 255, 0.1) !important;
+}
+
+/* Regular state button */
+button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.btn.outline-hover.text-unset {
+  border: 1px solid #7825e9 !important;
+}
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+ .middle-section-container .dashboard .btn {
+  padding-left: 2px !important;
+}
+
+
+#side-bar-icons .dashboard .btn {
+  padding-left: 2px !important; 
+}
+
+.rds-sidebar .dashboard:hover{
+  background-color: #ebdcff !important;
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+}
+/* Sidebar styles */
+.rds-sidebar {
+  width: 240px;
+  transition: width 0.3s ease;
+}
+
+.rds-sidebar.collapsed {
+  width: 60px;
+}
+
+/* Collapse button styles */
+.icon-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rds-sidebar.collapsed .icon-wrapper {
+  justify-content: center;
+}
+
+/* Top section styles */
+.chat-input-container {
+  text-align: left;
+}
+
+.rds-sidebar.collapsed .chat-input-container {
+  text-align: center;
+}
+
+/* Middle section styles */
+.middle-section-container {
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.middle-section-container.hidden-scroll {
+  overflow-y: hidden;
+}
+
+.middle-section-group {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 200px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Bottom section styles */
+#side-bar-icons {
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rds-sidebar.collapsed #side-bar-icons {
+  text-align: center;
+}

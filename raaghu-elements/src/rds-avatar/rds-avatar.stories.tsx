@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import RdsAvatar from "./rds-avatar";
+import RdsAvatar, { AvatarSize, AvatarStyle, AvatarBorder} from "./rds-avatar";
 
-const colorVariantArgTypes = {};
 const textAlignArgTypes = {
   titleAlign: {
     options: ["horizontal", "vertical"],
@@ -10,62 +9,91 @@ const textAlignArgTypes = {
 };
 
 const meta: Meta = {
-  title: "Elements/Avatar",
-  component: RdsAvatar,
-  parameters: {
-    layout: "padded",
-  },
-  tags: ["autodocs"],
-  argTypes: {
-    colorVariant: {
-      options: [
-        "primary",
-        "success",
-        "danger",
-        "warning",
-        "light",
-        "info",
-        "secondary",
-        "dark",
-      ],
-      control: { type: "select" },
+    title: 'Elements/Avatar',
+    component: RdsAvatar,
+    parameters: {
+        layout: 'padded',
+        docs:{
+            source:{
+                transform: (code: string) => {
+                    code = code.replace(/"(smallest|small|medium|large|largest)"/g, '{AvatarSize.$1}');
+                    code = code.replace(/"(NoBorder|solid|dashed|dotted)"/g, '{AvatarBorder.$1}');
+                    code = code.replace(/"(withname|nameonbottom|stacking)"/g, '{AvatarStyle.$1}');
+                    return code;
+                },
+            },
+        }
     },
-    size: {
-      options: ["smallest", "small", "medium", "large", "largest"],
-      control: { type: "radio" },
+    tags: ['autodocs'],
+    argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
+            control: { type: "select" },
+        },
+        size: {
+            options: ["smallest","small", "medium", "large","largest"],
+            control: { type: "select" },
+        },
+        type: {
+            options: ["image", "initials","icon"],
+            control: { type: "select" },
+        },
+        border: {
+            options:["NoBorder","solid","dashed","dotted"],
+            control: { type: "select" }
+        },
+        style: {
+            options:["withname", "nameonbottom", "stacking"],
+            control: { type: "select" }
+        },
     },
-    type: {
-      options: ["image", "initials", "icon"],
-      control: { type: "select" },
-    },
-    border: {
-      options: ["NoBorder", "solid", "dashed", "dotted"],
-      control: { type: "select" },
-    },
-    verticallyAlligned: {
-      control: { type: "boolean" },
-    },
-    roundedAvatar: {
-      control: { type: "boolean" },
-    },
-    roundedPills: {
-      control: { type: "boolean" },
-    },
-    profileContentAlign: {
-      control: { type: "boolean" },
-    },
-    customClass: {
-      control: { type: "text" },
-    },
-    width: {
-      control: { type: "text" },
-    },
-  },
 } satisfies Meta<typeof RdsAvatar>;
 
 export default meta;
 type Story = StoryObj<typeof RdsAvatar>;
+const avatars = [
+    // Example avatars data
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',  },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+    { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
+];
+export const Default: Story = {
+    args: {
+        size: AvatarSize.medium,
+        type: "image",
+        //avtarWithName: true,
+        //isTitle: true,
+        style: AvatarStyle.withname,
+        activityRing : false,
+        activeDotTop: false,
+        activeDotBottom: false,
+        showName: false,
+        showNameDesignation: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        role: "Developer",
+        colorVariant: "primary",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        maxVisibleAvatars: 3,
+        avatars: avatars, 
+    }
+} satisfies Story;
 
+Default.parameters = { controls: { include: ['size', 'showName', 'showNameDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityRing','type'] } };
+
+/*
 export const Default: Story = {
   args: {
     size: "medium",
@@ -107,19 +135,19 @@ export const withIcon: Story = {
 withIcon.parameters = { controls: { include: ["size", "iconName", "border"] } };
 
 export const withLabel: Story = {
-  args: {
-    //colorVariant: "primary",
-    firstName: "Wai",
-    lastName: "Technologies",
-    avtarOnly: false,
-    avtarWithName: false,
-    nameOnBottom: false,
-    stackingAvatar: false,
-    size: "medium",
-    isTitle: true,
-    role: "Developer",
-    border: "NoBorder",
-  },
+    args: {
+        //colorVariant: "primary",
+        firstName: "Wai",
+        lastName: "Technologies",
+        avtarOnly: false,
+        //avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: false,
+        size: "medium",
+        isTitle: true,
+        role: "Developer",
+        border:"NoBorder"
+    }
 } satisfies Story;
 withLabel.parameters = {
   controls: {
@@ -130,21 +158,21 @@ withLabel.argTypes = colorVariantArgTypes;
 withLabel.argTypes = textAlignArgTypes;
 
 export const withProfile: Story = {
-  args: {
-    size: "small",
-    withProfilePic: true,
-    avtarOnly: false,
-    avtarWithName: false,
-    nameOnBottom: false,
-    stackingAvatar: false,
-    firstName: "Wai",
-    lastName: "Technologies",
-    role: "Developer",
-    //colorVariant: "primary",
-    border: "NoBorder",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-  },
+    args: {
+        size: "small",
+        withProfilePic: true,
+        avtarOnly: false,
+        //avtarWithName: false,
+        nameOnBottom: false,
+        stackingAvatar: false,
+        firstName: "Wai",
+        lastName: "Technologies",
+        role: "Developer",
+        //colorVariant: "primary",
+        border:"NoBorder",
+        profilePic:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    }
 } satisfies Story;
 withProfile.parameters = {
   controls: {
@@ -284,6 +312,5 @@ export const Stacking_Avatar_Only: Story = {
     avatars: avatars,
   },
 } satisfies Story;
-Stacking_Avatar_Only.parameters = {
-  controls: { include: ["size", "maxVisibleAvatars"] },
-};
+Stacking_Avatar_Only.parameters = { controls: { include: ['size', 'maxVisibleAvatars'] } };*/
+

@@ -3,17 +3,17 @@ import "./rds-comp-dialog.css";
 import { RdsButton, RdsIcon } from "../rds-elements";
 
 interface RdsCompDialogProps {
-  Size?: string;
-  Style?: string;
-  ShowDissmiss?: boolean;
-  ShowPrimary?: boolean;
-  ShowSecondary?: boolean;
-  Title?: string;
-  ShowTitle?: boolean;
-  Content?: string;
-  Icon?: string;
-  ColorVariant?: string;
-  ContentPosition?: string;
+  Size?: string; //Size of the dialog
+  Style?: string; //Style of the dialog
+  ShowDissmiss?: boolean; //Show or hide dismiss button
+  ShowPrimary?: boolean; //Show or hide primary button
+  ShowSecondary?: boolean; //Show or hide secondary button
+  Title?: string; //Title of the dialog
+  ShowTitle?: boolean; //Show or hide title
+  Content?: string; //Content of the dialog
+  Icon?: string; //Icon of the dialog
+  ColorVariant?: string; //Color variant of the dialog
+  ContentPosition?: string; //Position of the content
 }
 
 const RdsCompDialog = (props: RdsCompDialogProps) => {
@@ -37,7 +37,7 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
       case "large":
         return "col-12";
       case "small":
-        return "col-3";
+        return "col-sm-4 col-md-12 col-lg-6 col-xl-3";
       default:
         return "";
     }
@@ -79,9 +79,9 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (
       <RdsIcon
-        height="28px"
-        width="28px"
-        colorVariant={props.ColorVariant}
+        height="30px"
+        width="30px"
+        colorVariant="danger"
         name={props.Icon}
         fill={false}
         stroke={true}
@@ -124,6 +124,7 @@ const RdsCompDialog = (props: RdsCompDialogProps) => {
       size="small"
       databsdismiss="offcanvas"
       onClick={handleSave}
+      class="btnclr"
     ></RdsButton>
   )}
 </div>

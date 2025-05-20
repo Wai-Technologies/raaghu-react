@@ -3,7 +3,7 @@ import RdsPopularPage from "./rds-popular-page";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Popular-Page',
+    title: 'Components/Popular-Page',
     component: RdsPopularPage,
     parameters: {
         layout: 'padded',

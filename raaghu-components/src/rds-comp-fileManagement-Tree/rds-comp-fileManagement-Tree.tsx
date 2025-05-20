@@ -1,6 +1,8 @@
 import React, {useState } from "react";
 import { RdsButtonGroup } from "../rds-elements";
 import { RdsLabel } from "../rds-elements";
+import "./rds-comp-fileManagement-Tree.css";
+import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
 
 export interface FileManagementTree {
     id: string;
@@ -50,7 +52,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             label: (''),
             name: 'btnradio',
             checked: true,
-            icon: "plus",
+            icon: "plus_color",
             iconWidth: "14px",
             iconHeight: "14px",
             colorVariant: "light",
@@ -65,7 +67,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             label: (''),
             name: 'btnradio',
             checked: false,
-            icon: "pencil",
+            icon: "pencil_color",
             iconWidth: "14px",
             iconHeight: "14px",
             colorVariant: "light"
@@ -78,7 +80,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             label: (''),
             name: 'btnradio',
             checked: false,
-            icon: "move",
+            icon: "move_color",
             iconWidth: "14px",
             iconHeight: "14px",
             colorVariant: "light"
@@ -91,7 +93,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
             label: (''),
             name: 'btnradio',
             checked: false,
-            icon: "delete",
+            icon: "delete_color",
             iconWidth: "14px",
             iconHeight: "14px",
             colorVariant: "light"
@@ -131,14 +133,14 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                                     <RdsLabel
                                         onClick={handleClick(prop.item.id, prop.item.name)} />
                                 )}
-                                <span className=" ms-3 node-icon1 btn-group-size pb-0 "
+                                <span className="node-icon1 btn-group-size pb-0 "
                                     onClick={handleClick(prop.item.id, prop.item.name)}
                                 >
                                     <RdsButtonGroup
                                         buttonGroupItems={buttonGroupList}
                                         colorVariant="primary"
                                         isOutline={true}
-                                        role="button"
+                                        role={Role.Button}
                                         size="small"
                                         vertical={false}
                                         onButtonClick={(e:any, id:any) => handlerButtonGroupClick(e, id, prop.item.name)}
@@ -169,7 +171,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
     };
 
 
-    return <ul className="pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
+    return <ul className="file-tree pt-1 cursor-pointer pb-3">{renderDirectoryItems(props.items)}</ul>;
 };
 
 export default RdsCompFileManagementTree;

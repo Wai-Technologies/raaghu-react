@@ -62,7 +62,8 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
                     reset={inputReset}
                     inputType="email"
                     placeholder="Enter email"
-                    label="To"
+                    name="To"
+                    label={true}
                     onChange={(e) => handleDataChanges(e.target.value, "to")}
                     value={emailData?.to}
                     dataTestId="email"
@@ -71,7 +72,8 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
                     validationMsg={errorMessageForEmail}>
                 </RdsInput>
                 <RdsInput
-                    label="Subject"
+                    name="Subject"
+                    label={true}
                     reset={inputReset}
                     placeholder="Enter Subject"
                     onChange={(e) => handleDataChanges(e.target.value, "subject")}

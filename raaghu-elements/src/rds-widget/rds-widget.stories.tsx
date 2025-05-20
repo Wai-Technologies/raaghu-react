@@ -8,7 +8,7 @@ import RdsBigNumber from "../rds-big-number/rds-big-number";
 import { ScriptableContext } from "chart.js/auto";
 
 const meta: Meta = {
-    title: "Elements/Widget",
+    title: "Components/Widget",
     component: RdsWidget,
     tags: ['autodocs'],
     argTypes: {

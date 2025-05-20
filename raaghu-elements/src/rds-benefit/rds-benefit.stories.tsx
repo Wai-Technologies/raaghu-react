@@ -2,7 +2,7 @@ import RdsBenefit from "./rds-benefit";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Benefit',
+    title: 'Components/Benefits',
     component: RdsBenefit,
     parameters: {
         layout: 'padded',

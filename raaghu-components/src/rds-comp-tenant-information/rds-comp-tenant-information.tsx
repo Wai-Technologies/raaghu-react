@@ -222,7 +222,8 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     reset={inputReset}
                                     inputType="text"
                                     required={true}
-                                    label="Name"
+                                    name="Name"
+                                    label={true}
                                     value={tenantInformationData?.name}
                                     placeholder="Enter Tenant Name"
                                     onChange={(e) => {
@@ -259,9 +260,9 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         reset={inputReset}
                                         required={true}
                                         inputType="email"
-                                        label="Admin Email"
-                                        placeholder="Enter Email"
-                                        name="email"
+                                        name="Admin Email"
+                                        label={true}
+                                        placeholder="Enter Email"                                        
                                         value={tenantInformationData?.adminEmailAddress}
                                         id="email"
                                         onChange={(e: any) => {
@@ -277,10 +278,10 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 <RdsInput
                                 reset={inputReset}
                                 required={true}
-                                label="Password"
+                                name="Password"
+                                label={true}
                                 placeholder="Enter Password"
-                                inputType="password"
-                                name="adminPassword"
+                                inputType="password"                                
                                 id={(errors.adminPassword && tenantInformationData?.adminPassword) ? "passwordfield" : "adminPassword"}
                                 onBlur={() => setIsPasswordTouched(true)}
                                 value={tenantInformationData?.adminPassword}
@@ -339,7 +340,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                 <div className="row">
                                     <div className="col-md-12 mb-3">
                                         <RdsCheckbox
-                                            label="Use Module Specific Database Connection String"
+                                            labelText="Use Module Specific Database Connection String"
                                             checked={tenantInformationData?.isModuleSpecificDb}
                                             onChange={(e) => {
                                                 handleDataChanges(e.target.checked, "isModuleSpecificDb");
@@ -366,7 +367,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                         </div>
                     </div>
                     </div>
-                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+                    <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 px-4">
                        <RdsButton
                             class="me-2"
                             tooltipTitle={""}

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import RdsIcon from "../rds-icon";
 import "./rds-modal.css";
 
@@ -81,6 +81,44 @@ const RdsModal = (props: RdsModalProps) => {
             }
         });
     });
+
+    useEffect(() => {
+        const handleModalOpen = (event: Event) => {
+            // Close all currently open modals except the current one
+            const openModals = document.querySelectorAll(".modal.show");
+            openModals.forEach((modal) => {
+                if (modal.id !== props.modalId) {
+                    (modal as HTMLElement).classList.remove("show");
+                    (modal as HTMLElement).setAttribute("aria-hidden", "true");
+                    (modal as HTMLElement).setAttribute("style", "display: none;");
+                }
+            });
+    
+            // Remove any existing backdrops except for the current modal
+            const backdrops = document.querySelectorAll(".modal-backdrop");
+            if (props.modalId === "secondModalId") { // Replace "secondModalId" with the actual ID of the second modal
+                backdrops.forEach((backdrop) => backdrop.remove());
+            }
+        };
+    
+        // Attach the event listener to the modal trigger
+        const modalTrigger = document.querySelector(`[data-bs-target="#${props.modalId}"]`);
+        if (modalTrigger) {
+            modalTrigger.addEventListener("click", handleModalOpen);
+        }
+    
+        // Cleanup the event listener and remove backdrops on unmount
+        return () => {
+            if (modalTrigger) {
+                modalTrigger.removeEventListener("click", handleModalOpen);
+            }
+    
+            // Remove any existing backdrops when the component unmounts
+            const backdrops = document.querySelectorAll(".modal-backdrop");
+            backdrops.forEach((backdrop) => backdrop.remove());
+        };
+    }, [props.modalId]);
+
     return (
         <>
             {/* Button trigger modal */}
