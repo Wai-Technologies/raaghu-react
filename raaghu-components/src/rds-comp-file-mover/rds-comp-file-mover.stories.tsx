@@ -114,6 +114,8 @@ const sampleItems: FileItem[] = [
         id: "2.1",
         name: "Subfolder 2.1",
         hasChildren: false,
+        iconName:"folder",
+        iconFill: true,
       },
     ],
   },

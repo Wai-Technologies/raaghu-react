@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table/rds-comp-data-table";
+import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 export interface RdsCompEditionListProps {
   enablecheckboxselection?: boolean;
   tableHeaders: {
@@ -31,7 +31,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
   return (
     <div className="row">
       <RdsCompDatatable
-        actionPosition="right"
+        actionPosition={ActionPosition.Right}
         enablecheckboxselection={props.enablecheckboxselection}
         tableHeaders={props.tableHeaders}
         actions={props.actions}

@@ -54,7 +54,7 @@ function TreeNode(props: any) {
                         <div className={`${props.node ? `${props.node?.level === 0 ? " " : "horizontalPermi"}` : "" }`}></div>
                         {props.isLastNode && (<div className="verticallPermi"></div>)}
                             <RdsCheckbox
-                                label={props.node.label}
+                                labelText={props.node.label}
                                 checked={checked}
                                 onChange={handlerCheckbox} />
 

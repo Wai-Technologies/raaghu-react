@@ -21,7 +21,7 @@ const RdsCompFaq = (props: RdsCompFaqProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-8 scroll-notification">
+                    <div className="col-md-8 ">
                         <div className="mt-4">
                             {props.questionList.map((questionList) => (
                                 <>

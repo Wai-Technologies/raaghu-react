@@ -1,12 +1,13 @@
+
 import React, { useEffect, useState } from "react";
 import {
     RdsInput,
     RdsButton,
     RdsRadioButton,
     RdsCounter,
-    RdsDropdownList,
 } from "../rds-elements";
 import "./rds-comp-edition-information.css";
+
 export interface RdsCompEditionInformationProps {
     radioItems: any[];
     sizeDataWithDescription?: any[];
@@ -14,13 +15,13 @@ export interface RdsCompEditionInformationProps {
     edition?: any;
     reset?: boolean;
 }
+
 const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
     const [values, setValues] = useState(props.edition);
-    const [showEditionDropdown, setShowEditionDropdown] = useState(false);
-    const [radioItemList, setRadioItemList] = useState<any>([]);
     const [trialPeriodCounter, setTrialPeriodCounter] = useState(0);
     const [expiryNotificationCounter, setExpiryNotificationCounter] = useState(0);
     const [inputReset, setInputReset] = useState(false);
+    const [selectedGroupValues, setSelectedGroupValues] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
         setValues(props.edition);
@@ -28,8 +29,8 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 
     useEffect(() => {
         setInputReset(!inputReset);
-      }, [props.reset]);
-      
+    }, [props.reset]);
+
     const handleDataChanges = (event: any, key: string) => {
         if (key === 'trialPeriodCounter') {
             setTrialPeriodCounter(event);
@@ -40,164 +41,170 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
         }
     };
 
+    const handleRadioChange = (event: any, groupId: string) => {
+        const selectedValue = event.target.value;
+        setSelectedGroupValues(prev => ({
+            ...prev,
+            [groupId]: selectedValue
+        }));
+    };
+
+    const getRadioGroups = () => {
+        return props.radioItems?.map((group) => ({
+            ...group,
+            itemList: group.itemList.map((item: any) => ({
+                ...item,
+                checked: selectedGroupValues[group.id] === item.label,
+                name: `radio_group_${group.id}`
+            }))
+        }));
+    };
+
     function emitSaveData(event: any) {
         event.preventDefault();
-        props.onSaveHandler && props.onSaveHandler({ ...values, trialPeriodCounter, expiryNotificationCounter });
-        setInputReset(!inputReset);
+        props.onSaveHandler && props.onSaveHandler({
+            ...values,
+            trialPeriodCounter,
+            expiryNotificationCounter,
+            selectedOptions: selectedGroupValues
+        });
+
+        // Reset form
         setValues({
             editionName: "",
             annualPrice: "",
         });
         setTrialPeriodCounter(0);
         setExpiryNotificationCounter(0);
-        setRadioItemList([{ label: "First Bill Date", inline: true, id: 1, itemList: [{ id: 1, label: "Immediately", checked: true, name: "radio_button" }, { id: 2, label: "After Trial Period", checked: false, name: "radio_button" }] }, { label: "After Subscription Expiry", id: 2, inline: true, itemList: [{ id: 1, label: "Deactivate Tenant", checked: true, name: "radio_button" }, { id: 2, label: "Delete Tenant", checked: false, name: "radio_button" }] }]);
-    };
-    const editionDropdownListItems = [
-        {
-            label: "Standard",
-            val: "en",
-        },
-        {
-            label: "Basic",
-            val: "en",
-        },
-        {
-            label: "Premium",
-            val: "en",
-        },
-        {
-            label: "Professional",
-            val: "en",
-        },
-    ];
-    useEffect(() => {
-        setRadioItemList(props.radioItems)
-    }, [props.radioItems]);
+        setSelectedGroupValues({});
+        setInputReset(!inputReset);
+    }
 
-    function handleOptionSelection(event: any) {
-        const updatedRadioItems = radioItemList?.map((item: any) => ({
-            ...item,
-            checked: item.id == event.target.id,
-        }));
-        setRadioItemList(updatedRadioItems);
-    }
     const isEditionNameValid = (editionName: any) => {
-        if (!editionName || editionName.length === 0) {
-            return false;
-        }
-        return true;
-    }
+        return editionName && editionName.length > 0;
+    };
+
     const isAnnualPriceValid = (annualPrice: any) => {
-        if (!annualPrice || annualPrice.length === 0) {
-            return false;
-        }
-        return true;
-    }
-const isFormValid=isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
+        return annualPrice && annualPrice.length > 0;
+    };
+
+    const isFormValid = isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
+
     return (
         <>
-            <div className="py-4">
+            <div className="py-4 edition-information-container">
                 <form>
                     <div className="row px-2">
                         <div className="col-md-6 my-3">
                             <RdsInput
-                                label={"Edition Name"}
+                                name={"Edition Name"}
+                                label={true}
                                 required={true}
                                 placeholder="Edition Name"
                                 inputType="text"
                                 value={values?.editionName}
                                 onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
-                                name={"editionName"}
                                 dataTestId="edition-name"
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
                         <div className="col-md-6 my-3">
                             <RdsInput
-                                label="Annual Price"
+                                 name="Annual Price"
+                                 label={true}
                                 required={true}
                                 placeholder="Annual Price"
                                 inputType="number"
                                 value={values?.annualPrice}
                                 onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
-                                name={"annualPrice"}
                                 dataTestId="annual-price"
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
                     </div>
                     <div className="row px-2">
-                        <div className="col-md-6 px-2 my-3 ">
+                        <div className="col-md-6 px-3 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
                                 counterValue={trialPeriodCounter}
                                 label="Trial Period"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
-                        <div className=" col-md-6 px-2 my-3">
+                        <div className=" col-md-6 px-3 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
                                 counterValue={expiryNotificationCounter}
                                 label="Expiry Notification Interval"
                                 min={0}
                                 max={50}
-                                width={125}
+                                width={200}
+                                type="Default"
                                 colorVariant="primary"
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
                             />
                         </div>
                     </div>
 
-                    <div className="row mb-3 px-2">
-                        <div className="col-md-8">
-                            <div className="form-group mt-2">
-                                <form>
-                                    <RdsRadioButton
-                                        displayType="Horizontal"
-                                        label=""
-                                        itemList={radioItemList}
-                                        onClick={handleOptionSelection}
-                                        onChange={(e: any) => handleDataChanges(e.target.value, "radioItemList")} value={""}                                    ></RdsRadioButton>
-                                </form>
+                <div className="row mb-3 px-2">
+                    <div className="col-md-12">
+                        {props.radioItems?.map((group, index) => (
+                            <div key={group.id} className="radio-group mb-3">
+                                <label className="radio-group-label mb-2">{group.label}</label>
+                                <div className="d-flex gap-4">
+                                    {group.itemList.map((item: any) => (
+                                        <div key={item.id} className="form-check">
+                                            <input
+                                                type="radio"
+                                                className="form-check-input radio-toggle-switch"
+                                                id={`${group.id}_${item.id}`}
+                                                name={`radio_group_${group.id}`}
+                                                value={item.label}
+                                                checked={selectedGroupValues[group.id] === item.label}
+                                                onChange={(e) => handleRadioChange(e, group.id)}
+                                            />
+                                            <label className="form-check-label" htmlFor={`${group.id}_${item.id}`}>
+                                                {item.label}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
+                </div>
 
-                    {showEditionDropdown && <div className="w-50">
-
-                        <RdsDropdownList listItems={editionDropdownListItems} borderDropdown={true} />
-                    </div>}
-                    <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2">
-                        <RdsButton
-                            class="me-2"
-                            tooltipTitle={""}
-                            type={"button"}
-                            label="Cancel"
-                            colorVariant="outline-primary"
-                            size="small"
-                            databsdismiss="offcanvas"
-                            dataTestId="cancel"
-                        ></RdsButton>
-                        <RdsButton
-                            class="me-2"
-                            label="Save"
-                            size="small"
-                            colorVariant="primary"
-                            tooltipTitle={""}
-                            type={"submit"}
-                            databsdismiss="offcanvas"
-                            isDisabled={!isFormValid}
-                            dataTestId="save"
-                            onClick={(e: any) => emitSaveData(e)}
-                        ></RdsButton>
-                    </div>
-                </form>
-            </div>
+                <div className="mt-3 d-flex pb-3 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons p-4 gap-2">
+                    <RdsButton
+                        class="me-2"
+                        tooltipTitle={""}
+                        type={"button"}
+                        label="Cancel"
+                        colorVariant="outline-primary"
+                        size="small"
+                        databsdismiss="offcanvas"
+                        dataTestId="cancel"
+                    />
+                    <RdsButton
+                        class="me-2"
+                        label="Save"
+                        size="small"
+                        colorVariant="primary"
+                        tooltipTitle={""}
+                        type={"submit"}
+                        databsdismiss="offcanvas"
+                        isDisabled={!isFormValid}
+                        dataTestId="save"
+                        onClick={(e: any) => emitSaveData(e)}
+                    />
+                </div>
+            </form>
+        </div>
         </>
     );
 };

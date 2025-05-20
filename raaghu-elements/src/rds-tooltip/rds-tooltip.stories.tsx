@@ -1,5 +1,5 @@
 import React from "react";
-import Tooltip from "./rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "./rds-tooltip";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -7,12 +7,21 @@ const meta: Meta = {
     component: Tooltip,
     parameters: {
         layout: 'centered',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(NoArrow|MiddleBottomArrow|MiddleTopArrow|LeftArrow|RightArrow|LeftTopArrow|RightTopArrow|LeftBottomArrow|RightBottomArrow)"/g, '{TooltipStyle.$1}');
+                    code = code.replace(/"(hover|click|focus|manual)"/g, '{TooltipTrigger.$1}');
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
-        place: {
-            options: ["top", "bottom", "right", "left"],
-            control: { type: "radio" },
+        style: {
+            options: ["NoArrow", "MiddleTopArrow", "MiddleBottomArrow", "LeftArrow", "LeftTopArrow", "LeftBottomArrow", "RightArrow", "RightTopArrow", "RightBottomArrow"],
+            control: { type: "select" },
         },
     },
 } satisfies Meta<typeof Tooltip>;
@@ -20,12 +29,11 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-export const tooltip: Story = {
+export const Default: Story = {
     args: {
-        text: "This is tooltip",
-        place: "right",
-        children: <button className="btn btn-primary" >Button</button>
+        label: "This is tooltip",
+        style: TooltipStyle.RightArrow,
+        children: <button className="btn btn-primary">Button</button>
     }
 } satisfies Story;
-tooltip.parameters = { controls: { include: ['text', 'place', 'children'] } };
-
+Default.parameters = { controls: { include: ['label', 'style'] } };

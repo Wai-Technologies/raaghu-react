@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './rds-time-picker.css';
 import RdsIcon from '../rds-icon/rds-icon';
+import RdsSelectList from '../rds-select-list';
 
 export interface RdsTimePickerProps {
   style?: string;
@@ -30,9 +31,9 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
     else {
       setShowPicker(false);
       setTime('');
-
     }
   }, [props.state]);
+
   const handleSetTime = () => {
     setTime(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`);
     setShowPicker(false);
@@ -62,195 +63,243 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
   const togglePeriod = () => {
     setPeriod((prevPeriod) => (prevPeriod === 'AM' ? 'PM' : 'AM'));
   };
+
   const setCurrentTime = () => {
-        const now = new Date();
-        let currentHours = now.getHours();
-        const currentMinutes = now.getMinutes();
-        const currentPeriod = currentHours >= 12 ? 'PM' : 'AM';
-    
-        if (currentHours > 12) {
-          currentHours -= 12;
-        } else if (currentHours === 0) {
-          currentHours = 12;
-        }
-    
-        setHours(currentHours);
-        setMinutes(currentMinutes);
-        setPeriod(currentPeriod);
-        setTime(`${String(currentHours).padStart(2, '0')}:${String(currentMinutes).padStart(2, '0')} ${currentPeriod}`);
+    const now = new Date();
+    let currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentPeriod = currentHours >= 12 ? 'PM' : 'AM';
+
+    if (currentHours > 12) {
+      currentHours -= 12;
+    } else if (currentHours === 0) {
+      currentHours = 12;
+    }
+
+    setHours(currentHours);
+    setMinutes(currentMinutes);
+    setPeriod(currentPeriod);
+    setTime(`${String(currentHours).padStart(2, '0')}:${String(currentMinutes).padStart(2, '0')} ${currentPeriod}`);
+  };
+
+  const getButtonClasses = () => {
+    const variant = props.colorVariant || 'primary';
+    if (variant === 'light') {
+      return {
+        setTime: 'set-time bg-light text-dark',
+        cancel: 'cancel border-none text-dark'
       };
+    }
+    return {
+      setTime: `set-time bg-${variant} text-white`,
+      cancel: `cancel border-none text-${variant}`
+    };
+  };
+
+  const getInputBorderClass = () => {
+    const variant = props.colorVariant || 'primary';
+    return variant === 'light' ? 'border-dark' : `border-${variant}`;
+  };
+
+  const getIconColor = () => {
+    const variant = props.colorVariant || 'primary';
+    return variant === 'light' ? 'dark' : variant;
+  };
+
+  const getTextColor = () => {
+    const variant = props.colorVariant || 'primary';
+    return variant === 'light' ? 'dark' : variant;
+  };
 
   return (
     <div className="time-picker-container">
-      <div className="time-input-container">
+      <div className="time-input-container" onClick={togglePicker}>
         <input
           type="text"
-          className={`time-input border-${props.colorVariant}`}
+          className={`time-input ${getInputBorderClass()}`}
           value={time}
           readOnly
-          placeholder='12:00 AM'
+          placeholder="12:00 AM"
         />
-       <span  className="time-icon"   onClick={togglePicker}>
-       <RdsIcon
-          name="clock"
-          height="16px"
-          width="16px"
-          colorVariant={`${props.colorVariant}`}
-         
-        />
-       </span>
+        <span className="time-icon">
+          <RdsIcon
+            name="clock"
+            height="16px"
+            width="16px"
+            colorVariant={getIconColor()}
+            stroke={true}
+          />
+        </span>
       </div>
+
       {showPicker && (
-        <div className={`time-picker ${props.style === 'compact'? "time-picker-compact" :"time-picker" } border-${props.colorVariant }`}>
-        <div className="row d-flex align-items-center justify-content-between">
-          <div  className={`time-display ${props.style === 'compact'? "time-display-compact" :"time-display" }`} >
-            {time ? time : '12:00 AM'}
+        <div className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass()}`}>
+          <div className="row d-flex align-items-center justify-content-between">
+            <div className={`time-display ${props.style === 'compact' ? "time-display-compact" : "time-display"}`}>
+              {time ? time : '12:00 AM'}
+            </div>
+            <div className={`now-button text-${getTextColor()}`} onClick={setCurrentTime}>
+              NOW
+            </div>
           </div>
-          <div className={`now-button text-${props.colorVariant}`} onClick={setCurrentTime}>
-            NOW
+          <div className={`row time-controls-row ${props.style == 'compact' ? 'time-controls-row-compact' : 'time-controls-row'}`}>
+            {props.style === 'compact' ? (
+              <>
+               <div className="time-controls">
+  <RdsSelectList
+    color="primary"
+    id="hours-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setHours(parseInt(selected.value))}
+    placeholder="HH"
+    selectItems={Array.from({ length: 12 }, (_, i) => {
+      const hour = i + 1;
+      return {
+        option: String(hour).padStart(2, '0'),
+        value: hour.toString()
+      };
+    })}
+    selectedValue={hours.toString()}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
+<div className="time-controls dropdown-height">
+  <RdsSelectList
+    color="primary"
+    id="minutes-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setMinutes(parseInt(selected.value))}
+    placeholder="MM"
+    selectItems={Array.from({ length: 60 }, (_, i) => ({
+      option: String(i).padStart(2, '0'),
+      value: i.toString()
+    }))}
+    selectedValue={minutes.toString()}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
+<div className="time-controls">
+  <RdsSelectList
+    color="primary"
+    id="period-select"
+    isSearchable={false}
+    label=""
+    onChange={(selected) => setPeriod(selected.value)}
+    placeholder="AM/PM"
+    selectItems={[
+      { option: 'AM', value: 'AM' },
+      { option: 'PM', value: 'PM' }
+    ]}
+    selectedValue={period}
+    classes={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'} select-height`}
+    showLabel={false}
+  />
+</div>
+
+              </>
+            ) : (
+              <>
+                <div className="time-controls">
+                  <div className="arrow" onClick={incrementHours}>
+                    <RdsIcon
+                      name="chevron_up_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                  <input
+                    type="number"
+                    className={`number text-${getTextColor()}`}
+                    value={String(hours).padStart(2, '0')}
+                    readOnly
+                  />
+                  <div className="arrow" onClick={decrementHours}>
+                    <RdsIcon
+                      name="chevron_down_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                </div>
+                <div className="time-controls">
+                  <div className="arrow" onClick={incrementMinutes}>
+                    <RdsIcon
+                      name="chevron_up_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                  <input
+                    type="number"
+                    className={`number text-${getTextColor()}`}
+                    value={String(minutes).padStart(2, '0')}
+                    readOnly
+                  />
+                  <div className="arrow" onClick={decrementMinutes}>
+                    <RdsIcon
+                      name="chevron_down_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                </div>
+                <div className="time-controls">
+                  <div className="arrow" onClick={togglePeriod}>
+                    <RdsIcon
+                      name="chevron_up_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    className={`text-${getTextColor()}`}
+                    value={period}
+                    readOnly
+                  />
+                  <div className="arrow" onClick={togglePeriod}>
+                    <RdsIcon
+                      name="chevron_down_outline"
+                      height="14px"
+                      width="14px"
+                      colorVariant={getIconColor()}
+                      fill={false}
+                      stroke={true}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className={`buttons ${props.style == "compact" ? "buttons-compact" : "buttons"}`}>
+            <button className={getButtonClasses().cancel} onClick={handleCancel}>Cancel</button>
+            <button className={getButtonClasses().setTime} onClick={handleSetTime}>Set Time</button>
           </div>
         </div>
-        <div className={`row time-controls-row ${props.style=='compact'?'time-controls-row-compact' :'time-controls-row'}`}>
-          {props.style === 'compact' ? (
-            <>
-              <div className="time-controls">
-                <select
-                  className={`number  ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                  value={hours}
-                  onChange={(e) => setHours(parseInt(e.target.value))}
-                >
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                    <option key={hour} value={hour}>
-                      {String(hour).padStart(2, '0')}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="time-controls">
-                <select
-                    className={`number  ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                  value={minutes}
-                  onChange={(e) => setMinutes(parseInt(e.target.value))}
-                >
- 
-                  {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
-                    <>
-                
-                    <option key={minute} value={minute}>
-                      {String(minute).padStart(2, '0')}
-                    </option>
-                    </>
-                  ))}
-                </select>
-              </div>
-              <div className="time-controls">
-                <select
-                  className={`number ${props.style === 'compact' ? 'numberCompact text-muted' : 'number'}`}
-                  value={period}
-                  onChange={(e) => setPeriod(e.target.value)}
-                >
-                  <option value="AM">AM</option>
-                  <option value="PM">PM</option>
-                </select>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="time-controls">
-                <div className="arrow" onClick={incrementHours}>
-                 <RdsIcon
-                    name="chevron_up_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-                <input
-                  type="number"
-                  className={`number text-${props.colorVariant}`}
-                  value={String(hours).padStart(2, '0')}
-                  readOnly
-                />
-                <div className="arrow" onClick={decrementHours}>
-                <RdsIcon
-                    name="chevron_down_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-              </div>
-              <div className="time-controls">
-                <div className="arrow" onClick={incrementMinutes}>
-                <RdsIcon
-                    name="chevron_up_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-                <input
-                  type="number"
-                  className={`number text-${props.colorVariant}`}
-                  value={String(minutes).padStart(2, '0')}
-                  readOnly
-                />
-                <div className="arrow" onClick={decrementMinutes}>
-                <RdsIcon
-                    name="chevron_down_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-              </div>
-              <div className="time-controls">
-                <div className="arrow" onClick={togglePeriod}>
-                <RdsIcon
-                    name="chevron_up_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-                <input
-                  type="text"
-                  className={`text-${props.colorVariant}`}
-                  value={period}
-                  readOnly
-                />
-                <div className="arrow" onClick={togglePeriod}>
-                  <RdsIcon
-                    name="chevron_down_outline"
-                    height="14px"
-                    width="14px"
-                    colorVariant={`${props.colorVariant}`}
-                    fill={false}
-                    stroke={true}
-                  />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-        <div className={`buttons ${props.style=="compact"? "buttons-compact":"buttons"}`}>
-            <button className={`cancel border-none text-${props.colorVariant}`} onClick={handleCancel}>Cancel</button>
-            <button className={`set-time bg-${props.colorVariant}`} onClick={handleSetTime}>Set Time</button>
-        </div>
-      </div>
-    )}
-  </div>
-);
-};      
+      )}
+    </div>
+  );
+};
 
 export default RdsTimePicker;

@@ -8,8 +8,10 @@
     "jsx": "react",
     "module": "esnext",
     "declaration": true,
-   // "declarationDir": "dist",
-     "declarationDir": "dist/types", // Change the declaration directory to 'dist'
+    "declarationDir": "dist",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    //  "declarationDir": "dist/types", // Change the declaration directory to 'dist'
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",

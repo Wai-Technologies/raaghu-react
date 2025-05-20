@@ -136,6 +136,8 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                                     rows={2}
                                     value={connectionStrings?.default}
                                     dataTestId="data"
+                                    validationPattern={/^(ftp|http|https):\/\/[a-zA-Z\d-]+\.[\s\S]+$/}                              
+                                    validationMsg="Please enter valid database url"
                                  />
                               </div>
                            </div>
@@ -143,7 +145,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                         <div className="row">
                            <div className="col-md-12 mb-3">
                               <RdsCheckbox
-                                 label="Use Module Specific Database Connection String"
+                                 labelText="Use Module Specific Database Connection String"
                                  checked={isModuleSpecificDb}
                                  onChange={checkboxHandler}
                               ></RdsCheckbox>

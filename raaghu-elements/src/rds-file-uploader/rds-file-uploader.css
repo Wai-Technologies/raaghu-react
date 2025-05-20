@@ -57,7 +57,7 @@
   border-radius: 4px;
   height: 64px;
   margin: 0px !important;
-  background-color: #f3ebfe;
+  background-color: #7825E9 !important;
   margin-bottom: 20px !important;
 }
 
@@ -67,7 +67,7 @@
   height: 44px;
   align-items: center;
   display: flex;
-  background-color: #ebf0ff;
+  background-color: #7825E9!important;
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -134,7 +134,7 @@
 }
 
 .small-placeholder {
-  font-size: 12px; 
+  font-size: 13px; 
 }
 .deleteOptionCss{
     display: flex;
@@ -145,11 +145,35 @@
   font-size: 12px !important;
 }
 .custom-file-button-rounded{
-  border-radius: 50%;
+  border-radius: 50%!important;
 }
 .hint-left{
     justify-content:left;
 }
 .hint-right {
     justify-content: right;
+}
+
+@media (max-width: 480px) {
+  .upload-btn {
+    padding: 4px 8px; 
+    font-size: 10px !important; 
+  }
+
+  .file-name {
+    font-size: 13px !important; 
+  }
+}
+.custom-file-button {
+  display: flex !important;
+  justify-content: center !important;
+  width: 105px!important;
+  cursor: pointer!important;
+  line-height: 21px!important;
+}
+.chosenFileSpan {
+  width: 25rem;
+}
+.upload-icon {
+ stroke: none !important;
 }

@@ -67,11 +67,10 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
                         ></RdsLabel>
                     </h2>
                     <RdsCarousel
-                        role="advanced"
                         crossFade={true}
                         Indicators={true}
                         controls={true}
-                        carouselItems={props.carousalItem} IndicatorType="Line"></RdsCarousel>
+                        carouselItems={props.carousalItem} type="Line"></RdsCarousel>
                 </div>
             )}
         </>

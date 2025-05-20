@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Icons } from "./Icons";
 import { Flags } from "./flag-icons";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import Lottie from "react-lottie-player";
 
@@ -185,16 +185,15 @@ const RdsIcon = (props: RdsIconProps) => {
     setIsHovered(false);
   };
 
-  const className = `${props.isCursorPointer ? "cursor-pointer" : ""} ${
-    props.classes
-  }`;
+  const className = `${props.isCursorPointer ? "cursor-pointer" : ""} ${props.classes
+    }`;
 
   return (
     <>
       {props.type === "lottie" && (
         <>
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               <div
                 id={props.id}
                 data-testid={props.dataTestId}
@@ -255,7 +254,7 @@ const RdsIcon = (props: RdsIconProps) => {
       {props.type !== "lottie" && (
         <>
           {props.tooltip ? (
-            <Tooltip text={props.tooltipTitle} place={props.tooltipPlacement}>
+            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               {props.imageUrl ? (
                 <img
                   src={props.imageUrl}
@@ -268,17 +267,17 @@ const RdsIcon = (props: RdsIconProps) => {
                 />
               ) : (
                 <span
-                className={className}
-                onClick={props.onClick}
-                dangerouslySetInnerHTML={{ __html: stringData }}
-                role="img"
-                id={props.id}
-                data-testid={props.dataTestId}
-                data-bs-dismiss={props.databsdismiss}
-                data-bs-target={props.databstarget}
-                data-bs-toggle={props.databstoggle}
-                aria-controls={props.ariacontrols}
-              ></span>
+                  className={className}
+                  onClick={props.onClick}
+                  dangerouslySetInnerHTML={{ __html: stringData }}
+                  role="img"
+                  id={props.id}
+                  data-testid={props.dataTestId}
+                  data-bs-dismiss={props.databsdismiss}
+                  data-bs-target={props.databstarget}
+                  data-bs-toggle={props.databstoggle}
+                  aria-controls={props.ariacontrols}
+                ></span>
               )}
             </Tooltip>
           ) : (

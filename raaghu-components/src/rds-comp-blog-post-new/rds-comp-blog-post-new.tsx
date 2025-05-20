@@ -10,7 +10,9 @@ import {
 import { RdsFileUploader } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { content } from "html2canvas/dist/types/css/property-descriptors/content";
-
+import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { FileUploaderState } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -111,11 +113,13 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
         <form>
           <div className="custom-content-scroll">
             <div className="form-group mb-3">
+            <RdsLabel label="Cover Image" />
               <RdsFileUploader
                 key={counter}
                 colorVariant="dark"
+                state={FileUploaderState.Default}
                 extensions="png, jpg, doc, pdf, ppt"
-                size="large"
+                size={Size.Large}
                 fileSizeLimitInMb={1}
                 label="Cover Image"
                 validation={[
@@ -129,10 +133,11 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 }
               />
             </div>
-            <div className="form-group mb-3">
-              <RdsLabel label="Blog Id" />
+            <div className="form-group mb-2">
+
               <RdsSelectList
                 id="Fea"
+                label="Blog Id"
                 placeholder="Select Option"
                 selectItems={props.blogList}
                 isSearchable={true}
@@ -147,12 +152,12 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             <div className="form-group">
               <RdsInput
                 inputType="text"
-                size="medium"
+                size={InputSize.Medium}   
                 required={true}
-                isDisabled={false}
-                label="Title"
+                isDisabled={false}                
+                label={true}
                 readonly={false}
-                name="title"
+                name="Title"
                 placeholder="Enter Title"
                 onChange={(e) => {
                   handlerBlogDataChange(e.target.value, "title");
@@ -166,8 +171,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Slug"
-                name="slug"
+               // label="Slug"
+                label={true}
+                name="Slug"
                 placeholder="Enter Slug"
                 dataTestId="slug"
                 onChange={(e) => {
@@ -182,8 +188,9 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 <RdsInput
                   inputType="text"
                   required={true}
-                  label="Concurrency Stamp"
-                  name="concurrentMode"
+                  //name="Concurrency Stamp"
+                  label={true}
+                  name="Concurrent Mode"
                   placeholder=""
                   onChange={(e) => {
                     handlerBlogDataChange(e.target.value, "concurrencyStamp");
@@ -211,11 +218,12 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                 onChange={(e: any) => handlerBlogDataChange(e, "content")}
               />
             </div>
-            <div className="form-group mb-5 mb-lg-0">
+            <div className="form-group mb-5 mb-lg-0 py-1">
               <RdsInput
                 inputType="text"
                 required={true}
-                label="Tags"
+                name="Tags"
+                label={true}
                 placeholder="Enter Tag"
                 dataTestId="tag"
                 onChange={(e) => {
@@ -227,7 +235,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             </div>
           </div>
 
-          <div className="d-flex flex-column-reverse flex-lg-row ps-4 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+          <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 px-4">
             {!props.isEdit ? (
               <>
                 <RdsButton

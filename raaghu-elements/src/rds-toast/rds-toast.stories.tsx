@@ -1,4 +1,4 @@
-import RdsToast from "./rds-toast";
+import RdsToast, {ToastLayout, ToastState, ToastPosition, ToastLeadingIcon} from "./rds-toast";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -7,22 +7,48 @@ const meta: Meta = {
     component: RdsToast,
     parameters: {
         layout: "padded",
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state:ToastState ${p1.replace(/\s+/g, "")}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout:ToastLayout ${p1.replace(/\s+/g, "")}`);
+                    //Transform leadingIcon enum - remove spaces and transform
+                    code = code.replace(/leadingIcon="([^"]+)"/g, (match, p1) => `leadingIcon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/leadingIcon:\s*"([^"]+)"/g, (match, p1) => `leadingIcon:ToastLeadingIcon ${p1.replace(/\s+/g, "")}`);
+                    //Transform position enum - remove spaces and transform
+                    code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ToastPosition.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position:ToastPosition ${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ["autodocs"],
     argTypes: {
         state: {
-            options: ["basic", "info", "success", "error"], control: {type: "select"},},
+            options: ["basic", "info", "success", "error"], control: { type: "select" },
+        },
+        layout: {
+            options: ["text", "download", "chat", "request"], control: { type: "select" },
+        },
+        leadingIcon: {
+            options: ["circle", "plus"], control: { type: "select" },
+        },
         position: {
             options: [
-              "top left", 
-              "top center", 
-              "top right", 
-              "middle left", 
-              "middle center", 
-              "middle right", 
-              "bottom left",
-              "bottom center",
-              "bottom right",
+                "topLeft",
+                "topCenter",
+                "topRight",
+                "middleLeft",
+                "middleCenter",
+                "middleRight",
+                "bottomLeft",
+                "bottomCenter",
+                "bottomRight",
             ],
             control: { type: "select" },
         }
@@ -32,76 +58,24 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsToast>;
 
-
 export const Default: Story = {
     args: {
-        state: "basic",
-        headerTitle: "Toast Headline",
-        message: "This is a big sample placeholder text.",
-        delay: 5000,
-        autohide: false,    
+        state: ToastState.Basic,
+        headerText: "Toast Headline",
+        showSubText: true,
+        subText: "This is a big sample placeholder text.",
         colorVariant: "light",
         showHeader: true,
-        withIcon: true,
-        iconName: "circle",
+        showLeading: true,
+        leadingIcon: ToastLeadingIcon.Circle,
         borderColor: "primary",
-        layout : "text",
-        position:"top left"
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName","position"] } };
-
-export const toastWithDownload: Story = {
-    args: {
-        state: "basic",
-        headerTitle: "Toast Headline",
-        message: "This is a help text",
-        delay: 5000,
-        autohide: false,    
-        colorVariant: "light",
-        showHeader: true,
-        withIcon: true,
-        iconName: "circle",
-        borderColor: "primary",
-        layout : "download",
+        layout: ToastLayout.Text,
+        position: ToastPosition.TopLeft,
         progressWidth: 40,
-        filename: "Filename.txt"
+        filename: "Filename.txt",
+        placeholder: "Placeholder Text",
+        showDismiss: true,
+        chatTime: "12.29 PM"
     }
 } satisfies Story;
-toastWithDownload.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "progressWidth", "filename"] } };
-
-export const toastWithChat: Story = {
-    args: {
-        state: "basic",
-        headerTitle: "Toast Headline",
-        message: "This is a help text",
-        delay: 5000,
-        autohide: false,    
-        colorVariant: "light",
-        showHeader: true,
-        withIcon: true,
-        iconName: "circle",
-        borderColor: "primary",
-        layout : "chat",
-        placeholder: "Placeholder Text"
-    }
-} satisfies Story;
-toastWithChat.parameters = { controls: { include: ["state","headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName", "placeholder"] } };
-
-export const toastWithRequest: Story = {
-    args: {
-                state: "basic",
-        headerTitle: "Toast Headline",
-        message: "This is a big sample placeholder text.",
-        delay: 5000,
-        autohide: false,    
-        colorVariant: "light",
-        showHeader: true,
-        withIcon: true,
-        iconName: "circle",
-        borderColor: "primary",
-        layout : "request",
-
-    }
-} satisfies Story;
-toastWithRequest.parameters = { controls: { include: ["state", "headerTitle", "message", "delay", "autohide", "withIcon", "showHeader", "iconName"] } };
+Default.parameters = { controls: { include: ["layout", "state", "headerText", "showSubText", "subText", "showHeader", "showDismiss", "leadingIcon", "showLeading"] } };

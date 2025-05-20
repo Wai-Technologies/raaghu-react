@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsInput, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsInput, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompFormsBasicProps {
@@ -31,6 +31,17 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
         setInputReset(!inputReset);
     }, [props.basicInfo]);
 
+    function emitSaveData(event: any) {
+        event.preventDefault();
+        props.handleNewFormData(basicFormData);
+        setInputReset(!inputReset);
+        setBasicFormData({
+            id: "",
+            title: "",
+            description: ""
+        })
+    }
+
     return (
         <>
             <form>
@@ -39,12 +50,12 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                         <div className="row">
                             <div className="col-12">
                                 <RdsInput
-                                    label="Title"
+                                    name="Title"
+                                    label={true}
                                     placeholder="Enter title"
                                     inputType="text"
                                     onChange={(e) => setTitle(e.target.value)}
-                                    value={basicFormData?.title}
-                                    name={"title"}
+                                    value={basicFormData?.title}                                   
                                     required={true}
                                     dataTestId="title"
                                     reset={inputReset}
@@ -67,12 +78,12 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                     <div className="row">
                         <div className="col-12">
                             <RdsInput
-                                label="Title"
+                                name="Title"
+                                label={true}
                                 placeholder="Enter title"
                                 inputType="text"
                                 onChange={(e) => setTitle(e.target.value)}
-                                value={basicFormData?.title}
-                                name={"title"}
+                                value={basicFormData?.title}                               
                                 required={true}
                                 dataTestId="title"
                                 reset={inputReset}
@@ -89,6 +100,29 @@ const RdsCompFormsBasic = (props: RdsCompFormsBasicProps) => {
                             rows={3}
                             dataTestId="description"
                         />
+                    </div>
+                    <div className="d-flex flex-column-reverse ps-3 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+                        <RdsButton
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"
+                        ></RdsButton>
+                        <RdsButton
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            onClick={(e: any) => emitSaveData(e)}
+                            dataTestId="save"
+                        ></RdsButton>
                     </div>
                 </>
 

@@ -3,3 +3,7 @@
     width: 20px; /* Set your desired width */
     height: 20px; /* Set your desired height */
 }
+
+.theme-dark #linechart {
+    background-color: rgb(51 51 51)
+}

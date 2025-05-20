@@ -1,12 +1,20 @@
 import React from "react";
-import RdsSearch from "./rds-search";
+import RdsSearch, { IconPosition } from "./rds-search";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Search',
+    title: 'Components/Search',
     component: RdsSearch,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(left|right)"/g, '{IconPosition.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -31,15 +39,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSearch>;
 
-export const Search: Story = {
+export const ClearableSearchWithIcon: Story = {
     args: {
         label: 'Search',
         labelPosition: 'top',
         placeholder: "Search",
         size: "small",
-        iconPosition: "left",
+        iconPosition: IconPosition.Left,
     }
 } satisfies Story;
-Search.parameters = { controls: { include: ['label', 'labelPosition', 'placeholder', 'size', 'iconPosition'] } };
+ClearableSearchWithIcon.parameters = { controls: { include: ['label', 'labelPosition', 'placeholder', 'size', 'iconPosition'] } };
 
 

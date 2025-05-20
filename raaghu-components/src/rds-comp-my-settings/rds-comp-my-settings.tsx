@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { InputSize} from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsCompMySettingsProps {
   onSaveHandler?: (data: any) => void;
@@ -107,11 +108,11 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
         <div className="custom-content-scroll">
           <div>
             <RdsInput
-              label="Profile Name"
+              name="Profile Name"
+              label={true}
               reset={inputReset}
-              size="medium"
-              inputType="text"
-              name="ProfileName"
+              size={InputSize.Medium}   
+              inputType="text"             
               placeholder="admin"
               required
               value={formData?.ProfileName}
@@ -122,11 +123,11 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
           </div>
           <div>
             <RdsInput
-              label="Email"
-              reset={inputReset}
-              size="medium"
-              inputType="email"
               name="Email"
+              label={true}
+              reset={inputReset}
+              size={InputSize.Medium}   
+              inputType="email"             
               placeholder="contact@waiin.com"
               required
               value={formData?.Email}
@@ -139,11 +140,11 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
           </div>
           <div>
             <RdsInput
-              label="User Name"
+              name="User Name"
+              label={true}
               reset={inputReset}
-              size="medium"
-              inputType="text"
-              name="UserName"
+              size={InputSize.Medium}   
+              inputType="text"              
               placeholder="admin"
               required
               value={formData?.UserName}
@@ -154,13 +155,13 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
           </div>
           <div>
             <RdsInput
-              label="Current password"
+              name="Current password"
+              label={true}
               reset={inputReset}
               required
               placeholder="Current password"
               inputType="password"
-              onChange={(e) => handleDataChanges(e, "curPass")}
-              name="curPass"
+              onChange={(e) => handleDataChanges(e, "curPass")}             
               value={formData?.curPass}
               showIcon={true}
               onBlur={() => handleBlur("curPass")}
@@ -170,13 +171,13 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
           </div>
           <div>
             <RdsInput
-              label="New password"
+              name="New password"
+              label={true}
               reset={inputReset}
               required
               placeholder="New password"
               inputType="password"
-              onChange={(e) => handleDataChanges(e, "newPass")}
-              name="newPass"
+              onChange={(e) => handleDataChanges(e, "newPass")}              
               value={formData?.newPass}
               showIcon={true}
               onBlur={() => handleBlur("newPass")}
@@ -186,13 +187,13 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
           </div>
           <div>
             <RdsInput
-              label="Confirm new password"
+              name="Confirm new password"
+              label={true}
               reset={inputReset}
               required
               placeholder="Confirm new password"
               inputType="password"
-              onChange={(e) => handleDataChanges(e, "curNewPass")}
-              name="curNewPass"
+              onChange={(e) => handleDataChanges(e, "curNewPass")}              
               value={formData?.curNewPass}
               showIcon={true}
               onBlur={() => handleBlur("curNewPass")}
@@ -201,7 +202,7 @@ const isFormValid = isProfileNameValid(formData?.ProfileName) && isEmailValid(fo
             {touched.curNewPass && errors.curNewPass && <div className="form-control-feedback"><span className="text-danger">{errors.curNewPass}</span></div>}
           </div>
         </div>
-        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+        <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 px-4">
           <RdsButton
             size="small"
             isOutline={true}

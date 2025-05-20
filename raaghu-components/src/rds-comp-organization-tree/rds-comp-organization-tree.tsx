@@ -5,6 +5,7 @@ import {
     RdsButtonGroup,
 } from "../rds-elements";
 import "./rds-comp-organization-tree.css";
+import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
 export interface RdsCompOrganizationTreeProps {
     counter?: number;
     nodeColor: any[];
@@ -204,7 +205,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                             buttonGroupItems={buttonGroupList}
                                                             colorVariant="primary"
                                                             isOutline={true}
-                                                            role="button"
+                                                            role={Role.Button}
                                                             size="small"
                                                             vertical={false}
                                                             onButtonClick={(e, id) => handlerButtonGroupClick(e, id, node)}

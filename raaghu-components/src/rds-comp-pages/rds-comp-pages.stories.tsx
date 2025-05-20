@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompDatatable from '../rds-comp-data-table/rds-comp-data-table';
+import RdsCompDatatable, { ActionPosition } from '../rds-comp-data-table/rds-comp-data-table';
 
 
 const meta: Meta = { 
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof RdsCompDatatable>;
 
 export const Default: Story = {
     args: {
-      actionPosition: "right",
+      actionPosition: ActionPosition.Right,
       tableHeaders: [
         {
           displayName: "Title",
