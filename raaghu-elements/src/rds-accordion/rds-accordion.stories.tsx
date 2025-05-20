@@ -1,24 +1,57 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsAccordion from './rds-accordion';
+import RdsAccordion, { AccordionBorder, AccordionLayout, AccordionSize, AccordionState, AccordionType } from './rds-accordion';
 
 const meta: Meta = {
     title: 'Elements/Accordion',
     component: RdsAccordion,
     parameters: {
         layout: 'padded',
-        disableZoom: false
+        disableZoom: false,
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(single|multiple)"/g, '{AccordionType.$1}');
+                    code = code.replace(/"(small|medium|large)"/g, '{AccordionSize.$1}');
+                    code = code.replace(/"(default|hover|selected)"/g, '{AccordionState.$1}');
+                    code = code.replace(/"(border|bottomline|borderhide)"/g, '{AccordionBorder.$1}');
+                    code = code.replace(/"(default|expanded)"/g, '{AccordionLayout.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
         size: {
             options: ["small", "medium", "large"],
-            control: { type: "radio" },
+            control: { type: "select" },
         },
-        border:{
+        style:{
             options:["border","bottomline","borderhide"],
-            control:{type:"radio"}
-        }
+            control:{type: "select"}
+        },
+        state: {
+            options: ["default", "hover", "selected"],
+            control: { type: "select" },
+        },
+        accordionType: {
+            options: ["single", "multiple"],
+            control: { type: "select" },
+        },
+        layout: {
+            options: ["default", "expanded"],
+            control: { type: "select" },
+        },
+        icon: {
+            if: { arg: "withIcon"},
+        },
+        iconFill: {
+            if: { arg: "withIcon"},
+        },
+        iconStroke: {
+            if: { arg: "withIcon"},
+        },
     },
 } satisfies Meta<typeof RdsAccordion>;
 
@@ -28,9 +61,15 @@ type Story = StoryObj<typeof RdsAccordion>;
 export const Default: Story = {
     args: {
         accordionId: "1",
-        accordionType: "single",
-        size: "medium",
-        border:"border",
+        accordionType: AccordionType.multiple,
+        size: AccordionSize.small,
+        state: AccordionState.default,
+        style: AccordionBorder.bottomline,
+        layout: AccordionLayout.default,
+        withIcon: true,
+        icon: "plus",
+        iconFill: false,
+        iconStroke: true,
         items: [
             {
                 id: "1",
@@ -61,9 +100,9 @@ export const Default: Story = {
             },
         ],
     },
-    parameters: { controls: { include: ['size', 'accordionId', 'items', 'border'] } }
+    parameters: { controls: { include: ['size', 'accordionId', 'accordionType' , 'state', 'layout', 'items', 'style', 'withIcon', 'icon', /*'iconFill', 'iconStroke'*/] } },
 } satisfies Story;
-
+/*
 export const flush: Story = {
     args: {
         accordionId: "1",
@@ -223,3 +262,4 @@ export const With_icon: Story = {
     }
 };
 With_icon.parameters = { controls: { include: ['size', 'icon', 'accordionId', 'items','border'] } };
+*/

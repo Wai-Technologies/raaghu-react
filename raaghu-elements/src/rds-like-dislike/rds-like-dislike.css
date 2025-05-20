@@ -1,0 +1,12 @@
+.like-dislike-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .like-dislike-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+  }
+  

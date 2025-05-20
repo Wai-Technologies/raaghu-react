@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { RdsInput, RdsButton, RdsDropdownList, RdsLabel } from "../rds-elements";
 import React from "react";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { useTranslation } from "react-i18next";
 export interface RdsForgotPasswordProps {
     onForgotPassword?: (email?: string) => void;
@@ -106,14 +107,15 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                         </div>
                     </div>
                     </div>
-                        <div className="fs-6"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
+                        <div className="fs-6 d-inline-flex"><RdsLabel label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." size="13px"></RdsLabel></div>
                         <div className="mt-4">
 
                             <form>
                                 <div className="form-group mb-3 text-start">
                                     <RdsInput
-                                        size="medium"
-                                        label="Email"
+                                        size={InputSize.Medium}   
+                                        name="Email"
+                                        label={true}
                                         inputType="email"
                                         placeholder="Enter Email"                            
                                         onChange={(e) => { handleDataChanges(e.target.value, "email"); }}
@@ -168,8 +170,9 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                     <div className="container">
                         <img
                             src="https://www.nicepng.com/png/full/362-3624869_success-image-png.png"
-                            className="mt-4 mb-4 w-25"
+                            className="mt-4 mb-4"
                             alt="img"
+                            style={{ width: "50px" }}
                         />
                         <h3 className="pb-3">Email has been sent!</h3>
                         <div>

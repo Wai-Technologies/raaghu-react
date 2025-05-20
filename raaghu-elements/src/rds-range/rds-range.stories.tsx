@@ -2,7 +2,7 @@ import RdsRange from "./rds-range";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Range',
+    title: 'Components/Range',
     component: RdsRange,
     parameters: {
         layout: 'padded',

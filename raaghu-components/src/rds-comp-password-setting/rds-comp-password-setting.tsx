@@ -91,7 +91,8 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                 <div className="custom-content-scroll">
                     <div className="fw-normal mt-1 mb-3">
                         <RdsInput
-                            label="Current password"
+                            name="Current Password"
+                            label={true}
                             reset={inputReset}
                             required={true}
                             placeholder="Current password"
@@ -101,7 +102,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                               handleDataChanges(e.target.value, "curPass");
                             }}
                             value={formData?.curPass}
-                            name={"curPass"}
+                            
 			                dataTestId="current-password"
                             showIcon= {true}
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
@@ -110,7 +111,8 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     </div>
                     <div className=" fw-normal mb-3">
                         <RdsInput
-                            label="New password"
+                            name="New password"
+                            label={true}
                             reset={inputReset}
                             required={true}
                             placeholder="New password"
@@ -120,7 +122,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                               handleDataChanges(e.target.value, "newPass");
                             }}
                             value={formData?.newPass}
-                            name={"newPass"}
+                            
                             showIcon= {true}
 			                dataTestId="new-password"
                             validatonPattern={/^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/}
@@ -130,7 +132,8 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                     </div>
                     <div className=" fw-normal mb-3">
                         <RdsInput
-                            label="Confirm new password"
+                            name="Confirm new password"
+                            label={true}
                             reset={inputReset}
                             required={true}
                             placeholder="Confirm new password"
@@ -139,8 +142,7 @@ const RdsCompPasswordSetting = (props: RdsCompPasswordSettingProps) => {
                               setNewConfirmPassoword(e.target.value);
                               handleDataChanges(e.target.value, "curNewPass");
                             }}
-                            value={formData?.curNewPass}
-                            name={"curNewPass"}
+                            value={formData?.curNewPass}                            
                             showIcon= {true}
 			                dataTestId="confirm-password"
                             validationMsg={curNewPassError}

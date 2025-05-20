@@ -1,3 +1,24 @@
 .ytp-play-progress-padding {
     color: blue;
 }
+.video-player-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Default style for large screens */
+.react-player {
+    width: 300px; /* Or your preferred size */
+    height: 300px;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+    .react-player {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+    }
+}

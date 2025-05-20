@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsInput } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsLinkedAccountProps {
     linkedAccountData?: any;
     onSaveHandler?: (data: any) => void;
@@ -87,11 +87,11 @@ const isFormValid = isTenancyNameValid(userData?.tenancyName) && isUserNameValid
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
                                     <RdsInput
                                         inputType="text"
-                                        label="Tenancy Name"
+                                        name="Tenancy Name"
+                                        label={true}
                                         placeholder="Enter Tenancy Name"
                                         required={true}
-                                        size="medium"
-                                        name="tenancyName"
+                                        size={InputSize.Medium}                                     
                                         dataTestId="tenancy-name"
                                         onChange={(e) => {
                                           handleDataChanges(e.target.value, "tenancyName");
@@ -103,11 +103,11 @@ const isFormValid = isTenancyNameValid(userData?.tenancyName) && isUserNameValid
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
                                     <RdsInput
                                         inputType="text"
-                                        label="User Name"
+                                        name="User Name"
+                                        label={true}
                                         placeholder="Enter User Name"
                                         required={true}
-                                        size="medium"
-                                        name="userName"
+                                        size={InputSize.Medium}                                        
                                         dataTestId="username"
                                         onChange={(e) => {
                                           handleDataChanges(e.target.value, "userName");
@@ -119,11 +119,11 @@ const isFormValid = isTenancyNameValid(userData?.tenancyName) && isUserNameValid
                                 <div className="col-12 col-lg-4 col-xl-4 col-xxl-4 mb-2">
                                     <RdsInput
                                         inputType="password"
-                                        label="Password"
+                                        name="Password"
+                                        label={true}
                                         placeholder="Enter Password"
                                         required={true}
-                                        size="medium"
-                                        name="password"
+                                        size={InputSize.Medium}                                        
                                         dataTestId="password"
                                         showIcon= {false}
                                         onChange={(e) => {

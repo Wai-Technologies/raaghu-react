@@ -1,6 +1,6 @@
 import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
-
+import { InputSize} from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompPersonalInfoProps {
     personalInfo?: any;
     onEmail: (isEmailClicked?: boolean) => void;
@@ -76,9 +76,10 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                 <div className="row py-xxl-4 py-xl-4 py-lg-4 py-md-4 py-0">
                     <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                         <RdsInput
-                            size="medium"
+                            size={InputSize.Medium}  
                             reset={inputReset}
-                            label="Admin"
+                            name="Admin"
+                            label={true}
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
@@ -94,9 +95,10 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
-                            size="medium"
+                             size={InputSize.Medium} 
                             reset={inputReset}
-                            label="Name"
+                            name="Name"
+                            label={true}
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
@@ -111,9 +113,10 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
                         <RdsInput
-                            size="medium"
+                           size={InputSize.Medium} 
                             reset={inputReset}
-                            label="Surname"
+                            name="Surname"
+                            label={true}
                             inputType="text"
                             isDisabled={false}
                             readonly={false}
@@ -129,9 +132,10 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <div className="d-flex personal-info-wid">
                             <RdsInput
-                                size="medium"
+                               size={InputSize.Medium} 
                                 reset={inputReset}
-                                label="Email"
+                                name="Email"
+                                label={true}
                                 inputType="email"
                                 isDisabled={false}
                                 readonly={false}
@@ -162,9 +166,10 @@ const isFormValid=isAdminValid(formData?.userName) && isNameValid(formData?.name
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-3 mb-xl-3 mb-lg-3 mb-md-3">
                         <RdsInput
-                            size="medium"
+                            size={InputSize.Medium} 
                             reset={inputReset}
-                            label="Phone Number"
+                            name="Phone Number"
+                            label={true}
                             inputType="text"
                             isDisabled={false}
                             readonly={false}

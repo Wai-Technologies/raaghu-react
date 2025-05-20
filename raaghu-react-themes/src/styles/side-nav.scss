@@ -134,10 +134,6 @@
     }
 }
 
-.aside {
-    width: 62px;
-}
-
 .aside{
     .toggle{
         right: -200px;
@@ -305,9 +301,9 @@
             overflow-y: auto;
             padding-bottom: 40px;
             -webkit-overflow-scrolling: auto;
-            left: -280px;
+            //left: -280px;
             transition: 1s;
-            top: 3.7rem;
+            // top: 3.7rem;
             transition-timing-function: ease-in-out;
         }
 
@@ -421,6 +417,7 @@
             display:none;
         }      
     }
+    
     .LeftSideNavListCollapse{
         width:auto;
         margin-top: 1rem;
@@ -430,6 +427,73 @@
         .form-control{
             display:block;
         }      
+    }
+}
+@media (min-width: 575.98px) {
+    .navbar-expand-sm .navbar-toggler {
+        display: none;
+    }
+    .LeftSideNavList{
+        width: 30px;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+    
+        .form-control{
+            display:none;
+        }      
+    }
+    
+    .LeftSideNavListCollapse{
+        width:auto;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+        .form-control{
+            display:block;
+        }      
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-expand-sm .navbar-toggler {
+        display: none;
+    }
+    .LeftSideNavList{
+        width: 30px;
+        margin-top: 1rem;
+        margin-left: 0.4rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+    
+        .form-control{
+            display:none;
+        }      
+    }
+    
+    .LeftSideNavListCollapse{
+        width:auto;
+        margin-top: 1rem;
+        margin-left: 0.8rem;
+        border-left: 1px solid #dee2e6;
+        border-radius: 4px;
+        .form-control{
+            display:block;
+        }      
+    }
+    #sidebar ul li a {
+        padding: 0.7rem !important;
+    }
+    .left-space-listing {
+        padding-left: 0.3rem !important;
+    }
+}
+
+@media (min-width: 414px) and (max-width: 575px) {
+    .main-logo{
+        padding-left: 0.3rem !important;
     }
 }
 
@@ -446,7 +510,9 @@
     width: 64px;
 }
 .left-space{ margin-left:0.8rem}
-.left-space-listing{ padding-left:0.8rem}
+.left-space-listing{
+     padding-left:0.8rem;
+    }
 
 
 .theme-dark{

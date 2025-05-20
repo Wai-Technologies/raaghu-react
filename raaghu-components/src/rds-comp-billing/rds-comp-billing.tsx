@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import RdsCompDatatable from "../rds-comp-data-table";
 import RdsCompSubscription from "../rds-comp-subscription";
 import './rds-comp-billing.css';
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompBillingProp {
     subscriptionData: any[];
@@ -41,7 +42,7 @@ const RdsCompBilling = (props: RdsCompBillingProp) => {
                     <p>Check your billing history.</p>
                     <div>
                         <RdsCompDatatable
-                            actionPosition="right"
+                            actionPosition={ActionPosition.Right}
                             tableHeaders={props.billingHeaders}
                             actions={props.actions}
                             tableData={props.billingData}
