@@ -26,4 +26,6 @@
 
 .search-border-bottom{
   border-bottom: 1px solid rgb(219, 219, 219);
+}.marginForLanguage{
+    margin-top: 110px !important;
 }
