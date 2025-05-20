@@ -1,381 +1,373 @@
 //background-color: white;
-$theme-colors: (
-    $primary: $primary,
-        $secondary: $secondary,
-            $tertiary: $tertiary,
-                $neutral: #7D7D7D,
-                    $error: $danger,
-                        $warning: $warning,
-                            $success: $success,
-                                /*     "info": $info,
+$theme-colors: ( $primary: #7e2eef, $secondary: #2539FF, $tertiary: #DA25E9, $neutral: #7D7D7D, $error: #E02D30, $warning: #EA6C0C, $success: #24993A,
+/*     "info": $info,
     "danger": $danger, */
-                                "light": $light,
-                                "dark": $dark ) !default;
+"light": $light, "dark": $dark ) !default;
 
-                            /*Primary background colors*/
-                            $bg-primary-darker-default: $primary-900;
-                            $bg-primary-dark-default: $primary-600;
-                            $bg-primary-medium-default: $primary-200;
-                            $bg-primary-light-default: $primary-100;
-                            $bg-primary-lighter-default: $primary-10;
+/*Primary background colors*/
+$bg-primary-darker-default: #19003E;
+$bg-primary-dark-default: #7825E9;
+$bg-primary-medium-default: #D4BBFF;
+$bg-primary-light-default: #EBDCFF;
+$bg-primary-lighter-default: #FEF7FF;
 
-                            /*Secondary background colors*/
-                            $bg-secondary-darker-default: $secondary-10;
-                            $bg-secondary-dark-default: $secondary-200;
-                            $bg-secondary-medium-default: $secondary-600;
-                            $bg-secondary-light-default: $secondary-700;
-                            $bg-secondary-lighter-default: $secondary-900;
+/*Secondary background colors*/
+$bg-secondary-darker-default: #111755;
+$bg-secondary-dark-default: #2534E9;
+$bg-secondary-medium-default: #93B8FF;
+$bg-secondary-light-default: #BCD5FF;
+$bg-secondary-lighter-default: #EBF3FF;
 
-                            /*Tertiary background colors*/
-                            $bg-tertiary-darker-default: $tertiary-900;
-                            $bg-tertiary-dark-default: $tertiary-600;
-                            $bg-tertiary-medium-default: $tertiary-200;
-                            $bg-tertiary-light-default: $tertiary-100;
-                            $bg-tertiary-lighter-default: $tertiary-10;
+/*Tertiary background colors*/
+$bg-tertiary-darker-default: #530054;
+$bg-tertiary-dark-default: #B30FBC;
+$bg-tertiary-medium-default: #F8A4FF;
+$bg-tertiary-light-default: #F9CCFF;
+$bg-tertiary-lighter-default: #FEF3FF;
 
-                            /*Neutral Background colors */
-                            $bg-neutral-darker-default: $neutral-900;
-                            $bg-neutral-dark-default: $neutral-700;
-                            $bg-neutral-medium-default: $neutral-200;
-                            $bg-neutral-light-default: $neutral-100;
-                            $bg-neutral-lighter-default: $light-0;
+/*Neutral Background colors */
+$bg-neutral-darker-default: #202020;
+$bg-neutral-dark-default: #4C4C4C;
+$bg-neutral-medium-default: #CDCDCD;
+$bg-neutral-light-default: #E9E9E9;
+$bg-neutral-lighter-default: #ffffff;
 
-                            /*Error Background colors */
-                            $bg-error-darker-default: $error-10;
-                            $bg-error-dark-default: $error-200;
-                            $bg-error-medium-default: $error-600;
-                            $bg-error-light-default: $error-700;
-                            $bg-error-lighter-default: $error-900;
+/*Error Background colors */
+$bg-error-darker-default: #410003;
+$bg-error-dark-default: #BD0D1D;
+$bg-error-medium-default: #FFB3AD;
+$bg-error-light-default: #FFDAD6;
+$bg-error-lighter-default: #FFF8F7;
 
-                            /*Warning Background colors */
-                            $bg-warning-darker-default: $warning-900;
-                            $bg-warning-dark-default: $warning-600;
-                            $bg-warning-medium-default: $warning-200;
-                            $bg-warning-light-default: $neutral-200;
-                            $bg-warning-lighter-default: $warning-10;
+/*Warning Background colors */
+$bg-warning-darker-default: #431907;
+$bg-warning-dark-default: #C2510C;
+$bg-warning-medium-default: #FDC674;
+$bg-warning-light-default: #CDCDCD;
+$bg-warning-lighter-default: #FFF9ED;
 
                             /*Success Background colors */
                             $bg-success-darker-default: $success-100;
                             $bg-success-dark-default: $success-400;
                             $bg-success-medium-default: $success-800;
 
-                            /*Primary icons colors*/
-                            $icon-primary-outline-default: $primary-600;
-                            $icon-primary-outline-hover: $primary-700;
-                            $icon-primary-outline-selected: $primary-800;
-                            $icon-primary-outline-disabled: $primary-200;
-                            $icon-primary-outline-invert: $light-0;
+/*Primary icons colors*/
+$icon-primary-outline-default: #7825E9;
+$icon-primary-outline-hover: #4F00A6;
+$icon-primary-outline-selected: #340071;
+$icon-primary-outline-disabled: #D4BBFF;
+$icon-primary-outline-invert: #FFFFFF;
 
-                            /*Secondary icons colors*/
-                            $icon-secondary-outline-default: $secondary-200;
-                            $icon-secondary-outline-hover: $secondary-100;
-                            $icon-secondary-outline-selected: $secondary-50;
-                            $icon-secondary-outline-disabled: $secondary-600;
-                            $icon-secondary-outline-invert: $light-0;
+/*Secondary icons colors*/
+$icon-secondary-outline-default: #2534E9;
+$icon-secondary-outline-hover: #1827BB;
+$icon-secondary-outline-selected: #1D2B92;
+$icon-secondary-outline-disabled: #93B8FF;
+$icon-secondary-outline-invert: #FFFFFF;
 
-                            /*Tertiary icons colors*/
-                            $icon-tertiary-outline-default: $tertiary-600;
-                            $icon-tertiary-outline-hover: $tertiary-700;
-                            $icon-tertiary-outline-selected: $tertiary-800;
-                            $icon-tertiary-outline-disabled: $tertiary-200;
-                            $icon-tertiary-outline-invert: $light-0;
+/*Tertiary icons colors*/
+$icon-tertiary-outline-default: #B30FBC;
+$icon-tertiary-outline-hover: #940F99;
+$icon-tertiary-outline-selected: #7B127D;
+$icon-tertiary-outline-disabled: #F8A4FF;
+$icon-tertiary-outline-invert: #FFFFFF;
 
-                            /*Neutral icons colors*/
-                            $icon-neutral-outline-default: $neutral-600;
-                            $icon-neutral-outline-hover: $neutral-700;
-                            $icon-neutral-outline-selected: $neutral-800;
-                            $icon-neutral-outline-disabled: $neutral-200;
-                            $icon-neutral-outline-invert: $light-0;
+/*Neutral icons colors*/
+$icon-neutral-outline-default: #646464;
+$icon-neutral-outline-hover: #4C4C4C;
+$icon-neutral-outline-selected: #353535;
+$icon-neutral-outline-disabled: #CDCDCD;
+$icon-neutral-outline-invert: #FFFFFF;
 
-                            /*Error icons colors*/
-                            $icon-error-outline-default: $error-200;
-                            $icon-error-outline-hover: $error-100;
-                            $icon-error-outline-selected: $error-50;
-                            $icon-error-outline-disabled: $error-600;
-                            $icon-error-outline-invert: $light-0;
+/*Error icons colors*/
+$icon-error-outline-default: #BD0D1D;
+$icon-error-outline-hover: #930011;
+$icon-error-outline-selected: #680009;
+$icon-error-outline-disabled: #FFB3AD;
+$icon-error-outline-invert: #FFFFFF;
 
-                            /*Warning icons colors*/
-                            $icon-warning-outline-default: $warning-600;
-                            $icon-warning-outline-hover: $warning-700;
-                            $icon-warning-outline-selected: $warning-800;
-                            $icon-warning-outline-disabled: $warning-200;
-                            $icon-warning-outline-invert: $light-0;
+/*Warning icons colors*/
+$icon-warning-outline-default: #C2510C;
+$icon-warning-outline-hover: #9A4012;
+$icon-warning-outline-selected: #7C3712;
+$icon-warning-outline-disabled: #FDC674;
+$icon-warning-outline-invert: #FFFFFF;
 
-                            /*Success icons colors*/
-                            $icon-success-outline-default: $success-400;
-                            $icon-success-outline-hover: $success-300;
-                            $icon-success-outline-selected: $success-200;
-
-
-                            /*Primary Input colors*/
-                            $input-primary-solid-default: $primary-600;
-                            $input-primary-solid-hover: $primary-700;
-                            $input-primary-solid-disabled: $primary-200;
-                            $input-primary-outline-default: $primary-600;
-                            $input-primary-outline-hover: $primary-700;
-                            $input-primary-outline-disabled: $primary-200;
-
-                            /*Secondary Input colors*/
-                            $input-secondary-solid-default: $secondary-200;
-                            $input-secondary-solid-hover: $secondary-100;
-                            $input-secondary-solid-disabled: $secondary-600;
-                            $input-secondary-outline-default: $secondary-200;
-                            $input-secondary-outline-hover: $secondary-100;
-                            $input-secondary-outline-disabled: $secondary-600;
-
-                            /*Tertiary Input colors*/
-                            $input-tertiary-solid-default: $tertiary-600;
-                            $input-tertiary-solid-hover: $tertiary-700;
-                            $input-tertiary-solid-disabled: $tertiary-200;
-                            $input-tertiary-outline-default: $tertiary-600;
-                            $input-tertiary-outline-hover: $tertiary-700;
-                            $input-tertiary-outline-disabled: $tertiary-200;
-
-                            /*Neutral Input colors*/
-                            $input-neutral-solid-default: $neutral-600;
-                            $input-neutral-solid-hover: $neutral-700;
-                            $input-neutral-solid-disabled: $neutral-200;
-                            $input-neutral-outline-default: $neutral-600;
-                            $input-neutral-outline-hover: $neutral-700;
-                            $input-neutral-outline-disabled: $neutral-200;
-
-                            /*Error Input colors*/
-                            $input-error-solid-default: $error-200;
-                            $input-error-solid-hover: $error-100;
-                            $input-error-solid-disabled: $error-600;
-                            $input-error-outline-default: $error-200;
-                            $input-error-outline-hover: $error-100;
-                            $input-error-outline-disabled: $error-600;
-
-                            /*Warning Input colors*/
-                            $input-warning-solid-default: $warning-600;
-                            $input-warning-solid-hover: $warning-700;
-                            $input-warning-solid-disabled: $warning-200;
-                            $input-warning-outline-default: $warning-600;
-                            $input-warning-outline-hover: $warning-700;
-                            $input-warning-outline-disabled: $warning-200;
-
-                            /*Successs Input colors*/
-                            $input-warning-solid-default: $success-400;
-                            $input-warning-solid-hover: $success-300;
-                            $input-warning-solid-disabled: $success-800;
-                            $input-warning-outline-default: $success-400;
-                            $input-warning-outline-hover: $success-300;
-                            $input-warning-outline-disabled: $success-800;
+/*Success icons colors*/
+$icon-success-outline-default: #1F7630;
+$icon-success-outline-hover: #1D5E2A;
+$icon-success-outline-selected: #1A4D25;
 
 
-                            /*Primary Link Colors*/
-                            $line-primary-dark-defaut: $primary;
-                            $line-primary-medium-defaut: $primary-300;
-                            $line-primary-light-defaut: $primary-100;
+/*Primary Input colors*/
+$input-primary-solid-default: #7825E9;
+$input-primary-solid-hover: #4F00A6;
+$input-primary-solid-disabled: #D4BBFF;
+$input-primary-outline-default: #7825E9;
+$input-primary-outline-hover: #4F00A6;
+$input-primary-outline-disabled: #D4BBFF;
 
-                            /*Secondary Link Colors*/
-                            $line-secondary-dark-defaut: $secondary;
-                            $line-secondary-medium-defaut: $secondary-500;
-                            $line-secondary-light-defaut: $secondary-700;
+/*Secondary Input colors*/
+$input-secondary-solid-default: #2534E9;
+$input-secondary-solid-hover: #1827BB;
+$input-secondary-solid-disabled: #93B8FF;
+$input-secondary-outline-default: #2534E9;
+$input-secondary-outline-hover: #1827BB;
+$input-secondary-outline-disabled: #93B8FF;
 
-                            /*Teritary Link Colors*/
-                            $line-tertiary-dark-defaut: $tertiary;
-                            $line-tertiary-medium-defaut: $tertiary-300;
-                            $line-tertiary-light-defaut: $tertiary-100;
+/*Tertiary Input colors*/
+$input-tertiary-solid-default: #B30FBC;
+$input-tertiary-solid-hover: #940F99;
+$input-tertiary-solid-disabled: #F8A4FF;
+$input-tertiary-outline-default: #B30FBC;
+$input-tertiary-outline-hover: #940F99;
+$input-tertiary-outline-disabled: #F8A4FF;
 
-                            /*Neutral Link Colors*/
-                            $line-neutral-dark-defaut: $neutral-700;
-                            $line-neutral-medium-defaut: $neutral-300;
-                            $line-neutral-light-defaut: $neutral-100;
+/*Neutral Input colors*/
+$input-neutral-solid-default: #646464;
+$input-neutral-solid-hover: #4C4C4C;
+$input-neutral-solid-disabled: #CDCDCD;
+$input-neutral-outline-default: #646464;
+$input-neutral-outline-hover: #4C4C4C;
+$input-neutral-outline-disabled: #CDCDCD;
 
-                            /*Error Link Colors*/
-                            $line-error-dark-defaut: $danger;
-                            $line-error-medium-defaut: $error-500;
-                            $line-error-light-defaut: $error-700;
+/*Error Input colors*/
+$input-error-solid-default: #BD0D1D;
+$input-error-solid-hover: #930011;
+$input-error-solid-disabled: #FFB3AD;
+$input-error-outline-default: #BD0D1D;
+$input-error-outline-hover: #930011;
+$input-error-outline-disabled: #FFB3AD;
 
-                            /*Warning Link Colors*/
-                            $line-warning-dark-defaut: $warning;
-                            $line-warning-medium-defaut: $warning-300;
-                            $line-warning-light-defaut: $warning-100;
+/*Warning Input colors*/
+$input-warning-solid-default: #C2510C;
+$input-warning-solid-hover: #9A4012;
+$input-warning-solid-disabled: #FDC674;
+$input-warning-outline-default: #C2510C;
+$input-warning-outline-hover: #9A4012;
+$input-warning-outline-disabled: #FDC674;
 
-                            /*Success Link Colors*/
-                            $line-success-dark-defaut: $success;
-                            $line-success-medium-defaut: $success-700;
-                            $line-success-light-defaut: $success-100;
-
-                            /*Buton color*/
-                            $btn-primary-solid-default: $primary-600;
-                            $btn-primary-solid-hover: $primary-700;
-                            $btn-primary-solid-selected: $primary-800;
-                            $btn-primary-solid-disabled: $primary-200;
-                            $btn-primary-outline-default: $primary-600;
-                            $btn-primary-outline-hover: $primary-700;
-                            $btn-primary-outline-selected: $primary-800;
-                            $btn-primary-outline-disabled: $primary-200;
-                            $btn-primary-transparent-default: $light-0;
-                            $btn-primary-transparent-hover: $primary-100;
-                            $btn-primary-transparent-selected: $primary-200;
-                            $btn-primary-transparent-disabled: $primary-100;
-                            $btn-primary-text-default: $primary-600;
-                            $btn-primary-text-disabled: $primary-400;
-                            $btn-primary-text-invert: $light-0;
-
-                            $btn-secondary-solid-default: $secondary-200;
-                            $btn-secondary-solid-hover: $secondary-100;
-                            $btn-secondary-solid-selected: $secondary-50;
-                            $btn-secondary-solid-disabled: $secondary-600;
-                            $btn-secondary-outline-default: $secondary-200;
-                            $btn-secondary-outline-hover: $secondary-100;
-                            $btn-secondary-outline-selected: $secondary-50;
-                            $btn-secondary-outline-disabled: $secondary-600;
-                            $btn-secondary-transparent-default: $light-0;
-                            $btn-secondary-transparent-hover: $primary-100;
-                            $btn-secondary-transparent-selected: $primary-200;
-                            $btn-secondary-transparent-disabled: $primary-100;
-                            $btn-secondary-text-default: $primary-600;
-                            $btn-secondary-text-disabled: $primary-400;
-                            $btn-secondary-text-invert: $light-0;
-
-                            $btn-tertiary-solid-default: $tertiary-600;
-                            $btn-tertiary-solid-hover: $tertiary-700;
-                            $btn-tertiary-solid-selected: $tertiary-800;
-                            $btn-tertiary-solid-disabled: $tertiary-200;
-                            $btn-tertiary-outline-default: $tertiary-600;
-                            $btn-tertiary-outline-hover: $tertiary-700;
-                            $btn-tertiary-outline-selected: $tertiary-800;
-                            $btn-tertiary-outline-disabled: $tertiary-200;
-                            $btn-tertiary-transparent-default: $light-0;
-                            $btn-tertiary-transparent-hover: $tertiary-100;
-                            $btn-tertiary-transparent-selected: $tertiary-200;
-                            $btn-tertiary-transparent-disabled: $tertiary-100;
-                            $btn-tertiary-text-default: $tertiary-600;
-                            $btn-tertiary-text-disabled: $tertiary-400;
-                            $btn-tertiary-text-invert: $light-0;
-
-                            $btn-neutral-solid-default: $neutral-600;
-                            $btn-neutral-solid-hover: $neutral-700;
-                            $btn-neutral-solid-selected: $neutral-800;
-                            $btn-neutral-solid-disabled: $neutral-200;
-                            $btn-neutral-outline-default: $neutral-600;
-                            $btn-neutral-outline-hover: $neutral-700;
-                            $btn-neutral-outline-selected: $neutral-700;
-                            $btn-neutral-outline-disabled: $neutral-200;
-                            $btn-neutral-transparent-default: $light-0;
-                            $btn-neutral-transparent-hover: $neutral-100;
-                            $btn-neutral-transparent-selected: $neutral-200;
-                            $btn-neutral-transparent-disabled: $neutral-100;
-                            $btn-neutral-text-default: $neutral-600;
-                            $btn-neutral-text-disabled: $neutral-400;
-                            $btn-neutral-text-invert: $light-0;
-
-                            $btn-error-solid-default: $error-200;
-                            $btn-error-solid-hover: $error-100;
-                            $btn-error-solid-selected: $warning-800;
-                            $btn-error-solid-disabled: $error-600;
-                            $btn-error-outline-default: $error-200;
-                            $btn-error-outline-hover: $error-100;
-                            $btn-error-outline-selected: $warning-800;
-                            $btn-error-outline-disabled: $error-600;
-                            $btn-error-transparent-default: $light-0;
-                            $btn-error-transparent-hover: $error-700;
-                            $btn-error-transparent-selected: $error-600;
-                            $btn-error-transparent-disabled: $error-700;
-                            $btn-error-text-default: $error-200;
-                            $btn-error-text-disabled: $error-400;
-                            $btn-error-text-invert: $light-0;
-
-                            $btn-warning-solid-default: $warning-600;
-                            $btn-warning-solid-hover: $warning-700;
-                            $btn-warning-solid-selected: $warning-800;
-                            $btn-warning-solid-disabled: $warning-200;
-                            $btn-warning-outline-default: $warning-600;
-                            $btn-warning-outline-hover: $warning-700;
-                            $btn-warning-outline-selected: $warning-800;
-                            $btn-warning-outline-disabled: $warning-200;
-                            $btn-warning-transparent-default: $light-0;
-                            $btn-warning-transparent-hover: $warning-100;
-                            $btn-warning-transparent-selected: $warning-200;
-                            $btn-warning-transparent-disabled: $warning-100;
-                            $btn-warning-text-default: $warning-600;
-                            $btn-warning-text-disabled: $warning-400;
-                            $btn-warning-text-invert: $light-0;
-
-                            $btn-success-solid-default: $success-400;
-                            $btn-success-solid-hover: $success-300;
-                            $btn-success-solid-selected: $success-200;
-                            $btn-success-solid-disabled: $success-800;
-                            $btn-success-outline-default: $success-400;
-                            $btn-success-outline-hover: $success-300;
-                            $btn-success-outline-selected: $success-200;
-                            $btn-success-outline-disabled: $success-800;
-                            $btn-success-transparent-default: $light-0;
-                            $btn-success-transparent-hover: $success-100;
-                            $btn-success-transparent-selected: $success-800;
-                            $btn-success-transparent-disabled: $success-100;
-                            $btn-success-text-default: $success-400;
-                            $btn-success-text-disabled: $success-600;
-                            $btn-success-text-invert: $light-0;
-
-                            /*Text Primary color*/
-                            $txt-primary-darker-default: $primary-900;
-                            $txt-primary-dark-default: $primary-800;
-                            $txt-primary-medium-default: $primary-600;
-                            $txt-primary-light-default: $primary-400;
-                            $txt-primary-lighter-default: $primary-10;
-
-                            /*Text Secondary color*/
-                            $txt-secondary-darker-default: $secondary-10;
-                            $txt-secondary-dark-default: $secondary-50;
-                            $txt-secondary-medium-default: $secondary-200;
-                            $txt-secondary-light-default: $secondary-400;
-                            $txt-secondary-lighter-default: $secondary-900;
+/*Successs Input colors*/
+$input-warning-solid-default: #1F7630;
+$input-warning-solid-hover: #1D5E2A;
+$input-warning-solid-disabled: #90E5A0;
+$input-warning-outline-default: #1F7630;
+$input-warning-outline-hover: #1D5E2A;
+$input-warning-outline-disabled: #90E5A0;
 
 
-                            /*Text Tertiary color*/
-                            $txt-tertiary-darker-default: $tertiary-900;
-                            $txt-tertiary-dark-default: $tertiary-800;
-                            $txt-tertiary-medium-default: $tertiary-600;
-                            $txt-tertiary-light-default: $tertiary-400;
-                            $txt-tertiary-lighter-default: $tertiary-10;
+/*Primary Link Colors*/
+$line-primary-dark-defaut: #7E2EEF;
+$line-primary-medium-defaut: #BE98FF;
+$line-primary-light-defaut: #EBDCFF;
 
-                            /*Text Neutral color*/
-                            $txt-neutral-darker-default: $neutral-900;
-                            $txt-neutral-dark-default: $neutral-800;
-                            $txt-neutral-medium-default: $neutral-800;
-                            $txt-neutral-light-default: $neutral-400;
-                            $txt-neutral-lighter-default: $neutral-10;
+/*Secondary Link Colors*/
+$line-secondary-dark-defaut: #2539FF;
+$line-secondary-medium-defaut: #698FFF;
+$line-secondary-light-defaut: #BCD5FF;
+
+/*Teritary Link Colors*/
+$line-tertiary-dark-defaut: #DA25E9;
+$line-tertiary-medium-defaut: #F56EFF;
+$line-tertiary-light-defaut: #F9CCFF;
+
+/*Neutral Link Colors*/
+$line-neutral-dark-defaut: #4C4C4C;
+$line-neutral-medium-defaut: #B1B1B1;
+$line-neutral-light-defaut: #E9E9E9;
+
+/*Error Link Colors*/
+$line-error-dark-defaut: #E02D30;
+$line-error-medium-defaut: #FF8980;
+$line-error-light-defaut: #FFDAD6;
+
+/*Warning Link Colors*/
+$line-warning-dark-defaut: #EA6C0C;
+$line-warning-medium-defaut: #FBA33C;
+$line-warning-light-defaut: #FED99B;
+
+/*Success Link Colors*/
+$line-success-dark-defaut: #24993A;
+$line-success-medium-defaut: #58D06E;
+$line-success-light-defaut: #C1F1C9;
+
+/*Buton color*/
+$btn-primary-solid-default: #7825E9;
+$btn-primary-solid-hover: #4F00A6;
+$btn-primary-solid-selected: #340071;
+$btn-primary-solid-disabled: #D4BBFF;
+$btn-primary-outline-default: #7825E9;
+$btn-primary-outline-hover: #4F00A6;
+$btn-primary-outline-selected: #340071;
+$btn-primary-outline-disabled: #D4BBFF;
+$btn-primary-transparent-default: #ffffff;
+$btn-primary-transparent-hover: #EBDCFF;
+$btn-primary-transparent-selected: #D4BBFF;
+$btn-primary-transparent-disabled: #EBDCFF;
+$btn-primary-text-default: #7825E9;
+$btn-primary-text-disabled: #A875FF;
+$btn-primary-text-invert: #FFFFFF;
+
+$btn-secondary-solid-default: #2534E9;
+$btn-secondary-solid-hover: #1827BB;
+$btn-secondary-solid-selected: #1D2B92;
+$btn-secondary-solid-disabled: #93B8FF;
+$btn-secondary-outline-default: #2534E9;
+$btn-secondary-outline-hover: #1827BB;
+$btn-secondary-outline-selected: #1D2B92;
+$btn-secondary-outline-disabled: #93B8FF;
+$btn-secondary-transparent-default: #ffffff;
+$btn-secondary-transparent-hover: #EBDCFF;
+$btn-secondary-transparent-selected: #D4BBFF;
+$btn-secondary-transparent-disabled: #EBDCFF;
+$btn-secondary-text-default: #7825E9;
+$btn-secondary-text-disabled: #A875FF;
+$btn-secondary-text-invert: #FFFFFF;
+
+$btn-tertiary-solid-default: #B30FBC;
+$btn-tertiary-solid-hover: #940F99;
+$btn-tertiary-solid-selected: #7B127D;
+$btn-tertiary-solid-disabled: #F8A4FF;
+$btn-tertiary-outline-default: #B30FBC;
+$btn-tertiary-outline-hover: #940F99;
+$btn-tertiary-outline-selected: #7B127D;
+$btn-tertiary-outline-disabled: #F8A4FF;
+$btn-tertiary-transparent-default: #ffffff;
+$btn-tertiary-transparent-hover: #F9CCFF;
+$btn-tertiary-transparent-selected: #F8A4FF;
+$btn-tertiary-transparent-disabled: #F9CCFF;
+$btn-tertiary-text-default: #B30FBC;
+$btn-tertiary-text-disabled: #EB37FE;
+$btn-tertiary-text-invert: #FFFFFF;
+
+$btn-neutral-solid-default: #646464;
+$btn-neutral-solid-hover: #4C4C4C;
+$btn-neutral-solid-selected: #353535;
+$btn-neutral-solid-disabled: #CDCDCD;
+$btn-neutral-outline-default: #646464;
+$btn-neutral-outline-hover: #4C4C4C;
+$btn-neutral-outline-selected: #4C4C4C;
+$btn-neutral-outline-disabled: #CDCDCD;
+$btn-neutral-transparent-default: #ffffff;
+$btn-neutral-transparent-hover: #E9E9E9;
+$btn-neutral-transparent-selected: #CDCDCD;
+$btn-neutral-transparent-disabled: #E9E9E9;
+$btn-neutral-text-default: #646464;
+$btn-neutral-text-disabled: #969696;
+$btn-neutral-text-invert: #FFFFFF;
+
+$btn-error-solid-default: #BD0D1D;
+$btn-error-solid-hover: #930011;
+$btn-error-solid-selected: #7C3712;
+$btn-error-solid-disabled: #FFB3AD;
+$btn-error-outline-default: #BD0D1D;
+$btn-error-outline-hover: #930011;
+$btn-error-outline-selected: #7C3712;
+$btn-error-outline-disabled: #FFB3AD;
+$btn-error-transparent-default: #ffffff;
+$btn-error-transparent-hover: #FFDAD6;
+$btn-error-transparent-selected: #FFB3AD;
+$btn-error-transparent-disabled: #FFDAD6;
+$btn-error-text-default: #BD0D1D;
+$btn-error-text-disabled: #FF544F;
+$btn-error-text-invert: #FFFFFF;
+
+$btn-warning-solid-default: #C2510C;
+$btn-warning-solid-hover: #9A4012;
+$btn-warning-solid-selected: #7C3712;
+$btn-warning-solid-disabled: #FDC674;
+$btn-warning-outline-default: #C2510C;
+$btn-warning-outline-hover: #9A4012;
+$btn-warning-outline-selected: #7C3712;
+$btn-warning-outline-disabled: #FDC674;
+$btn-warning-transparent-default: #ffffff;
+$btn-warning-transparent-hover: #FED99B;
+$btn-warning-transparent-selected: #FDC674;
+$btn-warning-transparent-disabled: #FED99B;
+$btn-warning-text-default: #C2510C;
+$btn-warning-text-disabled: #F98816;
+$btn-warning-text-invert: #FFFFFF;
+
+$btn-success-solid-default: #1F7630;
+$btn-success-solid-hover: #1D5E2A;
+$btn-success-solid-selected: #1A4D25;
+$btn-success-solid-disabled: #90E5A0;
+$btn-success-outline-default: #1F7630;
+$btn-success-outline-hover: #1D5E2A;
+$btn-success-outline-selected: #1A4D25;
+$btn-success-outline-disabled: #90E5A0;
+$btn-success-transparent-default: #ffffff;
+$btn-success-transparent-hover: #C1F1C9;
+$btn-success-transparent-selected: #90E5A0;
+$btn-success-transparent-disabled: #C1F1C9;
+$btn-success-text-default: #1F7630;
+$btn-success-text-disabled: #31B64A;
+$btn-success-text-invert: #FFFFFF;
+
+/*Text Primary color*/
+$txt-primary-darker-default: #19003E;
+$txt-primary-dark-default: #340071;
+$txt-primary-medium-default: #7825E9;
+$txt-primary-light-default: #A875FF;
+$txt-primary-lighter-default: #FEF7FF;
+
+/*Text Secondary color*/
+$txt-secondary-darker-default: #111755;
+$txt-secondary-dark-default: #1D2B92;
+$txt-secondary-medium-default: #2534E9;
+$txt-secondary-light-default: #4666FF;
+$txt-secondary-lighter-default: #EBF3FF;
 
 
-                            /*Text Error color*/
-                            $txt-error-darker-default: $error-10;
-                            $txt-error-dark-default: $error-50;
-                            $txt-error-medium-default: $error-200;
-                            $txt-error-light-default: $error-400;
-                            $txt-error-lighter-default: $error-900;
+/*Text Tertiary color*/
+$txt-tertiary-darker-default: #530054;
+$txt-tertiary-dark-default: #7B127D;
+$txt-tertiary-medium-default: #B30FBC;
+$txt-tertiary-light-default: #EB37FE;
+$txt-tertiary-lighter-default: #FEF3FF;
 
-                            /*Text Warning color*/
-                            $txt-warning-darker-default: $warning-900;
-                            $txt-warning-dark-default: $warning-800;
-                            $txt-warning-medium-default: $warning-600;
-                            $txt-warning-light-default: $warning-400;
-                            $txt-warning-lighter-default: $warning-10;
-
-                            /*Text Success color*/
-                            $txt-success-darker-default: $success-100;
-                            $txt-success-dark-default: $success-200;
-                            $txt-success-medium-default: $success-400;
+/*Text Neutral color*/
+$txt-neutral-darker-default: #202020;
+$txt-neutral-dark-default: #353535;
+$txt-neutral-medium-default: #353535;
+$txt-neutral-light-default: #969696;
+$txt-neutral-lighter-default: #FCFCFC;
 
 
+/*Text Error color*/
+$txt-error-darker-default: #410003;
+$txt-error-dark-default: #680009;
+$txt-error-medium-default: #BD0D1D;
+$txt-error-light-default: #FF544F;
+$txt-error-lighter-default: #FFF8F7;
+
+/*Text Warning color*/
+$txt-warning-darker-default: #431907;
+$txt-warning-dark-default: #7C3712;
+$txt-warning-medium-default: #C2510C;
+$txt-warning-light-default: #F98816;
+$txt-warning-lighter-default: #FFF9ED;
+
+/*Text Success color*/
+$txt-success-darker-default: #092A11;
+$txt-success-dark-default: #1A4D25;
+$txt-success-medium-default: #1F7630;
 
 
-                            $progress-bar-bg-primary: $bg-primary-dark-default;
-                            $progress-bar-bg-error: $bg-error-dark-default;
 
 
-                            $min-contrast-ratio: 4.5 !default;
-                            $input-border-color: $input-neutral-outline-default;
-                            $input-focus-border-color: tint-color($primary, 50%) !default;
-                            $body-bg: white;
-                            $input-bg: $body-bg !default;
-                            $bg-custom-file-button: $btn-primary-solid-default;
-                            $border-color: $gray-100;
-                            $accordion-border-color: $neutral-600;
+$progress-bar-bg-primary: $bg-primary-dark-default;
+$progress-bar-bg-error: $bg-error-dark-default;
+
+
+$min-contrast-ratio: 4.5 !default;
+$input-border-color: $input-neutral-outline-default;
+$input-focus-border-color: tint-color($primary, 50%) !default;
+$body-bg: white;
+$input-bg: $body-bg !default;
+$bg-custom-file-button: $btn-primary-solid-default;
+$border-color: $gray-100;
+$accordion-border-color: #646464;
 
                             $btn-close-width: 1em !default;
                             $btn-close-color: $gray-100 !default;
@@ -478,7 +470,7 @@ $theme-colors: (
                             $dropdown-border-bottom: $gray-400 !default;
                             $dropdown-bg-color: $gray-100 !default;
                             $dropdown-border-bottom-hover: $gray-100;
-                            $dropdown-border-color: #e9ecf7 !default;
+                            $dropdown-border-color: $dropdown-border-color !default;
 
                             // /*file uploader color variables*/
                             $file-color: $primary;
@@ -555,11 +547,11 @@ $theme-colors: (
                             $enable-caret: true !default;
                             // scss-docs-end btn-variables
                             //subscription-card
-                            $subcription-bg-blue: $action-700;
-                            $subcription-bg-purple: $secondary-900;
-                            $subcription-bg-orangered: $danger-300;
-                            $subcription-bg-orange: $default-100;
-                            $subcription-bg-green: $success-600;
+                            $subcription-bg-blue: #005fa4;
+                            $subcription-bg-purple: #660064;
+                            $subcription-bg-orangered: #f76161;
+                            $subcription-bg-orange: #f58220;
+                            $subcription-bg-green: #00a443;
                             $body-wrapper-bg: $dark-900;
 
                             $body-wrapper-bg: $light-150;
@@ -707,7 +699,6 @@ $theme-colors: (
                             }
 
                             .accordion-bottomline {
-
                                 .accordion-header {
                                     &:not(.collapsed) {
                                         border-bottom: 1px solid $accordion-border-color;
@@ -750,7 +741,11 @@ $theme-colors: (
 
                         .ngx-shimmer {
                             background-color: $light-600;
-                            background-image: linear-gradient(to right, $light-800 0, $primary 20%, $light-800 40%, $light-800 100%);
+                            background-image: linear-gradient(to right,
+                                    $light-800 0,
+                                    $primary 20%,
+                                    $light-800 40%,
+                                    $light-800 100%);
                             opacity: 0.1;
                         }
 
@@ -802,7 +797,7 @@ $theme-colors: (
                         }
 
                         .navbar {
-                            background-color: white;
+                            background-color: $body-bg;
                         }
 
                         .bs-datepicker-head {
@@ -851,16 +846,16 @@ $theme-colors: (
 
                             table {
                                 th {
-                                    color: #999999;
+                                    color: $table-th-color;
                                 }
 
                                 td {
-                                    color: #212529;
+                                    color: $table-td-color;
 
                                     .is-highlighted:not(.disabled):not(.selected) span,
                                     span.is-highlighted:not(.disabled):not(.selected) {
                                         background-color: #5c82e3;
-                                        color: $white;
+                                        color: #fff;
                                     }
 
                                     .custom-today-class {
@@ -872,12 +867,12 @@ $theme-colors: (
 
                             .months span.selected {
                                 background-color: #ed585f;
-                                color: $white;
+                                color: #fff;
                             }
 
                             .years span.selected {
                                 background-color: #ed585f;
-                                color: $white;
+                                color: #fff;
                             }
                         }
 
@@ -1042,8 +1037,10 @@ $theme-colors: (
                             $avatar-border: shift-color($value, $avatar-border-scale);
                             $avatar-color: shift-color($value, $avatar-color-scale);
 
-                            @if (contrast-ratio($avatar-background, $avatar-color) < $min-contrast-ratio) {
-                                $avatar-color: mix($value, color-contrast($avatar-background), abs($avatar-color-scale));
+                            @if (contrast-ratio($avatar-background, $avatar-color) < $min-contrast-ratio ) {
+                                $avatar-color: mix($value,
+                                        color-contrast($avatar-background),
+                                        abs($avatar-color-scale));
                             }
 
                             .avatar-#{$state} {
@@ -1068,25 +1065,25 @@ $theme-colors: (
                             color: $color;
                         }
 
-                        .badge-error {
-                            @include badge-variant($btn-error-solid-default, // background
-                                $btn-error-solid-default, $btn-error-text-invert // border        // text color
-                            );
-                        }
+.badge-error {
+    @include badge-variant( $btn-error-solid-default, // background
+    $btn-error-solid-default, $btn-error-text-invert // border        // text color
+    );
+}
 
-                        .badge-neutral {
-                            @include badge-variant($btn-neutral-solid-default, // background
-                                $btn-neutral-solid-default, // border
-                                $btn-neutral-text-invert // text color
-                            );
-                        }
+.badge-neutral {
+    @include badge-variant( $btn-neutral-solid-default, // background
+    $btn-neutral-solid-default, // border
+    $btn-neutral-text-invert // text color
+    );
+}
 
-                        .badge-tertiary {
-                            @include badge-variant($btn-tertiary-solid-default, // background
-                                $btn-tertiary-solid-default, // border
-                                $btn-tertiary-text-invert // text color
-                            );
-                        }
+.badge-tertiary {
+    @include badge-variant( $btn-tertiary-solid-default, // background
+    $btn-tertiary-solid-default, // border
+    $btn-tertiary-text-invert // text color
+    );
+}
 
                         @each $state, $value in $theme-colors {
                             $badge-background: shift-color($value, $badge-bg-scale);
@@ -1094,7 +1091,9 @@ $theme-colors: (
                             $badge-color: shift-color($value, $badge-color-scale);
 
                             @if (contrast-ratio($badge-background, $badge-color) < $min-contrast-ratio) {
-                                $badge-color: mix($value, color-contrast($badge-background), abs($badge-color-scale));
+                                $badge-color: mix($value,
+                                        color-contrast($badge-background),
+                                        abs($badge-color-scale));
                             }
 
                             .badge-#{$state} {
@@ -1115,21 +1114,22 @@ $theme-colors: (
                             $counter-border: shift-color($value, $counter-border-scale);
                             $counter-color: shift-color($value, $counter-color-scale);
 
-                            @if (contrast-ratio($counter-background, $counter-color) < $min-contrast-ratio) {
-                                $counter-color: mix($value, color-contrast($counter-background), abs($counter-color-scale));
+                            @if (contrast-ratio($counter-background, $counter-color) < $min-contrast-ratio ) {
+                                $counter-color: mix($value,
+                                        color-contrast($counter-background),
+                                        abs($counter-color-scale));
                             }
 
-                            .counter-#{$state} {
-                                @include counter-variant($counter-background, $counter-border, $counter-color);
-                            }
-                        }
-
-                        // /*breadcrumb color variables*/
-                        .withDivider {
-                            .breadcrumb-item {
-                                &::before {
-                                    color: $breadcrumb-divider-color;
-                                }
+    .counter-#{$state} {
+        @include counter-variant($counter-background, $counter-border, $counter-color);
+    }
+}
+// /*breadcrumb color variables*/
+.withDivider {
+    .breadcrumb-item {
+        &::before {
+            color: $breadcrumb-divider-color;
+        }
 
                                 &.active {
                                     color: $breadcrumb-active-color;
@@ -1364,7 +1364,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-bottom: 3px solid #c0c0ff;
+                                border-bottom: 3px solid $nav-link-border-bottom-hover-after;
                             }
 
                             .nav-link {
@@ -1740,7 +1740,7 @@ $theme-colors: (
                                     ul {
                                         li {
                                             a {
-                                                color: #e6e6e6;
+                                                color: $ul-li-a;
                                                 border-left-color: transparent;
                                             }
                                         }
@@ -1871,14 +1871,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-tertiary {
-                            @include button-variant($bg-neutral-lighter-default, // background
-                                $bg-neutral-lighter-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-tertiary-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-tertiary-solid-default; // border
+.btn-tertiary {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-tertiary-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-tertiary-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -1916,14 +1916,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-neutral {
-                            @include button-variant($bg-neutral-lighter-default, // background
-                                $bg-neutral-lighter-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-neutral-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-neutral-solid-default; // border
+.btn-neutral {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-neutral-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-neutral-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2014,7 +2014,9 @@ $theme-colors: (
                             $tag-color: shift-color($value, $tag-color-scale);
 
                             @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
-                                $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
+                                $tag-color: mix($value,
+                                        color-contrast($tag-background),
+                                        abs($tag-color-scale));
                             }
 
                             .tag-#{$state} {
@@ -2072,7 +2074,8 @@ $theme-colors: (
                             background-color: $subcription-bg-orange;
                         }
 
-                        @mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {}
+@mixin button-variant($background, $border, $color: color-contrast($background), $hover-background: if($color ==$color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)), $hover-border: if($color ==$color-contrast-light, shade-color($border, $btn-hover-border-shade-amount), tint-color($border, $btn-hover-border-tint-amount)), $hover-color: color-contrast($hover-background), $active-background: if($color ==$color-contrast-light, shade-color($background, $btn-active-bg-shade-amount), tint-color($background, $btn-active-bg-tint-amount)), $active-border: if($color ==$color-contrast-light, shade-color($border, $btn-active-border-shade-amount), tint-color($border, $btn-active-border-tint-amount)), $active-color: color-contrast($active-background), $disabled-background: $background, $disabled-border: $border, $disabled-color: color-contrast($disabled-background)) {
+}
 
                         @each $color, $value in $theme-colors {
                             .btn-#{$color} {
@@ -2115,19 +2118,23 @@ $theme-colors: (
                             }
                         }
 
-                        @mixin button-outline-variant($color, $color-hover: color-contrast($color), $active-background: $color, $active-border: $color, $active-color: color-contrast($active-background)) {
+                        @mixin button-outline-variant($color,
+                            $color-hover: color-contrast($color),
+                            $active-background: $color,
+                            $active-border: $color,
+                            $active-color: color-contrast($active-background)) {
                             /*  background-color: $white;
   color: $primary;*/
                         }
 
-                        .btn-tertiary {
-                            @include button-variant($bg-neutral-lighter-default, // background
-                                $bg-neutral-lighter-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-tertiary-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-tertiary-solid-default; // border
+.btn-tertiary {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-tertiary-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-tertiary-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2165,14 +2172,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-neutral {
-                            @include button-variant($bg-neutral-lighter-default, // background
-                                $bg-neutral-lighter-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-neutral-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-neutral-solid-default; // border
+.btn-neutral {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-neutral-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-neutral-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2257,11 +2264,11 @@ $theme-colors: (
                             border: $border;
                         }
 
-                        .toast-basic {
-                            @include toast-variant($bg-neutral-lighter-default, // background
-                                $bg-neutral-lighter-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
+.toast-basic {
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
 
                             svg {
                                 width: 22px;
@@ -2299,13 +2306,13 @@ $theme-colors: (
                             }
                         }
 
-                        .toast-info {
-                            @include toast-variant($bg-neutral-lighter-default, // background
-                                $input-neutral-outline-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-neutral-outline-default; // border
-                        }
+.toast-info {
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $input-neutral-outline-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border
+}
 
                         @mixin icon-variant($color) {
                             color: $color;
@@ -2345,19 +2352,18 @@ $theme-colors: (
                                         stroke: $input-neutral-outline-default !important;
                                     }
 
-                                    circle.icon {
-                                        stroke: $input-neutral-outline-default !important;
-                                    }
-                                }
-                            }
-                        }
-
-                        .toast-success {
-                            @include toast-variant($bg-neutral-lighter-default, // background
-                                $input-primary-outline-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-primary-outline-default; // border
+            circle.icon {
+                stroke: $input-neutral-outline-default !important;
+            }
+        }
+    }
+    }
+    .toast-success {
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $input-primary-outline-default, // border
+        $txt-neutral-dark-default // text color
+        );
+        border-left: 4px solid $input-primary-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2395,12 +2401,12 @@ $theme-colors: (
                             }
                         }
 
-                        .toast-error {
-                            @include toast-variant($bg-neutral-lighter-default, // background
-                                $input-error-outline-default, // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-error-outline-default; // border
+    .toast-error {
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $input-error-outline-default, // border
+        $txt-neutral-dark-default // text color
+        );
+        border-left: 4px solid $input-error-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2443,9 +2449,9 @@ $theme-colors: (
                             $toast-border: shift-color($value, $toast-border-scale);
                             $toast-color: shift-color($value, $toast-color-scale);
 
-                            @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
-                                $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
-                            }
+        @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
+            $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
+        }
 
                             @each $color, $value in $theme-colors {
                                 .toast-#{$color} {
@@ -2488,17 +2494,17 @@ $theme-colors: (
                         }
 
 
-                        @mixin alert-variant($background, $border) {
-                            background-color: $background;
-                            border-color: $border;
-                        }
+@mixin alert-variant($background, $border) {
+    background-color: $background;
+    border-color: $border;
+}
 
-                        .alert-info {
-                            @include alert-variant($bg-neutral-lighter-default, // background
-                                $line-neutral-medium-defaut, // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-neutral-outline-default; // border
+.alert-info {
+    @include alert-variant( $bg-neutral-lighter-default, // background
+    $line-neutral-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2536,12 +2542,12 @@ $theme-colors: (
                             }
                         }
 
-                        .alert-success {
-                            @include alert-variant($bg-primary-light-default, // background
-                                $line-primary-medium-defaut, // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-primary-outline-default; // border
+.alert-success {
+    @include alert-variant( $bg-primary-light-default, // background
+    $line-primary-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-primary-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2579,12 +2585,12 @@ $theme-colors: (
                             }
                         }
 
-                        .alert-error {
-                            @include alert-variant($bg-error-light-default, // background
-                                $line-error-medium-defaut, // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-error-outline-default; // border
+.alert-error {
+    @include alert-variant( $bg-error-light-default, // background
+    $line-error-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-error-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2676,53 +2682,63 @@ $theme-colors: (
                             color: $color;
                         }
 
-                        $success-progress-color: conic-gradient($bg-primary-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%));
+$success-progress-color: conic-gradient( $bg-primary-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
 
-                        $error-progress-color: conic-gradient($bg-error-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%));
+$error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
 
                         .circular-progress-success {
-                            @include progress-variant($success-progress-color, 96px, $txt-neutral-dark-default);
+                            @include progress-variant($success-progress-color,
+                                96px,
+                                $txt-neutral-dark-default );
                         }
 
                         .circular-progress-error {
-                            @include progress-variant($error-progress-color, 96px, $txt-neutral-dark-default);
+                            @include progress-variant($error-progress-color,
+                                96px,
+                                $txt-neutral-dark-default );
                         }
 
-                        .bg-default {
-                            @include progress-variant($bg-neutral-light-default, 96px, $txt-neutral-dark-default);
-                        }
+.bg-default {
+    @include progress-variant($bg-neutral-light-default, 96px, $txt-neutral-dark-default);
+}
 
                         .bg-inprogress {
-                            @include progress-variant($bg-primary-medium-default, 96px, $txt-neutral-lighter-default);
+                            @include progress-variant($bg-primary-medium-default,
+                                96px,
+                                $txt-neutral-lighter-default );
                         }
 
                         .bg-completed {
-                            @include progress-variant($bg-primary-dark-default, 96px, $txt-neutral-lighter-default);
+                            @include progress-variant($bg-primary-dark-default,
+                                96px,
+                                $txt-neutral-lighter-default );
                         }
 
                         .bg-error {
-                            @include progress-variant($bg-error-dark-default, 96px, $txt-neutral-lighter-default);
+                            @include progress-variant($bg-error-dark-default,
+                                96px,
+                                $txt-neutral-lighter-default );
                         }
 
-                        .outline-default {
-                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-                            border: 2px solid $bg-neutral-light-default;
-                        }
+.outline-default {
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-neutral-light-default;
+}
 
-                        .outline-completed {
-                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-                            border: 2px solid $bg-primary-dark-default;
-                        }
+.outline-completed {
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-primary-dark-default;
+}
 
-                        .outline-inprogress {
-                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-                            border: 2px solid $bg-primary-medium-default;
-                        }
+.outline-inprogress {
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-primary-medium-default;
+}
 
-                        .outline-error {
-                            @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
-                            border: 2px solid $bg-error-dark-default;
-                        }
+.outline-error {
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-error-dark-default;
+}
 
                         .stepper-container {
                             display: flex;
@@ -2744,10 +2760,9 @@ $theme-colors: (
                             position: relative;
                         }
 
-                        .block_step,
-                        .step-icon {
-                            font-size: 0.75rem;
-                        }
+.block_step, .step-icon {
+    font-size: 0.75rem;
+}
 
 
                         .step-icon {
@@ -2759,7 +2774,6 @@ $theme-colors: (
                             justify-content: center;
                         }
 
-
                         .step-line {
                             position: absolute;
                             top: 50%;
@@ -2768,10 +2782,6 @@ $theme-colors: (
                             height: 2px;
                             z-index: -1;
                         }
-
-
-
-
 
                         .bs-datepicker {
                             background: $white;
@@ -2786,26 +2796,26 @@ $theme-colors: (
                         }
 
                         html #sidebar ul li a.active small {
-                            color: #212529;
+                            color: $table-td-color;
                         }
 
                         .theam-cards .selected {
-                            background: #dde4f7;
+                            background: $theam-cards-selected;
                         }
 
-                        .rds-fileuploader label.file-upload>div {
-                            color: #9bacbc;
-                        }
+.rds-fileuploader label.file-upload > div {
+    color: #9bacbc;
+}
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
-                            background: #d7dfe8;
+                            background: $-rds-fileuploader-label;
                         }
 
                         .rds-fileuploader label.file-upload {
-                            border-color: #9bacbc;
-                            background: #eaeff5;
-                            color: #3d4d60;
+                            border-color: $file-uploader-border-color;
+                            background: $-rds-fileuploader-background;
+                            color: $-rds-fileuploader-color;
                         }
 
                         .bd-links .child::after {
@@ -3183,7 +3193,9 @@ $theme-colors: (
                             $tag-color: shift-color($value, $tag-color-scale);
 
                             @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
-                                $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
+                                $tag-color: mix($value,
+                                        color-contrast($tag-background),
+                                        abs($tag-color-scale));
                             }
 
                             .tag-#{$state} {
@@ -3287,7 +3299,7 @@ $theme-colors: (
                             background-color: transparent;
                             color: $black;
                         }
-
+                        
                         .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
                             background-color: $primary;
                         }
@@ -3301,26 +3313,26 @@ $theme-colors: (
                         }
 
                         html #sidebar ul li a.active small {
-                            color: #212529;
+                            color: $table-td-color;
                         }
 
                         .theam-cards .selected {
-                            background: #dde4f7;
+                            background: $theam-cards-selected;
                         }
 
-                        .rds-fileuploader label.file-upload>div {
-                            color: #9bacbc;
-                        }
+.rds-fileuploader label.file-upload > div {
+    color: #9bacbc;
+}
 
                         .rds-fileuploader label.file-upload:active,
                         .rds-fileuploader label.file-upload:hover {
-                            background: #d7dfe8;
+                            background: $-rds-fileuploader-label;
                         }
 
                         .rds-fileuploader label.file-upload {
-                            border-color: #9bacbc;
-                            background: #eaeff5;
-                            color: #3d4d60;
+                            border-color: $file-uploader-border-color;
+                            background: $-rds-fileuploader-background;
+                            color: $-rds-fileuploader-color;
                         }
 
                         .bd-links .child::after {
@@ -3527,8 +3539,8 @@ $theme-colors: (
 
                         .datepicker__input {
                             width: fit-content !important;
-                            background-color: white;
-                            border: 2px solid lightgrey;
+                            background-color: $body-bg;
+                            border: 2px solid $datepicker-input-border;
                         }
 
                         .icon-box {
@@ -3668,7 +3680,7 @@ $theme-colors: (
                         }
 
                         .css-1xc3v61-indicatorContainer:hover {
-                            color: $gray-300 !important;
+                            color: #cccccc !important;
                         }
 
                         #react-select-3-listbox {
@@ -3782,15 +3794,14 @@ $theme-colors: (
                             min-height: 16px;
                         }
 
-                        .lottie-filter-0 .lf-player-container {
-                            filter: grayscale(0);
-                        }
-
-                        // /* Handle */
-                        ::-webkit-scrollbar-thumb {
-                            background: $gray-300;
-                            border-radius: 10px;
-                        }
+.lottie-filter-0 .lf-player-container {
+    filter: grayscale(0);
+}
+// /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 
                         .customWidthClass li:hover {
                             background-color: $primary;
@@ -3881,7 +3892,6 @@ $theme-colors: (
                             color: var(--bs-body-color);
                         }
 
-
                         .form-check-input-type-square-indeterminate {
                             border-color: $primary;
                         }
@@ -3938,7 +3948,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-top: 2px solid #c0c0ff;
+                                border-top: 2px solid $nav-link-border-bottom-hover-after;
                             }
                         }
 
@@ -3986,7 +3996,7 @@ $theme-colors: (
 
                             .nav-link:hover:after {
                                 width: 100%;
-                                border-top: 2px solid #c0c0ff;
+                                border-top: 2px solid $nav-link-border-bottom-hover-after;
                             }
                         }
 
@@ -3999,7 +4009,6 @@ $theme-colors: (
                             li {
                                 background-color: transparent;
                                 color: $txt-neutral-medium-default;
-
                             }
 
                             .selected {
@@ -4056,7 +4065,7 @@ $theme-colors: (
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
-
+                              
                             }
 
                             .selected {
@@ -4118,7 +4127,7 @@ $theme-colors: (
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
-
+                              
                             }
 
                             .selected {
@@ -4145,10 +4154,10 @@ $theme-colors: (
 
                         .nav-tabs.vertical-left-line {
                             border-bottom: 0px;
-                            overflow-x: hidden;
-
+                            overflow-x:hidden;
                             li {
 
+                            li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
                             }
@@ -4177,7 +4186,7 @@ $theme-colors: (
 
                         .nav-tabs.vertical-leftFilled {
                             border-bottom: 0px;
-                            overflow:hidden;
+                            overflow-x:hidden;
 
                             li {
                                 background-color: $btn-primary-transparent-selected;
@@ -4292,9 +4301,9 @@ $theme-colors: (
                         }
 
 
-                        .form-check-input-type-square-indeterminate {
-                            border-color: $primary;
-                        }
+.form-check-input-type-square-indeterminate {
+    border-color: $primary;
+}
 
                         .form-check-input-type-circular-indeterminate {
                             border-color: $primary;
@@ -4314,3 +4323,4 @@ $theme-colors: (
                             background-color: rgb(255 255 255 / 57%);
                             padding: 1rem;
                         }
+                    }
