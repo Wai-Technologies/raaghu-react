@@ -57,6 +57,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
     const [activeItem, setActiveItem] = useState<string | null>(null);
     const navigatepage = useNavigate();
+    const [showLockTooltip, setShowLockTooltip] = useState(false);
 
     const addFilter = (value: string) => {
         setSearchQuery(value);
@@ -350,8 +351,28 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 zIndex: 10,
                                 transition: "left 1.05s ease",
                             }}
-                            onMouseEnter={(e) => e.stopPropagation()}
-                            onMouseLeave={(e) => e.stopPropagation()}>
+                            onMouseEnter={() => setShowLockTooltip(true)}
+                            onMouseLeave={() => setShowLockTooltip(false)}
+                        >
+                            {showLockTooltip && (
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        top: "-35px",
+                                        left: "50%",
+                                        transform: "translateX(-50%)",
+                                        background: "#333",
+                                        color: "#fff",
+                                        padding: "4px 10px",
+                                        borderRadius: "4px",
+                                        fontSize: "12px",
+                                        whiteSpace: "nowrap",
+                                        pointerEvents: "none",
+                                    }}
+                                >
+                                    {collapse ? "Lock Sidebar" : "UnLock Sidebar"}
+                                </div>
+                            )}
                             <RdsIcon
                                 name={!collapse ? "unlock" : "lock_nav"}
                                 height="21px"
