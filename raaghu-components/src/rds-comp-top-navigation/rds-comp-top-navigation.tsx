@@ -6,6 +6,7 @@ import "./rds-comp-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
+import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -218,32 +219,32 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const handleSearchMouseLeave = () => {
     setShowSearchInput(false);
   };
-  const themeItems = [
-    {
-      id: 0,
-      label: t("Light"),
-      val: "Light",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/sun.json",
-    },
-    {
-      id: 1,
-      label: t("Dark"),
-      val: "Dark",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/moon.json",
-    },
-    {
-      id: 2,
-      label: t("Semi Dark"),
-      val: "Semi Dark",
-      iconWidth: "30px",
-      iconHeight: "30px",
-      iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
-    },
-  ];
+  // const themeItems = [
+  //   {
+  //     id: 0,
+  //     label: t("Light"),
+  //     val: "Light",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/sun.json",
+  //   },
+  //   {
+  //     id: 1,
+  //     label: t("Dark"),
+  //     val: "Dark",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/moon.json",
+  //   },
+  //   {
+  //     id: 2,
+  //     label: t("Semi-Dark"),
+  //     val: "semi-dark",
+  //     iconWidth: "30px",
+  //     iconHeight: "30px",
+  //     iconPath: "/assets/lottie-files/outlined/dual-color/semi-dark.json",
+  //   },
+  // ];
 
   const languageItems = [
     {
@@ -596,7 +597,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 >
                   {( (props.showSearch && props.ecommerce2) &&  <div className="searchBackground right-side-menu" id="serachOption">
                       <RdsSearch
-                          iconPosition="right"
+                           iconPosition={IconPosition.Right}
                           labelPosition="right"
                           placeholder="Search"
                           size="medium"
@@ -687,7 +688,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             </div>
             {( (props.showSearch && props.ecommerce3) &&  <div className="searchBackground" id="serachOption">
                     <RdsSearch
-                        iconPosition="right"
+                        iconPosition={IconPosition.Right}
                         labelPosition="right"
                         placeholder="Search"
                         size="small"
@@ -782,7 +783,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 >
                   {( (props.showSearch && props.ecommerce4) &&  <div className="searchBackground right-side-menu" id="serachOption">
                       <RdsSearch
-                          iconPosition="right"
+                          iconPosition={IconPosition.Right}
                           labelPosition="right"
                           placeholder="Search"
                           size="medium"
@@ -896,7 +897,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.entertainment1 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -951,7 +952,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.entertainment2 && (
               <div className="searchBackground ps-2" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1052,7 +1053,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
              {props.showSearch && props.entertainment3 && (
               <div className="searchBackground pe-2 ps-2" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1141,7 +1142,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                )}
               {showSearchInput && (
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1190,7 +1191,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.professional1 && (
               <div className="searchBackground ps-2" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                  iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1283,7 +1284,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.professional2 && (
               <div className="searchBackground ps-2" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1378,7 +1379,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.professional3 && (
               <div className="searchBackground ps-2" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                  iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1510,7 +1511,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
           {props.showSearch && props.professional4 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                   iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -1572,7 +1573,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             {props.showSearch && props.professional5 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
-                  iconPosition="right"
+                  iconPosition={IconPosition.Right}
                   labelPosition="right"
                   placeholder="Search"
                   size="medium"
@@ -2272,7 +2273,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   >
                     {( (props.showSearch && (props.product4 || props.entertainment1)) &&  <div className="searchBackground right-side-menu" id="serachOption">
                         <RdsSearch
-                            iconPosition="right"
+                            iconPosition={IconPosition.Right}
                             labelPosition="right"
                             placeholder="Search"
                             size="medium"

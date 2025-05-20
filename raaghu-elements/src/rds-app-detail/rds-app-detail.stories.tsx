@@ -1,5 +1,5 @@
 import React from "react";
-import RdsAppDetail from "./rds-app-detail";
+import RdsAppDetail, { IconPosition } from "./rds-app-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -7,6 +7,14 @@ const meta: Meta = {
   component: RdsAppDetail,
   parameters: {
     layout: "padded",
+    docs: {
+      source: {
+          transform: (code: string) => {
+              code = code.replace(/"(left|center|right)"/g, '{IconPosition.$1}');
+              return code;
+          },
+      },
+  },
   },
   tags: ["autodocs"],
   argTypes: {
@@ -22,7 +30,7 @@ type Story = StoryObj<typeof RdsAppDetail>;
 
 export const Default: Story = {
   args: {
-    iconPosition: "left",
+    iconPosition: IconPosition.Left,
     showUpperBorder: true,
     linkUrl: "https://example.com",
     appDetailsItem: {

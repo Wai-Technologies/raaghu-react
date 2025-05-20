@@ -4,22 +4,36 @@ import RdsIcon from "../rds-icon";
 import RdsButton from "../rds-button/rds-button";
 import RdsHeader from "../rds-header";
 
+export enum ColorVariant {
+  Primary = "primary",
+  Success = "success",
+  Danger = "danger",
+  Warning = "warning",
+  Light = "light",
+  Info = "info",
+  Secondary = "secondary",
+  Dark = "dark",
+}
+
+export enum Position {
+  Top = "top",
+  Bottom = "bottom",
+}
+
+export enum TextAlign {
+  Start = "start",
+  End = "end",
+  Center = "center",
+}
+
 export interface RdsBannerProps {
   bannerText?: string;
   sticky?: boolean;
-  position?: "top" | "bottom";
-  colorVariant?:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "info"
-    | "light"
-    | "dark";
+  position?: Position;
+  colorVariant?: ColorVariant;
   icon?: string;
   closeButton?: boolean;
-  textAlign: "start" | "end" | "center";
+  textAlign?: TextAlign;
   iconHeight: string;
   iconWidth: string;
   iconStroke: boolean;

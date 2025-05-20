@@ -29,7 +29,7 @@
 .backGifContainer {
   position: relative;
   width: 511px;
-  height: 784px;
+  /* height: 784px; */
 }
 
 .backGif {
@@ -48,6 +48,18 @@
   pointer-events: none; 
 }
 
+@media
+  (max-width: 768px) {
+    .backGifContainer {
+      width: 100%;
+      height: auto;
+    }
+  
+    .panelImage {
+      width: 80%;
+      height: auto;
+    }
+  }
 .centerText {
   text-align: center;
   margin-top: 32px;
@@ -167,7 +179,7 @@
   background-image: linear-gradient(to right, #E8AC39, #FFB40B, #FFCA3A, #FFC100, #FCC201); 
 }
 
-.card-text {
+.cardtext {
   margin-top: -50px;
 }
 
@@ -197,7 +209,7 @@
   }
 
   .upgradeText {
-    font-size: 1.5rem;
+    font-size: 17px;
   }
 
   .currentPlanText {
@@ -217,8 +229,8 @@
   }
 
   .planToggle {
-    width: 100%;
-    height: 50px;
+    width: 100% !important;
+    height: 50px !important;
   }
 
   .planDetails {

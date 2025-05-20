@@ -6,6 +6,17 @@ const meta: Meta = {
     component: RdsCheckbox,
     parameters: {
         layout: "padded",
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(Square|Circular)"/g, '{CheckboxStyle.$1}');
+                    code = code.replace(/"(checked|unchecked|indeterminate)"/g, '{CheckboxStatus.$1}');
+                    code = code.replace(/"(Default|Disabled|Hover)"/g, '{CheckboxState.$1}');
+                    code = code.replace(/"(left|right)"/g, '{LabelPosition.$1}');
+                    return code;
+                }
+            }
+        }
     },
     tags: ["autodocs"],
     argTypes: {

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsFeatureList from "./rds-feature-list";
+import RdsFeatureList, { ColorVariant, FontStyle } from "./rds-feature-list";
 import { Meta, StoryObj } from "@storybook/react";
 
 
@@ -8,11 +8,28 @@ const meta: Meta = {
     component: RdsFeatureList,
     parameters: {
         layout: 'padded',
+        docs: {
+            source : {
+                transform: (code: string) => {
+                    // Transform colorVariant enum - remove spaces and transform
+                    code = code.replace(/colorVariant="([^"]+)"/g, (match, p1) => `colorVariant={ColorVariant.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/colorVariant:\s*"([^"]+)"/g, (match, p1) => `colorVariant: ColorVariant.${p1.replace(/\s+/g, '')}`);
+                    // Transform Position enum - remove spaces and transform
+                    code = code.replace(/fontStyle="([^"]+)"/g, (match, p1) => `fontStyle={FontStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/fontStyle:\s*"([^"]+)"/g, (match, p1) => `fontStyle: FontStyle.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
+            control: { type: "select" },
+        },
+        fontStyle: {
+            options: ["normal", "italic"],
             control: { type: "select" },
         },
     },
@@ -24,8 +41,8 @@ type Story = StoryObj<typeof RdsFeatureList>;
 export const Default: Story = {
     args: {
         heading: "Features",
-        fontStyle: "normal",
-        colorVariant: "primary",
+        fontStyle: FontStyle.Normal,
+        colorVariant: ColorVariant.Primary,
         itemList: [
             "Only the best materials",
             "Ethically and locally made",
@@ -41,9 +58,9 @@ Default.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVaria
 
 export const With_multiple_column: Story = {
     args: {
-        colorVariant: "primary",
+        colorVariant: ColorVariant.Primary,
         heading: "Features",
-        fontStyle: "italic",
+        fontStyle: FontStyle.Italic,
         columns: 2,
         itemList: [
             "Only the best materials",

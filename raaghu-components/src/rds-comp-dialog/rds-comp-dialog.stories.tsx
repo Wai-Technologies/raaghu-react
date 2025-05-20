@@ -54,7 +54,7 @@ export const Default: Story = {
     Title: "Delete Account",
     ColorVariant: "primary",
     Content: "Deleting this data will remove your account and you will no longer login to the application! Are you sure you want to proceed?",
-    Icon: "users", 
+    Icon: "dialog_icon", 
     ContentPosition: "Bottom",
   },
 } satisfies Story;

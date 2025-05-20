@@ -8,22 +8,41 @@ const meta: Meta = {
     component: RdsSlider,
     parameters: {
         layout: 'padded',
+        docs:{
+            source: {
+                transform:(code: string) => {
+                   // Transform size enum - remove spaces and transform
+                    code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={SliderSize.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/size:\s*"([^"]+)"/g, (match, p1) => `size: SliderSize.${p1.replace(/\s+/g, "")}`);
+                    // Transform type enum - remove spaces and transform
+                    code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={SliderType.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: SliderType.${p1.replace(/\s+/g, "")}`);
+                    // Transform level enum - remove spaces and transform
+                    code = code.replace(/level="([^"]+)"/g, (match, p1) => `level={SliderLevel.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/level:\s*"([^"]+)"/g, (match, p1) => `level: SliderLevel.${p1.replace(/\s+/g, "")}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={SliderStyle.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: SliderStyle.${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }
+            }
+        }
       },
       tags: ['autodocs'],
       argTypes: {
-        colorVariant: {
-          options: [
-            "primary",
-            "secondary",
-            "success",
-            "info",
-            "warning",
-            "danger",
-            "dark",
-            "light",
-          ],
-          control: { type: "select" },
-        },
+        // colorVariant: {
+        //   options: [
+        //     "primary",
+        //     "secondary",
+        //     "success",
+        //     "info",
+        //     "warning",
+        //     "danger",
+        //     "dark",
+        //     "light",
+        //   ],
+        //   control: { type: "select" },
+        // },
         size: {
             options: ["small", "medium", "large"],
             control: { type: "select" },
@@ -61,4 +80,4 @@ export const Default: Story = {
         style: SliderStyle.Default
     },
   } satisfies Story;
-  Default.parameters = { controls: { include: ['colorVariant', 'type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };
+  Default.parameters = { controls: { include: ['type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };

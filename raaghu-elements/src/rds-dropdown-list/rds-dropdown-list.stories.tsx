@@ -7,6 +7,22 @@ const meta: Meta = {
     component: RdsDropdownList,
     parameters: {
         layout: 'padded',
+        docs: {
+            source:{
+                transform: (code: string) => {
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={DropdownStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: DropdownStyle.${p1.replace(/\s+/g, '')}`);
+                    // Transform size enum - remove spaces and transform
+                    code = code.replace(/size="([^"]+)"/g, (match, p1) => `size={DropdownSize.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/size:\s*"([^"]+)"/g, (match, p1) => `size: DropdownSize.${p1.replace(/\s+/g, '')}`);
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={DropdownState.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: DropdownState.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
@@ -38,6 +54,7 @@ export const Default: Story = {
         state: DropdownState.Default,
         style: DropdownStyle.Default,
         showTitle: true,
+        showSearch: true,
         title: "Label",
         isMandatory: false,
         showHint: true,
@@ -49,7 +66,7 @@ export const Default: Story = {
         listItems: [
                         {
                             label: "EN(US)",
-                            val: "en",
+                            val: "en-us",
                             icon: "us",
                             iconWidth: "20px",
                             iconHeight: "20px",
@@ -100,7 +117,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect'] } };
+Default.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect', 'showSearch'] } };
 
 // export const WithMultiSelect: Story = {
 //     args: {

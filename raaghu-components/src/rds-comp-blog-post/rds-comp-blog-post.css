@@ -1,3 +1,18 @@
 .bloglist .dropdown-menu{
     min-width:8.7rem;
 }
+
+@media (max-width: 480px) {
+    .file-name {
+        font-size: 10px !important;
+    }
+}
+.theme-dark .css-17pj0yt-control, 
+.theme-dark .css-meqmo6-control, 
+.theme-dark .css-8jouw6-menu {
+    background-color: #343a40 !important;
+    color: #fff !important;
+}
+.theme-dark .quill svg {
+    color: #e9ecef !important;
+}

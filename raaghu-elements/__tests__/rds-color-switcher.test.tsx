@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import RdsColorSwitcher, { RdsColorSwitcherProps } from "../src/rds-color-switcher/rds-color-switcher";
+import RdsColorSwitcher, { DisplayType, RdsColorSwitcherProps } from "../src/rds-color-switcher/rds-color-switcher";
 
 describe("RdsColorSwitcher", () => {
     const defaultProps: RdsColorSwitcherProps = {
@@ -21,7 +21,7 @@ describe("RdsColorSwitcher", () => {
     it("renders with square display type", () => {
         const props: RdsColorSwitcherProps = {
             ...defaultProps,
-            displayType: "square",
+            displayType: DisplayType.Square,
         };
         render(<RdsColorSwitcher {...props} />);
         expect(screen.getByText(props.header!)).toBeInTheDocument();
