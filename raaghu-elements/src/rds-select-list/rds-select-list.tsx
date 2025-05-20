@@ -325,7 +325,7 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   return (
     <div className={`${props.classes} mt-2`}>
-      <div className="d-flex mb-1">
+      <div className="d-flex mb-3">
         {showLabel && props.label && (
           <label
             htmlFor={props.id}
