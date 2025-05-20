@@ -1,7 +1,5 @@
 $theme: "default" !default;
 
-
-
 $info: #3ef1e8;
 
 $danger: #E02D30;
@@ -17,7 +15,7 @@ $dark:$neuytal;
 $danger:$error;
 */
 $primary: #7e2eef;
-$secondary: #2539FF;
+$secondary: #6c757d;
 $tertiary: #DA25E9;
 $neutral: #7D7D7D;
 $error: #E02D30;
@@ -160,17 +158,17 @@ $black: #000000;
 
 $secondary-0: #000000;
 $secondary-10: #111755;
-$secondary-50: #1D2B92;
-$secondary-100: #1827BB;
-$secondary-200: #2534E9;
-$secondary-300: #2539FF;
-$secondary-400: #4666FF;
-$secondary-500: #698FFF;
-$secondary-600: #93B8FF;
-$secondary-700: #BCD5FF;
-$secondary-800: #DAEAFF;
-$secondary-900: #EBF3FF;
-$black: #000000;
+$secondary-20: #1D2B92;
+$secondary-30: #1827BB;
+$secondary-40: #2534E9;
+$secondary-50: $secondary;
+$secondary-60: #4666FF;
+$secondary-70: #698FFF;
+$secondary-80: #93B8FF;
+$secondary-90: #BCD5FF;
+$secondary-95: #DAEAFF;
+$secondary-99: #EBF3FF;
+$secondary-100: #FFFFFF;
 
 $tertiary-0: #000000;
 $tertiary-10: #FEF3FF;
@@ -251,6 +249,34 @@ $neutral: #7D7D7D;
 $error: #645555;
 $warning: #EA6C0C;
 $success: #24993A;
+
+/* Missing Colors for darkvariables */
+$line-success-light-default: #C1F1C9;
+$progress-bg: #33383e;
+$high-rate-color: #9EFCB0;
+$subcription-bg-green: #00a443;
+$file-uploader-border-color: #9bacbc;
+$border-bottom-color: #f8f9fa;
+$nav-link-border-bottom-hover: #483c60;
+$nav-link-border-bottom-hover-after: #c0c0ff;
+$datepicker-body-table-border-color: #5c82e3;
+$datepicker-input-border: lightgrey;
+$css-1xc3v61-indicatorContainer-hover: #cccccc;
+$container-collapse-background-color: #49494D;
+$container-collapse-box-shadow: #ede1e1;
+$container-collapse-right: #ccc;
+$collapse-button-for-container-background: #3089D1;
+
+/* Missing colors for lightvariables */
+$dropdown-border-color: #e9ecf7;
+$table-th-color: #999999;
+$table-td-color: #212529;
+$months-span-selected: #ed585f;
+$ul-li-a: #e6e6e6;
+$theam-cards-selected: #dde4f7;
+$-rds-fileuploader-label: #d7dfe8;
+$-rds-fileuploader-background: #eaeff5;
+$-rds-fileuploader-color: #3d4d60;
 
 // /*Chart color variables*/
 :root {
