@@ -3,27 +3,48 @@ import { colors, placements } from "../../libs/types";
 import RdsButton from "../rds-button/rds-button";
 import "./rds-counter.css";
 
-export interface RdsCounterProps {
-  counterValue: number;
-  label?: string;
-  min: number;
-  max: number;
-  width: number;
-  type?: "Default" | "Side" | "Bottom";
-  colorVariant?: colors;
-  position?: placements; // Add the position prop
-  onCounterChange?: (newValue: number) => void;
-  showLabel?: boolean;
-  isDisabled?: boolean;
-  showTitle?: boolean;
+export enum LayoutOptions {
+  RightSide = "Right Side",
+  SideToSide = "Side to Side",
+  Bottom = "Bottom",
 }
+
+export enum CounterState {
+  Default = "Default",
+  Selected = "Selected",
+  Disabled = "Disabled",
+}
+
+export interface RdsCounterProps {
+  counterValue: number; // Value of the counter
+  label?: string; // Label for the counter
+  min: number; // Minimum value for the counter
+  max: number; // Maximum value for the counter
+  width: number; // Width of the counter
+  layout?: LayoutOptions; // Layout of the counter
+  type?: "Default" | "Side" | "Bottom";
+  size?:""
+  colorVariant?: colors; // Color variant of the counter
+  position?: placements; // Position of the counter
+  onCounterChange?: (newValue: number) => void; // Callback function to get the new value of the counter
+  showLabel?: boolean; // Show label for the counter
+  isDisabled?: boolean; // Disable the counter
+  showTitle?: boolean; // Show title for the counter
+  state?: CounterState; // State of the counter
+  isMandatory?: boolean; // Is the counter mandatory
+  placeholder?: string; // Placeholder for the counter
+  titleText?: string; // Title text for the counter
+}
+
 
 // Define color variables
 const DISABLED_BACKGROUND_COLOR = "#f5f5f5";
 const DISABLED_INPUT_COLOR = "#e0e0e0";
 const DISABLED_TEXT_COLOR = "#a9a9a9";
 const ENABLED_BACKGROUND_COLOR = "white";
-const ENABLED_TEXT_COLOR = "black";
+const ENABLED_TEXT_COLOR = "gray";
+const SELECTED_BACKGROUND_COLOR = "white";
+const SELECTED_TEXT_COLOR = "#000000";
 
 const RdsCounter = (props: RdsCounterProps) => {
   const initialCounterValue: number = props.counterValue ?? 0;
@@ -32,7 +53,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const onMinusClick = () => {
-    if (counterValue > props.min && !props.isDisabled) {
+    if (counterValue > props.min && props.state !== "Disabled") {
       const newValue = counterValue - 1;
       setCounterValue(newValue);
       props.onCounterChange?.(newValue);
@@ -41,7 +62,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   };
 
   const onPlusClick = () => {
-    if (counterValue < props.max && !props.isDisabled) {
+    if (counterValue < props.max && props.state !== "Disabled") {
       const newValue = counterValue + 1;
       setCounterValue(newValue);
       props.onCounterChange?.(newValue);
@@ -50,7 +71,7 @@ const RdsCounter = (props: RdsCounterProps) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (props.isDisabled) return;
+    if (props.state === "Disabled") return;
 
     const newValue = e.target.value === "" ? 0 : Number(e.target.value);
     if (!isNaN(newValue) && newValue >= props.min && newValue <= props.max) {
@@ -60,86 +81,81 @@ const RdsCounter = (props: RdsCounterProps) => {
     setIsEditing(true);
   };
 
-  // Dynamic classes for positioning
+  
   const classes = () => {
     switch (props.position) {
       case "top":
-        return "d-flex flex-column gap-3"; // Label above, no vertical centering
+        return "d-flex flex-column gap-2"; 
       case "bottom":
-        return "d-flex flex-column-reverse gap-1"; // Label below, no vertical centering
+        return "d-flex flex-column-reverse gap-1"; 
       default:
-        return "d-flex flex-column gap-3"; // Default to above, no vertical centering
+        return "d-flex flex-column gap-2"; 
     }
   };
-  
 
-  const renderDefaultLayout = () => {
+  const getBackgroundColor = () => {
+    if (props.state === "Disabled") return DISABLED_BACKGROUND_COLOR;
+    if (props.state === "Selected") return SELECTED_BACKGROUND_COLOR;
+    return ENABLED_BACKGROUND_COLOR;
+  };
+
+  const getTextColor = () => {
+    if (props.state === "Disabled") return DISABLED_TEXT_COLOR;
+    if (props.state === "Selected") return SELECTED_TEXT_COLOR;
+    return ENABLED_TEXT_COLOR;
+  };
+
+  const renderSideToSideLayout = () => {
     const dynamicWidth =
       props.width && props.width > 100 ? `${props.width}px` : "100px";
 
     return (
-      <div
-        className={classes()}
-        style={{ width: dynamicWidth }}
-      >
-        {/* Conditionally show label */}
-        {props.showLabel && (
-          <label
-            className={`fw-medium ${
-              props.isDisabled ? "text-muted" : "text-primary"
-            }`}
-          >
-            {props.label}
+      <div className={classes()} style={{ width: dynamicWidth }}>
+        {props.showTitle && (
+          <label>
+            {props.titleText} {props.isMandatory && <span className="text-danger">*</span>}
           </label>
         )}
-        {/* Counter Container */}
         <div
           className={`border ${
-            props.isDisabled ? "border-gray bg-light" : "border-gray"
-          } rounded p-1`}
+            props.state === "Disabled" ? "border-gray bg-light" : "border-gray"
+          } rounded p-1`} id="counter-back-color"
           style={{
-            backgroundColor: props.isDisabled
-              ? DISABLED_BACKGROUND_COLOR
-              : ENABLED_BACKGROUND_COLOR,
+            backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex align-items-center gap-0">
-            {/* Minus Button */}
+          <div className="d-flex gap-0" id="counter-button-width">
             <RdsButton
               colorVariant={props.colorVariant}
               icon="minus"
               onClick={onMinusClick}
               size="medium"
-              isDisabled={props.isDisabled}
+              isDisabled={props.state === "Disabled"}
             />
-            {/* Input Field */}
             <input
               type="number"
               className="form-control text-center border-0"
               style={{
-                width: dynamicWidth, // Add dynamicWidth for input width
+                width: dynamicWidth,
                 boxShadow: "none",
-                backgroundColor: props.isDisabled
-                  ? DISABLED_INPUT_COLOR
-                  : ENABLED_BACKGROUND_COLOR,
-                color: props.isDisabled ? DISABLED_TEXT_COLOR : ENABLED_TEXT_COLOR,
+                backgroundColor: getBackgroundColor(),
+                color: getTextColor(),
               }}
-              value={isEditing && counterValue === 0 ? "" : counterValue}
+              value={isEditing ? counterValue.toString() : counterValue === 0 ? "" : counterValue}
               onChange={handleInputChange}
               min={props.min}
               max={props.max}
               onFocus={() => setIsEditing(true)}
               onBlur={() => setIsEditing(false)}
-              disabled={props.isDisabled}
+              disabled={props.state === "Disabled"}
+              placeholder={props.placeholder} 
             />
-
-            {/* Plus Button */}
             <RdsButton
               colorVariant={props.colorVariant}
               icon="plus"
               onClick={onPlusClick}
               size="medium"
-              isDisabled={props.isDisabled}
+              isDisabled={props.state === "Disabled"}
             />
           </div>
         </div>
@@ -147,66 +163,56 @@ const RdsCounter = (props: RdsCounterProps) => {
     );
   };
 
-
-  const renderSideLayout = () => {
+  const renderRightSideLayout = () => {
     const dynamicWidth =
       props.width && props.width > 100 ? `${props.width}px` : "100px";
 
     return (
-      <div
-        className={classes()}
-        style={{ width: dynamicWidth }}
-      >
-        {/* Conditionally show label */}
-        {props.showLabel && (
-          <label
-            className={`fw-medium ${
-              props.isDisabled ? "text-muted" : "text-primary"
-            }`}
-          >
-            {props.label}
+      <div className={classes()} style={{ width: dynamicWidth }}>
+        {props.showTitle && (
+          <label>
+            {props.titleText} {props.isMandatory && <span className="text-danger">*</span>}
           </label>
         )}
         <div
-          className={`border ${props.isDisabled ? "border-gray" : "border-gray"} rounded p-1`}
+          className={`border ${
+            props.state === "Disabled" ? "border-gray" : "border-gray"
+          } rounded p-1`} id="counter-back-color"
           style={{
-            backgroundColor: props.isDisabled
-              ? DISABLED_BACKGROUND_COLOR
-              : ENABLED_BACKGROUND_COLOR,
+            backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex align-items-center gap-1">
+          <div className="d-flex gap-1" id="counter-button-width">
             <input
               type="number"
               className="form-control border-0"
               style={{
                 boxShadow: "none",
-                backgroundColor: props.isDisabled
-                  ? DISABLED_INPUT_COLOR
-                  : ENABLED_BACKGROUND_COLOR,
-                color: props.isDisabled ? DISABLED_TEXT_COLOR : ENABLED_TEXT_COLOR,
+                backgroundColor: getBackgroundColor(),
+                color: getTextColor(),
               }}
-              value={isEditing && counterValue === 0 ? "" : counterValue}
+              value={isEditing ? counterValue.toString() : counterValue === 0 ? "" : counterValue}
               onChange={handleInputChange}
               min={props.min}
               max={props.max}
               onFocus={() => setIsEditing(true)}
               onBlur={() => setIsEditing(false)}
-              disabled={props.isDisabled}
+              disabled={props.state === "Disabled"}
+              placeholder={props.placeholder} 
             />
             <RdsButton
               colorVariant={props.colorVariant}
               icon="minus"
               onClick={onMinusClick}
               size="medium"
-              isDisabled={props.isDisabled}
+              isDisabled={props.state === "Disabled"}
             />
             <RdsButton
               colorVariant={props.colorVariant}
               icon="plus"
               onClick={onPlusClick}
               size="medium"
-              isDisabled={props.isDisabled}
+              isDisabled={props.state === "Disabled"}
             />
           </div>
         </div>
@@ -219,47 +225,41 @@ const RdsCounter = (props: RdsCounterProps) => {
       props.width && props.width > 100 ? `${props.width}px` : "100px";
 
     return (
-      <div
-        className={classes()}
-        style={{ width: dynamicWidth }}
-      >
-        {props.showLabel && <label
-            className={`fw-medium ${
-              props.isDisabled ? "text-muted" : "text-primary"
-            }`}
-          >
-            {props.label}
-          </label>}
+      <div className={classes()} style={{ width: dynamicWidth }}>
+        {props.showTitle && (
+          <label>
+            {props.titleText} {props.isMandatory && <span className="text-danger">*</span>}
+          </label>
+        )}
         <div
-          className={`border ${props.isDisabled ? "border-gray" : "border-gray"} rounded p-1`}
+          className={`border ${
+            props.state === "Disabled" ? "border-gray" : "border-gray"
+          } rounded p-1`} id="counter-back-color"
           style={{
-            backgroundColor: props.isDisabled
-              ? DISABLED_BACKGROUND_COLOR
-              : ENABLED_BACKGROUND_COLOR,
+            backgroundColor: getBackgroundColor(),
           }}
         >
-          <div className="d-flex flex-column align-items-center gap-2">
+          <div className="d-flex flex-column gap-2">
             <input
               type="number"
               className="form-control text-center border-0"
-              value={isEditing && counterValue === 0 ? "" : counterValue}
+              value={isEditing ? counterValue.toString() : counterValue === 0 ? "" : counterValue}
               onChange={handleInputChange}
               min={props.min}
               max={props.max}
               onFocus={() => setIsEditing(true)}
               onBlur={() => setIsEditing(false)}
-              disabled={props.isDisabled}
+              disabled={props.state === "Disabled"}
               style={{
-                backgroundColor: props.isDisabled
-                  ? DISABLED_INPUT_COLOR
-                  : ENABLED_BACKGROUND_COLOR,
-                color: props.isDisabled ? DISABLED_TEXT_COLOR : ENABLED_TEXT_COLOR,
+                backgroundColor: getBackgroundColor(),
+                color: getTextColor(),
               }}
+              placeholder={props.placeholder} 
             />
             <div
               className="width_element"
               style={{
-                width: "var(--dynamic-width-1, 100%)", // Default dynamic width fallback to 100%
+                width: "var(--dynamic-width-1, 100%)",
                 display: "flex",
                 gap: "4px",
               }}
@@ -269,27 +269,27 @@ const RdsCounter = (props: RdsCounterProps) => {
                 icon="minus"
                 onClick={onMinusClick}
                 size="medium"
-                isDisabled={props.isDisabled}
+                isDisabled={props.state === "Disabled"}
               />
               <RdsButton
                 colorVariant={props.colorVariant}
                 icon="plus"
                 onClick={onPlusClick}
                 size="medium"
-                isDisabled={props.isDisabled}
+                isDisabled={props.state === "Disabled"}
               />
             </div>
           </div>
         </div>
-    </div>
+      </div>
     );
   };
 
   return (
     <div className="rds-counter">
-      {props.type === "Default" && renderDefaultLayout()}
-      {props.type === "Side" && renderSideLayout()}
-      {props.type === "Bottom" && renderBottomLayout()}
+      {props.layout === "Right Side" && renderRightSideLayout()}
+      {props.layout === "Side to Side" && renderSideToSideLayout  ()}
+      {props.layout === "Bottom" && renderBottomLayout()}
     </div>
   );
 };

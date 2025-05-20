@@ -2,7 +2,7 @@ import RdsCollapse from "./rds-collapse";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Collapse',
+    title: 'Components/Collapse',
     component: RdsCollapse,
     parameters: {
         layout: 'padded',

@@ -1,13 +1,18 @@
 import React from "react";
 import "./rds-checkbox-group.css";
 
+export enum CheckboxState {
+    Checkbox = "Checkbox",
+    Indeterminate = "Indeterminate",
+    ErrorCheckbox = "ErrorCheckbox",
+  }  
 export interface RdsCheckboxGroupProps {
     isSwitch?: boolean;
     isInline?: boolean;
     itemList: any;
     label?: string;
     id?: number;
-    state?: "Checkbox" | "Indeterminate" | "ErrorCheckbox";
+    state?: CheckboxState;
     errorMessage?: string;
     onClick?: React.MouseEventHandler<HTMLInputElement>;
 }

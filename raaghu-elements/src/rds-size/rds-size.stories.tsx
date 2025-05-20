@@ -3,7 +3,7 @@ import Todos from "./rds-size";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Size',
+    title: 'Components/Size',
     component: Todos,
     parameters: {
         layout: 'padded',

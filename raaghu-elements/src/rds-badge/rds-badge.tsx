@@ -14,7 +14,7 @@ export interface RdsBadgeProps {
     children?: ReactNode;
     size?: size;
     colorVariant?: string;
-    badgeType?: "box" | "pill";
+    shape?: "rectangle" | "pill";
     childrenSide?: "right" | "left";
     positioned?: boolean;
     showClose?: boolean;
@@ -33,6 +33,7 @@ export interface RdsBadgeProps {
     isIconBorder?: boolean;
     layout?: string;
     style?: string;
+    state?: string;
     iconOnly?: boolean;
     textwithlabel?: boolean;
     textWithButton?: boolean;
@@ -52,8 +53,8 @@ const RdsBadge = (props: RdsBadgeProps) => {
             defaultClass = defaultClass + sizeClass;
         }
 
-        if (props.badgeType) {
-            const badgeTypeClass = `${props.badgeType === 'pill' ? 'rounded-pill' : ''}`;
+        if (props.shape) {
+            const badgeTypeClass = `${props.shape === 'pill' ? 'rounded-pill' : ''}`;
             defaultClass = defaultClass + badgeTypeClass;
         }
 
@@ -78,19 +79,36 @@ const RdsBadge = (props: RdsBadgeProps) => {
         props.onClose && props.onClose(props.label);
     };
     const getColorClass = () => {
-        if (props.style && props.colorVariant) {
-            if (props.style === "primary") {
-                return `badge-${(props.colorVariant || 'primary').toLowerCase()}`;
-            }
-            if (props.style === "outline") {
-                return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()}`;
+        if (props.style && props.colorVariant && props.state) {
+            if (props.state === "default") {
+                if (props.style === "primary") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()}`;
+                }
+                if (props.style === "outline") {
+                    return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()}`;
 
+                }
+                /*if (props.style === "disabled") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+                }*/
+                if (props.style === "transparent") {
+                    return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent`;
+                }
             }
-            if (props.style === "disabled") {
-                return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
-            }
-            if (props.style === "transparent") {
-                return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent`;
+            if (props.state === "disabled") {
+                if (props.style === "primary") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled` ;
+                }
+                if (props.style === "outline") {
+                    return `border-${(props.colorVariant || 'primary').toLowerCase()} text-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+
+                }
+                /*if (props.style === "disabled") {
+                    return `badge-${(props.colorVariant || 'primary').toLowerCase()} disabled`;
+                }*/
+                if (props.style === "transparent") {
+                    return `text-${(props.colorVariant || 'primary').toLowerCase()} bg-transparent disabled`;
+                }
             }
 
         }
@@ -100,7 +118,7 @@ const RdsBadge = (props: RdsBadgeProps) => {
     return (
         <>
             <span id="new-badges">
-                <span className={`badge ${getColorClass()} ${classes()} `} aria-disabled={props.style === "disabled"}>
+                <span className={`badge mx-1 ${getColorClass()} ${classes()} `} aria-disabled={props.style === "disabled"}>
 
                     {(props.iconName && props.layout == "Icon+Text" || props.layout == "Icon_only") && Icons.hasOwnProperty(props.iconName) && (
 

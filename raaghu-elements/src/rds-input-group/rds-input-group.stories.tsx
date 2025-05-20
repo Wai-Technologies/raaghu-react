@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj, Meta } from "@storybook/react";
-import RdsInputGroup from "./rds-input-group";
+import RdsInputGroup, { InputGroupSize } from "./rds-input-group";
 import { input_size } from "../../libs/types/size";
 import { button_colors } from "../../libs/types/colorvariant";
 
@@ -8,10 +8,18 @@ const buttonColorsArray = Object.values(button_colors);
 const inputSizeArray = Object.values(input_size);
 
 const meta: Meta = {
-    title: 'Elements/Input Group',
+    title: 'Components/Input Group',
     component: RdsInputGroup,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(small|medium|large)"/g, '{InputGroupSize.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
@@ -38,7 +46,7 @@ export const TextInputWithButton: Story = {
         buttonLabel: "BUTTON",
         colorVariant: "primary",
         placeholder: "Placeholder text",
-        size: "medium",
+        size: InputGroupSize.Medium,
         outline: true,
         inputGroupLabel: "Field Label",
         labelPosition: "top",

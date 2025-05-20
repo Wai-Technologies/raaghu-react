@@ -7,7 +7,7 @@ import {
   RdsSelectList,
   RdsTextArea,
 } from "../rds-elements";
-
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompGetAssistanceProps {
   getAssistanceData?: any;
   onClickSubmit: (data: any) => void;
@@ -64,13 +64,14 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
                 <RdsInput
                   id=""
                   inputType="text"
-                  label="Name"
-                  labelPosition="top"
+                  name="Name"
+                  label={true}
+                  labelPosition={LabelPosition.Top}
                   placeholder="Enter Name"
                   required={true}
                   readonly={false}
                   isDisabled={false}
-                  size="medium"
+                  size={InputSize.Medium}  
                   value={getAssistanceFormData?.name}
                   onChange={(e: any) =>
                     handleGetAssistanceDataChanges(e.target.value, "name")
@@ -82,12 +83,13 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
                 <RdsInput
                   id=""
                   inputType="Email"
-                  label="Email"
-                  labelPosition="top"
+                  name="Email"
+                  label={true}                 
+                 labelPosition={LabelPosition.Top}
                   placeholder="Enter Email"             
                   readonly={false}
                   isDisabled={false}
-                  size="medium"
+                  size={InputSize.Medium}   
                   value={getAssistanceFormData?.email}
                   onChange={(e: any) =>
                     handleGetAssistanceDataChanges(e.target.value, "email")
@@ -103,11 +105,12 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
                 <RdsInput
                   id=""
                   inputType="number"
-                  label="Contact Number"
-                  labelPosition="top"
+                  name="Contact Number"
+                  label={true}
+                  labelPosition={LabelPosition.Top}
                   placeholder="Enter Contact Number"
                   required
-                  size="medium"
+                  size={InputSize.Medium}   
                   maxLength={10}
                   value={getAssistanceFormData?.phoneNumber}
                   onChange={(e: any) =>
@@ -139,7 +142,7 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
 
               <div className="col-md-12 pb-4">
                 <RdsTextArea
-                  isRequired
+                  isMandatory
                   label="Notes"
                   labelPosition="top"
                   placeholder="Enter your specific requirements..."

@@ -3035,6 +3035,11 @@ rds-nav-tab {
     color: white;
     box-shadow: none;
     font-weight: 700;
+    .worldmap__figure-container {
+        svg{
+            width: 220px;
+        }
+    }
 }
 
 .frontSide,
@@ -3802,9 +3807,9 @@ label.form-check-label.ms-2.undefined {
 .mysettingspage {
     margin-top: 1rem !important;
 }
-.form-switch .form-check-input {
-    margin-left: 0.5em !important;
-}
+// .form-switch .form-check-input {
+//     margin-left: 0.5em !important;
+// }
 
 #password-icon .password-toggle {  
     right: 33px !important;
@@ -3821,3 +3826,6 @@ label.form-check-label.ms-2.undefined {
     padding-right: 15px !important;
 }
 
+.theme-dark .time-controls .css-1dimb5e-singleValue {
+    color: #393434 !important;
+}

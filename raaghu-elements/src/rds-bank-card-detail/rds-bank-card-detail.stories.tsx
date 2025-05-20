@@ -2,7 +2,7 @@ import RdsBankCardDetail from "./rds-bank-card-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Bank Card Detail',
+    title: 'Components/Bank Card Detail',
     component: RdsBankCardDetail,
     parameters: {
         layout: 'padded',

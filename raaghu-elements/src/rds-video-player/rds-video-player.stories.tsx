@@ -10,6 +10,11 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        type: {
+            control: 'select',
+            options: ['Default', 'YouTube', 'Vimeo'],
+            description: "Select the type of video source",
+        },
     },
 } satisfies Meta<typeof RdsVideoPlayer>;
 
@@ -18,32 +23,14 @@ type Story = StoryObj<typeof RdsVideoPlayer>;
 
 export const Default: Story = {
     args: {
-        width: "480px",
+        type: "Default",
+        width: "480px", 
         height: "240px",
         autoplay: false,
         muted: false,
-        videoLink: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",  // Example of a hosted .mp4 file
+        videoLink: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     }
 } satisfies Story;
 
-export const Vimeo: Story = {
-    args: {
-        width: "480px",
-        height: "240px",
-        autoplay: false,
-        muted: false,
-        videoLink: "https://vimeo.com/420192272",  // React tutorial on Vimeo
-    }
-} satisfies Story;
+Default.parameters = { controls: { include: ['type'] } };
 
-Vimeo.parameters = { controls: { include: ['width', 'height', 'autoplay', 'muted', 'videoLink'] } };
-
-export const YouTube: Story = {
-    args: {
-        width: "480px",
-        height: "240px",
-        autoplay: false,
-        muted: false,
-        videoLink: "https://youtu.be/7sDY4m8KNLc",  // YouTube link
-    }
-} satisfies Story;

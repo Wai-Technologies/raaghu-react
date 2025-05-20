@@ -102,3 +102,8 @@
         justify-content: flex-end;
     }
 }
+
+.theme-dark .closeButton
+ {
+    color: white !important;
+  }

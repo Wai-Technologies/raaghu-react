@@ -80,12 +80,10 @@ button {
 
 .labels span {
   font-size: 14px;
-  color: gray;
 }
 
 .labels .active {
   color: black;
-  font-weight: bold;
 }
 
 .rating-container {

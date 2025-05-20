@@ -3,7 +3,7 @@ import RdsIcon from "../rds-icon";
 import "./rds-stat.css";
 
 export interface RdsStatProps {
-  displayType: "basic" | "advanced";
+  displayType?: "basic" | "advanced";
   items: any[];
   colorVariant?: string;
   backgroundColorVarient?: string;

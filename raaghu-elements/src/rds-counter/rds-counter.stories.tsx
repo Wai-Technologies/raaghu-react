@@ -1,5 +1,5 @@
 import { position } from "html2canvas/dist/types/css/property-descriptors/position";
-import RdsCounter from "./rds-counter";
+import RdsCounter, { CounterState, LayoutOptions } from "./rds-counter";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -7,6 +7,19 @@ const meta: Meta = {
     component: RdsCounter,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={LayoutOptions.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: LayoutOptions.${p1.replace(/\s+/g, '')}`);
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={CounterState.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: CounterState.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
@@ -23,9 +36,29 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        type: {
-            options: ["Default", "Side", "Bottom"],
-            control: { type: "radio" },
+        layout: {
+            options: ["Right Side", "Side to Side", "Bottom"],
+            control: { type: "select" },
+        },
+        state: {
+            options: ["Default", "Selected", "Disabled"],
+            control: { type: "select" },
+        },
+        showTitle:{
+            control: { type: "boolean" }
+        },
+       
+        titleText: {
+            control: { type: "text" },
+        },
+        min: {
+            control: { type: "number" },
+        },
+        max: {
+            control: { type: "number" },
+        },
+        width: {
+            control: { type: "number" },
         },
         position: {
             options: ["top", "bottom"], // Add position options
@@ -40,15 +73,6 @@ const meta: Meta = {
         label: {
             control: { type: "text" },
         },
-        min: {
-            control: { type: "number" },
-        },
-        max: {
-            control: { type: "number" },
-        },
-        width: {
-            control: { type: "number" },
-        },
     },
 } satisfies Meta<typeof RdsCounter>;
 
@@ -61,54 +85,19 @@ export const Default: Story = {
         counterValue: 0,
         min: 0,
         max: 50,
-        width: 400,
+        width: 280,
         colorVariant: "primary",
-        type: "Default", // Default button placement
-        label: "Counter",
-        isDisabled: false, // Default disabled state to false
-        showLabel:true,
+        layout: LayoutOptions.SideToSide, 
+        state: CounterState.Default,
         showTitle:true,
-        position:"top",
+        titleText: "Label",
+        isMandatory: false,
+        placeholder: "00",
+        //isDisabled: false, 
+        //position:"top",
     },
 };
 
-Default.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel','position'] } };
+Default.parameters = { controls: { include: [/*'min', 'max', 'width', 'colorVariant',*/ 'layout', 'state', 'titleText', 'isMandatory', 'placeholder', 'showTitle',/*'position'*/] } };
 
 
-export const Side: Story = {
-    args: {
-        counterValue: 0,
-        min: 0,
-        max: 50,
-        width: 400,
-        colorVariant: "primary",
-        type: "Side", // Default button placement
-        label: "Counter",
-        isDisabled: false, // Default disabled state to false
-        showLabel:true,
-        showTitle:true,
-        // position:"top",
-    },
-};
-
-Side.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel','position'] } };
-
-
-export const Bottom: Story = {
-    args: {
-        counterValue: 0,
-        min: 0,
-        max: 50,
-        width: 400,
-        colorVariant: "primary",
-        type: "Bottom", // Default button placement
-        label: "Counter",
-        isDisabled: false, // Default disabled state to false
-        showLabel:true,
-        showTitle:true,
-        position:"top",
-
-    },
-};
-
-Bottom.parameters = { controls: { include: ['min', 'max', 'width', 'colorVariant', 'type', 'label', 'isDisabled','showLabel','position'] } };

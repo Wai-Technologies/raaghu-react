@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import RdsButtonGroup, { RdsButtonGroupProps } from "../src/rds-button-group/rds-button-group";
+import RdsButtonGroup, { RdsButtonGroupProps, Role } from "../src/rds-button-group/rds-button-group";
 
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
@@ -12,7 +12,7 @@ const defaultProps: RdsButtonGroupProps = {
     vertical: false,
     isOutline: false,
     size: "",
-    role: "button",
+    role: Role.Button,
     buttonGroupItems: [
         { id: "1", label: "Button 1" },
         { id: "2", label: "Button 2" },
@@ -75,7 +75,7 @@ describe("RdsButtonGroup", () => {
 
     it("renders checkbox inputs correctly", () => {
         render(
-            <RdsButtonGroup {...defaultProps} role="checkbox" />
+            <RdsButtonGroup {...defaultProps}  role={Role.Checkbox} />
         );
         const checkboxInputs = screen.getAllByRole("checkbox");
         expect(checkboxInputs).toHaveLength(3);
@@ -83,7 +83,7 @@ describe("RdsButtonGroup", () => {
 
     it("renders radio inputs correctly", () => {
         render(
-            <RdsButtonGroup {...defaultProps} role="radio" />
+            <RdsButtonGroup {...defaultProps}  role={Role.Radio} />
         );
         const radioInputs = screen.getAllByRole("radio");
         expect(radioInputs).toHaveLength(3);

@@ -2,6 +2,7 @@ import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { useTranslation } from "react-i18next";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 interface RdsCompPollsOptionProps {
   getPollsOptionData?: any;
@@ -9,7 +10,7 @@ interface RdsCompPollsOptionProps {
 }
 
 const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
-  const [tableData, setTableData] = useState<any>([]);
+  const [tableData, setTableData] = useState<any[]>([]);
   const [optionData, setOptionData] = useState<{ option: string }>({
     option: "",
   });
@@ -17,7 +18,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (props.optionsData) {
+    if (Array.isArray(props.optionsData)) {
       setTableData(props.optionsData);
     }
   }, [props.optionsData]);
@@ -141,7 +142,8 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         <div className="row align-items-center mt-3">
           <div className="col-10 col-sm-8 col-md-11 position-relative">
             <RdsInput
-              label="Options"
+              name="Options"
+              label={true}
               placeholder="Enter Option"
               inputType="text"
               id="passwordfield"
@@ -176,7 +178,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
         </div>
         <div className="mt-3">
           <RdsCompDatatable
-            actionPosition="right"
+            actionPosition={ActionPosition.Right}
             actions={actions}
             onActionSelection={onActionHandler}
             tableHeaders={tableHeaders}
