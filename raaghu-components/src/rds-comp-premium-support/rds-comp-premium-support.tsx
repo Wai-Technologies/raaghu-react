@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsInput, RdsOffcanvas, RdsTextArea, RdsTextEditor } from "../rds-elements";
 import "./rds-comp-premium-support.css";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsCompPremiumSupportProps {
   premiumSupportData?: any;
@@ -69,7 +71,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                 <div className="text-center">
 
                     <RdsOffcanvas
-                        backDrop="static"
+                        backDrop={RdsOffcanvasBackDrop.Static}
                         canvasTitle="GET PREMIUM SUPPORT"
                         offId="SUPPORT"
                         offcanvasbutton={
@@ -83,7 +85,8 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 onClick={props.onClickOffcanvas}>
                             </RdsButton>}
                         offcanvaswidth={544}
-                        placement="end" scrolling={false}>
+                        placement={RdsOffcanvasPlacement.End}
+                         scrolling={false}>
                         <div>
                             <div className="offcanvas-intive-banner">
                                 <div className="d-flex align-items-center gap-3 py-3 px-4">
@@ -99,11 +102,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="text"
-                                        label="Name"
-                                        labelPosition="top"
+                                        name="Name"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Name"
-                                        // required
-                                        size="medium"
+                                        required
+                                        size={InputSize.Medium}   
                                         value={premiumSupportData?.name}
                                         onChange={(e: any) => {
                                             handlePremiumSupportDataChanges(e.target.value, "name");
@@ -114,11 +118,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="email"
-                                        label="Email"
-                                        labelPosition="top"
+                                        name="Email"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Email"
-                                        // required
-                                        size="medium"
+                                        required
+                                        size={InputSize.Medium}   
                                         value={premiumSupportData?.email}
                                         onChange={(e: any) => {
                                             handlePremiumSupportDataChanges(e.target.value, "email");
@@ -130,11 +135,12 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                     <RdsInput
                                         id=""
                                         inputType="number"
-                                        label="Contact Number"
-                                        labelPosition="top"
+                                        name="Contact Number"
+                                        label={true}
+                                        labelPosition={LabelPosition.Top}
                                         placeholder="Enter Contact Number"
                                         required
-                                        size="medium"
+                                        size={InputSize.Medium}   
                                         reset={inputReset}
                                         value={premiumSupportData?.phoneNumber}
                                         maxLength={10}
@@ -145,23 +151,20 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 </div>
 
                                 <div>
-                                    <RdsTextArea
-                                        isRequired
-                                        label="Message"
-                                        labelPosition="top"
-                                        placeholder="Enter your extra message about your invoice"
-                                        rows={3}
-                                        reset={inputReset}
-                                        value={premiumSupportData?.message}
-                                        onChange={(e: any) => {
-                                            handlePremiumSupportDataChanges(e.target.value, "message");
-                                        }}
-                                    />
+                                        <RdsTextEditor
+                                          State="Default"
+                                          id=""
+                                          label="Message"
+                                          isMandatory
+                                          placeholder="Enter your extra message about your invoice"
+                                          value={premiumSupportData?.message}
+                                          onChange={(value: any) => handlePremiumSupportDataChanges(value, "message")}
+                                        />
                                 </div>
 
                             </form>
                         </div>
-                        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row d-flex gap-2">
+                        <div className="d-flex flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row d-flex gap-2 pt-4">
                             <RdsButton
                                 class="me-2"
                                 tooltipTitle={""}
@@ -181,7 +184,7 @@ const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
                                 tooltipTitle={""}
                                 type={"submit"}
                                 databsdismiss="offcanvas"
-                                isDisabled={!premiumSupportData.phoneNumber || !premiumSupportData.message}
+                                isDisabled={!premiumSupportData.phoneNumber || !premiumSupportData.message || !premiumSupportData.name || !premiumSupportData.email}
                                 onClick={(e: any) => emitSaveData(e)}
                             ></RdsButton>
                         </div>

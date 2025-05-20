@@ -21,7 +21,7 @@
 }
 
 .unitName {
-  margin-left: 31px;
+  margin-left: 31px !important;
 }
 
 .member-count {
@@ -52,4 +52,30 @@
 .spacingbetweenbtn
 {
   margin-left: 5px;
+}
+
+ .node-items .node_dot {
+  background-color: #2539FF !important;
+}
+
+.node-items:hover .node_dot, .node_dot {
+  background-color: #7e2eef !important;
+}
+
+.vertical, .theme-light .verticalNode {
+  border-right-color: #2539FF !important;
+}
+
+.horizontal {
+  border-bottom-color: #2539FF !important;
+}
+
+.leftSpace {
+  margin-left: 0rem !important;
+}
+
+.btn:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
 }

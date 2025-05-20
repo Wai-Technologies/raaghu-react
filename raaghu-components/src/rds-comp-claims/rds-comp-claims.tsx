@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { RdsButton, RdsInput, RdsSelectList } from "../rds-elements";
 import "./rds-comp-claims.css";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompClaimsProps {
     allClaimsArray?: any[];
@@ -99,16 +100,17 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                                 setSelectedData({ ...selectedData, claimType: item });
                             }}
                             dataTestId="select"
+                            color="primary"
                         ></RdsSelectList>
                     </div>
 
                     <div className="col-md-5">
                         <RdsInput
-                           required={true}
-                            label="Claim Value"
+                           required={true}                           
+                            label={true}
                             reset={inputReset}
                             placeholder="Enter Value"
-                            name="value"
+                            name="Value"
                             value={selectedData.claimValue}
                             onChange={(event) =>
                                 setSelectedData({
@@ -140,7 +142,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 <div className="row mt-3">
                     <RdsCompDatatable
                      key={tableData.length} 
-                        actionPosition="right"
+                        actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}
                         tableData={tableData || []}
                         pagination={true}

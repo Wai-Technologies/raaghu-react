@@ -2,7 +2,7 @@ import RdsCollapse from "./rds-collapse";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Collapse',
+    title: 'Components/Collapse',
     component: RdsCollapse,
     parameters: {
         layout: 'padded',
@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCollapse>;
 
 
-export const Collapse: Story = {
+export const CollapseView: Story = {
     args: {
         buttonList: [
             {
@@ -28,7 +28,7 @@ export const Collapse: Story = {
         ],
     }
 } satisfies Story;
-Collapse.parameters = { controls: { include: ['buttonList'] } };
+CollapseView.parameters = { controls: { include: ['buttonList'] } };
 
 
 

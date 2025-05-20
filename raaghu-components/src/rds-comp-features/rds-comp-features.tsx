@@ -136,7 +136,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
 
   return (
     <div className="row">
-      <div className="col-md-5 pe-4 border-end custom-content-scroll px-lg-3">
+      <div className="col-md-5 pe-4 border-end custom-content-scroll mb-0 px-lg-3">
         <RdsNavtabs
           navtabsItems={navtabs}
           layout="Vertical"
@@ -148,6 +148,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
           activeNavtabOrder={handleActiveNavtabVertical} type={"default"}        />
       </div>
       <div className="col-md-7 ps-4 ">
+        <div className="custom_sm_scroll">
         {localChanges &&
           localChanges.map((tabsData: any, mainIndex: number) => (
             <div key={mainIndex}>
@@ -180,7 +181,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Maximum user count"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)
@@ -194,7 +195,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                         ) : feature.valueType.validator.name === "BOOLEAN" ? (
                           <div className="form-group mb-2">
                             <RdsCheckbox
-                              label={(feature.displayName) || ""}
+                              labelText={(feature.displayName) || ""}
                               checked={feature.value === true}
                               name={feature.name}
                               dataTestId={feature.name}
@@ -213,7 +214,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                               inputType={"number"}
                               label={(feature.displayName) || ""}
                               dataTestId={feature.name}
-                              name={feature.name}
+                              name={"Storage size"}
                               value={feature.value}
                               onChange={(e: any) =>
                                 onChangeFn(e.target.value, feature)
@@ -231,7 +232,8 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
               )}
             </div>
           ))}
-          <div className="d-flex flex-column-reverse flex-lg-row ps-lg-3 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 ms-1 p-4">
+        </div>
+          <div className="d-flex flex-column-reverse flex-lg-row ps-lg-3 flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 px-4 ms-1 ">
           
           <RdsButton
                     label="Restore to Default"

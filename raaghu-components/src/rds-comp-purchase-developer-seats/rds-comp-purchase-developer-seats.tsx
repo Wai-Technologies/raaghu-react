@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RdsButton, RdsCounter, RdsOffcanvas } from "../rds-elements";
+import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 
 export interface RdsCompPurchaseDeveloperSeatsProps {
   purchaseDeveloperData?: any;
@@ -52,7 +53,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
     <>
       <div>
         <RdsOffcanvas
-          backDrop="static"
+          backDrop={RdsOffcanvasBackDrop.Static}
           canvasTitle="PURCHASE DEVELOPER SEATS"
           offId="purchaseDeveloper"
           offcanvasbutton={
@@ -67,7 +68,7 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
             ></RdsButton>
           }
           offcanvaswidth={544}
-          placement="end"
+          placement={RdsOffcanvasPlacement.End}
           scrolling={false}
         >
           <div>
@@ -92,18 +93,18 @@ const RdsCompPurchaseDeveloperSeats = (props: RdsCompPurchaseDeveloperSeatsProps
 
             <form className="text-start pt-4">
               <div className="pb-1">
-                <h5 className="fs-5 fw-medium">Select Developer Seats</h5>
+                <h5 className="fs-5 fw-medium mb-3">Select Developer Seats</h5>
               </div>
               <div className="mb-2">
                 <RdsCounter
                   key={developerSeatsCounter}
-                  colorVariant="outline-primary"
+                  colorVariant="primary"
                   counterValue={developerSeatsCounter}
                   label=""
                   max={50}
                   min={0}
-                  position="right"
-                  width={110}
+                  type="Default"
+                  width={200}
                   onCounterChange={(e: number) => handleDevSeatDataChanges(e, "developerSeatsCounter")}
                 />
               </div>

@@ -10,6 +10,9 @@ import {
   RdsTooltip,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import {LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
@@ -202,14 +205,14 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-6 mb-3 d-flex justify-content-xxl-end justify-content-xl-end justify-content-lg-end justify-content-md-end justify-content-start">
                   <div className="d-flex pe-2">
                     <div className="fw-normal mb-0 d-flex">
-                      <RdsTooltip text="Required" place="top">
+                      <RdsTooltip label="Required" style={TooltipStyle.MiddleBottomArrow}>
                         <RdsCheckbox
                           checked={element.isRequired}
                           id="id1"
                           isSwitch
-                          state="Checkbox"
-                          label={""}
-                          withlabel={false}
+                          style={CheckboxStyle.Square}
+                          labelText={""}
+                          showText={false}
                           onChange={(e: any) => {
                             setIsRequired(i, e.target.checked);
                           }}
@@ -217,7 +220,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                       </RdsTooltip>
                     </div>
                   </div>
-                  <RdsTooltip text="Delete" place="top">
+                  <RdsTooltip label="Delete" style={TooltipStyle.MiddleBottomArrow}>
                     <RdsIcon
                       width="17px"
                       height="17px"
@@ -236,12 +239,12 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               <div className="row">
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                   <RdsInput
-                    label="Title"
+                    name="Title"
+                    label={true}
                     placeholder="Title"
                     inputType="text"
                     onChange={(e: any) => setTitle(i, e.target.value)}
-                    value={element.title}
-                    name={"title"}
+                    value={element.title}                   
                     dataTestId="title"
                   ></RdsInput>
                 </div>
@@ -313,10 +316,10 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                     setOption(i, idx, e.target.value)
                                   }
                                   value={elements.value}
-                                  name={"option"}
+                                  name={"Option"}
                                   readonly={elements.readOnly}
-                                  customClasses="rounded-start-0"
-                                  labelPosition="right"
+                                  customClasses="rounded-start-0"                                 
+                                 labelPosition={LabelPosition.Right}
                                   dataTestId="option"
                                 ></RdsInput>
                               </div>

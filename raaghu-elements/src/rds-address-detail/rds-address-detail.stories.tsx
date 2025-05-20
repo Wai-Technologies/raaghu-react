@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 
 const meta: Meta = {
-  title: 'Elements/Address Detail',
+  title: 'Components/Address Detail',
   component: RdsAddressDetail,
   parameters: {
     layout: 'padded',
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof RdsAddressDetail>;
 
 
 //👇 Each story then reuses that template
-export const AddressDetail: Story = {
+export const DetailedAddressCard: Story = {
   args: {
     withIcon: true,
     header: "Address Header",
@@ -30,4 +30,4 @@ export const AddressDetail: Story = {
     cardborder: true
   }
 } satisfies Story;
-AddressDetail.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };
+DetailedAddressCard.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };

@@ -81,10 +81,10 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                 <div className="row">
                     <div className="col-md-12">
                         <RdsInput
-                            label="URL"
+                            name="URL"
+                            label={true}
                             value={data?.url}
-                            placeholder="Enter Url"
-                            name="url"
+                            placeholder="Enter Url"                           
                             onChange={(e) => handlerChangeInput(e, "url")}
                             dataTestId="url"
                             validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
@@ -92,7 +92,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             required={true}
                         />
                     </div>
-                    <div className="col-md-12 mb-3">
+                    <div className="col-md-12 mb-2">
                         <RdsSelectList
                             id="selpa"
                             label="Page"
@@ -103,22 +103,21 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                             onChange={(item: any) => handlePageId(item.value)}
                         ></RdsSelectList>
                     </div>
-                    <div className="col-md-12"></div>
                     <div className="col-md-12">
                         <RdsInput
-                            label="Display Name"
+                            name="Display Name"
+                            label={true}
                             value={data?.displayName}
-                            placeholder={("Enter Display Name") || ""}
-                            name="displayName"
+                            placeholder={("Enter Display Name")}                            
                             required={true}
                             onChange={(e) => handlerChangeInput(e, "displayName")}
                             dataTestId="display-name"
                             reset={inputReset}                           
                         />
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 pt-1">
                         <RdsCheckbox
-                            label="Active"
+                            labelText="Active"
                             onChange={(e) => {
                                 handlerChangeActive(e.target.checked);
                             }}
@@ -128,40 +127,40 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                     </div>
                     <div className="col-md-12">
                         <RdsInput
-                            label="Icon"
+                            name="Icon"
+                            label={true}
                             value={data?.icon}
-                            placeholder={("Enter Icon") || ""}
-                            name="icon"
+                            placeholder={("Enter Icon")}                           
                             onChange={(e) => handlerChangeInput(e, "icon")}
                             dataTestId="enter-icon"
                         />
                     </div>
                     <div className="col-md-12">
                         <RdsInput
-                            label="Target"
+                            name="Target"
+                            label={true}
                             value={data?.target}
-                            placeholder="Enter Target"
-                            name="target"
+                            placeholder="Enter Target"                            
                             onChange={(e) => handlerChangeInput(e, "target")}
                             dataTestId="target"
                         />
                     </div>
                     <div className="col-md-12">
                         <RdsInput
-                            label="Element ID"
+                            name="Element ID"
+                            label={true}
                             value={data?.elementId}
-                            placeholder="Enter Element ID"
-                            name="elementId"
+                            placeholder="Enter Element ID"                            
                             onChange={(e) => handlerChangeInput(e, "elementId")}
                             dataTestId="enter-id"
                         />
                     </div>
                     <div className="col-md-12">
                         <RdsInput
-                            label="Css Class"
+                            name="Css Class"
+                            label={true}
                             value={data?.cssClass}
-                            placeholder="Enter Css Class"
-                            name="cssClass"
+                            placeholder="Enter Css Class"                            
                             onChange={(e) => handlerChangeInput(e, "cssClass")}
                             dataTestId="enter-css-class"
                         />
@@ -169,7 +168,7 @@ const isFormValid =isUrlValid(data?.url)&& isDisplayNameValid(data?.displayName)
                 </div>
             </div>
 
-            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">
+            <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 mb-2 px-4">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"

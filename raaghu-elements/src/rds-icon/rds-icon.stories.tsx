@@ -3,7 +3,7 @@ import RdsIcon from "./rds-icon";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Icon',
+    title: 'Components/Icon',
     component: RdsIcon,
     parameters: {
         layout: 'centered',
@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsIcon>;
 
-export const Icon: Story = {
+export const UserIcon: Story = {
     args: {
         name: "users",
         width: "20px",
@@ -31,7 +31,7 @@ export const Icon: Story = {
         isCursorPointer: true,
     }
 } satisfies Story;
-Icon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
+UserIcon.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
 
 export const Tooltip: Story = {
     args: {

@@ -64,7 +64,8 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                                 inputType="text"
                                 required={true}
                                 reset={inputReset}
-                                label="Title"
+                                name="Title"
+                                label={true}
                                 placeholder="Enter Title"
                                 value={data?.title}
                                 onChange={(e) => {
@@ -80,7 +81,8 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                                 inputType="text"
                                 required={true}
                                 reset={inputReset}
-                                label="Slug"
+                                name="Slug"
+                                label={true}
                                 placeholder="Enter Slug"
                                 value={data?.slug}
                                 onChange={(e) => {
@@ -113,7 +115,7 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                             },
                         ]}
                     />
-                    <div className="mt-3 overflow-x-hidden overflow-y-scroll offcanvas-custom-scroll">
+                    <div className="mt-3 mb-4 overflow-x-hidden overflow-y-scroll offcanvas-custom-scroll">
                         {activeTab == "content" && (
                             <RdsTextEditor
                                 value={data?.content}
@@ -159,7 +161,7 @@ const isFormValid=isTitleValid(data?.title) && isSlugValid(data?.slug) ;
                 </div>
             </div>
 
-            <div className="footer-buttons pb-3 d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2 p-4">
+            <div className="footer-buttons pb-3 d-flex ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row gap-2 px-4">
                 <RdsButton
                     label="Cancel"
                     databsdismiss="offcanvas"

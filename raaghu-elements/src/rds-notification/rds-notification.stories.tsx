@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import RdsNotification from "./rds-notification";
-
+import RdsNotification, { NotificationLayout, NotificationStyle, NotificationType } from "./rds-notification";
 
 const meta: Meta = {
     title: "Elements/Notification",
@@ -8,21 +7,36 @@ const meta: Meta = {
 
     parameters: {
         layout: 'padded',
-      },
-      tags: ['autodocs'],
-      
+        docs:{
+            source:{
+                transform: (code: string) => {
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={NotificationLayout.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: NotificationLayout.${p1.replace(/\s+/g, '')}`);
+                    // Transform style enum - remove spaces and transform
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: NotificationStyle.${p1.replace(/\s+/g, '')}`);
+                    // Transform type enum - remove spaces and transform
+                    code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={NotificationType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: NotificationType.${p1.replace(/\s+/g, '')}`);
+                    return code;
+                }
+            }
+        }
+    },
+    tags: ['autodocs'],
+
     argTypes: {
-        colorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "info",
-                "warning",
-                "danger",
-                "dark",
-                "light",
-            ],
+        layout: {
+            options: ["vertical", "horizontal"],
+            control: { type: "select" },
+        },
+        style: {
+            options: ["default", "avatar", "icon", "image"],
+            control: { type: "select" },
+        },
+        type: {
+            options: ["error", "info", "success", "warning"],
             control: { type: "select" },
         },
     }
@@ -33,48 +47,107 @@ type Story = StoryObj<typeof RdsNotification>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "light",
+        layout: NotificationLayout.Horizontal,
+        style: NotificationStyle.Default,
+        type: NotificationType.Info,
+        showButton: true,
+        showPrimaryButton: true,
+        showSecondaryButton: true,
+        showDismissIcon: true,
         notifications: [
             {
-                status: "success", title: "Tenant added",
+                status: "success",
+                title: "Notification Title",
                 urlTitle: "hello",
-                // url:" " ,
-                time: "a month ago",
-                state: 1,
-                userNotificationId: 0,
-                selected: false
-            },
-
-            {
-                status: "error", title: "Tenant deleted",
-                urlTitle: "hello",
-                time: "a month ago",
-                state: 1,
-                userNotificationId: 1,
-                selected: false
-            },
-
-            {
-                status: "warn", title: "Tenant added  warn",
-                urlTitle: "hello",
-                time: "a month ago",
-                state: 1,
-                userNotificationId: 2,
-                selected: false
-            },
-
-            {
-                status: "info", title: "Tenant deleted info",
-                urlTitle: "hello",
-                time: "a month ago",
-                state: 1,
-                userNotificationId: 3,
-                selected: false
+                time: "10 min ago",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
-
         ]
     }
 }
-Default.parameters = { controls: { include: ['colorVariant', 'notifications'] } };
+Default.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showDismissIcon'] } };
+
+
+
+
+
+// import { Meta, StoryObj } from "@storybook/react";
+// import RdsNotification from "./rds-notification";
+
+
+// const meta: Meta = {
+//     title: "Elements/Notification",
+//     component: RdsNotification,
+
+//     parameters: {
+//         layout: 'padded',
+//       },
+//       tags: ['autodocs'],
+      
+//     argTypes: {
+//         colorVariant: {
+//             options: [
+//                 "primary",
+//                 "secondary",
+//                 "success",
+//                 "info",
+//                 "warning",
+//                 "danger",
+//                 "dark",
+//                 "light",
+//             ],
+//             control: { type: "select" },
+//         },
+//     }
+// } satisfies Meta<typeof RdsNotification>;
+
+// export default meta;
+// type Story = StoryObj<typeof RdsNotification>;
+
+// export const Default: Story = {
+//     args: {
+//         colorVariant: "light",
+//         notifications: [
+//             {
+//                 status: "success", title: "Tenant added",
+//                 urlTitle: "hello",
+//                 // url:" " ,
+//                 time: "a month ago",
+//                 state: 1,
+//                 userNotificationId: 0,
+//                 selected: false
+//             },
+
+//             {
+//                 status: "error", title: "Tenant deleted",
+//                 urlTitle: "hello",
+//                 time: "a month ago",
+//                 state: 1,
+//                 userNotificationId: 1,
+//                 selected: false
+//             },
+
+//             {
+//                 status: "warn", title: "Tenant added  warn",
+//                 urlTitle: "hello",
+//                 time: "a month ago",
+//                 state: 1,
+//                 userNotificationId: 2,
+//                 selected: false
+//             },
+
+//             {
+//                 status: "info", title: "Tenant deleted info",
+//                 urlTitle: "hello",
+//                 time: "a month ago",
+//                 state: 1,
+//                 userNotificationId: 3,
+//                 selected: false
+//             }
+
+//         ]
+//     }
+// }
+// Default.parameters = { controls: { include: ['colorVariant', 'notifications'] } };
 
 

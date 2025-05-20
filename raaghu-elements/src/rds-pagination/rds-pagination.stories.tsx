@@ -12,8 +12,8 @@ const meta: Meta = {
     argTypes: {
         paginationType: {
             options: [
-                "default",
-                "advanced"
+                "default"
+                //"advanced"
             ],
             control: { type: "select" },
         },
@@ -39,20 +39,37 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPagination>;
 
+// export const Default: Story = {
+//     args: {
+//         paginationType: "default",
+//         totalRecords: 10,  // Ensure this value matches your test cases
+//         recordsPerPage: 3, // This will yield 4 pages total
+//         size: "small",
+//         alignmentType: "start",
+//     }
+// } satisfies Story;
+// Default.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
+
+// export const Advanced: Story = {
+//     args: {
+//         paginationType: "advanced",
+//         totalRecords: 10,
+//         recordsPerPage: 3,
+//         size: "small",
+//         alignmentType: "start",
+//         style: "Style1",
+//         showFirst: true,
+//         showLast:true,
+//         showManualInput:true,
+//         showDropdown:true,
+//         showLegend:true,
+//     }
+// } satisfies Story;
+// Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType','style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };
+
 export const Default: Story = {
     args: {
         paginationType: "default",
-        totalRecords: 10,  // Ensure this value matches your test cases
-        recordsPerPage: 3, // This will yield 4 pages total
-        size: "small",
-        alignmentType: "start",
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
-
-export const Advanced: Story = {
-    args: {
-        paginationType: "advanced",
         totalRecords: 10,
         recordsPerPage: 3,
         size: "small",
@@ -65,4 +82,4 @@ export const Advanced: Story = {
         showLegend:true,
     }
 } satisfies Story;
-Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType','style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };
+Default.parameters = { controls: { include: ['style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };

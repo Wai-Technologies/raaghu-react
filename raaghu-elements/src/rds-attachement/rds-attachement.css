@@ -1,0 +1,20 @@
+svg.text-dark{
+    height: 32px;
+    width: 32px;
+}
+
+.attachement-dropdown #fab-list .dropdown-menu.show {
+    top: auto !important;
+    bottom: 10px !important; 
+    left: -18px !important;
+    right: auto !important;
+    transform: translate3d(30px, 97.5px, 0px) !important;
+}
+
+.import-size{
+    font-size: 12px;
+}
+
+.attachement-dropdown .dropdown-menu {
+    width: 260px !important;
+}

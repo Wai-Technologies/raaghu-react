@@ -6,7 +6,7 @@
     // The separator between breadcrumbs (by default, a forward-slash: "/")
     .breadcrumb-item {
       padding-left: $breadcrumb-item-padding-x;
-      padding-right: $breadcrumb-item-padding-y;
+      padding-right: $breadcrumb-item-padding-y;  
       $breadcrumb-divider: quote(">");
 
       &::before {

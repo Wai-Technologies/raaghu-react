@@ -5,7 +5,7 @@ import {
     RdsInput,
     RdsButton
 } from "../rds-elements";
-
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompLanguageProps {
     cultureList: { option: any, value: any }[];
     flagIconList: { option: any, value: any }[];
@@ -135,8 +135,9 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                         <div className="col-md-6 pt-2">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
-                                    label="Display Name"                    
+                                    size={InputSize.Medium}   
+                                    name="Display Name" 
+                                    label={true}                   
                                     placeholder="Enter Display Name"
                                     value={displayName}
                                     onChange={inputChangeHandler}
@@ -146,7 +147,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                             </div>
                             <div className="form-group pt-3"> 
                                 <RdsCheckbox
-                                    label="Is Enabled"
+                                    labelText="Is Enabled"
                                     checked={isEnabled}
                                     onChange={checkboxHandler}
                                 ></RdsCheckbox>

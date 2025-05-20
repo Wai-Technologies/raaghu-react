@@ -552,7 +552,7 @@ $theme-colors: (
                             $subcription-bg-purple: $secondary-900;
                             $subcription-bg-orangered: $danger-300;
                             $subcription-bg-orange: $default-100;
-                            $subcription-bg-green: $subcription-bg-green;
+                            $subcription-bg-green: $success-600;
                             $body-wrapper-bg: $dark-900;
 
                             $body-wrapper-bg: $light-150;
@@ -1066,31 +1066,25 @@ $theme-colors: (
                             color: $color;
                         }
 
-                        .badge-error {
-                            @include badge-variant($btn-error-solid-default,
-                                // background
-                                $btn-error-solid-default,
-                                $btn-error-text-invert // border        // text color
-                            );
-                        }
+.badge-error {
+    @include badge-variant( $btn-error-solid-default, // background
+    $btn-error-solid-default, $btn-error-text-invert // border        // text color
+    );
+}
 
-                        .badge-neutral {
-                            @include badge-variant($btn-neutral-solid-default,
-                                // background
-                                $btn-neutral-solid-default,
-                                // border
-                                $btn-neutral-text-invert // text color
-                            );
-                        }
+.badge-neutral {
+    @include badge-variant( $btn-neutral-solid-default, // background
+    $btn-neutral-solid-default, // border
+    $btn-neutral-text-invert // text color
+    );
+}
 
-                        .badge-tertiary {
-                            @include badge-variant($btn-tertiary-solid-default,
-                                // background
-                                $btn-tertiary-solid-default,
-                                // border
-                                $btn-tertiary-text-invert // text color
-                            );
-                        }
+.badge-tertiary {
+    @include badge-variant( $btn-tertiary-solid-default, // background
+    $btn-tertiary-solid-default, // border
+    $btn-tertiary-text-invert // text color
+    );
+}
 
                         @each $state, $value in $theme-colors {
                             $badge-background: shift-color($value, $badge-bg-scale);
@@ -1127,19 +1121,16 @@ $theme-colors: (
                                         abs($counter-color-scale));
                             }
 
-                            .counter-#{$state} {
-                                @include counter-variant($counter-background,
-                                    $counter-border,
-                                    $counter-color );
-                            }
-                        }
-
-                        // /*breadcrumb color variables*/
-                        .withDivider {
-                            .breadcrumb-item {
-                                &::before {
-                                    color: $breadcrumb-divider-color;
-                                }
+    .counter-#{$state} {
+        @include counter-variant($counter-background, $counter-border, $counter-color);
+    }
+}
+// /*breadcrumb color variables*/
+.withDivider {
+    .breadcrumb-item {
+        &::before {
+            color: $breadcrumb-divider-color;
+        }
 
                                 &.active {
                                     color: $breadcrumb-active-color;
@@ -1551,9 +1542,9 @@ $theme-colors: (
                                 background-color: $gray-200;
                             }
 
-                            .alert-col {
-                                background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
-                            }
+                            // .alert-col {
+                            //     background: transparent linear-gradient(90deg, #dcdadf 0%, #ff606048 100%) 0% 0% no-repeat padding-box;
+                            // }
 
                             .file-close svg {
                                 color: $gray-500;
@@ -1881,16 +1872,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-tertiary {
-                            @include button-variant($bg-neutral-lighter-default,
-                                // background
-                                $bg-neutral-lighter-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-tertiary-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-tertiary-solid-default; // border
+.btn-tertiary {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-tertiary-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-tertiary-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -1928,16 +1917,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-neutral {
-                            @include button-variant($bg-neutral-lighter-default,
-                                // background
-                                $bg-neutral-lighter-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-neutral-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-neutral-solid-default; // border
+.btn-neutral {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-neutral-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-neutral-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2159,16 +2146,14 @@ $theme-colors: (
   color: $primary;*/
                         }
 
-                        .btn-tertiary {
-                            @include button-variant($bg-neutral-lighter-default,
-                                // background
-                                $bg-neutral-lighter-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-tertiary-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-tertiary-solid-default; // border
+.btn-tertiary {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-tertiary-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-tertiary-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2206,16 +2191,14 @@ $theme-colors: (
                             }
                         }
 
-                        .btn-neutral {
-                            @include button-variant($bg-neutral-lighter-default,
-                                // background
-                                $bg-neutral-lighter-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            background-color: $btn-neutral-solid-default;
-                            color: $txt-neutral-light-default; // text color
-                            border: $btn-neutral-solid-default; // border
+.btn-neutral {
+    @include button-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    background-color: $btn-neutral-solid-default;
+    color: $txt-neutral-light-default; // text color
+    border: $btn-neutral-solid-default; // border
 
                             svg {
                                 width: 22px;
@@ -2300,13 +2283,11 @@ $theme-colors: (
                             border: $border;
                         }
 
-                        .toast-basic {
-                            @include toast-variant($bg-neutral-lighter-default,
-                                // background
-                                $bg-neutral-lighter-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
+.toast-basic {
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $bg-neutral-lighter-default, // border
+    $txt-neutral-dark-default // text color
+    );
 
                             svg {
                                 width: 22px;
@@ -2344,15 +2325,13 @@ $theme-colors: (
                             }
                         }
 
-                        .toast-info {
-                            @include toast-variant($bg-neutral-lighter-default,
-                                // background
-                                $input-neutral-outline-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-neutral-outline-default; // border
-                        }
+.toast-info {
+    @include toast-variant( $bg-neutral-lighter-default, // background
+    $input-neutral-outline-default, // border
+    $txt-neutral-dark-default // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border
+}
 
                         @mixin icon-variant($color) {
                             color: $color;
@@ -2392,21 +2371,18 @@ $theme-colors: (
                                         stroke: $input-neutral-outline-default !important;
                                     }
 
-                                    circle.icon {
-                                        stroke: $input-neutral-outline-default !important;
-                                    }
-                                }
-                            }
-                        }
-
-                        .toast-success {
-                            @include toast-variant($bg-neutral-lighter-default,
-                                // background
-                                $input-primary-outline-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-primary-outline-default; // border
+            circle.icon {
+                stroke: $input-neutral-outline-default !important;
+            }
+        }
+    }
+    }
+    .toast-success {
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $input-primary-outline-default, // border
+        $txt-neutral-dark-default // text color
+        );
+        border-left: 4px solid $input-primary-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2444,14 +2420,12 @@ $theme-colors: (
                             }
                         }
 
-                        .toast-error {
-                            @include toast-variant($bg-neutral-lighter-default,
-                                // background
-                                $input-error-outline-default,
-                                // border
-                                $txt-neutral-dark-default // text color
-                            );
-                            border-left: 4px solid $input-error-outline-default; // border
+    .toast-error {
+        @include toast-variant( $bg-neutral-lighter-default, // background
+        $input-error-outline-default, // border
+        $txt-neutral-dark-default // text color
+        );
+        border-left: 4px solid $input-error-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2494,11 +2468,9 @@ $theme-colors: (
                             $toast-border: shift-color($value, $toast-border-scale);
                             $toast-color: shift-color($value, $toast-color-scale);
 
-                            @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
-                                $toast-color: mix($value,
-                                        color-contrast($toast-background),
-                                        abs($toast-color-scale));
-                            }
+        @if (contrast-ratio($toast-background, $toast-color) < $min-contrast-ratio) {
+            $toast-color: mix($value, color-contrast($toast-background), abs($toast-color-scale));
+        }
 
                             @each $color, $value in $theme-colors {
                                 .toast-#{$color} {
@@ -2540,19 +2512,18 @@ $theme-colors: (
                             }
                         }
 
-                        @mixin alert-variant($background, $border) {
-                            background-color: $background;
-                            border-color: $border;
-                        }
 
-                        .alert-info {
-                            @include alert-variant($bg-neutral-lighter-default,
-                                // background
-                                $line-neutral-medium-defaut,
-                                // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-neutral-outline-default; // border
+@mixin alert-variant($background, $border) {
+    background-color: $background;
+    border-color: $border;
+}
+
+.alert-info {
+    @include alert-variant( $bg-neutral-lighter-default, // background
+    $line-neutral-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-neutral-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2590,14 +2561,12 @@ $theme-colors: (
                             }
                         }
 
-                        .alert-success {
-                            @include alert-variant($bg-primary-light-default,
-                                // background
-                                $line-primary-medium-defaut,
-                                // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-primary-outline-default; // border
+.alert-success {
+    @include alert-variant( $bg-primary-light-default, // background
+    $line-primary-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-primary-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2635,14 +2604,12 @@ $theme-colors: (
                             }
                         }
 
-                        .alert-error {
-                            @include alert-variant($bg-error-light-default,
-                                // background
-                                $line-error-medium-defaut,
-                                // border
-                                // text color
-                            );
-                            border-left: 4px solid $input-error-outline-default; // border
+.alert-error {
+    @include alert-variant( $bg-error-light-default, // background
+    $line-error-medium-defaut, // border
+    // text color
+    );
+    border-left: 4px solid $input-error-outline-default; // border
 
                             svg {
                                 width: 22px;
@@ -2734,11 +2701,9 @@ $theme-colors: (
                             color: $color;
                         }
 
-                        $success-progress-color: conic-gradient($bg-primary-dark-default calc(var(--progress-value) * 1%),
-                                $bg-neutral-light-default calc(var(--progress-value) * 1%));
+$success-progress-color: conic-gradient( $bg-primary-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
 
-                        $error-progress-color: conic-gradient($bg-error-dark-default calc(var(--progress-value) * 1%),
-                                $bg-neutral-light-default calc(var(--progress-value) * 1%));
+$error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progress-value) * 1%), $bg-neutral-light-default calc(var(--progress-value) * 1%) );
 
                         .circular-progress-success {
                             @include progress-variant($success-progress-color,
@@ -2790,12 +2755,10 @@ $theme-colors: (
                             border: 2px solid $bg-primary-dark-default;
                         }
 
-                        .outline-inprogress {
-                            @include progress-variant($txt-neutral-lighter-default,
-                                96px,
-                                $txt-neutral-dark-default );
-                            border: 2px solid $bg-primary-medium-default;
-                        }
+.outline-inprogress {
+    @include progress-variant($txt-neutral-lighter-default, 96px, $txt-neutral-dark-default);
+    border: 2px solid $bg-primary-medium-default;
+}
 
                         .outline-error {
                             @include progress-variant($txt-neutral-lighter-default,
@@ -3363,11 +3326,8 @@ $theme-colors: (
                             background-color: transparent;
                             color: $black;
                         }
-
-                        .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range,
-                            .react-datepicker__month-text--in-range,
-                            .react-datepicker__quarter-text--in-range,
-                            .react-datepicker__year-text--in-range) {
+                        
+                        .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
                             background-color: $primary;
                         }
 
@@ -3747,7 +3707,7 @@ $theme-colors: (
                         }
 
                         .css-1xc3v61-indicatorContainer:hover {
-                            color: $css-1xc3v61-indicatorContainer-hover !important;
+                            color: #cccccc !important;
                         }
 
                         #react-select-3-listbox {
@@ -3861,15 +3821,14 @@ $theme-colors: (
                             min-height: 16px;
                         }
 
-                        .lottie-filter-0 .lf-player-container {
-                            filter: grayscale(0);
-                        }
-
-                        // /* Handle */
-                        ::-webkit-scrollbar-thumb {
-                            background: $css-1xc3v61-indicatorContainer-hover;
-                            border-radius: 10px;
-                        }
+.lottie-filter-0 .lf-player-container {
+    filter: grayscale(0);
+}
+// /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 
                         .customWidthClass li:hover {
                             background-color: $primary;
@@ -4099,6 +4058,7 @@ $theme-colors: (
 
                             .nav-link:hover {
                                 border-radius: $border-radius-xxl;
+                                color: $black;
                             }
 
                             .selected {
@@ -4110,7 +4070,6 @@ $theme-colors: (
 
                         .nav-tabs.select-tabs {
                             border-bottom: 0px;
-                            border-radius: $border-radius-xxl;
                             color: $txt-neutral-medium-default;
                             width: fit-content;
                             overflow-x: hidden;
@@ -4133,6 +4092,7 @@ $theme-colors: (
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
+                              
                             }
 
                             .selected {
@@ -4194,6 +4154,7 @@ $theme-colors: (
                             li {
                                 background-color: $bg-primary-lighter-default;
                                 color: $txt-neutral-medium-default;
+                              
                             }
 
                             .selected {
@@ -4220,7 +4181,8 @@ $theme-colors: (
 
                         .nav-tabs.vertical-left-line {
                             border-bottom: 0px;
-                            overflow-x: hidden;
+                            overflow-x:hidden;
+                            li {
 
                             li {
                                 background-color: $bg-primary-lighter-default;
@@ -4251,7 +4213,7 @@ $theme-colors: (
 
                         .nav-tabs.vertical-leftFilled {
                             border-bottom: 0px;
-                            overflow-x: hidden;
+                            overflow-x:hidden;
 
                             li {
                                 background-color: $btn-primary-transparent-selected;

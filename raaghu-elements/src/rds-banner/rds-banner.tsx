@@ -4,22 +4,36 @@ import RdsIcon from "../rds-icon";
 import RdsButton from "../rds-button/rds-button";
 import RdsHeader from "../rds-header";
 
+export enum ColorVariant {
+  Primary = "primary",
+  Success = "success",
+  Danger = "danger",
+  Warning = "warning",
+  Light = "light",
+  Info = "info",
+  Secondary = "secondary",
+  Dark = "dark",
+}
+
+export enum Position {
+  Top = "top",
+  Bottom = "bottom",
+}
+
+export enum TextAlign {
+  Start = "start",
+  End = "end",
+  Center = "center",
+}
+
 export interface RdsBannerProps {
   bannerText?: string;
   sticky?: boolean;
-  position?: "top" | "bottom";
-  colorVariant?:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "info"
-    | "light"
-    | "dark";
+  position?: Position;
+  colorVariant?: ColorVariant;
   icon?: string;
   closeButton?: boolean;
-  textAlign: "start" | "end" | "center";
+  textAlign?: TextAlign;
   iconHeight: string;
   iconWidth: string;
   iconStroke: boolean;
@@ -60,36 +74,42 @@ const RdsBanner = (props: RdsBannerProps) => {
     : "../../../stories/assets/raaghubannerimage.png";
   return (
     <>
-    <span id="news-banner">
-     {!props.raaghuBanner &&( <div
-        className={`alert d-flex align-items-center fade show ${classes}`}
-        role="alert" 
-      >
-        <span className="ps-2 d-flex align-items-center">
-          {props.icon && (
-            <RdsIcon
-              classes="fs-6 me-2"
-              colorVariant={iconColor}
-              name={props.icon}
-              width={props.iconWidth || "20px"}
-              height={props.iconHeight || "20px"}
-              fill={props.iconFill || false}
-              stroke={iconStroke}
-            ></RdsIcon>
-          )}
-          {props.bannerText}
-        </span>
-      </div>
-     )}
-      {props.raaghuBanner &&(<div className="challenge-banner p-3 rounded text-light"
-      style={{ backgroundImage: `url(${bannerImage})`,
-              backgroundRepeat:"no-repeat",
-              backgroundSize:"cover" }}>
-        <div className="content">
-          <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
-          <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
+      <span id="news-banner">
+        {!props.raaghuBanner && (
+          <div
+            className={`alert d-flex align-items-center fade show ${classes}`}
+            role="alert"
+          >
+            <span className="ps-2 d-flex align-items-center">
+              {props.icon && (
+                <RdsIcon
+                  classes="fs-6 me-2"
+                  colorVariant={iconColor}
+                  name={props.icon}
+                  width={props.iconWidth || "20px"}
+                  height={props.iconHeight || "20px"}
+                  fill={props.iconFill || false}
+                  stroke={iconStroke}
+                ></RdsIcon>
+              )}
+              {props.bannerText}
+            </span>
+          </div>
+        )}
+        {props.raaghuBanner && (
+          <div
+            className="challenge-banner p-3 rounded text-light"
+            style={{
+              backgroundImage: `url(${bannerImage})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          >
+            <div className="content bg-layer bg-dark">
+              <RdsHeader size="h3" headerText={props.headingText}></RdsHeader>
+              <RdsHeader size="h1" headerText={props.titleText}></RdsHeader>
 
-          <RdsHeader size="h6" headerText={props.subTitleText}></RdsHeader>
+              <RdsHeader size="h6" headerText={props.subTitleText}></RdsHeader>
 
           <div className="buttons w-100">
             {props.showFirstButton &&(<RdsButton
@@ -115,24 +135,25 @@ const RdsBanner = (props: RdsBannerProps) => {
                      {props.showHyperlink &&( 
                       <div className="links">
                          
-                        <a className="btn text-primary bg-light" href={props.hyperlink} target="_blank" rel="noopener noreferrer">
+                        <a className="btn text-primary bg-light w-100 border-primary" href={props.hyperlink} target="_blank" rel="noopener noreferrer">
                         <span className="me-2">
                         <RdsIcon
                           colorVariant="primary"
                           name={props.hyperlinkIcon}
-                          width= "16px"
+                          width="16px"
                           height="16px"
-                          fill={ false}
+                          fill={false}
                           stroke={true}
                         ></RdsIcon>
-                        </span>
-                         {props.hyperlinkText}
-                        </a>
-                        
-                      </div>)}
+                      </span>
+                      {props.hyperlinkText}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>)}
+        )}
       </span>
     </>
   );

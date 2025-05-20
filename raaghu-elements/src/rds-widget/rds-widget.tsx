@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode } from "react";
 import RdsIcon from "../rds-icon/rds-icon";
 import { colors } from "../../libs/types";
-import RdsButtonGroup from "../rds-button-group/rds-button-group";
+import RdsButtonGroup, { Role } from "../rds-button-group/rds-button-group";
 import RdsBigNumber from "../rds-big-number/rds-big-number";
 
 export interface RdsWidgetProps {
@@ -40,6 +40,7 @@ export interface RdsWidgetProps {
   onIconClick?: (Event: React.MouseEvent<HTMLButtonElement>) => void;
   iconTooltipLabel?: string;
   iconTooltipPosition?: any;
+  isCardStretch?: boolean;
 }
 
 const RdsWidget = (props: RdsWidgetProps) => {
@@ -77,7 +78,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
   return (
     <Fragment>
       <div
-        className={`card card-stretch gutter-b ` + classes()}
+        className={`card ${props.isCardStretch ? "card-stretch gutter-b" : ""} ` + classes()}
         style={{
           height: `${props.height}`,
           minHeight: `${props.minHeight}`,
@@ -114,7 +115,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                 buttonGroupItems={props.buttonGroupList}
                 colorVariant="primary"
                 isOutline={true}
-                role="radio"
+                role={Role.Radio}
                 size="small"
                 vertical={false}
                 onClick={props.handleButtonClick}
@@ -138,7 +139,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
           </div>
         </div>
         {props.children && (
-          <div className="card-body pt-0 " style={props.style}>
+          <div className="card-body pt-0 px-0" style={props.style}>
             {props.isBignumberIcon && (
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <RdsBigNumber

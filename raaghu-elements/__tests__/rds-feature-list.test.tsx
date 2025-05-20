@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import RdsFeatureList from "../src/rds-feature-list/rds-feature-list";
+import RdsFeatureList, { ColorVariant, FontStyle } from "../src/rds-feature-list/rds-feature-list";
 
 describe("RdsFeatureList", () => {
     const mockProps = {
@@ -13,19 +13,19 @@ describe("RdsFeatureList", () => {
 
     it("should render the component with correct heading and list items", () => {
         render(
-            <RdsFeatureList {...mockProps} fontStyle="italic" colorVariant="primary" />
+            <RdsFeatureList {...mockProps} fontStyle={FontStyle.Italic} colorVariant={ColorVariant.Primary} />
         );
         expect(screen.getByText(mockProps.heading)).toBeInTheDocument();
         expect(screen.getAllByText(/Feature/)).toHaveLength(mockProps.itemList.length);
     });
 
     it("should render the correct number of columns", () => {
-        render(<RdsFeatureList {...mockProps} fontStyle="italic" colorVariant="primary"/>);
+        render(<RdsFeatureList {...mockProps} fontStyle={FontStyle.Italic} colorVariant={ColorVariant.Primary}/>);
         expect(screen.getAllByTestId("column")).toHaveLength(mockProps.columns);
     });
 
     it("should render list items with the correct style and color", () => {
-        render(<RdsFeatureList {...mockProps} fontStyle="italic" colorVariant="primary" />);
+        render(<RdsFeatureList {...mockProps} fontStyle={FontStyle.Italic} colorVariant={ColorVariant.Primary} />);
         const headingElement = screen.getByRole("heading");
         const listItems = screen.getAllByText(/Feature/);
         listItems.forEach(item => {
