@@ -27,6 +27,7 @@
 
 #sidebar {
     background-color: #fff !important;
+    width: 73px !important;
 }
 
 .show_one {
@@ -64,3 +65,25 @@
 .tooltip-wrapper:hover .custom-tooltip {
     visibility: visible;
 }
+.theme-dark #sidebar {
+    background-color: #414141 !important;
+    border-right-color: #414141 !important;
+}
+/* @media (max-width: 767px) {
+    #sidebar.show {
+        width: 63px !important;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .LeftSideNavListCollapse .form-control {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    #mobileviewmenusdirectory ol,
+    #mobileviewmenusdirectory ul {
+        padding-left: 0.9rem !important;
+    }
+} */

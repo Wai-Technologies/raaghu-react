@@ -12,6 +12,8 @@ describe("RdsProgressBar", () => {
         progressWidth: 50,
         role: "single",
         displayPercentage: true,
+        steps: 0,
+        completedSteps: 0
     };
 
     it("renders progress bar with percentage", () => {

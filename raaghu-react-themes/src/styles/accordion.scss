@@ -2,7 +2,7 @@
 .accordion-header {
   border-radius: $accordion-border-radius;
 }
-
+    
 .accordion-item {
     margin-bottom: $accordio-margin;
 
@@ -43,7 +43,7 @@
     .accordion-button {
         font-size: $font-size-lg;
         height: 2.9rem;
-        padding: 1.4rem 1.5rem;
+        padding: $spacing-m;
     }
 
     .accordion-button::after {

@@ -24,3 +24,14 @@
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
 }
+
+ .theme-dark .offcanvas-text .btn.btn-transparent-primary,
+ .theme-dark .offcanvas-text .btn.btn-outline-primary {
+  background: #1c1d20 !important;
+  color: #ffffff !important;
+  border: 1px solid #7825e9;
+}
+
+.theme-dark .offcanvas-text .btn {
+  color: #ffffff !important;
+}

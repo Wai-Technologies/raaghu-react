@@ -9,16 +9,11 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        colorVariant: {
-                options: [
-                    "primary",
-                    "success",
-                    "danger",
-                    "warning",
-                    "light",
-                    "info",
-                    "secondary",
-                    "dark",
+        Style: {
+                options: [                                  
+                    "subtle",
+                    "strong",
+                    "primary", 
                 ],
                 control: { type: "select" },
             },
@@ -26,7 +21,7 @@ const meta: Meta = {
                 options:[
                         "small",
                         "medium",
-                        "large"
+                        "large",
                 ],
                 control: { type: "select" },
             },
@@ -34,10 +29,18 @@ const meta: Meta = {
                 options:[
                         "left",
                         "middle",
-                        "right"
+                        "right",
                 ],
                 control: { type: "select" },
-            }
+            },
+            layout:{
+                options:[
+                        "horizontal",
+                        "vertical",
+                ],
+                control: { type: "select" },
+            },
+
     },
 } satisfies Meta<typeof RdsDivider>;
 
@@ -46,19 +49,19 @@ type Story = StoryObj<typeof RdsDivider>;
 
 export const Default: Story = {
     args: {
-        icon: "information",
+        icon: "information_divider",
         iconShow: true,
         iconFill: false,
         iconStroke: true,
         iconHeight: "20px",
         iconWidth: "20px",
         dividerMessage: "Content",
-        colorVariant: "primary",
+        Style: "subtle",
         size: "medium",
         textalign: "middle",
         withdashed: false,
-
+        layout: "horizontal",
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['icon','iconShow','colorVariant', 'size', 'textalign','withdashed','dividerMessage'] } };
+Default.parameters = { controls: { include: ['icon','iconShow','Style', 'size', 'textalign','withdashed','dividerMessage','layout'] } };

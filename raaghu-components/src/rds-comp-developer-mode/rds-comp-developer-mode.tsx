@@ -294,9 +294,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.environment}
-                              name="environment"
-                              label="Environment"
+                              value={modeData?.environment}                           
+                              name="Environment"
+                              label={true}
                               reset={inputReset}
                               placeholder="Enter Environment"
                               customClasses="form-control"
@@ -332,8 +332,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                                  <div className="form-group">
                                     <RdsInput
                                        value={modeData?.appUrl}
-                                       name="app-url"
-                                       label="app"
+                                       name="Application URL"                                      
+                                       label={true}
                                        placeholder="Enter Application URL"
                                        customClasses="form-control"
                                        reset={inputReset}
@@ -350,9 +350,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.apiUrl}
-                              name="app-url"
-                              label="Application API URL"
+                              value={modeData?.apiUrl}                              
+                              name="Application API URL"
+                              label={true}
                               placeholder="Enter Application API URL"
                               customClasses="form-control"
                               reset={inputReset}
@@ -378,7 +378,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            selectedValue={modeData.grantType} 
                            key={`grantType-${modeData.grantType}`} 
                            onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
-                        ></RdsSelectList>
+                           color="primary"
+                           ></RdsSelectList>
                         </div>
                      </div>
                   </div>
@@ -386,9 +387,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.clientId}
-                              name="app-client"
-                              label="Application Client ID"
+                              value={modeData?.clientId}                              
+                              name="Application Client ID"
+                              label={true}
                               reset={inputReset}
                               placeholder="Enter Application Client ID"
                               customClasses="form-control"
@@ -403,9 +404,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group">
                            <RdsInput
-                              value={modeData?.scope}
-                              name="app-scope"
-                              label="Application Scope"
+                              value={modeData?.scope}                             
+                              name="Application Scope"
+                              label={true}
                               placeholder="Enter Application Scope"
                               customClasses="form-control"
                               reset={inputReset}
@@ -438,22 +439,22 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                      </div>
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                           label="Disable Collapsible Side Menu"
-                           checked={modeData?.sideNav}
+                           labelText="Disable Collapsible Side Menu"
+                           checked={modeData?.sideNav === 'true'}
                            onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
                            dataTestId="sideMenu"></RdsCheckbox>
                      </div>
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox
-                           label="Enable Static Icons"
-                           checked={modeData?.staticIcons}
+                           labelText="Enable Static Icons"
+                           checked={modeData?.staticIcons === 'true'}
                            onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
                            dataTestId="staticIcons"></RdsCheckbox>
                      </div>
                   </div>
                </div>
             </form>
-            <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+            <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 px-4">
 
                {/* <a className="me-2 btn btn-transparent fw-bold position-relative align-items-center btn-sm text-primary" onClick={resetToDefault}>RESTORE TO DEFAUT</a> */}
                <RdsButton

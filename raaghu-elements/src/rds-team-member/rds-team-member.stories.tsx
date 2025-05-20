@@ -3,7 +3,7 @@ import RdsTeamMember from "./rds-team-member";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Team Member',
+    title: 'Components/Team Member',
     component: RdsTeamMember,
     parameters: {
         layout: 'padded',
@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTeamMember>;
 
-export const TeamMember: Story = {
+export const MemberProfileCard: Story = {
     args: {
         teamItem: [
             {
@@ -30,4 +30,4 @@ export const TeamMember: Story = {
         ]
     }
 } satisfies Story;
-TeamMember.parameters = { controls: { include: ['teamItem'] } };
+MemberProfileCard.parameters = { controls: { include: ['teamItem'] } };

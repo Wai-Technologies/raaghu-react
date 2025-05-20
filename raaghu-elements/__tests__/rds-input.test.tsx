@@ -19,14 +19,14 @@ describe("RdsInput", () => {
     it("renders input element with placeholder", () => {
         const onChange = jest.fn();
         render(
-            <RdsInput placeholder="Enter your name" value="test" onChange={onChange} />
+            <RdsInput placeholder="Enter your name" value="test" onChange={onChange} name={""} />
         );
         expect(screen.getByPlaceholderText("Enter your name")).toBeInTheDocument();
     });
 
     it("calls onChange function when input value changes", () => {
         const onChange = jest.fn();
-        render(<RdsInput placeholder="Enter your name" value="test" onChange={onChange} />);
+        render(<RdsInput placeholder="Enter your name" value="test" onChange={onChange} name={""} />);
         fireEvent.change(screen.getByPlaceholderText("Enter your name"), {
             target: { value: "John Doe" },
         });
@@ -37,7 +37,8 @@ describe("RdsInput", () => {
         const onChange = jest.fn();
         render(
             <RdsInput
-                label="Password"
+                name="Password"
+                label={true}
                 id="password"
                 value="test"
                 inputType="password"
@@ -55,14 +56,14 @@ describe("RdsInput", () => {
 
     it("input disabled", () => {
         const onChange = jest.fn();
-        render(<RdsInput onChange={onChange} value="test" isDisabled={true} />);
+        render(<RdsInput onChange={onChange} value="test" isDisabled={true} name="testInput" />);
         const inputElement = screen.getByRole("textbox");
         expect(inputElement).toBeDisabled();
     });
 
     it("read Only", () => {
         const onChange = jest.fn();
-        render(<RdsInput onChange={onChange} value="test" readonly={true} />);
+        render(<RdsInput onChange={onChange} value="test" readonly={true} name="testInput" />);
         const inputElement = screen.getByRole("textbox") as HTMLInputElement;
         expect(inputElement.readOnly).toBeTruthy();
     });

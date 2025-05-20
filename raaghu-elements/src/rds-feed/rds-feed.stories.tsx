@@ -1,23 +1,36 @@
 import React from "react";
-import RdsFeed from "./rds-feed";
+import RdsFeed, { Size } from "./rds-feed";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-    title: 'Elements/Feed',
+    title: 'Components/Feed',
     component: RdsFeed,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    code = code.replace(/"(small|medium|large)"/g, '{Size.$1}');
+                    return code;
+                },
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
+        size: {
+            options: ['small', 'medium', 'large'],
+            control: { type: 'radio' }
+          },
     },
 } satisfies Meta<typeof RdsFeed>;
 
 export default meta;
 type Story = StoryObj<typeof RdsFeed>;
 
-export const Feed: Story = {
+export const ReviewFeed: Story = {
     args: {
+        size: Size.Medium, // Added size parameter for the avatar
         itemList: [
             {
                 id: "1",
@@ -32,11 +45,12 @@ export const Feed: Story = {
                 fill: false,
                 stroke: false,
                 profilePic: "profile-pic-url",
-                withNoOfReviews: false
+                withNoOfReviews: false,
+               
             }
         ],
     }
 } satisfies Story;
-Feed.parameters = { controls: { include: ['itemList'] } };
+ReviewFeed.parameters = { controls: { include: ['itemList' , 'size'] } };
 
 

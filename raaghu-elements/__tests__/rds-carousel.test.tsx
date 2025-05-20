@@ -15,25 +15,25 @@ const mockProps: RdsCarouselProps = {
             id: 1,
             imgUrl: "https://example.com/image1.jpg",
             name: "Name 1",
-            roleName: "Role 1",
+            // roleName: "Role 1",
             subTitle: "Subtitle 1",
         },
         {
             id: 2,
             imgUrl: "https://example.com/image2.jpg",
             name: "Name 2",
-            roleName: "Role 2",
+            // roleName: "Role 2",
             subTitle: "Subtitle 2",
         },
         {
             id: 3,
             imgUrl: "https://example.com/image3.jpg",
             name: "Name 3",
-            roleName: "Role 3",
+            // roleName: "Role 3",
             subTitle: "Subtitle 3",
         },
     ],
-    IndicatorType: ""
+    type: "Circle",
 };
 
 describe("RdsCarousel", () => {

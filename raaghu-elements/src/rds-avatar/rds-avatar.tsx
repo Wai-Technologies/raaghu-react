@@ -1,9 +1,29 @@
 import React, { Fragment } from "react";
 import "./rds-avatar.css";
-
 import validator from "validator";
 import { colors } from "../../libs/types";
 import RdsIcon from "../rds-icon/rds-icon";
+
+export enum AvatarSize {
+  smallest = "smallest",
+  small = "small",
+  medium = "medium",
+  large = "large",
+  largest = "largest"
+}
+
+export enum AvatarBorder {
+  solid = "solid",
+  dotted = "dotted",
+  dashed = "dashed",
+  NoBorder = "NoBorder"
+}
+
+export enum AvatarStyle {
+  withname = "withname",
+  nameonbottom = "nameonbottom",
+  stacking = "stacking"
+}
 
 export interface RdsAvatarProps {
   avatars?: RdsAvatarProps[];
@@ -13,8 +33,8 @@ export interface RdsAvatarProps {
   lastName?: string;
   role?: string;
   colorVariant?: colors;
-  titleAlign?: string;
-  size?: "smallest" | "small" | "large" | "medium" | "largest";
+  title?: string;
+  size?: AvatarSize;
   verticallyAlligned?: boolean;
   roundedAvatar?: boolean;
   roundedPills?: boolean;
@@ -30,15 +50,18 @@ export interface RdsAvatarProps {
   activeDotTop?: boolean;
   activeDotBottom?: boolean;
   maxVisibleAvatars?: number;
-  activityChain?: boolean;
+  activityRing?: boolean;
   type?: string;
   iconName?: string;
-  border?: "solid" | "dotted" | "dashed" | "NoBorder";
+  border?: AvatarBorder;
+  showName?: boolean;
+  style?: AvatarStyle;
+  showNameDesignation?: boolean;
 }
 
 const RdsAvatar = (props: RdsAvatarProps) => {
   const { profilePic } = props;
-  const tAlign = props.titleAlign;
+  const tAlign = props.title;
   const Align = `${props.hasOwnProperty("titleAlign") ? tAlign : "horizontal"}`;
   const Aligned = `${
     Align === "horizontal"
@@ -87,18 +110,18 @@ const RdsAvatar = (props: RdsAvatarProps) => {
       classes += " " + size;
     }
     if (
-      (props.avtarOnly || props.avtarWithName || props.nameOnBottom) &&
-      !props.stackingAvatar
+      (props.avtarOnly || props.style==="withname" || props.style==="nameonbottom") &&
+      props.style!=="stacking"
     ) {
       classes += ` rounded-circle ${
-        props.activityChain ? "border border-2" : ""
-      } border-${props.activityChain ? props.colorVariant : ""} `;
+        props.activityRing ? "border border-2" : ""
+      } border-${props.activityRing ? props.colorVariant : ""} `;
     }
     if (
       props.avtarOnly ||
-      props.avtarWithName ||
-      props.nameOnBottom ||
-      props.stackingAvatar
+      props.style==="withname" ||
+      props.style==="nameonbottom" ||
+      props.style==="stacking"
     ) {
       classes += " rounded-circle ";
     }
@@ -110,7 +133,6 @@ const RdsAvatar = (props: RdsAvatarProps) => {
     if (props.firstName == "" && props.lastName == "") {
       classes = "d-flex";
     }
-
     return classes;
   };
 
@@ -147,22 +169,23 @@ const RdsAvatar = (props: RdsAvatarProps) => {
   };
 
   const iconSize = getIconSize(props.size);
-
   const FL = props.firstName || "";
   const LL = props.lastName || "";
   const userRole = props.role || "";
   const backcolor = props.colorVariant || "primary";
 
+  //const WPP = props.type==="image" || false;
   const WPP = props.withProfilePic || false;
   const src = props.profilePic || " ";
   const avtarOnly = props.avtarOnly || false;
-  const avtarWithName = props.avtarWithName || false;
-  const nameOnBottom = props.nameOnBottom || false;
-  const stackingAvatar = props.stackingAvatar || false;
+  //const avtarWithName = props.avtarWithName || false;
+  const avtarWithName = props.style === "withname" || false;
+  //const nameOnBottom = props.nameOnBottom || false;
+  const nameOnBottom = props.style==="nameonbottom" || false;
+  //const stackingAvatar = props.stackingAvatar || false;
+  const stackingAvatar = (props.style==="stacking" || false);
   const withIcon = props.iconName ? true : false;
-
   const validate: boolean = validator.isURL(src);
-
   const defaultPP =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s";
 
@@ -171,19 +194,15 @@ const RdsAvatar = (props: RdsAvatarProps) => {
       ? props.profilePic
       : defaultPP
   }`;
-
   const hasName =
     (FL.length != 0 && props.hasOwnProperty("firstName") === true) ||
     (LL.length != 0 && props.hasOwnProperty("lastName") === true);
-
   const fLetter = FL.charAt(0).toUpperCase();
   const lLetter = LL.charAt(0).toUpperCase();
   const rLetter = userRole.charAt(0).toUpperCase();
-
   const titleFirstName = fLetter + FL.slice(1) + " ";
   const titleLastName = lLetter + LL.slice(1);
   const titleRole = rLetter + userRole.slice(1);
-
   const renderAvatars = (avatars: RdsAvatarProps[], maxVisible: number) => {
     const visibleAvatars = avatars.slice(0, maxVisible);
     const remainingCount = avatars.length - maxVisible;
@@ -191,16 +210,18 @@ const RdsAvatar = (props: RdsAvatarProps) => {
     return (
       <div className="avatar-container">
         {visibleAvatars.map((avatar, index) => (
-          <div key={index} className="avatar">
-            <img id="stackingavtar"
-              src={avatar.profilePic || defaultPP}
-              className={classes() + getBorderClasses(props.border) +"rounded-3"}
-              alt="profile-default"
-            />
-          </div>
+          
+            <div key={index} className="avatar">
+              <img id="stackingavtar"
+                src={avatar.profilePic || defaultPP}
+                className={classes() + getBorderClasses(props.border) +"rounded-3"}
+                alt="profile-default"
+              />
+            </div>
         ))}
         {remainingCount > 0 && (
-          <div id="stackingavtarplusindicator"
+          <div
+            id="stackingavtarplusindicator"
             className={`${
               props.size === "smallest"
                 ? "plus-indecator-smallest"
@@ -262,11 +283,14 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               </span>
             </div>
             <div>
+              props.showName ? (
               <span className="fw-bold ">
                 {titleFirstName}
                 {titleLastName}
               </span>
-              <br />
+              ) : (
+              )
+                <br />
               <span>{titleRole}</span>
             </div>
           </div>
@@ -275,7 +299,9 @@ const RdsAvatar = (props: RdsAvatarProps) => {
           <div className={`flex-grow-0 align-items-center ${Aligned}`}>
             <img
               src={defaultPP}
-              className={classes() + getBorderClasses(props.border) + " rounded-3"}
+              className={
+                classes() + getBorderClasses(props.border) + " rounded-3"
+              }
               alt="profile-default"
             />
           </div>
@@ -286,24 +312,27 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               <img
                 src={withPP}
                 className={
-                  `avatar rounded-circle ` + classes() + getBorderClasses(props.border)
+                  `avatar rounded-circle ` +
+                  classes() +
+                  getBorderClasses(props.border)
                 }
                 alt="profile"
               />
-              <span
-                className={
-                  "avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" +
-                  profileName()
-                }
-              >
-                <div>
-                  <span>
-                    {titleFirstName}
-                    {titleLastName}
-                  </span>
-                  <p className="mb-0 text-muted">{titleRole}</p>
-                </div>
-              </span>
+              
+                <span
+                  className={
+                    "avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none" +
+                    profileName()
+                  }
+                >
+                  <div>
+                    <span>
+                      {titleFirstName}
+                      {titleLastName}
+                    </span>
+                    <p className="mb-0 text-muted">{titleRole}</p>
+                  </div>
+                </span>
             </div>
           </div>
         )}
@@ -459,7 +488,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               </div>
             )}
 
-            {avtarWithName && (
+            {avtarWithName && props.showName===true && props.showNameDesignation===true ? (
               <span
                 className={
                   `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
@@ -486,110 +515,233 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                     {titleFirstName}
                     {titleLastName}
                   </span>
-                  <p className="mb-0 text-muted">{titleRole}</p>
+                  <p className="mb-0 text-muted">
+                    {titleRole}
+                    
+                  </p>
                 </div>
               </span>
+            ): avtarWithName && props.showName===true && props.showNameDesignation===false ? (
+              <span
+                className={
+                  `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
+                    props.type === "initials" || props.type === "icon"
+                      ? "ps-2"
+                      : ""
+                  }  ${
+                    props.size === "smallest"
+                      ? "textTopSmall"
+                      : props.size === "small"
+                      ? "textTopSm"
+                      : props.size === "medium"
+                      ? "textTopMd"
+                      : props.size === "large"
+                      ? "textTopLg"
+                      : props.size === "largest"
+                      ? "textTopLarge"
+                      : ""
+                  }` + profileName()
+                }
+              >
+                <div>
+                  <span>
+                    {titleFirstName}
+                    {titleLastName}
+                  </span>
+                </div>
+              </span>
+            ): avtarWithName && props.showName===false && props.showNameDesignation===true ? (
+              <span
+                className={
+                  `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
+                    props.type === "initials" || props.type === "icon"
+                      ? "ps-2"
+                      : ""
+                  }  ${
+                    props.size === "smallest"
+                      ? "textTopSmall"
+                      : props.size === "small"
+                      ? "textTopSm"
+                      : props.size === "medium"
+                      ? "textTopMd"
+                      : props.size === "large"
+                      ? "textTopLg"
+                      : props.size === "largest"
+                      ? "textTopLarge"
+                      : ""
+                  }` + profileName()
+                }
+              >
+                <div>
+                  <p className="mb-0 text-muted">
+                    {titleRole}
+                  </p>
+                </div>
+              </span>
+            ): (
+              <></>
             )}
           </>
         )}
 
         {nameOnBottom && !stackingAvatar && (
           <>
-            <div className="card text-center border-0">
-              <div className="card-body">
-                <img
-                  alt="Profile"
-                  src={withPP}
-                  className={classes() + getBorderClasses(props.border)}
-                  style={{ padding: "2px" }}
-                />
-                {props.activeDotTop && (
-                  <div
-                    className={`dot ${
+            <div className="card text-center border-0 d-flex flex-column align-items-center position-relative">
+              <div className="card-body d-flex flex-column align-items-center position-relative">
+                <div className="avatar-wrapper position-relative d-flex align-items-center justify-content-center">
+                  {props.type === "initials" ? (
+                    <div
+                      className={
+                      `avatar rounded-circle d-flex align-items-center justify-content-center ` +
+                      classes() +
+                      getBorderClasses(props.border)
+                    }
+                    >
+                    <div className="avatar-initials fw-bold">{fLetter}{lLetter}</div>
+                    </div>
+                  ) : props.type === "icon" ? (
+                    <div
+                      className={
+                      `avatar rounded-circle d-flex align-items-center justify-content-center ` +
+                      classes() +
+                      getBorderClasses(props.border)
+                    }
+                    >
+                    <RdsIcon
+                      name="user_identity"
+                      fill={false}
+                      stroke={false}
+                      height={iconSize.height}
+                      width={iconSize.width}
+                    />
+                    </div>
+                  ) : (
+                    <img
+                      alt="Profile"
+                      src={withPP}
+                      className={`avatar rounded-circle ` + classes() + getBorderClasses(props.border)}
+                      style={{ padding: "2px" }}
+                    />
+                  )}
+
+                  {/* Top Active Dot - Positioned Top-Right */}
+                  {props.activeDotTop && (
+                    <div
+                      className={`dot position-absolute ${
                       props.size === "smallest"
-                        ? "top-dot-smallest-name-on-top"
-                        : props.size === "small"
-                        ? "top-dot-sm-name-on-top"
-                        : props.size === "medium"
-                        ? "top-dot-md-name-on-top"
-                        : props.size === "large"
-                        ? "top-dot-lg-name-on-top"
-                        : props.size === "largest"
-                        ? "top-dot-largest-name-on-bottom"
-                        : ""
-                    } bg-${props.colorVariant}`}
-                  ></div>
-                )}
-                {props.activeDotBottom && (
-                  <div
-                    className={`dot ${
+                      ? "top-dot-smallest"
+                      : props.size === "small"
+                      ? "top-dot-sm"
+                      : props.size === "medium"
+                      ? "top-dot-md"
+                      : props.size === "large"
+                      ? "top-dot-lg"
+                      : props.size === "largest"
+                      ? "top-dot-largest"
+                      : ""
+                      } bg-${props.colorVariant}`}
+                    ></div>
+                  )}
+
+                  {/* Bottom Active Dot - Positioned Bottom-Right */}
+                  {props.activeDotBottom && (
+                    <div
+                      className={`dot position-absolute ${
                       props.size === "smallest"
-                        ? "bottom-dot-smallest-name-on-bottom"
-                        : props.size === "small"
-                        ? "bottom-dot-sm-name-on-bottom"
-                        : props.size === "medium"
-                        ? "bottom-dot-md-name-on-bottom"
-                        : props.size === "large"
-                        ? "bottom-dot-lg-name-on-bottom"
-                        : props.size === "largest"
-                        ? "bottom-dot-largest-name-on-bottom"
-                        : ""
-                    } bg-${props.colorVariant}`}
-                  ></div>
-                )}
-                <span
-                  className={
-                    `avatar-initials flex-grow-1 align-items-center ms-2 fw-bold text-decoration-none ${
-                      props.size === "smallest"
-                        ? "textTopSmall"
-                        : props.size === "small"
-                        ? "textTopSm"
-                        : props.size === "medium"
-                        ? "textTopMd"
-                        : props.size === "large"
-                        ? "textTopLg"
-                        : props.size === "largest"
-                        ? "textTopLarge"
-                        : ""
-                    }` + profileName()
-                  }
-                >
-                  <h5 className="card-title mb-1 fw-bold mt-2">
-                    {titleFirstName}
-                    {titleLastName}
-                  </h5>
+                      ? "bottom-dot-smallest"
+                      : props.size === "small"
+                      ? "bottom-dot-sm"
+                      : props.size === "medium"
+                      ? "bottom-dot-md"
+                      : props.size === "large"
+                      ? "bottom-dot-lg"
+                      : props.size === "largest"
+                      ? "bottom-dot-largest"
+                      : ""
+                      } bg-${props.colorVariant}`}
+                    ></div>
+                  )}
+                </div>
+
+                {/* Name and Role */}
+                {props.showName===true && props.showNameDesignation===true ? (
+                  <span className={`avatar-initials text-center fw-bold mt-2 ${
+                    props.size === "smallest"
+                      ? "textTopSmall"
+                      : props.size === "small"
+                      ? "textTopSm"
+                      : props.size === "medium"
+                      ? "textTopMd"
+                      : props.size === "large"
+                      ? "textTopLg"
+                      : props.size === "largest"
+                      ? "textTopLarge"
+                      : ""
+                    }` + profileName()}>
+                    <h5 className="card-title mb-1 fw-bold">{titleFirstName} {titleLastName}</h5>
+                    <p className="card-text text-muted">{titleRole}</p>
+                  </span>
+                  ) : props.showName===true && props.showNameDesignation===false ? (
+                  <span className={`avatar-initials text-center fw-bold mt-2 ${
+                    props.size === "smallest"
+                      ? "textTopSmall"
+                      : props.size === "small"
+                      ? "textTopSm"
+                      : props.size === "medium"
+                      ? "textTopMd"
+                      : props.size === "large"
+                      ? "textTopLg"
+                      : props.size === "largest"
+                      ? "textTopLarge"
+                      : ""
+                    }` + profileName()}>
+                    <h5 className="card-title mb-1 fw-bold">{titleFirstName} {titleLastName}</h5>
+                  </span>
+                  ) : props.showName===false && props.showNameDesignation===true ? (
+                  <span className={`avatar-initials text-center fw-bold mt-2 ${
+                    props.size === "smallest"
+                    ? "textTopSmall"
+                    : props.size === "small"
+                    ? "textTopSm"
+                    : props.size === "medium"
+                    ? "textTopMd"
+                    : props.size === "large"
+                    ? "textTopLg"
+                    : props.size === "largest"
+                    ? "textTopLarge"
+                    : ""
+                  }` + profileName()}>
                   <p className="card-text text-muted">{titleRole}</p>
-                </span>
+                </span>): (
+                  <></>
+                )}
               </div>
             </div>
           </>
         )}
 
-        {withIcon && (
-          <> {props.type === "icon" ? 
-            null : (<div className={`d-flex justify-content-center align-items-center avatar rounded-circle ` + classes() + getBorderClasses(props.border)}>
-              <RdsIcon
-                name={props.iconName}
-                fill={false}
-                stroke={true}
-                height={iconSize.height}
-                width={iconSize.width}
-              ></RdsIcon>
-            </div>)}
-          </>
+        {withIcon && props.type !== "image" && (
+          <div className={`d-flex justify-content-center align-items-center avatar rounded-circle ` + classes() + getBorderClasses(props.border)}>
+            <RdsIcon
+              name={props.iconName}
+              fill={false}
+              stroke={true}
+              height={iconSize.height}
+              width={iconSize.width}
+            ></RdsIcon>
+          </div>
         )}
          {stackingAvatar && (
-                        <>
-                        <div
-                        className="card text-center border-0 stacking-avatar"
-                            >
-                                {props.stackingAvatar && props.avatars && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
-                        </div>
+            <>
+              <div
+                className="card text-center border-0 stacking-avatar"
+              >
+                {props.style==="stacking" && props.avatars && renderAvatars(props.avatars, props.maxVisibleAvatars || 3)}
+              </div>
 
-                        </>
-                    )}
+            </>
+          )}
       </div>
-      
     </Fragment>
   );
 };

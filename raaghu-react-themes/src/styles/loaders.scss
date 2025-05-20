@@ -518,4 +518,73 @@
       transform: rotate(calc(var(--s,1)*120deg)) translate(0)
     }
   }
+
+  
+
+  .spinner-ring {
+    // Default variables (maps to large size for spinner-ring)
+    --spinner-ring-size: 120px;
+    --spinner-ring-border-main: 8px;
+    --spinner-ring-border-pseudo: 3px;
+
+    width: var(--spinner-ring-size);
+    height: var(--spinner-ring-size);
+    border: var(--spinner-ring-border-main) solid transparent;
+    border-top: var(--spinner-ring-border-main) solid #6c2bd9;
+    border-right: var(--spinner-ring-border-main) solid #6c2bd9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    // Size overrides when combined with size classes
+    &.loader-medium {
+      --spinner-ring-size: 80px;
+      --spinner-ring-border-main: 5px;
+      --spinner-ring-border-pseudo: 2px;
+    }
+
+    &.loader-small {
+      --spinner-ring-size: 40px;
+      --spinner-ring-border-main: 3px;
+      --spinner-ring-border-pseudo: 1px;
+    }
+
+    // Pseudo-elements using the variables
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border: var(--spinner-ring-border-pseudo) solid #6c2bd9;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-sizing: border-box;
+    }
+
+    &::before {
+      width: 131%;
+      height: 131%;
+      border-color: #6c2bd9;
+    }
+
+    &::after {
+      width: 88%;
+      height: 88%;
+      border-color: #6c2bd9;
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
   

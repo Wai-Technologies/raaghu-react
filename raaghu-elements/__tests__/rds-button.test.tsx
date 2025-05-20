@@ -2,6 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, fireEvent, screen } from "@testing-library/react";
 import RdsButton from "../src/rds-button/rds-button";
+import { TooltipStyle } from "../src/rds-tooltip/rds-tooltip";
 
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
@@ -43,7 +44,7 @@ describe("RdsButton", () => {
                 label="Button Label"
                 tooltip={true}
                 tooltipTitle="Tooltip Title"
-                tooltipPlacement="top"
+                tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                 type={"button"}
             />
         );
@@ -56,7 +57,7 @@ describe("RdsButton", () => {
                 label="Button Label"
                 tooltip={true}
                 tooltipTitle="Tooltip Title"
-                tooltipPlacement="top"
+                tooltipPlacement={TooltipStyle.MiddleBottomArrow}
                 type={"submit"}
             />
         );

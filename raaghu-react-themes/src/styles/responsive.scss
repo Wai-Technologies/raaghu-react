@@ -139,12 +139,13 @@
   }
 
   .mobile-ul-tabs {
-    overflow-x: scroll;
+    overflow-x: scroll !important;
     display: flex;
     white-space: nowrap;
     align-items: normal;
     overflow-y: hidden;
     margin-bottom: 30px;
+    flex-wrap: nowrap;
   }
 
   .mobile-ul-tabs::-webkit-scrollbar {
@@ -243,12 +244,13 @@
   }
 
   #sidebar.show {
-    width: 250px;
+    width: 64.3px;
   }
-
-  #sidebar.hide {
-    width: 0px;
-  }
+}
+.custom_sm_scroll{
+  overflow-y: auto;
+  max-height: 100vh;
+  height: calc(100vh - 16rem);
 }
 
 .bd-links.toggle-sidebar-menu .menuLabels {
@@ -285,13 +287,13 @@
     position: relative !important;
   }
 
-  .mobile-ul-tabs {
-    overflow-x: scroll;
-    display: flex;
-    white-space: nowrap;
-    align-items: normal;
-    overflow-y: hidden;
-  }
+  // .mobile-ul-tabs {
+  //   overflow-x: hidden;
+  //   display: flex;
+  //   white-space: nowrap;
+  //   align-items: normal;
+  //   overflow-y: hidden;
+  // }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -300,6 +302,10 @@
     height: 40px;
     padding: 0;
     min-width: 40px;
+  }
+
+  #sidebar.show {
+    width: 69px;
   }
 
   .children-scrollable {
@@ -582,4 +588,44 @@ form .form-group .select-options,
   .flex-xl-row {
     flex-direction: row !important;
 }
+}
+
+@media (max-width: 767px) {
+  .sidenav-footer .collpase-button {
+      background-image: none !important;
+  }
+}
+@media (max-width: 768px) {
+.fab-dropdown-item span {
+  word-wrap: break-word;
+  font-size: 12px; 
+}
+}
+
+@media (max-width: 768px) {
+.customClassUL {
+  position: fixed !important;
+  margin-top: 17px !important;
+  transform: translate(126px, 37px);
+}
+}
+
+@media (max-width: 767px){
+  #mobileviewmenusdirectory ol, ul {
+    padding-left: 0rem !important;
+}
+}
+
+@media (max-width: 600px) {
+  #fab-list .dropdown-menu.show {
+      width: 292px !important;
+      height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .attachement-dropdown #fab-list .dropdown-menu.show {
+      width: 270px !important;
+      height: auto !important;
+  }
 }

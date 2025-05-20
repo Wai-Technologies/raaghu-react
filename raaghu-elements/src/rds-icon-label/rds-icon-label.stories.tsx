@@ -3,7 +3,7 @@ import RdsIconLabel from "./rds-icon-label";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-  title: 'Elements/Icon Label',
+  title: 'Components/Icon Label',
   component: RdsIconLabel,
   parameters: {
     layout: 'padded',

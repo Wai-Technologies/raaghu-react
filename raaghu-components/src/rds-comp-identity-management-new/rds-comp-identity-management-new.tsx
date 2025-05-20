@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { set } from "date-fns";
-
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompIdentityManagementProps {
     onIdentitySettingsSubmit: any;
     lockoutSettings: any;
@@ -67,10 +67,11 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                    size={InputSize.Medium}   
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Required Length"
+                                    name="Required Length"
+                                    label={true}
                                     fontWeight={"normal"}
                                     readonly={false}
                                     placeholder="Enter Length"
@@ -80,69 +81,70 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     }}
                                     dataTestId="required-length"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Required Length</small>
+                                {/* <small className="text-secondary-50">Required Length</small> */}
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12 ">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                     size={InputSize.Medium}  
                                     inputType="text"
                                     isDisabled={false}
                                     readonly={false}
-                                    label="Required Unique Chars"
+                                    name="Required Unique Chars"
+                                    label={true}
                                     fontWeight={"normal"}
                                     placeholder="Enter Number"
                                     value={passwordSettings?.requiredUniqueChars}
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "requiredUniqueChars")}
                                     dataTestId="required-special-char"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Required Unique Chars</small>
+                                {/* <small className="text-secondary-50">Required Unique Chars</small> */}
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require NonAlphanumeric"
+                                labelText="Require NonAlphanumeric"
                                 checked={passwordSettings?.requireNonAlphanumeric}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireNonAlphanumeric")}
                                 dataTestId="required-non-alpha-num-char"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require NonAlphanumeric</small>
+                            {/* <small className="text-secondary-50">Require NonAlphanumeric</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require Uppercase"
+                                labelText="Require Uppercase"
                                 checked={passwordSettings?.requireUppercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireUppercase")}
                                 dataTestId="required-upper-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Uppercase</small>
+                            {/* <small className="text-secondary-50">Require Uppercase</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require Lowercase"
+                                labelText="Require Lowercase"
                                 checked={passwordSettings?.requireLowercase}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireLowercase")}
                                 dataTestId="required-lower-case"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Lowercase</small>
+                            {/* <small className="text-secondary-50">Require Lowercase</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require Digit"
+                                labelText="Require Digit"
                                 checked={passwordSettings?.requireDigit}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireDigit")}
                                 dataTestId="required-numbers"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Digit</small>
+                            {/* <small className="text-secondary-50">Require Digit</small> */}
                         </div>
                     </div>
                     {/*Password renewing settings */}
@@ -152,22 +154,23 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Force Users To Periodically Change Password"
+                                labelText="Force Users To Periodically Change Password"
                                 checked={passwordSettings?.forceUsersToPeriodicallyChangePassword}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "forceUsersToPeriodicallyChangePassword")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Force Users To Periodically ChangePassword</small>
+                            {/* <small className="text-secondary-50">Force Users To Periodically ChangePassword</small> */}
                         </div>
                     </div>
                     <div className="row mb-3">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
-                                    size="medium"
+                                     size={InputSize.Medium} 
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Password Change PeriodDays"
+                                    name="Password Change PeriodDays"
+                                    label={true}
                                     fontWeight={"normal"}
                                     readonly={false}
                                     placeholder="Enter Length"
@@ -177,7 +180,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                                     }}
                                     dataTestId="password-change-period-days"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Password Change Period Days</small>
+                                {/* <small className="text-secondary-50">Password Change Period Days</small> */}
                             </div>
                         </div>
                     </div>
@@ -188,12 +191,12 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Allowed For New Users"
+                                labelText="Allowed For New Users"
                                 checked={passwordSettings?.allowedForNewUsers}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "allowedForNewUsers")}
                                 dataTestId="enable-new-user"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Allowed For New Users</small>
+                            {/* <small className="text-secondary-50">Allowed For New Users</small> */}
                         </div>
                     </div>
                     <div className="row">
@@ -201,34 +204,36 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                             <div className="form-group ">
                                 <RdsInput
                                     fontWeight={"normal"}
-                                    size="medium"
+                                    size={InputSize.Medium}
                                     inputType="number"
                                     isDisabled={false}
                                     readonly={false}
-                                    label="Lockout Duration"
+                                    name="Lockout Duration"
+                                    label={true}
                                     placeholder="Enter Length"
                                     value={passwordSettings?.lockoutDuration}
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "lockoutDuration")}
                                     dataTestId="lockout-duration"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Allowed For New Users</small>
+                                {/* <small className="text-secondary-50">Allowed For New Users</small> */}
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
                             <div className="form-group">
                                 <RdsInput
                                     fontWeight={"normal"}
-                                    size="medium"
+                                    size={InputSize.Medium}  
                                     inputType="text"
                                     isDisabled={false}
-                                    label="Max Failed Access Attempts"
+                                    name="Max Failed Access Attempts"
+                                    label={true}
                                     readonly={false}
                                     placeholder="Enter Name"
                                     value={passwordSettings?.maxFailedAccessAttempts}
                                     onChange={(e: any) => handlePasswordChange(e.target.value, "maxFailedAccessAttempts")}
                                     dataTestId="max-failed-attempts"
                                 ></RdsInput>
-                                <small className="text-secondary-50">Max Failed Access Attempts</small>
+                                {/* <small className="text-secondary-50">Max Failed Access Attempts</small> */}
                             </div>
                         </div>
                     </div>
@@ -240,34 +245,34 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require Confirmed Email"
+                                labelText="Require Confirmed Email"
                                 checked={passwordSettings?.requireConfirmedEmail}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedEmail")}
                                 dataTestId="required-confirmed-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Confirmed Email</small>
+                            {/* <small className="text-secondary-50">Require Confirmed Email</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Enable Phone Number Confirmation"
+                                labelText="Enable Phone Number Confirmation"
                                 checked={passwordSettings?.enablePhoneNumberConfirmation}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "enablePhoneNumberConfirmation")}
                                 dataTestId="allow-user-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Enable Phone Number Confirmation</small>
+                            {/* <small className="text-secondary-50">Enable Phone Number Confirmation</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Require Confirmed Phone Number"
+                                labelText="Require Confirmed Phone Number"
                                 checked={passwordSettings?.requireConfirmedPhoneNumber}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "requireConfirmedPhoneNumber")}
                                 dataTestId="required-conf-phone"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Require Confirmed Phone Number</small>
+                            {/* <small className="text-secondary-50">Require Confirmed Phone Number</small> */}
                         </div>
                     </div>
                     {/* User Settings */}
@@ -277,23 +282,23 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Is Email Update Enabled"
+                                labelText="Is Email Update Enabled"
                                 checked={passwordSettings?.isEmailUpdateEnabled}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isEmailUpdateEnabled")}
                                 dataTestId="allow-user-change-email"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Is Email Update Enabled</small>
+                            {/* <small className="text-secondary-50">Is Email Update Enabled</small> */}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <RdsCheckbox
-                                label="Is User Name Update Enabled"
+                                labelText="Is User Name Update Enabled"
                                 checked={passwordSettings?.isUserNameUpdateEnabled}
                                 onChange={(e: any) => handlePasswordChange(e.target.checked, "isUserNameUpdateEnabled")}
                                 dataTestId="allow-user-change-username"
                             ></RdsCheckbox>
-                            <small className="text-secondary-50">Enable Phone Number Confirmation</small>
+                            {/* <small className="text-secondary-50">Enable Phone Number Confirmation</small> */}
                         </div>
                     </div>
                     </div>

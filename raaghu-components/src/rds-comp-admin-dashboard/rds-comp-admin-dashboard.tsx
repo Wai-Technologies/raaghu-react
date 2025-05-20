@@ -93,7 +93,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
 
     return (
 
-        <div className="dark dashboard bg-grey p-4">
+        <div className="dark dashboard bg-grey p-2 p-lg-4 p-md-4 ">
             <div className="row">
                 <div className="col-xl-6  col-lg-6 col-md-12 d-cus-none">
                 <RdsWidget
@@ -102,6 +102,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         isButtonGroupRequired={true}
                         buttonGroupList={buttonGroupList}
                         handleButtonClick={handleButtonClick}
+                        isCardStretch={true}
                     >
 
                         {isDayChart == true && (
@@ -630,6 +631,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     iconTooltipPosition={"top"}
                                     iconColor="success"
                                     isBignumberIcon={true}
+                                    isCardStretch={true}
                                     bigNumberLabel="$632,230"
                                     iconLabel="$27,203"
                                     onIconClick={onBackSide}>
@@ -652,6 +654,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     iconTooltipPosition={"top"}
                                     iconColor="danger"
                                     isBignumberIcon={true}
+                                    isCardStretch={true}
                                     bigNumberLabel="$49,361"
                                     iconLabel="$9,543"
                                     onIconClick={onFrontSide}>
@@ -673,6 +676,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         iconName="refresh"
                         iconTooltipLabel="Refresh"
                         iconTooltipPosition="top"
+                        isCardStretch={true}
                     >
                         <div>
                             <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
@@ -790,7 +794,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                 <RdsWidget
                                     headerTitle="Call Overview"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}    
                                     height="auto"
                                 >
                                     <div>
@@ -957,7 +961,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                 <RdsWidget
                                     headerTitle="Maximum Profit"
                                     isRefreshRequired={false}
-
+                                    isCardStretch={true}
                                     height="auto"
 
                                 >
@@ -1314,7 +1318,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                             <RdsWidget
                                 headerTitle="Daily Sales Growth"
                                 isRefreshRequired={true}
-
+                                isCardStretch={true}
                             >
                                 <div>
                                     <RdsBigNumber
@@ -1442,8 +1446,11 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                 <div className="col-md-12 col-lg-6">
                     <RdsWidget
                         headerTitle="Member Activity"
-                        isRefreshRequired={true}  >
+                        isRefreshRequired={true}  
+                        isCardStretch={true}
+                        >
                         <div className="table-responsive">
+                            <div className="tableheigthMemberActivity">
                             <RdsTable
                                 headerDatas={[
                                     {
@@ -1716,6 +1723,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     },
                                 ]}
                             ></RdsTable>
+                            </div>
                         </div>
 
                     </RdsWidget>
@@ -1726,6 +1734,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                     <RdsWidget
                         headerTitle="To do List"
                         isRefreshRequired={true}
+                        isCardStretch={true}
                     >
                         <div className="table-responsive">
                             <RdsTable id="sortable"
@@ -1776,8 +1785,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small >Due in two days</small>
                                             </div>
@@ -1814,8 +1822,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         colorVariant={"danger"}
                                                         progressWidth={20}
                                                         role={"single"}
-                                                        width={"245px"}
-                                                    ></RdsProgressBar>
+                                                        width={"245px"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small>Due in two days</small>
                                             </>
@@ -1853,8 +1860,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"success"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1888,8 +1894,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"warning"}
                                                         progressWidth={80}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
@@ -1925,8 +1930,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                                         displayPercentage={false}
                                                         colorVariant={"primary"}
                                                         progressWidth={40}
-                                                        role={"single"}
-                                                    ></RdsProgressBar>
+                                                        role={"single"} steps={0} completedSteps={0}                                                    ></RdsProgressBar>
                                                 </div>
                                                 <small className="custom-desc">Due in two days</small>
                                             </>
