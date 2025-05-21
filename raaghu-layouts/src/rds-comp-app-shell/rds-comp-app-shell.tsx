@@ -1,9 +1,6 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import "./rds-comp-app-shell.css";
-import { BrowserRouter, Outlet } from "react-router-dom";
-import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation";
-import RdsSideNav from "../../../raaghu-elements/src/rds-side-nav";
-import { NavLayout, NavType, Platform } from "../../../raaghu-elements/src/rds-side-nav/rds-side-nav";
+import { Outlet } from "react-router-dom";
 export * from "../../../raaghu-elements/src/index";
 export * from "../../../raaghu-components/src/index";
 export interface RdsCompAppShellProps {
