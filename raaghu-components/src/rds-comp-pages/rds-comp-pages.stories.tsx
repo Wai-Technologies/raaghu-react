@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompDatatable, { ActionPosition } from '../rds-comp-data-table/rds-comp-data-table';
-
+import { fn } from '@storybook/test';
 
 const meta: Meta = { 
   title: "components/Pages",
@@ -80,6 +80,7 @@ export const Default: Story = {
       pagination: true,
       recordsPerPage: 10,
       recordsPerPageSelectListOption: false,
+      onPaginationHandler: fn()
     }
 } satisfies Story;
 
