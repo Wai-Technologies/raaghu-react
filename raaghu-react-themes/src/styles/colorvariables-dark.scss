@@ -327,7 +327,7 @@ $nav-tabs-thick-border-color: $primary !default;
 
 // /*list-group variables*/
 $list-group-active-color: $primary;
-$progress-bg: #33383e;
+$progress-bg: $progress-bg;
 
 // /*tree variable*/
 $verticle-border-color: $light-950;
@@ -848,7 +848,7 @@ button#dropdownMenuButton:focus {
 }
 
 .rds-fileuploader label.file-upload {
-    border-color: #9bacbc;
+    border-color: $file-uploader-border-color;
     background: $input-bg;
     color: #3d4d60;
 }
@@ -1714,7 +1714,7 @@ svg {
     border-bottom-color: $nav-tabs-bottom-border-color;
 
     .nav-link:hover {
-        border-bottom: 3px solid #483c60;
+        border-bottom: 3px solid $nav-link-border-bottom-hover;
     }
 
     .nav-link:after {
@@ -1732,7 +1732,7 @@ svg {
 
     .nav-link:hover:after {
         width: 100%;
-        border-bottom: 3px solid #c0c0ff;
+        border-bottom: 3px solid $nav-link-border-bottom-hover-after;
     }
 
     .nav-link {
@@ -2787,7 +2787,7 @@ textarea::placeholder {
 
 .datepicker {
     .dropdown-toggle {
-        color: white;
+        color: $body-bg;
     }
 }
 
@@ -2800,12 +2800,12 @@ textarea::placeholder {
 }
 
 .react-datepicker__current-month {
-    color: white;
+    color: $body-bg;
 }
 
 .react-datepicker__day-name,
 .react-datepicker__day {
-    color: white;
+    color: $body-bg;
 }
 
 .react-datepicker__day--selected,
@@ -3013,8 +3013,8 @@ textarea::placeholder {
 
 .datepicker__input {
     width: fit-content !important;
-    background-color: white;
-    border: 2px solid lightgrey;
+    background-color: $body-bg;
+    border: 2px solid $datepicker-input-border;
 }
 
 .icon-box {
@@ -3159,7 +3159,7 @@ input::placeholder {
 
 .CodeMirror {
     background-color: $codebg;
-    color: white;
+    color: $body-bg;
 }
 
 .cm-s-default .cm-keyword {
@@ -3258,7 +3258,7 @@ li.select-option:hover {
 }
 
 .css-1xc3v61-indicatorContainer:hover {
-    color: #cccccc !important;
+    color: $css-1xc3v61-indicatorContainer-hover !important;
 }
 
 /*#react-select-2-listbox.css-t3ispsp-control {
@@ -3470,7 +3470,7 @@ hr {
 .react-select__menu.css-1nmdiq5-menu {
     .react-select__menu-list {
         .react-select__option.css-1n7v3ny-option {
-            background-color: red !important;
+            background-color: $danger-500 !important;
         }
     }
 }
@@ -3554,6 +3554,7 @@ hr {
 .select-value,
 .select-placeholder {
     // color: var(--bs-body-color);
+    color: $body-bg;
     color: white;
 }
 
@@ -3568,7 +3569,7 @@ hr {
     color: $light-0 !important;
     display: flex !important;
     flex-direction: column !important;
-    box-shadow: 5px solid #ede1e1 !important;
+    box-shadow: 5px solid $container-collapse-box-shadow !important;
     visibility: visible !important;
 }
 
@@ -3597,7 +3598,7 @@ hr {
 
 .collapse-button-for-container {
     border: none !important;
-    background: #3089D1 !important;
+    background: $collapse-button-for-container-background !important;
     border-radius: 50% !important;
     font-size: 1em !important;
     cursor: pointer !important;
@@ -3649,7 +3650,7 @@ hr {
 
 // collapsible container css end
 .bg-layer {
-    background-color: rgba($primary-0, 0.7);
+    background-color: $primary;
     padding: 1rem;
     color: $white;
 
@@ -3662,7 +3663,7 @@ hr {
 .input-wrapper {
     .file-upload-label {
         svg {
-            color: #000;
+            color: $black;
         }
     }
 }
