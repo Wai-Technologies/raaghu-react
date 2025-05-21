@@ -25,11 +25,6 @@ export default meta;
 type Story = StoryObj<typeof RdsCompSideNavigation>;
 
 export const Default: Story = 
-// (args: any) => (
-//     <BrowserRouter>
-//         <RdsCompSideNavigation {...args} />
-//     </BrowserRouter>
-// );
 {
     args: {
         logo: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
