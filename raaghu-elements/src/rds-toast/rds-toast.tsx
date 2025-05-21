@@ -117,7 +117,7 @@ const RdsToast = (props: RdsToastProps) => {
                                     )}
                                 </div>
 
-                                <strong className="me-auto ps-1 text-dark">
+                                <strong className="me-auto ps-1">
                                     {" "}
                                     {props.headerText}{" "}
                                 </strong>

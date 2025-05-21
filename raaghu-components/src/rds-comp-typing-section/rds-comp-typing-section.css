@@ -254,8 +254,8 @@ aspect-ratio: 1/1;
     color: #fcfbfb !important;
 }
 .text-dark {
-    height: 17px !important;
-    width: 17px !important;
+    height: 17px;
+    width: 17px;
     fill: none !important;
     stroke-width: 0px!important;
 }
