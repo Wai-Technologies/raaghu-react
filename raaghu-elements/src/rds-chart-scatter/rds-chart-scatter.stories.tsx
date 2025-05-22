@@ -8,6 +8,13 @@ const meta: Meta = {
     component: RdsScatterChart,
     parameters: {
         layout: 'padded',
+      docs: {
+  description: {
+    component: 'The **Scatter Chart** element visualizes data points plotted on a Cartesian coordinate system, displaying relationships or distributions between two variables. Each point represents a data item defined by X and Y coordinates, making it ideal for identifying correlations, clusters, or trends within datasets. This chart supports multiple customizable **datasets**, enabling varied styling such as colors, shapes, and sizes for each point. The **labels** property provides contextual information for each data point. Extensive configuration is available via the **options** property, including responsive layout, axis scaling, multi-axis support, tooltips, legends, and animations. The **chartStyle** property allows further style customization to fit various design needs. The Scatter Chart is a flexible and insightful visualization tool commonly used in analytics dashboards, scientific data representation, and statistical analysis.'
+  }
+}
+
+
     },
     tags: ['autodocs'],
     argTypes: {

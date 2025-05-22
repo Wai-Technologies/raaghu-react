@@ -6,6 +6,16 @@ const meta: Meta = {
     component: RdsButtonGrid,
     parameters: {
         layout: "padded",
+        docs: {
+   description: {
+  component: `The Button Grid element is a versatile UI element designed to display a collection of buttons organized in customizable **rows** and **columns**. It supports multiple **color variants** and flexible button inputs, making it suitable for numeric keypads, option selectors, or interactive dashboards. This element provides a clean and organized layout to enhance user interaction and visual consistency.`,
+},
+
+
+
+
+    },
+        
     },
     tags: ["autodocs"],
     argTypes: {

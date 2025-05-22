@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsBooleanChart,
     parameters: {
         layout: 'padded',
+        docs: {
+           description: {
+  component: 'The **Boolean Chart** element is part of our design system, designed to display binary or proportional data in a clear and intuitive doughnut chart format. It supports customizable center icons, labels, and color schemes, making it ideal for representing metrics like completion rates or binary comparisons. Fully responsive and configurable, this element adapts seamlessly to different layouts and enhances data comprehension.',
+},
+
+        },
     },
     tags: ['autodocs'],
     argTypes: {

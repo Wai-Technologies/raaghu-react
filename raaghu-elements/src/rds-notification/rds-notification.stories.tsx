@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs:{
+             description: {
+        component:
+            'The **Notification** element is a customizable component for displaying alerts, messages, or updates to users. It supports multiple layouts (`vertical`, `horizontal`), styles (`default`, `avatar`, `icon`, `image`), and types (`error`, `info`, `success`, `warning`). Notifications can include a title, description, timestamp, and optional action buttons or dismiss icons. You can show primary and secondary buttons for user actions and control the visibility of the dismiss icon. Flexible props allow you to tailor the appearance and behavior, making this element ideal for informing users about important events, confirmations, or system statuses in your application.'
+    },
             source:{
                 transform: (code: string) => {
                     // Transform layout enum - remove spaces and transform

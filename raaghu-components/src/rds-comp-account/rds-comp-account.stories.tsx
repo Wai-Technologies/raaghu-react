@@ -17,6 +17,7 @@ const meta: Meta = {
       ],
     parameters: {
         layout: 'padded',
+       
     },
     tags: ['autodocs'],
     argTypes: {

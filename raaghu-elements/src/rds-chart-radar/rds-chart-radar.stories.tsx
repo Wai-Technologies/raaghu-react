@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsRadarChart,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 'The **Radar Chart** element is a versatile data visualization component that displays multivariate data across multiple axes arranged radially around a central point. Each axis represents a distinct category or dimension, and the data values are plotted as points connected by lines, forming a web-like or spider mesh pattern. This makes it ideal for comparing multiple datasets on the same scale, highlighting strengths and weaknesses across different variables in a compact and intuitive radial layout. The chart supports multiple customizable **datasets**, allowing control over colors, fills, point styles, and labels. Extensive configuration options are available through the **options** property, including axis scaling, grid line styles, tooltips, legends, animations, and responsiveness. The Radar Chart is a powerful and visually appealing tool suited for dashboards, performance metrics, skill analysis, and any context where multidimensional data comparison is needed.'
+    }
+}
+
     },
     tags: ['autodocs'],
     argTypes: {

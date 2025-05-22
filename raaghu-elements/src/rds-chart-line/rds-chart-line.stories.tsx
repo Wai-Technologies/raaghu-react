@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsLineChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: 'The **Line Chart** element is designed to display continuous data trends over time or categories using connected points along a line. It supports customizable **labels** to define the x-axis, and multiple **datasets** for plotting different series of data. The chart offers extensive styling options such as point shapes (e.g., stars), radius size, line tension (curvature), colors, and fill behavior. It is fully **responsive** and allows configuration of legends, tooltips, titles, and interaction modes for precise user experience. This flexibility lets you tailor the chart’s appearance and behavior to fit various data visualization needs within dashboards, reports, or analytics tools.'
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

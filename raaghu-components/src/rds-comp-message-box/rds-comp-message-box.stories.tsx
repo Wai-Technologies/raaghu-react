@@ -7,6 +7,12 @@ const meta: Meta = {
   component: RdsMessageBox,
   parameters: {
     layout: 'padded',
+    docs:{
+      description: {
+  component: `The **Message Box** component is designed to display individual chat messages in the AI ChatBot interface. It supports both text and image-based messages, enabling rich media conversations. The \`message\` prop renders the content of the message, while the optional \`src\` prop displays an image when \`isImage\` is set to \`true\`. The \`avtar\` prop allows customization of the sender's avatar image, giving users a visual cue of the message source (AI or user). This component ensures consistent styling and responsive alignment within the chat interface, making it ideal for conversational UIs.`
+}
+
+    }
   },
   tags: ['autodocs'],
   argTypes: {
