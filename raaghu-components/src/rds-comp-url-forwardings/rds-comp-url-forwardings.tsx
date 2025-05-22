@@ -31,6 +31,8 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         dataTestId="source"
                         isDisabled={props.isEdit || false}
                         reset={props.reset}
+                        validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                              
+                        validationMsg="Please Enter valid url"
                     ></RdsInput>
                     <small className="text-muted-300 ms-2" >Ensure that source URL starts with a forward slash ("/")</small>
                 </div>
@@ -46,6 +48,8 @@ function RdsCompUrlForwardings(props: RdsCompUrlForwardingsProps) {
                         value={formData.target}
                         dataTestId="target"
                         reset={props.reset}
+                        validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                              
+                        validationMsg="Please Enter valid url"
                     ></RdsInput>
                     <small className="text-muted-300 ms-2" >URL must start with a forward slash ("/") if targeting same domain</small>
                 </div>
