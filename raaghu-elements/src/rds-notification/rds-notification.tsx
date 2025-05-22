@@ -32,7 +32,7 @@ export interface RdsNotificationProps {
   showPrimaryButton?: boolean; // Show primary button in the notification
   showSecondaryButton?: boolean; // Show secondary button in the notification
   showDismissIcon?: boolean; // Show dismiss button in the notification
-  onDismiss?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for dismiss button
+  onDismiss?: (event: any, notification: any) => void; // Event handler for dismiss button
   onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 

@@ -21,14 +21,14 @@ const RdsCompTeams = (props: RdsCompTeamsProps) => {
                                     fill={false}
                                     stroke={true}
                                     width="15px"
-                                    name="arrow-right"
+                                    name="arrow_right"
                                 ></RdsIcon>
                                 <RdsIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
-                                    name="arrow-left"
+                                    name="arrow_left"
                                 ></RdsIcon>
                             </span>
                         </div>
