@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof RdsColorSwitcher>;
 
 
-export const ColorThemeSwitcher: Story = {
+export const Default: Story = {
     args: {
         displayType: DisplayType.Rounded,
         header: "Color",
@@ -40,6 +40,6 @@ export const ColorThemeSwitcher: Story = {
         ]
     }
 } satisfies Story;
-ColorThemeSwitcher.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
+Default.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
 
 

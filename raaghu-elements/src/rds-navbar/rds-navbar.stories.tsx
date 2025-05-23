@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsNavbar>;
 
-export const ConfigurableNavbar: Story = {
+export const Default: Story = {
     args: {
         title: "Navbar",
         size: "small",

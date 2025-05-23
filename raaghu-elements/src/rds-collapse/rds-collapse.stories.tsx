@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCollapse>;
 
 
-export const CollapseView: Story = {
+export const Default: Story = {
     args: {
         buttonList: [
             {
@@ -28,7 +28,7 @@ export const CollapseView: Story = {
         ],
     }
 } satisfies Story;
-CollapseView.parameters = { controls: { include: ['buttonList'] } };
+Default.parameters = { controls: { include: ['buttonList'] } };
 
 
 
