@@ -4,6 +4,11 @@ import { RdsButtonProps } from "./rds-button.types";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import RdsIcon from "../rds-icon";
 
+export interface ButtonInput {
+        id: string;
+        text: string;
+        colorVariant?: string;
+    }
 
 const LocalTooltipStyle: Record<string, TooltipStyle> = {
     NoArrow: TooltipStyle.NoArrow,
@@ -132,91 +137,129 @@ const RdsButton = (props: RdsButtonProps) => {
         return iconSpan;
     };
 
+    const btnColorVariant = "btn fw-bold  mx-1 my-1 text-" + (props.colorVariant ? props.colorVariant : "white ");
+
+    const getButtonWidth = (text: string) => {
+        const isNumeric = /^[0-9]+$/.test(text);
+        const isAlphabetic = /^[a-zA-Z]+$/.test(text);
+        if (isNumeric) {
+            return "rds-btn-md";
+        } else if (isAlphabetic) {
+            return "rds-btn-md";
+        } else {
+            return "rds-btn-lg";
+        }
+    };
+
     return (
         <Fragment>
-      {props.tooltip ? (
-    <Tooltip 
-        label={props.tooltipTitle} 
-        style={props.tooltipPlacement ? LocalTooltipStyle[props.tooltipPlacement] : LocalTooltipStyle.MiddleTopArrow}
-    >
-        <button
-            className={`btn ${
-                props.style === "outline" && props.state === "default"
-                    ? `btn-outline-${props.colorVariant}`
-                    : props.style === "outline"
-                    ? `btn-outline-${props.state}`
-                    : props.style === "transparent" && props.state === "default"
-                    ? `transparent-${props.colorVariant}`
-                    : props.style === "transparent" && props.state === "selected"
-                    ? "btn transparent-selected"
-                    : props.style === "transparent"
-                    ? `transparent-${props.state}`
-                    : `btn-${props.colorVariant}`
-            } ${classesButton()} ${spinner}`}
-            disabled={props.isDisabled}
-            type={btnType}
-            form={props.formName}
-            key={turnSpinnerOff}
-            data-bs-dismiss={props.databsdismiss}
-            data-bs-target={props.databstarget}
-            data-bs-toggle={props.databstoggle}
-            aria-controls={props.ariacontrols}
-            id={props.id}
-            data-testid={props.dataTestId}
-            onClick={buttonClick}
-        >
-            {props.icon && (
-                <span className={iconClasses()}>
-                    <RdsIcon
-                        name={props.icon}
-                        fill={props.iconFill}
-                        stroke={props.iconStroke}
-                    />
-                </span>
+            {props.grid === true ? (
+                <div className="button-grid">
+                    {Array.from({ length: props.rows }).map((_, rowIndex) => (
+                        <div key={rowIndex} className="button-row">
+                            <div className="d-flex">
+                                {Array.from({ length: props.columns }).map((_, colIndex) => {
+                                    const buttonInput = props.buttonInputs[rowIndex * props.columns + colIndex];
+                                    return buttonInput ? (
+                                        <button
+                                            title={buttonInput.text}
+                                            key={colIndex}
+                                            className={` ${btnColorVariant} ${buttonInput.colorVariant ? " btn-" + buttonInput.colorVariant : ""} `}
+                                            style={{ width: getButtonWidth(buttonInput.text) }}
+                                        >
+                                            {buttonInput.text}
+                                        </button>
+                                    ) : null;
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                props.tooltip ? (
+                    <Tooltip 
+                        label={props.tooltipTitle} 
+                        style={props.tooltipPlacement ? LocalTooltipStyle[props.tooltipPlacement] : LocalTooltipStyle.MiddleTopArrow}
+                    >
+                        <button
+                            className={`btn ${
+                                props.style === "outline" && props.state === "default"
+                                    ? `btn-outline-${props.colorVariant}`
+                                    : props.style === "outline"
+                                    ? `btn-outline-${props.state}`
+                                    : props.style === "transparent" && props.state === "default"
+                                    ? `transparent-${props.colorVariant}`
+                                    : props.style === "transparent" && props.state === "selected"
+                                    ? "btn transparent-selected"
+                                    : props.style === "transparent"
+                                    ? `transparent-${props.state}`
+                                    : `btn-${props.colorVariant}`
+                            } ${classesButton()} ${spinner}`}
+                            disabled={props.isDisabled}
+                            type={btnType}
+                            form={props.formName}
+                            key={turnSpinnerOff}
+                            data-bs-dismiss={props.databsdismiss}
+                            data-bs-target={props.databstarget}
+                            data-bs-toggle={props.databstoggle}
+                            aria-controls={props.ariacontrols}
+                            id={props.id}
+                            data-testid={props.dataTestId}
+                            onClick={buttonClick}
+                        >
+                            {props.icon && (
+                                <span className={iconClasses()}>
+                                    <RdsIcon
+                                        name={props.icon}
+                                        fill={props.iconFill}
+                                        stroke={props.iconStroke}
+                                    />
+                                </span>
+                            )}
+                            {props.label && <span style={textCaseStyle()}>{props.label}</span>}
+                            {props.children}
+                        </button>
+                    </Tooltip>
+                ) : (
+                    <button
+                        className={`btn ${
+                            props.style === "outline" && props.state === "default"
+                                ? `btn-outline-${props.colorVariant}`
+                                : props.style === "outline"
+                                ? `btn-outline-${props.state}`
+                                : props.style === "transparent" && props.state === "default"
+                                ? `transparent-${props.colorVariant}`
+                                : props.style === "transparent" && props.state === "selected"
+                                ? "btn transparent-selected"
+                                : props.style === "transparent"
+                                ? `transparent-${props.state}`
+                                : `btn-${props.colorVariant}`
+                        } ${classesButton()} ${spinner}`}
+                        disabled={props.isDisabled}
+                        type={btnType}
+                        form={props.formName}
+                        key={turnSpinnerOff}
+                        data-bs-dismiss={props.databsdismiss}
+                        data-bs-target={props.databstarget}
+                        data-bs-toggle={props.databstoggle}
+                        aria-controls={props.ariacontrols}
+                        id={props.id}
+                        data-testid={props.dataTestId}
+                        onClick={buttonClick}
+                    >
+                        {props.icon && (
+                            <span className={iconClasses()}>
+                                <RdsIcon
+                                    name={props.icon}
+                                    fill={props.iconFill}
+                                    stroke={props.iconStroke}
+                                />
+                            </span>
+                        )}
+                        {props.label && <span style={textCaseStyle()}>{props.label}</span>}
+                    </button>
+                )
             )}
-            {props.label && <span style={textCaseStyle()}>{props.label}</span>}
-            {props.children}
-        </button>
-    </Tooltip>
-) : (
-    <button
-        className={`btn ${
-            props.style === "outline" && props.state === "default"
-                ? `btn-outline-${props.colorVariant}`
-                : props.style === "outline"
-                ? `btn-outline-${props.state}`
-                : props.style === "transparent" && props.state === "default"
-                ? `transparent-${props.colorVariant}`
-                : props.style === "transparent" && props.state === "selected"
-                ? "btn transparent-selected"
-                : props.style === "transparent"
-                ? `transparent-${props.state}`
-                : `btn-${props.colorVariant}`
-        } ${classesButton()} ${spinner}`}
-        disabled={props.isDisabled}
-        type={btnType}
-        form={props.formName}
-        key={turnSpinnerOff}
-        data-bs-dismiss={props.databsdismiss}
-        data-bs-target={props.databstarget}
-        data-bs-toggle={props.databstoggle}
-        aria-controls={props.ariacontrols}
-        id={props.id}
-        data-testid={props.dataTestId}
-        onClick={buttonClick}
-    >
-        {props.icon && (
-            <span className={iconClasses()}>
-                <RdsIcon
-                    name={props.icon}
-                    fill={props.iconFill}
-                    stroke={props.iconStroke}
-                />
-            </span>
-        )}
-        {props.label && <span style={textCaseStyle()}>{props.label}</span>}
-    </button>
-)}
         </Fragment>
     );
 };
