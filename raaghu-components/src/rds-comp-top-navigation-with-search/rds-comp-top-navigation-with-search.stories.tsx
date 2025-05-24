@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompTopNavigationWithSearch,
     parameters: {
         layout: "padded",
+        docs: {
+    description: {
+        component: 
+            'The **Top Navigation With Search** component is a versatile and interactive UI element designed to provide a seamless navigation experience with integrated search functionality. It includes features such as a logo display, breadcrumb navigation, and user profile details (e.g., name, email). This component is ideal for applications requiring a structured and user-friendly top navigation bar. Fully customizable, the Top Navigation With Search component ensures seamless integration with your design system while offering an intuitive interface for navigating and searching within the application.'
+    },
+},
         
     },
     tags: ["autodocs"],

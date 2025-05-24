@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompTeams,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Teams** component is a flexible and visually appealing UI element designed to showcase team member profiles. It allows you to display individual team members with attributes such as name, role, profile image, social media links (e.g., Twitter, LinkedIn), and a brief description. This component supports grouping team members into categories or sections, making it ideal for team introductions, organizational charts, or project showcases. Fully customizable, the Teams component ensures consistency with your design system while providing an intuitive interface for presenting team information effectively. It is perfect for corporate websites, portfolios, or any application requiring professional team presentations.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

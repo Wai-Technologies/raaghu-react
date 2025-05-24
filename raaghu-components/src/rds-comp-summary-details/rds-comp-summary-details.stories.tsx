@@ -7,6 +7,12 @@ const meta: Meta = {
   component: RdsCompSummaryDetails,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Summary Details** component is a customizable UI element designed to display detailed summaries of pricing and plan information within your application. It provides a structured interface for showcasing details such as plan name, license tenure, license price, additional developer counts and pricing, tax percentage, discounts, and total net price. This component is ideal for subscription-based platforms, e-commerce applications, or any system requiring a clear and user-friendly summary of pricing and plan details. Fully customizable, the Summary Details component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

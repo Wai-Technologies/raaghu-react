@@ -5,6 +5,14 @@ import RdsCompSkeleton from "./rds-comp-skeleton";
 const meta: Meta = {
   title: "Components/Skeleton Components",
   component: RdsCompSkeleton,
+  parameters:{
+    docs: {
+    description: {
+        component: 
+            'The **Skeleton Components** are versatile UI elements designed to provide a placeholder loading state for various components within your application. They support multiple types, including `card`, `pagination`, and `dropdown`, and can be customized with options such as animation, count, rows, and columns. These components are ideal for improving user experience by visually indicating loading states in data-heavy or interactive interfaces. Fully customizable, the Skeleton Components ensure a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
+  },
   tags: ["autodocs"],
   argTypes: {
     type: {
