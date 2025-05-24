@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompIdentityManagement,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Identity Management** component is a customizable UI element designed to manage identity-related settings and configurations within your application. It provides a structured interface for handling user authentication, password policies, and account management workflows. This component is ideal for administrative dashboards, user management systems, or any application requiring robust identity management capabilities. Fully customizable, the Identity Management component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

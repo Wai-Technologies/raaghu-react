@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsTeamMember,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Team Member** component is a versatile and customizable UI element designed to showcase individual team members or profiles in your application. It supports displaying key details such as the member’s **name**, **designation**, **profile image**, and **description**. The component also allows integration of social media icons (e.g., Twitter, LinkedIn) for enhanced interactivity. You can dynamically populate the component using the **teamItem** array, where each object represents a team member with properties like `title`, `subTitle`, `imgLink`, `twitterIcon`, `linkdineIcon`, and `description`. This component is ideal for creating team sections on websites, organizational directories, or any interface requiring structured and visually appealing member profiles. Fully customizable, the Team Member component can be tailored to fit your design system and branding requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

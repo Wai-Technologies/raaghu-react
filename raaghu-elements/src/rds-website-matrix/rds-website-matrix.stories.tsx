@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsWebsiteMatrix,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Website Matrix** component is a dynamic and customizable UI element designed to display key metrics, statistics, or highlights in a visually engaging format. It supports multiple display types, such as `default`, `withTopBorder`, `leftAligned`, `withLeftAlignedIcon`, `withCenterAlignedIcon`, and `centerAligned`, making it adaptable to various layouts and use cases. The component accepts an `item` object to define its content, including properties like `title` for the main metric, `subtitle` for additional context, `link` for further information, and optional `icon` and `description` for enhanced visual appeal. Additionally, it offers a range of color variants (`primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`) to align with your design system. Ideal for dashboards, landing pages, or any interface requiring structured and visually appealing data highlights, the Website Matrix component is fully customizable to meet your branding and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

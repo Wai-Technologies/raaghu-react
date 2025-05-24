@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompBenefit,
   parameters: {
     layout: "padded",
+    docs: {
+    description: {
+        component: 
+            'The **Benefit** component is a versatile and customizable UI element designed to showcase key features, advantages, or highlights of a product or service. It supports multiple display types, such as `default`, `Heading With Icon`, `Left Aligned`, `With Label`, `Without Label`, and `Center Aligned`, allowing flexibility in presentation. The component accepts an `itemList` array to define the content, with properties like `id`, `icon`, `iconHeight`, `iconWidth`, `iconFill`, `iconStroke`, `iconColorVariant`, `title`, and `description`. This makes it ideal for landing pages, product showcases, or any interface requiring visually appealing and structured benefit displays. Fully customizable, the Benefit component ensures a seamless user experience while maintaining consistency with your design system.'
+    },
+}
   },
   tags: ["autodocs"],
   argTypes: {

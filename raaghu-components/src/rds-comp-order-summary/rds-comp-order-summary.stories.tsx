@@ -8,6 +8,12 @@ const meta: Meta = {
   component: RdsCompOrderSummary,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Order Summary** component is a customizable UI element designed to display a summary of orders within your application. It provides a structured interface for presenting order details, including items, pricing, and checkout options. This component is ideal for e-commerce platforms, booking systems, or any application requiring a concise and user-friendly order summary interface. Fully customizable, the Order Summary component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

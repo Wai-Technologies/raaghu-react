@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompMenu,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Menu** component is a customizable UI element designed to display and manage navigation menus within your application. It provides a structured interface for organizing menu items, making it ideal for use cases such as application navigation, dashboards, or any interface requiring a user-friendly and interactive menu system. Fully customizable, the Menu component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

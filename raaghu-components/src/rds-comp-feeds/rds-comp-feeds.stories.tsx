@@ -7,6 +7,12 @@ const meta: Meta = {
   component: RdsCompFeeds,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Feeds** component is a versatile and customizable UI element designed to display a list of user-generated content or activity feeds in a structured and visually appealing format. It supports two variants: `Basic` and `Advanced`, allowing developers to choose the level of detail and interactivity. The component uses an `itemList` array to define feed items, with properties such as `name`, `username`, `date`, `feedIcon`, `imageUrl`, `description`, `hashtags`, `reviews`, `replies`, and `rating`. This component is ideal for social media platforms, dashboards, or any interface requiring dynamic and interactive feed displays. Fully customizable, the Feeds component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

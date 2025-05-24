@@ -7,6 +7,12 @@ const meta: Meta = {
     component: Todos,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Size** component displays a list of size options for selection, supporting two variants: sizes without descriptions and sizes with descriptions. It accepts a \`sizeType\` prop to toggle between these variants. For the "withoutDescription" type, it uses \`sizeData\`, an array of size objects containing \`value\` (size label) and \`inStock\` (availability boolean). For the "withDescription" type, it uses \`sizeDataWithDescription\`, an array of objects with \`value\` and a \`description\` to provide additional context for each size. This component is ideal for product size selectors in e-commerce or inventory interfaces, clearly showing available sizes and optional descriptive details.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {
