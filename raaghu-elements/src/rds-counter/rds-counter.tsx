@@ -22,6 +22,8 @@ export interface RdsCounterProps {
   max: number; // Maximum value for the counter
   width: number; // Width of the counter
   layout?: LayoutOptions; // Layout of the counter
+  type?: "Default" | "Side" | "Bottom";
+  size?:""
   colorVariant?: colors; // Color variant of the counter
   position?: placements; // Position of the counter
   onCounterChange?: (newValue: number) => void; // Callback function to get the new value of the counter

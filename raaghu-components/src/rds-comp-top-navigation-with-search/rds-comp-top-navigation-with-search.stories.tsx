@@ -23,7 +23,7 @@ type Story = StoryObj<typeof RdsCompTopNavigationWithSearch>;
 
 export const Default: Story = {
     args: {
-        logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
+        logo: "assets/Raaghu-logo-mfe-black.png",
         profileTitle: "John Doe",
         profileEmail: "john.doe@raaghu.io",
         profileName: "John Doe",

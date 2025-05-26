@@ -1,3 +1,4 @@
+import { position } from "html2canvas/dist/types/css/property-descriptors/position";
 import RdsCounter, { CounterState, LayoutOptions } from "./rds-counter";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -64,6 +65,19 @@ const meta: Meta = {
         width: {
             control: { type: "number" },
         },
+        position: {
+            options: ["top", "bottom"], // Add position options
+            control: { type: "radio" }, // Dropdown to select position
+          },
+        showLabel:{
+            control: { type: "boolean" }
+        },
+        isDisabled: {  // Added this field for controlling the disabled state
+            control: { type: "boolean" },
+        },
+        label: {
+            control: { type: "text" },
+        },
     },
 } satisfies Meta<typeof RdsCounter>;
 
@@ -73,7 +87,7 @@ type Story = StoryObj<typeof RdsCounter>;
 
 export const Default: Story = {
     args: {
-        // counterValue: 0,
+        counterValue: 0,
         min: 0,
         max: 50,
         width: 280,
