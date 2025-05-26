@@ -198,6 +198,12 @@ const meta: Meta = {
     component: RdsCompClaim,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Claim** component is a dynamic and interactive UI element designed to display and manage hierarchical resource data. It supports features such as grouping resources into categories (e.g., "A - E", "F - O", "P - Z") and organizing them in a nested structure with parent-child relationships. Each resource can be selected or deselected, making it ideal for applications requiring resource management, such as dashboards, content management systems, or enterprise tools. Fully customizable, the Claim component ensures seamless integration with your design system while providing a user-friendly interface for managing and visualizing complex data structures effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {
