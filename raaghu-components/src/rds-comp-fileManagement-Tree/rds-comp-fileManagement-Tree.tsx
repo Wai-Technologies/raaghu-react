@@ -2,6 +2,7 @@ import React, {useState } from "react";
 import { RdsButtonGroup } from "../rds-elements";
 import { RdsLabel } from "../rds-elements";
 import "./rds-comp-fileManagement-Tree.css";
+import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
 
 export interface FileManagementTree {
     id: string;
@@ -139,7 +140,7 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                                         buttonGroupItems={buttonGroupList}
                                         colorVariant="primary"
                                         isOutline={true}
-                                        role="button"
+                                        role={Role.Button}
                                         size="small"
                                         vertical={false}
                                         onButtonClick={(e:any, id:any) => handlerButtonGroupClick(e, id, prop.item.name)}

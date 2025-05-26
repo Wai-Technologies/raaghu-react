@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompTransferList from "./rds-comp-transfer-list";
+import RdsCompTransferList, { SelectAllType } from "./rds-comp-transfer-list";
 
 
 const meta: Meta = { 
@@ -7,6 +7,15 @@ const meta: Meta = {
     component: RdsCompTransferList,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform SelectAllType enum - remove spaces and transform
+                    code = code.replace(/"(default|advanced)"/g, '{SelectAllType.$1}');
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
@@ -25,6 +34,6 @@ type Story = StoryObj<typeof RdsCompTransferList>;
 
 export const Default: Story = {
     args: {
-        selectAllType: "default",
+        selectAllType: SelectAllType.Default,
     }
 } satisfies Story;

@@ -27,6 +27,7 @@
 
 #sidebar {
     background-color: #fff !important;
+    width: 73px !important;
 }
 
 .show_one {
@@ -68,3 +69,35 @@
     background-color: #414141 !important;
     border-right-color: #414141 !important;
 }
+.rds-lock-tooltip-legacy {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+}
+/* @media (max-width: 767px) {
+    #sidebar.show {
+        width: 63px !important;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .LeftSideNavListCollapse .form-control {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    #mobileviewmenusdirectory ol,
+    #mobileviewmenusdirectory ul {
+        padding-left: 0.9rem !important;
+    }
+} */

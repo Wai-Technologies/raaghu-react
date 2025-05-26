@@ -6,6 +6,7 @@ import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
+import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -37,6 +38,7 @@ export enum Platform {
     navLayout?: NavLayout;
     navType?: NavType;
     platform?: Platform;
+    lockIconVisible?: boolean; // Added lockIcon prop to control the visibility of the lock icon
 }
 
 const RdsSideNav = (props: RdsSideNavProps) => {
@@ -55,6 +57,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
     const [activeItem, setActiveItem] = useState<string | null>(null);
     const navigatepage = useNavigate();
+    const [showLockTooltip, setShowLockTooltip] = useState(false);
 
     const addFilter = (value: string) => {
         setSearchQuery(value);
@@ -308,15 +311,15 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 {props.layout != "RightSideNav" && (
                     <div className="aside-right">
                         <div
-                            className={`sidenav-footer text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
+                            className={`text-center cursor-pointer rounded-5 d-flex align-items-center justify-content-center py-1 p-1 ${
                                 props.toggleClass ? " show" : " hide"
                             } ${collapse ? "toggle-sidebar-menu show" : "toggle"}`}
                         >
-                            <span className="collpase-button cursor-pointer d-flex lock-icon"
+                            {/* <span className="collpase-button cursor-pointer d-flex lock-icon"
                                 onMouseEnter={(e) => e.stopPropagation()}
                                 onMouseLeave={(e) => e.stopPropagation()}>
                                 <RdsIcon
-                                    name={!isLocked ? "unlock" : "lock_nav"}
+                                    name={!isLocked ? "unlock" : "lock_nav"
                                     height="21px"
                                     width="21px"
                                     stroke={true}
@@ -325,7 +328,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                     colorVariant="white"
                                     onClick={() => setIsLocked(!isLocked)}
                                 ></RdsIcon>
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                 )}
@@ -333,14 +336,60 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                 <nav
                     id="sidebar"
                     ref={ref}
-                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-1 side-navigation
+                    className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-2 side-navigation
                         ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
                 >
+                    {props.lockIconVisible && (
+                        <span
+                            className="collpase-button cursor-pointer justify-content-center rounded-5 lock-icon-style"
+                            style={{
+                                backgroundColor: "#7e2eef",
+                                color: "#FFFFFF",
+                                position: "absolute",
+                                top: props.navLayout === NavLayout.Toolbar ? "43px" : "23px", // Adjusted top for Toolbar layout
+                                left: props.navLayout === NavLayout.Toolbar ? (collapse ? "69px" : "247px") : (collapse ? "50px" : "231px"),
+                                zIndex: 10,
+                                transition: "left 1.05s ease",
+                            }}
+                            onMouseEnter={() => setShowLockTooltip(true)}
+                            onMouseLeave={() => setShowLockTooltip(false)}
+                        >
+                            {showLockTooltip && (
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        top: "-35px",
+                                        left: "50%",
+                                        transform: "translateX(-50%)",
+                                        background: "#333",
+                                        color: "#fff",
+                                        padding: "4px 10px",
+                                        borderRadius: "4px",
+                                        fontSize: "12px",
+                                        whiteSpace: "nowrap",
+                                        pointerEvents: "none",
+                                    }}
+                                >
+                                    {collapse ? "Lock Sidebar" : "Unlock Sidebar"}
+                                </div>
+                            )}
+                            <RdsIcon
+                                name={!collapse ? "unlock" : "lock_nav"}
+                                height="21px"
+                                width="21px"
+                                stroke={true}
+                                fill={false}
+                                strokeWidth="1.2"
+                                colorVariant="white"
+                                onClick={() => setCollapse(!collapse)}
+                            ></RdsIcon>
+                        </span>
+                    )}
                     <div>
                         {props.layout != "RightSideNav" && (
                             <>
                                 <br></br>
-                                <img src={logo != "" ? logo : ""} className="ps-2" alt={logo != "" ? "Raaghu Side Navigation" : ""}
+                                <img src={logo != "" ? logo : ""} className="ps-md-2 main-logo ps-1" alt={logo != "" ? "Raaghu Side Navigation" : ""}
                                     style={{ height: "30px" }}></img>
                             </>
                         )}
@@ -358,14 +407,13 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                                 />
                             </div>
                         )}
-
                         {props.layout === "LeftSideNavList" && !props.collapse && (
                             <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsSearch
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={(e) => addFilter(e.target.value)}
-                                iconPosition="right"
+                                iconPosition={IconPosition.Right}
                                 size="small"
                                 id={`sidenavbar-search`}
                             />
@@ -381,7 +429,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                         <ul className="list-unstyled pb-5 pd-md-0 mb-5 mb-md-0 pt-3 mb-auto">
                             {menuToShow.length != 0 ? displayMenu(menuToShow, "", 1) : ""}
                         </ul>
-
                     </div>
                     {props.layout === "LeftSideNavList" && props.showUserProfile && (
                         <ul className="align-items-end left-space-listing pb-0">
@@ -403,9 +450,6 @@ const RdsSideNav = (props: RdsSideNavProps) => {
 };
 
 export default RdsSideNav;
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import RdsIcon from "../rds-icon/rds-icon";

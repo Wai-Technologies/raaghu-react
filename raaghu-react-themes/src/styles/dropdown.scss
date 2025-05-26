@@ -157,6 +157,10 @@ height: 20px;
   inset: 2px auto auto 2px !important;
 }
 
+#action-dropdown .dropdown-menu.show {
+  inset: 0px auto auto -160px;
+}
+
 button#dropdownMenuButton {
   width: 30px!important;
   padding: 6px 0px;

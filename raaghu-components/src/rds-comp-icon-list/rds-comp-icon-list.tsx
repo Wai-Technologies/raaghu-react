@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Icons } from "./Icons";
 import { RdsIcon, RdsSearch } from "../rds-elements";
 import "./rds-comp-icon-list.css"
+import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 
 export interface RdsCompIconListProps { }
 
@@ -52,7 +53,7 @@ const RdsCompIconList = (props: RdsCompIconListProps) => {
               size={""}
               value={value}
               onChange={onIconSearchHandler}
-              iconPosition="left"
+               iconPosition={IconPosition.Left}
               dataTestId="search"
             ></RdsSearch>
           </div>
