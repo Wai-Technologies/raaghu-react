@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAppDetail from './rds-comp-app-detail';
 
 const meta: Meta = {
-    title: "Components/App Detail",
+    title: "Components/App Details",
     component: RdsCompAppDetail,
     parameters: {
         layout: 'padded',
