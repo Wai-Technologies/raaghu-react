@@ -6,6 +6,7 @@ import Tooltip from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 import RdsSearch from "../rds-search";
+import { IconPosition } from "../rds-search/rds-search";
 
 export enum DropdownSize {
   Default = "Default",
@@ -287,20 +288,30 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
           {props.isMandatory && <span className="text-danger"> *</span>}
         </label>
       )}
-      <div className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`} ref={dropdownRef} style={{ marginBottom: "8px" }}>
+      <div
+        className={`dropdown ${block ? "w-100 mt-1" : ""} d-flex`}
+        ref={dropdownRef}
+        style={{ marginBottom: "8px" }}
+      >
         <span
-          className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${props.state === "Disabled" ? "disabled" : ""}`}
+          className={`gap-2 ${offset} ${border} ${bottomLine} ${defaultDisabled} ${
+            props.state === "Disabled" ? "disabled" : ""
+          }`}
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
           id={props.id}
-          onClick={props.state !== "Selected" && props.state !== "Disabled" ? clickedOnDropDown : undefined}
+          onClick={
+            props.state !== "Selected" && props.state !== "Disabled"
+              ? clickedOnDropDown
+              : undefined
+          }
         >
-          <div 
-          className={
-            "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
+          <div
+            className={
+              "d-flex align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-between"
             }
-            >
+          >
             {/* simple dropdown  */}
             {props.state === "Selected" && props.listItems.length !== 0 && (
               <div className="d-flex align-items-baseline">
@@ -312,11 +323,18 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         <span>
                           <RdsIcon
                             iconPath={props.listItems[selectedOption]?.iconPath}
-                            width={props.listItems[selectedOption]?.iconWidth || ""}
-                            height={props.listItems[selectedOption]?.iconHeight || ""}
+                            width={
+                              props.listItems[selectedOption]?.iconWidth || ""
+                            }
+                            height={
+                              props.listItems[selectedOption]?.iconHeight || ""
+                            }
                             fill={false}
                             stroke={true}
-                            isHovered={hoveredItem === props.listItems[selectedOption].label}
+                            isHovered={
+                              hoveredItem ===
+                              props.listItems[selectedOption].label
+                            }
                             type="lottie"
                           ></RdsIcon>
                         </span>
@@ -356,58 +374,65 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     stroke={true}
                   />
                 )}
-                {showSelectedOption && ( <span className="dw-placeholder fs-6 ms-2">
-                    {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                  </span>)}
+                {showSelectedOption && (
+                  <span className="dw-placeholder fs-6 ms-2">
+                    {selectedOption >= 0
+                      ? props.listItems[selectedOption].label
+                      : props.placeholder}
+                  </span>
+                )}
               </div>
             )}
 
             {/* multiselected dropdown placeholder */}
-            {props.state !== "Selected" && checkedCategoryList.length === 0 && 
-            props.multiSelect && 
-            props.placeholder && (
-              <div className="d-flex align-items-center">
-                {showIcon && (
-                  <RdsIcon
-                    name={props.icon}
-                    width="16px"
-                    height="16px"
-                    fill={false}
-                    stroke={true}
-                  />
-                )}
-                <span className="dw-placeholder fs-6 ms-2">
-                  {props.placeholder}
-                </span>
-              </div>
-            )}
+            {props.state !== "Selected" &&
+              checkedCategoryList.length === 0 &&
+              props.multiSelect &&
+              props.placeholder && (
+                <div className="d-flex align-items-center">
+                  {showIcon && (
+                    <RdsIcon
+                      name={props.icon}
+                      width="16px"
+                      height="16px"
+                      fill={false}
+                      stroke={true}
+                    />
+                  )}
+                  <span className="dw-placeholder fs-6 ms-2">
+                    {props.placeholder}
+                  </span>
+                </div>
+              )}
             {/* multiselected dropdown's badge */}
-            {props.state !== "Selected" && props.multiSelect && checkedCategoryList.length !== 0 && (
-              <div>
-                {visibleItems.map((item: any) => (
-                  <RdsBadge
-                    className="me-1"
-                    key={item.id}
-                    label={item.label}
-                    colorVariant="primary"
-                    size="small"
-                    onClose={(e) => uncheckHandler(e, item)}
-                    showClose={true}
-                    textwithlabel={true}
-                  />
-                ))}
-                {remainingCount > 0 && (
-                  <RdsBadge
-                    className="me-1"
-                    label={"+" + remainingCount.toString()}
-                    colorVariant="primary"
-                    size="small"
-                    textwithlabel={true}
-                    style="pill"
-                  />
-                )}
-              </div>
-            )}
+            {props.state !== "Selected" &&
+              props.multiSelect &&
+              checkedCategoryList.length !== 0 && (
+                <div>
+                  {visibleItems.map((item: any) => (
+                    <RdsBadge
+                      className="me-1"
+                      key={item.id}
+                      label={item.label}
+                      colorVariant="primary"
+                      size="small"
+                      onClose={(e) => uncheckHandler(e, item)}
+                      showClose={true}
+                      textwithlabel={true}
+                    />
+                  ))}
+                  {remainingCount > 0 && (
+                    <RdsBadge
+                      className="me-1"
+                      label={"+" + remainingCount.toString()}
+                      colorVariant="primary"
+                      size="small"
+                      textwithlabel={true}
+                      style="pill"
+                    />
+                  )}
+                </div>
+              )}
 
             {/* chevron_down icon */}
             {props.state !== "Selected" && !props.isIconPlaceholder && (
@@ -433,31 +458,22 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
         {/* DropdownList items */}
         {props.state !== "Selected" && props.state !== "Disabled" && (
           <ul
-          className={`dropdown-menu ${expand ? "show" : "hide"} ${props.listItems?.length ? "marginForLanguage" : ""}`}
+            className={`dropdown-menu ${expand ? "show" : "hide"} ${
+              props.listItems?.length ? "marginForLanguage" : ""
+            }`}
             id={props.id}
             aria-labelledby={props.id}
           >
-            
             {/* Search Input */}
             {props.showSearch && (
-              <li className=" d-flex align-items-center ps-3 search-border-bottom mb-1">
-                <RdsIcon
-                  colorVariant="dark"
-                  height="15px"
-                  isCursorPointer
-                  name="search"
-                  stroke
-                  width="15px"
-                />
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  size={10}
-                />
-              </li>
+              <RdsSearch
+                iconPosition={IconPosition.Left}
+                labelPosition="top"
+                placeholder="Search"
+                size="small"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             )}
 
             {filteredListItems.map((language: any, i: any) => (
@@ -466,7 +482,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 onMouseEnter={() => handleMouseEnter(language.val)}
                 onMouseLeave={handleMouseLeave}
                 onClick={(event) => {
-                  const originalIndex = props.listItems.findIndex(item => item.val === language.val);
+                  const originalIndex = props.listItems.findIndex(
+                    (item) => item.val === language.val
+                  );
                   handlerLIstItem(event, originalIndex, language.val);
                 }}
               >
@@ -491,12 +509,15 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   )}
                   {language.icon && showIcon && (
                     <div
-                      className={`${language.icon === "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
+                      className={`${
+                        language.icon === "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
                       }`}
                     >
                       <RdsIcon
                         name={language.icon}
-                        height={language.iconWidth ? language.iconWidth : "20px"}
+                        height={
+                          language.iconWidth ? language.iconWidth : "20px"
+                        }
                         width={language.iconWidth ? language.iconWidth : "20px"}
                         fill={false}
                         stroke={true}
@@ -508,7 +529,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     <div>
                       <RdsIcon
                         iconPath={language.iconPath}
-                        height={language.iconWidth ? language.iconWidth : "30px"}
+                        height={
+                          language.iconWidth ? language.iconWidth : "30px"
+                        }
                         width={language.iconWidth ? language.iconWidth : "30px"}
                         fill={false}
                         stroke={true}

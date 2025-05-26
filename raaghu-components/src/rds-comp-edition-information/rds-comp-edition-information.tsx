@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
     RdsInput,
@@ -92,10 +91,10 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 
     return (
         <>
-            <div className="py-4 edition-information-container">
+            <div>
                 <form>
                     <div className="row px-2">
-                        <div className="col-md-6 my-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 name={"Edition Name"}
                                 label={true}
@@ -108,7 +107,7 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-                        <div className="col-md-6 my-3">
+                        <div className="col-md-6">
                             <RdsInput
                                  name="Annual Price"
                                  label={true}
@@ -122,7 +121,6 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                             ></RdsInput>
                         </div>
                     </div>
-                    <div className="row px-2">
                         <div className="col-md-6 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
@@ -149,28 +147,29 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
                             />
                         </div>
-                    </div>
 
                 <div className="row mb-3 px-2">
                     <div className="col-md-12">
                         {props.radioItems?.map((group, index) => (
                             <div key={group.id} className="radio-group mb-3">
                                 <label className="radio-group-label mb-2">{group.label}</label>
-                                <div className="d-flex gap-4">
+                                <div className="row gap-2">
                                     {group.itemList.map((item: any) => (
-                                        <div key={item.id} className="form-check">
-                                            <input
-                                                type="radio"
-                                                className="form-check-input radio-toggle-switch"
-                                                id={`${group.id}_${item.id}`}
-                                                name={`radio_group_${group.id}`}
-                                                value={item.label}
-                                                checked={selectedGroupValues[group.id] === item.label}
-                                                onChange={(e) => handleRadioChange(e, group.id)}
-                                            />
-                                            <label className="form-check-label" htmlFor={`${group.id}_${item.id}`}>
-                                                {item.label}
-                                            </label>
+                                        <div key={item.id} className="col-12 col-sm-12 col-md-4 col-lg-3">
+                                            <div className="form-check">
+                                                <input
+                                                    type="radio"
+                                                    className="form-check-input radio-toggle-switch"
+                                                    id={`${group.id}_${item.id}`}
+                                                    name={`radio_group_${group.id}`}
+                                                    value={item.label}
+                                                    checked={selectedGroupValues[group.id] === item.label}
+                                                    onChange={(e) => handleRadioChange(e, group.id)}
+                                                />
+                                                <label className="form-check-label" htmlFor={`${group.id}_${item.id}`}>
+                                                    {item.label}
+                                                </label>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -181,27 +180,25 @@ const RdsCompEditionInformation = (props: RdsCompEditionInformationProps) => {
 
                 <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
                     <RdsButton
-                        class="me-2"
-                        tooltipTitle={""}
-                        type={"button"}
-                        label="Cancel"
-                        colorVariant="outline-primary"
-                        size="small"
-                        databsdismiss="offcanvas"
-                        dataTestId="cancel"
-                    />
+                            class="me-2"
+                            tooltipTitle={""}
+                            type={"button"}
+                            label="Cancel"
+                            colorVariant="outline-primary"
+                            size="small"
+                            databsdismiss="offcanvas"
+                            dataTestId="cancel"                    />
                     <RdsButton
-                        class="me-2"
-                        label="Save"
-                        size="small"
-                        colorVariant="primary"
-                        tooltipTitle={""}
-                        type={"submit"}
-                        databsdismiss="offcanvas"
-                        isDisabled={!isFormValid}
-                        dataTestId="save"
-                        onClick={(e: any) => emitSaveData(e)}
-                    />
+                            class="me-2"
+                            label="Save"
+                            size="small"
+                            colorVariant="primary"
+                            tooltipTitle={""}
+                            type={"submit"}
+                            databsdismiss="offcanvas"
+                            isDisabled={!isFormValid}
+                            dataTestId="save"
+                            onClick={(e: any) => emitSaveData(e)}                    />
                 </div>
             </form>
         </div>
