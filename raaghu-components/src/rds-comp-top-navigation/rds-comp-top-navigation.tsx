@@ -1795,14 +1795,12 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
                 <span className="cursor-pointer" onClick={props.chatsHandler}>
                   <RdsIcon
-                    iconPath={
-                      "./assets/lottie-files/outlined/dual-color/chatting.json"
-                    }
+                    name="chatting"
                     tooltip={true}
                     tooltipTitle={"Chat"}
                     tooltipPlacement="bottom"
-                    width="28px"
-                    height="28px"
+                    width="18px"
+                    height="18px"
                     type="lottie"
                     isHovered
                   ></RdsIcon>
@@ -2068,14 +2066,12 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
                 <span className="cursor-pointer" onClick={props.chatsHandler}>
                   <RdsIcon
-                    iconPath={
-                      "./assets/lottie-files/outlined/dual-color/chatting.json"
-                    }
+                    name="chatting"
                     tooltip={true}
                     tooltipTitle={"Chat"}
                     tooltipPlacement="bottom"
-                    width="28px"
-                    height="28px"
+                    width="18px"
+                    height="18px"
                     type="lottie"
                     isHovered
                   ></RdsIcon>

@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Icons } from "./Icons";
-import { Flags } from "./flag-icons";
+import React, { useState, useEffect, ReactElement } from "react";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
-import Lottie from "react-lottie-player";
+
+// Define the type for our icon cache more explicitly
+interface IconCache {
+  [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+// Cache for dynamically imported SVG components
+const iconCache: IconCache = {};
 
 export interface RdsIconProps {
   width?: string;
@@ -14,7 +19,7 @@ export interface RdsIconProps {
   stroke?: boolean;
   strokeWidth?: string;
   borderRadius?: string;
-  onClick?: React.MouseEventHandler<HTMLElement>;
+  onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement>;
   opacity?: string;
   isAnimate?: boolean;
   classes?: any;
@@ -26,54 +31,74 @@ export interface RdsIconProps {
   databstarget?: string;
   databstoggle?: string;
   ariacontrols?: string;
-  id?: string;
   imageUrl?: string; // Add imageUrl prop
-
+  id?: string;
   iconPath?: string;
   type?: "icon" | "lottie";
   isHover?: boolean;
   isContinueAnimate?: boolean;
   hovered?: boolean;
   isHovered?: boolean;
-  isCursorPointer?: boolean; // New prop for cursor-pointer class
+  isCursorPointer?: boolean; 
+  strokeColor?: string;
+  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
+
 
 const RdsIcon = (props: RdsIconProps) => {
   const name: string = !props.name ? "" : props.name.toLowerCase();
-  const icon = Icons.hasOwnProperty(name) ? Icons[name] : Flags[name];
-  const fillColor = "currentColor";
+  const [svgContent, setSvgContent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadFailed, setLoadFailed] = useState<boolean>(false);
+  const [IconComponent, setIconComponent] = useState<React.ComponentType<React.SVGProps<SVGSVGElement>> | null>(props.SvgIcon || null);
 
-  //Set default icon animation when path is not available.
-  const path = props.iconPath ? props.iconPath : "./puzzle.json";
-  const lottie: any = {};
-  const [player, setPlayer] = useState(lottie);
-  const [animationData, setAnimationData] = useState<any>(null); // State to store animation data
-  const [isHovered, setIsHovered] = useState(false);
-
+  // Load SVG content
   useEffect(() => {
-    if (props.iconPath) {
-      // Load the animation data when iconPath is provided
-      fetch(props.iconPath) // You can use fetch to load the JSON file
-        .then((response) => response.json())
-        .then((data) => setAnimationData(data))
-        .catch((error) => {
-          console.error("Error loading animation data:", error);
-        });
+    // If directly provided an SVG component, use that
+    if (props.SvgIcon) {
+      setIconComponent(props.SvgIcon);
+      return;
     }
-  }, [props.iconPath]);
 
-  useEffect(() => {
-    if (lottie.play && lottie.stop) {
-      if (props.isHover) {
-        lottie?.play();
-      } else if (props.isContinueAnimate) {
-        lottie?.play();
-      } else {
-        lottie?.stop();
-      }
+    // If no name provided, nothing to load
+    if (!name) {
+      setIconComponent(null);
+      return;
     }
-  }, [props.isHover, props.isContinueAnimate, lottie]);
 
+    // Check if already cached
+    if (iconCache[name]) {
+      setIconComponent(iconCache[name]);
+      return;
+    }
+
+    setIsLoading(true);
+    setLoadFailed(false);
+
+    // Use fetch to get the SVG content
+    const iconPath = `/assets/icons/${name}.svg`;
+    
+    fetch(iconPath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load icon: ${name}`);
+        }
+        return response.text();
+      })
+      .then(svgText => {
+        // Process SVG with style according to paste.txt approach
+        const processedSvg = svgElementFromString(svgText);
+        setSvgContent(processedSvg.outerHTML);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.warn(`Failed to load icon: ${name}`, error);
+        setLoadFailed(true);
+        setIsLoading(false);
+      });
+  }, [name, props.SvgIcon, props.colorVariant, props.fill, props.stroke, props.strokeWidth, props.opacity, props.strokeColor]);
+
+  // Process SVG styling from paste.txt
   const svgElementFromString = (svgContent: string): SVGSVGElement => {
     const fillColor = "currentColor";
     const div = document.createElement("div");
@@ -82,6 +107,7 @@ const RdsIcon = (props: RdsIconProps) => {
     if (!svg) {
       throw Error("<svg> tag not found");
     }
+    
     if (props.height) {
       svg.style.height = props.height;
     }
@@ -95,57 +121,48 @@ const RdsIcon = (props: RdsIconProps) => {
       svg.style.strokeWidth = props.strokeWidth;
     }
 
-    if (props.colorVariant == "primary") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "secondary") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "success") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "info") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "warning") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "danger") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "dark") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "light") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "review") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "basic") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "standard") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "premium") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
-    } else if (props.colorVariant == "professional") {
-      svg.setAttribute("class", "text-" + props.colorVariant);
+    // Apply color variant classes - same approach as paste.txt
+    if (props.colorVariant) {
+      const validColorVariants = ["primary", "secondary", "success", "info", "warning", 
+                                 "danger", "dark", "light", "review", "basic", 
+                                 "standard", "premium", "professional"];
+      
+      if (validColorVariants.includes(props.colorVariant)) {
+        svg.setAttribute("class", "text-" + props.colorVariant);
+      }
     }
 
+    // Apply fill and stroke properties
     if (props.fill) {
       svg.style.fill = fillColor;
-      // svg.style.stroke = "white";
     } else {
       svg.style.fill = "none";
     }
 
-    if (props.stroke || props.stroke === undefined) {
+    if ((props.stroke || props.stroke === undefined) && (!props.strokeColor)) {
       svg.style.stroke = fillColor;
     } else {
       svg.style.stroke = "none";
     }
+    
+    if (props.strokeColor) {
+      svg.style.stroke = props.strokeColor;
+    }
 
-    const strokeColor = props.stroke ? fillColor : "none";
+    // Apply stroke to individual SVG elements
     const elementsWithStroke = svg.querySelectorAll(
       "path, circle, polygon, line, ellipse, rect"
     );
 
     elementsWithStroke.forEach((element) => {
-      const svgElement = element as SVGGraphicsElement;
-      if (props.stroke) {
-        svgElement.style.stroke = strokeColor;
-      } else {
+      const svgElement = element as SVGElement;
+      if (props.stroke && !props.strokeColor) {
+        svgElement.style.stroke = fillColor;
+      } 
+      else if (props.strokeColor) {
+        svgElement.style.stroke = props.strokeColor;
+      }
+      else {
         svgElement.style.removeProperty("stroke");
       }
     });
@@ -155,9 +172,7 @@ const RdsIcon = (props: RdsIconProps) => {
       svg.style.stroke = "inherit";
     }
 
-    return (
-      svg || document.createElementNS("http://www.w3.org/2000/svg", "path")
-    );
+    return svg;
   };
 
   const style = {
@@ -166,147 +181,107 @@ const RdsIcon = (props: RdsIconProps) => {
     strokeWidth: props.strokeWidth ? props.strokeWidth : "inherit",
     margin: "auto",
   };
-  const stringData =
-    /*   icon != undefined ? svgElementFromString(icon).outerHTML : "";*/
-    icon !== undefined ? svgElementFromString(icon).outerHTML : "";
 
-  // const [isPlaying, setIsPlaying] = useState(false);
+  const className = `${props.isCursorPointer ? "cursor-pointer" : ""} ${
+    props.classes || ""
+  }`.trim();
 
-  // Function to handle mouse enter (hover)
-  // Add state to track hover state
+  // If using a provided SvgIcon component
+  if (IconComponent) {
+    const Icon = IconComponent;
+    const svgProps = {
+      className,
+      onClick: props.onClick as React.MouseEventHandler<SVGSVGElement>,
+      id: props.id,
+      "data-testid": props.dataTestId,
+      style,
+      "data-bs-dismiss": props.databsdismiss,
+      "data-bs-target": props.databstarget,
+      "data-bs-toggle": props.databstoggle,
+      "aria-controls": props.ariacontrols,
+      fill: props.fill ? "currentColor" : "none",
+      stroke: props.stroke ? (props.strokeColor || "currentColor") : "none",
+    };
 
-  // Function to handle mouse enter (hover)
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+    const iconElement = <Icon {...svgProps} />;
+    
+    return props.tooltip ? (
+       <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
+        {iconElement}
+      </Tooltip>
+    ) : (
+      iconElement
+    );
+  }
 
-  // Function to handle mouse leave (hover out)
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  // Render based on content availability
+  let iconElement: ReactElement | null = null;
+  
+  if (isLoading) {
+    // Show loading placeholder
+    iconElement = <div style={style} className={className}></div>;
+  } else if (svgContent) {
+    // Display SVG content with styling
+    iconElement = (
+      <span
+        className={className}
+        onClick={props.onClick}
+        dangerouslySetInnerHTML={{ __html: svgContent }}
+        role="img"
+        id={props.id}
+        data-testid={props.dataTestId}
+        data-bs-dismiss={props.databsdismiss}
+        data-bs-target={props.databstarget}
+        data-bs-toggle={props.databstoggle}
+        aria-controls={props.ariacontrols}
+      />
+    );
+  } else if (props.imageUrl) {
+    // Display image
+    iconElement = (
+      <img
+        src={props.imageUrl}
+        className={className}
+        onClick={props.onClick}
+        role="img"
+        id={props.id}
+        data-testid={props.dataTestId}
+        style={style}
+        data-bs-dismiss={props.databsdismiss}
+        data-bs-target={props.databstarget}
+        data-bs-toggle={props.databstoggle}
+        aria-controls={props.ariacontrols}
+      />
+    );
+  } else if (loadFailed && name) {
+    // Fallback to image tag if SVG component failed to load
+    const iconPath = `/assets/icons/${name}.svg`;
+    iconElement = (
+      <img
+        src={iconPath}
+        className={className}
+        onClick={props.onClick}
+        role="img"
+        id={props.id}
+        data-testid={props.dataTestId}
+        style={style}
+        data-bs-dismiss={props.databsdismiss}
+        data-bs-target={props.databstarget}
+        data-bs-toggle={props.databstoggle}
+        aria-controls={props.ariacontrols}
+      />
+    );
+  } else {
+    // No icon found or provided
+    return null;
+  }
 
-  const className = `${props.isCursorPointer ? "cursor-pointer" : ""} ${props.classes
-    }`;
-
-  return (
-    <>
-      {props.type === "lottie" && (
-        <>
-          {props.tooltip ? (
-            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
-              <div
-                id={props.id}
-                data-testid={props.dataTestId}
-                data-bs-dismiss={props.databsdismiss}
-                data-bs-target={props.databstarget}
-                data-bs-toggle={props.databstoggle}
-                aria-controls={props.ariacontrols}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <div className="lf-player-container">
-                  <Lottie
-                    animationData={animationData}
-                    loop
-                    style={style}
-                    speed={1}
-                    play={isHovered}
-                  />
-                </div>
-              </div>
-            </Tooltip>
-          ) : (
-            <>
-              {!props.isContinueAnimate && (
-                <div
-                  className="lf-player-container"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Lottie
-                    animationData={animationData}
-                    loop
-                    style={style}
-                    speed={1}
-                    play={props.isHovered}
-                  />
-                </div>
-              )}
-              {props.isContinueAnimate && (
-                <div
-                  className="lf-player-container"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Lottie
-                    animationData={animationData}
-                    loop
-                    style={style}
-                    speed={1}
-                    play={props.isHovered}
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </>
-      )}
-      {props.type !== "lottie" && (
-        <>
-          {props.tooltip ? (
-            <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
-              {props.imageUrl ? (
-                <img
-                  src={props.imageUrl}
-                  className={className}
-                  onClick={props.onClick}
-                  role="img"
-                  id={props.id}
-                  data-testid={props.dataTestId}
-                  style={style}
-                />
-              ) : (
-                <span
-                  className={className}
-                  onClick={props.onClick}
-                  dangerouslySetInnerHTML={{ __html: stringData }}
-                  role="img"
-                  id={props.id}
-                  data-testid={props.dataTestId}
-                  data-bs-dismiss={props.databsdismiss}
-                  data-bs-target={props.databstarget}
-                  data-bs-toggle={props.databstoggle}
-                  aria-controls={props.ariacontrols}
-                ></span>
-              )}
-            </Tooltip>
-          ) : (
-            <>
-              {props.imageUrl ? (
-                <img
-                  src={props.imageUrl}
-                  className={className}
-                  onClick={props.onClick}
-                  role="img"
-                  id={props.id}
-                  data-testid={props.dataTestId}
-                  style={style}
-                />
-              ) : (
-                <span
-                  className={className}
-                  onClick={props.onClick}
-                  dangerouslySetInnerHTML={{ __html: stringData }}
-                  role="img"
-                  id={props.id}
-                  data-testid={props.dataTestId}
-                />
-              )}
-            </>
-          )}
-        </>
-      )}
-    </>
+  return props.tooltip ? (
+     <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
+      {iconElement}
+    </Tooltip>
+  ) : (
+    iconElement
   );
 };
 

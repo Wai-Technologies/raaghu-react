@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import "./rds-avatar.css";
-
 import validator from "validator";
 import { colors } from "../../libs/types";
 import RdsIcon from "../rds-icon/rds-icon";
@@ -134,7 +133,6 @@ const RdsAvatar = (props: RdsAvatarProps) => {
     if (props.firstName == "" && props.lastName == "") {
       classes = "d-flex";
     }
-
     return classes;
   };
 
@@ -171,7 +169,6 @@ const RdsAvatar = (props: RdsAvatarProps) => {
   };
 
   const iconSize = getIconSize(props.size);
-
   const FL = props.firstName || "";
   const LL = props.lastName || "";
   const userRole = props.role || "";
@@ -188,9 +185,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
   //const stackingAvatar = props.stackingAvatar || false;
   const stackingAvatar = (props.style==="stacking" || false);
   const withIcon = props.iconName ? true : false;
-
   const validate: boolean = validator.isURL(src);
-
   const defaultPP =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s";
 
@@ -199,19 +194,15 @@ const RdsAvatar = (props: RdsAvatarProps) => {
       ? props.profilePic
       : defaultPP
   }`;
-
   const hasName =
     (FL.length != 0 && props.hasOwnProperty("firstName") === true) ||
     (LL.length != 0 && props.hasOwnProperty("lastName") === true);
-
   const fLetter = FL.charAt(0).toUpperCase();
   const lLetter = LL.charAt(0).toUpperCase();
   const rLetter = userRole.charAt(0).toUpperCase();
-
   const titleFirstName = fLetter + FL.slice(1) + " ";
   const titleLastName = lLetter + LL.slice(1);
   const titleRole = rLetter + userRole.slice(1);
-
   const renderAvatars = (avatars: RdsAvatarProps[], maxVisible: number) => {
     const visibleAvatars = avatars.slice(0, maxVisible);
     const remainingCount = avatars.length - maxVisible;
@@ -229,7 +220,8 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             </div>
         ))}
         {remainingCount > 0 && (
-          <div id="stackingavtarplusindicator"
+          <div
+            id="stackingavtarplusindicator"
             className={`${
               props.size === "smallest"
                 ? "plus-indecator-smallest"
@@ -307,7 +299,9 @@ const RdsAvatar = (props: RdsAvatarProps) => {
           <div className={`flex-grow-0 align-items-center ${Aligned}`}>
             <img
               src={defaultPP}
-              className={classes() + getBorderClasses(props.border) + " rounded-3"}
+              className={
+                classes() + getBorderClasses(props.border) + " rounded-3"
+              }
               alt="profile-default"
             />
           </div>
@@ -318,7 +312,9 @@ const RdsAvatar = (props: RdsAvatarProps) => {
               <img
                 src={withPP}
                 className={
-                  `avatar rounded-circle ` + classes() + getBorderClasses(props.border)
+                  `avatar rounded-circle ` +
+                  classes() +
+                  getBorderClasses(props.border)
                 }
                 alt="profile"
               />
@@ -746,7 +742,6 @@ const RdsAvatar = (props: RdsAvatarProps) => {
             </>
           )}
       </div>
-      
     </Fragment>
   );
 };

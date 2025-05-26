@@ -11,10 +11,9 @@
     "declarationDir": "dist",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    //  "declarationDir": "dist/types", // Change the declaration directory to 'dist'
     "sourceMap": true,
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler", 
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
@@ -24,7 +23,7 @@
     "typeRoots": ["./dist/index.d.ts", "node_modules/@types"]
   },
   "exclude": [
-     "dist",
+    "dist",
     "./node_modules/**/*",
     "src/**/*.test.tsx"
   ]
