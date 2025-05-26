@@ -1569,7 +1569,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <span className="navbar-toggler-icon"></span>
           </button>
       
-          <div className="d-flex align-items-center flex-grow-1 justify-content-center">
+          <div className="d-flex align-items-center flex-grow-1 justify-content-center d-none d-md-flex">
             {props.showSearch && props.professional5 && (
               <div className="searchBackground" id="serachOption">
                 <RdsSearch
@@ -1945,7 +1945,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
            
           </div>
         </nav>
-        {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top">
+        {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top d-none d-md-flex ">
             <div className="d-flex align-items-center justify-content-center flex-grow-1">
               <div className="d-flex justify-content-center w-100">
                 { breacrumItem?.length > 0 && (
@@ -1986,14 +1986,14 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
           >
             <img
-              className="cursor-pointer sidenav-mobile-logo ms-4 ps-5"
+              className="cursor-pointer sidenav-mobile-logo"
               src={brandLogo}
               alt="logo"
             ></img>
           </div>
 
           <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0 ms-auto"
             type="button"
             onClick={props.onClickHamburger}
           >
@@ -2006,13 +2006,13 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                  {(!props.product1  && <div>
                     {props.showLogo && (
                       <img
-                        className="cursor-pointer pe-4 d-md-inline d-none"
+                        className="cursor-pointer pe-4 d-md-flex d-none"
                         width={140}
                         src={brandLogo}
                         alt="raaghu-logo"
                       ></img>
                     )}
-                    {((!props.product4 && !props.entertainment1)&& <span className="text-bold text-primary d-none d-md-inline ps-4">
+                    {((!props.product4 && !props.entertainment1)&& <span className="text-bold text-primary d-none d-md-flex ps-4">
                       {navtitle}
                     </span>)}
                   </div>)}
