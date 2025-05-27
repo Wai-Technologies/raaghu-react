@@ -10,7 +10,6 @@ export interface RdsRangeProps {
     min: number;
     max: number;
     doubleRangeType: DoubleRangeType;
-    step?: number;
     rangeType: string;
 }
 
