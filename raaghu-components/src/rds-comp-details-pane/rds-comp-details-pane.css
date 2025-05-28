@@ -51,6 +51,10 @@ text-align: start;
     background-color: #ffffff;
 }
 
+.activity-item:hover {
+  background-color: #EBDCFF;
+}
+
 /* Custom tab bar styling */
 .custom-tabs-container {
   width: 100%;
