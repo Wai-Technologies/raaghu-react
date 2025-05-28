@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsIcon, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import "./rds-comp-add-member.css"
 export interface RdsCompAddMemberProps {
   addMemberData?: any;
   assignableRolesList?: any;
   reset?: boolean;
   onAddMemberSaveHandler?: (data: any) => void;
   onClickAddNewMember?: () => void;
+  member?: string;
+  registerMemberData?: any;
+  isEmailFieldVisible?: boolean;
+  onRegisterMemberSaveHandler?: (data: any) => void;
+  teamItem: any[];
 }
 
 const RdsCompAddMember = (props: RdsCompAddMemberProps) => {
   const [addMemberData, setAddMemberData] = useState(props.addMemberData || { email: "", roleId: "" });
   const [inputReset, setInputReset] = useState(false);
   const [assignableRolesList, setAssignableRolesList] = useState(props.assignableRolesList || []);
+  const [registerMemberData, setRegisterMemberData] = useState(props.registerMemberData);
+  const [isCheckTerms, setIsCheckTerms] = useState(false);
 
   useEffect(() => {
     setAddMemberData(props.addMemberData || { email: "", roleId: "" });
@@ -81,8 +90,70 @@ const isRoleIdValid = (roleId: any) => {
     return true;
 };
   const isFormValid=isEmailValid(addMemberData?.email) && isRoleIdValid(addMemberData.roleId);
+  
+    useEffect(() => {
+      setRegisterMemberData(props.registerMemberData);
+    }, [props.registerMemberData]);
+    const [errors, setErrors] = useState({
+      password: "",
+        
+    });
+    const isNewPassValid = (password: string) => {
+      const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+      return pattern.test(password);
+    };
+    const handleRegisterMemberDataChanges = (value: any, key: string) => {
+      let errorMessage = "";
+            if (key === "password") {
+              errorMessage = isNewPassValid(value) ? "" : "Please Enter Valid Password length should be at least 8 characters(Alphanumeric)";
+            } 
+            setErrors({ ...errors, [key]: errorMessage });
+      setRegisterMemberData({ ...registerMemberData, [key]: value });
+    };
+   
+    function emitSaveRegisterData(event: any) {
+      event.preventDefault();
+      props.onRegisterMemberSaveHandler && props.onRegisterMemberSaveHandler(registerMemberData);
+      setRegisterMemberData({});
+      setIsCheckTerms(false);
+    }
+    const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+    const isUserNameValid = (userName: any) => {
+      if (!userName || userName.length === 0) {
+        return false;
+      }
+      return true;
+    }
+    const isNameValid = (name: any) => {
+      if (!name || name.length === 0) {
+        return false;
+      }
+      return true;
+    };
+    const isSurnameValid = (surname: any) => {
+      if (!surname || surname.length === 0) {
+        return false;
+      }
+      return true;
+    };
+    const isPasswordValid = (password: any) => {
+      if (!password || password.length === 0) {
+        return false;
+      }
+      return true;
+    }
+    const validatonPattern="^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$";
+    
+  const checkPasswordValid = (password: any) => {
+    
+    return new RegExp(validatonPattern).test(password);
+  }
+  
+  const isRegisterFormValid=isUserNameValid(registerMemberData?.userName) && isEmailValid(registerMemberData?.email) && isNameValid(registerMemberData?.name) && isSurnameValid(registerMemberData?.surname) && isPasswordValid(registerMemberData?.password) ;
 
   return (
+    <>
+    {props.member === "add" && (
     <div className="pt-md-0 pt-2 addMemberOffCancvas">
       <RdsOffcanvas
         backDrop={RdsOffcanvasBackDrop.Static}
@@ -198,6 +269,205 @@ const isRoleIdValid = (roleId: any) => {
         </div>
       </RdsOffcanvas>
     </div>
+    )}
+    {props.member === "team" && (
+        <div>
+            {props.teamItem.map((teamItems, idx) => (
+                <>
+                    <div className="row m-auto">
+                        <div className="mt-3 p-0 cardWidth">
+                            <div className="card-border mt-5 pt-5 ">
+                                <div
+                                    className="card pb-4 justify-content-end cardPadding"
+                                >
+                                    <div className="cardPosition"
+                                    >
+                                        <img height={232} width={232}
+                                            src={teamItems.imgLink}
+                                            className="card-img-top"
+                                            alt="..."
+                                        />
+                                    </div>
+                                    <div className="mt-3">
+                                        <div className="d-flex justify-content-center mt-2">
+                                            <h2 className="mb-0">
+                                                <RdsLabel
+                                                    label={teamItems.title}
+                                                    multiline={false}
+                                                    fontWeight="bold"
+                                                    size="32px"
+                                                ></RdsLabel>
+                                            </h2>
+                                        </div>
+                                        <div className="d-flex justify-content-center text-primary">
+                                            <h5>
+                                                <RdsLabel
+                                                    label={teamItems.subTitle}
+                                                    multiline={false}
+                                                    size="16px"
+                                                ></RdsLabel>
+                                            </h5>
+                                        </div>
+                                        <div className="d-flex justify-content-center text-muted gap-2">
+                                            <RdsIcon
+                                                name={teamItems.twitterIcon}
+                                                height="27px"
+                                                fill={false}
+                                                stroke={true}
+                                                width="27px"
+                                                colorVariant=""
+                                                isCursorPointer={true}
+                                            ></RdsIcon>
+                                            <RdsIcon
+                                                //	class="mx-2"
+                                                name={teamItems.twitterIcon}
+                                                height="27px"
+                                                fill={false}
+                                                stroke={true}
+                                                width="27px"
+                                                colorVariant=""
+                                                isCursorPointer={true}
+                                            ></RdsIcon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="text-center mt-3">
+                                    <RdsLabel
+                                        label={teamItems.description}
+                                        multiline={true}
+                                    ></RdsLabel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            ))}
+        </div>
+    )}
+    {props.member === "register" && (
+        <>
+          <div>
+            <form>
+              <div className="form-group">
+                <RdsInput
+                  name="User Name"
+                  label={true}
+                  placeholder="User Name"
+                  inputType="text"
+                  required={true}              
+                  readonly={false}
+                  labelPosition={LabelPosition.Top}
+                  value={registerMemberData?.userName}
+                  dataTestId="name"
+                  onChange={(e: any) =>
+                    handleRegisterMemberDataChanges(e.target.value, "userName")
+                  }
+                />
+              </div>
+    
+              <div className="form-group">
+                <RdsInput
+                  fontWeight={"normal"}
+                  placeholder="Email"
+                  customClasses="form-control"
+                  inputType="text"
+                  name="Email"
+                  label={true}             
+                  required={true}
+                  value={registerMemberData?.email}
+                  onChange={(e: any) =>
+                    handleRegisterMemberDataChanges(e.target.value, "email")
+                  }
+                  dataTestId="email"
+                  validatonPattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+                  validationMsg="Please Enter Valid Email Address."
+                ></RdsInput>
+              </div>
+    
+              <div className="form-group">
+                <RdsInput
+                  name="Enter First Name"
+                  label={true}
+                  placeholder="Enter First Name"
+                  inputType="text"
+                  required={true}             
+                  readonly={false}
+                  labelPosition={LabelPosition.Top}
+                  value={registerMemberData?.name}
+                  dataTestId="name"
+                  onChange={(e: any) =>
+                    handleRegisterMemberDataChanges(e.target.value, "name")
+                  }
+                />
+              </div>
+    
+              <div className="form-group">
+                <RdsInput
+                  name="Enter Last Name"
+                  label={true}
+                  placeholder="Enter Last Name"
+                  inputType="text"
+                  required={true}              
+                  readonly={false}
+                  labelPosition={LabelPosition.Top}
+                  value={registerMemberData?.surname}
+                  dataTestId="surname"
+                  onChange={(e: any) =>
+                    handleRegisterMemberDataChanges(e.target.value, "surname")
+                  }
+                />
+              </div>
+    
+              <div className="form-group">
+                <RdsInput
+                  inputType="password"
+                  placeholder="Enter Password"
+                  required={true}
+                  name="Password"
+                  label={true}             
+                  id={(errors.password && registerMemberData?.password)? "passwordfield":"password" }
+                  onBlur={() => setIsPasswordTouched(true)}
+                  onChange={(e: any) =>
+                    handleRegisterMemberDataChanges(e.target.value, "password")
+                  }
+                  value={registerMemberData?.password}
+                  dataTestId="password"
+                  showIcon={true}
+                ></RdsInput>
+                {errors.password && registerMemberData?.password && (
+                  <div className="form-control-feedback">
+                    <span className="text-danger">{errors.password}</span>
+                  </div>
+                )}
+              </div>
+    
+              <div className="pb-4 pt-2">
+                <RdsCheckbox
+                  id="id1"
+                  labelText="I Accept Terms Of Service"
+                  status={CheckboxStatus.Checked}
+                  showText
+                  checked={isCheckTerms}
+                  onChange={(e: any) => setIsCheckTerms(e.target.checked)}
+                />
+              </div>
+    
+              <RdsButton
+                label="Accept & Create Account"
+                colorVariant="primary"
+                showLoadingSpinner={true}
+                block={true}
+                tooltipTitle={""}
+                type="submit"
+                dataTestId="register"
+                isDisabled={!isRegisterFormValid}
+                onClick={(e: any) => emitSaveRegisterData(e)}
+              />
+            </form>
+          </div>
+        </>
+    )}
+    </>
   );
 };
 
