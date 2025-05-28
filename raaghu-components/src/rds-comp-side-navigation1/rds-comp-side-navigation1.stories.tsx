@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsCompSideNavigation1, { NavLayout, NavType, Platform } from "./rds-comp-side-navigation1";
 
 const meta: Meta = {
-    title: "Components/Side Navigation 1",
+    title: "Components/Left Side Nav",
     component: RdsCompSideNavigation1,
     parameters: {
         layout: "padded",
