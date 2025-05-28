@@ -1,0 +1,12 @@
+name: Auto Assign to Copilot
+on:
+  issues:
+    types: [opened, labeled]
+jobs:
+  copilot_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Copilot label
+        if: contains(github.event.issue.labels.*.name, 'needs-copilot')
+        run: |
+          gh copilot propose-fix --issue ${{ github.event.issue.number }}
