@@ -17,7 +17,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     <div>
                         <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                     </div>
-                    <div className="mt-2 fw-bold">
+                    <div className="mt-2 custom-text fw-bold">
                         <label htmlFor=" "> {props.item.title}</label>
                     </div>
                     <div className="mt-1 text-muted">
@@ -32,10 +32,10 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     <div>
                     <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                     </div>
-                    <div className="mt-3 fw-bold">
+                    <div className="mt-3 custom-text fw-bold">
                         <label htmlFor=" "> {props.item.title}</label>
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-2 text-muted">
                         <label htmlFor=" "> {props.item.description}</label>
                     </div>
                 </div>
@@ -49,10 +49,10 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                                 <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                             </span>
                         </div>
-                        <div className="mt-3 fw-bold">
+                        <div className="mt-3 custom-text fw-bold">
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>
-                        <div className="mt-2 px-5">
+                        <div className="mt-2 text-muted px-5">
                             <label htmlFor=" "> {props.item.description}</label>
                         </div>
                     </div>
@@ -67,11 +67,11 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     </div>
                     <div className="ms-3 mt-3  ">
 
-                        <div className=" fw-bold " >
+                        <div className="custom-text fw-bold " >
                             <label htmlFor=" "> {props.item.title}</label>
                             <span className={"ms-1 badge " + `${bg}`} >{props.item.status} </span>
                         </div>
-                        <div className="pe-5">
+                        <div className="pe-5 text-muted">
                             <label htmlFor=" "> {props.item.description}</label>
                         </div>
                     </div>
@@ -88,10 +88,10 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                         </span>
                     </div>
                     <div className="ms-3 ">
-                        <div className=" fw-bold" >
+                        <div className=" custom-text fw-bold" >
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>
-                        <div className="pe-5">
+                        <div className="pe-5 text-muted">
                             <label htmlFor=" "> {props.item.description}</label>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                             <RdsIcon name={props.item.icon} height={props.item.iconHeight} width={props.item.iconWidth} fill={props.item.iconFill} stroke={props.item.iconstroke} colorVariant={props.item.iconColorVarient} />
                         </span>
                     </div>
-                    <div className="ms-3 fw-bold">
+                    <div className="ms-3 custom-text fw-bold">
                         <div>
                             <label htmlFor=" "> {props.item.title}</label>
                         </div>
