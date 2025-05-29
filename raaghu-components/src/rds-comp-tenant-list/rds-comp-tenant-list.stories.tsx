@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompEditionList,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Tenant List** component is a robust and interactive UI element designed to display and manage a list of tenants in a tabular format. It allows you to define table headers, provide tenant-specific data, and include actions such as "Login as Tenant," "Edit," or "Delete." The component supports features like sorting, pagination, and customizable data types (e.g., text, badges, avatar with title). This makes it ideal for applications requiring tenant management functionality, such as SaaS platforms or multi-tenant systems. Fully customizable, the Tenant List component ensures seamless integration with your design system while providing an intuitive and user-friendly interface for managing tenant-related information effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

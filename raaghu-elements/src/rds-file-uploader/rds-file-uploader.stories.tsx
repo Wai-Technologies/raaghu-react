@@ -7,6 +7,10 @@ const meta: Meta = {
   parameters: {
     layout: "padded",
     docs: {
+       description: {
+        component:
+            'The **File Uploader** element is a flexible and customizable component for uploading files within your application. It supports multiple styles (`Basic`, `Drop Area Side Icon`, `Drop Area Top Icon`, `Drop Area With Upload Button`), and states (`Default`, `Selected`). Users can upload single or multiple files, set file type and size restrictions, and display optional thumbnails or placeholder images. The component can show a title, hint text, and mark the upload as mandatory. Flexible props allow you to tailor its appearance and behavior, making it ideal for forms, profile uploads, document management, and any interface where file selection and upload are required.'
+    },
       source:{
         transform: (code: string) => {
           // Transform style enum - remove spaces and transform

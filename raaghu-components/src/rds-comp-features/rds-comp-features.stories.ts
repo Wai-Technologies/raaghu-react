@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompFeatures,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Features** component is a highly customizable UI element designed to display and manage a hierarchical list of features within your application. It supports a `featuresData` array to define feature groups, each containing properties like `name`, `displayName`, `description`, and nested `features`. Each feature can include details such as `value`, `description`, `valueType`, and validation rules. This component is ideal for administrative dashboards, configuration panels, or any interface requiring structured and interactive feature management. Fully customizable, the Features component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

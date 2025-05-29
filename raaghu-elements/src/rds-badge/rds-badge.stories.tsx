@@ -11,6 +11,12 @@ const meta: Meta = {
   component: RdsBadge,
   parameters: {
     layout: 'padded',
+    docs: {
+       description: {
+  component: `The Badge component is a compact UI element used to display **status**, **counts**, or **labels** attached to other elements like buttons or icons. It supports various sizes, shapes (pill or rectangle), color variants, and layouts including text, icon, or both. Badges can be styled with primary, outline, or transparent appearances and can be enabled or disabled to suit different interface needs, providing clear visual cues or notifications.`
+
+},
+    },
   },
   tags: ['autodocs'],
   argTypes: {

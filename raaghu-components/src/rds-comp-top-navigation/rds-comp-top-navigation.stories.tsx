@@ -8,6 +8,16 @@ const meta: Meta = {
     component: RdsCompTopNavigation,
     parameters: {
         layout: 'padded',
+        docs:{
+             description: {
+  component: `The **Top Navigation With Search** component provides a comprehensive and user-friendly navigation bar designed for modern web applications. It features a customizable brand section, including \`brandName\` and \`brandLogo\`, allowing easy integration of your brand identity. The component includes a flexible breadcrumb navigation system that displays the current page hierarchy, supporting a dynamic array of breadcrumb items with customizable icons, labels, routing paths, and disabled states for intuitive navigation.
+
+A user profile section is integrated, displaying user details such as \`profileName\`, \`profileTitle\`, and \`profileEmail\`, giving quick user context and personalization. Additionally, the component features a prominent search input, enabling fast access to app-wide search functionality.
+
+Designed with clarity, accessibility, and responsiveness in mind, this component is ideal for dashboards, portals, and enterprise applications where seamless navigation and immediate user context are crucial.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

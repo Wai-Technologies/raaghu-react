@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompLoginAttempts,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Login Attempts** component is a customizable UI element designed to display and manage login attempt records within your application. It supports features such as filtering login results using a `selectvalue` array, displaying data in a tabular format with `tableHeaders` and `tableData`, and pagination for large datasets. This component is ideal for administrative dashboards, security monitoring tools, or any application requiring detailed tracking of login activities. Fully customizable, the Login Attempts component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

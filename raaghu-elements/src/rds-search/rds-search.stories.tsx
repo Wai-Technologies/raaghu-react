@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Search** component provides a customizable search input field with an optional icon and label. It accepts props such as \`label\` (text for the input label), \`labelPosition\` (position of the label relative to the input: top, bottom, left, or right), \`placeholder\` (input placeholder text), \`size\` (input size variants: small, medium, large), and \`iconPosition\` (placement of the search icon, either left or right). It also supports event handlers like \`onChange\`, \`onKeyPress\`, and \`onKeyUp\` for interactive behavior. This component is ideal for search bars in forms, headers, or anywhere a user input search functionality is required.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(left|right)"/g, '{IconPosition.$1}');

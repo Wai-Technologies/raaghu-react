@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsStackedChart,
     parameters: {
         layout: 'padded',
+        docs: {
+  description: {
+    component: 'The **Stacked Chart** element is a layered bar or line chart that visualizes multiple datasets stacked on top of each other, allowing users to easily compare parts of a whole across categories such as time, geography, or other dimensions. It is particularly useful for showing cumulative data trends while still preserving the visibility of individual dataset contributions. This chart accepts multiple **datasets**, each customizable with unique labels, colors, and fill options. The **labels** property defines category markers (e.g., months), while the **options** property enables extensive configuration, including stacked axes, responsive behavior, interaction modes, titles, legends, tooltips, and grid styling. The chart is visually informative and highly customizable, making it ideal for dashboards, reports, and analytics tools that require comparative and aggregate data visualization.'
+  }
+}
+
     },
     tags: ['autodocs'],
     argTypes: {

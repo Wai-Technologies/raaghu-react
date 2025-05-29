@@ -8,6 +8,11 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs : {
+             description: {
+                component:
+                    'The **Dropdown Button** element is a customizable button component that displays a dropdown menu of selectable options. It supports multiple sizes (`small`, `medium`, `large`), styles (`primary`, `secondary`, `outline`, `transparent`), shapes (`rectangle`, `pill`), and layouts (`Textonly`, `IconBefore`, `onlyIcon`). The button can include a label, icon, chevron indicator, and tooltip for enhanced usability. You can configure its state (`default`, `selected`), color variant, and enable or disable the dropdown as needed. Flexible props allow you to tailor its appearance and behavior, making it ideal for toolbars, navigation, actions, and any interface where users need to select from a menu of options.'
+            },
+            
             source:{
                 transform: (code: string) => {
                     // Transform style enum - remove spaces and transform

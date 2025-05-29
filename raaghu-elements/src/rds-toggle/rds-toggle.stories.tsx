@@ -7,6 +7,10 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
         docs:{
+            description: {
+  component: `The **Toggle** element is a highly customizable switch component used to represent and control binary states such as \`On\` and \`Off\`. It supports multiple **styles** (\`Style 1\` through \`Style 6\`) and flexible **layouts** including \`Switch + Label\`, \`Label + Switch\`, \`Top Label + Switch\`, and \`Bottom Label + Switch\` to fit different UI designs and user preferences. The toggle handles various **states** such as \`On\`, \`Off\`, \`Disabled On\`, and \`Disabled Off\`, ensuring accessibility and usability across scenarios. Additional options include showing or hiding labels and customizing label text. This component is ideal for settings, preferences, and feature toggles within dashboards and forms, aligning perfectly with your design system's look and feel.`
+}
+,
             source:{
                 transform: (code: string) => {
                     // Transform state enum - remove spaces and transform

@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompDirectoryList,
   parameters: {
     layout: "padded",
+    docs: {
+    description: {
+        component: 
+            'The **Directory List** component is a customizable UI element designed to display a list of directories or items in a structured format. It supports an `items` array to define the list, where each item includes properties like `id` (unique identifier) and `name` (display name). This component is ideal for file management systems, navigation menus, or any interface requiring an organized directory or item listing. Fully customizable, the Directory List component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ["autodocs"],
   argTypes: {},

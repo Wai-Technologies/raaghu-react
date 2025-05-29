@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsComporganizationTree,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Organization Tree** component is a customizable UI element designed to display and manage hierarchical organizational structures within your application. It supports features such as nested nodes, customizable icons, and expandable/collapsible levels. This component is ideal for applications requiring visualization of organizational hierarchies, directory structures, or any interface with structured tree data. Fully customizable, the Organization Tree component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

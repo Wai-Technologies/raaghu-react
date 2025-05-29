@@ -206,8 +206,8 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             should have a field for the user's email and a "Get Discount"
                             button.
                           </span>
-                          <span className="favourite-edit-icon-wrapper">
-                            <RdsIcon name="pencil" width="17px" height="17px" />
+                          <span className="favourite-edit-icon-wrapper ">
+                            <RdsIcon name="edit_underline" width="17px" height="17px" strokeColor="#7D7D7D"/>
                           </span>
                         </div>
                         <div className="favourite-card-image-wrapper">

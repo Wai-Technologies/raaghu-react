@@ -7,8 +7,14 @@ const meta: Meta = {
     component: RdsProfileDropdown,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Profile Dropdown** component provides a user interface element that displays a profile image alongside a dropdown menu containing a list of selectable options. It accepts a required \`profileImage\` prop to display the user's avatar, a \`listOptions\` array for menu items, and a \`footer\` string for an actionable footer label, such as a link or button. This component is ideal for user account menus, settings access, or contextual actions related to user profiles, offering a clear and interactive way to present profile-related options in a compact dropdown format.`
+}
+
+        }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs'], 
     argTypes: {
     },
 } satisfies Meta<typeof RdsProfileDropdown>;

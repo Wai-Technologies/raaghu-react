@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompGetAssistance,
   parameters: {
       layout: 'padded',
+      docs: {
+    description: {
+        component: 
+            'The **Get Assistance** component is a flexible UI element designed to help users access support or guidance within your application. It offers a structured and user-friendly interface, making it ideal for help centers, support pages, or any application requiring assistance features. Fully customizable, this component ensures consistency with your design system and enhances the user experience.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

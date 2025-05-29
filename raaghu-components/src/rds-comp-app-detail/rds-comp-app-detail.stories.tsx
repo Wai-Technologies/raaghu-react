@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompAppDetail,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **App Detail** component is a customizable UI element designed to display detailed information about various applications or integrations within your system. It supports an `appDetailList` array to define the details of each application, including properties such as `id`, `iconHeight`, `iconWidth`, `iconFill`, `iconColor`, `iconStroke`, `title`, `subtitle`, `icon`, `route`, `selected`, and `routeLabel`. These properties allow for the display of application icons, titles, subtitles, and navigation links, making it ideal for showcasing integrations, automation tools, or app-specific details. Fully customizable, the App Detail component is perfect for dashboards, integration pages, or any interface requiring structured and visually appealing application details while maintaining consistency with your design system.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

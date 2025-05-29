@@ -8,6 +8,10 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+      description: {
+  component: `The **Tree Structure** component visually represents hierarchical data in a clear, expandable, and collapsible tree format. It supports multiple nesting levels (Level 1 to Level 4) and different node **states** such as \`Default\`, \`Hover\`, and \`Selected\` to indicate user interaction. The component allows customization of node **icons** (e.g., \`Folder\`, \`Circle\`), and supports optional features like checkboxes, action buttons, and chevrons for expand/collapse control. Tree nodes can display labels, language icons, or other metadata, enabling intuitive navigation of complex data structures such as file systems, menus, or organizational charts. This component enhances usability and clarity by providing a structured view that fits seamlessly into your design system’s style and interaction patterns.`
+}
+,
       source: {
         transform: (code: string) => {
           // Transform TreeLevel enum

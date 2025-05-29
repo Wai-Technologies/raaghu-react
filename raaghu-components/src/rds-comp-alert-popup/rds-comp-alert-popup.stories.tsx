@@ -9,6 +9,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+        component: 
+            'The **Alert Popup** component is a versatile and customizable UI element designed to display modal-based alerts, confirmations, or validations within your application. It supports various use cases, such as delete confirmations, OTP validations, and ownership transfers, making it ideal for interactive and user-driven workflows. The component includes properties like `alertID` to uniquely identify the popup, `iconUrl` to display an icon, `colorVariant` to define the theme (e.g., `primary`, `danger`, `success`), and `type` to specify the popup type (e.g., `default`, `otpvalidation`, `confirm`, `transfer_ownership`). Additionally, it allows customization of labels such as `alertConfirmation`, `messageAlert`, `cancelBtnLabel`, and `deleteBtnLabel` to tailor the content to specific actions. Fully customizable, the Alert Popup component is perfect for creating intuitive and engaging user experiences while maintaining consistency with your design system.'
+    },
             source: {
               transform: (code: string) => {
                 // Transform FieldStyle enum - remove spaces and transform

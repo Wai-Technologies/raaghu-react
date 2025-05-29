@@ -8,6 +8,12 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Checkbox Group** component provides a flexible and accessible way to present multiple related checkbox options as a single group. It supports different visual states such as \`Checkbox\` (default), \`Indeterminate\`, and \`ErrorCheckbox\` to clearly communicate selection status or validation errors.
+The component allows configuration of inline display for horizontal layouts and can optionally render as toggle switches using the \`isSwitch\` prop. Each checkbox item within the group is defined through the \`itemList\` prop, which includes properties like \`id\`, \`label\`, \`checked\`, and \`disabled\`, enabling granular control over individual checkbox behavior and appearance.
+An optional \`errorMessage\` prop provides user feedback when validation fails, enhancing form usability. This component is ideal for forms, filters, and settings panels where multiple selections are required, ensuring a consistent and user-friendly interface across applications.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(Checkbox|Indeterminate|ErrorCheckbox)"/g, '{CheckboxState.$1}');
