@@ -120,3 +120,4 @@ export { default as RdsCompTypingSection } from "./rds-comp-typing-section";
 export {default as RdsAiChatBot} from "./rds-comp-ai-chat-bot";
 export {default as RdsCompGenerateCodeMetrics} from "./rds-comp-generate-code-metrics";
 export {default as RdsCompKanbanBoard} from "./rds-comp-kanban-board";
+export {default as RdsCompSideNavigation1} from "./rds-comp-side-navigation1";
