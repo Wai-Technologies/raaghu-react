@@ -7,6 +7,12 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs:{
+            description: {
+  component: `The **Grid** component is a flexible and powerful table layout designed to present structured data in a clear and organized manner. It supports configurable \`tableHeaders\` with customizable columns featuring filtering, sorting, and data validation options such as \`required\` and \`dataLength\`. The component renders rows dynamically from \`tableData\`, enabling display of diverse datasets efficiently. 
+
+Key features include control over the visibility of table sections via the \`state\` prop, allowing toggling between \`default\` and \`collapsed\` views to optimize screen real estate. Additionally, \`showHeader\` and \`showSubHeader\` booleans provide granular control over header visibility for enhanced UI flexibility. Ideal for dashboards, admin panels, and data-heavy interfaces, the Grid component combines ease of use with customization to suit various presentation needs.`
+}
+,
             source:{
                 transform: (code: string) => {
                     // Transform position enum - remove spaces and transform

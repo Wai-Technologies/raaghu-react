@@ -7,6 +7,12 @@ const meta: Meta = {
   component: RdsCompShoppingCart,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Shopping Cart** component is a customizable UI element designed to display and manage items in a shopping cart within your application. It provides a structured interface for showcasing product details such as name, image, description, quantity options, highlights (e.g., stock status or shipping time), and price. This component is ideal for e-commerce platforms or any application requiring a user-friendly and interactive shopping cart interface. Fully customizable, the Shopping Cart component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

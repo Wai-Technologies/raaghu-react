@@ -73,6 +73,12 @@ const meta: Meta = {
     component: RdsCompUserManagement,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **User Management** component is a comprehensive and interactive UI element designed to manage user-related settings and configurations within an application. It allows administrators to enable or disable features such as email confirmation, phone number verification, captcha for login, cookie consent, session timeout control, and profile picture settings. This component is ideal for applications requiring robust user management capabilities. Fully customizable, the User Management component ensures seamless integration with your design system while providing an intuitive interface for managing user settings effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

@@ -57,6 +57,12 @@ const meta: Meta = {
     component: RdsCompProfile,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Profile** component is a customizable UI element designed to display and manage user profile information within your application. It supports features such as displaying a profile picture, user name, and role, along with navigation tabs for accessing related sections like "My Account," "Security Logs," and "Personal Data." This component is ideal for user account management, profile customization, or any application requiring a structured and user-friendly profile interface. Fully customizable, the Profile component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsScrollspy,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Scrollspy** component provides a dynamic navigation experience by tracking page scroll position and highlighting the corresponding navigation item. It accepts a \`data\` prop, which is an array of objects each containing \`id\`, \`title\`, \`header\`, and \`content\` strings. Each object represents a scrollable section with a unique identifier, a navigation label, a section heading, and associated content. This component is ideal for long pages or documentation where users need clear context of their current position within the content.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

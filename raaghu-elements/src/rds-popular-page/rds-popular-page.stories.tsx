@@ -7,6 +7,17 @@ const meta: Meta = {
     component: RdsPopularPage,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Popular Page** component presents a list of popular resources or navigation items, 
+  making it easy for users to discover key areas within your application. The \`itemList\` prop accepts 
+  an array of objects, each representing a featured item with a \`title\` (main label), \`subtitle\` 
+  (supporting description), \`icon\` (identifier for the associated icon), and \`route\` (URL path for 
+  navigation). This component is ideal for dashboards, landing pages, or documentation portals where 
+  quick access to top resources enhances user engagement and discoverability.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

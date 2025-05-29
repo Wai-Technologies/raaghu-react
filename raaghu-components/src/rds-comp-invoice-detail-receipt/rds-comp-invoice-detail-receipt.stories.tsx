@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompInvoiceDetailReceipt,
   parameters: {
       layout: 'padded',
+      docs: {
+    description: {
+        component: 
+            'The **Invoice Detail Receipt** component is a customizable UI element designed to display detailed invoice information in a structured and user-friendly format. It supports properties such as `purchaseDate`, `billedTo`, `transactionId`, `invoiceNumber`, `grandTotal`, `subTotal`, `discount`, and an `invoiceItems` array to list individual items with details like `itemName`, `itemAmount`, `quantity`, and `totalAmount`. This component is ideal for billing systems, e-commerce platforms, or any application requiring detailed invoice presentation. Fully customizable, the Invoice Detail Receipt component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

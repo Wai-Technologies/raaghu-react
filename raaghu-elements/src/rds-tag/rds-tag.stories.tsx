@@ -6,7 +6,12 @@ const meta: Meta = {
     component: RdsTag,
     parameters: { 
         layout: 'padded',
+
         docs: {
+            description: {
+        component: 
+            'The **Tag** component is a versatile and customizable UI element designed for labeling, categorizing, or highlighting content within your application. It supports multiple **types** (`Square`, `Round`) and **roles** (`Basic`, `TagWithScroll`) to adapt to various use cases. The component allows you to choose from a wide range of **color variants** (`Primary`, `Secondary`, `Success`, `Info`, `Warning`, `Danger`, `Dark`, `Light`) to match your design system. Additionally, it supports features like closable tags and dynamic tag arrays for enhanced interactivity. Ideal for dashboards, forms, filters, or any interface requiring compact and visually distinct labels, the Tag component is fully customizable to fit your application’s needs.'
+    },
             source : {
                 transform: (code: string) => {
                     // Transform colorVariant enum - remove spaces and transform

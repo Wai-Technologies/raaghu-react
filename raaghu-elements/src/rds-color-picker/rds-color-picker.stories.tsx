@@ -7,6 +7,11 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+       component:
+            'The **Color Picker** component is an interactive UI element for selecting and inputting colors in different formats. It supports multiple display types (`Default`, `Button`, `Button-Expanded`), allowing integration as an input field or as a button with an expandable palette. Users can choose colors using various picker layouts (`Grid`, `Spectrum`) and switch between color modes (`HEX`, `RGB`, `HSB`, `HSL`). Optional features include color swatches for quick selection and tabbed interfaces for enhanced usability. The component offers customizable props for appearance and behavior, making it suitable for forms, design tools, and any interface where efficient color selection is needed.'
+                
+    },
             source: {
                 transform: (code: string) => {
                     // Transform style enum - remove spaces and transform

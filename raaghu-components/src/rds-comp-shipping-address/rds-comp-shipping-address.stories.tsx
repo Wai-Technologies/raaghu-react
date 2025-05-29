@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompShippingAddress,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Shipping Address** component is a customizable UI element designed to manage and display shipping address details within your application. It provides a structured interface for users to select or input their shipping address, including country selection from a predefined list. This component is ideal for e-commerce platforms, order management systems, or any application requiring a user-friendly and efficient shipping address management interface. Fully customizable, the Shipping Address component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

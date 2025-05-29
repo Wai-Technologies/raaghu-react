@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsPagination,
     parameters: {
         layout: 'padded',
+     docs: {
+     description: {
+        component:
+            'The **Pagination** element is a navigation component that helps users move through large sets of content by dividing them into multiple pages. It supports different styles and sizes (`small`, `medium`, `large`). You can enable features like first and last page buttons, manual page input, a dropdown for quick page selection, and a legend to display the current page status. This component is fully customizable, making it ideal for tables, lists, or any interface where content needs to be paginated for better usability and performance.'
+    }
+}
     },
     tags: ['autodocs'],
     argTypes: {

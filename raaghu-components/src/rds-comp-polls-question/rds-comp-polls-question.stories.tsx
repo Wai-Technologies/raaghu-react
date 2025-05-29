@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompPollsQuestion,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Polls Question** component is a customizable UI element designed to create and manage poll questions within your application. It supports features such as defining a list of options through the `widgetList` array, allowing users to select or interact with poll questions. This component is ideal for surveys, feedback forms, voting systems, or any application requiring dynamic and interactive polling functionality. Fully customizable, the Polls Question component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

@@ -10,6 +10,11 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs:{
+          description: {
+  component: `The **Text Area** component provides a flexible, multi-line input field designed for capturing longer text entries such as comments, descriptions, or notes. It supports multiple **interaction states** including \`Default\`, \`Active\`, \`Selected\`, \`Disabled\`, and \`Error\`, allowing clear communication of input status and validation feedback. Various **visual styles** are available, including \`Default\`, \`Pill\`, and \`Bottom Outline\`, to match different design contexts. Labels can be positioned **above** or **below** the input field, and mandatory fields can be indicated clearly using the \`isMandatory\` flag. Additional features include configurable number of visible rows, placeholder text, and optional tooltips with customizable placement and content. This component is ideal for forms, feedback sections, and anywhere multi-line text input is needed, ensuring consistent look and feel aligned with your design system.`
+}
+
+    ,
             source:{
                 transform: (code: string) => {
                     // Transform state enum - remove spaces and transform

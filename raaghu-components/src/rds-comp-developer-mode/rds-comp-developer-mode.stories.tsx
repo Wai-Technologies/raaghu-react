@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompDeveloperMode,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Developer Mode** component is a customizable UI element designed to facilitate the configuration and management of developer-related settings within your application. It supports a `grantType` array to define available authorization grant types, such as `Authorization Code`, `Hybrid`, `Implicit`, and `Password`, each with properties like `option` (display name) and `value` (identifier). This component is ideal for administrative dashboards, API management systems, or any interface requiring structured and user-friendly developer configuration options. Fully customizable, the Developer Mode component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

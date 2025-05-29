@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompCache,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Cache** component is a customizable UI element designed to display and manage cache data within your application. It supports features such as a `cachedata` array to define the list of cache items, with properties like `name` and `id` for each cache entry. Additionally, the component includes support for pagination with configurable `recordsperpage` and alignment options, making it ideal for administrative dashboards or system management interfaces. Fully customizable, the Cache component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

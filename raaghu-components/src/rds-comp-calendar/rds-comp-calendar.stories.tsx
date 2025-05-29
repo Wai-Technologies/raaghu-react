@@ -47,6 +47,12 @@ const meta: Meta = {
     component: RdsCompCalendar,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Calendar** component is a customizable UI element designed to display and manage events within your application. It supports an `events` array to define the list of events, with properties such as `title`, `start`, `end`, and `allDay` to specify event details and scheduling. This component is ideal for dashboards, scheduling systems, or any interface requiring a structured and visually appealing calendar view. Fully customizable, the Calendar component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

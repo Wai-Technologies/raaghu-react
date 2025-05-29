@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompDeliveryMethod,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Delivery Method** component provides a structured and interactive interface for presenting delivery options to users. It supports a `sizeDataWithDescription` array to define delivery types, estimated delivery times, and associated costs. With its customizable design, this component is perfect for checkout workflows, shipping configuration pages, or any application requiring delivery method selection. Developers can easily adapt the component to align with their design system and functional needs, ensuring a smooth and intuitive user experience.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

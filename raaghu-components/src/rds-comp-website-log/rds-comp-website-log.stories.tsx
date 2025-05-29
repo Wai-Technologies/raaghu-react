@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompWebsiteLog,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Website Log** component is a functional and interactive UI element designed to display and manage website logs in a structured format. It supports features such as pagination, alignment options, and customizable log entries with statuses like INFO, WARN, and ERROR. This component is ideal for applications requiring log monitoring and management, such as admin dashboards or enterprise systems. Fully customizable, the Website Log component ensures seamless integration with your design system while providing a user-friendly interface for analyzing and managing website logs effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

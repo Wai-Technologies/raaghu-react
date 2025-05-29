@@ -6,6 +6,10 @@ const meta: Meta<typeof RdsBreadcrumb> = {
   component: RdsBreadcrumb,
   parameters: {
     docs: {
+      description: {
+    component: `The Breadcrumb component is a navigation UI element that displays the user's current location within a **hierarchy**. It supports multiple **levels**, customizable **separators**, and optional icons such as a home icon. The component offers various styles, states, and layout options, including border color and placement. It also handles user interactions like breadcrumb item clicks, providing clear and consistent navigation cues across interfaces.`,
+     
+},
       source: {
         transform: (code: string) => {
           // Transform style enum - remove spaces and transform

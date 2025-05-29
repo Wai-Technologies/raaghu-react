@@ -79,6 +79,12 @@ const meta: Meta = {
     component: RdsCompClaims,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Claims** component is a robust and customizable UI element designed to manage and display claims data in a structured and user-friendly manner. It supports an `allClaimsArray` to define available claims with properties like `option` and `value`, allowing for dynamic claim management. The component also includes `tableHeaders` to configure the structure of the claims table, with fields such as `displayName`, `key`, `datatype`, and `sortable`, ensuring flexibility and clarity in data representation. Additionally, it supports `actions` for user interactions, such as deleting claims, and can be extended with features like pagination for large datasets. Ideal for administrative dashboards, user management systems, or any application requiring efficient claims management, the Claims component is fully customizable to align with your design system and functional requirements, ensuring a seamless and professional user experience.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

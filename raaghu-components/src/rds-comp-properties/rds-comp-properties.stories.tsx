@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompProperties,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Properties** component is a versatile and customizable UI element designed to display structured data in a tabular format. It supports two display types: `basic` and `advanced`. The `basic` type provides a simple table layout with headers and rows, while the `advanced` type offers additional customization options for enhanced data visualization. This component is ideal for dashboards, administrative panels, or any application requiring the presentation of detailed property data. Fully customizable, the Properties component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

@@ -7,6 +7,10 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+       description: {
+        component: 
+            'The **OTP Input** component is a customizable UI element designed to handle one-time password (OTP) input functionality within your application. It supports multiple field styles such as `Default`, `Square`, `Circle`, and `Advance`, and allows customization of OTP size and additional features like icons. This component is ideal for authentication workflows, verification processes, or any interface requiring secure and user-friendly OTP input. Fully customizable, the OTP Input component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
       source: {
         transform: (code: string) => {
           // Transform FieldStyle enum - remove spaces and transform

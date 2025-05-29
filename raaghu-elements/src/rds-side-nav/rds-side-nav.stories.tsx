@@ -9,6 +9,10 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
         docs:   {
+            description: {
+        component:
+            'The **Side Navigation** element is a flexible and customizable navigation component for organizing and accessing different sections of your application. It supports multiple layouts (`Raaghu`, `List`, `Toolbar`), navigation types (`Collapsed`, `Expanded`, `Fixed`), and platform-specific menu structures. You can display navigation items with icons, nested menus, user profile, and a logo, and control the visibility of a lock icon for additional functionality. This element is ideal for dashboards, admin panels, and any interface requiring structured, easy-to-navigate side menus, and can be tailored to fit your design system needs.'
+    },
             source :{
                 transform: (code: string) => {
                 // Transform navLayout enum - remove spaces and transform
