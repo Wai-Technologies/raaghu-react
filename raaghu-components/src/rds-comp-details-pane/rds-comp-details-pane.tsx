@@ -108,7 +108,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                   </div>
                   <div className="text-black">
                     <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
+                      <RdsIcon name="history_watch" strokeColor="#969696" />
                       <span className="ms-3 flex-grow-1 text-start">
                         Login Page Creation
                       </span>
