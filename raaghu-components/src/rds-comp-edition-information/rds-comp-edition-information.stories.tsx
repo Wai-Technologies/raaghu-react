@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompEditionInformation,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Edition Information** component is a customizable UI element designed to display and manage subscription or edition-related details within your application. It supports features such as `sizeDataWithDescription` to define edition types with properties like `type`, `days`, and `cost`, and `radioItems` to configure interactive options using radio buttons. Each radio button group can include properties like `label`, `inline`, `id`, and `itemList` for detailed configuration. This component is ideal for subscription management systems, billing workflows, or any interface requiring structured and interactive edition information. Fully customizable, the Edition Information component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

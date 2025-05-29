@@ -77,6 +77,12 @@ const meta: Meta = {
     component: RdsCompSubscription,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Subscription** component is a customizable UI element designed to display and manage subscription plans within your application. It provides a structured interface for showcasing plan details such as name, price, duration, features, and recommended status. The component supports multiple subscription tiers (e.g., Basic, Standard, Premium) and allows customization of color variants, icons, and feature lists. This component is ideal for SaaS platforms, e-commerce applications, or any system requiring a user-friendly and visually appealing subscription management interface. Fully customizable, the Subscription component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

@@ -8,6 +8,12 @@ const meta: Meta = {
   component: RdsMap,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component:
+            'The **Map** element is a visual component for displaying geographic data on a world map. It supports customizable titles, color schemes, and a list of country-value pairs to represent data such as population, statistics, or metrics for each country. The map can be styled to match your application’s theme and is ideal for dashboards, analytics, and any interface where visualizing data by country or region is required. Flexible props allow you to tailor its appearance and behavior for a wide range of use cases in your design system.'
+    }
+}
   },
   tags: ['autodocs'],
   argTypes: {

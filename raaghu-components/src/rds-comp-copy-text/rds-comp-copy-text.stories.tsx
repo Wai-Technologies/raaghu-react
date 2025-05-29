@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompCopyText,
   parameters: {
       layout: 'padded',
+      docs: {
+    description: {
+        component: 
+            'The **Copy Text** component is a simple and customizable UI element designed to allow users to copy text to their clipboard with ease. It provides a seamless way to display text and includes functionality for copying it with a single click. This component is ideal for use cases such as sharing links, copying codes, or any scenario where quick and efficient text copying is required. Fully customizable, the Copy Text component can be tailored to align with your design system and functional requirements, ensuring a smooth and user-friendly experience.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

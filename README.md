@@ -45,9 +45,6 @@
 
 - [What is Raaghu Design System?](#raaghu-intro)
 - [Why Choose Raaghu Design System??](#why)
-- [How Raaghu Design System Works?](#how)
-- [Features](#features)
-- [More about Raaghu Design System](#learn-more) 
 - [Raaghu Resources](#insights) 
 - [Getting Started with Raaghu](#started) 
 - [License](#license)
@@ -208,7 +205,7 @@
 
 </div>
 
-
+<!-- 
 ## <a name='how'></a> How Raaghu Design System Works?
 
 <p>
@@ -217,7 +214,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </br></br>
 
 <p>
-<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000">
+<img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000"> -->
 <!-- 
 <div align="center">
   <video width="600" controls>
@@ -232,12 +229,12 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/how-it-works-dashboard.png" width="1000"/>
   </picture> -->
-</p>
+<!-- </p>
 <p>
   Thought the CI/CD pipelines the components are deployed to the wireframe design and form a page
-</p>
+</p> -->
 
-## <a name='features'></a> Features
+<!-- ## <a name='features'></a> Features
 </br>
 <p>
   <picture>
@@ -245,13 +242,13 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?" width="1000"/>
   </picture>
-</p> 
+</p>  -->
 
-## <a name='learn-more'></a> More about Raaghu Design System
+<!-- ## <a name='learn-more'></a> More about Raaghu Design System -->
 <!-- <p>
   Learn more about Raaghu Design System
 </p>  -->
-</br>
+<!-- </br> -->
 
 <div align="center">
 

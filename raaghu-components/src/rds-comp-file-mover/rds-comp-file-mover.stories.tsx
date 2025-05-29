@@ -64,6 +64,12 @@ const meta: Meta = {
     component: RdsCompFileMover,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **File Mover** component is a versatile and customizable UI element designed to manage and navigate hierarchical file or folder structures within your application. It supports a `items` array to define the folder hierarchy, where each item includes properties such as `id`, `name`, `hasChildren`, `iconName`, `iconFill`, and nested `children` for subfolders. This component is ideal for file management systems, cloud storage interfaces, or any application requiring structured and interactive folder navigation. Fully customizable, the File Mover component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

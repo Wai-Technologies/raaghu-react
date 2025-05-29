@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompBackgroundImage,
     parameters: {
         layout: "padded",
+        docs: {
+    description: {
+        component: 
+            'The **Background Image** component is a visually engaging and customizable UI element designed to display a background image with overlaid content, such as titles, subtitles, and call-to-action buttons. It supports properties like `imageUrl` to define the background image, `title` and `subtitle` for textual content, and `btnLabel` for an actionable button. Additionally, it allows customization of background styles with properties like `backgroundRepeat` and `backgroundSize` to control the image layout. This component is ideal for landing pages, promotional banners, or any interface requiring visually appealing background imagery with interactive content. Fully customizable, the Background Image component ensures a seamless user experience while maintaining consistency with your design system.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

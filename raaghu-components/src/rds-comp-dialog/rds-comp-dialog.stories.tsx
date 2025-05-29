@@ -9,6 +9,12 @@ const meta: Meta = {
   component: RdsCompDialog,
   parameters: {
     layout: "padded",
+    docs:{
+      description: {
+  component: `The **Dialog** component is a versatile modal dialog interface designed for clear and accessible user interactions such as confirmations, alerts, or information prompts. It supports customizable properties including \`Size\` (Large or Small) to adapt to different content needs, \`Style\` options (Default, Outlined, Filled) for flexible visual presentation, and \`ColorVariant\` to match your application's theme. The dialog can optionally display a \`Title\`, primary and secondary action buttons, and a dismiss (close) control, allowing developers to create focused user workflows like account deletion confirmations or warnings. Content positioning and an optional icon enhance the clarity and emphasis of messages, making this component ideal for critical user decisions and informative pop-ups. Fully reusable and design-consistent, it seamlessly integrates into diverse UI scenarios.`
+}
+
+    }
   },
   tags: ["autodocs"],
   argTypes: {

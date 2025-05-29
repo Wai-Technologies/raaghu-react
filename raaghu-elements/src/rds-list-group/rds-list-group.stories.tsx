@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsListGroup,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **List Group** component provides a versatile way to display a collection of related items in a structured list format. It supports multiple configurations including default lists, lists with badges for item counts or statuses, multi-select functionality for choosing multiple items, and combinations of multi-select with badges for enhanced interactivity. The \`labelPosition\` prop allows the label to be positioned either at the top or bottom of the list, providing flexible layout options.The list items can include a label, optional badge, and additional metadata such as heading, content, and timestamps, enabling rich item representation. Disabled states are supported to indicate non-interactive items. This component is ideal for menus, selection lists, notifications, or any UI scenario where grouping of related items is needed, all while maintaining accessibility and consistency within your design system.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

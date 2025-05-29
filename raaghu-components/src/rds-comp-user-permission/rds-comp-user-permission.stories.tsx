@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompUserPermission,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **User Permission** component is a versatile and interactive UI element designed to manage and display user permissions within an application. It supports both basic and advanced display types, allowing administrators to view, edit, and manage user roles, statuses, and actions efficiently. This component is ideal for applications requiring role-based access control (RBAC) or user management workflows. Fully customizable, the User Permission component ensures seamless integration with your design system while providing a user-friendly interface for managing user permissions effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

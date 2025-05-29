@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompRole,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Role** component is a customizable UI element designed to manage and display user roles within your application. It provides a structured interface for creating, editing, and assigning roles, making it ideal for administrative dashboards, role-based access control systems, or any application requiring role management functionality. Fully customizable, the Role component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

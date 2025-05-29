@@ -10,6 +10,12 @@ const meta: Meta = {
     component: RdsCompSideNavigation,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Side Navigation** component is a customizable UI element designed to provide a structured and interactive navigation menu within your application. It supports hierarchical navigation with multiple levels, icons, and labels, making it ideal for dashboards, administrative panels, or any application requiring a user-friendly and visually appealing side navigation interface. The component also allows for the inclusion of a logo and integrates seamlessly with routing systems like React Router. Fully customizable, the Side Navigation component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

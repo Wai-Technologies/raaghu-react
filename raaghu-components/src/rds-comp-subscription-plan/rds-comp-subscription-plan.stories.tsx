@@ -7,6 +7,21 @@ import { StoryObj, Meta } from "@storybook/react";
 const meta: Meta = {
   title: "Components/AI ChatBox/Subscription Plan",
   component: RdsCompSubscriptionPlan,
+  parameters:{
+    docs:{
+      description: {
+  component: `The **Subscription Plan** component showcases available subscription tiers—such as Free and Premium plans—within the AI ChatBox interface. It clearly communicates pricing, plan descriptions, and included features for each tier, helping users easily understand and compare the benefits. This component supports full customization, including:
+  
+- Plan labels (\`freePlanText\`, \`premiumPlanText\`)
+- Plan prices and descriptions
+- Lists of included features for each tier
+- Custom branding (logo, background, panel images)
+
+Designed with clarity and marketing intent, it enhances user decision-making with structured layout, highlighting current subscription status (\`currentPlanText\`) and upgrade prompts (\`upgradeText\`). Ideal for SaaS applications aiming to convert users with clear value propositions, visual branding, and responsive layout support.`
+}
+
+    }
+  },
   tags: ["autodocs"],
   argTypes: {
   },

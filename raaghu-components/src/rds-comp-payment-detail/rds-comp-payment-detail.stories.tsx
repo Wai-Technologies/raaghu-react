@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompPaymentDetail,
   parameters: {
     layout: "padded",
+    docs: {
+    description: {
+        component: 
+            'The **Payment Detail** component is a customizable UI element designed to display and manage payment details within your application. It supports features such as listing payment modes and capturing user selections, making it ideal for e-commerce platforms, subscription services, or any application requiring payment processing functionality. Fully customizable, the Payment Detail component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ["autodocs"],
   argTypes: {},

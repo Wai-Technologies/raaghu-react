@@ -9,6 +9,10 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+      description: {
+        component:
+            'The **Offcanvas** element is a customizable slide-out panel used to display additional content, navigation, or actions without leaving the current page. It supports multiple placements (`top`, `bottom`, `end`, `start`), backdrop options (`true`, `false`, `static`), and adjustable width. The offcanvas can include a title, scrolling content, and up to three configurable action buttons (primary, secondary, tertiary). Flexible props allow you to tailor its appearance and behavior, making it ideal for side menus, forms, notifications, or any scenario where you want to present extra information in a non-intrusive way. This element is easy to integrate and fully customizable to fit your design system needs.'
+    },
       source:{
         transform:(code:string) => {
           code = code.replace(/placement="([^"]+)"/g, (match, p1) => `placement={RdsOffcanvasPlacement.${p1.replace(/\s+/g, '')}}`);

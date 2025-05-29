@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompLayout,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Layout** component is a versatile and customizable UI element designed to structure and organize content within an application. It supports various display types such as Basic, Gridify, Spotlight, Matrix, and more, allowing developers to create visually appealing and functional layouts. This component is ideal for applications requiring dynamic content organization, such as dashboards, portfolios, or enterprise systems. Fully customizable, the Layout component ensures seamless integration with your design system while providing a user-friendly interface for managing and presenting content effectively.'
+    },
+},
         disableZoom: false
     },
     tags: ['autodocs'],

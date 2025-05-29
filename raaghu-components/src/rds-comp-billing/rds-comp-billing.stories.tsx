@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompBilling,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Billing** component is a comprehensive and customizable UI element designed to manage subscription plans and billing details within your application. It supports features such as a `subscriptionData` array to define available plans, including properties like `name`, `price`, `duration`, `colorVariant`, `icon`, `recommended`, and `features`. Additionally, it includes `billingHeaders` to define table headers for billing records and a `billingData` array to display detailed billing information, such as invoices, amounts, dates, and statuses. The component also supports `actions` for user interactions, such as downloading invoices. Ideal for subscription management systems, user dashboards, or payment platforms, the Billing component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

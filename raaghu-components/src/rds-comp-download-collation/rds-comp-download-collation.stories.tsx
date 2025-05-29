@@ -45,6 +45,12 @@ const meta: Meta = {
     component: RdsCompDownloadCollation,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Download Collection** component is a customizable UI element designed to display and manage downloadable resources in a structured table format. It supports a `downloadTable` array to define the list of downloadable items, with properties such as `DateofData` (date of the resource), `NummberofDay` (time since the resource was added), and `downloadUrl` (URL for downloading the resource). This component is ideal for dashboards, resource management systems, or any interface requiring organized and user-friendly access to downloadable content. Fully customizable, the Download Collection component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

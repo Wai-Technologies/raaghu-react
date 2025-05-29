@@ -7,6 +7,11 @@ const meta: Meta = {
     component: RdsCarousel,
     parameters: {
         layout: 'padded',
+        docs: {
+            description: {
+               component: `The **Carousel element** is a versatile and interactive UI component designed to showcase a sequence of content items such as images, titles, and subtitles in a smooth sliding format. It supports multiple **visual styles** and **indicator types**, giving designers flexibility to present content in ways that best suit their needs. With configurable controls and states, this element is ideal for use cases including image galleries, testimonials, and feature highlights. The Carousel element enhances user engagement by providing an elegant, dynamic display that adapts seamlessly to different content and styles.`
+   },
+        },
     },
     tags: ['autodocs'],
     argTypes: {

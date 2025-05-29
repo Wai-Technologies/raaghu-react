@@ -7,6 +7,9 @@ const meta: Meta =  {
   component: RdsTabGroup,
   parameters: { 
     docs: {
+   description: {
+        component: `The **Tab** element is a flexible and customizable navigation component that enables users to switch between different views or sections within your application. It supports multiple **orientations** (\`Horizontal\`, \`Vertical\`) and various **layouts** such as \`Filled\`, \`Flap\`, \`Pill\`, \`Line Bottom\`, and more. The tab's interaction states include \`Default\`, \`Hover\`, \`Selected\`, and \`Disabled\`. Additional customization options allow setting the **accessibility heading level**, **tab title**, and toggling icons on the left and right sides. This component is ideal for organizing content in dashboards, forms, and complex interfaces, and can be tailored to fit your design system’s visual and functional requirements.`,
+      },
       source: {
         transform: (code: string) => {
           // Transform type enum - remove spaces and transform

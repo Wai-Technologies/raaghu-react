@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompAssistance,
   parameters: {
       layout: 'padded',
+      docs: {
+    description: {
+        component: 
+            'The **Assistance** component is a flexible and customizable UI element designed to provide users with helpful information, guidance, or support within your application. It supports features such as `assistanceData` to define the content and structure of the assistance provided, making it ideal for onboarding flows, help sections, or interactive tutorials. Fully customizable, the Assistance component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

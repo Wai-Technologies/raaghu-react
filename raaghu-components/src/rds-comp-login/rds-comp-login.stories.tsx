@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompLogin,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Login** component is a customizable UI element designed to handle user authentication workflows within your application. It supports multilingual functionality through a `languageData` array, allowing users to select their preferred language. This component is ideal for login pages, authentication systems, or any interface requiring a user-friendly and localized login experience. Fully customizable, the Login component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

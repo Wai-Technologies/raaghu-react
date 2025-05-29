@@ -7,6 +7,10 @@ const meta: Meta = {
     component: RdsFabMenu,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {component: `The **Fab Menu** component is a floating action button that expands into a collapsible menu, providing quick access to a list of actions. It supports multiple color variants such as \`primary\`, \`secondary\`, \`success\`, \`info\`, \`warning\`, \`danger\`, \`dark\`, and \`light\`, and offers size options \`small\`, \`medium\`, and \`large\` for flexible UI integration. The \`listItems\` prop defines the menu options, each with properties like \`value\`, \`key\`, \`icon\`, and customizable icon dimensions, enabling rich and intuitive menu entries. This component is ideal for providing contextual shortcuts in applications, enhancing user productivity with an elegant, space-saving interface.`}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

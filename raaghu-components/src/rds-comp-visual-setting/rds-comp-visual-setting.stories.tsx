@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompVisualSetting,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Visual Setting** component is a comprehensive and interactive UI element designed to manage and customize the visual settings of an application. It allows users to configure various aspects such as header, footer, layout, menu, subheader, and theme settings. This component is ideal for applications requiring dynamic visual customization, enabling seamless adjustments to the user interface. Fully customizable, the Visual Setting component ensures seamless integration with your design system while providing an intuitive interface for managing and personalizing application visuals effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {
