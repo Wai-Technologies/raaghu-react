@@ -41,7 +41,7 @@ text-align: start;
     .activity-item {
       display: flex;
       /* justify-content: space-between; */
-      padding: 8px 0;
+      padding: 8px 5px;
     }
     .activity-icon {
       margin-right: 8px;
@@ -53,6 +53,8 @@ text-align: start;
 
 .activity-item:hover {
   background-color: #EBDCFF;
+  border-radius: 5px;
+ 
 }
 
 /* Custom tab bar styling */
