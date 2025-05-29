@@ -29,7 +29,7 @@ const RdsCollapse = (props: RdsCollapseProps) => {
                 {display && (
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12 mt-2 ms-3 collapseContent p-3">
-                            <div>
+                            <div className="collapseContent-text">
                                 This is some placeholder content for a horizontal collapse. its
                                 hidden by default and shown when triggered
                             </div>
