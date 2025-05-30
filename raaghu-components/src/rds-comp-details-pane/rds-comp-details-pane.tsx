@@ -42,6 +42,18 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
   const [selectedFontWeight, setSelectedFontWeight] = useState<string>('Regular');
   const [selectedCornerRadius, setSelectedCornerRadius] = useState<string | number>(0);
   const [selectedSpacingSize, setSelectedSpacingSize] = useState<number>(0);
+  const [historyItems, setHistoryItems] = useState([
+    { id: 1, name: "Login Page Creation" },
+    { id: 2, name: "Finance Dashboard Design" },
+    { id: 3, name: "E-commerce Product Page" },
+    { id: 4, name: "Social Media Profile Setup" },
+    { id: 5, name: "Onboarding Flow Builder" },
+    { id: 6, name: "Analytics Overview Dashboard" },
+  ]);
+  const [olderHistoryItems, setOlderHistoryItems] = useState([
+    { id: 1, name: "Signup Form Generator" },
+    { id: 2, name: "Task Management Board UI" },
+  ]);
 
   // Switch to correct tab if style changes
   React.useEffect(() => {
@@ -51,6 +63,14 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
       setActiveTab("history");
     }
   }, [props.style]);
+
+  const handleDeleteHistoryItem = (id: number) => {
+    setHistoryItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const handleDeleteOlderHistoryItem = (id: number) => {
+    setOlderHistoryItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
 
   const TABS = [
     { key: "history", label: props.historyTabLabel || "History", icon: "history_watch" },
@@ -107,124 +127,48 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     <span className="section-heading-linebar"></span>
                   </div>
                   <div className="text-black">
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" strokeColor="#969696" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Login Page Creation
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Finance Dashboard Design
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        E-commerce Product Page
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Social Media Profile Setup
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Onboarding Flow Builder
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Analytics Overview Dashboard
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
+                    {historyItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="activity-item d-flex align-items-center justify-content-between mb-3"
+                      >
+                        <RdsIcon name="history_watch" strokeColor="#969696"/>
+                        <span className="ms-3 flex-grow-1 text-start">{item.name}</span>
+                        <RdsIcon
+                          colorVariant="danger"
+                          height="15px"
+                          isCursorPointer
+                          name="delete"
+                          stroke
+                          width="15px"
+                          onClick={() => handleDeleteHistoryItem(item.id)}
+                        />
+                      </div>
+                    ))}
                   </div>
                   <div className="section-heading-line mt-3 mb-2">
                     <span className="section-heading-text">Older</span>
                     <span className="section-heading-linebar"></span>
                   </div>
                   <div className="text-black">
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Signup Form Generator
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
-                    <div className="activity-item d-flex align-items-center justify-content-between mb-3">
-                      <RdsIcon name="history_watch" />
-                      <span className="ms-3 flex-grow-1 text-start">
-                        Task Management Board UI
-                      </span>
-                      <RdsIcon
-                        colorVariant="danger"
-                        height="15px"
-                        isCursorPointer
-                        name="delete"
-                        stroke
-                        width="15px"
-                      />
-                    </div>
+                    {olderHistoryItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="activity-item d-flex align-items-center justify-content-between mb-3"
+                      >
+                        <RdsIcon name="history_watch" />
+                        <span className="ms-3 flex-grow-1 text-start">{item.name}</span>
+                        <RdsIcon
+                          colorVariant="danger"
+                          height="15px"
+                          isCursorPointer
+                          name="delete"
+                          stroke
+                          width="15px"
+                          onClick={() => handleDeleteOlderHistoryItem(item.id)}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
