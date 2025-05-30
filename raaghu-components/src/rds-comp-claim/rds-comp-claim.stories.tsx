@@ -215,6 +215,7 @@ type Story = StoryObj<typeof RdsCompClaim>;
 
 export const Default: Story = {
     args: {
+        claim: "default",
         resources: [
                     {
                         id: 1,
@@ -384,3 +385,82 @@ export const Default: Story = {
                 ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['resources', 'onCreate', 'onCancel'] } };
+
+export const Advanced: Story = {
+    args: {
+        claim: "advanced",
+        allClaimsArray: [
+            {
+                option: "One",
+                value: "one"
+            },
+            {
+                option: "Two",
+                value: "two"
+            },
+            {
+                option: "Three",
+                value: "three"
+            },
+            {
+                option: "Four",
+                value: "four"
+            }
+
+        ],
+
+        tableHeaders: [
+            {
+                displayName: "Claim Type",
+                key: "claimType",
+                datatype: "text",
+                sortable: true,
+            },
+            {
+                displayName: "Claim Value",
+                key: "claimValue",
+                datatype: "number",
+                sortable: true,
+            }
+        ],
+        // tableData: [
+        //     { id: 1, claimType: "Standard", claimValue: 60 },
+        //     { id: 2, claimType: "Basic", claimValue: 120 },
+        //     { id: 3, claimType: "Premium", claimValue: 250 },
+        //     { id: 4, claimType: "Standard", claimValue: 60 },
+        //     { id: 5, claimType: "Basic", claimValue: 100 },
+        // ],
+        actions: [
+            { id: "delete", displayName: "Delete" },
+        ],
+        // pagination: false,
+    }
+} satisfies Story;
+Advanced.parameters = { controls: { include: ['allClaimsArray', 'claimsTable', 'id', 'getEditClaimData', 'tableHeaders', 'onActionSelection', 'reset', 'actions'] } };
+
+export const Type: Story = {
+    args: {
+        claim: "type",
+        valueType: [
+            {
+                option: "One",
+                value: "one"
+            },
+            {
+                option: "two",
+                value: "two"
+            },
+            {
+                option: "three",
+                value: "three"
+            },
+            {
+                option: "four",
+                value: "four"
+            }
+    
+        ]
+    }
+} satisfies Story;
+Type.parameters = { controls: { include: ['valueType', 'claimsData', 'onCancel', 'reset', 'onSaveHandler'] } };
