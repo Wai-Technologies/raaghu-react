@@ -260,6 +260,9 @@ line-height: 17.213px; /* 155.556% */
 margin-top:65px !important;
 }
 
+
+
+
 .counter-button-left{
 margin-left: -2px;
 }
@@ -409,3 +412,106 @@ margin-left: -2px;
   z-index:  10;
   padding: '16px 24px';
 }
+
+
+    
+.theme-dark #text-color-change label.form-label.mb-0.fw-bold {
+  color: #000000 !important;
+}                  
+
+.theme-dark #estate-description label.form-label.mb-0.fw-normal {
+  color: #000;
+}
+
+.theme-dark #lable-adult-children-text label.form-label.mb-0.fw-semibold {
+  color: #000;
+}
+
+.theme-dark  div#counter-back-color {
+  background-color: #FFFFFF !important;
+  
+   
+}
+
+/* .theme-dark div#counter-back-color.border.border-gray.rounded.p-1{
+
+} */
+
+.theme-dark  div#counter-back-color.border.border-gray.rounded.p-1.border {
+    background: #505050 0% 0% no-repeat padding-box;
+    border: 1px solid #dee2e6 !important;
+}
+/* .theme-dark .border {
+  border: none;
+} */
+
+.theme-dark #counter-back-color  .form-control{
+      background-color:white !important
+}
+
+.theme-dark #rds-counter-text input.form-control.text-center.border-0{
+  color: #969696 !important;
+  
+}
+
+
+/* .theme-dark #counter-button-width .btn {
+    min-width: 28px !important;
+    min-height: 28px !important;
+} */
+/* .theme-dark #counter-button-width.d-flex.gap-0{
+  align-items: center;
+} */
+
+/* .theme-dark #reduce-val .reduce{
+  stroke: red;
+} */
+
+.theme-dark .btn span {
+  color: #ffffff;
+}
+
+/* .theme-dark div#counter-back-color.d-flex.gap-0{
+  padding: 0.5px !important; 
+} */
+
+
+/* .theme-dark #counter-button-width .btn {
+    min-width: 30px !important;
+    min-height: 30px !important;
+} */
+
+/* .theme-dark #add-guest-btn .btn-sm{
+padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    border-radius: 5px !important;
+    height: 46px;
+} */
+/* 
+.theme-dark #counter-button-width .btn {
+      min-width: 28px !important;
+    min-height: 28px !important;
+     width: 28px !important;
+    height: 28px !important; 
+}
+ .theme-dark #add-guest-btn .btn-icon.btn-md {
+    padding: 0;
+    width: 28px !important;
+    height: 28px;
+}
+
+.theme-dark #add-guest-btn .width_element button {
+  flex:1;
+}
+
+.theme-dark #add-guest-btn .btn {
+    text-transform: capitalize !important;
+    min-width: 4.35rem;
+    align-items: center !important;
+}
+
+.theme-dark #add-guest-btn .btn-sm {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    border-radius: 5px !important;
+} */

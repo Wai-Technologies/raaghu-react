@@ -344,14 +344,14 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     type="Circle"
                   />
                   </div>
-                    <div className="mt-4 real-estate-title">
+                    <div className="mt-4 real-estate-title" id="text-color-change">
                   <RdsLabel
                     fontWeight="bold"
                     label={props.estateTitle}
                   />
                   </div>
 
-                  <div className="d-flex  mt-3">
+                  <div className="d-flex  mt-3" >
                     <RdsBadge
                     colorVariant="primary"
                     iconName="circle"
@@ -387,14 +387,14 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                   />
                     </div>
 
-                    <div className="mt-3 fs-7">
+                    <div className="mt-3 fs-7" id="estate-description">
                       <RdsLabel
                         fontWeight="normal"
                         label={props.estateDescription}
                       />
                   </div>
 
-                  <div className="real-estate-footer-fixed">
+                  <div className="real-estate-footer-fixed" id="lable-adult-children-text">
                     <div className="d-flex mb-2" >
                       <RdsLabel
                         fontWeight="semibold"
