@@ -3,7 +3,7 @@ import RdsCompIdentiyResourceBasic from "./rds-comp-identiy-resource-basic";
 
 
 const meta: Meta = { 
-  title: "Components/Identity Resource Basic",
+  title: "Components/Identity",
     component: RdsCompIdentiyResourceBasic,
     parameters: {
         layout: 'padded',
@@ -22,9 +22,37 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompIdentiyResourceBasic>;
 
-export const Default: Story = {
+export const ResourceBasic: Story = {
     args: {
-        
+        identity: "resourceBasic"
     }
 } satisfies Story;
-// Default.parameters = { controls: { include: [] } };
+// ResourceBasic.parameters = { controls: { include: [] } };
+
+export const ClientBasic: Story = {
+    args: {
+        identity: "clientBasic"
+    }
+} satisfies Story;
+// ClientBasic.parameters = { controls: { include: [] } };
+
+export const LdapManagement: Story = {
+    args: {
+        identity: "ldapManagement"
+    }
+} satisfies Story;
+// LdapManagement.parameters = { controls: { include: [] } };
+
+export const Management: Story = {
+    args: {
+        identity: "management"
+    }
+} satisfies Story;
+// Management.parameters = { controls: { include: [] } };
+
+export const OauthManagement: Story = {
+    args: {
+        identity: "oauthManagement"
+    }
+} satisfies Story;
+// OauthManagement.parameters = { controls: { include: [] } };
