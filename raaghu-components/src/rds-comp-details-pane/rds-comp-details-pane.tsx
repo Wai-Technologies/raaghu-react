@@ -405,7 +405,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                         label="0 Children"
                       />
                     </div>
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center" id="rds-counter-text">
                       <div className="counter-button-left" style={{ flex: 1 }}>
                         <RdsCounter
                           colorVariant="primary"
@@ -442,7 +442,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
           </div>
         ) : props.style === "Selection" ? (
           <div className="custom-content-wrapper">
-            <div className="detail-pane-container p-3">
+            <div className="detail-pane-container p-3" id="detail-pain-lable">
               <RdsLabel
                 fontWeight="bold"
                 label={props.headerText}
@@ -482,11 +482,11 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                       />
                     </div>
                     <div className="flex-grow-1">
-                      <div className="fw-bold fs-6">Jane Doe</div>
-                      <div className="text-muted fs-6">Designation</div>
+                      <div className="fw-bold fs-6 user-name-jane" >Jane Doe</div>
+                      <div className="text-muted fs-6 user-designation-jane">Designation</div>
                     </div>
                     <div className="d-flex align-items-center ms-auto gap-3">
-                      <span className="profile-badge bg-primary text-white rounded-pill d-flex align-items-center justify-content-center" style={{ width: 30, height: 30, fontSize: 14 }}>4</span>
+                      <span className="profile-badge bg-primary text-white rounded-pill d-flex align-items-center px-3" style={{ width: 50, height: 40, fontSize: 18,}}>4</span>
                       <span className="ms-2">
                         <RdsIcon
                           colorVariant="primary"
@@ -512,6 +512,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     fontWeight="bold"
                     label="Toolbar"
                     class="fs-5"
+                    
                   />
                   <div className="d-flex flex-row gap-4 mt-3">
                     <RdsButton

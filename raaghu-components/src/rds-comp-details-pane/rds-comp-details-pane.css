@@ -373,7 +373,9 @@ margin-left: -2px;
 .detail-pane-scroll-content {
   flex: 1 1 auto;
   overflow-y: auto;
+  color: #000;
 }
+
 
 .detail-pane-footer-fixed {
   position: absolute;
@@ -455,6 +457,7 @@ margin-left: -2px;
 }
 
 
+
 /* .theme-dark #counter-button-width .btn {
     min-width: 28px !important;
     min-height: 28px !important;
@@ -514,4 +517,26 @@ padding-top: 14px !important;
     padding-top: 14px !important;
     padding-bottom: 14px !important;
     border-radius: 5px !important;
+} */
+
+
+.theme-dark #detail-pain-lable label.form-label.mb-0.fw-bold{
+    color: #34384f !important;
+}
+.theme-dark #detail-pain-lable label.form-label.mb-0.fw-normal{
+    color: #34384f !important;
+}
+
+.theme-dark .user-name-jane{
+color: #34384f;
+}
+.theme-dark .user-designation-jane{
+color: #646464;
+}
+/* .theme-dark #detail-pain-lable .theme-dark div p{
+    color: #34384f !important;
+} */
+
+/* .theme-dark div p{
+  color:#34384f !important;
 } */
