@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompDynamicProperties from "./rds-comp-dynamic-properties";
 
-
 const meta: Meta = {
     title: "Components/ Dynamic Properties",
     component: RdsCompDynamicProperties,
@@ -22,9 +21,9 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDynamicProperties>;
 
-
 export const Default: Story = {
     args: {
+        dynamic: "default",
         propertyHeaders: [
             { displayName: "Property Name", key: "propertyName", datatype: "text", sortable: true },
             { displayName: "Display Name", key: "dispName", datatype: "text", sortable: true, },
@@ -80,6 +79,36 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-
-
-
+export const Advanced: Story = {
+    args: {
+        dynamic: "advanced",
+        parameterList: [
+            {
+                label: "Demo 1",
+                val : "Demo 1"
+            },
+            {
+                label: "Demo 2",
+                val : "Demo 2"
+            },
+            {
+                label: "Demo 3",
+                val : "Demo 3"
+            },
+            {
+                label: "Demo 4",
+                val : "Demo 4"
+            }
+        ],
+        entityNames: [
+            { 
+                label: "User",
+                 val : "User" 
+         },
+         { 
+            label: "Authorization",
+            val : "Authorization"
+        },]
+    }
+} satisfies Story;
+//Advanced.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
