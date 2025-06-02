@@ -252,7 +252,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
             </div>
           </div>
         ) : props.style === "Real Estate" ? (
-          <div className="custom-content-wrapper">
+          <div className="custom-content-wrapper" id="details-pane-container">
             <div className="detail-pane-container p-3">
               <div className="" id="crausel-indicator">
                   <RdsCarousel
@@ -385,7 +385,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
             </div>
           </div>
         ) : props.style === "Selection" ? (
-          <div className="custom-content-wrapper">
+          <div className="custom-content-wrapper" id="detail-pane-container-2">
             <div className="detail-pane-container p-3" id="detail-pain-lable">
               <RdsLabel
                 fontWeight="bold"

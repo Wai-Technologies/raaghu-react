@@ -572,3 +572,12 @@ color: #646464;
 /* .theme-dark div p{
   color:#34384f !important;
 } */
+
+
+.theme-dark #details-pane-container .detail-pane-container {
+background-color: #fff !important;
+}
+
+.theme-dark #detail-pane-container-2 .detail-pane-container{
+background-color: #fff !important;
+}
