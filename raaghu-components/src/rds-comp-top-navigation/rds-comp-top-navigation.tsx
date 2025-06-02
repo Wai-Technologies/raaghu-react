@@ -343,9 +343,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             >
               {props.showLogo && ( 
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )
               )}
             </div>
@@ -364,9 +364,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     <div className="d-flex align-items-center">
                       {props.showLogo && (
                         props.top_nav_logo === "raaghu logo" ? (
-                          <img className="cursor-pointer pe-4" width={120} src={brandLogo} alt="raaghu-logo" />
+                          <img className="cursor-pointer pe-4 raaghu-logo-size" src={brandLogo} alt="raaghu-logo" />
                         ) : (
-                          <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                          <span className="custom-logo-text custom-logo-font">Your Logo</span>
                         )
                       )}
                       <ul className="nav-items-list list-unstyled d-flex align-items-center  mb-0">
@@ -488,9 +488,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div id="raaghuLogo" className="d-block m-2">
             {props.showLogo && (  
               props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
               ) : (
-                <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                <span className="custom-logo-text custom-logo-font" >Your Logo</span>
               )
             )}
             </div>
@@ -563,9 +563,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div id="raaghuLogo" className="d-block m-2">
             {props.showLogo && (  
               props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
               ) : (
-                <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                <span className="custom-logo-text custom-logo-font">Your Logo</span>
               )
             )}
             </div>
@@ -663,9 +663,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             <div id="raaghuLogo" className="d-block m-2">
             {props.showLogo && (  
               props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
               ) : (
-                <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                <span className="custom-logo-text custom-logo-font">Your Logo</span>
               )
             )}
             </div>
@@ -751,9 +751,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         <div id="raaghuLogo" className="d-block m-2 ">
             {props.showLogo && (  
               props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
               ) : (
-                <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                <span className="custom-logo-text custom-logo-font">Your Logo</span>
               )
             )}
             </div>
@@ -880,9 +880,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -944,9 +944,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1017,9 +1017,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1091,9 +1091,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1180,9 +1180,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1272,9 +1272,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1366,9 +1366,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1477,9 +1477,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
@@ -1547,9 +1547,9 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               className=""
             >
               {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" style={{ width: 120, height: 'auto' }} />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
                 ) : (
-                  <span className="custom-logo-text p-3" style={{ fontWeight: 'bold', fontSize: 22 }}>Your Logo</span>
+                  <span className="custom-logo-text p-3 custom-logo-font">Your Logo</span>
                 )}
             </div>
           )}
