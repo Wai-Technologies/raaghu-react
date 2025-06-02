@@ -41,7 +41,7 @@ text-align: start;
     .activity-item {
       display: flex;
       /* justify-content: space-between; */
-      padding: 8px 0;
+      padding: 8px 5px;
     }
     .activity-icon {
       margin-right: 8px;
@@ -49,6 +49,12 @@ text-align: start;
 
 .theme-light .nav-link.active:hover {
     background-color: #ffffff;
+}
+
+.activity-item:hover {
+  background-color: #EBDCFF;
+  border-radius: 5px;
+ 
 }
 
 /* Custom tab bar styling */
@@ -260,6 +266,9 @@ line-height: 17.213px; /* 155.556% */
 margin-top:65px !important;
 }
 
+
+
+
 .counter-button-left{
 margin-left: -2px;
 }
@@ -370,7 +379,9 @@ margin-left: -2px;
 .detail-pane-scroll-content {
   flex: 1 1 auto;
   overflow-y: auto;
+  color: #000;
 }
+
 
 .detail-pane-footer-fixed {
   position: absolute;
@@ -408,4 +419,165 @@ margin-left: -2px;
   background: '#fff';
   z-index:  10;
   padding: '16px 24px';
+}
+
+.theme-dark .detail-pane-container {
+  background: #000000;
+  color: #fff;
+  box-shadow:1px 1px 6px 0px rgba(255, 252, 252, 0.16); 
+}
+
+
+
+.theme-dark .custom-tab-btn {
+  color: #7D7D7D; 
+}
+
+.theme-dark .custom-tab-btn.active {
+  color: #D4BBFF;
+   
+}
+.theme-dark .section-heading-text{
+  color: #FCFCFC;
+}
+.theme-dark .section-heading-linebar{
+  color: #969696;
+}
+.theme-dark .activity-item{
+  color: #FCFCFC;
+}
+
+
+    
+.theme-dark #text-color-change label.form-label.mb-0.fw-bold {
+  color: #000000 !important;
+}                  
+
+.theme-dark #estate-description label.form-label.mb-0.fw-normal {
+  color: #000;
+}
+
+.theme-dark #lable-adult-children-text label.form-label.mb-0.fw-semibold {
+  color: #000;
+}
+
+.theme-dark  div#counter-back-color {
+  background-color: #FFFFFF !important;
+  
+   
+}
+
+/* .theme-dark div#counter-back-color.border.border-gray.rounded.p-1{
+
+} */
+
+.theme-dark  div#counter-back-color.border.border-gray.rounded.p-1.border {
+    background: #505050 0% 0% no-repeat padding-box;
+    border: 1px solid #dee2e6 !important;
+}
+/* .theme-dark .border {
+  border: none;
+} */
+
+.theme-dark #counter-back-color  .form-control{
+      background-color:white !important
+}
+
+.theme-dark #rds-counter-text input.form-control.text-center.border-0{
+  color: #969696 !important;
+  
+}
+
+
+
+/* .theme-dark #counter-button-width .btn {
+    min-width: 28px !important;
+    min-height: 28px !important;
+} */
+/* .theme-dark #counter-button-width.d-flex.gap-0{
+  align-items: center;
+} */
+
+/* .theme-dark #reduce-val .reduce{
+  stroke: red;
+} */
+
+.theme-dark .btn span {
+  color: #ffffff;
+}
+
+/* .theme-dark div#counter-back-color.d-flex.gap-0{
+  padding: 0.5px !important; 
+} */
+
+
+/* .theme-dark #counter-button-width .btn {
+    min-width: 30px !important;
+    min-height: 30px !important;
+} */
+
+/* .theme-dark #add-guest-btn .btn-sm{
+padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    border-radius: 5px !important;
+    height: 46px;
+} */
+/* 
+.theme-dark #counter-button-width .btn {
+      min-width: 28px !important;
+    min-height: 28px !important;
+     width: 28px !important;
+    height: 28px !important; 
+}
+ .theme-dark #add-guest-btn .btn-icon.btn-md {
+    padding: 0;
+    width: 28px !important;
+    height: 28px;
+}
+
+.theme-dark #add-guest-btn .width_element button {
+  flex:1;
+}
+
+.theme-dark #add-guest-btn .btn {
+    text-transform: capitalize !important;
+    min-width: 4.35rem;
+    align-items: center !important;
+}
+
+.theme-dark #add-guest-btn .btn-sm {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    border-radius: 5px !important;
+} */
+
+
+.theme-dark #detail-pain-lable label.form-label.mb-0.fw-bold{
+    color: #34384f !important;
+}
+.theme-dark #detail-pain-lable label.form-label.mb-0.fw-normal{
+    color: #34384f !important;
+}
+
+.theme-dark .user-name-jane{
+color: #34384f;
+}
+.theme-dark .user-designation-jane{
+color: #646464;
+}
+/* .theme-dark #detail-pain-lable .theme-dark div p{
+    color: #34384f !important;
+} */
+
+/* .theme-dark div p{
+  color:#34384f !important;
+} */
+
+
+.theme-dark #details-pane-container .detail-pane-container {
+background-color: #fff !important;
+}
+
+.theme-dark #detail-pane-container-2 .detail-pane-container{
+background-color: #fff !important;
 }
