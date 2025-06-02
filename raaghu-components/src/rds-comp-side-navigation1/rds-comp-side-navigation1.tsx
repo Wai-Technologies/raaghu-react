@@ -43,6 +43,7 @@ export enum Platform {
     navType?: NavType;
     platform?: Platform;
     lockIconVisible?: boolean; // Added lockIcon prop to control the visibility of the lock icon
+    logoVisible?: boolean; // New prop to control the visibility of the logo
 }
 
 const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
@@ -60,7 +61,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
     const logo = props.logo ? props.logo : "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
     const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
     const [activeItem, setActiveItem] = useState<string | null>(null);
-    const navigatepage = useNavigate();
+    // const navigatepage = useNavigate();
     const [showLockTooltip, setShowLockTooltip] = useState(false);
 
     const addFilter = (value: string) => {
@@ -236,7 +237,8 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
         path: string
     ): void {
         event.preventDefault();
-        navigatepage(path);
+        // navigatepage(path);
+        window.history.pushState(null, '', path);
     }
 
     const displayMenu = (items: any, parent: any, level: number) => {
@@ -341,7 +343,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                     id="sidebar"
                     ref={ref}
                     className={`bd-links text-capitalize sidebar overflow-x-hidden overflow-y-auto pt-xxl-0 pt-xl-0 pt-lg-0 pt-md-0 pt-4 shadow px-2 side-navigation
-                        ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between":""} `}
+                        ${props.toggleClass ? " show" : " hide"} ${collapse ? "toggle-sidebar-menu show" : "toggle" } ${props.layout === "LeftSideNavList" ? "d-flex flex-column justify-content-between": ""} `}
                 >
                     {props.lockIconVisible && (
                         <span
@@ -390,11 +392,11 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                         </span>
                     )}
                     <div>
-                        {props.layout != "RightSideNav" && (
+                        {props.layout != "RightSideNav" && props.logoVisible !== false && (
                             <>
-                                <br></br>
+                                <br />
                                 <img src={logo != "" ? logo : ""} className="ps-md-2 main-logo ps-1" alt={logo != "" ? "Raaghu Side Navigation" : ""}
-                                    style={{ height: "30px" }}></img>
+                                    style={{ height: "30px" }} />
                             </>
                         )}
 
