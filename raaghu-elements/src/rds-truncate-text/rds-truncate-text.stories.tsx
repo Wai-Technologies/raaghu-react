@@ -8,6 +8,10 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+      description: {
+  component: `The **Truncated Text** component displays a shortened version of long strings, helping maintain visual clarity and prevent overflow in layouts. It supports two interaction **states**—\`Default\` (shows full text) and \`Hover\` (truncates the text with an ellipsis, revealing the full content on hover). Developers can define a \`maxLength\` prop to control how many characters are visible before truncation occurs. This component is ideal for use in tables, cards, or any interface where space is limited but full content accessibility is required. It enhances usability and ensures content is displayed elegantly while respecting layout constraints.`
+}
+,
       source: {
         transform: (code: string) => {
           // Transform state enum

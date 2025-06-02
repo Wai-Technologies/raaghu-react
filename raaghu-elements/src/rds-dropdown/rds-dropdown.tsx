@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RdsIcon from "../rds-icon";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import './rds-dropdown.css';
@@ -68,6 +68,7 @@ export interface RdsDropdownProps {
 const RdsDropdown = (props: RdsDropdownProps) => {
   const [show, setShow] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleShow = () => {
     if (!props.disable) {
@@ -90,6 +91,19 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       setShow(false);
     }
   }, [props.state]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShow(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const renderContent = () => {
     switch (props.layout) {
@@ -203,7 +217,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
   return (
     <>
       {props.displayType === 'dropdown' && (
-        <div className={`dropdown ${(props.style === 'secondary' || props.style === 'outline') ? 'rectangle' : ''}  ${(props.shape === 'pill') ? 'pill' : ''} `  }>
+        <div className={`dropdown ${(props.style === 'secondary' || props.style === 'outline') ? 'rectangle' : ''}  ${(props.shape === 'pill') ? 'pill' : ''} `} ref={dropdownRef}>
           {props.tooltip ? (
             <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
               {renderButton()}

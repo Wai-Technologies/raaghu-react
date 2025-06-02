@@ -9,6 +9,12 @@ const meta: Meta = {
   component: RdsCompTenantRegister,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Tenant Register** component is a user-friendly and interactive UI element designed to facilitate the registration process for tenants in a multi-tenant system. It supports features such as selecting country flags, specifying tenant details, and customizing registration options. This component is ideal for SaaS platforms or applications requiring tenant onboarding functionality. Fully customizable, the Tenant Register component ensures seamless integration with your design system while providing an intuitive and efficient interface for tenant registration workflows.'
+    },
+},
   },
   tags: ['autodocs'],
   argTypes: {

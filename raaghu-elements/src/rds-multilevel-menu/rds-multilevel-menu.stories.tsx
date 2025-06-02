@@ -7,6 +7,10 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
         docs: {
+            description: {
+        component:
+            'The **Multilevel Menu** element is a customizable navigation component for displaying hierarchical menus with multiple levels of nested options. It supports different menu types (`Selectable`, `Expandable`), states (`Default`, `Hover`, `Selected`), and sizes (`Default`, `Large`). The menu can be configured to allow selection or expansion of menu items, and is ideal for sidebars, navigation panels, or any interface requiring organized, multi-level navigation. Flexible props allow you to tailor its appearance and behavior to fit your application’s needs and design system.'
+    },
             source: {
                 transform: (code: string) => {
                     // Transform boolean props to show without ={true}

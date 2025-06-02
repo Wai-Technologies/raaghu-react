@@ -7,6 +7,17 @@ const meta: Meta = {
     component: RdsPrice,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Price** component is used to display product pricing, including original and discounted 
+  prices. It accepts props like \`mrp\` (the maximum retail price), \`currentPrice\` (the final selling price), 
+  and \`withDiscount\` (a boolean flag to show if a discount should be visually highlighted). It also supports 
+  layout types such as \`priceOnRight\` to control price alignment. This component is ideal for e-commerce 
+  interfaces and pricing sections where clear, dynamic price representation enhances user understanding and 
+  conversion potential.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

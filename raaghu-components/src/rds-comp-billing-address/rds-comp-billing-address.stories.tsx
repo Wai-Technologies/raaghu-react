@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompBillingAddress,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Billing Address** component is a customizable UI element designed to capture and manage billing address details within your application. It supports features such as a `countryList` array to display a list of countries and an `IndianStateList` array to provide state options for India. Each list includes properties like `option` for the display name and `value` for the corresponding code, ensuring structured and accurate data handling. This component is ideal for e-commerce platforms, payment systems, or any interface requiring user-friendly and structured address input. Fully customizable, the Billing Address component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

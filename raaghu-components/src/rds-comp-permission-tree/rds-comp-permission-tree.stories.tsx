@@ -7,6 +7,12 @@ const meta: Meta = {
     component: TreeNode,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Permission Tree** component is a customizable UI element designed to display and manage hierarchical permission structures within your application. It supports features such as nested nodes, selectable items, and expandable/collapsible levels, making it ideal for role-based access control systems, administrative dashboards, or any application requiring structured permission management. Fully customizable, the Permission Tree component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

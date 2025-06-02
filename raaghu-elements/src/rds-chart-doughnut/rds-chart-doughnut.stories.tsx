@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsDoughnutChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: 'The **Doughnut Chart** element visually represents data as proportional segments of a circle, making it easy to compare different categories. It accepts customizable **labels**, **datasets**, titles, and subtitles to provide clear context. Fully responsive and configurable, it supports legends, tooltips, animations, and center labels for enhanced clarity. This component is designed for consistent use in dashboards and reports, enabling effective communication of data distribution and comparisons.'
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompTestimonials,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Testimonials** component is a versatile and visually engaging UI element designed to showcase user feedback, reviews, or client testimonials. It supports multiple display types, such as basic and advanced layouts, allowing you to present testimonials with attributes like images, names, roles, captions, and descriptions. The component also includes carousel functionality for dynamic presentation. Fully customizable, the Testimonials component ensures seamless integration with your design system while providing an intuitive and appealing interface for highlighting user experiences and endorsements.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

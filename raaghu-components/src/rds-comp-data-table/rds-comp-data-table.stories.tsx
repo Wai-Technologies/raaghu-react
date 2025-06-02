@@ -7,6 +7,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Datatable** component is a dynamic and customizable table interface designed to handle structured data with ease. It supports advanced features like \`checkbox\` and \`radio button\` selection, column sorting, action buttons with configurable \`actionPosition\` (Left/Right), and \`actionColumnStyle\` (ShowDots, IconButtons). The component accepts rich column definitions via \`tableHeaders\` and renders versatile data types such as \`text\`, \`status\`, \`progressbar\`, \`avatar\`, and custom badge indicators. Developers can bind structured data through \`tableData\`, enabling real-time interactivity in dashboards, admin panels, and data-centric interfaces. Fully reusable and design-consistent, it adapts to a wide range of UI requirements while maintaining flexibility and performance.`
+}
+,
             source: {
                 transform: (code: string) => {
                     // Transform action position enum

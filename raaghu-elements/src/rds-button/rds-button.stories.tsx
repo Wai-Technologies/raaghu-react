@@ -12,6 +12,11 @@ const meta: Meta = {
     component: RdsButton,
     parameters: {
         layout: "padded",
+        docs: {
+            description: {
+               component: 'The **Button** element is a core interactive UI control that allows users to **trigger actions** or events. It supports multiple styles, sizes, and shapes, along with features like icons, badges, and loading states. The element offers flexibility through icon-only and text-only modes, as well as customization of placement and behavior. This makes it a reusable and essential tool for building **responsive** and accessible user interfaces.'
+  },
+        },
     },
     tags: ["autodocs"],
     argTypes: {

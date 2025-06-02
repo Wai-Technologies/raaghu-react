@@ -21,6 +21,12 @@ const meta: Meta<typeof RdsCompAppShell> = {
   component: RdsCompAppShell,
   parameters: {
     layout: "padded",
+    docs: {
+    description: {
+        component: 
+            'The **Application Shell** component is a versatile and customizable UI layout designed to provide a structured framework for building applications. It supports features such as top navigation, side navigation, and a combination of both, enabling seamless navigation and content organization. This component is ideal for applications requiring a consistent and responsive layout, such as admin dashboards, SaaS platforms, or enterprise systems. Fully customizable, the Application Shell component ensures seamless integration with your design system while offering an intuitive and user-friendly interface for managing application layouts effectively.'
+    },
+},
   },
   tags: ["autodocs"],
   argTypes: {},

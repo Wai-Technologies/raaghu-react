@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'centered',
         docs: {
+            description: {
+  component: `The **Tooltip** component provides contextual information or guidance when users hover over, focus on, or click an element. It supports multiple arrow **styles** such as \`NoArrow\`, \`MiddleTopArrow\`, \`MiddleBottomArrow\`, \`LeftArrow\`, \`RightArrow\`, and their positional variations to visually indicate the tooltip's anchor point relative to the target element. The tooltip content is customizable via the \`label\` prop, allowing clear and concise messaging. It enhances user experience by offering non-intrusive hints and explanations within interfaces, helping users understand functionality without cluttering the UI. This component integrates seamlessly with buttons, icons, and other interactive elements, aligning with the design system's accessibility and usability standards.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(NoArrow|MiddleBottomArrow|MiddleTopArrow|LeftArrow|RightArrow|LeftTopArrow|RightTopArrow|LeftBottomArrow|RightBottomArrow)"/g, '{TooltipStyle.$1}');

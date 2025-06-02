@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompEmail,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Email** component is a simple and customizable UI element designed to handle email-related functionality within your application. It provides a flexible interface that can be extended to include features such as email input fields, validation, and sending email actions. This component is ideal for forms, user account settings, or any interface requiring email-related interactions. Fully customizable, the Email component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

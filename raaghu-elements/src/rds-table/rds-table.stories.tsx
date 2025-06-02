@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsTable,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Table** component renders structured data in a customizable tabular format. It supports various styling options including striped rows, bordered cells, and scrollable height with configurable table height. The component allows setting color variants for the table, header text, and icons, providing flexible theming such as primary, secondary, success, info, warning, danger, dark, light, or none. The table headers are defined via \`headerDatas\`, an array specifying display name, data type (text, icon, price, textNumber), and keys to map data. Rows are passed as \`tableDatas\`, an array of objects matching header keys. This component is ideal for displaying diverse datasets with icons and formatted text, enabling clear, responsive, and accessible data representation in dashboards, reports, or admin panels.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

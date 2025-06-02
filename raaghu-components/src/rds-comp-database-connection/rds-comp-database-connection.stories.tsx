@@ -34,6 +34,12 @@ const meta: Meta = {
     component: RdsCompDatabaseConnection,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Database Connection** component is a customizable UI element designed to facilitate the configuration and management of database connections within your application. It provides a structured interface for users to input and manage connection details, such as database type, host, port, username, and password. This component is ideal for administrative dashboards, system configuration panels, or any interface requiring database connection setup. Fully customizable, the Database Connection component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

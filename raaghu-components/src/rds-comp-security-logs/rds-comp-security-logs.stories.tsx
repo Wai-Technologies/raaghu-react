@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompSecurityLogs,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Security Logs** component is a customizable UI element designed to display and manage security-related logs within your application. It provides a structured interface for presenting log details such as time, actions, IP address, browser/OS, application, identity, and user information. This component is ideal for administrative dashboards, security monitoring systems, or any application requiring detailed tracking of user activities and security events. Fully customizable, the Security Logs component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

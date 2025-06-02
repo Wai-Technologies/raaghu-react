@@ -7,7 +7,12 @@ const meta: Meta = {
     component: RdsCounter,
     parameters: {
         layout: 'padded',
+        
         docs: {
+            description: {
+        component:
+            'The **Counter** component is an interactive numeric input element for displaying and adjusting values within a specified range. It supports multiple layout options (`Right Side`, `Side to Side`, `Bottom`), customizable minimum and maximum values, width, and color variants. The component can display an optional title, be marked as mandatory, and show a placeholder when empty. It also supports different states (`Default`, `Selected`, `Disabled`) to reflect user interaction or availability. The Counter element is ideal for forms, quantity selectors, and any interface where users need to increment or decrement a value easily, with flexible props for appearance and behavior.'
+    },
             source: {
                 transform: (code: string) => {
                     // Transform layout enum - remove spaces and transform

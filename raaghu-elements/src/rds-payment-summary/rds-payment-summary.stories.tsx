@@ -5,6 +5,14 @@ import RdsPaymentSummary from "./rds-payment-summary";
 const meta: Meta = {
     title: "Components/Payment Summary",
     component: RdsPaymentSummary,
+    parameters:{
+        docs:{
+            description: {
+  component: `The **Payment Summary** component presents a detailed breakdown of pricing information for a selected plan or purchase. The \`summaryDetailsList\` prop is an object that holds key financial details, including \`planName\` (the selected subscription or product plan), \`licenseTenureName\` (duration of the license), and \`licensePrice\` (base cost of the license). It also includes fields like \`additionalDevelopersCount\`, \`additionalDevelopersPrice\`, and \`additionalDevelopersTotalPrice\` to account for added user licenses. Tax and discount fields—\`taxPercentage\`, \`taxPrice\`, \`discountPercentage\`, and \`discountPrice\`—are used to calculate the final payable amount, which is represented by \`totalNetPrice\`. This component is ideal for checkout pages, invoices, or any place where transparent pricing details need to be shown to users.`
+}
+
+        }
+    },
     tags: ['autodocs'],
     argTypes: {
     }

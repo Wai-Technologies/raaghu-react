@@ -9,6 +9,12 @@ const meta: Meta = {
     component: RdsCompIntegration,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Integration** component is a customizable UI element designed to display and manage a list of third-party integrations within your application. It supports an `integrationList` array to define integration details, including properties such as `title`, `subtitle`, `icon`, `route`, and `routeLabel`. This component is ideal for use cases such as integration dashboards, automation tools, or any interface requiring structured and interactive integration management. Fully customizable, the Integration component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

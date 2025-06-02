@@ -7,7 +7,12 @@ const meta: Meta = {
     component: RdsCompTransferList,
     parameters: {
         layout: 'padded',
+        
         docs: {
+             description: {
+        component: 
+            'The **Transfer List** component is a dynamic and interactive UI element designed to facilitate the transfer of items between two lists. It supports features such as "Select All" functionality with configurable modes (e.g., default and advanced), making it ideal for applications requiring efficient item selection and management. Fully customizable, the Transfer List component ensures seamless integration with your design system while providing a user-friendly interface for managing and transferring data between lists effectively.'
+    },
             source: {
                 transform: (code: string) => {
                     // Transform SelectAllType enum - remove spaces and transform

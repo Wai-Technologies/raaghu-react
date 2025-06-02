@@ -13,6 +13,11 @@
   height: 9px !important;
   border: 0px !important;
   border-radius: 8px !important;
+  background-color: #CDCDCD !important; /* Non-active button color */
+}
+
+.carousel-indicators-Circle .active {
+  background-color: #7825E9 !important; /* Active button color */
 }
 
 .carousel-indicators-line [data-bs-target] {
@@ -20,6 +25,7 @@
   height: 5px !important;
   border: 0px !important;
   border-radius: 4px !important;
+  
 }
 
 .carousel-indicators .active {
