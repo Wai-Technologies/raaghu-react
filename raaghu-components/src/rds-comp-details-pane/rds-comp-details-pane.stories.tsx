@@ -20,17 +20,17 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDetailsPane>;
 
-export const Default: Story = {
-    args: {
-        headerText: "My Activity",
-        historyTabLabel: "History",
-        favouritesTabLabel: "Favourites",
-        addtoscreen: "Add to Screen",
-        addtofolder: "Add to Folder",
-        style: "Favourites"
-    }
-} satisfies Story;
-Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
+// export const Default: Story = {
+//     args: {
+//         headerText: "My Activity",
+//         historyTabLabel: "History",
+//         favouritesTabLabel: "Favourites",
+//         addtoscreen: "Add to Screen",
+//         addtofolder: "Add to Folder",
+//         style: "Favourites"
+//     }
+// } satisfies Story;
+// Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
 
 
 export const Favourites: Story = {
