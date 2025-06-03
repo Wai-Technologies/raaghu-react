@@ -24,9 +24,9 @@ export interface RdsCompProfileProps {
     profileEditData?: any;
     onSaveHandler?: (data: any) => void;
     profilePictureData?: any;
-    ProfileType: number;
+    ProfileType?: number;
     postProfilePic?: (file: any, type: number) => void;
-    profilePicture: any;
+    profilePicture?: any;
     onPictureSaveHandler?: (data: any) => void;
     // onClose?: (Event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
