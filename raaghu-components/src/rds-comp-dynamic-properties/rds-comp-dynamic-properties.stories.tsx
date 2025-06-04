@@ -78,6 +78,7 @@ export const Default: Story = {
         actions: [{ id: "Download", displayName: "Download" }],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['propertyHeaders', 'propertyData', 'actions'] } };
 
 export const Advanced: Story = {
     args: {
@@ -111,4 +112,4 @@ export const Advanced: Story = {
         },]
     }
 } satisfies Story;
-//Advanced.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
+Advanced.parameters = { controls: { include: ['parameterList', 'entityNames', 'reset', 'onSelectedItems', 'offcanvasId', 'entityFields'] } };

@@ -27,32 +27,32 @@ export const ResourceBasic: Story = {
         identity: "resourceBasic"
     }
 } satisfies Story;
-// ResourceBasic.parameters = { controls: { include: [] } };
+ResourceBasic.parameters = { controls: { include: ["identityResourceBasicData", "onSaveHandler", "reset"] } };
 
 export const ClientBasic: Story = {
     args: {
         identity: "clientBasic"
     }
 } satisfies Story;
-// ClientBasic.parameters = { controls: { include: [] } };
+ClientBasic.parameters = { controls: { include: ["clientData", "onSaveHandler"] } };
 
 export const LdapManagement: Story = {
     args: {
         identity: "ldapManagement"
     }
 } satisfies Story;
-// LdapManagement.parameters = { controls: { include: [] } };
+LdapManagement.parameters = { controls: { include: ["ldapData", "onLdapSettingsSubmit", "onSaveHandler", "reset"] } };
 
 export const Management: Story = {
     args: {
         identity: "management"
     }
 } satisfies Story;
-// Management.parameters = { controls: { include: [] } };
+Management.parameters = { controls: { include: ["onIdentitySettingsSubmit", "lockoutSettings", "passwordSettings", "onSaveHandler", "signSettings", "userSettings"] } };
 
 export const OauthManagement: Story = {
     args: {
         identity: "oauthManagement"
     }
 } satisfies Story;
-// OauthManagement.parameters = { controls: { include: [] } };
+OauthManagement.parameters = { controls: { include: ["oauthData", "onOauthDataSubmit", "reset"] } };

@@ -57,3 +57,4 @@ export const DetailReceipt: Story = {
     }
   }
 } satisfies Story;
+DetailReceipt.parameters = { controls: { include: ["invoiceDetails"] } };
