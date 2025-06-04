@@ -8,6 +8,13 @@ const meta: Meta = {
     component: RdsCompDynamicEntityProperty,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Dynamic Entity Properties** component is a customizable UI element designed to manage and display dynamic properties for entities within your application. It supports features such as a `parameterList` array to define available parameters with properties like `label` and `val`, and an `entityNames` array to specify the entities associated with these properties. This component is ideal for administrative dashboards, configuration panels, or any interface requiring dynamic and flexible property management for entities. Fully customizable, the Dynamic Entity Properties component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
+
     },
     tags: ['autodocs'],
     argTypes: {

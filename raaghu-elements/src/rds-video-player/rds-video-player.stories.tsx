@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsVideoPlayer,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Video Player** element offers a streamlined way to embed video content within user interfaces. It supports various video sources including \`Default\` (MP4), \`YouTube\`, and \`Vimeo\`, allowing for versatile media integration. Developers can configure properties such as \`width\`, \`height\`, \`autoplay\`, and \`muted\` to tailor playback behavior. The \`videoLink\` defines the video source, while the \`type\` determines the rendering logic specific to the platform. As a reusable UI element, it is ideal for dashboards, tutorials, and promotional content, delivering consistent media experiences across devices while aligning with design system standards.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

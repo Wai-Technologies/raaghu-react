@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+        component:
+            'The **Dropdown List** element is a customizable UI component for selecting one or more options from a list. It supports multiple sizes (`Default`, `Small`, `Large`), styles (`Default`, `Bottom Line`), and states (`Default`, `Expanded`, `Selected`, `Disabled`). The dropdown can display an optional title, placeholder, icons, and hint text, and supports both single and multi-select modes. Additional features include a built-in search bar for filtering options and the ability to mark the field as mandatory. Flexible props allow you to tailor its appearance and behavior, making it ideal for forms, filters, and any interface where users need to select from a list of options.'
+    },
             source:{
                 transform: (code: string) => {
                     // Transform style enum - remove spaces and transform

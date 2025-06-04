@@ -32,7 +32,6 @@ export enum BreadcrumbState {
   Selected = "Selected",
 }
 
-
 export interface BreadcrumbProps {
   breadcrumbItems: any[];
   title?: string;
@@ -46,13 +45,15 @@ export interface BreadcrumbProps {
   state?: BreadcrumbState;
   borderColor?: string; // Add borderColor prop
   borderPlacement?: string; // Add border-placement prop
+  titles?: string[]; // Array of titles for each breadcrumb level
+  icons?: string[];  // Array of icons for each breadcrumb level
 }
 
-const handleIconClick = (icon: any) => {
-};
+const handleIconClick = (icon: any) => {};
 
 const RdsBreadcrumb = (props: BreadcrumbProps) => {
   const [data, setData] = useState(() => {
+    
     const initialData = props.breadcrumbItems.map((item, index) => ({
       ...item,
       active: index === props.breadcrumbItems.length - 1, // Set the last item as active by default
@@ -141,27 +142,33 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 onMouseLeave={() => setHoveredItem(null)}
                 style={breadItem.active ? (props.borderPlacement === "top" ? { borderTop: `2px solid ${props.borderColor}` } : { borderBottom: `2px solid ${props.borderColor}` }) : {}}
               >
-                {props.showIcon && props.icon && (
-                  <span className="me-2">
-                    <RdsIcon
-                      name={props.icon}
-                      fill={breadItem.iconFill}
-                      stroke={breadItem.iconstroke}
-                      width={breadItem.iconWidth}
-                      height={breadItem.iconHeight}
-                      colorVariant={breadItem.active ? breadItem.iconColor : ""}
-                      isCursorPointer={true}
-                      onClick={() => handleIconClick(breadItem.icon)}
-                    />
-                  </span>
-                )}
+                {(() => {
+                  const resolvedIconName = props.icons && props.icons.length > index ? props.icons[index] : breadItem.icon || "IN";
+                 
+                  return (
+                    props.showIcon && (
+                      <span className="me-2">
+                        <RdsIcon
+                          name={resolvedIconName}
+                          fill={breadItem.iconFill}
+                          stroke={breadItem.iconstroke}
+                          width={breadItem.iconWidth}
+                          height={breadItem.iconHeight}
+                          colorVariant={breadItem.active ? breadItem.iconColor : ""}
+                          isCursorPointer={true}
+                          onClick={() => handleIconClick(breadItem.icon)}
+                        />
+                      </span>
+                    )
+                  );
+                })()}
                 <a
                   href={breadItem.route}
                   className="text-decoration-none"
                   onClick={(e) => e.preventDefault()}
                   aria-disabled="true"
                 >
-                  {props.title || breadItem.label}
+                  {props.titles && props.titles[index] ? props.titles[index] : breadItem.label || "Default Value"} 
                 </a>
                 {props.topnavPlusIcon && (
                   <span className="ps-2">

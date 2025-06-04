@@ -20,6 +20,9 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+        description: {
+    component: 'The **Card** element is a flexible and reusable container used to group related information in a visually appealing format. It supports a variety of **types**, such as cards with images, charts, maps, and data tables, enabling rich content presentation. With configurable **layouts**, states, and styles, it plays a key role in building structured and interactive UI sections across an application.'
+},
       source: {
         transform: (code: string) => {
           return code.replace(/"(With Image|With Ring Chart|With Map|With Graph|With Badges|With Button|With Hyperlink|With Avatar|With Tags|With Boolean Chart|With Line Chart|With DataTable|With Chart|With Table|Advanced)"/g, '{CardTypes.$1}');

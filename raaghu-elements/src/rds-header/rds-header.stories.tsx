@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsHeader,
   parameters: {
     layout: "padded",
+    docs:{
+      description: {
+  component: `The **Header** component renders a customizable heading element with support for six heading sizes (h1–h6) to control semantic importance and typography scale. It offers multiple color variants such as \`primary\`, \`success\`, \`danger\`, and others for consistent theming across your app. Additionally, the component can display an optional icon with configurable visibility, position (left, right, top, bottom), size, and styling options (fill and stroke), making it ideal for enhanced headers with visual context or status indicators.`
+}
+
+    }
   },
   tags: ["autodocs"],
   argTypes: {

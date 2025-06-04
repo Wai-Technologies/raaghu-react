@@ -8,6 +8,12 @@ const meta: Meta = {
   component: RdsProgressBar,
   parameters: {
     layout: 'padded',
+  docs: {
+    description: {
+        component:
+            'The **Progress Bar** element is a versatile and customizable component for visually representing progress or completion status in your application. It supports multiple roles (`single`, `multiple`, `circular`, `dash`, `block`, `stepper`), color variants, striped and animated styles, and adjustable width and height. The progress bar can display steps, completed steps, percentage labels, and icons, and supports both linear and circular formats. You can provide multiple progress values for complex scenarios, and choose between filled or outlined stepper variants. This element is ideal for dashboards, forms, uploads, or any interface where you need to show progress, and can be tailored to fit your design system requirements.'
+    }
+}
   },
   tags: ['autodocs'],
   argTypes: {

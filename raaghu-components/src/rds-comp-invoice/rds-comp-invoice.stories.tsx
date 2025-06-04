@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompInvoice,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Invoice** component is a customizable UI element designed to display invoice details in a structured and user-friendly format. It can be used to present billing information, transaction details, and payment summaries. This component is ideal for e-commerce platforms, billing systems, or any application requiring invoice generation and presentation. Fully customizable, the Invoice component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

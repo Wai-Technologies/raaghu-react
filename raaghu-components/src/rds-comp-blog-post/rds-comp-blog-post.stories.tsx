@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompBlogPost,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Blog List** component is a customizable UI element designed to display and manage a list of blog posts within your application. It supports features such as `tableHeaders` to define the structure of the table, including properties like `displayName`, `key`, `datatype`, `dataLength`, `required`, and `sortable`. The `tableData` array allows you to populate the table with blog details, including fields like `details`, `blog`, `title`, `slug`, `CreationTime`, and `status`. Additionally, the component supports `actions` for user interactions, such as editing or deleting blog posts, and includes pagination with configurable `recordsPerPage`. Ideal for content management systems or blogging platforms, the Blog List component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

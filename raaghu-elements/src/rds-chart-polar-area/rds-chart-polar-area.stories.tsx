@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsPolarAreaChart,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 'The **Polar Area Chart** element is a circular chart that represents data as segments of a polar area. Each segment’s size is proportional to its value, making it ideal for comparing data across multiple categories in a radial layout. It supports customizable **datasets**, allowing users to define data values, colors, and labels for each segment. The chart also provides extensive configuration options via the **options** property, including animations (e.g., rotation and scaling), legends, tooltips, and responsiveness. This component is fully configurable and visually appealing, making it a great choice for dashboards and reports where radial data visualization is required.'
+    }
+}
+        
     },
     tags: ['autodocs'],
     argTypes: {

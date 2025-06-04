@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsCompContactInformation,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Contact Information** component is a customizable UI element designed to capture and display contact details within your application. It provides a structured interface for users to input or view information such as phone numbers, email addresses, and physical addresses. This component is ideal for user profiles, account settings, or any interface requiring organized and user-friendly contact information management. Fully customizable, the Contact Information component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

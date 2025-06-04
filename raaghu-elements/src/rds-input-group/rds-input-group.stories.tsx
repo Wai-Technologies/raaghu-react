@@ -13,6 +13,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Input Group** component combines a text input field with an optional action button, designed for forms and interactive UI elements. It supports configurable \`size\` options ("small", "medium", "large") for consistent sizing across the design system. The \`colorVariant\` prop applies different color themes to the button, aligning with the system’s color palette. The input field can display a placeholder and an optional label, whose position can be set to "top" or "bottom" for flexible layout. The button can be styled with an outline variant for subtle emphasis. This component is ideal for scenarios requiring user input paired with a clear call-to-action button, such as search bars, form submissions, or filters, ensuring accessibility and visual consistency across your application.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(small|medium|large)"/g, '{InputGroupSize.$1}');

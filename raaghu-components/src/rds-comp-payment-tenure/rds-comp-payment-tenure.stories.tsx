@@ -9,6 +9,12 @@ const meta: Meta = {
   component: RdsCompPaymentTenure,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component: 
+            'The **Payment Tenure** component is a customizable UI element designed to display and manage payment tenure options within your application. It supports features such as listing multiple tenure plans with details like duration, discount percentage, and tax percentage. This component is ideal for subscription services, licensing platforms, or any application requiring flexible payment tenure management. Fully customizable, the Payment Tenure component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ['autodocs'],
   argTypes: {

@@ -15,6 +15,12 @@ const meta: Meta = {
     component: RdsStepper,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Stepper** component provides a flexible multi-step navigation interface to guide users through sequential processes. It supports various stepper types such as \`simple\`, \`withcheckbox\`, \`dash\`, \`block\`, \`number stepper\`, and \`advance\`, each with customizable step labels, subtitles, and detailed states (\`default\`, \`inprogress\`, \`completed\`, \`error\`). The component allows configuration of the number of steps, current active step, stepper height, visual variants (\`filled\`, \`outlined\`), and optional icons with control over icon name, fill, stroke, and size. It is ideal for workflows, forms, onboarding flows, or any use case requiring clear step progression and status visualization.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

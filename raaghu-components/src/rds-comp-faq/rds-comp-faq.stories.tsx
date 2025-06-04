@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompFaq,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **FAQ** (Frequently Asked Questions) component is a customizable UI element designed to display a list of common questions and their corresponding answers in a structured and user-friendly format. It supports a `questionList` array to define questions and answers, with properties like `question` and `description`. Additionally, it includes a `QuestionHeading` object to display a heading and description for the FAQ section. This component is ideal for help centers, support pages, or any interface requiring an organized FAQ section. Fully customizable, the FAQ component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

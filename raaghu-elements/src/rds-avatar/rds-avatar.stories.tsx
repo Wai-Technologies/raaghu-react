@@ -14,6 +14,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs:{
+   description: {
+  component: `The Avatar element is a flexible UI component used to display **user identities** through images, initials, or icons. It supports multiple sizes, shapes, and styles, including options for borders and group stacking. Avatars can optionally show user names, roles, and status indicators like activity rings or online dots. This component enhances **recognition** and **consistency** in profiles, lists, or chat interfaces.`,
+
+},
             source:{
                 transform: (code: string) => {
                     code = code.replace(/"(smallest|small|medium|large|largest)"/g, '{AvatarSize.$1}');

@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompDynamicProperties,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Dynamic Properties** component is a customizable UI element designed to manage and display dynamic properties for entities within your application. It supports features such as `propertyHeaders` to define the structure of the table with fields like `Property Name`, `Display Name`, `Input Type`, and `Permission`. Additionally, it uses a `propertyData` array to populate the table with dynamic property details, including their names, input types, and associated permissions. This component is ideal for administrative dashboards, configuration panels, or any interface requiring flexible and structured property management. Fully customizable, the Dynamic Properties component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

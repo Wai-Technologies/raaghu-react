@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs :{
+            description: {
+        component:
+            'The **Datepicker** component is an interactive UI element for selecting dates in various formats. It supports multiple display styles (`Dropdown`, `Selector`), layout options (`Default`, `Month Picker`, `Year Picker`, `Multi Month`), and states (`Default`, `Expanded`, `Selected`). Users can customize the icon, show an optional title, mark the field as mandatory, and set a placeholder for empty input. The component offers flexible props for appearance and behavior, making it suitable for forms, scheduling tools, and any interface where efficient date selection is required.'
+    },
             source:{
                 transform: (code: string) => {
                     // Transform style enum - remove spaces and transform

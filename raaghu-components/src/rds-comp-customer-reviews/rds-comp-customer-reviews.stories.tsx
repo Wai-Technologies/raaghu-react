@@ -31,6 +31,12 @@ const meta: Meta = {
     component: RdsCompCustomerReviews,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Customer Reviews** component is a customizable UI element designed to display customer feedback in a structured and visually appealing manner. It supports an `itemList` array to define review data, where each item includes properties like `value` (rating) and `count` (number of reviews). This component is ideal for e-commerce platforms, product pages, or any interface requiring a summary of customer ratings and reviews. Fully customizable, the Customer Reviews component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

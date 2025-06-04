@@ -59,6 +59,12 @@ const meta: Meta = {
     component: RdsCompApiScopeBasicResource,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Api Scope Basic Resource** component is a customizable UI element designed to manage and configure basic settings for API scopes within your application. It supports features such as defining resource data through properties like `Name`, `Displayname`, and `Description`, along with a checklist of options to enable or disable specific attributes. The checklist includes options such as `Enables`, `Required`, `Emphasize`, and `Show in discovery Documents`, allowing for granular control over the scope’s behavior. Fully customizable, this component is ideal for administrative interfaces or API management dashboards, simplifying the process of configuring API scopes while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

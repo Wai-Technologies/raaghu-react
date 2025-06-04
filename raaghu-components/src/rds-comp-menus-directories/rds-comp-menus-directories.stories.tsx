@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompMenuDirectory,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Menus Directories** component is a customizable UI element designed to display and manage hierarchical menu structures within your application. It supports nested menu items through an `items` array, where each item can have properties like `id`, `displayName`, and `children` for submenus. This component is ideal for applications requiring multi-level navigation, directory management, or any interface with structured menu hierarchies. Fully customizable, the Menus Directories component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

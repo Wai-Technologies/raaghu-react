@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompProfilePicture,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Profile Picture** component is a customizable UI element designed to display and manage user profile pictures within your application. It supports features such as displaying a default or user-uploaded profile image, making it ideal for user account management, profile customization, or any application requiring a user-friendly interface for profile picture handling. Fully customizable, the Profile Picture component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

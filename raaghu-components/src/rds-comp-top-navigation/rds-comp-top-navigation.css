@@ -43,3 +43,11 @@
 .col {
   flex: none !important;
 }
+.custom-logo-font{
+  font-weight: bold;
+  font-size: 22px;
+}
+.raaghu-logo-size{
+  width: 120px;
+  height: auto;
+}
