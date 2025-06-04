@@ -26,6 +26,7 @@ export const Default: Story = {
     type:"default",
   }
 } satisfies Story;
+Default.parameters = { controls: { include: [ "newPageData", "reset", "onSaveHandler", "onCancel"]},};
 
 export const Pages: Story = {
     args: {
@@ -95,10 +96,11 @@ export const Pages: Story = {
       // onPaginationHandler: fn()
     }
 } satisfies Story;
-
+Pages.parameters = { controls: { include: [ "actionPosition", "tableHeaders", "tableData", "actions", "pagination", "recordsPerPage", "recordsPerPageSelectListOption", "onPaginationHandler", "fontWeight", "enablecheckboxselection", "enableRadioButtonselection", "illustration", "noDataTilte", "noDataheaderTitle", "classes", "swapRows", "isSwap", "isClickable", "onActionSelection", "onRowSelect", "onRowClick", "tableStyle", "alignmentType", "totalRecords", "actionColumnStyle"]},};
 
 export const pageNotFound: Story = {
   args: {
     type:"pageNotFound",
   }
 } satisfies Story;
+pageNotFound.parameters = { controls: { include: []},};

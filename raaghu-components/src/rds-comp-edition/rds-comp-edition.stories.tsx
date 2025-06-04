@@ -42,6 +42,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: [ "displayType", "planListLabel", "planList", "EditionItems", "features", "editionName", "reset", "onSaveHandler", "accountTwoFactorSettings"]},};
 
 export const Advanced: Story = {
     args: {
@@ -63,7 +64,7 @@ export const Advanced: Story = {
         ],
     }
 } satisfies Story;
-
+Advanced.parameters = { controls: { include: [ "displayType", "planListLabel", "planList", "EditionItems", "features", "editionName", "reset", "onSaveHandler", "accountTwoFactorSettings"]},};
 
 export const Information: Story = {
     args: {
@@ -116,7 +117,7 @@ export const Information: Story = {
                 ],
     }
 } satisfies Story;
-
+Information.parameters = { controls: { include: [ "sizeDataWithDescription", "radioItems", "onSaveHandler", "edition", "reset"]},};
 
 export const List: Story = {
     args: {
@@ -166,3 +167,4 @@ export const List: Story = {
         recordsPerPageSelectListOption: true
     }
 } satisfies Story;
+List.parameters = { controls: { include: [ "tableHeaders", "tableData", "actions", "pagination", "recordsPerPage", "recordsPerPageSelectListOption", "enablecheckboxselection"]},};

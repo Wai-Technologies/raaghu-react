@@ -27,6 +27,7 @@ export const Basic: Story = {
         application: "basic"
     }
 } satisfies Story;
+Basic.parameters = { controls: { include: [ "basicData", "onSuccess", "reset", "editApplicationData"]},};
 
 export const Scopes: Story = {
     args: {
@@ -50,7 +51,7 @@ export const Scopes: Story = {
         ]
     }
 } satisfies Story;
-
+Scopes.parameters = { controls: { include: [ "scopesList", "editScopeList"]},};
 
 export const workflows: Story = {
     args: {
@@ -64,3 +65,4 @@ export const workflows: Story = {
         ]
     }
 } satisfies Story;
+workflows.parameters = { controls: { include: [ "typeList", "consentType", "basicData", "handleSubmit", "reset", "editApplicationData"]},};

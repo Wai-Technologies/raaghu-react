@@ -26,18 +26,21 @@ export const Basics: Story = {
     user: "basics",
   },
 } satisfies Story;
+Basics.parameters = { controls: { include: [ "userData", "onSaveHandler", "reset"]},};
 
 export const Claim: Story = {
   args: {
     user: "claim",
   },
 } satisfies Story;
+Claim.parameters = { controls: { include: [ "userClaimData", "reset", "onSaveHandler"]},};
 
 export const Delegations: Story = {
   args: {
     user: "delegations",
   },
 } satisfies Story;
+Delegations.parameters = { controls: { include: [ "onSubmit", "selectuser"]},};
 
 export const Management: Story = {
   args: {
@@ -79,6 +82,7 @@ export const Management: Story = {
     ],
   },
 } satisfies Story;
+Management.parameters = { controls: { include: [ "Usermanagementsettings"]},};
 
 export const DefaultPermission: Story = {
   args: {
@@ -300,6 +304,7 @@ export const Roles: Story = {
     ],
   },
 } satisfies Story;
+Roles.parameters = { controls: { include: [ "userRole", "changedData"]},};
 
 export const Table: Story = {
   args: {
@@ -593,3 +598,4 @@ export const Table: Story = {
     ],
   },
 } satisfies Story;
+Table.parameters = { controls: { include: [ "pagination", "recordsPerPage", "recordsPerPageSelectListOption", "tableHeaders", "tableData", "actions"]},};
