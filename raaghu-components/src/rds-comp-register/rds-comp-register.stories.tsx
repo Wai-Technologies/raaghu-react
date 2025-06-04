@@ -24,10 +24,13 @@ type Story = StoryObj<typeof RdsCompRegister>;
 
 export const Default: Story = {
     args: {
-        
+        register: "default",
     }
 } satisfies Story;
 
-
-
+export const Member: Story = {
+  args: {
+        register: "member",
+  }
+} satisfies Story;
 
