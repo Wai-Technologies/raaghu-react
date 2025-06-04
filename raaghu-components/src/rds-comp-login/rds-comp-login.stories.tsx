@@ -70,6 +70,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['languageData', 'error', 'getvalidTenantName', 'email', 'password', 'onDismissAlert', 'onEmailChange', 'onPasswordChange', 'onLogin', 'onForgotPassword', 'onRegister', 'currentTenant', , 'validTenant', 'onClickHandler', 'languageLabel'] } };
 
 export const Attempts: Story = {
     args: {
