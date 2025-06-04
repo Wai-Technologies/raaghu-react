@@ -43,8 +43,11 @@ const RdsToggle = (props: RdsToggleProps) => {
     setStyleClass(props.style);
   }, [props.style]);
 
-  const onChangeHandler = () => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked((prev) => !prev);
+    if (props.onClick) {
+      props.onClick(event as unknown as React.MouseEvent<HTMLInputElement, MouseEvent>);
+    }
   };
 
   const classes = () => {

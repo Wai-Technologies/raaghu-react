@@ -76,8 +76,14 @@ const RdsIcon = (props: RdsIconProps) => {
     setLoadFailed(false);
 
     // Use fetch to get the SVG content
-    const iconPath = `/assets/icons/${name}.svg`;
-    
+    let iconPath = `/assets/icons/${name}.svg`;
+    // If running in Node (test), use absolute file path
+    if (typeof window === 'undefined' && typeof process !== 'undefined') {
+      const path = require('path');
+      iconPath = path.resolve(__dirname, '../../public/assets/icons/', `${name}.svg`);
+      // node-fetch requires file:// protocol for local files
+      iconPath = 'file://' + iconPath.replace(/\\/g, '/');
+    }
     fetch(iconPath)
       .then(response => {
         if (!response.ok) {

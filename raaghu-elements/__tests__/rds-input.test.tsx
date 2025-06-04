@@ -1,7 +1,19 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import RdsInput from "../src/rds-input/rds-input";
+
+// Polyfill fetch for icon loading in tests
+import 'whatwg-fetch';
+
+// Robust global fetch mock to prevent icon loading errors
+beforeAll(() => {
+  if (!global.fetch) {
+    global.fetch = jest.fn((...args) =>
+      Promise.resolve(new Response('<svg></svg>', { status: 200, headers: { 'Content-Type': 'image/svg+xml' } }))
+    );
+  }
+});
 
 jest.mock('lottie-web')
 jest.mock('react-lottie-player', () => ({
@@ -33,9 +45,9 @@ describe("RdsInput", () => {
         expect(onChange).toHaveBeenCalled();
     });
 
-    it("toggles password visibility on eye icon click", () => {
+    it("toggles password visibility on eye icon click", async () => {
         const onChange = jest.fn();
-        render(
+        const { container } = render(
             <RdsInput
                 name="Password"
                 label={true}
@@ -43,15 +55,23 @@ describe("RdsInput", () => {
                 value="test"
                 inputType="password"
                 onChange={onChange}
-                showIcon= {true}
+                showIcon={true}
             />
         );
-        const passwordInput = screen.getByLabelText("Password") as HTMLInputElement;
-        const eyeIcon = screen.getByRole("img");
-        fireEvent.click(eyeIcon);
-        expect(passwordInput.type).toBe("text");
-        fireEvent.click(eyeIcon);
-        expect(passwordInput.type).toBe("password");
+        const passwordInput = screen.getByLabelText("Password");
+        // Select the icon by class since SVG fallback may render a div
+        const eyeIcon = container.querySelector('.password-toggle');
+        expect(eyeIcon).toBeTruthy();
+        // First click: should show text
+        fireEvent.click(eyeIcon!);
+        await waitFor(() => {
+            expect(screen.getByLabelText("Password")).toHaveAttribute("type", "text");
+        });
+        // Second click: should show password
+        fireEvent.click(eyeIcon!);
+        await waitFor(() => {
+            expect(screen.getByLabelText("Password")).toHaveAttribute("type", "password");
+        });
     });
 
     it("input disabled", () => {

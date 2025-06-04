@@ -7,7 +7,30 @@ jest.mock('react-lottie-player', () => ({
     __esModule: true,
     default: jest.fn(),
   }));
-  
+
+// Mock fetch to prevent icon loading errors in tests
+beforeAll(() => {
+    global.fetch = jest.fn(() =>
+        Promise.resolve({
+            ok: true,
+            text: () => Promise.resolve(''),
+            json: () => Promise.resolve({}),
+            blob: () => Promise.resolve(new Blob()),
+            clone: () => this,
+            headers: { get: () => null },
+            redirected: false,
+            status: 200,
+            statusText: 'OK',
+            type: 'basic',
+            url: '',
+            body: null,
+            bodyUsed: false,
+            arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+            formData: () => Promise.resolve(new FormData()),
+        })
+    ) as jest.Mock;
+});
+
 describe("RdsTag component", () => {
     it("renders without errors", () => {
         render(<RdsTag tagType={TagType.Square} role={Role.Basic} colorVariant={ColorVariant.Primary} />);

@@ -25,12 +25,14 @@ describe("RdsRadioButton", () => {
         } } value={""} {...defaultProps} />);
     });
 
-    it("displays an error message when provided with the `state` prop", () => {
+    it("displays an error message when provided with the `errorMessage` prop", () => {
         const errorMessage = "This is an error message";
         render(<RdsRadioButton onChange={function (value: any): void {
             throw new Error("Function not implemented.");
-        } } value={""} {...defaultProps}  errorMessage={errorMessage} />);
-        expect(screen.getByText(errorMessage)).toBeInTheDocument();
+        } } value={""} {...defaultProps} errorMessage={errorMessage} />);
+        // Use getByTestId to check for the error message
+        const errorNode = screen.getByTestId("radio-error-message");
+        expect(errorNode).toHaveTextContent(errorMessage);
     });
 
 });
