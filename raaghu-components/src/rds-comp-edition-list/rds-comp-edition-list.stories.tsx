@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompEditionList,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Edition List** component is a customizable UI element designed to display and manage a list of editions or subscription plans in a structured table format. It supports features such as `tableHeaders` to define the structure of the table with fields like `Edition Name`, `Price`, `Trial Period`, and `Expiring Edition`. Additionally, it uses a `tableData` array to populate the table with edition details, including their names, prices, trial periods, and expiration information. The component also supports `actions` for user interactions, such as editing or deleting editions, and includes pagination with configurable `recordsPerPage` and `recordsPerPageSelectListOption` for managing large datasets. This component is ideal for subscription management systems, administrative dashboards, or any interface requiring structured and interactive edition management. Fully customizable, the Edition List component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

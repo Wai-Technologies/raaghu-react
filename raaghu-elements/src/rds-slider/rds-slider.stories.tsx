@@ -9,6 +9,12 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs:{
+            description: {
+  component: `The **Slider** element is a dynamic and customizable input control for selecting numeric values or ranges within a defined scale. It supports **single-direction (One Way)** and **bi-directional (Two Way)** slider types through the \`SliderType\` enum. You can configure its **size** (\`small\`, \`medium\`, \`large\` via \`SliderSize\`), **visual style** (\`default\`, \`show tooltip\` via \`SliderStyle\`), and **level** (1 to 5 via \`SliderLevel\`) to indicate data or importance tier visually. Labels can be shown on either side of the slider with \`leftLabel\` and \`rightLabel\`, and their visibility can be toggled using \`showLabels\`. 
+
+This component is ideal for dashboards, settings panels, user preference forms, and any interface requiring smooth and intuitive numeric input. The Slider element aligns with the design system's customizable principles and ensures consistency in user interaction patterns across applications.`,
+}
+,
             source: {
                 transform:(code: string) => {
                    // Transform size enum - remove spaces and transform

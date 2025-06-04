@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompProductList,
     parameters: {
         layout: 'padded',
+       docs: {
+    description: {
+        component: 
+            'The **Product List** component is a versatile and highly customizable UI element designed to display a collection of products in various layouts and styles. It supports features such as product images, titles, descriptions, ratings, reviews, pricing, color swatches, badges, and action buttons like "Add to Bag" and "Buy Now." Additionally, it offers configurations for horizontal scrolling, infinite lists, detailed product cards, and layouts with tall images or CTA links. This component is ideal for e-commerce platforms, product showcases, or any application requiring an interactive and user-friendly product listing interface. Fully customizable, the Product List component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

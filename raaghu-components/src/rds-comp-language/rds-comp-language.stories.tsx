@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompLanguage,
     parameters: {
         layout: "padded",
+        docs: {
+    description: {
+        component: 
+            'The **Language** component is a customizable UI element designed to manage and display language and culture options within your application. It supports a `cultureList` array to define available languages and a `flagIconList` array to associate flags with specific cultures or countries. This component is ideal for applications requiring multilingual support, localization settings, or user-friendly language selection interfaces. Fully customizable, the Language component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ["autodocs"],
     argTypes: {

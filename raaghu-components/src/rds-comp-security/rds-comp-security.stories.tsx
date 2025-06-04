@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsCompSecurity,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Security** component is a customizable UI element designed to manage and display security-related settings within your application. It provides a structured interface for configuring security options such as password requirements (e.g., requiring digits, uppercase, lowercase, or non-alphanumeric characters). This component is ideal for administrative dashboards, user account management, or any application requiring a user-friendly interface for managing security configurations. Fully customizable, the Security component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

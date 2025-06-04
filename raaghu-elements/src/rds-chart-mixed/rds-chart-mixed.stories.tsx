@@ -7,6 +7,13 @@ const meta: Meta = {
     component: RdsMixedChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+    component: 'The **Mixed Chart** element combines multiple chart types—such as bars and lines—into a single cohesive visualization. It supports flexible **datasets**, where each dataset can define its own chart type (e.g., bar or line), colors, and rendering order. The chart uses customizable **labels** to represent categories on the x-axis and provides extensive configuration options via the **options** property. These options include point styles (e.g., triangles), radius size, legends, tooltips, and responsiveness. This component is ideal for visualizing and comparing different types of data in a unified view, making it a powerful tool for dashboards and reports.'
+ 
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

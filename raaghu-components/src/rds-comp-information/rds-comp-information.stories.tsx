@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompInformation,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Information** component is a customizable UI element designed to display and manage informational data within your application. It supports an `inputTypeList` array to define input types and an `informationItemInitial` object to initialize property details such as `propertyName`, `displayName`, and `inputValue`. This component is ideal for use cases such as data entry forms, configuration panels, or any interface requiring structured information management. Fully customizable, the Information component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

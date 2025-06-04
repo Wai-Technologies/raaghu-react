@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompFileManagementTree,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **File Management Tree** component is a customizable UI element designed to display and manage hierarchical file or folder structures in a tree format. It supports an `items` array to define the hierarchy, where each item includes properties such as `id`, `name`, and nested `children` for subfolders or files. This component is ideal for file management systems, cloud storage interfaces, or any application requiring structured and interactive folder navigation. Fully customizable, the File Management Tree component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

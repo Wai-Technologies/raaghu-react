@@ -13,6 +13,9 @@ const meta: Meta = {
                     return code;
                 },
             },
+            description: {
+                component: `The **Range** component provides a customizable slider input for selecting a numeric value within a specified range. It accepts \`min\` and \`max\` props to define the bounds of the range, and the \`rangeType\` prop to control the visual style or behavior of the slider. Supported types include \`default\`, \`type1\`, and \`type2\`, each offering distinct UI variations. This component is useful for filtering, setting values, or any interface requiring intuitive numeric input within limits.`
+            }
         },
     },
     tags: ['autodocs'],

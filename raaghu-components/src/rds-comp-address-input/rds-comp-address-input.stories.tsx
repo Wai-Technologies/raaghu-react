@@ -6,6 +6,13 @@ const meta: Meta = {
     component: RdsCompAddressInput,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Address Input** component enables users to enter and select detailed address information in a structured and user-friendly format. It supports optional display of an icon via the \`withIcon\` boolean prop, allowing enhanced visual context. The component includes a customizable header, controlled by the \`header\` string prop, which sets the address section's title for better clarity. Users can input multiple address lines (\`addressLine1\`, \`addressLine2\`, and \`addressLine3\`), each accepting string values for comprehensive address entry. The \`cardborder\` boolean prop allows toggling the component's border styling, enabling seamless integration into different UI designs, either as a bordered card or a borderless form element. This component is ideal for forms requiring detailed address inputs with support for country, state, and city selections, providing a clean, accessible, and consistent user experience.`
+}
+
+        }
+       
     },
     tags: ['autodocs'],
     argTypes: {

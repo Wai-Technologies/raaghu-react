@@ -8,6 +8,12 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+           
+    description: {
+        component: 
+            'The **Reviews** component is a versatile and customizable UI element designed to display user reviews and feedback in various styles and formats. It supports multiple configurations, including single-column, multi-column, and summary chart layouts. The component allows customization of review styles (`RevieweStyle`) and variant types (`VariantType`) to match different use cases. It is ideal for e-commerce platforms, product pages, or any application requiring an interactive and visually appealing review display. Fully customizable, the Reviews component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+
             source:{
                 transform:(code:string) => {
                     //transform VariantType enum

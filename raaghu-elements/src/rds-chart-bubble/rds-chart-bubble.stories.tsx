@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsBubbleChart,
     parameters: {
         layout: 'padded',
+        docs:{
+
+            description: {
+      component: 'The **Bubble Chart** element is a visual component in the design system used to display multi-dimensional data where each point represents three values: `x`, `y`, and `radius`. It is ideal for illustrating relationships, patterns, and outliers within complex datasets. This chart supports multiple datasets with customizable styling options including colors, border width, and point shapes. Features include tooltip interaction, dynamic legends, and optional titles for better data interpretation. The component is fully responsive and can be integrated into dashboards, analytics tools, or reporting views to enhance visual storytelling and decision-making based on data clusters or distributions.'
+      }
+},
     },
     tags: ['autodocs'],
     argTypes: {

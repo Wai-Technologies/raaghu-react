@@ -7,6 +7,10 @@ const meta: Meta = {
     component: RdsRadioButton,
     parameters: {
     docs: {
+        description: {
+        component:
+            'The **Radio Button** element is a customizable selection component for choosing a single option from a group. It supports multiple layouts (`Icon`, `Icon with Label`, `Icon with bottom Label`) and states (`Default`, `Hover`, `Disabled`). You can display labels, set the selected state, and provide a list of options for users to choose from. Flexible props allow you to tailor its appearance and behavior, making it ideal for forms, surveys, and any interface where single-choice selection is required in your design system.'
+    },
         source :{
             transform:(code: string) => {
                 // Transform layout enum - remove spaces and transform

@@ -9,6 +9,12 @@ const meta: Meta = {
     component: RdsProductImage,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Product Images** component displays product visuals in multiple layout styles based on the \`displayType\` prop. It supports rendering a single image in the \`default\` mode, an enlarged detailed view with \`enlarge-view\`, and a multi-image browsing experience using the \`image-gallary\` layout. The images are provided as arrays of URLs via the \`images\` or \`itemList\` props depending on the layout. This component is ideal for e-commerce product pages or galleries where versatile and customizable image presentation enhances the user experience.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

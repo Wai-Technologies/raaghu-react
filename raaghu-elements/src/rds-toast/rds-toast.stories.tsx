@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
         docs: {
+            description: {
+  component: `The **Toast** element is a versatile and customizable notification component designed to deliver brief messages to users. It supports multiple **states** such as \`basic\`, \`info\`, \`success\`, and \`error\` to visually indicate the type of notification. The component offers different **layouts** including \`text\`, \`download\`, \`chat\`, and \`request\` to accommodate various content formats. Additional features include configurable **leading icons**, flexible **positions** across the viewport, optional headers and subtexts, and dismiss controls for user interaction. This component enhances user experience by providing timely feedback and alerts within your application’s interface, while maintaining consistency with your design system.`
+}
+,
             source: {
                 transform: (code: string) => {
                     // Transform state enum - remove spaces and transform

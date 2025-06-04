@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsLoader,
     parameters: {
         layout: 'padded',
+        docs:{
+          description: {
+  component: `The **Loader** component offers a variety of animated loading indicators to provide visual feedback during asynchronous operations or content loading. It supports multiple loader types such as "line-wobble", "loader-moving", "loader-hash", "loader-jump", "sand", "rolling-rock", "loader-round", "rotate", "spin", "triangle", and "spinner-ring". Each type delivers a unique animation style to match different UI themes and preferences. The component also allows size customization (small, medium, large) specifically for the "spinner-ring" loader type, enhancing flexibility. This loader component ensures smooth, engaging user experiences by clearly signaling loading states with visually appealing animations that fit seamlessly into your application's design system.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

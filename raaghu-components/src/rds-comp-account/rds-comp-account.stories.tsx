@@ -15,6 +15,13 @@ const meta: Meta = {
       ],
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Account** component is a comprehensive and customizable UI element designed to manage various account-related settings within your application. It supports features such as **general settings** (`accountGeneralSettings`), **two-factor authentication settings** (`accountTwoFactorSettings`), **captcha settings** (`accountCaptchaSettings`), and **developer mode settings** (`developerModeSettings`). The component provides an `onSubmit` function to handle form submissions, a `reset` toggle to reset settings, and event handlers like `onShow` and `onShowDeveloperMode` for enhanced interactivity. Ideal for account management systems, this component simplifies the process of configuring and managing account settings while ensuring a seamless user experience. Fully customizable, it can be tailored to fit your application’s design system and functional requirements.'
+    },
+}
+       
     },
     tags: ['autodocs'],
     argTypes: {

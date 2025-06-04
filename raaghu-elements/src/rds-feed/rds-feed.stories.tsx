@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Feed** component displays a list of user-generated content or updates such as reviews, comments, or activity feeds. It supports configurable \`size\` options ("small", "medium", "large") to adjust avatar dimensions and overall feed item size for better visual hierarchy. The \`itemList\` prop accepts an array of feed items, each containing details like \`id\`, \`name\`, \`username\`, \`date\`, \`feedIcon\`, \`description\`, \`reviews\`, \`rating\`, and \`profilePic\`. This makes it ideal for showing user feedback, social activity, or content updates in a compact, readable format with customizable styling and icons.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(small|medium|large)"/g, '{Size.$1}');

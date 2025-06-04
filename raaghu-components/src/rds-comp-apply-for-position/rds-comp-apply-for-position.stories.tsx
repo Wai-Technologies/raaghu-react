@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompApplyForPosition,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Apply For Position** component is a customizable UI element designed to facilitate job applications or position requests within your system. It supports features such as `applyForPositionData` to capture applicant details, an `onSaveHandler` function to handle form submissions, and a `reset` toggle to clear the form or reset the application process. This component is ideal for career portals, recruitment systems, or any interface requiring structured and user-friendly job application workflows. Fully customizable, the Apply For Position component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {},

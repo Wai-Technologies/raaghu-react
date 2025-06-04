@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsNavtabs,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Navtabs** component offers a versatile and accessible tab navigation system for your application. The \`navtabsItems\` prop accepts an array of tab objects, each containing properties such as \`label\` (the visible tab text), \`tablink\` (the target anchor link), \`ariacontrols\` (for accessibility support), and \`id\` (a unique identifier). Additional optional properties include \`icon\` (to display an icon alongside the label), \`subText\` (supplementary descriptive text), \`disabled\` (to disable individual tabs), \`count\` (for badges or numeric indicators), and \`colorVariant\` (to customize badge colors). This component supports multiple layouts and styles, allowing you to create horizontal or vertical tab sets with customizable appearance, making it suitable for rich, user-friendly navigation interfaces.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

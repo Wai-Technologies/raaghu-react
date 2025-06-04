@@ -7,6 +7,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs : {
+            description: {
+  component: `The **Spinner** element is a versatile and essential loading indicator designed to signal ongoing processes such as data fetching, form submissions, or page transitions. It supports multiple **spinner types** (\`border\`, \`grow\`) and is available in various **sizes** (\`Small\`, \`Default\`, \`Large\`) through the \`SpinnerSize\` enum. The layout of the spinner and its label can be customized using the \`SpinnerLayout\` enum, allowing placement of the label above, below, or beside the spinner. Optional props like \`showLabel\`, \`labelText\`, and color variants enable further personalization. The component also supports **custom dimensions** using \`width\` and \`height\` props when size is set to custom. It is ideal for use in dashboards, buttons, modals, or any section requiring visual loading feedback aligned with your design system.`,
+}
+,
             source :{
                 transform:(code: string) => {
                     // Transform layout enum - remove spaces and transform

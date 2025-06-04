@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompChangeUserPassword,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Change User Password** component is a customizable UI element designed to facilitate secure password updates for users within your application. It provides an interface for administrators or users to reset or update passwords, ensuring a seamless and secure experience. This component is ideal for account management systems, administrative dashboards, or any interface requiring password management functionality. Fully customizable, the Change User Password component aligns with your design system and functional requirements while adhering to security best practices.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

@@ -34,6 +34,12 @@ const meta: Meta = {
     component: RdsLinkedAccount,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Linked Account** component is a customizable UI element designed to manage and display linked accounts within your application. It provides a structured interface for users to view, link, or unlink external accounts, making it ideal for authentication systems, user profile management, or any application requiring account linking functionality. Fully customizable, the Linked Account component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

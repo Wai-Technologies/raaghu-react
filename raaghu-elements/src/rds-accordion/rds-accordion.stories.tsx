@@ -9,6 +9,11 @@ const meta: Meta = {
         layout: 'padded',
         disableZoom: false,
         docs: {
+           description: {
+  component: `The Accordion element is a core UI building block that enables content to be grouped in **collapsible sections** for better organization and user interaction. It supports **single** or **multiple** open states, adjustable size, and default expanded or collapsed behavior. This element provides a flexible and reusable solution for building structured, interactive interfaces.`,
+
+      },
+            
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(single|multiple)"/g, '{AccordionType.$1}');

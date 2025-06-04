@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'centered',
         docs: { 
+            description: {
+        component:
+            'The **Popover** element is a customizable overlay component used to display additional information, content, or actions in a floating panel anchored to a target element. It supports multiple placement options (`No Arrow`, `Top Left`, `Top Centre`, `Top Right`, `Bottom Left`, `Bottom Centre`, `Bottom Right`, `Left Top`, `Left Centre`, `Left Bottom`, `Right Top`, `Right Centre`, `Right Bottom`) to control where the popover appears relative to the trigger. This element is ideal for tooltips, contextual menus, and interactive content, and can be tailored to fit your design system needs.'
+    },
             source:{
                 transform: (code: string) => {
                     // Transform state enum - remove spaces and transform

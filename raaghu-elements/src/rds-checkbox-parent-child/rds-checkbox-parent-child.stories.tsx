@@ -6,6 +6,15 @@ const meta: Meta = {
     component: RdsCheckboxParentChild,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Checkbox Parent Child** component offers a structured and interactive way to manage hierarchical checkbox selections. It allows grouping of related child checkboxes under a parent checkbox, enabling users to select or deselect an entire group with a single action. 
+Each parent item includes properties like \`label\`, \`isSelected\`, \`isIntermediate\`, and \`disabled\`, while each child item supports \`label\`, \`isSelected\`, \`disabled\`, and parent association through \`parent_id\`. The component also supports an \`isClosed\` state to optionally collapse or expand child checkbox lists for improved UI organization.
+The parent checkbox dynamically reflects its children’s selection status—fully checked when all children are selected, indeterminate when only some are selected, and unchecked when none are selected—providing a clear and intuitive interaction pattern.
+Ideal for permission settings, category filters, or any grouped selection scenarios, this component ensures consistent behavior and a user-friendly experience when working with nested checkbox relationships.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {
