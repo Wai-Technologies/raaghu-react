@@ -570,7 +570,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
             {showBoard && card.name && (
               <div className={`kanban-board ` + colorClass(card.colorType)}>
                 <RdsCard
-                  type={CardTypes.AdvanceCard}
+                  type={CardTypes.Advanced}
                   cardTitle={
                     <div className={"row"}>
                       <div className="col-md-8 col-6">
@@ -689,7 +689,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                     {...provided.dragHandleProps}
                                   >
                                     <RdsCard
-                                      type={CardTypes.AdvanceCard}
+                                      type={CardTypes.Advanced}
                                       key={subCard.SubcardId}
                                       cardTitle={
                                         <>
