@@ -144,7 +144,7 @@ export const Default: Story = {
 
 Default.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
-export const StaticBackdropModal: Story = {
+export const StaticBackdrop: Story = {
   args: {
     modalId: "modal2",
     modalBackdrop: "static",
@@ -163,10 +163,10 @@ export const StaticBackdropModal: Story = {
   },
   render: Template
 } satisfies Story;
-StaticBackdropModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+StaticBackdrop.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 
-export const ScrollableContentModal: Story = {
+export const ScrollableContent: Story = {
   args: {
     modalId: "modal3",
     modalAnimation: "modal-fade",
@@ -181,7 +181,7 @@ export const ScrollableContentModal: Story = {
   },
   render: scrollableTemplate
 } satisfies Story;
-ScrollableContentModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+ScrollableContent.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 
 export const VerticallyCentered: Story = {
