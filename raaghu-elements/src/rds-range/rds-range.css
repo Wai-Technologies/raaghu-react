@@ -1,0 +1,466 @@
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+}
+
+.thumb--zindex-3 {
+  z-index: 3;
+}
+
+.thumb--zindex-4 {
+  z-index: 4;
+}
+
+.thumb--zindex-5 {
+  z-index: 5;
+}
+
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* For Firefox browsers */
+.thumb::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.slider_1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_1::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_1::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #7e2eef;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+.slider_2 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_2::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_2::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #7e2eef;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+
+.slider_2::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #f4f5f8;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+  border: 2px solid #7e2eef;
+}
+.slider-track {
+  width: 99.5%;
+  height: 5px;
+  position: absolute;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #d0d7dd;
+}
+
+#range1::before {
+  content: attr(data-tooltip);
+  padding: 0px;
+}
+
+#range2::before {
+  content: attr(data-tooltip);
+  padding: 0px;
+}
+
+.sliderTooltipRangeOne::after {
+  display: block;
+  content: "";
+  background: #8350cb;
+  position: absolute;
+  border: 1px #8350cb solid;
+  border-top: 0;
+  border-left: 0;
+  width: 8px;
+  height: 8px;
+  left: 10px;
+  bottom: -4px;
+  transform: rotate(45deg);
+}
+
+.sliderTooltipRangeOne {
+  display: block;
+  position: absolute;
+  color: #ffff;
+  max-width: 100%;
+  background: #8350cb;
+  border-top: 0;
+  border-left: 0;
+  /* padding: 0.25rem; */
+  border-radius: 0.2rem;
+  top: -0.4rem;
+}
+
+/* style for type 1    */
+.thumb1,
+.thumb1::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb1 {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+}
+
+.thumb--zindex-3 {
+  z-index: 3;
+}
+
+.thumb--zindex-41 {
+  z-index: 4;
+}
+
+.thumb--zindex-51 {
+  z-index: 5;
+}
+
+/* For Chrome browsers */
+.thumb1::-webkit-slider-thumb {
+  /* background-color: #f1f5f7; */
+  border: none;
+  border-radius: 50%;
+  /* box-shadow: 0 0 1px 1px #ced4da; */
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* For Firefox browsers */
+.thumb1::-moz-range-thumb {
+  /* background-color: #f1f5f7; */
+  border: none;
+  border-radius: 50%;
+  /* box-shadow: 0 0 1px 1px #ced4da; */
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.slider_1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_11::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_11::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: -9px;
+  border: none;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+
+.slider_21 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_21::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_21::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+  /* border: 2px solid #7E2EEf; */
+}
+
+#range11::before {
+  content: attr(data-tooltip);
+  padding: 0px;
+}
+
+#range21::before {
+  content: attr(data-tooltip);
+  padding: 0px;
+}
+
+.sliderTooltipRangeOne1 {
+  display: block;
+  position: absolute;
+  color: #ffff;
+  max-width: 100%;
+  background: #8350cb;
+  border-top: 0;
+  border-left: 0;
+  /* padding: 0.25rem; */
+  border-radius: 10%;
+  top: -0.4rem;
+}
+
+/* style for type 2  */
+
+.thumb2,
+.thumb2::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb2 {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+}
+
+.thumb--zindex-32 {
+  z-index: 3;
+}
+
+.thumb--zindex-42 {
+  z-index: 4;
+}
+
+.thumb--zindex-52 {
+  z-index: 5;
+}
+
+/* For Chrome browsers */
+.thumb2::-webkit-slider-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* For Firefox browsers */
+.thumb2::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.slider_12 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_12::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_12::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #7e2eef;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+.slider_22 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider_22::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_22::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #7e2eef;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+
+.slider_22::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #f4f5f8;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+  border: 2px solid #7e2eef;
+}
+
+#range12::before {
+  content: attr(data-tooltip);
+}
+
+#range22::before {
+  content: attr(data-tooltip);
+  padding: 0px;
+}
+
+.showVlu {
+  border: 1px #bababa solid;
+  border-radius: 10%;
+  padding: 0px 6px;
+}
+.sliderTooltipRangeOne2::after {
+  display: block;
+  content: "";
+  background: #fff;
+  position: absolute;
+  border: 1px #0b1632 solid;
+  border-bottom: 0;
+  border-right: 0;
+  width: 8px;
+  height: 8px;
+  left: 13px;
+  bottom: 31px;
+  transform: rotate(45deg);
+}
+
+.sliderTooltipRangeOne2 {
+  display: block;
+  position: absolute;
+  color: black;
+  max-width: 100%;
+  background: #fff;
+  padding: 0.11rem;
+  border-radius: 0.2rem;
+  top: 7rem;
+  border: 1px gray solid;
+}

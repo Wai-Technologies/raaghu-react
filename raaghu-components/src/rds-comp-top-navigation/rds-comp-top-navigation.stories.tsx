@@ -2124,7 +2124,7 @@ export const Professional_5: Story = {
 } satisfies Story;
 
 Professional_5.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
-export const App_Shell_3: Story = {
+export const App_Shell: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -2297,4 +2297,4 @@ export const App_Shell_3: Story = {
     }
 } satisfies Story;
 
-App_Shell_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
+App_Shell.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };

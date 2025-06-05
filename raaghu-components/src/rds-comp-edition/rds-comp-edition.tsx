@@ -7,10 +7,13 @@ import {
     RdsButton,
     RdsInput,
     RdsSelectList,
+    RdsCounter,
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import "./rds-comp-edition.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import RdsCompDatatable from "../rds-comp-data-table";
+import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -21,7 +24,35 @@ export interface RdsCompEditionProps {
     planList: any[];
     accountTwoFactorSettings: any;
     planListLabel?: string;
-    displayType: "basic" | "advanced";
+    displayType: "basic" | "advanced" | "information" | "list";
+    radioItems: any[];
+    sizeDataWithDescription?: any[];
+    edition?: any;
+    enablecheckboxselection?: boolean;
+      tableHeaders: {
+        displayName: string;
+        key: string;
+        datatype: string;
+        dataLength?: number;
+        required?: boolean;
+        sortable?: boolean;
+        colWidth?: string;
+        disabled?: boolean;
+        enablecheckboxselection?: boolean;
+        isEndUserEditing?: boolean;
+      }[];
+      actions: {
+        displayName: string;
+        id: string;
+      }[];
+      tableData: any[];
+      pagination: boolean;
+      recordsPerPage?: number;
+      recordsPerPageSelectListOption?: boolean;
+      onActionSelection(arg: any): void;
+      onNewTenantClick(
+        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+      ): void;
 }
 const RdsCompEdition = (props: RdsCompEditionProps) => {
     const offCanvasHandler = () => { };
@@ -30,6 +61,10 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
     const [showTenantSettings, setShowTenantSettings] = useState(false);
     const [inputReset, setInputReset] = useState(false);
     const [twoFactorData, settwoFactorData] = useState(props.accountTwoFactorSettings);
+    const [values, setValues] = useState(props.edition);
+    const [trialPeriodCounter, setTrialPeriodCounter] = useState(0);
+    const [expiryNotificationCounter, setExpiryNotificationCounter] = useState(0);
+    const [selectedGroupValues, setSelectedGroupValues] = useState<{ [key: string]: string }>({});
     
     useEffect(() => {
         setFormData(props.editionName);
@@ -39,9 +74,35 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
         setInputReset(!inputReset);
     }, [props.reset]);
 
+    useEffect(() => {
+            setValues(props.edition);
+        }, [props.edition]);
+    
+        useEffect(() => {
+            setInputReset(!inputReset);
+        }, [props.reset]);
+
     const handleChangeform = (value: any, key: any) => {
         setFormData({ ...FormData, [key]: value });
     }   
+
+    const handleDataChanges = (event: any, key: string) => {
+        if (key === 'trialPeriodCounter') {
+            setTrialPeriodCounter(event);
+        } else if (key === 'expiryNotificationCounter') {
+            setExpiryNotificationCounter(event);
+        } else {
+            setValues({ ...values, [key]: event });
+        }
+    };
+
+    const handleRadioChange = (event: any, groupId: string) => {
+        const selectedValue = event.target.value;
+        setSelectedGroupValues(prev => ({
+            ...prev,
+            [groupId]: selectedValue
+        }));
+    };
 
     const navtabsItems = [
         { label: "Basics", tablink: "#nav-home", id: 0 },
@@ -70,6 +131,48 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
             plan: "",
         });
     }
+
+    const getRadioGroups = () => {
+        return props.radioItems?.map((group) => ({
+            ...group,
+            itemList: group.itemList.map((item: any) => ({
+                ...item,
+                checked: selectedGroupValues[group.id] === item.label,
+                name: `radio_group_${group.id}`
+            }))
+        }));
+    };
+
+    function emitSaveData1(event: any) {
+        event.preventDefault();
+        props.onSaveHandler && props.onSaveHandler({
+            ...values,
+            trialPeriodCounter,
+            expiryNotificationCounter,
+            selectedOptions: selectedGroupValues
+        });
+
+        // Reset form
+        setValues({
+            editionName: "",
+            annualPrice: "",
+        });
+        setTrialPeriodCounter(0);
+        setExpiryNotificationCounter(0);
+        setSelectedGroupValues({});
+        setInputReset(!inputReset);
+    }
+
+    const isEditionNameValid = (editionName: any) => {
+        return editionName && editionName.length > 0;
+    };
+
+    const isAnnualPriceValid = (annualPrice: any) => {
+        return annualPrice && annualPrice.length > 0;
+    };
+
+    const isFormValid = isEditionNameValid(values?.editionName) && isAnnualPriceValid(values?.annualPrice);
+
 
     return (
         <>
@@ -294,6 +397,139 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 ></RdsButton>
             </div>
         </form>
+        )}
+        {props.displayType == "information" && (
+        <>
+            <div className="py-4 edition-information-container">
+                <form>
+                    <div className="row px-2">
+                        <div className="col-md-6 my-3">
+                            <RdsInput
+                                name={"Edition Name"}
+                                label={true}
+                                required={true}
+                                placeholder="Edition Name"
+                                inputType="text"
+                                value={values?.editionName}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "editionName")}
+                                dataTestId="edition-name"
+                                reset={inputReset}
+                            ></RdsInput>
+                        </div>
+                        <div className="col-md-6 my-3">
+                            <RdsInput
+                                 name="Annual Price"
+                                 label={true}
+                                required={true}
+                                placeholder="Annual Price"
+                                inputType="number"
+                                value={values?.annualPrice}
+                                onChange={(e: any) => handleDataChanges(e.target.value, "annualPrice")}
+                                dataTestId="annual-price"
+                                reset={inputReset}
+                            ></RdsInput>
+                        </div>
+                    </div>
+                    <div className="row px-2">
+                        <div className="col-md-6 my-3 ">
+                            <RdsCounter
+                                key={trialPeriodCounter}
+                                counterValue={trialPeriodCounter}
+                                label="Trial Period"
+                                min={0}
+                                max={50}
+                                width={200}
+                                type="Default"
+                                colorVariant="primary"
+                                onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
+                            />
+                        </div>
+                        <div className=" col-md-6 my-3">
+                            <RdsCounter
+                                key={expiryNotificationCounter}
+                                counterValue={expiryNotificationCounter}
+                                label="Expiry Notification Interval"
+                                min={0}
+                                max={50}
+                                width={200}
+                                type="Default"
+                                colorVariant="primary"
+                                onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
+                            />
+                        </div>
+                    </div>
+
+                <div className="row mb-3 px-2">
+                    <div className="col-md-12">
+                        {props.radioItems?.map((group, index) => (
+                            <div key={group.id} className="radio-group mb-3">
+                                <label className="radio-group-label mb-2">{group.label}</label>
+                                <div className="d-flex gap-4">
+                                    {group.itemList.map((item: any) => (
+                                        <div key={item.id} className="form-check">
+                                            <input
+                                                type="radio"
+                                                className="form-check-input radio-toggle-switch"
+                                                id={`${group.id}_${item.id}`}
+                                                name={`radio_group_${group.id}`}
+                                                value={item.label}
+                                                checked={selectedGroupValues[group.id] === item.label}
+                                                onChange={(e) => handleRadioChange(e, group.id)}
+                                            />
+                                            <label className="form-check-label" htmlFor={`${group.id}_${item.id}`}>
+                                                {item.label}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
+                    <RdsButton
+                        class="me-2"
+                        tooltipTitle={""}
+                        type={"button"}
+                        label="Cancel"
+                        colorVariant="outline-primary"
+                        size="small"
+                        databsdismiss="offcanvas"
+                        dataTestId="cancel"
+                    />
+                    <RdsButton
+                        class="me-2"
+                        label="Save"
+                        size="small"
+                        colorVariant="primary"
+                        tooltipTitle={""}
+                        type={"submit"}
+                        databsdismiss="offcanvas"
+                        isDisabled={!isFormValid}
+                        dataTestId="save"
+                        onClick={(e: any) => emitSaveData1(e)}
+                    />
+                </div>
+            </form>
+        </div>
+        </>
+        )}
+        
+        {props.displayType == "list" && (
+            <div className="row">
+                <RdsCompDatatable
+                    actionPosition={ActionPosition.Right}
+                    enablecheckboxselection={props.enablecheckboxselection}
+                    tableHeaders={props.tableHeaders}
+                    actions={props.actions}
+                    tableData={props.tableData}
+                    pagination={props.pagination}
+                    recordsPerPage={props.recordsPerPage}
+                    onActionSelection={props.onActionSelection}
+                    recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
+                ></RdsCompDatatable>
+            </div>
         )}
         </>
     );
