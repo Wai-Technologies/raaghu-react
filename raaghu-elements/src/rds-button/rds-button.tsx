@@ -155,11 +155,12 @@ const RdsButton = (props: RdsButtonProps) => {
         <Fragment>
             {props.grid === true ? (
                 <div className="button-grid">
-                    {Array.from({ length: props.rows }).map((_, rowIndex) => (
+                    {Array.from({ length: props.rows ?? 0 }).map((_, rowIndex) => (
                         <div key={rowIndex} className="button-row">
                             <div className="d-flex">
-                                {Array.from({ length: props.columns }).map((_, colIndex) => {
-                                    const buttonInput = props.buttonInputs[rowIndex * props.columns + colIndex];
+                                {Array.from({ length: props.columns ?? 0 }).map((_, colIndex) => {
+                                    const colCount = props.columns ?? 0;
+                                    const buttonInput = props.buttonInputs?.[rowIndex * colCount + colIndex];
                                     return buttonInput ? (
                                         <button
                                             title={buttonInput.text}
