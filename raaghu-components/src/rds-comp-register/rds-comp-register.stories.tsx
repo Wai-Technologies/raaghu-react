@@ -24,10 +24,14 @@ type Story = StoryObj<typeof RdsCompRegister>;
 
 export const Default: Story = {
     args: {
-        
+        register: "default",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['error', 'getvalidTenantName', 'emailAddress', 'password', 'userName', 'appName', 'onDismissAlert', 'onLogin', 'onRegister', 'currentTenant', 'validTenant', 'onSaveHandler', 'languageData', 'onClickHandler', 'languageLabel', 'registerFields'] } };
 
-
-
-
+export const Member: Story = {
+  args: {
+        register: "member",
+  }
+} satisfies Story;
+Member.parameters = { controls: { include: ['registerMemberData', 'isEmailFieldVisible', 'onRegisterMemberSaveHandler'] } };
