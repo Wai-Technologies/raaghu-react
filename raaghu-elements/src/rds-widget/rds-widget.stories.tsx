@@ -59,7 +59,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
 
-export const WidgetWithLineChart: Story = {
+export const WithLineChart: Story = {
     args: {
         colorVariant: "white",
         isRefreshRequired: true,
@@ -233,9 +233,9 @@ export const WidgetWithLineChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
 
-export const WidgetWithDoughnutChart: Story = {
+export const WithDoughnutChart: Story = {
     args: {
         colorVariant: "white",
         headerTitle: "Profit Share",
@@ -313,9 +313,9 @@ export const WidgetWithDoughnutChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
 
-export const WidgetWithBarChart: Story = {
+export const WithBarChart: Story = {
     args: {
         colorVariant: "white",
         headerTitle: "Daily Sales Growth",
@@ -500,4 +500,18 @@ export const WidgetWithBarChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+
+export const Portal: Story = {
+    args: {
+      isPortal: true,
+      btnLabel: "Buy Ticket",
+      widgetTitle: "Team",
+      statusMsg: "Upgrade licence to get more features",
+      subTitle: "Liecence Type",
+      icon: "arrow_down",
+      btnShow: true,
+      statusBarMsg: false
+    }
+} satisfies Story;
+Portal.parameters = { controls: { include: ['btnLabel', 'widgetTitle', 'statusMsg', 'subTitle', 'icon', 'btnShow', 'statusBarMsg'] } };

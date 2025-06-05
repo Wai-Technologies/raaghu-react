@@ -158,13 +158,13 @@ const getSideNavItems = (platform: string[], navLayout: string) => {
                 path: "",
             },
             {
-                key: "5",
+                key: "6",
                 label: "Payments",
                 icon: "payment_new",
                 path: "",
             },
             {
-                key: "6",
+                key: "7",
                 label: "CMS",
                 icon: "cms",
                 path: "",
@@ -184,24 +184,25 @@ const getLayout = (navLayout: string) => {
 };
 
 export const Default: Story = (args: any) => (
-    <MemoryRouter>
+    <BrowserRouter>
         <RdsCompSideNavigation1 
             {...args} 
             sideNavItems={getSideNavItems(args.platform, args.navLayout)} 
             layout={getLayout(args.navLayout)} 
             lockIconVisible={args.lockIconVisible} // Added lockIcon prop
         />
-    </MemoryRouter>
+    </BrowserRouter>
 );
 
 Default.args = {
-    logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
-    showUserProfile:true,
-    navLayout: NavLayout.Raaghu, 
-    navType: NavType.Collapsed, 
-    platform: Platform.SideNavigationABPList, 
+    logo: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+    showUserProfile: true,
+    navLayout: NavLayout.Raaghu,
+    navType: NavType.Collapsed,
+    platform: Platform.SideNavigationABPList,
     lockIconVisible: true, // Default value for lockIcon
+    logoVisible: true, // Default value for logoVisible
 };
 
-Default.parameters = { controls: { include: ["navLayout", "navType", "platform", "lockIconVisible"] } };
+Default.parameters = { controls: { include: ["navLayout", "navType", "platform", "lockIconVisible", "logoVisible"] } };
 

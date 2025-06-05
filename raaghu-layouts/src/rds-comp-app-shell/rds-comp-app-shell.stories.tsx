@@ -7,12 +7,14 @@ import RdsCompAppShell, {
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
 import { BrowserRouter } from "react-router-dom";
+import RdsCompSideNavigation1 from '../../../raaghu-components/src/rds-comp-side-navigation1/rds-comp-side-navigation1';
 import "./rds-comp-app-shell.css";
 import {
   NavLayout,
   NavType,
   Platform,
 } from "../../../raaghu-elements/src/rds-side-nav/rds-side-nav";
+import RdsCompDetailsPaneFavouites from "../../../raaghu-components/src/rds-comp-details-pane";
 
 const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
@@ -30,9 +32,7 @@ const meta: Meta<typeof RdsCompAppShell> = {
   argTypes: {},
   decorators: [
     (Story) => (
-      <BrowserRouter>
         <Story />
-      </BrowserRouter>
     ),
   ],
 };
@@ -46,108 +46,66 @@ export const Default: Story = {
   args: {
     displayType: AppShellDisplayType.Default,
     sidebar: (
-      <RdsCompSideNavigation
-        sideNavItems={[
-          {
-            icon: "home",
-            key: "0",
-            label: "Dashboard",
-            path: "/dashboard",
-          },
-          {
-            icon: "demo_ui",
-            key: "1",
-            label: "UI Components",
-            path: "/demo-ui",
-          },
-          {
-            icon: "icons",
-            key: "2",
-            label: "Icons",
-            path: "/icons",
-          },
-          {
-            children: [
-              {
-                icon: "tenant",
-                key: "3-0",
-                label: "Tenants",
-                path: "/tenant",
-              },
-              {
-                icon: "editions",
-                key: "3-1",
-                label: "Editions",
-                path: "/edition",
-              },
-              {
-                children: [
-                  {
-                    icon: "organization",
-                    key: "3-2-0",
-                    label: "Organization Units",
-                    path: "/organization-unit",
-                  },
-                  {
-                    icon: "roles",
-                    key: "3-2-1",
-                    label: "Roles",
-                    path: "/role",
-                  },
-                  {
-                    icon: "users",
-                    key: "3-2-2",
-                    label: "Users",
-                    path: "/user",
-                  },
-                  {
-                    icon: "languages",
-                    key: "3-2-3",
-                    label: "Language",
-                    path: "/language",
-                  },
-                  {
-                    icon: "audit_logs",
-                    key: "3-2-4",
-                    label: "Audit Logs",
-                    path: "/audit-logs",
-                  },
-                  {
-                    icon: "webhook_subscription",
-                    key: "3-2-5",
-                    label: "Webhook Subscriptions",
-                    path: "/webhook-subscription",
-                  },
-                  {
-                    icon: "maintenance",
-                    key: "3-2-6",
-                    label: "Maintenance",
-                    path: "/maintainance",
-                  },
-                  {
-                    icon: "visual_settings",
-                    key: "3-2-7",
-                    label: "Visual Settings",
-                    path: "/visual-setting",
-                  },
-                  {
-                    icon: "setting",
-                    key: "3-2-8",
-                    label: "Settings",
-                    path: "/settings",
-                  },
-                ],
-                icon: "administration",
-                key: "3-2",
-                label: "Administration",
-              },
-            ],
-            icon: "pages",
-            key: "3",
-            label: "Pages",
-          },
-        ]}
-      />
+      <BrowserRouter>
+        <RdsCompSideNavigation1
+          layout="LeftSideNav"
+          lockIconVisible={false}
+          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+          navLayout={NavLayout.Raaghu}
+          navType={NavType.Expanded}
+          platform={Platform.SideNavigationABPList}
+          showUserProfile
+          sideNavItems={[
+            {
+              icon: 'home',
+              key: '0',
+              label: 'Home',
+              path: '/dashboard'
+            },
+            {
+              icon: 'dashboard_meter',
+              key: '1',
+              label: 'Dashboard'
+            },
+            {
+              icon: 'saas',
+              key: '2',
+              label: 'Saas',
+              path: ''
+            },
+            {
+              icon: 'administration_new',
+              key: '3',
+              label: 'Administration',
+              path: ''
+            },
+            {
+              icon: 'folder',
+              key: '4',
+              label: 'File Management',
+              path: ''
+            },
+            {
+              icon: 'forms',
+              key: '5',
+              label: 'Payments',
+              path: ''
+            },
+            {
+              icon: 'payment_new',
+              key: '6',
+              label: 'Payments',
+              path: ''
+            },
+            {
+              icon: 'cms',
+              key: '7',
+              label: 'CMS',
+              path: ''
+            }
+          ]}
+        />
+      </BrowserRouter>
     ),
     topbar: (
       <RdsCompTopNavigation
@@ -254,6 +212,13 @@ export const Default: Story = {
         style={"ABP"}
       />
     ),
+    children: (
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <div className="rds-appshell-add-layout-center">
+          Add Layout
+        </div>
+      </div>
+    ),
   },
 };
 
@@ -317,7 +282,7 @@ export const Relaxing: Story = {
               val: "semiDark",
             },
           ]}
-          top_nav_logo="raaghu logo"
+          top_nav_logo="custom logo"
           toggleItems={[]}
           elementList={[]}
           componentsList={[]}
@@ -336,67 +301,40 @@ export const Relaxing: Story = {
         />
       </div>
     ),
-
-    sidebar: (
-      <div className="mt-5">
-        <RdsSideNav
-          lockIconVisible={true}
-          layout="LeftSideNav"
-          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-          navLayout={NavLayout.Raaghu}
-          navType={NavType.Expanded}
-          platform={Platform.SideNavigationABPList}
-          showUserProfile
-          sideNavItems={[
-            {
-              icon: "home",
-              key: "0",
-              label: "Home",
-              path: "/dashboard",
-            },
-            {
-              icon: "dashboard_meter",
-              key: "1",
-              label: "Dashboard",
-            },
-            {
-              icon: "saas",
-              key: "2",
-              label: "Saas",
-              path: "",
-            },
-            {
-              icon: "administration_new",
-              key: "3",
-              label: "Administration",
-              path: "",
-            },
-            {
-              icon: "folder",
-              key: "4",
-              label: "File Management",
-              path: "",
-            },
-            {
-              icon: "forms",
-              key: "5",
-              label: "Forms",
-              path: "",
-            },
-            {
-              icon: "payment_new",
-              key: "6",
-              label: "Payments",
-              path: "",
-            },
-            {
-              icon: "cms",
-              key: "7",
-              label: "CMS",
-              path: "",
-            },
-          ]}
-        />
+    children: (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }}>
+        {/* Content Row: Sidebar + Add Layout */}
+        <div style={{ display: 'flex', flexDirection: 'row', minHeight: 0 ,paddingTop: '50px' }}>
+          {/* Sidebar */}
+          <div style={{ minWidth: 245, maxWidth: 245, height: '100%' }}>
+            <BrowserRouter>
+              <RdsCompSideNavigation1
+                layout="LeftSideNav"
+                logoVisible={false}
+                lockIconVisible={false}
+                logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                navLayout={NavLayout.Raaghu}
+                navType={NavType.Expanded}
+                platform={Platform.SideNavigationABPList}
+                showUserProfile
+                sideNavItems={[
+                  { icon: 'home', key: '0', label: 'Home', path: '/dashboard' },
+                  { icon: 'dashboard_meter', key: '1', label: 'Dashboard' },
+                  { icon: 'saas', key: '2', label: 'Saas', path: '' },
+                  { icon: 'administration_new', key: '3', label: 'Administration', path: '' },
+                  { icon: 'folder', key: '4', label: 'File Management', path: '' },
+                  { icon: 'forms', key: '5', label: 'Forms', path: '' },
+                  { icon: 'payment_new', key: '6', label: 'Payments', path: '' },
+                  { icon: 'cms', key: '7', label: 'CMS', path: '' }
+                ]}
+              />
+            </BrowserRouter>
+          </div>
+          {/* Add Layout Text */}
+          <div className="rds-appshell-add-layout-flex-center">
+            <span className="rds-appshell-add-layout-text">Add Layout</span>
+          </div>
+        </div>
       </div>
     ),
   },
@@ -591,6 +529,13 @@ export const TopNav: Story = {
         }}
       />
     ),
+        children: (
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <div className="rds-appshell-add-layout-center">
+          Add Layout
+        </div>
+      </div>
+    ),
   },
 };
 
@@ -600,114 +545,89 @@ export const SideNav: Story = {
     displayType: AppShellDisplayType.SideNav,
     sidebar: (
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-        }}
+        className="rds-appshell-side-nav-layout d-flex flex-row align-items-stretch w-100"
       >
-        <div style={{ flex: "1" }}>
-          <RdsCompSideNavigation
-            lockIconVisible={true}
-            sideNavItems={[
-              {
-                icon: "home",
-                key: "0",
-                label: "Home",
-                path: "/dashboard",
-              },
-              {
-                icon: "dashboard_meter",
-                key: "1",
-                label: "Dashboard",
-              },
-              {
-                icon: "saas",
-                key: "2",
-                label: "Saas",
-                path: "",
-              },
-              {
-                icon: "administration_new",
-                key: "3",
-                label: "Administration",
-                path: "",
-              },
-              {
-                icon: "folder",
-                key: "4",
-                label: "File Management",
-                path: "",
-              },
-              {
-                icon: "forms",
-                key: "5",
-                label: "Forms",
-                path: "",
-              },
-              {
-                icon: "payment_new",
-                key: "6",
-                label: "Payments",
-                path: "",
-              },
-              {
-                icon: "cms",
-                key: "7",
-                label: "CMS",
-                path: "",
-              },
-            ]}
-          />
-        </div>
-        <div>
-          <div style={{ flex: "3" }} className="float-end icon-sapce-between">
-            <RdsSideNav
-              layout="RightSideNav"
-              logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-              navLayout={NavLayout.Toolbar}
-              navType={NavType.Collapsed}
-              // platform={[]}
-              showUserProfile
+        {/* Left Side Navigation */}
+        <div className="rds-appshell-side-nav-left" style={{ flex: "0 0 245px", minWidth: 245, maxWidth: 245, height: '100%' }}>
+          <BrowserRouter>
+            <RdsCompSideNavigation1
+              lockIconVisible={false}
               sideNavItems={[
                 {
-                  icon: "language",
-                  key: "0",
-                  label: "Language",
-                  path: "",
+                  icon: 'home',
+                  key: '0',
+                  label: 'Home',
+                  path: '/dashboard'
                 },
                 {
-                  icon: "chat",
-                  key: "1",
-                  label: "Chat",
-                  path: "",
+                  icon: 'dashboard_meter',
+                  key: '1',
+                  label: 'Dashboard'
                 },
                 {
-                  icon: "sun",
-                  key: "2",
-                  label: "Theme",
-                  path: "",
+                  icon: 'saas',
+                  key: '2',
+                  label: 'Saas',
+                  path: ''
                 },
                 {
-                  icon: "grid_layout",
-                  key: "3",
-                  label: "Layout",
-                  path: "",
+                  icon: 'administration_new',
+                  key: '3',
+                  label: 'Administration',
+                  path: ''
                 },
                 {
-                  icon: "my_settings",
-                  key: "4",
-                  label: "Settings",
-                  path: "",
+                  icon: 'folder',
+                  key: '4',
+                  label: 'File Management',
+                  path: ''
                 },
                 {
-                  icon: "interface_logout",
-                  key: "5",
-                  label: "Logout",
-                  path: "",
+                  icon: 'forms',
+                  key: '5',
+                  label: 'Forms',
+                  path: ''
                 },
+                {
+                  icon: 'payment_new',
+                  key: '6',
+                  label: 'Payments',
+                  path: ''
+                },
+                {
+                  icon: 'cms',
+                  key: '7',
+                  label: 'CMS',
+                  path: ''
+                }
               ]}
             />
+          </BrowserRouter>
+        </div>
+        {/* Center Add Layout Text with Default story style */}
+        <div className="rds-appshell-add-layout-flex-center">
+          <span className="rds-appshell-add-layout-text">Add Layout</span>
+        </div>
+        {/* Right Side Navigation aligned to end */}
+        <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end" style={{ flex: "0 0 80px", minWidth: 80, maxWidth: 120, height: '100%' }}>
+          <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
+            <BrowserRouter>
+              <RdsCompSideNavigation1
+                layout="RightSideNav"
+                logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                navLayout={NavLayout.Toolbar}
+                navType={NavType.Collapsed}
+                showUserProfile
+                sideNavItems={[
+                  { icon: "language", key: "0", label: "Language", path: "" },
+                  { icon: "chat", key: "1", label: "Chat", path: "" },
+                  { icon: "sun", key: "2", label: "Theme", path: "" },
+                  { icon: "grid_layout", key: "3", label: "Layout", path: "" },
+                  { icon: "my_settings", key: "4", label: "Settings", path: "" },
+                  { icon: "interface_logout", key: "5", label: "Logout", path: "" },
+                ]}
+              />
+            </BrowserRouter>
           </div>
         </div>
       </div>
@@ -795,164 +715,163 @@ export const DoubleNav: Story = {
           style="Default"
           themeItems={[
             {
-              icon: "sun",
-              iconHeight: "20px",
-              iconWidth: "20px",
-              label: "Light",
-              val: "light",
+              icon: 'sun',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'Light',
+              val: 'light'
             },
             {
-              icon: "moon",
-              iconHeight: "20px",
-              iconWidth: "20px",
-              label: "Dark",
-              val: "dark",
+              icon: 'moon',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'Dark',
+              val: 'dark'
             },
             {
-              icon: "semidark",
-              iconHeight: "20px",
-              iconWidth: "20px",
-              label: "SemiDark",
-              val: "semiDark",
-            },
+              icon: 'semidark',
+              iconHeight: '20px',
+              iconWidth: '20px',
+              label: 'SemiDark',
+              val: 'semiDark'
+            }
           ]}
-          top_nav_logo="raaghu logo"
-          toggleItems={[]}
-          elementList={[]}
-          componentsList={[]}
-          languageLabel={""}
-          themeLabel={""}
-          onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+          top_nav_logo="raaghu logo" toggleItems={[]} elementList={[]} componentsList={[]} languageLabel={""} themeLabel={""} onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
             throw new Error("Function not implemented.");
-          }}
-          onProfileLinkTopNav={function (
-            id: string,
-            navigateTo?: string,
-            label?: string
-          ): void {
+          } } onProfileLinkTopNav={function (id: string, navigateTo?: string, label?: string): void {
             throw new Error("Function not implemented.");
-          }}
-        />
+          } }/>
       </div>
     ),
-
     sidebar: (
-      <div className="mt-5 double-nav-sidebar" style={{ display: 'flex', flexDirection: 'row', gap: '7px' }}>
-        <RdsSideNav
-          layout="LeftSideNav"
-          navLayout={NavLayout.Raaghu}
-          navType={NavType.Collapsed}
-          platform={Platform.SideNavigationABPList}
-          showUserProfile
-          sideNavItems={[
-            {
-              icon: "home",
-              key: "0",
-              label: "Home",
-              path: "/dashboard",
-            },
-            {
-              icon: "dashboard_meter",
-              key: "1",
-              label: "Dashboard",
-            },
-            {
-              icon: "saas",
-              key: "2",
-              label: "Saas",
-              path: "",
-            },
-            {
-              icon: "administration_new",
-              key: "3",
-              label: "Administration",
-              path: "",
-            },
-            {
-              icon: "folder",
-              key: "4",
-              label: "File Management",
-              path: "",
-            },
-            {
-              icon: "forms",
-              key: "5",
-              label: "Forms",
-              path: "",
-            },
-            {
-              icon: "payment_new",
-              key: "6",
-              label: "Payments",
-              path: "",
-            },
-            {
-              icon: "cms",
-              key: "7",
-              label: "CMS",
-              path: "",
-            },
-          ]}
-        />
-
-        <RdsCompSideNavigation
-          lockIconVisible={true}
-          sideNavItems={[
-          {
-              icon: "blogs",
-              key: "0",
-              label: "Blogs",
-              path: "/blogs",
-            },
-            {
-              icon: "file_data",
-              key: "1",
-              label: "Blog Post",
-            },
-            {
-              icon: "comments",
-              key: "2",
-              label: "Comments",
-              path: "",
-            },
-            {
-              icon: "globe",
-              key: "3",
-              label: "Global Resources",
-              path: "",
-            },
-            {
-              icon: "my_settings",
-              key: "4",
-              label: "Menus",
-              path: "",
-            },
-            {
-              icon: "newsletters",
-              key: "5",
-              label: "Newsletters",
-              path: "",
-            },
-            {
-              icon: "pages",
-              key: "6",
-              label: "Pages",
-              path: "",
-            },
-            {
-              icon: "tag",
-              key: "7",
-              label: "Tags",
-              path: "",
-            },
-          ]}
-        />
+      <div className="mt-5 double-nav-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: '7px', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '7px' }}>
+          <BrowserRouter>
+            <RdsCompSideNavigation1
+              layout="LeftSideNav"
+              logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              navLayout={NavLayout.Raaghu}
+              navType={NavType.Collapsed}
+              platform={Platform.SideNavigationABPList}
+              showUserProfile
+              sideNavItems={[
+                {
+                  icon: 'home',
+                  key: '0',
+                  label: 'Home',
+                  path: '/dashboard'
+                },
+                {
+                  icon: 'dashboard_meter',
+                  key: '1',
+                  label: 'Dashboard'
+                },
+                {
+                  icon: 'saas',
+                  key: '2',
+                  label: 'Saas',
+                  path: ''
+                },
+                {
+                  icon: 'administration_new',
+                  key: '3',
+                  label: 'Administration',
+                  path: ''
+                },
+                {
+                  icon: 'folder',
+                  key: '4',
+                  label: 'File Management',
+                  path: ''
+                },
+                {
+                  icon: 'forms',
+                  key: '5',
+                  label: 'Payments',
+                  path: ''
+                },
+                {
+                  icon: 'payment_new',
+                  key: '6',
+                  label: 'Payments',
+                  path: ''
+                },
+                {
+                  icon: 'cms',
+                  key: '7',
+                  label: 'CMS',
+                  path: ''
+                }
+              ]} />
+            <RdsCompSideNavigation1
+              lockIconVisible={false}
+              sideNavItems={[
+                {
+                  icon: "blogs",
+                  key: "0",
+                  label: "Blogs",
+                  path: "/blogs",
+                },
+                {
+                  icon: "file_data",
+                  key: "1",
+                  label: "Blog Post",
+                },
+                {
+                  icon: "comments",
+                  key: "2",
+                  label: "Comments",
+                  path: "",
+                },
+                {
+                  icon: "globe",
+                  key: "3",
+                  label: "Global Resources",
+                  path: "",
+                },
+                {
+                  icon: "my_settings",
+                  key: "4",
+                  label: "Menus",
+                  path: "",
+                },
+                {
+                  icon: "newsletters",
+                  key: "5",
+                  label: "Newsletters",
+                  path: "",
+                },
+                {
+                  icon: "pages",
+                  key: "6",
+                  label: "Pages",
+                  path: "",
+                },
+                {
+                  icon: "tag",
+                  key: "7",
+                  label: "Tags",
+                  path: "",
+                },
+              ]} />
+          </BrowserRouter>
+        </div>
+        {/* Add Layout message in the center, full height */}
+        <div className="rds-appshell-add-layout-flex-center">
+          <span className="rds-appshell-add-layout-text">Add Layout</span>
+        </div>
+        <div>
+          <RdsCompDetailsPaneFavouites
+            estateDescription="This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."
+            estateTitle="Serene Studio Housing"
+            style="Real Estate" headerText={""} />
+        </div>
       </div>
     ),
   },
 };
 
-//Relaxing Story
+//OneThreeOne Story
 export const OneThreeOne : Story = {
   args: {
     displayType: AppShellDisplayType.TopNav,
@@ -1062,65 +981,75 @@ export const OneThreeOne : Story = {
     ),
 
     sidebar: (
-      <div className="mt-5 OneThreeOne-sidebar"> 
-        <RdsSideNav
-          lockIconVisible={true}
-          layout="LeftSideNav"
-          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-          navLayout={NavLayout.Raaghu}
-          navType={NavType.Expanded}
-          platform={Platform.SideNavigationABPList}
-          showUserProfile
-          sideNavItems={[
-            {
-              icon: "home",
-              key: "0",
-              label: "Home",
-              path: "/dashboard",
-            },
-            {
-              icon: "dashboard_meter",
-              key: "1",
-              label: "Dashboard",
-            },
-            {
-              icon: "saas",
-              key: "2",
-              label: "Saas",
-              path: "",
-            },
-            {
-              icon: "administration_new",
-              key: "3",
-              label: "Administration",
-              path: "",
-            },
-            {
-              icon: "folder",
-              key: "4",
-              label: "File Management",
-              path: "",
-            },
-            {
-              icon: "forms",
-              key: "5",
-              label: "Forms",
-              path: "",
-            },
-            {
-              icon: "payment_new",
-              key: "6",
-              label: "Payments",
-              path: "",
-            },
-            {
-              icon: "cms",
-              key: "7",
-              label: "CMS",
-              path: "",
-            },
-          ]}
-        />
+      <div className="mt-5 OneThreeOne-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', width: '100%' }}>
+        <div>
+          <RdsCompSideNavigation1
+    layout="LeftSideNav"
+    lockIconVisible={false}
+    logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+    navLayout={NavLayout.Raaghu}
+    navType={NavType.Expanded}
+    platform={Platform.SideNavigationABPList}
+    showUserProfile
+    sideNavItems={[
+      {
+        icon: 'home',
+        key: '0',
+        label: 'Home',
+        path: '/dashboard'
+      },
+      {
+        icon: 'dashboard_meter',
+        key: '1',
+        label: 'Dashboard'
+      },
+      {
+        icon: 'saas',
+        key: '2',
+        label: 'Saas',
+        path: ''
+      },
+      {
+        icon: 'administration_new',
+        key: '3',
+        label: 'Administration',
+        path: ''
+      },
+      {
+        icon: 'folder',
+        key: '4',
+        label: 'File Management',
+        path: ''
+      },
+      {
+        icon: 'forms',
+        key: '5',
+        label: 'Forms',
+        path: ''
+      },
+      {
+        icon: 'payment_new',
+        key: '6',
+        label: 'Payments',
+        path: ''
+      },
+      {
+        icon: 'cms',
+        key: '7',
+        label: 'CMS',
+        path: ''
+      }
+    ]}
+  />
+
+        </div>
+        {/* Add Layout message in the center, full height */}
+        <div className="rds-appshell-add-layout-flex-center">
+          <span className="rds-appshell-add-layout-text">Add Layout</span>
+        </div>
+        <div>
+          <RdsCompDetailsPaneFavouites style="Toolbar" headerText={""} />
+        </div>
       </div>
     ),
   },

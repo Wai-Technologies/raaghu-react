@@ -35,3 +35,10 @@
   margin-bottom: 4px;
   font: normal normal medium 18px/27px Poppins;
 }
+
+.red-color-error {
+    color: red;
+}
+.theme-dark {
+    color: rgb(168, 168, 168) !important;
+}

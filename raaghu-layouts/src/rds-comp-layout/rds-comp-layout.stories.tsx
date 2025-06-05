@@ -48,6 +48,142 @@ export const Basic: Story = {
       },
 } satisfies Story;
 
+export const Board: Story = {
+    args: {
+        displayType: "Board",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-3">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Boxify: Story = {
+    args: {
+        displayType: "Boxify",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-1">
+                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
+                    </div>
+                    <div className="grid-container-3">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-3">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Cardify: Story = {
+    args: {
+        displayType: "Cardify",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-6 mb-md-0">
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2 md-vh-auto">
+                        <div className="content-with-full-height"></div>
+                        <div>
+                            <div className="grid-container-1">
+                                <div className="content-with-medium-height mb-sm-1"></div>
+                                <div className="content-with-medium-height mb-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Collage: Story = {
+    args: {
+        displayType: "Collage",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-col-container-1-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
 export const Gridify: Story = {
     args: {
         displayType: "Gridify",
@@ -71,24 +207,24 @@ export const Gridify: Story = {
         children: { table: { disable: true } }, // Hide 'children' from the controls
       },
 } satisfies Story;
-
-export const Spotlight: Story = {
+ 
+export const Highlight: Story = {
     args: {
-        displayType: "Spotlight",
+        displayType: "Highlight",
         hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-1 mb-sm-2">
-                        <div className="content-with-small-height"></div>
+ 
+                    <div className="grid-container-3">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
                     </div>
                     <div className="grid-container-3">
                         <div className="content-with-small-height"></div>
                         <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-1">
-                        <div className="content-with-full-height"></div>
+                        <div className="content-with-small-height"></div>
                     </div>
                 </RdsCompLayoutItem>
             </>
@@ -128,16 +264,152 @@ export const Matrix: Story = {
       },
 } satisfies Story;
 
-export const Splitz: Story = {
+export const Mosaic: Story = {
     args: {
-        displayType: "Splitz",
+        displayType: "Mosaic",
         hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
+                    <div className="grid-col-container-1-1-2">
+                        <div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height mb-sm-2"></div>
+                            </div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height mb-sm-2"></div>
+                            </div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height"></div>
+                            </div>
+                        </div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
                     <div className="grid-container-2">
-                        <div className="content-with-full-height"></div>
-                        <div className="content-with-full-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Nexus: Story = {
+    args: {
+        displayType: "Nexus",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-col-container-2-1-1">
+                        <div className="content-with-medium-height"></div>
+                        <div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height mb-sm-2"></div>
+                            </div>
+                            <div className="grid-container-1">
+                                <div className="content-with-small-height "></div>
+                            </div>
+                        </div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Pinboard: Story = {
+    args: {
+        displayType: "Pinboard",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-1">
+                        <div className="content-with-small-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-1">
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-2-1">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-1-2">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                    </div>
+                </RdsCompLayoutItem>
+            </>
+        ),
+    },
+    argTypes: {
+        children: { table: { disable: true } }, // Hide 'children' from the controls
+      },
+} satisfies Story;
+
+export const Sections: Story = {
+    args: {
+        displayType: "Sections",
+        hasShadow: false,
+        children: (
+            <>
+                <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-1">
+                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
+                    </div>
+                    <div className="grid-container-4">
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-container-1">
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
+                    </div>
+                    <div className="grid-container-1">
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
+                    </div>
+                    <div className="grid-container-2">
+                        <div className="col-md-12 content-with-medium-height"></div>
+                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
+                    </div>
+                    <div className="grid-container-4">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height mb-sm-2"></div>
+                    </div>
+                    <div className="grid-col-container-2-1-1">
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-medium-height"></div>
                     </div>
                 </RdsCompLayoutItem>
             </>
@@ -201,42 +473,16 @@ export const Snapshots: Story = {
       },
 } satisfies Story;
 
-export const Sections: Story = {
+export const Splitz: Story = {
     args: {
-        displayType: "Sections",
+        displayType: "Splitz",
         hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-1">
-                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
-                    </div>
-                    <div className="grid-container-4">
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-1">
-                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
-                    </div>
-                    <div className="grid-container-1">
-                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
-                    </div>
                     <div className="grid-container-2">
-                        <div className="col-md-12 content-with-medium-height"></div>
-                        <div className="col-md-12 mb-sm-2 content-with-medium-height"></div>
-                    </div>
-                    <div className="grid-container-4">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-2-1-1">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-full-height"></div>
+                        <div className="content-with-full-height"></div>
                     </div>
                 </RdsCompLayoutItem>
             </>
@@ -247,29 +493,23 @@ export const Sections: Story = {
       },
 } satisfies Story;
 
-export const Boxify: Story = {
+export const Spotlight: Story = {
     args: {
-        displayType: "Boxify",
+        displayType: "Spotlight",
         hasShadow: false,
         children: (
             <>
                 <RdsCompLayoutItem title={""}>
+                    <div className="grid-container-1 mb-sm-2">
+                        <div className="content-with-small-height"></div>
+                    </div>
+                    <div className="grid-container-3">
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height"></div>
+                        <div className="content-with-small-height mb-sm-2"></div>
+                    </div>
                     <div className="grid-container-1">
-                        <div className="col-md-12 mb-sm-2 content-with-small-height"></div>
-                    </div>
-                    <div className="grid-container-3">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-3">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
+                        <div className="content-with-full-height"></div>
                     </div>
                 </RdsCompLayoutItem>
             </>
@@ -298,247 +538,6 @@ export const Stacks: Story = {
                                 <div className="content-with-medium-height"></div>
                             </div>
                         </div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-
-export const Nexus: Story = {
-    args: {
-        displayType: "Nexus",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-col-container-2-1-1">
-                        <div className="content-with-medium-height"></div>
-                        <div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height mb-sm-2"></div>
-                            </div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height "></div>
-                            </div>
-                        </div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-export const Mosaic: Story = {
-    args: {
-        displayType: "Mosaic",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-col-container-1-1-2">
-                        <div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height mb-sm-2"></div>
-                            </div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height mb-sm-2"></div>
-                            </div>
-                            <div className="grid-container-1">
-                                <div className="content-with-small-height"></div>
-                            </div>
-                        </div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-export const Collage: Story = {
-    args: {
-        displayType: "Collage",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-col-container-1-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-export const Pinboard: Story = {
-    args: {
-        displayType: "Pinboard",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-1">
-                        <div className="content-with-small-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-1">
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-2-1">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-export const Cardify: Story = {
-    args: {
-        displayType: "Cardify",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-6 mb-md-0">
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2 md-vh-auto">
-                        <div className="content-with-full-height"></div>
-                        <div>
-                            <div className="grid-container-1">
-                                <div className="content-with-medium-height mb-sm-1"></div>
-                                <div className="content-with-medium-height mb-sm-2"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-col-container-1-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
-
-export const Board: Story = {
-    args: {
-        displayType: "Board",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
-                    <div className="grid-container-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-3">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-2">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                    </div>
-                </RdsCompLayoutItem>
-            </>
-        ),
-    },
-    argTypes: {
-        children: { table: { disable: true } }, // Hide 'children' from the controls
-      },
-} satisfies Story;
- 
-export const Highlight: Story = {
-    args: {
-        displayType: "Highlight",
-        hasShadow: false,
-        children: (
-            <>
-                <RdsCompLayoutItem title={""}>
- 
-                    <div className="grid-container-3">
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height"></div>
-                        <div className="content-with-medium-height mb-sm-2"></div>
-                    </div>
-                    <div className="grid-container-3">
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
-                        <div className="content-with-small-height"></div>
                     </div>
                 </RdsCompLayoutItem>
             </>
