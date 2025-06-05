@@ -95,43 +95,41 @@ const RdsProductTour = (props: ProductTourProps) => {
                                 {props.showTertiaryButton !== false && "Skip"}
                             </div>
                             <div className="product-tour-arrows">
-                                {props.showSecondaryButton !== false && (
-                                    <button className="product-tour-arrow product-tour-arrow-prev">
-                                        <svg
-                                            width="20"
-                                            height="20"
-                                            viewBox="0 0 20 20"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M13 16L8 10L13 4"
-                                                stroke="#7C3AED"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </button>
+                                {props.showSecondaryButton !== false && (<button className="product-tour-arrow product-tour-arrow-prev">
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 12 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"
+                                            stroke="#7C3AED"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                </button>
                                 )}
-                                {props.showPrimaryButton !== false && (
-                                    <button className="product-tour-arrow product-tour-arrow-next">
-                                        <svg
-                                            width="20"
-                                            height="20"
-                                            viewBox="0 0 20 20"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M7 4L12 10L7 16"
-                                                stroke="#fff"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </button>
+                                {props.showPrimaryButton !== false && (<button className="product-tour-arrow product-tour-arrow-next">
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 12 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                </button>
                                 )}
                             </div>
                         </div>
@@ -171,19 +169,25 @@ const RdsProductTour = (props: ProductTourProps) => {
                         <div className="product-tour-carousel-nav-group">
                             <button className="product-tour-carousel-skip"> {props.showTertiaryButton !== false && "Skip"}</button>
                             <div className="product-tour-carousel-arrows">
-                                {props.showSecondaryButton !== false && (
-                                    <button className="product-tour-carousel-arrow-prev">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13 16L8 10L13 4" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </button>
+                                {props.showSecondaryButton !== false && (<button className="product-tour-carousel-arrow-prev">
+                                    <svg width="16" height="16" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"
+                                            stroke="#7C3AED"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                                 )}
-                                {props.showPrimaryButton !== false && (
-                                    <button className="product-tour-carousel-arrow-next">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 4L12 10L7 16" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </button>
+                                {props.showPrimaryButton !== false && (<button className="product-tour-carousel-arrow-next">
+                                    <svg width="16" height="16" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                                 )}
                             </div>
                         </div>
@@ -236,19 +240,25 @@ const RdsProductTour = (props: ProductTourProps) => {
                                 {props.showTertiaryButton !== false && "Skip"}
                             </div>
                             <div className="product-tour-animation-nav-buttons">
-                                {props.showSecondaryButton !== false && (
-                                    <button className="product-tour-animation-nav-prev">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13 16L8 10L13 4" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </button>
+                                {props.showSecondaryButton !== false && (<button className="product-tour-animation-nav-prev">
+                                    <svg width="16" height="16" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"
+                                            stroke="#7C3AED"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                                 )}
-                                {props.showPrimaryButton !== false && (
-                                    <button className="product-tour-animation-nav-next">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 4L12 10L7 16" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </button>
+                                {props.showPrimaryButton !== false && (<button className="product-tour-animation-nav-next">
+                                    <svg width="16" height="16" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </button>
                                 )}
                             </div>
                         </div>
@@ -337,14 +347,14 @@ const RdsProductTour = (props: ProductTourProps) => {
                         <div className="product-tour-form-input-row">
                             <div className="product-tour-form-input-container">
                                 <div className="custom-dropdown-wrapper">
-                                    <RdsDropdownList
-                                        placeholder="Add Team Members"
+                                    <RdsDropdownList placeholder="Add Team Members"
                                         isPlaceholder={true}
                                         borderDropdown={true}
                                         style={DropdownStyle.Default}
                                         size={DropdownSize.Default}
                                         state={DropdownState.Default}
                                         showIcon={true}
+                                        multiSelect={true}
                                         listItems={[
                                             { label: "Team Member 1", val: "member1" },
                                             { label: "Team Member 2", val: "member2" },
@@ -407,42 +417,40 @@ const RdsProductTour = (props: ProductTourProps) => {
                                     <div className="product-tour-form-skip">Skip</div>
                                 )}
                                 <div className="product-tour-form-arrows">
-                                    {props.showSecondaryButton !== false && (
-                                        <button className="product-tour-form-arrow-prev">
-                                            <svg
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 20 20"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path d="M13 16L8 10L13 4"
-                                                    stroke="#7C3AED"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </button>
+                                    {props.showSecondaryButton !== false && (<button className="product-tour-form-arrow-prev">
+                                        <svg
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 12 21"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path d="M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"
+                                                stroke="#7C3AED"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </button>
                                     )}
-                                    {props.showPrimaryButton !== false && (
-                                        <button className="product-tour-form-arrow-next">
-                                            <svg
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 20 20"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M7 4L12 10L7 16"
-                                                    stroke="#fff"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </button>
+                                    {props.showPrimaryButton !== false && (<button className="product-tour-form-arrow-next">
+                                        <svg
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 12 21"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5"
+                                                stroke="currentColor"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </button>
                                     )}
                                 </div>
                             </div>
