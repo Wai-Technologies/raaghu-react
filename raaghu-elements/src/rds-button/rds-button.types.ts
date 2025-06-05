@@ -55,4 +55,8 @@ export interface RdsButtonProps {
     badgeStyle?: string,
     badgeState?: string,
     badgeSize?: string,
+    rows?: number;
+    columns?: number;
+    buttonInputs?:any;
+    grid?: boolean;
 }
