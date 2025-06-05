@@ -3,11 +3,16 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import RdsAddressDetail from "../src/rds-address-detail/rds-address-detail";
 
+// Mock RdsIcon component
+jest.mock('../src/rds-icon', () => ({
+    __esModule: true,
+    default: () => <div data-testid="mocked-icon">IconMock</div>
+}));
 
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
     default: jest.fn(),
-  }));
+}));
 
 describe("RdsAddressDetail component", () => {
     it("this is message", () => {
@@ -30,9 +35,7 @@ describe("RdsAddressDetail component", () => {
         expect(screen.getByText("123 Main St,")).toBeInTheDocument();
         expect(screen.getByText("Apt 4,")).toBeInTheDocument();
         expect(screen.getByText("Anytown, USA")).toBeInTheDocument();
-    });
-
-    it("renders with icon", () => {
+    });    it("renders with icon", () => {
         render(
             <RdsAddressDetail
                 withIcon={true}
@@ -47,10 +50,8 @@ describe("RdsAddressDetail component", () => {
         expect(screen.getByText("123 Main St,")).toBeInTheDocument();
         expect(screen.getByText("Apt 4,")).toBeInTheDocument();
         expect(screen.getByText("Anytown, USA")).toBeInTheDocument();
-        expect(screen.getByRole("img")).toBeInTheDocument();
-    });
-
-    it("renders with card border", () => {
+        expect(screen.getByTestId("mocked-icon")).toBeInTheDocument();
+    });    it("renders with card border", () => {
         render(
             <RdsAddressDetail
                 withIcon={true}
@@ -62,6 +63,9 @@ describe("RdsAddressDetail component", () => {
                 children={undefined}
             />
         );
-        expect(screen.getByTestId("address-detail")).toHaveClass("card");
+        const addressDetailElement = screen.getByTestId("address-detail");
+        expect(addressDetailElement).toBeInTheDocument();
+        expect(addressDetailElement).toHaveClass("card");
+        expect(screen.getByTestId("mocked-icon")).toBeInTheDocument();
     });
 });
