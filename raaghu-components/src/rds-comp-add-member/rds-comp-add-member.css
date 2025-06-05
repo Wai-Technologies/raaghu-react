@@ -1,0 +1,14 @@
+.cardWidth {
+    width: 270px;
+}
+
+.cardPadding {
+    position: relative;
+    padding-top: 120px;
+}
+
+.cardPosition {
+    position: absolute;
+    top: -104px;
+    margin-inline: 18px;
+}
