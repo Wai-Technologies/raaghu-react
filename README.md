@@ -15,8 +15,6 @@
   </a>
 </p>
 
-
-
 </br>
 
 <div align="center">
@@ -29,31 +27,27 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
 [![Documentation](https://img.shields.io/badge/Docs-Online-red)](https://react.raaghu.ai/)
 
-[![Build Status (production)](https://github.com/Wai-Technologies/raaghu-react/actions/workflows/storybookreact.yml/badge.svg?branch=production)](https://github.com/Wai-Technologies/raaghu-react/actions/workflows/storybookreact.yml?query=branch:production)
+[![Build Status (production)](https://img.shields.io/badge/build-production-purple)](https://github.com/Wai-Technologies/raaghu-react/actions)
 [![GitHub last commit (production)](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react/production)](https://github.com/Wai-Technologies/raaghu-react/commits/production)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
-
-
 
 </div>
 
 </br>
 </br>
 
-  
 <h1 style="border-bottom:0;">Contents</h1>
 
 - [What is Raaghu Design System?](#raaghu-intro)
 - [Why Choose Raaghu Design System??](#why)
 - [How Raaghu Design System Works?](#how)
 - [Features](#features)
-- [More about Raaghu Design System](#learn-more) 
-- [Raaghu Resources](#insights) 
-- [Getting Started with Raaghu](#started) 
+- [More about Raaghu Design System](#learn-more)
+- [Raaghu Resources](#insights)
+- [Getting Started with Raaghu](#started)
 - [License](#license)
 - [Communities](#communities)
 - [How to Contribute](#contribute)
- 
 
 </br></br>
 
@@ -115,7 +109,7 @@
 
 ## <a name='why'></a> Why Choose Raaghu Design System?
 
-<!-- <p> 
+<!-- <p>
   Raaghu seamlessly bridges the gap between design and development while maintaining a high level of standardization.
 
 </p>
@@ -153,13 +147,13 @@ These components come together to create the same wireframe design and form a pa
 - [Figma](http://raaghu.io/): Preview & download Figma gesigns
 - [XD](http://raaghu.io/): Preview & download xd Designs
 
-<h2 style="border-bottom:0;color:#964BFF;"> 
- 
- 
+<h2 style="border-bottom:0;color:#964BFF;">
+
+
 ##  <a name='templates'></a> Startup Templates
 <p>
 A collection of open-source statrter templates, Free templates that are perfect starter layouts for your application. Create your solution based on free or premium startup templates. Either with an React Single-Page Application or Classic MVC & Microfrontend architecture.
-</p> 
+</p>
 </br>
 <p>
   <picture>
@@ -167,7 +161,7 @@ A collection of open-source statrter templates, Free templates that are perfect 
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?" width="1000"/>
   </picture>
-</p> 
+</p>
 
 ## <a name='learn-more'></a> More about Raaghu Design System
 <!-- <p>
@@ -227,11 +221,9 @@ A collection of open-source statrter templates, Free templates that are perfect 
 
 </div>
 
-
-
 <!-- Centered table with dark/light mode support for images -->
 <!-- <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
-  <tr>  
+  <tr>
     <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs">
         <picture>
@@ -240,7 +232,7 @@ A collection of open-source statrter templates, Free templates that are perfect 
           <img alt="Layout" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Elements_card.png?raw=true" width="400"/>
         </picture>
       </a>
-    </td> 
+    </td>
     <td align="center" width="50%">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs">
         <picture>
@@ -254,7 +246,7 @@ A collection of open-source statrter templates, Free templates that are perfect 
 </table> -->
 
 <!-- <table align="center" cellpadding="0" border="0" width="50%">
-  <tr> 
+  <tr>
     <td align="center" width="200px">
       <a href="https://react.raaghu.ai/?path=/docs/charts-pie-chart--docs">
         <picture>
@@ -282,11 +274,12 @@ A collection of open-source statrter templates, Free templates that are perfect 
         </picture>
       </a>
     </td>
-  </tr>  
+  </tr>
 </table> -->
-</br> 
+</br>
 
 ## <a name='insights'></a> Raaghu Resources
+
 </br> 
 <table width="100%">
 <thead>
@@ -345,13 +338,13 @@ A collection of open-source statrter templates, Free templates that are perfect 
 </tr>
 </tbody>
 </table>
- </br> </br> 
+ </br> </br>
 
 ## <a name='started'></a> Getting Started with Raaghu
 
 - [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
 - [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
-- [Create new solution](): Guide to create new React Solution. 
+- [Create new solution](): Guide to create new React Solution.
 - [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
 - [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs.
@@ -365,16 +358,16 @@ A collection of open-source statrter templates, Free templates that are perfect 
 
 This project is licensed under the MIT License - see the [`LICENSE`](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE) file for details.
 
-
-## <a name='communities'></a> Communities 
+## <a name='communities'></a> Communities
 
 <div align="left">
 
-[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies) 
+[![Connect on LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-0077B5)](https://in.linkedin.com/company/waitechnologies)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/WaiTechnologies.svg?style=social&label=Follow%20@WaiTechnologies)](https://twitter.com/WaiTechnologies)
 [![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube&logoColor=white)](https://www.youtube.com/@wai-technologies)
+
 <!-- [![Join the Discussion](https://img.shields.io/badge/GitHub%20Discussions-Join%20Now-brightgreen)](https://github.com/Wai-Technologies/raaghu/discussions)
-[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link) 
+[![Join us on Discord](https://img.shields.io/badge/Join%20us%20on-Discord-7289DA?style=flat&logo=discord)](https://discord.gg/your-discord-link)
 [![Join the Community](https://img.shields.io/badge/Join%20the%20Community-Community-orange)](https://community.raaghu.ai/)  -->
 
 </div>
