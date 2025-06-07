@@ -27,7 +27,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
 [![Documentation](https://img.shields.io/badge/Docs-Online-red)](https://react.raaghu.ai/)
 
-[![Build Status (staging)](https://img.shields.io/badge/build-staging-orange)](https://github.com/Wai-Technologies/raaghu-react/actions)
+[![Build Status (staging)](https://img.shields.io/badge/build-staging-purple)](https://github.com/Wai-Technologies/raaghu-react/actions)
 [![GitHub last commit (staging)](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react/staging)](https://github.com/Wai-Technologies/raaghu-react/commits/staging)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
 
