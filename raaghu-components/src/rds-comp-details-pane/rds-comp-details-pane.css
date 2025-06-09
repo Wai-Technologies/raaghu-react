@@ -56,6 +56,9 @@ text-align: start;
   border-radius: 5px;
  
 }
+.theme-dark .activity-item:hover{
+  color: #000;
+}
 
 /* Custom tab bar styling */
 .custom-tabs-container {
@@ -503,7 +506,10 @@ margin-left: -2px;
 } */
 
 .theme-dark .btn span {
-  color: #ffffff;
+  color: #fff;
+}
+.theme-dark #rds-counter-text svg{
+  color: #fff;
 }
 
 /* .theme-dark div#counter-back-color.d-flex.gap-0{
