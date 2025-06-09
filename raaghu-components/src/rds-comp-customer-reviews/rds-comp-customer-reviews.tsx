@@ -12,11 +12,12 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
     let totalCountOfRatings = 0;
     for (const item of props.itemList) {
         totalCountOfRatings += item.count;
-    }
-    const getReviewRate = (count: number): number => {
+    }    const getReviewRate = (count: number): number => {
+        if (totalCountOfRatings === 0) return 0;
         return Math.round((100 * count) / totalCountOfRatings);
     };
     const getReviewRateString = (count: number): string => {
+        if (totalCountOfRatings === 0) return "0";
         return Math.round((100 * count) / totalCountOfRatings).toString();
     };
     return (
