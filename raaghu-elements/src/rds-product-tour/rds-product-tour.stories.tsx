@@ -111,9 +111,9 @@ export const WithForm: Story = {
 export const WithGIF: Story = {
     args: {
         topLeft: true,
-        topRight: false,
-        bottomLeft: false,
-        bottomRight: false,
+        topRight: true,
+        bottomLeft: true,
+        bottomRight: true,
         showDismiss: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
