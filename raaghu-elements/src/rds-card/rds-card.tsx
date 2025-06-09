@@ -12,21 +12,21 @@ import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { ColorVariant, Role, TagType } from "../rds-tag/rds-tag";
 
 export enum CardTypes {  //types of cards
-  CardWithImage = "Card With Image",
-  CardWithRingChart = "Card With Ring Chart",
-  CardWithMap = "Card With Map",
-  CardWithGraph = "Card With Graph",
-  ExampleBadges = "Example-Badges",
-  CardWithButton = "Card With Button",
-  CardWithLinkButton = "Card With Link Button",
-  ExampleAvatar = "Example-Avatar",
-  ExampleTags = "Example-Tags",
-  CardWithBooleanChart = "Card With Boolean Chart",
-  CardWithLineChart = "Card With Line Chart",
-  CardWithDataTable = "Card With DataTable",
-  CardWithChart = "Card With Chart",
-  CardWithTable = "Card With Table",
-  AdvanceCard = "Advance Card",
+  WithImage = "With Image",
+  WithRingChart = "With Ring Chart",
+  WithMap = "With Map",
+  WithGraph = "With Graph",
+  WithBadges = "With Badges",
+  WithButton = "With Button",
+  WithHyperlink = "With Hyperlink",
+  WithAvatar = "With Avatar",
+  WithTags = "With Tags",
+  WithBooleanChart = "With Boolean Chart",
+  WithLineChart = "With Line Chart",
+  CardWithDataTable = "With DataTable",
+  WithChart = "With Chart",
+  WithTable = "With Table",
+  Advanced = "Advanced",
 }
 export interface RdsCardProps {
   buttonLabel1?: string; //for link button
@@ -133,7 +133,7 @@ const RdsCard = (props: RdsCardProps) => {
 
   return (
     <Fragment>
-      {props.type !== CardTypes.AdvanceCard ? (
+      {props.type !== CardTypes.Advanced ? (
       <div
         className={`card ${props.isDisabled || props.state === "Disabled"
             ? "card-disabled"
@@ -301,7 +301,7 @@ const RdsCard = (props: RdsCardProps) => {
                     )}
                   </div>
                   <div className="col-md-2 justify-content-end align-items-end text-end mt-3">
-                    {props.type === "Example-Avatar" && props.isEditing && (
+                    {props.type === "With Avatar" && props.isEditing && (
                       <RdsIcon
                         name="pencil"
                         height="20px"
@@ -328,9 +328,9 @@ const RdsCard = (props: RdsCardProps) => {
                 </>
               )}
               <br />
-              {props.type === "Card With Image" && props.imageUrl && <img src={props.imageUrl} className="card-img-top" alt="Card Image" />}
+              {props.type === "With Image" && props.imageUrl && <img src={props.imageUrl} className="card-img-top" alt="Card Image" />}
               {props.children}
-              {props.type === "Example-Badges" && (
+              {props.type === "With Badges" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                   <RdsBadge
                     shape="rectangle"
@@ -355,12 +355,12 @@ const RdsCard = (props: RdsCardProps) => {
                     style="primary"
                   />              </div>
               )}
-              {props.type === "Example-Tags" && (
+              {props.type === "With Tags" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                   <RdsTag tagType={TagType.Round} role={Role.Basic} colorVariant={ColorVariant.Primary} />
                 </div>
               )}
-              {props.type === "Example-Avatar" && (
+              {props.type === "With Avatar" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
                     <RdsAvatar
                       activityRing
@@ -375,7 +375,7 @@ const RdsCard = (props: RdsCardProps) => {
                     />
                 </div>
               )}
-              {props.type === "Example-Avatar" && showEdit &&(
+              {props.type === "With Avatar" && showEdit &&(
                 <div>
                   <RdsInput
                     name="cardTitle"
@@ -427,7 +427,7 @@ const RdsCard = (props: RdsCardProps) => {
                   } ${props.state === "Hovered" ? "card-hovered" : ""} ${props.state === "Selected" ? "card-selected" : ""
                   }`}
               >
-                {props.showLinkButton === true && props.type == "Card With Link Button" && (
+                {props.showLinkButton === true && props.type == "With Hyperlink" && (
                   <div>
                     <RdsButton class=" btn-link " label={props.buttonLabel1 + " >"} />
                   </div>
@@ -450,7 +450,7 @@ const RdsCard = (props: RdsCardProps) => {
                     )}
                   </div>
                 )}
-                {(props.type == "Card With Button" || props.type == "Card With Image") && (
+                {(props.type == "With Button" || props.type == "With Image") && (
                   <div className="d-flex justify-content-end align-items-center gap-1">
                     <RdsButton class="btn btn-sm " label={props.buttonLabel2} colorVariant={`outline-${props.colorVariant}`} />
                     <RdsButton class="btn btn-sm " label={props.buttonLabel3} colorVariant="primary" />

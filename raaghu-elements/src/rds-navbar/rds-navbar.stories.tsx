@@ -26,15 +26,15 @@
     export default meta;
     type Story = StoryObj<typeof RdsNavbar>;
 
-    export const ConfigurableNavbar: Story = {
-        args: {
-            title: "Navbar",
-            size: "small",
-            navbarItems: [{
-                label: "Home",
-                isActive: true,
-                navclass: "my-1 me-3",
-                href: "",
+export const Default: Story = {
+    args: {
+        title: "Navbar",
+        size: "small",
+        navbarItems: [{
+            label: "Home",
+            isActive: true,
+            navclass: "my-1 me-3",
+            href: "",
 
             },
             {

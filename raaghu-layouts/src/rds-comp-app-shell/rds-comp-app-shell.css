@@ -64,3 +64,54 @@
 .icon-sapce-between li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="3_"] {
   margin-top: 8.29vw !important;
 }
+
+.rds-appshell-add-layout-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rds-appshell-add-layout-flex-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+  min-height: calc(100vh - 98px);
+  width: 100%;
+}
+
+.rds-appshell-add-layout-text {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.rds-appshell-side-nav-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  min-height: 400px;
+}
+.rds-appshell-side-nav-left {
+  flex: 0 0 245px;
+  min-width: 245px;
+  max-width: 245px;
+  height: 100%;
+}
+.rds-appshell-side-nav-right {
+  flex: 0 0 80px;
+  min-width: 80px;
+  max-width: 120px;
+  height: 100%;
+}
