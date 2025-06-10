@@ -321,6 +321,8 @@ background: #353535;
 .theme-dark .input-with-image {
 background-color: #353535 !important;
 }
-.position-relative{
+/* Instead of targeting .position-relative utility class directly */
+.typing-section .position-relative svg,
+.input-wrapper .position-relative svg {
     stroke: none !important;
 }
