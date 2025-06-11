@@ -1,4 +1,4 @@
-import RdsFileUploader, { FileUploaderState, FileUploaderStyle } from "./rds-file-uploader";
+import RdsFileUploader, { FileUploaderState, FileUploaderStyle, Size } from "./rds-file-uploader";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -102,6 +102,32 @@ Default.parameters = {
       "showThumbnail",
       "hintText",
       "placeholderImage",
+    ],
+  },
+};
+
+export const Advanced: Story = {
+  args: {
+    colorVariant: "primary",
+    extensions: "png, jpg, doc, pdf, ppt",
+    fileSizeLimitInMb: 5,
+    style: FileUploaderStyle.DropAreaSideIcon,   
+    multiple: true,
+    size: Size.Large,      
+    footerButtons: true,
+    validation: [{
+      hint: 'File size exceeds the limit',
+      isError: false
+    }],   
+  }
+} satisfies Story;
+Advanced.parameters = {
+  controls: {
+    include: [
+      "onClick",
+      "preFileInfo",
+      "onSaveHandler",
+      "reset",
     ],
   },
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompOrderConfirmation from "./rds-comp-order-confirmation";
 
 const meta: Meta = {
-  title: "Components/Order Confirmation",
+  title: "Components/Order",
   component: RdsCompOrderConfirmation,
   parameters: {
     layout: 'padded',
@@ -21,8 +21,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompOrderConfirmation>;
 
-export const Default: Story = {
+export const Confirmation: Story = {
   args: {
-    
+    order: "confirmation",
+  }
+} satisfies Story;
+
+export const Summary: Story = {
+  args: {
+    isCheckout: true,
+    order: "summary",
   }
 } satisfies Story;

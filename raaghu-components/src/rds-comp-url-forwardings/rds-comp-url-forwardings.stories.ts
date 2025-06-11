@@ -3,7 +3,7 @@ import RdsCompUrlForwardings from './rds-comp-url-forwardings';
 
 
 const meta: Meta = { 
-    title: "Components/Url Forwardings",
+    title: "Components/Url",
     component: RdsCompUrlForwardings,
     parameters: {
         layout: 'padded',

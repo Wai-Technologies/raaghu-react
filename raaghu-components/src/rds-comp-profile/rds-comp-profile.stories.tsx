@@ -74,6 +74,7 @@ type Story = StoryObj<typeof RdsCompProfile>;
 
 export const Default: Story = {
     args: {
+        profile: "default",
         navtabItems: [
             {
                 "label": "My Account",
@@ -101,3 +102,18 @@ export const Default: Story = {
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['navtabItems', 'profilePic', 'userName', 'userRole'] } };
+
+export const Edit: Story = {
+    args: {
+        profile: "edit",
+    }
+} satisfies Story;
+Edit.parameters = { controls: { include: ['profileEditData', 'onSaveHandler'] } };
+
+export const Picture: Story = {
+    args: {
+      profile: "picture",
+      profilePictureData: "https://abpstagereact12.raaghu.io/assets/profile-picture-circle.svg",
+    }
+} satisfies Story;
+Picture.parameters = { controls: { include: ['profilePictureData', 'ProfileType', 'postProfilePic', 'profilePicture', 'onPictureSaveHandler'] } };

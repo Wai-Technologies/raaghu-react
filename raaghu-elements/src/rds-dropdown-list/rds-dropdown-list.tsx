@@ -440,7 +440,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             
             {/* Search Input */}
             {props.showSearch && (
-              <li className=" d-flex align-items-center ps-3 search-border-bottom mb-1">
+              <li className="form-control d-flex align-items-center ps-3 search-border-bottom">
                 <RdsIcon
                   colorVariant="dark"
                   height="15px"
@@ -472,7 +472,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               >
                 <a
                   id={i}
-                  className="dropdown-item fab-dropdown-item d-flex cursor-pointer align-items-center"
+                  className="dropdown-item fab-dropdown-item d-flex cursor-pointer align-items-center p-2"
                 >
                   {props.multiSelect && (
                     <div className="form-check">
