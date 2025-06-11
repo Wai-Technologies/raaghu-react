@@ -215,7 +215,7 @@ const RdsProductTour = (props: ProductTourProps) => {
                         <div className="product-tour-animation-section">
                             <div className="product-tour-animation-progress">
                                 <img
-                                    src="/stories/assets/animation.gif"
+                                    src="assets/donut_chart.gif"
                                     alt="Tour Animation GIF"
                                     className="product-tour-gif"
                                 />
