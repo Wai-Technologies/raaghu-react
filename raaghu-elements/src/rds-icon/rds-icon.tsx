@@ -27,6 +27,7 @@ export interface RdsIconProps {
   tooltip?: boolean;
   tooltipPlacement?: placements;
   tooltipTitle?: string;
+  style?: TooltipStyle;
   databsdismiss?: string;
   databstarget?: string;
   databstoggle?: string;
@@ -206,7 +207,7 @@ const RdsIcon = (props: RdsIconProps) => {
     const iconElement = <Icon {...svgProps} />;
     
     return props.tooltip ? (
-       <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
+       <Tooltip label={props.tooltipTitle} style={props.style}>
         {iconElement}
       </Tooltip>
     ) : (
@@ -277,7 +278,7 @@ const RdsIcon = (props: RdsIconProps) => {
   }
 
   return props.tooltip ? (
-     <Tooltip label={props.tooltipTitle} style={TooltipStyle.MiddleBottomArrow}>
+     <Tooltip label={props.tooltipTitle} style={props.style}>
       {iconElement}
     </Tooltip>
   ) : (
