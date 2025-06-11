@@ -65,7 +65,7 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
   props.onChange && props.onChange(selectedPaymentMethod);
 }
 const renderLabel = (item: any) => {
-  const label = props.text || t(item.label); // Use the text prop if provided
+  const label = t(item.label) || props.text ; // Use the text prop if provided
   switch (props.layout) {
     case "Icon":
       return <i className={item.iconClass}></i>;
