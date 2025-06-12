@@ -24,7 +24,7 @@ type Story = StoryObj<typeof RdsReviewCategory>;
 
 
 
-export const Default: Story = {
+export const RightAligned: Story = {
     args: {
         display_type: "Basic",
         item: {
@@ -42,7 +42,7 @@ export const Default: Story = {
 
 
 
-export const center_aligned: Story = {
+export const CenterAligned: Story = {
     args: {
         display_type: "ReviewType_1",
         item: {
@@ -59,7 +59,7 @@ export const center_aligned: Story = {
     }
 } satisfies Story;
 
-export const left_aligned: Story = {
+export const LeftAligned: Story = {
     args: {
         display_type: "ReviewType_2",
         item: {
