@@ -253,7 +253,7 @@ aspect-ratio: 1/1;
 .theme-dark .btn {
     color: #fcfbfb !important;
 }
-.text-dark {
+#Premium .text-dark  {
     height: 17px;
     width: 17px;
     fill: none !important;
