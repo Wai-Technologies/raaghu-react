@@ -86,8 +86,8 @@ export interface RdsCompTopNavigationProps {
   navButtons?: any; // Array of nav buttons to display.
   top_nav_logo?: string; // Top navigation logo to display.
   style: any; // Style to display in the navbar.
-  breadcrumbBorderColor?: string; 
-  breadcrumbBorderPlacement?: string; 
+  breadcrumbBorderColor?: string;
+  breadcrumbBorderPlacement?: string;
 }
 
 const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
@@ -167,9 +167,9 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   //side effect for breadcrum
   useEffect(() => {
     setBreadCrumItem(props.breadcrumItem);
-}, [props.breadcrumItem]);
+  }, [props.breadcrumItem]);
 
-  const [profilePic, setProfilePic] = useState(props.profilePic||
+  const [profilePic, setProfilePic] = useState(props.profilePic ||
     "/assets/profile-picture-circle.svg"
   );
   useEffect(() => {
@@ -182,18 +182,18 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   useEffect(() => {
     const navtitl = t("Dashboard") || "";
     if (props.navbarTitle === navtitl) {
-        // setBreadCrumItem([]);
+      // setBreadCrumItem([]);
     }
     setNavtitle(props.navbarTitle);
     if (
-        (navtitle != "Element" &&
-    navtitle != "Component" &&
-    navtitle != "Chart") ||
-  props.navbarTitle != navtitle
+      (navtitle != "Element" &&
+        navtitle != "Component" &&
+        navtitle != "Chart") ||
+      props.navbarTitle != navtitle
     ) {
-        setResetDrop(!resetDrop);
+      setResetDrop(!resetDrop);
     }
-}, [props.breadcrumItem, props.navbarTitle]);
+  }, [props.breadcrumItem, props.navbarTitle]);
   const avatarBlankImage = "./assets/avatar-svg-blank.svg";
   const handleImageClick = (imageName: string) => {
     setActiveImage(imageName);
@@ -212,7 +212,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     setShowSearchInput(true);
   };
 
-  const handleIconClick = (icon?:any) => {
+  const handleIconClick = (icon?: any) => {
     console.log("Icon clicked");
   };
 
@@ -275,7 +275,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
   const handleBreadcrumbClick = (id: number) => {
     setBreadCrumItem(
-      breacrumItem.map((item:any) => ({
+      breacrumItem.map((item: any) => ({
         ...item,
         active: item.id === id,
       }))
@@ -293,42 +293,42 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const navtabs = props.navtabItems;
 
   const addFilter = (value: string) => {
-    if(breacrumItem?.length > 0 || breacrumItem != undefined){
-    if (value) {
+    if (breacrumItem?.length > 0 || breacrumItem != undefined) {
+      if (value) {
         const filteredItems = breacrumItem.filter((menuItem: { label: string, children?: any[] }) =>
-            filterMenuItem(menuItem, value.toLowerCase())
+          filterMenuItem(menuItem, value.toLowerCase())
         );
         setBreadCrumItem(filteredItems);
-    } else {
-      setBreadCrumItem(breadcrumMenu);
+      } else {
+        setBreadCrumItem(breadcrumMenu);
+      }
     }
-  }
-  else if(navtabItem?.length > 0 || navtabItem != undefined){
-    if (value) {
+    else if (navtabItem?.length > 0 || navtabItem != undefined) {
+      if (value) {
         const filteredItems = navtabItem.filter((menuItem: { label: string, children?: any[] }) =>
-            filterMenuItem(menuItem, value.toLowerCase())
+          filterMenuItem(menuItem, value.toLowerCase())
         );
         setNavtabItems(filteredItems);
-    } else {
-      setNavtabItems(navtabs);
+      } else {
+        setNavtabItems(navtabs);
+      }
     }
-  }
-};
+  };
 
-const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: string): boolean => {
+  const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: string): boolean => {
     if (menuItem.label.toLowerCase().includes(query)) {
-        return true;
+      return true;
     }
 
     if (menuItem.children) {
-        return menuItem.children.some(child => filterMenuItem(child, query));
+      return menuItem.children.some(child => filterMenuItem(child, query));
     }
 
     return false;
-};
+  };
 
-  const handleNavButtonClick = (id:any) => {
-    console.log("Nav button clicked" ,id);
+  const handleNavButtonClick = (id: any) => {
+    console.log("Nav button clicked", id);
   };
 
   const renderTopbar = () => {
@@ -341,15 +341,15 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               id="raaghuLogo"
               className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
             >
-              {props.showLogo && ( 
+              {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
+                  <img className="cursor-pointer sidenav-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )
               )}
             </div>
-    
+
             <button
               className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
               type="button"
@@ -357,32 +357,32 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-    
+
             <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block flex-grow-1 justify-content-center">
               <div className="d-flex align-items-center">
-                  <>
-                    <div className="d-flex align-items-center">
-                      {props.showLogo && (
-                        props.top_nav_logo === "raaghu logo" ? (
-                          <img className="cursor-pointer pe-4 raaghu-logo-size" src={brandLogo} alt="raaghu-logo" />
-                        ) : (
-                          <span className="custom-logo-text custom-logo-font">Your Logo</span>
-                        )
-                      )}
-                      <ul className="nav-items-list list-unstyled d-flex align-items-center  mb-0">
-                        {navtabItem?.map((item: any, index: number) => (
-                          <li key={index} className="nav-item mx-3  ">
-                            <a href={item.href} className="nav-link cursor-pointer">
-                              {item.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </>
+                <>
+                  <div className="d-flex align-items-center">
+                    {props.showLogo && (
+                      props.top_nav_logo === "raaghu logo" ? (
+                        <img className="cursor-pointer pe-4 raaghu-logo-size" src={brandLogo} alt="raaghu-logo" />
+                      ) : (
+                        <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                      )
+                    )}
+                    <ul className="nav-items-list list-unstyled d-flex align-items-center  mb-0">
+                      {navtabItem?.map((item: any, index: number) => (
+                        <li key={index} className="nav-item mx-3  ">
+                          <a href={item.href} className="nav-link cursor-pointer">
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
               </div>
             </div>
-    
+
             <div
               className={
                 "d-flex align-items-center justify-content-between right-side-menu px-3"
@@ -423,7 +423,7 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                     showUserName={true}
                   ></RdsCompProfile>
                 </RdsOffcanvas>
-    
+
                 <div className="d-block d-none fs-8 text-center">Profile</div>
               </div>
               <div className="px-2 px-md-3 d-none d-lg-block">
@@ -481,390 +481,390 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
         </div>
       );
     }
-    if (props.style === "Ecommerce_1") {
+    if (props.style === "With_Cart") {
       return (
-        <div  id="topnav">
-        <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between shadow">
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between shadow">
             <div id="raaghuLogo" className="d-block m-2">
-            {props.showLogo && (  
-              props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
-              ) : (
-                <span className="custom-logo-text custom-logo-font" >Your Logo</span>
-              )
-            )}
+              {props.showLogo && (
+                props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font" >Your Logo</span>
+                )
+              )}
             </div>
 
             <button
-                className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-                type="button"
-                onClick={props.onClickHamburger}
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
             >
-                <span className="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
 
             <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block">
-                <div>
-                    {breacrumItem?.length > 0 && (
-                            <div>
-                                <>
-                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                                </>
-                            </div>
-                        )}
-                </div>
+              <div>
+                {breacrumItem?.length > 0 && (
+                  <div>
+                    <>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                    </>
+                  </div>
+                )}
+              </div>
             </div>
             <div
-                className={
-                    "d-flex align-items-center justify-content-between right-side-menu"
-                }
+              className={
+                "d-flex align-items-center justify-content-between right-side-menu"
+              }
             >
-               
-             {(props.ecommerce1 &&
+
+              {(props.ecommerce1 &&
                 <div
-                    className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
+                  className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
                 >
-                    <RdsIcon
-                        name="notification"
+                  <RdsIcon
+                    name="notification"
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={props.mobileViewLogoClick}
+                    isCursorPointer={true}
+                  ></RdsIcon>
+                </div>)}
+              {/* notification----------------------------------------------------------------------------------------------- */}
+
+              {((props.ecommerce1) && <div
+                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"} onClick={onAvtarClick}
+              >
+                <RdsAvatar
+                  avtarOnly
+                  colorVariant={props.colorVariant}
+                  firstName={props.firstName}
+                  lastName={props.lastName}
+                  profilePic={profilePic}
+                  role={props.role}
+                  size={AvatarSize.medium}
+                  title="horizontal"
+                />
+              </div>)}
+            </div>
+
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "With_Currency_Switcher") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+            <div id="raaghuLogo" className="d-block m-2">
+              {props.showLogo && (
+                props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )
+              )}
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+              <div>
+                {breacrumItem?.length > 0 && (
+                  <div>
+                    <>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                    </>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div
+              className={
+                "d-flex align-items-center justify-content-between right-side-menu"
+              }
+            >
+              <div
+                className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
+              >
+                {((props.showSearch && props.ecommerce2) && <div className="searchBackground right-side-menu" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                    onChange={(e) => addFilter(e.target.value)}
+                  />
+                </div>)}
+              </div>
+
+              {(props.ecommerce2 && <div
+                className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
+              >
+                <RdsDropdownList
+                  labelIconWidth="18px"
+                  labelIconHeight="18px"
+                  placeholder={props.listItems[0].label || "EN"}
+                  icon={props.languageIcon}
+                  iconFill={false}
+                  iconStroke={false}
+                  isPlaceholder={true}
+                  id={"languageDropdownTopNavigation"}
+                  listItems={listItems}
+                  showIcon={false}
+                  onClick={onClickHandler}
+                  // tooltip={true}
+                  // tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
+                  // tooltipPlacement="bottom"
+                  isCode={true}
+
+                ></RdsDropdownList>
+              </div>
+              )}
+              {/* dropdown----------------------------------------------------------------------------------------------- */}
+              {(props.ecommerce2 && <div
+                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
+              >
+                <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
+                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+              </div>
+              )}
+            </div>
+
+          </nav>
+          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
+            <div>
+              {breacrumItem?.length > 0 && (
+                <div>
+                  <>
+                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                  </>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (props.style === "With_Social_Media") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+            <div id="raaghuLogo" className="d-block m-2">
+              {props.showLogo && (
+                props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )
+              )}
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+              <div>
+                {breacrumItem?.length > 0 && (
+                  <div className={` ${props.ecommerce3 ? "ps-4" : ""}`}>
+                    <>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                    </>
+                  </div>
+                )}
+              </div>
+            </div>
+            {((props.showSearch && props.ecommerce3) && <div className="searchBackground" id="serachOption">
+              <RdsSearch
+                iconPosition={IconPosition.Right}
+                labelPosition="right"
+                placeholder="Search"
+                size="small"
+                onChange={(e) => addFilter(e.target.value)}
+              />
+            </div>
+            )}
+            <div
+              className={
+                "d-flex align-items-center justify-content-between right-side-menu"
+              }
+            >
+
+              {(props.ecommerce3 && <div
+                className={`position-relative   col text-center d-flex align-items-center language  px-md-3} `}
+              >
+                {props.ecommerce3 && props.socialMediaIcons?.map((icon: any) => (
+                  <img
+                    key={icon.id}
+                    src={icon.src}
+                    alt={icon.alt}
+                    className={`px-1 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
+                    onClick={() => handleIconClick(icon)}
+                  ></img>
+                ))}
+              </div>
+              )}
+              {/* dropdown----------------------------------------------------------------------------------------------- */}
+              {(props.ecommerce3 && <div
+                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
+              >
+                <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
+                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+              </div>
+              )}
+            </div>
+
+          </nav>
+          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
+            <div>
+              {breacrumItem?.length > 0 && (
+                <div className={` ${props.ecommerce3 ? "ps-4" : ""}`}>
+                  <>
+                    <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                  </>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (props.style === "With_Favorites") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+            <div id="raaghuLogo" className="d-block m-2 ">
+              {props.showLogo && (
+                props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )
+              )}
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none breadcrumd-ps">
+              <div>
+                {breacrumItem?.length > 0 && (
+                  <div>
+                    <>
+                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                    </>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div
+              className={
+                "d-flex align-items-center justify-content-between right-side-menu"
+              }
+            >
+              <div
+                className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
+              >
+                {((props.showSearch && props.ecommerce4) && <div className="searchBackground right-side-menu" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                    onChange={(e) => addFilter(e.target.value)}
+                  />
+                </div>)}
+              </div>
+
+              {(props.ecommerce4 && <div
+                className={`position-relative   col text-center d-flex align-items-center language ${props.ecommerce4 ? "" : "px-md-3"} `}
+              >
+                {props.ecommerce3 && props.socialMediaIcons?.map((icon: any) => (
+                  <img
+                    key={icon.id}
+                    src={icon.src}
+                    alt={icon.alt}
+                    className={`px-1 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
+                    onClick={() => handleIconClick(icon)}
+                  ></img>
+                ))}
+
+                {props.ecommerce4 && props.icons?.map((icon: any) => (
+                  <>
+                    <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
+                      <RdsIcon
+                        key={icon.id}
+                        name={icon.name}
                         fill={false}
                         stroke={true}
                         height="18px"
                         width="18px"
-                        onClick={props.mobileViewLogoClick}
-                        isCursorPointer={true}
-                    ></RdsIcon>
-                </div>)}
-                {/* notification----------------------------------------------------------------------------------------------- */}
-              
-                {((props.ecommerce1) && <div
-                    className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"} onClick={onAvtarClick}
-                >
-                   <RdsAvatar
-                      avtarOnly
-                      colorVariant={props.colorVariant}
-                      firstName={props.firstName}
-                      lastName={props.lastName}
-                      profilePic={profilePic}
-                      role={props.role}
-                      size={AvatarSize.medium}
-                      title="horizontal"
-                    />
-                </div>)}
-            </div>
-           
-        </nav>
-    </div>
-      );
-    }
-    if (props.style === "Ecommerce_2") {
-      return (
-        <div  id="topnav">
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
-            <div id="raaghuLogo" className="d-block m-2">
-            {props.showLogo && (  
-              props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
-              ) : (
-                <span className="custom-logo-text custom-logo-font">Your Logo</span>
-              )
-            )}
-            </div>
-
-            <button
-                className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-                type="button"
-                onClick={props.onClickHamburger}
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
-                <div>
-                    {breacrumItem?.length > 0 && (
-                            <div>
-                                <>
-                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                                </>
-                            </div>
-                        )}
-                </div>
-            </div>
-            <div
-                className={
-                    "d-flex align-items-center justify-content-between right-side-menu"
-                }
-            >
-              <div
-                    className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
-                >
-                  {( (props.showSearch && props.ecommerce2) &&  <div className="searchBackground right-side-menu" id="serachOption">
-                      <RdsSearch
-                           iconPosition={IconPosition.Right}
-                          labelPosition="right"
-                          placeholder="Search"
-                          size="medium"
-                          onChange={(e) => addFilter(e.target.value)}
-                      />
-                  </div> )} 
-                </div>
-
-                {( props.ecommerce2 && <div
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
-                >
-                    <RdsDropdownList
-                        labelIconWidth="18px"
-                        labelIconHeight="18px"
-                        placeholder={props.listItems[0].label || "EN"}
-                        icon={props.languageIcon}
-                        iconFill={false}
-                        iconStroke={false}
-                        isPlaceholder={true}
-                        id={"languageDropdownTopNavigation"}
-                        listItems={listItems}
-                        showIcon={false}
-                        onClick={onClickHandler}
-                        // tooltip={true}
-                        // tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
-                        // tooltipPlacement="bottom"
-                        isCode={true}
-
-                    ></RdsDropdownList> 
-                </div>
-                )}
-                {/* dropdown----------------------------------------------------------------------------------------------- */}
-                {( props.ecommerce2  && <div
-                    className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
-                >
-                    <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
-                    <span  className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
-                </div>
-                )}
-            </div>
-           
-              </nav>
-              <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
-                  <div>
-                      {breacrumItem?.length > 0 && (
-                          <div>
-                              <>
-                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                              </>
-                          </div>
-                      )}
-                  </div>
+                        onClick={() => handleIconClick(icon)}
+                      ></RdsIcon>
+                    </span>
+                  </>
+                ))}
               </div>
-    </div>
-      );
-    }
-    if (props.style === "Ecommerce_3") {
-      return (
-        <div  id="topnav">
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
-            <div id="raaghuLogo" className="d-block m-2">
-            {props.showLogo && (  
-              props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
-              ) : (
-                <span className="custom-logo-text custom-logo-font">Your Logo</span>
-              )
-            )}
+              )}
+
+
+              {(props.ecommerce4 && <div
+                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"} onClick={onAvtarClick}
+              >
+                <RdsAvatar
+                  avtarOnly
+                  colorVariant={props.colorVariant}
+                  firstName={props.firstName}
+                  lastName={props.lastName}
+                  profilePic={profilePic}
+                  role={props.role}
+                  size={AvatarSize.medium}
+                  title="horizontal"
+                />
+              </div>)}
             </div>
 
-            <button
-                className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-                type="button"
-                onClick={props.onClickHamburger}
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+          </nav>
+          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none breadcrumd-ps">
+            <div>
+              {breacrumItem?.length > 0 && (
                 <div>
-                    {breacrumItem?.length > 0 && (
-                            <div className={` ${props.ecommerce3?"ps-4":""}`}>
-                                <>
-                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                                </>
-                            </div>
-                        )}
+                  <>
+                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                  </>
                 </div>
+              )}
             </div>
-            {( (props.showSearch && props.ecommerce3) &&  <div className="searchBackground" id="serachOption">
-                    <RdsSearch
-                        iconPosition={IconPosition.Right}
-                        labelPosition="right"
-                        placeholder="Search"
-                        size="small"
-                        onChange={(e) => addFilter(e.target.value)}
-                    />
-                </div> 
-            )}
-            <div
-                className={
-                    "d-flex align-items-center justify-content-between right-side-menu"
-                }
-            >
-
-            {( props.ecommerce3   && <div
-                    className={`position-relative   col text-center d-flex align-items-center language  px-md-3} `}
-                >
-                 { props.ecommerce3 && props.socialMediaIcons?.map((icon:any) => (
-                <img
-                  key={icon.id}
-                  src={icon.src}
-                  alt={icon.alt}
-                  className={`px-1 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
-                  onClick={() => handleIconClick(icon)}
-                ></img>
-              ))}
-                </div>
-                )}  
-                {/* dropdown----------------------------------------------------------------------------------------------- */}
-                {(  props.ecommerce3 && <div
-                    className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
-                >
-                    <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
-                    <span  className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
-                </div>
-                )}
-            </div>
-           
-              </nav>
-              <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
-                  <div>
-                      {breacrumItem?.length > 0 && (
-                          <div className={` ${props.ecommerce3 ? "ps-4" : ""}`}>
-                              <>
-                                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                              </>
-                          </div>
-                      )}
-                  </div>
-              </div>
-    </div>
+          </div>
+        </div>
       );
     }
-    if (props.style === "Ecommerce_4") {
+    if (props.style === "For_Media_Portal") {
       return (
-        <div  id="topnav">
-              <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
-        <div id="raaghuLogo" className="d-block m-2 ">
-            {props.showLogo && (  
-              props.top_nav_logo === "raaghu logo" ? (
-                <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo"/>
-              ) : (
-                <span className="custom-logo-text custom-logo-font">Your Logo</span>
-              )
-            )}
-            </div>
-
-            <button
-                className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-                type="button"
-                onClick={props.onClickHamburger}
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-                      <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none breadcrumd-ps">
-                <div>
-                    {breacrumItem?.length > 0 && (
-                            <div>
-                                <>
-                                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                                </>
-                            </div>
-                        )}
-                  </div>
-           </div>
-            <div
-                className={
-                    "d-flex align-items-center justify-content-between right-side-menu"
-                }
-            >
-              <div
-                    className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
-                >
-                  {( (props.showSearch && props.ecommerce4) &&  <div className="searchBackground right-side-menu" id="serachOption">
-                      <RdsSearch
-                          iconPosition={IconPosition.Right}
-                          labelPosition="right"
-                          placeholder="Search"
-                          size="medium"
-                          onChange={(e) => addFilter(e.target.value)}
-                      />
-                  </div> )} 
-                </div>
-
-            {(  props.ecommerce4  && <div
-                    className={`position-relative   col text-center d-flex align-items-center language ${props.ecommerce4 ? "" : "px-md-3"} `}
-                >
-                 { props.ecommerce3 && props.socialMediaIcons?.map((icon:any) => (
-                <img
-                  key={icon.id}
-                  src={icon.src}
-                  alt={icon.alt}
-                  className={`px-1 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
-                  onClick={() => handleIconClick(icon)}
-                ></img>
-              ))}
-
-               { props.ecommerce4 && props.icons?.map((icon:any) => (
-                <>
-                <span  className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                   <RdsIcon
-                  key={icon.id}
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-                </span>
-                </>
-              ))}
-                </div>
-                )}  
-
-               
-                {(props.ecommerce4 && <div
-                    className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"}  onClick={onAvtarClick}
-                >
-                   <RdsAvatar
-                      avtarOnly
-                      colorVariant={props.colorVariant}
-                      firstName={props.firstName}
-                      lastName={props.lastName}
-                      profilePic={profilePic}
-                      role={props.role}
-                      size={AvatarSize.medium}
-                      title="horizontal"
-                    />
-                </div>)}
-            </div>
-           
-              </nav>
-              <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none breadcrumd-ps">
-                  <div>
-                      {breacrumItem?.length > 0 && (
-                          <div>
-                              <>
-                                  <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                              </>
-                          </div>
-                      )}
-                  </div>
-              </div>
-    </div>
-      );
-    }
-    if (props.style === "Entertainment_1") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          <span className={`px-2 cursor-pointer active}`}>
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
                   fill={false}
@@ -874,593 +874,593 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                   onClick={() => handleCollapsebleIconClick()}
                 ></RdsIcon>
               </span>
-             {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
-                ) : (
-                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
-                )}
-            </div>
-          )}
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          <div className="d-flex align-items-center flex-grow-1 justify-content-center">
-            {props.showSearch && props.entertainment1 && (
-              <div className="searchBackground" id="serachOption">
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
-              </div>
-            )}
-          </div>
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.entertainment1 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-            {props.entertainment1 && (
-              <div className="position-relative px-md-1 col text-center d-flex align-items-center language">
-                <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
-                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-    }
-    if (props.style === "Entertainment_2") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-             {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
-                ) : (
-                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
-                )}
-            </div>
-          )}
-            <div >
-            {props.showSearch && props.entertainment2 && (
-              <div className="searchBackground ps-2" id="serachOption">
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
-              </div>
-            )}
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.entertainment2 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-            {props.entertainment2 && (
-              <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
-               <RdsAvatar
-                      avtarOnly
-                      colorVariant={props.colorVariant}
-                      firstName={props.firstName}
-                      lastName={props.lastName}
-                      profilePic={profilePic}
-                      role={props.role}
-                      size={AvatarSize.medium}
-                      title="horizontal"
-                    />
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-    }
-    if (props.style === "Entertainment_3") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-             {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
-                ) : (
-                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
-                )}
-            </div>
-          )}
-            <div >
-           
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.entertainment3 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-             {props.showSearch && props.entertainment3 && (
-              <div className="searchBackground pe-2 ps-2" id="serachOption">
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
-              </div>
-            )}
-            {props.entertainment3 && (
-              <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
-               <RdsAvatar
-                      avtarOnly
-                      colorVariant={props.colorVariant}
-                      firstName={props.firstName}
-                      lastName={props.lastName}
-                      profilePic={profilePic}
-                      role={props.role}
-                      size={AvatarSize.medium}
-                      title="horizontal"
-                    />
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-    }
-    if (props.style === "Entertainment_4") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-             {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
                   <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
-            </div>
-          )}
-            <div >
-           
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.entertainment4 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-             {props.showSearch && props.entertainment4 && (
-              <div
-              className="searchBackground pe-2 ps-2"
-              id={!showSearchInput ? "searchInput" : "serachOption"}
-              onMouseEnter={handleSearchMouseEnter}
-              onMouseLeave={handleSearchMouseLeave}
-            >
-               {!showSearchInput && (<RdsIcon
-                name="search"
-                fill={false}
-                stroke={true}
-                height="18px"
-                width="18px"
-              />
-               )}
-              {showSearchInput && (
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
+              </div>
               )}
             </div>
-            )}
-            {props.entertainment4 && (
-              <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
-               <RdsAvatar
-                      avtarOnly
-                      colorVariant={props.colorVariant}
-                      firstName={props.firstName}
-                      lastName={props.lastName}
-                      profilePic={profilePic}
-                      role={props.role}
-                      size={AvatarSize.medium}
-                      title="horizontal"
-                    />
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-    }
-    if (props.style === "Professional_1") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
-                ) : (
-                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
-                )}
-            </div>
-          )}
-            <div >
-            {props.showSearch && props.professional1 && (
-              <div className="searchBackground ps-2" id="serachOption">
-                <RdsSearch
-                  iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
-              </div>
-            )}
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.professional1 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-            {props.professional1 && (
-              <>
-                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
-                <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
-                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
-              </div>
-              <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px'}}>
 
-              </div>
-               <div className="position-relative px-md-1 col text-center d-flex align-items-center cursor-pointer ">
-               <span className="ps-2">
-               <RdsIcon
-                  name="multiple_circle"
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick()}
-                ></RdsIcon>
-               </span>
-             </div>
-             <div className="position-relative px-md-2 col text-center d-flex align-items-center cursor-pointer ">
-               <RdsIcon
-                  name="blogs"
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick()}
-                ></RdsIcon>
-             </div>
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-    }
-    if (props.style === "Professional_2") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
             >
-              {props.top_nav_logo === "raaghu logo" ? (
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="d-flex align-items-center flex-grow-1 justify-content-center">
+              {props.showSearch && props.entertainment1 && (
+                <div className="searchBackground" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.entertainment1 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              {props.entertainment1 && (
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language">
+                  <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
+                  <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+                </div>
+              )}
+            </div>
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "For_Streaming_Service") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
                   <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
+              </div>
+              )}
+              <div >
+                {props.showSearch && props.entertainment2 && (
+                  <div className="searchBackground ps-2" id="serachOption">
+                    <RdsSearch
+                      iconPosition={IconPosition.Right}
+                      labelPosition="right"
+                      placeholder="Search"
+                      size="medium"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-            <div >
-            {props.showSearch && props.professional2 && (
-              <div className="searchBackground ps-2" id="serachOption">
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                  value={searchInput}
-                  onChange={(e) => addFilter(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.professional2 && (
-              <>
-                              <ul className="nav-items-list list-unstyled  align-items-center mb-0 d-md-none d-lg-flex">
-                <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px'}}>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.entertainment2 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              {props.entertainment2 && (
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
+                  <RdsAvatar
+                    avtarOnly
+                    colorVariant={props.colorVariant}
+                    firstName={props.firstName}
+                    lastName={props.lastName}
+                    profilePic={profilePic}
+                    role={props.role}
+                    size={AvatarSize.medium}
+                    title="horizontal"
+                  />
                 </div>
-                        {navtabItem?.map((item: any, index: number) => (
-                          <>
-                          <li key={index} className="nav-item mx-3 ">
-                            <a href={item.href} className="nav-link cursor-pointer" style={{ fontWeight: "bold" }}>
-                              {item.label}
-                            </a>
-                          </li>
-                           <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px'}}>
-                           </div>
-                          </>
-                        ))}
-                      </ul>
-                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
-                <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
-                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+              )}
+            </div>
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "For_Music_App") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )}
               </div>
-             
-               
-              </>
-            )}
-          </div>
-              </nav>
+              )}
+              <div >
+
+              </div>
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.entertainment3 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              {props.showSearch && props.entertainment3 && (
+                <div className="searchBackground pe-2 ps-2" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                  />
+                </div>
+              )}
+              {props.entertainment3 && (
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
+                  <RdsAvatar
+                    avtarOnly
+                    colorVariant={props.colorVariant}
+                    firstName={props.firstName}
+                    lastName={props.lastName}
+                    profilePic={profilePic}
+                    role={props.role}
+                    size={AvatarSize.medium}
+                    title="horizontal"
+                  />
+                </div>
+              )}
+            </div>
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "For_Video_Platform") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )}
+              </div>
+              )}
+              <div >
+
+              </div>
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.entertainment4 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              {props.showSearch && props.entertainment4 && (
+                <div
+                  className="searchBackground pe-2 ps-2"
+                  id={!showSearchInput ? "searchInput" : "serachOption"}
+                  onMouseEnter={handleSearchMouseEnter}
+                  onMouseLeave={handleSearchMouseLeave}
+                >
+                  {!showSearchInput && (<RdsIcon
+                    name="search"
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                  />
+                  )}
+                  {showSearchInput && (
+                    <RdsSearch
+                      iconPosition={IconPosition.Right}
+                      labelPosition="right"
+                      placeholder="Search"
+                      size="medium"
+                    />
+                  )}
+                </div>
+              )}
+              {props.entertainment4 && (
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
+                  <RdsAvatar
+                    avtarOnly
+                    colorVariant={props.colorVariant}
+                    firstName={props.firstName}
+                    lastName={props.lastName}
+                    profilePic={profilePic}
+                    role={props.role}
+                    size={AvatarSize.medium}
+                    title="horizontal"
+                  />
+                </div>
+              )}
+            </div>
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "For_Corporate") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )}
+              </div>
+              )}
+              <div >
+                {props.showSearch && props.professional1 && (
+                  <div className="searchBackground ps-2" id="serachOption">
+                    <RdsSearch
+                      iconPosition={IconPosition.Right}
+                      labelPosition="right"
+                      placeholder="Search"
+                      size="medium"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.professional1 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              {props.professional1 && (
+                <>
+                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
+                    <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
+                    <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+                  </div>
+                  <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px' }}>
+
+                  </div>
+                  <div className="position-relative px-md-1 col text-center d-flex align-items-center cursor-pointer ">
+                    <span className="ps-2">
+                      <RdsIcon
+                        name="multiple_circle"
+                        fill={false}
+                        stroke={true}
+                        height="18px"
+                        width="18px"
+                        onClick={() => handleIconClick()}
+                      ></RdsIcon>
+                    </span>
+                  </div>
+                  <div className="position-relative px-md-2 col text-center d-flex align-items-center cursor-pointer ">
+                    <RdsIcon
+                      name="blogs"
+                      fill={false}
+                      stroke={true}
+                      height="18px"
+                      width="18px"
+                      onClick={() => handleIconClick()}
+                    ></RdsIcon>
+                  </div>
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+      );
+    }
+    if (props.style === "With_Tabs") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                ) : (
+                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                )}
+              </div>
+              )}
+              <div >
+                {props.showSearch && props.professional2 && (
+                  <div className="searchBackground ps-2" id="serachOption">
+                    <RdsSearch
+                      iconPosition={IconPosition.Right}
+                      labelPosition="right"
+                      placeholder="Search"
+                      size="medium"
+                      value={searchInput}
+                      onChange={(e) => addFilter(e.target.value)}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
               {props.professional2 && (
-                  <>
-                      <ul className="nav-items-list list-unstyled d-flex align-items-center mb-0 d-xxl-none d-xl-none d-lg-none">
-                          <div className="border-end-custom p-0 ps-2" style={{ minHeight: '24px' }}>
-                          </div>
-                          {navtabItem?.map((item: any, index: number) => (
-                              <>
-                                  <li key={index} className="mt-2 mx-3 nav-item ">
-                                      <a href={item.href} className="nav-link cursor-pointer" style={{ fontWeight: "bold" }}>
-                                          {item.label}
-                                      </a>
-                                  </li>
-                                  <div className="border-end-custom p-0 ps-2" style={{ minHeight: '24px' }}>
-                                  </div>
-                              </>
-                          ))}
-                      </ul>
-                     
-                  </>
+                <>
+                  <ul className="nav-items-list list-unstyled  align-items-center mb-0 d-md-none d-lg-flex">
+                    <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px' }}>
+                    </div>
+                    {navtabItem?.map((item: any, index: number) => (
+                      <>
+                        <li key={index} className="nav-item mx-3 ">
+                          <a href={item.href} className="nav-link cursor-pointer" style={{ fontWeight: "bold" }}>
+                            {item.label}
+                          </a>
+                        </li>
+                        <div className="border-end-custom p-0 ps-2" style={{ minHeight: '44px' }}>
+                        </div>
+                      </>
+                    ))}
+                  </ul>
+                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
+                    <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
+                    <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+                  </div>
+
+
+                </>
               )}
-      </div>
-    );
+            </div>
+          </nav>
+          {props.professional2 && (
+            <>
+              <ul className="nav-items-list list-unstyled d-flex align-items-center mb-0 d-xxl-none d-xl-none d-lg-none">
+                <div className="border-end-custom p-0 ps-2" style={{ minHeight: '24px' }}>
+                </div>
+                {navtabItem?.map((item: any, index: number) => (
+                  <>
+                    <li key={index} className="mt-2 mx-3 nav-item ">
+                      <a href={item.href} className="nav-link cursor-pointer" style={{ fontWeight: "bold" }}>
+                        {item.label}
+                      </a>
+                    </li>
+                    <div className="border-end-custom p-0 ps-2" style={{ minHeight: '24px' }}>
+                    </div>
+                  </>
+                ))}
+              </ul>
+
+            </>
+          )}
+        </div>
+      );
     }
-    if (props.style === "Professional_3") {
+    if (props.style === "With_Language_Switcher") {
       return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
+              </div>
+              )}
+              <div >
+                {props.showSearch && props.professional3 && (
+                  <div className="searchBackground ps-2" id="serachOption">
+                    <RdsSearch
+                      iconPosition={IconPosition.Right}
+                      labelPosition="right"
+                      placeholder="Search"
+                      size="medium"
+                      value={searchInput}
+                      onChange={(e) => addFilter(e.target.value)}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-            <div >
-            {props.showSearch && props.professional3 && (
-              <div className="searchBackground ps-2" id="serachOption">
-                <RdsSearch
-                  iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                  value={searchInput}
-                  onChange={(e) => addFilter(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          
-      
-          <div className="d-flex align-items-center right-side-menu">
-            {props.professional3 && (
-              <>
-                              <ul className="nav-items-list list-unstyled align-items-center mb-0 d-md-none d-lg-flex">
-                <li className="nav-item mx-3 cursor-pointer  ">Home</li>
-              
-                {props.professional3 && breacrumItem?.length > 0 && (
-                <div className="mob-description ">
-                  <>
-                    <RdsBreadcrumb
-                      borderColor={props.breadcrumbBorderColor}
-                      borderPlacement={props.breadcrumbBorderPlacement}
-                      breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
-                      topnavPlusIcon={true}
-                    ></RdsBreadcrumb>
-                  </>
-                </div>
-              )}
-                <li className="nav-item mx-3 cursor-pointer  ">About us</li>
 
-                      </ul>
-                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
-                <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
-                <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
-              </div>
-             
-               
-              </>
-            )}
-          </div>
-              </nav>
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div className="d-flex align-items-center right-side-menu">
               {props.professional3 && (
-                  <>
-                      <ul className="nav-items-list list-unstyled d-flex align-items-center mb-0 d-xxl-none d-xl-none d-lg-none">
-                          <li className="nav-item mx-3 cursor-pointer  d-flex align-items-center mt-2">Home</li>
+                <>
+                  <ul className="nav-items-list list-unstyled align-items-center mb-0 d-md-none d-lg-flex">
+                    <li className="nav-item mx-3 cursor-pointer  ">Home</li>
 
-                          {props.professional3 && breacrumItem?.length > 0 && (
-                              <div className="mob-description ">
-                                  <>
-                                      <RdsBreadcrumb
-                                          breadcrumbItems={breacrumItem}
-                                          separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
-                                          topnavPlusIcon={true}
-                                      ></RdsBreadcrumb>
-                                  </>
-                              </div>
-                          )}
-                          <li className="nav-item mx-3 cursor-pointer d-flex align-items-center mt-2">About us</li>
+                    {props.professional3 && breacrumItem?.length > 0 && (
+                      <div className="mob-description ">
+                        <>
+                          <RdsBreadcrumb
+                            borderColor={props.breadcrumbBorderColor}
+                            borderPlacement={props.breadcrumbBorderPlacement}
+                            breadcrumbItems={breacrumItem}
+                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
+                            topnavPlusIcon={true}
+                          ></RdsBreadcrumb>
+                        </>
+                      </div>
+                    )}
+                    <li className="nav-item mx-3 cursor-pointer  ">About us</li>
 
-                      </ul>
-                     
-                  </>
+                  </ul>
+                  <div className="position-relative px-md-1 col text-center d-flex align-items-center language ">
+                    <img src={avatarBlankImage} className="px-md-2" alt="avatar image" />
+                    <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
+                  </div>
+
+
+                </>
               )}
-      </div>
-    );
+            </div>
+          </nav>
+          {props.professional3 && (
+            <>
+              <ul className="nav-items-list list-unstyled d-flex align-items-center mb-0 d-xxl-none d-xl-none d-lg-none">
+                <li className="nav-item mx-3 cursor-pointer  d-flex align-items-center mt-2">Home</li>
+
+                {props.professional3 && breacrumItem?.length > 0 && (
+                  <div className="mob-description ">
+                    <>
+                      <RdsBreadcrumb
+                        breadcrumbItems={breacrumItem}
+                        separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
+                        topnavPlusIcon={true}
+                      ></RdsBreadcrumb>
+                    </>
+                  </div>
+                )}
+                <li className="nav-item mx-3 cursor-pointer d-flex align-items-center mt-2">About us</li>
+
+              </ul>
+
+            </>
+          )}
+        </div>
+      );
     }
-    if (props.style === "Professional_4") {
+    if (props.style === "With_Collapsible_Menu") {
       return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          <span className={`px-2 cursor-pointer active}`}>
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
                   name="collapsable"
                   fill={false}
@@ -1471,276 +1471,276 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                 ></RdsIcon>
               </span>
               <div className="d-flex align-items-center">
-          {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
-            >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
-                ) : (
-                  <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                {props.showLogo && (<div
+                  onClick={handlerLogoClick}
+                  id="raaghuLogo"
+                  className=""
+                >
+                  {props.top_nav_logo === "raaghu logo" ? (
+                    <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  ) : (
+                    <span className="custom-logo-text custom-logo-font">Your Logo</span>
+                  )}
+                </div>
                 )}
+
+              </div>
             </div>
-          )}
-           
-          </div>
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-                  {breacrumItem?.length > 0 && (
-                      <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">          
-               <div className={` ${props.professional4?"ps-4":""}`}>
-                   <>
-                      <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                   </>
-                  </div>             
-          </div>)}
-      
-          <div className="d-flex align-items-center right-side-menu">
-          {props.showSearch && props.professional4 && (
-              <div className="searchBackground" id="serachOption">
-                <RdsSearch
-                   iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
-                />
-              </div>
-            )}
-            {props.professional4 && (
-              <div className="position-relative px-md-2 col text-center d-flex align-items-center language">
-                 <div className="">
-                {props.navButtons.map((button:any)=>
-                <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{fontSize:'13px',fontWeight:'500'}}>{button.name}</button>)
-                }
-              </div>
-              </div>
-            )}
-          </div>
-              </nav>
-              {breacrumItem?.length > 0 && (
-                  <div className="align-items-center flex-grow-1 justify-content-center d-xxl-none d-xl-none d-lg-none mt-2">
-                      <div className={` ${props.professional4 ? "ps-4" : ""}`}>
-                          <>
-                              <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
-                          </>
-                      </div>
-                  </div>)}
-      </div>
-    );
-    }
-    if (props.style === "Professional_5") {
-      return (
-        <div  id="topnav"> 
-        <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
-          <div className="d-flex align-items-center">
-          {props.showLogo && ( <div
-              onClick={handlerLogoClick}
-              id="raaghuLogo"
-              className=""
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
             >
-              {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo"/>
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            {breacrumItem?.length > 0 && (
+              <div className="d-flex align-items-center flex-grow-1 justify-content-center  d-md-none d-lg-flex">
+                <div className={` ${props.professional4 ? "ps-4" : ""}`}>
+                  <>
+                    <RdsBreadcrumb borderColor={props.breadcrumbBorderColor} borderPlacement={props.breadcrumbBorderPlacement} breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                  </>
+                </div>
+              </div>)}
+
+            <div className="d-flex align-items-center right-side-menu">
+              {props.showSearch && props.professional4 && (
+                <div className="searchBackground" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                  />
+                </div>
+              )}
+              {props.professional4 && (
+                <div className="position-relative px-md-2 col text-center d-flex align-items-center language">
+                  <div className="">
+                    {props.navButtons.map((button: any) =>
+                      <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{ fontSize: '13px', fontWeight: '500' }}>{button.name}</button>)
+                    }
+                  </div>
+                </div>
+              )}
+            </div>
+          </nav>
+          {breacrumItem?.length > 0 && (
+            <div className="align-items-center flex-grow-1 justify-content-center d-xxl-none d-xl-none d-lg-none mt-2">
+              <div className={` ${props.professional4 ? "ps-4" : ""}`}>
+                <>
+                  <RdsBreadcrumb breadcrumbItems={breacrumItem} onBreadcrumbClick={handleBreadcrumbClick} ></RdsBreadcrumb>
+                </>
+              </div>
+            </div>)}
+        </div>
+      );
+    }
+    if (props.style === "With_Theme_Switcher") {
+      return (
+        <div id="topnav">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+            <div className="d-flex align-items-center">
+              {props.showLogo && (<div
+                onClick={handlerLogoClick}
+                id="raaghuLogo"
+                className=""
+              >
+                {props.top_nav_logo === "raaghu logo" ? (
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text p-3 custom-logo-font">Your Logo</span>
                 )}
+              </div>
+              )}
+
             </div>
-          )}
-           
-          </div>
-      
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-      
-          <div className="d-flex align-items-center flex-grow-1 justify-content-center d-none d-md-flex">
-            {props.showSearch && props.professional5 && (
-              <div className="searchBackground" id="serachOption">
-                <RdsSearch
-                  iconPosition={IconPosition.Right}
-                  labelPosition="right"
-                  placeholder="Search"
-                  size="medium"
+
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="d-flex align-items-center flex-grow-1 justify-content-center d-none d-md-flex">
+              {props.showSearch && props.professional5 && (
+                <div className="searchBackground" id="serachOption">
+                  <RdsSearch
+                    iconPosition={IconPosition.Right}
+                    labelPosition="right"
+                    placeholder="Search"
+                    size="medium"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="d-flex align-items-center right-side-menu top-nav">
+              <div
+                className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
+              >
+                <RdsDropdownList
+                  placeholder={"EN"}
+                  icon={props.languageIcon}
+                  iconFill={false}
+                  iconStroke={false}
+                  isPlaceholder={true}
+                  id={"languageDropdown"}
+                  listItems={languageItems}
+                  showIcon={false}
+                  onClick={onClickHandler}
+                  // tooltip={true}
+                  // tooltipTitle={"Select Language"}
+                  // tooltipPlacement="bottom"
+                  isCode={true}
+                ></RdsDropdownList>
+                <div className="d-block d-none fs-8 text-center">Language</div>
+              </div>
+              {props.professional5 && props.icons?.map((icon: any) => (
+                <span key={icon.id} className={`px-3 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                  <RdsIcon
+                    name={icon.name}
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    onClick={() => handleIconClick(icon)}
+                  ></RdsIcon>
+                </span>
+              ))}
+              <div className="position-relative px-2 px-md-1 col text-center  ">
+                <RdsDropdownList
+                  labelIconWidth="30px"
+                  iconFill={true}
+                  iconStroke={true}
+                  icon={themeIcon}
+                  labelIconHeight="26px"
+                  isIconPlaceholder={true}
+                  showSelectedOption={false}
+                  isPlaceholder={false}
+                  id={"themeDropdown"}
+                  listItems={props.themeItems}
+                  onClick={onClicktheme}
+                  showIcon={true}
                 />
               </div>
-            )}
-          </div>
-      
-          <div className="d-flex align-items-center right-side-menu top-nav">
-          <div
-              className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
-            >
-              <RdsDropdownList
-                placeholder={"EN"}
-                icon={props.languageIcon}
-                iconFill={false}
-                iconStroke={false}
-                isPlaceholder={true}
-                id={"languageDropdown"}
-                listItems={languageItems}
-                showIcon={false}
-                onClick={onClickHandler}
-                // tooltip={true}
-                // tooltipTitle={"Select Language"}
-                // tooltipPlacement="bottom"
-                isCode={true}
-              ></RdsDropdownList>
-              <div className="d-block d-none fs-8 text-center">Language</div>
-            </div>
-            {props.professional5 && props.icons?.map((icon: any) => (
-              <span key={icon.id} className={`px-3 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                <RdsIcon
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-              </span>
-            ))}
-            <div className="position-relative px-2 px-md-1 col text-center  ">
-            <RdsDropdownList
-                labelIconWidth="30px"
-                iconFill={true}
-                iconStroke={true}
-                icon={themeIcon} 
-                labelIconHeight="26px"
-                isIconPlaceholder={true}
-                showSelectedOption={false}
-                isPlaceholder={false}
-                id={"themeDropdown"}
-                listItems={props.themeItems}
-                onClick={onClicktheme}
-                showIcon={true}
-              />
-            </div>
-            {props.professional5 && (
-              <div className="position-relative px-md-1 col text-center d-flex align-items-center language custome-border-start">
-                 <div className="position-relative  d-block d-lg-none col text-center profile-off">
-              <RdsOffcanvas
-                className="pb-5 m-auto"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile1"
-                offcanvasbutton={
-                  <div
-                    className="d-flex align-items-center justify-content-center cursorpointer"
-                    id="customAvtar"
-                  >
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                  </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
-              >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onProfileLink={profileLinkListHandler}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={props.backToMyAccount}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
+              {props.professional5 && (
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language custome-border-start">
+                  <div className="position-relative  d-block d-lg-none col text-center profile-off">
+                    <RdsOffcanvas
+                      className="pb-5 m-auto"
+                      placement={RdsOffcanvasPlacement.End}
+                      offcanvaswidth={307}
+                      offId="Profile1"
+                      offcanvasbutton={
+                        <div
+                          className="d-flex align-items-center justify-content-center cursorpointer"
+                          id="customAvtar"
+                        >
+                          <img
+                            className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                            src={profilePic}
+                          ></img>
+                        </div>
+                      }
+                      backDrop={RdsOffcanvasBackDrop.True}
+                      scrolling={false}
+                      preventEscapeKey={false}
+                      canvasTitle={""}
+                    >
+                      <RdsCompProfile
+                        navtabItems={navtabItems}
+                        profilePic={profilePic}
+                        userName={props.profileTitle}
+                        userEmail={props.profileEmail}
+                        userRole={props.tenantName}
+                        onProfileLink={profileLinkListHandler}
+                        onLogout={props.onLogout}
+                        isImpersonation={props.isImpersonation}
+                        backToMyAccount={props.backToMyAccount}
+                        showUserName={true}
+                      ></RdsCompProfile>
+                    </RdsOffcanvas>
 
-              <div className="d-block d-none fs-8 text-center">Profile</div>
-            </div>
-            <div className=" d-none d-lg-block px-1">
-              <RdsOffcanvas
-                className="pb-0"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile"
-                offcanvasbutton={
-                  <div className="d-flex align-items-center cursorpointer">
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                    <span className="ms-2">
-                      <RdsIcon
-                        name="chevron_down"
-                        height="11px"
-                        width="11px"
-                        fill={false}
-                        stroke={true}
-                      ></RdsIcon>
-                    </span>
+                    <div className="d-block d-none fs-8 text-center">Profile</div>
                   </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
-              >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={props.backToMyAccount}
-                  onProfileLink={profileLinkListHandler}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
+                  <div className=" d-none d-lg-block px-1">
+                    <RdsOffcanvas
+                      className="pb-0"
+                      placement={RdsOffcanvasPlacement.End}
+                      offcanvaswidth={307}
+                      offId="Profile"
+                      offcanvasbutton={
+                        <div className="d-flex align-items-center cursorpointer">
+                          <img
+                            className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                            src={profilePic}
+                          ></img>
+                          <span className="ms-2">
+                            <RdsIcon
+                              name="chevron_down"
+                              height="11px"
+                              width="11px"
+                              fill={false}
+                              stroke={true}
+                            ></RdsIcon>
+                          </span>
+                        </div>
+                      }
+                      backDrop={RdsOffcanvasBackDrop.True}
+                      scrolling={false}
+                      preventEscapeKey={false}
+                      canvasTitle={""}
+                    >
+                      <RdsCompProfile
+                        navtabItems={navtabItems}
+                        profilePic={profilePic}
+                        userName={props.profileTitle}
+                        userEmail={props.profileEmail}
+                        userRole={props.tenantName}
+                        onLogout={props.onLogout}
+                        isImpersonation={props.isImpersonation}
+                        backToMyAccount={props.backToMyAccount}
+                        onProfileLink={profileLinkListHandler}
+                        showUserName={true}
+                      ></RdsCompProfile>
+                    </RdsOffcanvas>
+                  </div>
+                </div>
+              )}
             </div>
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
+          </nav>
+        </div>
+      );
     }
     if (props.style === "App_Shell_3") {
       return (
         <div>
-        <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
-          <div
-            onClick={handlerLogoClick}
-            id="raaghuLogo"
-            className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
-          >
-            <img
-              className="cursor-pointer sidenav-mobile-logo"
-              src={brandLogo}
-              alt="logo"
-            ></img>
-          </div>
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+            <div
+              onClick={handlerLogoClick}
+              id="raaghuLogo"
+              className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
+            >
+              <img
+                className="cursor-pointer sidenav-mobile-logo"
+                src={brandLogo}
+                alt="logo"
+              ></img>
+            </div>
 
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <button
+              className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0"
+              type="button"
+              onClick={props.onClickHamburger}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
 
-          <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
-            <div className="d-flex">
+            <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+              <div className="d-flex">
                 <>
                   <div>
                     {props.showLogo && (
@@ -1751,204 +1751,201 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                         alt="raaghu-logo"
                       ></img>
                     )}
-                    
+
                   </div>
                 </>
-              
-            </div>
-          </div>
-          <div
-            className={
-              "d-flex align-items-center justify-content-between right-side-menu"
-            }
-          >
- 
-           <div className="position-relative px-2 px-md-3 col text-center  ">
-           <RdsDropdownList
-                labelIconWidth="30px"
-                iconFill={true}
-                iconStroke={true}
-                icon={themeIcon} 
-                labelIconHeight="26px"
-                isIconPlaceholder={true}
-                showSelectedOption={false}
-                isPlaceholder={false}
-                id={"themeDropdown"}
-                listItems={props.themeItems}
-                onClick={onClicktheme}
-                showIcon={true}
-              />
-            </div>
 
-           <div
-              className={`position-relative px-2 px-md-3 col border-end-custom ${
-                currentPath != "/" && "border-start-custom"
-              }  ${
-                props.isChatPermission && "border-end-custom"
-              } border-2 d-flex justify-content-center align-items-center text-center`}
-            >
-              <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
-                <span className="cursor-pointer" onClick={props.chatsHandler}>
-                  <RdsIcon
-                    name="chatting"
-                    tooltip={true}
-                    tooltipTitle={"Chat"}
-                    tooltipPlacement="bottom"
-                    width="18px"
-                    height="18px"
-                    type="lottie"
-                    isHovered
-                  ></RdsIcon>
-                </span>
-              </div>{" "}
-            </div>
-
-            <div className="d-block d-none fs-8 text-center">Chat</div>
-
-            <div
-              className={`position-relative px-2 px-md-3 d-flex border-start-custom ${
-                !props.ShowProfileSection && "border-start-custom"
-              } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
-            >
-              <div className="rounded-circle mbhome bg-primary">
-                <RdsIcon
-                  name="home"
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  colorVariant="light"
-                  onClick={props.mobileViewLogoClick}
-                ></RdsIcon>
               </div>
             </div>
-              { props.appshell3  && 
-            <div id="topnav">
-                 <div  
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center border-end-custom "}
-                >
-                    <RdsDropdownList
-                        labelIconWidth="18px"
-                        labelIconHeight="18px"
-                        placeholder={props.listItems[0].label || "EN"}
-                        icon={props.languageIcon}
-                        iconFill={false}
-                        iconStroke={false}
-                        isPlaceholder={true}
-                        id={"languageDropdownTopNavigation"}
-                        listItems={listItems}
-                        showIcon={false}
-                        onClick={onClickHandler}
-                        // tooltip={true}
-                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                        // tooltipPlacement="bottom"
-                        isCode={true}
-
-                    ></RdsDropdownList> 
-                </div>
-            </div>
+            <div
+              className={
+                "d-flex align-items-center justify-content-between right-side-menu"
               }
-            <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
-              <RdsOffcanvas
-                className="pb-5 m-auto"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile1"
-                offcanvasbutton={
-                  <div
-                    className="d-flex align-items-center justify-content-center cursorpointer"
-                    id="customAvtar"
-                  >
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                  </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
-              >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onProfileLink={profileLinkListHandler}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={props.backToMyAccount}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
+            >
 
-              <div className="d-block d-none fs-8 text-center">Profile</div>
-            </div>
-            <div className="px-2 px-md-3 d-none d-lg-block">
-              <RdsOffcanvas
-                className="pb-0"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile"
-                offcanvasbutton={
-                  <div className="d-flex align-items-center cursorpointer">
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                    <div className="ms-2 fs-6">
-                      <div className="text-nowrap">
-                        Hi, {props.profileTitle}{" "}
-                      </div>
-                      <div className="text-nowrap text-muted">
-                        {props.role}
-                      </div>
-                    </div>
-                    <span className="ms-3">
-                      <RdsIcon
-                        name="chevron_down"
-                        height="11px"
-                        width="11px"
-                        fill={false}
-                        stroke={true}
-                      ></RdsIcon>
-                    </span>
-                  </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
+              <div className="position-relative px-2 px-md-3 col text-center  ">
+                <RdsDropdownList
+                  labelIconWidth="30px"
+                  iconFill={true}
+                  iconStroke={true}
+                  icon={themeIcon}
+                  labelIconHeight="26px"
+                  isIconPlaceholder={true}
+                  showSelectedOption={false}
+                  isPlaceholder={false}
+                  id={"themeDropdown"}
+                  listItems={props.themeItems}
+                  onClick={onClicktheme}
+                  showIcon={true}
+                />
+              </div>
+
+              <div
+                className={`position-relative px-2 px-md-3 col border-end-custom ${currentPath != "/" && "border-start-custom"
+                  }  ${props.isChatPermission && "border-end-custom"
+                  } border-2 d-flex justify-content-center align-items-center text-center`}
               >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={ props.backToMyAccount}
-                  onProfileLink={profileLinkListHandler}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
+                <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
+                  <span className="cursor-pointer" onClick={props.chatsHandler}>
+                    <RdsIcon
+                      name="chatting"
+                      tooltip={true}
+                      tooltipTitle={"Chat"}
+                      tooltipPlacement="bottom"
+                      width="18px"
+                      height="18px"
+                      type="lottie"
+                      isHovered
+                    ></RdsIcon>
+                  </span>
+                </div>{" "}
+              </div>
+
+              <div className="d-block d-none fs-8 text-center">Chat</div>
+
+              <div
+                className={`position-relative px-2 px-md-3 d-flex border-start-custom ${!props.ShowProfileSection && "border-start-custom"
+                  } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
+              >
+                <div className="rounded-circle mbhome bg-primary">
+                  <RdsIcon
+                    name="home"
+                    fill={false}
+                    stroke={true}
+                    height="18px"
+                    width="18px"
+                    colorVariant="light"
+                    onClick={props.mobileViewLogoClick}
+                  ></RdsIcon>
+                </div>
+              </div>
+              {props.appshell3 &&
+                <div id="topnav">
+                  <div
+                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center border-end-custom "}
+                  >
+                    <RdsDropdownList
+                      labelIconWidth="18px"
+                      labelIconHeight="18px"
+                      placeholder={props.listItems[0].label || "EN"}
+                      icon={props.languageIcon}
+                      iconFill={false}
+                      iconStroke={false}
+                      isPlaceholder={true}
+                      id={"languageDropdownTopNavigation"}
+                      listItems={listItems}
+                      showIcon={false}
+                      onClick={onClickHandler}
+                      // tooltip={true}
+                      // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                      // tooltipPlacement="bottom"
+                      isCode={true}
+
+                    ></RdsDropdownList>
+                  </div>
+                </div>
+              }
+              <div className="position-relative px-2 px-md-3 d-block d-lg-none col text-center profile-off">
+                <RdsOffcanvas
+                  className="pb-5 m-auto"
+                  placement={RdsOffcanvasPlacement.End}
+                  offcanvaswidth={307}
+                  offId="Profile1"
+                  offcanvasbutton={
+                    <div
+                      className="d-flex align-items-center justify-content-center cursorpointer"
+                      id="customAvtar"
+                    >
+                      <img
+                        className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                        src={profilePic}
+                      ></img>
+                    </div>
+                  }
+                  backDrop={RdsOffcanvasBackDrop.True}
+                  scrolling={false}
+                  preventEscapeKey={false}
+                  canvasTitle={""}
+                >
+                  <RdsCompProfile
+                    navtabItems={navtabItems}
+                    profilePic={profilePic}
+                    userName={props.profileTitle}
+                    userEmail={props.profileEmail}
+                    userRole={props.tenantName}
+                    onProfileLink={profileLinkListHandler}
+                    onLogout={props.onLogout}
+                    isImpersonation={props.isImpersonation}
+                    backToMyAccount={props.backToMyAccount}
+                    showUserName={true}
+                  ></RdsCompProfile>
+                </RdsOffcanvas>
+
+                <div className="d-block d-none fs-8 text-center">Profile</div>
+              </div>
+              <div className="px-2 px-md-3 d-none d-lg-block">
+                <RdsOffcanvas
+                  className="pb-0"
+                  placement={RdsOffcanvasPlacement.End}
+                  offcanvaswidth={307}
+                  offId="Profile"
+                  offcanvasbutton={
+                    <div className="d-flex align-items-center cursorpointer">
+                      <img
+                        className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                        src={profilePic}
+                      ></img>
+                      <div className="ms-2 fs-6">
+                        <div className="text-nowrap">
+                          Hi, {props.profileTitle}{" "}
+                        </div>
+                        <div className="text-nowrap text-muted">
+                          {props.role}
+                        </div>
+                      </div>
+                      <span className="ms-3">
+                        <RdsIcon
+                          name="chevron_down"
+                          height="11px"
+                          width="11px"
+                          fill={false}
+                          stroke={true}
+                        ></RdsIcon>
+                      </span>
+                    </div>
+                  }
+                  backDrop={RdsOffcanvasBackDrop.True}
+                  scrolling={false}
+                  preventEscapeKey={false}
+                  canvasTitle={""}
+                >
+                  <RdsCompProfile
+                    navtabItems={navtabItems}
+                    profilePic={profilePic}
+                    userName={props.profileTitle}
+                    userEmail={props.profileEmail}
+                    userRole={props.tenantName}
+                    onLogout={props.onLogout}
+                    isImpersonation={props.isImpersonation}
+                    backToMyAccount={props.backToMyAccount}
+                    onProfileLink={profileLinkListHandler}
+                    showUserName={true}
+                  ></RdsCompProfile>
+                </RdsOffcanvas>
+              </div>
+
+
             </div>
-          
-           
-          </div>
-        </nav>
-        {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top d-none d-md-flex ">
+          </nav>
+          {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top d-none d-md-flex ">
             <div className="d-flex align-items-center justify-content-center flex-grow-1">
               <div className="d-flex justify-content-center w-100">
-                { breacrumItem?.length > 0 && (
+                {breacrumItem?.length > 0 && (
                   <div className="mob-description fs-6">
                     <RdsBreadcrumb
                       borderColor={props.breadcrumbBorderColor}
                       borderPlacement={props.breadcrumbBorderPlacement}
-                                           breadcrumbItems={breacrumItem}
+                      breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
                     ></RdsBreadcrumb>
@@ -1957,345 +1954,343 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
               </div>
             </div>
           </nav>
-            }
+          }
 
-      </div>
+        </div>
       );
-      
+
     }
     return (
       <>
-      
-      {(props.style === "Default" || 
-        props.style === "ABP" || 
-        props.style === "Product_1" || 
-        props.style === "Product_2" || 
-        props.style === "Product_3" || 
-        props.style === "Product_4") && (
 
-      <div>
-        <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
-          <div
-            onClick={handlerLogoClick}
-            id="raaghuLogo"
-            className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
-          >
-            <img
-              className="cursor-pointer sidenav-mobile-logo"
-              src={brandLogo}
-              alt="logo"
-            ></img>
-          </div>
+        {(props.style === "Default" ||
+          props.style === "ABP" ||
+          props.style === "Basic_Navigation" ||
+          props.style === "With_Social_Links" ||
+          props.style === "With_Download_Button" ||
+          props.style === "With_User_Avatar") && (
 
-          <button
-            className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0 ms-auto"
-            type="button"
-            onClick={props.onClickHamburger}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="d-flex align-items-center mt-md-0 d-xxl-block d-xl-block d-lg-block">
-            <div className="d-flex">
-                <>
-                 {(!props.product1  && <div>
-                    {props.showLogo && (
-                      <img
-                        className="cursor-pointer pe-4 d-md-flex d-none"
-                        width={120}
-                        src={brandLogo}
-                        alt="raaghu-logo"
-                      ></img>
-                    )}
-                    {((!props.product4 && !props.entertainment1)&& <span className="text-bold text-primary d-none d-md-flex ps-4">
-                      {navtitle}
-                    </span>)}
-                  </div>)}
-                </>
-              {(props.product1 || props.product2 || props.product3)&& breacrumItem?.length > 0 && (
-                            <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
-                  <>
-                    <RdsBreadcrumb
-                      borderColor={props.breadcrumbBorderColor}
-                      borderPlacement={props.breadcrumbBorderPlacement}
-                      breadcrumbItems={breacrumItem}
-                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
-                      topnavPlusIcon={props.product2 || props.product3}
-                    ></RdsBreadcrumb>
-                  </>
+            <div>
+              <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
+                <div
+                  onClick={handlerLogoClick}
+                  id="raaghuLogo"
+                  className="d-xxl-none d-xl-none d-lg-none d-md-none d-block"
+                >
+                  <img
+                    className="cursor-pointer sidenav-mobile-logo"
+                    src={brandLogo}
+                    alt="logo"
+                  ></img>
                 </div>
-              )}
-            </div>
-          </div>
-          <div
-            className={
-              "d-flex px-2 align-items-center justify-content-between right-side-menu"
-            }
-          >
-           {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1)  && <>  
-           <div className="position-relative px-2 px-md-3 col text-center">
-              <RdsDropdownList
-                labelIconWidth="30px"
-                iconFill={true}
-                iconStroke={true}
-                icon={themeIcon} 
-                labelIconHeight="26px"
-                isIconPlaceholder={true}
-                showSelectedOption={false}
-                isPlaceholder={false}
-                id={"themeDropdown"}
-                listItems={props.themeItems}
-                onClick={onClicktheme}
-                showIcon={true}
-              />
-              {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
-            </div>
 
-           <div
-              className={`position-relative px-2 px-md-3 col ${
-                currentPath != "/" && "border-start-custom"
-              }  ${
-                props.isChatPermission && "border-end-custom"
-              } border-2 d-flex justify-content-center align-items-center text-center`}
-            >
-              <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
-                <span className="cursor-pointer" onClick={props.chatsHandler}>
-                  <RdsIcon
-                    name="chatting"
-                    tooltip={true}
-                    tooltipTitle={"Chat"}
-                    tooltipPlacement="bottom"
-                    width="18px"
-                    height="18px"
-                    type="lottie"
-                    isHovered
-                  ></RdsIcon>
-                </span>
-              </div>{" "}
-            </div>
+                <button
+                  className="navbar-toggler d-xxl-none d-xl-none d-lg-none d-md-none d-block border-0 ms-auto"
+                  type="button"
+                  onClick={props.onClickHamburger}
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
 
-            <div className="d-block d-none fs-8 text-center">Chat</div>
-
-            <div
-              className={`position-relative px-2 px-md-3 d-flex ${
-                !props.ShowProfileSection && "border-start-custom"
-              } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
-            >
-              <div className="rounded-circle mbhome bg-primary">
-                <RdsIcon
-                  name="home"
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  colorVariant="light"
-                  onClick={props.mobileViewLogoClick}
-                ></RdsIcon>
-              </div>
-            </div>
-
-            <div
-              className={`position-relative px-2 px-md-4 ${
-                !props.ShowProfileSection && "border-start-custom"
-              }  border-end-custom col text-center d-flex align-items-center language`}
-            >
-              <RdsDropdownList
-                placeholder={"EN"}
-                icon={props.languageIcon}
-                iconFill={false}
-                iconStroke={false}
-                isPlaceholder={true}
-                id={"languageDropdown"}
-                listItems={languageItems}
-                showIcon={false}
-                onClick={onClickHandler}
-                // tooltip={true}
-                // tooltipTitle={"Select Language"}
-                // tooltipPlacement="bottom"
-                isCode={true}
-              ></RdsDropdownList>
-              <div className="d-block d-none fs-8 text-center">Language</div>
-            </div>
-            </>)}
-            { props.product1 && props.icons?.map((icon:any) => (
-               <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                <RdsIcon
-               key={icon.id}
-               name={icon.name}
-               fill={false}
-               stroke={true}
-               height="18px"
-               width="18px"
-               colorVariant="dark"
-               onClick={() => handleIconClick(icon)}
-             ></RdsIcon>
-               </span>
-              ))}
-              
-            {( (!props.product2 && !props.product3 && !props.product4 && !props.entertainment1)&&<>
-            <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
-              <RdsOffcanvas
-                className="pb-5 m-auto"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile1"
-                offcanvasbutton={
-                  <div
-                    className="d-flex align-items-center justify-content-center cursorpointer"
-                    id="customAvtar"
-                  >
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                  </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
-              >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onProfileLink={profileLinkListHandler}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={props.backToMyAccount}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
-
-              <div className="d-block d-none fs-8 text-center">Profile</div>
-            </div>
-            <div className="px-2 px-md-3 d-none d-lg-block">
-              <RdsOffcanvas
-                className="pb-0"
-                placement={RdsOffcanvasPlacement.End}
-                offcanvaswidth={307}
-                offId="Profile"
-                offcanvasbutton={
-                  <div className="d-flex align-items-center cursorpointer">
-                    <img
-                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                      src={profilePic}
-                    ></img>
-                    <div className="ms-2 fs-6">
-                      <div className="text-nowrap">
-                        Hi, {props.profileTitle}{" "}
+                <div className="d-flex align-items-center mt-md-0 d-xxl-block d-xl-block d-lg-block">
+                  <div className="d-flex">
+                    <>
+                      {(!props.product1 && <div>
+                        {props.showLogo && (
+                          <img
+                            className="cursor-pointer pe-4 d-md-flex d-none"
+                            width={120}
+                            src={brandLogo}
+                            alt="raaghu-logo"
+                          ></img>
+                        )}
+                        {/* {((!props.product4 && !props.entertainment1) && <span className="text-bold text-primary d-none d-md-flex ps-4">
+                          { navtitle}
+                        </span>)} */}
+                        {((!props.product4 && !props.entertainment1 && !props.product2 && !props.product3) && <span className="text-bold text-primary d-none d-md-flex ps-4">
+                          {navtitle}
+                        </span>)}
+                      </div>)}
+                    </>
+                    {(props.product1 || props.product2 || props.product3) && breacrumItem?.length > 0 &&
+                      (<div id="home-icon" className={`mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none${props.product3 ? ' product3' : ''}`}>
+                        <>
+                          <RdsBreadcrumb
+                            borderColor={props.breadcrumbBorderColor}
+                            borderPlacement={props.breadcrumbBorderPlacement}
+                            breadcrumbItems={breacrumItem}
+                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined} topnavPlusIcon={props.product2 || props.product3}
+                          ></RdsBreadcrumb>
+                        </>
                       </div>
-                      <div className="text-nowrap text-muted">
-                        {props.role}
+                      )}
+                  </div>
+                </div>
+                <div
+                  className={
+                    "d-flex px-2 align-items-center justify-content-between right-side-menu"
+                  }
+                >
+                  {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1) && <>
+                    <div className="position-relative px-2 px-md-3 col text-center">
+                      <RdsDropdownList
+                        labelIconWidth="30px"
+                        iconFill={true}
+                        iconStroke={true}
+                        icon={themeIcon}
+                        labelIconHeight="26px"
+                        isIconPlaceholder={true}
+                        showSelectedOption={false}
+                        isPlaceholder={false}
+                        id={"themeDropdown"}
+                        listItems={props.themeItems}
+                        onClick={onClicktheme}
+                        showIcon={true}
+                      />
+                      {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
+                    </div>
+
+                    <div
+                      className={`position-relative px-2 px-md-3 col ${currentPath != "/" && "border-start-custom"
+                        }  ${props.isChatPermission && "border-end-custom"
+                        } border-2 d-flex justify-content-center align-items-center text-center`}
+                    >
+                      <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
+                        <span className="cursor-pointer" onClick={props.chatsHandler}>
+                          <RdsIcon
+                            name="chatting"
+                            tooltip={true}
+                            tooltipTitle={"Chat"}
+                            tooltipPlacement="bottom"
+                            width="18px"
+                            height="18px"
+                            type="lottie"
+                            isHovered
+                          ></RdsIcon>
+                        </span>
+                      </div>{" "}
+                    </div>
+
+                    <div className="d-block d-none fs-8 text-center">Chat</div>
+
+                    <div
+                      className={`position-relative px-2 px-md-3 d-flex ${!props.ShowProfileSection && "border-start-custom"
+                        } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
+                    >
+                      <div className="rounded-circle mbhome bg-primary">
+                        <RdsIcon
+                          name="home"
+                          fill={false}
+                          stroke={true}
+                          height="18px"
+                          width="18px"
+                          colorVariant="light"
+                          onClick={props.mobileViewLogoClick}
+                        ></RdsIcon>
                       </div>
                     </div>
-                    <span className="ms-3">
-                      <RdsIcon
-                        name="chevron_down"
-                        height="11px"
-                        width="11px"
-                        fill={false}
-                        stroke={true}
-                      ></RdsIcon>
-                    </span>
-                  </div>
-                }
-                backDrop={RdsOffcanvasBackDrop.True}
-                scrolling={false}
-                preventEscapeKey={false}
-                canvasTitle={""}
-              >
-                <RdsCompProfile
-                  navtabItems={navtabItems}
-                  profilePic={profilePic}
-                  userName={props.profileTitle}
-                  userEmail={props.profileEmail}
-                  userRole={props.tenantName}
-                  onLogout={props.onLogout}
-                  isImpersonation={props.isImpersonation}
-                  backToMyAccount={props.backToMyAccount}
-                  onProfileLink={profileLinkListHandler}
-                  showUserName={true}
-                ></RdsCompProfile>
-              </RdsOffcanvas>
-            </div>
-            </>)}
-            { props.product2  && 
-            <div id="topnav">
-                 <div  
-                    className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
-                >
-                    <RdsDropdownList
-                        labelIconWidth="18px"
-                        labelIconHeight="18px"
-                        placeholder={props.listItems[0].label || "EN"}
+
+                    <div
+                      className={`position-relative px-2 px-md-4 ${!props.ShowProfileSection && "border-start-custom"
+                        }  border-end-custom col text-center d-flex align-items-center language`}
+                    >
+                      <RdsDropdownList
+                        placeholder={"EN"}
                         icon={props.languageIcon}
                         iconFill={false}
                         iconStroke={false}
                         isPlaceholder={true}
-                        id={"languageDropdownTopNavigation"}
-                        listItems={listItems}
+                        id={"languageDropdown"}
+                        listItems={languageItems}
                         showIcon={false}
                         onClick={onClickHandler}
                         // tooltip={true}
-                        // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                        // tooltipTitle={"Select Language"}
                         // tooltipPlacement="bottom"
                         isCode={true}
+                      ></RdsDropdownList>
+                      <div className="d-block d-none fs-8 text-center">Language</div>
+                    </div>
+                  </>)}
+                  {props.product1 && props.icons?.map((icon: any) => (
+                    <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
+                      <RdsIcon
+                        key={icon.id}
+                        name={icon.name}
+                        fill={false}
+                        stroke={true}
+                        height="18px"
+                        width="18px"
+                        colorVariant="dark"
+                        onClick={() => handleIconClick(icon)}
+                      ></RdsIcon>
+                    </span>
+                  ))}
 
-                    ></RdsDropdownList> 
-                </div>
-            </div>
-              }
-            { (props.product2 || props.product3)  && props.socialMediaIcons?.map((icon:any) => (
-                <img
-                  key={icon.id}
-                  src={icon.src}
-                  alt={icon.alt}
-                  className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
-                  onClick={() => handleIconClick(icon)}
-                ></img>
-              ))}
-                {( (props.product2 || props.product3)  && <button className="btn btn-primary p-2 ms-3 me-2">Download</button> )}
+                  {((!props.product2 && !props.product3 && !props.product4 && !props.entertainment1) && <>
+                    <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
+                      <RdsOffcanvas
+                        className="pb-5 m-auto"
+                        placement={RdsOffcanvasPlacement.End}
+                        offcanvaswidth={307}
+                        offId="Profile1"
+                        offcanvasbutton={
+                          <div
+                            className="d-flex align-items-center justify-content-center cursorpointer"
+                            id="customAvtar"
+                          >
+                            <img
+                              className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                              src={profilePic}
+                            ></img>
+                          </div>
+                        }
+                        backDrop={RdsOffcanvasBackDrop.True}
+                        scrolling={false}
+                        preventEscapeKey={false}
+                        canvasTitle={""}
+                      >
+                        <RdsCompProfile
+                          navtabItems={navtabItems}
+                          profilePic={profilePic}
+                          userName={props.profileTitle}
+                          userEmail={props.profileEmail}
+                          userRole={props.tenantName}
+                          onProfileLink={profileLinkListHandler}
+                          onLogout={props.onLogout}
+                          isImpersonation={props.isImpersonation}
+                          backToMyAccount={props.backToMyAccount}
+                          showUserName={true}
+                        ></RdsCompProfile>
+                      </RdsOffcanvas>
+
+                      <div className="d-block d-none fs-8 text-center">Profile</div>
+                    </div>
+                    <div className="px-2 px-md-3 d-none d-lg-block">
+                      <RdsOffcanvas
+                        className="pb-0"
+                        placement={RdsOffcanvasPlacement.End}
+                        offcanvaswidth={307}
+                        offId="Profile"
+                        offcanvasbutton={
+                          <div className="d-flex align-items-center cursorpointer">
+                            <img
+                              className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                              src={profilePic}
+                            ></img>
+                            <div className="ms-2 fs-6">
+                              <div className="text-nowrap">
+                                Hi, {props.profileTitle}{" "}
+                              </div>
+                              <div className="text-nowrap text-muted">
+                                {props.role}
+                              </div>
+                            </div>
+                            <span className="ms-3">
+                              <RdsIcon
+                                name="chevron_down"
+                                height="11px"
+                                width="11px"
+                                fill={false}
+                                stroke={true}
+                              ></RdsIcon>
+                            </span>
+                          </div>
+                        }
+                        backDrop={RdsOffcanvasBackDrop.True}
+                        scrolling={false}
+                        preventEscapeKey={false}
+                        canvasTitle={""}
+                      >
+                        <RdsCompProfile
+                          navtabItems={navtabItems}
+                          profilePic={profilePic}
+                          userName={props.profileTitle}
+                          userEmail={props.profileEmail}
+                          userRole={props.tenantName}
+                          onLogout={props.onLogout}
+                          isImpersonation={props.isImpersonation}
+                          backToMyAccount={props.backToMyAccount}
+                          onProfileLink={profileLinkListHandler}
+                          showUserName={true}
+                        ></RdsCompProfile>
+                      </RdsOffcanvas>
+                    </div>
+                  </>)}
+                  {props.product2 &&
+                    <div id="topnav">
+                      <div
+                        className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
+                      >
+                        <RdsDropdownList
+                          labelIconWidth="18px"
+                          labelIconHeight="18px"
+                          placeholder={props.listItems[0].label || "EN"}
+                          icon={props.languageIcon}
+                          iconFill={false}
+                          iconStroke={false}
+                          isPlaceholder={true}
+                          id={"languageDropdownTopNavigation"}
+                          listItems={listItems}
+                          showIcon={false}
+                          onClick={onClickHandler}
+                          // tooltip={true}
+                          // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
+                          // tooltipPlacement="bottom"
+                          isCode={true}
+
+                        ></RdsDropdownList>
+                      </div>
+                    </div>
+                  }
+                  {(props.product2 || props.product3) && props.socialMediaIcons?.map((icon: any) => (
+                    <img
+                      key={icon.id}
+                      src={icon.src}
+                      alt={icon.alt}
+                      className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}
+                      onClick={() => handleIconClick(icon)}
+                    ></img>
+                  ))}
+                  {((props.product2 || props.product3) && <button className="btn btn-primary p-2 ms-3 me-2">Download</button>)}
                   <div
-                      className={"position-relative px-2 px-md-1 col text-center d-flex align-items-center "}
-                      id="topnav"
+                    className={"position-relative px-2 px-md-1 col text-center d-flex align-items-center "}
+                    id="topnav"
                   >
-                    {( (props.showSearch && (props.product4 || props.entertainment1)) &&  <div className="searchBackground right-side-menu" id="serachOption">
-                        <RdsSearch
-                            iconPosition={IconPosition.Right}
-                            labelPosition="right"
-                            placeholder="Search"
-                            size="medium"
-                        />
-                    </div> )} 
+                    {((props.showSearch && (props.product4 || props.entertainment1)) && <div className="searchBackground right-side-menu" id="serachOption">
+                      <RdsSearch
+                        iconPosition={IconPosition.Right}
+                        labelPosition="right"
+                        placeholder="Search"
+                        size="medium"
+                      />
+                    </div>)}
                   </div>
-                {( props.product4 && <div
-                    className={`position-relative   col text-center d-flex align-items-center language ${(props.ecommerce4 || props.product4)? "" : "px-md-3"} `}
-                >
-               { props.product4  && props.icons?.map((icon:any) => (
-                <>
-                <span  className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                   <RdsIcon
-                  key={icon.id}
-                  name={icon.name}
-                  fill={false}
-                  stroke={true}
-                  height="18px"
-                  width="18px"
-                  onClick={() => handleIconClick(icon)}
-                ></RdsIcon>
-                </span>
-                </>
-              ))}
-                </div>
-                
-                )} 
-                {(props.product4 && <div
+                  {(props.product4 && <div
+                    className={`position-relative   col text-center d-flex align-items-center language ${(props.ecommerce4 || props.product4) ? "" : "px-md-3"} `}
+                  >
+                    {props.product4 && props.icons?.map((icon: any) => (
+                      <>
+                        <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
+                          <RdsIcon
+                            key={icon.id}
+                            name={icon.name}
+                            fill={false}
+                            stroke={true}
+                            height="18px"
+                            width="18px"
+                            onClick={() => handleIconClick(icon)}
+                          ></RdsIcon>
+                        </span>
+                      </>
+                    ))}
+                  </div>
+
+                  )}
+                  {(props.product4 && <div
                     className={"position-relative px-1 col text-center d-flex align-items-center"}
-                >
-                   <RdsAvatar
+                  >
+                    <RdsAvatar
                       avtarOnly
                       colorVariant={props.colorVariant}
                       firstName={props.firstName}
@@ -2305,44 +2300,42 @@ const filterMenuItem = (menuItem: { label: string, children?: any[] }, query: st
                       size={AvatarSize.medium}
                       title="horizontal"
                     />
-                </div>)}
-          </div>
-        </nav>
-        {props.product4 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top">
-            <div className="d-flex align-items-center justify-content-center flex-grow-1">
-              <div className="d-flex justify-content-center w-100">
-                { breacrumItem?.length > 0 && (
-                  <div className="mob-description">
-                    <RdsBreadcrumb 
-                      breadcrumbItems={breacrumItem}
-                      borderColor={props.breadcrumbBorderColor}
-                      borderPlacement={props.breadcrumbBorderPlacement}
-                      separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
-                      topnavPlusIcon={props.product2 || props.product3}
-                    ></RdsBreadcrumb>
-                  </div>
-                )}
-              </div>
-            </div>
-          </nav>
-            }
-       
-            {(props.product1 || props.product2 || props.product3) && breacrumItem?.length > 0 && (
-                <div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
-                    <>
-                        <RdsBreadcrumb
-                            breadcrumbItems={breacrumItem}
-                            borderColor={props.breadcrumbBorderColor}
-                            borderPlacement={props.breadcrumbBorderPlacement}
-                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
-                            topnavPlusIcon={props.product2 || props.product3}
-                        ></RdsBreadcrumb>
-                    </>
+                  </div>)}
                 </div>
-            )}
-      </div>
-    )}
-    </>
+              </nav>
+              {props.product4 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top">
+                <div className="d-flex align-items-center justify-content-center flex-grow-1">
+                  <div className="d-flex justify-content-center w-100">
+                    {breacrumItem?.length > 0 && (<div className="mob-description">
+                      <RdsBreadcrumb
+                        breadcrumbItems={breacrumItem}
+                        borderColor={props.breadcrumbBorderColor}
+                        borderPlacement={props.breadcrumbBorderPlacement}
+                        separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
+                        topnavPlusIcon={props.product2 || props.product3}
+                      ></RdsBreadcrumb>
+                    </div>
+                    )}
+                  </div>
+                </div>
+              </nav>
+              }
+
+              {(props.product1 || props.product2 || props.product3) && breacrumItem?.length > 0 && (<div className="mob-description d-flex align-items-center mt-5 mt-md-0 d-xxl-none d-xl-none d-lg-none">
+                <>
+                  <RdsBreadcrumb
+                    breadcrumbItems={breacrumItem}
+                    borderColor={props.breadcrumbBorderColor}
+                    borderPlacement={props.breadcrumbBorderPlacement}
+                    separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
+                    topnavPlusIcon={props.product2 || props.product3}
+                  ></RdsBreadcrumb>
+                </>
+              </div>
+              )}
+            </div>
+          )}
+      </>
     );
   };
 

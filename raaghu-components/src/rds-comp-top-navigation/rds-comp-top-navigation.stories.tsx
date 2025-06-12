@@ -3,19 +3,19 @@ import RdsCompTopNavigation from "./rds-comp-top-navigation";
 import { id } from 'date-fns/locale';
 
 
-const meta: Meta = { 
+const meta: Meta = {
     title: "Elements/Top Navigation",
     component: RdsCompTopNavigation,
     parameters: {
         layout: 'padded',
-        docs:{
-             description: {
-  component: `The **Top Navigation With Search** component provides a comprehensive and user-friendly navigation bar designed for modern web applications. It features a customizable brand section, including \`brandName\` and \`brandLogo\`, allowing easy integration of your brand identity. The component includes a flexible breadcrumb navigation system that displays the current page hierarchy, supporting a dynamic array of breadcrumb items with customizable icons, labels, routing paths, and disabled states for intuitive navigation.
+        docs: {
+            description: {
+                component: `The **Top Navigation With Search** component provides a comprehensive and user-friendly navigation bar designed for modern web applications. It features a customizable brand section, including \`brandName\` and \`brandLogo\`, allowing easy integration of your brand identity. The component includes a flexible breadcrumb navigation system that displays the current page hierarchy, supporting a dynamic array of breadcrumb items with customizable icons, labels, routing paths, and disabled states for intuitive navigation.
 
 A user profile section is integrated, displaying user details such as \`profileName\`, \`profileTitle\`, and \`profileEmail\`, giving quick user context and personalization. Additionally, the component features a prominent search input, enabling fast access to app-wide search functionality.
 
 Designed with clarity, accessibility, and responsiveness in mind, this component is ideal for dashboards, portals, and enterprise applications where seamless navigation and immediate user context are crucial.`
-}
+            }
 
         }
     },
@@ -25,7 +25,7 @@ Designed with clarity, accessibility, and responsiveness in mind, this component
             options: ["custom logo", "raaghu logo"],
             control: { type: "select" },
         },
-        
+
     },
 } satisfies Meta<typeof RdsCompTopNavigation>;
 
@@ -52,7 +52,7 @@ export const Default: Story = {
                 userNotificationId: 0,
                 selected: false,
             },
-    
+
             {
                 status: "error",
                 title: "Tenant deleted",
@@ -62,7 +62,7 @@ export const Default: Story = {
                 userNotificationId: 1,
                 selected: false,
             },
-    
+
             {
                 status: "warn",
                 title: "Tenant added  warn",
@@ -72,7 +72,7 @@ export const Default: Story = {
                 userNotificationId: 2,
                 selected: false,
             },
-    
+
             {
                 status: "info",
                 title: "Tenant deleted info",
@@ -82,7 +82,7 @@ export const Default: Story = {
                 userNotificationId: 3,
                 selected: false,
             },
-        ],    
+        ],
         languageItems: [
             {
                 label: "EN(US)",
@@ -132,11 +132,11 @@ export const Default: Story = {
         showLogo: true,
         top_nav_logo: "raaghu logo",
         role: "Admin",
-        style:"Default"
+        style: "Default"
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['navbarTitle','top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role', 'style'] } };
+Default.parameters = { controls: { include: ['navbarTitle', 'top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems', 'showLogo', 'role', 'style'] } };
 export const ABP: Story = {
     args: {
         navbarTitle: "Home",
@@ -157,7 +157,7 @@ export const ABP: Story = {
                 userNotificationId: 0,
                 selected: false,
             },
-    
+
             {
                 status: "error",
                 title: "Tenant deleted",
@@ -167,7 +167,7 @@ export const ABP: Story = {
                 userNotificationId: 1,
                 selected: false,
             },
-    
+
             {
                 status: "warn",
                 title: "Tenant added  warn",
@@ -177,7 +177,7 @@ export const ABP: Story = {
                 userNotificationId: 2,
                 selected: false,
             },
-    
+
             {
                 status: "info",
                 title: "Tenant deleted info",
@@ -187,7 +187,7 @@ export const ABP: Story = {
                 userNotificationId: 3,
                 selected: false,
             },
-        ],    
+        ],
         languageItems: [
             {
                 label: "EN(US)",
@@ -225,7 +225,7 @@ export const ABP: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -240,7 +240,7 @@ export const ABP: Story = {
     }
 } satisfies Story;
 
-ABP.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems','showLogo','role', 'style'] } };
+ABP.parameters = { controls: { include: ['navbarTitle', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems', 'showLogo', 'role', 'style'] } };
 
 export const RaaghuPortal: Story = {
     args: {
@@ -266,7 +266,7 @@ export const RaaghuPortal: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -314,8 +314,8 @@ export const RaaghuPortal: Story = {
     }
 } satisfies Story;
 
-RaaghuPortal.parameters = { controls: { include: ['brandName', 'brandLogo','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','role', 'style'] } };
-export const Ecommerce_1: Story = {
+RaaghuPortal.parameters = { controls: { include: ['brandName', 'brandLogo', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'role', 'style'] } };
+export const With_Cart: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -327,7 +327,7 @@ export const Ecommerce_1: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -342,7 +342,7 @@ export const Ecommerce_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -351,7 +351,7 @@ export const Ecommerce_1: Story = {
                 iconHeight: "20px",
             },
         ],
-        breadcrumItem : [
+        breadcrumItem: [
             {
                 label: "Home",
                 id: 1,
@@ -407,16 +407,16 @@ export const Ecommerce_1: Story = {
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         ecommerce1: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
-        style: "Ecommerce_1"
+        style: "With_Cart"
 
     }
 } satisfies Story;
 
-Ecommerce_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_Cart.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Ecommerce_2: Story = {
+export const With_Currency_Switcher: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -428,7 +428,7 @@ export const Ecommerce_2: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -443,7 +443,7 @@ export const Ecommerce_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -452,8 +452,8 @@ export const Ecommerce_2: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Home",
                 id: 1,
@@ -505,72 +505,72 @@ export const Ecommerce_2: Story = {
                 iconColor: "primary"
             }
         ],
-        listItems : [
+        listItems: [
             {
-              label: "USD",
-              val: "USD",
-              icon: "usd-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/path/to/usd-icon.png"
+                label: "USD",
+                val: "USD",
+                icon: "usd-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/path/to/usd-icon.png"
             },
             {
-              label: "EUR",
-              val: "EUR",
-              icon: "eur-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/eur-icon.png"
+                label: "EUR",
+                val: "EUR",
+                icon: "eur-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/eur-icon.png"
             },
             {
-              label: "GBP",
-              val: "GBP",
-              icon: "gbp-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/gbp-icon.png"
+                label: "GBP",
+                val: "GBP",
+                icon: "gbp-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/gbp-icon.png"
             },
             {
-              label: "JPY",
-              val: "JPY",
-              icon: "jpy-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/jpy-icon.png"
+                label: "JPY",
+                val: "JPY",
+                icon: "jpy-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/jpy-icon.png"
             },
             {
-              label: "CAD",
-              val: "CAD",
-              icon: "cad-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/cad-icon.png"
+                label: "CAD",
+                val: "CAD",
+                icon: "cad-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/cad-icon.png"
             },
             {
-              label: "AUD",
-              val: "AUD",
-              icon: "aud-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/icon"
+                label: "AUD",
+                val: "AUD",
+                icon: "aud-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/icon"
             }
-          ],
-          
+        ],
+
         showLogo: true,
         showSearch: true,
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         ecommerce2: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
-        style: "Ecommerce_2"
+        style: "With_Currency_Switcher"
 
     }
 } satisfies Story;
 
-Ecommerce_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
+With_Currency_Switcher.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'showSearch', 'style'] } };
 
-export const Ecommerce_3: Story = {
+export const With_Social_Media: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -582,7 +582,7 @@ export const Ecommerce_3: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -597,7 +597,7 @@ export const Ecommerce_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -606,8 +606,8 @@ export const Ecommerce_3: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Home",
                 id: 1,
@@ -659,78 +659,78 @@ export const Ecommerce_3: Story = {
                 iconColor: "primary"
             }
         ],
-        listItems : [
+        listItems: [
             {
-              label: "USD",
-              val: "USD",
-              icon: "usd-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/path/to/usd-icon.png"
+                label: "USD",
+                val: "USD",
+                icon: "usd-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/path/to/usd-icon.png"
             },
             {
-              label: "EUR",
-              val: "EUR",
-              icon: "eur-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/eur-icon.png"
+                label: "EUR",
+                val: "EUR",
+                icon: "eur-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/eur-icon.png"
             },
             {
-              label: "GBP",
-              val: "GBP",
-              icon: "gbp-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/gbp-icon.png"
+                label: "GBP",
+                val: "GBP",
+                icon: "gbp-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/gbp-icon.png"
             },
             {
-              label: "JPY",
-              val: "JPY",
-              icon: "jpy-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/jpy-icon.png"
+                label: "JPY",
+                val: "JPY",
+                icon: "jpy-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/jpy-icon.png"
             },
             {
-              label: "CAD",
-              val: "CAD",
-              icon: "cad-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/cad-icon.png"
+                label: "CAD",
+                val: "CAD",
+                icon: "cad-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/cad-icon.png"
             },
             {
-              label: "AUD",
-              val: "AUD",
-              icon: "aud-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/icon"
+                label: "AUD",
+                val: "AUD",
+                icon: "aud-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/icon"
             }
-          ],
-          
+        ],
+
         showLogo: true,
         showSearch: true,
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         ecommerce3: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        socialMediaIcons : [
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        socialMediaIcons: [
             { id: "google", src: "./assets/google.svg", alt: "social-media-icon-google" },
             { id: "whatsapp", src: "./assets/whatsapp.svg", alt: "social-media-icon-whatsapp" },
             { id: "vimeo", src: "./assets/Vimeo.svg", alt: "social-media-icon-vimeo" },
-          ],
+        ],
         top_nav_logo: "raaghu logo",
-        style: "Ecommerce_3"
+        style: "With_Social_Media"
 
-      
+
     }
 } satisfies Story;
 
-Ecommerce_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
+With_Social_Media.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'showSearch', 'style'] } };
 
-export const Ecommerce_4: Story = {
+export const With_Favorites: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -742,7 +742,7 @@ export const Ecommerce_4: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -757,7 +757,7 @@ export const Ecommerce_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -766,8 +766,8 @@ export const Ecommerce_4: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Home",
                 id: 1,
@@ -819,77 +819,77 @@ export const Ecommerce_4: Story = {
                 iconColor: "primary"
             }
         ],
-        listItems : [
+        listItems: [
             {
-              label: "USD",
-              val: "USD",
-              icon: "usd-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/path/to/usd-icon.png"
+                label: "USD",
+                val: "USD",
+                icon: "usd-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/path/to/usd-icon.png"
             },
             {
-              label: "EUR",
-              val: "EUR",
-              icon: "eur-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/eur-icon.png"
+                label: "EUR",
+                val: "EUR",
+                icon: "eur-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/eur-icon.png"
             },
             {
-              label: "GBP",
-              val: "GBP",
-              icon: "gbp-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/gbp-icon.png"
+                label: "GBP",
+                val: "GBP",
+                icon: "gbp-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/gbp-icon.png"
             },
             {
-              label: "JPY",
-              val: "JPY",
-              icon: "jpy-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/jpy-icon.png"
+                label: "JPY",
+                val: "JPY",
+                icon: "jpy-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/jpy-icon.png"
             },
             {
-              label: "CAD",
-              val: "CAD",
-              icon: "cad-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/cad-icon.png"
+                label: "CAD",
+                val: "CAD",
+                icon: "cad-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/cad-icon.png"
             },
             {
-              label: "AUD",
-              val: "AUD",
-              icon: "aud-icon.png",
-              iconWidth: "20px",
-              iconHeight: "20px",
-              iconPath: "/icon"
+                label: "AUD",
+                val: "AUD",
+                icon: "aud-icon.png",
+                iconWidth: "20px",
+                iconHeight: "20px",
+                iconPath: "/icon"
             }
-          ],
-          
+        ],
+
         showLogo: true,
         showSearch: true,
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         ecommerce4: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "shopping_cart", name:"shopping_cart",  },
-            { id: "fevorite", name:"fevorite",  },
-          ],
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "shopping_cart", name: "shopping_cart", },
+            { id: "fevorite", name: "fevorite", },
+        ],
         top_nav_logo: "raaghu logo",
-        style: "Ecommerce_4"
+        style: "With_Favorites"
 
-      
+
     }
 } satisfies Story;
 
-Ecommerce_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo','showSearch', 'style'] } };
+With_Favorites.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'showSearch', 'style'] } };
 
-export const Product_1: Story = {
+export const Basic_Navigation: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -901,7 +901,7 @@ export const Product_1: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -916,7 +916,7 @@ export const Product_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -925,8 +925,8 @@ export const Product_1: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Dashboard",
                 id: 1,
@@ -967,23 +967,23 @@ export const Product_1: Story = {
             },
         ],
         product1: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "settings", name:"settings",  },
-            { id: "help_question_circle", name:"help_question_circle",  },
-            { id: "import", name:"import",  },
-            { id: "notification", name:"notification_new",  },
-          ],
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "settings", name: "settings", },
+            { id: "help_question_circle", name: "help_question_circle", },
+            { id: "import", name: "import", },
+            { id: "notification", name: "notification_new", },
+        ],
         top_nav_logo: "raaghu logo",
-        style: "Product_1"
+        style: "Basic_Navigation"
 
-      
+
     }
 } satisfies Story;
 
-Product_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
+Basic_Navigation.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
 
-export const Product_2: Story = {
+export const With_Social_Links: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -995,7 +995,7 @@ export const Product_2: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1010,7 +1010,7 @@ export const Product_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -1019,8 +1019,8 @@ export const Product_2: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Tab 1",
                 id: 1,
@@ -1075,14 +1075,14 @@ export const Product_2: Story = {
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         product2: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "settings", name:"settings",  },
-            { id: "help_question_circle", name:"help_question_circle",  },
-            { id: "import", name:"import",  },
-            { id: "notification", name:"notification_new",  },
-          ],
-          listItems : [
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "settings", name: "settings", },
+            { id: "help_question_circle", name: "help_question_circle", },
+            { id: "import", name: "import", },
+            { id: "notification", name: "notification_new", },
+        ],
+        listItems: [
             {
                 label: "v4.10",
                 val: "v4.10",
@@ -1090,55 +1090,55 @@ export const Product_2: Story = {
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.10-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.9",
                 val: "v4.9",
                 icon: "v4.9-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.9-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.8",
                 val: "v4.8",
                 icon: "v4.8-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.8-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.7",
                 val: "v4.7",
                 icon: "v4.7-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.7-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.6",
                 val: "v4.6",
                 icon: "v4.6-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.6-icon.png"
-              }
-          ],
+            }
+        ],
         showLogo: true,
         showSearch: true,
-        socialMediaIcons : [
+        socialMediaIcons: [
             { id: "google", src: "./assets/google.svg", alt: "social-media-icon-google" },
             { id: "whatsapp", src: "./assets/whatsapp.svg", alt: "social-media-icon-whatsapp" },
             { id: "github", src: "./assets/github.svg", alt: "social-media-icon-github" },
-          ],
+        ],
         top_nav_logo: "raaghu logo",
-        style: "Product_2"
+        style: "With_Social_Links"
     }
 } satisfies Story;
 
-Product_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_Social_Links.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Product_3: Story = {
+export const With_Download_Button: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1150,7 +1150,7 @@ export const Product_3: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1165,7 +1165,7 @@ export const Product_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -1174,8 +1174,20 @@ export const Product_3: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
+            {
+                label: "Home",
+                id: "home",
+                route: "#",
+                disabled: false,
+                iconFill: false,
+                iconstroke: true,
+                iconWidth: "15px",
+                iconHeight: "15px",
+                iconColor: "primary",
+                active: true,
+            },
             {
                 label: "Tab 1",
                 id: 1,
@@ -1187,7 +1199,7 @@ export const Product_3: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
                 label: "Tab 1",
@@ -1230,14 +1242,14 @@ export const Product_3: Story = {
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         product3: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "settings", name:"settings",  },
-            { id: "help_question_circle", name:"help_question_circle",  },
-            { id: "import", name:"import",  },
-            { id: "notification", name:"notification_new",  },
-          ],
-          listItems : [
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "settings", name: "settings", },
+            { id: "help_question_circle", name: "help_question_circle", },
+            { id: "import", name: "import", },
+            { id: "notification", name: "notification_new", },
+        ],
+        listItems: [
             {
                 label: "v4.10",
                 val: "v4.10",
@@ -1245,56 +1257,56 @@ export const Product_3: Story = {
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.10-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.9",
                 val: "v4.9",
                 icon: "v4.9-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.9-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.8",
                 val: "v4.8",
                 icon: "v4.8-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.8-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.7",
                 val: "v4.7",
                 icon: "v4.7-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.7-icon.png"
-              },
-              {
+            },
+            {
                 label: "v4.6",
                 val: "v4.6",
                 icon: "v4.6-icon.png",
                 iconWidth: "20px",
                 iconHeight: "20px",
                 iconPath: "/path/to/v4.6-icon.png"
-              }
-          ],
+            }
+        ],
         showLogo: true,
         showSearch: true,
-        socialMediaIcons : [
+        socialMediaIcons: [
             { id: "google", src: "./assets/google.svg", alt: "social-media-icon-google" },
             { id: "whatsapp", src: "./assets/whatsapp.svg", alt: "social-media-icon-whatsapp" },
             { id: "github", src: "./assets/github.svg", alt: "social-media-icon-github" },
-          ],
+        ],
         top_nav_logo: "raaghu logo",
-        style: "Product_3"
-      
+        style: "With_Download_Button"
+
     }
 } satisfies Story;
 
-Product_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_Download_Button.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Product_4: Story = {
+export const With_User_Avatar: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1306,7 +1318,7 @@ export const Product_4: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1321,7 +1333,7 @@ export const Product_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -1330,8 +1342,8 @@ export const Product_4: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Dashboard",
                 id: 1,
@@ -1398,25 +1410,25 @@ export const Product_4: Story = {
         breadcrumbBorderPlacement: "top",
         breadcrumbBorderColor: "#6610f2",
         product4: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "notification", name:"notification_new",  },
-            { id: "chat_left_corner", name:"chat_left_corner",  },
-            { id: "administration", name:"administration",  },
-            
-          ],
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "notification", name: "notification_new", },
+            { id: "chat_left_corner", name: "chat_left_corner", },
+            { id: "administration", name: "administration", },
+
+        ],
         showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Product_4"
+        style: "With_User_Avatar"
 
-      
+
     }
 } satisfies Story;
 
-Product_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_User_Avatar.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Entertainment_1: Story = {
+export const For_Media_Portal: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1428,7 +1440,7 @@ export const Entertainment_1: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1443,7 +1455,7 @@ export const Entertainment_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "Semi-Dark",
                 val: "semi-dark",
@@ -1452,8 +1464,8 @@ export const Entertainment_1: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Dashboard",
                 id: 1,
@@ -1518,24 +1530,24 @@ export const Entertainment_1: Story = {
             },
         ],
         entertainment1: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "video_icon", name:"video_icon",  },
-            { id: "multiple_circle", name:"multiple_circle",  },
-            { id: "notification_new", name:"notification_new",  },
-            
-          ],
-        showLogo: true, 
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "video_icon", name: "video_icon", },
+            { id: "multiple_circle", name: "multiple_circle", },
+            { id: "notification_new", name: "notification_new", },
+
+        ],
+        showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Entertainment_1"
-      
+        style: "For_Media_Portal"
+
     }
 } satisfies Story;
 
-Entertainment_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+For_Media_Portal.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Entertainment_2: Story = {
+export const For_Streaming_Service: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1547,7 +1559,7 @@ export const Entertainment_2: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1562,7 +1574,7 @@ export const Entertainment_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1571,29 +1583,29 @@ export const Entertainment_2: Story = {
                 iconHeight: "20px",
             },
         ],
-       
+
         entertainment2: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home_interface", name:"home_interface",  },
-            { id: "travel_map", name:"travel_map",  },
-            { id: "entertainment_playlist", name:"entertainment_playlist",  },
-            { id: "fevorite", name:"fevorite",  },
-            { id: "notification_new", name:"notification_new",  },
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home_interface", name: "home_interface", },
+            { id: "travel_map", name: "travel_map", },
+            { id: "entertainment_playlist", name: "entertainment_playlist", },
+            { id: "fevorite", name: "fevorite", },
+            { id: "notification_new", name: "notification_new", },
 
-            
-          ],
-        showLogo: true, 
+
+        ],
+        showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Entertainment_2"
-      
+        style: "For_Streaming_Service"
+
     }
 } satisfies Story;
 
-Entertainment_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+For_Streaming_Service.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Entertainment_3: Story = {
+export const For_Music_App: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1605,7 +1617,7 @@ export const Entertainment_3: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1620,7 +1632,7 @@ export const Entertainment_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1629,28 +1641,28 @@ export const Entertainment_3: Story = {
                 iconHeight: "20px",
             },
         ],
-       
+
         entertainment3: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home_interface", name:"home_interface",  },
-            { id: "travel_map", name:"travel_map",  },
-            { id: "entertainment_playlist", name:"entertainment_playlist",  },
-            { id: "fevorite", name:"fevorite",  },
-            { id: "notification_new", name:"notification_new",  },
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home_interface", name: "home_interface", },
+            { id: "travel_map", name: "travel_map", },
+            { id: "entertainment_playlist", name: "entertainment_playlist", },
+            { id: "fevorite", name: "fevorite", },
+            { id: "notification_new", name: "notification_new", },
 
-            
-          ],
-        showLogo: true, 
+
+        ],
+        showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Entertainment_3"
-      
+        style: "For_Music_App"
+
     }
 } satisfies Story;
 
-Entertainment_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
-export const Entertainment_4: Story = {
+For_Music_App.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
+export const For_Video_Platform: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1662,7 +1674,7 @@ export const Entertainment_4: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1677,7 +1689,7 @@ export const Entertainment_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1686,29 +1698,29 @@ export const Entertainment_4: Story = {
                 iconHeight: "20px",
             },
         ],
-       
+
         entertainment4: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home_interface", name:"home_interface",  },
-            { id: "travel_map", name:"travel_map",  },
-            { id: "entertainment_playlist", name:"entertainment_playlist",  },
-            { id: "fevorite", name:"fevorite",  },
-            { id: "notification_new", name:"notification_new",  },
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home_interface", name: "home_interface", },
+            { id: "travel_map", name: "travel_map", },
+            { id: "entertainment_playlist", name: "entertainment_playlist", },
+            { id: "fevorite", name: "fevorite", },
+            { id: "notification_new", name: "notification_new", },
 
-            
-          ],
-        showLogo: true, 
+
+        ],
+        showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Entertainment_4"
-      
+        style: "For_Video_Platform"
+
     }
 } satisfies Story;
 
-Entertainment_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+For_Video_Platform.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Professional_1: Story = {
+export const For_Corporate: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1720,7 +1732,7 @@ export const Professional_1: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1735,7 +1747,7 @@ export const Professional_1: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1744,27 +1756,27 @@ export const Professional_1: Story = {
                 iconHeight: "20px",
             },
         ],
-       
+
         professional1: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home", name:"home",  },
-            { id: "hierarchy", name:"hierarchy",  },
-            { id: "countries", name:"countries",  },
-            { id: "notification_new", name:"notification_new",  },
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home", name: "home", },
+            { id: "hierarchy", name: "hierarchy", },
+            { id: "countries", name: "countries", },
+            { id: "notification_new", name: "notification_new", },
 
-            
-          ],
-        showLogo: true, 
+
+        ],
+        showLogo: true,
         showSearch: true,
         top_nav_logo: "raaghu logo",
-        style: "Professional_1"
-      
+        style: "For_Corporate"
+
     }
 } satisfies Story;
 
-Professional_1.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
-export const Professional_2: Story = {
+For_Corporate.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
+export const With_Tabs: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1776,7 +1788,7 @@ export const Professional_2: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1791,7 +1803,7 @@ export const Professional_2: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1800,18 +1812,18 @@ export const Professional_2: Story = {
                 iconHeight: "20px",
             },
         ],
-       
+
         professional2: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home", name:"home",  },
-            { id: "hierarchy", name:"hierarchy",  },
-            { id: "countries", name:"countries",  },
-            { id: "notification_new", name:"notification_new",  },  
-          ],
-        showLogo: true, 
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home", name: "home", },
+            { id: "hierarchy", name: "hierarchy", },
+            { id: "countries", name: "countries", },
+            { id: "notification_new", name: "notification_new", },
+        ],
+        showLogo: true,
         showSearch: true,
-        navtabItems : [
+        navtabItems: [
             {
                 label: "Home",
                 id: 1,
@@ -1864,12 +1876,12 @@ export const Professional_2: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
-        style: "Professional_2"
+        style: "With_Tabs"
     }
 } satisfies Story;
 
-Professional_2.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
-export const Professional_3: Story = {
+With_Tabs.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
+export const With_Language_Switcher: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1881,7 +1893,7 @@ export const Professional_3: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1896,7 +1908,7 @@ export const Professional_3: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1908,18 +1920,18 @@ export const Professional_3: Story = {
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         professional3: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        icons : [
-            { id: "home", name:"home",  },
-            { id: "hierarchy", name:"hierarchy",  },
-            { id: "countries", name:"countries",  },
-            { id: "notification_new", name:"notification_new",  },
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        icons: [
+            { id: "home", name: "home", },
+            { id: "hierarchy", name: "hierarchy", },
+            { id: "countries", name: "countries", },
+            { id: "notification_new", name: "notification_new", },
 
-            
-          ],
-        showLogo: true, 
+
+        ],
+        showLogo: true,
         showSearch: true,
-        breadcrumItem : [
+        breadcrumItem: [
             {
                 label: "Tab 1",
                 id: 1,
@@ -1948,13 +1960,13 @@ export const Professional_3: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
-        style: "Professional_3"
-      
+        style: "With_Language_Switcher"
+
     }
 } satisfies Story;
 
-Professional_3.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
-export const Professional_4: Story = {
+With_Language_Switcher.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
+export const With_Collapsible_Menu: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -1966,7 +1978,7 @@ export const Professional_4: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -1981,7 +1993,7 @@ export const Professional_4: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -1993,10 +2005,10 @@ export const Professional_4: Story = {
         breadcrumbBorderPlacement: "bottom",
         breadcrumbBorderColor: "#6610f2",
         professional4: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        showLogo: true, 
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        showLogo: true,
         showSearch: true,
-        breadcrumItem : [
+        breadcrumItem: [
             {
                 label: "Coummunity",
                 id: 1,
@@ -2037,7 +2049,7 @@ export const Professional_4: Story = {
                 active: false,
             },
         ],
-        navButtons : [
+        navButtons: [
             {
                 name: "Find Jobs",
                 id: 1,
@@ -2063,14 +2075,14 @@ export const Professional_4: Story = {
             },
         ],
         top_nav_logo: "raaghu logo",
-        style: "Professional_4"
-      
+        style: "With_Collapsible_Menu"
+
     }
 } satisfies Story;
 
-Professional_4.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic', 'top_nav_logo','profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_Collapsible_Menu.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 
-export const Professional_5: Story = {
+export const With_Theme_Switcher: Story = {
     args: {
         navbarTitle: "Home",
         navbarSubTitle: "Statistics and reports",
@@ -2082,7 +2094,7 @@ export const Professional_5: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -2097,7 +2109,7 @@ export const Professional_5: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -2106,24 +2118,24 @@ export const Professional_5: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        professional5: true,
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-        showLogo: true, 
-        showSearch: true,
-        icons : [
-            { id: "star", name:"star",  },
-            { id: "notification_new", name:"notification_new",  },
-            { id: "help_question_circle", name:"help_question_circle",  },
-          ],
-       top_nav_logo: "raaghu logo",
-       style: "Professional_5"
 
-      
+        professional5: true,
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        showLogo: true,
+        showSearch: true,
+        icons: [
+            { id: "star", name: "star", },
+            { id: "notification_new", name: "notification_new", },
+            { id: "help_question_circle", name: "help_question_circle", },
+        ],
+        top_nav_logo: "raaghu logo",
+        style: "With_Theme_Switcher"
+
+
     }
 } satisfies Story;
 
-Professional_5.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems','showLogo', 'style'] } };
+With_Theme_Switcher.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
 export const App_Shell: Story = {
     args: {
         navbarTitle: "Dashboard",
@@ -2136,7 +2148,7 @@ export const App_Shell: Story = {
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",  
+        role: "Admin",
         themeItems: [
             {
                 label: "Light",
@@ -2151,7 +2163,7 @@ export const App_Shell: Story = {
                 icon: "moon",
                 iconWidth: "20px",
                 iconHeight: "20px",
-            },   
+            },
             {
                 label: "SemiDark",
                 val: "semiDark",
@@ -2183,8 +2195,8 @@ export const App_Shell: Story = {
                 iconHeight: "20px",
             },
         ],
-       
-        breadcrumItem : [
+
+        breadcrumItem: [
             {
                 label: "Home",
                 id: 0,
@@ -2288,13 +2300,13 @@ export const App_Shell: Story = {
         breadcrumbBorderPlacement: "top",
         breadcrumbBorderColor: "#6610f2",
         appshell3: true,
-        showLogo: true, 
-        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+        showLogo: true,
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         top_nav_logo: "raaghu logo",
         style: "App_Shell_3"
 
-      
+
     }
 } satisfies Story;
 
-App_Shell.parameters = { controls: { include: ['brandName', 'brandLogo','profilePic','top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
+App_Shell.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
