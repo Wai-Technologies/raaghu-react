@@ -20,16 +20,16 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompApiResourceBasic>;
 
-export const ResourceBasic: Story = {
+export const Default: Story = {
   args: {
     apiType:"resourceBasic",
   },
 } satisfies Story;
-ResourceBasic.parameters = { controls: { include: ["apiResourceBasic", "reset", "onSaveHandler"] } };
+Default.parameters = { controls: { include: ["apiResourceBasic", "reset", "onSaveHandler"] } };
 
-export const ScopeBasicResource: Story = {
+export const Advanced: Story = {
     args: {
       apiType:"scopeBasicResource",
     }
 } satisfies Story;
-ScopeBasicResource.parameters = { controls: { include: ["scopeData", "onSuccess", "reset"] } };
+Advanced.parameters = { controls: { include: ["scopeData", "onSuccess", "reset"] } };

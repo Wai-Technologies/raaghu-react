@@ -41,7 +41,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-export const pagination: Story = {
+export const Advanced: Story = {
     args: {
         cachedata: [
                     { name: "User Settings Cache", id: 1 },

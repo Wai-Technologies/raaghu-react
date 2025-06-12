@@ -73,7 +73,7 @@ export const Default: Story = {
     }
   } satisfies Story;
 
-  export const LongFeed: Story = {
+  export const Advanced: Story = {
     args: {
         variantType: "Advanced",
     itemList: [

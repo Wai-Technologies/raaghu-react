@@ -55,7 +55,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['checkgroupList'] } };
 
-export const Logs: Story = {
+export const Advanced: Story = {
     args: {
         security: "logs",
         tableHeaders: [
@@ -75,4 +75,4 @@ export const Logs: Story = {
             { id: 4, time: "03/22/2024, 07:13 AM" , actions: "Login" , ipAddress: "122.179.143.80", browserOs: "Chrome 98.0.4758.102 on Windows 10", application: "abp_react_7_2_2.HttpApi.Host", identity: "johndoe", users: "John Doe" ,},]
     }
 } satisfies Story;
-Logs.parameters = { controls: { include: ['tableHeaders', 'tableData'] } };
+Advanced.parameters = { controls: { include: ['tableHeaders', 'tableData'] } };

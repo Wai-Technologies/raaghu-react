@@ -37,7 +37,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsLabel>;
 
-export const CustomLabel: Story = {
+export const Default: Story = {
     args: {
         label: "Label",
         fontWeight: "bold",
@@ -45,5 +45,5 @@ export const CustomLabel: Story = {
         required: false
     }
 } satisfies Story;
-CustomLabel.parameters = { controls: { include: ['label', 'fontWeight', 'italic', 'required'] } };
+Default.parameters = { controls: { include: ['label', 'fontWeight', 'italic', 'required'] } };
 

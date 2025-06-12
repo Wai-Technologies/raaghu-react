@@ -45,7 +45,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['sizeType', 'sizeData'] } };
 
-export const WithDescription: Story = {
+export const Advanced: Story = {
     args: {
         sizeType: "withDescription",
         sizeDataWithDescription: [
@@ -55,6 +55,6 @@ export const WithDescription: Story = {
         ],
     },
 } satisfies Story;
-WithDescription.parameters = { controls: { include: ['sizeType', 'sizeDataWithDescription'] } };
+Advanced.parameters = { controls: { include: ['sizeType', 'sizeDataWithDescription'] } };
 
 

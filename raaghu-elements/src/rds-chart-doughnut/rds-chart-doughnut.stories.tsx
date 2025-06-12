@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDoughnutChart>;
 
-export const DoughnutChart: Story = {
+export const Default: Story = {
     args: {
         id: "myChart",
         titleText: "35 k",
@@ -68,7 +68,7 @@ export const DoughnutChart: Story = {
     }
 } satisfies Story;
 
-export const advanced: Story = {
+export const Advanced: Story = {
     args: {
         id: "doughnutchart",
         labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],

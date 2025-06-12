@@ -24,7 +24,7 @@ export default meta;
 type Story = StoryObj<typeof RdsTestimonial>;
 
 
-export const CustomizableTestimonialItem: Story = {
+export const Default: Story = {
     args: {
         testimonialItems: [
             {
@@ -76,5 +76,5 @@ export const CustomizableTestimonialItem: Story = {
         ]
     }
 } satisfies Story;
-CustomizableTestimonialItem.parameters = { controls: { include: ['testimonialItems'] } };
+Default.parameters = { controls: { include: ['testimonialItems'] } };
 

@@ -21,13 +21,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompOrderConfirmation>;
 
-export const Confirmation: Story = {
+export const Default: Story = {
   args: {
     order: "confirmation",
   }
 } satisfies Story;
 
-export const Summary: Story = {
+export const Advanced: Story = {
   args: {
     isCheckout: true,
     order: "summary",

@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsScatterChart>;
 
-export const ScatterChart: Story = {
+export const Default: Story = {
     args: {
         id: "Scatter_Chart",
         dataSets: [
@@ -73,7 +73,7 @@ export const ScatterChart: Story = {
     }
 };
 
-export const ScatterChartWithMultiAxis: Story = {
+export const Advanced: Story = {
     args: {
         id: "Scatter_Chart_Multi_Axis",
         dataSets: [

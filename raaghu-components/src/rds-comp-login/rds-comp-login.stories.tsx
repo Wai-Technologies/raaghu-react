@@ -72,7 +72,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['languageData', 'error', 'getvalidTenantName', 'email', 'password', 'onDismissAlert', 'onEmailChange', 'onPasswordChange', 'onLogin', 'onForgotPassword', 'onRegister', 'currentTenant', , 'validTenant', 'onClickHandler', 'languageLabel'] } };
 
-export const Attempts: Story = {
+export const Advanced: Story = {
     args: {
         login: "attempts",
         selectvalue: [
@@ -257,4 +257,4 @@ export const Attempts: Story = {
         totalRecords: 16,      
     }
 } satisfies Story;
-Attempts.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };
+Advanced.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };

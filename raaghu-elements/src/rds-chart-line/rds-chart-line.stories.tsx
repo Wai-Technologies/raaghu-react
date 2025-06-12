@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof RdsLineChart>;
 
 
-export const LineChart: Story = {
+export const Default: Story = {
     args: {        
         labels: ["January", "February", "March", "April", "May", "Jun", "July"],
         options: {

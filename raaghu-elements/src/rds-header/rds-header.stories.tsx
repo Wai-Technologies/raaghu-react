@@ -42,17 +42,17 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsHeader>;
 
-export const OnlyHeader: Story = {
+export const Default: Story = {
   args: {
     headerText: "Header",
     size: "h1",
   },
 } satisfies Story;
-OnlyHeader.parameters = {
+Default.parameters = {
   controls: { include: ["headerText", "colorVariant", "size"] },
 };
 
-export const WithIcon: Story = {
+export const Advanced: Story = {
   args: {
     headerText: "Header",
     size: "h1",
@@ -65,7 +65,7 @@ export const WithIcon: Story = {
     iconPosition: "left",
   },
 } satisfies Story;
-WithIcon.parameters = {
+Advanced.parameters = {
   controls: {
     include: [
       "headerText",

@@ -29,7 +29,7 @@ type Story = StoryObj<typeof RdsAddressDetail>;
 
 
 //👇 Each story then reuses that template
-export const DetailedAddressCard: Story = {
+export const Default: Story = {
   args: {
     withIcon: true,
     header: "Address Header",
@@ -39,4 +39,4 @@ export const DetailedAddressCard: Story = {
     cardborder: true
   }
 } satisfies Story;
-DetailedAddressCard.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };
+Default.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };

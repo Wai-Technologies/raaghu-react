@@ -36,7 +36,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSelectList>;
 
-export const Default: Story = {
+export const Single: Story = {
     args: {
         id: "story",
         showLabel: true,
@@ -69,7 +69,7 @@ export const Default: Story = {
         color: "primary",  // Default color set to primary
     }
 }
-Default.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'color', 'onChange'] } };
+Single.parameters = { controls: { include: ['id', 'label', 'isMultiple', 'placeholder', 'selectItems', 'isDisabled', 'selectedValue', 'required', 'isSearchable', 'isBold', 'color', 'onChange'] } };
 
 export const Multiple: Story = {
     args: {

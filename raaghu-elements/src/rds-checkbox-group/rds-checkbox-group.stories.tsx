@@ -35,7 +35,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckboxGroup>;
 
 
-export const MultiOption: Story = {
+export const Default: Story = {
     args: {
         state: CheckboxState.Checkbox,
         isSwitch: false,
@@ -65,9 +65,9 @@ export const MultiOption: Story = {
         multiOptionCheck:true,
     }
 }
-MultiOption.parameters = { controls: { include: ['state', 'label', 'isInline', 'isDisabled', 'isSwitch', 'itemList', 'errorMessage'] } };
+Default.parameters = { controls: { include: ['state', 'label', 'isInline', 'isDisabled', 'isSwitch', 'itemList', 'errorMessage'] } };
 
-export const ParentChild: Story = {
+export const Advanced: Story = {
     args: {
         userData: [
             {
@@ -135,4 +135,4 @@ export const ParentChild: Story = {
         multiOptionCheck: false,
     }
 } satisfies Story;
-ParentChild.parameters = { controls : { include: ['userData'] } };
+Advanced.parameters = { controls : { include: ['userData'] } };

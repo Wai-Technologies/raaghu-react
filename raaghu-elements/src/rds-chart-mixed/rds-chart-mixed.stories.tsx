@@ -24,7 +24,7 @@ export default meta;
 type Story = StoryObj<typeof RdsMixedChart>;
 
 
-export const MixedChart: Story = {
+export const Default: Story = {
     args: {
         id: "mixed_chart",
         dataSets: [

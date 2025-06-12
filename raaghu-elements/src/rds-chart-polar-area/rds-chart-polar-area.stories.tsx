@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPolarAreaChart>;
 
-export const PolarAreaChart: Story = {
+export const Default: Story = {
     args: {
         id: "Polar_Area_chart",
         radius: 300,

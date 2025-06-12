@@ -29,7 +29,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: [] } };
 
-export const DetailReceipt: Story = {
+export const Advanced: Story = {
   args: {
     invoice: "detailReceipt",
     invoiceDetails: {
@@ -57,4 +57,4 @@ export const DetailReceipt: Story = {
     }
   }
 } satisfies Story;
-DetailReceipt.parameters = { controls: { include: ["invoiceDetails"] } };
+Advanced.parameters = { controls: { include: ["invoiceDetails"] } };

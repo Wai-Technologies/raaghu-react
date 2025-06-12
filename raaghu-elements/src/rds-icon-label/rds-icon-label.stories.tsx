@@ -49,7 +49,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size'] } };
 
-export const WithPosition: Story = {
+export const Advanced: Story = {
   args: {
     label: "User Name",
     icon: "users",
@@ -67,5 +67,5 @@ export const WithPosition: Story = {
     },
   }
 } satisfies Story;
-WithPosition.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size', 'iconposition'] } };
+Advanced.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size', 'iconposition'] } };
 

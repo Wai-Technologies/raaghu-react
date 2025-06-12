@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPieChart>;
 
-export const PieChart: Story = {
+export const Default: Story = {
     args: {
         id: "chart pie",
         radius: 100,

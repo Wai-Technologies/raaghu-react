@@ -26,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBooleanChart>;
 
-export const BooleanChart: Story = {
+export const Default: Story = {
     args: {
         id: "BooleanId",
         centerIconName: "users",

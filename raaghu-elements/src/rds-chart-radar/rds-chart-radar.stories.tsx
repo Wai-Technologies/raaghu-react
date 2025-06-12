@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof RdsRadarChart>;
 
 
-export const RadarSpiderMeshChart: Story = {
+export const Default: Story = {
     args: {
         id: "Radar_Chart",
         labels: [

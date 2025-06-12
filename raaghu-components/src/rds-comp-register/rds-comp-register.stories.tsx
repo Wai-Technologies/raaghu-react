@@ -29,9 +29,9 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['error', 'getvalidTenantName', 'emailAddress', 'password', 'userName', 'appName', 'onDismissAlert', 'onLogin', 'onRegister', 'currentTenant', 'validTenant', 'onSaveHandler', 'languageData', 'onClickHandler', 'languageLabel', 'registerFields'] } };
 
-export const Member: Story = {
+export const Advanced: Story = {
   args: {
         register: "member",
   }
 } satisfies Story;
-Member.parameters = { controls: { include: ['registerMemberData', 'isEmailFieldVisible', 'onRegisterMemberSaveHandler'] } };
+Advanced.parameters = { controls: { include: ['registerMemberData', 'isEmailFieldVisible', 'onRegisterMemberSaveHandler'] } };

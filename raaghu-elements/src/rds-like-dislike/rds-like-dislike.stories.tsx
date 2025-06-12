@@ -36,12 +36,12 @@ export default meta;
 type Story = StoryObj<typeof RdsLikeDislike>;
 
 
-export const LikeDislikeWithCounter: Story = {
+export const Default: Story = {
     args: {
         like: 0,
         dislike: 0,
         colorVariant: "primary",
     }
 } satisfies Story;
-LikeDislikeWithCounter.parameters = { controls: { include: ['like', 'dislike', 'colorVariant'] } };
+Default.parameters = { controls: { include: ['like', 'dislike', 'colorVariant'] } };
 

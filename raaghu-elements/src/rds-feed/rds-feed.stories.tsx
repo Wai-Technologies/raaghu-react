@@ -32,7 +32,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsFeed>;
 
-export const ReviewFeed: Story = {
+export const Default: Story = {
     args: {
         size: Size.Medium, // Added size parameter for the avatar
         itemList: [
@@ -55,6 +55,6 @@ export const ReviewFeed: Story = {
         ],
     }
 } satisfies Story;
-ReviewFeed.parameters = { controls: { include: ['itemList' , 'size'] } };
+Default.parameters = { controls: { include: ['itemList' , 'size'] } };
 
 

@@ -42,7 +42,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDatatable>;
 
-export const Datatable: Story = {
+export const Default: Story = {
     args: {
         enableRadioButtonselection: true,
         enablecheckboxselection: true,
@@ -145,7 +145,7 @@ export const Datatable: Story = {
     }
 } satisfies Story;
 
-Datatable.parameters = { controls: { include: [/*'enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'*/] } };
+Default.parameters = { controls: { include: [/*'enablecheckboxselection','enableRadioButtonselection', 'actionPosition', 'tableHeaders','tableData','actions','pagination','recordsPerPage','recordsPerPageSelectListOption','isClickable'*/] } };
 
 //     args: {
 //                 enablecheckboxselection: false,

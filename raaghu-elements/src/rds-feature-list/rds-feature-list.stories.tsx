@@ -60,7 +60,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList'] } };
 
-export const With_multiple_column: Story = {
+export const Advanced: Story = {
     args: {
         colorVariant: ColorVariant.Primary,
         heading: "Features",
@@ -77,5 +77,5 @@ export const With_multiple_column: Story = {
         ]       
     }
 } satisfies Story;
-With_multiple_column.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList','columns'] } };
+Advanced.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList','columns'] } };
 

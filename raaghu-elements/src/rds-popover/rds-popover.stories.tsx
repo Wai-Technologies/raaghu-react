@@ -54,10 +54,10 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPopover>;
 
-export const PopoverWithDirection: Story = {
+export const Default: Story = {
     args: {
         state: PopoverState.TopLeft,
         children: <p>Replace with your content component </p>,
     }
 } satisfies Story;
-PopoverWithDirection.parameters = { controls: { include: ['state'] } };
+Default.parameters = { controls: { include: ['state'] } };
