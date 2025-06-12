@@ -37,6 +37,7 @@ export const Default: Story = {
     ],
     showVariations: true,
     isShowPrefilledPrompt: true,
+    defaultExpanded: true,
     outputtype: "Raaghu",
     colorVariant: "primary",
     generateButtonText: "Generate",
@@ -56,6 +57,7 @@ Default.parameters = {
       "generateButtonText",
       "aiPunditLogoImage",
       "placeholderText",
+      "defaultExpanded",
     ],
   },
 };

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./rds-ai-prompt-box.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
@@ -14,6 +14,7 @@ export interface RdsAiPromptBoxProps {
   aiPunditLogoImage?: string;
   placeholderText?: string;
   isShowPrefilledPrompt?: boolean;
+  defaultExpanded?: boolean;
 }
 
 const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
@@ -27,12 +28,23 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
   const [selectedViews, setSelectedViews] = useState<{ [key: number]: string }>(
     {}
   );
+  const [expandedStates, setExpandedStates] = useState<{ [key: number]: boolean }>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const defaultImage = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/default-image.png";
+
+  useEffect(() => {
+    if (props.defaultExpanded !== undefined && chatHistory.length > 0) {
+      const updatedStates = { ...expandedStates };
+      chatHistory.forEach((_, index) => {
+        updatedStates[index] = props.defaultExpanded || false;
+      });
+      setExpandedStates(updatedStates);
+    }
+  }, [props.defaultExpanded, chatHistory.length]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -94,6 +106,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       const generatedText = `${textToUse}`;
       setOutputText(generatedText);
       setOutputImages(imagesToUse);
+      const newEntryIndex = chatHistory.length + 1;
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { type: "output", text: generatedText, images: imagesToUse },
@@ -102,7 +115,11 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       // Set default view to "Design" for the new response
       setSelectedViews((prevViews) => ({
         ...prevViews,
-        [chatHistory.length + 1]: "Design",
+        [newEntryIndex]: "Design",
+      }));
+      setExpandedStates((prevStates) => ({
+        ...prevStates,
+        [newEntryIndex]: props.defaultExpanded !== undefined ? props.defaultExpanded : true,
       }));
     }, 1000); // Simulate delay for generating response
 
@@ -257,12 +274,12 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                     style={{ height: "3.3rem" }}
                   />
                 </span>
-                <div className="output-content">
+                <div className={`output-content ${expandedStates[index] ? 'expanded' : 'collapsed'}`}>
                   {entry && (
                     <>
                       <div
                         id="custominputoutput"
-                        className={`p-3 text-light rounded bg-white border position-relative`}
+                        className={`p-3 text-light rounded bg-white border position-relative ${expandedStates[index] ? 'expanded-content' : 'collapsed-content'}`}
                       >
                         {entry.text && (
                           <div className="d-flex justify-content-between align-items-center mb-2">
@@ -311,23 +328,27 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             </div>
                           </div>
                         )}
-                        {entry.images.length > 0 &&
-                          selectedViews[index] === "Design" && (
-                            <div className="mb-3">
-                              {entry.images.map((image, imgIndex) => (
-                                <img
-                                  key={imgIndex}
-                                  src={image}
-                                  alt={`Chat ${entry.type} ${imgIndex}`}
-                                  className="chat-image mt-2"
-                                />
-                              ))}
-                            </div>
-                          )}
-                        {selectedViews[index] === "Code" && (
-                          <div className="mb-3">
-                            <pre className="code-block">{preCode}</pre>
-                          </div>
+                        {expandedStates[index] && (
+                          <>
+                            {entry.images.length > 0 &&
+                              selectedViews[index] === "Design" && (
+                                <div className="mb-3">
+                                  {entry.images.map((image, imgIndex) => (
+                                    <img
+                                      key={imgIndex}
+                                      src={image}
+                                      alt={`Chat ${entry.type} ${imgIndex}`}
+                                      className="chat-image mt-2"
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            {selectedViews[index] === "Code" && (
+                              <div className="mb-3">
+                                <pre className="code-block">{preCode}</pre>
+                              </div>
+                            )}
+                          </>
                         )}
                         <div className="hover-buttons">
                           <span className="hover-button" title="Select All">
