@@ -721,6 +721,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               tooltip={true}
                                               tooltipTitle="More Actions"
                                               tooltipPlacement="top"
+                                              style={TooltipStyle.MiddleBottomArrow}
                                               isCursorPointer={true}
                                             />
                                           </button>
@@ -971,6 +972,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tooltip={true}
                                             tooltipTitle={action.displayName}
                                             tooltipPlacement={"top"}
+                                            style={TooltipStyle.MiddleBottomArrow}
                                             isCursorPointer={true}
                                             databstoggle={
                                               action.offId
@@ -1280,6 +1282,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               tooltip={true}
                                               tooltipTitle="Delete"
                                               tooltipPlacement={"top"}
+                                              style={TooltipStyle.MiddleBottomArrow}
                                               isCursorPointer={true}
                                               onClick={() =>
                                                 handleDelete(tableDataRow.id)
@@ -1411,6 +1414,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                               tooltipTitle="More Actions"
                                               tooltipPlacement="top"
                                               isCursorPointer={true}
+                                              style={TooltipStyle.MiddleBottomArrow}
                                             />
                                           </button>
                                           <ul
@@ -1655,6 +1659,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                             tooltip={true}
                                             tooltipTitle={action.displayName}
                                             tooltipPlacement={"top"}
+                                            style={TooltipStyle.MiddleBottomArrow}
                                             isCursorPointer={true}
                                             databstoggle={
                                               action.offId

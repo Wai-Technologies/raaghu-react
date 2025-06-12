@@ -7,6 +7,7 @@ import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-ele
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -1792,6 +1793,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       tooltip={true}
                       tooltipTitle={"Chat"}
                       tooltipPlacement="bottom"
+                      style={TooltipStyle.MiddleTopArrow}
                       width="18px"
                       height="18px"
                       type="lottie"
@@ -2062,6 +2064,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                             tooltip={true}
                             tooltipTitle={"Chat"}
                             tooltipPlacement="bottom"
+                            style={TooltipStyle.MiddleTopArrow}
                             width="18px"
                             height="18px"
                             type="lottie"
