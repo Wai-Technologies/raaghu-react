@@ -13,6 +13,7 @@ export interface RdsAiPromptBoxProps {
   codeText?: string;
   aiPunditLogoImage?: string;
   placeholderText?: string;
+  isShowPrefilledPrompt?: boolean;
 }
 
 const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
@@ -238,7 +239,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
  </html>`;
 
   return (
-    <div className="container-fluid p-0">
+    <div className={`container-fluid p-0 ${props.outputtype === "Raaghu" ? "bg-gradient-purple" : ""}`}>
       {/* Chat History Section */}
       <div className="chat-history form-controls">
         {chatHistory.map((entry, index) => (
@@ -268,7 +269,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             <div>{entry.text}</div>
                             <div className="d-flex ml-auto">
                               {props.outputtype ===
-                                "Raaghu_reply_with_design" && (
+                                "Raaghu" && (
                                 <div className="toggle-container ms-2">
                                   <div
                                     className={`toggle-option ${
@@ -412,37 +413,39 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
             )}
           </div>
         ))}
-      </div>
-      <div className={`prefilled-prompts d-flex justify-content-between`}>
-        {props.prefilledprompt &&
-          props.prefilledprompt.map(
-            (prompt: { question: string }, index: number) => (
-              <button
-                key={index}
-                className={`form-controls prompt-button text-primary border-primary`}
-                onClick={(e) =>
-                  handlePromptText((e.target as HTMLButtonElement).value)
-                }
-                value={prompt.question}
-              >
-                {prompt.question}
-              </button>
-            )
+      </div>      
+      {props.isShowPrefilledPrompt && (
+        <div className={`prefilled-prompts d-flex justify-content-between`}>
+          {props.prefilledprompt &&
+            props.prefilledprompt.map(
+              (prompt: { question: string }, index: number) => (
+                <button
+                  key={index}
+                  className={`btn prompt-button text-primary border-primary`}
+                  onClick={(e) =>
+                    handlePromptText((e.target as HTMLButtonElement).value)
+                  }
+                  value={prompt.question}
+                >
+                  {prompt.question}
+                </button>
+              )
           )}
       </div>
+      )}      
       <div className="main-content d-lg-flex d-md-flex">
         <div className="d-flex w-100">
           <div className="button-column">
             {props.showVariations && (
               <div className="button-row">
                 <button
-                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "1" })}
                 >
                   1
                 </button>
                 <button
-                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "2" })}
                 >
                   2
@@ -451,15 +454,16 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
             )}
             <div className={`button-row ${props.showVariations ? "mt-2" : ""}`}>
               {props.showVariations && (
+                <>
                 <button
-                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "4" })}
                 >
                   4
                 </button>
-              )}
+              
               <button
-                className={`form-controls sidebar-button me-2 text-primary border-primary`}
+                className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
                 onClick={() => handleButtonClick({ id: "Chat" })}
                 title="Clear Chat"
               >
@@ -472,6 +476,8 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                   stroke={false}
                 />
               </button>
+              </>
+              )}
             </div>
           </div>
           <div className="input-column">
@@ -479,7 +485,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
               <div className="ai-prompt">
               <div className="input-with-image">
                 <textarea
-                  className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
+                  className={`form-controls input-box bg-input-wrpper text-${props.colorVariant} border-${props.colorVariant}`}
                   placeholder={props.placeholderText || "Placeholder Text"}
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
