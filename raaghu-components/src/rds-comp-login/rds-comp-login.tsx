@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 export interface RdsCompLoginProps {
   error?: any;
   getvalidTenantName: string;
@@ -409,6 +410,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     tooltip={true}
                     tooltipTitle={"Connect with Google"}
                     tooltipPlacement="bottom"
+                    style={TooltipStyle.MiddleTopArrow}
                     isCursorPointer={true}
                   ></RdsIcon>
                 </span>
@@ -423,6 +425,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                     tooltip={true}
                     tooltipTitle={"Connect with Microsoft"}
                     tooltipPlacement="bottom"
+                    style={TooltipStyle.MiddleTopArrow}
                     isCursorPointer={true}
                   ></RdsIcon>
                 </span>
