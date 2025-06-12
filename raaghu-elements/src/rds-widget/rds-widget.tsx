@@ -5,6 +5,7 @@ import RdsButtonGroup, { Role } from "../rds-button-group/rds-button-group";
 import RdsBigNumber from "../rds-big-number/rds-big-number";
 import RdsProgressBar from "../rds-progress-bar";
 import RdsButton from "../rds-button";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 export interface RdsWidgetProps {
   isRefreshRequired?: boolean;
@@ -111,6 +112,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                     colorVariant={props.iconHeaderColor}
                     tooltipTitle={props.iconTooltipLabel}
                     tooltipPlacement={props.iconTooltipPosition}
+                    style={TooltipStyle.MiddleBottomArrow}
                     onClick={props.onIconClick}
                   />
                 </span>
