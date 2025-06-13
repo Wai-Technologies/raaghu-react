@@ -207,7 +207,7 @@ line-height: 20px; /* 142.857% */
     background-color: white;
 }
  .chat-section {
-  border-radius: 2.5px;
+    border-radius: var(--bs-border-radius, 2.3px);
     border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
     background: var(--background-bg-neutral-lighter-default, #FFF);
 }
