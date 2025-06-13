@@ -256,7 +256,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
  </html>`;
 
   return (
-    <div className={`container-fluid p-0 ${props.outputtype === "Raaghu" ? "bg-gradient-purple" : ""}`}>
+    <div className={`container-fluid py-3 ${props.outputtype === "Raaghu" ? "bg-gradient-purple" : ""}`}>
       {/* Chat History Section */}
       <div className="chat-history form-controls">
         {chatHistory.map((entry, index) => (
@@ -442,7 +442,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
               (prompt: { question: string }, index: number) => (
                 <button
                   key={index}
-                  className={`btn prompt-button text-primary border-primary`}
+                  className={`form-controls prompt-button text-primary border-primary`}
                   onClick={(e) =>
                     handlePromptText((e.target as HTMLButtonElement).value)
                   }
@@ -460,13 +460,13 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
             {props.showVariations && (
               <div className="button-row">
                 <button
-                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "1" })}
                 >
                   1
                 </button>
                 <button
-                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "2" })}
                 >
                   2
@@ -477,14 +477,14 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
               {props.showVariations && (
                 <>
                 <button
-                  className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
+                  className={`form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "4" })}
                 >
                   4
                 </button>
               
               <button
-                className={`bg-transparent form-controls sidebar-button me-2 text-primary border-primary`}
+                className={`form-controls sidebar-button me-2 text-primary border-primary`}
                 onClick={() => handleButtonClick({ id: "Chat" })}
                 title="Clear Chat"
               >
