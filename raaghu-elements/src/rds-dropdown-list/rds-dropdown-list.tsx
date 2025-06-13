@@ -360,9 +360,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     height="16px"
                     fill={false}
                     stroke={true}
-                  />
-                )}
-                {showSelectedOption && ( <span className="dw-placeholder fs-6 ms-2">
+                />
+                )}            
+                 {showSelectedOption && ( <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
                     {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
                   </span>)}
               </div>
