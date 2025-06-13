@@ -1,12 +1,12 @@
 
-.rds-sidebar {
+.nav-sidebars {
   width: 240px;
   background-color: transparent;
   padding: 15px;
   transition: width 0.3s ease;
 }
  
-.rds-sidebar.collapsed {
+.nav-sidebars.collapsed {
   width: 60px;
 }
  
@@ -39,7 +39,7 @@
   stroke: #8B3DFF !important;
 }
 
-.wide-button:hover {
+.sidebar-container .wide-button:hover {
   background-color: #F8F2FF !important;
   border-color: #8B3DFF !important;
   color: #8B3DFF !important;
@@ -51,7 +51,7 @@
 
   border-color: #ebdcff !important;
 }
-.btn.outline-hover {
+.sidebar-container .btn.outline-hover {
   min-width: 218px !important;
   text-align: left;
   color:#353535 !important;
@@ -77,7 +77,7 @@
   stroke: #8B3DFF !important;
 }
 
-.collapsed-button:hover {
+.sidebar-container .collapsed-button:hover {
   background-color: #F8F2FF !important;
   border-color: #8B3DFF !important;
   box-shadow: 0 2px 4px rgba(139, 61, 255, 0.1) !important;
@@ -89,26 +89,26 @@
 }
 
 /* Override any conflicting styles */
-.btn.outline-hover,
-.rds-sidebar.collapsed .btn.outline-hover {
+.sidebar-container .btn.outline-hover,
+.nav-sidebars.collapsed .btn.outline-hover {
   background: #ffffff !important;
   border: 1px solid #e0e0e0 !important;
   border-radius: 4px !important;
   box-shadow: none !important;
 }
 
-.btn.outline-hover:hover,
-.rds-sidebar.collapsed .btn.outline-hover:hover {
+.sidebar-container .btn.outline-hover:hover,
+.nav-sidebars.collapsed .btn.outline-hover:hover {
   background-color: #ebdcff !important;
   border-color: #ebdcff !important;
   color: #171515 !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
-.btn.outline-hover:focus,
-.btn.outline-hover:focus-visible,
-.rds-sidebar.collapsed .btn.outline-hover:focus,
-.rds-sidebar.collapsed .btn.outline-hover:focus-visible {
+.sidebar-container .btn.outline-hover:focus,
+.sidebar-container .btn.outline-hover:focus-visible,
+.nav-sidebars.collapsed .btn.outline-hover:focus,
+.nav-sidebars.collapsed .btn.outline-hover:focus-visible {
   border-color: #ebdcff !important;
 }
  
@@ -150,22 +150,22 @@
   cursor: pointer;
 }
  
-.rds-sidebar.collapsed .icon-wrapper {
+.nav-sidebars.collapsed .icon-wrapper {
   left: 0;
 }
  
 /* Button styling adjustments */
-.btn.outline-hover {
+.sidebar-container .btn.outline-hover {
   min-width: 13.5rem  !important;
   text-align: left;
 }
  
-.rds-sidebar.collapsed .btn.outline-hover {
+.nav-sidebars.collapsed .btn.outline-hover {
   min-width: 40px !important;
   justify-content: center;
 }
  
-.btn.transparent-hover {
+.sidebar-container .btn.transparent-hover {
   color: #353535 !important;
   text-align: left;
 }
@@ -199,9 +199,9 @@
 }
  
 /* Ensure proper spacing in collapsed state */
-.rds-sidebar.collapsed .recents-dashboard .recents,
-.rds-sidebar.collapsed .recents-dashboard .dashboard,
-.rds-sidebar.collapsed .chat-input-container {
+.nav-sidebars.collapsed .recents-dashboard .recents,
+.nav-sidebars.collapsed .recents-dashboard .dashboard,
+.nav-sidebars.collapsed .chat-input-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -213,8 +213,8 @@
   stroke: none !important;
 }
 /* Hover effect for buttons */
-.dashboard .btn:hover,
-.rds-sidebar.collapsed .dashboard .btn:hover {
+.sidebar-container .dashboard .btn:hover,
+.nav-sidebars.collapsed .dashboard .btn:hover {
   background-color: #ebdcff !important;
   color: #4a4a4a;
   border: 1px solid #ebdcff !important;
@@ -222,14 +222,14 @@
 }
 
 /* Ensure proper alignment and visibility in collapsed state */
-.rds-sidebar.collapsed .dashboard .btn {
+.nav-sidebars.collapsed .dashboard .btn {
   justify-content: center;
   text-align: center;
   min-width: 40px !important; /* Adjust button width for collapsed state */
 }
 
 /* Tooltip visibility in collapsed state */
-.rds-sidebar.collapsed .dashboard .btn:hover .tooltip {
+.nav-sidebars.collapsed .dashboard .btn:hover .tooltip {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -263,20 +263,20 @@
   margin-right: -0.438rem;
 }
  
-.rds-sidebar.collapsed {
+.nav-sidebars.collapsed {
   width: 10px; /* Collapsed width */
 }
  
-.rds-sidebar .collapsed-button {
+.nav-sidebars .collapsed-button {
   justify-content: center;
 }
  
-.rds-sidebar .wide-button {
+.nav-sidebars .wide-button {
   justify-content: flex-start;
 }
 
 /* New Chat button in collapsed state */
-.rds-sidebar.collapsed .chat-input-container button {
+.nav-sidebars.collapsed .chat-input-container button {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
@@ -291,21 +291,21 @@
   
 }
 
-.rds-sidebar.collapsed .chat-input-container button svg {
+.nav-sidebars.collapsed .chat-input-container button svg {
   width: 20px !important;
   height: 20px ;
   stroke: #8B3DFF !important;
   fill: none !important;
 }
 
-.rds-sidebar.collapsed .chat-input-container button:hover {
+.nav-sidebars.collapsed .chat-input-container button:hover {
   border-color: #8B3DFF !important;
   background: #F8F2FF !important;
   box-shadow: 0 0 0 2px rgba(139, 61, 255, 0.1) !important;
 }
 
 /* Regular state button */
-button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.btn.outline-hover.text-unset {
+.sidebar-container button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.btn.outline-hover.text-unset {
   border: 1px solid #7825e9 !important;
 }
 .text-truncate {
@@ -323,18 +323,18 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
   padding-left: 2px !important; 
 }
 
-.rds-sidebar .dashboard:hover{
+.nav-sidebars .dashboard:hover{
   background-color: #ebdcff !important;
   transition: all 0.3s ease;
   border-radius: 0.25rem;
 }
 /* Sidebar styles */
-.rds-sidebar {
+.nav-sidebars {
   width: 240px;
   transition: width 0.3s ease;
 }
 
-.rds-sidebar.collapsed {
+.nav-sidebars.collapsed {
   width: 60px;
 }
 
@@ -344,7 +344,7 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
   justify-content: flex-start;
 }
 
-.rds-sidebar.collapsed .icon-wrapper {
+.nav-sidebars.collapsed .icon-wrapper {
   justify-content: center;
 }
 
@@ -353,7 +353,7 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
   text-align: left;
 }
 
-.rds-sidebar.collapsed .chat-input-container {
+.nav-sidebars.collapsed .chat-input-container {
   text-align: center;
 }
 
@@ -382,6 +382,6 @@ button.btn.btn-outline-hover.position-relative.align-items-center.btn-md.d-flex.
   border-radius: 4px;
 }
 
-.rds-sidebar.collapsed #side-bar-icons {
+.nav-sidebars.collapsed #side-bar-icons {
   text-align: center;
 }
