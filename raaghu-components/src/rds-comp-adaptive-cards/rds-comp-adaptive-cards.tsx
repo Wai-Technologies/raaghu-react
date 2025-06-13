@@ -52,6 +52,11 @@ export interface RdsCompAdaptiveCardsProps {
   label?: string;
   inputForm?: boolean;
   block?: boolean;
+  homeTeam?: string,
+  awayTeam?: string,
+  tournament?: string,
+  score?: string,
+  time?: string,
 }
 
 const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
@@ -99,7 +104,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                     width="26px"
                   />
                 </div>
-                <div className="adaptive-scorecard-text">La Liga</div>
+                <div className="adaptive-scorecard-text">{props.tournament}</div>
                 <div className="adaptive-badge">
                   <img
                     src="assets/icons/dot.svg"
@@ -123,14 +128,14 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                     width="110px"
                   />
                 </div>
-                <div className="team-name">Real Madrid</div>
+                <div className="team-name">{props.homeTeam}</div>
                 <div className="team-status">Home</div>
               </div>
 
               <div className="team-scorecard">
-                <div className="match-score">2 : 2</div>
+                <div className="match-score">{props.score}</div>
                 <div className="timer-container">
-                  <div className="match-timer">90:00</div>
+                  <div className="match-timer">{props.time}</div>
                 </div>
               </div>
 
@@ -143,7 +148,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                     width="225px"
                   />
                 </div>
-                <div className="team-name">Barcelona</div>
+                <div className="team-name">{props.awayTeam}</div>
                 <div className="team-status">Away</div>
               </div>
             </div>
@@ -296,28 +301,6 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                       state={RdsRadioButtonState.Default}
                       value={""}
                     />
-                    {/* <div className="d-flex align-items-center gap-2">
-                    <RdsIcon
-                      colorVariant="dark"
-                      height="18px"
-                      isCursorPointer
-                      name="circle"
-                      stroke
-                      width="18px"
-                    />
-                    <span>Sub - Title 1: Description</span>
-                  </div>
-                  <div className="d-flex align-items-center gap-2">
-                    <RdsIcon
-                      colorVariant="dark"
-                      height="18px"
-                      isCursorPointer
-                      name="circle"
-                      stroke
-                      width="18px"
-                    />
-                    <span>Sub - Title 2: Description</span>
-                  </div> */}
                   </div>
                 </div>
               )}
