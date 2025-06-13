@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import RdsAiPromptBox from "./rds-ai-prompt-box";
 
 const meta: Meta = {
-  title: "Components/AI Prompt Box",
+  title: "Components/AI Chat",
   component: RdsAiPromptBox,
   parameters: {
     layout: "padded",
@@ -17,7 +17,7 @@ const meta: Meta = {
   tags: ["autodocs"],
   argTypes: {
     outputtype: {
-      options: ["Raaghu_reply_with_design", "Ai_reply_with_output"],
+      options: ["Raaghu", "Default"],
       control: { type: "select" },
     },
   },
@@ -36,7 +36,9 @@ export const Default: Story = {
       { question: "Prefilled Prompt 4" },
     ],
     showVariations: true,
-    outputtype: "Raaghu_reply_with_design",
+    isShowPrefilledPrompt: true,
+    defaultExpanded: true,
+    outputtype: "Raaghu",
     colorVariant: "primary",
     generateButtonText: "Generate",
     aiPunditLogoImage:
@@ -48,12 +50,14 @@ Default.parameters = {
   controls: {
     include: [
       "prefilledprompt",
+      "isShowPrefilledPrompt",
       "showVariations",
       "outputtype",
       "colorVariant",
       "generateButtonText",
       "aiPunditLogoImage",
       "placeholderText",
+      "defaultExpanded",
     ],
   },
 };
