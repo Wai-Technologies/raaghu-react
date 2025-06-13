@@ -57,6 +57,7 @@ export const CalenderReminder: Story = {
         closeIcon: false,
         label: "Conf Room 112/3377 (10)",
         inputForm: false,
+        textCase: "unset"
     }
 } satisfies Story;
 CalenderReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
