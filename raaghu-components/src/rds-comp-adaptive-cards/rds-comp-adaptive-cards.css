@@ -245,3 +245,12 @@
 .adaptive-card-footer .dropdown-menu.show {
   inset: 4px auto auto -67px !important;
 }
+
+.Adaptive-header-icon svg.text-dark {
+  height: 18px !important;
+  width: 18px !important;
+}
+
+.theme-dark .adaptive-card-container {
+    color: #A8A8A8 !important;
+}
