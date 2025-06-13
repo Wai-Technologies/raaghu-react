@@ -35,14 +35,7 @@ describe('RdsCompOrderDetails', () => {
       const { container } = render(<RdsCompOrderDetails />);
       expect(container).toBeInTheDocument();
     });
-  });
-  describe('Props Handling', () => {
-    it('should handle empty props object', () => {
-      expect(() => {
-        render(<RdsCompOrderDetails {...{}} />);
-      }).not.toThrow();
-    });
-
+  });  describe('Props Handling', () => {
     it('should handle undefined props gracefully', () => {
       expect(() => {
         render(<RdsCompOrderDetails />);
