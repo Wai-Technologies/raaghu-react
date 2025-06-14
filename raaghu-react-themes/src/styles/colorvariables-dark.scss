@@ -3657,7 +3657,7 @@ hr {
 }
 
 .input-with-image {
-    background-color: $light-0;
+    background-color: $neutral-900;
 }
 
 .input-wrapper {
@@ -3666,4 +3666,8 @@ hr {
             color: $black;
         }
     }
+}
+
+.bg-input-wrpper{
+    background-color: $neutral-900;
 }

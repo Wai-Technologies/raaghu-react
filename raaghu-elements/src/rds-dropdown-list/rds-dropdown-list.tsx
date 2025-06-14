@@ -233,7 +233,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       ? "form-control-lng"
       : ""; // Default size if not provided
 
-  const border = props.state === "Disabled" ? "form-control " + fieldSize : props.borderDropdown ? "form-control border-primary " + fieldSize : "border-0";
+  const border = props.state === "Disabled"
+    ? "form-control " + fieldSize
+    : expand
+    ? "form-control border-primary " + fieldSize
+    : props.borderDropdown
+    ? "form-control " + fieldSize
+    : "border-0";
   const bottomLine = props.style === "Bottom Line"
       ? props.state === "Disabled"
         ? "bottom-line-disabled"
@@ -354,9 +360,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     height="16px"
                     fill={false}
                     stroke={true}
-                  />
-                )}
-                {showSelectedOption && ( <span className="dw-placeholder fs-6 ms-2">
+                />
+                )}            
+                 {showSelectedOption && ( <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
                     {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
                   </span>)}
               </div>
