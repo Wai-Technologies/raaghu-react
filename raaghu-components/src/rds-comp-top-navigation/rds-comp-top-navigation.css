@@ -48,17 +48,63 @@
   font-weight: bold;
   font-size: 22px;
 }
-.raaghu-logo-size {
-  width: 120px;
-  height: auto;
+
+/* Logo sizes - optimized */
+.raaghu-logo-size { width: 120px; }
+.raaghu-portal-logo-size { width: 150px; }
+nav[data-style="RaaghuPortal"] .raaghu-logo-size { width: 140px; }
+
+/* Hide plus icon for Product 3 */
+#home-icon.product3 .breadcrumb-item:first-child .ps-2 { display: none !important; }
+
+/* Language dropdown styling */
+#languageDropdown .dw-placeholder,
+#languageDropdownTopNavigation .dw-placeholder {
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  color: #000000 !important;
 }
 
-/* Hide plus icon for Home tab */
-/* .breadcrumb-item:first-child #home-icon .ps-2 {
-  display: none !important;
-} */
+/* Common adjustments - optimized */
+.light-shadow { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; }
+.ecommerce2-currency-dropdown,
+.signin-section-adjust { margin-bottom: 11px !important; }
+.breadcrumb-spacing { margin-left: 10rem !important; }
+.icon-up-adjust { margin-bottom: 18px !important; }
 
-/* Hide plus icon for Home tab only in Product 3 topnav */
-#home-icon.product3 .breadcrumb-item:first-child .ps-2 {
-  display: none !important;
+/* Avatar icons adjustment - excluding Default and ABP */
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .avatar,
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .rounded-circle,
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) img.avatar-sm,
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .avatar-container,
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .d-flex.align-items-center span:not(.searchBackground *),
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .d-flex.align-items-center .cursor-pointer:not(.searchBackground *),
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .position-relative:not(#serachOption):not(.searchBackground) {
+  transform: translateY(-4px);
+}
+
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) .position-relative .py-xxl-0:not(.searchBackground *) {
+  transform: translateY(-8px);
+}
+
+.avatar-icons-adjustment:not([data-style="Default"]):not([data-style="ABP"]) #themeDropdown {
+  margin-top: -38px;
+}
+
+/* Logo position adjustments - optimized */
+nav[data-style="For_Corporate"] #raaghuLogo img,
+nav[data-style="For_Corporate"] .raaghu-logo-size,
+nav[data-style="With_Language_Switcher"] #raaghuLogo img,
+nav[data-style="With_Language_Switcher"] .raaghu-logo-size,
+nav[data-style="With_Tabs"] #raaghuLogo img,
+nav[data-style="With_Tabs"] .raaghu-logo-size {
+  margin-top: -17px;
+  position: relative;
+}
+
+/* Social Links adjustments */
+.avatar-icons-adjustment[data-style="With_Social_Links"] #languageDropdownTopNavigation,
+.avatar-icons-adjustment[data-style="With_Social_Links"] .dropdown-toggle {
+  transform: none !important;
+  margin-top: 8px !important;
 }

@@ -335,7 +335,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "RaaghuPortal") {
       return (
         <div>
-          <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between py-2 px-4 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow" data-style={props.style}>
             <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -440,7 +440,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       ></img>
                       <div className="ms-2 fs-6">
                         <div className="text-nowrap">
-                          Hi, {props.profileTitle}{" "}
+                          {props.profileTitle}{" "}
                         </div>
                         <div className="text-nowrap text-muted">
                           {props.role}
@@ -484,7 +484,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Cart") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-between justify-content-lg-between light-shadow">
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
@@ -559,7 +559,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Currency_Switcher") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow">
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
@@ -609,7 +609,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               </div>
 
               {(props.ecommerce2 && <div
-                className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
+                className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list ecommerce2-currency-dropdown"}
               >
                 <RdsDropdownList
                   labelIconWidth="18px"
@@ -633,7 +633,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               )}
               {/* dropdown----------------------------------------------------------------------------------------------- */}
               {(props.ecommerce2 && <div
-                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
+                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom signin-section-adjust"}
               >
                 <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
                 <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
@@ -659,7 +659,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Social_Media") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow">
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
@@ -747,7 +747,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Favorites") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow">
             <div id="raaghuLogo" className="d-block m-2 ">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
@@ -797,7 +797,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               </div>
 
               {(props.ecommerce4 && <div
-                className={`position-relative   col text-center d-flex align-items-center language ${props.ecommerce4 ? "" : "px-md-3"} `}
+                className={`position-relative   col text-center d-flex align-items-center language icon-up-adjust ${props.ecommerce4 ? "" : "px-md-3"} `}
               >
                 {props.ecommerce3 && props.socialMediaIcons?.map((icon: any) => (
                   <img
@@ -829,7 +829,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
 
               {(props.ecommerce4 && <div
-                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"} onClick={onAvtarClick}
+                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer icon-up-adjust"} onClick={onAvtarClick}
               >
                 <RdsAvatar
                   avtarOnly
@@ -862,7 +862,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Media_Portal") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
@@ -936,7 +936,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Streaming_Service") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -944,7 +944,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" style={{ marginTop: "-12px" }} />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -976,7 +976,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment2 && props.icons?.map((icon: any) => (
-                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`} style={{ marginTop: "-8px" }}>
                   <RdsIcon
                     name={icon.name}
                     fill={false}
@@ -988,7 +988,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 </span>
               ))}
               {props.entertainment2 && (
-                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick} style={{ marginTop: "-11px" }}>
                   <RdsAvatar
                     avtarOnly
                     colorVariant={props.colorVariant}
@@ -1009,7 +1009,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Music_App") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1017,7 +1017,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" style={{ marginTop: "-10px", display: "inline-block" }} />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1040,7 +1040,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment3 && props.icons?.map((icon: any) => (
-                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}
+                  style={{ transform: "translateY(-9px)", display: "inline-block" }}>
                   <RdsIcon
                     name={icon.name}
                     fill={false}
@@ -1062,7 +1063,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 </div>
               )}
               {props.entertainment3 && (
-                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick} style={{ transform: "translateY(-9px)", display: "inline-block" }}>
                   <RdsAvatar
                     avtarOnly
                     colorVariant={props.colorVariant}
@@ -1083,7 +1084,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Video_Platform") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1172,7 +1173,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Corporate") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1264,7 +1265,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Tabs") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1358,7 +1359,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Language_Switcher") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1458,7 +1459,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Collapsible_Menu") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               <span className={`px-2 cursor-pointer active}`}>
                 <RdsIcon
@@ -1518,7 +1519,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div className="position-relative px-md-2 col text-center d-flex align-items-center language">
                   <div className="">
                     {props.navButtons.map((button: any) =>
-                      <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{ fontSize: '13px', fontWeight: '500' }}>{button.name}</button>)
+                      <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{ fontSize: '13px', fontWeight: '500', marginTop: '-15px' }}>{button.name}</button>)
                     }
                   </div>
                 </div>
@@ -1539,7 +1540,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Theme_Switcher") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center shadow">
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1718,7 +1719,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "App_Shell_3") {
       return (
         <div>
-          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+          <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow">
             <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -1897,7 +1898,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       ></img>
                       <div className="ms-2 fs-6">
                         <div className="text-nowrap">
-                          Hi, {props.profileTitle}{" "}
+                          {props.profileTitle}{" "}
                         </div>
                         <div className="text-nowrap text-muted">
                           {props.role}
@@ -1937,7 +1938,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             </div>
           </nav>
-          {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top d-none d-md-flex ">
+          {props.appshell3 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow border-top d-none d-md-flex ">
             <div className="d-flex align-items-center justify-content-center flex-grow-1">
               <div className="d-flex justify-content-center w-100">
                 {breacrumItem?.length > 0 && (
@@ -1971,7 +1972,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
           props.style === "With_User_Avatar") && (
 
             <div>
-              <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between shadow">
+              <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between light-shadow avatar-icons-adjustment" data-style={props.style}>
                 <div
                   onClick={handlerLogoClick}
                   id="raaghuLogo"
@@ -1999,7 +2000,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         {props.showLogo && (
                           <img
                             className="cursor-pointer pe-4 d-md-flex d-none"
-                            width={120}
+                            width={150}
                             src={brandLogo}
                             alt="raaghu-logo"
                           ></img>
@@ -2007,7 +2008,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         {/* {((!props.product4 && !props.entertainment1) && <span className="text-bold text-primary d-none d-md-flex ps-4">
                           { navtitle}
                         </span>)} */}
-                        {((!props.product4 && !props.entertainment1 && !props.product2 && !props.product3) && <span className="text-bold text-primary d-none d-md-flex ps-4">
+                        {((!props.product4 && !props.entertainment1 && !props.product2 && !props.product3 && !props.showLogo) && <span className="text-bold text-primary d-none d-md-flex ps-4">
                           {navtitle}
                         </span>)}
                       </div>)}
@@ -2128,7 +2129,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   ))}
 
                   {((!props.product2 && !props.product3 && !props.product4 && !props.entertainment1) && <>
-                    <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
+                    <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off icon-up-adjust">
                       <RdsOffcanvas
                         className="pb-5 m-auto"
                         placement={RdsOffcanvasPlacement.End}
@@ -2180,7 +2181,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                             ></img>
                             <div className="ms-2 fs-6">
                               <div className="text-nowrap">
-                                Hi, {props.profileTitle}{" "}
+                                {props.profileTitle}{" "}
                               </div>
                               <div className="text-nowrap text-muted">
                                 {props.role}
@@ -2303,7 +2304,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   </div>)}
                 </div>
               </nav>
-              {props.product4 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow border-top">
+              {props.product4 && <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow border-top">
                 <div className="d-flex align-items-center justify-content-center flex-grow-1">
                   <div className="d-flex justify-content-center w-100">
                     {breacrumItem?.length > 0 && (<div className="mob-description">
