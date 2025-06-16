@@ -320,6 +320,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                         <div className="form-group">
                                         <RdsTextArea
                                         label="Database URL"
+                                        showTitle={true}
                                         placeholder="Enter URL"
                                         onChange={(e: any) => {
                                            handleDatabaseURL(e.target.value);

@@ -149,6 +149,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     <div className="fw-normal mb-2">
                         <RdsTextArea
                             label="Webhook Event"
+                            showTitle={true}
                             reset={inputReset}
                             placeholder="carolyn Carpenter"
                             rows={4}
