@@ -177,11 +177,11 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     {/* Clear/Cross Icon - Always Visible */}
                     <RdsIcon
                         colorVariant="primary"
-                        height="20px"
+                        height="12px"
                         isCursorPointer
                         name="cross"
                         stroke
-                        width="20px"
+                        width="12px"
                     />
                 </span>
             )}
@@ -586,11 +586,11 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 >
                                     <RdsIcon
                                         colorVariant="primary"
-                                        height="20px"
+                                        height="12px"
                                         isCursorPointer
                                         name="cross"
                                         stroke
-                                        width="20px"
+                                        width="12px"
                                     />
                                 </span>
                             )}
