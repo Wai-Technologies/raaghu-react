@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState, useEffect, useRef } from "react";
+import React, { MouseEvent, useState, useEffect, useRef, useCallback } from "react";
 import {
   RdsIcon,
   RdsBadge,
@@ -69,12 +69,13 @@ export interface RdsCompGridCombinedProps {
     isBold?: boolean;
     fontWeight?: fontWeight;
     filter?: boolean;
-
+    resizable?: boolean;
     showHeader?: boolean;
     showsubHeader?: boolean;
     showShuffleIcon?: boolean;
     showAddNewColumn?: boolean;
   }[];
+  resizableColumns?: boolean;
   actions?: {
     displayName: string;
     id: string;
@@ -133,6 +134,53 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
     }));
     setTableData(updatedData);
   };
+
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
+  const [resizingColumn, setResizingColumn] = useState<string | null>(null);
+  const [startX, setStartX] = useState<number>(0);
+  const [startWidth, setStartWidth] = useState<number>(0);
+
+ const handleResizeStart = (e: React.MouseEvent<HTMLDivElement>, columnKey: string) => {
+  if (!props.resizableColumns || (props.tableHeaders.find(h => h.key === columnKey)?.resizable === false)) {
+    return;
+  }
+  
+  e.preventDefault();
+  setResizingColumn(columnKey);
+  setStartX(e.clientX);
+  
+  const currentWidth = columnWidths[columnKey] || 150; // Default width if not set
+  setStartWidth(currentWidth);
+  document.addEventListener('mousemove', handleResizeMove as unknown as EventListener);
+  document.addEventListener('mouseup', handleResizeEnd as unknown as EventListener);
+};
+
+const handleResizeMove = useCallback((e: globalThis.MouseEvent) => {
+  if (!resizingColumn) return;
+  
+  const diff = e.clientX - startX;
+  const newWidth = Math.max(100, startWidth + diff); // Minimum width of 100px
+  
+  setColumnWidths(prev => ({
+    ...prev,
+    [resizingColumn]: newWidth
+  }));
+}, [resizingColumn, startX, startWidth]);
+
+const handleResizeEnd = useCallback(() => {
+  setResizingColumn(null);
+  document.removeEventListener('mousemove', handleResizeMove as unknown as EventListener);
+  document.removeEventListener('mouseup', handleResizeEnd as unknown as EventListener);
+}, [handleResizeMove]);
+
+// Clean up event listeners when component unmounts
+useEffect(() => {
+  return () => {
+    document.removeEventListener('mousemove', handleResizeMove as unknown as EventListener);
+    document.removeEventListener('mouseup', handleResizeEnd as unknown as EventListener);
+  };
+}, [handleResizeMove, handleResizeEnd]);
+
 
   const [rowStatus, setRowStatus] = useState({
     startingRow: 0,
@@ -1048,7 +1096,7 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                 </th>
               </tr>
             )}
-            <div className="table-responsive table-responsive-sm">
+            <div className={`table-responsive table-responsive-sm ${props.resizableColumns ? 'resizable-table' : ''}`}>
               {!isCollapsed && (
                 <table
                   className={`table table-bordered     ${Classes} `}
@@ -1100,8 +1148,15 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                             <label className="fw-medium">Text</label>
                           </th>
                         )}
-                        {props?.tableHeaders?.map((tableHeader, index) => (
-                          <th scope="col" key={"tableHeader-" + index}>
+                        {props?.tableHeaders?.map((tableHeader, index) => {
+                          const isResizable = props.resizableColumns && tableHeader.resizable !== false;
+                          const width = columnWidths[tableHeader.key] || tableHeader.colWidth || 'auto';
+                          
+                          return (
+                            <th scope="col" key={"tableHeader-" + index}
+                            className={`${isResizable ? 'resizable' : ''} ${resizingColumn === tableHeader.key ? 'resizing' : ''}`}
+                              style={{ width }}
+                              >
                             <div
                               className={`align-items-center d-flex ${
                                 tableHeader.datatype === "iconAvatarTitle"
@@ -1170,6 +1225,12 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                                   />
                                 </span>
                               </div>
+                              {isResizable && (
+                                <div 
+                                  className="resize-handle" 
+                                  onMouseDown={(e) => handleResizeStart(e, tableHeader.key)}
+                                />
+                              )}
                             </div>
                             <div className="d-flex align-items-center mt-1 ps-1 px-4 custom-select-list">
                               <RdsSelectList
@@ -1302,7 +1363,8 @@ const RdsCompGrid = (props: RdsCompGridCombinedProps) => {
                               </span>
                             </div>
                           </th>
-                        ))}
+                        );
+                        })}
                         {actionPosition &&
                           props.tableHeaders &&
                           props.tableHeaders?.length > 0 &&
