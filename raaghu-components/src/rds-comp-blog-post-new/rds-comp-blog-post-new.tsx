@@ -203,6 +203,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             <div className="form-group mb-3">
               <RdsTextArea
                 label="Short Description"
+                showTitle={true}
                 placeholder="Enter Description"
                 onChange={(e) => {
                   handlerBlogDataChange(e.target.value, "description");

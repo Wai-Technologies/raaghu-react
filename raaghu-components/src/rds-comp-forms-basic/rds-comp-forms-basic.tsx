@@ -280,6 +280,7 @@ function emitEmailSaveData(event: any) {
                 <div className="col-12">
                   <RdsTextArea
                     label="Description"
+                    showTitle={true}
                     placeholder="Enter description"
                     onChange={(e) => setDescription(e.target.value)}
                     value={basicFormData.description}
@@ -309,6 +310,7 @@ function emitEmailSaveData(event: any) {
               <div className="row mt-1">
                 <RdsTextArea
                   label="Description"
+                  showTitle={true}
                   placeholder="Enter description"
                   onChange={(e) => setDescription(e.target.value)}
                   value={basicFormData?.description}

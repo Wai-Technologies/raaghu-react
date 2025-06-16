@@ -257,6 +257,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                         <div className="row">
                             <RdsTextArea
                                 label="Description"
+                                showTitle={true}
                                 placeholder="Description"
                                 value={identityBasicData?.description}
                                 onChange={(e) => {
@@ -374,6 +375,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                     <div className="col-md-12 mt-2">
                       <RdsTextArea
                         label="Description"
+                        showTitle={true}
                         placeholder="Enter Description"
                         rows={4}
                         dataTestId="description"

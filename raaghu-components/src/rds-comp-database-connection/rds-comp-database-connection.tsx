@@ -131,6 +131,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                               <div className="form-group">
                                  <RdsTextArea
                                     label="Database URL"
+                                    showTitle={true}
                                     placeholder="Enter URL"
                                     onChange={(e: any) => setConnectionStrings({ ...connectionStrings, default: e.target.value })}
                                     rows={2}

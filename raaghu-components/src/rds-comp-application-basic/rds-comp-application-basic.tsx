@@ -394,6 +394,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                 <RdsTextArea
                   reset={inputReset}
                   isMultiUrl={true}
+                  showTitle={true}
                   label="Redirect Uris"
                   placeholder="Enter Redirect Uris"
                   onChange={(e: any) =>
@@ -429,6 +430,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                 <RdsTextArea
                   reset={inputReset}
                   isMultiUrl={true}
+                  showTitle={true}
                   label="Post Logout Redirect Uris"
                   placeholder="Enter Post Logout Redirect Uris"
                   onChange={(e) =>
