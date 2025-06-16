@@ -433,6 +433,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                     <div className="col-md-12 pt-2">
                         <RdsTextArea
                             label="Description"
+                            showTitle={true}
                             placeholder="Enter Description"
                             onChange= {(e) =>{handleSelectChange(e.target.value , "description");}}
                             value={formData?.description}

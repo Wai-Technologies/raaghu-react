@@ -35,6 +35,7 @@ const RdsCompEditLanguageText = (props: RdsCompEditLanguageTextProps) => {
                 <div className="mb-4">
                     <RdsTextArea
                         label="Base Language"
+                        showTitle={true}
                         placeholder="Enter Base Value"
                         value={formData?.baseLanguage}
                         onChange={(e) => handleDataChanges(e.target.value, "baseLanguage")}
@@ -45,6 +46,7 @@ const RdsCompEditLanguageText = (props: RdsCompEditLanguageTextProps) => {
                 <div className="mb-4">
                     <RdsTextArea
                         label="Target Language"
+                        showTitle={true}
                         value={formData?.targetLanguage}
                         onChange={(e) => handleDataChanges(e.target.value, "targetLanguage")}
                         placeholder="Enter Target Language"
