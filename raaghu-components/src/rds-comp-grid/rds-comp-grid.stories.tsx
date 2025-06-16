@@ -33,6 +33,11 @@ Key features include control over the visibility of table sections via the \`sta
             control: { type: "select" },
             description: "Controls the visibility of the table header and body",
         },
+        resizableColumns: {
+            control: 'boolean',
+            description: 'Enable column resizing functionality',
+            defaultValue: false
+        }
     },
 } satisfies Meta<typeof RdsCompGrid>;
 
@@ -41,6 +46,7 @@ type Story = StoryObj<typeof RdsCompGrid>;
 
 export const Default: Story = {
     args: {
+        resizableColumns: false,
         tableHeaders: [
             {
                 displayName: "Title",
@@ -50,6 +56,7 @@ export const Default: Story = {
                 dataLength: 30,
                 required: true,
                 sortable: true,
+                resizable: true,
             },
             {
                 displayName: "Title",
@@ -110,7 +117,7 @@ export const Default: Story = {
 
 Default.parameters = { 
     controls: { 
-        include: ['state', 'showHeader', 'showSubHeader',] 
+        include: ['state', 'showHeader', 'showSubHeader', 'resizableColumns'] 
     } 
 };
 
