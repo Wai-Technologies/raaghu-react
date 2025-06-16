@@ -296,8 +296,8 @@ const RdsSelectList = (props: RdsSelectProps) => {
 
   const handleInputChange = (inputValue: string) => {
     if (inputValue === "") {
-    // Do not show loader when closing the dropdown
-    return;
+   setIsSearching(false);        // hide spinner immediately
+    return inputValue;            // <-- keep contract with react-select
     }
     setIsSearching(true);
     if (searchTimer) {
