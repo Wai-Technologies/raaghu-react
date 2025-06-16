@@ -42,15 +42,9 @@ const mockWindowLocation = {
   toString: jest.fn().mockImplementation(() => 'http://localhost/dashboard')
 };
 
-// Save the original
-const originalLocation = window.location;
-
-// Use defineProperty to mock window.location
-Object.defineProperty(window, 'location', {
-  configurable: true,
-  value: mockWindowLocation,
-  writable: true
-});
+// Mock window.location properly for Jest
+delete (window as any).location;
+window.location = mockWindowLocation as any;
 
 // Mock for all Bootstrap-related imports
 // This ensures that even direct imports like "import Offcanvas from 'bootstrap/js/src/offcanvas'" will be mocked
@@ -152,37 +146,36 @@ jest.mock('../src/rds-elements', () => ({
 // Mock RdsCompLinkedAccount component
 jest.mock('../src/rds-comp-linked-account/rds-comp-linked-account', () => {
   return {
-    __esModule: true,
-    default: () => <div data-testid="linked-account">Linked Account Component</div>
+    __esModule: true,    default: () => <div data-testid="linked-account">Linked Account Component</div>
   };
 });
 
-describe('RdsCompProfile', () => {
-  // Mock navigation items
-  const navtabItems = [
-    {
-      id: 'my-account',
-      label: 'My Account',
-      iconPath: 'user',
-      navigateTo: '/my-account',
-      subText: 'Personal info'
-    },
-    {
-      id: 'security-logs',
-      label: 'Security Logs',
-      iconPath: 'shield',
-      navigateTo: '/security-logs',
-      subText: 'Login attempts'
-    },
-    {
-      id: 'personal-data',
-      label: 'Personal Data',
-      iconPath: 'database',
-      navigateTo: '/personal-data',
-      subText: 'Your data'
-    }
-  ];
+// Mock navigation items
+const navtabItems = [
+  {
+    id: 'my-account',
+    label: 'My Account',
+    iconPath: 'user',
+    navigateTo: '/my-account',
+    subText: 'Personal info'
+  },
+  {
+    id: 'security-logs',
+    label: 'Security Logs',
+    iconPath: 'shield',
+    navigateTo: '/security-logs',
+    subText: 'Login attempts'
+  },
+  {
+    id: 'personal-data',
+    label: 'Personal Data',
+    iconPath: 'database',
+    navigateTo: '/personal-data',
+    subText: 'Your data'
+  }
+];
 
+describe('RdsCompProfile Component', () => {
   // Setup props
   const defaultProps = {
     navtabItems,
@@ -196,7 +189,7 @@ describe('RdsCompProfile', () => {
     backToMyAccount: jest.fn(),
     isImpersonation: false,
     showUserName: true
-  };  // Setup the test environment before all tests
+  };// Setup the test environment before all tests
   beforeAll(() => {
     // Mock bootstrap object completely
     window.bootstrap = {
@@ -212,26 +205,18 @@ describe('RdsCompProfile', () => {
   });
   
   beforeEach(() => {
-    jest.clearAllMocks();
-    localStorageMock.clear();
+    jest.clearAllMocks();    localStorageMock.clear();
     localStorageMock.setItem('name', 'John Doe from Storage');
     localStorageMock.setItem('userName', 'JohnDoe123');
   });
+
   // Restore original environment after tests
   afterAll(() => {
-    // Restore original window.location
-    Object.defineProperty(window, 'location', {
-      configurable: true,
-      value: originalLocation,
-      writable: true
-    });
-    
     // Clean up bootstrap mock
     if ('bootstrap' in window) {
       delete (window as any).bootstrap;
     }
-    
-    // Reset any other mocks
+      // Reset any other mocks
     jest.restoreAllMocks();
   });
 
@@ -480,8 +465,7 @@ describe('RdsCompProfile', () => {
     // Now simulate clicking a different item
     defaultProps.onProfileLink('security-logs', '/security-logs');
     rerender(<RdsCompProfile {...defaultProps} />);
-    
-    // Then back to the first one
+      // Then back to the first one
     defaultProps.onProfileLink('my-account', '/my-account');
     rerender(<RdsCompProfile {...defaultProps} />);
     
