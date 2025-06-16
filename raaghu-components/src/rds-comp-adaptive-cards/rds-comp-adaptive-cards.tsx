@@ -52,11 +52,12 @@ export interface RdsCompAdaptiveCardsProps {
   label?: string;
   inputForm?: boolean;
   block?: boolean;
-  homeTeam?: string,
-  awayTeam?: string,
-  tournament?: string,
-  score?: string,
-  time?: string,
+  homeTeam?: string;
+  awayTeam?: string;
+  tournament?: string;
+  score?: string;
+  time?: string;
+  textCase?: string;
 }
 
 const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
@@ -104,7 +105,9 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                     width="26px"
                   />
                 </div>
-                <div className="adaptive-scorecard-text">{props.tournament}</div>
+                <div className="adaptive-scorecard-text">
+                  {props.tournament}
+                </div>
                 <div className="adaptive-badge">
                   <img
                     src="assets/icons/dot.svg"
@@ -158,14 +161,14 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             <div className="adaptive-card-header mb-2">
               <div className="d-flex align-items-center gap-2">
                 {props.titleIcon && (
-                  <RdsIcon
-                    colorVariant="dark"
-                    height="18px"
-                    isCursorPointer
-                    name="circle"
-                    stroke
-                    width="18px"
-                  />
+                  <div className="Adaptive-header-icon">
+                    <RdsIcon
+                      colorVariant="dark"
+                      isCursorPointer
+                      name="circle"
+                      stroke
+                    />
+                  </div>
                 )}
                 {props.title && (
                   <div className="adaptive-card-title">{props.cardTitle}</div>
@@ -370,7 +373,11 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 </form>
               )}
             </>
-            <div className="adaptive-card-footer mt-2">
+            <div
+              className={`adaptive-card-footer ${
+                props.type === "CalenderReminder" ? "mt-4" : "mt-2"
+              }`}
+            >
               {props.showBtn1 &&
                 (props.type == "ActivityUpdateCard" ? (
                   <RdsDropdown
@@ -399,7 +406,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                   <RdsButton
                     size="medium"
                     shape="rectangle"
-                    state="default"
+                    state="hover"
                     style={props.btn1style}
                     badgeState="default"
                     badgeStyle="primary"
@@ -415,14 +422,14 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 <RdsButton
                   size="medium"
                   shape="rectangle"
-                  state="default"
+                  state="hover"
                   style={props.btn2style}
                   badgeState="default"
                   badgeStyle="primary"
                   displayType="Text Only"
                   colorVariant="primary"
                   label={props.btn2Label}
-                  textCase="unset"
+                  textCase={props.textCase}
                 />
               )}
             </div>
