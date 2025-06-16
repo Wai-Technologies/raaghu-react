@@ -8,6 +8,14 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Button Group** component is designed to organize multiple buttons into a cohesive, interactive set that enhances user experience by grouping related actions. It supports various configurations such as \`Default\` (standard horizontal buttons), \`Checkbox Button Group\` (toggleable buttons allowing multiple selections), \`Icon Button Group\` (icon-only buttons for compact, intuitive action sets), \`Radio Button Group\` (mutually exclusive buttons for single selection), and \`Vertical\` (buttons arranged vertically for sidebars or vertical menus).
+
+Each button within the group is customizable with properties including \`label\`, \`id\`, \`name\`, \`icon\`, and \`colorVariant\`, allowing for versatile styling and behavior tailored to different interface requirements. The component supports different sizes (\`small\`, \`medium\`, \`large\`), color variants (such as \`primary\`, \`secondary\`, \`success\`, \`danger\`), and outline styles to fit various design themes and accessibility needs.
+
+This component is ideal for toolbars, navigation controls, filter options, or any UI where related buttons need to be visually and functionally grouped for clarity and ease of use. Its flexibility in layout and role-based configurations ensures it can be adapted to diverse user interaction patterns across applications.`
+}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(checkbox|radio|button)"/g, '{Role.$1}');

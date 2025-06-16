@@ -9,6 +9,10 @@ export default {
     parameters: {
       layout: 'padded',
       docs: {
+        description: {
+        component:
+            'The **Scrollbar** element is a customizable scroll bar component for enhancing the scrolling experience in your application. It supports different types (`Mac`, `Simple`) and positions (`Start`, `Middle`, `End`), allowing you to control the appearance and placement of the scrollbar. You can also enable or disable navigation buttons for easier scrolling. This element is part of our design system and can be tailored to fit various layouts, making it ideal for content areas, panels, or any interface where improved scroll control is needed.'
+    },
         source :{
           transform: (code: string) => {
             // Transform type enum

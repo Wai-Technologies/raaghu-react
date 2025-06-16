@@ -206,8 +206,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             listItems={[
                                 {
                                     id: '1',
-                                    label: 'Raaghu',
-                                    path: ''
+                                    label: 'Raaghu'
                                 },
                                
                             ]}                           
@@ -215,7 +214,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                             showChevron
                             size="medium"
                             state={State.Default}
-                            style={Style.Transparent} darkDropdown={false}      
+                            style={Style.Transparent}
+                            darkDropdown={false}      
                             />
                     </div>
                 </div>

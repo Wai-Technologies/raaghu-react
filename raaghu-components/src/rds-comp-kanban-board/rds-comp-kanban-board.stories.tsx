@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompKanbanBoard,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Kanban Board** component is a customizable UI element designed to display and manage tasks or items in a Kanban-style board format. It supports features such as dynamic card creation, sub-card management, and customizable actions for cards and sub-cards. The component uses a `boardData` array to define board items, with properties like `cardId`, `status`, `name`, `subCards`, and `actions`. This component is ideal for project management tools, task tracking systems, or any application requiring a visual workflow management interface. Fully customizable, the Kanban Board component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

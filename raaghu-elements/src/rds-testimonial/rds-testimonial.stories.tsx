@@ -8,6 +8,12 @@ const meta: Meta = {
     component: RdsTestimonial,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Testimonial** component is a flexible and customizable UI element designed to showcase user feedback, reviews, or quotes in your application. It supports displaying key details such as the reviewer’s **name**, **designation**, **profile image**, and **testimonial description**. The component also allows the inclusion of an **icon** (e.g., quotation marks) with customizable properties like `iconHeight`, `iconWidth`, `iconFill`, and `iconStroke`. You can dynamically populate the component using the **testimonialItems** array, where each object represents a testimonial with properties like `img`, `title`, `subtitle`, `description`, and `icon`. This component is ideal for creating testimonial sections on websites, product pages, or any interface requiring structured and visually appealing user feedback. Fully customizable, the Testimonial component can be tailored to fit your design system and branding requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

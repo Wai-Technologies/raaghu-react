@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsBarChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+      component: 'The **Bar Chart** element is a flexible and highly customizable data visualization tool designed for our design system. It supports both **horizontal** and **vertical** orientations, enabling clear representation of single or multiple datasets. Key features include **stacked bars** for comparative insights, **border radius customization** for refined aesthetics, and full responsiveness to adapt across devices. The component integrates options for axis configuration, layout padding, and rich plugin support such as legends, tooltips, and titles. Use this component to visualize performance metrics, trends, and comparisons effectively within your applications.'
+
+},
+        }
     },
     tags: ['autodocs'],
     argTypes: {

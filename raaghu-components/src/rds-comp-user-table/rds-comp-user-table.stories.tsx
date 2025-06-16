@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompUserTable,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **User Table** component is a dynamic and interactive UI element designed to display and manage user data in a tabular format. It supports features such as pagination, sorting, customizable table headers, and actions like "Edit," "Delete," and "Unlock." This component is ideal for applications requiring user management workflows, such as admin dashboards or enterprise systems. Fully customizable, the User Table component ensures seamless integration with your design system while providing a user-friendly interface for managing and visualizing user-related information effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

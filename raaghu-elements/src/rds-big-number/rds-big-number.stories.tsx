@@ -17,6 +17,18 @@ const meta: Meta = {
     component: RdsBigNumber,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Big Number** component is designed to prominently showcase a key numerical value, such as a critical metric or KPI, in a visually impactful way. It allows customization of the main number’s color to fit different semantic contexts like \`primary\`, \`success\`, \`danger\`, or \`warning\`, making it flexible for various UI themes.
+
+Along with the big number itself, the component supports an optional subtitle that can be styled independently, providing additional context or labels to help users understand what the number represents. Text alignment is also configurable, allowing the content to be aligned to \`text-start\`, \`text-center\`, or \`text-end\` to best fit the surrounding layout.
+
+A powerful aspect of this component is its ability to include child elements, which can be anything from icons and delta indicators (such as arrows with percentage changes) to embedded charts. This means you can visually enhance the big number with supplementary information like trend lines, histograms, or symbolic icons, offering a richer and more informative display.
+
+The component integrates seamlessly with line and bar chart components to visualize data trends or distributions directly alongside the numeric value, making it especially useful in dashboards or analytics interfaces where immediate insights are critical. The combination of clear numeric display, contextual subtitles, and integrated visual elements makes the **Big Number** component an effective building block for presenting key data clearly and attractively in any React-based UI.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

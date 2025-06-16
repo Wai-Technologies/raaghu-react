@@ -9,6 +9,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+  component: `The **Feature List** component presents a customizable list of key features or benefits with clear and elegant styling. It supports configurable \`heading\`, \`colorVariant\` (such as primary, success, danger, etc.), and \`fontStyle\` options (normal or italic) for flexible appearance. The \`itemList\` prop accepts an array of strings to display each feature as a list item. Additionally, the component can render features in multiple columns by setting the \`columns\` prop, enhancing layout versatility. Ideal for showcasing product highlights, service benefits, or feature sets with a clean, readable design.`
+}
+,
             source : {
                 transform: (code: string) => {
                     // Transform colorVariant enum - remove spaces and transform

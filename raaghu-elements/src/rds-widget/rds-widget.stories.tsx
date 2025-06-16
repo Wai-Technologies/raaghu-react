@@ -11,6 +11,14 @@ const meta: Meta = {
     title: "Components/Widget",
     component: RdsWidget,
     tags: ['autodocs'],
+    parameters:{
+        docs: {
+    description: {
+        component: 
+            'The **Widget** component is a highly customizable and versatile UI element designed to display data, charts, or other content in a structured and visually appealing format. It supports features such as a customizable **header title** (`headerTitle`), an optional **refresh icon** (`iconName`) with a tooltip (`iconTooltipLabel` and `iconTooltipPosition`), and a **border** toggle for enhanced styling. The component also allows embedding child elements, such as line charts, bar charts, or doughnut charts, making it ideal for dashboards, analytics pages, or any interface requiring modular data visualization. Additionally, it offers a range of **color variants** (`primary`, `secondary`, `success`, `info`, `warning`, `danger`, `dark`, `light`, `white`, `gradient-primary`, `transparent`) to align with your design system. Fully customizable, the Widget component is perfect for creating interactive and dynamic content blocks tailored to your application’s needs.'
+    },
+}
+    },
     argTypes: {
         colorVariant: {
             options: [
@@ -51,7 +59,7 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
 
-export const WidgetWithLineChart: Story = {
+export const WithLineChart: Story = {
     args: {
         colorVariant: "white",
         isRefreshRequired: true,
@@ -225,9 +233,9 @@ export const WidgetWithLineChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithLineChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
 
-export const WidgetWithDoughnutChart: Story = {
+export const WithDoughnutChart: Story = {
     args: {
         colorVariant: "white",
         headerTitle: "Profit Share",
@@ -305,9 +313,9 @@ export const WidgetWithDoughnutChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithDoughnutChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
 
-export const WidgetWithBarChart: Story = {
+export const WithBarChart: Story = {
     args: {
         colorVariant: "white",
         headerTitle: "Daily Sales Growth",
@@ -492,4 +500,18 @@ export const WidgetWithBarChart: Story = {
         ),
     }
 } satisfies Story;
-WidgetWithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+WithBarChart.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'children'] } };
+
+export const Portal: Story = {
+    args: {
+      isPortal: true,
+      btnLabel: "Buy Ticket",
+      widgetTitle: "Team",
+      statusMsg: "Upgrade licence to get more features",
+      subTitle: "Liecence Type",
+      icon: "arrow_down",
+      btnShow: true,
+      statusBarMsg: false
+    }
+} satisfies Story;
+Portal.parameters = { controls: { include: ['btnLabel', 'widgetTitle', 'statusMsg', 'subTitle', 'icon', 'btnShow', 'statusBarMsg'] } };

@@ -8,6 +8,10 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {
+        component:
+            'The **Rating** element is a customizable component for displaying and capturing user ratings in your application. It supports different types (`star`, `slider`), styles (`default`, `filled`, `outline`), and color variants. You can set the current rating value, display half or full ratings, and choose the visual style to match your design. This element is ideal for reviews, feedback forms, and any interface where users need to rate items or experiences, with flexible props to tailor its appearance and behavior for your design system.'
+    },
             source : {
                 transform: (code: string) => {
                     // Transform style enum - remove spaces and transform

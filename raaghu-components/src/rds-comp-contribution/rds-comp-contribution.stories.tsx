@@ -6,6 +6,14 @@ const meta: Meta = {
   component: RdsCompContribution,
   parameters: {
     layout: "padded",
+    docs:{
+      description: {
+  component: `The **Contribution** component is a visual heatmap element inspired by contribution graphs, often seen in platforms like GitHub. It displays activity levels over time using a grid of colored panels, where each panel represents a day and its intensity corresponds to the provided value. This element supports flexible customization such as panel size, margin, colors, and labeling, making it suitable for dashboards, analytics, or user engagement visualizations.
+
+The \`showMonthLabels\` prop is a boolean toggle that determines whether month labels (e.g., Jan, Feb, Mar) are displayed above the grid, aiding in temporal navigation and clarity. When set to \`true\`, users can more easily identify contribution periods by month.`
+}
+
+    }
   },
   tags: ["autodocs"],
   argTypes: {

@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompForgotPassword,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Forgot Password** component is a customizable UI element designed to handle password recovery workflows within your application. It supports a `languageData` array to provide multilingual support, allowing users to select their preferred language for the password recovery process. Each language option includes properties such as `label`, `val`, `iconWidth`, and `iconHeight`. This component is ideal for login pages, authentication systems, or any interface requiring a user-friendly and localized password recovery experience. Fully customizable, the Forgot Password component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

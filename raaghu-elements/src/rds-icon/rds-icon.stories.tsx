@@ -1,12 +1,19 @@
 import React from "react";
 import RdsIcon from "./rds-icon";
 import { Meta, StoryObj } from "@storybook/react";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 const meta: Meta = {
     title: 'Components/Icon',
     component: RdsIcon,
     parameters: {
         layout: 'centered',
+        docs:{
+            description: {
+  component: `The **Icon** component renders scalable vector icons with customizable properties such as \`name\`, \`width\`, and \`height\`. It supports styling options including \`fill\` and \`stroke\` toggles, various \`colorVariant\` themes, and an optional cursor pointer for interactivity. The component also supports displaying images as icons via an \`imageUrl\` prop. Additionally, it can show tooltips with configurable placement and titles to enhance usability. This makes the Icon component versatile for UI designs requiring interactive icons, buttons, or image placeholders with rich styling and accessibility features.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {
@@ -44,6 +51,7 @@ export const Tooltip: Story = {
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
         isCursorPointer: true,
+        style: TooltipStyle.LeftArrow
     },
     argTypes: {
         tooltipPlacement: {
@@ -52,7 +60,7 @@ export const Tooltip: Story = {
         },
     },
 } satisfies Story;
-Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle', 'colorVariant', 'isCursorPointer'] } };
+Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'style', 'tooltipTitle', 'colorVariant', 'isCursorPointer'] } };
 
 export const WithImage: Story = {
     args: {
@@ -64,7 +72,7 @@ export const WithImage: Story = {
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
         isCursorPointer: true,
-
+        style: TooltipStyle.LeftArrow
     },
     argTypes: {
         tooltipPlacement: {

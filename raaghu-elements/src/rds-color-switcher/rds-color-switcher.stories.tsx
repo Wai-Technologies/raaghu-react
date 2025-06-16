@@ -7,6 +7,8 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
         docs: {
+            description: {component: `The **Color Switcher** component offers an intuitive interface for users to select and switch between multiple color options. It supports different display styles via the \`displayType\` prop, allowing colors to be presented as either \`rounded\` or \`square\` swatches to fit diverse design requirements. The component accepts a \`header\` prop for labeling the switcher section, a \`defaultValue\` to specify the initially selected color, and an \`itemList\` array defining the available color options with properties like \`id\` and \`color\`. Ideal for theme pickers, customization panels, or any UI that requires color selection, this component enhances user experience by providing a clear, visually distinct way to toggle color preferences.`}
+,
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(rounded|square)"/g, '{DisplayType.$1}');
@@ -28,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof RdsColorSwitcher>;
 
 
-export const ColorThemeSwitcher: Story = {
+export const Default: Story = {
     args: {
         displayType: DisplayType.Rounded,
         header: "Color",
@@ -40,6 +42,6 @@ export const ColorThemeSwitcher: Story = {
         ]
     }
 } satisfies Story;
-ColorThemeSwitcher.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
+Default.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
 
 

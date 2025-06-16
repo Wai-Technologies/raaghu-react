@@ -7,6 +7,11 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
         docs: {
+              description: {
+        component:
+          'The **Checkbox** component is a customizable UI element used to select one or more options from a list. It supports multiple visual styles (`Square`, `Circular`), interactive states (`Default`, `Disabled`, `Hover`), and logical statuses (`checked`, `unchecked`, `indeterminate`). ' +
+          'The checkbox can optionally display a label, which can be positioned to the `left` or `right` of the input. It is ideal for use in forms, settings panels, and multi-select interfaces. Additional props allow for full control over its appearance, state, and behavior.'
+  },
             source: {
                 transform: (code: string) => {
                     code = code.replace(/"(Square|Circular)"/g, '{CheckboxStyle.$1}');

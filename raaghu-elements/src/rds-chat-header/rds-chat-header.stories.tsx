@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsChatHeader> = {
     logoUrl: {
       control: "text",
       description: "URL of the logo image",
+      docs:{}
     },
     title: {
       control: "text",
@@ -23,6 +24,10 @@ const meta: Meta<typeof RdsChatHeader> = {
   parameters: {
     layout: "padded",
     docs: {
+      description: {
+  component: `The **Chat Header** component is a top-section UI element designed specifically for AI chat interfaces. It displays a logo and a title, making it ideal for branding and context-setting in conversational UIs. The \`logoUrl\` prop specifies the image source for the logo, while the \`title\` prop sets the header text. The \`size\` prop controls the overall visual scale of the header and supports three predefined sizes: \`small\`, \`medium\`, and \`large\` via the \`ChatHeaderSize\` enum. This component ensures consistent and responsive layout for AI-related workflows and can be reused across multiple chat-based modules to maintain visual uniformity.`
+}
+,
       source: {
           transform: (code: string) => {
               code = code.replace(/"(small|medium|large)"/g, '{ChatHeaderSize.$1}');

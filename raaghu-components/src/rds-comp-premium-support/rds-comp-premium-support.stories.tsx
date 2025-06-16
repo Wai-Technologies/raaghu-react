@@ -6,6 +6,12 @@ const meta: Meta = {
   component: RdsCompPremiumSupport,
   parameters: {
     layout: "padded",
+    docs: {
+    description: {
+        component: 
+            'The **Premium Support** component is a customizable UI element designed to display and manage premium support options within your application. It provides a structured interface for users to access premium support features, such as contact information and personalized messages. This component is ideal for applications offering tiered support services, ensuring a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
   },
   tags: ["autodocs"],
   argTypes: {},

@@ -7,6 +7,7 @@ export interface RdsCompAppShellProps {
   displayType: AppShellDisplayType;
   topbar?: ReactNode;
   sidebar?: ReactNode;
+  children?: React.ReactNode; // Allow children as main content
 }
  
 export enum AppShellDisplayType {
@@ -22,18 +23,15 @@ export enum AppShellDisplayType {
  
  
 const RdsCompAppShell = (props: RdsCompAppShellProps) => {
- 
   return (
     <>
- 
       <div className={props.displayType?.toString()}>
         <div className="sidebar-layout">
           {props.sidebar}
         </div>
- 
         <div className="topnav-layout">
           {props.topbar}
-          <Outlet />
+          {props.children}
         </div>
       </div>
     </>

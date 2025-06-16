@@ -6,6 +6,16 @@ const meta: Meta = {
     component: RdsBenefit,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Benefits** component is designed to highlight key advantages or features in a visually appealing and customizable manner. It supports multiple display types such as \`Default\`, \`Left Aligned\`, \`Center Aligned\`, \`With Label\`, \`Without Label\`, and \`Heading With Icon\`, allowing flexible presentation to suit different UI contexts and design needs.
+
+Each benefit item is defined through the \`item\` prop, which includes properties like \`title\`, \`description\`, and icon-related settings such as \`icon\`, \`iconHeight\`, \`iconWidth\`, \`iconFill\`, \`iconstroke\`, and \`iconColorVarient\`. The component can display either vector icons or images (in the case of the \`With Label\` variant), along with optional status labels and color variants to convey state or emphasis.
+
+This component is ideal for showcasing service highlights, product features, or promotional points in marketing pages, dashboards, or landing sections. Its versatility in layout and styling ensures that benefits can be communicated clearly and attractively across different screen sizes and design themes.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

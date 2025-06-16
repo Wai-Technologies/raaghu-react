@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "engines": {
     "node": ">=22.14.0"
   },
@@ -173,9 +173,9 @@
     "pages": "npm run dev --prefix raaghu-pages",
     "start": "node utils/start-scripts.js",
     "build": "npm-run-all build:elements build:components build:layouts build:vite",
-    "build:elements": "tsc -p raaghu-elements/tsconfig.json",
-    "build:components": "tsc -p raaghu-components/tsconfig.json",
-    "build:layouts": "tsc -p raaghu-layouts/tsconfig.json",
+    "build:elements": "tsc -p raaghu-elements/tsconfig.json && echo Build successful!",
+    "build:components": "tsc -p raaghu-components/tsconfig.json && echo Build successful!",
+    "build:layouts": "tsc -p raaghu-layouts/tsconfig.json && echo Build successful!",
     "build:pages": "npm run build --prefix raaghu-pages",
     "build:vite": "vite build",
     "prepare": "npm run build",

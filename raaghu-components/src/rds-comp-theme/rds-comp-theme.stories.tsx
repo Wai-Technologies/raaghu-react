@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompTheme,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Theme** component is a customizable UI element designed to manage and apply themes across your application. It allows users to select styles, web layouts, menu placements, and status options from predefined lists. This component is ideal for applications requiring dynamic theme management, enabling seamless customization and consistent design across different sections. Fully customizable, the Theme component ensures integration with your design system while providing an intuitive interface for managing application themes effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsButton from "./rds-button";
+import RdsButton, { ButtonInput }  from "./rds-button";
 import React from "react";
 import RdsBadge from "../rds-badge/rds-badge"; // Import RdsBadge
 import { Tooltip } from "bootstrap";
@@ -12,6 +12,11 @@ const meta: Meta = {
     component: RdsButton,
     parameters: {
         layout: "padded",
+        docs: {
+            description: {
+               component: 'The **Button** element is a core interactive UI control that allows users to **trigger actions** or events. It supports multiple styles, sizes, and shapes, along with features like icons, badges, and loading states. The element offers flexibility through icon-only and text-only modes, as well as customization of placement and behavior. This makes it a reusable and essential tool for building **responsive** and accessible user interfaces.'
+  },
+        },
     },
     tags: ["autodocs"],
     argTypes: {
@@ -129,6 +134,7 @@ export const Default: Story = {
         badgeLayout: "Text_only",
         badgeStyle: "primary",
         badgeState: "default",
+        grid: false,
         //badgeSize: "small",
     },
     parameters: { controls: { include: ["state", "label", "icon", "block", "tooltip", "tooltipPlacement", "tooltipTitle", "size","showLoadingSpinner", /*"colorVariant"*/,"style", "shape","textCase","displayType", "badgeLabel", "badgeColorVariant", "badgeType","withBadge"] } },
@@ -277,4 +283,83 @@ export const LinkButton: Story = {
 LinkButton.parameters = { controls: { include: ["colorVariant", "label", "block", "size", "showLoadingSpinner","isRoundedButton","textCase"] } };
 */
 
+const buttonInputs: ButtonInput[] = [
+    {
+        id: "1",
+        text: "14",
+    },
+    {
+        id: "2",
+        text: "16",
+    },
+    {
+        id: "3",
+        text: "20",
+    },
+    {
+        id: "4",
+        text: "24",
+    },
+    {
+        id: "5",
+        text: "32",
+    },
+    {
+        id: "6",
+        text: "36",
+    },
+    {
+        id: "7",
+        text: "40",
+    },
+    {
+        id: "8",
+        text: "44",
+    },
+];
+
+export const Grid: Story = {
+    args: {
+        rows: 2,
+        columns: 4,
+        colorVariant: "primary", 
+        buttonInputs: buttonInputs,  
+        grid: true,     
+    }
+} satisfies Story;
+Grid.parameters = { controls: { include: ["rows", "columns", "colorVariant", "buttonInputs"] } };
+
+
+const buttonInputsWithColor: ButtonInput[] = [
+    {
+        id: "1",
+        text: "Primary",
+        colorVariant: "primary",
+    },
+    {
+        id: "2",
+        text: "Secondary",
+        colorVariant: "secondary",
+    },
+    {
+        id: "3",
+        text: "Tertiary",
+        colorVariant: "tertiary",
+    },
+    {
+        id: "4",
+        text: "Neutral",
+        colorVariant: "neutral",
+    }
+];
+
+export const WithDifferentColor: Story = {
+    args: {
+        rows: 2,
+        columns: 2,
+        buttonInputs: buttonInputsWithColor,  
+        grid: true,     
+    }
+} satisfies Story;
+WithDifferentColor.parameters = { controls: { include: ["rows", "columns", "colorVariant", "buttonInputs"] } };
 

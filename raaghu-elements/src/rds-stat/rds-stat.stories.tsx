@@ -6,6 +6,12 @@ const meta: Meta = {
     component: RdsStat,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Stat** component displays key statistical data in either a basic or advanced format. It accepts a \`displayType\` prop to toggle between "basic" and "advanced" views. The \`colorVariant\` prop controls the color theme, supporting options like "primary", "secondary", "success", "info", "warning", "danger", "dark", and "light". The \`items\` prop is an array of stat objects, each containing properties such as \`title\` (label for the stat), \`value\` (numeric or string data), and optionally \`icon\` details including icon name, size, and styling options. The basic display type includes icons alongside the data, while the advanced type focuses on a clean textual representation. This component is ideal for dashboards, analytics, or any interface requiring prominent display of key metrics.`
+}
+
+        }
     },
     tags: ['autodocs'],
     argTypes: {

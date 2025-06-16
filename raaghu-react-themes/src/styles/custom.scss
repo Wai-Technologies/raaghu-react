@@ -2799,9 +2799,9 @@ rds-nav-tab {
 }
 
 .aside {
-    -webkit-box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
-    box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
+    // -webkit-box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
+    // -moz-box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
+    // box-shadow: 12px -9px 5px -8px rgba(0, 0, 0, 0.05);
     position: relative;
     //z-index: 99;
 }
@@ -3828,4 +3828,8 @@ label.form-check-label.ms-2.undefined {
 
 .theme-dark .time-controls .css-1dimb5e-singleValue {
     color: #393434 !important;
+}
+
+.theme-dark .custom-text {
+    color: #A8A8AC !important;
 }

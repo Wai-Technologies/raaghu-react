@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
-import RdsRange, { RdsRangeProps } from "../src/rds-range/rds-range";
+import RdsRange, { DoubleRangeType, RdsRangeProps } from "../src/rds-range/rds-range";
 
 
 describe("RdsRange", () => {
@@ -9,6 +9,7 @@ describe("RdsRange", () => {
         min: 0,
         max: 100,
         rangeType: "default",
+        doubleRangeType: DoubleRangeType.Default,
     };
 
     it("renders a different type of range when the rangeType prop is set", () => {

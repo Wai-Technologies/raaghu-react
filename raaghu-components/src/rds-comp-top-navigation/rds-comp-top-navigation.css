@@ -21,10 +21,10 @@
 }
 
 #topnav .border-custom-dropdown-menu {
- background: #ffffff 0% 0% no-repeat padding-box;
- border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
- opacity: 1;
- margin-top: -4px !important;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  opacity: 1;
+  margin-top: -4px !important;
 }
 
 .border-start-custom {
@@ -36,10 +36,29 @@
   color: #7e2eef;
 }
 
-.breadcrumb-item a, .theme-light .breadcrumb-items a {
-  color: #6C757D;
+.breadcrumb-item a,
+.theme-light .breadcrumb-items a {
+  color: #6c757d;
 }
 
 .col {
   flex: none !important;
+}
+.custom-logo-font {
+  font-weight: bold;
+  font-size: 22px;
+}
+.raaghu-logo-size {
+  width: 120px;
+  height: auto;
+}
+
+/* Hide plus icon for Home tab */
+/* .breadcrumb-item:first-child #home-icon .ps-2 {
+  display: none !important;
+} */
+
+/* Hide plus icon for Home tab only in Product 3 topnav */
+#home-icon.product3 .breadcrumb-item:first-child .ps-2 {
+  display: none !important;
 }

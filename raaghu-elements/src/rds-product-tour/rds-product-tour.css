@@ -1,0 +1,1336 @@
+/* Common container styles */
+.product-tour-container,
+.product-tour-animation-container,
+.product-tour-carousel-outer,
+.product-tour-form-container {
+  background: #fff;
+  box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
+  border-radius: 16px;
+  margin: 32px auto;
+  width: 100%;
+  max-width: 550px;
+  position: relative;
+  overflow: visible;
+}
+
+.product-tour-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: none;
+}
+
+.product-tour-animation-container {
+  padding: 30px 35px;
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+.product-tour-carousel-outer {
+  width: 520px;
+  height: 610px;
+  margin: 20px auto;
+  padding: 26px 36px 26px 36px;
+}
+
+/* Universal corner dots */
+.corner-dot-top-left,
+.corner-dot-top-right,
+.corner-dot-bottom-left,
+.corner-dot-bottom-right {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #7c3aed;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Corner dots - specific positions */
+.corner-dot-top-left {
+  left: -8px;
+  top: -8px;
+}
+
+.corner-dot-top-right {
+  right: -8px;
+  top: -8px;
+}
+
+.corner-dot-bottom-left {
+  left: -8px;
+  bottom: -8px;
+}
+
+.corner-dot-bottom-right {
+  right: -8px;
+  bottom: -8px;
+}
+
+/* Shadow for corner dots in standard container and form container */
+.product-tour-container .corner-dot-top-left,
+.product-tour-container .corner-dot-top-right,
+.product-tour-container .corner-dot-bottom-left,
+.product-tour-container .corner-dot-bottom-right,
+.product-tour-carousel-outer .corner-dot-top-left,
+.product-tour-carousel-outer .corner-dot-top-right,
+.product-tour-carousel-outer .corner-dot-bottom-left,
+.product-tour-carousel-outer .corner-dot-bottom-right,
+.product-tour-form-container .corner-dot-top-left,
+.product-tour-form-container .corner-dot-top-right,
+.product-tour-form-container .corner-dot-bottom-left,
+.product-tour-form-container .corner-dot-bottom-right,
+.product-tour-animation-container .corner-dot-top-left,
+.product-tour-animation-container .corner-dot-top-right,
+.product-tour-animation-container .corner-dot-bottom-left,
+.product-tour-animation-container .corner-dot-bottom-right {
+  background: #872efc;
+  box-shadow: 0 0 0 8px rgba(162, 89, 255, 0.15);
+  width: 17px;
+  height: 17px;
+}
+
+/* Close button styles - unified */
+.product-tour-close-btn,
+.product-tour-carousel-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-tour-close-btn svg,
+.product-tour-carousel-close-btn svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.product-tour-carousel-close-btn {
+  top: 6px;
+  right: 12px;
+}
+
+/* ===== STANDARD IMAGE TOUR STYLES ===== */
+.product-tour-image-section {
+  width: 100%;
+  height: 260px;
+  margin: 0;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  background: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  display: block;
+}
+
+.product-tour-info-nav-section {
+  width: 100%;
+  min-height: 137.74px;
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 32px 0 32px;
+}
+
+.product-tour-info {
+  padding: 0 0 8px 0;
+}
+
+.product-tour-title,
+.product-tour-animation-title,
+.product-tour-form-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #111827;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.theme-dark .product-tour-animation-title {
+  color: #ffffff;
+}
+
+.product-tour-title {
+  margin-bottom: 14px;
+}
+
+.product-tour-desc,
+.product-tour-animation-desc,
+.product-tour-form-description {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.theme-dark .product-tour-animation-desc {
+  color: #b7bcd8;
+}
+
+.product-tour-desc {
+  color: #757575;
+}
+
+/* Common navigation components */
+.product-tour-navigation-row,
+.product-tour-carousel-nav-row,
+.product-tour-animation-navigation,
+.product-tour-form-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product-tour-navigation-row {
+  padding: 0 0 18px 0;
+  gap: 8px;
+}
+
+/* Step indicators */
+.product-tour-stepcount,
+.product-tour-carousel-stepcount,
+.product-tour-animation-stepcount,
+.product-tour-form-stepcount {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.product-tour-stepcount,
+.product-tour-carousel-stepcount {
+  color: #222;
+}
+
+.product-tour-form-stepcount {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Skip buttons */
+.product-tour-skip,
+.product-tour-carousel-skip,
+.product-tour-animation-skip,
+.product-tour-form-skip {
+  color: #7c3aed;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.product-tour-skip {
+  background: none;
+  border: none;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.product-tour-carousel-skip {
+  background: none;
+  border: none;
+  font-size: 14px;
+  margin: 0;
+  text-decoration: none !important;
+}
+
+.product-tour-form-skip {
+  font-size: 14px;
+  margin-right: 16px;
+}
+
+/* Arrow button containers */
+.product-tour-arrows,
+.product-tour-carousel-arrows,
+.product-tour-animation-nav-buttons,
+.product-tour-form-arrows {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Arrow buttons - general */
+.product-tour-arrow,
+.product-tour-carousel-arrow-prev,
+.product-tour-carousel-arrow-next,
+.product-tour-animation-nav-prev,
+.product-tour-animation-nav-next,
+.product-tour-form-arrow-prev,
+.product-tour-form-arrow-next {
+  border: 0.5px solid #7c3aed;
+  background: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Prev buttons (left arrows) */
+.product-tour-arrow-prev,
+.product-tour-carousel-arrow-prev,
+.product-tour-animation-nav-prev,
+.product-tour-form-arrow-prev {
+  color: #7c3aed;
+  box-shadow: none;
+}
+
+.product-tour-arrow {
+  color: #7c3aed;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+/* Next buttons */
+.product-tour-arrow-next,
+.product-tour-carousel-arrow-next,
+.product-tour-animation-nav-next,
+.product-tour-form-arrow-next {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+}
+
+.product-tour-arrow svg,
+.product-tour-carousel-arrow-prev svg,
+.product-tour-carousel-arrow-next svg,
+.product-tour-form-arrow-prev svg,
+.product-tour-form-arrow-next svg,
+.product-tour-animation-nav-prev svg,
+.product-tour-animation-nav-next svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  display: block;
+  margin: auto;
+  stroke-width: 1.5;
+}
+
+/* Specific styling for left/prev arrow SVGs */
+.product-tour-arrow-prev svg path,
+.product-tour-carousel-arrow-prev svg path,
+.product-tour-animation-nav-prev svg path,
+.product-tour-form-arrow-prev svg path {
+  stroke: #7c3aed;
+}
+
+/* Specific styling for right/next arrow SVGs */
+.product-tour-arrow-next svg path,
+.product-tour-carousel-arrow-next svg path,
+.product-tour-animation-nav-next svg path,
+.product-tour-form-arrow-next svg path {
+  stroke: currentColor;
+}
+
+/* ===== ANIMATION TOUR STYLES ===== */
+.product-tour-animation-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.product-tour-animation-section img,
+.product-tour-animation-section .product-tour-gif {
+  max-width: 1520px;
+  max-height: 1520px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 24px auto;
+}
+
+.product-tour-animation-progress {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  max-width: 100%;
+}
+
+.product-tour-animation-info {
+  text-align: left;
+  padding: 0;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.product-tour-animation-controls {
+  display: flex;
+  align-items: center;
+  gap: 46px;
+}
+
+.product-tour-animation-navigation {
+  flex-wrap: wrap;
+}
+
+/* ===== CAROUSEL TOUR STYLES ===== */
+.product-tour-carousel-spacer {
+  height: 70px;
+}
+
+.product-tour-carousel-nav-row {
+  margin-top: -5px;
+}
+
+.product-tour-carousel-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Ensure all carousel images have the same border radius */
+.product-tour-carousel-outer .carousel-item img,
+.product-tour-carousel-outer .card-image-top,
+.product-tour-carousel-outer .card-image-top-full-width,
+.product-tour-carousel-outer .carousel-inner .carousel-item .card img {
+  border-radius: 8px !important;
+}
+
+/* Fix any container that might be clipping the border radius */
+.product-tour-carousel-outer .carousel-inner .carousel-item .card,
+.product-tour-carousel-outer .carousel-inner .carousel-item .card .text-center,
+.product-tour-carousel-outer .carousel-inner .carousel-item .imageheight {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+/* ===== FORM TOUR STYLES ===== */
+.product-tour-form-container {
+  padding: 25px;
+  max-width: 700px;
+  margin-top: 15px;
+}
+
+.product-tour-form-header {
+  margin-bottom: 24px;
+}
+
+.product-tour-form-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-tour-form-content {
+  margin-top: 20px;
+  margin-bottom: -2px;
+}
+
+.product-tour-form-title-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.product-tour-form-subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.product-tour-form-description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.product-tour-form-tabs-wrapper {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.product-tour-form-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: -5px;
+}
+
+.product-tour-form-tabs-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  width: 290px;
+}
+
+.product-tour-form-tab-active {
+  border-bottom: 2px solid #8b5cf6;
+  margin-right: 20px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  color: #8b5cf6;
+}
+
+.product-tour-form-tab {
+  margin-right: -5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #666;
+  max-width: 100px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  flex: 1 1 0;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+  position: relative;
+}
+
+.product-tour-form-tab:hover {
+  background-color: #ebdcff;
+  color: #444;
+  transform: translateY(-1px);
+}
+
+/* Input fields and buttons */
+.product-tour-form-input-row {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  top: -25px;
+}
+
+.product-tour-form-input-container {
+  flex: 1;
+}
+
+.custom-dropdown-wrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* Custom dropdown styling */
+.custom-dropdown-wrapper .dropdown span {
+  margin-right: 2px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.custom-dropdown-wrapper .dropdown span > div {
+  flex-grow: 1 !important;
+  order: 1 !important;
+}
+
+.custom-dropdown-wrapper .dropdown span .ms-2 {
+  order: 2 !important;
+}
+
+.product-tour-form-input-container .form-control.border-primary {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* .product-tour-create-button, 
+.product-tour-add-button {
+  background-color: #7C3AED !important;
+  border-color: #7C3AED !important;
+  min-width: 120px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.2) !important;
+  margin-left: 0 !important;
+  color: #fff !important;
+} */
+
+.product-tour-form-button-right {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  margin-top: -25px;
+}
+
+.product-tour-form-textarea-container {
+  margin-bottom: 20px;
+  position: relative;
+  top: -20px;
+}
+
+.product-tour-file-upload-container {
+  margin-top: -30px;
+  margin-bottom: 5px;
+}
+
+.product-tour-form-navigation {
+  margin-top: 20px;
+}
+
+.product-tour-form-navigation-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Fix alignment of the 'i' button in the Enter Project Name input for the product tour form */
+.product-tour-form-input-container .password-toggle.mt-4 {
+  top: 31% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 896px) {
+  .product-tour-animation-container {
+    padding: 40px 30px;
+  }
+
+  .product-tour-animation-progress {
+    width: 180px;
+    height: 180px;
+  }
+
+  .product-tour-animation-title,
+  .product-tour-form-title {
+    font-size: 22px;
+  }
+
+  .product-tour-animation-desc {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-tour-container,
+  .product-tour-animation-container,
+  .product-tour-carousel-outer,
+  .product-tour-form-container {
+    width: 92%;
+    max-width: 414px;
+    margin: 24px auto;
+    border-radius: 8px;
+  }
+
+  .product-tour-container {
+    min-width: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-tour-image-section,
+  .product-tour-info-nav-section {
+    width: 100%;
+    max-width: 414px;
+    min-width: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: visible;
+  }
+
+  .product-tour-image-section {
+    height: 210px;
+    justify-content: center;
+    border-radius: 8px 8px 8px 8px;
+  }
+
+  .product-tour-info-nav-section {
+    padding: 15px;
+  }
+
+  .product-tour-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-tour-title,
+  .product-tour-desc {
+    text-align: center;
+    width: 100%;
+  }
+
+  .product-tour-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .product-tour-desc {
+    font-size: 14px;
+  }
+
+  .product-tour-navigation-row {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .product-tour-stepcount {
+    order: 1;
+    margin: 0 8px 0 0;
+    flex: 0 0 auto;
+    text-align: left;
+  }
+
+  .product-tour-skip {
+    order: 2;
+    margin: 0 auto;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .product-tour-arrows {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: 8px;
+  }
+
+  /* Animation navigation layout for mobile - same as image tour */
+  .product-tour-animation-navigation {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100%;
+    padding: 10px 0;
+    gap: 0;
+  }
+
+  .product-tour-animation-stepcount {
+    order: 1;
+    margin: 0 8px 0 0;
+    flex: 0 0 auto;
+    text-align: left;
+    padding-top: 3px;
+  }
+
+  .product-tour-animation-skip {
+    order: 2;
+    margin: 0 auto;
+    flex: 1 1 auto;
+    text-align: center;
+    position: relative;
+    top: 35px;
+    left: 25px;
+  }
+
+  .product-tour-animation-nav-buttons {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: 8px;
+    position: relative;
+    top: 35px;
+  }
+
+  /* Corner dots for small screens */
+  .product-tour-container .corner-dot-top-left,
+  .product-tour-container .corner-dot-top-right,
+  .product-tour-container .corner-dot-bottom-left,
+  .product-tour-container .corner-dot-bottom-right {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 6px rgba(162, 89, 255, 0.15);
+  }
+
+  .product-tour-container .corner-dot-top-left {
+    left: -6px;
+    top: -6px;
+  }
+
+  .product-tour-container .corner-dot-bottom-left {
+    left: -6px;
+    bottom: -6px;
+  }
+
+  .product-tour-container .corner-dot-bottom-right {
+    right: -6px;
+    bottom: -6px;
+  }
+
+  .product-tour-container .corner-dot-top-right {
+    right: -6px;
+    top: -6px;
+  }
+
+  .product-tour-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .product-tour-skip {
+    margin-right: 20px;
+    font-size: 14px;
+  }
+
+  .product-tour-stepcount {
+    font-size: 14px;
+  }
+
+  /* Carousel specific mobile adjustments */
+  .product-tour-carousel-outer {
+    height: auto;
+    min-height: 540px;
+    padding: 20px;
+    margin: 10px auto;
+  }
+
+  .product-tour-carousel-outer .carousel-with-title .carousel-item-title {
+    margin-bottom: 12px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .product-tour-carousel-spacer {
+    height: 40px;
+  }
+
+  .product-tour-carousel-nav-group {
+    gap: 12px;
+  }
+
+  .product-tour-carousel-skip {
+    font-size: 14px;
+  }
+
+  .product-tour-carousel-arrow-prev,
+  .product-tour-carousel-arrow-next {
+    width: 32px;
+    height: 32px;
+  }
+
+  .product-tour-carousel-stepcount {
+    font-size: 14px;
+  }
+
+  .corner-dot-top-left,
+  .corner-dot-top-right,
+  .corner-dot-bottom-left,
+  .corner-dot-bottom-right {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 568px) {
+  .product-tour-animation-container {
+    padding: 32px 20px;
+    margin: 20px auto;
+  }
+
+  .product-tour_animation-progress {
+    width: 150px;
+    height: 150px;
+  }
+
+  .product-tour_progress_ring circle {
+    stroke-width: 15;
+  }
+
+  .product-tour-animation-title,
+  .product-tour-form-title {
+    font-size: 20px;
+  }
+
+  .product-tour_desc,
+  .product-tour-animation-desc,
+  .product-tour-form-description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .product-tour-animation-stepcount,
+  .product-tour-stepcount,
+  .product-tour-carousel-stepcount {
+    font-size: 16px;
+  }
+
+  .product-tour-animation-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .product-tour-arrow,
+  .product-tour-carousel-arrow-prev,
+  .product-tour-carousel-arrow-next,
+  .product-tour-animation-nav-prev,
+  .product-tour_animation-nav-next,
+  .product-tour-form-arrow-prev,
+  .product-tour-form-arrow-next {
+    width: 36px;
+    height: 36px;
+  }
+
+  .product-tour-skip {
+    margin-right: 20px;
+  }
+
+  /* Carousel nav positioning */
+  .product-tour-carousel-nav-row {
+    margin-top: 0 !important;
+    padding-top: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 18px;
+    z-index: 2;
+    background: transparent;
+  }
+
+  .product-tour-carousel-spacer {
+    height: 0 !important;
+  }
+
+  /* Carousel image sizing */
+  .product-tour-carousel-outer .carousel-item img {
+    max-height: 220px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px !important;
+  }
+
+  .product-tour-carousel-outer
+    .carousel-inner
+    .carousel-item
+    .card
+    .text-center,
+  .product-tour-carousel-outer .carousel-inner .carousel-item .imageheight {
+    height: auto !important;
+    max-height: 220px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Corner dots adjusted positions */
+  .corner-dot-top-left {
+    left: -6px;
+    top: -6px;
+  }
+
+  .corner-dot-top-right {
+    right: -6px;
+    top: -6px;
+  }
+
+  .corner-dot-bottom-left {
+    left: -6px;
+    bottom: -6px;
+  }
+
+  .corner-dot-bottom-right {
+    right: -6px;
+    bottom: -6px;
+  }
+
+  /* Carousel controls */
+  .product-tour-carousel-outer .carousel-control-prev,
+  .product-tour-carousel-outer .carousel-control-next {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-tour-carousel-outer .carousel-control-prev {
+    left: 5px;
+  }
+
+  .product-tour-carousel-outer .carousel-control-next {
+    right: 5px;
+  }
+
+  .product-tour-carousel-outer .carousel-indicators {
+    margin-bottom: 0;
+  }
+
+  .product-tour-carousel-outer .carousel-indicators [data-bs-target] {
+    width: 8px !important;
+    height: 8px !important;
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 400px) {
+  .product-tour-container,
+  .product-tour-image-section,
+  .product-tour-info-nav-section {
+    width: 95%;
+    max-width: 95%;
+  }
+
+  .product-tour-image-section {
+    height: 150px;
+  }
+
+  .product-tour-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .product-tour-desc {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .product-tour-info-nav-section {
+    padding: 12px 15px;
+  }
+
+  .product-tour-container .corner-dot-top-left,
+  .product-tour_container .corner-dot-top-right,
+  .product-tour-container .corner-dot-bottom-left,
+  .product-tour-container .corner-dot-bottom-right {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 0 5px rgba(162, 89, 255, 0.15);
+  }
+
+  .product-tour-carousel-nav-row {
+    bottom: 60px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* Reduce Getting Started Tour title size */
+  .product-tour-form-subtitle {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  /* Reduce Tour Title size */
+  .product-tour-form-title {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  /* Reduce badge size */
+  .product-tour-form-title-badge-row .mb-3 .rds-badge {
+    font-size: 8px !important;
+    padding: 1px 6px !important;
+    height: 14px !important;
+    min-width: 24px !important;
+  }
+  /* Move tour title and badge row further up */
+  .product-tour-form-title-badge-row {
+    margin-bottom: 6px;
+    margin-top: -16px;
+  }
+  /* Reduce and move up description */
+  .product-tour-form-description {
+    font-size: 11px;
+    margin-bottom: 10px;
+    margin-top: -8px;
+  }
+
+  .product-tour-form-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-bottom: 10px;
+  }
+  .product-tour-form-tab,
+  .product-tour-form-tab-active {
+    font-size: 12px;
+    margin-right: 4px;
+    max-width: none;
+    min-width: 0;
+    padding-bottom: 3px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+  .product-tour-form-tabs-line {
+    width: 210px;
+  }
+
+  .product-tour-form-input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  /* .product-tour-file-upload-container .rds-file-uploader .file-upload-label {
+
+    color: transparent !important;
+    position: relative;
+  }
+  .product-tour-file-upload-container .rds-file-uploader .file-upload-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    background: #7C3AED url('/stories/assets/file-uploader.svg') no-repeat center center;
+    background-size: 16px 16px;
+    border-radius: 4px 0 0 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 2;
+  }
+  .product-tour-file-upload-container .rds-file-uploader input[type="file"] {
+    z-index: 3;
+    position: relative;
+    background: transparent;
+  } */
+}
+
+@media (max-width: 413px) {
+  .compact-mobile-uploader {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .compact-mobile-uploader .rds-fileuploader,
+  .compact-mobile-uploader .rds-file-uploader {
+    width: 100%;
+    min-width: 0;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .compact-mobile-uploader .custom-file-button,
+  .compact-mobile-uploader .upload-btn {
+    min-width: 90px !important;
+    max-width: 130px !important;
+    height: 32px !important;
+    font-size: 12px !important;
+    padding: 0 8px !important;
+    white-space: nowrap !important;
+    border-radius: 4px 0 0 4px !important;
+    margin: 0 !important;
+    position: relative;
+  }
+  .compact-mobile-uploader .chosenFileSpan,
+  .compact-mobile-uploader .file-name {
+    min-width: 0 !important;
+    max-width: 120px !important;
+    font-size: 12px !important;
+    height: 32px !important;
+    padding: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    border-radius: 0 4px 4px 0 !important;
+    margin: 0 !important;
+    position: relative;
+  }
+}
+
+@media (max-width: 568px) {
+  .product-tour-file-upload-container {
+    margin-top: -30px !important;
+    margin-bottom: 0px;
+  }
+}
+@media (max-width: 896px) {
+  .product-tour-title,
+  .product-tour-desc {
+    text-align: left !important;
+  }
+}
+@media (max-width: 600px) {
+  .theme-dark .product-tour-container,
+  .theme-dark .product-tour-animation-container {
+    background: #18191b !important;
+  }
+}
+
+/* Dark mode styles */
+/* Dark backgrounds - primary (#18191b) */
+.theme-dark .product-tour-image-section,
+.theme-dark .product-tour-carousel-outer,
+.theme-dark .product-tour-form-container,
+.theme-dark .product-tour-animation-container {
+  background: #18191b !important;
+}
+
+/* Dark mode tab hover */
+.theme-dark .product-tour-form-tab:hover {
+  background-color: #3e2e5a !important;
+  color: #c7d2ff !important;
+}
+
+/* Dark backgrounds - secondary (#23242a) */
+.theme-dark .product-tour-info-nav-section,
+.theme-dark .product-tour-carousel-outer .carousel-inner .carousel-item .card,
+.theme-dark
+  .product-tour-carousel-outer
+  .carousel-inner
+  .carousel-item
+  .card
+  .text-center,
+.theme-dark
+  .product-tour-carousel-outer
+  .carousel-inner
+  .carousel-item
+  .imageheight,
+.theme-dark .product-tour_animation-nav-prev {
+  background: #23242a !important;
+}
+
+/* White text */
+.theme-dark .product-tour-title,
+.theme-dark .product-tour-animation-title,
+.theme-dark .product-tour-form-title,
+.theme-dark .product-tour-form-subtitle,
+.theme-dark
+  .product-tour-form-container
+  .product-tour-form-title-badge-row
+  .nav-link,
+.theme-dark .product-tour-stepcount,
+.theme-dark .product-tour-carousel-stepcount,
+.theme-dark .product-tour-animation-stepcount,
+.theme-dark .product-tour-form-stepcount,
+.theme-dark .product-tour_animation-nav-prev {
+  color: #c7d2ff !important;
+}
+
+/* Light blue text */
+.theme-dark .product-tour-desc,
+.theme-dark .product-tour-animation-desc,
+.theme-dark .product-tour-animation-description,
+.theme-dark .product-tour-form-description,
+.theme-dark .product-tour-carousel-skip,
+.theme-dark .product-tour-animation-skip,
+.theme-dark .product-tour-skip {
+  color: #b7bcd8 !important;
+}
+
+/* Image brightness */
+.theme-dark .product-tour-image-section img,
+.theme-dark .product-tour-carousel-outer .carousel-item img,
+.theme-dark .product-tour-carousel-outer .card-image-top,
+.theme-dark .product-tour-carousel-outer .card-image-top-full-width,
+.theme-dark
+  .product-tour-carousel-outer
+  .carousel-inner
+  .carousel-item
+  .card
+  img {
+  filter: brightness(0.85);
+}
+
+.theme-dark .product-tour-image-section img {
+  background: transparent !important;
+}
+
+/* Nav link active state */
+.theme-dark
+  .product-tour-form-container
+  .product-tour-form-title-badge-row
+  .nav-link {
+  font-weight: 500;
+  opacity: 1;
+}
+.theme-dark
+  .product-tour-form-container
+  .product-tour-form-title-badge-row
+  .nav-link.active {
+  color: #ffd700 !important; /* gold/yellow for active tab */
+  border-bottom: 2px solid #ffd700 !important;
+}
+
+/* Buttons */
+.theme-dark .product-tour-form-container .btn,
+.theme-dark .product-tour-form-container .product-tour-add-button,
+.theme-dark .product-tour-animation-controls button,
+.theme-dark .product-tour-animation-controls .btn {
+  background: #7c3aed !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.theme-dark .product-tour-form-container .btn,
+.theme-dark .product-tour-form-container .product-tour-add-button {
+  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.2) !important;
+  font-weight: 500;
+}
+
+/* Button hover states */
+.theme-dark .product-tour-form-container .btn:active,
+.theme-dark .product-tour-form-container .btn:focus,
+.theme-dark .product-tour-form-container .btn:hover,
+.theme-dark .product-tour-animation-controls button:active,
+.theme-dark .product-tour_animation-controls button:focus,
+.theme-dark .product-tour-animation-controls button:hover {
+  background: #a389f4 !important;
+  color: #fff !important;
+}
+
+/* Animation container special styles */
+.theme-dark .product-tour-animation-container {
+  border: none !important;
+  box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18) !important;
+}
+
+/* Animation nav styles */
+.theme-dark .product-tour_animation-nav-next {
+  color: #7c3aed !important;
+}
+
+.theme-dark .product-tour_animation-nav-prev {
+  border: 1px solid #7c3aed !important;
+}
+
+/* SVG styles */
+.theme-dark .product-tour-animation-nav-prev svg,
+.theme-dark .product-tour-animation-nav-prev svg path,
+.theme-dark .product-tour-animation-nav-prev svg polygon,
+.theme-dark .product-tour-animation-nav-prev svg line {
+  stroke: #fff !important;
+  fill: none !important;
+  color: #fff !important;
+}

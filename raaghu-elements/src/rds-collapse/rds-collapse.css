@@ -4,3 +4,6 @@
   border-radius: 4px;
   opacity: 1;
 }
+.theme-dark .collapseContent-text {
+    color: #A8A8AC !important;
+}

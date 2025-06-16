@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompUserRoles,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **User Roles** component is a functional and interactive UI element designed to manage and display user roles within an application. It allows administrators to assign, view, and modify roles efficiently, providing a structured interface for role-based access control (RBAC). This component is ideal for applications requiring user role management workflows, such as enterprise systems or SaaS platforms. Fully customizable, the User Roles component ensures seamless integration with your design system while offering a user-friendly interface for managing user roles effectively.'
+    },
+},
     },
     tags: ['autodocs'],
     argTypes: {

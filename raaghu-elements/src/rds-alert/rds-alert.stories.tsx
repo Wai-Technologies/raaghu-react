@@ -8,6 +8,11 @@ const meta: Meta<typeof RdsAlert> = {
   parameters: {
     // layout: 'centered',
     docs: {
+    description: {
+ component: `The Alert element is a flexible UI component used to display important messages such as **information**, **warning**, or **error**. It supports various configurations like alert type, size, layout, and **position**. Users can enable or disable elements like titles, descriptions, icons, links, and dismiss buttons to match different contexts. Alerts can also be sticky, timed, or include primary and secondary actions, allowing for clear, interactive communication across the interface.`,
+
+},
+
       source: {
         transform: (code: string) => {
           code = code.replace(/"(info|success|warning|error)"/g, '{AlertType.$1}');

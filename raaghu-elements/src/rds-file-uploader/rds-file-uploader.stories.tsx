@@ -1,4 +1,4 @@
-import RdsFileUploader, { FileUploaderState, FileUploaderStyle } from "./rds-file-uploader";
+import RdsFileUploader, { FileUploaderState, FileUploaderStyle, Size } from "./rds-file-uploader";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -7,6 +7,10 @@ const meta: Meta = {
   parameters: {
     layout: "padded",
     docs: {
+       description: {
+        component:
+            'The **File Uploader** element is a flexible and customizable component for uploading files within your application. It supports multiple styles (`Basic`, `Drop Area Side Icon`, `Drop Area Top Icon`, `Drop Area With Upload Button`), and states (`Default`, `Selected`). Users can upload single or multiple files, set file type and size restrictions, and display optional thumbnails or placeholder images. The component can show a title, hint text, and mark the upload as mandatory. Flexible props allow you to tailor its appearance and behavior, making it ideal for forms, profile uploads, document management, and any interface where file selection and upload are required.'
+    },
       source:{
         transform: (code: string) => {
           // Transform style enum - remove spaces and transform
@@ -98,6 +102,32 @@ Default.parameters = {
       "showThumbnail",
       "hintText",
       "placeholderImage",
+    ],
+  },
+};
+
+export const Advanced: Story = {
+  args: {
+    colorVariant: "primary",
+    extensions: "png, jpg, doc, pdf, ppt",
+    fileSizeLimitInMb: 5,
+    style: FileUploaderStyle.DropAreaSideIcon,   
+    multiple: true,
+    size: Size.Large,      
+    footerButtons: true,
+    validation: [{
+      hint: 'File size exceeds the limit',
+      isError: false
+    }],   
+  }
+} satisfies Story;
+Advanced.parameters = {
+  controls: {
+    include: [
+      "onClick",
+      "preFileInfo",
+      "onSaveHandler",
+      "reset",
     ],
   },
 };

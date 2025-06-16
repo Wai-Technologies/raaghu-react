@@ -8,6 +8,10 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
     docs: {
+      description: {
+        component:
+            'The **Input** element is a versatile and customizable text input component for capturing user data. It supports multiple sizes (`Default`, `small`, `medium`, `large`), input types (`text`, `password`, `number`, `phone number`, `card number`), and visual styles (`Default`, `Bottom Outline`, `Pill`). The input can display an optional label, hint text, and icon, with flexible label positioning (`top`, `bottom`, `floating`, `right`, `left`). Additional features include configurable states (`default`, `active`, `selected`, `error`, `disabled`), required field indication, placeholder text, and font weight options. This element is ideal for forms, authentication, and any interface where user input is needed, with props to tailor its appearance and behavior to your design requirements.'
+    },
       source:{
         transform:(code:string) => {
           // Transform InputSize enum - remove spaces and transform

@@ -7,6 +7,12 @@ const meta: Meta = {
   component: RdsModal,
   parameters: {
     layout: 'padded',
+    docs: {
+    description: {
+        component:
+            'The **Modal** element is a customizable dialog component for displaying content, forms, or actions in an overlay above the main interface. It supports multiple sizes (`small`, `large`, `extra-large`, `fullscreen`, `default`), animation styles (`modal-fade`, `modal-fade-scale`, `modal-fade-rotate`, `modal-fade-flip`), and flexible layout options such as scrollable content and vertical centering. The modal can include a header, footer, custom titles, and configurable button labels for actions like save or close. You can control its appearance and behavior with props for animation, size, header/footer visibility, and more. This element is ideal for alerts, confirmations, forms, and any scenario where focused user interaction is required, with full customization to fit your design system needs.'
+    }
+}
   },
   tags: ['autodocs'],
   argTypes: {
@@ -138,7 +144,7 @@ export const Default: Story = {
 
 Default.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
-export const StaticBackdropModal: Story = {
+export const StaticBackdrop: Story = {
   args: {
     modalId: "modal2",
     modalBackdrop: "static",
@@ -157,10 +163,10 @@ export const StaticBackdropModal: Story = {
   },
   render: Template
 } satisfies Story;
-StaticBackdropModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+StaticBackdrop.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 
-export const ScrollableContentModal: Story = {
+export const ScrollableContent: Story = {
   args: {
     modalId: "modal3",
     modalAnimation: "modal-fade",
@@ -175,7 +181,7 @@ export const ScrollableContentModal: Story = {
   },
   render: scrollableTemplate
 } satisfies Story;
-ScrollableContentModal.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+ScrollableContent.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'scrollable', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 
 export const VerticallyCentered: Story = {

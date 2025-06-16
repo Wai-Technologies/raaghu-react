@@ -8,6 +8,14 @@ const meta: Meta<typeof RdsBanner> = {
   parameters: {
     layout: "padded",
     docs: {
+      description: {
+  component: `The **Banner** component is a versatile UI element designed to deliver key messages or announcements prominently within an application interface. It supports customization of content, alignment, position, and styling, making it suitable for notifications, alerts, and promotional banners. The \`bannerText\` prop displays the main message, while the \`textAlign\` and \`position\` props control the text alignment (start, center, end) and vertical positioning (top or bottom) on the page.
+
+In its basic form (Stories Banner), it can include an icon with customizable dimensions and styling through props like \`icon\`, \`iconHeight\`, \`iconWidth\`, \`iconStroke\`, and \`iconFill\`. The \`sticky\` flag ensures the banner remains fixed as users scroll, enhancing visibility for critical alerts.
+
+The extended version (Actionable Banner) is ideal for promotional use cases. It supports a more engaging layout with headings, subtext, background imagery, and interactive buttons. Props like \`headingText\`, \`titleText\`, \`subTitleText\`, \`imageUrl\`, and multiple configurable buttons allow it to function as a mini landing section. Hyperlink support with optional icons further enables redirection to external or internal resources. This makes the component highly adaptable for both informative and actionable content in dashboards, marketing pages, or onboarding flows.`
+}
+,
       source : {
           transform: (code: string) => {
               // Transform colorVariant enum - remove spaces and transform

@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsCompProductImage,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component: 
+            'The **Product Image** component is a customizable UI element designed to display product details along with an image in a structured and visually appealing format. It supports features such as product ratings, reviews, color switchers, badges with icons, and action buttons like "Add to Bag" and "Buy Now." This component is ideal for e-commerce platforms, product showcases, or any application requiring an interactive and user-friendly product display. Fully customizable, the Product Image component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+    },
+}
     },
     tags: ['autodocs'],
     argTypes: {

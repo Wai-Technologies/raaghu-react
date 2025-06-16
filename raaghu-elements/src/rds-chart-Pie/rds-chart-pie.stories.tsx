@@ -6,6 +6,11 @@ const meta: Meta = {
     component: RdsPieChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+    component: 'The **Pie Chart** element is a **customizable** and **interactive** component designed to display data as proportional slices of a circle. It supports configuration of key properties like **radius**, **labels**, **animation**, and **legend styling**, making it ideal for dashboards and analytics. The component visualizes datasets with distinct colors and smooth transitions, providing clear and engaging data presentations that adapt responsively to different screen sizes.',
+},
+        }
     },
     tags: ['autodocs'],
     argTypes: {

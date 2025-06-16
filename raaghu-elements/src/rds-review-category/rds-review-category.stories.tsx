@@ -7,6 +7,12 @@ const meta: Meta = {
     component: RdsReviewCategory,
     parameters: {
         layout: 'padded',
+        docs: {
+    description: {
+        component:
+            'The **Review Category** element is a flexible and customizable component for displaying user reviews and feedback in your application. It supports multiple display types (`Basic`, `ReviewType_1`, `ReviewType_2`) to present reviews in different layouts, such as default, center-aligned, or left-aligned. Each review can include the reviewer’s name, date, rating, likes, dislikes, review title, subtitle, description, and an optional profile image. This element is ideal for product pages, testimonials, or any interface where you want to showcase detailed user feedback, and can be tailored to fit your design system needs.'
+    }
+}
     },
     tags: ['autodocs'],
     argTypes: {
@@ -18,7 +24,7 @@ type Story = StoryObj<typeof RdsReviewCategory>;
 
 
 
-export const Default: Story = {
+export const RightAligned: Story = {
     args: {
         display_type: "Basic",
         item: {
@@ -36,7 +42,7 @@ export const Default: Story = {
 
 
 
-export const center_aligned: Story = {
+export const CenterAligned: Story = {
     args: {
         display_type: "ReviewType_1",
         item: {
@@ -53,7 +59,7 @@ export const center_aligned: Story = {
     }
 } satisfies Story;
 
-export const left_aligned: Story = {
+export const LeftAligned: Story = {
     args: {
         display_type: "ReviewType_2",
         item: {

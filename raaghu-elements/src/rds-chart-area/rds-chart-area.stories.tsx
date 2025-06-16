@@ -8,6 +8,11 @@ const meta: Meta = {
     component: RdsAreaChart,
     parameters: {
         layout: 'padded',
+        docs:{
+            description: {
+     component: 'The **Area Chart** element is a versatile and visually appealing chart designed to display quantitative data over time or categories. It features smooth curves with customizable **gradient fills**, multiple datasets, and detailed **tooltip support** for enhanced interactivity. The chart supports various styling options such as radius, point styles, axis grid configuration, and legend positioning. This makes it ideal for showcasing trends like sales or revenue data with clear, color-coded areas that adapt responsively to different screen sizes.',
+},
+        }
     },
     tags: ['autodocs'],
     argTypes: {
