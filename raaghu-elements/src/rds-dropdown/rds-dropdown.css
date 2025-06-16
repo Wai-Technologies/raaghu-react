@@ -132,11 +132,11 @@
   border: none!important;
 }
 
-.rectangle {
+.dropdown.rectangle {
   border: 2px solid #7825E9 !important;
   border-radius: 6px;
 }
-.pill{
+.dropdown.pill{
   border:2px solid #7825E9;
   border-radius: 25px;
 }

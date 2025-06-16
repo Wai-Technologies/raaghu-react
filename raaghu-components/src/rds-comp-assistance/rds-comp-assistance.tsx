@@ -149,6 +149,7 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
                 handleDataChanges(e.target.value, "message");
               }}
               reset={inputReset}
+              showTitle={true}
             ></RdsTextArea>
           </div>
           </div>

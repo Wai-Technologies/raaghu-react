@@ -78,7 +78,7 @@
 .file-upload-label {
   position: absolute;
   top: 25%;
-  right: 10px;
+  right: 20px;
   transform: translateY(-50%);
   cursor: pointer;
 }
@@ -291,6 +291,9 @@
 
 .output-content:hover .hover-buttons {
   display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
 }
 
 .hover-button {
@@ -511,6 +514,10 @@
   padding: 0.5rem;
 }
 
+.bg-gradient-purple{
+  background: linear-gradient(0deg, #EBDCFF 0%, rgba(255, 255, 255, 0) 100%);
+}
+
 @media (max-width: 768px) {
   .toggle-container {
     width: 100%;
@@ -566,7 +573,7 @@
   .hover-buttons {
     position: absolute; /* Keep it absolute for larger screens */
     top: 22px; /* Position at the top */
-    right: -180px; /* Adjust this value to position it outside the box */
+    right: -55px; /* Adjust this value to position it outside the box */
     margin-top: 0; /* Reset margin-top */
     flex: row;;
   }
@@ -575,4 +582,28 @@
   .hover-buttons:hover {
     display: flex; /* Keep buttons visible when hovered */
   }
+}
+
+.output-content.expanded {
+  max-height: none;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.output-content.collapsed {
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.expanded-content {
+  transition: all 0.3s ease;
+}
+
+.collapsed-content {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

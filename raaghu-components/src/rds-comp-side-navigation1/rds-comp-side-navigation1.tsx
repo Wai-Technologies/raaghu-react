@@ -10,6 +10,7 @@ import useOutsideClick from "../../../raaghu-elements/src/rds-outside-click";
 import { RdsAvatar, RdsIcon } from "../rds-elements";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import RdsSearch, { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 //import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
@@ -275,6 +276,11 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     width="24px"
                                     classes="me-2"
                                     type="lottie"
+                                    tooltip={collapse}
+                                    tooltipTitle={item.label}
+                                    style={TooltipStyle.LeftArrow}
+                                    isCursorPointer={true}
+                                    databstoggle="tooltip"
                                 ></RdsIcon>
                             ) : (
                                 <RdsIcon
@@ -283,7 +289,12 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     stroke={true}
                                     height="20px"
                                     width="20px"
-                                    classes="me-2 "
+                                    classes="me-2"
+                                    tooltip={collapse}
+                                    tooltipTitle={item.label}
+                                    style={TooltipStyle.LeftArrow}
+                                    isCursorPointer={true}
+                                    databstoggle="tooltip"
                                 ></RdsIcon>
                             )}
                         </span>

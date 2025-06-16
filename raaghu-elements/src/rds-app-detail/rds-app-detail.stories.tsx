@@ -3,7 +3,7 @@ import RdsAppDetail, { IconPosition } from "./rds-app-detail";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-  title: "Components/App Details",
+  title: "Elements/App Detail",
   component: RdsAppDetail,
   parameters: {
     layout: "padded",

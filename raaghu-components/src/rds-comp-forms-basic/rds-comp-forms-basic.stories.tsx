@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompFormsBasic from "./rds-comp-forms-basic";
 
-
 const meta: Meta = { 
-    title: "Components/Forms Basic",
+    title: "Components/Forms",
     component: RdsCompFormsBasic,
     parameters: {
         layout: 'padded',
@@ -24,10 +23,28 @@ type Story = StoryObj<typeof RdsCompFormsBasic>;
 
 export const Default: Story = {
     args: {
-        
+        forms: "basic",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['basicInfo', 'handleNewFormData', 'questions', 'reset'] } };
 
+export const Email: Story = {
+    args: {
+        forms: "email",
+    }
+} satisfies Story;
+Email.parameters = { controls: { include: ['formsEmailData', 'reset', 'onDataSendHandler'] } };
 
+export const Response: Story = {
+    args: {
+        forms: "response",
+    }
+} satisfies Story;
+Response.parameters = { controls: { include: ['response', 'formsData', 'question', 'onDeleteHandler'] } };
 
-
+export const Settings: Story = {
+    args: {
+        forms: "settings",
+    }
+} satisfies Story;
+Settings.parameters = { controls: { include: ['formsSettingData', 'handleFormSettings'] } };

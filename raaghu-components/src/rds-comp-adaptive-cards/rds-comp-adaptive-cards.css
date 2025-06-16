@@ -1,0 +1,256 @@
+.adaptive-card-container {
+  display: flex !;
+  width: 500px;
+  padding: var(--spacing-md, 12px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md, 12px);
+  border-radius: var(--corner-radius-radius-m, 12px);
+  border: 1px solid var(--line-line-neutral-light-default, #e1e3ea);
+  background: var(--background-bg-neutral-lighter-default, #fff);
+}
+
+.adaptive-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.adaptive-card-body {
+  display: flex;
+  height: 132px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: var(--corner-radius-radius-xs, 4px);
+  border: 2px dashed var(--input-input-neutral-outline-default, #7d7d7d);
+}
+
+.adaptive-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.adaptive-card-title {
+  color: var(--text-txt-neutral-darkest-default, #202020);
+  font-family: var(--font-family-poppins, poppins);
+  font-size: var(--font-size-xl, 20px);
+  font-style: normal;
+  font-weight: var(--font-weight-medium, 500);
+  line-height: normal;
+}
+
+.adaptive-card-small-text {
+  color: var(--text-txt-neutral-medium-default, #646464);
+  font-family: var(--font-family-poppins, poppins);
+  font-size: var(--font-size-xs, 12px);
+  font-style: normal;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 16px; /* 133.333% */
+}
+
+.adaptive-card-text {
+  align-self: stretch;
+  color: var(--text-txt-neutral-medium-default, #646464);
+  font-family: var(--font-family-poppins, poppins);
+  font-size: var(--font-size-sm, 14px);
+  font-style: normal;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 20px; /* 142.857% */
+}
+
+.adaptive-image-container {
+  display: flex;
+  width: 1111.452px;
+  padding: 7.168px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8.602px;
+  border-radius: 5.635px;
+  border: 1px solid var(--line-line-neutral-light-default, #e1e3ea);
+  background: #fff;
+}
+
+.adaptive-image-body img {
+  width: 273.828px;
+  height: 154.028px;
+  border-radius: 2.818px;
+  object-fit: cover;
+  padding: 2.82px;
+}
+
+.adaptive-scorecard-container {
+  display: flex;
+  width: 324px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: var(--corner-radius-radius-s, 8px);
+  border: 1px solid var(--line-line-neutral-light-default, #e1e3ea);
+  background: #fff;
+}
+
+.adaptive-scorecard-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+  align-self: stretch;
+}
+
+.adaptive-scorecard-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+}
+
+.adaptive-scorecard-text {
+  color: var(--text-txt-neutral-darkest-default, #202020);
+  text-align: center;
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-2xl, 24px);
+  font-style: normal;
+  font-weight: var(--font-weight-semi-bold, 600);
+  line-height: normal;
+}
+
+.adaptive-scorecard-subtext {
+  color: var(--text-txt-neutral-medium-default, #646464);
+  text-align: center;
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-sm, 14px);
+  font-style: normal;
+  font-weight: var(--font-weight-medium, 500);
+  line-height: 22px;
+}
+
+.adaptive-scorecard-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 12px);
+  padding-top: var(--spacing-lg, 8px);
+}
+
+.team-container {
+  display: flex;
+  width: 90px;
+  height: 90px;
+  padding: var(--spacing-sm, 8px);
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: var(--corner-radius-radius-xxl, 96px);
+  background: var(--background-bg-primary-lighter-default, #fef7ff);
+}
+
+.match-score {
+  color: var(--text-txt-neutral-darkest-default, #202020);
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-4xl, 40px);
+  font-style: normal;
+  font-weight: var(--font-weight-semi-bold, 600);
+  line-height: normal;
+  padding-bottom: var(--spacing-lg, 8px);
+}
+
+.timer-container {
+  display: flex;
+  padding: var(--spacing-xs, 4px);
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  border-radius: var(--corner-radius-radius-xs, 4px);
+  background: var(--background-bg-neutral-light-default, #e1e3ea);
+}
+
+.match-timer {
+  color: var(--text-txt-neutral-dark-default, #353535);
+  text-align: center;
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-sm, 14px);
+  font-style: normal;
+  font-weight: var(--font-weight-medium, 500);
+  line-height: 22px; /* 157.143% */
+}
+
+.team-scorecard {
+  display: flex;
+  padding-top: var(--spacing-lg, 16px);
+  flex-direction: column;
+  align-items: center;
+  width: 81px;
+  gap: var(--spacing-lg, 16px);
+  align-self: stretch;
+}
+
+.team-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.team-name {
+  color: var(--text-txt-neutral-dark-default, #353535);
+  text-align: center;
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-md, 16px);
+  font-style: normal;
+  font-weight: var(--font-weight-semi-bold, 600);
+  line-height: normal;
+  padding-top: var(--spacing-lg, 12px);
+}
+
+.team-status {
+  color: var(--text-txt-neutral-medium-default, #646464);
+  text-align: center;
+  font-family: var(--font-family-poppins, Poppins);
+  font-size: var(--font-size-md, 16px);
+  font-style: normal;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: normal;
+}
+
+.adaptive-badge {
+  display: flex;
+  height: 20px;
+  padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+  position: absolute;
+  left: 285px;
+  top: 25px;
+  border-radius: var(--corner-radius-radius-xxl, 96px);
+  background: var(--button-btn-error-text-default, #bd0d1d);
+  overflow: hidden;
+  color: var(--text-txt-neutral-white-default, #fcfcfc);
+  text-align: center;
+  text-overflow: ellipsis;
+  font-family: Poppins;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 8px;
+}
+
+.adaptive-card-footer .dropdown-menu.show {
+  inset: 4px auto auto -67px !important;
+}
+
+.Adaptive-header-icon svg.text-dark {
+  height: 18px !important;
+  width: 18px !important;
+}
+
+.theme-dark .adaptive-card-container {
+    color: #A8A8A8 !important;
+}

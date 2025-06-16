@@ -106,7 +106,7 @@ const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
       )}
       <div className={`${getClassNames()} `}>
         <textarea
-          className={`form-control mt-1 ${getStateClass()} ${getStyleClass()} ${
+          className={`form-control textarea mt-1 ${getStateClass()} ${getStyleClass()} ${
             props.customClasses || ""
           }`}
           disabled={props.isDisabled || props.state === TextareaState.Disabled}

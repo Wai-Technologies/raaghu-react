@@ -207,7 +207,7 @@ line-height: 20px; /* 142.857% */
     background-color: white;
 }
  .chat-section {
-    border-radius: var(--corner-radius-radius-xs, 4px);
+    border-radius: var(--bs-border-radius, 2.3px);
     border: 1px solid var(--input-input-neutral-outline-default, #7D7D7D);
     background: var(--background-bg-neutral-lighter-default, #FFF);
 }
@@ -221,7 +221,7 @@ aspect-ratio: 1/1;
     top: auto !important;
     bottom: 10px !important;
     left: -250px !important;
-    left: -196px !important;
+    left: -210px !important;
     right: auto !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
 }
@@ -253,7 +253,7 @@ aspect-ratio: 1/1;
 .theme-dark .btn {
     color: #fcfbfb !important;
 }
-.text-dark {
+#Premium .text-dark  {
     height: 17px;
     width: 17px;
     fill: none !important;
@@ -296,4 +296,33 @@ aspect-ratio: 1/1;
     text-transform: capitalize !important;
     min-width: 1.35rem;
     align-items: center !important;
+}
+.theme-dark .input-wrapper{
+background-color: #353535;
+}
+.theme-dark .input-with-image .form-controls{
+background-color: #353535! important;
+}
+.theme-dark .typing-section {
+background-color: #353535 !important;
+}
+.theme-dark #chat .dropdown {
+background-color: #353535 !important;
+}
+.theme-dark .btn.btn-outline-primary{
+background-color: #353535 !important;  
+}
+.theme-dark .dropdown-menu {
+background-color: #353535 !important; 
+}
+.theme-dark .chat-section {
+background: #353535;
+}
+.theme-dark .input-with-image {
+background-color: #353535 !important;
+}
+/* Instead of targeting .position-relative utility class directly */
+.typing-section .position-relative svg,
+.input-wrapper .position-relative svg {
+    stroke: none !important;
 }

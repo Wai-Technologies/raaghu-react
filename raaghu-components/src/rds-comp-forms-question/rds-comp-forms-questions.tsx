@@ -250,6 +250,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                 <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
                   <RdsTextArea
                     label="Description"
+                    showTitle={true}
                     placeholder="Enter description"
                     onChange={(e) => setDescription(i, e.target.value)}
                     value={element.description}
