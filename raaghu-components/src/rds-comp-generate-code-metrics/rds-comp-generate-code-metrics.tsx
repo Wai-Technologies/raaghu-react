@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { RdsCarousel, RdsIcon } from "../rds-elements";
 import "./rds-comp-generate-code-metrics.css";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompGenerateCodeMetricsProps { }
 
@@ -75,6 +76,7 @@ const RdsCompGenerateCodeMetrics = (props: RdsCompGenerateCodeMetricsProps) => {
                                 tooltip
                                 tooltipPlacement="bottom"
                                 tooltipTitle="Share"
+                                style={TooltipStyle.MiddleTopArrow}
                                 onClick={toggleDropdown}
                                 isCursorPointer={true}
                             />

@@ -139,8 +139,9 @@ function RdsCompPollsQuestion(props: any) {
                             DatePickerLabel="Start Date"
                             titleText="Start Date"
                             showTitle={true}
-                            type="default"
+                            type="Default"
                             isDropdownOpen={false}
+                            changeIcon="calendar"
                         />
                     </div>
                     <div className="col-md-6">
@@ -149,8 +150,9 @@ function RdsCompPollsQuestion(props: any) {
                             DatePickerLabel="End Date"
                             titleText="End Date"
                             showTitle={true}
-                            type="default"
+                            type="Default"
                             isDropdownOpen={false}
+                            changeIcon="calendar"
                         />
                     </div>
                     <div className="col-md-6">
@@ -159,8 +161,9 @@ function RdsCompPollsQuestion(props: any) {
                             DatePickerLabel="Result Showing End Date"
                             titleText="Result Showing End Date"
                             showTitle={true}
-                            type="default"
+                            type="Default"
                             isDropdownOpen={false}
+                            changeIcon="calendar"
                         />
                     </div>
                 </div>
