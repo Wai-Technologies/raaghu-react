@@ -144,6 +144,7 @@ const RdsCompGetAssistance = (props: RdsCompGetAssistanceProps) => {
                 <RdsTextArea
                   isMandatory
                   label="Notes"
+                  showTitle={true}
                   labelPosition="top"
                   placeholder="Enter your specific requirements..."
                   rows={3}

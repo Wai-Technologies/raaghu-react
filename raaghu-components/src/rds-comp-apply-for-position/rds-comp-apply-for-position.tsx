@@ -228,6 +228,7 @@ const isPeriodValid = (period: any) => {
                 }}
                 value={formData?.coverLetter}
                 dataTestId="cover-letter"
+                showTitle={true}
               />
             </div>
           </div>

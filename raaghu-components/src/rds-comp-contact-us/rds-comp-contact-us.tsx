@@ -130,6 +130,7 @@ function emitSaveData(event: any) {
                     <div className=" mb-4">
                         <RdsTextArea
                             label='Message'
+                            showTitle={true}
                             reset={inputReset}
                             placeholder='Message'
                             isMandatory={true}

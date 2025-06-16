@@ -153,6 +153,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                   <div className="mb-3">
                     <RdsTextArea
                       label="Script Description"
+                      showTitle={true}
                       placeholder="Enter Description"
                       readonly={false}
                       rows={3}
@@ -167,6 +168,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                   <div className="mb-3">
                     <RdsTextArea
                       label="Style Description"
+                      showTitle={true}
                       placeholder="Enter Description"
                       readonly={false}
                       rows={3}

@@ -95,6 +95,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
             <div className="col-md-12 mt-2">
               <RdsTextArea
                 label="Description"
+                showTitle={true}
                 placeholder="Enter Description"
                 rows={4}
                 dataTestId="description"
