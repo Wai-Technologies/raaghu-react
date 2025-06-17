@@ -194,13 +194,14 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        <div className="favourite-card-header">
                           <input
                             type="checkbox"
                             className="favourite-checkbox"
                             checked={selectedIndexes.includes(idx)}
                             readOnly
                           />
+                        <div className="favourite-card-content">
+                          <div className="favourite-card-header">
                           <span className="favourite-title">
                             Create a Login page for signing up with a discount offer. It
                             should have a field for the user's email and a "Get Discount"
@@ -219,11 +220,12 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                           <span className="favourite-card-image-star">
                             <RdsIcon
                               name="star_border"
-                              width="19px"
-                              height="13px"
+                              width="21px"
+                              height="14px"
                               colorVariant="primary"
                             />
                           </span>
+                          </div>
                         </div>
                       </div>
                     ))}
