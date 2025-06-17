@@ -278,7 +278,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     type="lottie"
                                     tooltip={collapse}
                                     tooltipTitle={item.label}
-                                    style={TooltipStyle.LeftArrow}
+                                    style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
                                 ></RdsIcon>
@@ -292,7 +292,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     classes="me-2"
                                     tooltip={collapse}
                                     tooltipTitle={item.label}
-                                    style={TooltipStyle.LeftArrow}
+                                    style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
                                 ></RdsIcon>
