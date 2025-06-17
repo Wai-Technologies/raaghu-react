@@ -345,10 +345,29 @@
     margin-top:1rem;
 }
 
+.toggle-text {
+  display: inline-block;
+}
+
+.toggle-icon {
+  display: none;
+}
+
 @media (max-width: 767px) {
     .hover-buttons {
-    top: 154px !important;
-    position: static !important;
+      top: 154px !important;
+      position: static !important;
+    }
+    .toggle-text {
+      display: none;
+    }
+    
+    .toggle-icon {
+      display: inline-block;
+    }
+    
+    .toggle-option {
+      padding: 6px 8px;
     }
 }
 
@@ -609,3 +628,8 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* .theme-dark .form-check-input {
+    background-color: #ffffff !important;
+    border-color: #666666;
+} */
