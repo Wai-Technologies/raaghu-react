@@ -291,9 +291,6 @@
 
 .output-content:hover .hover-buttons {
   display: flex;
-  /* flex-direction: column;
-  justify-content: start;
-  align-items: start; */
 }
 
 .hover-button {
@@ -592,8 +589,6 @@
 /* Hover buttons styling */
 .hover-buttons {
   position: absolute; /* Change to absolute */
-  /* bottom: -40px; 
-  right: 0; */
   top: 22px;
   right: -55px;
   display: none; /* Keep it hidden by default */
@@ -628,8 +623,3 @@
 .cursor-pointer {
   cursor: pointer;
 }
-
-/* .theme-dark .form-check-input {
-    background-color: #ffffff !important;
-    border-color: #666666;
-} */
