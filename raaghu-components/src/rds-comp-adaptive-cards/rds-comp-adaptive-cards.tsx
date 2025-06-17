@@ -192,7 +192,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 </div>
               )}
 
-              {props.type == "CalenderReminder" && (
+              {props.type == "CalendarReminder" && (
                 <>
                   <div className="my-2">
                     <RdsLabel fontWeight="normal" label={props.label} />
@@ -375,7 +375,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             </>
             <div
               className={`adaptive-card-footer ${
-                props.type === "CalenderReminder" ? "mt-4" : "mt-2"
+                props.type === "CalendarReminder" ? "mt-4" : "mt-2"
               }`}
             >
               {props.showBtn1 &&
