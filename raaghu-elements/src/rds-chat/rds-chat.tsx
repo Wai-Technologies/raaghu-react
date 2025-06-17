@@ -259,7 +259,7 @@ const RdsChat = (props: RdsChatProps) => {
                     <div className='chat-screen-main'>
                         {userData.map((item: any, index: any) => {
                             return (
-                                <div key={index} className={`d-flex align-items-center justify-content-between my-2 mx-1 p-2 ${selectedIndex === index ? 'selected' : ''}`} onClick={() => onUserSelect(index)}>
+                                <div key={index} className={`d-flex align-items-center justify-content-between my-2 mx-1 p-2 user-item ${selectedIndex === index ? 'selected' : ''}`} onClick={() => onUserSelect(index)}>
                                     <div className="d-flex align-items-center">
                                         <RdsAvatar activeDotBottom={item.activeDotButton} withProfilePic={item.withProfilePic} avtarWithName colorVariant="primary" firstName={item.firstName} lastName={item.lastName} profilePic={item.profilePic} role={item.status} size={AvatarSize.medium} type={item.profileType} style={item.style} />
                                     </div>

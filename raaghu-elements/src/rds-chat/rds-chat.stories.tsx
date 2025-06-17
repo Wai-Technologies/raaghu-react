@@ -49,7 +49,7 @@ export const Default: Story = {
             },
             {
                 firstName: "John",
-                lastName: "Dow",
+                lastName: "Doe",
                 activeDotButton: false,
                 status: "Developer",
                 size: "medium",
