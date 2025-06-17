@@ -67,3 +67,26 @@
 .theme-dark .bs-tooltip-end .tooltip-arrow::before, .theme-dark .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
   border-right-color: #e9ecef;
 }
+
+/* Special handling for icon tooltips */
+.icon-tooltip-wrapper {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Ensure tooltips have higher z-index */
+.tooltip {
+  z-index: 1080 !important;
+  pointer-events: none;
+}
+
+/* Ensure tooltip shows up immediately on hover */
+[data-bs-toggle="tooltip"]:hover + .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fix for Safari which has issues with SVG hover detection */
+svg, [role="img"] {
+  pointer-events: auto !important;
+}

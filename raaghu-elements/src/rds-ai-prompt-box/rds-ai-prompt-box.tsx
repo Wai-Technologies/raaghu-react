@@ -15,6 +15,8 @@ export interface RdsAiPromptBoxProps {
   placeholderText?: string;
   isShowPrefilledPrompt?: boolean;
   defaultExpanded?: boolean;
+  designIcon?: string;
+  codeIcon?: string;
 }
 
 const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
@@ -296,7 +298,17 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                                     }`}
                                     onClick={() => handleClick(index, "Design")}
                                   >
-                                    {props.designText || "Design"}
+                                    <span className="toggle-text">{props.designText || "Design"}</span>
+                                    <span className="toggle-icon">
+                                      <RdsIcon
+                                        name={props.designIcon || "eye"}
+                                        height="18px"
+                                        width="18px"
+                                        colorVariant={selectedViews[index] === "Design" ? "light" : "primary"}
+                                        fill={false}
+                                        stroke={true}
+                                      />
+                                    </span>
                                   </div>
                                   <div
                                     className={`toggle-option ${
@@ -306,7 +318,17 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                                     }`}
                                     onClick={() => handleClick(index, "Code")}
                                   >
-                                    {props.codeText || "Code"}
+                                    <span className="toggle-text">{props.codeText || "Code"}</span>
+                                    <span className="toggle-icon">
+                                      <RdsIcon
+                                        name={props.codeIcon || "code"}
+                                        height="18px"
+                                        width="18px"
+                                        colorVariant={selectedViews[index] === "Code" ? "light" : "primary"}
+                                        fill={false}
+                                        stroke={true}
+                                      />
+                                    </span>
                                   </div>
                                 </div>
                               )}
@@ -350,7 +372,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             )}
                           </>
                         )}
-                        <div className="hover-buttons">
+                        <div className="hover-buttons flex-md-column overflow-scroll">
                           <span className="hover-button" title="Select All">
                             <input
                               type="checkbox"
