@@ -14,6 +14,7 @@ import "./rds-comp-edition.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import RdsCompDatatable from "../rds-comp-data-table";
 import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -337,7 +338,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
         {props.displayType == "advanced" && (
             <form >
             <div className="row mt-2">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6">
                     <div className="form-group">
                     <RdsInput
                         required={true}
@@ -354,7 +355,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 ></RdsInput>
                     </div>
                 </div>
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6">
                     <div className="form-group">
                         <RdsSelectList
                             id="planLis"
@@ -403,7 +404,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
             <div className="py-4 edition-information-container">
                 <form>
                     <div className="row px-2">
-                        <div className="col-md-6 my-3">
+                        <div className="col-md-6">
                             <RdsInput
                                 name={"Edition Name"}
                                 label={true}
@@ -416,7 +417,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 reset={inputReset}
                             ></RdsInput>
                         </div>
-                        <div className="col-md-6 my-3">
+                        <div className="col-md-6">
                             <RdsInput
                                  name="Annual Price"
                                  label={true}
@@ -434,32 +435,38 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                         <div className="col-md-6 my-3 ">
                             <RdsCounter
                                 key={trialPeriodCounter}
-                                counterValue={trialPeriodCounter}
-                                label="Trial Period"
-                                min={0}
-                                max={50}
-                                width={200}
-                                type="Default"
                                 colorVariant="primary"
+                                counterValue={trialPeriodCounter}
+                                layout={LayoutOptions.SideToSide}
+                                max={50}
+                                min={0}
+                                placeholder="00"
+                                showTitle
+                                state={CounterState.Default}
+                                titleText="Trial Period"
+                                width={200}
                                 onCounterChange={(e: number) => handleDataChanges(e, "trialPeriodCounter")}
                             />
                         </div>
                         <div className=" col-md-6 my-3">
                             <RdsCounter
                                 key={expiryNotificationCounter}
-                                counterValue={expiryNotificationCounter}
-                                label="Expiry Notification Interval"
-                                min={0}
-                                max={50}
-                                width={200}
-                                type="Default"
                                 colorVariant="primary"
+                                counterValue={expiryNotificationCounter}
+                                layout={LayoutOptions.SideToSide}
+                                max={50}
+                                min={0}
+                                placeholder="00"
+                                showTitle
+                                state={CounterState.Default}
+                                titleText="Expiry Notification Interval"
+                                width={200}
                                 onCounterChange={(e: number) => handleDataChanges(e, "expiryNotificationCounter")}
                             />
                         </div>
                     </div>
 
-                <div className="row mb-3 px-2">
+                <div className="row mb-5 px-2">
                     <div className="col-md-12">
                         {props.radioItems?.map((group, index) => (
                             <div key={group.id} className="radio-group mb-3">
