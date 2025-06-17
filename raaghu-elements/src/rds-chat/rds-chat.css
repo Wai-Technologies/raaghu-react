@@ -16,6 +16,14 @@
     background-color: #EBDCFF;
 }
 
+.chat-screen-main .user-item {
+    cursor: pointer;
+}
+
+.chat-screen-main .user-item:hover {
+    background-color: #f8f9fa;
+}
+
 .chat-screen-header {
     display: flex;
     justify-content: space-between;
