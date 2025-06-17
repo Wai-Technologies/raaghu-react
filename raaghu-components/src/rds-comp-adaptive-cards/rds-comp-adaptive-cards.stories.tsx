@@ -40,7 +40,7 @@ export const ActivityUpdateCard: Story = {
 } satisfies Story;
 ActivityUpdateCard.parameters = { controls: { include: ['cardTitle','cardText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
-export const CalenderReminder: Story = {
+export const CalendarReminder: Story = {
     args: {
         cardTitle: "Title",
         title: true,
@@ -51,7 +51,7 @@ export const CalenderReminder: Story = {
         btn1Label: "Snooze",
         btn2Label: "I'll be Late",
         block: false,
-        type: "CalenderReminder",
+        type: "CalendarReminder",
         smallText: "20:30 - 09:30",
         titleIcon: false,
         closeIcon: false,
@@ -60,7 +60,7 @@ export const CalenderReminder: Story = {
         textCase: "unset"
     }
 } satisfies Story;
-CalenderReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
+CalendarReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
 export const Default: Story = {
     args: {
@@ -98,7 +98,7 @@ export const InputForm: Story = {
         btn1style: "filled",
         btn1Label: "Submit",
         block: true,
-        type: "CalenderReminder",
+        type: "CalendarReminder",
         smallText: "Don't worry, we'll never share or sell your information.",
         titleIcon: false,
         closeIcon: false,
