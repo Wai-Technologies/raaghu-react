@@ -254,3 +254,7 @@
 .theme-dark .adaptive-card-container {
     color: #A8A8A8 !important;
 }
+
+.adaptive-card-container .dw-selected-value {
+    color: #A8A8A8 !important;
+}

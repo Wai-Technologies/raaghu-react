@@ -278,7 +278,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     type="lottie"
                                     tooltip={collapse}
                                     tooltipTitle={item.label}
-                                    style={TooltipStyle.LeftArrow}
+                                    style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
                                 ></RdsIcon>
@@ -292,7 +292,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     classes="me-2"
                                     tooltip={collapse}
                                     tooltipTitle={item.label}
-                                    style={TooltipStyle.LeftArrow}
+                                    style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
                                 ></RdsIcon>
@@ -364,9 +364,9 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                 color: "#FFFFFF",
                                 position: "absolute",
                                 top: props.navLayout === NavLayout.Toolbar ? "43px" : "23px", // Adjusted top for Toolbar layout
-                                left: props.navLayout === NavLayout.Toolbar ? (collapse ? "69px" : "247px") : (collapse ? "50px" : "231px"),
+                                left: props.navLayout === NavLayout.Toolbar ? (collapse ? "75px" : "255px") : (collapse ? "55px" : "236px"),
                                 zIndex: 10,
-                                transition: "left 1.05s ease",
+                                transition: "left 0.82s ease",
                             }}
                             onMouseEnter={() => setShowLockTooltip(true)}
                             onMouseLeave={() => setShowLockTooltip(false)}
