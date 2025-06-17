@@ -350,7 +350,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             )}
                           </>
                         )}
-                        <div className="hover-buttons">
+                        <div className="hover-buttons flex-md-column overflow-scroll">
                           <span className="hover-button" title="Select All">
                             <input
                               type="checkbox"

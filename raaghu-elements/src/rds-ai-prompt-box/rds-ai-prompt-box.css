@@ -291,9 +291,9 @@
 
 .output-content:hover .hover-buttons {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column;
   justify-content: start;
-  align-items: start;
+  align-items: start; */
 }
 
 .hover-button {
@@ -344,11 +344,98 @@
     right:40px; 
     margin-top:1rem;
 }
+
+@media (max-width: 767px) {
+    .hover-buttons {
+    top: 154px !important;
+    position: static !important;
+    }
+}
+
 @media (max-width: 480px) {
     .image-preview-group {
         width:100%;
         right:0px;
     }
+    .output-content {
+      padding-bottom: 12%; 
+      width: 81%;
+    }
+    .hover-buttons{
+      left: -10px;
+    }
+    .input-box {
+      height: 80px; /* Adjust height for medium screens */
+    }
+    .d-flex.ml-auto{
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .d-flex.justify-content-between.align-items-center.mb-2 > div:first-child {
+      white-space: normal; /* Allow text to wrap on very small screens */
+      text-overflow: clip; /* Remove ellipsis */
+    }
+}
+
+@media (max-width: 768px) {
+  .d-flex.ml-auto {
+    flex-direction: row; /* Stack items vertically on smaller screens */
+    justify-content: flex-start; /* Align items to the start on smaller screens */
+    width: 100%; /* Take full width */
+  }
+
+  .toggle-container {
+    width: 100%; /* Take full width on smaller screens */
+    max-width: none; /* Remove max width */
+  }
+
+  .toggle-option {
+    padding: 7px; /* Further reduce padding on very small screens */
+    font-size: 0.75rem; /* Further reduce font size */
+  }
+
+  .form-controls.border-primary.ms-1.cursor-pointer {
+    height: auto;
+    padding: 0.5rem;
+  }
+
+  .toggle-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .toggle-option {
+    padding: 7px;
+    font-size: 0.75rem;
+  }
+
+  .form-controls.border-primary.ms-1.cursor-pointer {
+    width: auto;
+    height: auto;
+    padding: 0.5rem;
+  }
+
+  .hover-buttons {
+    top: 115px;
+    right: -55px;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hover-buttons {
+    position: absolute; 
+    top: 22px; 
+    right: -55px; 
+    margin-top: 0; 
+    flex: row;;
+  }
+
+  /* Ensure the hover buttons remain visible when hovered */
+  .hover-buttons:hover {
+    display: flex; /* Keep buttons visible when hovered */
+  }
 }
 
 .generate-button{
@@ -361,13 +448,6 @@
 .generate-button:active{
   outline: none;
   border:0px;
-}
-
-/* Small mobile view (up to 480px) */
-@media (max-width: 480px) {
-  .input-box {
-    height: 80px; /* Adjust height for medium screens */
-  }
 }
 
 .d-flex.ml-auto {
@@ -415,36 +495,6 @@
   padding: 0.5rem; /* Adjust padding for smaller screens */
 }
 
-@media (max-width: 768px) {
-  .d-flex.ml-auto {
-    flex-direction: row; /* Stack items vertically on smaller screens */
-    justify-content: flex-start; /* Align items to the start on smaller screens */
-    width: 100%; /* Take full width */
-  }
-
-  .toggle-container {
-    width: 100%; /* Take full width on smaller screens */
-    max-width: none; /* Remove max width */
-  }
-
-  .toggle-option {
-    padding: 7px; /* Further reduce padding on very small screens */
-    font-size: 0.75rem; /* Further reduce font size */
-  }
-
-  .form-controls.border-primary.ms-1.cursor-pointer {
-    height: auto;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-    .d-flex.ml-auto{
-        flex-direction: column;
-        align-items: stretch;
-    }
-}
-
 .d-flex.justify-content-between.align-items-center.mb-2 {
   display: flex;
   justify-content: space-between;
@@ -468,13 +518,6 @@
   margin-top: 0.5rem; /* Add some space between text and buttons on small screens */
   flex-wrap: wrap; /* Allow button wrapping*/
   gap:8px;
-}
-
-@media (max-width: 480px) {
-  .d-flex.justify-content-between.align-items-center.mb-2 > div:first-child {
-    white-space: normal; /* Allow text to wrap on very small screens */
-    text-overflow: clip; /* Remove ellipsis */
-  }
 }
 
 .toggle-container {
@@ -518,24 +561,6 @@
   background: linear-gradient(0deg, #EBDCFF 0%, rgba(255, 255, 255, 0) 100%);
 }
 
-@media (max-width: 768px) {
-  .toggle-container {
-    width: 100%;
-    max-width: none;
-  }
-
-  .toggle-option {
-    padding: 7px;
-    font-size: 0.75rem;
-  }
-
-  .form-controls.border-primary.ms-1.cursor-pointer {
-    width: auto;
-    height: auto;
-    padding: 0.5rem;
-  }
-}
-
 
 /* Ensure the parent container has relative positioning */
 .output-content {
@@ -548,8 +573,10 @@
 /* Hover buttons styling */
 .hover-buttons {
   position: absolute; /* Change to absolute */
-  bottom: -40px; /* Adjust this value to move it outside the box */
-  right: 0; /* Align to the right */
+  /* bottom: -40px; 
+  right: 0; */
+  top: 22px;
+  right: -55px;
   display: none; /* Keep it hidden by default */
   flex-direction: row; /* Arrange buttons in a row */
 }
@@ -557,31 +584,6 @@
 /* Show hover buttons on output content hover */
 .output-content:hover .hover-buttons {
   display: flex; /* Show on hover */
-}
-
-@media (max-width: 480px) {
-  .output-content {
-    padding-bottom: 12%; 
-    width: 81%;
-  }
-  .hover-buttons{
-    left: -10px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .hover-buttons {
-    position: absolute; /* Keep it absolute for larger screens */
-    top: 22px; /* Position at the top */
-    right: -55px; /* Adjust this value to position it outside the box */
-    margin-top: 0; /* Reset margin-top */
-    flex: row;;
-  }
-
-  /* Ensure the hover buttons remain visible when hovered */
-  .hover-buttons:hover {
-    display: flex; /* Keep buttons visible when hovered */
-  }
 }
 
 .output-content.expanded {
