@@ -357,13 +357,32 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             {/* In the single select dropdown placeholder section */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
-                {showIcon && (
+                {props.tooltip ? (
                   <Tooltip 
-                    label={props.tooltipTitle || "Theme"}
+                    label={props.tooltipTitle || ""}
                     style={props.tooltipStyle}
                     trigger={TooltipTrigger.Hover}
                   >
-                    <div className="icon-tooltip-wrapper">
+                    <div className="d-flex align-items-center">
+                      {showIcon && (
+                        <RdsIcon
+                          name={props.icon}
+                          width="16px"
+                          height="16px"
+                          fill={false}
+                          stroke={true}
+                        />
+                      )}
+                      {showSelectedOption && (
+                        <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                          {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                        </span>
+                      )}
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <>
+                    {showIcon && (
                       <RdsIcon
                         name={props.icon}
                         width="16px"
@@ -371,13 +390,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         fill={false}
                         stroke={true}
                       />
-                    </div>
-                  </Tooltip>
-                )}            
-                {showSelectedOption && (
-                  <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
-                    {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                  </span>
+                    )}
+                    {showSelectedOption && (
+                      <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                        {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                      </span>
+                    )}
+                  </>
                 )}
               </div>
             )}
