@@ -1229,7 +1229,7 @@ export const DoubleNav: Story = {
 };
 
 //OneThreeOne Story
-export const OneThreeOne : Story = {
+export const TriPane : Story = {
   args: {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
