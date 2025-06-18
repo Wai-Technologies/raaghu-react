@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement } from "react";
-import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 
 // Define the type for our icon cache more explicitly
@@ -213,9 +213,15 @@ const RdsIcon = (props: RdsIconProps) => {
     const iconElement = <Icon {...svgProps} />;
     
     return props.tooltip ? (
-       <Tooltip label={props.tooltipTitle} style={props.style}>
-        {iconElement}
-      </Tooltip>
+       <Tooltip 
+         label={props.tooltipTitle}
+         style={props.style}
+         trigger={TooltipTrigger.Hover}
+       >
+        <div className="icon-tooltip-wrapper">
+          {iconElement}
+        </div>
+       </Tooltip>
     ) : (
       iconElement
     );
@@ -282,11 +288,16 @@ const RdsIcon = (props: RdsIconProps) => {
     // No icon found or provided
     return null;
   }
-
   return props.tooltip ? (
-     <Tooltip label={props.tooltipTitle} style={props.style}>
-      {iconElement}
-    </Tooltip>
+     <Tooltip 
+       label={props.tooltipTitle} 
+       style={props.style}
+       trigger={TooltipTrigger.Hover}
+     >
+      <div className="icon-tooltip-wrapper">
+        {iconElement}
+      </div>
+     </Tooltip>
   ) : (
     iconElement
   );
