@@ -8,6 +8,7 @@ import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import { DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -633,7 +634,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipStyle={TooltipStyle.MiddleTopArrow}
                   tooltipPlacement="bottom"
                   isCode={true}
-
+                  state={DropdownState.Default}
                 ></RdsDropdownList>
               </div>
               )}
@@ -1602,6 +1603,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipStyle={TooltipStyle.MiddleTopArrow}
                   tooltipPlacement="bottom"
                   isCode={true}
+                  state={DropdownState.Default}
                 ></RdsDropdownList>
                 <div className="d-block d-none fs-8 text-center">Language</div>
               </div>
@@ -1857,7 +1859,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       tooltipStyle={TooltipStyle.MiddleTopArrow}
                       tooltipPlacement="bottom"
                       isCode={true}
-
+                      state={DropdownState.Default}
                     ></RdsDropdownList>
                   </div>
                 </div>
@@ -2131,6 +2133,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         tooltipStyle={TooltipStyle.MiddleTopArrow}
                         tooltipPlacement="bottom"
                         isCode={true}
+                        state={DropdownState.Default}
                       ></RdsDropdownList>
                       <div className="d-block d-none fs-8 text-center">Language</div>
                     </div>
@@ -2262,7 +2265,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                           tooltipStyle={TooltipStyle.MiddleTopArrow}
                           tooltipPlacement="bottom"
                           isCode={true}
-
+                          state={DropdownState.Default}
                         ></RdsDropdownList>
                       </div>
                     </div>
