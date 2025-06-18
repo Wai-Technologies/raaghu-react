@@ -544,7 +544,7 @@ margin-left: -2px;
   stroke: red;
 } */
 
-.theme-dark .btn span {
+.theme-dark #add-guest-btn .btn span {
   color: #fff;
 }
 .theme-dark #rds-counter-text svg{
