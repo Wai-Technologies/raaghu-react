@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import RdsIcon from "../rds-icon";
 import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 import RdsSearch from "../rds-search";
@@ -70,6 +70,10 @@ export interface RdsDropdownListProps {
   hint?: string; // Hint text
   showSelectedOption?: boolean; // To show selected option
   showSearch?: boolean; // To show search input
+  tooltip?: boolean;  // To enable/disable tooltip
+  tooltipTitle?: string;      // Text to show in tooltip
+  tooltipStyle?: TooltipStyle;  // Style of the tooltip
+  tooltipPlacement?: placements; // Placement of the tooltip
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
@@ -350,21 +354,31 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               </div>
             )}
 
-            {/* single select dropdown placeholder */}
+            {/* In the single select dropdown placeholder section */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
                 {showIcon && (
-                  <RdsIcon
-                    name={props.icon}
-                    width="16px"
-                    height="16px"
-                    fill={false}
-                    stroke={true}
-                />
+                  <Tooltip 
+                    label={props.tooltipTitle || "Theme"}
+                    style={props.tooltipStyle}
+                    trigger={TooltipTrigger.Hover}
+                  >
+                    <div className="icon-tooltip-wrapper">
+                      <RdsIcon
+                        name={props.icon}
+                        width="16px"
+                        height="16px"
+                        fill={false}
+                        stroke={true}
+                      />
+                    </div>
+                  </Tooltip>
                 )}            
-                 {showSelectedOption && ( <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
+                {showSelectedOption && (
+                  <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
                     {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                  </span>)}
+                  </span>
+                )}
               </div>
             )}
 

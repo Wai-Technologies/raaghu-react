@@ -533,6 +533,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                     width="18px"
                     onClick={props.mobileViewLogoClick}
                     isCursorPointer={true}
+                    tooltip={true}
+                    tooltipTitle={"Notification"}
+                    tooltipPlacement="bottom"
+                    style={TooltipStyle.MiddleTopArrow}                        
                   ></RdsIcon>
                 </div>)}
               {/* notification----------------------------------------------------------------------------------------------- */}
@@ -624,9 +628,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   listItems={listItems}
                   showIcon={false}
                   onClick={onClickHandler}
-                  // tooltip={true}
-                  // tooltipTitle={props.listItems?.length > 0 ? "Select Currency" : "Select Language"}
-                  // tooltipPlacement="bottom"
+                  tooltip={true}
+                  tooltipTitle="Select Language"
+                  tooltipStyle={TooltipStyle.MiddleTopArrow}
+                  tooltipPlacement="bottom"
                   isCode={true}
 
                 ></RdsDropdownList>
@@ -1592,9 +1597,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   listItems={languageItems}
                   showIcon={false}
                   onClick={onClickHandler}
-                  // tooltip={true}
-                  // tooltipTitle={"Select Language"}
-                  // tooltipPlacement="bottom"
+                  tooltip={true}
+                  tooltipTitle="Select Language"
+                  tooltipStyle={TooltipStyle.MiddleTopArrow}
+                  tooltipPlacement="bottom"
                   isCode={true}
                 ></RdsDropdownList>
                 <div className="d-block d-none fs-8 text-center">Language</div>
@@ -1625,6 +1631,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   listItems={props.themeItems}
                   onClick={onClicktheme}
                   showIcon={true}
+                  tooltip={true}
+                  tooltipTitle="Change Theme"
+                  tooltipStyle={TooltipStyle.MiddleTopArrow}
+                  tooltipPlacement="bottom"
                 />
               </div>
               {props.professional5 && (
@@ -1778,6 +1788,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   listItems={props.themeItems}
                   onClick={onClicktheme}
                   showIcon={true}
+                  tooltip={true}
+                  tooltipTitle="Change Theme"
+                  tooltipStyle={TooltipStyle.MiddleTopArrow}
+                  tooltipPlacement="bottom"
                 />
               </div>
 
@@ -1838,9 +1852,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       listItems={listItems}
                       showIcon={false}
                       onClick={onClickHandler}
-                      // tooltip={true}
-                      // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                      // tooltipPlacement="bottom"
+                      tooltip={true}
+                      tooltipTitle="Select Language"
+                      tooltipStyle={TooltipStyle.MiddleTopArrow}
+                      tooltipPlacement="bottom"
                       isCode={true}
 
                     ></RdsDropdownList>
@@ -2048,6 +2063,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         listItems={props.themeItems}
                         onClick={onClicktheme}
                         showIcon={true}
+                        tooltip={true}
+                        tooltipTitle="Change Theme"
+                        tooltipStyle={TooltipStyle.MiddleTopArrow}
+                        tooltipPlacement="bottom"
                       />
                       {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
                     </div>
@@ -2107,9 +2126,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         listItems={languageItems}
                         showIcon={false}
                         onClick={onClickHandler}
-                        // tooltip={true}
-                        // tooltipTitle={"Select Language"}
-                        // tooltipPlacement="bottom"
+                        tooltip={true}
+                        tooltipTitle="Select Language"
+                        tooltipStyle={TooltipStyle.MiddleTopArrow}
+                        tooltipPlacement="bottom"
                         isCode={true}
                       ></RdsDropdownList>
                       <div className="d-block d-none fs-8 text-center">Language</div>
@@ -2237,9 +2257,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                           listItems={listItems}
                           showIcon={false}
                           onClick={onClickHandler}
-                          // tooltip={true}
-                          // tooltipTitle={props.listItems?.length > 0 ? "Select Version" : "Select Language"}
-                          // tooltipPlacement="bottom"
+                          tooltip={true}
+                          tooltipTitle="Select Language"
+                          tooltipStyle={TooltipStyle.MiddleTopArrow}
+                          tooltipPlacement="bottom"
                           isCode={true}
 
                         ></RdsDropdownList>
