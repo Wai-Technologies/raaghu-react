@@ -561,12 +561,16 @@ margin-left: -2px;
     min-height: 30px !important;
 } */
 
-/* .theme-dark #add-guest-btn .btn-sm{
-padding-top: 14px !important;
-    padding-bottom: 14px !important;
+ #add-guest-btn .btn-sm{
+   padding: 13px !important;
+    border-radius: 5px !important; 
+}
+
+.theme-dark #add-guest-btn .btn-sm{
+  padding: 13px !important;
     border-radius: 5px !important;
-    height: 46px;
-} */
+}
+
 /* 
 .theme-dark #counter-button-width .btn {
       min-width: 28px !important;
