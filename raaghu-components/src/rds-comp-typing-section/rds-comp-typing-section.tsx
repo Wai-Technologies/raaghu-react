@@ -104,7 +104,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
 <div className="input-wrapper position-relative">
     <div className={`input-with-image ${isMobile ? 'pr-3' : ''}`}>
     <textarea
-    className="form-controls w-100 input-box-typing-section type-section-border text-primary border-primary"
+    className="form-controls w-100 input-box-typing-section type-section-border  border-primary"
     placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
     value={inputText}
     onChange={(e) => setInputText(e.target.value)}
