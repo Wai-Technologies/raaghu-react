@@ -111,7 +111,7 @@ describe('RdsCompAddMember', () => {
     
     // Test 1: Render component and verify it displays correctly
     it('renders add member component', () => {
-        render(<RdsCompAddMember {...defaultProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...defaultProps} />);
         
         // Check that the component rendered
         expect(screen.getByTestId('add-member-component')).toBeInTheDocument();
@@ -121,7 +121,7 @@ describe('RdsCompAddMember', () => {
     
     // Test 2: Test clicking the "NEW MEMBER" button
     it('calls onClickAddNewMember when NEW MEMBER button is clicked', () => {
-        render(<RdsCompAddMember {...defaultProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...defaultProps} />);
         
         // Click new member button
         fireEvent.click(screen.getByTestId('new-member-button'));
@@ -132,7 +132,7 @@ describe('RdsCompAddMember', () => {
     
     // Test 3: Test input fields and role selection
     it('allows email input and role selection', () => {
-        render(<RdsCompAddMember {...defaultProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...defaultProps} />);
         
         // Enter email
         fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'test@example.com' } });
@@ -170,7 +170,7 @@ describe('RdsCompAddMember', () => {
             ]
         };
         
-        render(<RdsCompAddMember {...customProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...customProps} />);
         
         // Click save button
         fireEvent.click(screen.getByTestId('save-button'));
@@ -197,7 +197,7 @@ describe('RdsCompAddMember', () => {
             ]
         };
         
-        render(<RdsCompAddMember {...customProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...customProps} />);
         
         // Check that the email input has the pre-filled value
         expect(screen.getByTestId('email-input')).toHaveValue('existing@example.com');
@@ -208,7 +208,7 @@ describe('RdsCompAddMember', () => {
     
     // Test 6: Test save button disabled state
     it('disables save button when form is invalid', () => {
-        render(<RdsCompAddMember {...defaultProps} />);
+        render(<RdsCompAddMember teamItem={[]} {...defaultProps} />);
         
         // Save button should be disabled initially (no email or role)
         expect(screen.getByTestId('save-button')).toBeDisabled();
