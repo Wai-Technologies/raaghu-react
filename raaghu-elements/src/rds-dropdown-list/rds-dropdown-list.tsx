@@ -87,7 +87,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [selectedOption, setSelectedOption] = useState<number>(-1);
 
   const clickedOnDropDown = () => {
     if (props.state !== "Disabled") {
@@ -168,9 +168,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
       }
       setExpend(!expand);
     }
-  };
-  const IconWidth = props.listItems[selectedOption]?.iconWidth || "16px";
-  const IconHeight = props.listItems[selectedOption]?.iconHeight || "12px";
+  };  const IconWidth = (selectedOption >= 0 && selectedOption < props.listItems?.length && props.listItems[selectedOption]?.iconWidth) || "16px";
+  const IconHeight = (selectedOption >= 0 && selectedOption < props.listItems?.length && props.listItems[selectedOption]?.iconHeight) || "12px";
 
   const uncheckHandler = (e: any, item: any) => {
     const newChildTreeunits = checkedCategoryList.filter(
@@ -274,7 +273,10 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
-  }, [props.state]);
+    if (props.state === "Selected" && props.listItems?.length > 0 && selectedOption < 0) {
+      setSelectedOption(0);
+    }
+  }, [props.state, props.listItems]);
 
   // Filtered list items based on search query
   const filteredListItems = props.listItems.filter(item =>
@@ -308,8 +310,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             }
             >
             {/* simple dropdown  */}
-            {props.state === "Selected" && props.listItems.length !== 0 && (
-              <div className="d-flex align-items-baseline">
+            {props.state === "Selected" && props.listItems.length !== 0 && selectedOption >= 0 && selectedOption < props.listItems.length && (
+              <div className="d-flex align-items-center">
                 {(props.listItems[selectedOption]?.icon ||
                   props.listItems[selectedOption]?.iconPath) &&
                   props.showIcon && (
@@ -347,6 +349,27 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       {props.listItems[selectedOption].label}
                     </span>
                   ))}
+              </div>
+            )}
+            
+            {props.state === "Selected" && (props.listItems.length === 0 || selectedOption < 0 || selectedOption >= props.listItems.length) && (
+              <div className="d-flex align-items-center">
+                {showIcon && props.icon && (
+                  <span>
+                    <RdsIcon
+                      name={props.icon}
+                      width="16px"
+                      height="16px"
+                      fill={false}
+                      stroke={true}
+                    ></RdsIcon>
+                  </span>
+                )}
+                {!props.isIconPlaceholder && (
+                  <span className="dw-placeholder fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
+                    {props.placeholder || "Select an option"}
+                  </span>
+                )}
               </div>
             )}
 
@@ -418,7 +441,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             {/* chevron_down icon */}
             {props.state !== "Selected" && !props.isIconPlaceholder && (
               <span
-                className="ms-2"
+                className="me-2"
                 onClick={(e) => {
                   e.stopPropagation();
                   clickedOnDropDown();
