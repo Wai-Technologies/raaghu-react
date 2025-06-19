@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import RdsIcon from "../rds-icon";
 import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
-import Tooltip from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
 import RdsSearch from "../rds-search";
@@ -70,6 +70,10 @@ export interface RdsDropdownListProps {
   hint?: string; // Hint text
   showSelectedOption?: boolean; // To show selected option
   showSearch?: boolean; // To show search input
+  tooltip?: boolean;  // To enable/disable tooltip
+  tooltipTitle?: string;      // Text to show in tooltip
+  tooltipStyle?: TooltipStyle;  // Style of the tooltip
+  tooltipPlacement?: placements; // Placement of the tooltip
 }
 
 const RdsDropdownList = (props: RdsDropdownListProps) => {
@@ -236,9 +240,10 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     ? "form-control " + fieldSize
     : expand
     ? "form-control border-primary " + fieldSize
-    : props.borderDropdown
-    ? "form-control " + fieldSize
-    : "border-0";
+    : props.borderDropdown === false
+    ? "border-0"
+    : "form-control " + fieldSize;
+    
   const bottomLine = props.style === "Bottom Line"
       ? props.state === "Disabled"
         ? "bottom-line-disabled"
@@ -373,21 +378,50 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               </div>
             )}
 
-            {/* single select dropdown placeholder */}
+            {/* In the single select dropdown placeholder section */}
             {props.state !== "Selected" && !props.multiSelect && (
               <div className="d-flex align-items-center">
-                {showIcon && (
-                  <RdsIcon
-                    name={props.icon}
-                    width="16px"
-                    height="16px"
-                    fill={false}
-                    stroke={true}
-                />
-                )}            
-                 {showSelectedOption && ( <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ms-2`}>
-                    {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
-                  </span>)}
+                {props.tooltip ? (
+                  <Tooltip 
+                    label={props.tooltipTitle || ""}
+                    style={props.tooltipStyle}
+                    trigger={TooltipTrigger.Hover}
+                  >
+                    <div className="d-flex align-items-center">
+                      {showIcon && (
+                        <RdsIcon
+                          name={props.icon}
+                          width="16px"
+                          height="16px"
+                          fill={false}
+                          stroke={true}
+                        />
+                      )}
+                      {showSelectedOption && (
+                        <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                          {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                        </span>
+                      )}
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <>
+                    {showIcon && (
+                      <RdsIcon
+                        name={props.icon}
+                        width="16px"
+                        height="16px"
+                        fill={false}
+                        stroke={true}
+                      />
+                    )}
+                    {showSelectedOption && (
+                      <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                        {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                      </span>
+                    )}
+                  </>
+                )}
               </div>
             )}
 
