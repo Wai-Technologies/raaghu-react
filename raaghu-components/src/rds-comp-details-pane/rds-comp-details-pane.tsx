@@ -365,7 +365,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                           width={160}
                         />
                       </div>
-                      <div className="ms-1 width_element" style={{ flex: 2 }}>
+                      <div className="ms-1 width_element" style={{ flex: 2 }} id="add-guest-btn">
                         <RdsButton
                           badgeLayout="Text_only"
                           badgeState="default"
