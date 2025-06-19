@@ -91,7 +91,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   //  If language not found then we are updating index to 0
   const [hoveredItem, setHoveredItem] = useState("");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const [selectedOption, setSelectedOption] = useState<number>(-1);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   const clickedOnDropDown = () => {
     if (props.state !== "Disabled") {
@@ -171,9 +171,9 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
         props.onClick(event, val);
       }
       setExpend(!expand);
-    }
-  };  const IconWidth = (selectedOption >= 0 && selectedOption < props.listItems?.length && props.listItems[selectedOption]?.iconWidth) || "16px";
-  const IconHeight = (selectedOption >= 0 && selectedOption < props.listItems?.length && props.listItems[selectedOption]?.iconHeight) || "12px";
+    }  };  
+  const IconWidth = (selectedOption !== null && selectedOption >= 0 && selectedOption < props.listItems?.length ? props.listItems[selectedOption]?.iconWidth : null) || "16px";
+  const IconHeight = (selectedOption !== null && selectedOption >= 0 && selectedOption < props.listItems?.length ? props.listItems[selectedOption]?.iconHeight : null) || "12px";
 
   const uncheckHandler = (e: any, item: any) => {
     const newChildTreeunits = checkedCategoryList.filter(
@@ -258,6 +258,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   useEffect(() => {
     props.multiSelect === undefined &&
       props.selectedIndex !== undefined &&
+      selectedOption !== null &&
       props.selectedIndex(selectedOption);
   }, [selectedOption]);
 
@@ -278,10 +279,12 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     if (props.state === "Expanded") {
       setExpend(true);
     }
-    if (props.state === "Selected" && props.listItems?.length > 0 && selectedOption < 0) {
-      setSelectedOption(0);
+    if (props.state === "Selected" && props.listItems?.length > 0) {
+      if (selectedOption === null || selectedOption < 0) {
+        setSelectedOption(0);
+      }
     }
-  }, [props.state, props.listItems]);
+  }, [props.state, props.listItems, selectedOption]);
 
   // Filtered list items based on search query
   const filteredListItems = props.listItems.filter(item =>
@@ -315,7 +318,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             }
             >
             {/* simple dropdown  */}
-            {props.state === "Selected" && props.listItems.length !== 0 && selectedOption >= 0 && selectedOption < props.listItems.length && (
+            {props.state === "Selected" && props.listItems.length !== 0 && selectedOption !== null && selectedOption >= 0 && selectedOption < props.listItems.length && (
               <div className="d-flex align-items-center">
                 {(props.listItems[selectedOption]?.icon ||
                   props.listItems[selectedOption]?.iconPath) &&
@@ -329,13 +332,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                             height={props.listItems[selectedOption]?.iconHeight || ""}
                             fill={false}
                             stroke={true}
-                            isHovered={hoveredItem === props.listItems[selectedOption].label}
+                            isHovered={hoveredItem === props.listItems[selectedOption]?.label}
                             type="lottie"
                           ></RdsIcon>
                         </span>
                       ) : (
                         <RdsIcon
-                          name={props.listItems[selectedOption].icon}
+                          name={props.listItems[selectedOption]?.icon || ""}
                           width={IconWidth}
                           height={IconHeight}
                           stroke={true}
@@ -347,17 +350,17 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 {!props.isIconPlaceholder &&
                   (props.isCode === true ? (
                     <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
-                      {props.listItems[selectedOption].val.toUpperCase()}
+                      {props.listItems[selectedOption]?.val.toUpperCase()}
                     </span>
                   ) : (
                     <span className="fs-6 me-2 flex-grow-1 text-nowrap">
-                      {props.listItems[selectedOption].label}
+                      {props.listItems[selectedOption]?.label}
                     </span>
                   ))}
               </div>
             )}
             
-            {props.state === "Selected" && (props.listItems.length === 0 || selectedOption < 0 || selectedOption >= props.listItems.length) && (
+            {props.state === "Selected" && (props.listItems.length === 0 || selectedOption === null || selectedOption < 0 || selectedOption >= props.listItems.length) && (
               <div className="d-flex align-items-center">
                 {showIcon && props.icon && (
                   <span>
@@ -398,8 +401,8 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         />
                       )}
                       {showSelectedOption && (
-                        <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
-                          {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                        <span className={`${selectedOption !== null && selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                          {selectedOption !== null && selectedOption >= 0 ? props.listItems[selectedOption]?.label : props.placeholder}
                         </span>
                       )}
                     </div>
@@ -416,11 +419,27 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       />
                     )}
                     {showSelectedOption && (
-                      <span className={`${selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
-                        {selectedOption >= 0 ? props.listItems[selectedOption].label : props.placeholder}
+                      <span className={`${selectedOption !== null && selectedOption >= 0 ? "dw-selected-value" : "dw-placeholder"} fs-6 ${showIcon ? 'ms-2' : ''}`}>
+                        {selectedOption !== null && selectedOption >= 0 ? props.listItems[selectedOption]?.label : props.placeholder}
                       </span>
                     )}
                   </>
+                )}
+              </div>
+            )}            
+            {/* When state is Selected but no option is explicitly chosen */}
+            {props.state === "Selected" && props.listItems.length > 0 && (selectedOption === null || selectedOption < 0) && (
+              <div className="d-flex align-items-center">
+                {showIcon && props.icon && (
+                  <span>
+                    <RdsIcon
+                      name={props.icon}
+                      width="16px"
+                      height="16px"
+                      fill={false}
+                      stroke={true}
+                    ></RdsIcon>
+                  </span>
                 )}
               </div>
             )}
